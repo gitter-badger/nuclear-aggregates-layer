@@ -27,7 +27,6 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -56,9 +55,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         private readonly IRepository<Order> _orderGenericRepository;
         private readonly IRepository<OrderPosition> _orderPositionGenericRepository;
         private readonly IRepository<Contact> _contactGenericRepository;
-        private readonly IRepository<Appointment> _appointmentRepository;
-        private readonly IRepository<Phonecall> _phonecallRepository;
-        private readonly IRepository<Task> _taskRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IClientPersistenceService _clientPersistenceService;
@@ -81,9 +77,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             IRepository<Order> orderGenericRepository,
             IRepository<OrderPosition> orderPositionGenericRepository,
             IRepository<Contact> contactGenericRepository,
-            IRepository<Appointment> appointmentRepository,
-            IRepository<Phonecall> phonecallRepository,
-            IRepository<Task> taskRepository,
             ISecureRepository<Contact> contactGenericSecureRepository,
             ISecurityServiceFunctionalAccess functionalAccessService, 
             ISecurityServiceUserIdentifier userIdentifierService, 
@@ -106,9 +99,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             _orderGenericRepository = orderGenericRepository;
             _orderPositionGenericRepository = orderPositionGenericRepository;
             _contactGenericRepository = contactGenericRepository;
-            _appointmentRepository = appointmentRepository;
-            _phonecallRepository = phonecallRepository;
-            _taskRepository = taskRepository;
             _functionalAccessService = functionalAccessService;
             _userIdentifierService = userIdentifierService;
             _userContext = userContext;
@@ -188,7 +178,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                       .Single();
 
                 var clientToAssign = _finder.FindOne(Specs.Find.ById<Client>(clientId));
-                var prevOwnerCode = clientToAssign.OwnerCode;
                 clientToAssign.OwnerCode = ownerCode;
                 _clientGenericSecureRepository.Update(clientToAssign);
                 operationScope.Updated<Client>(clientToAssign.Id);
@@ -352,6 +341,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 operationScope.Updated<Client>(client.Id);
                 _clientGenericSecureRepository.Save();
 
+                var count = AssignWithRelatedEntities(client.Id, ownerCode, false);
+
                 var clientFirms = _finder.Find(FirmSpecs.Firms.Find.ByClient(client.Id)).ToArray();
                 foreach (var firm in clientFirms)
                 {
@@ -360,7 +351,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                     operationScope.Updated<Firm>(firm.Id);
                 }
 
-                var count = _firmGenericRepository.Save();
+                _firmGenericRepository.Save();
 
                 operationScope.Complete();
 
