@@ -248,8 +248,33 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
         private void ApplySharedSettings(AdoNetAppender adoNetAppender, string loggingDbConnectionString)
         {
             adoNetAppender.ConnectionType = "System.Data.SqlClient.SqlConnection";
-            adoNetAppender.CommandText = "[Log].[AddEvent]";
-            adoNetAppender.CommandType = CommandType.StoredProcedure;
+            adoNetAppender.CommandText = @"INSERT INTO [Log].[Events]
+										   ([Date]
+										   ,[Level]
+										   ,[Message]
+										   ,[ExceptionData]
+										   ,[Environment]
+										   ,[EntryPoint]
+										   ,[EntryPointHost]
+										   ,[EntryPointInstanceId]
+										   ,[UserAccount]
+										   ,[UserSession]
+										   ,[UserAddress]
+										   ,[UserAgent])
+									 VALUES
+										   (@Date
+										   ,@Level
+										   ,@Message
+										   ,@ExceptionData
+										   ,@Environment
+										   ,@EntryPoint
+										   ,@EntryPointHost
+										   ,@EntryPointInstanceId
+										   ,@UserAccount
+										   ,@UserSession
+										   ,@UserAddress
+										   ,@UserAgent)";
+            adoNetAppender.CommandType = CommandType.Text;
             adoNetAppender.ReconnectOnError = true;
             adoNetAppender.UseTransactions = false;
             adoNetAppender.ConnectionString = loggingDbConnectionString;

@@ -254,7 +254,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
             var userAddress = Request.UserHostAddress ?? "Не определено";
             var userAgent = (Request.Browser == null) ? "Не определено" : Request.Browser.Browser;
 
-            _loggerContextManager.SetUserInfo(Session.SessionID, userAccount, userAddress, userAgent);
+            _loggerContextManager.SetUserInfo(userAccount, Session.SessionID, userAddress, userAgent);
         }
     }
 }

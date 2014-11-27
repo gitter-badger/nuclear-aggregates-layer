@@ -49,14 +49,6 @@ namespace DoubleGis.Erm.TaskService
                                              .EventLog
                                              .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
                                              .Build;
-            try
-            {
-                throw new Exception("test");
-            }
-            catch (Exception ex)
-            {
-                logger.ErrorFormatEx(ex, "Test exception logging");
-            }
 
             IUnityContainer container = null;
             try
