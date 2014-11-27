@@ -1,5 +1,7 @@
 ﻿using System;
 
+using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -11,12 +13,13 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureAppointmentViewModel : ActivityBaseViewModelAbstract<Appointment>, 
-                                                           ICyprusAdapted, 
-                                                           IChileAdapted, 
-                                                           ICzechAdapted, 
-                                                           IUkraineAdapted, 
-                                                           IEmiratesAdapted, 
+    public sealed class MultiCultureAppointmentViewModel : ActivityBaseViewModelAbstract<Appointment>,
+                                                           IAppointmentViewModel,
+                                                           ICyprusAdapted,
+                                                           IChileAdapted,
+                                                           ICzechAdapted,
+                                                           IUkraineAdapted,
+                                                           IEmiratesAdapted,
                                                            IKazakhstanAdapted
     {
         public MultiCultureAppointmentViewModel()
@@ -55,22 +58,22 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         {
             return new AppointmentDomainEntityDto
                        {
-                           Id = Id, 
-                           Priority = Priority, 
-                           Status = Status, 
-                           Purpose = Purpose, 
-                           Header = Header, 
-                           ScheduledStart = new DateTime(ScheduledStart.Year, ScheduledStart.Month, ScheduledStart.Day).Add(ScheduledStartTime), 
-                           ScheduledEnd = new DateTime(ScheduledEnd.Year, ScheduledEnd.Month, ScheduledEnd.Day).Add(ScheduledEndTime), 
+                           Id = Id,
+                           Priority = Priority,
+                           Status = Status,
+                           Purpose = Purpose,
+                           Header = Header,
+                           ScheduledStart = new DateTime(ScheduledStart.Year, ScheduledStart.Month, ScheduledStart.Day).Add(ScheduledStartTime),
+                           ScheduledEnd = new DateTime(ScheduledEnd.Year, ScheduledEnd.Month, ScheduledEnd.Day).Add(ScheduledEndTime),
                            ActualEnd =
-                               ActualEnd.HasValue ? new DateTime(ActualEnd.Value.Year, ActualEnd.Value.Month, ActualEnd.Value.Day).Add(ActualEndTime.Value) : (DateTime?)null, 
-                           Description = Description, 
-                           ClientRef = Client.ToReference(), 
-                           FirmRef = Firm.ToReference(), 
-                           ContactRef = Contact.ToReference(), 
-                           Timestamp = Timestamp, 
-                           IsActive = IsActive, 
-                           IsDeleted = IsDeleted, 
+                               ActualEnd.HasValue ? new DateTime(ActualEnd.Value.Year, ActualEnd.Value.Month, ActualEnd.Value.Day).Add(ActualEndTime.Value) : (DateTime?)null,
+                           Description = Description,
+                           ClientRef = Client.ToReference(),
+                           FirmRef = Firm.ToReference(),
+                           ContactRef = Contact.ToReference(),
+                           Timestamp = Timestamp,
+                           IsActive = IsActive,
+                           IsDeleted = IsDeleted,
                            OwnerRef = Owner.ToReference()
                        };
         }

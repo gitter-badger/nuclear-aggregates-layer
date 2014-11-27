@@ -56,7 +56,6 @@
     <Compile Include="Common\Elements\Aspects\Conditions\ICondition.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\StringConditionCondition.cs" />
     <Compile Include="Common\Elements\Aspects\Features\PropertyDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Entities\DomainEntityPropertyDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Entities\RelatedEntityFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\NamedHandlerFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\IPropertyDescriptor.cs" />

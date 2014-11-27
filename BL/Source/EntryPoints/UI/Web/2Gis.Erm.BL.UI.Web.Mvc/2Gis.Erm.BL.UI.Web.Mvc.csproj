@@ -144,6 +144,7 @@
     <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Models\AccountDetailViewModel.cs" />
     <Compile Include="Models\ActivateDealViewModel.cs" />
+    <Compile Include="Models\ActivityBaseViewModelAbstract.cs" />
     <Compile Include="Models\AdditionalFirmServiceViewModel.cs" />
     <Compile Include="Models\AdsTemplatesAdsElementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementElementPreviewModel.cs" />
@@ -168,7 +169,6 @@
     <Compile Include="Models\CloseBargainsViewModel.cs" />
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
-    <Compile Include="Models\Contracts\IBargainViewModel.cs" />
     <Compile Include="Models\ContributionTypeViewModel.cs" />
     <Compile Include="Models\CopyNewPriceViewModel.cs" />
     <Compile Include="Models\CopyPricePositionModel.cs" />
@@ -681,6 +681,10 @@
       <Project>{946c96bf-a7bd-46c1-879c-c80e3223334b}</Project>
       <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
       <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
       <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
@@ -737,8 +741,14 @@
       <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\2Gis.Erm.BL.UI.Metadata\2Gis.Erm.BL.UI.Metadata.csproj">
+      <Project>{6D3EF801-AAE6-4A56-BCDB-8ED3E90C45A4}</Project>
+      <Name>2Gis.Erm.BL.UI.Metadata</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\Contracts\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>

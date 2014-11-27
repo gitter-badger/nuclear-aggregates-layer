@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
@@ -17,8 +18,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
     public static partial class CardStructures
     {
         public readonly static CardMetadata Order =
-            CardMetadata.Config
-                .For<Order>()
+            CardMetadata.For<Order>()
                 .Title.Resource(() => ErmConfigLocalization.EnOrders)
                 .Parts.Use(
                     () => BLResources.TitlePlacement,

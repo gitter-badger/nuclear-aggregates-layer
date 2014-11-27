@@ -95,6 +95,7 @@
     <Compile Include="Indicators\IDynamicViewModel.cs" />
     <Compile Include="Indicators\IView.cs" />
     <Compile Include="Indicators\IViewModel.cs" />
+    <Compile Include="Indicators\IViewModelAbstract.cs" />
     <Compile Include="Indicators\IViewModelIdentity.cs" />
     <Compile Include="Indicators\IViewModelProperty.cs" />
     <Compile Include="Indicators\MVVMIndicators.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="UiElements\ControlTypes\EnumControlTypeDescriptor.cs" />
     <Compile Include="UiElements\ControlTypes\ControlTypeFeature.cs" />
     <Compile Include="UiElements\Features\ISecuredElementFeature.cs" />
+    <Compile Include="UiElements\Features\IUiElementFeature.cs" />
     <Compile Include="UiElements\Features\SecuredByEntityPrivelegeFeature.cs" />
     <Compile Include="UiElements\Features\SecuredByFunctionalPrivelegeFeature.cs" />
     <Compile Include="UiElements\UiElementMetadata.cs" />

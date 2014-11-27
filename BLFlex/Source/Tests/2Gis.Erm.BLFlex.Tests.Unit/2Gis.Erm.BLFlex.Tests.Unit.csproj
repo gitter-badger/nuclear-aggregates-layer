@@ -184,6 +184,10 @@
       <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
       <Name>2Gis.Erm.BLCore.Operations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
       <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
       <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>

@@ -1,3 +1,4 @@
+using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Czech;
@@ -8,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 {
-    public sealed class CzechBranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, ICzechAdapted
+    public sealed class CzechBranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, IBranchOfficeViewModel, ICzechAdapted
     {
         public long? DgppId { get; set; }
 

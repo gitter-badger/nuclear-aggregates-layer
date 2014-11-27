@@ -1,8 +1,8 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards;
-using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards.Generated;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation;
@@ -12,9 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
     public static partial class CardStructures
     {
         public readonly static CardMetadata LegalPerson =
-            CardMetadata.Config
-                .For<LegalPerson>()
-                .Title.Resource(() => ErmConfigLocalization.EnLegalPerson)
+            CardMetadata.For<LegalPerson>()
                 .Parts.Use(() => BLResources.AdministrationTabTitle)
                 .MVVM.Bind<DynamicCardViewModel, LegalPersonView>()
                 .WithDynamicProperties()

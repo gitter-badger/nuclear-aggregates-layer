@@ -42,6 +42,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Childs(printActions);
         }
 
+        public static UiElementMetadataBuilder AdditionalActions(this UiElementMetadataBuilder builder, params UiElementMetadata[] actions)
+        {
+            return builder.Name.Static("Actions")
+                          .Title.Resource(() => ErmConfigLocalization.ControlActions)
+                          .ControlType(ControlType.Menu)
+                          .LockOnInactive()
+                          .Childs(actions);
+        }
+
         public static UiElementMetadataBuilder SaveAndCloseAction<TEntity>(this UiElementMetadataBuilder builder)
             where TEntity : class, IEntity
         {

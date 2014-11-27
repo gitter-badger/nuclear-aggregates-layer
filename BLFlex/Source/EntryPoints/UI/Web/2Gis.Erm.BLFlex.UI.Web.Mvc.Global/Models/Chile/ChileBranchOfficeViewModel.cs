@@ -1,7 +1,7 @@
+using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
-    public sealed class ChileBranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, IChileAdapted
+    public sealed class ChileBranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, IBranchOfficeViewModel, IChileAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards.Generated;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -11,9 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
     public static partial class CardStructures
     {
         public readonly static CardMetadata Account =
-            CardMetadata.Config
-                .For<Account>()
-                .Title.Resource(() => ErmConfigLocalization.EnAccounts)
+            CardMetadata.For<Account>()
                 .MVVM.Bind<DynamicCardViewModel, AccountView>()
                 .WithDynamicProperties()
                 .Validator.Dynamic<DynamicViewModelValidator<DynamicViewModel>, DynamicViewModel>()

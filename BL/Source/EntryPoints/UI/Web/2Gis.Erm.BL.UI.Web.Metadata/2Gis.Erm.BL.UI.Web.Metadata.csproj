@@ -56,6 +56,12 @@
     <Compile Include="Cards\Extensions\CardMetadataExtensions.cs" />
     <Compile Include="Cards\CardMetadataSource.cs" />
     <Compile Include="Cards\Settings\CardStructures.AdvertisementElementStatus.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Category.cs" />
+    <Compile Include="Cards\Settings\CardStructures.BranchOfficeOrganizationUnit.cs" />
+    <Compile Include="Cards\Settings\CardStructures.BranchOffice.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Bill.cs" />
+    <Compile Include="Cards\Settings\CardStructures.BargainType.cs" />
+    <Compile Include="Cards\Settings\CardStructures.BargainFile.cs" />
     <Compile Include="Cards\Settings\CardStructures.Bargain.cs" />
     <Compile Include="Cards\Settings\CardStructures.AssociatedPositionsGroup.cs" />
     <Compile Include="Cards\Settings\CardStructures.AssociatedPosition.cs" />
@@ -123,6 +129,10 @@
     <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
       <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\2Gis.Erm.BL.UI.Metadata\2Gis.Erm.BL.UI.Metadata.csproj">
+      <Project>{6D3EF801-AAE6-4A56-BCDB-8ED3E90C45A4}</Project>
+      <Name>2Gis.Erm.BL.UI.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
       <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>

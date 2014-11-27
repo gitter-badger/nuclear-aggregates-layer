@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Advertisement =
             CardMetadata.For<Advertisement>()
-                        .MainAttribute<Advertisement, AdvertisementViewModel>(x => x.Name)
+                        .MainAttribute<Advertisement, IAdvertisementViewModel>(x => x.Name)
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<Advertisement>(),
                                     UiElementMetadata.Config.SplitterAction(),

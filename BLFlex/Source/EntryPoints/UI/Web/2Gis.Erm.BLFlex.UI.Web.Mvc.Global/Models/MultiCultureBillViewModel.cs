@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -12,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureBillViewModel : EntityViewModelBase<Bill>, ICzechAdapted, ICyprusAdapted, IRussiaAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
+    public sealed class MultiCultureBillViewModel : EntityViewModelBase<Bill>, IBillViewModel, ICzechAdapted, ICyprusAdapted, IRussiaAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         [RequiredLocalized]
         public string BillNumber { get; set; }

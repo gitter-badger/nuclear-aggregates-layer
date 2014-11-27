@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+﻿using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -7,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class BargainTypeViewModel : EditableIdEntityViewModelBase<BargainType>, IRussiaAdapted
+    public sealed class BargainTypeViewModel : EditableIdEntityViewModelBase<BargainType>, IBargainTypeViewModel, IRussiaAdapted
     {
         [RequiredLocalized]
         public string Name { get; set; }

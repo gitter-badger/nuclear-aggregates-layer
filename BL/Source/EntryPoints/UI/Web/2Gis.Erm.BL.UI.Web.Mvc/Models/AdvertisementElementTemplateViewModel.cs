@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -13,7 +14,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class AdvertisementElementTemplateViewModel : EditableIdEntityViewModelBase<AdvertisementElementTemplate>
+    public sealed class AdvertisementElementTemplateViewModel : EditableIdEntityViewModelBase<AdvertisementElementTemplate>, IAdvertisementElementTemplateViewModel
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

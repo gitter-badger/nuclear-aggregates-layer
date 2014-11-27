@@ -56,6 +56,17 @@
     <Compile Include="Cards\Settings\CardStructures.cs" />
     <Compile Include="Cards\Settings\CardStructures.Order.cs" />
     <Compile Include="DI\BlUiMetadataAssembly.cs" />
+    <Compile Include="Models\Contracts\IAdvertisementElementTemplateViewModel.cs" />
+    <Compile Include="Models\Contracts\IAdvertisementTemplateViewModel.cs" />
+    <Compile Include="Models\Contracts\IAppointmentViewModel.cs" />
+    <Compile Include="Models\Contracts\IBargainTypeViewModel.cs" />
+    <Compile Include="Models\Contracts\IAdvertisementViewModel.cs" />
+    <Compile Include="Models\Contracts\IBargainFileViewModel.cs" />
+    <Compile Include="Models\Contracts\ICategoryViewModel.cs" />
+    <Compile Include="Models\Contracts\IBargainViewModel.cs" />
+    <Compile Include="Models\Contracts\IBillViewModel.cs" />
+    <Compile Include="Models\Contracts\IBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Contracts\IBranchOfficeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">

@@ -1,3 +1,4 @@
+using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -10,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class CategoryViewModel : EntityViewModelBase<Category>
+    public sealed class CategoryViewModel : EntityViewModelBase<Category>, ICategoryViewModel
     {
         [DisplayNameLocalized("CategoryName")]
         [RequiredLocalized]

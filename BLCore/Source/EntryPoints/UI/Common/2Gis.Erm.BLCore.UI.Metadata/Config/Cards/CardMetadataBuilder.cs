@@ -4,8 +4,6 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
@@ -13,45 +11,53 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
-    // TODO {all, 20.11.2014}: Перекликается с реализацией для WPF. При возобновлении работы над WPF. Код нужно будет как-то объединить.
-    public sealed class CardMetadataBuilder<TEntity> : MetadataElementBuilder<CardMetadataBuilder<TEntity>, CardMetadata>
+    public class CardMetadataBuilder : ViewModelMetadataBuilder<CardMetadataBuilder, CardMetadata>
+    {
+        protected override CardMetadata Create()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public sealed class CardMetadataBuilder<TEntity> : CardMetadataBuilder
         where TEntity : IEntity
     {
-        private readonly TitleFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _title;
-        private readonly ImageFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _icon;
-        private readonly RelatedItemsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _relatedItems;
-        private readonly ActionsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _actions;
+        private readonly TitleFeatureAspect<CardMetadataBuilder, CardMetadata> _title;
+        private readonly ImageFeatureAspect<CardMetadataBuilder, CardMetadata> _icon;
+        private readonly RelatedItemsFeatureAspect<CardMetadataBuilder, CardMetadata> _relatedItems;
+        private readonly ActionsFeatureAspect<CardMetadataBuilder, CardMetadata> _actions;
 
         private readonly EntityName _entityName;
 
         public CardMetadataBuilder()
         {
-            _title = new TitleFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata>(this);
-            _icon = new ImageFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata>(this);
-            _relatedItems = new RelatedItemsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata>(this);
-            _actions = new ActionsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata>(this);
+            _title = new TitleFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
+            _icon = new ImageFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
+            _relatedItems = new RelatedItemsFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
+            _actions = new ActionsFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
             _entityName = typeof(TEntity).AsEntityName();
         }
 
-        public TitleFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> Title
+        public TitleFeatureAspect<CardMetadataBuilder, CardMetadata> Title
         {
             get { return _title; }
         }
 
-        public ImageFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> Icon
+        public ImageFeatureAspect<CardMetadataBuilder, CardMetadata> Icon
         {
             get { return _icon; }
         }
 
-        public RelatedItemsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> RelatedItems
+        public new RelatedItemsFeatureAspect<CardMetadataBuilder, CardMetadata> RelatedItems
         {
             get { return _relatedItems; }
         }
 
-        public ActionsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> Actions
+        public new ActionsFeatureAspect<CardMetadataBuilder, CardMetadata> Actions
         {
             get { return _actions; }
         }
