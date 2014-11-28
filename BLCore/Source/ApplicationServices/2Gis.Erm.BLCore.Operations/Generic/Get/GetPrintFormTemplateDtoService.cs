@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                     FileName = entity.File.FileName,
                                                     FileContentType = entity.File.ContentType,
                                                     FileContentLength = entity.File.ContentLength,
-                                                    TemplateCode = (TemplateCode)entity.TemplateCode,
+                                                    TemplateCode = entity.TemplateCode,
                                                     OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
                                                     CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
                                                     CreatedOn = entity.CreatedOn,

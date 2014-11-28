@@ -36,9 +36,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Generi
                     {
                         Id = entity.Id,
                         ReplicationCode = entity.ReplicationCode,
-                        State = (OrderProcessingRequestState)entity.State,
+                        State = entity.State,
                         Title = entity.Title,
-                        RequestType = (OrderProcessingRequestType)entity.RequestType,
+                        RequestType = entity.RequestType,
                         BaseOrderRef = new EntityReference { Id = entity.BaseOrderId, Name = entity.BaseOrder.Number },
                         BeginDistributionDate = entity.BeginDistributionDate,
                         Description = entity.Description,

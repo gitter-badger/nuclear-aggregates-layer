@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
         protected override EmptyResponse Handle(DeleteBillsRequest request)
         {
             var orderWithBills = _orderReadModel.GetOrderWithBills(request.OrderId);
-            var isOrderOnApproval = orderWithBills.Order != null && orderWithBills.Order.WorkflowStepId == (int)OrderState.OnRegistration;
+            var isOrderOnApproval = orderWithBills.Order != null && orderWithBills.Order.WorkflowStepId == OrderState.OnRegistration;
 
             if (!isOrderOnApproval)
             {

@@ -14,7 +14,6 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
                 EntityName.Category,
                 EntityName.CategoryGroup,
                 EntityName.CategoryOrganizationUnit,
-                EntityName.RegionalAdvertisingSharing,
                 EntityName.NotificationProcessing,
                 EntityName.NotificationEmail,
                 EntityName.NotificationAddress,

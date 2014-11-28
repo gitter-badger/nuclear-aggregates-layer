@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
             {
                                   OrganizationUnitId = x.OrganizationUnit.Id,
                                   OrganizationUnitName = x.OrganizationUnit.Name,
-                                  WithdrawalStatus = (WithdrawalStatus)x.LastWithdrawal.Status
+                                  WithdrawalStatus = x.LastWithdrawal.Status
                               })
                           .ToArray();
         }
@@ -104,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
                                 AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId, period))
                           .SelectMany(x => x.Order.OrderPositions.Select(op => new { OrderPosition = op, x.Order, Lock = x }))
                           .Where(x => x.OrderPosition.IsActive && !x.OrderPosition.IsDeleted &&
-                                      x.OrderPosition.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision)
+                                      x.OrderPosition.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision)
                           .GroupJoin(chargesQuery,
                                      opWithlock => opWithlock.OrderPosition.Id,
                                      charge => charge.OrderPositionId,
@@ -112,7 +112,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
                                          {
                                              OrderInfo = new OrderInfoDto
                                                  {
-                                                     OrderType = (OrderType)x.Order.OrderType,
+                                                     OrderType = x.Order.OrderType,
                                                      ReleaseCountFact = x.Order.ReleaseCountFact,
                                                      SourceOrganizationUnitId = x.Order.SourceOrganizationUnitId,
                                                      DestOrganizationUnitId = x.Order.DestOrganizationUnitId

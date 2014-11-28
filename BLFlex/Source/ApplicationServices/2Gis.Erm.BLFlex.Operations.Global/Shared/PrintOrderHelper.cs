@@ -19,15 +19,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
 {
     public sealed class PrintOrderHelper
     {
-        private static readonly Dictionary<int, string> FirmAddressContactTypePlural = new Dictionary<int, string>
+        private static readonly Dictionary<FirmAddressContactType, string> FirmAddressContactTypePlural = new Dictionary<FirmAddressContactType, string>
             {
-                { (int)FirmAddressContactType.Phone, BLResources.Phones },
-                { (int)FirmAddressContactType.Fax, BLResources.Faxes },
-                { (int)FirmAddressContactType.Email, BLResources.Emails },
-                { (int)FirmAddressContactType.Website, BLResources.WebSites },
-                { (int)FirmAddressContactType.Icq, BLResources.Icqs },
-                { (int)FirmAddressContactType.Skype, BLResources.Skypes },
-                { (int)FirmAddressContactType.Other, BLResources.Others }, // other means "jabber"
+                { FirmAddressContactType.Phone, BLResources.Phones },
+                { FirmAddressContactType.Fax, BLResources.Faxes },
+                { FirmAddressContactType.Email, BLResources.Emails },
+                { FirmAddressContactType.Website, BLResources.WebSites },
+                { FirmAddressContactType.Icq, BLResources.Icqs },
+                { FirmAddressContactType.Skype, BLResources.Skypes },
+                { FirmAddressContactType.Other, BLResources.Others }, // other means "jabber"
             };
 
         private readonly IFormatter _longDateFormatter;
@@ -156,7 +156,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                                   .Select(adv => new PositionDetailedName.Advertisement
                                   {
                                       PositionName = adv.Position.Name,
-                                      BindingType = (PositionBindingObjectType)adv.Position.BindingObjectTypeEnum,
+                                      BindingType = adv.Position.BindingObjectTypeEnum,
 
                                       Address = adv.FirmAddress.Address,
                                       ReferencePoint = adv.FirmAddress.ReferencePoint,
@@ -209,7 +209,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                     orderPosition.PricePerUnit,
                     orderPosition.Order.ReleaseCountPlan,
                     orderPosition.PricePosition.Position.IsComposite,
-                    BindingObjectTypeEnum = (PositionBindingObjectType)orderPosition.PricePosition.Position.BindingObjectTypeEnum,
+                    BindingObjectTypeEnum = orderPosition.PricePosition.Position.BindingObjectTypeEnum,
 
                     Platform = orderPosition.PricePosition.Position.Platform.DgppId,
 

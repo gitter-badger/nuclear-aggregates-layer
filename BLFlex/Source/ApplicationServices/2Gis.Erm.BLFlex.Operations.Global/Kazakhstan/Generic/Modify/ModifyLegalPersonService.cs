@@ -63,14 +63,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify
                 throw new NotificationException(string.Format(message, ResolveInnName((LegalPersonType)entity.LegalPersonTypeEnum)));
             }
 
-            if ((entity.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson ||
-                 entity.LegalPersonTypeEnum == (int)LegalPersonType.Businessman) &&
+            if ((entity.LegalPersonTypeEnum == LegalPersonType.LegalPerson ||
+                 entity.LegalPersonTypeEnum == LegalPersonType.Businessman) &&
                 string.IsNullOrEmpty(entity.LegalAddress))
             {
                 throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
             }
 
-            if (entity.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson)
+            if (entity.LegalPersonTypeEnum == LegalPersonType.NaturalPerson)
             {
                 ValidateIdentityCardNumber(entity.Within<KazakhstanLegalPersonPart>().GetPropertyValue(x => x.IdentityCardNumber));
             }

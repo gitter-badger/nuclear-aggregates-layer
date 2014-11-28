@@ -2914,15 +2914,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Формирования исходящей региональной рекламы.
-        /// </summary>
-        public static string FunctionalPrivilegeNameMakeRegionalAdsDocs {
-            get {
-                return ResourceManager.GetString("FunctionalPrivilegeNameMakeRegionalAdsDocs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Слияние Клиентов.
         /// </summary>
         public static string FunctionalPrivilegeNameMergeClients {
@@ -5484,24 +5475,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TemplateCodeReferenceInformation {
             get {
                 return ResourceManager.GetString("TemplateCodeReferenceInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Региональное уведомление о расторжении (Филиал-Филиал).
-        /// </summary>
-        public static string TemplateCodeRegionalTerminationNoticeBranch2Branch {
-            get {
-                return ResourceManager.GetString("TemplateCodeRegionalTerminationNoticeBranch2Branch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Региональное уведомление о расторжении (отличное от Филиал-Филиал).
-        /// </summary>
-        public static string TemplateCodeRegionalTerminationNoticeNotBranch2Branch {
-            get {
-                return ResourceManager.GetString("TemplateCodeRegionalTerminationNoticeNotBranch2Branch", resourceCulture);
             }
         }
         

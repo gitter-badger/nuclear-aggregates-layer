@@ -63,7 +63,6 @@
         @Html.HiddenFor(m => m.CurrenctUserCode)
         @Html.HiddenFor(m => m.HasOrderBranchOfficeOrganizationUnitSelection)
         @Html.HiddenFor(m => m.CanEditOrderType)
-        @Html.CheckBoxFor(m => m.EditRegionalNumber)
         @Html.CheckBoxFor(m => m.ShowRegionalAttributes)
         @Html.CheckBoxFor(m => m.CanSwitchToAccount)
         @Html.HiddenFor(m => m.HasOrderDocumentsDebtChecking)
@@ -73,6 +72,7 @@
         @Html.HiddenFor(m => m.VatPlan)
         @Html.HiddenFor(m => m.OrderValidationServiceUrl)
         @Html.HiddenFor(m => m.LegalPersonProfileId)
+        @Html.HiddenFor(m => m.RegionalNumber)
     </div>
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <br />
@@ -290,9 +290,6 @@
         <div class="row-wrapper">
             @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
             @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
-        </div>
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.RegionalNumber, FieldFlex.lone)
         </div>
     </div>
 }

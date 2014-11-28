@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
             IUpdateAggregateRepository<LegalPerson> legalPersonRepository,
-            IOperationScopeFactory scopeFactory,            
+            IOperationScopeFactory scopeFactory,
             ILegalPersonReadModel legalPersonReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
                 throw new ChangeInactiveLegalPersonRequisitesException(BLFlexResources.ChangingRequisitesOfInactiveLegalPersonIsForbidden);
             }
 
-            var legalPersonType = (LegalPersonType)entity.LegalPersonTypeEnum;
+            var legalPersonType = entity.LegalPersonTypeEnum;
 
             // три стратегии замены реквизитов для трех разных типов юрлиц
             if (legalPersonType == LegalPersonType.NaturalPerson)

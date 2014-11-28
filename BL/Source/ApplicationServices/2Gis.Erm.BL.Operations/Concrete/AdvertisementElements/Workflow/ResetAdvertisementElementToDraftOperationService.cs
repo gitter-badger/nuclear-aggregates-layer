@@ -15,6 +15,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement;
 
+using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderValidationRuleGroup;
+
 namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
 {
     public class ResetAdvertisementElementToDraftOperationService : IResetAdvertisementElementToDraftOperationService

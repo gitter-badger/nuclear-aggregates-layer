@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                             Id = x.Id,
                             MessageText = MessageHelper.MakeMessage(x.MessageTemplateCode, x.MessageParameters),
                             MessageType =
-                                ((RequestMessageType)x.MessageType).ToStringLocalized(EnumResources.ResourceManager,
+                                (x.MessageType).ToStringLocalized(EnumResources.ResourceManager,
                                                                                       CultureInfo.CurrentCulture)
                         }).ToArray();
 

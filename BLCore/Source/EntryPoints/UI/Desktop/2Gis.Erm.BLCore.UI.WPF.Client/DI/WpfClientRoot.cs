@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Releasing.DI;
 using DoubleGis.Erm.BLCore.UI.Metadata.DI;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.UI.Metadata.DI;
+using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.Zones;

@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                     {
-                        OrderState = (OrderState)order.WorkflowStepId,
+                        OrderState = order.WorkflowStepId,
                         order.IsTerminated
                     })
                 .Single();
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                                        .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId)
                                                        .Id,
                                       CurrencyISOCode = order.Currency.ISOCode,
-                                      LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                                      LegalPersonType = order.LegalPerson.LegalPersonTypeEnum,
                                       order.BranchOfficeOrganizationUnitId,
                                       BranchOfficeId = (long?)order.BranchOfficeOrganizationUnit.BranchOfficeId
                                   })

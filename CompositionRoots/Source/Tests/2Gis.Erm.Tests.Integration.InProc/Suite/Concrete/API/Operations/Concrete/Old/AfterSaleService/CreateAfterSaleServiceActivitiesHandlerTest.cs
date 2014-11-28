@@ -32,8 +32,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         {
             get
             {
-                var restrictedTypes = new[] { (int)OrderType.SelfAds, (int)OrderType.None, (int)OrderType.ProductAdsService };
-                var allowedStates = new[] { (int)OrderState.Approved, (int)OrderState.OnTermination };
+                var restrictedTypes = new[] { OrderType.SelfAds, OrderType.None, OrderType.ProductAdsService };
+                var allowedStates = new[] { OrderState.Approved, OrderState.OnTermination };
                 return base.ModelEntitySpec &&
                        new FindSpecification<OrganizationUnit>(
                            ou =>

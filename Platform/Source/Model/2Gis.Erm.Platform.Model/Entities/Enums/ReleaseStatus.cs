@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.Model.Entities.Enums
 {
-    public enum ReleaseStatus
+    public enum ReleaseStatus : short
     {
         None = 0,
 

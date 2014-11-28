@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
                 {
                     Client = new Platform.Model.Entities.Erm.Client
                         {
-                            InformationSource = 1,
+                            InformationSource = InformationSource.DoubleGis,
                             Firm = new Firm
                                 {
                                     Name = "test"

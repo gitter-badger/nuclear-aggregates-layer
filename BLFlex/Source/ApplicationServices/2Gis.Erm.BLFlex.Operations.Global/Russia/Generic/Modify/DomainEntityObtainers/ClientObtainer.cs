@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
             client.Email = dto.Email;
             client.Fax = dto.Fax;
             client.Website = dto.Website;
-            client.InformationSource = (int)dto.InformationSource;
+            client.InformationSource = dto.InformationSource;
             client.LastQualifyTime = dto.LastQualifyTime;
             client.LastDisqualifyTime = dto.LastDisqualifyTime;
             client.MainFirmId = dto.MainFirmRef.Id;

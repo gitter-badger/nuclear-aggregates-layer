@@ -29,9 +29,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             entity.Id = dto.Id;
             entity.Name = dto.Name;
             entity.Comment = dto.Comment;
-            entity.StartReason = (int)dto.StartReason;
+            entity.StartReason = dto.StartReason;
             entity.MainFirmId = dto.MainFirmRef.Id;
-            entity.DealStage = (int)dto.DealStage;
+            entity.DealStage = dto.DealStage;
             entity.ClientId = dto.ClientRef.Id.Value;
             entity.OwnerCode = dto.OwnerRef.Id.Value;
 
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             entity.AdvertisingCampaignBeginDate = dto.AdvertisingCampaignBeginDate;
             entity.AdvertisingCampaignEndDate = dto.AdvertisingCampaignEndDate;
             entity.AdvertisingCampaignGoalText = dto.AdvertisingCampaignGoalText;
-            entity.AdvertisingCampaignGoals = (int?)dto.AdvertisingCampaignGoals;
+            entity.AdvertisingCampaignGoals = dto.AdvertisingCampaignGoals;
             entity.AgencyFee = dto.AgencyFee;
             entity.BargainId = dto.BargainRef.Id;
             entity.PaymentFormat = (int?)dto.PaymentFormat;

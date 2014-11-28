@@ -21,14 +21,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 ConsistencyRule.CreateNonEmptyString(entity => entity.Name, ResPlatform.RequiredFieldMessage, MetadataResources.Name),
                 ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInNominative, ResPlatform.RequiredFieldMessage, MetadataResources.ChiefNameInNominative),
                 ConsistencyRule.CreateNonEmptyString(entity => entity.PersonResponsibleForDocuments, ResPlatform.RequiredFieldMessage, MetadataResources.PersonResponsibleForDocuments),
-                ConsistencyRule.CreateFormat(entity => (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod, method => method == DocumentsDeliveryMethod.Undefined, ResPlatform.RequiredFieldMessage, MetadataResources.DocumentsDeliveryMethod),
+                ConsistencyRule.CreateFormat(entity => entity.DocumentsDeliveryMethod, method => method == DocumentsDeliveryMethod.Undefined, ResPlatform.RequiredFieldMessage, MetadataResources.DocumentsDeliveryMethod),
                 ConsistencyRule.CreateNonNull(entity => entity.OperatesOnTheBasisInGenitive, ResPlatform.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive),
                 ConsistencyRule.CreateNonNull(entity => entity.PaymentMethod, ResPlatform.RequiredFieldMessage, MetadataResources.PaymentMethod),
                 ConsistencyRule.CreateFormat(entity => entity.Parts.OfType<ChileLegalPersonProfilePart>(), chileParts => chileParts.Count() != 1, BLFlexResources.ChilePartableExtensionMustBeApplied),
                 ConsistencyRule.CreateNonEmptyString(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.RepresentativeRut), ResPlatform.RequiredFieldMessage, MetadataResources.Rut),
                 new InnConsistencyRule<LegalPersonProfile, ChileRutService>(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.RepresentativeRut)),
                 ConsistencyRule.CreateEnumValuesRestriction(
-                    entity => (PaymentMethod)entity.PaymentMethod.Value,
+                    entity => entity.PaymentMethod.Value,
                     string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.PaymentMethod),
                     PaymentMethod.CashPayment,
                     PaymentMethod.BankTransaction,
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                     PaymentMethod.DebitCard,
                     PaymentMethod.BankChequePayment),
                 ConsistencyRule.CreateEnumValuesRestriction(
-                    entity => (OperatesOnTheBasisType)entity.OperatesOnTheBasisInGenitive.Value,
+                    entity => entity.OperatesOnTheBasisInGenitive.Value,
                     BLResources.ThisDocumentIsNotAllowedForThatTypeOfLegalPerson,
                     OperatesOnTheBasisType.Charter,
                     OperatesOnTheBasisType.Warranty),
@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
 
             if (profile.OperatesOnTheBasisInGenitive.HasValue)
             {
-                var representativeAuthorityDocument = (OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive.Value;
+                var representativeAuthorityDocument = profile.OperatesOnTheBasisInGenitive.Value;
                 foreach (var rule in GetRepresentativeAuthorityDocumentChecks(representativeAuthorityDocument))
                 {
                     yield return rule;
@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
 
             if (profile.PaymentMethod.HasValue)
             {
-                var paymentMethod = (PaymentMethod)profile.PaymentMethod.Value;
+                var paymentMethod = profile.PaymentMethod.Value;
                 foreach (var rule in GetPaymentMethodChecks(paymentMethod))
                 {
                     yield return rule;

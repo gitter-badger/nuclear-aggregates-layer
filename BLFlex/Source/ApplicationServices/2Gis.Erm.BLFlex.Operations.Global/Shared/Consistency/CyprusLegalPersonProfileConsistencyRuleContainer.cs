@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 ConsistencyRule.CreateNonEmptyString(entity => entity.Name, ResPlatform.RequiredFieldMessage, MetadataResources.Name),
                 ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInNominative, ResPlatform.RequiredFieldMessage, MetadataResources.ChiefNameInNominative),
                 ConsistencyRule.CreateNonEmptyString(entity => entity.PersonResponsibleForDocuments, ResPlatform.RequiredFieldMessage, MetadataResources.PersonResponsibleForDocuments),
-                ConsistencyRule.CreateFormat(entity => (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod, method => method == DocumentsDeliveryMethod.Undefined, ResPlatform.RequiredFieldMessage, MetadataResources.DocumentsDeliveryMethod),
+                ConsistencyRule.CreateFormat(entity => entity.DocumentsDeliveryMethod, method => method == DocumentsDeliveryMethod.Undefined, ResPlatform.RequiredFieldMessage, MetadataResources.DocumentsDeliveryMethod),
                 ConsistencyRule.CreateNonNull(entity => entity.OperatesOnTheBasisInGenitive, ResPlatform.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive),
             };
 
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                     new ConsistencyRuleCollection<LegalPersonType>(LegalPersonType.LegalPerson)
                         {
                             ConsistencyRule.CreateEnumValuesRestriction(
-                                entity => (OperatesOnTheBasisType)entity.OperatesOnTheBasisInGenitive.Value,
+                                entity => entity.OperatesOnTheBasisInGenitive.Value,
                                 BLResources.ThisDocumentIsNotAllowedForThatTypeOfLegalPerson,
                                 OperatesOnTheBasisType.Charter,
                                 OperatesOnTheBasisType.Warranty,
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                     new ConsistencyRuleCollection<LegalPersonType>(LegalPersonType.Businessman)
                         {
                             ConsistencyRule.CreateEnumValuesRestriction(
-                                entity => (OperatesOnTheBasisType)entity.OperatesOnTheBasisInGenitive.Value,
+                                entity => entity.OperatesOnTheBasisInGenitive.Value,
                                 BLResources.ThisDocumentIsNotAllowedForThatTypeOfLegalPerson,
                                 OperatesOnTheBasisType.Certificate,
                                 OperatesOnTheBasisType.Warranty,
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                     new ConsistencyRuleCollection<LegalPersonType>(LegalPersonType.NaturalPerson)
                         {
                             ConsistencyRule.CreateEnumValuesRestriction(
-                                entity => (OperatesOnTheBasisType)entity.OperatesOnTheBasisInGenitive.Value,
+                                entity => entity.OperatesOnTheBasisInGenitive.Value,
                                 BLResources.ThisDocumentIsNotAllowedForThatTypeOfLegalPerson,
                                 OperatesOnTheBasisType.Undefined,
                                 OperatesOnTheBasisType.Warranty,
@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 yield return rule;
             }
 
-            var legalPersonType = (LegalPersonType)person.LegalPersonTypeEnum;
+            var legalPersonType = person.LegalPersonTypeEnum;
             foreach (var rule in GetAllowedLegalPersonDocuments(legalPersonType))
             {
                 yield return rule;
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
 
             if (profile.OperatesOnTheBasisInGenitive.HasValue)
             {
-                var representativeAuthorityDocument = (OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive.Value;
+                var representativeAuthorityDocument = profile.OperatesOnTheBasisInGenitive.Value;
                 foreach (var rule in GetRepresentativeAuthorityDocumentChecks(representativeAuthorityDocument))
                 {
                     yield return rule;

@@ -80,7 +80,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             entityViewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
             entityViewModel.HasOrderBranchOfficeOrganizationUnitSelection =
                 functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
-            entityViewModel.EditRegionalNumber = functionalPrivilegeValidator(FunctionalPrivilegeName.MakeRegionalAdsDocs);
 
             entityViewModel.HasOrderDocumentsDebtChecking =
                 _functionalAccessService.HasOrderChangeDocumentsDebtAccess(entityViewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);
@@ -149,14 +148,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                     entityViewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction", false);
                     entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeWithoutReasonAction", false);
                     entityViewModel.ViewConfig.DisableCardToolbarItem("PrintBargainAdditionalAgreementAction", false);
-                }
-
-                var isReqionalOrder = entityViewModel.SourceOrganizationUnit.Key !=
-                                      entityViewModel.DestinationOrganizationUnit.Key;
-
-                if (isActionDisabledBasedOnWorkflowStepId || !isReqionalOrder)
-                {
-                    entityViewModel.ViewConfig.DisableCardToolbarItem("PrintRegTerminationNoticeAction", false);
                 }
             }
 

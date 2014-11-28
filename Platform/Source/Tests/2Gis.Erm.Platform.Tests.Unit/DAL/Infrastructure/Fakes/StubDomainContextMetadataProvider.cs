@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.EntityTypes;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
@@ -14,17 +16,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
         private static readonly DomainContextMetadata ErmContext = new DomainContextMetadata
             {
                 ConnectionStringName = ConnectionStringName.Erm,
-                Assembly = null,
-                EntityContainerName = "Model.Erm",
-                PathToEdmx = "Erm.Erm"
+                EntityContainerName = ErmContainer.Instance.Name,
             };
 
         private static readonly DomainContextMetadata SecurityContext = new DomainContextMetadata
             {
                 ConnectionStringName = ConnectionStringName.Erm,
-                Assembly = null,
-                EntityContainerName = "Model.ErmSecurity",
-                PathToEdmx = "ErmSecurity.ErmSecurity"
+                EntityContainerName = ErmSecurityContainer.Instance.Name,
             };
 
         static StubDomainContextMetadataProvider()

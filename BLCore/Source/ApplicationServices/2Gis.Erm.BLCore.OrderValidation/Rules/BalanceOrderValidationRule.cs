@@ -39,7 +39,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         {
             var overridedPredicate = GetOrdersOverridedPredicate(ruleContext.ValidationParams, ruleContext.CombinedPredicate);
 
-            const int ApprovedLimitStatus = (int)LimitStatus.Approved;
             var epsilon = (decimal)Math.Pow(10, -_businessModelSettings.SignificantDigitsNumber);
 
             _useCaseTuner.AlterDuration<BalanceOrderValidationRule>();
@@ -48,24 +47,24 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             var accountsWithInsufficientBalance = _finder.Find(overridedPredicate)
                 .GroupBy(order => order.Account) // все лицевые счета для заказов участвующих в сборке
                 .Select(x => new
-                {
-                    AccountId = x.Key.Id,
-                    AccountBalance = x.Key.Balance,
+                    {
+                        AccountId = x.Key.Id,
+                        AccountBalance = x.Key.Balance,
 
-                    // Сумма одобренных лимитов лицевого счета за период.
-                    LimitsSum = x.Key.Limits.Where(l => l.IsActive
-                                            && !l.IsDeleted
-                                            && l.Status == ApprovedLimitStatus
+                        // Сумма одобренных лимитов лицевого счета за период.
+                        LimitsSum = x.Key.Limits.Where(l => l.IsActive
+                                                && !l.IsDeleted
+                                            && l.Status == LimitStatus.Approved
                                             && l.StartPeriodDate == ruleContext.ValidationParams.Period.Start
                                             && l.EndPeriodDate == ruleContext.ValidationParams.Period.End)
-                                .Sum(a => (decimal?)a.Amount) ?? 0M,
+                                    .Sum(a => (decimal?)a.Amount) ?? 0M,
 
-                    // Сумма активных блокировок лицевого счета
-                    LocksSum = x.Key.Locks
-                                    .Where(l => l.IsActive && !l.IsDeleted
+                        // Сумма активных блокировок лицевого счета
+                        LocksSum = x.Key.Locks
+                                        .Where(l => l.IsActive && !l.IsDeleted 
                                         && ((l.PeriodEndDate < ruleContext.ValidationParams.Period.Start) || (l.PeriodStartDate > ruleContext.ValidationParams.Period.End)))
-                                    .Sum(l => (decimal?)l.PlannedAmount) ?? 0M,
-                })
+                                        .Sum(l => (decimal?)l.PlannedAmount) ?? 0M,
+                    })
                 .GroupJoin( // докидываем для каждого лицевого счета все заказы по искомому лицевому счету, для любых отделений организации назначения заказа
                         ordersForRelease,
                         accountInfo => accountInfo.AccountId,
@@ -86,32 +85,32 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 .Where(info => info.OrdersAmountToWithdrawSum > 0
                                 && (info.AccountResultBalance < 0 || (info.OrdersAmountToWithdrawSum - info.AccountResultBalance) >= epsilon))
                 .Select(info => new
-                {
-                    info.AccountResultNetBalanceWithoutLimits,
-                    AccountRequiredLimitAmount = info.OrdersAmountToWithdrawSum - info.AccountResultNetBalanceWithoutLimits,
-                    info.OrdersAmountToWithdrawSum,
-                    info.OrderInfos
-                })
+                    {
+                        info.AccountResultNetBalanceWithoutLimits,
+                        AccountRequiredLimitAmount = info.OrdersAmountToWithdrawSum - info.AccountResultNetBalanceWithoutLimits,
+                        info.OrdersAmountToWithdrawSum,
+                        info.OrderInfos
+                        })
                 .ToArray();
 
             return from accountInfo in accountsWithInsufficientBalance
                    from orderInfo in accountInfo.OrderInfos
                    // в файл с ошибками не включаем записи о заказах, у которых город сборки не совпадает ни с городом назначеня, ни с городом источником заказа
-                   // чтобы не перегружать излишей информацией запускальщика проверки
+                            // чтобы не перегружать излишей информацией запускальщика проверки
                    where orderInfo.SourceOrganizationUnitId == ruleContext.ValidationParams.OrganizationUnitId
                          || orderInfo.DestOrganizationUnitId == ruleContext.ValidationParams.OrganizationUnitId
                    select new OrderValidationMessage
-                              {
-                                  Type = MessageType.Error,
+                            {
+                                Type = MessageType.Error,
                                   MessageText =
                                       string.Format(BLResources.OrdersCheckOrderInsufficientFunds,
-                                                    accountInfo.OrdersAmountToWithdrawSum,
-                                                    accountInfo.AccountResultNetBalanceWithoutLimits,
-                                                    accountInfo.AccountRequiredLimitAmount),
-                                  OrderId = orderInfo.Id,
-                                  OrderNumber = orderInfo.Number
+                                                            accountInfo.OrdersAmountToWithdrawSum,
+                                                            accountInfo.AccountResultNetBalanceWithoutLimits,
+                                                            accountInfo.AccountRequiredLimitAmount),
+                                OrderId = orderInfo.Id,
+                                OrderNumber = orderInfo.Number
                               };
-        }
+            }
 
         // Выборка заказов происходит в 2 этапа. Этот метод вернет предикат для заказов, город ИСТОЧНИК которых равен городу, выбранному в форме
         // Далее при валидации накладывается еще один фильтр для заказов, по которым для города НАЗНАЧЕНИЯ не было финальной сборки за период, либо 

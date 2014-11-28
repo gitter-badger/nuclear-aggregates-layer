@@ -67,6 +67,7 @@ namespace DoubleGis.Erm.Platform.DAL
             {
                 throw new ObjectDisposedException("Object was already disposed");
             }
+
             var count = 0;
             _anyPendingChanges = false;
 

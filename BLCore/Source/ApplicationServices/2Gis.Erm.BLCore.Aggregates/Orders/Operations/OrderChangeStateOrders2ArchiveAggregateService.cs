@@ -36,9 +36,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
             {
                 foreach (var order in orders)
                 {
-                    changes.Add(ChangesDescriptor.Create(order, x => x.WorkflowStepId, order.WorkflowStepId, (int)OrderState.Archive));
+                    changes.Add(ChangesDescriptor.Create(order, x => x.WorkflowStepId, order.WorkflowStepId, OrderState.Archive));
 
-                    order.WorkflowStepId = (int)OrderState.Archive;
+                    order.WorkflowStepId = OrderState.Archive;
                     order.AmountToWithdraw = 0m;
 
                     _orderRepository.Update(order);

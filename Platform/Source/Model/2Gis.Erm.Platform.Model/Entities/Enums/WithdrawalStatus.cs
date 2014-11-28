@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.Model.Entities.Enums
 {
-    public enum WithdrawalStatus
+    public enum WithdrawalStatus : short
     {
         None = 0,
 

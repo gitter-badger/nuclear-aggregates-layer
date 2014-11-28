@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                 _finder.Find(Specs.Find.ById<AdvertisementElement>(entityId))
                        .Select(entity => new AdvertisementElementDomainEntityDto
                            {
-                               TemplateRestrictionType = (AdvertisementElementRestrictionType)entity.AdvertisementElementTemplate.RestrictionType,
+                               TemplateRestrictionType = entity.AdvertisementElementTemplate.RestrictionType,
                                TemplateFileExtensionRestriction = entity.AdvertisementElementTemplate.FileExtensionRestriction,
                                TemplateImageDimensionRestriction = entity.AdvertisementElementTemplate.ImageDimensionRestriction,
                                TemplateTextLengthRestriction = entity.AdvertisementElementTemplate.TextLengthRestriction,

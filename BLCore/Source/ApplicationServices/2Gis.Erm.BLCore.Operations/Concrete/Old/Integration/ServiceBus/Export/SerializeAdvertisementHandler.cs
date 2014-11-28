@@ -114,7 +114,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     Elements = x.AdvertisementElements.Where(z => !z.IsDeleted).Select(z => new ElementDto
                         {
                             Id = z.Id,
-                            RestrictionType = (AdvertisementElementRestrictionType)z.AdvertisementElementTemplate.RestrictionType,
+                            RestrictionType = z.AdvertisementElementTemplate.RestrictionType,
                             ExportCode = z.AdsTemplatesAdsElementTemplate.ExportCode,
                             IsRequired = z.AdvertisementElementTemplate.IsRequired,
 

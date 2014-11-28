@@ -177,7 +177,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 }
 
                 var legalPerson = legalPersons[0];
-                var legalPersonType = (LegalPersonType)legalPerson.LegalPersonTypeEnum;
+                var legalPersonType = legalPerson.LegalPersonTypeEnum;
 
                 var isNaturalPerson = legalPersonType == LegalPersonType.NaturalPerson;
                 if (string.IsNullOrEmpty(row.InnOrPassportSeries))
