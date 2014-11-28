@@ -54,6 +54,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string Description { get; set; }
         public DateTime ScheduledOn { get; set; }
         public int Priority { get; set; }
+        public int Purpose { get; set; }
         public int Status { get; set; }
 
         public ICollection<PhonecallReference> PhonecallReferences { get; set; }
