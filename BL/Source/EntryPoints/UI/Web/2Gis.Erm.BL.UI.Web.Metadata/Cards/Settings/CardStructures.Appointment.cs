@@ -8,7 +8,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata Appointment =
-            CardMetadata.For<Appointment>()
+            CardMetadata.Config
+                        .For<Appointment>()
                         .MainAttribute<Appointment, IAppointmentViewModel>(x => x.Header)
                         .Actions
                             .Attach(UiElementMetadataHelper.ConfigActivityCardToolbarButtons<Appointment>());

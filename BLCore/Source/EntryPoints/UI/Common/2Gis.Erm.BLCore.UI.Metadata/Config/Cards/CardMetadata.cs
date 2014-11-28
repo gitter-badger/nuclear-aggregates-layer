@@ -2,7 +2,6 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
@@ -80,12 +79,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         public IPartFeature[] Parts
         {
             get { return Features.OfType<IPartFeature>().ToArray(); }
-        }
-
-        public static CardMetadataBuilder<TEntity> For<TEntity>()
-            where TEntity : IEntity
-        {
-            return new CardMetadataBuilder<TEntity>();
         }
 
         public override void ActualizeId(IMetadataElementIdentity actualMetadataElementIdentity)

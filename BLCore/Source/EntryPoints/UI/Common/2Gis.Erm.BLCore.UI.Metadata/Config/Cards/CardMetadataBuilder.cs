@@ -15,23 +15,14 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
-    public class CardMetadataBuilder : ViewModelMetadataBuilder<CardMetadataBuilder, CardMetadata>
-    {
-        protected override CardMetadata Create()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public sealed class CardMetadataBuilder<TEntity> : CardMetadataBuilder
-        where TEntity : IEntity
+    public sealed class CardMetadataBuilder : ViewModelMetadataBuilder<CardMetadataBuilder, CardMetadata>
     {
         private readonly TitleFeatureAspect<CardMetadataBuilder, CardMetadata> _title;
         private readonly ImageFeatureAspect<CardMetadataBuilder, CardMetadata> _icon;
         private readonly RelatedItemsFeatureAspect<CardMetadataBuilder, CardMetadata> _relatedItems;
         private readonly ActionsFeatureAspect<CardMetadataBuilder, CardMetadata> _actions;
 
-        private readonly EntityName _entityName;
+        private EntityName _entityName;
 
         public CardMetadataBuilder()
         {
@@ -39,7 +30,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             _icon = new ImageFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
             _relatedItems = new RelatedItemsFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
             _actions = new ActionsFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
-            _entityName = typeof(TEntity).AsEntityName();
         }
 
         public TitleFeatureAspect<CardMetadataBuilder, CardMetadata> Title
@@ -62,19 +52,19 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             get { return _actions; }
         }
 
-        public CardMetadataBuilder<TEntity> EntityLocalization<TKey>(Expression<Func<TKey>> resourceKeyExpression)
+        public CardMetadataBuilder EntityLocalization<TKey>(Expression<Func<TKey>> resourceKeyExpression)
         {
             AddFeatures(new EntityNameLocalizationFeature(StringResourceDescriptor.Create(resourceKeyExpression)));
             return this;
         }
 
-        public CardMetadataBuilder<TEntity> WithAdminTab()
+        public CardMetadataBuilder WithAdminTab()
         {
             AddFeatures(new PartFeature(ResourceTitleDescriptor.Create(() => BLResources.AdministrationTabTitle), new StaticTitleDescriptor("AdministrationTab")));
             return this;
         }
 
-        public CardMetadataBuilder<TEntity> WithComments()
+        public CardMetadataBuilder WithComments()
         {
             AddFeatures(new PartFeature(
                 
@@ -84,8 +74,26 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             return this;
         }
 
+        public CardMetadataBuilder For<TEntity>()
+            where TEntity : IEntity
+        {
+            _entityName = typeof(TEntity).AsEntityName();
+            return new CardMetadataBuilder();
+        }
+
+        public CardMetadataBuilder For(EntityName entityName)
+        {
+            _entityName = entityName;
+            return new CardMetadataBuilder();
+        }
+
         protected override CardMetadata Create()
         {
+            if (_entityName == EntityName.None)
+            {
+                throw new InvalidOperationException("Entity must be specified");    
+            }
+
             return new CardMetadata(_entityName, Features);
         }
     }

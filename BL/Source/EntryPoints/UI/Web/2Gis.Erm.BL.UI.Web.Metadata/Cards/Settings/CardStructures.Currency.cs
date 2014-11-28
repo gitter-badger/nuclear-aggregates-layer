@@ -10,26 +10,26 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
     public static partial class CardStructures
     {
-        public static readonly CardMetadata Category =
+        public static readonly CardMetadata Currency =
             CardMetadata.Config
-                        .For<Category>()
-                        .MainAttribute<Category, ICategoryViewModel>(x => x.Name)                
+                        .For<Currency>()
+                        .MainAttribute<Currency, ICurrencyViewModel>(x => x.Name)
                         .Actions
-                            .Attach(UiElementMetadata.Config.CloseAction())
+                            .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<Currency>())
                         .RelatedItems
                             .Name("Information")
                             .Title(() => ErmConfigLocalization.CrdRelInformationHeader)
                             .Attach(UiElementMetadata.Config.ContentTab(),
                                     UiElementMetadata.Config
-                                                     .Name.Static("Category")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelCategory)
+                                                     .Name.Static("CurrencyRate")
+                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelCurrencyRate)
                                                      .LockOnNew()
-                                                     .Icon.Path("en_ico_16_Category.gif")
-                                                     .Handler.ShowGridByConvention(EntityName.Category),
+                                                     .DisableOn<ICurrencyViewModel>(x => x.IsBase)
+                                                     .Handler.ShowGridByConvention(EntityName.CurrencyRate),
                                     UiElementMetadata.Config
-                                                     .Name.Static("CategoryOrganizationUnit")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelCategoryOU)
+                                                     .Name.Static("Country")
+                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelCountry)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.CategoryOrganizationUnit));
+                                                     .Handler.ShowGridByConvention(EntityName.Country));
     }
 }

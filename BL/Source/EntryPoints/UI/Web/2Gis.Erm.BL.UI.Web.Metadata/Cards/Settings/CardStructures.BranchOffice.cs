@@ -11,7 +11,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata BranchOffice =
-            CardMetadata.For<BranchOffice>()
+            CardMetadata.Config
+                        .For<BranchOffice>()
                         .MainAttribute<BranchOffice, IBranchOfficeViewModel>(x => x.Name)                
                         .Actions
                             .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<BranchOffice>())

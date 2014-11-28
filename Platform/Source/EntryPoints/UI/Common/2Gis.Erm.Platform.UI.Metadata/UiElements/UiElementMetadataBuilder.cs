@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -13,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
 
@@ -94,6 +96,13 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
         public UiElementMetadataBuilder LockOnInactive()
         {
             AddFeatures(new LockOnInactiveFeature());
+            return this;
+        }
+
+        public UiElementMetadataBuilder DisableOn<T>(Expression<Func<T, bool>> expression)
+            where T : IViewModelAbstract
+        {
+            AddFeatures(new DisableExpressionFeature<T>(expression));
             return this;
         }
 

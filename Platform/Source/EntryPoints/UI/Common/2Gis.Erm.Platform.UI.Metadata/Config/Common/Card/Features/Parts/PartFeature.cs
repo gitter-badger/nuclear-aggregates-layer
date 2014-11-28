@@ -16,7 +16,14 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts
             _nameDescriptor = nameDescriptor;
         }
 
-        public string Title { get; private set; }
-        public string Name { get; private set; }
+        public string Title
+        {
+            get { return _titleDescriptor.ToString(); }
+        }
+
+        public string Name
+        {
+            get { return _nameDescriptor.ToString(); }
+        }
     }
 }

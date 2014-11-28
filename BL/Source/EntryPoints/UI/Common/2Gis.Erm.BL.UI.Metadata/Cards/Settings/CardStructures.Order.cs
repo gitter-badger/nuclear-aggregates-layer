@@ -10,7 +10,8 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata Order =
-            CardMetadata.For<Order>()
+            CardMetadata.Config
+                        .For<Order>()
                         .Title.Resource(() => ErmConfigLocalization.EnOrders)
                 //.Parts.Use(
                 //           () => BLResources.TitlePlacement,

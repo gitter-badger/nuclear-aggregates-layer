@@ -55,7 +55,14 @@
     <Compile Include="Cards\Extensions\CardMetadataBuilderExtensions.cs" />
     <Compile Include="Cards\Extensions\CardMetadataExtensions.cs" />
     <Compile Include="Cards\CardMetadataSource.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Currency.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Country.cs" />
+    <Compile Include="Cards\Settings\CardStructures.ContributionType.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Contact.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Client.cs" />
     <Compile Include="Cards\Settings\CardStructures.AdvertisementElementStatus.cs" />
+    <Compile Include="Cards\Settings\CardStructures.CategoryGroupMembership.cs" />
+    <Compile Include="Cards\Settings\CardStructures.CategoryGroup.cs" />
     <Compile Include="Cards\Settings\CardStructures.Category.cs" />
     <Compile Include="Cards\Settings\CardStructures.BranchOfficeOrganizationUnit.cs" />
     <Compile Include="Cards\Settings\CardStructures.BranchOffice.cs" />

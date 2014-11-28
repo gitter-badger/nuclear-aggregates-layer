@@ -7,8 +7,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata AdditionalFirmService =
-            CardMetadata.For<AdditionalFirmService>()
-                        .MainAttribute(x => x.Id)
+            CardMetadata.Config
+                        .For<AdditionalFirmService>()
+                        .MainAttribute<AdditionalFirmService>(x => x.Id)
                         .Actions
                             .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<AdditionalFirmService>());
     }

@@ -14,8 +14,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata AdvertisementElement =
-            CardMetadata.For<AdvertisementElement>()
-                        .MainAttribute(x => x.Id)
+            CardMetadata.Config
+                        .For<AdvertisementElement>()
+                        .MainAttribute<AdvertisementElement>(x => x.Id)
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<AdvertisementElement>(),
                                     

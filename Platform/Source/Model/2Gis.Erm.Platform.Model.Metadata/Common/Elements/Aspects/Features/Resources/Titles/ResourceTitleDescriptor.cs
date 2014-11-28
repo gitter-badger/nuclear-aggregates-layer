@@ -40,5 +40,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
         {
             return ResourceEntryKey.ResourceEntryName;
         }
+
+        public override string ToString()
+        {
+            return ResourceEntryKey.ResourceHostType.AsResourceManager().GetObject(ResourceEntryKey.ResourceEntryName).ToString();
+        }
     }
 }

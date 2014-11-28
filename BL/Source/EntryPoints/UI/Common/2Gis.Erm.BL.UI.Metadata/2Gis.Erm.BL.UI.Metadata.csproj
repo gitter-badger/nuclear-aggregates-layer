@@ -59,9 +59,15 @@
     <Compile Include="Models\Contracts\IAdvertisementElementTemplateViewModel.cs" />
     <Compile Include="Models\Contracts\IAdvertisementTemplateViewModel.cs" />
     <Compile Include="Models\Contracts\IAppointmentViewModel.cs" />
+    <Compile Include="Models\Contracts\ICurrencyViewModel.cs" />
+    <Compile Include="Models\Contracts\ICountryViewModel.cs" />
+    <Compile Include="Models\Contracts\IContributionTypeViewModel.cs" />
+    <Compile Include="Models\Contracts\IContactViewModel.cs" />
+    <Compile Include="Models\Contracts\IClientViewModel.cs" />
     <Compile Include="Models\Contracts\IBargainTypeViewModel.cs" />
     <Compile Include="Models\Contracts\IAdvertisementViewModel.cs" />
     <Compile Include="Models\Contracts\IBargainFileViewModel.cs" />
+    <Compile Include="Models\Contracts\ICategoryGroupViewModel.cs" />
     <Compile Include="Models\Contracts\ICategoryViewModel.cs" />
     <Compile Include="Models\Contracts\IBargainViewModel.cs" />
     <Compile Include="Models\Contracts\IBillViewModel.cs" />

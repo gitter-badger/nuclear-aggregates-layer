@@ -11,7 +11,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata Bill =
-            CardMetadata.For<Bill>()
+            CardMetadata.Config
+                        .For<Bill>()
                         .MainAttribute<Bill, IBillViewModel>(x => x.BillNumber)                
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<Bill>(),

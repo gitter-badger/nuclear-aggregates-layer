@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -65,6 +66,31 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.SpecificFor<CreateIdentity, TEntity>()
                           .Operation.SpecificFor<UpdateIdentity, TEntity>()
                           .Operation.NonCoupled<CloseIdentity>();
+        }
+
+        public static UiElementMetadataBuilder QualifyAction<TEntity>(this UiElementMetadataBuilder builder)
+            where TEntity : class, IEntity
+        {
+            return builder.Name.Static("Qualify")
+                          .Title.Resource(() => ErmConfigLocalization.ControlQualify)
+                          .ControlType(ControlType.TextButton)
+                          .LockOnNew()
+                          .Handler.Name("scope.Qualify")
+                          .AccessWithPrivelege(FunctionalPrivilegeName.ReserveAccess)
+                          .Operation.SpecificFor<QualifyIdentity, TEntity>();
+        }
+
+        public static UiElementMetadataBuilder DisqualifyAction<TEntity>(this UiElementMetadataBuilder builder)
+           where TEntity : class, IEntity
+        {
+            return builder.Name.Static("Disqualify")
+                          .Title.Resource(() => ErmConfigLocalization.ControlDisqualify)
+                          .ControlType(ControlType.TextButton)
+                          .LockOnInactive()
+                          .LockOnNew()
+                          .Handler.Name("scope.Disqualify")
+                          .AccessWithPrivelege(FunctionalPrivilegeName.ReserveAccess)
+                          .Operation.SpecificFor<QualifyIdentity, TEntity>();
         }
 
         public static UiElementMetadataBuilder RefreshAction<TEntity>(this UiElementMetadataBuilder builder)

@@ -11,7 +11,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata AdvertisementElementTemplate =
-            CardMetadata.For<AdvertisementElementTemplate>()
+            CardMetadata.Config
+                        .For<AdvertisementElementTemplate>()
                         .MainAttribute<AdvertisementElementTemplate, IAdvertisementElementTemplateViewModel>(x => x.Name)
                         .Actions
                             .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<AdvertisementElementTemplate>())

@@ -8,7 +8,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata BargainType =
-            CardMetadata.For<BargainType>()
+            CardMetadata.Config
+                        .For<BargainType>()
                         .MainAttribute<BargainType, IBargainTypeViewModel>(x => x.Name)                
                         .Actions
                             .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<BargainType>());

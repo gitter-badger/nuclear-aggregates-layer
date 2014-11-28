@@ -7,11 +7,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
     public static partial class CardStructures
     {
-        public static readonly CardMetadata BargainFile =
+        public static readonly CardMetadata ContributionType =
             CardMetadata.Config
-                        .For<BargainFile>()
-                        .MainAttribute<BargainFile, IBargainFileViewModel>(x => x.FileName)                
+                        .For<ContributionType>()
+                        .MainAttribute<ContributionType, IContributionTypeViewModel>(x => x.Name)
                         .Actions
-                            .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<BargainFile>());
+                            .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<ContributionType>());
     }
 }

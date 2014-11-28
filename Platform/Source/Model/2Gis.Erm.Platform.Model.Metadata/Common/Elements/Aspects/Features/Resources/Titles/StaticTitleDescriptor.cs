@@ -28,5 +28,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
         {
             return Title;
         }
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }

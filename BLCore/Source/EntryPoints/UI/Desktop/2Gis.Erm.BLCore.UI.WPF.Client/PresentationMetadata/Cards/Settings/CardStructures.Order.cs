@@ -17,55 +17,55 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
 {
     public static partial class CardStructures
     {
-        public readonly static CardMetadata Order =
-            CardMetadata.For<Order>()
-                .Title.Resource(() => ErmConfigLocalization.EnOrders)
-                .Parts.Use(
-                    () => BLResources.TitlePlacement,
-                    () => BLResources.TitleDiscount,
-                    () => BLResources.TitleFinances,
-                    () => BLResources.TitleCancellation,
-                    () => BLResources.TitleControl,
-                    () => BLResources.AdministrationTabTitle)
-                .Actions.Attach(
-                    UiElementMetadata.Config
-                        .Title.Resource(() => ErmConfigLocalization.ControlSave)
-                        .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>(),
-                    UiElementMetadata.Config
-                        .Title.Resource(() => ErmConfigLocalization.ControlSaveAndClose)
-                        .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>()
-                        .Operation.NonCoupled<CloseIdentity>(),
-                    UiElementMetadata.Config
-                        .Title.Resource(() => ErmConfigLocalization.ControlRefresh)
-                        .Operation.SpecificFor<GetDomainEntityDtoIdentity, Order>(),
-                    UiElementMetadata.Config
-                        .Title.Resource(() => ErmConfigLocalization.ControlAssign)
-                        .Operation.SpecificFor<AssignIdentity, Order>(),
-                    UiElementMetadata.Config
-                        .Title.Resource(() => ErmConfigLocalization.ControlClose)
-                        .Operation.NonCoupled<CloseIdentity>(),
-                    UiElementMetadata.Config
-                        .Title.Resource(() => ErmConfigLocalization.ControlActions)
-                        .Childs(
-                            UiElementMetadata.Config
-                                .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
-                                .Operation.SpecificFor<PrintIdentity, Order>()))
-                .RelatedItems.Attach(
-                    UiElementMetadata.Config
-                        .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
-                        .Handler.ShowGrid(OrderAggregate.Bill.AsEntityName()),
-                    UiElementMetadata.Config
-                        .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
-                        .Handler.ShowGrid(AccountAggregate.Lock.AsEntityName()),
-                    UiElementMetadata.Config
-                        .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
-                        .Handler.ShowGrid(OrderAggregate.OrderFile.AsEntityName()))
-                .MVVM.Bind<DynamicCardViewModel, OrderView>()
-                .WithDynamicProperties()
-                .Validator.Dynamic<DynamicViewModelValidator<DynamicViewModel>, DynamicViewModel>()
+        public static readonly CardMetadata Order =
+            CardMetadata.Config
+                        .For<Order>()
+                        .Parts.Use(
+                                   () => BLResources.TitlePlacement,
+                                   () => BLResources.TitleDiscount,
+                                   () => BLResources.TitleFinances,
+                                   () => BLResources.TitleCancellation,
+                                   () => BLResources.TitleControl,
+                                   () => BLResources.AdministrationTabTitle)
+                        .Actions.Attach(
+                                        UiElementMetadata.Config
+                                                         .Title.Resource(() => ErmConfigLocalization.ControlSave)
+                                                         .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>(),
+                                        UiElementMetadata.Config
+                                                         .Title.Resource(() => ErmConfigLocalization.ControlSaveAndClose)
+                                                         .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>()
+                                                         .Operation.NonCoupled<CloseIdentity>(),
+                                        UiElementMetadata.Config
+                                                         .Title.Resource(() => ErmConfigLocalization.ControlRefresh)
+                                                         .Operation.SpecificFor<GetDomainEntityDtoIdentity, Order>(),
+                                        UiElementMetadata.Config
+                                                         .Title.Resource(() => ErmConfigLocalization.ControlAssign)
+                                                         .Operation.SpecificFor<AssignIdentity, Order>(),
+                                        UiElementMetadata.Config
+                                                         .Title.Resource(() => ErmConfigLocalization.ControlClose)
+                                                         .Operation.NonCoupled<CloseIdentity>(),
+                                        UiElementMetadata.Config
+                                                         .Title.Resource(() => ErmConfigLocalization.ControlActions)
+                                                         .Childs(
+                                                                 UiElementMetadata.Config
+                                                                                  .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
+                                                                                  .Operation.SpecificFor<PrintIdentity, Order>()))
+                        .RelatedItems.Attach(
+                                             UiElementMetadata.Config
+                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
+                                                              .Handler.ShowGrid(OrderAggregate.Bill.AsEntityName()),
+                                             UiElementMetadata.Config
+                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
+                                                              .Handler.ShowGrid(AccountAggregate.Lock.AsEntityName()),
+                                             UiElementMetadata.Config
+                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
+                                                              .Handler.ShowGrid(OrderAggregate.OrderFile.AsEntityName()))
+                        .MVVM.Bind<DynamicCardViewModel, OrderView>()
+                        .WithDynamicProperties()
+                        .Validator.Dynamic<DynamicViewModelValidator<DynamicViewModel>, DynamicViewModel>()
                 //.Validator.Static<ValidationTestValidator, ValidationTestViewModel>()
                 //.Validator.Static<ValidationTestValidator, ValidationTestViewModel>()
-                .Localizator(typeof(MetadataResources), typeof(BLResources), typeof(EnumResources));
+                        .Localizator(typeof(MetadataResources), typeof(BLResources), typeof(EnumResources));
 
     }
 }

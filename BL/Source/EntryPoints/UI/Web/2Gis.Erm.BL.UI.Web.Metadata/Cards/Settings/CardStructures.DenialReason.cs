@@ -7,8 +7,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata DenialReason =
-            CardMetadata.For<DenialReason>()
-                        .MainAttribute(x => x.Id)
+            CardMetadata.Config
+                        .For<DenialReason>()
+                        .MainAttribute<DenialReason>(x => x.Id)
                         .Actions
                             .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<DenialReason>());
     }

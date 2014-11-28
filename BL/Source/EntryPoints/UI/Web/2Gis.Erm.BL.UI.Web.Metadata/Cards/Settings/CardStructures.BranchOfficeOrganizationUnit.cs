@@ -13,7 +13,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata BranchOfficeOrganizationUnit =
-            CardMetadata.For<BranchOfficeOrganizationUnit>()
+            CardMetadata.Config
+                        .For<BranchOfficeOrganizationUnit>()
                         .MainAttribute<BranchOfficeOrganizationUnit, IBranchOfficeOrganizationUnitViewModel>(x => x.ShortLegalName)                
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<BranchOfficeOrganizationUnit>(),

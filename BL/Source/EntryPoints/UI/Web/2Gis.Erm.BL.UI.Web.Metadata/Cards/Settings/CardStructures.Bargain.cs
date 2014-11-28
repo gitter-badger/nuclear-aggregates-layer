@@ -12,7 +12,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata Bargain =
-            CardMetadata.For<Bargain>()
+            CardMetadata.Config
+                        .For<Bargain>()
                         .MainAttribute<Bargain, IBargainViewModel>(x => x.Number)                
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<Bargain>(),

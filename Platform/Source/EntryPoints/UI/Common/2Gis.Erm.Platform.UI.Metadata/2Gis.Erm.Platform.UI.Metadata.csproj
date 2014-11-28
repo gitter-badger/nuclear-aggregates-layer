@@ -104,6 +104,7 @@
     <Compile Include="UiElements\ControlTypes\ControlType.cs" />
     <Compile Include="UiElements\ControlTypes\EnumControlTypeDescriptor.cs" />
     <Compile Include="UiElements\ControlTypes\ControlTypeFeature.cs" />
+    <Compile Include="UiElements\Features\IDisableExpressionFeature.cs" />
     <Compile Include="UiElements\Features\ISecuredElementFeature.cs" />
     <Compile Include="UiElements\Features\IUiElementFeature.cs" />
     <Compile Include="UiElements\Features\SecuredByEntityPrivelegeFeature.cs" />

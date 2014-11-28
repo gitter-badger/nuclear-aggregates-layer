@@ -10,8 +10,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata Account =
-            CardMetadata.For<Account>()
-                        .MainAttribute(x => x.Id)
+            CardMetadata.Config
+                        .For<Account>()
+                        .MainAttribute<Account>(x => x.Id)
                         .RelatedItems
                             .Name("Information")
                             .Title(() => ErmConfigLocalization.CrdRelInformationHeader)
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
                                                      .Icon.Path("en_ico_16_Order.gif")
                                                      .LockOnNew()
-                                                    .Handler.ShowGridByConvention(EntityName.Order))
+                                                     .Handler.ShowGridByConvention(EntityName.Order))
                         .Actions
                             .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<Account>());
     }

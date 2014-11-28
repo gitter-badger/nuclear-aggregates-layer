@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -32,107 +33,170 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
             IReadOnlyCollection<CardMetadata> metadataContainer =
                 new CardMetadata[]
                     {
-                        CardMetadata.For<Account>()
+                        CardMetadata.Config
+                                    .For<Account>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAccounts)
                                     .Icon.Path("en_ico_16_Account.gif"),
 
-                        CardMetadata.For<AccountDetail>()
+                        CardMetadata.Config
+                                    .For<AccountDetail>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAccountDetails)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<AdditionalFirmService>()
+                        CardMetadata.Config
+                                    .For<AdditionalFirmService>()
                                     .EntityLocalization(() => ErmConfigLocalization.AdditionalFirmServices)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<AdsTemplatesAdsElementTemplate>()
+                        CardMetadata.Config
+                                    .For<AdsTemplatesAdsElementTemplate>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdsTemplatesAdsElementTemplate)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<DenialReason>()
+                        CardMetadata.Config
+                                    .For<DenialReason>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => MetadataResources.EnDenialReason)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<AdvertisementTemplate>()
+                        CardMetadata.Config
+                                    .For<AdvertisementTemplate>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementTemplate)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<AdvertisementElementTemplate>()
+                        CardMetadata.Config
+                                    .For<AdvertisementElementTemplate>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementElementTemplate)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<Advertisement>()
+                        CardMetadata.Config
+                                    .For<Advertisement>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisement)
                                     .Icon.Path("en_ico_16_Advertisement.gif"),
 
-                        CardMetadata.For<AdvertisementElement>()
+                        CardMetadata.Config
+                                    .For<AdvertisementElement>()
                                     .WithAdminTab()
                                     .WithComments()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementElement)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<AdvertisementElementStatus>()
+                        CardMetadata.Config
+                                    .For<AdvertisementElementStatus>()
                                     .WithAdminTab()
                                     .WithComments()
                                     .EntityLocalization(() => EnumResources.EntityNameAdvertisementElementStatus)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<Appointment>()
+                        CardMetadata.Config
+                                    .For<Appointment>()
                                     .WithAdminTab()
                                     .WithComments()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAppointment)
                                     .Icon.Path("en_ico_16_Appointment.gif"),
 
-                        CardMetadata.For<AssociatedPosition>()
+                        CardMetadata.Config
+                                    .For<AssociatedPosition>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPosition)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<AssociatedPositionsGroup>()
+                        CardMetadata.Config
+                                    .For<AssociatedPositionsGroup>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPositionsGroup)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<Bargain>()
+                        CardMetadata.Config
+                                    .For<Bargain>()
                                     .WithComments()
                                     .WithAdminTab()
                                     .EntityLocalization(() => MetadataResources.Bargain)
                                     .Icon.Path("en_ico_lrg_Bargain.gif"),
 
-                        CardMetadata.For<BargainFile>()
+                        CardMetadata.Config
+                                    .For<BargainFile>()
                                     .WithComments()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnBargainFile)
                                     .Icon.Path("en_ico_lrg_Bargain.gif"),
 
-                        CardMetadata.For<BargainType>()
+                        CardMetadata.Config
+                                    .For<BargainType>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnBargainType)
                                     .Icon.Path("en_ico_lrg_BargainType.gif"),
 
-                        CardMetadata.For<Bill>()
+                        CardMetadata.Config
+                                    .For<Bill>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnBill)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<BranchOffice>()
+                        CardMetadata.Config
+                                    .For<BranchOffice>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnBranchOffices)
                                     .Icon.Path("en_ico_lrg_BranchOffice.gif"),
 
-                        CardMetadata.For<BranchOfficeOrganizationUnit>()
+                        CardMetadata.Config
+                                    .For<BranchOfficeOrganizationUnit>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnBranchOfficeOrganizationUnit)
                                     .Icon.Path("en_ico_lrg_Default.gif"),
 
-                        CardMetadata.For<Category>()
+                        CardMetadata.Config
+                                    .For<Category>()
                                     .WithAdminTab()
                                     .EntityLocalization(() => ErmConfigLocalization.EnCategories)
                                     .Icon.Path("en_ico_lrg_Category.gif"),
+
+                        CardMetadata.Config
+                                    .For<CategoryGroup>()
+                                    .EntityLocalization(() => ErmConfigLocalization.EnCategoryGroups)
+                                    .Icon.Path("en_ico_lrg_Category.gif")
+                                    .WithAdminTab(),
+
+                        CardMetadata.Config
+                                    .For(EntityName.CategoryGroupMembership)
+                                    .EntityLocalization(() => ErmConfigLocalization.EnCategoryGroups)
+                                    .Icon.Path("en_ico_lrg_Category.gif"),
+
+                        CardMetadata.Config
+                                    .For<Client>()
+                                    .EntityLocalization(() => ErmConfigLocalization.EnClient)
+                                    .Icon.Path("en_ico_16_Client.gif")
+                                    .WithComments()
+                                    .WithAdminTab(),
+
+                        CardMetadata.Config
+                                    .For<Contact>()
+                                    .EntityLocalization(() => ErmConfigLocalization.EnContact)
+                                    .Icon.Path("en_ico_lrg_Contact.gif")
+                                    .WithComments()
+                                    .WithAdminTab(),
+
+                        CardMetadata.Config
+                                    .For<ContributionType>()
+                                    .EntityLocalization(() => MetadataResources.ContributionType)
+                                    .Icon.Path("en_ico_lrg_ContributionType.gif")
+                                    .WithAdminTab(),
+
+                        CardMetadata.Config
+                                    .For<Country>()
+                                    .EntityLocalization(() => ErmConfigLocalization.EnCountries)
+                                    .Icon.Path("en_ico_lrg_Country.gif")
+                                    .WithAdminTab(),
+
+                        CardMetadata.Config
+                                    .For<Currency>()
+                                    .EntityLocalization(() => ErmConfigLocalization.EnCurrencies)
+                                    .Icon.Path("en_ico_lrg_Currency.gif")
+                                    .WithAdminTab(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

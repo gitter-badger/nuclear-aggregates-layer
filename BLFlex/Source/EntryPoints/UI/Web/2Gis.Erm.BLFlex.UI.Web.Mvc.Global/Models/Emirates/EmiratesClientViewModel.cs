@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
@@ -14,7 +15,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, IEmiratesAdapted
+    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, IClientViewModel, IEmiratesAdapted
     {
         // Наименование
         [StringLengthLocalized(250)]

@@ -7,8 +7,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata AssociatedPosition =
-            CardMetadata.For<AssociatedPosition>()
-                        .MainAttribute(x => x.Id)
+            CardMetadata.Config
+                        .For<AssociatedPosition>()
+                        .MainAttribute<AssociatedPosition>(x => x.Id)
                         .Actions
                             .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<AssociatedPosition>());
     }
