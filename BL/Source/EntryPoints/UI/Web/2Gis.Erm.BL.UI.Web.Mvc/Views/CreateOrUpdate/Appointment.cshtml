@@ -8,6 +8,7 @@
 {
     <script src="/Scripts/Ext.ux.TimeComboBox.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Activity/Ext.DoubleGis.UI.ContactRelationController.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.Appointment.js?@ThisAssembly.Build" type="text/javascript"></script>
 }
@@ -15,9 +16,9 @@
 @section CustomInit
 {
     <script type="text/javascript">
-        Ext.onReady(function()
-        {
+        Ext.onReady(function() {
             var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
+            Ext.apply(cardSettings, { contactField: "AttendeeId", contactComponent: "Attendee" });
             window.Card = new window.Ext.DoubleGis.UI.Appointment(cardSettings);
             window.Card.Build();
         });
@@ -46,7 +47,7 @@
             @Html.TemplateField(m => m.ScheduledEnd, FieldFlex.twins, 
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() })
             )
-        @Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }))
+        @Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", SupressMatchesErrors = true }))
         @Html.SectionRow(@Html.TemplateField(m => m.Location, FieldFlex.lone))
 
         @Html.SectionHead("resultHeader", BLResources.TitleResult)

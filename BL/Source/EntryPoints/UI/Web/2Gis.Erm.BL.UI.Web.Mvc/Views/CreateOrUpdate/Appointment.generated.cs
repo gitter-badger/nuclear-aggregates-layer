@@ -92,30 +92,45 @@ WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 406), Tuple.Create("\"", 482)
-, Tuple.Create(Tuple.Create("", 412), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 412), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 406), Tuple.Create("\"", 495)
+, Tuple.Create(Tuple.Create("", 412), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ContactRelationController.js?", 412), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-, Tuple.Create(Tuple.Create("", 463), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+  , Tuple.Create(Tuple.Create("", 476), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 463), false)
+, 476), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 529), Tuple.Create("\"", 604)
-, Tuple.Create(Tuple.Create("", 535), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Appointment.js?", 535), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 542), Tuple.Create("\"", 618)
+, Tuple.Create(Tuple.Create("", 548), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 548), true)
             
             #line 12 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-, Tuple.Create(Tuple.Create("", 585), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 599), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 585), false)
+, 599), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 665), Tuple.Create("\"", 740)
+, Tuple.Create(Tuple.Create("", 671), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Appointment.js?", 671), true)
+            
+            #line 13 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+, Tuple.Create(Tuple.Create("", 721), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 721), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -132,7 +147,7 @@ WriteLiteral("\r\n    <script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n        Ext.onReady(function()\r\n        {\r\n            var cardSettings = ");
+WriteLiteral(">\r\n        Ext.onReady(function() {\r\n            var cardSettings = ");
 
             
             #line 20 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
@@ -141,8 +156,10 @@ WriteLiteral(">\r\n        Ext.onReady(function()\r\n        {\r\n            va
             
             #line default
             #line hidden
-WriteLiteral(";\r\n            window.Card = new window.Ext.DoubleGis.UI.Appointment(cardSettings" +
-");\r\n            window.Card.Build();\r\n        });\r\n    </script>\r\n");
+WriteLiteral(";\r\n            Ext.apply(cardSettings, { contactField: \"AttendeeId\", contactCompo" +
+"nent: \"Attendee\" });\r\n            window.Card = new window.Ext.DoubleGis.UI.Appo" +
+"intment(cardSettings);\r\n            window.Card.Build();\r\n        });\r\n    </scr" +
+"ipt>\r\n");
 
 });
 
@@ -156,14 +173,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1033), Tuple.Create("\"", 1069)
+WriteAttribute("title", Tuple.Create(" title=\"", 1260), Tuple.Create("\"", 1296)
             
-            #line 29 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-, Tuple.Create(Tuple.Create("", 1041), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 30 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+, Tuple.Create(Tuple.Create("", 1268), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1041), false)
+, 1268), false)
 );
 
 WriteLiteral(">\r\n");
@@ -171,7 +188,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 30 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 31 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.HiddenFor(m => m.Id));
 
             
@@ -182,7 +199,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 31 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 32 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.HiddenFor(m => m.Status));
 
             
@@ -193,7 +210,7 @@ WriteLiteral("\r\n        \r\n");
 WriteLiteral("        ");
 
             
-            #line 33 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding));
 
             
@@ -204,7 +221,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 34 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 35 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
             @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", SupressMatchesErrors = true })));
@@ -217,7 +234,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 37 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 38 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", SupressMatchesErrors = true })));
 
             
@@ -228,7 +245,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 39 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 40 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -239,7 +256,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 40 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 41 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Purpose, FieldFlex.lone, null, EnumResources.ResourceManager)));
 
             
@@ -250,7 +267,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 41 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 42 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -261,7 +278,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 43 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 44 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, 
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
@@ -277,8 +294,8 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 49 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+            #line 50 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", SupressMatchesErrors = true })));
 
             
             #line default
@@ -288,7 +305,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 50 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Location, FieldFlex.lone)));
 
             
@@ -299,7 +316,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 52 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 53 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -310,7 +327,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 53 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 54 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             

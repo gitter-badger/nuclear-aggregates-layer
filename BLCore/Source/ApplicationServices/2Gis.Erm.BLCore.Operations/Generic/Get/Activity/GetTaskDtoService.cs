@@ -76,7 +76,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Status = ActivityStatus.InProgress,
                 };
 
-            var regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+            EntityReference regardingObject = null;
+            if (parentEntityName.CanBeRegardingObject())
+            {
+                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+            }
+            else if (parentEntityName == EntityName.Contact && parentEntityId.HasValue)
+            {
+                var client = _clientReadModel.GetClientByContact(parentEntityId.Value);
+                if (client != null)
+                {
+                    regardingObject = ToEntityReference(EntityName.Client, client.Id);
+                }
+            }
             if (regardingObject != null)
             {
                 dto.RegardingObjects = new[] { regardingObject };

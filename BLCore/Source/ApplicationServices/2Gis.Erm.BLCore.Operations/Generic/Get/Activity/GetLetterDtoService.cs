@@ -86,10 +86,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityName.User }
                 };
 
-            var regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+            var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName, parentEntityId) : null;
             if (regardingObject != null)
             {
                 dto.RegardingObjects = new[] { regardingObject };
+            }
+
+            var recipient = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
+            if (recipient != null)
+            {
+                dto.RecipientRef = recipient;
             }
 
             return dto;

@@ -1,5 +1,8 @@
 ﻿Ext.ns("Ext.DoubleGis.UI");
 Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
+    contactField: null,
+    contactComp: null,
+    contactRelationController: null,
     reagrdingObjectController: null,
     autoHeader: {
         prefix: null,
@@ -25,6 +28,9 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
 
     constructor: function (config) {
         Ext.DoubleGis.UI.ActivityBase.superclass.constructor.call(this, config);
+
+        this.contactField = config.contactField;
+        this.contactComp = config.contactComponent;
     },
     autocompleteHeader: function () {
         var prefix = this.getTitlePrefix();
@@ -93,6 +99,9 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     Build : function() {
         Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
 
+        if (this.contactField && this.contactComp) {
+            this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
+        }
         this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
 
         this.autoHeader.prefix = this.getTitlePrefix();

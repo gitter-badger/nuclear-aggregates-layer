@@ -78,10 +78,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Status = ActivityStatus.InProgress,
                 };
 
-            var regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+            var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName, parentEntityId) : null;
             if (regardingObject != null)
             {
                 dto.RegardingObjects = new[] { regardingObject };
+            }
+
+            var recipient = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
+            if (recipient != null)
+            {
+                dto.RecipientRef = recipient;
             }
 
             return dto;

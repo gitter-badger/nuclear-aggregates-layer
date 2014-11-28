@@ -669,6 +669,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Scripts\Activity\Ext.DoubleGis.UI.Phonecall.js" />
     <Content Include="Scripts\Activity\Ext.DoubleGis.UI.Letter.js" />
+    <Content Include="Scripts\Activity\Ext.DoubleGis.UI.ContactRelationController.js" />
     <Content Include="Scripts\Activity\Ext.DoubleGis.UI.RegardingObjectController.js" />
     <Content Include="Scripts\Activity\Ext.DoubleGis.UI.ActivityBase.js" />
     <Content Include="Scripts\Chile\DataList\Bill.DataList.js" />
