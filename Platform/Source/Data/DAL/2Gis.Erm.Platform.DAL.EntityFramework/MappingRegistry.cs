@@ -39,6 +39,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 			Mapper.CreateMap<AppointmentBase, Appointment>()
 			      .ForMember(dto => dto.Header, x => x.MapFrom(t => t.Subject))
 			      .ForMember(dto => dto.Status, x => x.MapFrom(t => (ActivityStatus)t.Status))
+			      .ForMember(dto => dto.Purpose, x => x.MapFrom(t => (ActivityPurpose)t.Purpose))
 				;
             Mapper.CreateMap<AppointmentReference, AppointmentRegardingObject>()
 			      .ForMember(dto => dto.SourceEntityId, x => x.MapFrom(t => t.AppointmentId))
@@ -123,6 +124,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 			Mapper.CreateMap<Appointment, AppointmentBase>()
 			      .ForMember(dto => dto.Subject, x => x.MapFrom(t => t.Header))
 			      .ForMember(dto => dto.Status, x => x.MapFrom(t => (int)t.Status))
+			      .ForMember(dto => dto.Purpose, x => x.MapFrom(t => (int)t.Purpose))
 				;
 			Mapper.CreateMap<AppointmentRegardingObject, AppointmentReference>()
 			      .ForMember(dest => dest.AppointmentId, cfg => cfg.MapFrom(src => src.SourceEntityId))
