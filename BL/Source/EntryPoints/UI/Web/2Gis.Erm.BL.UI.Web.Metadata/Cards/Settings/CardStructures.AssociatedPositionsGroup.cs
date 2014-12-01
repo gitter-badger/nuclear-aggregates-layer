@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .ConfigRelatedItems(UiElementMetadata.Config.Name.Static("AssociatedPosition")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelAssociatedPosition)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.AssociatedPosition));
+                                                             .Handler.ShowGridByConvention(EntityName.AssociatedPosition)
+                                                             .FilterToParent());
     }
 }

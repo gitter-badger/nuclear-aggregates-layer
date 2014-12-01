@@ -54,23 +54,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("ThemeOrganizationUnit")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelThemeOrganizationUnit)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.ThemeOrganizationUnit),
+                                                             .Handler.ShowGridByConvention(EntityName.ThemeOrganizationUnit)
+                                                             .FilterToParent()
+                                                             .AppendapleEntity<OrganizationUnit>(),
                                             UiElementMetadata.Config
                                                              .Name.Static("ThemeCategory")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelThemeCategory)
                                                              .LockOnNew()
                                                              .DisableOn<IThemeViewModel>(x => x.OrganizationUnitCount == 0)
-                                                             .Handler.ShowGridByConvention(EntityName.ThemeCategory),
-                                            UiElementMetadata.Config
-                                                             .Name.Static("Limits")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelLimits)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Limit),
-                                            UiElementMetadata.Config
-                                                             .Name.Static("Orders")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                             .Icon.Path("en_ico_16_Order.gif")
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Order));
+                                                             .Handler.ShowGridByConvention(EntityName.ThemeCategory)
+                                                             .FilterToParent()
+                                                             .AppendapleEntity<Category>());
     }
 }

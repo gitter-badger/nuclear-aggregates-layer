@@ -36,16 +36,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("OUBO")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOUBO)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit),
+                                                             .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit)
+                                                             .FilterToParent(),
                                             UiElementMetadata.Config
                                                              .Name.Static("Prices")
                                                              .Title.Resource(() => ErmConfigLocalization.EnMPrices)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Price),
+                                                             .Handler.ShowGridByConvention(EntityName.Price)
+                                                             .FilterToParent(),
                                             UiElementMetadata.Config
                                                              .Name.Static("Projects")
                                                              .Title.Resource(() => ErmConfigLocalization.EnMProjects)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Project));
+                                                             .Handler.ShowGridByConvention(EntityName.Project)
+                                                             .FilterToParent());
     }
 }

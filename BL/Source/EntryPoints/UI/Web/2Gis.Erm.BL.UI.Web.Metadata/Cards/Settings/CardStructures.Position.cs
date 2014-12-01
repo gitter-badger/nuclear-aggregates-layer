@@ -19,6 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
                                                              .LockOnNew()
                                                              .DisableOn<IPositionViewModel>(x => !x.IsComposite)
-                                                             .Handler.ShowGridByConvention(EntityName.Position));
+                                                             .Handler.ShowGridByConvention(EntityName.Position)
+                                                             .FilterToParent());
     }
 }

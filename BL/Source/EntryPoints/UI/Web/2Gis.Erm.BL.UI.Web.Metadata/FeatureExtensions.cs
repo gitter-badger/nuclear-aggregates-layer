@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
+﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata
@@ -10,9 +11,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
             return string.Format("/Grid/View/{0}", showGridHandler.EntityName);
         }
 
+        // Эта штука нужна только для тестирования. Потом Удалить.
         public static string ToDisabledExpression(this LockOnNewFeature feature)
         {
             return @"Ext.getDom(""Id"").value==0";
+        }
+
+        public static string ToExtendedInfo(this FilterToParentFeature feature)
+        {
+            return @"filterToParent=true";
         }
     }
 }

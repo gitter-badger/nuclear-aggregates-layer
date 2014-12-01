@@ -18,11 +18,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("FirmContacts")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmContacts)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.FirmContact),
+                                                             .Handler.ShowGridByConvention(EntityName.FirmContact)
+                                                             .FilterToParent(),
                                             UiElementMetadata.Config
                                                              .Name.Static("CategoryFirmAddress")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAddressCategories)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.CategoryFirmAddress));
+                                                             .Handler.ShowGridByConvention(EntityName.CategoryFirmAddress)
+                                                             .FilterToParent());
     }
 }

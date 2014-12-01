@@ -27,6 +27,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
                                                              .Icon.Path("en_ico_16_Firm.gif")
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Firm));
+                                                             .Handler.ShowGridByConvention(EntityName.Firm)
+                                                             .FilterToParent());
     }
 }

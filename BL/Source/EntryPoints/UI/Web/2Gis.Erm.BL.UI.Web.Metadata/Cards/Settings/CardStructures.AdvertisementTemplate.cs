@@ -41,6 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Name.Static("Children")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.AdsTemplatesAdsElementTemplate));
+                                                     .Handler.ShowGridByConvention(EntityName.AdsTemplatesAdsElementTemplate)
+                                                     .FilterToParent());
     }
 }

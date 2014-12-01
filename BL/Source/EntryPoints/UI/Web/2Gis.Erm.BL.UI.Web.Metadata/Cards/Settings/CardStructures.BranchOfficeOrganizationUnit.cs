@@ -50,6 +50,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Name.Static("PrintFormTemplates")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelPrintFormTemplates)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.PrintFormTemplate));
+                                                     .Handler.ShowGridByConvention(EntityName.PrintFormTemplate)
+                                                     .FilterToParent());
     }
 }

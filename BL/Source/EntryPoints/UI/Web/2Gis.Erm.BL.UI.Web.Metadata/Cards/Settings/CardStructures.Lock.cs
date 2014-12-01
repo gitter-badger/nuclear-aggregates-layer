@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("LockDetails")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelLockDetails)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.LockDetail));
+                                                             .Handler.ShowGridByConvention(EntityName.LockDetail)
+                                                             .FilterToParent());
     }
 }

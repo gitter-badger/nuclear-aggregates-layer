@@ -59,28 +59,32 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("FirmAddresses")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAddresses)
                                                              .LockOnInactive()
-                                                             .Handler.ShowGridByConvention(EntityName.FirmAddress),
+                                                             .Handler.ShowGridByConvention(EntityName.FirmAddress)
+                                                             .FilterToParent(),
 
                                             UiElementMetadata.Config
                                                              .Name.Static("FirmCategories")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelCategories)
                                                              .Icon.Path("en_ico_16_Category.gif")
                                                              .LockOnInactive()
-                                                             .Handler.ShowGridByConvention(EntityName.CategoryFirmAddress),
+                                                             .Handler.ShowGridByConvention(EntityName.CategoryFirmAddress)
+                                                             .FilterToParent(),
 
                                             UiElementMetadata.Config
                                                              .Name.Static("FirmAdvertisements")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAdvertisements)
                                                              .Icon.Path("en_ico_16_Advertisement.gif")
                                                              .LockOnInactive()
-                                                             .Handler.ShowGridByConvention(EntityName.Advertisement),
+                                                             .Handler.ShowGridByConvention(EntityName.Advertisement)
+                                                             .FilterToParent(),
 
                                             UiElementMetadata.Config
                                                              .Name.Static("Orders")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
                                                              .Icon.Path("en_ico_16_Order.gif")
                                                              .LockOnInactive()
-                                                             .Handler.ShowGridByConvention(EntityName.Order),
+                                                             .Handler.ShowGridByConvention(EntityName.Order)
+                                                             .FilterToParent(),
 
                                             UiElementMetadata.Config
                                                              .Name.Static("ActivityHistory")

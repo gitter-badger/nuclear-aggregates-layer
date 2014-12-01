@@ -49,11 +49,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Name.Static("BargainFiles")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelBargainFiles)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.BargainFile),
+                                                     .Handler.ShowGridByConvention(EntityName.BargainFile)
+                                                     .FilterToParent(),
                                     UiElementMetadata.Config
                                                      .Name.Static("Orders")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.Order));
+                                                     .Handler.ShowGridByConvention(EntityName.Order)
+                                                     .FilterToParent());
     }
 }

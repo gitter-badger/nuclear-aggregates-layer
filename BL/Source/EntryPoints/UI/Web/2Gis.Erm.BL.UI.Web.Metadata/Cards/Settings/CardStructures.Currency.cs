@@ -20,11 +20,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCurrencyRate)
                                                      .LockOnNew()
                                                      .DisableOn<ICurrencyViewModel>(x => x.IsBase)
-                                                     .Handler.ShowGridByConvention(EntityName.CurrencyRate),
+                                                     .Handler.ShowGridByConvention(EntityName.CurrencyRate)
+                                                     .FilterToParent(),
                                     UiElementMetadata.Config
                                                      .Name.Static("Country")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCountry)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.Country));
+                                                     .Handler.ShowGridByConvention(EntityName.Country)
+                                                     .FilterToParent());
     }
 }

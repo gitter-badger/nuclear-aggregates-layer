@@ -1,7 +1,9 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists;
 using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
@@ -157,6 +159,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             return builder.Name.Static("ContentTab")
                           .Title.Resource(() => ErmConfigLocalization.CrdRelInformation)
                           .Icon.Path("en_ico_16_Default.gif");
+        }
+
+        public static UiElementMetadataBuilder AppendapleEntity<TEntity>(this UiElementMetadataBuilder builder)
+            where TEntity : IEntity
+        {
+            return builder.WithFeatures(new AppendableEntityFeature(typeof(TEntity).AsEntityName()));
+        }
+
+        public static UiElementMetadataBuilder FilterToParent(this UiElementMetadataBuilder builder)
+        {
+            return builder.WithFeatures(new FilterToParentFeature());
         }
     }
 }

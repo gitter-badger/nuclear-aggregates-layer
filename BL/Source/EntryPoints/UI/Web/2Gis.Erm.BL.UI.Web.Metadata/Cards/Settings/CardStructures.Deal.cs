@@ -59,7 +59,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Icon.Path("en_ico_16_Order.gif")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Order),
+                                                             .Handler.ShowGridByConvention(EntityName.Order)
+                                                             .FilterToParent(),
                                             UiElementMetadata.Config
                                                              .Name.Static("Actions")
                                                              .Icon.Path("en_ico_16_Action.gif")
@@ -75,6 +76,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Icon.Path("en_ico_16_history.gif")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.FirmDeal));
+                                                             .Handler.ShowGridByConvention(EntityName.FirmDeal)
+                                                             .FilterToParent()
+                                                             .AppendapleEntity<Firm>());
     }
 }

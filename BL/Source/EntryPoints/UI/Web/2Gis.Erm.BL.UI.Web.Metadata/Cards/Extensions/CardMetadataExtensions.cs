@@ -136,9 +136,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                 if (showGridHandler != null)
                 {
                     result.RequestUrl = showGridHandler.ToRequestUrl();
-                    
-                    // Над этим нужно подумать
-                    result.AppendExtendedInfo("filterToParent=true");
                 }
             }
 
@@ -157,6 +154,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             if (lockOnNewFeature != null)
             {
                 result.AppendDisabledExpression(lockOnNewFeature.ToDisabledExpression());
+            }
+
+            var appendableEntityFeature = element.Features<AppendableEntityFeature>().SingleOrDefault();
+            if (appendableEntityFeature != null)
+            {
+                result.AppendableEntity = appendableEntityFeature.Entity.ToString();
+            }
+
+            var filterToParentFeature = element.Features<FilterToParentFeature>().SingleOrDefault();
+            if (filterToParentFeature != null)
+            {
+                result.AppendExtendedInfo(filterToParentFeature.ToExtendedInfo());
             }
 
             return result;

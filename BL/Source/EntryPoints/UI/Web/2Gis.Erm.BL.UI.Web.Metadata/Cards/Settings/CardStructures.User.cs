@@ -3,6 +3,7 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
@@ -33,16 +34,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("UserRole")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelUserRole)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.UserRole),
+                                                             .Handler.ShowGridByConvention(EntityName.UserRole)
+                                                             .FilterToParent()
+                                                             .AppendapleEntity<Role>(),
                                             UiElementMetadata.Config
                                                              .Name.Static("UserTerritory")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelUserTerritory)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.UserTerritory),
+                                                             .Handler.ShowGridByConvention(EntityName.UserTerritory)
+                                                             .FilterToParent()
+                                                             .AppendapleEntity<Territory>(),
                                             UiElementMetadata.Config
                                                              .Name.Static("UserOrganizationUnit")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelUserOrganizationUnit)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.UserOrganizationUnit));
+                                                             .Handler.ShowGridByConvention(EntityName.UserOrganizationUnit)
+                                                             .FilterToParent()
+                                                             .AppendapleEntity<OrganizationUnit>());
     }
 }

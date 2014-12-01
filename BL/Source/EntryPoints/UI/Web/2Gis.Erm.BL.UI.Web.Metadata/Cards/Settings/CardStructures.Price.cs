@@ -21,7 +21,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelPricePosition)
                                                              .Icon.Path("en_ico_16_PricePosition.gif")
                                                              .Handler.ShowGridByConvention(EntityName.PricePosition)
-                                                             .LockOnNew())
+                                                             .LockOnNew()
+                                                             .FilterToParent())
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<Price>(),
                                     UiElementMetadata.Config.SplitterAction(),

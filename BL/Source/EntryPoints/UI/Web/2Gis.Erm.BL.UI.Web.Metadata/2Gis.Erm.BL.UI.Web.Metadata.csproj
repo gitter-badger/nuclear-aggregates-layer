@@ -52,6 +52,8 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Cards\FilterToParentFeature.cs" />
+    <Compile Include="Cards\AppendableEntityFeature.cs" />
     <Compile Include="Cards\Extensions\CardMetadataBuilderExtensions.cs" />
     <Compile Include="Cards\Extensions\CardMetadataExtensions.cs" />
     <Compile Include="Cards\CardMetadataSource.cs" />

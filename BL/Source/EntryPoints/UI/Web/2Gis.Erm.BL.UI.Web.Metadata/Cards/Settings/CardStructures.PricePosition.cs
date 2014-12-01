@@ -39,7 +39,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("AssociatedPositionsGroup")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelAssociatedPositionsGroup)
                                                              .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.AssociatedPositionsGroup),
+                                                             .Handler.ShowGridByConvention(EntityName.AssociatedPositionsGroup)
+                                                             .FilterToParent(),
                                             UiElementMetadata.Config
                                                              .Name.Static("DeniedPosition")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelDeniedPosition)

@@ -21,11 +21,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCategory)
                                                      .LockOnNew()
                                                      .Icon.Path("en_ico_16_Category.gif")
-                                                     .Handler.ShowGridByConvention(EntityName.Category),
+                                                     .Handler.ShowGridByConvention(EntityName.Category)
+                                                     .FilterToParent(),
                                     UiElementMetadata.Config
                                                      .Name.Static("CategoryOrganizationUnit")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCategoryOU)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.CategoryOrganizationUnit));
+                                                     .Handler.ShowGridByConvention(EntityName.CategoryOrganizationUnit)
+                                                     .FilterToParent()
+                                                     .AppendapleEntity<OrganizationUnit>());
     }
 }

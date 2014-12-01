@@ -129,21 +129,25 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Name.Static("Bills")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.Bill),
+                                                     .Handler.ShowGridByConvention(EntityName.Bill)
+                                                     .FilterToParent(),
                                     UiElementMetadata.Config
                                                      .Name.Static("Locks")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.Lock),
+                                                     .Handler.ShowGridByConvention(EntityName.Lock)
+                                                     .FilterToParent(),
                                     UiElementMetadata.Config
                                                      .Name.Static("OrderFiles")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.OrderFile),
+                                                     .Handler.ShowGridByConvention(EntityName.OrderFile)
+                                                     .FilterToParent(),
                                     UiElementMetadata.Config
                                                      .Name.Static("OrderProcessingRequests")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelOrderProcessingRequests)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.OrderProcessingRequest));
+                                                     .Handler.ShowGridByConvention(EntityName.OrderProcessingRequest)
+                                                     .FilterToParent());
     }
 }

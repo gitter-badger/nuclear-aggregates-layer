@@ -19,6 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Name.Static("BOOU")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelBOOU)
                                                      .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit));
+                                                     .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit)
+                                                     .FilterToParent());
     }
 }
