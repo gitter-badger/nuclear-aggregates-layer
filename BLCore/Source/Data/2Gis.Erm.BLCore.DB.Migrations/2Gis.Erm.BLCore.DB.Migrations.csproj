@@ -332,6 +332,10 @@
     <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrderPosition].sql" />
     <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrder].sql" />
     <Content Include="Resources\2014.10.19 rev. 25335\[BusinessDirectory].[ReplicateFirmAddresses].sql" />
+    <Content Include="Resources\201411261501\ReplicateDeals.sql" />
+    <Content Include="Resources\201411261501\ReplicateLegalPersons.sql" />
+    <Content Include="Resources\201411261501\ReplicateLimits.sql" />
+    <Content Include="Resources\201411261501\ReplicateOrders.sql" />
     <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create CleanupERM SP.sql">
       <LogicalName>Migration6766CreateCleanupERM</LogicalName>
       <DependentUpon>2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs</DependentUpon>
@@ -739,7 +743,7 @@
     <Compile Include="2.1\2014.08.06 rev. 23021 - Alter ImportFirmFromXml.cs" />
     <Compile Include="2.1\2014.07.15 rev. 22338 - Disable RegionalApiAdvertisementsOrderValidationRule.cs" />
     <Compile Include="2.1\2014.07.23 rev. 22571 - Deal profit indicators removed.cs" />
-    <Compile Include="2.1\2014.07.24 rev. 22672 - MsCRM drop deal profits indicators.cs" />    
+    <Compile Include="2.1\2014.07.24 rev. 22672 - MsCRM drop deal profits indicators.cs" />
     <Compile Include="2.1\2014.08.19 rev. 23425 - Alter ImportFirmFromXml.cs" />
     <Compile Include="2.1\2014.07.22 rev. 22529 - Fill column TerritoryId by BuildingCode in FirmAddresses.cs" />
     <Compile Include="2.1\2014.07.23 rev. 22583 - Alter Shared.GetFirmTerritories and Integration.UpdateBuildings.cs" />
@@ -761,6 +765,7 @@
     <Compile Include="2.1\2014.10.20 rev. 25393 - Alter OrderValidationResults.cs" />
     <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
+    <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
