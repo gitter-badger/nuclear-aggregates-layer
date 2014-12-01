@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -13,7 +14,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public class ThemeViewModel : FileViewModel<Theme>
+    public class ThemeViewModel : FileViewModel<Theme>, IThemeViewModel
     {
         [NonZeroInteger]
         [RequiredLocalized]

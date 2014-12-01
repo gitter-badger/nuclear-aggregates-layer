@@ -1,4 +1,5 @@
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -12,7 +13,7 @@ using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureFirmAddressViewModel : EntityViewModelBase<FirmAddress>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IKazakhstanAdapted
+    public sealed class MultiCultureFirmAddressViewModel : EntityViewModelBase<FirmAddress>, IFirmAddressViewModel, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         public LookupField Firm { get; set; }
 

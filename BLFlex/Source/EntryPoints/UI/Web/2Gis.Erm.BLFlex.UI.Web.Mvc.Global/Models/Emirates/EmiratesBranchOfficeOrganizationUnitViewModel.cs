@@ -1,4 +1,4 @@
-using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;

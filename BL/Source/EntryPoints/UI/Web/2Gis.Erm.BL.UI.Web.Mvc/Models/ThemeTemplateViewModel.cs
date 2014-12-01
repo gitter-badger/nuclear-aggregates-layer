@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -11,7 +12,7 @@ using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public class ThemeTemplateViewModel : FileViewModel<ThemeTemplate>
+    public class ThemeTemplateViewModel : FileViewModel<ThemeTemplate>, IThemeTemplateViewModel
     {
         public ThemeTemplateCode TemplateCode { get; set; }
 

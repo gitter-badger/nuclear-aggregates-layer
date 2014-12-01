@@ -53,26 +53,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Cards\CardMetadataSource.cs" />
-    <Compile Include="Cards\Settings\CardStructures.cs" />
-    <Compile Include="Cards\Settings\CardStructures.Order.cs" />
     <Compile Include="DI\BlUiMetadataAssembly.cs" />
-    <Compile Include="Models\Contracts\IAdvertisementElementTemplateViewModel.cs" />
-    <Compile Include="Models\Contracts\IAdvertisementTemplateViewModel.cs" />
-    <Compile Include="Models\Contracts\IAppointmentViewModel.cs" />
-    <Compile Include="Models\Contracts\ICurrencyViewModel.cs" />
-    <Compile Include="Models\Contracts\ICountryViewModel.cs" />
-    <Compile Include="Models\Contracts\IContributionTypeViewModel.cs" />
-    <Compile Include="Models\Contracts\IContactViewModel.cs" />
-    <Compile Include="Models\Contracts\IClientViewModel.cs" />
-    <Compile Include="Models\Contracts\IBargainTypeViewModel.cs" />
-    <Compile Include="Models\Contracts\IAdvertisementViewModel.cs" />
-    <Compile Include="Models\Contracts\IBargainFileViewModel.cs" />
-    <Compile Include="Models\Contracts\ICategoryGroupViewModel.cs" />
-    <Compile Include="Models\Contracts\ICategoryViewModel.cs" />
-    <Compile Include="Models\Contracts\IBargainViewModel.cs" />
-    <Compile Include="Models\Contracts\IBillViewModel.cs" />
-    <Compile Include="Models\Contracts\IBranchOfficeOrganizationUnitViewModel.cs" />
-    <Compile Include="Models\Contracts\IBranchOfficeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
@@ -99,6 +80,9 @@
       <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cards\Settings\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

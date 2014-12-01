@@ -1390,7 +1390,7 @@
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
 					<RelatedItem Name="FirmAddresses" NameLocaleResourceId="CrdRelFirmAddresses" RequestUrl="/Grid/View/FirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="FirmCategories" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="firmId={Id}" />
+					<RelatedItem Name="FirmCategories" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="FirmAdvertisements" NameLocaleResourceId="CrdRelFirmAdvertisements" Icon="en_ico_16_Advertisement.gif" RequestUrl="/Grid/View/Advertisement" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=10013&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
@@ -2759,11 +2759,6 @@
 				<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
 				<ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
 			</ToolbarItems>
-			<RelatedItems>
-				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
-					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" />
-				</RelatedItemsArea>
-			</RelatedItems>
 		</Card>
 		<DataLists>
 			<DataList NameLocaleResourceId="DListThemeTemplateActive" DefaultSortField="TemplateCode" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="TemplateCode" Icon="en_ico_16_Default.gif">
@@ -2968,11 +2963,6 @@
 				<ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="0" />
 				<ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" SecurityPrivelegeFlag="0" />
 			</ToolbarItems>
-			<RelatedItems>
-				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
-					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_UserAccount.gif" />
-				</RelatedItemsArea>
-			</RelatedItems>
 		</Card>
 	</Entity>
 	<Entity Name="UserTerritory">

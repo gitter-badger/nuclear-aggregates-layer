@@ -2,6 +2,7 @@
 using System.Globalization;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
@@ -15,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesLegalPersonViewModel : EntityViewModelBase<LegalPerson>, IEmiratesAdapted
+    public sealed class EmiratesLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalPersonViewModel, IEmiratesAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

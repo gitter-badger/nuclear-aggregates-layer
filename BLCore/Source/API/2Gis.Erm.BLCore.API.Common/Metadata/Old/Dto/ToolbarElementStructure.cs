@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
+﻿using System;
+
+namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
 {
     public sealed class ToolbarElementStructure
     {
@@ -14,9 +16,13 @@
         public bool DisableOnEmpty { get; set; }
 
         // [JsonIgnore] fields
+        [Obsolete]
         public int? SecurityPrivelege { get; set; }
+        [Obsolete]
         public string NameLocaleResourceId { get; set; }
+        [Obsolete]
         public bool LockOnInactive { get; set; }
+        [Obsolete]
         public bool LockOnNew { get; set; }
     }
 }

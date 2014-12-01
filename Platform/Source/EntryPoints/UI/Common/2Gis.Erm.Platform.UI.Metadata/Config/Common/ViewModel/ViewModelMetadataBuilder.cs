@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
 {
     public abstract class ViewModelMetadataBuilder<TBuilder, TElement> : MetadataElementBuilder<TBuilder, TElement>
         where TBuilder : ViewModelMetadataBuilder<TBuilder, TElement>, new()
-        where TElement : ViewModelMetadata<TElement, TBuilder> 
+        where TElement : ViewModelMetadata
     {
         private readonly TitleFeatureAspect<TBuilder, TElement> _title;
         private readonly OperationFeatureAspect<TBuilder, TElement> _operation;

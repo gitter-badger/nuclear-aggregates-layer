@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata OrderPosition =
-            CardMetadata.Config.For<OrderPosition>()
+            CardMetadata.For<OrderPosition>()
                         .MVVM.Bind<OrderPositionViewModel, OrderPositionView>()
                         .Localizator(typeof(MetadataResources), typeof(BLResources), typeof(EnumResources), typeof(ErmConfigLocalization));
     }

@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata Account =
-            CardMetadata.Config.For<Account>()
+            CardMetadata.For<Account>()
                         .MVVM.Bind<DynamicCardViewModel, AccountView>()
                         .WithDynamicProperties()
                         .Validator.Dynamic<DynamicViewModelValidator<DynamicViewModel>, DynamicViewModel>()

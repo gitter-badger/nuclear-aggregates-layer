@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+﻿using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -7,7 +8,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class PlatformViewModel : EditableIdEntityViewModelBase<Platform.Model.Entities.Erm.Platform>
+    public sealed class PlatformViewModel : EditableIdEntityViewModelBase<Platform.Model.Entities.Erm.Platform>, IPlatformViewModel
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

@@ -2,7 +2,6 @@
 using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
@@ -21,8 +20,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .LockOnInactive()
                           .Handler.Name("scope.Save")
                           .Icon.Path("Save.gif")
-                          .AccessWithPrivelege(EntityAccessTypes.Create, typeof(TEntity).AsEntityName())
-                          .AccessWithPrivelege(EntityAccessTypes.Update, typeof(TEntity).AsEntityName())
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                           .Operation.SpecificFor<CreateIdentity, TEntity>()
                           .Operation.SpecificFor<UpdateIdentity, TEntity>();
         }
@@ -61,8 +60,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .LockOnInactive()
                           .Handler.Name("scope.SaveAndClose")
                           .Icon.Path("SaveAndClose.gif")
-                          .AccessWithPrivelege(EntityAccessTypes.Create, typeof(TEntity).AsEntityName())
-                          .AccessWithPrivelege(EntityAccessTypes.Update, typeof(TEntity).AsEntityName())
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                           .Operation.SpecificFor<CreateIdentity, TEntity>()
                           .Operation.SpecificFor<UpdateIdentity, TEntity>()
                           .Operation.NonCoupled<CloseIdentity>();
@@ -93,6 +92,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.SpecificFor<QualifyIdentity, TEntity>();
         }
 
+        public static UiElementMetadataBuilder ActivateAction<TEntity>(this UiElementMetadataBuilder builder)
+           where TEntity : class, IEntity
+        {
+            return builder.Name.Static("Activate")
+                          .Title.Resource(() => ErmConfigLocalization.ControlActivate)
+                          .ControlType(ControlType.TextImageButton)
+                          .LockOnNew()
+                          .Handler.Name("scope.Activate")
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
+                          .Operation.SpecificFor<ActivateIdentity, TEntity>();
+        }
+
         public static UiElementMetadataBuilder RefreshAction<TEntity>(this UiElementMetadataBuilder builder)
             where TEntity : class, IEntity
         {
@@ -102,6 +113,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Handler.Name("scope.refresh")
                           .Icon.Path("Refresh.gif")
                           .Operation.SpecificFor<GetDomainEntityDtoIdentity, TEntity>();
+        }
+
+        // COMMENT {all, 28.11.2014}: А почему не assign?
+        public static UiElementMetadataBuilder ChangeOwnerAction<TEntity>(this UiElementMetadataBuilder builder)
+            where TEntity : class, IEntity
+        {
+            return builder.Name.Static("ChangeOwner")
+                          .Title.Resource(() => ErmConfigLocalization.ControlChangeOwner)
+                          .ControlType(ControlType.ImageButton)
+                          .LockOnInactive()
+                          .Handler.Name("scope.ChangeOwner")
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Assign)
+                          .Operation.SpecificFor<AssignIdentity, TEntity>();
         }
 
         public static UiElementMetadataBuilder AssignAction<TEntity>(this UiElementMetadataBuilder builder)

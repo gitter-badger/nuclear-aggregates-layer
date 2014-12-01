@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -13,7 +14,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class PhonecallViewModel : ActivityBaseViewModelAbstract<Phonecall>, IRussiaAdapted
+    public sealed class PhonecallViewModel : ActivityBaseViewModelAbstract<Phonecall>, IPhonecallViewModel, IRussiaAdapted
     {
 		public PhonecallViewModel()
 			: base(ActivityType.Phonecall)

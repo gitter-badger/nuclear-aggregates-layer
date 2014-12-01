@@ -144,6 +144,51 @@
     <Compile Include="Entities\Properties\EntityProperties.WithdrawalInfo.cs" />
     <Compile Include="Operations\ClientOperationIdentityIds.cs" />
     <Compile Include="Operations\Generic\CloseIdentity.cs" />
+    <Compile Include="ViewModels\Contracts\IAdvertisementElementTemplateViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IAdvertisementTemplateViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IAdvertisementViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IUserViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ITerritoryViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IThemeTemplateViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IThemeViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ITaskViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IRoleViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IProjectViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IPrintFormTemplateViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IPriceViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IPositionCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IPricePositionViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IPositionViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IPlatformViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IPhoneCallViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IAppointmentViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IOrganizationUnitViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IOrderFileViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IBargainFileViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IBargainTypeViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IBargainViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IBillViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IBranchOfficeViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ICategoryGroupViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ICategoryViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IOrderProcessingRequestViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IOrderViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IOperationTypeViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IClientViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IContactViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IContributionTypeViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ICountryViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ICurrencyViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IDealViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IFirmAddressViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IFirmContactViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IFirmViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ILegalPersonProfileViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ILegalPersonViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\INoteViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IOperationViewModel.cs" />
     <Compile Include="ViewModels\IEntityViewModelAbstract.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +203,10 @@
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
       <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
       <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>

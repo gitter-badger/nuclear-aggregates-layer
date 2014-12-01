@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.BranchOfficeOrganizationUnit;
@@ -13,8 +13,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata BranchOfficeOrganizationUnit =
-            CardMetadata.Config
-                        .For<BranchOfficeOrganizationUnit>()
+            CardMetadata.For<BranchOfficeOrganizationUnit>()
                         .MainAttribute<BranchOfficeOrganizationUnit, IBranchOfficeOrganizationUnitViewModel>(x => x.ShortLegalName)                
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<BranchOfficeOrganizationUnit>(),
@@ -46,10 +45,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                                  .Operation.NonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity>()),
                                     UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config.CloseAction())
-                        .RelatedItems
-                            .Name("Information")
-                            .Title(() => ErmConfigLocalization.CrdRelInformationHeader)
-                            .Attach(UiElementMetadata.Config.ContentTab(),
+                        .ConfigRelatedItems(
                                     UiElementMetadata.Config
                                                      .Name.Static("PrintFormTemplates")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelPrintFormTemplates)

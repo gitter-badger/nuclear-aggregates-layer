@@ -12,8 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata LegalPerson =
-            CardMetadata.Config
-                        .For<LegalPerson>()
+            CardMetadata.For<LegalPerson>()
                         .Parts.Use(() => BLResources.AdministrationTabTitle)
                         .MVVM.Bind<DynamicCardViewModel, LegalPersonView>()
                         .WithDynamicProperties()

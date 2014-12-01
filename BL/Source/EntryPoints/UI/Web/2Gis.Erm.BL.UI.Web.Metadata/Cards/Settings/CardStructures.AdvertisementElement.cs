@@ -14,9 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata AdvertisementElement =
-            CardMetadata.Config
-                        .For<AdvertisementElement>()
-                        .MainAttribute<AdvertisementElement>(x => x.Id)
+            CardMetadata.For<AdvertisementElement>()
+                        .MainAttribute(x => x.Id)
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<AdvertisementElement>(),
                                     
@@ -36,8 +35,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .LockOnInactive()
                                                      .Handler.Name("scope.SaveAndVerify")
                                                      .Icon.Path("Save.gif")
-                                                     .AccessWithPrivelege(EntityAccessTypes.Create, EntityName.AdvertisementElement)
-                                                     .AccessWithPrivelege(EntityAccessTypes.Update, EntityName.AdvertisementElement)
+                                                     .AccessWithPrivelege<AdvertisementElement>(EntityAccessTypes.Create)
+                                                     .AccessWithPrivelege<AdvertisementElement>(EntityAccessTypes.Update)
                                                      .Operation.SpecificFor<CreateIdentity, AdvertisementElement>()
                                                      .Operation.SpecificFor<UpdateIdentity, AdvertisementElement>()
                                                      .Operation.NonCoupled<ChangeAdvertisementElementStatusIdentity>(),

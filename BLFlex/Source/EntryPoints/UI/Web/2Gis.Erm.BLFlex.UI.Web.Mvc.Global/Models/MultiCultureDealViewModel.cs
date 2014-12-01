@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -16,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
     // TODO {y.baranihin, 18.09.2014}: Все I*Adapted собрались тут? Тогда можно, как в тетрисе, строчку стирать.
     // COMMENT {a.rechkalov, 19.09.2014}: При текущей реализации IAdapted на ViewModel - IAdapted View'хи. В данном случае вьюхи различны.
-    public sealed class MultiCultureDealViewModel : EntityViewModelBase<Deal>, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
+    public sealed class MultiCultureDealViewModel : EntityViewModelBase<Deal>, IDealViewModel, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         [Dependency(DependencyType.Required, "Name", "this.value != 0")]
         public override long Id { get; set; }

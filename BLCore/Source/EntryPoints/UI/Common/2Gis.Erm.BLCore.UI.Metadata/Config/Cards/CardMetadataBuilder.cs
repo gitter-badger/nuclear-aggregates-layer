@@ -15,56 +15,58 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
-    public sealed class CardMetadataBuilder : ViewModelMetadataBuilder<CardMetadataBuilder, CardMetadata>
+    public sealed class CardMetadataBuilder<TEntity> : ViewModelMetadataBuilder<CardMetadataBuilder<TEntity>, CardMetadata>
+        where TEntity : IEntity
     {
-        private readonly TitleFeatureAspect<CardMetadataBuilder, CardMetadata> _title;
-        private readonly ImageFeatureAspect<CardMetadataBuilder, CardMetadata> _icon;
-        private readonly RelatedItemsFeatureAspect<CardMetadataBuilder, CardMetadata> _relatedItems;
-        private readonly ActionsFeatureAspect<CardMetadataBuilder, CardMetadata> _actions;
+        private readonly TitleFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _title;
+        private readonly ImageFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _icon;
+        private readonly RelatedItemsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _relatedItems;
+        private readonly ActionsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _actions;
 
-        private EntityName _entityName;
+        private readonly EntityName _entityName;
 
         public CardMetadataBuilder()
         {
-            _title = new TitleFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
-            _icon = new ImageFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
-            _relatedItems = new RelatedItemsFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
-            _actions = new ActionsFeatureAspect<CardMetadataBuilder, CardMetadata>(this);
+            _title = new TitleFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata>(this);
+            _icon = new ImageFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata>(this);
+            _relatedItems = new RelatedItemsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata>(this);
+            _actions = new ActionsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata>(this);
+            _entityName = typeof(TEntity).AsEntityName();
         }
 
-        public TitleFeatureAspect<CardMetadataBuilder, CardMetadata> Title
+        public TitleFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> Title
         {
             get { return _title; }
         }
 
-        public ImageFeatureAspect<CardMetadataBuilder, CardMetadata> Icon
+        public ImageFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> Icon
         {
             get { return _icon; }
         }
 
-        public new RelatedItemsFeatureAspect<CardMetadataBuilder, CardMetadata> RelatedItems
+        public new RelatedItemsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> RelatedItems
         {
             get { return _relatedItems; }
         }
 
-        public new ActionsFeatureAspect<CardMetadataBuilder, CardMetadata> Actions
+        public new ActionsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> Actions
         {
             get { return _actions; }
         }
 
-        public CardMetadataBuilder EntityLocalization<TKey>(Expression<Func<TKey>> resourceKeyExpression)
+        public CardMetadataBuilder<TEntity> EntityLocalization<TKey>(Expression<Func<TKey>> resourceKeyExpression)
         {
             AddFeatures(new EntityNameLocalizationFeature(StringResourceDescriptor.Create(resourceKeyExpression)));
             return this;
         }
 
-        public CardMetadataBuilder WithAdminTab()
+        public CardMetadataBuilder<TEntity> WithAdminTab()
         {
             AddFeatures(new PartFeature(ResourceTitleDescriptor.Create(() => BLResources.AdministrationTabTitle), new StaticTitleDescriptor("AdministrationTab")));
             return this;
         }
 
-        public CardMetadataBuilder WithComments()
+        public CardMetadataBuilder<TEntity> WithComments()
         {
             AddFeatures(new PartFeature(
                 
@@ -72,19 +74,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
                 ResourceTitleDescriptor.Create(() => BLResources.Notes),
                 new StaticTitleDescriptor("notesTab")));
             return this;
-        }
-
-        public CardMetadataBuilder For<TEntity>()
-            where TEntity : IEntity
-        {
-            _entityName = typeof(TEntity).AsEntityName();
-            return new CardMetadataBuilder();
-        }
-
-        public CardMetadataBuilder For(EntityName entityName)
-        {
-            _entityName = entityName;
-            return new CardMetadataBuilder();
         }
 
         protected override CardMetadata Create()

@@ -1,4 +1,5 @@
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -10,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class OrderFileViewModel : FileViewModel<OrderFile>
+    public sealed class OrderFileViewModel : FileViewModel<OrderFile>, IOrderFileViewModel
     {
         [PresentationLayerProperty]
         public long OrderId { get; set; }

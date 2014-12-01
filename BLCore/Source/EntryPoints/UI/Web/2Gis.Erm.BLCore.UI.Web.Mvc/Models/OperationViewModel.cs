@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -12,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
 {
-    public class OperationViewModel : EntityViewModelBase<Operation>
+    public class OperationViewModel : EntityViewModelBase<Operation>, IOperationViewModel
     {
         [DisplayNameLocalized("OperationDescription")]
         public string Description { get; set; }

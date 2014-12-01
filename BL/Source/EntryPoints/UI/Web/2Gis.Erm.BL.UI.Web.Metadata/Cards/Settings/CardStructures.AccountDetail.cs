@@ -8,9 +8,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata AccountDetail =
-            CardMetadata.Config
-                        .For<AccountDetail>()
-                        .MainAttribute<AccountDetail>(x => x.Id)
+            CardMetadata.For<AccountDetail>()
+                        .MainAttribute(x => x.Id)
                         .Actions.Attach(UiElementMetadata.Config.SaveAction<AccountDetail>(),
                                         UiElementMetadata.Config.SaveAndCloseAction<AccountDetail>(),
                                         UiElementMetadata.Config.RefreshAction<AccountDetail>(),

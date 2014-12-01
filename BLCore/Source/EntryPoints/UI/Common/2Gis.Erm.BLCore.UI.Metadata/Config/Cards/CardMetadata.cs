@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
@@ -17,12 +18,12 @@ using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
-    public sealed class CardMetadata : ViewModelMetadata<CardMetadata, CardMetadataBuilder>,
-        ITitledElement, 
-        IRelatedItemsHost, 
-        IActionsContained,
-        IPartsContainerElement,
-        IImageBoundElement
+    public sealed class CardMetadata : ViewModelMetadata,
+                                       ITitledElement,
+                                       IRelatedItemsHost,
+                                       IActionsContained,
+                                       IPartsContainerElement,
+                                       IImageBoundElement
     {
         private readonly EntityName _entity;
         private readonly IMetadataElementIdentity _identity;
@@ -93,6 +94,12 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
                 var feature = Features.OfType<ImageFeature>().SingleOrDefault();
                 return feature != null ? feature.ImageDescriptor : null;
             }
+        }
+
+        public static CardMetadataBuilder<TEntity> For<TEntity>()
+            where TEntity : IEntity
+        {
+            return new CardMetadataBuilder<TEntity>();
         }
     }
 }

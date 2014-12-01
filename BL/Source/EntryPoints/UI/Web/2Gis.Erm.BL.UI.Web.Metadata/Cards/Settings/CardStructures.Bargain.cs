@@ -1,9 +1,10 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.UI.Metadata.Models.Contracts;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
 
@@ -12,8 +13,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata Bargain =
-            CardMetadata.Config
-                        .For<Bargain>()
+            CardMetadata.For<Bargain>()
                         .MainAttribute<Bargain, IBargainViewModel>(x => x.Number)                
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<Bargain>(),
@@ -27,13 +27,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                            .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                                                                            .ControlType(ControlType.TextButton)
                                                                                            .LockOnNew()
-                                                                                           .Handler.Name("scope.PrintBargain"),
+                                                                                           .Handler.Name("scope.PrintBargain")
+                                                                                           .Operation.SpecificFor<PrintIdentity, Bargain>(),
                                                                           UiElementMetadata.Config
                                                                                            .Name.Static("PrintNewSalesModelBargainAction")
                                                                                            .Title.Resource(() => ErmConfigLocalization.ControlPrintNewSalesModelBargainAction)
                                                                                            .ControlType(ControlType.TextButton)
                                                                                            .LockOnNew()
-                                                                                           .Handler.Name("scope.PrintNewSalesModelBargain"),
+                                                                                           .Handler.Name("scope.PrintNewSalesModelBargain")
+                                                                                           .Operation.SpecificFor<PrintIdentity, Bargain>(),
                                                                           UiElementMetadata.Config
                                                                                            .Name.Static("PrintBargainProlongationAgreementAction")
                                                                                            .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainProlongationAgreementAction)
@@ -42,10 +44,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                            .Handler.Name("scope.PrintBargainProlongationAgreement")),
                                     UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config.CloseAction())
-                        .RelatedItems
-                            .Name("Information")
-                            .Title(() => ErmConfigLocalization.CrdRelInformationHeader)
-                            .Attach(UiElementMetadata.Config.ContentTab(),
+                        .ConfigRelatedItems(
                                     UiElementMetadata.Config
                                                      .Name.Static("BargainFiles")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelBargainFiles)

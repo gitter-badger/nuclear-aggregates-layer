@@ -7,8 +7,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata AdvertisementElementStatus =
-            CardMetadata.Config
-                        .For<AdvertisementElementStatus>()
-                        .MainAttribute<AdvertisementElementStatus>(x => x.Id);
+            CardMetadata.For<AdvertisementElementStatus>()
+                        .MainAttribute(x => x.Id);
     }
 }

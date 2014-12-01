@@ -18,8 +18,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
     public static partial class CardStructures
     {
         public static readonly CardMetadata Order =
-            CardMetadata.Config
-                        .For<Order>()
+            CardMetadata.For<Order>()
                         .Parts.Use(
                                    () => BLResources.TitlePlacement,
                                    () => BLResources.TitleDiscount,
