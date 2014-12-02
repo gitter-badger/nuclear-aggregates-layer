@@ -13,6 +13,7 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -26,21 +27,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
         private const string EntitySettingsResourceEntry = "EntitySettings.xml";
         private const string EntitySettingsResourceEntryFormat = "EntitySettings.{0}.xml";
 
-        private static readonly Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>> CardSettings = ParseCardSettings();
+        #region Корректировка метаданных
 
-        private readonly IGlobalizationSettings _globalizationSettings;
-
-        private readonly ICardSettingsProvider _cardSettingsProvider;
-
-        public UICardConfigurationService(IGlobalizationSettings globalizationSettings, ICardSettingsProvider cardSettingsProvider)
-        {
-            _globalizationSettings = globalizationSettings;
-            _cardSettingsProvider = cardSettingsProvider;
-        }
-
-         private readonly IDictionary<EntityName, IDictionary<string, IDictionary<string, Tuple<object, object>>>> _cardMetadataCorrections =
+        private readonly IDictionary<EntityName, IDictionary<string, IDictionary<string, Tuple<object, object>>>> _cardMetadataCorrections =
             new Dictionary<EntityName, IDictionary<string, IDictionary<string, Tuple<object, object>>>>
                 {
+                    #region Заказ
                     {
                         EntityName.Order,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -64,10 +56,140 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                                 new Tuple<object, object>(false, true)
                                             },
                                         }
-                                }
+                                },
+                                {
+                                    "PrintOrderAction",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
+                                {
+                                    "PrintLetterOfGuarantee",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                            },
+                                        }
+                                },
+                                {
+                                    "ChangeDeal",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                            },
+                                        }
+                                },
+                                {
+                                    "CheckOrder",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                            },
+                                        }
+                                },
+                                {
+                                    "CloseWithDenial",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                            },
+                                        }
+                                },
+                                {
+                                    "CopyOrder",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                            },
+                                        }
+                                },
+                                {
+                                    "SwitchToAccount",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                            },
+                                        }
+                                },
                             }
                     },
+
+                    #endregion
+
+                    #region Юр лицо
+                    {
+                        EntityName.LegalPerson,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "ChangeLegalPersonClient",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                            },
+                                        }
+                                },
+                                {
+                                    "ChangeLPRequisites",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
                 };
+        #endregion
+
+        private static readonly Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>> CardSettings = ParseCardSettings();
+
+        private readonly IGlobalizationSettings _globalizationSettings;
+
+        private readonly ICardSettingsProvider _cardSettingsProvider;
+
+        private readonly ICommonLog _commonLog;
+
+        public UICardConfigurationService(IGlobalizationSettings globalizationSettings, ICardSettingsProvider cardSettingsProvider, ICommonLog commonLog)
+        {
+            _globalizationSettings = globalizationSettings;
+            _cardSettingsProvider = cardSettingsProvider;
+            _commonLog = commonLog;
+        }
 
         public CardStructure GetCardSettings(EntityName entityName, CultureInfo culture)
         {
@@ -129,11 +251,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             var errors = GetCardSettingsErrors(localizedCardSettings, codedCardSettings, entityName);
             if (errors.Any())
             {
-                throw new InvalidDataException(string.Format("Для карточки {0} обнаружены следующие расхождения в метаданных: {1}",
-                                                             entityName,
-                                                             string.Join(";" + Environment.NewLine, errors)));
+                var errorMessage = string.Format("Для карточки {0} обнаружены следующие расхождения в метаданных: {1}",
+                                                 entityName,
+                                                 string.Join(";" + Environment.NewLine, errors));
+
+                _commonLog.ErrorEx(errorMessage);
+                //throw new InvalidDataException(errorMessage);
             }
 
+            //return localizedCardSettings;
             return codedCardSettings;
         }
 
@@ -682,7 +808,27 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 var func = propertyExpression.Compile();
                 var xmlValue = func.Invoke(xmlData);
                 var codeValue = func.Invoke(codeData);
-                if (xmlValue != codeValue && !xmlValue.Equals(codeValue))
+
+                if (corrections != null && corrections.ContainsKey(propertyName))
+                {
+                    if (xmlValue != corrections[propertyName].Item1 && !xmlValue.Equals(corrections[propertyName].Item1))
+                    {
+                        errorsList.Add(string.Format("Рассхождение в значениях свойства {0}, заданных в xml и корректировке. Значение в xml: {1}. Значение в корректировке: {2}.",
+                                                 propertyName,
+                                                 xmlValue,
+                                                 corrections[propertyName].Item1));
+                    }
+
+                    if (codeValue != corrections[propertyName].Item2 && !codeValue.Equals(corrections[propertyName].Item2))
+                    {
+                        errorsList.Add(string.Format("Рассхождение в значениях свойства {0}, заданных в коде и корректировке. Значение в коде: {1}. Значение в корректировке: {2}.",
+                                                 propertyName,
+                                                 codeValue,
+                                                 corrections[propertyName].Item2));
+                    }
+                }
+
+                if (xmlValue != codeValue && (xmlValue == null || !xmlValue.Equals(codeValue)))
                 {
                     if (corrections != null && corrections.ContainsKey(propertyName))
                     {

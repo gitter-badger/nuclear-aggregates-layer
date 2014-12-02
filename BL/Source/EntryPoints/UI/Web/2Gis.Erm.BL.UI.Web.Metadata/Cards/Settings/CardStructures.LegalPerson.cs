@@ -47,6 +47,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 
                                                                                UiElementMetadata.Config
                                                                                                 .Name.Static("Merge")
+                                                                                                .Icon.Path("Merge.gif")
                                                                                                 .Title.Resource(() => ErmConfigLocalization.ControlMerge)
                                                                                                 .ControlType(ControlType.ImageButton)
                                                                                                 .LockOnInactive()
