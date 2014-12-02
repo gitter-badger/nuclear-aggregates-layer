@@ -32,6 +32,7 @@ SELECT
 
 	, [refs].[RegardingObjectTypeCode]
 	, [refs].[RegardingObjectId]
+    , CASE WHEN [refs].[RegardingObjectId] IS NOT NULL THEN 0 END as [RegardingObjectIdDsc]
 	, [refs].[RegardingObjectIdName]
 
 	, [crmOwners].[BusinessUnitId] AS [OwningBusinessUnit]
@@ -53,16 +54,11 @@ OUTER APPLY (
 	SELECT TOP 1
 	    CASE [refs].[ReferencedType] 
 		    WHEN 200 THEN 1			-- Clients		(ERM: 200, CRM: 1)
-		    WHEN 199 THEN 3			-- Deals		(ERM: 199, CRM: 3)
 		    WHEN 146 THEN 10013		-- Firms		(ERM: 146, CRM: 10013)
 		    END AS [RegardingObjectTypeCode],
-		COALESCE([clients].[ReplicationCode], [deals].[ReplicationCode], [firms].[ReplicationCode]) as [RegardingObjectId], 
-		COALESCE([clients].[Name], [deals].[Name], [firms].[Name]) as [RegardingObjectIdName]
+		COALESCE([clients].[ReplicationCode], [firms].[ReplicationCode]) as [RegardingObjectId], 
+		COALESCE([clients].[Name], [firms].[Name]) as [RegardingObjectIdName]
 	FROM (
-		SELECT [PhonecallId], [Reference], [ReferencedType], [ReferencedObjectId]
-		FROM [Activity].[PhonecallReferences]
-		WHERE [Reference] = 1 and [ReferencedType] = 199
-		UNION ALL
 		SELECT [PhonecallId], [Reference], [ReferencedType], [ReferencedObjectId]
 		FROM [Activity].[PhonecallReferences]
 		WHERE [Reference] = 1 and [ReferencedType] = 200
@@ -72,7 +68,6 @@ OUTER APPLY (
 		WHERE [Reference] = 1 and [ReferencedType] = 146
 	) [refs]
 	LEFT JOIN [Billing].[Clients] [clients] on [refs].[ReferencedObjectId] = [clients].[Id] and [ReferencedType] = 200
-	LEFT JOIN [Billing].[Deals] [deals] on [refs].[ReferencedObjectId] = [deals].[Id] and [ReferencedType] = 199
 	LEFT JOIN [BusinessDirectory].[Firms] [firms] on [refs].[ReferencedObjectId] = [firms].[Id] and [ReferencedType] = 146
 	WHERE [refs].[PhonecallId] = [phonecalls].[Id]
 ) [refs]
@@ -118,13 +113,9 @@ CROSS APPLY (
 	SELECT TOP 1
         [Reference], 
 		[ReferencedType], 
-		coalesce([clients].[ReplicationCode],[deals].[ReplicationCode],[firms].[ReplicationCode]) as [ReferencedObjectId], 
-		coalesce([clients].[Name],[deals].[Name],[firms].[Name]) as [ReferencedObjectName]
+		coalesce([clients].[ReplicationCode],[firms].[ReplicationCode]) as [ReferencedObjectId], 
+		coalesce([clients].[Name],[firms].[Name]) as [ReferencedObjectName]
 	FROM (
-		SELECT [PhonecallId], [Reference], [ReferencedType], [ReferencedObjectId]
-		FROM [Activity].[PhonecallReferences]
-		WHERE [Reference] = 1 and [ReferencedType] = 199
-		UNION ALL
 		SELECT [PhonecallId], [Reference], [ReferencedType], [ReferencedObjectId]
 		FROM [Activity].[PhonecallReferences]
 		WHERE [Reference] = 1 and [ReferencedType] = 200
@@ -134,7 +125,6 @@ CROSS APPLY (
 		WHERE [Reference] = 1 and [ReferencedType] = 146
 	) [refs]
 	LEFT JOIN [Billing].[Clients] [clients] on [refs].[ReferencedObjectId] = [clients].[Id] and [ReferencedType] = 200
-	LEFT JOIN [Billing].[Deals] [deals] on [refs].[ReferencedObjectId] = [deals].[Id] and [ReferencedType] = 199
 	LEFT JOIN [BusinessDirectory].[Firms] [firms] on [refs].[ReferencedObjectId] = [firms].[Id] and [ReferencedType] = 146
 	WHERE [refs].[PhonecallId] = [phonecalls].[Id]
                 
