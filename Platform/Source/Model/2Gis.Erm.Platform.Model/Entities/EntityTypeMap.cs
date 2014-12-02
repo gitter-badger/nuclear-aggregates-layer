@@ -106,7 +106,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.ThemeTemplate, typeof(ThemeTemplate) },
                 { EntityName.ActionsHistory, typeof(ActionsHistory) },
                 { EntityName.ActionsHistoryDetail, typeof(ActionsHistoryDetail) },
-                { EntityName.AfterSaleServiceActivity, typeof(AfterSaleServiceActivity) },
                 { EntityName.CityPhoneZone, typeof(CityPhoneZone) },
                 { EntityName.Reference, typeof(Reference) },
                 { EntityName.ReferenceItem, typeof(ReferenceItem) },

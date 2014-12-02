@@ -951,9 +951,6 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Error al cumplir la operación</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>El proceso de creación del servicio postventa está en marcha. Es un proceso largo, puede seguir su ejecución en el historial de operaciones.</value>
-  </data>
   <data name="DisabledFunctionality" xml:space="preserve">
     <value>Esta funcionalidad no está disponible temporalmente</value>
   </data>

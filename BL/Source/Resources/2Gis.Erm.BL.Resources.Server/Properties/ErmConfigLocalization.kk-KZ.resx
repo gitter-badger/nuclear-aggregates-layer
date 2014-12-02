@@ -471,9 +471,6 @@
   <data name="DListOperations" xml:space="preserve">
     <value>Все операции</value>
   </data>
-  <data name="DListOperationsAfterSaleService" xml:space="preserve">
-    <value>Операции формирования ППС</value>
-  </data>
   <data name="DListThemeCategory" xml:space="preserve">
     <value>Рубрики</value>
   </data>

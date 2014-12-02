@@ -565,15 +565,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSaleServiceTypeNone {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeNone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Все.
         /// </summary>
         public static string AllOrdersReportTypeAll {
@@ -691,15 +682,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Формирование ППС.
-        /// </summary>
-        public static string BusinessOperationAfterSaleServiceActivitiesCreation {
-            get {
-                return ResourceManager.GetString("BusinessOperationAfterSaleServiceActivitiesCreation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Смена клиента.
         /// </summary>
         public static string BusinessOperationChangeClient {
@@ -774,9 +756,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Взятие из резерва.
         /// </summary>
-        public static string BusinessOperationQualify {
+        public static string BusinessOperationTypeQualify {
             get {
-                return ResourceManager.GetString("BusinessOperationQualify", resourceCulture);
+                return ResourceManager.GetString("BusinessOperationTypeQualify", resourceCulture);
             }
         }
         
@@ -2752,15 +2734,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Формирование ППС.
-        /// </summary>
-        public static string FunctionalPrivilegeNameCreateAfterSalesServiceActivities {
-            get {
-                return ResourceManager.GetString("FunctionalPrivilegeNameCreateAfterSalesServiceActivities", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Удаление профиля юр. лица клиента.
         /// </summary>
         public static string FunctionalPrivilegeNameDeleteLegalPersonProfile {
@@ -2883,15 +2856,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string FunctionalPrivilegeNameLimitRecalculation {
             get {
                 return ResourceManager.GetString("FunctionalPrivilegeNameLimitRecalculation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Формирования исходящей региональной рекламы.
-        /// </summary>
-        public static string FunctionalPrivilegeNameMakeRegionalAdsDocs {
-            get {
-                return ResourceManager.GetString("FunctionalPrivilegeNameMakeRegionalAdsDocs", resourceCulture);
             }
         }
         

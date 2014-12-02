@@ -1206,9 +1206,6 @@
   <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Cambiar de cliente</value>
   </data>
-  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
-    <value>Formación del servicio postventa</value>
-  </data>
   <data name="OperationStatusError" xml:space="preserve">
     <value>Finalizado con errores</value>
   </data>
@@ -1229,9 +1226,6 @@
   </data>
   <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Formar la publicidad regional</value>
-  </data>
-  <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
-    <value>Formación del servicio postventa</value>
   </data>
   <data name="EntityNameOperation" xml:space="preserve">
     <value>Operación</value>
@@ -1573,9 +1567,6 @@
     <value />
   </data>
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
   <data name="BusinessOperationNone" xml:space="preserve">

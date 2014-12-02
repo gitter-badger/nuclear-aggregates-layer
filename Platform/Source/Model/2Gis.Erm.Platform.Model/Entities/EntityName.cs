@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Entities
+﻿using System;
+
+namespace DoubleGis.Erm.Platform.Model.Entities
 {
     public enum EntityName
     {
@@ -102,8 +104,8 @@
         ChargesHistory = 227,
 
         ActionsHistory = 230, 
-        ActionsHistoryDetail = 242, 
-        AfterSaleServiceActivity = 231,
+        ActionsHistoryDetail = 242,
+        [Obsolete("The entity was removed.")] AfterSaleServiceActivity = 231,
         
         OrderValidationResult = 232,
         OrderValidationCacheEntry = 271,

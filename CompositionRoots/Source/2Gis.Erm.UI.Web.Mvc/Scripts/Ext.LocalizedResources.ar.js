@@ -1,4 +1,4 @@
-﻿// File updated : 15.10.2014 11:44:40
+﻿// File updated : 02.12.2014 16:13:26
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -38,7 +38,6 @@ AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Do you really want to p
 AdvertisingElementAccept : 'Approve',
 AdvertisingElementValidate : 'Verification',
 AfterPageText : 'of {0}',
-AfterSalesServiceOperationStartedMessage : 'Process of after-sake service generation has been started. This is a long-term process, its progress can be tracked in the operations logbook.',
 Alert : 'Attention!',
 AllExistingBillsWillBeDeleted : 'All existing payments will be deleted. Continue?',
 AllFieldsMustBeSetForPayment : 'All payment fields should be filled in.',

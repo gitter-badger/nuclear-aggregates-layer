@@ -315,8 +315,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             RegisterExtendedInfoFilter<ListOrganizationUnitDto, long>("currencyId", value => x => x.CurrencyId == value);
             RegisterExtendedInfoFilter<ListOrganizationUnitDto, bool>("filterByMovedToErm", value => x => x.IsActive && !x.IsDeleted && x.ErmLaunchDate != null);
 
-            RegisterExtendedInfoFilter<ListOperationDto, bool>("AfterSaleServiceActivitiesCreation", value => x => x.TypeEnum == BusinessOperation.AfterSaleServiceActivitiesCreation);
-
             RegisterExtendedInfoFilter<ListPositionDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListPositionDto, bool>("NotActiveAndNotDeleted", value => x => !x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListPositionDto, bool>("isSupportedByExport", value => x => x.IsSupportedByExport == value);

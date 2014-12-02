@@ -996,9 +996,6 @@
   <data name="Purpose" xml:space="preserve">
     <value>Cíl</value>
   </data>
-  <data name="AfterSaleServiceType" xml:space="preserve">
-    <value>Typ PPS</value>
-  </data>
   <data name="TaskType" xml:space="preserve">
     <value>Typ úkolu</value>
   </data>

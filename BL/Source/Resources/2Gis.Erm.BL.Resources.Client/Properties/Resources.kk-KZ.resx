@@ -954,9 +954,6 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Ошибка выполнения операции</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.</value>
-  </data>
   <data name="DisabledFunctionality" xml:space="preserve">
     <value>Данный функционал временно недоступен</value>
   </data>

@@ -1194,9 +1194,6 @@
   <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Změna klienta</value>
   </data>
-  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
-    <value>Vytvoření PPS</value>
-  </data>
   <data name="OperationStatusError" xml:space="preserve">
     <value>Dokončeno s chybami</value>
   </data>
@@ -1217,9 +1214,6 @@
   </data>
   <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Vytvoření regionální reklamy</value>
-  </data>
-  <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
-    <value>Vytvoření PPS</value>
   </data>
   <data name="EntityNameOperation" xml:space="preserve">
     <value>Operace</value>
@@ -1561,9 +1555,6 @@
     <value />
   </data>
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
   <data name="BusinessOperationNone" xml:space="preserve">

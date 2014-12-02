@@ -277,15 +277,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тип ППС.
-        /// </summary>
-        public static string AfterSaleServiceType {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Агентское вознаграждение.
         /// </summary>
         public static string AgencyFee {
@@ -1148,7 +1139,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("DenialReasonName", resourceCulture);
             }
         }
-       
+        
         /// <summary>
         ///   Looks up a localized string similar to Ссылка на параграф правил.
         /// </summary>
@@ -1166,7 +1157,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("DenialReasonType", resourceCulture);
             }
         }
-       
+        
         /// <summary>
         ///   Looks up a localized string similar to Подразделение.
         /// </summary>

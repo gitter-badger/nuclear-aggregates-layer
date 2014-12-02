@@ -324,15 +324,6 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AfterSalesServiceOperationStartedMessage {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationStartedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string Alert {
             get {
                 return ResourceManager.GetString("Alert", resourceCulture);

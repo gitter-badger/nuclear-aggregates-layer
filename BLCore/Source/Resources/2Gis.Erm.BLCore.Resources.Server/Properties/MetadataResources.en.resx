@@ -996,9 +996,6 @@
   <data name="Purpose" xml:space="preserve">
     <value>Purpose</value>
   </data>
-  <data name="AfterSaleServiceType" xml:space="preserve">
-    <value>Type of after-sale service</value>
-  </data>
   <data name="TaskType" xml:space="preserve">
     <value>Task type</value>
   </data>

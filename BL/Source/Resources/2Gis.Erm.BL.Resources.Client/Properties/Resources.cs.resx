@@ -951,9 +951,6 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Chyba při uskutečnění operace</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Spuštěno vytvoření PPS. Tato akce nějakou dobu potrvá, její průběh můžete sledovat v protokolu operací.</value>
-  </data>
   <data name="DisabledFunctionality" xml:space="preserve">
     <value>Tato funkce je dočasně nedostupná</value>
   </data>

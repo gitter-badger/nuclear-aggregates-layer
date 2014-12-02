@@ -1194,9 +1194,6 @@
   <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Смена клиента</value>
   </data>
-  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
-    <value>Формирование ППС</value>
-  </data>
   <data name="OperationStatusError" xml:space="preserve">
     <value>Завершено с ошибками</value>
   </data>
@@ -1217,9 +1214,6 @@
   </data>
   <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Формирование региональной рекламы</value>
-  </data>
-  <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
-    <value>Формирование ППС</value>
   </data>
   <data name="EntityNameOperation" xml:space="preserve">
     <value>Операция</value>
@@ -1540,9 +1534,6 @@
     <value />
   </data>
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
   <data name="BusinessOperationNone" xml:space="preserve">
