@@ -269,7 +269,8 @@ WriteLiteral("        ");
             
             #line 43 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(
-            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative }),
+            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
             @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager)));
 
             
@@ -280,7 +281,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 46 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 47 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Sender, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User })));
 
             
@@ -291,7 +292,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 47 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 48 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
@@ -302,7 +303,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 49 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 50 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -313,7 +314,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 50 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             

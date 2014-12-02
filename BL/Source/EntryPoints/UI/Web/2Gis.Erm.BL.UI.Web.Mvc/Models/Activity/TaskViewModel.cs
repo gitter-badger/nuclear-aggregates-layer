@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Priority = modelDto.Priority;
             Title = modelDto.Header;
             Description = modelDto.Description;
-            ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset().ToUniversalTime().Date;
+            ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset();
 
             var regardingObjects = (modelDto.RegardingObjects ?? Enumerable.Empty<EntityReference>()).ToList();
             Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Client));
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     TaskType = TaskType,
                     Priority = Priority,
                     Header = Title,
-                    ScheduledOn = ScheduledStart.UpdateKindIfUnset().ToUniversalTime().Date,
+                    ScheduledOn = ScheduledStart,
                     Description = Description,
                     RegardingObjects = regardingObjects,
                     OwnerRef = Owner.ToReference(),

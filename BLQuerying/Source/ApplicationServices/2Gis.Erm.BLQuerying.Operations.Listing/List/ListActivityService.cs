@@ -61,6 +61,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override void Transform(ListActivityDto dto)
         {
             dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
+            
+            if (dto.ScheduledEnd == null)
+            {
+                dto.ScheduledEnd = TimeZoneInfo.ConvertTimeToUtc(
+                                                                 new DateTime(dto.ScheduledStart.Year, dto.ScheduledStart.Month, dto.ScheduledStart.Day, 23, 59, 59, 999),
+                                                                 TimeZoneInfo.Local);
+            }
         }
 
         private IQueryable<ListActivityDto> ListAppointments(bool filterByParent, EntityName entityName, long? entityId)
@@ -136,7 +143,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         Id = letter.Id,
                         OwnerCode = letter.OwnerCode,
                         Header = letter.Header,
-                        ScheduledStart = letter.ScheduledOn, // FIXME {s.pomadin, 20.11.2014}: consider to strip time according to UTC time zone
+                        ScheduledStart = letter.ScheduledOn,
                         ScheduledEnd = null,
                         ActualEnd = letter.Status == ActivityStatus.Completed || letter.Status == ActivityStatus.Canceled ? letter.ModifiedOn : null,
                         StatusEnum = letter.Status,
@@ -222,7 +229,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         Id = task.Id,
                         OwnerCode = task.OwnerCode,
                         Header = task.Header,
-                        ScheduledStart = task.ScheduledOn, // FIXME {s.pomadin, 20.11.2014}: consider to strip time according to UTC time zone
+                        ScheduledStart = task.ScheduledOn,
                         ScheduledEnd = null,
                         ActualEnd = task.Status == ActivityStatus.Completed || task.Status == ActivityStatus.Canceled ? task.ModifiedOn : null,
                         StatusEnum = task.Status,

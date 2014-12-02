@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Id = modelDto.Id;
             Title = modelDto.Header;
             Description = modelDto.Description;
-            ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset().ToUniversalTime().Date;
+            ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset();
             Priority = modelDto.Priority;
             Status = modelDto.Status;
 
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     Status = Status,
                     Header = Title,
                     Description = Description,
-                    ScheduledOn = ScheduledStart.UpdateKindIfUnset().ToUniversalTime().Date,
+                    ScheduledOn = ScheduledStart,
                     RegardingObjects = regardingObjects,
                     SenderRef = Sender.ToReference(EntityName.User),
                     RecipientRef = Recipient.ToReference(EntityName.Contact),
