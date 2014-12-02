@@ -5,7 +5,7 @@ INSERT INTO [{0}].[dbo].[ActivityPointerBase]
         [Subject], [Description], [PriorityCode], [StateCode], [StatusCode],
         [ActualStart], [ActualEnd], [ActualDurationMinutes],
         [ScheduledStart], [ScheduledEnd], [ScheduledDurationMinutes],
-	    [RegardingObjectTypeCode], [RegardingObjectId], [RegardingObjectIdName],
+	    [RegardingObjectTypeCode], [RegardingObjectId], [RegardingObjectIdDsc], [RegardingObjectIdName],
         [OwningBusinessUnit], [OwningUser],
 	    [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn],
         [DeletionStateCode]
