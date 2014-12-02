@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata
 {
@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
         }
 
         // Эта штука нужна только для тестирования. Потом Удалить.
-        public static string ToDisabledExpression(this LockOnNewFeature feature)
+        public static string ToDisabledExpression(this LockOnNewCardFeature feature)
         {
             return @"Ext.getDom(""Id"").value==0";
         }

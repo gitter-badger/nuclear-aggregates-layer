@@ -14,7 +14,6 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
@@ -91,13 +90,13 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
 
         public UiElementMetadataBuilder LockOnNew()
         {
-            AddFeatures(new LockOnNewFeature());
+            AddFeatures(new LockOnNewCardFeature());
             return this;
         }
 
         public UiElementMetadataBuilder LockOnInactive()
         {
-            AddFeatures(new LockOnInactiveFeature());
+            AddFeatures(new LockOnInactiveCardFeature());
             return this;
         }
 

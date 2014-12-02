@@ -62,17 +62,19 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 
         public CardMetadataBuilder<TEntity> WithAdminTab()
         {
-            AddFeatures(new PartFeature(ResourceTitleDescriptor.Create(() => BLResources.AdministrationTabTitle), new StaticTitleDescriptor("AdministrationTab")));
+            AddFeatures(new ShowAdminPartFeature(),
+                        new PartFeature(ResourceTitleDescriptor.Create(() => BLResources.AdministrationTabTitle), new StaticTitleDescriptor("AdministrationTab")));
             return this;
         }
 
         public CardMetadataBuilder<TEntity> WithComments()
         {
-            AddFeatures(new PartFeature(
-                
-                // COMMENT {all, 20.11.2014}: Эта строчка есть и в клиентских ресурсах. Есть подозрение, что источник должен остаться один
-                ResourceTitleDescriptor.Create(() => BLResources.Notes),
-                new StaticTitleDescriptor("notesTab")));
+            AddFeatures(new ShowNotesFeature(),
+                        new PartFeature(
+
+                            // COMMENT {all, 20.11.2014}: Эта строчка есть и в клиентских ресурсах. Есть подозрение, что источник должен остаться один
+                            ResourceTitleDescriptor.Create(() => BLResources.Notes),
+                            new StaticTitleDescriptor("notesTab")));
             return this;
         }
 

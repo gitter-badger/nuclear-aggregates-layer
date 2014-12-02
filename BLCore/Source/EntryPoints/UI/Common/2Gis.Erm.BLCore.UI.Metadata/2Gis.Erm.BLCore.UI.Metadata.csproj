@@ -50,9 +50,12 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Config\Cards\ICardSettingsProvider.cs" />
+    <Compile Include="Config\Cards\ShowAdminPartFeature.cs" />
+    <Compile Include="Config\Cards\ShowNotesFeature.cs" />
     <Compile Include="Config\Cards\CardMetadata.cs" />
     <Compile Include="Config\Cards\CardMetadataBuilder.cs" />
-    <Compile Include="Config\Cards\EntityMainAttributeFeature.cs" />
+    <Compile Include="Config\Cards\CardMainAttributeFeature.cs" />
     <Compile Include="Config\DataLists\ExtraDataFieldsFeature.cs" />
     <Compile Include="Config\DataLists\MetadataListingsIdentity.cs" />
     <Compile Include="Config\DataLists\UISpecific\IUIMetadataFeature.cs" />

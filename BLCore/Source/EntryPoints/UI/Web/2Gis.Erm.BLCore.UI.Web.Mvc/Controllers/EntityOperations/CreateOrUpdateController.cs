@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         where TModel : EntityViewModelBase<TEntity>, new()
         where TAdapted : IAdapted
     {
-        private readonly IUIConfigurationService _uiConfigurationService;
+        private readonly IUICardConfigurationService _uiConfigurationService;
         private readonly IUIServicesManager _uiServicesManager;
         private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IOperationServicesManager _operationServicesManager;
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         IMsCrmSettings msCrmSettings,
                                         IUserContext userContext,
                                         ICommonLog logger,
-                                        IUIConfigurationService uiConfigurationService,
+                                        IUICardConfigurationService uiConfigurationService,
                                         IUIServicesManager uiServicesManager,
                                         IOperationServicesManager operationServicesManager,
                                         ISecurityServiceUserIdentifier userIdentifierService,

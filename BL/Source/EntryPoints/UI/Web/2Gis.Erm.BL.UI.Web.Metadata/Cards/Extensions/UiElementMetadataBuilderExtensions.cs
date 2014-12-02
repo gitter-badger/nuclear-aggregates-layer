@@ -1,5 +1,4 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists;
 using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -49,7 +48,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             return builder.Name.Static("Actions")
                           .Title.Resource(() => ErmConfigLocalization.ControlActions)
                           .ControlType(ControlType.Menu)
-                          .LockOnInactive()
                           .Childs(actions);
         }
 
