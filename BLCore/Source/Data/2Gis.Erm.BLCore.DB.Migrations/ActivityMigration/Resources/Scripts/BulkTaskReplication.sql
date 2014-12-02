@@ -56,8 +56,8 @@ OUTER APPLY (
 		    WHEN 200 THEN 1			-- Clients		(ERM: 200, CRM: 1)
 		    WHEN 146 THEN 10013		-- Firms		(ERM: 146, CRM: 10013)
 		    END AS [RegardingObjectTypeCode],
-		COALESCE([clients].[ReplicationCode], [deals].[ReplicationCode], [firms].[ReplicationCode]) as [RegardingObjectId], 
-		COALESCE([clients].[Name], [deals].[Name], [firms].[Name]) as [RegardingObjectIdName]
+		COALESCE([clients].[ReplicationCode], [firms].[ReplicationCode]) as [RegardingObjectId], 
+		COALESCE([clients].[Name], [firms].[Name]) as [RegardingObjectIdName]
 	FROM (
 		SELECT [TaskId], [Reference], [ReferencedType], [ReferencedObjectId]
 		FROM [Activity].[TaskReferences]
