@@ -22,8 +22,6 @@ Task Build-TaskService -Precondition { return $OptionTaskService } -Depends Upda
 	
 	$linkerOptions = @()
 	$linkerOptions += "-b PackagesDir=$($global:Context.Dir.Solution)\packages"
-	$linkerOptions += "-b LibsDir=$($global:Context.Dir.Solution)\Libs"
-	$linkerOptions += "-b PlatformLibsDir=$($global:Context.Dir.Solution)\..\..\Platform\Source\Libs\"
 	$linkerOptionsStr = [string]::Join(' ', $linkerOptions)
 
 	Transform-TaskServiceConfigs
