@@ -1,5 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="string250">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="250"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string160">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="160"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string100">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="PersonTypes">
     <xs:annotation>
       <xs:documentation>Типы ролей контактов</xs:documentation>
@@ -11,6 +30,7 @@
       <xs:enumeration value="MakingDecisions"/>
     </xs:restriction>
   </xs:simpleType>
+
   <xs:complexType name="FinancialDataClient">
     <xs:sequence>
       <xs:element name="Firms" minOccurs="1"  maxOccurs="1">
@@ -57,12 +77,12 @@
           <xs:sequence>
             <xs:element name="Contact" minOccurs="0" maxOccurs="unbounded">
               <xs:complexType>
-                <xs:attribute name="ContactName" type="xs:string" use="required">
+                <xs:attribute name="ContactName" type="string160" use="required">
                   <xs:annotation>
                     <xs:documentation>Полное имя контакта</xs:documentation>
                   </xs:annotation>
                 </xs:attribute>
-                <xs:attribute name="ContactEmail" type="xs:string" use="optional">
+                <xs:attribute name="ContactEmail" type="string100" use="optional">
                   <xs:annotation>
                     <xs:documentation>Рабочий e-mail контакта</xs:documentation>
                   </xs:annotation>
@@ -100,7 +120,7 @@
         <xs:documentation>Идентификатор клиента</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Name" type="xs:string" use="required">
+    <xs:attribute name="Name" type="string250" use="required">
       <xs:annotation>
         <xs:documentation>Название клиента</xs:documentation>
       </xs:annotation>
@@ -110,18 +130,16 @@
         <xs:documentation>Стабильный идентификатор основной фирмы клиента</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="CuratorLogin" type="xs:string" use="required">
+    <xs:attribute name="CuratorLogin" type="string250" use="required">
       <xs:annotation>
         <xs:documentation>Логин (из AD) куратора клиента</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-
     <xs:attribute name="IsAdvertisingAgency" type="xs:boolean" use="required">
       <xs:annotation>
         <xs:documentation>Признак клиент - рекламное агентство</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-
     <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
       <xs:annotation>
         <xs:documentation>

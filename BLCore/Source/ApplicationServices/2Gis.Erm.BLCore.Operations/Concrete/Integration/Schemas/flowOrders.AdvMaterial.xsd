@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+  <xs:simpleType name="string4000">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="4000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="AdvMaterialStatus">
     <xs:annotation>
       <xs:documentation>Статусы рекламного материала</xs:documentation>
@@ -18,7 +24,7 @@
         <xs:documentation>Id причины отклонения РМ.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Comment" type="xs:string" use="optional">
+    <xs:attribute name="Comment" type="string4000" use="optional">
       <xs:annotation>
         <xs:documentation>Комментарий оставленный модератором к ЭРМ.</xs:documentation>
       </xs:annotation>
@@ -30,7 +36,7 @@
       <xs:element name="DenialReasons" minOccurs="0" maxOccurs="1">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="DenialReason" type ="DenialReason" minOccurs="1" maxOccurs="unbounded">
+            <xs:element name="DenialReason" type="DenialReason" minOccurs="1" maxOccurs="unbounded">
               <xs:annotation>
                 <xs:documentation>Информация о причинах отклонения</xs:documentation>
               </xs:annotation>
@@ -44,7 +50,7 @@
         <xs:documentation>Стабильный код шаблона элемента рекламного материала</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Value" type="xs:string" use="required">
+    <xs:attribute name="Value" type="string4000" use="required">
       <xs:annotation>
         <xs:documentation>Значение элемента рекламного материала</xs:documentation>
       </xs:annotation>
@@ -74,7 +80,7 @@
       <xs:element name="DenialReasons" minOccurs="0" maxOccurs="1">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="DenialReason" type ="DenialReason" maxOccurs="unbounded">
+            <xs:element name="DenialReason" type="DenialReason" maxOccurs="unbounded">
               <xs:annotation>
                 <xs:documentation>Информация о причинах отклонения</xs:documentation>
               </xs:annotation>

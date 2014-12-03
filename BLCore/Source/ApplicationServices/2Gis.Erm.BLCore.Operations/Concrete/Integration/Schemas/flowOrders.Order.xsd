@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+  <xs:simpleType name="string200">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="200"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string250">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="250"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="PlatformType">
     <xs:restriction base="xs:int">
       <xs:enumeration value="0"/>
@@ -86,7 +98,7 @@
       <xs:element name="Positions" minOccurs="0" maxOccurs="1">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Position" type ="OrderPosition" maxOccurs="unbounded">
+            <xs:element name="Position" type="OrderPosition" maxOccurs="unbounded">
               <xs:annotation>
                 <xs:documentation>Информация о позиции заказа</xs:documentation>
               </xs:annotation>
@@ -118,7 +130,7 @@
         <xs:documentation>Стабильный идентификатор заказа</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Number" type="xs:string" use="required">
+    <xs:attribute name="Number" type="string200" use="required">
       <xs:annotation>
         <xs:documentation>Номер бланка заказа</xs:documentation>
       </xs:annotation>
@@ -178,7 +190,7 @@
         <xs:documentation>Статус заказа</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Curator" type="xs:string" use="required">
+    <xs:attribute name="Curator" type="string250" use="required">
       <xs:annotation>
         <xs:documentation>Логин куратора заказа</xs:documentation>
       </xs:annotation>
