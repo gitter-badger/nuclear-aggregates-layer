@@ -10,15 +10,4 @@
     </Content>
   </ItemGroup>
 
-  <Target Name="AddExtraItemsToSourceManifest" AfterTargets="AddContentPathToSourceManifest" Label="Включаем анонимную и Windows аутентификацию">
-    <ItemGroup>
-      <MsDeploySourceManifest Include="ApphostAuthOverride">
-        <Path>$(DeployIisAppPath);anonymousAuthentication=Allow</Path>
-      </MsDeploySourceManifest>
-      <MsDeploySourceManifest Include="ApphostAuthOverride">
-        <Path>$(DeployIisAppPath);windowsAuthentication=Allow</Path>
-      </MsDeploySourceManifest>
-    </ItemGroup>
-  </Target>
-
 </Project>
