@@ -107,6 +107,13 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
             return this;
         }
 
+        public UiElementMetadataBuilder HideOn<T>(Expression<Func<T, bool>> expression)
+           where T : IViewModelAbstract
+        {
+            AddFeatures(new HideExpressionFeature<T>(expression));
+            return this;
+        }
+
         protected override UiElementMetadata Create()
         {
             if (_id.HasValue)

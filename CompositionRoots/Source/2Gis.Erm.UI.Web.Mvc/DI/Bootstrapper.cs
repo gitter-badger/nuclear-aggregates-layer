@@ -213,8 +213,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureIdentityInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IUICardConfigurationService, UICardConfigurationService>(Lifetime.Singleton)
-                     .RegisterType<IEntityViewNameProvider, EntityViewNameProvider>(Lifetime.Singleton)
-                     .RegisterType<ICardSettingsProvider, CardSettingsProvider>(Lifetime.Singleton)
+                     .RegisterType<IEntityViewNameProvider, EntityViewNameProvider>(CustomLifetime.PerRequest)
+                     .RegisterType<ICardSettingsProvider, CardSettingsProvider>(CustomLifetime.PerRequest)
+                     .RegisterType<ICardSettingsProcessor, CardSettingsProcessor>(CustomLifetime.PerRequest)
                      .RegisterType<IUIServicesManager, UnityUIServicesManager>(CustomLifetime.PerRequest)
                      .RegisterType<IControllerActivator, UnityControllerActivator>(Lifetime.Singleton)
                      .RegisterType<UnityDependencyResolver>(

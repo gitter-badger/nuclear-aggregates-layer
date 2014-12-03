@@ -1,5 +1,8 @@
-﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+﻿using System;
+
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -12,6 +15,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
     public static class UiElementMetadataBuilderExtensions
     {
+        [Obsolete("Использовать CreateAction и UpdateAction, когда благоприятные времена наступят")]
         public static UiElementMetadataBuilder SaveAction<TEntity>(this UiElementMetadataBuilder builder)
             where TEntity : class, IEntity
         {
@@ -24,6 +28,34 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
                           .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                           .Operation.SpecificFor<CreateIdentity, TEntity>()
+                          .Operation.SpecificFor<UpdateIdentity, TEntity>();
+        }
+
+        public static UiElementMetadataBuilder CreateAction<TEntity>(this UiElementMetadataBuilder builder)
+            where TEntity : class, IEntity, IEntityKey
+        {
+            return builder.Name.Static("Create")
+                          .Title.Resource(() => ErmConfigLocalization.ControlSave)
+                          .ControlType(ControlType.ImageButton)
+                          .LockOnInactive()
+                          .Handler.Name("scope.Save")
+                          .Icon.Path("Save.gif")
+                          .HideOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsNew)
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
+                          .Operation.SpecificFor<CreateIdentity, TEntity>();
+        }
+
+        public static UiElementMetadataBuilder UpdateAction<TEntity>(this UiElementMetadataBuilder builder)
+            where TEntity : class, IEntity, IEntityKey
+        {
+            return builder.Name.Static("Update")
+                          .Title.Resource(() => ErmConfigLocalization.ControlSave)
+                          .ControlType(ControlType.ImageButton)
+                          .LockOnInactive()
+                          .Handler.Name("scope.Save")
+                          .Icon.Path("Save.gif")
+                          .HideOn<IEntityViewModelAbstract<TEntity>>(x => x.IsNew)
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                           .Operation.SpecificFor<UpdateIdentity, TEntity>();
         }
 
@@ -51,6 +83,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Childs(actions);
         }
 
+        [Obsolete("Использовать CreateAndCloseAction и UpdateAndCloseAction, когда благоприятные времена наступят")]
         public static UiElementMetadataBuilder SaveAndCloseAction<TEntity>(this UiElementMetadataBuilder builder)
             where TEntity : class, IEntity
         {
@@ -63,6 +96,36 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
                           .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                           .Operation.SpecificFor<CreateIdentity, TEntity>()
+                          .Operation.SpecificFor<UpdateIdentity, TEntity>()
+                          .Operation.NonCoupled<CloseIdentity>();
+        }
+
+        public static UiElementMetadataBuilder CreateAndCloseAction<TEntity>(this UiElementMetadataBuilder builder)
+            where TEntity : class, IEntity, IEntityKey
+        {
+            return builder.Name.Static("CreateAndClose")
+                          .Title.Resource(() => ErmConfigLocalization.ControlSaveAndClose)
+                          .ControlType(ControlType.TextImageButton)
+                          .LockOnInactive()
+                          .Handler.Name("scope.SaveAndClose")
+                          .Icon.Path("SaveAndClose.gif")
+                          .HideOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsNew)
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
+                          .Operation.SpecificFor<CreateIdentity, TEntity>()
+                          .Operation.NonCoupled<CloseIdentity>();
+        }
+
+        public static UiElementMetadataBuilder UpdateAndCloseAction<TEntity>(this UiElementMetadataBuilder builder)
+            where TEntity : class, IEntity, IEntityKey
+        {
+            return builder.Name.Static("UpdateAndClose")
+                          .Title.Resource(() => ErmConfigLocalization.ControlSaveAndClose)
+                          .ControlType(ControlType.TextImageButton)
+                          .LockOnInactive()
+                          .Handler.Name("scope.SaveAndClose")
+                          .Icon.Path("SaveAndClose.gif")
+                          .HideOn<IEntityViewModelAbstract<TEntity>>(x => x.IsNew)
+                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                           .Operation.SpecificFor<UpdateIdentity, TEntity>()
                           .Operation.NonCoupled<CloseIdentity>();
         }

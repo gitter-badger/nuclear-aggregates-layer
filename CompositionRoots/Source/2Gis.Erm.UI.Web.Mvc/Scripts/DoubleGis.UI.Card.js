@@ -152,6 +152,9 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 }
             }
         }
+
+        // после отказа от EntitySettings.xml необходимо убрать приседания с EntityMainAttribute на клиенте.
+        // На сервере будет подготовлен необходимый this.Settings.Title
         document.title = this.Settings.Title ? this.Settings.Title
             : this.Settings.EntityLocalizedName + ": " + (mainAttributeValue || window.Ext.LocalizedResources.Create);
 

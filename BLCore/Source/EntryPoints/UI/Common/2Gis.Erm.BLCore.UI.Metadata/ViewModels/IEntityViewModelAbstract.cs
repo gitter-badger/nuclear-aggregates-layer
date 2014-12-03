@@ -10,5 +10,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels
         where TEntity : IEntityKey
     {
         long Id { get; }
+        bool IsNew { get; }
     }
 }

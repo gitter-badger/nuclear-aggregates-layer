@@ -50,6 +50,7 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Config\Cards\ICardSettingsProcessor.cs" />
     <Compile Include="Config\Cards\ICardSettingsProvider.cs" />
     <Compile Include="Config\Cards\ShowAdminPartFeature.cs" />
     <Compile Include="Config\Cards\ShowNotesFeature.cs" />
