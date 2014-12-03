@@ -2,15 +2,15 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-$CrmSdkVersion = '4.0.13'
+Import-Module .\modules\nuget.psm1 -DisableNameChecking
 
-$ThisDir = Split-Path $MyInvocation.MyCommand.Path
-$CrmSdkDir = Join-Path $ThisDir "..\..\Libs\Microsoft Dynamics CRM SDK $CrmSdkVersion"
-Add-Type -Path (Join-Path $CrmSdkDir 'microsoft.crm.sdk.dll')
-Add-Type -Path (Join-Path $CrmSdkDir 'microsoft.crm.sdktypeproxy.dll')
-Add-Type -Path (Join-Path $CrmSdkDir 'microsoft.xrm.client.dll')
+$PackageInfo = Get-PackageInfo 'Microsoft.CrmSdk'
+Add-Type -Path (Join-Path $PackageInfo.VersionedDir 'lib\net35\microsoft.crm.sdk.dll')
+Add-Type -Path (Join-Path $PackageInfo.VersionedDir 'lib\net35\microsoft.crm.sdktypeproxy.dll')
+Add-Type -Path (Join-Path $PackageInfo.VersionedDir 'lib\net35\microsoft.crm.sdktypeproxy.xmlserializers.dll')
+Add-Type -Path (Join-Path $PackageInfo.VersionedDir 'lib\net35\microsoft.xrm.client.dll')
 
-$PluginRegistrationPath = Join-Path $CrmSdkDir 'PluginRegistration.exe'
+$PluginRegistrationPath = Join-Path $PackageInfo.VersionedDir 'tools\PluginRegistration.exe'
 [System.Reflection.Assembly]::LoadFrom($PluginRegistrationPath) | Out-Null
 
 function Create-CrmDataContext ($CrmConnectionString) {
