@@ -87,7 +87,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         electronivMedia,
                         registrationCertificate,
                         order.BeginReleaseNumber,
-                        order.EndReleaseNumberPlan);
+                        order.EndReleaseNumberPlan,
+                        _longDateFormatter.Format(order.BeginDistributionDate),
+                        _longDateFormatter.Format(order.EndDistributionDatePlan));
                 case PlatformEnum.Desktop:
                     return string.Format(
                         CultureInfo.CurrentCulture,
