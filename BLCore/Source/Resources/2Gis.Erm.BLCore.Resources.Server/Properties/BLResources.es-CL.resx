@@ -5173,4 +5173,8 @@ Periodo de la publicación: {3}.</value>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value>{0} №{1} del {2}</value>
   </data>
+  <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
+    <value>Неправильно запланированы даты начала и окончания встречи.
+</value>
+  </data>
 </root>

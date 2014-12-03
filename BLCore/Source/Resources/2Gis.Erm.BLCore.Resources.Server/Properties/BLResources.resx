@@ -5154,4 +5154,7 @@
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value />
   </data>
+  <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

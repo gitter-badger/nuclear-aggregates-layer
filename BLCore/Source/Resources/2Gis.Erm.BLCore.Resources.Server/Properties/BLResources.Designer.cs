@@ -1341,10 +1341,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AgencyFeePercentMustBeBetweenZeroAndOneHundred {
             get {
                 return ResourceManager.GetString("AgencyFeePercentMustBeBetweenZeroAndOneHundred", resourceCulture);
@@ -6776,7 +6772,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string FirmDealRelationAlreadyExists {
             get {
                 return ResourceManager.GetString("FirmDealRelationAlreadyExists", resourceCulture);
-        }
+            }
         }
         
         /// <summary>
@@ -8820,6 +8816,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string ModifiedValue {
             get {
                 return ResourceManager.GetString("ModifiedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ModifyAppointmentService_ScheduleRangeIsIncorrect {
+            get {
+                return ResourceManager.GetString("ModifyAppointmentService_ScheduleRangeIsIncorrect", resourceCulture);
             }
         }
         
@@ -12726,6 +12731,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string RegexpNotValid {
             get {
                 return ResourceManager.GetString("RegexpNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string RegionalAdvertisingSharing {
+            get {
+                return ResourceManager.GetString("RegionalAdvertisingSharing", resourceCulture);
             }
         }
         

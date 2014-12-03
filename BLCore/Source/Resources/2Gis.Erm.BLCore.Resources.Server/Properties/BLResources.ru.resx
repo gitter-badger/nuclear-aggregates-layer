@@ -5173,4 +5173,8 @@ Cумма по операции: {5}.
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value>{0} №{1} от {2}</value>
   </data>
+  <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
+    <value>Неправильно запланированы даты начала и окончания встречи.
+</value>
+  </data>
 </root>
