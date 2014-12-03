@@ -104,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             if (!entityId.HasValue) return null;
 
-            string name = null;
+            string name;
             switch (entityName)
             {
                 case EntityName.Client:
@@ -119,11 +119,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 case EntityName.Firm:
                     name = _firmReadModel.GetFirmName(entityId.Value);
                     break;
+                default:
+                    return null;
             }
 
-            return !string.IsNullOrEmpty(name)
-                ? new EntityReference { Id = entityId, Name = name, EntityName = entityName}
-                : null;
+            return new EntityReference { Id = entityId, Name = name, EntityName = entityName};
         }
    }
 }

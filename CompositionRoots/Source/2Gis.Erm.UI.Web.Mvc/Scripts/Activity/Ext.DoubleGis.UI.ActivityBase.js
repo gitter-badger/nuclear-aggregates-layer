@@ -99,13 +99,15 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     Build : function() {
         Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
 
+        this.autoHeader.prefix = this.getTitlePrefix();
+        this.autoHeader.suffix = this.getTitleSuffix();
+        Ext.getCmp("Client").on("change", this.autocompleteHeader, this);
+
         if (this.contactField && this.contactComp) {
             this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
         }
         this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
 
-        this.autoHeader.prefix = this.getTitlePrefix();
-        this.autoHeader.suffix = this.getTitleSuffix();
-        Ext.getCmp("Client").on("change", this.autocompleteHeader, this);
+        this.autocompleteHeader();
     }
 });
