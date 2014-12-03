@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Utils
         private readonly IDictionary<Type,Type> _mappings;
         private readonly IDictionary<Type, DataTemplate> _cache = new Dictionary<Type, DataTemplate>();
 
-        public ViewModel2ViewMappingsSelector(IEnumerable<IViewModelViewMapping> mappings)
+        public ViewModel2ViewMappingsSelector(IEnumerable<IViewModelViewTypeMapping> mappings)
         {
             _mappings = mappings.ToDictionary(mapping => mapping.ViewModelType, mapping => mapping.ViewType);
         }

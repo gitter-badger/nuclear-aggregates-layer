@@ -197,6 +197,7 @@
     <Compile Include="Models\LocalMessageImportFromFileViewModel.cs" />
     <Compile Include="Models\LocalMessageViewModel.cs" />
     <Compile Include="Models\MainPageViewModel.cs" />
+    <Compile Include="Models\DealViewModel.cs" />
     <Compile Include="Models\OperationViewModel.cs" />
     <Compile Include="Models\ReleaseDialogViewModel.cs" />
     <Compile Include="Models\ReleaseInfoViewModel.cs" />
@@ -810,6 +811,10 @@
     <ProjectReference Include="..\..\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
       <Project>{f662d986-079c-469c-8a01-0d2cd1092eab}</Project>
       <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj">
+      <Project>{995BF65F-5951-40E5-A0F0-DF8DD343116A}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Metadata</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

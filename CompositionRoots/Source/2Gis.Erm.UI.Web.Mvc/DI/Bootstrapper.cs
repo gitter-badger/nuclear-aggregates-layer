@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.DI.Factories.HandleAdsState;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Reports;
+using DoubleGis.Erm.BL.UI.Web.Metadata;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
@@ -42,6 +43,7 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Metadata;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Security;
@@ -211,6 +213,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureIdentityInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IUICardConfigurationService, UICardConfigurationService>(Lifetime.Singleton)
+                     .RegisterType<IEntityViewNameProvider, EntityViewNameProvider>(Lifetime.Singleton)
                      .RegisterType<ICardSettingsProvider, CardSettingsProvider>(Lifetime.Singleton)
                      .RegisterType<IUIServicesManager, UnityUIServicesManager>(CustomLifetime.PerRequest)
                      .RegisterType<IControllerActivator, UnityControllerActivator>(Lifetime.Singleton)

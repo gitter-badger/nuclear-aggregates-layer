@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{75699A90-60A2-404A-9691-041066F1B572}</ProjectGuid>
+    <ProjectGuid>{995BF65F-5951-40E5-A0F0-DF8DD343116A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoubleGis.Erm.BLFlex.UI.Web.Mvc</RootNamespace>
-    <AssemblyName>2Gis.Erm.BLFlex.UI.Web.Metadata</AssemblyName>
+    <RootNamespace>DoubleGis.Erm.BLCore.UI.Web.Metadata</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.UI.Web.Metadata</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
@@ -48,34 +48,22 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Chile\ChileCardMetadataSource.cs" />
-    <Compile Include="Cyprus\CyprusCardMetadataSource.cs" />
-    <Compile Include="Czech\CzechCardMetadataSource.cs" />
-    <Compile Include="DI\BlFlexUiWebMetadataAssembly.cs" />
-    <Compile Include="Emirates\EmiratesCardMetadataSource.cs" />
-    <Compile Include="Kazakhstan\KazakhstanCardMetadataSource.cs" />
-    <Compile Include="Russia\RussiaCardMetadataSource.cs" />
-    <Compile Include="Ukraine\UkraineCardMetadataSource.cs" />
+    <Compile Include="IEntityViewNameProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
-      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
-      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
       <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
       <Name>2Gis.Erm.Platform.UI.Metadata</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
-      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
-      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

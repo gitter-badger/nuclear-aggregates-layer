@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
                 return;
             }
 
-            var registry = new Dictionary<Type, IViewModelViewMapping>();
+            var registry = new Dictionary<Type, IViewModelViewTypeMapping>();
             foreach (var relatedItem in metadata.RelatedItems)
             {
                 relatedItem.ProcessMVVMMappings(registry);

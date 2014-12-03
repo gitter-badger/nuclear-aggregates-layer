@@ -19,5 +19,12 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelVie
             AspectHostBuilder.WithFeatures(new ViewModelViewMappingFeature<TViewModel, TView>());
             return AspectHostBuilder;
         }
+
+        public TBuilder Bind<TViewModel>(string viewPath)
+            where TViewModel : class, IViewModelAbstract
+        {
+            AspectHostBuilder.WithFeatures(new ViewModelViewMappingFeature<TViewModel>(new ViewModelViewPathMapping<TViewModel>(viewPath)));
+            return AspectHostBuilder;
+        }
     }
 }

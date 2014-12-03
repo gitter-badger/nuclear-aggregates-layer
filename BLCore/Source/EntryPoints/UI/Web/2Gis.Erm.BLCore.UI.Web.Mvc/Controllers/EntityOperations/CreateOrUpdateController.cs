@@ -9,13 +9,13 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Web.Metadata;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -40,14 +40,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
     {
         private readonly IUICardConfigurationService _uiConfigurationService;
         private readonly IUIServicesManager _uiServicesManager;
-        private readonly IBusinessModelSettings _businessModelSettings;
+        private readonly IEntityViewNameProvider _entityViewNameProvider;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
 
-        public CreateOrUpdateController(IBusinessModelSettings businessModelSettings,
-                                        IMsCrmSettings msCrmSettings,
+
+        public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
                                         IUserContext userContext,
                                         ICommonLog logger,
                                         IUICardConfigurationService uiConfigurationService,
@@ -58,7 +58,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         ISecurityServiceEntityAccess entityAccessService,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IGetBaseCurrencyService getBaseCurrencyService)
+                                        IGetBaseCurrencyService getBaseCurrencyService,
+                                        IEntityViewNameProvider entityViewNameProvider)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -66,13 +67,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                    specialOperationsServiceSettings,
                    getBaseCurrencyService)
         {
-            _businessModelSettings = businessModelSettings;
             _operationServicesManager = operationServicesManager;
             _uiConfigurationService = uiConfigurationService;
             _uiServicesManager = uiServicesManager;
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
             _entityAccessService = entityAccessService;
+            _entityViewNameProvider = entityViewNameProvider;
         }
 
         [HttpGet, SetEntityStateToken, UseDependencyFields]
@@ -86,9 +87,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             CustomizeModelAfterMetadataReady(model);
 
             ApplyToolbarItemsLock(model);
-
-            var entityTypeName = typeof(TEntity).Name;
-            var viewName = GetViewName(model, entityTypeName);
+            
+            var viewName = _entityViewNameProvider.GetView<TModel, TEntity>();
             return View(viewName, model);
         }
 
@@ -126,16 +126,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             var jsonNetResult = new JsonNetResult(model);
 
             return jsonNetResult;
-        }
-
-        private string GetViewName(TModel model, string entityTypeName)
-        {
-            if (model is TAdapted)
-            {
-                return string.Format("{0}/{1}", _businessModelSettings.BusinessModel, entityTypeName);
-            }
-
-            return entityTypeName;
         }
 
         private TModel CreateOrUpdate(TModel model)

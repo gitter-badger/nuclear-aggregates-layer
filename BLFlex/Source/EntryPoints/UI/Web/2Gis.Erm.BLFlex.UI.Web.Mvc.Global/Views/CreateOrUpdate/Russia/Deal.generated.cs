@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Russia/Deal.cshtml")]
-    public partial class Deal : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureDealViewModel>
+    public partial class Deal : System.Web.Mvc.WebViewPage<DealViewModel>
     {
         public Deal()
         {
@@ -67,15 +67,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 209), Tuple.Create("\"", 260)
-, Tuple.Create(Tuple.Create("", 216), Tuple.Create("/Content/time-period.css?", 216), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 151), Tuple.Create("\"", 202)
+, Tuple.Create(Tuple.Create("", 158), Tuple.Create("/Content/time-period.css?", 158), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 241), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 183), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 241), false)
+, 183), false)
 );
 
 WriteLiteral(" />\r\n    <link");
@@ -84,15 +84,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 308), Tuple.Create("\"", 361)
-, Tuple.Create(Tuple.Create("", 315), Tuple.Create("/Content/input-overlay.css?", 315), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 250), Tuple.Create("\"", 303)
+, Tuple.Create(Tuple.Create("", 257), Tuple.Create("/Content/input-overlay.css?", 257), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 342), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 284), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 342), false)
+, 284), false)
 );
 
 WriteLiteral(" />\r\n    <style");
@@ -102,15 +102,15 @@ WriteLiteral(" type=\"text/css\"");
 WriteLiteral(">\r\n        .wide-labels div.label-wrapper { width: 180px; }\r\n    </style>\r\n\r\n    " +
 "<script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 481), Tuple.Create("\"", 540)
-, Tuple.Create(Tuple.Create("", 487), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Deal.js?", 487), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 423), Tuple.Create("\"", 482)
+, Tuple.Create(Tuple.Create("", 429), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Deal.js?", 429), true)
             
             #line 16 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 521), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 463), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 521), false)
+, 463), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -210,14 +210,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 915), Tuple.Create("\"", 951)
+WriteAttribute("title", Tuple.Create(" title=\"", 857), Tuple.Create("\"", 893)
             
             #line 30 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 923), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 865), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 923), false)
+, 865), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -338,14 +338,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdditionalTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2292), Tuple.Create("\"", 2331)
+WriteAttribute("title", Tuple.Create(" title=\"", 2234), Tuple.Create("\"", 2273)
             
             #line 52 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 2300), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 2242), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 2300), false)
+, 2242), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -440,14 +440,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdvertisementCampaignTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3541), Tuple.Create("\"", 3581)
+WriteAttribute("title", Tuple.Create(" title=\"", 3483), Tuple.Create("\"", 3523)
             
             #line 70 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 3549), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
+, Tuple.Create(Tuple.Create("", 3491), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
             
             #line default
             #line hidden
-, 3549), false)
+, 3491), false)
 );
 
 WriteLiteral(">\r\n");

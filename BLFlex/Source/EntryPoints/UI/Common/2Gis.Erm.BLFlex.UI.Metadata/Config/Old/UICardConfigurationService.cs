@@ -256,9 +256,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                                  string.Join(";" + Environment.NewLine, errors));
 
                 _commonLog.ErrorEx(errorMessage);
-                //throw new InvalidDataException(errorMessage);
             }
 
+            // TODO {y.baranihin, 03.12.2014}: настроить переключатель в конфиге
             //return localizedCardSettings;
             return codedCardSettings;
         }
