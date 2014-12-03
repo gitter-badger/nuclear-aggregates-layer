@@ -1,47 +1,34 @@
 using System.IO;
 using System.Text;
 using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Schema;
 
 namespace DoubleGis.Erm.Platform.Common.Utils.Xml
 {
     public static partial class XmlUtils
     {
-        public static bool Validate(this XDocument document, string xsd, out string error)
-        {
-            var stringBuilder = new StringBuilder();
-            var xmlSchemaSet = CreateXmlSchemaSetForXsd(xsd);
-            document.Validate(xmlSchemaSet, (sender, eventArgs) => stringBuilder.AppendLine(eventArgs.Message));
-            error = stringBuilder.ToString();
-
-            return stringBuilder.Length == 0;
-        }
-
-        public static bool Validate(this string xml, string xsd, out string error)
+        public static bool ValidateXml(this string xml, string xsd, out string error)
         {
             using (var stringReader = new StringReader(xml))
             {
-                return Validate(stringReader, xsd, out error);
+                return ValidateXml(stringReader, xsd, out error);
             }
         }
 
-        public static bool Validate(this StreamReader streamReader, string xsd, out string error)
-        {
-            return Validate((TextReader)streamReader, xsd, out error);
-        }
-
-        public static bool Validate(this TextReader textReader, string xsd, out string error)
+        private static bool ValidateXml(this TextReader textReader, string xsd, out string error)
         {
             var xmlSchemaSet = CreateXmlSchemaSetForXsd(xsd);
             var xmlReaderSettings = new XmlReaderSettings
-                {
-                    ValidationType = ValidationType.Schema,
-                    Schemas = xmlSchemaSet,
-                };
+                                        {
+                                            ValidationType = ValidationType.Schema,
+                                            Schemas = xmlSchemaSet,
+                                            ValidationFlags = XmlSchemaValidationFlags.ProcessIdentityConstraints |
+                                                              XmlSchemaValidationFlags.AllowXmlAttributes |
+                                                              XmlSchemaValidationFlags.ReportValidationWarnings
+                                        };
 
             var stringBuilder = new StringBuilder();
-            Validate(textReader, xmlReaderSettings, (sender, eventArgs) => stringBuilder.AppendLine(eventArgs.Message));
+            ValidateXml(textReader, xmlReaderSettings, (sender, eventArgs) => stringBuilder.AppendLine(eventArgs.Message));
             error = stringBuilder.ToString();
 
             return stringBuilder.Length == 0;
@@ -61,7 +48,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Xml
             }
         }
 
-        private static void Validate(TextReader textReader, XmlReaderSettings xmlReaderSettings, ValidationEventHandler validationEventHandler)
+        private static void ValidateXml(TextReader textReader, XmlReaderSettings xmlReaderSettings, ValidationEventHandler validationEventHandler)
         {
             try
             {
@@ -76,7 +63,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Xml
             }
             finally
             {
-                xmlReaderSettings.ValidationEventHandler -= validationEventHandler;    
+                xmlReaderSettings.ValidationEventHandler -= validationEventHandler;
             }
         }
     }
