@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -13,11 +12,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         IDeactivatableEntity,
         IStateTrackingEntity
     {
-        public NotificationEmailsCc()
-        {
-            NotificationEmailsCc1 = new HashSet<NotificationEmailsCc>();
-        }
-
         public long Id { get; set; }
         public long EmailId { get; set; }
         public long AddressId { get; set; }
@@ -30,8 +24,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public byte[] Timestamp { get; set; }
 
         public NotificationEmails NotificationEmails { get; set; }
-        public ICollection<NotificationEmailsCc> NotificationEmailsCc1 { get; set; }
-        public NotificationEmailsCc NotificationEmailsCc2 { get; set; }
         public NotificationAddresses NotificationAddress { get; set; }
 
         public override bool Equals(object obj)
