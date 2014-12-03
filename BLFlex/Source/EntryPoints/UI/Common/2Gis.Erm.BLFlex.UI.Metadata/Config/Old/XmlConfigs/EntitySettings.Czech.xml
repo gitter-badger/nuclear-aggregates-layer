@@ -402,7 +402,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Appointment">
-    <Card EntityNameLocaleResourceId="EnAppointment" EntityMainAttribute="Header" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Appointment.gif" LargeIcon="en_ico_lrg_Appointment.gif">
+    <Card EntityNameLocaleResourceId="EnAppointment" EntityMainAttribute="Title" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Appointment.gif" LargeIcon="en_ico_lrg_Appointment.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -1614,7 +1614,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Letter">
-    <Card EntityNameLocaleResourceId="EnLetter" EntityMainAttribute="Header" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Letter.gif" LargeIcon="en_ico_lrg_Letter.gif">
+    <Card EntityNameLocaleResourceId="EnLetter" EntityMainAttribute="Title" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Letter.gif" LargeIcon="en_ico_lrg_Letter.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -2207,7 +2207,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Phonecall">
-    <Card EntityNameLocaleResourceId="EnPhonecall" EntityMainAttribute="Header" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Phonecall.gif" LargeIcon="en_ico_lrg_Phonecall.gif">
+    <Card EntityNameLocaleResourceId="EnPhonecall" EntityMainAttribute="Title" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Phonecall.gif" LargeIcon="en_ico_lrg_Phonecall.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -2589,7 +2589,7 @@
     </Card>
   </Entity>
   <Entity Name="Task">
-    <Card EntityNameLocaleResourceId="EnTask" EntityMainAttribute="Header" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Task.gif" LargeIcon="en_ico_lrg_Task.gif">
+    <Card EntityNameLocaleResourceId="EnTask" EntityMainAttribute="Title" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Task.gif" LargeIcon="en_ico_lrg_Task.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
