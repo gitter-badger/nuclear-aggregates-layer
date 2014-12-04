@@ -32,7 +32,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             viewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
             viewModel.HasOrderBranchOfficeOrganizationUnitSelection =
                 functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
-            viewModel.EditRegionalNumber = functionalPrivilegeValidator(FunctionalPrivilegeName.MakeRegionalAdsDocs);
             viewModel.HasOrderDocumentsDebtChecking =
                 _functionalAccessService.HasOrderChangeDocumentsDebtAccess(viewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);
 

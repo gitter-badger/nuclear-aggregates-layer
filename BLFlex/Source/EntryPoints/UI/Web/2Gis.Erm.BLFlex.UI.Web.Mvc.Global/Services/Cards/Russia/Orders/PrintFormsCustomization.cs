@@ -19,14 +19,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders
                 viewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");
                 viewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction");
             }
-
-            var isReqionalOrder = viewModel.SourceOrganizationUnit.Key !=
-                                  viewModel.DestinationOrganizationUnit.Key;
-
-            if (isActionDisabledBasedOnWorkflowStepId || !isReqionalOrder)
-            {
-                viewModel.ViewConfig.DisableCardToolbarItem("PrintRegTerminationNoticeAction");
-            }
         }
     }
 }
