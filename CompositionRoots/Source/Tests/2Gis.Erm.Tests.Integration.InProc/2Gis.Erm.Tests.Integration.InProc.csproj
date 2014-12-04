@@ -576,7 +576,7 @@
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.Client.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.DebitsInfo.xml">
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.DebitsInfoForERP.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.LegalEntity.xml">

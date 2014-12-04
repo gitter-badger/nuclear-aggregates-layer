@@ -576,9 +576,9 @@ namespace DoubleGis.Erm.BLCore.MoDi
                                  ? null
                                  : new FileDescription
                                  {
-                                     FileName = "DebitsInfo_" + DateTime.Today.ToShortDateString() + ".xml",
+                                     FileName = "DebitsInfoForERP_" + DateTime.Today.ToShortDateString() + ".xml",
                                      ContentType = MediaTypeNames.Text.Xml,
-                                     Stream = ToXmlStream(new DebitsInfoDto
+                                     Stream = ToXmlStream(new DebitsInfoForErpDto
                                      {
                                          StartDate = startDate,
                                          EndDate = endDate,
@@ -598,6 +598,16 @@ namespace DoubleGis.Erm.BLCore.MoDi
                                 : null,
                 ProcessedWithoutErrors = debits.Count - (blockingErrors.Count + nonBlockingErrors.Count)
             };
+        }
+
+        private static byte[] ToXmlStream(DebitsInfoForErpDto infoDto)
+        {
+            return Encoding.UTF8.GetBytes(infoDto.ToXElement().ToString(SaveOptions.None));
+        }
+
+        private static string CreateOrderNumber(string sourceSyncCode1C, string destSyncCode1C, DateTime startDate)
+        {
+            return string.Format("{0}-{1}-{2}-{3}", sourceSyncCode1C, destSyncCode1C, startDate.ToString("MM"), startDate.ToString("yy"));
         }
 
         private void ValidateLegalPerson(LegalPerson legalPerson,
@@ -684,11 +694,6 @@ namespace DoubleGis.Erm.BLCore.MoDi
             }
         }
 
-        private static string CreateOrderNumber(string sourceSyncCode1C, string destSyncCode1C, DateTime startDate)
-        {
-            return string.Format("{0}-{1}-{2}-{3}", sourceSyncCode1C, destSyncCode1C, startDate.ToString("MM"), startDate.ToString("yy"));
-        }
-
         private byte[] ToOneCStream(IEnumerable<OneCError> errors)
         {
             var table = new DataTable();
@@ -735,11 +740,6 @@ namespace DoubleGis.Erm.BLCore.MoDi
         private byte[] ToCsvStream(DataTable table)
         {
             return Encoding.GetEncoding(1251).GetBytes(table.ToCsvEscaped(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator, false));
-        }
-
-        private static byte[] ToXmlStream(DebitsInfoDto infoDto)
-        {
-            return Encoding.UTF8.GetBytes(infoDto.ToXElement().ToString(SaveOptions.None));
         }
 
         private sealed class BranchOfficeDto

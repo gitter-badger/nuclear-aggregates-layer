@@ -169,7 +169,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 {
                     MessageStream = stream,
                     FlowName = "flowFinancialData",
-                    XsdSchemaResourceExpression = () => Properties.Resources.flowFinancialData_DebitsInfo
+                    XsdSchemaResourceExpression = () => Properties.Resources.flowFinancialData_DebitsInfoForERP
                 },
                                                                          Context,
                                                                          false);

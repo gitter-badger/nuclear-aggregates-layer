@@ -148,7 +148,7 @@
   <data name="flowOrders_ThemeBranch" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Concrete\Integration\Schemas\flowOrders.ThemeBranch.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="flowFinancialData_DebitsInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Concrete\Integration\Schemas\flowFinancialData.DebitsInfo.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="flowFinancialData_DebitsInfoForERP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Concrete\Integration\Schemas\flowFinancialData.DebitsInfoForERP.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>
