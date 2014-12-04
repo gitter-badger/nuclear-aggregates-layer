@@ -1,5 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="string100">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string256">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string250">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="250"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string64">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string512">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="512"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string12">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="12"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string4">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string9">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="string50">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="DocumentDeliveryMethod">
     <xs:annotation>
       <xs:documentation>Способ доставки документов</xs:documentation>
@@ -11,6 +66,7 @@
       <xs:enumeration value="ByEmail"/>
     </xs:restriction>
   </xs:simpleType>
+
   <xs:simpleType name="BargainType">
     <xs:annotation>
       <xs:documentation>Тип договора</xs:documentation>
@@ -28,23 +84,25 @@
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
+
   <xs:complexType name="LegalPerson">
-    <xs:attribute name="TIN" type="xs:string" use="required">
+    <xs:attribute name="TIN" type="string12" use="required">
       <xs:annotation>
         <xs:documentation>ИНН</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="KPP" type="xs:string" use="required">
+    <xs:attribute name="KPP" type="string12" use="required">
       <xs:annotation>
         <xs:documentation>КПП</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="LegalAddress" type="xs:string" use="required">
+    <xs:attribute name="LegalAddress" type="string512" use="required">
       <xs:annotation>
         <xs:documentation>Юридический адрес</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
+
   <xs:complexType name="Profile">
     <xs:attribute name="Code" type="xs:long" use="required">
       <xs:annotation>
@@ -53,68 +111,68 @@
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Name" type="xs:string" use="required">
+    <xs:attribute name="Name" type="string256" use="required">
       <xs:annotation>
         <xs:documentation>Название юридического лица клиента</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Email" type="xs:string" use="optional">
+    <xs:attribute name="Email" type="string64" use="optional">
       <xs:annotation>
         <xs:documentation>Электронный адрес</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="PaymentDetails" type="xs:string" use="optional">
+    <xs:attribute name="PaymentDetails" type="string512" use="optional">
       <xs:annotation>
         <xs:documentation>Платежные реквизиты</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="DocumentDeliveryAddress" type="xs:string" use="optional">
+    <xs:attribute name="DocumentDeliveryAddress" type="string512" use="optional">
       <xs:annotation>
         <xs:documentation>Адрес доставки документов</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Phone" type="xs:string" use="optional">
+    <xs:attribute name="Phone" type="string50" use="optional">
       <xs:annotation>
         <xs:documentation>Телефон получателя</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="PersonResponsibleForDocuments" type="xs:string" use="optional">
+    <xs:attribute name="PersonResponsibleForDocuments" type="string256" use="optional">
       <xs:annotation>
         <xs:documentation>Лицо, ответственное за документы</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="PostAddress" type="xs:string" use="optional">
+    <xs:attribute name="PostAddress" type="string512" use="optional">
       <xs:annotation>
         <xs:documentation>Почтовый адрес</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="RecipientName" type="xs:string" use="optional">
+    <xs:attribute name="RecipientName" type="string256" use="optional">
       <xs:annotation>
         <xs:documentation>Получатель</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="DocumentDeliveryMethod" type="DocumentDeliveryMethod" use="required"/>
-    <xs:attribute name="DirectorName" type="xs:string" use="optional">
+    <xs:attribute name="DirectorName" type="string256" use="optional">
       <xs:annotation>
         <xs:documentation>Директор</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Position" type="xs:string" use="optional">
+    <xs:attribute name="Position" type="string256" use="optional">
       <xs:annotation>
         <xs:documentation>Должность</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="OnBasicOf" type="xs:string" use="optional">
+    <xs:attribute name="OnBasicOf" type="string50" use="optional">
       <xs:annotation>
         <xs:documentation>Действует на основании</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Curator" type="xs:string" use="required">
+    <xs:attribute name="Curator" type="string250" use="required">
       <xs:annotation>
         <xs:documentation>Куратор профиля</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="CuratorLogin" type="xs:string" use="required">
+    <xs:attribute name="CuratorLogin" type="string250" use="required">
       <xs:annotation>
         <xs:documentation>Логин (из AD) куратора профиля</xs:documentation>
       </xs:annotation>
@@ -125,39 +183,42 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
+
   <xs:complexType name="SoleProprietor">
-    <xs:attribute name="TIN" type="xs:string" use="required"/>
-    <xs:attribute name="LegalAddress" type="xs:string" use="required"/>
+    <xs:attribute name="TIN" type="string12" use="required"/>
+    <xs:attribute name="LegalAddress" type="string250" use="required"/>
   </xs:complexType>
+
   <xs:complexType name="IndividualPerson">
-    <xs:attribute name="PassportSeries" type="xs:string" use="required">
+    <xs:attribute name="PassportSeries" type="string4" use="required">
       <xs:annotation>
         <xs:documentation>Серия паспорта</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="PassportNumber" type="xs:string" use="required">
+    <xs:attribute name="PassportNumber" type="string9" use="required">
       <xs:annotation>
         <xs:documentation>Номер паспорта</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="PassportIssuedBy" type="xs:string" use="required">
+    <xs:attribute name="PassportIssuedBy" type="string512" use="required">
       <xs:annotation>
         <xs:documentation>Кем выдан</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Residence" type="xs:string" use="required">
+    <xs:attribute name="Residence" type="string512" use="required">
       <xs:annotation>
         <xs:documentation>Прописка</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
+
   <xs:complexType name="Account">
     <xs:attribute name="Code" type="xs:long" use="required">
       <xs:annotation>
         <xs:documentation>Стабильный идентификатор лицевого счета</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Code1C" type="xs:string" use="required">
+    <xs:attribute name="Code1C" type="string50" use="required">
       <xs:annotation>
         <xs:documentation>Код 1С лицевого счета</xs:documentation>
       </xs:annotation>
@@ -172,7 +233,7 @@
         <xs:documentation>Стабильный идентификатор юридического лица отделения организации</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="LegalEntityBranchCode1C" type="xs:string" use="required">
+    <xs:attribute name="LegalEntityBranchCode1C" type="string50" use="required">
       <xs:annotation>
         <xs:documentation>Код 1С юридического лица отделения организации</xs:documentation>
       </xs:annotation>
@@ -188,6 +249,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
+
   <xs:complexType name="LegalEntity">
     <xs:sequence>
       <xs:element name="Profiles" minOccurs="1" maxOccurs="1">
@@ -223,12 +285,12 @@
         <xs:documentation>Стабильный идентификатор юридического лица клиента</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Name" type="xs:string" use="required">
+    <xs:attribute name="Name" type="string256" use="required">
       <xs:annotation>
         <xs:documentation>Название юридического лица клиента</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="ShortName" type="xs:string" use="optional">
+    <xs:attribute name="ShortName" type="string256" use="optional">
       <xs:annotation>
         <xs:documentation>Краткое название юридического лица клиента</xs:documentation>
       </xs:annotation>
@@ -238,12 +300,12 @@
         <xs:documentation>Стабильный идентификатор профиля по умолчанию</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Curator" type="xs:string" use="required">
+    <xs:attribute name="Curator" type="string250" use="required">
       <xs:annotation>
         <xs:documentation>Куратор юридического лица клиента</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="CuratorLogin" type="xs:string" use="required">
+    <xs:attribute name="CuratorLogin" type="string250" use="required">
       <xs:annotation>
         <xs:documentation>Логин (из AD) куратора юридического лица клиента</xs:documentation>
       </xs:annotation>
@@ -263,6 +325,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
+
   <xs:element name="LegalEntity" type="LegalEntity">
     <xs:annotation>
       <xs:documentation>Объект передачи юридического лица клиента</xs:documentation>

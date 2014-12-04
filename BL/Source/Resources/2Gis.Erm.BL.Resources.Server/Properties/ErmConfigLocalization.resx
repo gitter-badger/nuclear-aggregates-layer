@@ -1146,9 +1146,6 @@
   <data name="ControlPrintTermNoticeAction" xml:space="preserve">
     <value />
   </data>
-  <data name="ControlPrintRegTermNoticeAction" xml:space="preserve">
-    <value />
-  </data>
   <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
     <value />
   </data>
@@ -1321,9 +1318,6 @@
     <value />
   </data>
   <data name="DFieldTotalAmount" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DListRegionalAdvertisingSharing" xml:space="preserve">
     <value />
   </data>
   <data name="DListAllUsers" xml:space="preserve">

@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
                 }
             }
             
-            var modelLegalPersonType = (LegalPersonType)request.Entity.LegalPersonTypeEnum;
+            var modelLegalPersonType = request.Entity.LegalPersonTypeEnum;
             switch (modelLegalPersonType)
             {
                 case LegalPersonType.LegalPerson:

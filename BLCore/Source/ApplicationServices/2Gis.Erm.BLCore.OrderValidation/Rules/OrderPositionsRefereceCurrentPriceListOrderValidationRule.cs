@@ -36,12 +36,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             if (!_orderReadModel.TryGetActualPriceIdForOrder(ruleContext.ValidationParams.OrderId, out actualPriceId))
             {
                 return new[]
-                           {
+                    {
                                new OrderValidationMessage
                                    {
-                                       Type = MessageType.Error,
+                        Type = MessageType.Error,
                                        OrderId = ruleContext.ValidationParams.OrderId,
-                                       MessageText = BLResources.OrderCheckOrderPositionsDoesntCorrespontToActualPrice,
+                        MessageText = BLResources.OrderCheckOrderPositionsDoesntCorrespontToActualPrice,
                                    }
                            };
             }
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     if (orderPosition.BadPriceList)
                     {
                         var orderPositionDescription = GenerateDescription(false, EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
-                        var messageType = orderInfo.WorkflowStepId == (int)OrderState.Approved ? MessageType.Warning : MessageType.Error;
+                        var messageType = orderInfo.WorkflowStepId == OrderState.Approved ? MessageType.Warning : MessageType.Error;
                         results.Add(new OrderValidationMessage
                         {
                                 Type = messageType,

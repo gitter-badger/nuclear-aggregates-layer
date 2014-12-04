@@ -113,7 +113,6 @@
     <Compile Include="List\DTO\ListPriceDto.cs" />
     <Compile Include="List\DTO\ListPricePositionDto.cs" />
     <Compile Include="List\DTO\ListPrintFormTemplateDto.cs" />
-    <Compile Include="List\DTO\ListRegionalAdvertisingSharingDto.cs" />
     <Compile Include="List\DTO\ListReleaseInfoDto.cs" />
     <Compile Include="List\DTO\ListTerritoryDto.cs" />
     <Compile Include="List\DTO\ListThemeDto.cs" />

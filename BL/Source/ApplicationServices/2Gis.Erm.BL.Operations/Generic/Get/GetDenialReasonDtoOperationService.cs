@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BL.Operations.Generic.Get
                     Name = entity.Name,
                     Description = entity.Description,
                     ProofLink = entity.ProofLink,
-                    Type = (DenialReasonType)entity.Type,
+                    Type = entity.Type,
                     IsActive = entity.IsActive,
 
                     CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },

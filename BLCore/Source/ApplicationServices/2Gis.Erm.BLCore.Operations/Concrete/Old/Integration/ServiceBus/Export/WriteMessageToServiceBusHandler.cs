@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             string error;
             var xsd = Properties.Resources.ResourceManager.GetString(StaticReflection.GetMemberName(request.XsdSchemaResourceExpression));
-            var isValidXml = data.Validate(xsd, out error);
+            var isValidXml = data.ValidateXml(xsd, out error);
             if (!isValidXml)
             {
                 _logger.FatalEx(error);

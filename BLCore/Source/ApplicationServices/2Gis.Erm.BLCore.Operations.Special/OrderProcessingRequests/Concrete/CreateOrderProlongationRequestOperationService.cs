@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 throw new EntityNotFoundException(typeof(Order), orderId);
             }
 
-            var orderState = (OrderState)orderToProlongate.WorkflowStepId;
+            var orderState = orderToProlongate.WorkflowStepId;
             if (InvalidOrderStates.Contains(orderState))
             {
                 throw new BusinessLogicException(string.Format(BLResources.CantCreateProlongationRequestInvalidOrderState,
@@ -94,8 +94,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
             {
                 BaseOrderId = orderId,
                 Description = description,
-                State = (int)OrderProcessingRequestState.Opened,
-                RequestType = (int)OrderProcessingRequestType.ProlongateOrder,
+                State = OrderProcessingRequestState.Opened,
+                RequestType = OrderProcessingRequestType.ProlongateOrder,
                 ReleaseCountPlan = releaseCountPlan,
                 ReplicationCode = Guid.NewGuid(),
                 Title = BLResources.OrderProlongation,

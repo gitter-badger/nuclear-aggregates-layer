@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.Operations
         {
             foreach (var firmContact in firmContacts)
             {
-                switch ((FirmAddressContactType)firmContact.ContactType)
+                switch (firmContact.ContactType)
                 {
                     case FirmAddressContactType.Phone:
                     {

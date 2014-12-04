@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                              OrganizationUnitName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Name,
                                              BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
                                              x.BranchOfficeOrganizationUnit.BranchOfficeId,
-                                             LegalPersonType = (LegalPersonType)x.LegalPerson.LegalPersonTypeEnum,
+                                             LegalPersonType = x.LegalPerson.LegalPersonTypeEnum,
                                          })
                                      .Single();
 

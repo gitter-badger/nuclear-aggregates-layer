@@ -41,28 +41,28 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                 return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>>(x =>
                 {
                     var accessor = x.BasedOn<Bargain>();
-                    var bargainKind = (BargainKind)accessor.Get(c => c.BargainKind);
+                    var bargainKind = accessor.Get(c => c.BargainKind);
                     return new IndexedDocumentWrapper<BargainGridDoc>
-                    {
-                        Id = accessor.Get(c => c.Id).ToString(),
-                        Document = new BargainGridDoc
-                        {
-                            Id = accessor.Get(c => c.Id),
-                            Number = accessor.Get(c => c.Number),
-                            BargainKindEnum = bargainKind,
-                            BargainKind = bargainKind.ToStringLocalized(EnumResources.ResourceManager, cultureInfo),
-                            BargainEndDate = accessor.Get(c => c.BargainEndDate),
-                            CreatedOn = accessor.Get(c => c.CreatedOn),
-                            IsActive = accessor.Get(c => c.IsActive),
-                            IsDeleted = accessor.Get(c => c.IsDeleted),
+                                       {
+                                           Id = accessor.Get(c => c.Id).ToString(),
+                                           Document = new BargainGridDoc
+                                                          {
+                                                              Id = accessor.Get(c => c.Id),
+                                                              Number = accessor.Get(c => c.Number),
+                                                              BargainKindEnum = bargainKind,
+                                                              BargainKind = bargainKind.ToStringLocalized(EnumResources.ResourceManager, cultureInfo),
+                                                              BargainEndDate = accessor.Get(c => c.BargainEndDate),
+                                                              CreatedOn = accessor.Get(c => c.CreatedOn),
+                                                              IsActive = accessor.Get(c => c.IsActive),
+                                                              IsDeleted = accessor.Get(c => c.IsDeleted),
 
-                            // relations
-                            OwnerCode = GetRelatedId(accessor.Get(c => c.OwnerCode)),
-                            LegalPersonId = GetRelatedId(accessor.Get(c => c.CustomerLegalPersonId)),
-                            ClientId = GetRelatedId(accessor.Get(c => c.LegalPerson.ClientId))
-                        }
-                    };
-                });
+                                                              // relations
+                                                              OwnerCode = GetRelatedId(accessor.Get(c => c.OwnerCode)),
+                                                              LegalPersonId = GetRelatedId(accessor.Get(c => c.CustomerLegalPersonId)),
+                                                              ClientId = GetRelatedId(accessor.Get(c => c.LegalPerson.ClientId))
+                                                          }
+                                       };
+                        });
             }
         }
     }

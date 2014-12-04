@@ -31,8 +31,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             set { base.Id = value; }
         }
 
-        public bool EditRegionalNumber { get; set; }
-
         [StringLengthLocalized(200)]
         public string OrderNumber { get; set; }
 

@@ -133,10 +133,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                             {
                                 Id = x.Id,
                                 Name = x.Name,
-                                LinkingObjectType = ((PositionBindingObjectType)x.BindingObjectTypeEnum).ToString(),
+                                LinkingObjectType = (x.BindingObjectTypeEnum).ToString(),
                                 AdvertisementTemplateId = x.AdvertisementTemplateId,
                                 DummyAdvertisementId = x.DummyAdvertisementId,
-                                IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType((PositionBindingObjectType)x.BindingObjectTypeEnum)
+                                IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType(x.BindingObjectTypeEnum)
                             })
                             .ToArray();
         }

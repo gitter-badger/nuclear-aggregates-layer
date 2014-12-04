@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
                 messages.Add(string.Format(BLResources.AdsCheckFileNameTooBig, uploadingElementTemplate.FileSizeRestriction));
             }
 
-            if (uploadingElementTemplate.RestrictionType == (int)AdvertisementElementRestrictionType.Article)
+            if (uploadingElementTemplate.RestrictionType == AdvertisementElementRestrictionType.Article)
             {
                 try
                 {
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
                 }
             }
 
-            if (uploadingElementTemplate.RestrictionType == (int)AdvertisementElementRestrictionType.Image)
+            if (uploadingElementTemplate.RestrictionType == AdvertisementElementRestrictionType.Image)
             {
                 ValidateImage(uploadingFileContent, uploadingElementTemplate, uploadingFileName, messages);
             }

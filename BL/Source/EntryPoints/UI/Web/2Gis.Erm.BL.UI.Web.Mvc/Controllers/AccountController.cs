@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         
             var model = new ExportAccountTo1CViewModel
             {
-                PeriodStart = DateTime.UtcNow.Date.AddMonths(1).GetFirstDateOfMonth(),
+                PeriodStart = DateTime.UtcNow.Date.GetNextMonthFirstDate(),
                 OrganizationUnit = new LookupField
                 {
                     Key = organizationUnitsCount == 1 ? organizationUnits[0].Id : (long?)null,
@@ -131,8 +131,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             StartTime = DateTime.UtcNow,
                             FinishTime = DateTime.UtcNow,
                             OwnerCode = UserContext.Identity.Code,
-                            Status = (byte)OperationStatus.Success,
-                            Type = (short)BusinessOperation.ExportAccountDetailsTo1CForFranchisees,
+                            Status = OperationStatus.Success,
+                            Type = BusinessOperation.ExportAccountDetailsTo1CForFranchisees,
                             Description = BLResources.ExportSucceeded,
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };
@@ -174,7 +174,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             var model = new ExportAccountToServiceBusViewModel
             {
-                PeriodStart = DateTime.UtcNow.Date.AddMonths(1).GetFirstDateOfMonth(),
+                PeriodStart = DateTime.UtcNow.Date.GetNextMonthFirstDate(),
                 OrganizationUnit = new LookupField
                 {
                     Key = organizationUnitsCount == 1 ? organizationUnits[0].Id : (long?)null,
@@ -220,8 +220,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                         StartTime = DateTime.UtcNow,
                         FinishTime = DateTime.UtcNow,
                         OwnerCode = UserContext.Identity.Code,
-                        Status = (byte)OperationStatus.Success,
-                        Type = (short)BusinessOperation.ExportAccountDetailsTo1CForFranchisees,
+                        Status = OperationStatus.Success,
+                        Type = BusinessOperation.ExportAccountDetailsTo1CForFranchisees,
                         Description = BLResources.ExportSucceeded,
                         OrganizationUnitId = viewModel.OrganizationUnit.Key
                     };

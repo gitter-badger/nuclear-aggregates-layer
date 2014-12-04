@@ -64,12 +64,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
             var entity = _bargainObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
             // Сейчас временно запрещаем создавать агентские договоры
-            if (entity.BargainKind == (int)BargainKind.Agent)
+            if (entity.BargainKind == BargainKind.Agent)
             {
                 throw new AccessToAgentBargainCreationIsDeniedException(BLResources.ItIsNotAllowedToCreateAgentBargains);
             }
 
-            if (entity.BargainKind == (int)BargainKind.Agent && entity.BargainEndDate == null)
+            if (entity.BargainKind == BargainKind.Agent && entity.BargainEndDate == null)
             {
                 throw new AgentBargainEndDateIsNotSpecifiedException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.BargainEndDate));
             }
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 
         private void Create(Bargain bargain)
         {
-            if (bargain.BargainKind == (int)BargainKind.Agent)
+            if (bargain.BargainKind == BargainKind.Agent)
             {
                 if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement,
                                                                             _userContext.Identity.Code))
@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 
             var bargainUniqueIndex = _bargainPersistenceService.GenerateNextBargainUniqueNumber();
 
-            bargain.Number = _evaluateBargainNumberService.Evaluate((BargainKind)bargain.BargainKind,
+            bargain.Number = _evaluateBargainNumberService.Evaluate(bargain.BargainKind,
                                                                     legalPersonOrganizationUnitCode.ToString(),
                                                                     branchOfficeOrganizationUnitCode.ToString(),
                                                                     bargainUniqueIndex);

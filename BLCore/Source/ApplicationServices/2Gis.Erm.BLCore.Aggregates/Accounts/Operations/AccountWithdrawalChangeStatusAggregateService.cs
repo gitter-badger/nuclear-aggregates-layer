@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
             WithdrawalStatus targetStatus, 
             string changesDescription)
         {
-            withdrawal.Status = (short)targetStatus;
+            withdrawal.Status = targetStatus;
             withdrawal.Comment = changesDescription;
 
             ChangeStatus(withdrawal);
@@ -38,14 +38,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
             WithdrawalStatus targetStatus, 
             string changesDescription)
         {
-            var sourceStatus = (WithdrawalStatus)withdrawal.Status;
+            var sourceStatus = withdrawal.Status;
             if (sourceStatus != WithdrawalStatus.Withdrawing
                 || (targetStatus != WithdrawalStatus.Error && targetStatus != WithdrawalStatus.Success))
             {
                 throw new ArgumentException(string.Format("Check specified source and target withdrawal statuses. Source: {0}. Target: {1}", sourceStatus, targetStatus));
             }
 
-            withdrawal.Status = (short)targetStatus;
+            withdrawal.Status = targetStatus;
             withdrawal.Comment = changesDescription;
             withdrawal.FinishDate = DateTime.UtcNow;
 

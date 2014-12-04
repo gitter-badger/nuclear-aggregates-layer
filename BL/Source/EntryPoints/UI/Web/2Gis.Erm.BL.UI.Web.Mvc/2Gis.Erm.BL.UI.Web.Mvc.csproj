@@ -312,6 +312,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExportToServiceBusDialog.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\DateTimeViewModel.generated.cs">
+      <DependentUpon>DateTimeViewModel.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\Shared\EditorTemplates\PeriodViewModel.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -798,6 +803,10 @@
     <None Include="Views\Account\ExportToServiceBusDialog.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ExportToServiceBusDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\DateTimeViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DateTimeViewModel.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\EditorTemplates\PeriodViewModel.cshtml">
       <Generator>RazorGenerator</Generator>

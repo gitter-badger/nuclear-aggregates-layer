@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         {
             var order = resumeContext.Request.Entity;
             var originalOrderState = resumeContext.Request.OriginalOrderState;
-            var proposedOrderState = (OrderState)order.WorkflowStepId;
+            var proposedOrderState = order.WorkflowStepId;
 
             if (!Enum.IsDefined(typeof(OrderState), proposedOrderState))
             {

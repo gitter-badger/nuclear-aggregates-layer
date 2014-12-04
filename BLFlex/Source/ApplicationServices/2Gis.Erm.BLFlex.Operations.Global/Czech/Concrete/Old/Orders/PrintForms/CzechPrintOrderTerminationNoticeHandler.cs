@@ -32,12 +32,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                     {
-                        OrderState = (OrderState)order.WorkflowStepId,
+                        OrderState = order.WorkflowStepId,
                         order.IsTerminated,
                         order.BranchOfficeOrganizationUnitId,
                         order.Number,
                         CurrencyISOCode = order.Currency.ISOCode,
-                        LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                        LegalPersonType = order.LegalPerson.LegalPersonTypeEnum,
                     })
                 .Single();
 

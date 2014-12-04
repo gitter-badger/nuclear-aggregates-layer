@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             advertisementElement.FileId = dto.FileId;
             advertisementElement.BeginDate = dto.BeginDate;
             advertisementElement.EndDate = dto.EndDate;
-            advertisementElement.FasCommentType = (int?)dto.FasCommentType;
+            advertisementElement.FasCommentType = dto.FasCommentType;
             advertisementElement.Timestamp = dto.Timestamp;
 
             return advertisementElement;

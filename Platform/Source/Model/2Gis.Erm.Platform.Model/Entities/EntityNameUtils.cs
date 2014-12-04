@@ -102,7 +102,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(OrganizationUnitDto),
                 typeof(Privilege),
                 typeof(TerritoryDto),
-                typeof(OrdersRegionalAdvertisingSharing),
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
                 typeof(SecurityAccelerator),

@@ -112,7 +112,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
                                                               BranchOfficeOrganizationUnitShortLegalName = limit.Account.BranchOfficeOrganizationUnit.ShortLegalName,
                                                               limit.Amount,
                                                               OrdersSumForDistribution = limit.Account.BranchOfficeOrganizationUnit.Orders
-                                                                                             .Where(y => y.LegalPersonId == limit.Account.LegalPersonId && y.IsActive && !y.IsDeleted && y.WorkflowStepId == (int) OrderState.Approved)
+                                                                                             .Where(y => y.LegalPersonId == limit.Account.LegalPersonId && y.IsActive && !y.IsDeleted && y.WorkflowStepId == OrderState.Approved)
                                                                                              .SelectMany(y => y.OrderReleaseTotals)
                                                                                              .Where(t => t.ReleaseBeginDate == limit.StartPeriodDate && t.ReleaseEndDate == limit.EndPeriodDate)
                                                                                              .Sum(a => a.AmountToWithdraw),

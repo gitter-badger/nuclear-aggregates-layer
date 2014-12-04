@@ -278,9 +278,11 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName AdditionalFirmServices = new SchemaQualifiedObjectName(ErmSchemas.Integration, "AdditionalFirmServices");
 
+        [Obsolete("Таблица была удалена")]
         public static readonly SchemaQualifiedObjectName RegionalAdvertisingSharings = new SchemaQualifiedObjectName(ErmSchemas.Billing,
                                                                                                                      "RegionalAdvertisingSharings");
 
+        [Obsolete("Таблица была удалена")]
         public static readonly SchemaQualifiedObjectName OrdersRegionalAdvertisingSharings = new SchemaQualifiedObjectName(ErmSchemas.Billing,
                                                                                                                            "OrdersRegionalAdvertisingSharings");
 

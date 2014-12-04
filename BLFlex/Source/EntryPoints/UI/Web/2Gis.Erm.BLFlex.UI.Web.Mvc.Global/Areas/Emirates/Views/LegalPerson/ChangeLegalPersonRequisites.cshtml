@@ -32,22 +32,11 @@
             });
             Ext.get("OK").on("click", function () {
 
-                window.Ext.each(window.Ext.query("input.x-calendar", this.form), function (node) {
-                    var cmp = window.Ext.getCmp(node.id);
-                    node.value = cmp.getValue() ? cmp.getValue().format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
-                }, this);
-                
                 if (Ext.DoubleGis.FormValidator.validate(window.EntityForm)) {
                     Ext.getDom("OK").disabled = "disabled";
                     Ext.getDom("Cancel").disabled = "disabled";
                     EntityForm.submit();
                 }
-
-                // Обеспечивает возвращаение дат к форматированному по локальным правилам виду после (не)отсылки формы
-                window.Ext.each(window.Ext.query("input.x-calendar", this.form), function (node) {
-                    var cmp = window.Ext.getCmp(node.id);
-                    cmp.setValue(cmp.getValue());
-                }, this);
             });
         });
     </script>
@@ -70,10 +59,10 @@
                 @Html.TemplateField(m => m.CommercialLicense, FieldFlex.lone)
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.CommercialLicenseBeginDate, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false })
+                @Html.TemplateField(m => m.CommercialLicenseBeginDate, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative })
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.CommercialLicenseEndDate, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false })
+                @Html.TemplateField(m => m.CommercialLicenseEndDate, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative })
             </div>
         </div>
     }

@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -138,7 +139,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return View(new CopyNewPriceViewModel
             {
                 PublishDate = DateTime.UtcNow.Date.AddDays(1),
-                BeginDate = DateTime.UtcNow.Date.AddMonths(1).AddDays(1 - DateTime.UtcNow.Day)
+                BeginDate = DateTime.UtcNow.Date.GetNextMonthFirstDate()
             });
         }
 

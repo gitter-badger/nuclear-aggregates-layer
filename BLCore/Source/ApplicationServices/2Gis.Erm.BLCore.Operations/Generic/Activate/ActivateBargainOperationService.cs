@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
 
         public int Activate(Bargain bargain)
         {
-            if (bargain.BargainKind == (int)BargainKind.Agent)
+            if (bargain.BargainKind == BargainKind.Agent)
             {
                 var duplicateNumber = _orderReadModel.GetDuplicateAgentBargainNumber(bargain.Id,
                                                                                      bargain.CustomerLegalPersonId,

@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
         {
             get
             {
-                var allowedStates = new[] { (int)OrderState.OnTermination, (int)OrderState.Archive };
+                var allowedStates = new[] { OrderState.OnTermination, OrderState.Archive };
                 return base.ModelEntitySpec &&
                        new FindSpecification<Order>(o => o.IsTerminated && allowedStates.Contains(o.WorkflowStepId) && o.LegalPersonProfileId != null);
             }

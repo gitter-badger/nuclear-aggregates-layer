@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
 
-        public DateTime CommercialLicenseBeginDate{ get; set; }
+        public DateTime CommercialLicenseBeginDate { get; set; }
         public DateTime CommercialLicenseEndDate { get; set; }
     }
 }

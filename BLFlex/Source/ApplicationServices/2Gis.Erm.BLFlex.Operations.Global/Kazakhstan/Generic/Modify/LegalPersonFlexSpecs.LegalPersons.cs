@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify
                         return new AssignSpecification<KazakhstanLegalPersonDomainEntityDto, LegalPerson>(
                             (dto, legalPerson) =>
                                 {
-                                    legalPerson.LegalPersonTypeEnum = (int)dto.LegalPersonTypeEnum;
+                                    legalPerson.LegalPersonTypeEnum = dto.LegalPersonTypeEnum;
                                     legalPerson.LegalName = dto.LegalName;
                                     legalPerson.ShortName = dto.ShortName;
                                     legalPerson.LegalAddress = dto.LegalAddress;

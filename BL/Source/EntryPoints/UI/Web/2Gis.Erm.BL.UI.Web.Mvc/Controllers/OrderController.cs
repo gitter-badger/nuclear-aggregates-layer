@@ -194,7 +194,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                                   {
                                                       Order = x,
                                                       Platform = x.Platform.Name,
-                                                      DiscountReason = (OrderDiscountReason)x.DiscountReasonEnum,
+                                                      DiscountReason = x.DiscountReasonEnum,
                                                       DiscountInPercents = x.OrderPositions
                                                                             .Where(y => !y.IsDeleted && y.IsActive)
                                                                             .All(y => y.CalculateDiscountViaPercent),
@@ -358,8 +358,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             StartTime = DateTime.UtcNow,
                             FinishTime = DateTime.UtcNow,
                             OwnerCode = UserContext.Identity.Code,
-                            Status = (byte)OperationStatus.Error,
-                            Type = (short)BusinessOperation.CheckOrdersReadinessForRelease,
+                            Status = OperationStatus.Error,
+                            Type = BusinessOperation.CheckOrdersReadinessForRelease,
                             Description = operationDescription,
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };
@@ -448,8 +448,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             StartTime = DateTime.UtcNow,
                             FinishTime = DateTime.UtcNow,
                             OwnerCode = UserContext.Identity.Code,
-                            Status = (byte)OperationStatus.Success,
-                            Type = (short)BusinessOperation.GetOrdersWithDummyAdvertisements,
+                            Status = OperationStatus.Success,
+                            Type = (BusinessOperation)BusinessOperation.GetOrdersWithDummyAdvertisements,
                             Description = operationDescription,
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };
@@ -604,7 +604,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                 new ChangeOrderStateOnTerminationViewModel
                                     {
                                         OrderId = orderId,
-                                        TerminationReason = (OrderTerminationReason)terminationInfo.TerminationReason,
+                                        TerminationReason = terminationInfo.TerminationReason,
                                         TerminationReasonComment = terminationInfo.Comment
                                     });
                 default:

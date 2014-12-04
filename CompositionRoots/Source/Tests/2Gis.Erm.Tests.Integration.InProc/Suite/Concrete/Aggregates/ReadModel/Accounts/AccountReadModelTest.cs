@@ -96,9 +96,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
         private Limit GetLimitForRelease()
         {
             return _limitProvider.Get(Specs.Find.ActiveAndNotDeleted<Limit>() 
-                && new FindSpecification<Limit>(x => x.Status == (int)LimitStatus.Approved
+                && new FindSpecification<Limit>(x => x.Status == LimitStatus.Approved
                     && x.Account.Orders
-                        .Any(o => (o.WorkflowStepId == (int)OrderState.Approved || o.WorkflowStepId == (int)OrderState.OnTermination)
+                        .Any(o => (o.WorkflowStepId == OrderState.Approved || o.WorkflowStepId == OrderState.OnTermination)
                             && o.IsActive && !o.IsDeleted && o.LegalPersonId != null)));
         }
 

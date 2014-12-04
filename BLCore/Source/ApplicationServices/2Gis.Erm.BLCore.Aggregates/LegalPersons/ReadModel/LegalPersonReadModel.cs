@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         public LegalPersonType GetLegalPersonType(long legalPersonId)
         {
             return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
-                          .Select(x => (LegalPersonType)x.LegalPersonTypeEnum)
+                          .Select(x => x.LegalPersonTypeEnum)
                           .SingleOrDefault();
         }
 
@@ -94,8 +94,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
             return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
                           .Select(x => x.Orders
                                         .Any(y => y.IsActive && !y.IsDeleted &&
-                                                  y.WorkflowStepId != (int)OrderState.Archive &&
-                                                  y.WorkflowStepId != (int)OrderState.Rejected))
+                                                  y.WorkflowStepId != OrderState.Archive &&
+                                                  y.WorkflowStepId != OrderState.Rejected))
                           .Single();
         }
     }

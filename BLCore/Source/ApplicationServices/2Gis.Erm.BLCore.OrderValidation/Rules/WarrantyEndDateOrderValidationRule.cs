@@ -23,28 +23,28 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
             var badOrders = _finder.Find(ruleContext.OrdersFilterPredicate)
-                                   .Select(x => new
-                                                    {
-                                                        Order = x,
-                                                        ProfileNames = x.LegalPerson.LegalPersonProfiles
-                                                                        .Where(y => y.IsActive && !y.IsDeleted
-                                                                                    && y.OperatesOnTheBasisInGenitive != null
-                                                                                    && (OperatesOnTheBasisType)y.OperatesOnTheBasisInGenitive == OperatesOnTheBasisType.Warranty
-                                                                                    && y.WarrantyEndDate != null
-                                                                                    && y.WarrantyEndDate < x.SignupDate)
-                                                                        .Select(profile => profile.Name)
-                                                    })
-                                   .Where(x => x.ProfileNames.Any())
-                                   .ToArray();
+                       .Select(x => new
+                           {
+                               Order = x,
+                               ProfileNames = x.LegalPerson.LegalPersonProfiles
+                                               .Where(y => y.IsActive && !y.IsDeleted
+                                                           && y.OperatesOnTheBasisInGenitive != null
+                                                           && y.OperatesOnTheBasisInGenitive == OperatesOnTheBasisType.Warranty
+                                                           && y.WarrantyEndDate != null 
+                                                           && y.WarrantyEndDate < x.SignupDate)
+                                               .Select(profile => profile.Name)
+                           })
+                       .Where(x => x.ProfileNames.Any())
+                       .ToArray();
 
             return from orderInfo in badOrders
                    from profileName in orderInfo.ProfileNames
                    select new OrderValidationMessage
-                              {
-                                  Type = MessageType.Info,
-                                  OrderId = orderInfo.Order.Id,
-                                  OrderNumber = orderInfo.Order.Number,
-                                  MessageText = string.Format(BLResources.ProfileWarrantyEndDateIsLessThanSignDate, profileName)
+                        {
+                            Type = MessageType.Info,
+                            OrderId = orderInfo.Order.Id,
+                            OrderNumber = orderInfo.Order.Number,
+                            MessageText = string.Format(BLResources.ProfileWarrantyEndDateIsLessThanSignDate, profileName)
                               };
         }
     }

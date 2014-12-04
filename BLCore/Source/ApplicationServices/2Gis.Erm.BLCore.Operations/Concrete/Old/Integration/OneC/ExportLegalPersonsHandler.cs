@@ -201,11 +201,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                     legalPersonDto.LegalPersonSyncCode1C,
                     ClearText(legalPerson.ShortName),
                     ClearText(legalPerson.LegalName),
-                    legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson
+                    legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson
                         ? ClearText(legalPerson.RegistrationAddress)
                         : ClearText(legalPerson.LegalAddress),
-                    legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson ? ClearText(legalPerson.PassportSeries) : ClearText(legalPerson.Inn),
-                    legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson ? ClearText(legalPerson.PassportNumber) : ClearText(legalPerson.Kpp),
+                    legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson ? ClearText(legalPerson.PassportSeries) : ClearText(legalPerson.Inn),
+                    legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson ? ClearText(legalPerson.PassportNumber) : ClearText(legalPerson.Kpp),
                     string.Concat(
                         profile.EmailForAccountingDocuments ?? string.Empty,
                         profile.EmailForAccountingDocuments != null && profile.AdditionalEmail != null ? "," : string.Empty,

@@ -33,14 +33,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.Operations
 
         public void Finished(ReleaseInfo release, ReleaseStatus targetStatus, string changesDescription)
         {
-            var sourceStatus = (ReleaseStatus)release.Status;
+            var sourceStatus = release.Status;
             if ((targetStatus != ReleaseStatus.Error && targetStatus != ReleaseStatus.Success) ||
                 (sourceStatus != ReleaseStatus.InProgressInternalProcessingStarted && sourceStatus != ReleaseStatus.InProgressWaitingExternalProcessing))
             {
                 throw new ArgumentException(string.Format("Check specified source and target release statuses. Source: {0}. Target: {1}", sourceStatus, targetStatus));
             }
 
-            release.Status = (short)targetStatus;
+            release.Status = targetStatus;
             release.Comment = changesDescription;
             release.FinishDate = DateTime.UtcNow;
 
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.Operations
 
         public void SetPreviousStatus(ReleaseInfo release, ReleaseStatus previousStatus, string changesDescription)
         {
-            release.Status = (short)previousStatus;
+            release.Status = previousStatus;
             release.Comment = changesDescription;
 
             UpdateRelease(release);
@@ -68,13 +68,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.Operations
 
         private void ChangeStatus(ReleaseInfo release, ReleaseStatus validSourceStatus, ReleaseStatus targetStatus)
         {
-            var sourceStatus = (ReleaseStatus)release.Status;
+            var sourceStatus = release.Status;
             if (sourceStatus != validSourceStatus)
             {
                 throw new ArgumentException(string.Format("{0} status can be set if release in {1} status only. Current source status: {2}", targetStatus, validSourceStatus, sourceStatus));
             }
 
-            release.Status = (short)targetStatus;
+            release.Status = targetStatus;
             UpdateRelease(release);
         }
 

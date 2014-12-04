@@ -137,7 +137,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                     OrderPositionId = positionAdvertisement.OrderPositionId,
                                     PositionName = positionAdvertisement.Position.Name,
 
-                                    BindingObjectType = (PositionBindingObjectType)positionAdvertisement.Position.BindingObjectTypeEnum,
+                                    BindingObjectType = positionAdvertisement.Position.BindingObjectTypeEnum,
                                     CategoryId = positionAdvertisement.CategoryId.Value,
                                     CategoryName = positionAdvertisement.Category.Name,
 

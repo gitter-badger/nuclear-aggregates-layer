@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             var selfAdsOrdersFilter = querySettings.CreateForExtendedProperty<Firm, bool>("WithSelfAdsOrders", info =>
             {
-                return x => x.Orders.Any(y => !y.IsDeleted && y.IsActive && y.OrderType == (int)OrderType.SelfAds);
+                return x => x.Orders.Any(y => !y.IsDeleted && y.IsActive && y.OrderType == OrderType.SelfAds);
             });
 
             var dealFilter = querySettings.CreateForExtendedProperty<Firm, long>(

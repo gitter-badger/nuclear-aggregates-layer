@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
                           .Select(x => new BargainRelationsDto
                               {
                                   BargainNumber = x.Number,
-                                  BargainKind = (BargainKind)x.BargainKind,
+                                  BargainKind = x.BargainKind,
                                   BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
                                   LegalPersonId = x.CustomerLegalPersonId
                               })

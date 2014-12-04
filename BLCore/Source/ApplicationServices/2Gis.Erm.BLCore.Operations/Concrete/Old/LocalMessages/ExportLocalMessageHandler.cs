@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                                 new LocalMessage
                                     {
                                         EventDate = DateTime.UtcNow,
-                                        Status = !haveErrors ? (int)statusOnSuccess : (int)LocalMessageStatus.Failed,
+                                        Status = !haveErrors ? statusOnSuccess : LocalMessageStatus.Failed,
                                         OrganizationUnitId = request.OrganizationUnitId,
                                         ProcessResult = sucсessFlag && integrationResponse != null
                                                 ? (integrationResponse.BlockingErrorsAmount > 0
