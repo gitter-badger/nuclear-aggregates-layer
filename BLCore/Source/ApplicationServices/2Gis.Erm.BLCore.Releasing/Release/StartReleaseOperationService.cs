@@ -70,6 +70,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             _logger = logger;
         }
 
+        private enum ReleaseStartingMode
+        {
+            StartNew = 1,
+            StartAsPrevious,
+            CannotStart
+        }
+
         public ReleaseStartingResult Start(int organizationUnitDgppId, TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors)
         {
             if (!_integrationSettings.EnableIntegration)
@@ -139,6 +146,52 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             }
         }
 
+        private static ReleaseStartingMode DetermineReleaseStartingMode(ReleaseInfo lastRelease,
+                                                                bool isBeta,
+                                                                out string report)
+        {
+            report = string.Empty;
+
+            var period = new TimePeriod(lastRelease.StartDate, lastRelease.PeriodEndDate);
+            switch (lastRelease.Status)
+            {
+                case ReleaseStatus.Success:
+                {
+                    if (!lastRelease.IsBeta)
+                    {
+                        report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
+                                               "Can't start new release without reverting previous final and successful release",
+                                               lastRelease.Id,
+                                               lastRelease.OrganizationUnitId,
+                                               period);
+                        return ReleaseStartingMode.CannotStart;
+                    }
+
+                    return ReleaseStartingMode.StartNew;
+                }
+                case ReleaseStatus.Error:
+                case ReleaseStatus.Reverted:
+                {
+                    return ReleaseStartingMode.StartNew;
+                }
+                case ReleaseStatus.InProgressWaitingExternalProcessing:
+                {
+                    return isBeta == lastRelease.IsBeta ? ReleaseStartingMode.StartAsPrevious : ReleaseStartingMode.StartNew;
+                }
+                default:
+                {
+                    report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
+                                           "so new releasing can't be started",
+                                           lastRelease.Id,
+                                           lastRelease.OrganizationUnitId,
+                                           period,
+                                           lastRelease.Status);
+
+                    return ReleaseStartingMode.CannotStart;
+                }
+            }
+        }
+
         private static bool IsValidReleaseStartArgs(TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors, out string report)
         {
             report = null;
@@ -147,7 +200,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 report = "Period have to start at first day of month";
                 return false;
-        }
+            }
 
             if (period.Start != period.End.GetFirstDateOfMonth())
             {
@@ -287,7 +340,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 }
 
                 scope.Complete();
-                }
+            }
 
             return true;
         }
@@ -299,72 +352,68 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                        out long? previuosReleaseId,
                                        out string report)
         {
-            usingPreviouslyNotFinishedReleasing = false;
-            report = string.Empty;
-
+            
             var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(organizationUnitId, period);
-            if (lastFinalRelease != null && lastFinalRelease.Status == ReleaseStatus.Success)
+            if (lastFinalRelease != null)
             {
                 previuosReleaseId = lastFinalRelease.Id;
-                report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
-                                       "Can't start new release without reverting previous final and successful release",
-                                       previuosReleaseId,
-                                       organizationUnitId,
-                                       period);
-                return false;
+                usingPreviouslyNotFinishedReleasing = false;
+                switch (DetermineReleaseStartingMode(lastFinalRelease, isBeta, out report))
+                {
+                    case ReleaseStartingMode.CannotStart:
+                    {
+                        return false;
+                    }
+                    case ReleaseStartingMode.StartAsPrevious:
+                    {
+                        usingPreviouslyNotFinishedReleasing = true;
+                        if (!isBeta)
+                        {
+                            return true;
+                        }
+
+                        break;
+                    }
+                    case ReleaseStartingMode.StartNew:
+                    {
+                        if (!isBeta)
+                        {
+                            return true;
+                        }
+
+                        break;
+                    }
+                }
             }
 
             var lastRelease = _releaseReadModel.GetLastRelease(organizationUnitId, period);
-            if (lastRelease == null)
+            if (lastRelease != null)
             {
-                previuosReleaseId = null;
-                return true;
-            }
-
-            previuosReleaseId = lastRelease.Id;
-            var previousReleaseStatus = (ReleaseStatus)lastRelease.Status;
-            switch (previousReleaseStatus)
-            {
-                case ReleaseStatus.Success:
+                previuosReleaseId = lastRelease.Id;
+                usingPreviouslyNotFinishedReleasing = false;
+                switch (DetermineReleaseStartingMode(lastRelease, isBeta, out report))
                 {
-                    if (!lastRelease.IsBeta)
+                    case ReleaseStartingMode.CannotStart:
                     {
-                        var exceptionMessage = string.Format("Target release acquiring failure: status mismatch. Last final release cannot be found, " +
-                                                             "but last acquired release with id {0} for organization unit with id {1} by period {2} is final and success status",
-                                                             previuosReleaseId,
-                                                             organizationUnitId,
-                                                             period);
-                        throw new InvalidOperationException(exceptionMessage);
+                        return false;
                     }
-
-                    return true;
-                }
-                case ReleaseStatus.Error:
-                case ReleaseStatus.Reverted:
-                {
-                    return true;
-                }
-                case ReleaseStatus.InProgressWaitingExternalProcessing:
-                {
-                    if (isBeta == lastRelease.IsBeta)
+                    case ReleaseStartingMode.StartAsPrevious:
                     {
                         usingPreviouslyNotFinishedReleasing = true;
-            }
-
-            return true;
-        }
-                default:
-                {
-                    report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
-                                           "so new releasing can't be started",
-                                           previuosReleaseId,
-                                           organizationUnitId,
-                                           period,
-                                           previousReleaseStatus);
-
-                    return false;
+                        return true;
+                    }
+                    case ReleaseStartingMode.StartNew:
+                    {
+                        return true;
+                    }
                 }
             }
+
+            usingPreviouslyNotFinishedReleasing = false;
+            previuosReleaseId = null;
+            report = string.Empty;
+
+            return true;
         }
 
         private ReleaseStartingResult ExecuteInternalErmReleaseProcessing(ReleaseInfo acquiredRelease, int organizationUnitDgppId, bool canIgnoreBlockingErrors)
