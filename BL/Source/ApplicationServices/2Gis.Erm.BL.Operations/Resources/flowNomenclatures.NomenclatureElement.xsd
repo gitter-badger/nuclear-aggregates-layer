@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:simpleType name="string256">
     <xs:restriction base="xs:string">
@@ -7,6 +7,23 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="LinkObjectType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Firm"/>
+      <xs:enumeration value="CategorySingle"/>
+      <xs:enumeration value="CategoryMultiple"/>
+      <xs:enumeration value="CategoryMultipleAsterix"/>
+      <xs:enumeration value="AddressSingle"/>
+      <xs:enumeration value="AddressMultiple"/>
+      <xs:enumeration value="AddressCategorySingle"/>
+      <xs:enumeration value="AddressCategoryMultiple"/>
+      <xs:enumeration value="AddressFirstLevelCategorySingle"/>
+      <xs:enumeration value="AddressFirstLevelCategoryMultiple"/>
+      <xs:enumeration value="ThemeMultiple"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
   <xs:simpleType name="AccountingMethod">
     <xs:restriction base="xs:string">
       <xs:enumeration value="GuaranteedProvision"/>
@@ -20,6 +37,11 @@
         <xs:documentation>Код номенклатуры</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="ExportCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Код экспорта элемента номенклатуры</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="Name" type="string256" use="required">
       <xs:annotation>
         <xs:documentation>Название номенклатуры</xs:documentation>
@@ -28,6 +50,11 @@
     <xs:attribute name="PlatformCode" type="xs:int" use="required">
       <xs:annotation>
         <xs:documentation>Код платформы номенклатуры</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="LinkObjectType" type="LinkObjectType" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип объекта привязки</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="AccountingMethod" type="AccountingMethod" use="required">
