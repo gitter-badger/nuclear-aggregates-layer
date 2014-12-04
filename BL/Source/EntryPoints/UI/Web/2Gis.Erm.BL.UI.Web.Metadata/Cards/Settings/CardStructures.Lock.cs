@@ -12,7 +12,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata Lock =
             CardMetadata.For<Lock>()
                         .MainAttribute(x => x.Id)
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("LockDetails")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelLockDetails)
                                                              .LockOnNew()

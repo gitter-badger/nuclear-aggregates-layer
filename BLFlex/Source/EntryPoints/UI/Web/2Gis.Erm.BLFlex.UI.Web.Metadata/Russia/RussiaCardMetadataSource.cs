@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -31,7 +32,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
             IReadOnlyCollection<CardMetadata> metadataContainer =
                 new CardMetadata[]
                     {
+                        CardMetadata.For<Client>()
+                                    .CrmEntity(CrmEntity.Client),
+
+                        CardMetadata.For<Contact>()
+                                    .CrmEntity(CrmEntity.Contact),
+
+                        CardMetadata.For<Firm>()
+                                    .CrmEntity(CrmEntity.Firm),
+
+                        CardMetadata.For<LegalPerson>()
+                                    .CrmEntity(CrmEntity.LegalPerson),
+
                         CardMetadata.For<Deal>()
+                                    .CrmEntity(CrmEntity.Deal)
                                     .MVVM.Bind<IDealViewModel>("~/Views/CreateOrUpdate/Russia/Deal.cshtml"),
                     };
 

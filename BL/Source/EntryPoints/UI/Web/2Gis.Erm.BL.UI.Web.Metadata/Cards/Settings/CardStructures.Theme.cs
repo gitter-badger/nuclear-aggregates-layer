@@ -50,7 +50,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                                 .Operation.NonCoupled<SetAsDefaultThemeIdentity>()),
                                     UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("ThemeOrganizationUnit")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelThemeOrganizationUnit)
                                                              .LockOnNew()

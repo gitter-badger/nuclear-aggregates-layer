@@ -2,12 +2,8 @@
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -29,6 +25,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                   UiElementMetadata.Config.SplitterAction(),
                                   UiElementMetadata.Config.CloseAction())
                             .ConfigRelatedItems(
+                                        UiElementMetadata.Config.ContentTab("en_ico_16_Contact.gif"),
                                         UiElementMetadata.Config
                                                          .Name.Static("Actions")
                                                          .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)

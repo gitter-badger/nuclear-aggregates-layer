@@ -24,7 +24,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .LockOnNew()
                                                              .FilterToParent())
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<Price>(),
+                            .Attach(UiElementMetadata.Config.ContentTab(),
+                                    UiElementMetadata.Config.SaveAction<Price>(),
                                     UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config.SaveAndCloseAction<Price>(),
                                     UiElementMetadata.Config.SplitterAction(),

@@ -13,10 +13,13 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
 
 namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 {
@@ -73,7 +76,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                         {
                                             {
                                                 "ControlType",
-                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
                                             },
                                         }
                                 },
@@ -87,7 +90,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             },
                                             {
                                                 "ControlType",
-                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
                                             },
                                         }
                                 },
@@ -101,7 +104,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             },
                                             {
                                                 "ControlType",
-                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
                                             },
                                         }
                                 },
@@ -111,7 +114,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                         {
                                             {
                                                 "ControlType",
-                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
                                             },
                                         }
                                 },
@@ -125,7 +128,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             },
                                             {
                                                 "ControlType",
-                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
                                             },
                                         }
                                 },
@@ -135,7 +138,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                         {
                                             {
                                                 "ControlType",
-                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
                                             },
                                         }
                                 },
@@ -155,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                         {
                                             {
                                                 "ControlType",
-                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
                                             },
                                         }
                                 },
@@ -165,7 +168,251 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                         {
                                             {
                                                 "ControlType",
-                                                new Tuple<object, object>("ImageButton", "TextButton")
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Договор
+                    {
+                        EntityName.Bargain,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "ContentTab",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>(null, "en_ico_16_Default.gif")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Сделка
+                    {
+                        EntityName.Deal,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "ReopenDeal",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                        }
+                                },
+                                {
+                                    "ChangeDealClient",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Клиент
+                    {
+                        EntityName.Client,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "ChangeTerritory",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
+                                {
+                                    "Qualify",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                        }
+                                },
+                                {
+                                    "Disqualify",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                        }
+                                },
+                                {
+                                    "Merge",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelegeFlag",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)FunctionalPrivilegeName.MergeClients)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Заявка на создание заказа
+                    {
+                        EntityName.OrderProcessingRequest,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "CreateOrder",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.Update, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
+                                            },
+                                        }
+                                },
+                                {
+                                    "CancelOrderProcessingRequest",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Фирма
+                    {
+                        EntityName.Firm,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Save",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
+                                            },
+                                        }
+                                },
+                                {
+                                    "SaveAndClose",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
+                                            },
+                                        }
+                                },
+                                {
+                                    "Qualify",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Адрес фирмы
+                    {
+                        EntityName.FirmAddress,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Save",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
+                                            },
+                                        }
+                                },
+                                {
+                                    "SaveAndClose",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region ЭРМ
+                    {
+                        EntityName.AdvertisementElement,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Save",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>(null, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
                                             },
                                         }
                                 },
@@ -259,8 +506,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             }
 
             // TODO {y.baranihin, 03.12.2014}: настроить переключатель в конфиге
-            //return localizedCardSettings;
-            return codedCardSettings;
+            return localizedCardSettings;
+            //return codedCardSettings;
         }
 
         public CardStructure GetCardSettings(BusinessModel adaptation, EntityName entityName)
@@ -832,7 +1079,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 {
                     if (corrections != null && corrections.ContainsKey(propertyName))
                     {
-                        if (xmlValue.Equals(corrections[propertyName].Item1) && codeValue.Equals(corrections[propertyName].Item2))
+                        if ((xmlValue == corrections[propertyName].Item1 || xmlValue.Equals(corrections[propertyName].Item1)) && codeValue.Equals(corrections[propertyName].Item2))
                         {
                             continue;
                         }

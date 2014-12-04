@@ -56,6 +56,7 @@
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
     <Compile Include="DI\PlatformZone.cs" />
+    <Compile Include="Entities\CrmEntity.cs" />
     <Compile Include="Entities\DTOs\AccountDetailDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\AccountDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ActionsHistoryDetailDomainEntityDto.cs" />

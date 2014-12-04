@@ -14,7 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<FirmAddress>()
                         .MainAttribute<FirmAddress, IFirmAddressViewModel>(x => x.Address)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("FirmContacts")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmContacts)
                                                              .LockOnNew()

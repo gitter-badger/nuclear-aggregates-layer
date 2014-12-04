@@ -22,7 +22,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                     UiElementMetadata.Config.ActivateAction<Territory>(),
                                     UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("Firm")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
                                                              .Icon.Path("en_ico_16_Firm.gif")

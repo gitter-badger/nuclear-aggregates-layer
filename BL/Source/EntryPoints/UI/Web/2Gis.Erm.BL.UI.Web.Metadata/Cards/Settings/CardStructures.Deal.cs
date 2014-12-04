@@ -54,7 +54,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                      UiElementMetadata.Config.ChangeOwnerAction<Deal>()),
                                 UiElementMetadata.Config.SplitterAction(),
                                 UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_Deal.gif"),
+                                            UiElementMetadata.Config
                                                              .Name.Static("Orders")
                                                              .Icon.Path("en_ico_16_Order.gif")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
@@ -73,7 +74,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .LockOnNew(),
                                             UiElementMetadata.Config
                                                              .Name.Static("Firms")
-                                                             .Icon.Path("en_ico_16_history.gif")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.FirmDeal)

@@ -14,12 +14,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<BranchOffice>()
                         .MainAttribute<BranchOffice, IBranchOfficeViewModel>(x => x.Name)
                         .ConfigActivityCardToolbar()
-                        .ConfigRelatedItems(
-                                    UiElementMetadata.Config
-                                                     .Name.Static("BOOU")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelBOOU)
-                                                     .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit)
-                                                     .FilterToParent());
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
+                                                             .Name.Static("BOOU")
+                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelBOOU)
+                                                             .LockOnNew()
+                                                             .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit)
+                                                             .FilterToParent());
     }
 }

@@ -13,7 +13,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Role>()
                         .MainAttribute<Role, IRoleViewModel>(x => x.Name)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("RoleEntityPrivilege")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelRoleEntityPrivilege)
                                                              .LockOnNew(),

@@ -6,6 +6,7 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderProcessingRequest;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -21,6 +22,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Title.Resource(() => ErmConfigLocalization.ControlCreateOrder)
                                                              .LockOnNew()
                                                              .Handler.Name("scope.CreateOrder")
+                                                             .ControlType(ControlType.TextButton)
                                                              .AccessWithPrivelege<OrderProcessingRequest>(EntityAccessTypes.Update)
                                                              .AccessWithPrivelege<Order>(EntityAccessTypes.Create)
                                                              .AccessWithPrivelege<OrderPosition>(EntityAccessTypes.Create)

@@ -55,10 +55,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                            UiElementMetadata.Config.QualifyAction<Firm>()),
                                 UiElementMetadata.Config.SplitterAction(),
                                 UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("FirmAddresses")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAddresses)
-                                                             .LockOnInactive()
+                                                             .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.FirmAddress)
                                                              .FilterToParent(),
 
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("FirmCategories")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelCategories)
                                                              .Icon.Path("en_ico_16_Category.gif")
-                                                             .LockOnInactive()
+                                                             .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.CategoryFirmAddress)
                                                              .FilterToParent(),
 
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("FirmAdvertisements")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAdvertisements)
                                                              .Icon.Path("en_ico_16_Advertisement.gif")
-                                                             .LockOnInactive()
+                                                             .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.Advertisement)
                                                              .FilterToParent(),
 
@@ -82,7 +83,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("Orders")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
                                                              .Icon.Path("en_ico_16_Order.gif")
-                                                             .LockOnInactive()
+                                                             .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.Order)
                                                              .FilterToParent(),
 
@@ -90,12 +91,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("ActivityHistory")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelActivityHistory)
                                                              .Icon.Path("en_ico_16_history.gif")
-                                                             .LockOnInactive(),
+                                                             .LockOnNew(),
 
                                             UiElementMetadata.Config
                                                              .Name.Static("Actions")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
                                                              .Icon.Path("en_ico_16_Action.gif")
-                                                             .LockOnInactive());
+                                                             .LockOnNew());
     }
 }

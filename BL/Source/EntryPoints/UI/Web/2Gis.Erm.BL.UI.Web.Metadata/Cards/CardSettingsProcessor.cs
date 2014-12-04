@@ -146,7 +146,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 elementToEvaluate.Disabled |= !_functionalAccessService.HasFunctionalPrivilegeGranted(feature.Privilege, _currentUserCode);
             }
 
-            var modelOwnerCode = entityModel.Owner.Key.HasValue ? entityModel.Owner.Key.Value : _currentUserCode;
+            var modelOwnerCode = entityModel.Owner != null && entityModel.Owner.Key.HasValue ? entityModel.Owner.Key.Value : _currentUserCode;
             foreach (var feature in toolbarElement.Features<SecuredByEntityPrivelegeFeature>())
             {
                 if (feature.Entity == entityModel.ViewConfig.EntityName)

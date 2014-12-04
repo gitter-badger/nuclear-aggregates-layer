@@ -30,7 +30,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                                 .ControlType(ControlType.TextButton)
                                                                                                 .Handler.Name("scope.ProcessUserProfile")),
                                     UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("UserRole")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelUserRole)
                                                              .LockOnNew()

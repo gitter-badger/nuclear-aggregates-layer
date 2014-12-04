@@ -14,7 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Position>()
                         .MainAttribute<Position, IPositionViewModel>(x => x.Name)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("Children")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
                                                              .LockOnNew()

@@ -84,6 +84,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.EntityMainAttribute = mainAttributeFeature.Property.PropertyName;
             }
 
+            var crmCodeFeature = card.Features<CrmEntityCodeFeature>().SingleOrDefault();
+            if (crmCodeFeature != null)
+            {
+                result.CrmEntityCode = (int)crmCodeFeature.CrmEntity;
+            }
+
             result.HasComments = card.Uses<ShowNotesFeature>();
             result.HasAdminTab = card.Uses<ShowAdminPartFeature>();
 

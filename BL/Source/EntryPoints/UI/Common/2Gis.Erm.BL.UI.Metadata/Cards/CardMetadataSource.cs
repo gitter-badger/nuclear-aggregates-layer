@@ -138,8 +138,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Client>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnClient)
                                     .Icon.Path("en_ico_16_Client.gif")
-                                    .WithComments()
-                                    .WithAdminTab(),
+                                    .WithComments(),
 
                         CardMetadata.For<Contact>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnContact)

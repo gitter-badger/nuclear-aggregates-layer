@@ -41,6 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                 UiElementMetadata.Config
                                                                                                  .Name.Static("Merge")
                                                                                                  .Title.Resource(() => ErmConfigLocalization.ControlMerge)
+                                                                                                 .Icon.Path("Merge.gif")
                                                                                                  .ControlType(ControlType.ImageButton)
                                                                                                  .LockOnNew()
                                                                                                  .LockOnInactive()
@@ -50,6 +51,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                   UiElementMetadata.Config.SplitterAction(),
                                   UiElementMetadata.Config.CloseAction())
                             .ConfigRelatedItems(
+                                    UiElementMetadata.Config.ContentTab("en_ico_16_Client.gif"),
                                     UiElementMetadata.Config
                                                      .Name.Static("Firm")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
@@ -114,7 +116,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Icon.Path("en_ico_16_Links.gif")
                                                      .LockOnNew()
                                                      .Handler.ShowGridByConvention(EntityName.ClientLink)
-                                                     .FilterToParent()
                                                      .AppendapleEntity<Client>());
     }
 }

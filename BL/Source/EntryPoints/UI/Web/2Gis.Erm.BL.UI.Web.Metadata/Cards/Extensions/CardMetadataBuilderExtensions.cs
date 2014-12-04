@@ -107,10 +107,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             builder.RelatedItems
                    .Name("Information")
                    .Title(() => ErmConfigLocalization.CrdRelInformationHeader)
-                   .Attach(new UiElementMetadata[]
-                               {
-                                   UiElementMetadata.Config.ContentTab()
-                               }.Concat(items).ToArray());
+                   .Attach(items);
 
             return builder;
         }

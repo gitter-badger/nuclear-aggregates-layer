@@ -13,7 +13,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<AssociatedPositionsGroup>()
                         .MainAttribute(x => x.Id)
                         .ConfigActivityCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config.Name.Static("AssociatedPosition")
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config.Name.Static("AssociatedPosition")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelAssociatedPosition)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.AssociatedPosition)

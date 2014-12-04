@@ -35,7 +35,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                                 .Operation.NonCoupled<CopyPricePositionIdentity>()),
                                     UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("AssociatedPositionsGroup")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelAssociatedPositionsGroup)
                                                              .LockOnNew()

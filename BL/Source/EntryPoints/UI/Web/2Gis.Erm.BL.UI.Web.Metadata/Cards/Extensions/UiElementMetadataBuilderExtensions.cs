@@ -215,11 +215,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.NonCoupled<CloseIdentity>();
         }
 
-        public static UiElementMetadataBuilder ContentTab(this UiElementMetadataBuilder builder)
+        public static UiElementMetadataBuilder ContentTab(this UiElementMetadataBuilder builder, string icon)
         {
             return builder.Name.Static("ContentTab")
                           .Title.Resource(() => ErmConfigLocalization.CrdRelInformation)
-                          .Icon.Path("en_ico_16_Default.gif");
+                          .Icon.Path(icon);
+        }
+
+        public static UiElementMetadataBuilder ContentTab(this UiElementMetadataBuilder builder)
+        {
+            return builder.ContentTab("en_ico_16_Default.gif");
         }
 
         public static UiElementMetadataBuilder AppendapleEntity<TEntity>(this UiElementMetadataBuilder builder)

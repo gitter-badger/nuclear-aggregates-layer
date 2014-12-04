@@ -58,7 +58,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 
                                     UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("Account")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelAccounts)
                                                              .Icon.Path("en_ico_16_Account.gif")

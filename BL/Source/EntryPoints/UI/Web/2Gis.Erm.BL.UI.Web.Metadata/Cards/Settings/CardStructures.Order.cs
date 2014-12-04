@@ -125,6 +125,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                                 .Operation.NonCoupled<CopyOrderIdentity>()),
                                     UiElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(
+                                    UiElementMetadata.Config.ContentTab(),
                                     UiElementMetadata.Config
                                                      .Name.Static("Bills")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelBills)

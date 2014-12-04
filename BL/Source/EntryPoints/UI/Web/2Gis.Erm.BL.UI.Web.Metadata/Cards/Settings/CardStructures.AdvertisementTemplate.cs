@@ -37,6 +37,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Icon.Path("Refresh.gif"),
                                     UiElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(
+                                    UiElementMetadata.Config.ContentTab(),
                                     UiElementMetadata.Config
                                                      .Name.Static("Children")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)

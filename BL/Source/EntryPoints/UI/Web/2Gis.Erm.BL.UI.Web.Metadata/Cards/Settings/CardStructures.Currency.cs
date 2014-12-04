@@ -15,6 +15,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .MainAttribute<Currency, ICurrencyViewModel>(x => x.Name)
                         .ConfigCommonCardToolbar()
                         .ConfigRelatedItems(
+                                    UiElementMetadata.Config.ContentTab(),
                                     UiElementMetadata.Config
                                                      .Name.Static("CurrencyRate")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCurrencyRate)

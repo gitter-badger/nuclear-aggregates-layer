@@ -13,7 +13,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Account>()
                         .MainAttribute(x => x.Id)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
                                                              .Name.Static("AccountDetails")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelAccountDetails)
                                                              .LockOnNew()
