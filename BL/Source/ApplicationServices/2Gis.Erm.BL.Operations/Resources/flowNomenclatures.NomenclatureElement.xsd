@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://tempuri.org/XMLSchema.xsd" elementFormDefault="qualified" xmlns="http://tempuri.org/XMLSchema.xsd" xmlns:mstns="http://tempuri.org XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="string256">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
 
   <xs:simpleType name="AccountingMethod">
     <xs:restriction base="xs:string">
@@ -8,20 +14,13 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:element name="NomenclatureElement" type="Nomenclature">
-    <xs:annotation>
-      <xs:documentation>Элемент номенклатуры</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-
   <xs:complexType name="Nomenclature">
-
     <xs:attribute name="Code" type="xs:long" use="required">
       <xs:annotation>
         <xs:documentation>Код номенклатуры</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Name" type="xs:string" use="required">
+    <xs:attribute name="Name" type="string256" use="required">
       <xs:annotation>
         <xs:documentation>Название номенклатуры</xs:documentation>
       </xs:annotation>
@@ -51,5 +50,11 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
+
+  <xs:element name="NomenclatureElement" type="Nomenclature">
+    <xs:annotation>
+      <xs:documentation>Элемент номенклатуры</xs:documentation>
+    </xs:annotation>
+  </xs:element>
 
 </xs:schema>
