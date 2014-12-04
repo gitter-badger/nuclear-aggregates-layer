@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                         OperatesOnTheBasisInGenitive = x.OperatesOnTheBasisInGenitive ?? OperatesOnTheBasisType.Undefined,
                                         PostAddress = x.PostAddress,
                                         EmailForAccountingDocuments = x.EmailForAccountingDocuments,
-                                        AdditionalPaymentElements = x.AdditionalPaymentElements,
+                                        PaymentEssentialElements = x.PaymentEssentialElements,
                                         PaymentMethod = x.PaymentMethod == null ? PaymentMethod.Undefined : (PaymentMethod)x.PaymentMethod,
                                         AccountNumber = x.AccountNumber,
                                         PersonResponsibleForDocuments = x.PersonResponsibleForDocuments,
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                 legalPersonProfile.Phone = dto.Phone;
                                 legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;
                                 legalPersonProfile.AccountNumber = dto.AccountNumber;
-                                legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
+                                legalPersonProfile.PaymentEssentialElements = dto.PaymentEssentialElements;
                                 legalPersonProfile.PaymentMethod = dto.PaymentMethod;
                                 legalPersonProfile.LegalPersonId = dto.LegalPersonRef.Id.Value;
                                 legalPersonProfile.Within<ChileLegalPersonProfilePart>().SetPropertyValue(part => part.AccountType, dto.AccountType);
