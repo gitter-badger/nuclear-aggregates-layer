@@ -75,16 +75,9 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
                 var orderInfo = _finder.Find(Specs.Find.ById<Order>(bill.OrderId))
                                        .Select(x => new
                                                         {
-                                                            IsOrderActive = x.WorkflowStepId == OrderState.OnRegistration,
                                                             SignupDate = x.SignupDate,
                                                         })
                                        .Single();
-
-                if (!orderInfo.IsOrderActive)
-                {
-                    report = BLCore.Resources.Server.Properties.BLResources.CantEditBillsWhenOrderIsNotOnRegistration;
-                    return false;
-                }
 
                 var endOfPaymentDatePlan = new DateTime(bill.PaymentDatePlan.Year, bill.PaymentDatePlan.Month, bill.PaymentDatePlan.Day)
                                     .AddDays(1)
