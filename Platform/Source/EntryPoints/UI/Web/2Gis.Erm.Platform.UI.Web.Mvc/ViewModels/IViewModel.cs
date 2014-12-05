@@ -6,11 +6,20 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels
     {
         [PresentationLayerProperty]
         string Message { get; set; }
+
         [PresentationLayerProperty]
         MessageType MessageType { get; set; }
+
         [PresentationLayerProperty]
         string EntityStateToken { get; set; }
+
         [PresentationLayerProperty]
         bool IsSuccess { get; set; }
+
+        void SetInfo(string message);
+
+        void SetWarning(string message);
+
+        void SetCriticalError(string message);
     }
 }

@@ -46,8 +46,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public override byte[] Timestamp { get; set; }
 
-        public bool UserDoesntHaveRightsToEditFirm { get; set; }
-
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var advDto = domainEntityDto as AdvertisementDomainEntityDto;
@@ -64,8 +62,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             IsDummy = !advDto.FirmRef.Id.HasValue;
             AdvertisementTemplate = LookupField.FromReference(advDto.AdvertisementTemplateRef);
             HasAssignedOrder = advDto.HasAssignedOrder;
-            IsReadOnlyTemplate = advDto.IsReadOnlyTemplate;
-            UserDoesntHaveRightsToEditFirm = advDto.UserDoesntHaveRightsToEditFirm;
+            IsReadOnlyTemplate = advDto.IsReadOnlyTemplate;         
 
             Timestamp = advDto.Timestamp;
         }

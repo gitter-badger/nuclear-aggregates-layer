@@ -52,6 +52,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Clients\IContactSalutationsProvider.cs" />
     <Compile Include="SimplifiedModel\DTOs\DenialReasonDto.cs" />
     <Compile Include="SimplifiedModel\ICreateBirthdayCongratulationService.cs" />
     <Compile Include="SimplifiedModel\ICreateDenialReasonService.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Zones;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
@@ -13,8 +14,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.DI
                                              IContainsType<IController>,
                                              IContainsType<IUIService>,
                                              IContainsType<IEntityUIService>,
-                                             IContainsType<IMetadataSource>,
-                                             IContainsType<IViewModel>
+                                             IContainsType<IViewModel>,
+                                             IContainsType<IViewModelCustomization>,
+                                             IContainsType<IMetadataSource>
     {
     }
 }

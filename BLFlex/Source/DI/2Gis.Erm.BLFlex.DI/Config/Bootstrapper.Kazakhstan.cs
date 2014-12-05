@@ -1,12 +1,13 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+﻿using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Kazakhstan.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic;
-using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
@@ -38,6 +39,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, KazakhstanLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IFormatterFactory, KazakhstanFormatterFactory>(Lifetime.Singleton)
                 .RegisterType<ICheckInnService, KazakhstanBinInnService>(Lifetime.Singleton)
+                .RegisterType<IContactSalutationsProvider, KazakhstanContactSalutationsProvider>(Lifetime.Singleton)
                 .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.PerResolve, Mapping.Erm)
                 .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)

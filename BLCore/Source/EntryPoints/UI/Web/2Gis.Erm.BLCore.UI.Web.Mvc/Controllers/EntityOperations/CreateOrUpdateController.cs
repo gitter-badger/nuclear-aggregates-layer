@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
             // TODO {y.baranihin, 03.12.2014}: Сделать переключатель в конфиге
             _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model); //ApplyToolbarItemsLock(model);
-            
+
             var viewName = _entityViewNameProvider.GetView<TModel, TEntity>();
             return View(viewName, model);
         }
@@ -271,7 +271,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
         private void CustomizeModelAfterMetadataReady(TModel model)
         {
-            var viewModelCustomizationService = _uiServicesManager.GetModelCustomizationService(typeof(TEntity).AsEntityName());
+            var viewModelCustomizationService = _uiServicesManager.GetModelCustomizationService<TModel, TEntity>();
             viewModelCustomizationService.CustomizeViewModel(model, ModelState);
         }
 
@@ -312,14 +312,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                     if (Enum.IsDefined(typeof(FunctionalPrivilegeName), privilegeMask))
                     {
                         toolbarItem.Disabled = !_functionalAccessService.HasFunctionalPrivilegeGranted((FunctionalPrivilegeName)privilegeMask,
-                                                                                                       UserContext.Identity.Code);
+                                                                                                      UserContext.Identity.Code);
                     }
                     else
                     {
                         toolbarItem.Disabled = !entityAccess.HasFlag((EntityAccessTypes)privilegeMask);
                     }
-                }
-            }
+        }
+        }
 
             foreach (var toolbarItem in model.ViewConfig.CardSettings.CardToolbar.Where(t => !t.Disabled))
             {

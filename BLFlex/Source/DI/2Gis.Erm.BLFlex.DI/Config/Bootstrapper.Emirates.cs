@@ -1,6 +1,8 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+﻿using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Concrete.Integration;
@@ -53,6 +55,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, EmiratesLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IFormatterFactory, EmiratesFormatterFactory>(Lifetime.Singleton)
                 .RegisterType<ICheckInnService, EmiratesInnService>(Lifetime.Singleton)
+                .RegisterType<IContactSalutationsProvider, EmiratesContactSalutationsProvider>(Lifetime.Singleton)
                 .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
                 .ConfigureEmiratesSpecificNumberServices();
         }
