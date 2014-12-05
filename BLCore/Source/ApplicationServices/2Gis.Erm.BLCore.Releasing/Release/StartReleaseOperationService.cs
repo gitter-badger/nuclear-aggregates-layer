@@ -434,10 +434,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 if (!LockSuccessfullyAcquired(acquiredRelease))
                 {
                     var msg = string.Format("Acquired release with id {0} for organization unit with id {1} by period {2} has processing status violations. " +
+                                            "Aborting acquired release. " +
                                             "Possible reason for errors - concurrent release\reverting process and invalid release status processing",
                                             acquiredRelease.Id,
                                             acquiredRelease.OrganizationUnitId,
                                             releasingPeriod);
+                    _releaseChangeStatusAggregateService.Finished(acquiredRelease, ReleaseStatus.Error, msg);
+
                     _logger.ErrorEx(msg);
                     releasingResult.ProcessingMessages = new[] { new ReleaseProcessingMessage { IsBlocking = true, Message = msg } };
 
