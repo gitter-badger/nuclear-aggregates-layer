@@ -40,6 +40,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         public ActivityPurpose Purpose { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string Title { get; set; }
 
         public string Description { get; set; }
