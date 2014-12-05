@@ -71,7 +71,7 @@
     <Compile Include="MultiCulture\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
-    <Compile Include="MultiCulture\Crosscutting\NullValidateBillsService.cs" />
+    <Compile Include="MultiCulture\Crosscutting\DefaultValidateBillsService.cs" />
     <Compile Include="Russia\LegalPersons\RussiaLegalPersonReadModel.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />

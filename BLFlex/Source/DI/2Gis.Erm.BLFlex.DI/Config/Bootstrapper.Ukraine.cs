@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<ICheckInnService, UkraineIpnService>(Lifetime.Singleton)
                 .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IPartableEntityValidator<BranchOffice>, UkraineBranchOfficeValidator>(Lifetime.PerResolve, Mapping.Erm)
-                .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
+                .RegisterType<IValidateBillsService, DefaultValidateBillsService>(Lifetime.Singleton)
                 .RegisterType<IUkraineOrderPrintFormDataExtractor, UkraineOrderPrintFormDataExtractor>(Lifetime.PerResolve)
                 .ConfigureUkraineSpecificNumberServices();
         }

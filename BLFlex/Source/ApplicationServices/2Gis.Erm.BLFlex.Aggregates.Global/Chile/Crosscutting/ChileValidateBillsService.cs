@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Bills;
 using DoubleGis.Erm.BLFlex.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -65,6 +68,34 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
             {
                 report = string.Format(BLResources.ExistingBillNumbers, string.Join(", ", existingNumbers));
                 return false;
+            }
+
+            foreach (var bill in bills)
+            {
+                var orderInfo = _finder.Find(Specs.Find.ById<Order>(bill.OrderId))
+                                       .Select(x => new
+                                                        {
+                                                            IsOrderActive = x.WorkflowStepId == OrderState.OnRegistration,
+                                                            SignupDate = x.SignupDate,
+                                                        })
+                                       .Single();
+
+                if (!orderInfo.IsOrderActive)
+                {
+                    report = BLCore.Resources.Server.Properties.BLResources.CantEditBillsWhenOrderIsNotOnRegistration;
+                    return false;
+                }
+
+                var endOfPaymentDatePlan = new DateTime(bill.PaymentDatePlan.Year, bill.PaymentDatePlan.Month, bill.PaymentDatePlan.Day)
+                                    .AddDays(1)
+                                    .AddSeconds(-1);
+
+                var endOfCheckPeriod = bill.BeginDistributionDate.AddMonths(-1).GetEndPeriodOfThisMonth();
+                if (orderInfo.SignupDate > bill.PaymentDatePlan && endOfPaymentDatePlan <= endOfCheckPeriod)
+                {
+                    report = BLCore.Resources.Server.Properties.BLResources.BillPaymentDatePlanMustBeInCorrectPeriod;
+                    return false;
+                }
             }
 
             return true;

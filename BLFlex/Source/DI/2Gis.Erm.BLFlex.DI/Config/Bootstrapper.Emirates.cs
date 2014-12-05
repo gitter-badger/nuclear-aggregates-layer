@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, EmiratesLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IFormatterFactory, EmiratesFormatterFactory>(Lifetime.Singleton)
                 .RegisterType<ICheckInnService, EmiratesInnService>(Lifetime.Singleton)
-                .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
+                .RegisterType<IValidateBillsService, DefaultValidateBillsService>(Lifetime.Singleton)
                 .ConfigureEmiratesSpecificNumberServices();
         }
 

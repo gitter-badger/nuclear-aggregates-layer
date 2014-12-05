@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, CzechLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                        .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
+                        .RegisterType<IValidateBillsService, DefaultValidateBillsService>(Lifetime.Singleton)
                         .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
                         .ConfigureCzechSpecificNumberServices();
         }

@@ -473,29 +473,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
         public int CreateOrUpdate(Bill bill)
         {
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(bill.OrderId))
-                .Select(x => new
-                    {
-                        IsOrderActive = x.WorkflowStepId == OrderState.OnRegistration,
-                        SignupDate = x.SignupDate,
-                    })
-                .Single();
-
-            if (!orderInfo.IsOrderActive)
-            {
-                throw new NotificationException(BLResources.CantEditBillsWhenOrderIsNotOnRegistration);
-            }
-
-            var endOfPaymentDatePlan = new DateTime(bill.PaymentDatePlan.Year, bill.PaymentDatePlan.Month, bill.PaymentDatePlan.Day)
-                                .AddDays(1)
-                                .AddSeconds(-1);
-
-            var endOfCheckPeriod = bill.BeginDistributionDate.AddMonths(-1).GetEndPeriodOfThisMonth();
-            if (orderInfo.SignupDate > bill.PaymentDatePlan && endOfPaymentDatePlan <= endOfCheckPeriod)
-            {
-                throw new NotificationException(BLResources.BillPaymentDatePlanMustBeInCorrectPeriod);
-            }
-
             using (var scope = _scopeFactory.CreateOrUpdateOperationFor(bill))
             {
                 if (bill.IsNew())
