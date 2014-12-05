@@ -11,8 +11,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Metadata;
+using DoubleGis.Erm.BLCore.UI.Web.Metadata.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -47,6 +49,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly ICardSettingsProcessor _cardSettingsProcessor;
+        private readonly ICardsMetadataSettings _cardsMetadataSettings;
 
         public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
                                         IUserContext userContext,
@@ -61,7 +64,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IEntityViewNameProvider entityViewNameProvider,
-                                        ICardSettingsProcessor cardSettingsProcessor)
+                                        ICardSettingsProcessor cardSettingsProcessor,
+                                        ICardsMetadataSettings cardsMetadataSettings)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -77,9 +81,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             _entityAccessService = entityAccessService;
             _entityViewNameProvider = entityViewNameProvider;
             _cardSettingsProcessor = cardSettingsProcessor;
+            _cardsMetadataSettings = cardsMetadataSettings;
         }
 
-        [HttpGet, SetEntityStateToken, UseDependencyFields]
+        [HttpGet]
+        [SetEntityStateToken]
+        [UseDependencyFields]
         public ActionResult Entity(long? entityId, bool? readOnly, long? pId, EntityName pType, string extendedInfo)
         {
             var actualEntityId = entityId ?? 0;
@@ -89,14 +96,25 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             SetViewModelProperties(model, actualReadOnly, pId, pType, extendedInfo);
             CustomizeModelAfterMetadataReady(model);
 
-            // TODO {y.baranihin, 03.12.2014}: Сделать переключатель в конфиге
-            _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model); //ApplyToolbarItemsLock(model);
+            switch (_cardsMetadataSettings.CardsMetadataSource)
+            {
+                case CardsMetadataSource.EntitySettingsXml:
+                    ApplyToolbarItemsLock(model);
+                    break;
+                case CardsMetadataSource.CodedMetadata:
+                    _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             var viewName = _entityViewNameProvider.GetView<TModel, TEntity>();
             return View(viewName, model);
         }
 
-        [HttpPost, GetEntityStateToken, UseDependencyFields]
+        [HttpPost]
+        [GetEntityStateToken]
+        [UseDependencyFields]
         public ActionResult Entity(TModel model)
         {
             try
@@ -122,8 +140,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             {
                 SetViewModelProperties(model, model.ViewConfig.ReadOnly, model.ViewConfig.PId, model.ViewConfig.PType, model.ViewConfig.ExtendedInfo);
                 CustomizeModelAfterMetadataReady(model);
-                // TODO {y.baranihin, 03.12.2014}: Сделать переключатель в конфиге
-                _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model); //ApplyToolbarItemsLock(model);
+
+                switch (_cardsMetadataSettings.CardsMetadataSource)
+                {
+                    case CardsMetadataSource.EntitySettingsXml:
+                        ApplyToolbarItemsLock(model);
+                        break;
+                    case CardsMetadataSource.CodedMetadata:
+                        _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
             UpdateValidationMessages(model);
@@ -139,9 +167,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
             var modifyService = _operationServicesManager.GetModifyDomainEntityService(typeof(TEntity).AsEntityName());
             var entityId = modifyService.Modify(domainEntityDto);
-            
+
             if (model.Id == 0)
-            {   
+            {
                 model.Id = entityId;
             }
             else
@@ -170,10 +198,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 if (createdBy > 0)
                 {
                     model.CreatedBy = new LookupField
-                        {
-                            Key = createdBy,
-                            Value = _userIdentifierService.GetUserInfo(createdBy).DisplayName
-                        };
+                                          {
+                                              Key = createdBy,
+                                              Value = _userIdentifierService.GetUserInfo(createdBy).DisplayName
+                                          };
                 }
 
                 model.CreatedOn = domainEntityDto.GetPropertyValue<IDomainEntityDto, IAuditableEntity, DateTime>(x => x.CreatedOn);
@@ -182,10 +210,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 if (modifiedBy.HasValue && modifiedBy.Value != 0)
                 {
                     model.ModifiedBy = new LookupField
-                        {
-                            Key = modifiedBy,
-                            Value = _userIdentifierService.GetUserInfo(modifiedBy.Value).DisplayName
-                        };
+                                           {
+                                               Key = modifiedBy,
+                                               Value = _userIdentifierService.GetUserInfo(modifiedBy.Value).DisplayName
+                                           };
                 }
 
                 model.ModifiedOn = domainEntityDto.GetPropertyValue<IDomainEntityDto, IAuditableEntity, DateTime?>(x => x.ModifiedOn);
@@ -197,10 +225,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 if (ownerCode > 0)
                 {
                     model.Owner = new LookupField
-                        {
-                            Key = ownerCode,
-                            Value = _userIdentifierService.GetUserInfo(ownerCode).DisplayName
-                        };
+                                      {
+                                          Key = ownerCode,
+                                          Value = _userIdentifierService.GetUserInfo(ownerCode).DisplayName
+                                      };
                 }
             }
 
@@ -231,18 +259,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             var oldOwnerCode = (long?)null;
 
             if (model.IsCurated && model.Owner != null)
-                {
-                    ownerCode = model.Owner.Key.Value;
-                    oldOwnerCode = model.OldOwnerCode;
-                }
+            {
+                ownerCode = model.Owner.Key.Value;
+                oldOwnerCode = model.OldOwnerCode;
+            }
 
             // check security access
             var entityAccess = _entityAccessService.RestrictEntityAccess(typeof(TEntity).AsEntityName(),
-                                                                        EntityAccessTypes.All,
-                                                                        UserContext.Identity.Code,
-                                                                        model.Id,
-                                                                        ownerCode,
-                                                                        oldOwnerCode);
+                                                                         EntityAccessTypes.All,
+                                                                         UserContext.Identity.Code,
+                                                                         model.Id,
+                                                                         ownerCode,
+                                                                         oldOwnerCode);
             if (!entityAccess.HasFlag(EntityAccessTypes.Create) && model.IsNew)
             {
                 throw new SecurityAccessDeniedException(BLResources.SecurityAccess_HasNoCreatePlivilege);
@@ -292,11 +320,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             }
 
             var entityAccess = _entityAccessService.RestrictEntityAccess(typeof(TEntity).AsEntityName(),
-                                                                        EntityAccessTypes.All,
-                                                                        UserContext.Identity.Code,
-                                                                        model.Id,
-                                                                        ownerCode,
-                                                                        oldOwnerCode);
+                                                                         EntityAccessTypes.All,
+                                                                         UserContext.Identity.Code,
+                                                                         model.Id,
+                                                                         ownerCode,
+                                                                         oldOwnerCode);
 
             var cardSettings = model.ViewConfig.CardSettings;
             // NOTE: Внимание!!!
@@ -312,20 +340,20 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                     if (Enum.IsDefined(typeof(FunctionalPrivilegeName), privilegeMask))
                     {
                         toolbarItem.Disabled = !_functionalAccessService.HasFunctionalPrivilegeGranted((FunctionalPrivilegeName)privilegeMask,
-                                                                                                      UserContext.Identity.Code);
+                                                                                                       UserContext.Identity.Code);
                     }
                     else
                     {
                         toolbarItem.Disabled = !entityAccess.HasFlag((EntityAccessTypes)privilegeMask);
                     }
-        }
-        }
+                }
+            }
 
             foreach (var toolbarItem in model.ViewConfig.CardSettings.CardToolbar.Where(t => !t.Disabled))
             {
                 // Если кнопка не заблокирована в результате проверки привилегий, блокируем ее на основании EntitySettings
                 toolbarItem.Disabled |= (model.ViewConfig.ReadOnly && toolbarItem.LockOnInactive) || (toolbarItem.LockOnNew && model.Id == 0);
-            }                
+            }
         }
 
         private void UpdateValidationMessages(TModel model)

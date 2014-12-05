@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
+using DoubleGis.Erm.BLCore.UI.Web.Metadata.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
@@ -26,11 +27,13 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
     /// </summary>
     public sealed class WebAppSettings : 
         SettingsContainerBase,
+        ICardsMetadataSettings,
         IReportsSettings,
         IWebAppProcesingSettings
     {
         private readonly IntSetting _authExpirationTimeInMinutes = ConfigFileSetting.Int.Required("AuthExpirationTimeInMinutes");
         private readonly StringSetting _reportServer = ConfigFileSetting.String.Required("ReportServer");
+        private readonly EnumSetting<CardsMetadataSource> _cardsMetadataSource = ConfigFileSetting.Enum.Required<CardsMetadataSource>("CardsMetadataSource");
 
         public WebAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
@@ -62,6 +65,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
         string IReportsSettings.ReportServer
         {
             get { return _reportServer.Value; }
+        }
+
+        CardsMetadataSource ICardsMetadataSettings.CardsMetadataSource
+        {
+            get { return _cardsMetadataSource.Value; }
         }
     }
 }

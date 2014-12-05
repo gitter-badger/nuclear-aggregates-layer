@@ -187,10 +187,6 @@
       <Project>{6D3EF801-AAE6-4A56-BCDB-8ED3E90C45A4}</Project>
       <Name>2Gis.Erm.BL.UI.Metadata</Name>
     </ProjectReference>
-    <ProjectReference Include="..\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
-      <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
-      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

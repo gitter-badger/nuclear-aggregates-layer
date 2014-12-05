@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -431,11 +432,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
         private readonly ICommonLog _commonLog;
 
-        public UICardConfigurationService(IGlobalizationSettings globalizationSettings, ICardSettingsProvider cardSettingsProvider, ICommonLog commonLog)
+        private readonly ICardsMetadataSettings _cardsMetadataSettings;
+
+        public UICardConfigurationService(
+            IGlobalizationSettings globalizationSettings,
+            ICardSettingsProvider cardSettingsProvider,
+            ICommonLog commonLog,
+            ICardsMetadataSettings cardsMetadataSettings)
         {
             _globalizationSettings = globalizationSettings;
             _cardSettingsProvider = cardSettingsProvider;
             _commonLog = commonLog;
+            _cardsMetadataSettings = cardsMetadataSettings;
         }
 
         public CardStructure GetCardSettings(EntityName entityName, CultureInfo culture)
@@ -505,9 +513,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 _commonLog.ErrorEx(errorMessage);
             }
 
-            // TODO {y.baranihin, 03.12.2014}: настроить переключатель в конфиге
-            return localizedCardSettings;
-            //return codedCardSettings;
+            switch (_cardsMetadataSettings.CardsMetadataSource)
+            {
+                case CardsMetadataSource.EntitySettingsXml:
+                    return localizedCardSettings;
+                case CardsMetadataSource.CodedMetadata:
+                    return codedCardSettings;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public CardStructure GetCardSettings(BusinessModel adaptation, EntityName entityName)
