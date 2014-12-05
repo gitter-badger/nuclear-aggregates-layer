@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
         /// Стабильный идентификатор заказа (r)
         /// </summary>
         [DataMember]
-        public long InvoiceCode { get; set; }
+        public long OrderCode { get; set; }
 
         /// <summary>
         /// Стабильный идентификатор лицевого счета (r)
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
         {
             var elements = new object[]
                 {
-                    this.ToXAttribute(() => InvoiceCode, InvoiceCode),
+                    this.ToXAttribute(() => OrderCode, OrderCode),
                     this.ToXAttribute(() => AccountCode, AccountCode),
                     this.ToXAttribute(() => LegalEntityBranchCode1C, LegalEntityBranchCode1C),
                     this.ToXAttribute(() => ProfileCode, ProfileCode),

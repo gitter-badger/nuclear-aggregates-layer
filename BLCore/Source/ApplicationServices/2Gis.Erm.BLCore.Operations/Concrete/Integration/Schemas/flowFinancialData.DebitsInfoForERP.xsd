@@ -123,9 +123,9 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="InvoiceCode" type="xs:long" use="required">
+    <xs:attribute name="OrderCode" type="xs:long" use="required">
       <xs:annotation>
-        <xs:documentation>Стабильный идентификатор заказа</xs:documentation>
+        <xs:documentation>Id Бланка заказа по которому проходит списание</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="AccountCode" type="xs:long" use="required">

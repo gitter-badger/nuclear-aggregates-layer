@@ -151,7 +151,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             var debits = accountDetailDtos
                 .Select(x => new DebitDto
                                  {
-                                     InvoiceCode = x.OrderId,
+                                     OrderCode = x.OrderId,
                                      AccountCode = x.AccountCode,
                                      ProfileCode = x.ProfileCode,
                                      Amount = GetAccountDetailAmount(x),

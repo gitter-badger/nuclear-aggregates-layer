@@ -2,19 +2,19 @@
 <DebitsInfoForERP OrganizationUnitCode="53" StartDate="2013-07-01T00:00:00" EndDate="2013-07-31T23:59:59" ClientDebitTotalAmount="5.09">
   <ClientDebits/>
   <RegionalDebits>
-    <Debit AccountCode="41730" LegalEntityBranchCode1C="080" ProfileCode="1508" OrderType="3" OrderNumber="01-51-07-13" SignupDate="2013-03-21T00:00:00" Amount="1122.40" MediaInfo="2 ГИС.Братск" ClientOrderNumber="БЗ_01-51-75304">
+    <Debit OrderCode="41730" AccountCode="41730" LegalEntityBranchCode1C="080" ProfileCode="1508" OrderType="3" OrderNumber="01-51-07-13" SignupDate="2013-03-21T00:00:00" Amount="1122.40" MediaInfo="2 ГИС.Братск" ClientOrderNumber="БЗ_01-51-75304">
       <PlatformDistribution PlatformCode="1" Amount="1122.40"/>
       <PlatformDistribution PlatformCode="2" Amount="0"/>
       <PlatformDistribution PlatformCode="3" Amount="0"/>
       <PlatformDistribution PlatformCode="4" Amount="0"/>
     </Debit>
-    <Debit AccountCode="120260" LegalEntityBranchCode1C="000000026" ProfileCode="2450" OrderType="6" OrderNumber="51-01-07-13" SignupDate="2013-03-07T00:00:00" Amount="230.00" MediaInfo="2 ГИС.Братск" ClientOrderNumber="БЗ_51-51-65523-API">
+    <Debit OrderCode="41730" AccountCode="120260" LegalEntityBranchCode1C="000000026" ProfileCode="2450" OrderType="6" OrderNumber="51-01-07-13" SignupDate="2013-03-07T00:00:00" Amount="230.00" MediaInfo="2 ГИС.Братск" ClientOrderNumber="БЗ_51-51-65523-API">
       <PlatformDistribution PlatformCode="1" Amount="0"/>
       <PlatformDistribution PlatformCode="2" Amount="0"/>
       <PlatformDistribution PlatformCode="3" Amount="230.00"/>
       <PlatformDistribution PlatformCode="4" Amount="0"/>
     </Debit>
-    <Debit AccountCode="41730" LegalEntityBranchCode1C="080" ProfileCode="1508" OrderType="7" OrderNumber="01-51-07-13" SignupDate="2013-04-23T00:00:00" Amount="1904.40" MediaInfo="2 ГИС.Братск" ClientOrderNumber="БЗ_38-51-93723">
+    <Debit OrderCode="41730" AccountCode="41730" LegalEntityBranchCode1C="080" ProfileCode="1508" OrderType="7" OrderNumber="01-51-07-13" SignupDate="2013-04-23T00:00:00" Amount="1904.40" MediaInfo="2 ГИС.Братск" ClientOrderNumber="БЗ_38-51-93723">
       <PlatformDistribution PlatformCode="1" Amount="1821.60"/>
       <PlatformDistribution PlatformCode="2" Amount="82.80"/>
       <PlatformDistribution PlatformCode="3" Amount="0"/>
