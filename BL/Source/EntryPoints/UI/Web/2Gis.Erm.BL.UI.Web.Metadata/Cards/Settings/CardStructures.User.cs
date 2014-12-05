@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                                 .ControlType(ControlType.TextButton)
                                                                                                 .Handler.Name("scope.ProcessUserProfile")),
                                     UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_UserAccount.gif"),
                                             UiElementMetadata.Config
                                                              .Name.Static("UserRole")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelUserRole)

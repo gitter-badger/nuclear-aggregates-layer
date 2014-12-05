@@ -160,6 +160,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
         {
             return builder.Name.Static("Activate")
                           .Title.Resource(() => ErmConfigLocalization.ControlActivate)
+                          .Icon.Path("Activate.png")
                           .ControlType(ControlType.TextImageButton)
                           .LockOnNew()
                           .Handler.Name("scope.Activate")

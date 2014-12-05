@@ -10,6 +10,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata BargainType =
             CardMetadata.For<BargainType>()
                         .MainAttribute<BargainType, IBargainTypeViewModel>(x => x.Name)
-                        .ConfigActivityCardToolbar();
+                        .ConfigCommonCardToolbar();
     }
 }

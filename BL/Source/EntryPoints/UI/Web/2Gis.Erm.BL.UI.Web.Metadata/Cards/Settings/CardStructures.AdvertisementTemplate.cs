@@ -20,6 +20,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                     UiElementMetadata.Config.SaveAndCloseAction<AdvertisementTemplate>(),
                                     UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config.RefreshAction<AccountDetail>(),
+                                    UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config
                                                      .Name.Static("PublishAdvertisementTemplate")
                                                      .Title.Resource(() => ErmConfigLocalization.ControlPublishAdvertisementTemplate)

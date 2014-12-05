@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
@@ -40,6 +39,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                            UiElementMetadata.Config.SaveAndCloseAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
                            UiElementMetadata.Config.RefreshAction<TEntity>(),
+                           UiElementMetadata.Config.SplitterAction(),
                            UiElementMetadata.Config.CloseAction());
            
             return builder;

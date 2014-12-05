@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Position>()
                         .MainAttribute<Position, IPositionViewModel>(x => x.Name)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_Position.gif"),
                                             UiElementMetadata.Config
                                                              .Name.Static("Children")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)

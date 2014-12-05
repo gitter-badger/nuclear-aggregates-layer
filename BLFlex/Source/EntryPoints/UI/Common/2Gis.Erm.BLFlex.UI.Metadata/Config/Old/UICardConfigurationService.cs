@@ -421,6 +421,405 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                     },
 
                     #endregion
+
+                    #region Пользователь
+                    {
+                        EntityName.User,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "ShowUserProfile",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Территория
+                    {
+                        EntityName.Territory,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Activate",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
+                                {
+                                    "ContentTab",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>(null, "en_ico_16_Default.gif")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Тематика
+                    {
+                        EntityName.Theme,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "ThemeCategory",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "DisabledExpression",
+                                                // Условие будет проверено на сервере
+                                                new Tuple<object, object>(@"Ext.getDom(""Id"").value==0||Ext.getDom(""OrganizationUnitCount"").value==0", @"Ext.getDom(""Id"").value==0")
+                                            },
+                                        }
+                                },
+                                {
+                                    "ContentTab",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>(null, "en_ico_16_Default.gif")
+                                            },
+                                        }
+                                },
+                                {
+                                    "Actions",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnInactive",
+                                                new Tuple<object, object>(true, false)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Сборка
+                    {
+                        EntityName.ReleaseInfo,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "DownloadResults",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
+                                {
+                                    "Actions",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnInactive",
+                                                new Tuple<object, object>(true, false)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Проект
+                    {
+                        EntityName.Project,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Save",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.Update, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
+                                            },
+                                        }
+                                },
+                                {
+                                    "SaveAndClose",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                             {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.Update, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Позиция прайса
+                    {
+                        EntityName.PricePosition,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "CopyPricePosition",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                        }
+                                },
+                                {
+                                    "Actions",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnInactive",
+                                                new Tuple<object, object>(true, false)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region PositionChildren
+                    {
+                        EntityName.PositionChildren,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "PositionChildren",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>("Name", "Id")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Запрещенная позиция
+                    {
+                        EntityName.DeniedPosition,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "DeniedPosition",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>("Name", "Id")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region LocalMessage
+                    {
+                        EntityName.LocalMessage,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Close",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(true, false)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region AssociatedPosition
+                    {
+                        EntityName.AssociatedPosition,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "AssociatedPosition",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>("Name", "Id")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region BranchOfficeOrganizationUnit
+                    {
+                        EntityName.BranchOfficeOrganizationUnit,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Actions",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnInactive",
+                                                new Tuple<object, object>(true, false)
+                                            },
+                                        }
+                                },
+                                {
+                                    "SetAsPrimary",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.TextImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                        }
+                                },
+                                {
+                                    "SetAsPrimaryForRegSales",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ControlType",
+                                                new Tuple<object, object>(ControlType.TextImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Счет на оплату
+                    {
+                        EntityName.Bill,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Save",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)(EntityAccessTypes.Create | EntityAccessTypes.Update))
+                                            },
+                                        }
+                                },
+                                {
+                                    "SaveAndClose",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)(EntityAccessTypes.Create | EntityAccessTypes.Update))
+                                            },
+                                        }
+                                },
+                                {
+                                    "PrintActions",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region AdsTemplatesAdsElementTemplate
+                    {
+                        EntityName.AdsTemplatesAdsElementTemplate,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "AdsTemplatesAdsElementTemplate",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>("Name", "Id")
+                                            },
+                                        }
+                                },
+                                {
+                                    "Close",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnInactive",
+                                                new Tuple<object, object>(true, false)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region AdditionalFirmService
+                    {
+                        EntityName.AdditionalFirmService,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "AdditionalFirmService",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>("ServiceName", "Id")
+                                            },
+                                            {
+                                                "DecimalDigits",
+                                                new Tuple<object, object>(0, 2)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
                 };
         #endregion
 
@@ -850,7 +1249,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             const string SplitterElementName = "Splitter";
             errors.AddRange(CheckProperties(xmlData,
                                             codeData,
-                                            null,
+                                            cardMetadataCorrections != null && cardMetadataCorrections.ContainsKey(entity.ToString()) ? cardMetadataCorrections[entity.ToString()] : null,
                                             x => x.HasAdminTab,
                                             x => x.HasComments,
                                             x => x.DecimalDigits,

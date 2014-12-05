@@ -316,7 +316,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 
                         CardMetadata.For<Project>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnProjects)
-                                    .Icon.Path("en_ico_lrg_Default.gif")
+                                    .Icon.Path("en_ico_16_Default.gif")
                                     .WithAdminTab(),
 
                         CardMetadata.For<ReleaseInfo>()

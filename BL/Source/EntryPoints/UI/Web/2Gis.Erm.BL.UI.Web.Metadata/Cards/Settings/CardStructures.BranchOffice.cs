@@ -13,8 +13,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata BranchOffice =
             CardMetadata.For<BranchOffice>()
                         .MainAttribute<BranchOffice, IBranchOfficeViewModel>(x => x.Name)
-                        .ConfigActivityCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                        .ConfigCommonCardToolbar()
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_BranchOffice.gif"),
                                             UiElementMetadata.Config
                                                              .Name.Static("BOOU")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelBOOU)
