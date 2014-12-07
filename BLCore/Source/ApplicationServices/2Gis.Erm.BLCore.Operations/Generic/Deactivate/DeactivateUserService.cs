@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly IClientRepository _clientRepository;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IUserReadModel _readModel;
+        private readonly IUserReadModel _userReadModel;
         private readonly IDeactivateUserAggregateService _aggregateService;
 
         public DeactivateUserService(
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             IClientRepository clientRepository,
             IPublicService publicService, 
             IOperationScopeFactory scopeFactory,
-            IUserReadModel readModel, 
+            IUserReadModel userReadModel, 
             IDeactivateUserAggregateService aggregateService)
         {
             _msCrmSettings = msCrmSettings;
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             _clientRepository = clientRepository;
             _publicService = publicService;
             _scopeFactory = scopeFactory;
-            _readModel = readModel;
+            _userReadModel = userReadModel;
             _aggregateService = aggregateService;
         }
 
@@ -87,14 +87,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                     _userRepository.AssignUserRelatedEntities(entityId, ownerCode);
                     operationScope.Updated<User>(ownerCode);
 
-                    var user = _readModel.GetUser(entityId);
-                    var roles = _readModel.GetUserRoles(entityId);
-                    var profile = _readModel.GetProfileForUser(entityId);
+                    var userInfo = _userReadModel.GetUserWithRoleRelations(entityId);
+                    var profile = _userReadModel.GetProfileForUser(entityId);
 
-                    _aggregateService.Deactivate(user, profile, roles);
+                    _aggregateService.Deactivate(userInfo.User, profile, userInfo.RolesRelations);
 
-                    operationScope.Updated<User>(user.Id)
-                        .Complete();
+                    operationScope.Updated<User>(userInfo.User.Id)
+                                  .Complete();
                 }
 
                 if (_msCrmSettings.EnableReplication)

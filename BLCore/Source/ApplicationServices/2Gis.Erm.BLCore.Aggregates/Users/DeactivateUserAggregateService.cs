@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         private void Deactivate(User user)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, User>())
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, User>())
             {
                 user.IsActive = false;
                 _userGenericRepository.Update(user);
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         private void Deactivate(UserProfile userProfile)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, UserProfile>())
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, UserProfile>())
             {
                 userProfile.IsActive = false;
                 _userProfileGenericRepository.Update(userProfile);

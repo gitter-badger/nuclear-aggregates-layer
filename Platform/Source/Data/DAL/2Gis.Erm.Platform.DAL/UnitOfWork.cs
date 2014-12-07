@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Simplified;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
-    public abstract class UnitOfWork : IUnitOfWork, 
+    public abstract partial class UnitOfWork : IUnitOfWork, 
                                        IDomainContextHost,
                                        IAggregateRepositoryForHostFactory,
                                        IAggregatesLayerRuntimeFactory,
@@ -47,14 +47,10 @@ namespace DoubleGis.Erm.Platform.DAL
             _logger = logger;
         }
 
-        #region Implementation of IDomainContextHost
-
-        public Guid ScopeId
+        Guid IDomainContextHost.ScopeId
         {
             get { return _directlyNestedDomainContextsHostId; }
         }
-
-        #endregion
 
         #region Implementation of IAggregateRepository factory functionality
 
@@ -66,7 +62,7 @@ namespace DoubleGis.Erm.Platform.DAL
                 throw new InvalidOperationException("Can't create aggregate repository as concrete type " + targetType + " you must use it through interface");
             }
 
-            return (TAggregateRepository)CreateRepository(targetType, false, this, new DomainContextSaveStrategy(false));
+            return (TAggregateRepository)CreateRepository(targetType, this);
         }
 
         TAggregateRepository IAggregateRepositoryForHostFactory.CreateRepository<TAggregateRepository>(IDomainContextHost domainContextHost)
@@ -77,30 +73,8 @@ namespace DoubleGis.Erm.Platform.DAL
                 throw new InvalidOperationException("Can't create aggregate repository as concrete type " + targetType + " you must use it through interface");
             }
 
-            return (TAggregateRepository)CreateRepository(targetType, false, domainContextHost, new DomainContextSaveStrategy(true));
+            return (TAggregateRepository)CreateRepository(targetType, domainContextHost);
         }
-
-        protected abstract object CreateRepository(Type aggregateRepositoryType,
-                                                   bool createByConcreteType,
-                                                   IReadDomainContextProvider readDomainContextProvider,
-                                                   IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                   IDomainContextSaveStrategy saveStrategy);
-
-        protected abstract object CreateAggregateReadModel(Type aggregateReadModelType,
-                                                           IReadDomainContextProvider readDomainContextProvider);
-
-        protected abstract object CreateConsumer(Type consumerType,
-                                                 IReadDomainContextProvider readDomainContextProvider,
-                                                 IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                 IDomainContextSaveStrategy saveStrategy);
-
-        protected abstract object CreateCosumerReadModel(Type readModelType,
-                                                          IReadDomainContextProvider readDomainContextProvider);
-
-        protected abstract object CreatePersistenceService(Type consumerType,
-                                                           IReadDomainContextProvider readDomainContextProvider,
-                                                           IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                           IDomainContextSaveStrategy saveStrategy);
 
         #endregion
         
@@ -118,7 +92,7 @@ namespace DoubleGis.Erm.Platform.DAL
                 throw new InvalidOperationException("Can't create aggregate repository by interface " + aggregateRepositoryType + ". Factory must be used for concrete types only. Try check and use mapping interface2concrete");
             }
 
-            return CreateRepository(aggregateRepositoryType, true, this, new DomainContextSaveStrategy(false));
+            return CreateRepository(aggregateRepositoryType, this);
         }
 
         object IAggregatesLayerRuntimeFactory.CreateAggregateReadModel(Type aggregateReadModelType)
@@ -155,8 +129,7 @@ namespace DoubleGis.Erm.Platform.DAL
 
             return CreateConsumer(consumerType,
                                   new ReadDomainContextProviderProxy(this, this),
-                                  new ModifiableDomainContextProviderProxy(this, this),
-                                  new DomainContextSaveStrategy(false));
+                                  new ModifiableDomainContextProviderProxy(this, this));
         }
 
         object ISimplifiedModelConsumerRuntimeFactory.CreateAggregateReadModel(Type readModelType)
@@ -173,8 +146,7 @@ namespace DoubleGis.Erm.Platform.DAL
 
             return CreateConsumer(readModelType,
                                   new ReadDomainContextProviderProxy(this, this),
-                                  new ModifiableDomainContextProviderProxy(this, this),
-                                  new DomainContextSaveStrategy(false));
+                                  new ModifiableDomainContextProviderProxy(this, this));
         }
 
         #endregion
@@ -195,8 +167,7 @@ namespace DoubleGis.Erm.Platform.DAL
 
             return CreatePersistenceService(persistenceServiceType,
                 new ReadDomainContextProviderProxy(this, this),
-                new ModifiableDomainContextProviderProxy(this, this),
-                new DomainContextSaveStrategy(false));
+                new ModifiableDomainContextProviderProxy(this, this));
         }
 
         #endregion
@@ -302,125 +273,47 @@ namespace DoubleGis.Erm.Platform.DAL
 
         #endregion
 
-        private object CreateRepository(Type aggregateRepositoryType, bool createByConcreteType, IDomainContextHost domainContextHost, IDomainContextSaveStrategy saveStrategy)
+        protected abstract object CreateRepository(Type aggregateRepositoryType,
+                                                   IReadDomainContextProvider readDomainContextProvider,
+                                                   IModifiableDomainContextProvider modifiableDomainContextProvider);
+
+        protected abstract object CreateAggregateReadModel(Type aggregateReadModelType,
+                                                           IReadDomainContextProvider readDomainContextProvider);
+
+        protected abstract object CreateConsumer(Type consumerType,
+                                                 IReadDomainContextProvider readDomainContextProvider,
+                                                 IModifiableDomainContextProvider modifiableDomainContextProvider);
+
+        protected abstract object CreateCosumerReadModel(Type readModelType,
+                                                          IReadDomainContextProvider readDomainContextProvider);
+
+        protected abstract object CreatePersistenceService(Type consumerType,
+                                                           IReadDomainContextProvider readDomainContextProvider,
+                                                           IModifiableDomainContextProvider modifiableDomainContextProvider);
+
+        private object CreateRepository(Type aggregateRepositoryType, IDomainContextHost domainContextHost)
         {
             var readDomainContextProviderProxy = new ReadDomainContextProviderProxy(this, domainContextHost);
             var modifiableDomainContextProviderProxy = new ModifiableDomainContextProviderProxy(this, domainContextHost);
             return CreateRepository(
                 aggregateRepositoryType,
-                createByConcreteType,
                 readDomainContextProviderProxy,
-                modifiableDomainContextProviderProxy,
-                saveStrategy);
+                modifiableDomainContextProviderProxy);
         }
-
-        #region Поддержка IDisposable
-
-        private readonly object _disposeSync = new object();
-
-        /// <summary>
-        /// Флаг того что instance disposed
-        /// </summary>
-        private bool _isDisposed;
-
-        /// <summary>
-        /// Флаг того что instance disposed - потокобезопасный + для подклассов
-        /// </summary>
-        protected bool IsDisposed
-        {
-            get
-            {
-                lock (_disposeSync)
-                {
-                    return _isDisposed;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Внутренний dispose самого базового класса
-        /// </summary>
-        public void Dispose()
-        {
-            lock (_disposeSync)
-            {
-                if (_isDisposed)
-                {
-                    return;
-                }
-
-                // сначала вызываем реализацию у потомков
-                OnDispose();
-
-                // теперь отрабатывает сам базовый класс
-                lock (_domainContextRegistrarSynch)
-                {
-                    HostDomainContextsStorage directlyNestedDomainContexts;
-                    if (_domainContextRegistrar.TryGetValue(_directlyNestedDomainContextsHostId, out directlyNestedDomainContexts))
-                    {
-                        directlyNestedDomainContexts.ReadonlyDomainContext.Dispose();
-                        foreach (var domainContext in directlyNestedDomainContexts.ModifiableDomainContexts.Values)
-                        {
-                            domainContext.Dispose();
-                        }
-
-                        _domainContextRegistrar.Remove(_directlyNestedDomainContextsHostId);
-                    }
-
-                    if (_domainContextRegistrar.Count > 0)
-                    {
-                        {
-                            // Логирование
-                            var directlyNestedDomainContextRepresentation = directlyNestedDomainContexts != null
-                                ? string.Join(", ", directlyNestedDomainContexts.ModifiableDomainContexts.Keys)
-                                : string.Empty;
-
-                            var domainContextTextRepresentation = string.Join("\n", _domainContextRegistrar.Values.Select(x => string.Join(", ", x.ModifiableDomainContexts.Keys)));
-
-                            _logger.ErrorEx(string.Format("При завершении UoW, обнаружены неочищенные domaincontext от каких-то domain context host - скорее всего где-то не вызвали dispose у UoWScope\nDirectly nested DC: {0}\nRemaining DCs: \n{1}",
-                                directlyNestedDomainContextRepresentation,
-                                domainContextTextRepresentation));
-                        }
-
-                        foreach (var hostDomainContextsStorage in _domainContextRegistrar.Values)
-                        {
-                            hostDomainContextsStorage.ReadonlyDomainContext.Dispose();
-                            foreach (var domainContext in hostDomainContextsStorage.ModifiableDomainContexts.Values)
-                            {
-                                domainContext.Dispose();
-                            }
-                        }
-
-                        _domainContextRegistrar.Clear();
-                    }
-                }
-
-                _isDisposed = true;
-            }
-        }
-
-        /// <summary>
-        /// Обработчик dispose для подклассов
-        /// </summary>
-        protected virtual void OnDispose()
-        {
-        }
-
-        #endregion
 
         private class HostDomainContextsStorage
         {
             private readonly IDictionary<Type, IModifiableDomainContext> _modifiableDomainContexts = new Dictionary<Type, IModifiableDomainContext>();
 
+            public HostDomainContextsStorage(IReadDomainContext readDomainContext)
+            {
+                ReadonlyDomainContext = readDomainContext;
+            }
+
             public IReadDomainContext ReadonlyDomainContext { get; private set; }
             public IDictionary<Type, IModifiableDomainContext> ModifiableDomainContexts
             {
                 get { return _modifiableDomainContexts; }
-            }
-
-            public HostDomainContextsStorage(IReadDomainContext readDomainContext)
-            {
-                ReadonlyDomainContext = readDomainContext;
             }
         }
     }

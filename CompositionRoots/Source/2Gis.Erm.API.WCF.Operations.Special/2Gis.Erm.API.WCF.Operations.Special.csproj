@@ -145,6 +145,10 @@
       <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
       <Name>2Gis.Erm.BLCore.WCF.Operations.Special</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
+      <Project>{B87F1E7F-F375-452D-9055-2E9AB60254C9}</Project>
+      <Name>2Gis.Erm.BLFlex.DI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
       <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
       <Name>2Gis.Erm.BLFlex.Resources.Server</Name>

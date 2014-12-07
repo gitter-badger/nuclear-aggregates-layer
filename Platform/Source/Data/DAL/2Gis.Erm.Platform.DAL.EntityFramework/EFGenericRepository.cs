@@ -13,9 +13,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public EFGenericRepository(IUserContext userContext,
                                    IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                   IDomainContextSaveStrategy domainContextSaveStrategy,
                                    IPersistenceChangesRegistryProvider changesRegistryProvider)
-            : base(userContext, domainContextSaveStrategy, modifiableDomainContextProvider)
+            : base(userContext, modifiableDomainContextProvider)
         {
             _changesRegistryProvider = changesRegistryProvider;
         }
