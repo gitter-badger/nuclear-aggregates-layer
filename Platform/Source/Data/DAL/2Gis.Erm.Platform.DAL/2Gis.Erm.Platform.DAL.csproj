@@ -128,6 +128,7 @@
     <Compile Include="UnitOfWork.Dispose.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UnitOfWorkException.cs" />
+    <Compile Include="UnitOfWorkScope.Dispose.cs" />
     <Compile Include="UnitOfWorkScope.cs" />
     <Compile Include="EAV\WrappedQuery.cs" />
   </ItemGroup>

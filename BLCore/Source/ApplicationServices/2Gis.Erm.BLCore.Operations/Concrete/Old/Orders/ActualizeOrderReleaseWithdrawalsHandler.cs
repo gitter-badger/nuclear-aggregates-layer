@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         {
             var order = request.Order;
 
-            using (var scope = _scopeFactory.CreateNonCoupled<CalculateOrderReleaseWithdrawalsIdentity>())
+            using (var scope = _scopeFactory.CreateNonCoupled<ActualizeOrderReleaseWithdrawalsIdentity>())
             {
                 var orderInfo = _orderReadModel.GetOrderRecalculateWithdrawalsInfo(order.Id);
                 _deleteReleaseWithdrawalsAggregateService.Delete(orderInfo.OrderPositions.SelectMany(x => x.ReleaseWithdrawals));

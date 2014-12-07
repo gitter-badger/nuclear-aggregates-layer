@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int RegisterOrderStateChangesIdentity = 1024;
 
         // EntityName.ReleaseWithdrawal = 215
-        public const int CalculateOrderReleaseWithdrawalsIdentity = 21501;
+        public const int ActualizeOrderReleaseWithdrawalsIdentity = 21501;
 
         // EntityName.OrderValidationResult = 232
         public const int ResetValidationGroupIdentity = 23201;

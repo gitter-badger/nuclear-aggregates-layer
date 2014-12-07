@@ -30,12 +30,12 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Services.Operations.Metadata.Se
         public void AccessRequirement_OperationUsages_MustBeCreatedAccordingToGenericTypes()
         {
             var requirement = AccessRequirementBuilder.ForOperation<CreateIdentity, Order>(
-                x => x.UsesOperation<CalculateOrderReleaseWithdrawalsIdentity>()
+                x => x.UsesOperation<ActualizeOrderReleaseWithdrawalsIdentity>()
                       .UsesOperation<AppendIdentity, Theme>());
 
             var usedOperations = requirement.UsedOperations.ToArray();
             Assert.AreEqual(2, usedOperations.Length, "В требование было записано две операции");
-            Assert.Contains(new StrictOperationIdentity(CalculateOrderReleaseWithdrawalsIdentity.Instance, EntitySet.Create.NonCoupled), usedOperations);
+            Assert.Contains(new StrictOperationIdentity(ActualizeOrderReleaseWithdrawalsIdentity.Instance, EntitySet.Create.NonCoupled), usedOperations);
             Assert.Contains(new StrictOperationIdentity(AppendIdentity.Instance, new EntitySet(EntityName.Theme)), usedOperations);
         }
 
