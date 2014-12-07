@@ -58,6 +58,7 @@ using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer;
+using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -103,7 +104,8 @@ namespace DoubleGis.Erm.TaskService.DI
                                                          settingsContainer.AsSettings<IIntegrationSettings>().UseWarehouseIntegration
                                                              ? new[] { typeof(CardServiceBusDto), typeof(FirmServiceBusDto) }
                                                              : new Type[0]),
-                    new TaskServiceJobsMassProcessor(container)
+                    new TaskServiceJobsMassProcessor(container),
+                    new EfDbModelMassProcessor(container)
                 };
 
             CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -167,14 +169,14 @@ namespace DoubleGis.Erm.TaskService.DI
         private static void CheckConventionsComplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
-            {
+        {
                     typeof(BLResources),
                     typeof(MetadataResources),
                     typeof(EnumResources)
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-        }
+            }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {

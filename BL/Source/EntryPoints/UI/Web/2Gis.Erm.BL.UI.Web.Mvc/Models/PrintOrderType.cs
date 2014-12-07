@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         PrintTerminationNoticeWithoutReason,
         PrintTerminationBargainNotice,
         PrintTerminationBargainNoticeWithoutReason,
-        PrintRegionalTerminationNotice,
+        [Obsolete] PrintRegionalTerminationNotice,
         PrintAdditionalAgreement,
         PrintBargainAdditionalAgreement,
         [Obsolete] PrintReferenceInformation,

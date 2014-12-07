@@ -83,8 +83,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                     StartTime = DateTime.UtcNow,
                     FinishTime = DateTime.UtcNow,
                     OwnerCode = UserContext.Identity.Code,
-                    Status = (byte)OperationStatus.Error,
-                    Type = (short)BusinessOperation.None,
+                    Status = OperationStatus.Error,
+                    Type = BusinessOperation.None,
                 };
 
             _operationService.FinishOperation(operation, log, logFileName);

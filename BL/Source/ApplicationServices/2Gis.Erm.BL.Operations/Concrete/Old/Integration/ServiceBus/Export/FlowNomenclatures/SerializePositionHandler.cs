@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                     Id = x.Id,
                     Name = x.Name,
                     PlatformCode = x.Platform.DgppId,
-                    AccountingMethod = (PositionAccountingMethod)x.AccountingMethodEnum,
+                    AccountingMethod = x.AccountingMethodEnum,
                     IsHidden = !x.IsActive,
                     IsDeleted = x.IsDeleted
                 });

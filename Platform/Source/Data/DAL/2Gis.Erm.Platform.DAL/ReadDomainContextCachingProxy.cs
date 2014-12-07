@@ -4,7 +4,9 @@ using System.Linq;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
-    // возвращает один и тот же ReadDomainContext для всех типов сущностей (он реально нужен только один для всех read-операций)
+    /// <summary>
+    /// Возвращает один и тот же ReadDomainContext для всех типов сущностей (он реально нужен только один для всех read-операций)
+    /// </summary>
     public sealed class ReadDomainContextCachingProxy : IReadDomainContext
     {
         private readonly IDictionary<string, IReadDomainContext> _readDomainContexts = new Dictionary<string, IReadDomainContext>();

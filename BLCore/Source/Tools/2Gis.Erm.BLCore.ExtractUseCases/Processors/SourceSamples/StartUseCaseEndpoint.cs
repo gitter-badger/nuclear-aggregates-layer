@@ -106,11 +106,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Processors.SourceSamples
 
                 var isReqionalOrder = model.OriginalSteObject.SourceOrganizationUnitId !=
                                       model.OriginalSteObject.DestOrganizationUnitId;
-
-                if (isActionDisabledBasedOnWorkflowStepId || !isReqionalOrder)
-                {
-                    model.ViewConfig.DisableCardToolbarItem("PrintRegTerminationNoticeAction");
-                }
             }
 
             var disableCheckOrder = !(model.WorkflowStepId == (int)OrderState.OnApproval || model.WorkflowStepId == (int)OrderState.Approved || model.WorkflowStepId == (int)OrderState.OnRegistration);
@@ -170,7 +165,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Processors.SourceSamples
             orderModel.HasOrderCreationExtended = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderCreationExtended);
             orderModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
             orderModel.HasOrderBranchOfficeOrganizationUnitSelection = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
-            orderModel.EditRegionalNumber = functionalPrivilegeValidator(FunctionalPrivilegeName.MakeRegionalAdsDocs);
 
             orderModel.HasOrderDocumentsDebtChecking = FunctionalAccessService.HasOrderChangeDocumentsDebtAccess(orderModel.SourceOrganizationUnit.Key.Value, currentUserCode);
 
@@ -888,12 +882,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Processors.SourceSamples
         public ActionResult PrintTerminationNotice(long id)
         {
             return TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id });
-        }
-
-        [HttpGet]
-        public ActionResult PrintRegionalTerminationNotice(long id)
-        {
-            return TryPrintDocument(new PrintRegionalOrderTerminationNoticeRequest { OrderId = id });
         }
 
         [HttpGet]

@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                        new FindSpecification<Deal>(
                            d =>
                            d.Orders.All(
-                               o => o.IsActive && !o.IsDeleted && o.WorkflowStepId == (int)OrderState.Rejected || o.WorkflowStepId == (int)OrderState.Archive));
+                               o => o.IsActive && !o.IsDeleted && o.WorkflowStepId == OrderState.Rejected || o.WorkflowStepId == OrderState.Archive));
             }
         }
 

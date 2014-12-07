@@ -1,56 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-	<xs:complexType name="PriceList">
-		<xs:attribute name="Code" type="xs:long" use="required">
-			<xs:annotation>
-				<xs:documentation>Стабильный идентификатор прайс-листа</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="PublishedDate" type="xs:dateTime" use="required">
-			<xs:annotation>
-				<xs:documentation>Дата публикации прайс-листа</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="BeginingDate" type="xs:dateTime" use="required">
-			<xs:annotation>
-				<xs:documentation>Дата, с которой действует прайс-лист</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="IsPublished" type="xs:boolean" use="required">
-			<xs:annotation>
-				<xs:documentation>Признак публикации прайс-листа</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="BranchCode" type="xs:long" use="required">
-			<xs:annotation>
-				<xs:documentation>Код проекта отделения организации прайс-листа</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="Currency" type="xs:string" use="required">
-			<xs:annotation>
-				<xs:documentation>Валюта прайса-листа</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>
-					Признак активности прайс-листа.
-					Если атрибут пришел со значением true, то считаем, что прайс-лист неактивный.
-					В противном случае считаем, что прайс-лист активный
-				</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="IsDeleted" type="xs:boolean" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Признак удаленного прайс-листа</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-	</xs:complexType>
+  <xs:simpleType name="string10">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
 
-	<xs:element name="PriceList" type="PriceList">
-		<xs:annotation>
-			<xs:documentation>Поток передачи прайс-листа</xs:documentation>
-		</xs:annotation>
-	</xs:element>
+  <xs:complexType name="PriceList">
+    <xs:attribute name="Code" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор прайс-листа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PublishedDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата публикации прайс-листа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BeginingDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата, с которой действует прайс-лист</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsPublished" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Признак публикации прайс-листа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BranchCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Код проекта отделения организации прайс-листа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Currency" type="string10" use="required">
+      <xs:annotation>
+        <xs:documentation>Валюта прайса-листа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>
+          Признак активности прайс-листа.
+          Если атрибут пришел со значением true, то считаем, что прайс-лист неактивный.
+          В противном случае считаем, что прайс-лист активный
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsDeleted" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Признак удаленного прайс-листа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:element name="PriceList" type="PriceList">
+    <xs:annotation>
+      <xs:documentation>Поток передачи прайс-листа</xs:documentation>
+    </xs:annotation>
+  </xs:element>
 </xs:schema>

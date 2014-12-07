@@ -342,7 +342,6 @@
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderTerminationNoticeRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeRequest.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToRejectedRequest.cs" />

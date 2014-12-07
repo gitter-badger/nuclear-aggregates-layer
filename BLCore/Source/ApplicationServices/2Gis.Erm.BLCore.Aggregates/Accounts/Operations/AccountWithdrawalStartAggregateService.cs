@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                         PeriodStartDate = period.Start,
                         PeriodEndDate = period.End,
                         OrganizationUnitId = organizationUnitId,
-                        Status = (short)WithdrawalStatus.Withdrawing,
+                        Status = WithdrawalStatus.Withdrawing,
                         OwnerCode = _userContext.Identity.Code,
                         IsActive = true
                     };

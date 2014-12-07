@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
@@ -146,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
             return new FirmContact
                 {
                     Contact = contactDto.Contact,
-                    ContactType = (int)contactDto.ContactType,
+                    ContactType = (FirmAddressContactType)contactDto.ContactType,
                     SortingPosition = contactDto.SortingPosition,
                     FirmAddressId = firmAddressId,
                     CardId = cardId

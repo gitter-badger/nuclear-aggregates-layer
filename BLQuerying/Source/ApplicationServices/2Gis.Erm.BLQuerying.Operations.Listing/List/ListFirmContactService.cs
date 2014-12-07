@@ -4,11 +4,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -47,7 +46,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 Contact = x.Contact,
                 CardId = x.CardId,
                 FirmAddressId = x.FirmAddressId,
-                ContactType = ((FirmAddressContactType)x.ContactType).ToStringLocalizedExpression(),
+                ContactType = x.ContactType.ToStringLocalizedExpression(),
             })
             .QuerySettings(_filterHelper, querySettings);
 

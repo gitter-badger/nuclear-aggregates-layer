@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.LockDetailBalance)),
 
-                    EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.LegalPesonSyncCode1C)
+                    EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.LegalPersonSyncCode1C)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.LegalPesonSyncCode1C)),

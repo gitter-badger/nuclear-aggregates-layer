@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
                         throw new NotificationException(BLResources.EntityNotFound);
                     }
 
-                    CheckTransition((LimitStatus)limit.Status, request.Status);
+                    CheckTransition(limit.Status, request.Status);
 
                     string name;
                     if (_accountReadModel.TryGetLimitLockingRelease(limit, out name))
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
 
                     var originalLimitObject = CompareObjectsHelper.CreateObjectDeepClone(limit);
 
-                    limit.Status = (short)request.Status;
+                    limit.Status = request.Status;
                     switch (request.Status)
                     {
                         case LimitStatus.Rejected:

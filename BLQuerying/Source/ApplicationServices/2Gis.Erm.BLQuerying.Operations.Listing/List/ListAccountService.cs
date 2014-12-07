@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                             x.Orders.Any(
                                 y =>
                                 y.IsActive && !y.IsDeleted &&
-                                (y.WorkflowStepId == (int)OrderState.Approved || y.WorkflowStepId == (int)OrderState.OnTermination) &&
+                                (y.WorkflowStepId == OrderState.Approved || y.WorkflowStepId == OrderState.OnTermination) &&
                                 y.EndDistributionDateFact >= currentMonthLastDate && y.BeginDistributionDate <= currentMonthFirstDate);
                     });
 

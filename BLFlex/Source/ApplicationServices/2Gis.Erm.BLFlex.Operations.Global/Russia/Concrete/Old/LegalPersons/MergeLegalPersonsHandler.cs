@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
 
             // Проверим, указаны ли ИНН,КПП, серия, номер паспорта в зависимости от типа юр. лица
             // Для юр. лица должны быть указаны ИНН и КПП
-            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson &&
+            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == LegalPersonType.LegalPerson &&
                 (string.IsNullOrWhiteSpace(mainLegalPerson.LegalPerson.Inn) ||
                  string.IsNullOrWhiteSpace(mainLegalPerson.LegalPerson.Kpp)))
             {
@@ -104,14 +104,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
             }
 
             // Для ИП должен быть указан ИНН
-            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.Businessman &&
+            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman &&
                 string.IsNullOrWhiteSpace(mainLegalPerson.LegalPerson.Inn))
             {
                 throw new NotificationException(BLResources.MergeLegalPersonsEmptyAttributeError);
             }
 
             // для физ. лица должны быть указаны серия и номер паспорта
-            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson &&
+            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson &&
                 (string.IsNullOrWhiteSpace(mainLegalPerson.LegalPerson.PassportSeries) ||
                  string.IsNullOrWhiteSpace(mainLegalPerson.LegalPerson.PassportNumber)))
             {
@@ -123,20 +123,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
                 throw new NotificationException(BLResources.MergeLegalPersonsDifferentTypesError);
             }
 
-            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson &&
+            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == LegalPersonType.LegalPerson &&
                 (mainLegalPerson.LegalPerson.Inn != appendedLegalPerson.LegalPerson.Inn ||
                 mainLegalPerson.LegalPerson.Kpp != appendedLegalPerson.LegalPerson.Kpp))
             {
                 throw new NotificationException(BLResources.MergeLegalPersonsDifferentKPPINNError);
             }
 
-            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.Businessman &&
+            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman &&
                 mainLegalPerson.LegalPerson.Inn != appendedLegalPerson.LegalPerson.Inn)
             {
                 throw new NotificationException(BLResources.MergeLegalPersonsDifferentINNError);
             }
 
-            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson &&
+            if (mainLegalPerson.LegalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson &&
                 (mainLegalPerson.LegalPerson.PassportNumber != appendedLegalPerson.LegalPerson.PassportNumber ||
                 mainLegalPerson.LegalPerson.PassportSeries != appendedLegalPerson.LegalPerson.PassportSeries))
             {

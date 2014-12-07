@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 
             associatedPosition.PositionId = dto.PositionRef.Id.Value;
             associatedPosition.AssociatedPositionsGroupId = dto.AssociatedPositionsGroupRef.Id.Value;
-            associatedPosition.ObjectBindingType = (int)dto.ObjectBindingType;
+            associatedPosition.ObjectBindingType = dto.ObjectBindingType;
             associatedPosition.Timestamp = dto.Timestamp;
 
             return associatedPosition;

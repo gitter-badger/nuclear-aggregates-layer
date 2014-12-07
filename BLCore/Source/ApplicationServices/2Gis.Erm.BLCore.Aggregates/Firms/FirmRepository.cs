@@ -312,9 +312,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                                                                           OrderDtos = y.Orders
                                                                                        .Where(z => z.IsActive && !z.IsDeleted &&
                                                                                                    z.EndDistributionDateFact >= currentMonthLastDate &&
-                                                                                                   (z.WorkflowStepId == (int)OrderState.Approved ||
-                                                                                                    z.WorkflowStepId == (int)OrderState.OnTermination ||
-                                                                                                    z.WorkflowStepId == (int)OrderState.Archive))
+                                                                                                   (z.WorkflowStepId == OrderState.Approved ||
+                                                                                                    z.WorkflowStepId == OrderState.OnTermination ||
+                                                                                                    z.WorkflowStepId == OrderState.Archive))
                                                                                        .Select(z => new OrderDto
                                                                                            {
                                                                                                Id = z.Id,
@@ -604,7 +604,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                 var firmContact = (i < existingFirmContacts.Length) ? existingFirmContacts[i] : new FirmContact();
 
                 firmContact.FirmAddressId = firmAddress.Id;
-                firmContact.ContactType = firmContactDto.ContactType;
+                firmContact.ContactType = (FirmAddressContactType)firmContactDto.ContactType;
                 firmContact.Contact = firmContactDto.Contact;
                 firmContact.SortingPosition = i + 1;
                 if (firmContact.IsNew())

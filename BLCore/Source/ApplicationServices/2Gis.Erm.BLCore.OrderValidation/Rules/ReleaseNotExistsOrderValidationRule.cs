@@ -29,9 +29,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         null);
 
             if (!response.Success && ruleContext.ValidationParams.CurrentOrderState != OrderState.Approved)
-            {
+                        {
                 return new[] { response.Message };  
-            } 
+            }
 
             return Enumerable.Empty<OrderValidationMessage>();
         }

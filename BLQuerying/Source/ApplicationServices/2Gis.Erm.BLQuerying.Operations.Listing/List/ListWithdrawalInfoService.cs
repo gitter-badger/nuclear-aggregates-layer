@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -42,9 +41,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     PeriodEndDate = x.PeriodEndDate,
                     OrganizationUnitId = x.OrganizationUnitId,
                     OrganizationUnitName = x.OrganizationUnit.Name,
-                    OwnerCode =  x.OwnerCode,
+                    OwnerCode = x.OwnerCode,
                     Comment = x.Comment,
-                    Status = ((WithdrawalStatus)x.Status).ToStringLocalizedExpression(),
+                    Status = x.Status.ToStringLocalizedExpression(),
                     Owner = null,
                 })
                 .QuerySettings(_filterHelper, querySettings);

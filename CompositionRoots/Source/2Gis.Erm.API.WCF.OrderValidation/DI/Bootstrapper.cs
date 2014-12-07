@@ -30,11 +30,14 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Resources.Server;
@@ -68,7 +71,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
-                    new OrderValidationRuleMassProcessor(container, EntryPointSpecificLifetimeManagerFactory)
+                    new OrderValidationRuleMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new EfDbModelMassProcessor(container)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -151,21 +155,20 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 
         private static IUnityContainer ConfigureReadWriteModels(this IUnityContainer container)
         {
-            var domainContextMetadataProvider = new EFDomainContextMetadataProvider
+            var readConnectionStringNameMap = new Dictionary<string, ConnectionStringName>
             {
-                ReadConnectionStringNameMap = new Dictionary<string, ConnectionStringName>
+                                                      { ErmContainer.Instance.Name, ConnectionStringName.ErmValidation },
+                                                      { ErmSecurityContainer.Instance.Name, ConnectionStringName.Erm },
+                                                  };
+
+            var writeConnectionStringNameMap = new Dictionary<string, ConnectionStringName>
                 {
-                    { EFDomainContextMetadataProvider.ErmEntityContainer, ConnectionStringName.ErmValidation },
-                    { EFDomainContextMetadataProvider.ErmSecurityEntityContainer, ConnectionStringName.Erm },
-                },
-                WriteConnectionStringNameMap = new Dictionary<string, ConnectionStringName>
-                {
-                    { EFDomainContextMetadataProvider.ErmEntityContainer, ConnectionStringName.Erm },
-                    { EFDomainContextMetadataProvider.ErmSecurityEntityContainer, ConnectionStringName.Erm },
-                },
+                                                       { ErmContainer.Instance.Name, ConnectionStringName.Erm },
+                                                       { ErmSecurityContainer.Instance.Name, ConnectionStringName.Erm },
             };
 
-            return container.RegisterInstance<IDomainContextMetadataProvider>(domainContextMetadataProvider);
+            return container.RegisterInstance<IConnectionStringNameResolver>(new ConnectionStringNameResolver(readConnectionStringNameMap,
+                                                                                                              writeConnectionStringNameMap));
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
@@ -184,8 +187,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                         .RegisterType<IOrderValidationDiagnosticStorage, PerformanceCounterOrderValidationDiagnosticStorage>(Lifetime.Singleton)
                         .RegisterType<IOrderValidationRuleProvider, OrderValidationRuleProvider>(Lifetime.Singleton)
                         .RegisterType<IOrderValidationRuleFactory, UnityOrderValidationRuleFactory>(Lifetime.Singleton)
-                        .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(CustomLifetime.PerOperationContext, MappingScope)
-                        .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerOperationContext, MappingScope);
+                .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(CustomLifetime.PerOperationContext, MappingScope)
+                     .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerOperationContext, MappingScope);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)

@@ -36,14 +36,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                                    .Select(order => new
                                        {
-                                           OrderState = (OrderState)order.WorkflowStepId,
+                                           OrderState = order.WorkflowStepId,
                                            order.IsTerminated,
                                            Order = order,
                                            order.EndDistributionDateFact,
                                            LegalPersonId = order.LegalPersonId.Value,
                                            order.BranchOfficeOrganizationUnitId,
                                            CurrencyISOCode = order.Currency.ISOCode,
-                                           LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum
+                                           LegalPersonType = order.LegalPerson.LegalPersonTypeEnum
                                        })
                                    .AsEnumerable()
                                    .Select(x => new

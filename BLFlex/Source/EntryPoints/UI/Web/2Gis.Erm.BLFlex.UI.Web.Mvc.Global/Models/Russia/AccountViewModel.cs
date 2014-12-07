@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             BranchOfficeOrganizationUnit = LookupField.FromReference(accountDto.BranchOfficeOrganizationUnitRef);
             LegalPerson = LookupField.FromReference(accountDto.LegalPersonRef);
             Currency = LookupField.FromReference(accountDto.CurrencyRef);
-            LegalPesonSyncCode1C = accountDto.LegalPesonSyncCode1C;
+            LegalPesonSyncCode1C = accountDto.LegalPersonSyncCode1C;
             LockDetailBalance = accountDto.LockDetailBalance;
             OwnerCanBeChanged = accountDto.OwnerCanBeChanged;
             Timestamp = accountDto.Timestamp;
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     BranchOfficeOrganizationUnitRef = BranchOfficeOrganizationUnit.ToReference(),
                     LegalPersonRef = LegalPerson.ToReference(),
                     CurrencyRef = Currency.ToReference(),
-                    LegalPesonSyncCode1C = LegalPesonSyncCode1C,
+                    LegalPersonSyncCode1C = LegalPesonSyncCode1C,
                     LockDetailBalance = LockDetailBalance,
                     OwnerCanBeChanged = OwnerCanBeChanged,
                     Timestamp = Timestamp,

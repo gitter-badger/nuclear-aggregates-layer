@@ -45,9 +45,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals.Operations
             {
                 foreach (var info in dealInfos)
                 {
-                    changes.Add(ChangesDescriptor.Create(info.Deal, d => d.DealStage, info.Deal.DealStage, (int)info.NextStage));
+                    changes.Add(ChangesDescriptor.Create(info.Deal, d => d.DealStage, info.Deal.DealStage, info.NextStage));
 
-                    info.Deal.DealStage = (int)info.NextStage;
+                    info.Deal.DealStage = info.NextStage;
                     repositoryUpdate(info.Deal);
                     scope.Updated<Deal>(info.Deal.Id);
                 }

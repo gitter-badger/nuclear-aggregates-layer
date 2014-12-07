@@ -130,6 +130,7 @@ WriteLiteral(@">
 
             if (!window.dialogArguments.length)
             {
+                // TODO {all, 18.12.2013}: alert можно заменить на ext'овый messagebox
                 alert(Ext.LocalizedResources.NeedToSelectOneOrMoreItems);
                 window.close();
                 return;
@@ -156,13 +157,13 @@ WriteLiteral(@">
 ");
 
             
-            #line 54 "..\..\Views\Order\ChangeOrderDeal.cshtml"
+            #line 55 "..\..\Views\Order\ChangeOrderDeal.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 54 "..\..\Views\Order\ChangeOrderDeal.cshtml"
+            #line 55 "..\..\Views\Order\ChangeOrderDeal.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" }, { "enctype", "multipart/form-data" } }))
     {
 
@@ -199,7 +200,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 65 "..\..\Views\Order\ChangeOrderDeal.cshtml"
+            #line 66 "..\..\Views\Order\ChangeOrderDeal.cshtml"
                        Write(Model.Message);
 
             
@@ -211,7 +212,7 @@ WriteLiteral("</div>\r\n                    </td>\r\n                </tr>\r\n  
 WriteLiteral("                        ");
 
             
-            #line 70 "..\..\Views\Order\ChangeOrderDeal.cshtml"
+            #line 71 "..\..\Views\Order\ChangeOrderDeal.cshtml"
                    Write(Html.LabelFor(k => k.Deal));
 
             
@@ -222,7 +223,7 @@ WriteLiteral("\r\n                    </td>\r\n                    <td>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 73 "..\..\Views\Order\ChangeOrderDeal.cshtml"
+            #line 74 "..\..\Views\Order\ChangeOrderDeal.cshtml"
                    Write(Html.LookupFor(k => k.Deal, new LookupSettings {EntityName = EntityName.Deal, ExtendedInfo = "OrderId={OrderId}"}));
 
             
@@ -233,7 +234,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                        ");
 
             
-            #line 74 "..\..\Views\Order\ChangeOrderDeal.cshtml"
+            #line 75 "..\..\Views\Order\ChangeOrderDeal.cshtml"
                    Write(Html.ValidationMessageFor(k => k.Deal));
 
             
@@ -248,7 +249,7 @@ WriteLiteral(">\r\n                    <td>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 79 "..\..\Views\Order\ChangeOrderDeal.cshtml"
+            #line 80 "..\..\Views\Order\ChangeOrderDeal.cshtml"
                    Write(Html.HiddenFor(m => m.OrderId));
 
             
@@ -258,7 +259,7 @@ WriteLiteral("\r\n                    </td>\r\n                </tr>\r\n        
 " </table>\r\n");
 
             
-            #line 84 "..\..\Views\Order\ChangeOrderDeal.cshtml"
+            #line 85 "..\..\Views\Order\ChangeOrderDeal.cshtml"
     }
 
             

@@ -2,7 +2,6 @@
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
@@ -34,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
                         LegalPersonName = order.LegalPerson.LegalName,
                         OwnerCode = order.OwnerCode,
                         BargainId = order.BargainId,
-                        WorkflowStepEnum = (OrderState)order.WorkflowStepId,
+                        WorkflowStepEnum = order.WorkflowStepId,
                         PayablePlan = order.PayablePlan,
                         PayableFact = order.PayableFact,
                         AmountWithdrawn = order.AmountWithdrawn,
@@ -46,13 +45,13 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
                         IsDeleted = order.IsDeleted,
                         IsTerminated = order.IsTerminated,
                         InspectorCode = order.InspectorCode,
-                        HasDocumentsDebtEnum = (DocumentsDebt)order.HasDocumentsDebt,
-                        OrderTypeEnum = (OrderType)order.OrderType,
-                        TerminationReasonEnum = (OrderTerminationReason)order.TerminationReason,
-                        OrderType = ((OrderType)order.OrderType).ToStringLocalizedExpression(),
+                        HasDocumentsDebtEnum = order.HasDocumentsDebt,
+                        OrderTypeEnum = order.OrderType,
+                        TerminationReasonEnum = order.TerminationReason,
+                        OrderType = (order.OrderType).ToStringLocalizedExpression(),
                         OwnerName = null,
-                        WorkflowStep = ((OrderState)order.WorkflowStepId).ToStringLocalizedExpression(),
-                        PaymentMethod = ((PaymentMethod)order.PaymentMethod).ToStringLocalizedExpression(),
+                        WorkflowStep = (order.WorkflowStepId).ToStringLocalizedExpression(),
+                        PaymentMethod = (order.PaymentMethod).ToStringLocalizedExpression(),
                     });
             }
         }

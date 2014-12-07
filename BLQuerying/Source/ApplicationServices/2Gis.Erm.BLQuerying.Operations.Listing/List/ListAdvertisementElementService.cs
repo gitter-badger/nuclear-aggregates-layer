@@ -5,7 +5,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -35,7 +34,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
                     IsRequired = x.AdvertisementElementTemplate.IsRequired,
                     AdvertisementId = x.AdvertisementId,
-                    RestrictionType = ((AdvertisementElementRestrictionType)x.AdvertisementElementTemplate.RestrictionType).ToStringLocalizedExpression(),
+                    RestrictionType = x.AdvertisementElementTemplate.RestrictionType.ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

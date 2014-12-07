@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
 
         private static void ValidateAdvertisementElement(AdvertisementElementTemplate elementTemplate, AdvertisementElement element, string plainText, string formattedText)
         {
-            switch ((AdvertisementElementRestrictionType)elementTemplate.RestrictionType)
+            switch (elementTemplate.RestrictionType)
             {
                 case AdvertisementElementRestrictionType.Text:
                 case AdvertisementElementRestrictionType.FasComment:

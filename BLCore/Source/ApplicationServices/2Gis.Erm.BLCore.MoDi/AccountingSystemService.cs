@@ -245,7 +245,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     .Where(x => x.BranchOfficeOrganizationUnit.BranchOffice.Inn == branchOffice.BranchOfficeInn &&
                                 x.BranchOfficeOrganizationUnit.Kpp == branchOffice.Kpp &&
                                 x.BranchOfficeOrganizationUnit.OrganizationUnitId == branchOffice.OrganizationUnitId)
-                    .Where(x => (x.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.Businessman)
+                    .Where(x => (x.LegalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman)
                         ? x.LegalPerson.Inn == legalPerson.BranchOfficeInn && x.LegalPerson.Kpp == null
                         : x.LegalPerson.Inn == legalPerson.BranchOfficeInn && x.LegalPerson.Kpp == legalPerson.Kpp)
                     .Select(x => new { x.LegalPersonId, x.LegalPesonSyncCode1C })
@@ -513,7 +513,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     .Where(x => x.BranchOfficeOrganizationUnit.BranchOffice.Inn == branchOffice.BranchOfficeInn &&
                                 x.BranchOfficeOrganizationUnit.Kpp == branchOffice.Kpp &&
                                 x.BranchOfficeOrganizationUnit.OrganizationUnitId == branchOffice.OrganizationUnitId)
-                    .Where(x => (x.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.Businessman)
+                    .Where(x => (x.LegalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman)
                         ? x.LegalPerson.Inn == legalPerson.BranchOfficeInn && x.LegalPerson.Kpp == null
                         : x.LegalPerson.Inn == legalPerson.BranchOfficeInn && x.LegalPerson.Kpp == legalPerson.Kpp)
                     .Select(x => new
@@ -631,7 +631,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 blockingErrors.Add(oneCError);
             }
 
-            switch ((LegalPersonType)legalPerson.LegalPersonTypeEnum)
+            switch (legalPerson.LegalPersonTypeEnum)
             {
                 case LegalPersonType.LegalPerson:
                 {

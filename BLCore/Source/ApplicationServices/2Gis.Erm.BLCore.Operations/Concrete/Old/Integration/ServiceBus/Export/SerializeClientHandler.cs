@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                              Id = contact.Id,
                                              Email = contact.WorkEmail,
                                              Name = contact.FullName,
-                                             Role = (AccountRole)contact.AccountRole,
+                                             Role = contact.AccountRole,
                                              IsDeleted = contact.IsDeleted,
                                              IsHidden = contact.IsFired || !contact.IsActive,
                                          }),

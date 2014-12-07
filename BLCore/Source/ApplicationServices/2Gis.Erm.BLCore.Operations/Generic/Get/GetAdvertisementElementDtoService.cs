@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                        TemplateMaxSymbolsInWord = entity.AdvertisementElementTemplate.MaxSymbolsInWord,
                                                        TemplateTextLineBreaksRestriction = entity.AdvertisementElementTemplate.TextLineBreaksCountRestriction,
                                                        TemplateRestrictionType =
-                                                           (AdvertisementElementRestrictionType)entity.AdvertisementElementTemplate.RestrictionType,
+                                                           entity.AdvertisementElementTemplate.RestrictionType,
 
                                                        Status = (AdvertisementElementStatusValue)entity.AdvertisementElementStatus.Status,
 

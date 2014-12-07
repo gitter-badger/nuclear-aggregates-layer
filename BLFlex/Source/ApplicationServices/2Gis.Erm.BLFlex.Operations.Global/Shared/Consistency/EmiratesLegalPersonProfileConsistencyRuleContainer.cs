@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 ConsistencyRule.CreateNonEmptyString(entity => entity.PersonResponsibleForDocuments,
                                                      ResPlatform.RequiredFieldMessage,
                                                      MetadataResources.PersonResponsibleForDocuments),
-                ConsistencyRule.CreateFormat(entity => (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod,
+                ConsistencyRule.CreateFormat(entity => entity.DocumentsDeliveryMethod,
                                              method => method == DocumentsDeliveryMethod.Undefined,
                                              ResPlatform.RequiredFieldMessage,
                                              MetadataResources.DocumentsDeliveryMethod),
@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
 
             if (profile.PaymentMethod.HasValue)
             {
-                var paymentMethod = (PaymentMethod)profile.PaymentMethod.Value;
+                var paymentMethod = profile.PaymentMethod.Value;
                 foreach (var rule in GetPaymentMethodChecks(paymentMethod))
                 {
                     yield return rule;
@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
             }
 
 
-            var documentsDeliveryMethod = (DocumentsDeliveryMethod)profile.DocumentsDeliveryMethod;
+            var documentsDeliveryMethod = profile.DocumentsDeliveryMethod;
             foreach (var rule in GetDocumentsDeliveryMethodChecks(documentsDeliveryMethod))
             {
                 yield return rule;

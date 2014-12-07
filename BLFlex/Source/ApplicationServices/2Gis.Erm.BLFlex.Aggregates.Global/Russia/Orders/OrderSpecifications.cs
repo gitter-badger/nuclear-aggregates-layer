@@ -2,7 +2,6 @@
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders
@@ -34,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders
                         OwnerCode = x.OwnerCode,
                         BargainId = x.BargainId,
                         BargainNumber = x.Bargain.Number,
-                        WorkflowStepEnum = (OrderState)x.WorkflowStepId,
+                        WorkflowStepEnum = x.WorkflowStepId,
                         PayablePlan = x.PayablePlan,
                         AmountWithdrawn = x.AmountWithdrawn,
                         ModifiedOn = x.ModifiedOn,
@@ -44,11 +43,11 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders
                         IsActive = x.IsActive,
                         IsDeleted = x.IsDeleted,
                         IsTerminated = x.IsTerminated,
-                        HasDocumentsDebtEnum = (DocumentsDebt)x.HasDocumentsDebt,
-                        OrderTypeEnum = (OrderType)x.OrderType,
-                        TerminationReasonEnum = (OrderTerminationReason)x.TerminationReason,
+                        HasDocumentsDebtEnum = x.HasDocumentsDebt,
+                        OrderTypeEnum = x.OrderType,
+                        TerminationReasonEnum = x.TerminationReason,
                         OwnerName = null,
-                        WorkflowStep = ((OrderState)x.WorkflowStepId).ToStringLocalizedExpression(),
+                        WorkflowStep = (x.WorkflowStepId).ToStringLocalizedExpression(),
                     });
             }
         }
