@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Security;
 using System.Transactions;
@@ -29,6 +30,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     {
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IReleaseReadModel _releaseReadModel;
+        private readonly IEnumerable<IReleaseStartingOptionConditionSet> _releaseStartingOptionConditionSets;
         private readonly IReleaseStartAggregateService _releaseStartAggregateService;
         private readonly IReleaseChangeStatusAggregateService _releaseChangeStatusAggregateService;
         private readonly IReleaseAttachProcessingMessagesAggregateService _releaseAttachProcessingMessagesAggregateService;
@@ -43,6 +45,8 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
         public StartReleaseOperationService(IIntegrationSettings integrationSettings,
                                             IReleaseReadModel releaseReadModel,
+                                            // ReSharper disable once ParameterTypeCanBeEnumerable.Local
+                                            IReleaseStartingOptionConditionSet[] releaseStartingOptionConditionSets,
                                             IReleaseStartAggregateService releaseStartAggregateService,
                                             IReleaseChangeStatusAggregateService releaseChangeStatusAggregateService,
                                             IReleaseAttachProcessingMessagesAggregateService releaseAttachProcessingMessagesAggregateService,
@@ -57,6 +61,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         {
             _integrationSettings = integrationSettings;
             _releaseReadModel = releaseReadModel;
+            _releaseStartingOptionConditionSets = releaseStartingOptionConditionSets;
             _releaseStartAggregateService = releaseStartAggregateService;
             _releaseChangeStatusAggregateService = releaseChangeStatusAggregateService;
             _releaseAttachProcessingMessagesAggregateService = releaseAttachProcessingMessagesAggregateService;
@@ -68,13 +73,6 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             _scopeFactory = scopeFactory;
             _useCaseTuner = useCaseTuner;
             _logger = logger;
-        }
-
-        private enum ReleaseStartingMode
-        {
-            StartNew = 1,
-            StartAsPrevious,
-            CannotStart
         }
 
         public ReleaseStartingResult Start(int organizationUnitDgppId, TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors)
@@ -143,52 +141,6 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 }
 
                 throw;
-            }
-        }
-
-        private static ReleaseStartingMode DetermineReleaseStartingMode(ReleaseInfo lastRelease,
-                                                                bool isBeta,
-                                                                out string report)
-        {
-            report = string.Empty;
-
-            var period = new TimePeriod(lastRelease.StartDate, lastRelease.PeriodEndDate);
-            switch (lastRelease.Status)
-            {
-                case ReleaseStatus.Success:
-                {
-                    if (!lastRelease.IsBeta)
-                    {
-                        report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
-                                               "Can't start new release without reverting previous final and successful release",
-                                               lastRelease.Id,
-                                               lastRelease.OrganizationUnitId,
-                                               period);
-                        return ReleaseStartingMode.CannotStart;
-                    }
-
-                    return ReleaseStartingMode.StartNew;
-                }
-                case ReleaseStatus.Error:
-                case ReleaseStatus.Reverted:
-                {
-                    return ReleaseStartingMode.StartNew;
-                }
-                case ReleaseStatus.InProgressWaitingExternalProcessing:
-                {
-                    return isBeta == lastRelease.IsBeta ? ReleaseStartingMode.StartAsPrevious : ReleaseStartingMode.StartNew;
-                }
-                default:
-                {
-                    report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
-                                           "so new releasing can't be started",
-                                           lastRelease.Id,
-                                           lastRelease.OrganizationUnitId,
-                                           period,
-                                           lastRelease.Status);
-
-                    return ReleaseStartingMode.CannotStart;
-                }
             }
         }
 
@@ -352,68 +304,83 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                        out long? previuosReleaseId,
                                        out string report)
         {
-            
-            var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(organizationUnitId, period);
-            if (lastFinalRelease != null)
+            var results = new List<Tuple<ReleaseStartingOption, ReleaseInfo>>();
+            var releases = _releaseReadModel.GetReleasesInDescOrder(organizationUnitId, period);
+            foreach (var conditionSet in _releaseStartingOptionConditionSets)
             {
-                previuosReleaseId = lastFinalRelease.Id;
-                usingPreviouslyNotFinishedReleasing = false;
-                switch (DetermineReleaseStartingMode(lastFinalRelease, isBeta, out report))
+                ReleaseInfo previousRelease;
+                var releaseStartingOption = conditionSet.EvaluateStartingOption(isBeta, releases, out previousRelease);
+                results.Add(Tuple.Create(releaseStartingOption, previousRelease));
+            }
+
+            foreach (var result in results)
+            {
+                var releaseStartingOption = result.Item1;
+                var previousRelease = result.Item2;
+
+                if (releaseStartingOption.HasFlag(ReleaseStartingOption.Denied))
                 {
-                    case ReleaseStartingMode.CannotStart:
+                    usingPreviouslyNotFinishedReleasing = false;
+                    previuosReleaseId = null;
+
+                    if (releaseStartingOption.HasFlag(ReleaseStartingOption.BecauseOfFinal))
                     {
+                        previuosReleaseId = previousRelease.Id;
+                        report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
+                                               "Can't start new release without reverting previous final and successful release",
+                                               previousRelease.Id,
+                                               organizationUnitId,
+                                               period);
                         return false;
                     }
-                    case ReleaseStartingMode.StartAsPrevious:
+
+                    if (releaseStartingOption.HasFlag(ReleaseStartingOption.BecauseOfLock))
+                    {
+                        report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
+                                               "so new releasing can't be started",
+                                               previousRelease.Id,
+                                               organizationUnitId,
+                                               period,
+                                               previousRelease.Status);
+                        return false;
+                    }
+
+                    if (releaseStartingOption.HasFlag(ReleaseStartingOption.BecauseOfInconsistency))
+                    {
+                        
+                        report = string.Format("Incorrect system state detected for for organization unit with id {0} by period {1}. " +
+                                               "There are two releases (one technical and one final) running in parallel is allowed only, " +
+                                               "so new releasing can't be started",
+                                               organizationUnitId,
+                                               period);
+                        return false;
+                    }
+                }
+
+                if (releaseStartingOption.HasFlag(ReleaseStartingOption.Allowed))
+                {
+                    report = null;
+
+                    if (releaseStartingOption.HasFlag(ReleaseStartingOption.New))
+                    {
+                        usingPreviouslyNotFinishedReleasing = false;
+                        previuosReleaseId = null;
+                        return true;
+                    }
+
+                    if (releaseStartingOption.HasFlag(ReleaseStartingOption.AsPrevious))
                     {
                         usingPreviouslyNotFinishedReleasing = true;
-                        if (!isBeta)
-                        {
-                            return true;
-                        }
-
-                        break;
-                    }
-                    case ReleaseStartingMode.StartNew:
-                    {
-                        if (!isBeta)
-                        {
-                            return true;
-                        }
-
-                        break;
+                        previuosReleaseId = previousRelease.Id;
+                        return true;
                     }
                 }
             }
 
-            var lastRelease = _releaseReadModel.GetLastRelease(organizationUnitId, period);
-            if (lastRelease != null)
-            {
-                previuosReleaseId = lastRelease.Id;
-                usingPreviouslyNotFinishedReleasing = false;
-                switch (DetermineReleaseStartingMode(lastRelease, isBeta, out report))
-                {
-                    case ReleaseStartingMode.CannotStart:
-                    {
-                        return false;
-                    }
-                    case ReleaseStartingMode.StartAsPrevious:
-                    {
-                        usingPreviouslyNotFinishedReleasing = true;
-                        return true;
-                    }
-                    case ReleaseStartingMode.StartNew:
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            usingPreviouslyNotFinishedReleasing = false;
-            previuosReleaseId = null;
-            report = string.Empty;
-
-            return true;
+            throw new ApplicationException(string.Format("Error occured while release starting for organization unit with id {0} by period {1}. " +
+                                                         "Release starting option evaluation failed.",
+                                                         organizationUnitId,
+                                                         period));
         }
 
         private ReleaseStartingResult ExecuteInternalErmReleaseProcessing(ReleaseInfo acquiredRelease, int organizationUnitDgppId, bool canIgnoreBlockingErrors)

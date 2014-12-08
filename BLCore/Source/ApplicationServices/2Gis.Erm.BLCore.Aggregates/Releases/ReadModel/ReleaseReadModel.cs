@@ -113,6 +113,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
                           .FirstOrDefault();
         }
 
+        public ReleaseInfo[] GetReleasesInDescOrder(long organizationUnitId, TimePeriod period)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() &&
+                                ReleaseSpecs.Releases.Find.ByOrganization(organizationUnitId) &&
+                                ReleaseSpecs.Releases.Find.ForPeriod(period))
+                          .OrderByDescending(x => x.StartDate)
+                          .ToArray();
+        }
+
         public bool HasFinalReleaseAfterDate(long organizationUnitId, DateTime periodStartDate)
         {
             return _finder.Find(ReleaseSpecs.Releases.Find.FinalSuccessOrInProgressAfterDate(organizationUnitId, periodStartDate)).Any();
