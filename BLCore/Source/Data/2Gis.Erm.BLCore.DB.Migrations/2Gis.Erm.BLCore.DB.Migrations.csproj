@@ -234,6 +234,7 @@
     <Compile Include="0.18\2013.07.19 rev. 10436 - Alter import buildings.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.12.08 rev. 201412081011.cs" />
     <Compile Include="2.1\2014.12.03 rev. 201412031042.cs" />
     <Compile Include="2.1\2014.12.02 rev. 201412021619.cs" />
     <Compile Include="2.1\2014.12.02 rev. 201412021150.cs" />
@@ -354,6 +355,10 @@
     <Content Include="Resources\2014.12.02 rev. 201412021150\Alter ReplicateLetter.sql" />
     <Content Include="Resources\2014.12.02 rev. 201412021150\Alter ReplicatePhonecall.sql" />
     <Content Include="Resources\2014.12.02 rev. 201412021150\Alter ReplicateTask.sql" />
+    <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateLetters.sql" />
+    <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicatePhonecalls.sql" />
+    <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateTasks.sql" />
+    <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateAppointments.sql" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />
     <None Include="Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql" />
     <Content Include="ActivityMigration\Resources\Scripts\ActivityCleanup.sql" />

@@ -59,9 +59,13 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata
                                                            .Then.Single<User>("Security")
                                                            .Then.Single<UserTerritory>("Security")
                                                            .Then.Single<Appointment>("Activity")
+                                                           .Then.Batch<Appointment>("Activity", "ReplicateAppointments")
                                                            .Then.Single<Letter>("Activity")
+                                                           .Then.Batch<Letter>("Activity", "ReplicateLetters")
                                                            .Then.Single<Phonecall>("Activity")
+                                                           .Then.Batch<Phonecall>("Activity", "ReplicatePhonecalls")
                                                            .Then.Single<Task>("Activity")
+                                                           .Then.Batch<Task>("Activity", "ReplicateTasks")
                                                            .Freeze();
         }
 

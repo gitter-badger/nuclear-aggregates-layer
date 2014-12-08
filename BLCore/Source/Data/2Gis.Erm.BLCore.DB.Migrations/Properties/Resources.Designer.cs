@@ -3463,6 +3463,118 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicateAppointments]
+        ///	@Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    IF NOT EXISTS (SELECT 1 FROM @Ids)
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
+        ///
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4201 as [ActivityTypeCode]
+        ///	            , [appointments].[Rep [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration201412081011_Create_ReplicateAppointments {
+            get {
+                return ResourceManager.GetString("Migration201412081011_Create_ReplicateAppointments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicateLetters]
+        ///	@Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    IF NOT EXISTS (SELECT 1 FROM @Ids)
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
+        ///
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4207 as [ActivityTypeCode]
+        ///	            , [letters].[ReplicationCo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration201412081011_Create_ReplicateLetters {
+            get {
+                return ResourceManager.GetString("Migration201412081011_Create_ReplicateLetters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicatePhonecalls]
+        ///	@Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    IF NOT EXISTS (SELECT 1 FROM @Ids)
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
+        ///
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4210 as [ActivityTypeCode]
+        ///	            , [phonecalls].[Replica [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration201412081011_Create_ReplicatePhonecalls {
+            get {
+                return ResourceManager.GetString("Migration201412081011_Create_ReplicatePhonecalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicateTasks]
+        ///	@Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    IF NOT EXISTS (SELECT 1 FROM @Ids)
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
+        ///
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4212 as [ActivityTypeCode]
+        ///	            , [tasks].[ReplicationCode]  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration201412081011_Create_ReplicateTasks {
+            get {
+                return ResourceManager.GetString("Migration201412081011_Create_ReplicateTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///-- 05.06.2013, a.rechkalov: добавил параметр RegionalTerritoryLocalName
         ///-- 05.06.2013, a.rechkalov: добавил условие, чтобы в Integration.Builings не пытался вставиться NULL
