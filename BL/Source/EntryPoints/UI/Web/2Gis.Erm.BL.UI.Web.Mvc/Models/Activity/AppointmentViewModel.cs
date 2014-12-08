@@ -60,6 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         public LookupField Firm { get; set; }
         public LookupField Attendee { get; set; }
 
+        [StringLengthLocalized(256)]
         public string Location { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
