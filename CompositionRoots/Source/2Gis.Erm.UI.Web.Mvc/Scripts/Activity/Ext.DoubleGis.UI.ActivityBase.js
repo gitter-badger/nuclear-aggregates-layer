@@ -8,7 +8,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         prefix: null,
         suffix: null,
         build: function () {
-            return this.suffix ? this.prefix + ' - ' + this.suffix : this.prefix;
+            return (this.suffix ? this.prefix + ' - ' + this.suffix : this.prefix) || "";
         }
     },
     getComboboxText: function (name) {
@@ -37,7 +37,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         var suffix = this.getTitleSuffix();
 
         var headerElement = Ext.get("Title");
-        var header = headerElement.getValue();
+        var header = headerElement.getValue() || "";
 
         // Автозаполнение срабатывает если поле "Заголовок" - пустое или ранее было автоматически заполнено (т.е. после автозаполнения не редактировалось пользователем).
         var shouldAutoCompleteHeader = prefix && (!header || header.trim() == this.autoHeader.build().trim());
