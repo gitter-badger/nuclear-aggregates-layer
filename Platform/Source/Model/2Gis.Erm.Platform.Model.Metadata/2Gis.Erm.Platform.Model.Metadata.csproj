@@ -55,6 +55,7 @@
     <Compile Include="Boundaries\IPrintingBoundedContext.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\ICondition.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\StringConditionCondition.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\RequestHandlerFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\PropertyDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Entities\RelatedEntityFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\NamedHandlerFeature.cs" />

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -75,16 +74,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 }
                 else
                 {
-                    var mainAttributeFeature = metadata.Features<CardMainAttributeFeature>().SingleOrDefault();
+                    var mainAttributeFeature = metadata.Features<ICardMainAttributeFeature>().SingleOrDefault();
                     if (mainAttributeFeature == null)
                     {
                         return;
                     }
 
-                    var value = TypeDescriptor.GetProperties(entityModel)[mainAttributeFeature.Property.PropertyName].GetValue(entityModel);
-                    if (value != null)
+                    object mainAttributeValue;
+                    if (mainAttributeFeature.TryExecute((IViewModelAbstract)entityModel, out mainAttributeValue))
                     {
-                        var mainAttributeValue = value.ToString();
                         entityModel.ViewConfig.CardSettings.Title = string.Format(TitleTemplate, entityModel.ViewConfig.CardSettings.Title, mainAttributeValue);
                     }
                 }

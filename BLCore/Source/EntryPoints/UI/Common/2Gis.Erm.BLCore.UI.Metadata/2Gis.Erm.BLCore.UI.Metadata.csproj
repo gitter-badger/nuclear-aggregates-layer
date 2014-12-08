@@ -49,6 +49,7 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Config\Cards\ICardMainAttributeFeature.cs" />
     <Compile Include="Config\Cards\CrmEntityCodeFeature.cs" />
     <Compile Include="Config\Cards\ICardSettingsProcessor.cs" />
     <Compile Include="Config\Cards\ICardSettingsProvider.cs" />

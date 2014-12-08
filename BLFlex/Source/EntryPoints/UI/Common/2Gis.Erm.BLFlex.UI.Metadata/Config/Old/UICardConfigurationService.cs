@@ -367,6 +367,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             },
                                         }
                                 },
+                                {
+                                    "FirmCategories",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ExtendedInfo",
+                                                new Tuple<object, object>("firmId={Id}", "filterToParent=true")
+                                            },
+                                        }
+                                },
                             }
                     },
 
@@ -578,6 +588,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                         EntityName.PricePosition,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
+                                {
+                                    "PricePosition",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                
+                                                // Value - Position.Value
+                                                new Tuple<object, object>("PositionName", "Value")
+                                            },
+                                        }
+                                },
                                 {
                                     "CopyPricePosition",
                                     new Dictionary<string, Tuple<object, object>>

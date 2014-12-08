@@ -78,10 +78,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.EntityLocalizedName = card.EntityLocalizationDescriptor.GetValue(_currentCulture);
             }
 
-            var mainAttributeFeature = card.Features<CardMainAttributeFeature>().SingleOrDefault();
+            var mainAttributeFeature = card.Features<ICardMainAttributeFeature>().SingleOrDefault();
             if (mainAttributeFeature != null)
             {
-                result.EntityMainAttribute = mainAttributeFeature.Property.PropertyName;
+                result.EntityMainAttribute = mainAttributeFeature.PropertyName;
             }
 
             var crmCodeFeature = card.Features<CrmEntityCodeFeature>().SingleOrDefault();
@@ -193,6 +193,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 if (showGridHandler != null)
                 {
                     result.RequestUrl = showGridHandler.ToRequestUrl();
+                }
+
+                var requestHandler = element.Handler as RequestHandlerFeature;
+                if (requestHandler != null)
+                {
+                    result.RequestUrl = requestHandler.RequestDescriptor.ToString();
                 }
             }
 

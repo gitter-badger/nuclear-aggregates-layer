@@ -16,7 +16,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata Price =
             CardMetadata.For<Price>()
                         .MainAttribute<Price, IPriceViewModel>(x => x.Name)
-                        .ConfigRelatedItems(UiElementMetadata.Config
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_Price.gif"),
+                                            UiElementMetadata.Config
                                                              .Name.Static("PricePosition")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelPricePosition)
                                                              .Icon.Path("en_ico_16_PricePosition.gif")
@@ -24,8 +25,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .LockOnNew()
                                                              .FilterToParent())
                         .Actions
-                            .Attach(UiElementMetadata.Config.ContentTab(),
-                                    UiElementMetadata.Config.SaveAction<Price>(),
+                            .Attach(UiElementMetadata.Config.SaveAction<Price>(),
                                     UiElementMetadata.Config.SplitterAction(),
                                     UiElementMetadata.Config.SaveAndCloseAction<Price>(),
                                     UiElementMetadata.Config.SplitterAction(),

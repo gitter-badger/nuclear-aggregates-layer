@@ -3,6 +3,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler
 {
@@ -30,6 +31,12 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
         public TBuilder Name(string handlerName)
         {
             AspectHostBuilder.WithFeatures(new NamedHandlerFeature(handlerName));
+            return AspectHostBuilder;
+        }
+
+        public TBuilder Request(string request)
+        {
+            AspectHostBuilder.WithFeatures(new RequestHandlerFeature(new StaticStringResourceDescriptor(request)));
             return AspectHostBuilder;
         }
     }

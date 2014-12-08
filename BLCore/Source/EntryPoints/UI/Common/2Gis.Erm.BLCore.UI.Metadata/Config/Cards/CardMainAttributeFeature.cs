@@ -1,17 +1,11 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
+﻿using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
-
-    public class CardMainAttributeFeature : ICardFeature
+    public interface ICardMainAttributeFeature : ICardFeature
     {
-        public CardMainAttributeFeature(IPropertyDescriptor property)
-        {
-            Property = property;
-        }
-
-        // TODO {y.baranihin, 28.11.2014}: Заменить на стандартный PropertyDescriptor
-        public IPropertyDescriptor Property { get; private set; }
+        string PropertyName { get; }
+        bool TryExecute(IViewModelAbstract viewModel, out object result);
     }
 }

@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
 
@@ -19,14 +18,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             where TEntity : IEntityKey, IEntity
             where TViewModel : IEntityViewModelAbstract<TEntity>
         {
-            builder.WithFeatures(new CardMainAttributeFeature(PropertyDescriptor.Create(propertyNameExpression)));
+            builder.WithFeatures(new CardMainAttributeFeature<TViewModel>(propertyNameExpression));
             return builder;
         }
 
         public static CardMetadataBuilder<TEntity> MainAttribute<TEntity>(this CardMetadataBuilder<TEntity> builder, Expression<Func<IEntityViewModelAbstract<TEntity>, object>> propertyNameExpression)
             where TEntity : IEntityKey, IEntity
         {
-            builder.WithFeatures(new CardMainAttributeFeature(PropertyDescriptor.Create(propertyNameExpression)));
+            builder.WithFeatures(new CardMainAttributeFeature<IEntityViewModelAbstract<TEntity>>(propertyNameExpression));
             return builder;
         }
 

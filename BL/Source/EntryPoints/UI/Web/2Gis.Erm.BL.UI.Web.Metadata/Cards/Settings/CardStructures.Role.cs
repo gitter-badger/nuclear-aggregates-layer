@@ -18,11 +18,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("RoleEntityPrivilege")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelRoleEntityPrivilege)
                                                              .FilterToParent()
+                                                             .Handler.Request("/Edit/EntityPrivileges")
                                                              .LockOnNew(),
                                             UiElementMetadata.Config
                                                              .Name.Static("RoleFunctionalPrivilege")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelRoleFunctionalPrivilege)
                                                              .FilterToParent()
+                                                             .Handler.Request("/Edit/FunctionalPrivileges")
                                                              .LockOnNew());
     }
 }
