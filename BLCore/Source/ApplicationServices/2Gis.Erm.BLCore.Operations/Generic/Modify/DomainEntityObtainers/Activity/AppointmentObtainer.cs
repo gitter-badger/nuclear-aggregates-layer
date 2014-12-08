@@ -31,6 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             appointment.Description = dto.Description;
             appointment.ScheduledStart = dto.ScheduledStart;
             appointment.ScheduledEnd = dto.ScheduledEnd;
+            appointment.Priority = dto.Priority;
             appointment.Purpose = dto.Purpose;
             appointment.Status = dto.Status;
             appointment.Location = dto.Location;

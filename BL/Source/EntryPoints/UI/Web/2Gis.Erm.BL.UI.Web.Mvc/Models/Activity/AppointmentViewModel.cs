@@ -37,6 +37,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         [RequiredLocalized]
         [ExcludeZeroValue]
+        public ActivityPriority Priority { get; set; }
+
+        [RequiredLocalized]
+        [ExcludeZeroValue]
         public ActivityPurpose Purpose { get; set; }
 
         [RequiredLocalized]
@@ -67,6 +71,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Description = modelDto.Description;
             ScheduledStart = modelDto.ScheduledStart.UpdateKindIfUnset();
             ScheduledEnd = modelDto.ScheduledEnd.UpdateKindIfUnset();
+            Priority = modelDto.Priority;
             Purpose = modelDto.Purpose;
             Status = modelDto.Status;
             Location = modelDto.Location;
@@ -108,6 +113,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     Description = Description,
                     ScheduledStart = ScheduledStart,
                     ScheduledEnd = ScheduledEnd,
+                    Priority = Priority,
                     Purpose = Purpose,
                     Status = Status,
                     Location = Location,

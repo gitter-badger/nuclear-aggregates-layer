@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         IsActive = appointment.IsActive,
                         TaskType = TaskType.NotSet,
                         ActivityType = ActivityType.Appointment.ToStringLocalizedExpression(),
-                        Priority = ActivityPriority.Average.ToStringLocalizedExpression(),
+                        Priority = appointment.Priority.ToStringLocalizedExpression(),
                         Status = appointment.Status.ToStringLocalizedExpression(),
                     };
         }

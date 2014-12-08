@@ -52,6 +52,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public string Subject { get; set; }
         public string Description { get; set; }
+        public int Priority { get; set; }
         public DateTime ScheduledStart { get; set; }
         public DateTime ScheduledEnd { get; set; }
         public int Purpose { get; set; }

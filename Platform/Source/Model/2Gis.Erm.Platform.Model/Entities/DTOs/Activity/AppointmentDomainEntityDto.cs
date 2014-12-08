@@ -21,6 +21,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         [DataMember]
         public DateTime ScheduledEnd { get; set; }
         [DataMember]
+        public ActivityPriority Priority { get; set; }
+        [DataMember]
         public ActivityPurpose Purpose { get; set; }
         [DataMember]
         public ActivityStatus Status { get; set; }

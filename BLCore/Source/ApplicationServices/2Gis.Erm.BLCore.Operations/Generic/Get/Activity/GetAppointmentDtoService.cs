@@ -54,6 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     ScheduledStart = appointment.ScheduledStart,
                     ScheduledEnd = appointment.ScheduledEnd,
                     Location = appointment.Location,
+                    Priority = appointment.Priority,
                     Purpose = appointment.Purpose,
                     Status = appointment.Status,
                     RegardingObjects = AdaptReferences(regardingObjects),
@@ -75,6 +76,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var now = DateTime.Now;
             var dto = new AppointmentDomainEntityDto
             {
+                Priority = ActivityPriority.Average,
                 ScheduledStart = now,
                 ScheduledEnd = now.Add(TimeSpan.FromMinutes(15)),
                 Status = ActivityStatus.InProgress,
