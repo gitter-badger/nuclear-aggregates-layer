@@ -102,6 +102,7 @@
           <ToolbarItem ParentName="Create" Name="CreateTask" NameLocaleResourceId="ControlCreateTask" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateTask" SecurityPrivelegeFlag="32" />
           <ToolbarItem ParentName="Create" Name="CreatePhonecall" NameLocaleResourceId="ControlCreatePhonecall" ControlType="TextButton" LockOnInactive="true" Action="scope.CreatePhonecall" SecurityPrivelegeFlag="32" />
           <ToolbarItem ParentName="Create" Name="CreateAppointment" NameLocaleResourceId="ControlCreateAppointment" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateAppointment" SecurityPrivelegeFlag="32" />
+          <ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
         </ToolbarItems>
@@ -109,13 +110,14 @@
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="ActivityTypeEnum" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ActivityType" NameLocaleResourceId="DFieldActivityType" Width="90" FieldType="String" ExtTypeName="String" />
-          <Field Name="Header" NameLocaleResourceId="Title" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="Header" NameLocaleResourceId="Title" Width="250" FieldType="String" ExtTypeName="String" />
           <Field Name="Status" Width="90" FieldType="String" ExtTypeName="String" />
           <Field Name="ScheduledStart" NameLocaleResourceId="BeginDate" Width="130" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="ScheduledEnd" NameLocaleResourceId="DFieldScheduledEnd" Width="130" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="ActualEnd" NameLocaleResourceId="DFieldActualEnd" Width="130" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="Priority" Width="100" FieldType="String" ExtTypeName="String" />
-          <Field Name="OwnerName" NameLocaleResourceId="Owner" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="OwnerName" NameLocaleResourceId="Owner" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
         </Fields>
       </DataList>
       <!--Активные действия-->
