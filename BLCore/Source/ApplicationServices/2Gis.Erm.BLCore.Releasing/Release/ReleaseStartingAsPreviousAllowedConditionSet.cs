@@ -20,17 +20,10 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 return ReleaseStartingOption.Denied | ReleaseStartingOption.BecauseOfInconsistency;
             }
 
-            var betaReleaseWaitingForExternalProcessing = releasesWaitingForExternalProcessing.SingleOrDefault(x => x.IsBeta);
-            if (isBeta && betaReleaseWaitingForExternalProcessing != null)
+            var releaseWaitingForExternalProcessing = releasesWaitingForExternalProcessing.SingleOrDefault(x => x.IsBeta == isBeta);
+            if (releaseWaitingForExternalProcessing != null)
             {
-                previousRelease = betaReleaseWaitingForExternalProcessing;
-                return ReleaseStartingOption.Allowed | ReleaseStartingOption.AsPrevious;
-            }
-
-            var finalReleaseWaitingForExternalProcessing = releasesWaitingForExternalProcessing.SingleOrDefault(x => !x.IsBeta);
-            if (!isBeta && finalReleaseWaitingForExternalProcessing != null)
-            {
-                previousRelease = finalReleaseWaitingForExternalProcessing;
+                previousRelease = releaseWaitingForExternalProcessing;
                 return ReleaseStartingOption.Allowed | ReleaseStartingOption.AsPrevious;
             }
 
