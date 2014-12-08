@@ -102,7 +102,7 @@
       <Link>Templates\Отчет по выручке.dotx</Link>
     </Content>
     <Content Include="packagePositions.config" />
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
     <Content Include="Web.config" />
     <Content Include="salesSchemas.config" />
   </ItemGroup>
