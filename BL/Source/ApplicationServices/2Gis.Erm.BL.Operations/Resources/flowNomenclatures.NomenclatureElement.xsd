@@ -37,7 +37,7 @@
         <xs:documentation>Код номенклатуры</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="ExportCode" type="xs:long" use="required">
+    <xs:attribute name="ProductCode" type="xs:long" use="required">
       <xs:annotation>
         <xs:documentation>Код экспорта элемента номенклатуры</xs:documentation>
       </xs:annotation>

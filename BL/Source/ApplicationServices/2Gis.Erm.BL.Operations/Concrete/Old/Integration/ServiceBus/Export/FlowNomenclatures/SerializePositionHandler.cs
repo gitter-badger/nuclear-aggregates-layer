@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                                 new XAttribute("AccountingMethod", dto.AccountingMethod),
                                 new XAttribute("IsHidden", dto.IsHidden),
                                 new XAttribute("IsDeleted", dto.IsDeleted),
-                                new XAttribute("ExportCode", dto.ExportCode),
+                                new XAttribute("ProductCode", dto.ProductCode),
                                 new XAttribute("LinkObjectType", dto.LinkObjectType));
         }
 
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                 AccountingMethod = x.AccountingMethodEnum,
                 IsHidden = !x.IsActive,
                 IsDeleted = x.IsDeleted,
-                ExportCode = x.ExportCode,
+                ProductCode = x.ExportCode,
                 LinkObjectType = x.BindingObjectTypeEnum,
             });
         }
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             public PositionAccountingMethod AccountingMethod { get; set; }
             public bool IsHidden { get; set; }
             public bool IsDeleted { get; set; }
-            public long ExportCode { get; set; }
+            public long ProductCode { get; set; }
             public PositionBindingObjectType LinkObjectType { get; set; }
         }
 
