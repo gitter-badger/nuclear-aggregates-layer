@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
         private readonly IDictionary<EntityName, IDictionary<string, IDictionary<string, Tuple<object, object>>>> _cardMetadataCorrections =
             new Dictionary<EntityName, IDictionary<string, IDictionary<string, Tuple<object, object>>>>
                 {
-                    #region Заказ
+                    #region Order
                     {
                         EntityName.Order,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -148,7 +148,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Юр лицо
+                    #region LegalPerson
                     {
                         EntityName.LegalPerson,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -178,7 +178,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Договор
+                    #region Bargain
                     {
                         EntityName.Bargain,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -198,7 +198,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Сделка
+                    #region Deal
                     {
                         EntityName.Deal,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -228,7 +228,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Клиент
+                    #region Client
                     {
                         EntityName.Client,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -286,7 +286,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Заявка на создание заказа
+                    #region OrderProcessingRequest
                     {
                         EntityName.OrderProcessingRequest,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -328,7 +328,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Фирма
+                    #region Firm
                     {
                         EntityName.Firm,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -382,7 +382,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Адрес фирмы
+                    #region FirmAddress
                     {
                         EntityName.FirmAddress,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -412,7 +412,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region ЭРМ
+                    #region AdvertisementElement
                     {
                         EntityName.AdvertisementElement,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -432,7 +432,31 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Пользователь
+                    #region AdvertisementElementStatus
+                    {
+                        EntityName.AdvertisementElementStatus,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "AdvertisementElementStatus",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityNameLocaleResourceId",
+                                                new Tuple<object, object>("EnAdvertisementElementStatus", "EntityNameAdvertisementElementStatus")
+                                            },
+                                            {
+                                                "EntityLocalizedName",
+                                                new Tuple<object, object>("EnAdvertisementElementStatus", EnumResources.EntityNameAdvertisementElementStatus)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region User
                     {
                         EntityName.User,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -452,7 +476,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Территория
+                    #region Territory
                     {
                         EntityName.Territory,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -482,7 +506,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Тематика
+                    #region Theme
                     {
                         EntityName.Theme,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -494,7 +518,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             {
                                                 "DisabledExpression",
                                                 // Условие будет проверено на сервере
-                                                new Tuple<object, object>(@"Ext.getDom(""Id"").value==0||Ext.getDom(""OrganizationUnitCount"").value==0", @"Ext.getDom(""Id"").value==0")
+                                                new Tuple<object, object>(@"Ext.getDom(""Id"").value==0||Ext.getDom(""OrganizationUnitCount"").value==0",
+                                                                          @"Ext.getDom(""Id"").value==0")
                                             },
                                         }
                                 },
@@ -523,7 +548,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Сборка
+                    #region ReleaseInfo
                     {
                         EntityName.ReleaseInfo,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -553,7 +578,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Проект
+                    #region Project
                     {
                         EntityName.Project,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -572,7 +597,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                     "SaveAndClose",
                                     new Dictionary<string, Tuple<object, object>>
                                         {
-                                             {
+                                            {
                                                 "SecurityPrivelege",
                                                 new Tuple<object, object>((int)EntityAccessTypes.Update, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
                                             },
@@ -583,7 +608,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Валюта
+                    #region Currency
                     {
                         EntityName.Currency,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -605,7 +630,107 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Позиция прайса
+                    #region CurrencyRate
+                    {
+                        EntityName.CurrencyRate,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "CurrencyRate",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>(@"Name", @"Id")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Lock
+                    {
+                        EntityName.Lock,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Lock",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>(@"Name", @"Id")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region LockDetail
+                    {
+                        EntityName.LockDetail,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "LockDetail",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>(@"Name", @"Id")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region RolePrivilege
+                    {
+                        EntityName.RolePrivilege,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "RolePrivilege",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>(@"Name", @"Id")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region OrderPosition
+                    {
+                        EntityName.OrderPosition,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "OrderPosition",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>(@"Name", @"Id")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region PricePosition
                     {
                         EntityName.PricePosition,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -704,7 +829,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Запрещенная позиция
+                    #region DeniedPosition
                     {
                         EntityName.DeniedPosition,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -804,7 +929,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
-                    #region Счет на оплату
+                    #region Bill
                     {
                         EntityName.Bill,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
@@ -890,6 +1015,80 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             {
                                                 "DecimalDigits",
                                                 new Tuple<object, object>(0, 2)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region WithdrawalInfo
+                    {
+                        EntityName.WithdrawalInfo,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Actions",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnInactive",
+                                                new Tuple<object, object>(true, false)
+                                            },
+                                        }
+                                },
+                                {
+                                    "DownloadResults",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                            {
+                                                "LockOnInactive",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region UserProfile
+                    {
+                        EntityName.UserProfile,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "UserProfile",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>("TimeZoneInfoId", "Id")
+                                            },
+                                        }
+                                },
+                                {
+                                    "Save",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)(EntityAccessTypes.Create | EntityAccessTypes.Update))
+                                            },
+                                        }
+                                },
+                                {
+                                    "SaveAndClose",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)(EntityAccessTypes.Create | EntityAccessTypes.Update))
                                             },
                                         }
                                 },
@@ -1569,7 +1768,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 {
                     if (corrections != null && corrections.ContainsKey(propertyName))
                     {
-                        if ((xmlValue == corrections[propertyName].Item1 || xmlValue.Equals(corrections[propertyName].Item1)) && codeValue.Equals(corrections[propertyName].Item2))
+                        if ((xmlValue == corrections[propertyName].Item1 || xmlValue.Equals(corrections[propertyName].Item1)) &&
+                            (codeValue == corrections[propertyName].Item2 || codeValue.Equals(corrections[propertyName].Item2)))
                         {
                             continue;
                         }

@@ -23,6 +23,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                                 .Name.Static("DownloadResults")
                                                                                                 .Title.Resource(() => ErmConfigLocalization.ControlDownloadResults)
                                                                                                 .LockOnNew()
+                                                                                                .LockOnInactive()
                                                                                                 .ControlType(ControlType.TextButton)
                                                                                                 .Handler.Name("scope.DownloadResults")),
                                     UiElementMetadata.Config.SplitterAction(),

@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/CloseWithDenial.cshtml")]
-    public partial class CloseWithDenial : System.Web.Mvc.WebViewPage<Models.CloseOrderWithDenialViewModel>
+    public partial class CloseWithDenial : System.Web.Mvc.WebViewPage<CloseOrderWithDenialViewModel>
     {
         public CloseWithDenial()
         {

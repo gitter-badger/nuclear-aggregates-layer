@@ -32,6 +32,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
+    
+    #line 1 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
+    using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+    
+    #line default
+    #line hidden
     using DoubleGis.Erm.Platform.Common;
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -39,25 +45,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
-    #line 1 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
-    using Platform.API.Security.FunctionalAccess;
-    
-    #line default
-    #line hidden
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/ChangeStateOnApproval.cshtml")]
-    public partial class ChangeStateOnApproval : System.Web.Mvc.WebViewPage<Models.ChangeOrderStateOnApprovalViewModel>
+    public partial class ChangeStateOnApproval : System.Web.Mvc.WebViewPage<ChangeOrderStateOnApprovalViewModel>
     {
         public ChangeStateOnApproval()
         {
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 5 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
+            #line 4 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -129,13 +127,13 @@ WriteLiteral(@">
 ");
 
             
-            #line 51 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
+            #line 50 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 51 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
+            #line 50 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
      using (Html.BeginForm("ChangeStateOnApproval", null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -151,7 +149,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 54 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
+            #line 53 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
    Write(Html.HiddenFor(m => m.OrderId));
 
             
@@ -170,7 +168,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 56 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
+            #line 55 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
        Write(Model.Message);
 
             
@@ -185,7 +183,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 59 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
+            #line 58 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
        Write(Html.TemplateField(m => m.Inspector, FieldFlex.lone, new LookupSettings
                 { 
                     EntityName = EntityName.User, 
@@ -198,7 +196,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 66 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
+            #line 65 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
     }
 
             

@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                          .Icon.Path("en_ico_16_Category.gif"),
                                         UiElementMetadata.Config.SplitterAction(),
                                         UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_OrganizationUnit.gif"),
                                             UiElementMetadata.Config
                                                              .Name.Static("OUBO")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOUBO)

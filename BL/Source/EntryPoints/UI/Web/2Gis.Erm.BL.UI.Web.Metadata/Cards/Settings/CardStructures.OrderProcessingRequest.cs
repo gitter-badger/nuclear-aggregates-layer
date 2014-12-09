@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Title.Resource(() => ErmConfigLocalization.ControlCancelOrderProcessingRequest)
                                                              .LockOnNew()
                                                              .Handler.Name("scope.CancelOrderProcessingRequest")
+                                                             .ControlType(ControlType.TextButton)
                                                              .AccessWithPrivelege<OrderProcessingRequest>(EntityAccessTypes.Update)
                                                              .Operation.NonCoupled<CancelOrderProcessingRequestIdentity>()),
                                         UiElementMetadata.Config.CloseAction());

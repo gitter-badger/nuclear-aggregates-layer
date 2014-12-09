@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
@@ -23,7 +22,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -50,7 +48,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public class OrderController : ControllerBase
     {
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly ICopyOrderOperationService _copyOrderOperationService;
         private readonly IFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -81,7 +78,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ISecureFinder secureFinder,
                                IFinder finder,
                                IReleaseReadModel releaseReadModel,
-                               IBranchOfficeRepository branchOfficeRepository,
                                IOrderReadModel orderReadModel,
                                IOrderRepository orderRepository,
                                IOperationService operationService,
@@ -99,7 +95,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _secureFinder = secureFinder;
             _finder = finder;
             _releaseReadModel = releaseReadModel;
-            _branchOfficeRepository = branchOfficeRepository;
             _orderReadModel = orderReadModel;
             _orderRepository = orderRepository;
             _operationService = operationService;

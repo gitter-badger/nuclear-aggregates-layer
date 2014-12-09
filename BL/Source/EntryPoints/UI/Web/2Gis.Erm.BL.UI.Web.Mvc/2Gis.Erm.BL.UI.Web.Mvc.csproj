@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Attributes\RutValidationAttribute.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="DI\BlUiWebMvcAssembly.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -805,9 +806,7 @@
   <ItemGroup>
     <Folder Include="Services\Cards\Categories\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Contracts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>

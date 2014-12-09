@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             CardMetadata metadata;
             if (!_metadataProvider.TryGetMetadata(IdBuilder.For<MetadataCardsIdentity>(entity.ToString()).AsIdentity().Id, out metadata))
             {
-                throw new InvalidDataException(string.Format("Cannot find metadata for entity {0}", entity));
+                throw new ArgumentException(string.Format("Cannot find metadata for entity {0}", entity), "entity");
             }
 
             return ToCardStructure(metadata);

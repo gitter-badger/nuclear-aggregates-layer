@@ -10,6 +10,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata BargainFile =
             CardMetadata.For<BargainFile>()
                         .MainAttribute<BargainFile, IBargainFileViewModel>(x => x.FileName)
-                        .ConfigActivityCardToolbar();
+                        .ConfigCommonCardToolbar();
     }
 }

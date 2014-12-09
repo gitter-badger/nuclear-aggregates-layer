@@ -153,6 +153,7 @@
     <Compile Include="ViewModels\Contracts\IAdvertisementTemplateViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IAdvertisementViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IAssociatedPositionsGroupViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IDenialReasonViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IUserViewModel.cs" />
     <Compile Include="ViewModels\Contracts\ITerritoryViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IThemeTemplateViewModel.cs" />

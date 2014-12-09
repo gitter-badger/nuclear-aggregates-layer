@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .Actions
                             .Attach(UiElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(
-                                    UiElementMetadata.Config.ContentTab(),
+                                    UiElementMetadata.Config.ContentTab("en_ico_16_Category.gif"),
                                     UiElementMetadata.Config
                                                      .Name.Static("Category")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCategory)

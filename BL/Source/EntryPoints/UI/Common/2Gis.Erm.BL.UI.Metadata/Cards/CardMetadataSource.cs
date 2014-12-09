@@ -101,8 +101,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 
                         CardMetadata.For<BargainFile>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnBargainFile)
-                                    .Icon.Path("en_ico_lrg_Bargain.gif")
-                                    .WithComments()
+                                    .Icon.Path("en_ico_lrg_Default.gif")
                                     .WithAdminTab(),
 
                         CardMetadata.For<BargainType>()
@@ -270,7 +269,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 
                         CardMetadata.For<OrganizationUnit>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrganizationUnits)
-                                    .Icon.Path("en_ico_lrg_Default.gif")
+                                    .Icon.Path("en_ico_lrg_OrganizationUnit.gif")
                                     .WithAdminTab(),
 
                         CardMetadata.For<Phonecall>()

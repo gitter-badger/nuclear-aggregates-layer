@@ -10,6 +10,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata OrderFile =
             CardMetadata.For<OrderFile>()
                         .MainAttribute<OrderFile, IOrderFileViewModel>(x => x.FileName)
-                        .ConfigActivityCardToolbar();
+                        .ConfigCommonCardToolbar();
     }
 }
