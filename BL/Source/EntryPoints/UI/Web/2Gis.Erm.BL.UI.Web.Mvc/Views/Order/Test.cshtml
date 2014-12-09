@@ -1,0 +1,40 @@
+﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.TestModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.CloseBargains_DialogTitle }
+@section TopBarTitle { @BLResources.CloseBargains_DialogTitle }
+@section TopBarMessage { @BLResources.CloseBargains_DialogTitle }
+
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.onReady(function() {
+            Ext.get("OK").on("click", function() {
+                if (Ext.DoubleGis.FormValidator.validate(window.EntityForm)) {
+                    window.EntityForm.submit();
+                }
+            });
+        });
+    </script>
+
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        @*<div class="row-wrapper">
+            @Html.TemplateField(m => m.UtcAbsoluteValue, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.UtcAbsoluteHoursValue, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() })
+        </div>*@
+
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.UtcRelativeValue, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LocalRelativeValue, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative })
+        </div>
+    }
+}
