@@ -144,7 +144,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return dataTable;
         }
 
-        private DebitsInfoForErpDto ConvertToDebitInfoForErpDto(string organizationUnitSyncCode1C,
+        private DebitsInfoInitialDto ConvertToDebitInfoForErpDto(string organizationUnitSyncCode1C,
                                                                 TimePeriod period,
                                                                 IEnumerable<AccountDetailDto> accountDetailDtos)
         {
@@ -198,7 +198,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                  })
                 .ToArray();
 
-            return new DebitsInfoForErpDto
+            return new DebitsInfoInitialDto
                        {
                            OrganizationUnitCode = organizationUnitSyncCode1C,
                            StartDate = period.Start,
@@ -255,7 +255,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 streamDictionary.Add(errorsFileName, new MemoryStream(CyrillicEncoding.GetBytes(errorContent)));
             }
 
-            streamDictionary.Add("DebitsInfoForERP_" + DateTime.Today.ToShortDateString() + ".xml", debitsStream);
+            streamDictionary.Add("DebitsInfoInitial_" + DateTime.Today.ToShortDateString() + ".xml", debitsStream);
 
             response.FileName = "Acts.zip";
             response.ContentType = MediaTypeNames.Application.Zip;

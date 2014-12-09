@@ -576,9 +576,9 @@ namespace DoubleGis.Erm.BLCore.MoDi
                                  ? null
                                  : new FileDescription
                                  {
-                                     FileName = "DebitsInfoForERP_" + DateTime.Today.ToShortDateString() + ".xml",
+                                     FileName = "DebitsInfoInitial_" + DateTime.Today.ToShortDateString() + ".xml",
                                      ContentType = MediaTypeNames.Text.Xml,
-                                     Stream = ToXmlStream(new DebitsInfoForErpDto
+                                     Stream = ToXmlStream(new DebitsInfoInitialDto
                                      {
                                          StartDate = startDate,
                                          EndDate = endDate,
@@ -600,7 +600,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
             };
         }
 
-        private static byte[] ToXmlStream(DebitsInfoForErpDto infoDto)
+        private static byte[] ToXmlStream(DebitsInfoInitialDto infoDto)
         {
             return Encoding.UTF8.GetBytes(infoDto.ToXElement().ToString(SaveOptions.None));
         }

@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             // Региональные списания мы уже не выгружаем
             // Клиентские списания мы еще не выгружаем
             // Договорились с Олегом, что в переходный период будем выгружать пустой объект
-            var emptyData = new DebitsInfoForErpDto
+            var emptyData = new DebitsInfoInitialDto
                 {
                     OrganizationUnitCode = _organizationUnitReadModel.GetSyncCode(request.OrganizationUnitId),
                     EndDate = request.EndPeriodDate,
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                     Debits = new DebitDto[0]
                 };
 
-            streamDictionary.Add("DebitsInfoForERP_" + DateTime.Today.ToShortDateString() + ".xml",
+            streamDictionary.Add("DebitsInfoInitial_" + DateTime.Today.ToShortDateString() + ".xml",
                                  new MemoryStream(Encoding.UTF8.GetBytes(emptyData.ToXElement().ToString(SaveOptions.None))));
 
             return new IntegrationResponse

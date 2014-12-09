@@ -149,9 +149,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Properties {
         ///    &lt;xs:restriction base=&quot;xs:int&quot;&gt;
         ///     [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string flowFinancialData_DebitsInfoForERP {
+        internal static string flowFinancialData_DebitsInfoInitial {
             get {
-                return ResourceManager.GetString("flowFinancialData_DebitsInfoForERP", resourceCulture);
+                return ResourceManager.GetString("flowFinancialData_DebitsInfoInitial", resourceCulture);
             }
         }
         

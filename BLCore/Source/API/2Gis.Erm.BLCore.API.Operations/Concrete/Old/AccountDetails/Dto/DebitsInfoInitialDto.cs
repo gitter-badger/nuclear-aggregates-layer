@@ -8,9 +8,9 @@ using DoubleGis.Erm.Platform.Common.Utils.Xml;
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
 {
     [DataContract]
-    public sealed class DebitsInfoForErpDto
+    public sealed class DebitsInfoInitialDto
     {
-        private const string TagName = "DebitsInfoForERP";
+        private const string TagName = "DebitsInfoInitial";
 
         /// <summary>
         /// Код отделения организации (r)

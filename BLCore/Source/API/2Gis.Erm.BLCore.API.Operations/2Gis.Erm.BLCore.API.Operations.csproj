@@ -164,7 +164,7 @@
     <Compile Include="Concrete\Integration\Settings\IIntegrationSettings.cs" />
     <Compile Include="Concrete\Integration\Settings\IntegrationSettingsAspect.cs" />
     <Compile Include="Concrete\Old\AccountDetails\Dto\DebitDto.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\DebitsInfoForErpDto.cs" />
+    <Compile Include="Concrete\Old\AccountDetails\Dto\DebitsInfoInitialDto.cs" />
     <Compile Include="Concrete\Old\AccountDetails\Dto\PlatformDistribution.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />

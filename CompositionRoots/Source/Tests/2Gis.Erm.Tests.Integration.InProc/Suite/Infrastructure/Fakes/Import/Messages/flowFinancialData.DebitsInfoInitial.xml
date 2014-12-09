@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<DebitsInfoForERP OrganizationUnitCode="53" StartDate="2013-07-01T00:00:00" EndDate="2013-07-31T23:59:59" ClientDebitTotalAmount="5.09">
+<DebitsInfoInitial OrganizationUnitCode="53" StartDate="2013-07-01T00:00:00" EndDate="2013-07-31T23:59:59" ClientDebitTotalAmount="5.09">
   <ClientDebits/>
   <RegionalDebits>
     <Debit OrderCode="41730" AccountCode="41730" LegalEntityBranchCode1C="080" ProfileCode="1508" OrderType="3" OrderNumber="01-51-07-13" SignupDate="2013-03-21T00:00:00" Amount="1122.40" MediaInfo="2 ГИС.Братск" ClientOrderNumber="БЗ_01-51-75304">
@@ -21,4 +21,4 @@
       <PlatformDistribution PlatformCode="4" Amount="0"/>
     </Debit>
   </RegionalDebits>
-</DebitsInfoForERP>
+</DebitsInfoInitial>
