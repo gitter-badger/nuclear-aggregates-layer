@@ -3323,9 +3323,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="CopyPriceCreateNewLegend" xml:space="preserve">
     <value>Zkopírovat aktuální ceník do nového</value>
   </data>
-  <data name="CrmEntityCode" xml:space="preserve">
-    <value>Kód entity CRM</value>
-  </data>
   <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
     <value>Nebylo nalezeno území prodeje s kódem DGPP [{0}]</value>
   </data>

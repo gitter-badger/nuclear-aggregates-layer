@@ -3323,9 +3323,6 @@ Cумма по операции: {5}.
   <data name="CopyPriceCreateNewLegend" xml:space="preserve">
     <value>Скопировать существующий прайс-лист в новый</value>
   </data>
-  <data name="CrmEntityCode" xml:space="preserve">
-    <value>Код сущности CRM</value>
-  </data>
   <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
     <value>Территория продаж с кодом ДГПП [{0}] не найдена</value>
   </data>

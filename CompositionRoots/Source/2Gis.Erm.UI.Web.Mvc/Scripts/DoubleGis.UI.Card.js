@@ -17,7 +17,6 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
     },
     init: function (settings) {
         this.form = window.EntityForm;
-        this.CrmEntityCode = settings.CrmEntityCode;
         this.EntityName = settings.EntityName;
         this.Settings = settings;
         this.ReadOnly = window.Ext.getDom("ViewConfig_ReadOnly").checked;
@@ -870,85 +869,43 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 this.Mask.hide();
             }, this);
 
-            if (n.attributes.isCrmView) {
+            var parentEntityTypeName = this.EntityName ? this.EntityName : null;
+            var parentEntityId = window.Ext.get('Id') ? window.Ext.get('Id').dom.value : null;
+            var parentEntityState = window.Ext.getDom("ViewConfig_ReadOnly").checked ? 'Inactive' : 'Active';
 
-                var pId = window.Ext.get('ReplicationCode') ? window.Ext.get('ReplicationCode').dom.value : null;
-                var pType = this.CrmEntityCode;
-                var pName = window.Ext.getDom(this.Settings.EntityMainAttribute).value;
-                // чтобы crm не падал ограничиваем число символов
-                pName = pName.slice(0, 256);
+            var frameUrl;
 
-                var partyId = window.Ext.get('ClientReplicationCode') ? window.Ext.get('ClientReplicationCode').dom.value : pId;
-                var partyType = 1; // ObjectTypeCode of Account entity
-                var partyName = window.Ext.get('ClientName') ? window.Ext.get('ClientName').dom.value : pName;
-                partyName = partyName.slice(0, 256);
-
-                // query string потом парсится на стороне dynamics crm
-                var url = String.format("//{0}/{1}&FromErm=true&pId={2}&pType={3}&pName={4}&partyId={5}&partyType={6}&partyName={7}",
-                    window.Ext.CRM_URL,
+            // Determine that related view is grid or not
+            if (!requestUrl || requestUrl.indexOf("Grid") < 0) {
+                // Related view is not grid
+                // Construct generic URL: <server>/{controller}/{action}/{entityTypeName}/{entityId}/{entityState}
+                frameUrl = String.format("{0}/{1}/{2}/{3}",
                     requestUrl,
-                    pId,
-                    pType,
-                    encodeURIComponent(pName),
-                    partyId,
-                    partyType,
-                    encodeURIComponent(partyName));
-
-                frame.setAttribute("src", url);
-
-                // закомментарено, т.к. мы не можем лазить в чужой фрейм, надо по-другому
-                //window.Ext.fly(frame).on("load",
-                //function (evt, el) {
-                //    if (!el.contentWindow.document.body.childNodes[0].rows)
-                //        return;
-
-                //    el.contentWindow.document.body.childNodes[0].rows[0].cells[0].style.padding = "0px";
-                //    el.locAssocOneToMany = window.locAssocOneToMany;
-                //});
-
+                    parentEntityTypeName,
+                    parentEntityId,
+                    parentEntityState);
             }
             else {
-                var parentEntityTypeName = this.EntityName ? this.EntityName : null;
-                var parentEntityId = window.Ext.get('Id') ? window.Ext.get('Id').dom.value : null;
-                var parentEntityState = window.Ext.getDom("ViewConfig_ReadOnly").checked ? 'Inactive' : 'Active';
-
-                var frameUrl;
-
-                // Determine that related view is grid or not
-                if (!requestUrl || requestUrl.indexOf("Grid") < 0) {
-                    // Related view is not grid
-                    // Construct generic URL: <server>/{controller}/{action}/{entityTypeName}/{entityId}/{entityState}
-                    frameUrl = String.format("{0}/{1}/{2}/{3}",
-                        requestUrl,
-                        parentEntityTypeName,
-                        parentEntityId,
-                        parentEntityState);
-                }
-                else {
-                    // Related view is grid
-                    // Construct generic URL: <server>/Grid/{action}/{entityTypeName}/{parentEntityType}/{parentEntityId}/{parentEntityState}/{appendedEntityType}
-                    var appendedEntityType = n.attributes.appendableEntity ? n.attributes.appendableEntity : null;
-                    frameUrl = String.format("{0}/{1}/{2}/{3}/{4}",
-                        requestUrl,
-                        parentEntityTypeName,
-                        parentEntityId,
-                        parentEntityState,
-                        appendedEntityType);
-                }
-
-                if (extendedInfo) {
-                    frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode({ extendedInfo: extendedInfo }));
-                }
-
-                frame.setAttribute("src", frameUrl);
+                // Related view is grid
+                // Construct generic URL: <server>/Grid/{action}/{entityTypeName}/{parentEntityType}/{parentEntityId}/{parentEntityState}/{appendedEntityType}
+                var appendedEntityType = n.attributes.appendableEntity ? n.attributes.appendableEntity : null;
+                frameUrl = String.format("{0}/{1}/{2}/{3}/{4}",
+                    requestUrl,
+                    parentEntityTypeName,
+                    parentEntityId,
+                    parentEntityState,
+                    appendedEntityType);
             }
+
+            if (extendedInfo) {
+                frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode({ extendedInfo: extendedInfo }));
+            }
+
+            frame.setAttribute("src", frameUrl);
         }
         window.Ext.each(cnt.items.items, function (item) {
             if (item.id == n.id + "_holder") {
                 item.show();
-                if (n.attributes.isCrmView) {
-                    window.CrmFrame = window.Ext.getDom(n.id + '_frame');
-                }
             }
             else {
                 item.hide();

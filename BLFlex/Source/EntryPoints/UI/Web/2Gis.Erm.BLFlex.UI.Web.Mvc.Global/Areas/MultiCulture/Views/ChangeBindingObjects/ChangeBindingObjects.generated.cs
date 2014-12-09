@@ -285,19 +285,10 @@ WriteLiteral(";\r\n            Ext.CultureInfo.NumberFormatInfo.CurrencySymbol =
             
             #line default
             #line hidden
-WriteLiteral("\';\r\n            Ext.CRM_URL = \'");
-
-            
-            #line 34 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-                      Write(ViewData.GetMsCrmSettingsUrl());
-
-            
-            #line default
-            #line hidden
 WriteLiteral("\';\r\n            Ext.BasicOperationsServiceRestUrl = \'");
 
             
-            #line 35 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 34 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                             Write(ViewData.GetBasicOperationsServiceRestUrl());
 
             
@@ -306,7 +297,7 @@ WriteLiteral("\';\r\n            Ext.BasicOperationsServiceRestUrl = \'");
 WriteLiteral("\';\r\n            Ext.SpecialOperationsServiceRestUrl = \'");
 
             
-            #line 36 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 35 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                               Write(ViewData.GetSpecialOperationsServiceRestUrl());
 
             
@@ -318,15 +309,32 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2087), Tuple.Create("\"", 2134)
-, Tuple.Create(Tuple.Create("", 2094), Tuple.Create("/Content/ext-all.css?", 2094), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2025), Tuple.Create("\"", 2072)
+, Tuple.Create(Tuple.Create("", 2032), Tuple.Create("/Content/ext-all.css?", 2032), true)
+            
+            #line 38 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+, Tuple.Create(Tuple.Create("", 2053), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 2053), false)
+);
+
+WriteLiteral(" />\r\n        <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 2124), Tuple.Create("\"", 2172)
+, Tuple.Create(Tuple.Create("", 2131), Tuple.Create("/Content/ext-mask.css?", 2131), true)
             
             #line 39 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2115), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2153), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2115), false)
+, 2153), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -335,15 +343,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2186), Tuple.Create("\"", 2234)
-, Tuple.Create(Tuple.Create("", 2193), Tuple.Create("/Content/ext-mask.css?", 2193), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2224), Tuple.Create("\"", 2274)
+, Tuple.Create(Tuple.Create("", 2231), Tuple.Create("/Content/ext-extend.css?", 2231), true)
             
             #line 40 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2215), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2255), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2215), false)
+, 2255), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -352,32 +360,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2286), Tuple.Create("\"", 2336)
-, Tuple.Create(Tuple.Create("", 2293), Tuple.Create("/Content/ext-extend.css?", 2293), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2326), Tuple.Create("\"", 2381)
+, Tuple.Create(Tuple.Create("", 2333), Tuple.Create("/Content/ext-ux-treegrid.css?", 2333), true)
             
             #line 41 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2317), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+  , Tuple.Create(Tuple.Create("", 2362), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2317), false)
-);
-
-WriteLiteral(" />\r\n        <link");
-
-WriteLiteral(" rel=\"stylesheet\"");
-
-WriteLiteral(" type=\"text/css\"");
-
-WriteAttribute("href", Tuple.Create(" href=\"", 2388), Tuple.Create("\"", 2443)
-, Tuple.Create(Tuple.Create("", 2395), Tuple.Create("/Content/ext-ux-treegrid.css?", 2395), true)
-            
-            #line 42 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-  , Tuple.Create(Tuple.Create("", 2424), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 2424), false)
+, 2362), false)
 );
 
 WriteLiteral(" />\r\n        \r\n        <link");
@@ -386,15 +377,32 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2505), Tuple.Create("\"", 2549)
-, Tuple.Create(Tuple.Create("", 2512), Tuple.Create("/Content/CRM4.css?", 2512), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2443), Tuple.Create("\"", 2487)
+, Tuple.Create(Tuple.Create("", 2450), Tuple.Create("/Content/CRM4.css?", 2450), true)
+            
+            #line 43 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+, Tuple.Create(Tuple.Create("", 2468), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 2468), false)
+);
+
+WriteLiteral(" />\r\n        <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 2539), Tuple.Create("\"", 2583)
+, Tuple.Create(Tuple.Create("", 2546), Tuple.Create("/Content/Card.css?", 2546), true)
             
             #line 44 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2530), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2564), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2530), false)
+, 2564), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -403,15 +411,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2601), Tuple.Create("\"", 2645)
-, Tuple.Create(Tuple.Create("", 2608), Tuple.Create("/Content/Card.css?", 2608), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2635), Tuple.Create("\"", 2689)
+, Tuple.Create(Tuple.Create("", 2642), Tuple.Create("/Content/order-position.css?", 2642), true)
             
             #line 45 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2626), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+ , Tuple.Create(Tuple.Create("", 2670), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2626), false)
+, 2670), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -420,15 +428,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2697), Tuple.Create("\"", 2751)
-, Tuple.Create(Tuple.Create("", 2704), Tuple.Create("/Content/order-position.css?", 2704), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2741), Tuple.Create("\"", 2796)
+, Tuple.Create(Tuple.Create("", 2748), Tuple.Create("/Content/AsyncFileUpload.css?", 2748), true)
             
             #line 46 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
- , Tuple.Create(Tuple.Create("", 2732), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+  , Tuple.Create(Tuple.Create("", 2777), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2732), false)
+, 2777), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -437,360 +445,343 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2803), Tuple.Create("\"", 2858)
-, Tuple.Create(Tuple.Create("", 2810), Tuple.Create("/Content/AsyncFileUpload.css?", 2810), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2848), Tuple.Create("\"", 2899)
+, Tuple.Create(Tuple.Create("", 2855), Tuple.Create("/Content/LookupStyle.css?", 2855), true)
             
             #line 47 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-  , Tuple.Create(Tuple.Create("", 2839), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2880), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2839), false)
-);
-
-WriteLiteral(" />\r\n        <link");
-
-WriteLiteral(" rel=\"stylesheet\"");
-
-WriteLiteral(" type=\"text/css\"");
-
-WriteAttribute("href", Tuple.Create(" href=\"", 2910), Tuple.Create("\"", 2961)
-, Tuple.Create(Tuple.Create("", 2917), Tuple.Create("/Content/LookupStyle.css?", 2917), true)
-            
-            #line 48 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2942), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 2942), false)
+, 2880), false)
 );
 
 WriteLiteral(" />\r\n        \r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2992), Tuple.Create("\"", 3055)
-, Tuple.Create(Tuple.Create("", 2998), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2998), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2930), Tuple.Create("\"", 2993)
+, Tuple.Create(Tuple.Create("", 2936), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2936), true)
+            
+            #line 49 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+, Tuple.Create(Tuple.Create("", 2974), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 2974), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n        <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 3044), Tuple.Create("\"", 3101)
+, Tuple.Create(Tuple.Create("", 3050), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 3050), true)
             
             #line 50 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3036), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3082), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3036), false)
+, 3082), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3106), Tuple.Create("\"", 3163)
-, Tuple.Create(Tuple.Create("", 3112), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 3112), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3152), Tuple.Create("\"", 3208)
+, Tuple.Create(Tuple.Create("", 3158), Tuple.Create("/Scripts/Ext.ux.LookupField.js?", 3158), true)
             
             #line 51 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3144), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3189), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3144), false)
+, 3189), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3214), Tuple.Create("\"", 3270)
-, Tuple.Create(Tuple.Create("", 3220), Tuple.Create("/Scripts/Ext.ux.LookupField.js?", 3220), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3259), Tuple.Create("\"", 3313)
+, Tuple.Create(Tuple.Create("", 3265), Tuple.Create("/Scripts/Ext.ux.LinkField.js?", 3265), true)
             
             #line 52 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3251), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3294), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3251), false)
+, 3294), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3321), Tuple.Create("\"", 3375)
-, Tuple.Create(Tuple.Create("", 3327), Tuple.Create("/Scripts/Ext.ux.LinkField.js?", 3327), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3364), Tuple.Create("\"", 3417)
+, Tuple.Create(Tuple.Create("", 3370), Tuple.Create("/Scripts/Ext.ux.Calendar.js?", 3370), true)
             
             #line 53 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3356), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3398), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3356), false)
+, 3398), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3426), Tuple.Create("\"", 3479)
-, Tuple.Create(Tuple.Create("", 3432), Tuple.Create("/Scripts/Ext.ux.Calendar.js?", 3432), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3468), Tuple.Create("\"", 3529)
+, Tuple.Create(Tuple.Create("", 3474), Tuple.Create("/Scripts/Ext.ux.LookupFieldOwner.js?", 3474), true)
             
             #line 54 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3460), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3510), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3460), false)
+, 3510), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3530), Tuple.Create("\"", 3591)
-, Tuple.Create(Tuple.Create("", 3536), Tuple.Create("/Scripts/Ext.ux.LookupFieldOwner.js?", 3536), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3580), Tuple.Create("\"", 3644)
+, Tuple.Create(Tuple.Create("", 3586), Tuple.Create("/Scripts/DoubleGis.MvcFormValidator.js?", 3586), true)
             
             #line 55 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3572), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3625), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3572), false)
+, 3625), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3642), Tuple.Create("\"", 3706)
-, Tuple.Create(Tuple.Create("", 3648), Tuple.Create("/Scripts/DoubleGis.MvcFormValidator.js?", 3648), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3695), Tuple.Create("\"", 3760)
+, Tuple.Create(Tuple.Create("", 3701), Tuple.Create("/Scripts/DoubleGis.DependencyHandler.js?", 3701), true)
             
             #line 56 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3687), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3741), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3687), false)
+, 3741), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3757), Tuple.Create("\"", 3822)
-, Tuple.Create(Tuple.Create("", 3763), Tuple.Create("/Scripts/DoubleGis.DependencyHandler.js?", 3763), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3811), Tuple.Create("\"", 3874)
+, Tuple.Create(Tuple.Create("", 3817), Tuple.Create("/Scripts/DoubleGis.UI.DialogWindow.js?", 3817), true)
             
             #line 57 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3803), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3855), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3803), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n        <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 3873), Tuple.Create("\"", 3936)
-, Tuple.Create(Tuple.Create("", 3879), Tuple.Create("/Scripts/DoubleGis.UI.DialogWindow.js?", 3879), true)
-            
-            #line 58 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3917), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 3917), false)
+, 3855), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        \r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3997), Tuple.Create("\"", 4056)
-, Tuple.Create(Tuple.Create("", 4003), Tuple.Create("/Scripts/Ext.ux.TreeGridSorter.js?", 4003), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3935), Tuple.Create("\"", 3994)
+, Tuple.Create(Tuple.Create("", 3941), Tuple.Create("/Scripts/Ext.ux.TreeGridSorter.js?", 3941), true)
+            
+            #line 59 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+, Tuple.Create(Tuple.Create("", 3975), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 3975), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n        <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 4045), Tuple.Create("\"", 4111)
+, Tuple.Create(Tuple.Create("", 4051), Tuple.Create("/Scripts/Ext.ux.TreeGridColumnResizer.js?", 4051), true)
             
             #line 60 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4037), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4092), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4037), false)
+, 4092), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4107), Tuple.Create("\"", 4173)
-, Tuple.Create(Tuple.Create("", 4113), Tuple.Create("/Scripts/Ext.ux.TreeGridColumnResizer.js?", 4113), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4162), Tuple.Create("\"", 4221)
+, Tuple.Create(Tuple.Create("", 4168), Tuple.Create("/Scripts/Ext.ux.TreeGridNodeUI.js?", 4168), true)
             
             #line 61 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4154), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4202), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4154), false)
+, 4202), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4224), Tuple.Create("\"", 4283)
-, Tuple.Create(Tuple.Create("", 4230), Tuple.Create("/Scripts/Ext.ux.TreeGridNodeUI.js?", 4230), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4272), Tuple.Create("\"", 4331)
+, Tuple.Create(Tuple.Create("", 4278), Tuple.Create("/Scripts/Ext.ux.TreeGridLoader.js?", 4278), true)
             
             #line 62 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4264), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4312), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4264), false)
+, 4312), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4334), Tuple.Create("\"", 4393)
-, Tuple.Create(Tuple.Create("", 4340), Tuple.Create("/Scripts/Ext.ux.TreeGridLoader.js?", 4340), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4382), Tuple.Create("\"", 4442)
+, Tuple.Create(Tuple.Create("", 4388), Tuple.Create("/Scripts/Ext.ux.TreeGridColumns.js?", 4388), true)
             
             #line 63 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4374), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4423), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4374), false)
+, 4423), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4444), Tuple.Create("\"", 4504)
-, Tuple.Create(Tuple.Create("", 4450), Tuple.Create("/Scripts/Ext.ux.TreeGridColumns.js?", 4450), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4493), Tuple.Create("\"", 4546)
+, Tuple.Create(Tuple.Create("", 4499), Tuple.Create("/Scripts/Ext.ux.TreeGrid.js?", 4499), true)
             
             #line 64 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4485), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4527), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4485), false)
+, 4527), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4555), Tuple.Create("\"", 4608)
-, Tuple.Create(Tuple.Create("", 4561), Tuple.Create("/Scripts/Ext.ux.TreeGrid.js?", 4561), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4597), Tuple.Create("\"", 4653)
+, Tuple.Create(Tuple.Create("", 4603), Tuple.Create("/Scripts/Ext.ux.FitToParent.js?", 4603), true)
             
             #line 65 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4589), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4634), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4589), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n        <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 4659), Tuple.Create("\"", 4715)
-, Tuple.Create(Tuple.Create("", 4665), Tuple.Create("/Scripts/Ext.ux.FitToParent.js?", 4665), true)
-            
-            #line 66 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4696), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 4696), false)
+, 4634), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        \r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4776), Tuple.Create("\"", 4831)
-, Tuple.Create(Tuple.Create("", 4782), Tuple.Create("/Scripts/DoubleGis.UI.Card.js?", 4782), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4714), Tuple.Create("\"", 4769)
+, Tuple.Create(Tuple.Create("", 4720), Tuple.Create("/Scripts/DoubleGis.UI.Card.js?", 4720), true)
+            
+            #line 67 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+, Tuple.Create(Tuple.Create("", 4750), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 4750), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n        <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 4820), Tuple.Create("\"", 4888)
+, Tuple.Create(Tuple.Create("", 4826), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.js?", 4826), true)
             
             #line 68 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4812), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4869), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4812), false)
+, 4869), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4882), Tuple.Create("\"", 4950)
-, Tuple.Create(Tuple.Create("", 4888), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.js?", 4888), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4939), Tuple.Create("\"", 5021)
+, Tuple.Create(Tuple.Create("", 4945), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.BusinessLogic.js?", 4945), true)
             
             #line 69 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4931), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 5002), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4931), false)
+, 5002), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 5001), Tuple.Create("\"", 5083)
-, Tuple.Create(Tuple.Create("", 5007), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.BusinessLogic.js?", 5007), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 5072), Tuple.Create("\"", 5154)
+, Tuple.Create(Tuple.Create("", 5078), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.LinkingObject.js?", 5078), true)
             
             #line 70 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 5064), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 5135), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 5064), false)
+, 5135), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 5134), Tuple.Create("\"", 5216)
-, Tuple.Create(Tuple.Create("", 5140), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.LinkingObject.js?", 5140), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 5205), Tuple.Create("\"", 5297)
+, Tuple.Create(Tuple.Create("", 5211), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.AdvertisementController.js?", 5211), true)
             
             #line 71 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 5197), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+        , Tuple.Create(Tuple.Create("", 5278), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 5197), false)
+, 5278), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 5267), Tuple.Create("\"", 5359)
-, Tuple.Create(Tuple.Create("", 5273), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.AdvertisementController.js?", 5273), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 5348), Tuple.Create("\"", 5416)
+, Tuple.Create(Tuple.Create("", 5354), Tuple.Create("/Scripts/Ext.DoubleGis.UI.BindingObject.js?", 5354), true)
             
             #line 72 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-        , Tuple.Create(Tuple.Create("", 5340), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 5397), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 5340), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n        <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 5410), Tuple.Create("\"", 5478)
-, Tuple.Create(Tuple.Create("", 5416), Tuple.Create("/Scripts/Ext.DoubleGis.UI.BindingObject.js?", 5416), true)
-            
-            #line 73 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 5459), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 5459), false)
+, 5397), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -804,7 +795,7 @@ WriteLiteral(">\r\n            .display-wrapper .captionRadioDiv { padding-top: 
 "       </style>\r\n        \r\n        <title>");
 
             
-            #line 81 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 80 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
           Write(BLResources.BindingObjectChange);
 
             
@@ -827,13 +818,13 @@ WriteLiteral(" id=\"PageContentCell\"");
 WriteLiteral(">\r\n");
 
             
-            #line 87 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 86 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                     
             
             #line default
             #line hidden
             
-            #line 87 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 86 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" }, { "autocomplete", "off" }, { "target", "_self" } }))
                     {
                         
@@ -841,98 +832,98 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 89 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 88 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.Id));
 
             
             #line default
             #line hidden
             
-            #line 89 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 88 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                   
                         
             
             #line default
             #line hidden
             
-            #line 90 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 89 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.OrderId));
 
             
             #line default
             #line hidden
             
-            #line 90 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 89 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                        
                         
             
             #line default
             #line hidden
             
-            #line 91 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 90 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.OrderFirmId));
 
             
             #line default
             #line hidden
             
-            #line 91 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 90 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                            
                         
             
             #line default
             #line hidden
             
-            #line 92 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 91 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.OrganizationUnitId));
 
             
             #line default
             #line hidden
             
-            #line 92 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 91 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                                   
                         
             
             #line default
             #line hidden
             
-            #line 93 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 92 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.IsLocked));
 
             
             #line default
             #line hidden
             
-            #line 93 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 92 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                         
                         
             
             #line default
             #line hidden
             
-            #line 94 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 93 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.DiscountSum));
 
             
             #line default
             #line hidden
             
-            #line 94 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 93 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                            
                         
             
             #line default
             #line hidden
             
-            #line 95 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 94 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.IsComposite));
 
             
             #line default
             #line hidden
             
-            #line 95 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 94 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                            
 
                         
@@ -940,97 +931,111 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 97 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 96 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.DiscountPercent));
 
             
             #line default
             #line hidden
             
-            #line 97 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 96 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                                
                         
             
             #line default
             #line hidden
             
-            #line 98 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 97 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.AdvertisementsJson));
 
             
             #line default
             #line hidden
             
-            #line 98 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 97 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                                   
                         
             
             #line default
             #line hidden
             
-            #line 99 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 98 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.PricePosition));
 
             
             #line default
             #line hidden
             
-            #line 99 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 98 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                              
                         
             
             #line default
             #line hidden
             
-            #line 100 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 99 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.PricePerUnit));
 
             
             #line default
             #line hidden
             
-            #line 100 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 99 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                             
                         
             
             #line default
             #line hidden
             
-            #line 101 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 100 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.PricePerUnitWithVat));
 
             
             #line default
             #line hidden
             
-            #line 101 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 100 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                                    
                         
             
             #line default
             #line hidden
             
-            #line 102 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 101 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.Amount));
 
             
             #line default
             #line hidden
             
-            #line 102 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 101 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                       
                         
             
             #line default
             #line hidden
             
-            #line 103 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 102 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.ShipmentPlan));
 
             
             #line default
             #line hidden
             
+            #line 102 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+                                                            
+                        
+            
+            #line default
+            #line hidden
+            
+            #line 103 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+                   Write(Html.HiddenFor(m => m.PayablePrice));
+
+            
+            #line default
+            #line hidden
+            
             #line 103 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                             
                         
@@ -1039,69 +1044,55 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 104 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-                   Write(Html.HiddenFor(m => m.PayablePrice));
-
-            
-            #line default
-            #line hidden
-            
-            #line 104 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-                                                            
-                        
-            
-            #line default
-            #line hidden
-            
-            #line 105 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.PayablePlan));
 
             
             #line default
             #line hidden
             
-            #line 105 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 104 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                            
                         
             
             #line default
             #line hidden
             
-            #line 106 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 105 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.CalculateDiscountViaPercent));
 
             
             #line default
             #line hidden
             
-            #line 106 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 105 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                                            
                         
             
             #line default
             #line hidden
             
-            #line 107 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 106 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.DiscountSum));
 
             
             #line default
             #line hidden
             
-            #line 107 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 106 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                            
                         
             
             #line default
             #line hidden
             
-            #line 108 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 107 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                    Write(Html.HiddenFor(m => m.Comment));
 
             
             #line default
             #line hidden
             
-            #line 108 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 107 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                                                        
 
             
@@ -1122,7 +1113,7 @@ WriteLiteral(">\r\n                                    </div>\r\n               
 "td>\r\n                            </tr>\r\n                        </table>\r\n");
 
             
-            #line 117 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+            #line 116 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
                     }   
 
             
@@ -1146,14 +1137,14 @@ WriteLiteral(" type=\"button\"");
 
 WriteLiteral(" id=\"OK\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 8037), Tuple.Create("\"", 8060)
+WriteAttribute("value", Tuple.Create(" value=\"", 7975), Tuple.Create("\"", 7998)
             
-            #line 122 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 8045), Tuple.Create<System.Object, System.Int32>(BLResources.OK
+            #line 121 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+, Tuple.Create(Tuple.Create("", 7983), Tuple.Create<System.Object, System.Int32>(BLResources.OK
             
             #line default
             #line hidden
-, 8045), false)
+, 7983), false)
 );
 
 WriteLiteral(" />\r\n                    <input");
@@ -1164,14 +1155,14 @@ WriteLiteral(" type=\"button\"");
 
 WriteLiteral(" id=\"Cancel\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 8136), Tuple.Create("\"", 8163)
+WriteAttribute("value", Tuple.Create(" value=\"", 8074), Tuple.Create("\"", 8101)
             
-            #line 123 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 8144), Tuple.Create<System.Object, System.Int32>(BLResources.Cancel
+            #line 122 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
+, Tuple.Create(Tuple.Create("", 8082), Tuple.Create<System.Object, System.Int32>(BLResources.Cancel
             
             #line default
             #line hidden
-, 8144), false)
+, 8082), false)
 );
 
 WriteLiteral(" />\r\n                </td>\r\n            </tr>\r\n        </table>\r\n    </body>\r\n</h" +
