@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
-using DoubleGis.Erm.BLFlex.UI.Metadata.ViewModels.Contracts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
+namespace DoubleGis.Erm.BLFlex.UI.Metadata.Russia
 {
-    public sealed class ChileCardMetadataSource : MetadataSourceBase<MetadataCardsIdentity>, IChileAdapted
+    public sealed class RussiaCardMetadataSource : MetadataSourceBase<MetadataCardsIdentity>, IRussiaAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
-        public ChileCardMetadataSource()
+        public RussiaCardMetadataSource()
         {
             _metadata = InitializeMetadataContainer();
         }
@@ -33,15 +32,17 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
             IReadOnlyCollection<CardMetadata> metadataContainer =
                 new CardMetadata[]
                     {
-                        CardMetadata.For<Deal>()
-                                    .MVVM.Bind<IDealViewModel>("~/Views/CreateOrUpdate/Chile/Deal.cshtml"),
+                        CardMetadata.For<AdvertisementElementStatus>()
+                                    .EntityLocalization(() => EnumResources.EntityNameAdvertisementElementStatus)
+                                    .Icon.Path("en_ico_lrg_Default.gif")
+                                    .WithAdminTab()
+                                    .WithComments(),
 
-                        CardMetadata.For<OrderPosition>()
-                                    .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Chile/OrderPosition.cshtml"),
-
-                        CardMetadata.For<Bank>()
-                                    .MainAttribute<Bank, IBankViewModel>(x => x.Name)
-                                    .ConfigCommonCardToolbar(),
+                        CardMetadata.For<OrderProcessingRequest>()
+                                    .EntityLocalization(() => ErmConfigLocalization.EnOrderProcessingRequest)
+                                    .Icon.Path("en_ico_lrg_Default.gif")
+                                    .WithComments()
+                                    .WithAdminTab(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

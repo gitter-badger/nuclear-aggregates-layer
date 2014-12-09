@@ -198,6 +198,30 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
+                    #region Bank
+                    {
+                        EntityName.Bank,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Bank",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityLocalizedName",
+                                                new Tuple<object, object>(ErmConfigLocalization.EnAssociatedPositionsGroup, EnumResources.EntityNameBank)
+                                            },
+                                            {
+                                                "EntityNameLocaleResourceId",
+                                                new Tuple<object, object>("EnAssociatedPositionsGroup", "EntityNameBank")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
                     #region Deal
                     {
                         EntityName.Deal,
@@ -404,26 +428,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             {
                                                 "SecurityPrivelege",
                                                 new Tuple<object, object>((int)EntityAccessTypes.None, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
-                                            },
-                                        }
-                                },
-                            }
-                    },
-
-                    #endregion
-
-                    #region AdvertisementElement
-                    {
-                        EntityName.AdvertisementElement,
-                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
-                            {
-                                {
-                                    "Save",
-                                    new Dictionary<string, Tuple<object, object>>
-                                        {
-                                            {
-                                                "SecurityPrivelege",
-                                                new Tuple<object, object>(null, (int)(EntityAccessTypes.Update | EntityAccessTypes.Create))
                                             },
                                         }
                                 },

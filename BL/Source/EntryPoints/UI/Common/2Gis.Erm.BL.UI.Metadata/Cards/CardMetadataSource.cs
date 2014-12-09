@@ -61,12 +61,6 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab()
                                     .WithComments(),
 
-                        CardMetadata.For<AdvertisementElementStatus>()
-                                    .EntityLocalization(() => EnumResources.EntityNameAdvertisementElementStatus)
-                                    .Icon.Path("en_ico_lrg_Default.gif")
-                                    .WithAdminTab()
-                                    .WithComments(),
-
                         CardMetadata.For<AdvertisementElementTemplate>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementElementTemplate)
                                     .Icon.Path("en_ico_lrg_Default.gif")
@@ -259,12 +253,6 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<OrderPosition>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrderPositions)
                                     .Icon.Path("en_ico_lrg_Default.gif")
-                                    .WithAdminTab(),
-
-                        CardMetadata.For<OrderProcessingRequest>()
-                                    .EntityLocalization(() => ErmConfigLocalization.EnOrderProcessingRequest)
-                                    .Icon.Path("en_ico_lrg_Default.gif")
-                                    .WithComments()
                                     .WithAdminTab(),
 
                         CardMetadata.For<OrganizationUnit>()

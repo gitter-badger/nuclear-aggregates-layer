@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -7,8 +8,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -17,7 +20,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public sealed class TestController : ControllerBase
     {
-        private readonly EntityName[] entitiesToIgnore =
+        private readonly EntityName[] _entitiesToIgnore =
             {
                 EntityName.None,
                 EntityName.All,
@@ -109,23 +112,60 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 EntityName.OrderProcessingRequestMessage,
                 EntityName.MessageType,
 
-
+                EntityName.OrderProcessingRequest,
+                EntityName.AdvertisementElementStatus,
                 EntityName.AcceptanceReportsJournalRecord,
                 EntityName.Bank,
                 EntityName.Commune
             };
 
-        //AcceptanceReportsJournalRecord
-        //Bank
-        //EntityName.Commune
+        private readonly IDictionary<BusinessModel, IEnumerable<EntityName>> _modelSpecificEntities
+            = new Dictionary<BusinessModel, IEnumerable<EntityName>>
+                  {
+                      {
+                          BusinessModel.Russia,
+                          new[]
+                              {
+                                  EntityName.OrderProcessingRequest,
+                                  EntityName.AdvertisementElementStatus
+                              }
+                      },
+                      {
+                          BusinessModel.Chile,
+                          new[]
+                              {
+                                  EntityName.Bank,
+                              }
+                      },
+                      {
+                          BusinessModel.Czech,
+                          new EntityName[0]
+                      },
+                      {
+                          BusinessModel.Cyprus,
+                          new EntityName[0]
+                      },
+                      {
+                          BusinessModel.Kazakhstan,
+                          new EntityName[0]
+                      },
+                      {
+                          BusinessModel.Emirates,
+                          new EntityName[0]
+                      },
+                  };
+
         private readonly IUICardConfigurationService _uiConfigurationService;
+        private readonly IBusinessModelSettings _businessModelSettings;
+
         public TestController(IMsCrmSettings msCrmSettings,
                               IUserContext userContext,
                               ICommonLog logger,
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                               IGetBaseCurrencyService getBaseCurrencyService,
-            IUICardConfigurationService uiConfigurationService)
+                              IUICardConfigurationService uiConfigurationService,
+                              IBusinessModelSettings businessModelSettings)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -134,22 +174,25 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                    getBaseCurrencyService)
         {
             _uiConfigurationService = uiConfigurationService;
+            _businessModelSettings = businessModelSettings;
         }
 
         public EmptyResult GetCardSettings()
         {
             foreach (EntityName entity in Enum.GetValues(typeof(EntityName)))
             {
-                if (!entitiesToIgnore.Contains(entity))
+                if (_entitiesToIgnore.Contains(entity) && !_modelSpecificEntities[_businessModelSettings.BusinessModel].Contains(entity))
                 {
-                    try
-                    {
-                        _uiConfigurationService.GetCardSettings(entity, UserContext.Profile.UserLocaleInfo.UserCultureInfo);   
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.ErrorEx(ex, entity.ToString());
-                    }
+                    continue;
+                }
+             
+                try
+                {
+                    _uiConfigurationService.GetCardSettings(entity, UserContext.Profile.UserLocaleInfo.UserCultureInfo);
+                }
+                catch (Exception ex)
+                {
+                    Logger.ErrorEx(ex, entity.ToString());
                 }
             }
 

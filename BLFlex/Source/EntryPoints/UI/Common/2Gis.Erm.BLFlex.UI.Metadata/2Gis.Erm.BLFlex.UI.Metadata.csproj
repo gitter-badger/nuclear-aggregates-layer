@@ -121,8 +121,12 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Chile\ChileCardMetadataSource.cs" />
     <Compile Include="Config\Old\UICardConfigurationService.cs" />
     <Compile Include="Config\Old\UIConfigurationService.cs" />
+    <Compile Include="DI\BlFlexUiMetadataAssembly.cs" />
+    <Compile Include="Russia\RussiaCardMetadataSource.cs" />
+    <Compile Include="ViewModels\Contracts\Chile\IBankViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Chile.xml">
