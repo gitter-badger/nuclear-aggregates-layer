@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var blockingErrors = EvaluateAllBlockingErrors(accountDetailDtos, validateLegalPersonsResponse.BlockingErrors);
 
-            var debitInfoDto = ConvertToDebitInfoForErpDto(organizationUnitSyncCode1C, period, accountDetailDtos);
+            var debitInfoDto = ConvertToDebitsInfoInitialDto(organizationUnitSyncCode1C, period, accountDetailDtos);
             var debitsStream = CreateDebitsStream(debitInfoDto.ToXElement());
 
             var response = ConstructResponse(blockingErrors,
@@ -144,9 +144,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return dataTable;
         }
 
-        private DebitsInfoInitialDto ConvertToDebitInfoForErpDto(string organizationUnitSyncCode1C,
-                                                                TimePeriod period,
-                                                                IEnumerable<AccountDetailDto> accountDetailDtos)
+        private DebitsInfoInitialDto ConvertToDebitsInfoInitialDto(string organizationUnitSyncCode1C,
+                                                                   TimePeriod period,
+                                                                   IEnumerable<AccountDetailDto> accountDetailDtos)
         {
             var debits = accountDetailDtos
                 .Select(x => new DebitDto
