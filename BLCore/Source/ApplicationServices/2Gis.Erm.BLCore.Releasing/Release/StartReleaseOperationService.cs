@@ -488,11 +488,12 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             // создали новую запись о сборке, или переоткрыли старую, 
             // из конкурирующей транзакции не захватили ту же пессимистичную блокировку (запись о сборке по тому же городу, за тот же период, в частном случае ту же запись о сборке)
             // т.к. есть режим подхвата сборки InProgressWaitingExternalProcessing, то доп. нужно проверить версию записи о сборке
-            var lockedRelease = _releaseReadModel.GetLastRelease(acquiredRelease.OrganizationUnitId,
-                                                                 new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
+            var releases = _releaseReadModel.GetReleasesInDescOrder(acquiredRelease.OrganizationUnitId,
+                                                                    new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
+
+            var lockedRelease = releases.First(x => x.IsBeta == acquiredRelease.IsBeta);
             return lockedRelease != null &&
                    lockedRelease.Id == acquiredRelease.Id &&
-                   lockedRelease.IsBeta == acquiredRelease.IsBeta &&
                    lockedRelease.Status == ReleaseStatus.InProgressInternalProcessingStarted &&
                    acquiredRelease.SameVersionAs(lockedRelease);
         }
