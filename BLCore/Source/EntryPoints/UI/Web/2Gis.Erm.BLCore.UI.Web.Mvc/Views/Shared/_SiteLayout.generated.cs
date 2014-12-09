@@ -345,19 +345,10 @@ WriteLiteral(";\r\n        Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = \'"
             
             #line default
             #line hidden
-WriteLiteral("\';\r\n        Ext.CRM_URL = \'");
-
-            
-            #line 38 "..\..\Views\Shared\_SiteLayout.cshtml"
-                  Write(ViewData.GetMsCrmSettingsUrl());
-
-            
-            #line default
-            #line hidden
 WriteLiteral("\';\r\n        Ext.BasicOperationsServiceRestUrl = \'");
 
             
-            #line 39 "..\..\Views\Shared\_SiteLayout.cshtml"
+            #line 38 "..\..\Views\Shared\_SiteLayout.cshtml"
                                         Write(ViewData.GetBasicOperationsServiceRestUrl());
 
             
@@ -366,7 +357,7 @@ WriteLiteral("\';\r\n        Ext.BasicOperationsServiceRestUrl = \'");
 WriteLiteral("\';\r\n        Ext.SpecialOperationsServiceRestUrl = \'");
 
             
-            #line 40 "..\..\Views\Shared\_SiteLayout.cshtml"
+            #line 39 "..\..\Views\Shared\_SiteLayout.cshtml"
                                           Write(ViewData.GetSpecialOperationsServiceRestUrl());
 
             
@@ -374,30 +365,30 @@ WriteLiteral("\';\r\n        Ext.SpecialOperationsServiceRestUrl = \'");
             #line hidden
 WriteLiteral("\';\r\n    </script>\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2177), Tuple.Create("\"", 2240)
-, Tuple.Create(Tuple.Create("", 2183), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2183), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2119), Tuple.Create("\"", 2182)
+, Tuple.Create(Tuple.Create("", 2125), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2125), true)
             
-            #line 43 "..\..\Views\Shared\_SiteLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 2221), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 42 "..\..\Views\Shared\_SiteLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 2163), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2221), false)
+, 2163), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2287), Tuple.Create("\"", 2344)
-, Tuple.Create(Tuple.Create("", 2293), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 2293), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2229), Tuple.Create("\"", 2286)
+, Tuple.Create(Tuple.Create("", 2235), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 2235), true)
             
-            #line 44 "..\..\Views\Shared\_SiteLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 2325), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 43 "..\..\Views\Shared\_SiteLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 2267), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2325), false)
+, 2267), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -407,7 +398,7 @@ WriteLiteral("></script>\r\n    \r\n");
 WriteLiteral("    ");
 
             
-            #line 46 "..\..\Views\Shared\_SiteLayout.cshtml"
+            #line 45 "..\..\Views\Shared\_SiteLayout.cshtml"
 Write(RenderSection("HeadContent"));
 
             
@@ -418,7 +409,7 @@ WriteLiteral("\r\n</head>\r\n<body>\r\n    <div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 50 "..\..\Views\Shared\_SiteLayout.cshtml"
+            #line 49 "..\..\Views\Shared\_SiteLayout.cshtml"
    Write(RenderSection("MainContent"));
 
             

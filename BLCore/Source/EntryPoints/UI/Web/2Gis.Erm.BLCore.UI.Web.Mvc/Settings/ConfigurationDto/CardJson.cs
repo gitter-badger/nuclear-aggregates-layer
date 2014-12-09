@@ -12,7 +12,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto
         public string EntityName { get; set; }
         public string EntityLocalizedName { get; set; }
         public string EntityMainAttribute { get; set; }
-        public int? CrmEntityCode { get; set; }
 
         public bool HasComments { get; set; }
         public bool HasAdminTab { get; set; }

@@ -293,19 +293,10 @@ WriteLiteral(";\r\n        Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = \'"
             
             #line default
             #line hidden
-WriteLiteral("\';\r\n        Ext.CRM_URL = \'");
-
-            
-            #line 31 "..\..\Views\Administration\MessageQueueManagement.cshtml"
-                  Write(ViewData.GetMsCrmSettingsUrl());
-
-            
-            #line default
-            #line hidden
 WriteLiteral("\';\r\n        Ext.BasicOperationsServiceRestUrl = \'");
 
             
-            #line 32 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 31 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                         Write(ViewData.GetBasicOperationsServiceRestUrl());
 
             
@@ -314,7 +305,7 @@ WriteLiteral("\';\r\n        Ext.BasicOperationsServiceRestUrl = \'");
 WriteLiteral("\';\r\n        Ext.SpecialOperationsServiceRestUrl = \'");
 
             
-            #line 33 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 32 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                           Write(ViewData.GetSpecialOperationsServiceRestUrl());
 
             
@@ -322,15 +313,15 @@ WriteLiteral("\';\r\n        Ext.SpecialOperationsServiceRestUrl = \'");
             #line hidden
 WriteLiteral("\';\r\n    </script>\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1881), Tuple.Create("\"", 1944)
-, Tuple.Create(Tuple.Create("", 1887), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 1887), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1823), Tuple.Create("\"", 1886)
+, Tuple.Create(Tuple.Create("", 1829), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 1829), true)
             
-            #line 36 "..\..\Views\Administration\MessageQueueManagement.cshtml"
-, Tuple.Create(Tuple.Create("", 1925), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 35 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+, Tuple.Create(Tuple.Create("", 1867), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1925), false)
+, 1867), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -358,13 +349,13 @@ WriteLiteral(" class=\"content\"");
 WriteLiteral(">\r\n");
 
             
-            #line 51 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 50 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                         
             
             #line default
             #line hidden
             
-            #line 51 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 50 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                          if (Model.HasAccessToCorporateQueue)
                         {
 
@@ -378,7 +369,7 @@ WriteLiteral(" class=\"subtitle\"");
 WriteLiteral(">");
 
             
-            #line 53 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 52 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                          Write(BLResources.SecurityAdministrationPage_HeaderExternalSystems);
 
             
@@ -448,7 +439,7 @@ WriteLiteral(" href=\"#\"");
 WriteLiteral(">");
 
             
-            #line 66 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 65 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                                                                                                                                                       Write(BLResources.SecurityAdministrationPage_LocalMessages);
 
             
@@ -465,7 +456,7 @@ WriteLiteral(" onclick=\" window.location.href = \'../Grid/View/LocalMessage\'\"
 WriteLiteral(">");
 
             
-            #line 67 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 66 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                                                                                                                                  Write(BLResources.SecurityAdministrationPage_LocalMessageDetails);
 
             
@@ -513,7 +504,7 @@ WriteLiteral(@"></td>
 ");
 
             
-            #line 86 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 85 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                         }
 
             
@@ -522,13 +513,13 @@ WriteLiteral(@"></td>
 WriteLiteral("\r\n");
 
             
-            #line 88 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 87 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                         
             
             #line default
             #line hidden
             
-            #line 88 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 87 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                          if (Model.HasAccessToRelease || Model.HasAccessToWithdrawal)
                         {
 
@@ -542,7 +533,7 @@ WriteLiteral(" class=\"subtitle\"");
 WriteLiteral(">");
 
             
-            #line 90 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 89 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                          Write(BLResources.SecurityAdministrationPage_HeaderReleasing);
 
             
@@ -570,13 +561,13 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 "                                 <td>\r\n");
 
             
-            #line 96 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 95 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                         
             
             #line default
             #line hidden
             
-            #line 96 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 95 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                          if (Model.HasAccessToRelease)
                                         {
 
@@ -627,7 +618,7 @@ WriteLiteral(" href=\"#\"");
 WriteLiteral(">");
 
             
-            #line 105 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 104 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                                                                                                                                                       Write(BLResources.SecurityAdministrationPage_ReleaseInfos);
 
             
@@ -644,7 +635,7 @@ WriteLiteral(" onclick=\"window.location.href = \'../Grid/View/ReleaseInfo\'\"")
 WriteLiteral(">");
 
             
-            #line 106 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 105 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                                                                                                                                     Write(BLResources.SecurityAdministrationPage_ReleaseInfoDetails);
 
             
@@ -656,7 +647,7 @@ WriteLiteral("</div>\r\n                                                        
 "\n");
 
             
-            #line 111 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 110 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                         }
 
             
@@ -666,13 +657,13 @@ WriteLiteral("                                    </td>\r\n                     
 "d>\r\n");
 
             
-            #line 114 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 113 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                         
             
             #line default
             #line hidden
             
-            #line 114 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 113 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                          if (Model.HasAccessToWithdrawal)
                                         {
 
@@ -723,7 +714,7 @@ WriteLiteral(" href=\"#\"");
 WriteLiteral(">");
 
             
-            #line 123 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 122 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                                                                                                                                                     Write(BLResources.SecurityAdministrationPage_WithdrawalInfos);
 
             
@@ -740,7 +731,7 @@ WriteLiteral(" onclick=\"window.location.href = \'../Grid/View/WithdrawalInfo\'\
 WriteLiteral(">");
 
             
-            #line 124 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 123 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                                                                                                                                   Write(BLResources.SecurityAdministrationPage_WithdrawalInfoDetails);
 
             
@@ -754,7 +745,7 @@ WriteLiteral(@"</div>
 ");
 
             
-            #line 129 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 128 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                                         }
 
             
@@ -764,7 +755,7 @@ WriteLiteral("                                    </td>\r\n                     
 "\n                            </tbody>\r\n                        </table>\r\n");
 
             
-            #line 134 "..\..\Views\Administration\MessageQueueManagement.cshtml"
+            #line 133 "..\..\Views\Administration\MessageQueueManagement.cshtml"
                         }
 
             

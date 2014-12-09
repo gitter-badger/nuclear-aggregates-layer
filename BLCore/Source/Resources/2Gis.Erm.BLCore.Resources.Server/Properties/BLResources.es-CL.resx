@@ -3323,9 +3323,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="CopyPriceCreateNewLegend" xml:space="preserve">
     <value>Copiar la lista de precios existente a una nueva</value>
   </data>
-  <data name="CrmEntityCode" xml:space="preserve">
-    <value>Código de esencia CRM</value>
-  </data>
   <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
     <value>No se ha encontrado ningún territorio con el código DGPP [{0}]</value>
   </data>

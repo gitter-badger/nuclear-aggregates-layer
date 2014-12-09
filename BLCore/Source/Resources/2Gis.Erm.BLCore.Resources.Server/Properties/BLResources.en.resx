@@ -3322,9 +3322,6 @@ The operation has been executed: {6}.</value>
   <data name="CopyPriceCreateNewLegend" xml:space="preserve">
     <value>Copy an existing price-list to a new one</value>
   </data>
-  <data name="CrmEntityCode" xml:space="preserve">
-    <value>CRM code of entity</value>
-  </data>
   <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
     <value>Sales territory with DGPP code [{0}] is not found</value>
   </data>

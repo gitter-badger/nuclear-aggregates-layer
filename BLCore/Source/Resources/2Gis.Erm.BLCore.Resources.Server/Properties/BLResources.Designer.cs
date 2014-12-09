@@ -4717,15 +4717,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CrmEntityCode {
-            get {
-                return ResourceManager.GetString("CrmEntityCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string CRMLegalPersonNotFound {
             get {
                 return ResourceManager.GetString("CRMLegalPersonNotFound", resourceCulture);

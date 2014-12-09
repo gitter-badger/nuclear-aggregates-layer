@@ -3312,9 +3312,6 @@
   <data name="CopyPriceCreateNewLegend" xml:space="preserve">
     <value />
   </data>
-  <data name="CrmEntityCode" xml:space="preserve">
-    <value />
-  </data>
   <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
     <value />
   </data>
