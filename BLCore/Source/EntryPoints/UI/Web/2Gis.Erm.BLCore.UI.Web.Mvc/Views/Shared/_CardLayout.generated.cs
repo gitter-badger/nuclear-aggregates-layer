@@ -310,8 +310,20 @@ WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n");
 
+WriteLiteral("        <script");
+
+WriteLiteral(" src=\"/Scripts/moment-with-locales.js\"");
+
+WriteLiteral("></script>\r\n");
+
+WriteLiteral("        <script");
+
+WriteLiteral(" src=\"/Scripts/moment-timezone-with-data.js\"");
+
+WriteLiteral("></script>\r\n");
+
             
-            #line 29 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 31 "..\..\Views\Shared\_CardLayout.cshtml"
     }
     else
     {
@@ -321,15 +333,15 @@ WriteLiteral("></script>\r\n");
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1670), Tuple.Create("\"", 1716)
-, Tuple.Create(Tuple.Create("", 1676), Tuple.Create("/Scripts/ext-base.js?", 1676), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1806), Tuple.Create("\"", 1852)
+, Tuple.Create(Tuple.Create("", 1812), Tuple.Create("/Scripts/ext-base.js?", 1812), true)
             
-            #line 32 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 1697), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 34 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 1833), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1697), false)
+, 1833), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -338,23 +350,35 @@ WriteLiteral("></script>\r\n");
 
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1767), Tuple.Create("\"", 1812)
-, Tuple.Create(Tuple.Create("", 1773), Tuple.Create("/Scripts/ext-all.js?", 1773), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1903), Tuple.Create("\"", 1948)
+, Tuple.Create(Tuple.Create("", 1909), Tuple.Create("/Scripts/ext-all.js?", 1909), true)
             
-            #line 33 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 1793), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 35 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 1929), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1793), false)
+, 1929), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n");
 
+WriteLiteral("        <script");
+
+WriteLiteral(" src=\"/Scripts/moment-with-locales.min.js\"");
+
+WriteLiteral("></script>\r\n");
+
+WriteLiteral("        <script");
+
+WriteLiteral(" src=\"/Scripts/moment-timezone-with-data.min.js\"");
+
+WriteLiteral("></script>\r\n");
+
             
-            #line 34 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 38 "..\..\Views\Shared\_CardLayout.cshtml"
     }
 
             
@@ -362,23 +386,23 @@ WriteLiteral("></script>\r\n");
             #line hidden
 WriteLiteral("    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1872), Tuple.Create("\"", 1999)
-, Tuple.Create(Tuple.Create("", 1878), Tuple.Create("/Scripts/", 1878), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2152), Tuple.Create("\"", 2279)
+, Tuple.Create(Tuple.Create("", 2158), Tuple.Create("/Scripts/", 2158), true)
             
-            #line 36 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 1887), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
-            
-            #line default
-            #line hidden
-, 1887), false)
-, Tuple.Create(Tuple.Create("", 1979), Tuple.Create("?", 1979), true)
-            
-            #line 36 "..\..\Views\Shared\_CardLayout.cshtml"
-                                       , Tuple.Create(Tuple.Create("", 1980), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 40 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 2167), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
             
             #line default
             #line hidden
-, 1980), false)
+, 2167), false)
+, Tuple.Create(Tuple.Create("", 2259), Tuple.Create("?", 2259), true)
+            
+            #line 40 "..\..\Views\Shared\_CardLayout.cshtml"
+                                       , Tuple.Create(Tuple.Create("", 2260), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 2260), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -390,7 +414,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n        Ext.USER_ID = ");
 
             
-            #line 39 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 43 "..\..\Views\Shared\_CardLayout.cshtml"
                  Write(ViewData.GetUserIdentityInfo().Code);
 
             
@@ -399,7 +423,7 @@ WriteLiteral(">\r\n        Ext.USER_ID = ");
 WriteLiteral(";\r\n        Ext.USER_NAME = ");
 
             
-            #line 40 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 44 "..\..\Views\Shared\_CardLayout.cshtml"
                    Write(ViewData.GetUserIdentityDisplayName());
 
             
@@ -408,7 +432,7 @@ WriteLiteral(";\r\n        Ext.USER_NAME = ");
 WriteLiteral(";\r\n        Ext.CultureInfo = ");
 
             
-            #line 41 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 45 "..\..\Views\Shared\_CardLayout.cshtml"
                      Write(Html.WriteJson(ViewData.GetUserLocaleInfo()));
 
             
@@ -417,7 +441,7 @@ WriteLiteral(";\r\n        Ext.CultureInfo = ");
 WriteLiteral(";\r\n        Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = \'");
 
             
-            #line 42 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 46 "..\..\Views\Shared\_CardLayout.cshtml"
                                                       Write(ViewData.GetErmBaseCurrencySymbol());
 
             
@@ -426,7 +450,7 @@ WriteLiteral(";\r\n        Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = \'"
 WriteLiteral("\';\r\n        Ext.CRM_URL = \'");
 
             
-            #line 43 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 47 "..\..\Views\Shared\_CardLayout.cshtml"
                   Write(ViewData.GetMsCrmSettingsUrl());
 
             
@@ -435,7 +459,7 @@ WriteLiteral("\';\r\n        Ext.CRM_URL = \'");
 WriteLiteral("\';\r\n        Ext.BasicOperationsServiceRestUrl = \'");
 
             
-            #line 44 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 48 "..\..\Views\Shared\_CardLayout.cshtml"
                                         Write(ViewData.GetBasicOperationsServiceRestUrl());
 
             
@@ -444,7 +468,7 @@ WriteLiteral("\';\r\n        Ext.BasicOperationsServiceRestUrl = \'");
 WriteLiteral("\';\r\n        Ext.SpecialOperationsServiceRestUrl = \'");
 
             
-            #line 45 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 49 "..\..\Views\Shared\_CardLayout.cshtml"
                                           Write(ViewData.GetSpecialOperationsServiceRestUrl());
 
             
@@ -452,270 +476,270 @@ WriteLiteral("\';\r\n        Ext.SpecialOperationsServiceRestUrl = \'");
             #line hidden
 WriteLiteral("\';\r\n    </script>\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2653), Tuple.Create("\"", 2716)
-, Tuple.Create(Tuple.Create("", 2659), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2659), true)
-            
-            #line 48 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 2697), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 2697), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 2763), Tuple.Create("\"", 2820)
-, Tuple.Create(Tuple.Create("", 2769), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 2769), true)
-            
-            #line 49 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 2801), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 2801), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 2867), Tuple.Create("\"", 2923)
-, Tuple.Create(Tuple.Create("", 2873), Tuple.Create("/Scripts/Ext.ux.FitToParent.js?", 2873), true)
-            
-            #line 50 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 2904), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 2904), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 2970), Tuple.Create("\"", 3034)
-, Tuple.Create(Tuple.Create("", 2976), Tuple.Create("/Scripts/DoubleGis.MvcFormValidator.js?", 2976), true)
-            
-            #line 51 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3015), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 3015), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 3081), Tuple.Create("\"", 3146)
-, Tuple.Create(Tuple.Create("", 3087), Tuple.Create("/Scripts/DoubleGis.DependencyHandler.js?", 3087), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2933), Tuple.Create("\"", 2996)
+, Tuple.Create(Tuple.Create("", 2939), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2939), true)
             
             #line 52 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3127), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2977), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3127), false)
+, 2977), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3193), Tuple.Create("\"", 3251)
-, Tuple.Create(Tuple.Create("", 3199), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 3199), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3043), Tuple.Create("\"", 3100)
+, Tuple.Create(Tuple.Create("", 3049), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 3049), true)
             
             #line 53 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3232), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3081), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3232), false)
+, 3081), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3298), Tuple.Create("\"", 3354)
-, Tuple.Create(Tuple.Create("", 3304), Tuple.Create("/Scripts/Ext.ux.LookupField.js?", 3304), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3147), Tuple.Create("\"", 3203)
+, Tuple.Create(Tuple.Create("", 3153), Tuple.Create("/Scripts/Ext.ux.FitToParent.js?", 3153), true)
             
             #line 54 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3335), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3184), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3335), false)
+, 3184), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3401), Tuple.Create("\"", 3461)
-, Tuple.Create(Tuple.Create("", 3407), Tuple.Create("/Scripts/Ext.ux.AsyncFileUpload.js?", 3407), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3250), Tuple.Create("\"", 3314)
+, Tuple.Create(Tuple.Create("", 3256), Tuple.Create("/Scripts/DoubleGis.MvcFormValidator.js?", 3256), true)
             
             #line 55 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3442), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3295), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3442), false)
+, 3295), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3508), Tuple.Create("\"", 3562)
-, Tuple.Create(Tuple.Create("", 3514), Tuple.Create("/Scripts/Ext.ux.LinkField.js?", 3514), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3361), Tuple.Create("\"", 3426)
+, Tuple.Create(Tuple.Create("", 3367), Tuple.Create("/Scripts/DoubleGis.DependencyHandler.js?", 3367), true)
             
             #line 56 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3543), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3407), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3543), false)
+, 3407), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3609), Tuple.Create("\"", 3662)
-, Tuple.Create(Tuple.Create("", 3615), Tuple.Create("/Scripts/Ext.ux.Calendar.js?", 3615), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3473), Tuple.Create("\"", 3531)
+, Tuple.Create(Tuple.Create("", 3479), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 3479), true)
             
             #line 57 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3643), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3512), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3643), false)
+, 3512), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3709), Tuple.Create("\"", 3770)
-, Tuple.Create(Tuple.Create("", 3715), Tuple.Create("/Scripts/Ext.ux.LookupFieldOwner.js?", 3715), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3578), Tuple.Create("\"", 3634)
+, Tuple.Create(Tuple.Create("", 3584), Tuple.Create("/Scripts/Ext.ux.LookupField.js?", 3584), true)
             
             #line 58 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3751), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3615), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3751), false)
+, 3615), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3817), Tuple.Create("\"", 3871)
-, Tuple.Create(Tuple.Create("", 3823), Tuple.Create("/Scripts/Ext.ux.NotePanel.js?", 3823), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3681), Tuple.Create("\"", 3741)
+, Tuple.Create(Tuple.Create("", 3687), Tuple.Create("/Scripts/Ext.ux.AsyncFileUpload.js?", 3687), true)
             
             #line 59 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3852), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3722), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3852), false)
+, 3722), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3918), Tuple.Create("\"", 3980)
-, Tuple.Create(Tuple.Create("", 3924), Tuple.Create("/Scripts/Ext.ux.ActionsHistoryTab.js?", 3924), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3788), Tuple.Create("\"", 3842)
+, Tuple.Create(Tuple.Create("", 3794), Tuple.Create("/Scripts/Ext.ux.LinkField.js?", 3794), true)
             
             #line 60 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3961), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3823), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3961), false)
+, 3823), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4027), Tuple.Create("\"", 4082)
-, Tuple.Create(Tuple.Create("", 4033), Tuple.Create("/Scripts/DoubleGis.UI.Card.js?", 4033), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3889), Tuple.Create("\"", 3942)
+, Tuple.Create(Tuple.Create("", 3895), Tuple.Create("/Scripts/Ext.ux.Calendar.js?", 3895), true)
             
             #line 61 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 4063), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3923), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4063), false)
+, 3923), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4129), Tuple.Create("\"", 4181)
-, Tuple.Create(Tuple.Create("", 4135), Tuple.Create("/Scripts/Ext.ux.IdField.js?", 4135), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3989), Tuple.Create("\"", 4050)
+, Tuple.Create(Tuple.Create("", 3995), Tuple.Create("/Scripts/Ext.ux.LookupFieldOwner.js?", 3995), true)
             
             #line 62 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 4162), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4031), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4162), false)
+, 4031), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 4097), Tuple.Create("\"", 4151)
+, Tuple.Create(Tuple.Create("", 4103), Tuple.Create("/Scripts/Ext.ux.NotePanel.js?", 4103), true)
+            
+            #line 63 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 4132), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 4132), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 4198), Tuple.Create("\"", 4260)
+, Tuple.Create(Tuple.Create("", 4204), Tuple.Create("/Scripts/Ext.ux.ActionsHistoryTab.js?", 4204), true)
+            
+            #line 64 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 4241), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 4241), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 4307), Tuple.Create("\"", 4362)
+, Tuple.Create(Tuple.Create("", 4313), Tuple.Create("/Scripts/DoubleGis.UI.Card.js?", 4313), true)
+            
+            #line 65 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 4343), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 4343), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 4409), Tuple.Create("\"", 4461)
+, Tuple.Create(Tuple.Create("", 4415), Tuple.Create("/Scripts/Ext.ux.IdField.js?", 4415), true)
+            
+            #line 66 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 4442), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 4442), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4230), Tuple.Create("\"", 4286)
-, Tuple.Create(Tuple.Create("", 4236), Tuple.Create("/Scripts/Ext.ux.MonthPicker.js?", 4236), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4510), Tuple.Create("\"", 4566)
+, Tuple.Create(Tuple.Create("", 4516), Tuple.Create("/Scripts/Ext.ux.MonthPicker.js?", 4516), true)
             
-            #line 64 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 4267), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 68 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 4547), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4267), false)
+, 4547), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4333), Tuple.Create("\"", 4387)
-, Tuple.Create(Tuple.Create("", 4339), Tuple.Create("/Scripts/Ext.ux.MonthMenu.js?", 4339), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4613), Tuple.Create("\"", 4667)
+, Tuple.Create(Tuple.Create("", 4619), Tuple.Create("/Scripts/Ext.ux.MonthMenu.js?", 4619), true)
             
-            #line 65 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 4368), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 69 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 4648), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4368), false)
+, 4648), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4434), Tuple.Create("\"", 4488)
-, Tuple.Create(Tuple.Create("", 4440), Tuple.Create("/Scripts/Ext.ux.Calendar2.js?", 4440), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4714), Tuple.Create("\"", 4768)
+, Tuple.Create(Tuple.Create("", 4720), Tuple.Create("/Scripts/Ext.ux.Calendar2.js?", 4720), true)
             
-            #line 66 "..\..\Views\Shared\_CardLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 4469), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 70 "..\..\Views\Shared\_CardLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 4749), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4469), false)
+, 4749), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -725,7 +749,7 @@ WriteLiteral("></script>\r\n\r\n");
 WriteLiteral("    ");
 
             
-            #line 68 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 72 "..\..\Views\Shared\_CardLayout.cshtml"
 Write(RenderSection("CardScripts"));
 
             
@@ -734,13 +758,13 @@ Write(RenderSection("CardScripts"));
 WriteLiteral("\r\n\r\n</head>\r\n    <body>\r\n");
 
             
-            #line 72 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 76 "..\..\Views\Shared\_CardLayout.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 72 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 76 "..\..\Views\Shared\_CardLayout.cshtml"
          using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" }, { "autocomplete", "off" }, { "target", "_self" } }))
         {
 
@@ -774,7 +798,7 @@ WriteLiteral(">\r\n                        \r\n");
 WriteLiteral("                        ");
 
             
-            #line 80 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 84 "..\..\Views\Shared\_CardLayout.cshtml"
                    Write(RenderSection("CardBody"));
 
             
@@ -783,13 +807,13 @@ WriteLiteral("                        ");
 WriteLiteral("\r\n                        \r\n");
 
             
-            #line 82 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 86 "..\..\Views\Shared\_CardLayout.cshtml"
                         
             
             #line default
             #line hidden
             
-            #line 82 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 86 "..\..\Views\Shared\_CardLayout.cshtml"
                          if (Model is IEntityViewModelBase && Model.ViewConfig.CardSettings.HasAdminTab)
                         {
                             Html.RenderPartial("AdministrationTab");
@@ -803,7 +827,7 @@ WriteLiteral("\r\n                    </div>\r\n\r\n");
 WriteLiteral("                    ");
 
             
-            #line 89 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 93 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.CheckBoxFor(x => x.ViewConfig.ReadOnly));
 
             
@@ -814,7 +838,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 90 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 94 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.HiddenFor(m => m.ViewConfig.EntityName));
 
             
@@ -825,7 +849,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 91 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 95 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.HiddenFor(m => m.ViewConfig.Id));
 
             
@@ -836,7 +860,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 92 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 96 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.HiddenFor(m => m.ViewConfig.PId));
 
             
@@ -847,7 +871,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 93 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 97 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.HiddenFor(m => m.ViewConfig.PType));
 
             
@@ -858,7 +882,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 94 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 98 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.HiddenFor(m => m.ViewConfig.ExtendedInfo));
 
             
@@ -869,7 +893,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 95 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 99 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.HiddenFor(m => m.IsNew));
 
             
@@ -880,7 +904,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 96 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 100 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.Hidden("EntityStatus", ViewData["EntityStatus"]));
 
             
@@ -891,7 +915,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 97 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 101 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList));
 
             
@@ -902,7 +926,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 98 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 102 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.HiddenFor(m => m.EntityStateToken));
 
             
@@ -913,7 +937,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 99 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 103 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.HiddenFor(m => m.IsDeleted));
 
             
@@ -924,7 +948,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 100 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 104 "..\..\Views\Shared\_CardLayout.cshtml"
                Write(Html.HiddenFor(m => m.IsActive));
 
             
@@ -937,7 +961,7 @@ WriteLiteral(" id=\"MessageType\"");
 WriteLiteral(">");
 
             
-            #line 102 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 106 "..\..\Views\Shared\_CardLayout.cshtml"
                                      Write(Model.MessageType);
 
             
@@ -950,7 +974,7 @@ WriteLiteral(" id=\"Message\"");
 WriteLiteral(">");
 
             
-            #line 103 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 107 "..\..\Views\Shared\_CardLayout.cshtml"
                                  Write(Model.Message);
 
             
@@ -959,7 +983,7 @@ WriteLiteral(">");
 WriteLiteral("</div>\r\n                </div>\r\n            </div>            \r\n");
 
             
-            #line 106 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 110 "..\..\Views\Shared\_CardLayout.cshtml"
         }   
 
             
@@ -968,13 +992,13 @@ WriteLiteral("</div>\r\n                </div>\r\n            </div>            
 WriteLiteral("        \r\n");
 
             
-            #line 108 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 112 "..\..\Views\Shared\_CardLayout.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 108 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 112 "..\..\Views\Shared\_CardLayout.cshtml"
          if (IsSectionDefined("CustomInit"))
         {
             
@@ -982,14 +1006,14 @@ WriteLiteral("        \r\n");
             #line default
             #line hidden
             
-            #line 110 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 114 "..\..\Views\Shared\_CardLayout.cshtml"
        Write(RenderSection("CustomInit"));
 
             
             #line default
             #line hidden
             
-            #line 110 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 114 "..\..\Views\Shared\_CardLayout.cshtml"
                                         ;
         }
         else
@@ -1006,7 +1030,7 @@ WriteLiteral(">\r\n                Ext.onReady(function()\r\n                {\r
 " \r\n                    var cardSettings = ");
 
             
-            #line 118 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 122 "..\..\Views\Shared\_CardLayout.cshtml"
                                   Write(Html.WriteJson(Model.ViewConfig.CardSettings));
 
             
@@ -1017,7 +1041,7 @@ WriteLiteral(";\r\n                    window.Card = new window.Ext.DoubleGis.UI
 "             });\r\n            </script>\r\n");
 
             
-            #line 124 "..\..\Views\Shared\_CardLayout.cshtml"
+            #line 128 "..\..\Views\Shared\_CardLayout.cshtml"
         }
 
             

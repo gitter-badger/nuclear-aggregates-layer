@@ -26,11 +26,15 @@
     {
         <script src="/Scripts/ext-base-debug.js?@ThisAssembly.Build" type="text/javascript"></script>
         <script src="/Scripts/ext-all-debug-w-comments.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/moment-with-locales.js"></script>
+        <script src="/Scripts/moment-timezone-with-data.js"></script>
     }
     else
     {
         <script src="/Scripts/ext-base.js?@ThisAssembly.Build" type="text/javascript"></script>
         <script src="/Scripts/ext-all.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/moment-with-locales.min.js"></script>
+        <script src="/Scripts/moment-timezone-with-data.min.js"></script>
     }
     
     <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@ThisAssembly.Build" type="text/javascript"></script>
