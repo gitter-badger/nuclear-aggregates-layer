@@ -12,7 +12,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
@@ -90,7 +89,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             var cardSettings = GetCategoryGroupMembershipSettings();
             cardSettings.Title = string.Format(BLResources.OrganizationUnitCategoryGroupsCardTitle, orgUnit.Name);
-            model.ViewConfig.CardSettings = cardSettings.ToCardJson();
+            model.ViewConfig.CardSettings = cardSettings;
 
             return View(model);
         }
@@ -102,7 +101,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             model.ViewConfig.PType = EntityName.None;
 
             var cardSettings = GetCategoryGroupMembershipSettings();
-            model.ViewConfig.CardSettings = cardSettings.ToCardJson();
+            model.ViewConfig.CardSettings = cardSettings;
 
             return new JsonNetResult(model);
         }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
+
 using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto
@@ -24,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto
         public bool IsHidden { get; set; }
 
         public IEnumerable<DataViewFieldJson> Fields { get; set; }
-        public IEnumerable<ToolbarJson> ToolbarItems { get; set; }
+        public IEnumerable<ToolbarElementStructure> ToolbarItems { get; set; }
 
         [JsonIgnore]
         public IEnumerable<DataListScriptsJson> Scripts { get; set; }

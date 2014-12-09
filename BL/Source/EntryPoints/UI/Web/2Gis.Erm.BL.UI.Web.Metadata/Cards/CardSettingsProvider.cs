@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             var mainAttributeFeature = card.Features<ICardMainAttributeFeature>().SingleOrDefault();
             if (mainAttributeFeature != null)
             {
-                result.EntityMainAttribute = mainAttributeFeature.PropertyName;
+                result.EntityMainAttribute = mainAttributeFeature.PropertyDescriptor.PropertyName;
             }
 
             var crmCodeFeature = card.Features<CrmEntityCodeFeature>().SingleOrDefault();
@@ -174,7 +174,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.LocalizedName = relatedItemsElement.TitleDescriptor.GetValue(_currentCulture);
             }
 
-            result.Items = relatedItemsElement.RelatedItems.Select(ToCardRelatedItemStructure);
+            result.Items = relatedItemsElement.RelatedItems.Select(ToCardRelatedItemStructure).ToArray();
 
             return result;
         }

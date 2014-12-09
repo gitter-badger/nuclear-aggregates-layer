@@ -522,9 +522,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
     recalcDisabling: function () {
         for (var nodeId in this.Items.RelatedItems.nodeHash) {
             var node = this.Items.RelatedItems.nodeHash[nodeId];
-            if (node.attributes.disabledExpression) {
-                eval(node.attributes.disabledExpression) ? node.disable() : node.enable();
-            }
+            node.attributes.disabled ? node.disable() : node.enable();
         }
         this.recalcToolbarButtonsAvailability();
     },

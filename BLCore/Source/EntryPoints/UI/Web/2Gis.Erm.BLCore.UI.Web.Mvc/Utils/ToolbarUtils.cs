@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
     public static class ToolbarUtils
     {
-        public static void DisableButtons(this IEnumerable<ToolbarJson> toolbar, params string[] buttons)
+        public static void DisableButtons(this IEnumerable<ToolbarElementStructure> toolbar, params string[] buttons)
         {
             var buttonsToDisable = toolbar.Where(item => buttons.Contains(item.Name, StringComparer.OrdinalIgnoreCase));
             foreach (var item in buttonsToDisable)

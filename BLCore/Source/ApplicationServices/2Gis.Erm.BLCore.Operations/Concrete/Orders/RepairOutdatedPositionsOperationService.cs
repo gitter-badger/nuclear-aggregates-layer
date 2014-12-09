@@ -25,7 +25,6 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\Operations\Concrete\Orders
     public class RepairOutdatedPositionsOperationService : IRepairOutdatedPositionsOperationService
     {
         private readonly ICommonLog _logger;

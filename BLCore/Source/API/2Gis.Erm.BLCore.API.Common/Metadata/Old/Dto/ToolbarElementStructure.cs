@@ -1,6 +1,8 @@
 ﻿using System;
 
+// ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
+// ReSharper restore CheckNamespace
 {
     public sealed class ToolbarElementStructure
     {
@@ -16,13 +18,13 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
         public bool DisableOnEmpty { get; set; }
 
         // [JsonIgnore] fields
-        [Obsolete]
+        [Obsolete("Убрать после удаления EntitySettings.xml")]
         public int? SecurityPrivelege { get; set; }
-        [Obsolete]
+        [Obsolete("Убрать после удаления EntitySettings.xml")]
         public string NameLocaleResourceId { get; set; }
-        [Obsolete]
+        [Obsolete("Убрать после удаления EntitySettings.xml")]
         public bool LockOnInactive { get; set; }
-        [Obsolete]
+        [Obsolete("Убрать после удаления EntitySettings.xml")]
         public bool LockOnNew { get; set; }
     }
 }

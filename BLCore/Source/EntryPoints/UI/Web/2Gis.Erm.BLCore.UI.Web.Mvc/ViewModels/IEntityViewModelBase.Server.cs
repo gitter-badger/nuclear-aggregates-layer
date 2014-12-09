@@ -1,10 +1,11 @@
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 // ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
 // ReSharper restore CheckNamespace
 {
-    public partial interface IEntityViewModelBase
+    public partial interface IEntityViewModelBase : IViewModelAbstract
     {
         EntityViewConfig ViewConfig { get; set; }
 

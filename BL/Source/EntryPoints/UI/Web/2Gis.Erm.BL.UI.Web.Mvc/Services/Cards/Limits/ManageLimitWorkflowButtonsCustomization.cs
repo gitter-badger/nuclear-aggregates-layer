@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
             }
         }
 
-        private static void DisableButtons(IEnumerable<ToolbarJson> toolbar, IEnumerable<string> statusButtons)
+        private static void DisableButtons(IEnumerable<ToolbarElementStructure> toolbar, IEnumerable<string> statusButtons)
         {
             var buttonsToDisable = toolbar.Where(item => statusButtons.Contains(item.Name, StringComparer.OrdinalIgnoreCase));
             foreach (var item in buttonsToDisable)

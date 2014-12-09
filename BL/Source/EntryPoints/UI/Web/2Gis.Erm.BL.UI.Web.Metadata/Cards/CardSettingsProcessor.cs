@@ -1,6 +1,8 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -10,6 +12,7 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
@@ -36,7 +39,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             _currentUserCode = userContext.Identity.Code;
         }
 
-        public void ProcessCardSettings<TEntity, TViewModel>(TViewModel model) 
+        public void ProcessCardSettings<TEntity, TViewModel>(TViewModel model)
             where TEntity : IEntity
             where TViewModel : IViewModelAbstract
         {
@@ -53,7 +56,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 
                 foreach (var actionElement in metadata.ActionsDescriptors)
                 {
-                    EvaluateToolbarElementAvailability(actionElement, null, model);
+                    ProcessToolbarElementMetadata(actionElement, null, entityModel);
+                }
+
+                if (metadata.HasRelatedItems)
+                {
+                    foreach (var relatedItem in metadata.RelatedItems)
+                    {
+                        ProcessRelatedItemMetadata(relatedItem, entityModel);
+                    }
                 }
             }
         }
@@ -81,7 +92,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                     }
 
                     object mainAttributeValue;
-                    if (mainAttributeFeature.TryExecute((IViewModelAbstract)entityModel, out mainAttributeValue))
+                    if (mainAttributeFeature.PropertyDescriptor.TryGetValue(entityModel, out mainAttributeValue))
                     {
                         entityModel.ViewConfig.CardSettings.Title = string.Format(TitleTemplate, entityModel.ViewConfig.CardSettings.Title, mainAttributeValue);
                     }
@@ -89,13 +100,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             }
         }
 
-        internal void EvaluateToolbarElementAvailability<TViewModel>(UiElementMetadata toolbarElement, UiElementMetadata parentElement, TViewModel model)
-            where TViewModel : IViewModelAbstract
+        internal void ProcessToolbarElementMetadata(UiElementMetadata toolbarElement, UiElementMetadata parentElement, IEntityViewModelBase model)
         {
-            var entityModel = model as IEntityViewModelBase;
             foreach (var childElement in toolbarElement.Elements.OfType<UiElementMetadata>())
             {
-                EvaluateToolbarElementAvailability(childElement, toolbarElement, model);
+                ProcessToolbarElementMetadata(childElement, toolbarElement, model);
             }
 
             if (toolbarElement.NameDescriptor == null)
@@ -118,7 +127,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             // А является ли имя идентификатором? Например, splitter'ов у нас несколько
             // Если не по имени, то как сопоставить элемент и его метаданные?
             var elementToEvaluate =
-                entityModel
+                model
                     .ViewConfig
                     .CardSettings
                     .CardToolbar
@@ -129,54 +138,147 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 return;
             }
 
-            if (toolbarElement.Uses<LockOnNewCardFeature>() && ((IEntityViewModelBase)model).IsNew)
+            EvaluateToolbarElementAvailability(toolbarElement, elementToEvaluate, model);
+        }
+
+        internal void EvaluateToolbarElementAvailability<TViewModel>(UiElementMetadata toolbarElementMetadata, ToolbarElementStructure toolbarlement, TViewModel model)
+            where TViewModel : IEntityViewModelBase
+        {
+            toolbarlement.Disabled |= IsUiElementDisabled(toolbarElementMetadata, model);
+
+            if (IsUiElementInvisible(toolbarElementMetadata, model))
             {
-                elementToEvaluate.Disabled = true;
+                model.ViewConfig.CardSettings.CardToolbar
+                    = model.ViewConfig.CardSettings.CardToolbar.Except(new[] { toolbarlement }).ToArray();
+            }
+        }
+
+        internal void ProcessRelatedItemMetadata(UiElementMetadata relatedItemElementMetadata, IEntityViewModelBase model)
+        {
+            if (relatedItemElementMetadata.NameDescriptor == null)
+            {
+                return;
+                // Или это не нормально и бросим исключение? Пока не ясно.
             }
 
-            if (toolbarElement.Uses<LockOnInactiveCardFeature>() && ((IEntityViewModelBase)model).ViewConfig.ReadOnly)
+            var elementName = relatedItemElementMetadata.NameDescriptor.ToString();
+
+            // А является ли имя идентификатором?
+            // Если не по имени, то как сопоставить элемент и его метаданные?
+            var elementToEvaluate =
+                model.ViewConfig
+                     .CardSettings
+                     .CardRelatedItems
+                     .SingleOrDefault()
+                     .Items
+                     .SingleOrDefault(x => x.Name == elementName);
+
+            if (elementToEvaluate == null)
             {
-                elementToEvaluate.Disabled = true;
+                return;
             }
 
-            foreach (var feature in toolbarElement.Features<SecuredByFunctionalPrivelegeFeature>())
-            {
-                elementToEvaluate.Disabled |= !_functionalAccessService.HasFunctionalPrivilegeGranted(feature.Privilege, _currentUserCode);
-            }
+            EvaluateRelatedItemAvailability(relatedItemElementMetadata, elementToEvaluate, model);
+            EvaluateRelatedItemExtendedInfo(relatedItemElementMetadata, elementToEvaluate, model);
+        }
 
-            var modelOwnerCode = entityModel.Owner != null && entityModel.Owner.Key.HasValue ? entityModel.Owner.Key.Value : _currentUserCode;
-            foreach (var feature in toolbarElement.Features<SecuredByEntityPrivelegeFeature>())
+        internal void EvaluateRelatedItemAvailability(UiElementMetadata relatedItemElementMetadata, CardRelatedItemStructure relatedItemElement, IEntityViewModelBase model)
+        {
+            relatedItemElement.Disabled |= IsUiElementDisabled(relatedItemElementMetadata, model);
+
+            if (IsUiElementInvisible(relatedItemElementMetadata, model))
             {
-                if (feature.Entity == entityModel.ViewConfig.EntityName)
+                model.ViewConfig.CardSettings.CardRelatedItems.SingleOrDefault().Items
+                    = model.ViewConfig.CardSettings.CardRelatedItems.SingleOrDefault().Items.Except(new[] { relatedItemElement }).ToArray();
+            }
+        }
+
+        internal void EvaluateRelatedItemExtendedInfo(UiElementMetadata relatedItemElementMetadata, CardRelatedItemStructure relatedItemElement, IEntityViewModelBase model)
+        {
+            foreach (var extendedInfoFeature in relatedItemElementMetadata.Features.OfType<ExtendedInfoFeature>())
+            {
+                var templatedExtendedInfo = extendedInfoFeature.ExtendedInfo as TemplateDescriptor;
+
+                if (templatedExtendedInfo != null)
                 {
-                    elementToEvaluate.Disabled |=
-                        !_entityAccessService.HasEntityAccess(feature.Privilege, feature.Entity, _currentUserCode, entityModel.Id, modelOwnerCode, null);
+                    string extendedInfo;
+                    if (!templatedExtendedInfo.TryFormat(_currentCulture, out extendedInfo, model))
+                    {
+                        throw new InvalidOperationException(string.Format("Unable to determine extendedInfo for {0} related item", relatedItemElement.Name));
+                    }
+
+                    relatedItemElement.AppendExtendedInfo(extendedInfo);
                 }
                 else
                 {
-                    elementToEvaluate.Disabled |=
-                        !_entityAccessService.HasEntityAccess(feature.Privilege, feature.Entity, _currentUserCode, null, _currentUserCode, null);
+                    relatedItemElement.AppendExtendedInfo(extendedInfoFeature.ExtendedInfo.ToString());
                 }
             }
+        }
 
-            foreach (var feature in toolbarElement.Features<IDisableExpressionFeature>())
+        internal bool IsUiElementDisabled(UiElementMetadata element, IEntityViewModelBase model)
+        {
+            if (element.Uses<LockOnNewCardFeature>() && model.IsNew)
             {
-                bool expressionResult;
-                if (feature.TryExecute(model, out expressionResult))
+                return true;
+            }
+
+            if (element.Uses<LockOnInactiveCardFeature>() && model.ViewConfig.ReadOnly)
+            {
+                return true;
+            }
+
+            if (element.Features<SecuredByFunctionalPrivelegeFeature>().Any(feature => !_functionalAccessService.HasFunctionalPrivilegeGranted(feature.Privilege, _currentUserCode)))
+            {
+                return true;
+            }
+
+            var modelOwnerCode = model.Owner != null && model.Owner.Key.HasValue
+                                     ? model.Owner.Key.Value
+                                     : _currentUserCode;
+            foreach (var feature in element.Features<SecuredByEntityPrivelegeFeature>())
+            {
+                if (feature.Entity == model.ViewConfig.EntityName)
                 {
-                    elementToEvaluate.Disabled |= expressionResult;
+                    if (!_entityAccessService.HasEntityAccess(feature.Privilege, feature.Entity, _currentUserCode, model.Id, modelOwnerCode, null))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (!_entityAccessService.HasEntityAccess(feature.Privilege, feature.Entity, _currentUserCode, null, _currentUserCode, null))
+                    {
+                        return true;
+                    }
                 }
             }
 
-            foreach (var feature in toolbarElement.Features<IHideExpressionFeature>())
+            foreach (var feature in element.Features<IDisableExpressionFeature>())
             {
                 bool expressionResult;
                 if (feature.TryExecute(model, out expressionResult) && expressionResult)
                 {
-                    entityModel.ViewConfig.CardSettings.CardToolbar
-                        = entityModel.ViewConfig.CardSettings.CardToolbar.Except(new[] { elementToEvaluate }).ToArray();
+                    return true;
                 }
             }
+
+            return false;
+        }
+
+        internal bool IsUiElementInvisible<TViewModel>(UiElementMetadata element, TViewModel model)
+            where TViewModel : IViewModelAbstract
+        {
+            foreach (var feature in element.Features<IHideExpressionFeature>())
+            {
+                bool expressionResult;
+                if (feature.TryExecute(model, out expressionResult) && expressionResult)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

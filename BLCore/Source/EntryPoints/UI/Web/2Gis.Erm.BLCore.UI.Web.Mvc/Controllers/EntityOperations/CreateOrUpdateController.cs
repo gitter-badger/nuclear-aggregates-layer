@@ -293,8 +293,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             // 3) значение, запрошенное в query string.
             model.ViewConfig.ReadOnly = securityReadonlyMode || baseReadonlyMode || readOnly;
 
-            var cardSettings = _uiConfigurationService.GetCardSettings(typeof(TEntity).AsEntityName(), UserContext.Profile.UserLocaleInfo.UserCultureInfo);
-            model.ViewConfig.CardSettings = cardSettings.ToCardJson();
+            model.ViewConfig.CardSettings = _uiConfigurationService.GetCardSettings(typeof(TEntity).AsEntityName(), UserContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         private void CustomizeModelAfterMetadataReady(TModel model)

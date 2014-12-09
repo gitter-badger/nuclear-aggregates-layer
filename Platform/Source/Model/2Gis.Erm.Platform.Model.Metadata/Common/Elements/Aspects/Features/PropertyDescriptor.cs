@@ -5,21 +5,34 @@ using DoubleGis.Erm.Platform.Common.Utils;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
 {
-    public class PropertyDescriptor : IPropertyDescriptor
+    public class PropertyDescriptor<T> : IPropertyDescriptor
     {
-        public PropertyDescriptor(Type type, string propertyName)
+        public PropertyDescriptor(Expression<Func<T, object>> propertyNameExpression)
         {
-            PropertyName = propertyName;
-            Type = type;
+            PropertyName = StaticReflection.GetMemberName(propertyNameExpression);
+            Type = typeof(T);
+            PropertyFunc = propertyNameExpression.Compile();
         }
 
         public string PropertyName { get; private set; }
         public Type Type { get; private set; }
-        
-        public static PropertyDescriptor Create<T>(Expression<Func<T, object>> propertyNameExpression)
+        private Func<T, object> PropertyFunc { get; set; }
+
+        public bool TryGetValue(object container, out object result)
         {
-            var propertyName = StaticReflection.GetMemberName(propertyNameExpression);
-            return new PropertyDescriptor(typeof(T), propertyName);
+            result = null;
+            if (!(container is T))
+            {
+                return false;
+            }
+
+            result = PropertyFunc.Invoke((T)container);
+            return true;
+        }
+
+        public string ResourceKeyToString()
+        {
+            return PropertyName;
         }
     }
 }

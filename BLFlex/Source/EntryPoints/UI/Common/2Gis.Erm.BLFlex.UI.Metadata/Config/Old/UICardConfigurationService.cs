@@ -276,7 +276,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                     new Dictionary<string, Tuple<object, object>>
                                         {
                                             {
-                                                "SecurityPrivelegeFlag",
+                                                "SecurityPrivelege",
                                                 new Tuple<object, object>((int)EntityAccessTypes.None, (int)FunctionalPrivilegeName.MergeClients)
                                             },
                                         }
@@ -583,6 +583,28 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     #endregion
 
+                    #region Валюта
+                    {
+                        EntityName.Currency,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "CurrencyRate",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "DisabledExpression",
+
+                                                // Часть про базовую валюту будет проверена на сервере
+                                                new Tuple<object, object>(@"Ext.getDom(""Id"").value==0 || Ext.getDom(""IsBase"").checked", @"Ext.getDom(""Id"").value==0")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
                     #region Позиция прайса
                     {
                         EntityName.PricePosition,
@@ -621,6 +643,39 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             {
                                                 "LockOnInactive",
                                                 new Tuple<object, object>(true, false)
+                                            },
+                                        }
+                                },
+                                {
+                                    "DeniedPosition",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "ExtendedInfo",
+                                                // ExtendedInfo будет подготовлен на сервере с конкретными числами
+                                                new Tuple<object, object>("PositionId={PositionId}&&PriceId={PriceId}", null)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region Position
+                    {
+                        EntityName.Position,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Children",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "DisabledExpression",
+
+                                                // Часть про сложная ли позиция будет проверена на сервере
+                                                new Tuple<object, object>(@"Ext.getDom(""Id"").value==0 || !Ext.getDom(""IsComposite"").checked", @"Ext.getDom(""Id"").value==0")
                                             },
                                         }
                                 },

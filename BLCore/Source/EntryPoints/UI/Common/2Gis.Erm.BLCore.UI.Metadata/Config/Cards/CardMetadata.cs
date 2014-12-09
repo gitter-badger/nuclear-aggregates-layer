@@ -63,8 +63,19 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             }
         }
 
-        public bool HasRelatedItems { get; private set; }
-        public UiElementMetadata[] RelatedItems { get; private set; }
+        public bool HasRelatedItems
+        {
+            get { return Features.OfType<RelatedItemsFeature>().Any(); }
+        }
+
+        public UiElementMetadata[] RelatedItems
+        {
+            get
+            {
+                return Features.OfType<RelatedItemsFeature>().SelectMany(x => x.RelatedItems).ToArray();
+            }
+        }
+
         public bool HasActions { get; private set; }
 
         public UiElementMetadata[] ActionsDescriptors

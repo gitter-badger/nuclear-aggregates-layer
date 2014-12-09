@@ -1,6 +1,8 @@
 ﻿using System;
 
+// ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
+// ReSharper restore CheckNamespace
 {
     public sealed class CardStructure
     {
@@ -10,8 +12,8 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
 
         public string EntityName { get; set; }
         public string EntityLocalizedName { get; set; }
-        
-        [Obsolete]
+
+        [Obsolete("Убрать после удаления EntitySettings.xml")]
         public string EntityMainAttribute { get; set; }
         public int? CrmEntityCode { get; set; }
 
@@ -25,9 +27,9 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
         public CardRelatedItemsGroupStructure[] CardRelatedItems { get; set; }
 
         // [JsonIgnore] fields
-        [Obsolete]
+        [Obsolete("Убрать после удаления EntitySettings.xml")]
         public string TitleResourceId { get; set; }
-        [Obsolete]
+        [Obsolete("Убрать после удаления EntitySettings.xml")]
         public string EntityNameLocaleResourceId { get; set; }
     }
 }

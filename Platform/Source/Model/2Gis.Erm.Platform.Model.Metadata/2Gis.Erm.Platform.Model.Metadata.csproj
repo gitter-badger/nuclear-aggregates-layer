@@ -62,6 +62,8 @@
     <Compile Include="Common\Elements\Aspects\Features\IPropertyDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\IUniqueMetadataFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Operations\OperationFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\TemplateDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\ITemplateDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\IStringResourceDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\Name\INamedElement.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\StringResourceDescriptor.cs" />

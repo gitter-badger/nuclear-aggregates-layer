@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
@@ -709,7 +710,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     // TODO {all, 13.11.2013}: перенос старого cr - убрать этот класс нафиг
     public static class ConfigUtil
     {
-        public static ToolbarJson FindCardToolbarItem(this EntityViewConfig config, string toolBarItemName, bool throwIfNotFound = true)
+        public static ToolbarElementStructure FindCardToolbarItem(this EntityViewConfig config, string toolBarItemName, bool throwIfNotFound = true)
         {
             var result = config.CardSettings.CardToolbar.FirstOrDefault(x => string.Equals(x.Name, toolBarItemName, StringComparison.OrdinalIgnoreCase));
             if (result == null && throwIfNotFound)

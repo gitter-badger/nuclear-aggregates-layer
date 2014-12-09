@@ -6,5 +6,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
     public interface IPricePositionViewModel : IEntityViewModelAbstract<PricePosition>
     {
         LookupField Position { get; set; }
+        LookupField Price { get; set; }
     }
 }
