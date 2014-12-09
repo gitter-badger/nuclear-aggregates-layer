@@ -204,6 +204,7 @@
     <Compile Include="Models\LimitViewModel.cs" />
     <Compile Include="Models\LockDetailViewModel.cs" />
     <Compile Include="Models\LockViewModel.cs" />
+    <Compile Include="Models\OrderPositionViewModel.cs" />
     <Compile Include="Models\NoteViewModel.cs" />
     <Compile Include="Models\OperationTypeViewModel.cs" />
     <Compile Include="Models\OrderFileViewModel.cs" />

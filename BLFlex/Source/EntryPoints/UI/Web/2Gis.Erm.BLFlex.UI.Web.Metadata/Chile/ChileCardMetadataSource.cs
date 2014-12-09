@@ -33,6 +33,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
                     {
                         CardMetadata.For<Deal>()
                                     .MVVM.Bind<IDealViewModel>("~/Views/CreateOrUpdate/Chile/Deal.cshtml"),
+
+                        CardMetadata.For<OrderPosition>()
+                                    .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Chile/OrderPosition.cshtml"),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

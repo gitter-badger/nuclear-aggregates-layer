@@ -359,7 +359,6 @@
     <Compile Include="Models\MultiCultureMergeClientsViewModel.cs" />
     <Compile Include="Models\MultiCultureClientViewModel.cs" />
     <Compile Include="Models\MultiCultureFirmAddressViewModel.cs" />
-    <Compile Include="Models\MultiCultureOrderPositionViewModel.cs" />
     <Compile Include="Models\Emirates\EmiratesBargainTypeViewModel.cs" />
     <Compile Include="Models\Emirates\EmiratesChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\Emirates\EmiratesMergeClientsViewModel.cs" />

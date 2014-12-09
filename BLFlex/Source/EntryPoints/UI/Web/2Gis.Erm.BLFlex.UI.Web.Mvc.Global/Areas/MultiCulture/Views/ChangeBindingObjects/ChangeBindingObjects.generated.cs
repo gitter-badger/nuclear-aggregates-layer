@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Views.Change
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/MultiCulture/Views/ChangeBindingObjects/ChangeBindingObjects.cshtml")]
-    public partial class ChangeBindingObjects : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureOrderPositionViewModel>
+    public partial class ChangeBindingObjects : System.Web.Mvc.WebViewPage<OrderPositionViewModel>
     {
         public ChangeBindingObjects()
         {
@@ -80,14 +80,14 @@ WriteLiteral(" id=\"meta_IsDebug\"");
 
 WriteLiteral(" name=\"meta_IsDebug\"");
 
-WriteAttribute("content", Tuple.Create(" content=\"", 388), Tuple.Create("\"", 437)
+WriteAttribute("content", Tuple.Create(" content=\"", 329), Tuple.Create("\"", 378)
             
             #line 10 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 398), Tuple.Create<System.Object, System.Int32>(HttpContext.Current.IsDebuggingEnabled
+, Tuple.Create(Tuple.Create("", 339), Tuple.Create<System.Object, System.Int32>(HttpContext.Current.IsDebuggingEnabled
             
             #line default
             #line hidden
-, 398), false)
+, 339), false)
 );
 
 WriteLiteral(" />\r\n        <meta");
@@ -96,14 +96,14 @@ WriteLiteral(" id=\"meta_Revision\"");
 
 WriteLiteral(" name=\"meta_Revision\"");
 
-WriteAttribute("content", Tuple.Create(" content=\"", 496), Tuple.Create("\"", 525)
+WriteAttribute("content", Tuple.Create(" content=\"", 437), Tuple.Create("\"", 466)
             
             #line 11 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 506), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 447), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 506), false)
+, 447), false)
 );
 
 WriteLiteral(" />\r\n    \r\n        <link");
@@ -140,15 +140,15 @@ WriteLiteral("/>\r\n        \r\n");
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 773), Tuple.Create("\"", 825)
-, Tuple.Create(Tuple.Create("", 779), Tuple.Create("/Scripts/ext-base-debug.js?", 779), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 714), Tuple.Create("\"", 766)
+, Tuple.Create(Tuple.Create("", 720), Tuple.Create("/Scripts/ext-base-debug.js?", 720), true)
             
             #line 18 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 806), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 747), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 806), false)
+, 747), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -157,15 +157,15 @@ WriteLiteral("></script>\r\n");
 
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 876), Tuple.Create("\"", 938)
-, Tuple.Create(Tuple.Create("", 882), Tuple.Create("/Scripts/ext-all-debug-w-comments.js?", 882), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 817), Tuple.Create("\"", 879)
+, Tuple.Create(Tuple.Create("", 823), Tuple.Create("/Scripts/ext-all-debug-w-comments.js?", 823), true)
             
             #line 19 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 919), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 860), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 919), false)
+, 860), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -183,15 +183,15 @@ WriteLiteral("></script>\r\n");
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1025), Tuple.Create("\"", 1071)
-, Tuple.Create(Tuple.Create("", 1031), Tuple.Create("/Scripts/ext-base.js?", 1031), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 966), Tuple.Create("\"", 1012)
+, Tuple.Create(Tuple.Create("", 972), Tuple.Create("/Scripts/ext-base.js?", 972), true)
             
             #line 23 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 1052), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 993), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1052), false)
+, 993), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -200,15 +200,15 @@ WriteLiteral("></script>\r\n");
 
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1122), Tuple.Create("\"", 1167)
-, Tuple.Create(Tuple.Create("", 1128), Tuple.Create("/Scripts/ext-all.js?", 1128), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1063), Tuple.Create("\"", 1108)
+, Tuple.Create(Tuple.Create("", 1069), Tuple.Create("/Scripts/ext-all.js?", 1069), true)
             
             #line 24 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 1148), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 1089), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1148), false)
+, 1089), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -224,23 +224,23 @@ WriteLiteral("></script>\r\n");
             #line hidden
 WriteLiteral("\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1231), Tuple.Create("\"", 1358)
-, Tuple.Create(Tuple.Create("", 1237), Tuple.Create("/Scripts/", 1237), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1172), Tuple.Create("\"", 1299)
+, Tuple.Create(Tuple.Create("", 1178), Tuple.Create("/Scripts/", 1178), true)
             
             #line 27 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 1246), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
+, Tuple.Create(Tuple.Create("", 1187), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
             
             #line default
             #line hidden
-, 1246), false)
-, Tuple.Create(Tuple.Create("", 1338), Tuple.Create("?", 1338), true)
+, 1187), false)
+, Tuple.Create(Tuple.Create("", 1279), Tuple.Create("?", 1279), true)
             
             #line 27 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-                                           , Tuple.Create(Tuple.Create("", 1339), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+                                           , Tuple.Create(Tuple.Create("", 1280), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1339), false)
+, 1280), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -318,15 +318,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2087), Tuple.Create("\"", 2134)
-, Tuple.Create(Tuple.Create("", 2094), Tuple.Create("/Content/ext-all.css?", 2094), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2028), Tuple.Create("\"", 2075)
+, Tuple.Create(Tuple.Create("", 2035), Tuple.Create("/Content/ext-all.css?", 2035), true)
             
             #line 39 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2115), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2056), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2115), false)
+, 2056), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -335,15 +335,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2186), Tuple.Create("\"", 2234)
-, Tuple.Create(Tuple.Create("", 2193), Tuple.Create("/Content/ext-mask.css?", 2193), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2127), Tuple.Create("\"", 2175)
+, Tuple.Create(Tuple.Create("", 2134), Tuple.Create("/Content/ext-mask.css?", 2134), true)
             
             #line 40 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2215), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2156), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2215), false)
+, 2156), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -352,15 +352,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2286), Tuple.Create("\"", 2336)
-, Tuple.Create(Tuple.Create("", 2293), Tuple.Create("/Content/ext-extend.css?", 2293), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2227), Tuple.Create("\"", 2277)
+, Tuple.Create(Tuple.Create("", 2234), Tuple.Create("/Content/ext-extend.css?", 2234), true)
             
             #line 41 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2317), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2258), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2317), false)
+, 2258), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -369,15 +369,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2388), Tuple.Create("\"", 2443)
-, Tuple.Create(Tuple.Create("", 2395), Tuple.Create("/Content/ext-ux-treegrid.css?", 2395), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2329), Tuple.Create("\"", 2384)
+, Tuple.Create(Tuple.Create("", 2336), Tuple.Create("/Content/ext-ux-treegrid.css?", 2336), true)
             
             #line 42 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-  , Tuple.Create(Tuple.Create("", 2424), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+  , Tuple.Create(Tuple.Create("", 2365), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2424), false)
+, 2365), false)
 );
 
 WriteLiteral(" />\r\n        \r\n        <link");
@@ -386,15 +386,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2505), Tuple.Create("\"", 2549)
-, Tuple.Create(Tuple.Create("", 2512), Tuple.Create("/Content/CRM4.css?", 2512), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2446), Tuple.Create("\"", 2490)
+, Tuple.Create(Tuple.Create("", 2453), Tuple.Create("/Content/CRM4.css?", 2453), true)
             
             #line 44 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2530), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2471), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2530), false)
+, 2471), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -403,15 +403,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2601), Tuple.Create("\"", 2645)
-, Tuple.Create(Tuple.Create("", 2608), Tuple.Create("/Content/Card.css?", 2608), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2542), Tuple.Create("\"", 2586)
+, Tuple.Create(Tuple.Create("", 2549), Tuple.Create("/Content/Card.css?", 2549), true)
             
             #line 45 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2626), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2567), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2626), false)
+, 2567), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -420,15 +420,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2697), Tuple.Create("\"", 2751)
-, Tuple.Create(Tuple.Create("", 2704), Tuple.Create("/Content/order-position.css?", 2704), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2638), Tuple.Create("\"", 2692)
+, Tuple.Create(Tuple.Create("", 2645), Tuple.Create("/Content/order-position.css?", 2645), true)
             
             #line 46 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
- , Tuple.Create(Tuple.Create("", 2732), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+ , Tuple.Create(Tuple.Create("", 2673), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2732), false)
+, 2673), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -437,15 +437,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2803), Tuple.Create("\"", 2858)
-, Tuple.Create(Tuple.Create("", 2810), Tuple.Create("/Content/AsyncFileUpload.css?", 2810), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2744), Tuple.Create("\"", 2799)
+, Tuple.Create(Tuple.Create("", 2751), Tuple.Create("/Content/AsyncFileUpload.css?", 2751), true)
             
             #line 47 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-  , Tuple.Create(Tuple.Create("", 2839), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+  , Tuple.Create(Tuple.Create("", 2780), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2839), false)
+, 2780), false)
 );
 
 WriteLiteral(" />\r\n        <link");
@@ -454,343 +454,343 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2910), Tuple.Create("\"", 2961)
-, Tuple.Create(Tuple.Create("", 2917), Tuple.Create("/Content/LookupStyle.css?", 2917), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2851), Tuple.Create("\"", 2902)
+, Tuple.Create(Tuple.Create("", 2858), Tuple.Create("/Content/LookupStyle.css?", 2858), true)
             
             #line 48 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 2942), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2883), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2942), false)
+, 2883), false)
 );
 
 WriteLiteral(" />\r\n        \r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2992), Tuple.Create("\"", 3055)
-, Tuple.Create(Tuple.Create("", 2998), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2998), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2933), Tuple.Create("\"", 2996)
+, Tuple.Create(Tuple.Create("", 2939), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2939), true)
             
             #line 50 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3036), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2977), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3036), false)
+, 2977), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3106), Tuple.Create("\"", 3163)
-, Tuple.Create(Tuple.Create("", 3112), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 3112), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3047), Tuple.Create("\"", 3104)
+, Tuple.Create(Tuple.Create("", 3053), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 3053), true)
             
             #line 51 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3144), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3085), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3144), false)
+, 3085), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3214), Tuple.Create("\"", 3270)
-, Tuple.Create(Tuple.Create("", 3220), Tuple.Create("/Scripts/Ext.ux.LookupField.js?", 3220), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3155), Tuple.Create("\"", 3211)
+, Tuple.Create(Tuple.Create("", 3161), Tuple.Create("/Scripts/Ext.ux.LookupField.js?", 3161), true)
             
             #line 52 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3251), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3192), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3251), false)
+, 3192), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3321), Tuple.Create("\"", 3375)
-, Tuple.Create(Tuple.Create("", 3327), Tuple.Create("/Scripts/Ext.ux.LinkField.js?", 3327), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3262), Tuple.Create("\"", 3316)
+, Tuple.Create(Tuple.Create("", 3268), Tuple.Create("/Scripts/Ext.ux.LinkField.js?", 3268), true)
             
             #line 53 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3356), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3297), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3356), false)
+, 3297), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3426), Tuple.Create("\"", 3479)
-, Tuple.Create(Tuple.Create("", 3432), Tuple.Create("/Scripts/Ext.ux.Calendar.js?", 3432), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3367), Tuple.Create("\"", 3420)
+, Tuple.Create(Tuple.Create("", 3373), Tuple.Create("/Scripts/Ext.ux.Calendar.js?", 3373), true)
             
             #line 54 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3460), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3401), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3460), false)
+, 3401), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3530), Tuple.Create("\"", 3591)
-, Tuple.Create(Tuple.Create("", 3536), Tuple.Create("/Scripts/Ext.ux.LookupFieldOwner.js?", 3536), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3471), Tuple.Create("\"", 3532)
+, Tuple.Create(Tuple.Create("", 3477), Tuple.Create("/Scripts/Ext.ux.LookupFieldOwner.js?", 3477), true)
             
             #line 55 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3572), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3513), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3572), false)
+, 3513), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3642), Tuple.Create("\"", 3706)
-, Tuple.Create(Tuple.Create("", 3648), Tuple.Create("/Scripts/DoubleGis.MvcFormValidator.js?", 3648), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3583), Tuple.Create("\"", 3647)
+, Tuple.Create(Tuple.Create("", 3589), Tuple.Create("/Scripts/DoubleGis.MvcFormValidator.js?", 3589), true)
             
             #line 56 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3687), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3628), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3687), false)
+, 3628), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3757), Tuple.Create("\"", 3822)
-, Tuple.Create(Tuple.Create("", 3763), Tuple.Create("/Scripts/DoubleGis.DependencyHandler.js?", 3763), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3698), Tuple.Create("\"", 3763)
+, Tuple.Create(Tuple.Create("", 3704), Tuple.Create("/Scripts/DoubleGis.DependencyHandler.js?", 3704), true)
             
             #line 57 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3803), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3744), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3803), false)
+, 3744), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3873), Tuple.Create("\"", 3936)
-, Tuple.Create(Tuple.Create("", 3879), Tuple.Create("/Scripts/DoubleGis.UI.DialogWindow.js?", 3879), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3814), Tuple.Create("\"", 3877)
+, Tuple.Create(Tuple.Create("", 3820), Tuple.Create("/Scripts/DoubleGis.UI.DialogWindow.js?", 3820), true)
             
             #line 58 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 3917), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3858), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 3917), false)
+, 3858), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        \r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3997), Tuple.Create("\"", 4056)
-, Tuple.Create(Tuple.Create("", 4003), Tuple.Create("/Scripts/Ext.ux.TreeGridSorter.js?", 4003), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3938), Tuple.Create("\"", 3997)
+, Tuple.Create(Tuple.Create("", 3944), Tuple.Create("/Scripts/Ext.ux.TreeGridSorter.js?", 3944), true)
             
             #line 60 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4037), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 3978), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4037), false)
+, 3978), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4107), Tuple.Create("\"", 4173)
-, Tuple.Create(Tuple.Create("", 4113), Tuple.Create("/Scripts/Ext.ux.TreeGridColumnResizer.js?", 4113), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4048), Tuple.Create("\"", 4114)
+, Tuple.Create(Tuple.Create("", 4054), Tuple.Create("/Scripts/Ext.ux.TreeGridColumnResizer.js?", 4054), true)
             
             #line 61 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4154), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4095), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4154), false)
+, 4095), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4224), Tuple.Create("\"", 4283)
-, Tuple.Create(Tuple.Create("", 4230), Tuple.Create("/Scripts/Ext.ux.TreeGridNodeUI.js?", 4230), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4165), Tuple.Create("\"", 4224)
+, Tuple.Create(Tuple.Create("", 4171), Tuple.Create("/Scripts/Ext.ux.TreeGridNodeUI.js?", 4171), true)
             
             #line 62 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4264), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4205), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4264), false)
+, 4205), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4334), Tuple.Create("\"", 4393)
-, Tuple.Create(Tuple.Create("", 4340), Tuple.Create("/Scripts/Ext.ux.TreeGridLoader.js?", 4340), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4275), Tuple.Create("\"", 4334)
+, Tuple.Create(Tuple.Create("", 4281), Tuple.Create("/Scripts/Ext.ux.TreeGridLoader.js?", 4281), true)
             
             #line 63 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4374), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4315), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4374), false)
+, 4315), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4444), Tuple.Create("\"", 4504)
-, Tuple.Create(Tuple.Create("", 4450), Tuple.Create("/Scripts/Ext.ux.TreeGridColumns.js?", 4450), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4385), Tuple.Create("\"", 4445)
+, Tuple.Create(Tuple.Create("", 4391), Tuple.Create("/Scripts/Ext.ux.TreeGridColumns.js?", 4391), true)
             
             #line 64 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4485), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4426), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4485), false)
+, 4426), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4555), Tuple.Create("\"", 4608)
-, Tuple.Create(Tuple.Create("", 4561), Tuple.Create("/Scripts/Ext.ux.TreeGrid.js?", 4561), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4496), Tuple.Create("\"", 4549)
+, Tuple.Create(Tuple.Create("", 4502), Tuple.Create("/Scripts/Ext.ux.TreeGrid.js?", 4502), true)
             
             #line 65 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4589), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4530), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4589), false)
+, 4530), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4659), Tuple.Create("\"", 4715)
-, Tuple.Create(Tuple.Create("", 4665), Tuple.Create("/Scripts/Ext.ux.FitToParent.js?", 4665), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4600), Tuple.Create("\"", 4656)
+, Tuple.Create(Tuple.Create("", 4606), Tuple.Create("/Scripts/Ext.ux.FitToParent.js?", 4606), true)
             
             #line 66 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4696), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4637), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4696), false)
+, 4637), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        \r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4776), Tuple.Create("\"", 4831)
-, Tuple.Create(Tuple.Create("", 4782), Tuple.Create("/Scripts/DoubleGis.UI.Card.js?", 4782), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4717), Tuple.Create("\"", 4772)
+, Tuple.Create(Tuple.Create("", 4723), Tuple.Create("/Scripts/DoubleGis.UI.Card.js?", 4723), true)
             
             #line 68 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4812), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4753), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4812), false)
+, 4753), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4882), Tuple.Create("\"", 4950)
-, Tuple.Create(Tuple.Create("", 4888), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.js?", 4888), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4823), Tuple.Create("\"", 4891)
+, Tuple.Create(Tuple.Create("", 4829), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.js?", 4829), true)
             
             #line 69 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 4931), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4872), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4931), false)
+, 4872), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 5001), Tuple.Create("\"", 5083)
-, Tuple.Create(Tuple.Create("", 5007), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.BusinessLogic.js?", 5007), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4942), Tuple.Create("\"", 5024)
+, Tuple.Create(Tuple.Create("", 4948), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.BusinessLogic.js?", 4948), true)
             
             #line 70 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 5064), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 5005), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 5064), false)
+, 5005), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 5134), Tuple.Create("\"", 5216)
-, Tuple.Create(Tuple.Create("", 5140), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.LinkingObject.js?", 5140), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 5075), Tuple.Create("\"", 5157)
+, Tuple.Create(Tuple.Create("", 5081), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.LinkingObject.js?", 5081), true)
             
             #line 71 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 5197), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 5138), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 5197), false)
+, 5138), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 5267), Tuple.Create("\"", 5359)
-, Tuple.Create(Tuple.Create("", 5273), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.AdvertisementController.js?", 5273), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 5208), Tuple.Create("\"", 5300)
+, Tuple.Create(Tuple.Create("", 5214), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.AdvertisementController.js?", 5214), true)
             
             #line 72 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-        , Tuple.Create(Tuple.Create("", 5340), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+        , Tuple.Create(Tuple.Create("", 5281), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 5340), false)
+, 5281), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 5410), Tuple.Create("\"", 5478)
-, Tuple.Create(Tuple.Create("", 5416), Tuple.Create("/Scripts/Ext.DoubleGis.UI.BindingObject.js?", 5416), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 5351), Tuple.Create("\"", 5419)
+, Tuple.Create(Tuple.Create("", 5357), Tuple.Create("/Scripts/Ext.DoubleGis.UI.BindingObject.js?", 5357), true)
             
             #line 73 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 5459), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 5400), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 5459), false)
+, 5400), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -1146,14 +1146,14 @@ WriteLiteral(" type=\"button\"");
 
 WriteLiteral(" id=\"OK\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 8037), Tuple.Create("\"", 8060)
+WriteAttribute("value", Tuple.Create(" value=\"", 7978), Tuple.Create("\"", 8001)
             
             #line 122 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 8045), Tuple.Create<System.Object, System.Int32>(BLResources.OK
+, Tuple.Create(Tuple.Create("", 7986), Tuple.Create<System.Object, System.Int32>(BLResources.OK
             
             #line default
             #line hidden
-, 8045), false)
+, 7986), false)
 );
 
 WriteLiteral(" />\r\n                    <input");
@@ -1164,14 +1164,14 @@ WriteLiteral(" type=\"button\"");
 
 WriteLiteral(" id=\"Cancel\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 8136), Tuple.Create("\"", 8163)
+WriteAttribute("value", Tuple.Create(" value=\"", 8077), Tuple.Create("\"", 8104)
             
             #line 123 "..\..\Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml"
-, Tuple.Create(Tuple.Create("", 8144), Tuple.Create<System.Object, System.Int32>(BLResources.Cancel
+, Tuple.Create(Tuple.Create("", 8085), Tuple.Create<System.Object, System.Int32>(BLResources.Cancel
             
             #line default
             #line hidden
-, 8144), false)
+, 8085), false)
 );
 
 WriteLiteral(" />\r\n                </td>\r\n            </tr>\r\n        </table>\r\n    </body>\r\n</h" +

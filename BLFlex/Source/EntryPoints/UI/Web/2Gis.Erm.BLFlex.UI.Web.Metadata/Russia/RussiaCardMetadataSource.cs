@@ -47,6 +47,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         CardMetadata.For<Deal>()
                                     .CrmEntity(CrmEntity.Deal)
                                     .MVVM.Bind<IDealViewModel>("~/Views/CreateOrUpdate/Russia/Deal.cshtml"),
+
+                        CardMetadata.For<OrderPosition>()
+                                    .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Russia/OrderPosition.cshtml"),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
