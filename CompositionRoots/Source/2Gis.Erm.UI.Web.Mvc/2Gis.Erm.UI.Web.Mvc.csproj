@@ -699,6 +699,17 @@
     <Content Include="Scripts\Kazakhstan\Ext.DoubleGis.UI.LegalPerson.Kazakhstan.js" />
     <Content Include="Scripts\Ext.ux.Calendar2.js" />
     <Content Include="Scripts\Ext.ux.MonthPicker.js" />
+    <Content Include="Scripts\moment-timezone-utils.js" />
+    <Content Include="Scripts\moment-timezone-with-data-2010-2020.js" />
+    <Content Include="Scripts\moment-timezone-with-data-2010-2020.min.js" />
+    <Content Include="Scripts\moment-timezone-with-data.js" />
+    <Content Include="Scripts\moment-timezone-with-data.min.js" />
+    <Content Include="Scripts\moment-timezone.js" />
+    <Content Include="Scripts\moment-timezone.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MultiCulture\DataList\Client.DataList.js" />
     <Content Include="Scripts\MultiCulture\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.ChileOrder.js" />
