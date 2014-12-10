@@ -146,6 +146,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                           new EntityName[0]
                       },
                       {
+                          BusinessModel.Ukraine,
+                          new EntityName[0]
+                      },
+                      {
                           BusinessModel.Kazakhstan,
                           new EntityName[0]
                       },
