@@ -12,7 +12,6 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
@@ -38,7 +37,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 };
 
         private readonly IPublicService _publicService;
-        private readonly ISecureFinder _finder;
         private readonly IDeleteOrderBillsOperationService _deleteBillsService;
 
         public BillController(IMsCrmSettings msCrmSettings,
@@ -48,12 +46,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
-                              ISecureFinder finder,
                               IDeleteOrderBillsOperationService deleteBillsService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _publicService = publicService;
-            _finder = finder;
             _deleteBillsService = deleteBillsService;
         }
 
