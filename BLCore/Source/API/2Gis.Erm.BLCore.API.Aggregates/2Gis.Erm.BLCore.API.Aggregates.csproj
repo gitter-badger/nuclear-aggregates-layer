@@ -259,6 +259,7 @@
     <Compile Include="Orders\Operations\Validation\IInvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\IGetPositionsByOrderService.cs" />
     <Compile Include="Orders\ReadModel\IOrderReadModel.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.Bills.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositionAdvertisements.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
