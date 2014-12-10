@@ -55,47 +55,33 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
             var orderVatRatio = (orderInfo.PayablePlan != 0m) ? orderInfo.VatPlan / (orderInfo.PayablePlan - orderInfo.VatPlan) : 0m;
 
             var billsToCreate = new List<Bill>();
+            var billsPayablePlanSum = 0m;
+            var billsVatPlanSum = 0m;
 
-            if (request.CreateBillInfos.Length == 1)
+            // create all bills except last with regular PayablePlan
+            for (var i = 0; i < request.CreateBillInfos.Length - 1; i++)
             {
-                var createBillInfo = request.CreateBillInfos[0];
+                var createBillInfo = request.CreateBillInfos[i];
                 var bill = CreateBill(createBillInfo, request, orderInfo);
 
-                bill.PayablePlan = orderInfo.PayablePlan;
-                bill.VatPlan = orderInfo.VatPlan;
+                bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+                billsPayablePlanSum += bill.PayablePlan;
+
+                var payablePlanWithoutVat = createBillInfo.PayablePlan / (1 + orderVatRatio);
+                bill.VatPlan = Math.Round(createBillInfo.PayablePlan - payablePlanWithoutVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+                billsVatPlanSum += bill.VatPlan;
 
                 billsToCreate.Add(bill);
             }
-            else
-            {
-                var billsPayablePlanSum = 0m;
-                var billsVatPlanSum = 0m;
 
-                // create all bills except last with regular PayablePlan
-                for (var i = 0; i < request.CreateBillInfos.Length - 1; i++)
-                {
-                    var createBillInfo = request.CreateBillInfos[i];
-                    var bill = CreateBill(createBillInfo, request, orderInfo);
+            // correct PayablePlan for last bill
+            var lastCreateBillInfo = request.CreateBillInfos[request.CreateBillInfos.Length - 1];
+            var lastBill = CreateBill(lastCreateBillInfo, request, orderInfo);
 
-                    bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-                    billsPayablePlanSum += bill.PayablePlan;
+            lastBill.PayablePlan = orderInfo.PayablePlan - billsPayablePlanSum;
+            lastBill.VatPlan = orderInfo.VatPlan - billsVatPlanSum;
 
-                    var payablePlanWithoutVat = createBillInfo.PayablePlan / (1 + orderVatRatio);
-                    bill.VatPlan = Math.Round(createBillInfo.PayablePlan - payablePlanWithoutVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-                    billsVatPlanSum += bill.VatPlan;
-
-                    billsToCreate.Add(bill);
-                }
-
-                // correct PayablePlan for last bill
-                var lastCreateBillInfo = request.CreateBillInfos[request.CreateBillInfos.Length - 1];
-                var lastBill = CreateBill(lastCreateBillInfo, request, orderInfo);
-
-                lastBill.PayablePlan = Math.Round(orderInfo.PayablePlan - billsPayablePlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-                lastBill.VatPlan = Math.Round(orderInfo.VatPlan - billsVatPlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-
-                billsToCreate.Add(lastBill);
-            }
+            billsToCreate.Add(lastBill);
 
             if (billsToCreate.Count == 1)
             {
