@@ -107,7 +107,6 @@
     <Compile Include="Concrete\Old\AfterSalesService\CrmCreateAfterSaleServiceActivitiesHandler.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplateHandler.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillsHandler.cs" />
-    <Compile Include="Concrete\Old\Bills\DeleteBillsHandler.cs" />
     <Compile Include="Concrete\Old\Bills\DistributeBillPaymentsHandler.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfoHandler.cs" />
     <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfoHandler.cs" />
@@ -489,6 +488,7 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\UserObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\UserProfileObtainer.cs" />
     <Compile Include="Generic\Modify\ModifyBargainService.cs" />
+    <Compile Include="Generic\Modify\DeleteOrderBillsOperationService.cs" />
     <Compile Include="Generic\Modify\ModifyBillService.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountDetailHandler.cs" />

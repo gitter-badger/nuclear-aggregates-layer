@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -18,23 +19,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 {
     public sealed class CreateBillsHandler : RequestHandler<CreateBillsRequest, EmptyResponse>
     {
-        private readonly ISubRequestProcessor _subRequestProcessor;
+        private readonly IDeleteOrderBillsOperationService _deleteOrderBillsOperationService; 
         private readonly ICreateBillsAggregateService _createAggregateService;
         private readonly IOrderReadModel _orderReadModel;
 
         private readonly IEvaluateBillNumberService _evaluateBillNumberService;
         private readonly IValidateBillsService _validateBillsService;
         private readonly IBusinessModelSettings _businessModelSettings;
-
+        
         public CreateBillsHandler(
             IBusinessModelSettings businessModelSettings,
-            ISubRequestProcessor subRequestProcessor,
+            IDeleteOrderBillsOperationService deleteOrderBillsOperationService,
             ICreateBillsAggregateService createAggregateService,
             IOrderReadModel orderReadModel,
             IEvaluateBillNumberService evaluateBillNumberService,
             IValidateBillsService validateBillsService)
         {
-            _subRequestProcessor = subRequestProcessor;
+            _deleteOrderBillsOperationService = deleteOrderBillsOperationService;
             _createAggregateService = createAggregateService;
             _orderReadModel = orderReadModel;
             _evaluateBillNumberService = evaluateBillNumberService;
@@ -108,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 // delete previous bills
-                _subRequestProcessor.HandleSubRequest(new DeleteBillsRequest { OrderId = request.OrderId }, Context);
+                _deleteOrderBillsOperationService.Delete(request.OrderId);
 
                 string report;
                 if (!_validateBillsService.Validate(billsToCreate, orderInfo, out report))

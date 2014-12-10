@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
@@ -38,6 +39,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         private readonly IPublicService _publicService;
         private readonly ISecureFinder _finder;
+        private readonly IDeleteOrderBillsOperationService _deleteBillsService;
 
         public BillController(IMsCrmSettings msCrmSettings,
                               IUserContext userContext,
@@ -46,11 +48,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
-                              ISecureFinder finder)
+                              ISecureFinder finder,
+                              IDeleteOrderBillsOperationService deleteBillsService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _publicService = publicService;
             _finder = finder;
+            _deleteBillsService = deleteBillsService;
         }
 
         public ActionResult DeleteAll()
@@ -63,7 +67,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             try
             {
-                _publicService.Handle(new DeleteBillsRequest { OrderId = viewModel.OrderId });
+                _deleteBillsService.Delete(viewModel.OrderId);
                 viewModel.Message = BLResources.OK;
                 return View(viewModel);
             }

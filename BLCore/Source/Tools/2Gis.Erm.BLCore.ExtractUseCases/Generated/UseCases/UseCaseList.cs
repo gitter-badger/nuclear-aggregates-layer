@@ -256,15 +256,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     Root = new UseCaseNode(0)
                     {
                         ContainingClass = typeof(CreateBillsHandler),
-                        Request = typeof(CreateBillsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DeleteBillsHandler),
-            Request = typeof(DeleteBillsRequest)
-        }
-    }
+                        Request = typeof(CreateBillsRequest)
                     }
                 },
                 new UseCase
@@ -274,15 +266,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     Root = new UseCaseNode(0)
                     {
                         ContainingClass = typeof(CreateBillsHandler),
-                        Request = typeof(CreateBillsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DeleteBillsHandler),
-            Request = typeof(DeleteBillsRequest)
-        }
-    }
+                        Request = typeof(CreateBillsRequest)
                     }
                 },
                 new UseCase
@@ -1320,16 +1304,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(ValidateAccountDetailsFrom1CHandler),
                         Request = typeof(ValidateAccountDetailsFrom1CRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\DeleteAll",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(DeleteBillsHandler),
-                        Request = typeof(DeleteBillsRequest)
                     }
                 },
                 new UseCase
