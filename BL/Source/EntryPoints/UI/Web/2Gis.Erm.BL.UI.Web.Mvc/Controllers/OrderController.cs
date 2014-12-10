@@ -308,26 +308,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public ViewResult Test()
-        {
-            var x = new TestModel
-                        {
-                            UtcRelativeValue = DateTime.UtcNow,
-                            UtcAbsoluteValue = DateTime.UtcNow,
-                            UtcAbsoluteHoursValue = DateTime.UtcNow,
-                            LocalRelativeValue = DateTime.Now
-                        };
-
-            return View(x);
-        }
-
-        [HttpPost]
-        public ViewResult Test(TestModel model)
-        {
-            return View(model);
-        }
-
         [HttpPost]
         public ActionResult CheckOrdersReadinessForReleaseDialog(CheckOrdersReadinessForReleaseDialogViewModel viewModel)
         {
@@ -724,21 +704,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         #endregion
-    }
-
-    public class TestModel
-    {
-        [Calendar]
-        public DateTime UtcRelativeValue { get; set; }
-        
-        [Calendar]
-        public DateTime UtcAbsoluteValue { get; set; }
-        
-        [Calendar]
-        public DateTime UtcAbsoluteHoursValue { get; set; }
-
-        [Calendar]
-        public DateTime LocalRelativeValue { get; set; }
     }
 
     // TODO {all, 13.11.2013}: перенос старого cr - убрать этот класс нафиг

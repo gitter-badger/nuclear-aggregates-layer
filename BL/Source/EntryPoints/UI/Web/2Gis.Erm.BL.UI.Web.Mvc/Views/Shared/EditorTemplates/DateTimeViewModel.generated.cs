@@ -116,22 +116,22 @@ WriteLiteral("\r\n\r\n");
 
             
             #line 53 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
-Write(Html.TextBox(string.Empty, value));
+Write(Html.Hidden(string.Empty, value));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n<table");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 2015), Tuple.Create("\"", 2046)
+WriteAttribute("id", Tuple.Create(" id=\"", 2014), Tuple.Create("\"", 2045)
             
             #line 54 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
-, Tuple.Create(Tuple.Create("", 2020), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
+, Tuple.Create(Tuple.Create("", 2019), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
             
             #line default
             #line hidden
-, 2020), false)
-, Tuple.Create(Tuple.Create("", 2038), Tuple.Create("_wrapper", 2038), true)
+, 2019), false)
+, Tuple.Create(Tuple.Create("", 2037), Tuple.Create("_wrapper", 2037), true)
 );
 
 WriteLiteral(" class=\"x-calendar-v2\"");
@@ -153,15 +153,15 @@ WriteLiteral(" style=\"width: 36px;\"");
 
 WriteLiteral(">\r\n                <div");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 2304), Tuple.Create("\"", 2331)
+WriteAttribute("id", Tuple.Create(" id=\"", 2303), Tuple.Create("\"", 2330)
             
             #line 61 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
-, Tuple.Create(Tuple.Create("", 2309), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
+, Tuple.Create(Tuple.Create("", 2308), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
             
             #line default
             #line hidden
-, 2309), false)
-, Tuple.Create(Tuple.Create("", 2327), Tuple.Create("_btn", 2327), true)
+, 2308), false)
+, Tuple.Create(Tuple.Create("", 2326), Tuple.Create("_btn", 2326), true)
 );
 
 WriteLiteral(" class=\"calendar-button calendar-button-normal\"");
@@ -192,15 +192,15 @@ WriteLiteral("                <td");
 
 WriteLiteral(" style=\"width: 80px;\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 2543), Tuple.Create("\"", 2571)
+WriteAttribute("id", Tuple.Create(" id=\"", 2542), Tuple.Create("\"", 2570)
             
             #line 67 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
-, Tuple.Create(Tuple.Create("", 2548), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
+, Tuple.Create(Tuple.Create("", 2547), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
             
             #line default
             #line hidden
-, 2548), false)
-, Tuple.Create(Tuple.Create("", 2566), Tuple.Create("_time", 2566), true)
+, 2547), false)
+, Tuple.Create(Tuple.Create("", 2565), Tuple.Create("_time", 2565), true)
 );
 
 WriteLiteral("></td>\r\n");
