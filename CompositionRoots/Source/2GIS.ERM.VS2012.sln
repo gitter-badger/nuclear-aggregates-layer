@@ -425,6 +425,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Test.408.config = Environments\Erm.Test.408.config
 		Environments\Erm.Test.508.config = Environments\Erm.Test.508.config
 		Environments\Erm.Test.608.config = Environments\Erm.Test.608.config
+		Environments\quartz.Business.Russia.config = Environments\quartz.Business.Russia.config
 		Environments\quartz.Edu.MultiCulture.config = Environments\quartz.Edu.MultiCulture.config
 		Environments\quartz.Edu.Russia.config = Environments\quartz.Edu.Russia.config
 		Environments\quartz.Load.Russia.config = Environments\quartz.Load.Russia.config
