@@ -59,6 +59,7 @@
     <Compile Include="Cards\AppendableEntityFeature.cs" />
     <Compile Include="Cards\Extensions\CardMetadataBuilderExtensions.cs" />
     <Compile Include="Cards\CardMetadataSource.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Letter.cs" />
     <Compile Include="Cards\Settings\CardStructures.WithdrawalInfo.cs" />
     <Compile Include="Cards\Settings\CardStructures.UserProfile.cs" />
     <Compile Include="Cards\Settings\CardStructures.User.cs" />

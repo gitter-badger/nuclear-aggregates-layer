@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Phonecall =
             CardMetadata.For<Phonecall>()
-                        .MainAttribute<Phonecall, IPhonecallViewModel>(x => x.Header)
+                        .MainAttribute<Phonecall, IPhonecallViewModel>(x => x.Title)
                         .ConfigActivityCardToolbar();
     }
 }

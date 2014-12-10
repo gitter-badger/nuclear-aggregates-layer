@@ -60,12 +60,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             return this;
         }
 
-        public CardMetadataBuilder<TEntity> CrmEntity(CrmEntity code)
-        {
-            AddFeatures(new CrmEntityCodeFeature(code));
-            return this;
-        }
-
         public CardMetadataBuilder<TEntity> WithAdminTab()
         {
             AddFeatures(new ShowAdminPartFeature(),

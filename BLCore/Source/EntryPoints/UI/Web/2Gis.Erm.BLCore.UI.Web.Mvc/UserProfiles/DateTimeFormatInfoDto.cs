@@ -12,6 +12,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
         
         public int TimeOffsetInMinutes { get; set; }
 
+        public string TimeZoneId { get; set; }
+
         public string DotNetShortDatePattern { get; set; }
 
         public string DotNetShortTimePattern { get; set; }

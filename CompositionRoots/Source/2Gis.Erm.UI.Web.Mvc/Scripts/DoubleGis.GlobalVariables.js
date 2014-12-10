@@ -16,7 +16,7 @@ function RecalculateCardSize(rate) {
     Ext.DoubleGis.Global.UISettings.ScreenCenterTop = (window.screen.height - window.screen.height * rate) / 2;
 }
 
-RecalculateCardSize(0.6);
+RecalculateCardSize(0.7);
 
 //Статические методы, в основном для отрисовки UI
 Ext.DoubleGis.Global.Helpers = {
@@ -226,7 +226,6 @@ Ext.DoubleGis.Global.Helpers = {
                     extendedInfo: leaf.ExtendedInfo,
                     appendableEntity: leaf.AppendableEntity,
                     disabled: leaf.Disabled || eval(leaf.DisabledExpression),
-                    isCrmView: leaf.IsCrmView,
                     children: window.Ext.DoubleGis.Global.Helpers.NavBarHelper.BuildTree(leaf, textLengthLimit),
                     icon: leaf.Icon ? window.Ext.DoubleGis.Global.Helpers.GetEntityIconPath(leaf.Icon) : undefined
                 }));

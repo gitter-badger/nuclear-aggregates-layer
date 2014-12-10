@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Appointment =
             CardMetadata.For<Appointment>()
-                        .MainAttribute<Appointment, IAppointmentViewModel>(x => x.Header)
+                        .MainAttribute<Appointment, IAppointmentViewModel>(x => x.Title)
                         .ConfigActivityCardToolbar();
     }
 }

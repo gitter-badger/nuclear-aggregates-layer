@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
             set { _viewConfig = value; }
         }
         
-        public string EntityStatus
+        public virtual string EntityStatus
         {
             get
             {
@@ -322,6 +322,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
         public override bool IsDeactivatable
         {
             get { return typeof(IDeactivatableEntity).IsAssignableFrom(typeof(T)); }
+        }
+        
+        [JsonIgnore]
+        public bool IsStateTracking
+        {
+            get { return typeof(IStateTrackingEntity).IsAssignableFrom(typeof(T)); }
         }
     }
 }

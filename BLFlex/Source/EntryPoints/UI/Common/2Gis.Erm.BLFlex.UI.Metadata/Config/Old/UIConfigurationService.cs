@@ -622,7 +622,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 EntityName = cardSettings.EntityName,
                 EntityLocalizedName = GetLocalizedName(cardSettings.EntityNameLocaleResourceId, culture),
                 EntityMainAttribute = cardSettings.EntityMainAttribute,
-                CrmEntityCode = cardSettings.CrmEntityCode,
                 HasComments = cardSettings.HasComments,
                 HasAdminTab = cardSettings.HasAdminTab,
                 DecimalDigits = cardSettings.DecimalDigits,
@@ -656,7 +655,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                         DisabledExpression = y.DisabledExpression,
                         LocalizedName = GetLocalizedName(y.NameLocaleResourceId ?? y.Name, culture),
                         Icon = y.Icon,
-                        IsCrmView = y.IsCrmView,
                         RequestUrl = y.RequestUrl,
                         ExtendedInfo = y.ExtendedInfo,
                         AppendableEntity = y.AppendableEntity,
@@ -740,12 +738,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             if (entityMainAttribute != null)
             {
                 cardJson.EntityMainAttribute = entityMainAttribute.Value;
-            }
-
-            var crmEntityCodeAttribute = cardEl.Attribute("CrmEntityCode");
-            if (crmEntityCodeAttribute != null)
-            {
-                cardJson.CrmEntityCode = (int)crmEntityCodeAttribute;
             }
 
             var hasComments = cardEl.Attribute("HasComments");
@@ -846,12 +838,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 if (icon != null)
                 {
                     cardRelatedItemsJson.Icon = icon.Value;
-                }
-
-                var isCrmView = relatedItemEl.Attribute("IsCrmView");
-                if (isCrmView != null)
-                {
-                    cardRelatedItemsJson.IsCrmView = (bool)isCrmView;
                 }
 
                 var requestUrl = relatedItemEl.Attribute("RequestUrl");

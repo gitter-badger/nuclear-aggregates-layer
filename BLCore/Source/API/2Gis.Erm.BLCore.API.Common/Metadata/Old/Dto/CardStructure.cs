@@ -15,7 +15,6 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
 
         [Obsolete("Убрать после удаления EntitySettings.xml")]
         public string EntityMainAttribute { get; set; }
-        public int? CrmEntityCode { get; set; }
 
         public bool HasComments { get; set; }
         public bool HasAdminTab { get; set; }

@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 11.11.2014 15:44:37
+// File updated : 02.12.2014 16:13:25
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -40,7 +40,6 @@ AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Вы действите
 AdvertisingElementAccept : 'Одобрить',
 AdvertisingElementValidate : 'Выверка',
 AfterPageText : 'из {0}',
-AfterSalesServiceOperationStartedMessage : 'Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.',
 Alert : 'Внимание!',
 AllExistingBillsWillBeDeleted : 'Все существующие счета на оплату будут удалены. Продолжить?',
 AllFieldsMustBeSetForPayment : 'Все поля должны быть заполнены для платежа',
@@ -298,7 +297,6 @@ SumRemainingMustBeNull : 'Остаток суммы заказа не равен
 Sunday : 'Воскресенье',
 SymbolsLeft : 'Символов осталось: {0}',
 TabPanelItemCloseText : 'Закрыть вкладку',
-Task : 'Задача',
 TextEditorLineBreaksOverflow : 'Количество строк превышает допустимые {0} на {1}.',
 TextEditorOverflow : 'Количество символов превышает допустимые {0} символов на {1}.',
 TheAdvertisement : 'Рекламный материал',

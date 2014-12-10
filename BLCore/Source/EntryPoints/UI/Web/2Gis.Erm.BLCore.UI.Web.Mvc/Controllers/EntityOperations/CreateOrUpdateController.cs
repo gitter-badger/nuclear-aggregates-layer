@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             switch (_cardsMetadataSettings.CardsMetadataSource)
             {
                 case CardsMetadataSource.EntitySettingsXml:
-                    ApplyToolbarItemsLock(model);
+            ApplyToolbarItemsLock(model);
                     break;
                 case CardsMetadataSource.CodedMetadata:
                     _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
@@ -142,7 +142,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 switch (_cardsMetadataSettings.CardsMetadataSource)
                 {
                     case CardsMetadataSource.EntitySettingsXml:
-                        ApplyToolbarItemsLock(model);
+                ApplyToolbarItemsLock(model);
                         break;
                     case CardsMetadataSource.CodedMetadata:
                         _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
@@ -165,9 +165,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
             var modifyService = _operationServicesManager.GetModifyDomainEntityService(typeof(TEntity).AsEntityName());
             var entityId = modifyService.Modify(domainEntityDto);
-
+            
             if (model.Id == 0)
-            {
+            {   
                 model.Id = entityId;
             }
             else
@@ -196,10 +196,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 if (createdBy > 0)
                 {
                     model.CreatedBy = new LookupField
-                                          {
-                                              Key = createdBy,
-                                              Value = _userIdentifierService.GetUserInfo(createdBy).DisplayName
-                                          };
+                        {
+                            Key = createdBy,
+                            Value = _userIdentifierService.GetUserInfo(createdBy).DisplayName
+                        };
                 }
 
                 model.CreatedOn = domainEntityDto.GetPropertyValue<IDomainEntityDto, IAuditableEntity, DateTime>(x => x.CreatedOn);
@@ -208,10 +208,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 if (modifiedBy.HasValue && modifiedBy.Value != 0)
                 {
                     model.ModifiedBy = new LookupField
-                                           {
-                                               Key = modifiedBy,
-                                               Value = _userIdentifierService.GetUserInfo(modifiedBy.Value).DisplayName
-                                           };
+                        {
+                            Key = modifiedBy,
+                            Value = _userIdentifierService.GetUserInfo(modifiedBy.Value).DisplayName
+                        };
                 }
 
                 model.ModifiedOn = domainEntityDto.GetPropertyValue<IDomainEntityDto, IAuditableEntity, DateTime?>(x => x.ModifiedOn);
@@ -223,10 +223,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 if (ownerCode > 0)
                 {
                     model.Owner = new LookupField
-                                      {
-                                          Key = ownerCode,
-                                          Value = _userIdentifierService.GetUserInfo(ownerCode).DisplayName
-                                      };
+                        {
+                            Key = ownerCode,
+                            Value = _userIdentifierService.GetUserInfo(ownerCode).DisplayName
+                        };
                 }
             }
 
@@ -238,6 +238,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             if (model.IsDeletable)
             {
                 model.IsDeleted = domainEntityDto.GetPropertyValue<IDomainEntityDto, IDeletableEntity, bool>(x => x.IsDeleted);
+            }
+
+            if (model.IsStateTracking)
+            {
+                model.Timestamp = domainEntityDto.GetPropertyValue<IDomainEntityDto, IStateTrackingEntity, byte[]>(x => x.Timestamp);
             }
 
             return model;
@@ -257,18 +262,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             var oldOwnerCode = (long?)null;
 
             if (model.IsCurated && model.Owner != null)
-            {
-                ownerCode = model.Owner.Key.Value;
-                oldOwnerCode = model.OldOwnerCode;
-            }
+                {
+                    ownerCode = model.Owner.Key.Value;
+                    oldOwnerCode = model.OldOwnerCode;
+                }
 
             // check security access
             var entityAccess = _entityAccessService.RestrictEntityAccess(typeof(TEntity).AsEntityName(),
-                                                                         EntityAccessTypes.All,
-                                                                         UserContext.Identity.Code,
-                                                                         model.Id,
-                                                                         ownerCode,
-                                                                         oldOwnerCode);
+                                                                        EntityAccessTypes.All,
+                                                                        UserContext.Identity.Code,
+                                                                        model.Id,
+                                                                        ownerCode,
+                                                                        oldOwnerCode);
             if (!entityAccess.HasFlag(EntityAccessTypes.Create) && model.IsNew)
             {
                 throw new SecurityAccessDeniedException(BLResources.SecurityAccess_HasNoCreatePlivilege);
@@ -337,7 +342,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                     if (Enum.IsDefined(typeof(FunctionalPrivilegeName), privilegeMask))
                     {
                         toolbarItem.Disabled = !_functionalAccessService.HasFunctionalPrivilegeGranted((FunctionalPrivilegeName)privilegeMask,
-                                                                                                       UserContext.Identity.Code);
+                                                                                                      UserContext.Identity.Code);
                     }
                     else
                     {
@@ -350,7 +355,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             {
                 // Если кнопка не заблокирована в результате проверки привилегий, блокируем ее на основании EntitySettings
                 toolbarItem.Disabled |= (model.ViewConfig.ReadOnly && toolbarItem.LockOnInactive) || (toolbarItem.LockOnNew && model.Id == 0);
-            }
+            }                
         }
 
         private void UpdateValidationMessages(TModel model)

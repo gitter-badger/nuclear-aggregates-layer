@@ -120,6 +120,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetadata.For<LegalPersonProfile, ICustomizableLegalPersonProfileViewModel>()
                                                        .Use<MainLegalPersonProfileCustomization>(),
 
+                        ViewModelCustomizationsMetadata.For<Letter, ICustomizableActivityViewModel>()
+                                                       .Use<DisableActivityButtonsCustomization>(),
+
                         ViewModelCustomizationsMetadata.For<Limit, LimitViewModel>()
                                                        .Use<CheckIfLimitRecalculationAvailableCustomization>()
                                                        .Use<CheckLimitPrivilegeCustomization>()

@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -50,7 +50,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\Cards\ICardMainAttributeFeature.cs" />
-    <Compile Include="Config\Cards\CrmEntityCodeFeature.cs" />
     <Compile Include="Config\Cards\ICardSettingsProcessor.cs" />
     <Compile Include="Config\Cards\ICardSettingsProvider.cs" />
     <Compile Include="Config\Cards\ShowAdminPartFeature.cs" />
@@ -152,6 +151,7 @@
     <Compile Include="ViewModels\Contracts\IAdvertisementElementTemplateViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IAdvertisementTemplateViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IAdvertisementViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ILetterViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IAssociatedPositionsGroupViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IOrderPositionViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IDenialReasonViewModel.cs" />

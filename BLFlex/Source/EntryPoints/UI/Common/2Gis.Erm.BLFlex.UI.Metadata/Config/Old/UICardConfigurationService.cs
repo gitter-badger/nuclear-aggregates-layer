@@ -1136,7 +1136,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 EntityName = cardSettings.EntityName,
                 EntityLocalizedName = GetLocalizedName(cardSettings.EntityNameLocaleResourceId, culture),
                 EntityMainAttribute = cardSettings.EntityMainAttribute,
-                CrmEntityCode = cardSettings.CrmEntityCode,
                 HasComments = cardSettings.HasComments,
                 HasAdminTab = cardSettings.HasAdminTab,
                 DecimalDigits = cardSettings.DecimalDigits,
@@ -1170,7 +1169,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                         DisabledExpression = y.DisabledExpression,
                         LocalizedName = GetLocalizedName(y.NameLocaleResourceId ?? y.Name, culture),
                         Icon = y.Icon,
-                        IsCrmView = y.IsCrmView,
                         RequestUrl = y.RequestUrl,
                         ExtendedInfo = y.ExtendedInfo,
                         AppendableEntity = y.AppendableEntity,
@@ -1300,12 +1298,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 cardJson.EntityMainAttribute = entityMainAttribute.Value;
             }
 
-            var crmEntityCodeAttribute = cardEl.Attribute("CrmEntityCode");
-            if (crmEntityCodeAttribute != null)
-            {
-                cardJson.CrmEntityCode = (int)crmEntityCodeAttribute;
-            }
-
             var hasComments = cardEl.Attribute("HasComments");
             if (hasComments != null)
             {
@@ -1404,12 +1396,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 if (icon != null)
                 {
                     cardRelatedItemsJson.Icon = icon.Value;
-                }
-
-                var isCrmView = relatedItemEl.Attribute("IsCrmView");
-                if (isCrmView != null)
-                {
-                    cardRelatedItemsJson.IsCrmView = (bool)isCrmView;
                 }
 
                 var requestUrl = relatedItemEl.Attribute("RequestUrl");
@@ -1534,7 +1520,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             x => x.HasComments,
                                             x => x.DecimalDigits,
                                             x => x.EntityName,
-                                            x => x.CrmEntityCode,
                                             x => x.EntityLocalizedName,
                                             x => x.EntityMainAttribute,
                                             x => x.EntityNameLocaleResourceId,
@@ -1638,8 +1623,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                                 x => x.Icon,
                                                 x => x.AppendableEntity,
                                                 x => x.DisabledExpression,
-                                                x => x.ExtendedInfo,
-                                                x => x.IsCrmView);
+                                                x => x.ExtendedInfo);
 
             if (elementErrors.Any())
             {

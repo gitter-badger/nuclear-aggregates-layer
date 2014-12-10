@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Task =
             CardMetadata.For<Task>()
-                        .MainAttribute<Task, ITaskViewModel>(x => x.Header)
+                        .MainAttribute<Task, ITaskViewModel>(x => x.Title)
                         .ConfigActivityCardToolbar();
     }
 }

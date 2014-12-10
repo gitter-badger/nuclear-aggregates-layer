@@ -6,22 +6,21 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Activity;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
-    public sealed class UpdateTaskAggregationService : IUpdateTaskAggregateService, IUpdateRegardingObjectAggregateService<Task>
+    public sealed class UpdateTaskAggregationService : IUpdateTaskAggregateService
     {
         private const string ActivityHasNoTheIdentityMessage = "The task has no the identity.";
 
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IRepository<Task> _repository;
-        private readonly IRepository<RegardingObject<Task>> _referenceRepository;
+        private readonly IRepository<TaskRegardingObject> _referenceRepository;
 
         public UpdateTaskAggregationService(
             IOperationScopeFactory operationScopeFactory,
             IRepository<Task> repository,
-            IRepository<RegardingObject<Task>> referenceRepository)
+            IRepository<TaskRegardingObject> referenceRepository)
         {
             _operationScopeFactory = operationScopeFactory;
             _repository = repository;
@@ -30,30 +29,41 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 
         public void Update(Task task)
         {
-            if (task.Id == 0)
-            {
-                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "task");
-            }
+            CheckTask(task);
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Task>())
             {
                 _repository.Update(task);
-                operationScope.Updated<Task>(task.Id);
-
                 _repository.Save();
+                
+                operationScope.Updated<Task>(task.Id);
                 operationScope.Complete();
             }
         }
 
-        public void ChangeRegardingObjects(IEnumerable<RegardingObject<Task>> oldReferences, IEnumerable<RegardingObject<Task>> newReferences)
+        public void ChangeRegardingObjects(Task task, IEnumerable<TaskRegardingObject> oldReferences, IEnumerable<TaskRegardingObject> newReferences)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignRegardingObjectIdentity, RegardingObject<Task>>())
+            CheckTask(task);
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Task>())
             {
-                _referenceRepository.Update(oldReferences, newReferences);
+                _referenceRepository.Update<Task, TaskRegardingObject>(oldReferences, newReferences);
 
-                //operationScope.Updated<RegardingObject<Appointment>>(newReferences);
-
+                operationScope.Updated<Task>(task.Id);
                 operationScope.Complete();
+            }
+        }
+
+        private static void CheckTask(Task task)
+        {
+            if (task == null)
+            {
+                throw new ArgumentNullException("task");
+            }
+
+            if (task.Id == 0)
+            {
+                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "task");
             }
         }
     }

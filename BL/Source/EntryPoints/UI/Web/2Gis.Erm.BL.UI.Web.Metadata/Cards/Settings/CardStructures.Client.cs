@@ -101,14 +101,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Handler.ShowGridByConvention(EntityName.Bargain)
                                                      .FilterToParent(),
                                     UiElementMetadata.Config
-                                                     .Name.Static("ActivityHistory")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelActivityHistory)
-                                                     .Icon.Path("en_ico_16_history.gif")
-                                                     .LockOnNew(),
-                                    UiElementMetadata.Config
                                                      .Name.Static("Actions")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
                                                      .Icon.Path("en_ico_16_Action.gif")
+                                                     .Handler.ShowGridByConvention(EntityName.Activity)
                                                      .LockOnNew(),
                                     UiElementMetadata.Config
                                                      .Name.Static("Links")

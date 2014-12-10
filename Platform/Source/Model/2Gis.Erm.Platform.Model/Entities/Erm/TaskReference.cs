@@ -2,8 +2,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed class TaskReference :
-        IEntity
+    public sealed class TaskReference : IEntity
     {
         public long TaskId { get; set; }
         public int Reference { get; set; }
@@ -11,10 +10,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long ReferencedObjectId { get; set; }
 
         public TaskBase TaskBase { get; set; }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
     }
 }

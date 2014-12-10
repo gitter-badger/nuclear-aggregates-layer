@@ -17,7 +17,6 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
     },
     init: function (settings) {
         this.form = window.EntityForm;
-        this.CrmEntityCode = settings.CrmEntityCode;
         this.EntityName = settings.EntityName;
         this.Settings = settings;
         this.ReadOnly = window.Ext.getDom("ViewConfig_ReadOnly").checked;
@@ -179,7 +178,6 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                                 html: '<table><tbody><tr><td class="title-icon">' +
                                     '<img alt="" src="' + Ext.DoubleGis.Global.Helpers.GetEntityIconPath(this.Settings.Icon) + '"/>' +
                                     '</td><td class="title-bar"><span class="title-bar">' + document.title + '</span><br /><span class="title-breadcrumb">' +
-                                    '<img class="title-breadcrumb-nav" alt="" src="' + Ext.DoubleGis.Global.Helpers.GetEntityIconPath(this.Settings.Icon) + '"/>' +
                                     '<span class="title-breadcrumb" id="leftNavBreadcrumbText">' + Ext.LocalizedResources.Information + '</span></span></td></tr></tbody></table>'
                             } : undefined,
                             items: [
@@ -872,44 +870,6 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 this.Mask.hide();
             }, this);
 
-            if (n.attributes.isCrmView) {
-
-                var pId = window.Ext.get('ReplicationCode') ? window.Ext.get('ReplicationCode').dom.value : null;
-                var pType = this.CrmEntityCode;
-                var pName = window.Ext.getDom(this.Settings.EntityMainAttribute).value;
-                // чтобы crm не падал ограничиваем число символов
-                pName = pName.slice(0, 256);
-
-                var partyId = window.Ext.get('ClientReplicationCode') ? window.Ext.get('ClientReplicationCode').dom.value : pId;
-                var partyType = 1; // ObjectTypeCode of Account entity
-                var partyName = window.Ext.get('ClientName') ? window.Ext.get('ClientName').dom.value : pName;
-                partyName = partyName.slice(0, 256);
-
-                // query string потом парсится на стороне dynamics crm
-                var url = String.format("//{0}/{1}&FromErm=true&pId={2}&pType={3}&pName={4}&partyId={5}&partyType={6}&partyName={7}",
-                    window.Ext.CRM_URL,
-                    requestUrl,
-                    pId,
-                    pType,
-                    encodeURIComponent(pName),
-                    partyId,
-                    partyType,
-                    encodeURIComponent(partyName));
-
-                frame.setAttribute("src", url);
-
-                // закомментарено, т.к. мы не можем лазить в чужой фрейм, надо по-другому
-                //window.Ext.fly(frame).on("load",
-                //function (evt, el) {
-                //    if (!el.contentWindow.document.body.childNodes[0].rows)
-                //        return;
-
-                //    el.contentWindow.document.body.childNodes[0].rows[0].cells[0].style.padding = "0px";
-                //    el.locAssocOneToMany = window.locAssocOneToMany;
-                //});
-
-            }
-            else {
                 var parentEntityTypeName = this.EntityName ? this.EntityName : null;
                 var parentEntityId = window.Ext.get('Id') ? window.Ext.get('Id').dom.value : null;
                 var parentEntityState = window.Ext.getDom("ViewConfig_ReadOnly").checked ? 'Inactive' : 'Active';
@@ -944,13 +904,9 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
 
                 frame.setAttribute("src", frameUrl);
             }
-        }
         window.Ext.each(cnt.items.items, function (item) {
             if (item.id == n.id + "_holder") {
                 item.show();
-                if (n.attributes.isCrmView) {
-                    window.CrmFrame = window.Ext.getDom(n.id + '_frame');
-                }
             }
             else {
                 item.hide();

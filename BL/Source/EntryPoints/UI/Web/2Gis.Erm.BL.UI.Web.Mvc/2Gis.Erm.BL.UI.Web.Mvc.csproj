@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -124,7 +124,6 @@
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
     <Compile Include="Controllers\AdvertisementTemplateController.cs" />
-    <Compile Include="Controllers\AfterSaleServiceController.cs" />
     <Compile Include="Controllers\BargainController.cs" />
     <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\BranchOfficeOrganizationUnitController.cs" />
@@ -145,7 +144,10 @@
     <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Models\AccountDetailViewModel.cs" />
     <Compile Include="Models\ActivateDealViewModel.cs" />
-    <Compile Include="Models\ActivityBaseViewModelAbstract.cs" />
+    <Compile Include="Models\Activity\AppointmentViewModel.cs" />
+    <Compile Include="Models\Activity\LetterViewModel.cs" />
+    <Compile Include="Models\Activity\PhonecallViewModel.cs" />
+    <Compile Include="Models\Activity\TaskViewModel.cs" />
     <Compile Include="Models\AdditionalFirmServiceViewModel.cs" />
     <Compile Include="Models\AdsTemplatesAdsElementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementElementPreviewModel.cs" />
@@ -153,7 +155,6 @@
     <Compile Include="Models\AdvertisementElementViewModel.cs" />
     <Compile Include="Models\AdvertisementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementViewModel.cs" />
-    <Compile Include="Models\AfterSaleServiceCreateDialogModel.cs" />
     <Compile Include="Models\AllClientsDebtReportViewModel.cs" />
     <Compile Include="Models\AssociatedPositionsGroupViewModel.cs" />
     <Compile Include="Models\AssociatedPositionViewModel.cs" />
@@ -320,6 +321,26 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\CreateOrUpdate\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Letter.generated.cs">
+      <DependentUpon>Letter.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\Shared\EditorTemplates\PeriodViewModel.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -369,11 +390,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PreviewOnline.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CreateAfterSaleServiceActivitiesDialog.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Bargain\CloseBargains.generated.cs">
       <AutoGen>True</AutoGen>
@@ -824,6 +840,22 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DateTimeViewModel.generated.cs</LastGenOutput>
     </None>
+    <None Include="Views\CreateOrUpdate\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Letter.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Letter.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\Shared\EditorTemplates\PeriodViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PeriodViewModel.generated.cs</LastGenOutput>
@@ -863,10 +895,6 @@
     <None Include="Views\Advertisement\PreviewOnline.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PreviewOnline.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>CreateAfterSaleServiceActivitiesDialog.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Bargain\CloseBargains.cshtml">
       <Generator>RazorGenerator</Generator>

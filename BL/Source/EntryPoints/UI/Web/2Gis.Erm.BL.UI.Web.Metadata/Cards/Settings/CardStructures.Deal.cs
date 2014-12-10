@@ -2,7 +2,6 @@
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -66,11 +65,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Name.Static("Actions")
                                                              .Icon.Path("en_ico_16_Action.gif")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                                             .LockOnNew(),
-                                            UiElementMetadata.Config
-                                                             .Name.Static("ActivityHistory")
-                                                             .Icon.Path("en_ico_16_history.gif")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelActivityHistory)
+                                                             .Handler.ShowGridByConvention(EntityName.Activity)
                                                              .LockOnNew(),
                                             UiElementMetadata.Config
                                                              .Name.Static("Firms")

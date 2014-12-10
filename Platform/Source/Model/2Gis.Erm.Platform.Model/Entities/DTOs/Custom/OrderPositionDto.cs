@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.Model.Entities.Erm;
-using DoubleGis.Erm.Model.Entities.Interfaces;
-
 namespace DoubleGis.Erm.Core.Dto.DomainEntity.Custom
 {
     public class OrderPositionDto// : IDomainEntityDto<OrderPosition>

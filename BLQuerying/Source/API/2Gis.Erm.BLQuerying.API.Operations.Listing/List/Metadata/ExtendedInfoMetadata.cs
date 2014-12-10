@@ -317,8 +317,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListOrganizationUnitActiveMovedToErm", "ActiveAndNotDeleted=true;UseErm=true"}, 
             {"DListOrganizationUnitActiveMovedToIR", "ActiveAndNotDeleted=true;UseIR=true"}, 
 
-            {"DListOperationsAfterSaleService", "AfterSaleServiceActivitiesCreation=true"},
-
             {"DListPositions", "ActiveAndNotDeleted=true"},
             {"DListPositionInactive", "NotActiveAndNotDeleted=true"},
 

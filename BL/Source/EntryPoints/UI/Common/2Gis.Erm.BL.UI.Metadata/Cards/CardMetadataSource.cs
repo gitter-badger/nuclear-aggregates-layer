@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 
                         CardMetadata.For<Appointment>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAppointment)
-                                    .Icon.Path("en_ico_16_Appointment.gif")
+                                    .Icon.Path("en_ico_lrg_Appointment.gif")
                                     .WithAdminTab()
                                     .WithComments(),
 
@@ -206,6 +206,12 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .Icon.Path("en_ico_lrg_Default.gif")
                                     .WithAdminTab(),
 
+                        CardMetadata.For<Letter>()
+                                    .EntityLocalization(() => ErmConfigLocalization.EnLetter)
+                                    .Icon.Path("en_ico_lrg_Letter.gif")
+                                    .WithAdminTab()
+                                    .WithComments(),
+
                         CardMetadata.For<Limit>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnLimit)
                                     .Icon.Path("en_ico_lrg_Default.gif")
@@ -262,7 +268,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 
                         CardMetadata.For<Phonecall>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnPhonecall)
-                                    .Icon.Path("en_ico_16_Phonecall.gif")
+                                    .Icon.Path("en_ico_lrg_Phonecall.gif")
                                     .WithComments()
                                     .WithAdminTab(),
 
@@ -323,7 +329,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 
                         CardMetadata.For<Task>()
                                     .EntityLocalization(() => ErmConfigLocalization.EnTask)
-                                    .Icon.Path("en_ico_16_Task.gif")
+                                    .Icon.Path("en_ico_lrg_Task.gif")
                                     .WithComments()
                                     .WithAdminTab(),
 

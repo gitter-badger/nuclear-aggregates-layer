@@ -21,6 +21,11 @@ namespace DoubleGis.Erm.Platform.Common.Utils
                        : (DateTime?)null;
         }
 
+        public static DateTime UpdateKindIfUnset(this DateTime dateTime, DateTimeKind dateTimeKind = DateTimeKind.Utc)
+        {
+            return dateTime.Kind == DateTimeKind.Unspecified ? DateTime.SpecifyKind(dateTime, dateTimeKind) : dateTime;
+        }
+
         public static DateTime TrimToSeconds(this DateTime dateTime)
         {
             return new DateTime(dateTime.Ticks - (dateTime.Ticks % TimeSpan.TicksPerSecond), dateTime.Kind);

@@ -1,17 +1,16 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
-    public sealed class CreateTaskAggregateService : IAggregateRootRepository<Task>, ICreateAggregateRepository<Task>
+    public sealed class CreateTaskAggregateService : ICreateTaskAggregateService
     {
         private const string ActivityHasAlreadyTheIdentityMessage = "The task has already the identity.";
 
@@ -29,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             _repository = repository;
         }
 
-        public int Create(Task task)
+        public void Create(Task task)
         {
             if (!task.IsNew())
             {
@@ -41,13 +40,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
                 _identityProvider.SetFor(task);
 
                 _repository.Add(task);
+                _repository.Save();
+                
                 operationScope.Added<Task>(task.Id);
-
-                var count = _repository.Save();
-
                 operationScope.Complete();
-
-                return count;
             }
         }
     }

@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Territory.cshtml")]
-    public partial class Territory : System.Web.Mvc.WebViewPage<Models.TerritoryViewModel>
+    public partial class Territory : System.Web.Mvc.WebViewPage<TerritoryViewModel>
     {
         public Territory()
         {
@@ -64,15 +64,15 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 129), Tuple.Create("\"", 193)
-, Tuple.Create(Tuple.Create("", 135), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Territory.js?", 135), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 122), Tuple.Create("\"", 186)
+, Tuple.Create(Tuple.Create("", 128), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Territory.js?", 128), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Territory.cshtml"
-, Tuple.Create(Tuple.Create("", 174), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 167), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 174), false)
+, 167), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -102,14 +102,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 337), Tuple.Create("\"", 373)
+WriteAttribute("title", Tuple.Create(" title=\"", 330), Tuple.Create("\"", 366)
             
             #line 16 "..\..\Views\CreateOrUpdate\Territory.cshtml"
-, Tuple.Create(Tuple.Create("", 345), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 338), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 345), false)
+, 338), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -159,7 +159,7 @@ WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 
 WriteLiteral("\r\n");
 
-DefineSection("CustomCard", () => {
+DefineSection("CustomInit", () => {
 
 WriteLiteral("\r\n    <script");
 

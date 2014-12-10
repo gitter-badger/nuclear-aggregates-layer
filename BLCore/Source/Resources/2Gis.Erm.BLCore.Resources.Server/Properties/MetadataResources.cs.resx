@@ -990,20 +990,11 @@
   <data name="Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
-  <data name="ActivityBaseViewModelAbstract_Type" xml:space="preserve">
-    <value>Typ</value>
-  </data>
   <data name="Priority" xml:space="preserve">
     <value>Priorita</value>
   </data>
-  <data name="ActivityBaseViewModelAbstract_Status" xml:space="preserve">
-    <value>Stav</value>
-  </data>
   <data name="Purpose" xml:space="preserve">
     <value>Cíl</value>
-  </data>
-  <data name="AfterSaleServiceType" xml:space="preserve">
-    <value>Typ PPS</value>
   </data>
   <data name="TaskType" xml:space="preserve">
     <value>Typ úkolu</value>
@@ -1406,6 +1397,20 @@
   </data>
   <data name="ControlResetToDraft" xml:space="preserve">
     <value>Editovat</value>
+  </data>
+  <data name="Attendee" xml:space="preserve">
+    <value>Участник</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Место встречи</value>
+  </data>
+  <data name="Recipient" xml:space="preserve">
+    <value>Получатель</value>
+    <comment>Кому направлено действие, например, письмо.</comment>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Отправитель</value>
+    <comment>От кого направлено действие, например, письмо.</comment>
   </data>
   <data name="NameOfChildClient" xml:space="preserve">
     <value>Zprostředkovaný klient</value>

@@ -7,7 +7,6 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderProcessingRequest;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -38,20 +37,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
             IReadOnlyCollection<CardMetadata> metadataContainer =
                 new CardMetadata[]
                     {
-                        CardMetadata.For<Client>()
-                                    .CrmEntity(CrmEntity.Client),
-
-                        CardMetadata.For<Contact>()
-                                    .CrmEntity(CrmEntity.Contact),
-
-                        CardMetadata.For<Firm>()
-                                    .CrmEntity(CrmEntity.Firm),
-
-                        CardMetadata.For<LegalPerson>()
-                                    .CrmEntity(CrmEntity.LegalPerson),
-
                         CardMetadata.For<Deal>()
-                                    .CrmEntity(CrmEntity.Deal)
                                     .MVVM.Bind<IDealViewModel>("~/Views/CreateOrUpdate/Russia/Deal.cshtml"),
 
                         CardMetadata.For<OrderPosition>()

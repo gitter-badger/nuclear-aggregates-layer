@@ -42,10 +42,14 @@ function Restore-SolutionPackages {
 	}
 
 	$solutionDir = Join-Path $ThisDir '..'
+
+    $slnFiles = Get-Item "$solutionDir\*.sln"
+    foreach($slnFile in $slnFiles){
 	Invoke-NuGet @(
 		'restore'
-		$solutionDir
+		    $slnFile.FullName
 	)
+}
 }
 
 function Run-Build ($TaskList, $Properties) {

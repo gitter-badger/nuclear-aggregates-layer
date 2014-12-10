@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -143,7 +143,6 @@
     <Compile Include="MultiCulture\Concrete\Old\LegalPersons\KazakhstanValidatePaymentRequisitesIsUnique.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\MultiCulturePrintHelper.cs" />
     <Compile Include="MultiCulture\Generic\Activate\ActivateBranchOfficeService.cs" />
-    <Compile Include="MultiCulture\Concrete\Old\Clients\MultiCultureCheckClientActivitiesHandler.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileValidatePaymentRequisitesIsUniqueHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderBargainHandler.cs" />
@@ -317,12 +316,6 @@
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Cyprus\Generic\Activate\CyprusActivateLegalPersonService.cs" />
-    <Compile Include="MultiCulture\Generic\Get\GetAppointmentDtoService.cs" />
-    <Compile Include="MultiCulture\Generic\Get\GetPhonecallDtoService.cs" />
-    <Compile Include="MultiCulture\Generic\Get\GetTaskDtoService.cs" />
-    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\AppointmentObtainer.cs" />
-    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\PhoneCallObtainer.cs" />
-    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
     <Compile Include="Czech\Concrete\Old\Bills\CzechPrintBillHandler.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
@@ -338,7 +331,6 @@
     <Compile Include="MultiCulture\Generic\List\MultiCultureListOrderService.cs" />
     <Compile Include="Russia\Concrete\Old\AccountDetails\ValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bills\PrintBillHandler.cs" />
-    <Compile Include="Russia\Concrete\Old\Clients\CheckClientActivitiesHandler.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditClientHandler.cs" />
     <Compile Include="Russia\Concrete\Old\LegalPersons\ChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditLegalPersonHandler.cs" />
@@ -350,16 +342,10 @@
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
     <Compile Include="Russia\Generic\Activate\ActivateLegalPersonService.cs" />
-    <Compile Include="Russia\Generic\Get\GetAppointmentDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetLegalPersonDtoService.cs" />
-    <Compile Include="Russia\Generic\Get\GetPhonecallDtoService.cs" />
-    <Compile Include="Russia\Generic\Get\GetTaskDtoService.cs" />
     <Compile Include="Russia\Generic\List\ListLegalPersonProfileService.cs" />
     <Compile Include="Russia\Generic\List\ListLegalPersonService.cs" />
     <Compile Include="Russia\Generic\List\ListOrderService.cs" />
-    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\AppointmentObtainer.cs" />
-    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\PhoneCallObtainer.cs" />
-    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditOrderPositionHandler.cs" />
     <Compile Include="Ukraine\Concrete\Old\LegalPersons\UkraineValidatePaymentRequisitesIsUniqueHandler.cs" />
     <Compile Include="Ukraine\Generic\Get\UkraineGetBranchOfficeOrganizationUnitDtoService.cs" />

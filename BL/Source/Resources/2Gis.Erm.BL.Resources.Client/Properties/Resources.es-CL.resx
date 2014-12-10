@@ -900,9 +900,6 @@
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Mensajes según la petición</value>
   </data>
-  <data name="Task" xml:space="preserve">
-    <value>Tarea</value>
-  </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
     <value>Desea realmente reemplazar el estado de límite por</value>
   </data>
@@ -954,9 +951,6 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Error al cumplir la operación</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>El proceso de creación del servicio postventa está en marcha. Es un proceso largo, puede seguir su ejecución en el historial de operaciones.</value>
-  </data>
   <data name="DisabledFunctionality" xml:space="preserve">
     <value>Esta funcionalidad no está disponible temporalmente</value>
   </data>
@@ -965,6 +959,9 @@
   </data>
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value> Esta razón social ya figura como principal</value>
+  </data>
+  <data name="InvalidDateTimeText" xml:space="preserve">
+    <value>Некорректное значение. Используйте формат 'ДД-ММ-ГГГГ'</value>
   </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
     <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
