@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 
             if (bill.IsNew())
             {
-                throw new OperationException<Bill, CreateIdentity>("Операция создания не определена");
+                throw new OperationException<Bill, CreateIdentity>(BLResources.OperationIsNotSpecified);
             }
 
             using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Bill>())
