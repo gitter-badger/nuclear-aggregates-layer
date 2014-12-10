@@ -61,7 +61,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 var createBillInfo = request.CreateBillInfos[0];
                 var bill = CreateBill(createBillInfo, request, orderInfo);
 
-                bill.BillDate = orderInfo.CreatedOn;
                 bill.PayablePlan = orderInfo.PayablePlan;
                 bill.VatPlan = orderInfo.VatPlan;
 
@@ -78,7 +77,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                     var createBillInfo = request.CreateBillInfos[i];
                     var bill = CreateBill(createBillInfo, request, orderInfo);
 
-                    bill.BillDate = orderInfo.CreatedOn;
                     bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
                     billsPayablePlanSum += bill.PayablePlan;
 
@@ -93,7 +91,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 var lastCreateBillInfo = request.CreateBillInfos[request.CreateBillInfos.Length - 1];
                 var lastBill = CreateBill(lastCreateBillInfo, request, orderInfo);
 
-                lastBill.BillDate = orderInfo.CreatedOn;
                 lastBill.PayablePlan = Math.Round(orderInfo.PayablePlan - billsPayablePlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
                 lastBill.VatPlan = Math.Round(orderInfo.VatPlan - billsVatPlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
 
@@ -147,6 +144,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
             {
                 OrderId = request.OrderId,
                 OwnerCode = order.OwnerCode,
+                BillDate = order.CreatedOn,
 
                 BeginDistributionDate = createBillInfo.BeginDistributionDate,
                 EndDistributionDate = createBillInfo.EndDistributionDate,
