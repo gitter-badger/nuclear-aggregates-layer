@@ -307,20 +307,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             return _orderPositionGenericRepository.Save();
         }
 
-        public int Delete(Bill entity)
-        {
-            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Bill>())
-            {
-                _billGenericRepository.Delete(entity);
-                var cnt = _billGenericRepository.Save();
-
-                scope.Deleted<Bill>(entity.Id)
-                     .Complete();
-
-                return cnt;
-            }
-        }
-
         public int Delete(IEnumerable<OrderPositionAdvertisement> advertisements)
         {
             int cnt = 0;
@@ -605,12 +591,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                         FileId = file.Id
                     };
             }
-        }
-
-        int IDeleteAggregateRepository<Bill>.Delete(long entityId)
-        {
-            var entity = _finder.Find(Specs.Find.ById<Bill>(entityId)).Single();
-            return Delete(entity);
         }
 
         private static void CheckOrderApprovalDateSpecified(Order order)

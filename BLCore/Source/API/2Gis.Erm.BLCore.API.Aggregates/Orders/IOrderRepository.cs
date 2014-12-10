@@ -11,7 +11,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders
 {
     public interface IOrderRepository : IAggregateRootRepository<Order>,
                                         IAssignAggregateRepository<Order>,
-                                        IDeleteAggregateRepository<Bill>,
                                         IDeleteAggregateRepository<OrderPosition>,
                                         IUploadFileAggregateRepository<OrderFile>,
                                         IDownloadFileAggregateRepository<OrderFile>
@@ -31,8 +30,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders
         int Assign(Order order, long ownerCode);
 
         int Delete(OrderPosition orderPosition);
-
-        int Delete(Bill bill);
 
         void CreateOrUpdateOrderPositionAdvertisements(long orderPositionId, AdvertisementDescriptor[] newAdvertisementsLinks, bool orderIsLocked);
 

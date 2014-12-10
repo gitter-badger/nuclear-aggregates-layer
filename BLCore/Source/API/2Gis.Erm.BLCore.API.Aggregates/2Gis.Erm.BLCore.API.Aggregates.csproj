@@ -246,6 +246,7 @@
     <Compile Include="Orders\IBargainRepository.cs" />
     <Compile Include="Orders\IOrderRepository.cs" />
     <Compile Include="Orders\Operations\Bargains\ICloseClientBargainsAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\IDeleteBillsAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\ICreateBillsAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IUpdateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
@@ -361,6 +362,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
