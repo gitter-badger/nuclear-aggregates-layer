@@ -489,6 +489,7 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\UserObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\UserProfileObtainer.cs" />
     <Compile Include="Generic\Modify\ModifyBargainService.cs" />
+    <Compile Include="Generic\Modify\ModifyBillService.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountDetailHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountHandler.cs" />
@@ -501,7 +502,6 @@
     <Compile Include="Generic\Modify\Old\EditAssociatedPositionHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditBargainFileHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditBargainTypeHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditBillHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCategoryGroupHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditContactHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditContributionTypeHandler.cs" />
