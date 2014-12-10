@@ -20,8 +20,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders
 
         int Create(Order order);
 
-        int CreateOrUpdate(Bill bill);
-
         int CreateOrUpdate(OrderFile entity);
 
         int Update(Order order);

@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
@@ -13,17 +13,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 {
     public class ModifyBillService : IModifyBusinessModelEntityService<Bill>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IUpdateBillAggregateService _updateService;
         private readonly IValidateBillsService _validateBillsService;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IBusinessModelEntityObtainer<Bill> _billObtainer;
 
-        public ModifyBillService(IOrderRepository orderRepository,
+        public ModifyBillService(IUpdateBillAggregateService updateService,
                                  IValidateBillsService validateBillsService,
                                  IOperationScopeFactory operationScopeFactory,
                                  IBusinessModelEntityObtainer<Bill> billObtainer)
         {
-            _orderRepository = orderRepository;
+            _updateService = updateService;
             _validateBillsService = validateBillsService;
             _operationScopeFactory = operationScopeFactory;
             _billObtainer = billObtainer;
@@ -44,9 +44,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
                 throw new OperationException<Bill, CreateIdentity>("Операция создания не определена");
             }
 
-            using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Deal>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Bill>())
             {
-                _orderRepository.CreateOrUpdate(bill);
+                _updateService.Update(bill);
                 scope.Updated(bill)
                      .Complete();
             }

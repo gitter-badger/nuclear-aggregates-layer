@@ -471,28 +471,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             }
         }
 
-        public int CreateOrUpdate(Bill bill)
-        {
-            using (var scope = _scopeFactory.CreateOrUpdateOperationFor(bill))
-            {
-                if (bill.IsNew())
-                {
-                    _identityProvider.SetFor(bill);
-                    _billGenericRepository.Add(bill);
-                    scope.Added<Bill>(bill.Id);
-                }
-                else
-                {
-                    _billGenericRepository.Update(bill);
-                    scope.Updated<Bill>(bill.Id);
-                }
-
-                var cnt = _billGenericRepository.Save();
-                scope.Complete();
-                return cnt;
-            }
-        }
-
         public void CreateOrUpdateOrderPositionAdvertisements(long orderPositionId, AdvertisementDescriptor[] newAdvertisementsLinks, bool orderIsLocked)
         {
             var oldAdvertisementsLinks = _finder.Find<OrderPosition>(x => x.Id == orderPositionId).SelectMany(x => x.OrderPositionAdvertisements).ToArray();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
     public sealed class CreateBillsHandler : RequestHandler<CreateBillsRequest, EmptyResponse>
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
-        private readonly IOrderRepository _orderRepository;
+        private readonly ICreateBillsAggregateService _createAggregateService;
         private readonly IOrderReadModel _orderReadModel;
 
         private readonly IEvaluateBillNumberService _evaluateBillNumberService;
@@ -30,13 +30,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
         public CreateBillsHandler(
             IBusinessModelSettings businessModelSettings,
             ISubRequestProcessor subRequestProcessor,
-            IOrderRepository orderRepository,
+            ICreateBillsAggregateService createAggregateService,
             IOrderReadModel orderReadModel,
             IEvaluateBillNumberService evaluateBillNumberService,
             IValidateBillsService validateBillsService)
         {
             _subRequestProcessor = subRequestProcessor;
-            _orderRepository = orderRepository;
+            _createAggregateService = createAggregateService;
             _orderReadModel = orderReadModel;
             _evaluateBillNumberService = evaluateBillNumberService;
             _validateBillsService = validateBillsService;
@@ -136,10 +136,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                     throw new NotificationException(report);
                 }
 
-                foreach (var bill in billsToCreate)
-                {
-                    _orderRepository.CreateOrUpdate(bill);
-                }
+                _createAggregateService.Create(billsToCreate);
 
                 transaction.Complete();
             }

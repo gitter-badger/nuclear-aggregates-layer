@@ -176,6 +176,8 @@
     <Compile Include="Orders\Operations\Bargains\DeactivateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\Bargains\UpdateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\Bargains\CreateBargainAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\CreateBillsAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\UpdateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\OrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
