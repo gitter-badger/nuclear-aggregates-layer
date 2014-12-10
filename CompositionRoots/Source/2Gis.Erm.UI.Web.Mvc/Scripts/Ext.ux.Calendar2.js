@@ -142,7 +142,9 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
 
     setValue: function (date) {
         this.ignoreChangeEvent = true;
-        date = moment.isMoment(date) ? date : moment(date);
+        if (date) {
+            date = moment.isMoment(date) ? date : moment(date);
+        }
 
         this.editor.setValue(date ? date.format(this.displayFormat) : '');
         if (this.time) this.time.setValue(date.format(this.displayFormats.time));
