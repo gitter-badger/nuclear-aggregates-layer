@@ -12,16 +12,6 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting
 {
     public class DefaultValidateBillsService : IValidateBillsService, IRussiaAdapted, ICyprusAdapted, ICzechAdapted
     {
-        public DefaultValidateBillsService()
-        {
-        }
-
-        public bool PreValidate(IEnumerable<Bill> bills, out string report)
-        {
-            report = null;
-            return true;
-        }
-
         public bool Validate(IEnumerable<Bill> bills, Order order, out string report)
         {
             // order state validation

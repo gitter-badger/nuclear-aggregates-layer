@@ -24,10 +24,10 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
             _finder = finder;
         }
 
-        public bool PreValidate(IEnumerable<Bill> bills, out string report)
+        public bool Validate(IEnumerable<Bill> bills, Order order, out string report)
         {
-            report = null;
             var billNumbers = bills.Select(x => x.BillNumber).ToArray();
+            var billIds = bills.Where(x => !x.IsNew()).Select(x => x.Id).ToArray();
 
             var duplicateBillNumbers = billNumbers.GroupBy(x => x).Where(x => x.Count() > 1).Select(x => x.Key).ToArray();
             if (duplicateBillNumbers.Any())
@@ -43,11 +43,6 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
                 return false;
             }
 
-            return true;
-        }
-
-        public bool Validate(IEnumerable<Bill> bills, Order order, out string report)
-        {
             // simple validation
             var createBillsPayablePlan = bills.OrderBy(x => x.PayablePlan).Sum(x => x.PayablePlan);
             if (createBillsPayablePlan != order.PayablePlan)
@@ -57,10 +52,6 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
             }
 
             // numbers validation
-            report = null;
-            var billNumbers = bills.Select(x => x.BillNumber).ToArray();
-            var billIds = bills.Where(x => !x.IsNew()).Select(x => x.Id).ToArray();
-
             var existingNumbers = _finder.Find(Specs.Find.ActiveAndNotDeleted<Bill>() && BillSpecifications.Find.ByNumbers(billNumbers) && !Specs.Find.ByIds<Bill>(billIds))
                                          .Select(x => x.BillNumber)
                                          .ToArray();
@@ -95,6 +86,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
                 }
             }
 
+            report = null; 
             return true;
         }
     }

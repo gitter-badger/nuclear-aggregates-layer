@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
             }
 
             string report;
-            if (!_validateBillsService.PreValidate(billsArray, out report) || !_validateBillsService.Validate(billsArray, order, out report))
+            if (!_validateBillsService.Validate(billsArray, order, out report))
             {
                 throw new NotificationException(report);
             }
