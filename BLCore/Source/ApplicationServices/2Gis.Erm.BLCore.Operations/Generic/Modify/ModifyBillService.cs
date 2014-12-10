@@ -18,19 +18,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
     public class ModifyBillService : IModifyBusinessModelEntityService<Bill>
     {
         private readonly IUpdateBillAggregateService _updateService;
-        private readonly IValidateBillsService _validateBillsService;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IBusinessModelEntityObtainer<Bill> _billObtainer;
         private readonly IOrderReadModel _orderReadModel;
 
         public ModifyBillService(IUpdateBillAggregateService updateService,
-                                 IValidateBillsService validateBillsService,
                                  IOperationScopeFactory operationScopeFactory,
                                  IBusinessModelEntityObtainer<Bill> billObtainer,
                                  IOrderReadModel orderReadModel)
         {
             _updateService = updateService;
-            _validateBillsService = validateBillsService;
             _operationScopeFactory = operationScopeFactory;
             _billObtainer = billObtainer;
             _orderReadModel = orderReadModel;
@@ -43,12 +40,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
             var otherBills = _orderReadModel.GetBillsForOrder(bill.OrderId).Where(x => x.Id != bill.Id);
             var orderBills = otherBills.Concat(new[] { bill }).ToArray();
 
-            string report;
-            if (!_validateBillsService.PreValidate(orderBills, out report) || !_validateBillsService.Validate(orderBills, order, out report))
-            {
-                throw new NotificationException(report);
-            }
-
             if (bill.IsNew())
             {
                 throw new OperationException<Bill, CreateIdentity>(BLResources.OperationIsNotSpecified);
@@ -56,8 +47,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 
             using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Bill>())
             {
-                _updateService.Update(bill);
+                _updateService.Update(bill, orderBills, order);
                 scope.Updated(bill)
+                     .Updated(order)
                      .Complete();
             }
 

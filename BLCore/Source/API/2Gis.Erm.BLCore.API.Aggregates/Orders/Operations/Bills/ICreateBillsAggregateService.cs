@@ -8,6 +8,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills
 {
     public interface ICreateBillsAggregateService : IAggregateSpecificOperation<Order, BulkCreateIdentity>
     {
-        void Create(IEnumerable<Bill> bills);
+        void Create(Order order, IEnumerable<Bill> bills);
     }
 }

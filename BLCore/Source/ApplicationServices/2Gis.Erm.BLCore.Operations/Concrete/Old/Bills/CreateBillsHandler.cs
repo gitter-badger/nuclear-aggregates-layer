@@ -1,30 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 {
     public sealed class CreateBillsHandler : RequestHandler<CreateBillsRequest, EmptyResponse>
     {
+        private readonly IOperationScopeFactory _scopeFactory;
         private readonly IBulkDeleteBillAggregateService _deleteAggregateService;
         private readonly ICreateBillsAggregateService _createAggregateService;
         private readonly IOrderReadModel _orderReadModel;
 
         private readonly IEvaluateBillNumberService _evaluateBillNumberService;
-        private readonly IValidateBillsService _validateBillsService;
         private readonly IBusinessModelSettings _businessModelSettings;
         
         public CreateBillsHandler(
@@ -32,14 +30,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
             ICreateBillsAggregateService createAggregateService,
             IOrderReadModel orderReadModel,
             IEvaluateBillNumberService evaluateBillNumberService,
-            IValidateBillsService validateBillsService,
-            IBulkDeleteBillAggregateService deleteAggregateService)
+            IBulkDeleteBillAggregateService deleteAggregateService,
+            IOperationScopeFactory scopeFactory)
         {
             _createAggregateService = createAggregateService;
             _orderReadModel = orderReadModel;
             _evaluateBillNumberService = evaluateBillNumberService;
-            _validateBillsService = validateBillsService;
             _deleteAggregateService = deleteAggregateService;
+            _scopeFactory = scopeFactory;
             _businessModelSettings = businessModelSettings;
         }
 
@@ -98,29 +96,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 }
             }
 
-            {
-                string report;
-                if (!_validateBillsService.PreValidate(billsToCreate, out report))
-                {
-                    throw new NotificationException(report);
-                }
-            }
-
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _scopeFactory.CreateSpecificFor<BulkCreateIdentity, Bill>())
             {
                 // delete previous bills
                 var oldBills = _orderReadModel.GetBillsForOrder(request.OrderId);
                 _deleteAggregateService.DeleteBills(orderInfo, oldBills);
+                _createAggregateService.Create(orderInfo, billsToCreate);
 
-                string report;
-                if (!_validateBillsService.Validate(billsToCreate, orderInfo, out report))
-                {
-                    throw new NotificationException(report);
-                }
-
-                _createAggregateService.Create(billsToCreate);
-
-                transaction.Complete();
+                scope.Deleted(oldBills)
+                     .Added((IEnumerable<Bill>)billsToCreate)
+                     .Updated(orderInfo)
+                     .Complete();
             }
 
             return Response.Empty;

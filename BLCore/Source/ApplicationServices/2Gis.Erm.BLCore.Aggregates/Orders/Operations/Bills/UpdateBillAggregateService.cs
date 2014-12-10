@@ -1,4 +1,8 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -10,15 +14,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
     {
         private readonly IRepository<Bill> _billGenericRepository;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IValidateBillsService _validateBillsService;
 
-        public UpdateBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository)
+        public UpdateBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository, IValidateBillsService validateBillsService)
         {
             _scopeFactory = scopeFactory;
             _billGenericRepository = billGenericRepository;
+            _validateBillsService = validateBillsService;
         }
 
-        public void Update(Bill bill)
+        public void Update(Bill bill, IEnumerable<Bill> bills, Order order)
         {
+            string report;
+            if (!_validateBillsService.PreValidate(bills, out report) || !_validateBillsService.Validate(bills, order, out report))
+            {
+                throw new NotificationException(report);
+            }
+
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Bill>())
             {
                 _billGenericRepository.Update(bill);
