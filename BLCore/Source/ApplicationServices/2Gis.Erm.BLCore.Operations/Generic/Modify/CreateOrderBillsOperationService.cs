@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 {
@@ -77,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 
             billsToCreate.Add(lastBill);
 
-            using (var scope = _scopeFactory.CreateSpecificFor<BulkCreateIdentity, Bill>())
+            using (var scope = _scopeFactory.CreateNonCoupled<CreateOrderBillsIdentity>())
             {
                 // delete previous bills
                 var oldBills = _orderReadModel.GetBillsForOrder(orderId);
