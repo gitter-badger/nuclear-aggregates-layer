@@ -240,6 +240,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             return builder.WithFeatures(new FilterToParentFeature());
         }
 
+        public static UiElementMetadataBuilder FilterToParents(this UiElementMetadataBuilder builder)
+        {
+            return builder.WithFeatures(new FilterByParentsFeature());
+        }
+
         public static UiElementMetadataBuilder ExtendedInfo(this UiElementMetadataBuilder builder, IResourceDescriptor extendedInfo)
         {
             return builder.WithFeatures(new ExtendedInfoFeature(extendedInfo));

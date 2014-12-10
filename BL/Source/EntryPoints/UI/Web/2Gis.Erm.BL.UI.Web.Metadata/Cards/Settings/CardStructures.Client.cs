@@ -105,6 +105,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
                                                      .Icon.Path("en_ico_16_Action.gif")
                                                      .Handler.ShowGridByConvention(EntityName.Activity)
+                                                     .FilterToParents()
                                                      .LockOnNew(),
                                     UiElementMetadata.Config
                                                      .Name.Static("Links")

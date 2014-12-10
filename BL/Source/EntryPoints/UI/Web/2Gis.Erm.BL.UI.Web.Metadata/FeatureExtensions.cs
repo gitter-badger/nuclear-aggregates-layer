@@ -21,5 +21,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
         {
             return @"filterToParent=true";
         }
+
+        public static string ToExtendedInfo(this FilterByParentsFeature feature)
+        {
+            return @"filterByParents=true";
+        }
     }
 }

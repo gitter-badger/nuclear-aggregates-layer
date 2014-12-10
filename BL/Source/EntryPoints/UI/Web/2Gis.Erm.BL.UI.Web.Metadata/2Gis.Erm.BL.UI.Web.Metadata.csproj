@@ -55,6 +55,7 @@
     <Compile Include="Cards\CardSettingsProcessor.cs" />
     <Compile Include="Cards\CardSettingsProvider.cs" />
     <Compile Include="Cards\ExtendedInfoFeature.cs" />
+    <Compile Include="Cards\FilterByParentsFeature.cs" />
     <Compile Include="Cards\FilterToParentFeature.cs" />
     <Compile Include="Cards\AppendableEntityFeature.cs" />
     <Compile Include="Cards\Extensions\CardMetadataBuilderExtensions.cs" />

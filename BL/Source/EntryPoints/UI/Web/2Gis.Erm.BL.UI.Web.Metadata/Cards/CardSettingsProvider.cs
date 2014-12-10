@@ -225,6 +225,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.AppendExtendedInfo(filterToParentFeature.ToExtendedInfo());
             }
 
+            var filterToParentsFeature = element.Features<FilterByParentsFeature>().SingleOrDefault();
+            if (filterToParentsFeature != null)
+            {
+                result.AppendExtendedInfo(filterToParentsFeature.ToExtendedInfo());
+            }
+
             return result;
         }
     }
