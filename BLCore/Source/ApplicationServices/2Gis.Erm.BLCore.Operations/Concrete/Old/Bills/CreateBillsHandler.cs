@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 {
     public sealed class CreateBillsHandler : RequestHandler<CreateBillsRequest, EmptyResponse>
     {
-        private readonly IDeleteOrderBillsOperationService _deleteOrderBillsOperationService; 
+        private readonly IBulkDeleteBillAggregateService _deleteAggregateService;
         private readonly ICreateBillsAggregateService _createAggregateService;
         private readonly IOrderReadModel _orderReadModel;
 
@@ -29,17 +29,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
         
         public CreateBillsHandler(
             IBusinessModelSettings businessModelSettings,
-            IDeleteOrderBillsOperationService deleteOrderBillsOperationService,
             ICreateBillsAggregateService createAggregateService,
             IOrderReadModel orderReadModel,
             IEvaluateBillNumberService evaluateBillNumberService,
-            IValidateBillsService validateBillsService)
+            IValidateBillsService validateBillsService,
+            IBulkDeleteBillAggregateService deleteAggregateService)
         {
-            _deleteOrderBillsOperationService = deleteOrderBillsOperationService;
             _createAggregateService = createAggregateService;
             _orderReadModel = orderReadModel;
             _evaluateBillNumberService = evaluateBillNumberService;
             _validateBillsService = validateBillsService;
+            _deleteAggregateService = deleteAggregateService;
             _businessModelSettings = businessModelSettings;
         }
 
@@ -109,7 +109,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 // delete previous bills
-                _deleteOrderBillsOperationService.Delete(request.OrderId);
+                var oldBills = _orderReadModel.GetBillsForOrder(request.OrderId);
+                _deleteAggregateService.DeleteBills(orderInfo, oldBills);
 
                 string report;
                 if (!_validateBillsService.Validate(billsToCreate, orderInfo, out report))

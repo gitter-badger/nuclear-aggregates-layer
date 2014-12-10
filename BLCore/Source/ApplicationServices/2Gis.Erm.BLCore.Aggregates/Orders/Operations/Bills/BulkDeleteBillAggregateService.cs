@@ -11,12 +11,12 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
 {
-    public sealed class DeleteBillsAggregateService : IDeleteBillsAggregateService
+    public sealed class BulkDeleteBillAggregateService : IBulkDeleteBillAggregateService
     {
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IRepository<Bill> _billGenericRepository;
 
-        public DeleteBillsAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository)
+        public BulkDeleteBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository)
         {
             _scopeFactory = scopeFactory;
             _billGenericRepository = billGenericRepository;
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
                 throw new NotificationException(BLResources.CantEditBillsWhenOrderIsNotOnRegistration);
             }
 
-            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Bill>())
+            using (var scope = _scopeFactory.CreateSpecificFor<BulkDeleteIdentity, Bill>())
             {
                 foreach (var bill in bills)
                 {
