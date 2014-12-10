@@ -62,9 +62,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 var bill = CreateBill(createBillInfo, request, orderInfo);
 
                 bill.BillDate = orderInfo.CreatedOn;
-                // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
-                bill.BillNumber = _evaluateBillNumberService.Evaluate(createBillInfo.BillNumber, orderInfo.Number);
-
                 bill.PayablePlan = orderInfo.PayablePlan;
                 bill.VatPlan = orderInfo.VatPlan;
 
@@ -82,9 +79,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                     var bill = CreateBill(createBillInfo, request, orderInfo);
 
                     bill.BillDate = orderInfo.CreatedOn;
-                    // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
-                    bill.BillNumber = _evaluateBillNumberService.Evaluate(createBillInfo.BillNumber, orderInfo.Number, i + 1);
-
                     bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
                     billsPayablePlanSum += bill.PayablePlan;
 
@@ -100,13 +94,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 var lastBill = CreateBill(lastCreateBillInfo, request, orderInfo);
 
                 lastBill.BillDate = orderInfo.CreatedOn;
-                // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
-                lastBill.BillNumber = _evaluateBillNumberService.Evaluate(lastCreateBillInfo.BillNumber, orderInfo.Number, request.CreateBillInfos.Length);
-
                 lastBill.PayablePlan = Math.Round(orderInfo.PayablePlan - billsPayablePlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
                 lastBill.VatPlan = Math.Round(orderInfo.VatPlan - billsVatPlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
 
                 billsToCreate.Add(lastBill);
+            }
+
+            if (billsToCreate.Count == 1)
+            {
+                // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
+                billsToCreate.Single().BillNumber = _evaluateBillNumberService.Evaluate(request.CreateBillInfos.Single().BillNumber, orderInfo.Number);
+            }
+            else
+            {
+                for (var i = 0; i < billsToCreate.Count; i++)
+                {
+                    // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
+                    billsToCreate[i].BillNumber = _evaluateBillNumberService.Evaluate(request.CreateBillInfos[i].BillNumber, orderInfo.Number, i + 1);
+                }
             }
 
             {
