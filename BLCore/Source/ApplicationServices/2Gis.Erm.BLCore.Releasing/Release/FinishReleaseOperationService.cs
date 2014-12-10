@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     Period = new TimePeriod(release.PeriodStartDate, release.PeriodEndDate)
                 };
 
-            var currentReleaseStatus = (ReleaseStatus)release.Status;
+            var currentReleaseStatus = release.Status;
             if (currentReleaseStatus != ReleaseStatus.InProgressWaitingExternalProcessing)
             {
                 var message = string.Format("Can't finish release with id {0} and status {1} ou:{2} period: {3}. " +

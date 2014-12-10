@@ -45,12 +45,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             order.SignupDate = dto.SignupDate;
             order.ReleaseCountPlan = dto.ReleaseCountPlan;
             order.ReleaseCountFact = dto.ReleaseCountFact;
-            order.WorkflowStepId = (int)dto.WorkflowStepId;
+            order.WorkflowStepId = dto.WorkflowStepId;
             order.IsTerminated = dto.IsTerminated;
-            order.DiscountReasonEnum = (int)dto.DiscountReasonEnum;
+            order.DiscountReasonEnum = dto.DiscountReasonEnum;
             order.DiscountComment = dto.DiscountComment;
             order.BargainId = dto.BargainRef.Id;
-            order.HasDocumentsDebt = (byte)dto.HasDocumentsDebt;
+            order.HasDocumentsDebt = dto.HasDocumentsDebt;
             order.DocumentsComment = string.IsNullOrEmpty(dto.DocumentsComment) ? null : dto.DocumentsComment;
             order.AmountToWithdraw = dto.AmountToWithdraw;
             order.AmountWithdrawn = dto.AmountWithdrawn;
@@ -62,10 +62,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             order.PayablePlan = dto.PayablePlan;
             order.PayablePrice = dto.PayablePrice;
             order.VatPlan = dto.VatPlan;
-            order.TerminationReason = (int)dto.TerminationReason;
-            order.OrderType = (int)dto.OrderType;
+            order.TerminationReason = dto.TerminationReason;
+            order.OrderType = dto.OrderType;
             order.PlatformId = dto.PlatformRef.Id;
-            order.PaymentMethod = (int)dto.PaymentMethod;
+            order.PaymentMethod = dto.PaymentMethod;
             order.OwnerCode = dto.OwnerRef.Id.Value;
             order.Timestamp = dto.Timestamp;
 

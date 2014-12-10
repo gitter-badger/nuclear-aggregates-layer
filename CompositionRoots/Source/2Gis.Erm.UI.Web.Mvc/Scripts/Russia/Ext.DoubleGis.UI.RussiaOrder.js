@@ -21,7 +21,6 @@
         Ext.getDom("HasDocumentsDebt").disabled = canEditDocumentsDebt ? null : "disabled";
         Ext.getDom("DocumentsComment").disabled = canEditDocumentsDebt ? null : "disabled";
         Ext.get("DocumentsComment").setReadOnly(!canEditDocumentsDebt);
-        Ext.get("RegionalNumber").setReadOnly(!Ext.getDom('EditRegionalNumber').checked);
     },
     
     onLegalPersonChanged: function() {

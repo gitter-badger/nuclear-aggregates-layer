@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                                    && !x.IsBeta
                                                    && x.PeriodStartDate >= period.Start && x.PeriodEndDate <= period.End
                                                    && x.OrganizationUnitId == o.DestOrganizationUnitId
-                                                   && x.Status == (int)ReleaseStatus.Success),
+                                                   && x.Status == ReleaseStatus.Success),
                                o.AccountId
                            });
 
@@ -207,7 +207,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                           {
                               OrganizationUnitId = x.OrganizationUnit.Id,
                               OrganizationUnitName = x.OrganizationUnit.Name,
-                              WithdrawalStatus = (WithdrawalStatus)x.LastWithdrawal.Status
+                              WithdrawalStatus = x.LastWithdrawal.Status
                           })
                           .ToArray();
         }
@@ -369,7 +369,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                                            {
                                                                LockDetail = ld,
                                                                IsPlannedProvision = op.PricePosition.Position.AccountingMethodEnum ==
-                                                                                    (int)PositionAccountingMethod.PlannedProvision
+                                                                                    PositionAccountingMethod.PlannedProvision
                                                            })
                                                  .Where(x => x.IsPlannedProvision)
                                                  .Select(x => x.LockDetail)

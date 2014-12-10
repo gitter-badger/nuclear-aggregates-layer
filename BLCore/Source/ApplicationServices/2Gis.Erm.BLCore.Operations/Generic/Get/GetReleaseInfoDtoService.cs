@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                   PeriodEndDate = entity.PeriodEndDate,
                                   OrganizationUnitRef = new EntityReference { Id = entity.OrganizationUnitId, Name = entity.OrganizationUnit.Name },
                                   IsBeta = entity.IsBeta,
-                                  Status = (ReleaseStatus)entity.Status,
+                                  Status = entity.Status,
                                   Comment = entity.Comment,
                                   OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
                                   CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },

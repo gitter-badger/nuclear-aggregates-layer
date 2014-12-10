@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.LegalPersons
 
         protected override EmptyResponse Handle(ValidatePaymentRequisitesIsUniqueRequest request)
         {
-            var modelLegalPersonType = (LegalPersonType)request.Entity.LegalPersonTypeEnum;
+            var modelLegalPersonType = request.Entity.LegalPersonTypeEnum;
             var dic = !string.IsNullOrEmpty(request.Entity.Inn) ? request.Entity.Inn.Trim() : null;
             var ic = !string.IsNullOrEmpty(request.Entity.Ic) ? request.Entity.Ic.Trim() : null;
 

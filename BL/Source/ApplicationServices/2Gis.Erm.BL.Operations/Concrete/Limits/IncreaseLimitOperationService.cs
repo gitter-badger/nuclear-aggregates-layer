@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
 
             var limit = _accountReadModel.GetLimitById(limitId);
 
-            if (limit.Status != (int)LimitStatus.Approved)
+            if (limit.Status != LimitStatus.Approved)
             {
                 throw new LimitWorkflowIsViolatedException(Resources.Server.Properties.Resources.OnlyApprovedLimitCanBeIncreased);
             }

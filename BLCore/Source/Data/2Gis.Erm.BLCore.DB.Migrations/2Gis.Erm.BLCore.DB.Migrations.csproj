@@ -327,9 +327,15 @@
     <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6712 - Make ThemeOrganizationUnit deactivable.cs" />
     <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6718 - Alter SiteMap.xml.cs" />
     <Compile Include="0.17 - Gasherbrum\2013.02.04 rev. 6747 - Alter procedure CreateExportSession v3.cs" />
+    <Content Include="Resources\2014.09.27 rev. 25550\[Security].[DepartmentInsert].sql" />
+    <Content Include="Resources\2014.09.27 rev. 25550\[Security].[DepartmentUpdate].sql" />
     <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrderPosition].sql" />
     <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrder].sql" />
     <Content Include="Resources\2014.10.19 rev. 25335\[BusinessDirectory].[ReplicateFirmAddresses].sql" />
+    <Content Include="Resources\201411261501\ReplicateDeals.sql" />
+    <Content Include="Resources\201411261501\ReplicateLegalPersons.sql" />
+    <Content Include="Resources\201411261501\ReplicateLimits.sql" />
+    <Content Include="Resources\201411261501\ReplicateOrders.sql" />
     <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create CleanupERM SP.sql">
       <LogicalName>Migration6766CreateCleanupERM</LogicalName>
       <DependentUpon>2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs</DependentUpon>
@@ -747,7 +753,9 @@
     <Compile Include="2.1\2014.09.12 rev. 24271 - Super boost for replication.cs" />
     <Compile Include="2.1\2014.09.18 rev. 24362 - Alter CalculateClientPromising.cs" />
     <Compile Include="2.1\2014.09.22 rev. 24551 - Alter territory replication.cs" />
+    <Compile Include="2.1\2014.10.27 rev. 25550 - Alter Department CUD.cs" />
     <Compile Include="2.1\2014.10.01 rev. 24898 - Alter replicate order and order position.cs" />
+    <Compile Include="2.1\2014.10.22 rev. 25477 - Remove RegionalAdvertisingSharing.cs" />
     <Compile Include="2.1\2014.10.23 rev. 25523 - Add new some new TimeZones.cs" />
     <Compile Include="2.1\2014.10.23 rev. 25519 - Remove description of TimeZone.cs" />
     <Compile Include="2.1\2014.11.05 rev. 25786 - Remove obsolete SPs and tables.cs" />
@@ -757,6 +765,7 @@
     <Compile Include="2.1\2014.10.20 rev. 25393 - Alter OrderValidationResults.cs" />
     <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
+    <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />

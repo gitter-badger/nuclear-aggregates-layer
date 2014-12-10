@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("2GIS")]
 [assembly: AssemblyProduct("2GIS ERM")]
 [assembly: AssemblyTitle("2GIS ERM")]
-[assembly: CLSCompliant(true)]
+[assembly: CLSCompliant(false)]
 [assembly: ComVisible(false)]
 
 #if !SILVERLIGHT

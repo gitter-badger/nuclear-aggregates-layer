@@ -251,6 +251,12 @@ Ext.DoubleGis.ValidatorRegistry = {
         customvalidation: function (rule)
         {
             return window.Ext.DoubleGis.CustomValidatorRegistry[rule.ValidationParameters.validationfunction];
+        },
+        date: function (rule) {
+            return function (value, context) {
+                var message = context.fieldContext.elements[0].validationMessage;
+                return message ? message : true;
+            };
         }
     }
 };

@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                         if (restrictedLegalPerson != null)
                         {
                             var legalPersonType =
-                                (LegalPersonType)restrictedLegalPerson.LegalPersonTypeEnum;
+                                restrictedLegalPerson.LegalPersonTypeEnum;
                             switch (legalPersonType)
                             {
                                 case LegalPersonType.LegalPerson:
@@ -144,7 +144,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                     CreatedOn = x.CreatedOn,
                     IsDeleted = x.IsDeleted,
                     IsActive = x.IsActive,
-                    LegalPersonTypeEnum = (LegalPersonType)x.LegalPersonTypeEnum,
+                    LegalPersonTypeEnum = x.LegalPersonTypeEnum,
                     OwnerName = null,
                 })
                 .QuerySettings(_filterHelper, querySettings);

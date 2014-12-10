@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             deniedPosition.PositionId = dto.PositionRef.Id.Value;
             deniedPosition.PositionDeniedId = dto.PositionDeniedRef.Id.Value;
             deniedPosition.PriceId = dto.PriceRef.Id.Value;
-            deniedPosition.ObjectBindingType = (int)dto.ObjectBindingType;
+            deniedPosition.ObjectBindingType = dto.ObjectBindingType;
             deniedPosition.Timestamp = dto.Timestamp;
 
             return deniedPosition;

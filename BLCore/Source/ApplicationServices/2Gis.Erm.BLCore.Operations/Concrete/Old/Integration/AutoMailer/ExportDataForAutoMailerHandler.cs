@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.AutoMailer
 
             string error;
             var xsd = Properties.Resources.ResourceManager.GetString("flowDeliveryData_SendingGroup");
-            var isValidXml = xmlString.Validate(xsd, out error);
+            var isValidXml = xmlString.ValidateXml(xsd, out error);
             if (!isValidXml)
             {
                 throw new BusinessLogicException(string.Format(BLResources.XSDValidationError, error));

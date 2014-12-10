@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BL.Aggregates.DomainEntityObtainers
             limit.AccountId = dto.AccountRef.Id.Value;
             limit.CloseDate = dto.CloseDate;
             limit.Amount = dto.Amount;
-            limit.Status = (short)dto.Status;
+            limit.Status = dto.Status;
             limit.Comment = dto.Comment;
             limit.StartPeriodDate = dto.StartPeriodDate;
             limit.EndPeriodDate = dto.StartPeriodDate.GetLastDateOfMonth();

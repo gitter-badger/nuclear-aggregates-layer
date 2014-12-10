@@ -67,13 +67,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
             if (!string.IsNullOrEmpty(entity.Inn))
             {
                 const int LegalPersonIpnLength = 12;
-                if ((LegalPersonType)entity.LegalPersonTypeEnum == LegalPersonType.LegalPerson && entity.Inn.Length != LegalPersonIpnLength)
+                if (entity.LegalPersonTypeEnum == LegalPersonType.LegalPerson && entity.Inn.Length != LegalPersonIpnLength)
                 {
                     throw new NotificationException(string.Format(Resources.Server.Properties.BLResources.UkraineInvalidIpn, LegalPersonIpnLength));
                 }
 
                 const int BusinessmanIpnLength = 10;
-                if ((LegalPersonType)entity.LegalPersonTypeEnum == LegalPersonType.Businessman && entity.Inn.Length != BusinessmanIpnLength)
+                if (entity.LegalPersonTypeEnum == LegalPersonType.Businessman && entity.Inn.Length != BusinessmanIpnLength)
                 {
                     throw new NotificationException(string.Format(Resources.Server.Properties.BLResources.UkraineInvalidIpn, BusinessmanIpnLength));
                 }
@@ -87,13 +87,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
 
             const int LegalPersonEgrpouLength = 8;
             var egrpou = entity.Within<UkraineLegalPersonPart>().GetPropertyValue(x => x.Egrpou);
-            if ((LegalPersonType)entity.LegalPersonTypeEnum == LegalPersonType.LegalPerson && egrpou.Length != LegalPersonEgrpouLength)
+            if (entity.LegalPersonTypeEnum == LegalPersonType.LegalPerson && egrpou.Length != LegalPersonEgrpouLength)
             {
                 throw new NotificationException(string.Format(Resources.Server.Properties.BLResources.UkraineInvalidEgrpou, LegalPersonEgrpouLength));
             }
 
             const int BusinessmanEgrpouLength = 10;
-            if ((LegalPersonType)entity.LegalPersonTypeEnum == LegalPersonType.Businessman && egrpou.Length != BusinessmanEgrpouLength)
+            if (entity.LegalPersonTypeEnum == LegalPersonType.Businessman && egrpou.Length != BusinessmanEgrpouLength)
             {
                 throw new NotificationException(string.Format(Resources.Server.Properties.BLResources.UkraineInvalidEgrpou, BusinessmanEgrpouLength));
             }

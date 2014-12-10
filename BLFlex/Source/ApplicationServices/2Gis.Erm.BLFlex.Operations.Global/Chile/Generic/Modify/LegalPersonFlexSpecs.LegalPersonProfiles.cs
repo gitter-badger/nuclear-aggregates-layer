@@ -41,13 +41,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                         ChiefNameInGenitive = x.ChiefNameInGenitive,
                                         ChiefNameInNominative = x.ChiefNameInNominative,
                                         DocumentsDeliveryAddress = x.DocumentsDeliveryAddress,
-                                        DocumentsDeliveryMethod = (DocumentsDeliveryMethod)x.DocumentsDeliveryMethod,
+                                        DocumentsDeliveryMethod = x.DocumentsDeliveryMethod,
                                         LegalPersonRef = new EntityReference { Id = x.LegalPersonId, Name = null },
                                         PositionInNominative = x.PositionInNominative,
                                         PositionInGenitive = x.PositionInGenitive,
-                                        OperatesOnTheBasisInGenitive = x.OperatesOnTheBasisInGenitive == null
-                                                                           ? OperatesOnTheBasisType.Undefined
-                                                                           : (OperatesOnTheBasisType)x.OperatesOnTheBasisInGenitive,
+                                        OperatesOnTheBasisInGenitive = x.OperatesOnTheBasisInGenitive ?? OperatesOnTheBasisType.Undefined,
                                         PostAddress = x.PostAddress,
                                         EmailForAccountingDocuments = x.EmailForAccountingDocuments,
                                         AdditionalPaymentElements = x.AdditionalPaymentElements,
@@ -89,11 +87,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                 legalPersonProfile.PositionInNominative = dto.PositionInNominative;
                                 legalPersonProfile.ChiefNameInNominative = dto.ChiefNameInNominative;
                                 legalPersonProfile.ChiefNameInGenitive = dto.ChiefNameInGenitive;
-                                legalPersonProfile.OperatesOnTheBasisInGenitive = (int)dto.OperatesOnTheBasisInGenitive;
+                                legalPersonProfile.OperatesOnTheBasisInGenitive = dto.OperatesOnTheBasisInGenitive;
                                 legalPersonProfile.DocumentsDeliveryAddress = dto.DocumentsDeliveryAddress;
                                 legalPersonProfile.PostAddress = dto.PostAddress;
                                 legalPersonProfile.RecipientName = dto.RecipientName;
-                                legalPersonProfile.DocumentsDeliveryMethod = (int)dto.DocumentsDeliveryMethod;
+                                legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
                                 legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
                                 legalPersonProfile.AdditionalEmail = dto.AdditionalEmail;
                                 legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
@@ -101,7 +99,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                 legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;
                                 legalPersonProfile.AccountNumber = dto.AccountNumber;
                                 legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
-                                legalPersonProfile.PaymentMethod = (int?)dto.PaymentMethod;
+                                legalPersonProfile.PaymentMethod = dto.PaymentMethod;
                                 legalPersonProfile.LegalPersonId = dto.LegalPersonRef.Id.Value;
                                 legalPersonProfile.Within<ChileLegalPersonProfilePart>().SetPropertyValue(part => part.AccountType, dto.AccountType);
                                 legalPersonProfile.Within<ChileLegalPersonProfilePart>().SetPropertyValue(part => part.BankId, dto.BankRef.Id);

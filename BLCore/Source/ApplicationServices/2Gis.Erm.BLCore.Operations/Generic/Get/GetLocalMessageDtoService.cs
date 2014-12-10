@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                           .Select(entity => new LocalMessageDomainEntityDto
                               {
                                   Id = entity.Id,
-                                  Status = (LocalMessageStatus)entity.Status,
+                                  Status = entity.Status,
                                   IntegrationTypeImport = (IntegrationTypeImport)entity.MessageType.IntegrationType,
                                   IntegrationTypeExport = (IntegrationTypeExport)entity.MessageType.IntegrationType,
                                   SenderSystem = (IntegrationSystem)entity.MessageType.SenderSystem,

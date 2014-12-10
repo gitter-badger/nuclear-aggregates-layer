@@ -533,9 +533,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                     where !order.IsDeleted &&
                           (order.SourceOrganizationUnitId == organizationUnitId ||
                            order.DestOrganizationUnitId == organizationUnitId) &&
-                           (order.WorkflowStepId == (int)OrderState.Approved ||
-                           order.WorkflowStepId == (int)OrderState.OnRegistration ||
-                           order.WorkflowStepId == (int)OrderState.OnApproval)
+                           (order.WorkflowStepId == OrderState.Approved ||
+                           order.WorkflowStepId == OrderState.OnRegistration ||
+                           order.WorkflowStepId == OrderState.OnApproval)
                     select new AccountFor1CExportDto
                     {
                         LegalPersonSyncCode1C = lpSyncCode1C,

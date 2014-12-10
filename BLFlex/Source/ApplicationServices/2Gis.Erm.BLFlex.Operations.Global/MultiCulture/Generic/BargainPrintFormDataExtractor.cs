@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
 
         public PrintData GetLegalPersonProfile(LegalPersonProfile legalPersonProfile)
         {
-            var operatesOnTheBasis = (OperatesOnTheBasisType)legalPersonProfile.OperatesOnTheBasisInGenitive.Value;
+            var operatesOnTheBasis = legalPersonProfile.OperatesOnTheBasisInGenitive.Value;
 
             var profileData = new PrintData
                 {
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
             return bargainQuery
                 .Select(x => new
                     {
-                        LegalPersonType = (LegalPersonType)x.LegalPerson.LegalPersonTypeEnum,
+                        LegalPersonType = x.LegalPerson.LegalPersonTypeEnum,
                         OrganizationUnitName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Name,
                         EndDate = x.BargainEndDate
                     })

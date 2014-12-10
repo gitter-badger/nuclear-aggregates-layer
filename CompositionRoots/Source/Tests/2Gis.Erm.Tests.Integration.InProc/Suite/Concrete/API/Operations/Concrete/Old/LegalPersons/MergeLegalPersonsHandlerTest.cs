@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             get
             {
                 return Specs.Find.ActiveAndNotDeleted<LegalPerson>() &&
-                       new FindSpecification<LegalPerson>(lp => lp.LegalPersonTypeEnum == (int)LegalPersonType.Businessman && !string.IsNullOrEmpty(lp.Inn));
+                       new FindSpecification<LegalPerson>(lp => lp.LegalPersonTypeEnum == LegalPersonType.Businessman && !string.IsNullOrEmpty(lp.Inn));
             }
         }
 
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             var appendedLp = _appropriateEntityProvider.Get(Specs.Find.ActiveAndNotDeleted<LegalPerson>() &&
                                                             new FindSpecification<LegalPerson>(
                                                                 lp =>
-                                                                lp.Id != modelEntity.Id && lp.LegalPersonTypeEnum == (int)LegalPersonType.Businessman &&
+                                                                lp.Id != modelEntity.Id && lp.LegalPersonTypeEnum == LegalPersonType.Businessman &&
                                                                 lp.Inn == modelEntity.Inn));
 
             if (appendedLp == null)

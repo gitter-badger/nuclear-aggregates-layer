@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                 Entity = new LocalMessage
                 {
                     EventDate = DateTime.UtcNow,
-                    Status = (int)LocalMessageStatus.WaitForProcess,
+                    Status = LocalMessageStatus.WaitForProcess,
                     OrganizationUnitId = modelEntity.Id,
                 },
                 FileName = "Test",

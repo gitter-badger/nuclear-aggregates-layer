@@ -38,13 +38,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             Registered = x.Registered,
                                             DocumentsDeliveryAddress = x.DocumentsDeliveryAddress,
-                                            DocumentsDeliveryMethod = (DocumentsDeliveryMethod)x.DocumentsDeliveryMethod,
+                                            DocumentsDeliveryMethod = x.DocumentsDeliveryMethod,
                                             LegalPersonRef = new EntityReference { Id = x.LegalPersonId, Name = null },
                                             PositionInNominative = x.PositionInNominative,
                                             PositionInGenitive = x.PositionInGenitive,
-                                            OperatesOnTheBasisInGenitive = x.OperatesOnTheBasisInGenitive == null
-                                                                                      ? OperatesOnTheBasisType.Undefined
-                                                                                      : (OperatesOnTheBasisType)x.OperatesOnTheBasisInGenitive,
+                                            OperatesOnTheBasisInGenitive = x.OperatesOnTheBasisInGenitive ?? OperatesOnTheBasisType.Undefined,
                                             CertificateDate = x.CertificateDate,
                                             CertificateNumber = x.CertificateNumber,
                                             BargainBeginDate = x.BargainBeginDate,

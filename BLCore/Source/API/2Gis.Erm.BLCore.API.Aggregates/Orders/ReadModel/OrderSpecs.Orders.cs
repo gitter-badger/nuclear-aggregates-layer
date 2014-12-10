@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                     get
                     {
                         return
-                            new FindSpecification<Order>(o => o.WorkflowStepId == (int)OrderState.Approved || o.WorkflowStepId == (int)OrderState.OnTermination);
+                            new FindSpecification<Order>(o => o.WorkflowStepId == OrderState.Approved || o.WorkflowStepId == OrderState.OnTermination);
                     }
                 }
 
@@ -38,12 +38,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
 
                 public static FindSpecification<Order> NotRejected()
                 {
-                    return new FindSpecification<Order>(x => x.WorkflowStepId != (int)OrderState.Rejected && !x.IsDeleted);
+                    return new FindSpecification<Order>(x => x.WorkflowStepId != OrderState.Rejected && !x.IsDeleted);
                 }
 
                 public static FindSpecification<Order> NotInArchive()
                 {
-                    return new FindSpecification<Order>(x => x.WorkflowStepId != (int)OrderState.Archive);
+                    return new FindSpecification<Order>(x => x.WorkflowStepId != OrderState.Archive);
                 }
 
                 public static FindSpecification<Order> HasLegalPerson()
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
 
                 public static FindSpecification<Order> WithStatuses(params OrderState[] statuses)
                 {
-                    return new FindSpecification<Order>(o => statuses.Cast<int>().Contains(o.WorkflowStepId));
+                    return new FindSpecification<Order>(o => statuses.Contains(o.WorkflowStepId));
                 }
 
                 public static FindSpecification<Order> ForRelease(long destinationOrganizationUnitId, TimePeriod period)
@@ -103,14 +103,14 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                 {
                     return new FindSpecification<Order>(x => !x.IsDeleted && x.IsActive &&
                                                              x.FirmId == firmId &&
-                                                             x.WorkflowStepId != (int)OrderState.Archive);
+                                                             x.WorkflowStepId != OrderState.Archive);
                 }
 
                 public static FindSpecification<Order> ActiveOrdersForClient(long clientId)
                 {
                     return new FindSpecification<Order>(x => !x.IsDeleted && x.IsActive &&
                                                              x.Firm.ClientId == clientId &&
-                                                             x.WorkflowStepId != (int)OrderState.Archive);
+                                                             x.WorkflowStepId != OrderState.Archive);
                 }
 
                 public static FindSpecification<Order> ForLegalPerson(long legalPersonId)
@@ -172,8 +172,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                         SignupDate = x.SignupDate,
                         ReleaseCountPlan = x.ReleaseCountPlan,
                         ReleaseCountFact = x.ReleaseCountFact,
-                        PreviousWorkflowStepId = (OrderState)x.WorkflowStepId,
-                        WorkflowStepId = (OrderState)x.WorkflowStepId,
+                        PreviousWorkflowStepId = x.WorkflowStepId,
+                        WorkflowStepId = x.WorkflowStepId,
                         PayablePlan = x.PayablePlan,
                         PayableFact = x.PayableFact,
                         PayablePrice = x.PayablePrice,
@@ -182,15 +182,15 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                         AmountWithdrawn = x.AmountWithdrawn,
                         DiscountSum = x.DiscountSum,
                         DiscountPercent = x.DiscountPercent,
-                        DiscountReasonEnum = (OrderDiscountReason)x.DiscountReasonEnum,
+                        DiscountReasonEnum = x.DiscountReasonEnum,
                         DiscountComment = x.DiscountComment,
                         DiscountPercentChecked = x.OrderPositions
                                                   .Where(y => !y.IsDeleted && y.IsActive)
                                                   .All(y => y.CalculateDiscountViaPercent),
                         Comment = x.Comment,
                         IsTerminated = x.IsTerminated,
-                        TerminationReason = (OrderTerminationReason)x.TerminationReason,
-                        OrderType = (OrderType)x.OrderType,
+                        TerminationReason = x.TerminationReason,
+                        OrderType = x.OrderType,
                         InspectorRef = new EntityReference { Id = x.InspectorCode, Name = null },
                         BargainRef = new EntityReference { Id = x.BargainId, Name = x.Bargain.Number },
                         Platform = x.Platform == null ? string.Empty : x.Platform.Name,
@@ -199,7 +199,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                         DocumentsComment = x.DocumentsComment,
                         AccountRef = new EntityReference { Id = x.AccountId, Name = null },
                         OwnerRef = new EntityReference { Id = x.OwnerCode, Name = null },
-                        PaymentMethod = (PaymentMethod)x.PaymentMethod,
+                        PaymentMethod = x.PaymentMethod,
                         IsActive = x.IsActive,
                         IsDeleted = x.IsDeleted,
                         CreatedByRef = new EntityReference { Id = x.CreatedBy, Name = null },

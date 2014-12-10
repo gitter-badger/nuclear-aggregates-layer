@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Advertisement;
 
+using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderValidationRuleGroup;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Advertisements
 {
     public sealed class SelectAdvertisementToWhiteListHandler : RequestHandler<SelectAdvertisementToWhiteListRequest, EmptyResponse>
@@ -52,8 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Advertisements
                                                                                                 ChangedAspects =
                                                                                                     new[]
                                                                                                         {
-                                                                                                            OrderValidationRuleGroup
-                                                                                                                .AdvertisementMaterialsValidation
+                                                                                                            OrderValidationRuleGroup.AdvertisementMaterialsValidation
                                                                                                         }
                                                                                             }));
 

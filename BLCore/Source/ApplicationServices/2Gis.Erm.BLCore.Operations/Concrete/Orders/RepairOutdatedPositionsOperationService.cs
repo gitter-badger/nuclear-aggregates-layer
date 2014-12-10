@@ -107,15 +107,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         private static bool AmountSpecificationModeChangedToFixedValue(PricePosition outdatedPricePosition, PricePosition actualPricePosition)
         {
-            var outdatedAmountMode = (PricePositionAmountSpecificationMode)outdatedPricePosition.AmountSpecificationMode;
-            var actualAmountMode = (PricePositionAmountSpecificationMode)actualPricePosition.AmountSpecificationMode;
+            var outdatedAmountMode = outdatedPricePosition.AmountSpecificationMode;
+            var actualAmountMode = actualPricePosition.AmountSpecificationMode;
             return outdatedAmountMode != PricePositionAmountSpecificationMode.FixedValue &&
                    actualAmountMode == PricePositionAmountSpecificationMode.FixedValue;
         }
 
         private static int GetPositionAmount(OrderPosition orderPosition, PricePosition pricePosition, int adverisementCount)
         {
-            var actualAmountSpecificationMode = (PricePositionAmountSpecificationMode)pricePosition.AmountSpecificationMode;
+            var actualAmountSpecificationMode = pricePosition.AmountSpecificationMode;
             switch (actualAmountSpecificationMode)
             {
                 case PricePositionAmountSpecificationMode.FixedValue:

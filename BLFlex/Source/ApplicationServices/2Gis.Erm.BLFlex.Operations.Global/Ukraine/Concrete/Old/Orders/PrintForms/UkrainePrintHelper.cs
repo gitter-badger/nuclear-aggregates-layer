@@ -73,24 +73,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         public static PrintData LegalPersonProfileFields(LegalPersonProfile profile)
         {
             return new PrintData
-                       {
-                           { "ChiefNameInGenitive", profile.ChiefNameInGenitive },
-                           { "ChiefNameInNominative", profile.ChiefNameInNominative },
-                           { "PositionInGenitive", profile.PositionInGenitive },
-                           { "PositionInNominative", profile.PositionInNominative },
-                           { "EmailForAccountingDocuments", profile.EmailForAccountingDocuments },
-                           { "Phone", profile.Phone },
-                           { "BankName", profile.BankName },
-                           { "AccountNumber", profile.AccountNumber },
+                {
+                    { "ChiefNameInGenitive", profile.ChiefNameInGenitive },
+                    { "ChiefNameInNominative", profile.ChiefNameInNominative },
+                    { "PositionInGenitive", profile.PositionInGenitive },
+                    { "PositionInNominative", profile.PositionInNominative },
+                    { "EmailForAccountingDocuments", profile.EmailForAccountingDocuments },
+                    { "Phone", profile.Phone },
+                    { "BankName", profile.BankName },
+                    { "AccountNumber", profile.AccountNumber },
                            {
                                "PaymentMethod",
-                               profile.PaymentMethod != 0
-                                   ? ((PaymentMethod)profile.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
+                               profile.PaymentMethod != PaymentMethod.Undefined
+                                   ? profile.PaymentMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
                                    : string.Empty
                            },
-                           { "AdditionalPaymentElements", profile.AdditionalPaymentElements },
-                           { "Mfo", profile.Within<UkraineLegalPersonProfilePart>().GetPropertyValue(part => part.Mfo) },
-                       };
+                    { "AdditionalPaymentElements", profile.AdditionalPaymentElements },
+                    { "Mfo", profile.Within<UkraineLegalPersonProfilePart>().GetPropertyValue(part => part.Mfo) },
+                };
         }
 
         public string GetOperatesOnTheBasisInGenitive(LegalPersonProfile profile)
@@ -100,32 +100,28 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                 return string.Empty;
             }
 
-            switch ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive)
+            switch (profile.OperatesOnTheBasisInGenitive)
             {
                 case OperatesOnTheBasisType.Charter:
                     return string.Format(
                         BLResources.OperatesOnBasisOfCharterTemplate,
-                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
-                    break;
+                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                 case OperatesOnTheBasisType.Certificate:
                     return string.Format(
                         BLResources.OperatesOnBasisOfCertificateTemplate,
-                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                         profile.CertificateNumber,
                         _shortDateFormatter.Format(profile.CertificateDate.Value));
-                    break;
                 case OperatesOnTheBasisType.Warranty:
                     return string.Format(
                         BLResources.OperatesOnBasisOfWarantyTemplate,
-                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                         profile.WarrantyNumber,
                         _shortDateFormatter.Format(profile.WarrantyBeginDate.Value));
-                    break;
                 case OperatesOnTheBasisType.FoundingBargain:
                     return string.Format(
                         BLResources.OperatesOnBasisOfFoundingBargainTemplate,
-                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
-                    break;
+                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                 default:
                     return string.Empty;
             }

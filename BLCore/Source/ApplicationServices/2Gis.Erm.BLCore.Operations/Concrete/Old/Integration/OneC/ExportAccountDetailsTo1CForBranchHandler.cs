@@ -129,7 +129,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          OrderHasPositionsWithPlannedProvision =
                                                 x.Lock.Order.OrderPositions.Any(op => op.IsActive
                                                     && !op.IsDeleted
-                                                    && op.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision),
+                                                    && op.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision),
 
                                          BargainTypeSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.BranchOffice.BargainType.SyncCode1C,
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
@@ -227,7 +227,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                 .Where(x => x.BranchOfficeOrganizationUnit.BranchOffice.Inn == destBranchOffice.Inn &&
                                                             x.BranchOfficeOrganizationUnit.Kpp == destBranchOfficeOrgUnit.Kpp &&
                                                             x.BranchOfficeOrganizationUnit.OrganizationUnitId == order.DestOrganizationUnitId)
-                                                .Where(x => (x.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.Businessman)
+                                                .Where(x => (x.LegalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman)
                                                         ? x.LegalPerson.Inn == executingBranchOfficeInn && x.LegalPerson.Kpp == null
                                                         : x.LegalPerson.Inn == executingBranchOfficeInn && x.LegalPerson.Kpp == executingBranchOfficeKpp)
                                                 .Select(x => x.LegalPesonSyncCode1C)
@@ -543,14 +543,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             private static string GetLegalPersonInnOrPassportSeries(LegalPerson legalPerson)
             {
-                return legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson
+                return legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson
                            ? legalPerson.PassportSeries
                            : legalPerson.Inn;
             }
 
             private static string GetLegalPersonKppOrPassportNumber(LegalPerson legalPerson)
             {
-                return legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson
+                return legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson
                            ? legalPerson.PassportNumber
                            : legalPerson.Kpp;
             }

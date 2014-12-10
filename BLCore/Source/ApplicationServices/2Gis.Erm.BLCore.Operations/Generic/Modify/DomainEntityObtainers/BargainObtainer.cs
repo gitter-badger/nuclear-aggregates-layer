@@ -33,9 +33,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             entity.Comment = dto.Comment;
             entity.SignedOn = dto.SignedOn;
             entity.ClosedOn = dto.ClosedOn;
-            entity.BargainKind = (int)dto.BargainKind;
+            entity.BargainKind = dto.BargainKind;
             entity.BargainEndDate = dto.BargainEndDate;
-            entity.HasDocumentsDebt = (byte)dto.HasDocumentsDebt;
+            entity.HasDocumentsDebt = dto.HasDocumentsDebt;
             entity.DocumentsComment = dto.DocumentsComment;
             entity.CustomerLegalPersonId = dto.CustomerLegalPersonRef.Id.Value;
             entity.ExecutorBranchOfficeId = dto.ExecutorBranchOfficeRef.Id.Value;

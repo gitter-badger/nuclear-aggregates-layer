@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Clients
                         MainFirmId = firm.Id,
                         Name = firm.Name,
                         TerritoryId = firm.TerritoryId,
-                        InformationSource = (int)InformationSource.SalesDepartment,
+                        InformationSource = InformationSource.SalesDepartment,
                         OwnerCode = ownerCode,
                         LastQualifyTime = firm.LastQualifyTime.Value,
                         IsActive = true,

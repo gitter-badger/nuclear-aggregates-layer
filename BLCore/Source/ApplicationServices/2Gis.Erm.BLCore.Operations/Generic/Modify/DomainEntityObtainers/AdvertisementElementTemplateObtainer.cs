@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             }
 
             entity.Name = dto.Name;
-            entity.RestrictionType = (int)dto.RestrictionType;
+            entity.RestrictionType = dto.RestrictionType;
             entity.FileNameLengthRestriction = dto.FileNameLengthRestriction;
             entity.FileSizeRestriction = dto.FileSizeRestriction;
             entity.ImageDimensionRestriction = dto.ImageDimensionRestriction;

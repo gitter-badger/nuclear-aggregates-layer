@@ -232,9 +232,6 @@ window.InitPage = function () {
                 PrintTerminationNotice: function () {
                     this.Print('PrintTerminationNotice');
                 },
-                PrintRegionalTerminationNotice: function () {
-                    this.Print('PrintRegionalTerminationNotice');
-                },
                 PrintAdditionalAgreement: function () {
                     this.Print('PrintAdditionalAgreement');
                 },
