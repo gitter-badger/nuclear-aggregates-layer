@@ -28,6 +28,7 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         // components
         this.store = Ext.get(this.storeId);
         this.editor = Ext.get(this.editorId);
+        this.editor.dom.title = this.userTimeZone;
         this.button = Ext.get(this.buttonId);
         this.menu = this.mode.display == 'month'
             ? new Ext.ux.MonthMenu({
