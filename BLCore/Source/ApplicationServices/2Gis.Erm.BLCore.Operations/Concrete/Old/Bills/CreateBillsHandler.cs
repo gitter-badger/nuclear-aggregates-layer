@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
@@ -54,13 +53,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 
             // do not insert calculations in LINQ, this cannot keep high precision
             var orderVatRatio = (orderInfo.PayablePlan != 0m) ? orderInfo.VatPlan / (orderInfo.PayablePlan - orderInfo.VatPlan) : 0m;
-
-            // simple validation
-            var createBillsPayablePlan = request.CreateBillInfos.OrderBy(x => x.PayablePlan).Sum(x => x.PayablePlan);
-            if (createBillsPayablePlan != orderInfo.PayablePlan)
-            {
-                throw new NotificationException(BLResources.BillsPayableSumNotEqualsToOrderPayable);
-            }
 
             var billsToCreate = new List<Bill>();
 
@@ -146,19 +138,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 
         private static Bill CreateBill(CreateBillInfo createBillInfo, CreateBillsRequest request, Order order)
         {
-            // simple validations
-            if (createBillInfo.PaymentDatePlan > createBillInfo.BeginDistributionDate)
-            {
-                throw new NotificationException(
-                    string.Format(BLResources.PaymentDatePlanMustBeLessThanBeginDistributionDateForPayment, createBillInfo.PaymentNumber));
-            }
-
-            if (createBillInfo.BeginDistributionDate > createBillInfo.EndDistributionDate)
-            {
-                throw new NotificationException(
-                    string.Format(BLResources.BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPayment, createBillInfo.PaymentNumber));
-            }
-
             return new Bill
             {
                 OrderId = request.OrderId,

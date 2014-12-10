@@ -48,6 +48,15 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
 
         public bool Validate(IEnumerable<Bill> bills, Order order, out string report)
         {
+            // simple validation
+            var createBillsPayablePlan = bills.OrderBy(x => x.PayablePlan).Sum(x => x.PayablePlan);
+            if (createBillsPayablePlan != order.PayablePlan)
+            {
+                report = BLCore.Resources.Server.Properties.BLResources.BillsPayableSumNotEqualsToOrderPayable;
+                return false;
+            }
+
+            // numbers validation
             report = null;
             var billNumbers = bills.Select(x => x.BillNumber).ToArray();
             var billIds = bills.Where(x => !x.IsNew()).Select(x => x.Id).ToArray();
@@ -62,8 +71,21 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
                 return false;
             }
 
+            // dates validation
             foreach (var bill in bills)
             {
+                if (bill.PaymentDatePlan > bill.BeginDistributionDate)
+                {
+                    report = string.Format(BLCore.Resources.Server.Properties.BLResources.PaymentDatePlanMustBeLessThanBeginDistributionDateForPayment, bill.BillNumber);
+                    return false;
+                }
+
+                if (bill.BeginDistributionDate > bill.EndDistributionDate)
+                {
+                    report = string.Format(BLCore.Resources.Server.Properties.BLResources.BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPayment, bill.BillNumber);
+                    return false;
+                }
+
                 var endOfPaymentDatePlan = bill.PaymentDatePlan.GetEndOfTheDay();
                 var endOfCheckPeriod = bill.BeginDistributionDate.GetPrevMonthLastDate();
                 if (order.SignupDate > bill.PaymentDatePlan && endOfPaymentDatePlan <= endOfCheckPeriod)

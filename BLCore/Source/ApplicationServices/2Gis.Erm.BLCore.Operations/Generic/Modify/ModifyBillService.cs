@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
+﻿using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
@@ -37,9 +39,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         {
             var bill = _billObtainer.ObtainBusinessModelEntity(domainEntityDto);
             var order = _orderReadModel.GetOrderSecure(bill.OrderId);
+            var otherBills = _orderReadModel.GetBillsForOrder(bill.OrderId).Where(x => x.Id != bill.Id);
+            var orderBills = otherBills.Concat(new[] { bill }).ToArray();
 
             string report;
-            if (!_validateBillsService.PreValidate(new[] { bill }, out report) || !_validateBillsService.Validate(new[] { bill }, order, out report))
+            if (!_validateBillsService.PreValidate(orderBills, out report) || !_validateBillsService.Validate(orderBills, order, out report))
             {
                 throw new NotificationException(report);
             }
