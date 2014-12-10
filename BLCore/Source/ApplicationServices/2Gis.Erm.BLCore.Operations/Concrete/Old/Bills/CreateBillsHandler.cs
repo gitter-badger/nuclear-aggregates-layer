@@ -64,51 +64,51 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 
             var billsToCreate = new List<Bill>();
 
-                if (request.CreateBillInfos.Length == 1)
-                {
+            if (request.CreateBillInfos.Length == 1)
+            {
                 var createBillInfo = request.CreateBillInfos[0];
                 var bill = CreateBill(createBillInfo, request, orderInfo);
 
-                    bill.BillDate = orderInfo.CreatedOn;
-                    // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
+                bill.BillDate = orderInfo.CreatedOn;
+                // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
                 bill.BillNumber = _evaluateBillNumberService.Evaluate(createBillInfo.BillNumber, orderInfo.Number);
 
-                    bill.PayablePlan = orderInfo.PayablePlan;
-                    bill.VatPlan = orderInfo.VatPlan;
+                bill.PayablePlan = orderInfo.PayablePlan;
+                bill.VatPlan = orderInfo.VatPlan;
 
                 billsToCreate.Add(bill);
-                }
-                else
+            }
+            else
+            {
+                var billsPayablePlanSum = 0m;
+                var billsVatPlanSum = 0m;
+
+                // create all bills except last with regular PayablePlan
+                for (var i = 0; i < request.CreateBillInfos.Length - 1; i++)
                 {
-                    var billsPayablePlanSum = 0m;
-                    var billsVatPlanSum = 0m;
+                    var createBillInfo = request.CreateBillInfos[i];
+                    var bill = CreateBill(createBillInfo, request, orderInfo);
 
-                    // create all bills except last with regular PayablePlan
-                    for (var i = 0; i < request.CreateBillInfos.Length - 1; i++)
-                    {
-                        var createBillInfo = request.CreateBillInfos[i];
-                        var bill = CreateBill(createBillInfo, request, orderInfo);
-
-                        bill.BillDate = orderInfo.CreatedOn;
-                        // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
+                    bill.BillDate = orderInfo.CreatedOn;
+                    // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
                     bill.BillNumber = _evaluateBillNumberService.Evaluate(createBillInfo.BillNumber, orderInfo.Number, i + 1);
 
                     bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-                        billsPayablePlanSum += bill.PayablePlan;
+                    billsPayablePlanSum += bill.PayablePlan;
 
-                        var payablePlanWithoutVat = createBillInfo.PayablePlan / (1 + orderVatRatio);
+                    var payablePlanWithoutVat = createBillInfo.PayablePlan / (1 + orderVatRatio);
                     bill.VatPlan = Math.Round(createBillInfo.PayablePlan - payablePlanWithoutVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-                        billsVatPlanSum += bill.VatPlan;
+                    billsVatPlanSum += bill.VatPlan;
 
                     billsToCreate.Add(bill);
-                    }
+                }
 
-                    // correct PayablePlan for last bill
-                    var lastCreateBillInfo = request.CreateBillInfos[request.CreateBillInfos.Length - 1];
-                    var lastBill = CreateBill(lastCreateBillInfo, request, orderInfo);
+                // correct PayablePlan for last bill
+                var lastCreateBillInfo = request.CreateBillInfos[request.CreateBillInfos.Length - 1];
+                var lastBill = CreateBill(lastCreateBillInfo, request, orderInfo);
 
-                    lastBill.BillDate = orderInfo.CreatedOn;
-                    // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
+                lastBill.BillDate = orderInfo.CreatedOn;
+                // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
                 lastBill.BillNumber = _evaluateBillNumberService.Evaluate(lastCreateBillInfo.BillNumber, orderInfo.Number, request.CreateBillInfos.Length);
 
                 lastBill.PayablePlan = Math.Round(orderInfo.PayablePlan - billsPayablePlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
@@ -131,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 _subRequestProcessor.HandleSubRequest(new DeleteBillsRequest { OrderId = request.OrderId }, Context);
 
                 string report;
-                if (!_validateBillsService.Validate(billsToCreate, out report))
+                if (!_validateBillsService.Validate(billsToCreate, orderInfo, out report))
                 {
                     throw new NotificationException(report);
                 }

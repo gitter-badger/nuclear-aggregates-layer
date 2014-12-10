@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -17,24 +18,28 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         private readonly IValidateBillsService _validateBillsService;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IBusinessModelEntityObtainer<Bill> _billObtainer;
+        private readonly IOrderReadModel _orderReadModel;
 
         public ModifyBillService(IUpdateBillAggregateService updateService,
                                  IValidateBillsService validateBillsService,
                                  IOperationScopeFactory operationScopeFactory,
-                                 IBusinessModelEntityObtainer<Bill> billObtainer)
+                                 IBusinessModelEntityObtainer<Bill> billObtainer,
+                                 IOrderReadModel orderReadModel)
         {
             _updateService = updateService;
             _validateBillsService = validateBillsService;
             _operationScopeFactory = operationScopeFactory;
             _billObtainer = billObtainer;
+            _orderReadModel = orderReadModel;
         }
 
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var bill = _billObtainer.ObtainBusinessModelEntity(domainEntityDto);
+            var order = _orderReadModel.GetOrderSecure(bill.OrderId);
 
             string report;
-            if (!_validateBillsService.PreValidate(new[] { bill }, out report) || !_validateBillsService.Validate(new[] { bill }, out report))
+            if (!_validateBillsService.PreValidate(new[] { bill }, out report) || !_validateBillsService.Validate(new[] { bill }, order, out report))
             {
                 throw new NotificationException(report);
             }
