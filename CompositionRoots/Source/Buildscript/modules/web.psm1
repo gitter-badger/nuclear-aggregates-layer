@@ -9,29 +9,14 @@ Import-Module .\modules\versioning.psm1 -DisableNameChecking
 
 function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatform = 'x64'){
 
-	$projectDir = Split-Path $ProjectFileName
-
-	$configFileName1 = Join-Path $projectDir 'log4net.config'
-	$content1 = Transform-Config $configFileName1
-	Backup-Config $configFileName1 $content1
-	$configFileName2 = Join-Path $projectDir 'web.config'
-	$content2 = Transform-Config $configFileName2
-	Backup-Config $configFileName2 $content2
-	try {
-		$customXmls = @(Get-VersionFileXml)
-		
-		$packageLocation = "Packages\$($global:Context.EnvironmentName)\Package.zip"
-		
-		Invoke-MSBuild $ProjectFileName -Targets 'Package' -Properties @{
-			'PackageLocation' = $packageLocation
-			'DeployIisAppPath' = $EntryPointMetadata.IisAppPath
-			'GenerateSampleDeployScript' = $false
-		} -CustomXmls $customXmls -MsBuildPlatform $MsBuildPlatform
-	}
-	finally {
-		Restore-Config $configFileName1
-		Restore-Config $configFileName2
-	}
+	$customXmls = @((Get-ConfigsXml $ProjectFileName), (Get-VersionFileXml))
+	$packageLocation = "Packages\$($global:Context.EnvironmentName)\Package.zip"
+	
+	Invoke-MSBuild $ProjectFileName -Targets 'Package' -Properties @{
+		'PackageLocation' = $packageLocation
+		'DeployIisAppPath' = $EntryPointMetadata.IisAppPath
+		'GenerateSampleDeployScript' = $false
+	} -CustomXmls $customXmls -MsBuildPlatform $MsBuildPlatform
 	
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) $packageLocation
 	$artifactFileName = Join-Path $global:Context.Dir.Temp ([System.IO.Path]::GetFileNameWithoutExtension($ProjectFileName) + '.zip')
@@ -100,6 +85,47 @@ function Create-RemoteWebsite($TargetHost, $WebsiteName){
 	}
 }
 
+function Get-ConfigsXml ($ProjectFileName){
+	$projectDir = Split-Path $ProjectFileName
+	
+	$configFileName1 = Join-Path $projectDir 'log4net.config'
+	$transformedContent1 = Transform-Config $configFileName1
+	$transfromedConfigFileName1 = Join-Path $projectDir 'log4net.transformed.config'
+	Set-Content $transfromedConfigFileName1 $transformedContent1 -Encoding UTF8
+
+	$configFileName2 = Join-Path $projectDir 'web.config'
+	$transformedContent2 = Transform-Config $configFileName2
+	$transfromedConfigFileName2 = Join-Path $projectDir 'web.transformed.config'
+	Set-Content $transfromedConfigFileName2 $transformedContent2 -Encoding UTF8
+	
+	[xml]$xml = @'
+<Project>
+  <!-- Подсовываем наши конфиги -->
+  <PropertyGroup>
+    <BuildDependsOn>
+      ErmWebProjectConfigs;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+  <Target Name="ErmWebProjectConfigs">
+    <ItemGroup Condition="Exists('log4net.config')">
+      <Content Remove="log4net.config" />
+      <Content Include="log4net.transformed.config">
+        <Link>log4net.config</Link>
+      </Content>
+    </ItemGroup>
+    <ItemGroup Condition="Exists('web.config')">
+      <Content Remove="web.config" />
+      <Content Include="web.transformed.config">
+        <Link>web.config</Link>
+      </Content>
+    </ItemGroup>
+  </Target>
+</Project>
+'@
+	return $xml
+}
+
 function Get-VersionFileXml {
 
 	$versionFileName = Get-VersionFileName
@@ -107,6 +133,7 @@ function Get-VersionFileXml {
 
 	[xml]$xml = @"
 <Project>
+	<!-- Добавляем файл с версией -->
     <ItemGroup>
       <Content Include="$versionFileName">
         <Link>$([System.IO.Path]::GetFileName($versionFileName))</Link>
@@ -128,7 +155,9 @@ function Get-VersionFileName {
 	$fileName = '.version_' + $version.SemanticVersion
 	$filePath = Join-Path $global:Context.Dir.Temp $fileName
 	
-	Set-Content -Path $filePath -Value $version.SemanticVersion -Encoding UTF8
+	if (!(Test-Path $filePath)){
+		Set-Content -Path $filePath -Value $version.SemanticVersion -Encoding UTF8
+	}
 	
 	return $filePath
 }
@@ -138,7 +167,9 @@ function Get-BranchFileName {
 	$fileName = '.branch_' + $branch
 	$filePath = Join-Path $global:Context.Dir.Temp $fileName
 	
-	Set-Content -Path $filePath -Value $branch -Encoding UTF8
+	if (!(Test-Path $filePath)){
+		Set-Content -Path $filePath -Value $branch -Encoding UTF8
+	}
 	
 	return $filePath
 }
