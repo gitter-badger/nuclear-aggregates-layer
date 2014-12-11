@@ -23,15 +23,13 @@ function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatfor
 		
 		$packageLocation = "DeployPackages\$($global:Context.EnvironmentName)\Package.zip"
 		
-		Invoke-MSBuild -MsBuildPlatform $MsBuildPlatform -Arguments @(
-		"""$ProjectFileName"""
-		"/t:WebPackagePublish"
-		"/p:PackageLocation=$packageLocation"
-		"/p:DeployIisAppPath=$($EntryPointMetadata.IisAppPath)"
-		"/p:GenerateSampleDeployScript=False"
-		"/p:VersionFilePath=""$versionFileName"""
-		"/p:BranchFilePath=""$branchFileName"""
-		)
+		Invoke-MSBuild $ProjectFileName -Targets 'Package' -Properties @{
+			'PackageLocation' = $packageLocation
+			'DeployIisAppPath' = $EntryPointMetadata.IisAppPath
+			'GenerateSampleDeployScript' = $false
+			'VersionFilePath' = $versionFileName
+			'BranchFilePath' = $branchFileName
+		} -MsBuildPlatform $MsBuildPlatform
 	}
 	finally {
 		Restore-Config $configFileName1

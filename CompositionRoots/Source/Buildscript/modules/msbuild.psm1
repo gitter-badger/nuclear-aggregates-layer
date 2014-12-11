@@ -4,30 +4,37 @@ $ErrorActionPreference = 'Stop'
 
 Import-Module .\modules\versioning.psm1 -DisableNameChecking
 
-$MSBuildVersion = '12.0'
-$VisualStudioVersion = '12.0'
-$Configuration = 'Release'
+$CommonProperties = @{
+	'Configuration' = 'Release'
+	'VisualStudioVersion' = '12.0'
+}
 
+$MSBuildVersion = '12.0'
 $MSBuildDir = "${Env:ProgramFiles(x86)}\MSBuild\$MSBuildVersion\Bin"
 $MsBuildPath_x86 = Join-Path $MSBuildDir 'MSBuild.exe'
 $MsBuildPath_x64 = Join-Path $MSBuildDir 'amd64\MSBuild.exe'
 
-function Invoke-MSBuild ([string[]]$Arguments, $MsBuildPlatform = 'x64'){
+function Invoke-MSBuild ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, $MsBuildPlatform = 'x64'){
 
-		$allArguments = @(
-		"/nologo"
-		"/m"
-		'/consoleloggerparameters:ErrorsOnly'
-		"/p:Configuration=$Configuration"
-		"/p:VisualStudioVersion=$VisualStudioVersion"
-		) + $Arguments
+		$allProperties = $CommonProperties
+		if ($Properties -ne $null){
+			$allProperties += $Properties
+		}
+
+		$buildProjectFileName = Get-BuildProjectFileName $ProjectFileName $Targets $allProperties
+
+		$arguments = @(
+			$buildProjectFileName
+			'/nologo'
+			'/consoleloggerparameters:ErrorsOnly'
+		)
 
 		switch ($MsBuildPlatform){
 			'x86' {
-				& $MsBuildPath_x86 $allArguments
+				& $MsBuildPath_x86 $arguments
 			}
 			'x64' {
-				& $MsBuildPath_x64 $allArguments
+				& $MsBuildPath_x64 $arguments
 			}
 			default {
 				throw "MSBuild platform (x86, x64) is not defined"
@@ -39,32 +46,38 @@ function Invoke-MSBuild ([string[]]$Arguments, $MsBuildPlatform = 'x64'){
 		}
 }
 
-# Invoke-MSBuild -ProjectFileName -Target -Properties
-function Create-BuildProj ($ProjectFileName, $Targets = $null, $Properties = $null){
+function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null){
 
 	if ($Targets -eq $null -and $Properties -eq $null){
 		return $ProjectFileName
 	}
 
-	$content = [xml]@"
-<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
-"@
-	$root = $content.DocumentElement
+	$xmlDocument = New-Object System.Xml.XmlDocument
+	$root = $xmlDocument.CreateElement('Project')
+	$root.SetAttribute('xmlns', 'http://schemas.microsoft.com/developer/msbuild/2003')
+	[void]$xmlDocument.AppendChild($root)
 
 	if ($Targets -ne $null){
-		$root.SetAttribute('DefaultTargets', )
-		$TargetsXml = '="{0}"' -f [string]::Join
+		$root.SetAttribute('DefaultTargets', [string]::Join(';', $Targets))
+	}
+	
+	if ($Properties -ne $null){
+		$propertiesElement = $xmlDocument.CreateElement('PropertyGroup')
+		foreach($propertyKey in $Properties.Keys){
+			$propertyElement = $xmlDocument.CreateElement($propertyKey)
+			$propertyElement.InnerText = $Properties[$propertyKey]
+			[void]$propertiesElement.AppendChild($propertyElement)
+		}
+		[void]$root.AppendChild($propertiesElement)
 	}
 
-	$propertyGroup
-	foreach($Property in $Properties){
-		
-	}
+	$importElement = $xmlDocument.CreateElement('Import')
+	$importElement.SetAttribute('Project', $ProjectFileName)
+	[void]$root.AppendChild($importElement)
 
-	$buildProjFileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.buildproj')
-	Set-Content $buildProjFileName $content -Encoding UTF8
-	return $buildProjFileName
+	$fileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.buildproj')
+	$xmlDocument.Save($fileName)
+	return $fileName
 }
 
 function Get-ProjectFileName ($ProjectDir, $ProjectName, $Extension = '.csproj'){
