@@ -19,7 +19,7 @@ function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatfor
 	Backup-Config $configFileName2 $content2
 	try {
 		$customXml = Get-MSBuildCustomXml
-		$packageLocation = "DeployPackages\$($global:Context.EnvironmentName)\Package.zip"
+		$packageLocation = "Packages\$($global:Context.EnvironmentName)\Package.zip"
 		
 		Invoke-MSBuild $ProjectFileName -Targets 'Package' -Properties @{
 			'PackageLocation' = $packageLocation
