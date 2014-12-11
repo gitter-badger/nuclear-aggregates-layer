@@ -1390,7 +1390,7 @@
     <value>Отменено</value>
   </data>
   <data name="TaskTypeWarmClient" xml:space="preserve">
-    <value>Теплый клиент</value>
+    <value>Горячий клиент</value>
   </data>
   <data name="TaskTypeBossTask" xml:space="preserve">
     <value>Поручение</value>

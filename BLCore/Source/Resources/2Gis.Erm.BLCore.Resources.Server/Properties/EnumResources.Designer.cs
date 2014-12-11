@@ -5074,7 +5074,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Теплый клиент.
+        ///   Looks up a localized string similar to Горячий клиент.
         /// </summary>
         public static string TaskTypeWarmClient {
             get {
