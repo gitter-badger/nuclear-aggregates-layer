@@ -15,35 +15,36 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<AdvertisementTemplate>()
                         .MainAttribute<AdvertisementTemplate, IAdvertisementTemplateViewModel>(x => x.Name)
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<AdvertisementTemplate>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.SaveAndCloseAction<AdvertisementTemplate>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.RefreshAction<AccountDetail>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config
-                                                     .Name.Static("PublishAdvertisementTemplate")
-                                                     .Title.Resource(() => ErmConfigLocalization.ControlPublishAdvertisementTemplate)
-                                                     .ControlType(ControlType.TextImageButton)
-                                                     .LockOnInactive()
-                                                     .LockOnNew()
-                                                     .Handler.Name("scope.Publish")
-                                                     .Icon.Path("Refresh.gif"),
-                                    UiElementMetadata.Config
-                                                     .Name.Static("UnpublishAdvertisementTemplate")
-                                                     .Title.Resource(() => ErmConfigLocalization.ControlUnpublishAdvertisementTemplate)
-                                                     .ControlType(ControlType.TextImageButton)
-                                                     .LockOnNew()
-                                                     .Handler.Name("scope.Unpublish")
-                                                     .Icon.Path("Refresh.gif"),
-                                    UiElementMetadata.Config.CloseAction())
+                        .Attach(UiElementMetadata.Config.CreateAction<AdvertisementTemplate>(),
+                                UiElementMetadata.Config.UpdateAction<AdvertisementTemplate>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.SaveAndCloseAction<AdvertisementTemplate>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.RefreshAction<AccountDetail>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config
+                                                 .Name.Static("PublishAdvertisementTemplate")
+                                                 .Title.Resource(() => ErmConfigLocalization.ControlPublishAdvertisementTemplate)
+                                                 .ControlType(ControlType.TextImageButton)
+                                                 .LockOnInactive()
+                                                 .LockOnNew()
+                                                 .Handler.Name("scope.Publish")
+                                                 .Icon.Path("Refresh.gif"),
+                                UiElementMetadata.Config
+                                                 .Name.Static("UnpublishAdvertisementTemplate")
+                                                 .Title.Resource(() => ErmConfigLocalization.ControlUnpublishAdvertisementTemplate)
+                                                 .ControlType(ControlType.TextImageButton)
+                                                 .LockOnNew()
+                                                 .Handler.Name("scope.Unpublish")
+                                                 .Icon.Path("Refresh.gif"),
+                                UiElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(
-                                    UiElementMetadata.Config.ContentTab(),
-                                    UiElementMetadata.Config
-                                                     .Name.Static("Children")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
-                                                     .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.AdsTemplatesAdsElementTemplate)
-                                                     .FilterToParent());
+                                            UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
+                                                             .Name.Static("Children")
+                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
+                                                             .LockOnNew()
+                                                             .Handler.ShowGridByConvention(EntityName.AdsTemplatesAdsElementTemplate)
+                                                             .FilterToParent());
     }
 }

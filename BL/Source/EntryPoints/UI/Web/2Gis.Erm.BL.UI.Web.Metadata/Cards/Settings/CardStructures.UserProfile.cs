@@ -11,9 +11,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<UserProfile>()
                         .MainAttribute(x => x.Id)
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<UserProfile>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.SaveAndCloseAction<UserProfile>(),
-                                    UiElementMetadata.Config.CloseAction());
+                        .Attach(UiElementMetadata.Config.CreateAction<UserProfile>(),
+                                UiElementMetadata.Config.UpdateAction<UserProfile>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.SaveAndCloseAction<UserProfile>(),
+                                UiElementMetadata.Config.CloseAction());
     }
 }

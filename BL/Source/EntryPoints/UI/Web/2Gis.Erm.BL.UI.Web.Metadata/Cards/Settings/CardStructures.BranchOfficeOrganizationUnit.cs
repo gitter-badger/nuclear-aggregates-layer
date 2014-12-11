@@ -14,44 +14,44 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata BranchOfficeOrganizationUnit =
             CardMetadata.For<BranchOfficeOrganizationUnit>()
-                        .MainAttribute<BranchOfficeOrganizationUnit, IBranchOfficeOrganizationUnitViewModel>(x => x.ShortLegalName)                
+                        .MainAttribute<BranchOfficeOrganizationUnit, IBranchOfficeOrganizationUnitViewModel>(x => x.ShortLegalName)
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<BranchOfficeOrganizationUnit>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.SaveAndCloseAction<BranchOfficeOrganizationUnit>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.RefreshAction<BranchOfficeOrganizationUnit>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.AdditionalActions(
+                        .Attach(UiElementMetadata.Config.CreateAction<BranchOfficeOrganizationUnit>(),
+                                UiElementMetadata.Config.UpdateAction<BranchOfficeOrganizationUnit>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.SaveAndCloseAction<BranchOfficeOrganizationUnit>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.RefreshAction<BranchOfficeOrganizationUnit>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.AdditionalActions(
 
-                                                                               // COMMENT {all, 27.11.2014}: а как же безопасность?
-                                                                                UiElementMetadata.Config
-                                                                                                 .Name.Static("SetAsPrimary")
-                                                                                                 .Title.Resource(() => ErmConfigLocalization.ControlSetAsPrimary)
-                                                                                                 .ControlType(ControlType.TextButton)
-                                                                                                 .LockOnNew()
-                                                                                                 .LockOnInactive()
-                                                                                                 .Handler.Name("scope.SetAsPrimary")
-                                                                                                 .Operation.NonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryIdentity>(),
-                                                                                
-                                                                               // COMMENT {all, 27.11.2014}: а как же безопасность?
-                                                                                UiElementMetadata.Config
-                                                                                                 .Name.Static("SetAsPrimaryForRegSales")
-                                                                                                 .Title.Resource(() => ErmConfigLocalization.ControlSetAsPrimaryForRegSales)
-                                                                                                 .ControlType(ControlType.TextButton)
-                                                                                                 .LockOnInactive()
-                                                                                                 .LockOnNew()
-                                                                                                 .Handler.Name("scope.SetAsPrimaryForRegSales")
-                                                                                                 .Operation.NonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity>()),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(
-                                    UiElementMetadata.Config.ContentTab(),
-                                    UiElementMetadata.Config
-                                                     .Name.Static("PrintFormTemplates")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelPrintFormTemplates)
-                                                     .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.PrintFormTemplate)
-                                                     .FilterToParent());
+                                                                           // COMMENT {all, 27.11.2014}: а как же безопасность?
+                                                                           UiElementMetadata.Config
+                                                                                            .Name.Static("SetAsPrimary")
+                                                                                            .Title.Resource(() => ErmConfigLocalization.ControlSetAsPrimary)
+                                                                                            .ControlType(ControlType.TextButton)
+                                                                                            .LockOnNew()
+                                                                                            .LockOnInactive()
+                                                                                            .Handler.Name("scope.SetAsPrimary")
+                                                                                            .Operation.NonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryIdentity>(),
+
+                                                                           // COMMENT {all, 27.11.2014}: а как же безопасность?
+                                                                           UiElementMetadata.Config
+                                                                                            .Name.Static("SetAsPrimaryForRegSales")
+                                                                                            .Title.Resource(() => ErmConfigLocalization.ControlSetAsPrimaryForRegSales)
+                                                                                            .ControlType(ControlType.TextButton)
+                                                                                            .LockOnInactive()
+                                                                                            .LockOnNew()
+                                                                                            .Handler.Name("scope.SetAsPrimaryForRegSales")
+                                                                                            .Operation.NonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity>()),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.CloseAction())
+                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
+                                            UiElementMetadata.Config
+                                                             .Name.Static("PrintFormTemplates")
+                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelPrintFormTemplates)
+                                                             .LockOnNew()
+                                                             .Handler.ShowGridByConvention(EntityName.PrintFormTemplate)
+                                                             .FilterToParent());
     }
 }

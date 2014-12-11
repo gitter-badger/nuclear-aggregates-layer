@@ -17,7 +17,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Firm>()
                         .MainAttribute<Firm, IFirmViewModel>(x => x.Name)
                         .Actions
-                        .Attach(UiElementMetadata.Config.SaveAction<Firm>(),
+                        .Attach(UiElementMetadata.Config.CreateAction<Firm>(),
+                                UiElementMetadata.Config.UpdateAction<Firm>(),
                                 UiElementMetadata.Config.SplitterAction(),
                                 UiElementMetadata.Config.SaveAndCloseAction<Firm>(),
                                 UiElementMetadata.Config.SplitterAction(),

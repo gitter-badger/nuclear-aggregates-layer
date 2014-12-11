@@ -16,21 +16,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
     public static class UiElementMetadataBuilderExtensions
     {
-        [Obsolete("Использовать CreateAction и UpdateAction, когда благоприятные времена наступят")]
-        public static UiElementMetadataBuilder SaveAction<TEntity>(this UiElementMetadataBuilder builder)
-            where TEntity : class, IEntity
-        {
-            return builder.Name.Static("Save")
-                          .Title.Resource(() => ErmConfigLocalization.ControlSave)
-                          .ControlType(ControlType.ImageButton)
-                          .LockOnInactive()
-                          .Handler.Name("scope.Save")
-                          .Icon.Path("Save.gif")
-                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
-                          .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
-                          .Operation.SpecificFor<CreateIdentity, TEntity>()
-                          .Operation.SpecificFor<UpdateIdentity, TEntity>();
-        }
+        //[Obsolete("Использовать CreateAction и UpdateAction, когда благоприятные времена наступят")]
+        //public static UiElementMetadataBuilder SaveAction<TEntity>(this UiElementMetadataBuilder builder)
+        //    where TEntity : class, IEntity
+        //{
+        //    return builder.Name.Static("Save")
+        //                  .Title.Resource(() => ErmConfigLocalization.ControlSave)
+        //                  .ControlType(ControlType.ImageButton)
+        //                  .LockOnInactive()
+        //                  .Handler.Name("scope.Save")
+        //                  .Icon.Path("Save.gif")
+        //                  .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
+        //                  .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
+        //                  .Operation.SpecificFor<CreateIdentity, TEntity>()
+        //                  .Operation.SpecificFor<UpdateIdentity, TEntity>();
+        //}
 
         public static UiElementMetadataBuilder CreateAction<TEntity>(this UiElementMetadataBuilder builder)
             where TEntity : class, IEntity, IEntityKey

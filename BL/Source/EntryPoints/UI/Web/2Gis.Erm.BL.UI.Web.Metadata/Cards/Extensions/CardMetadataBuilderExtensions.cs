@@ -31,17 +31,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
         }
 
         public static CardMetadataBuilder<TEntity> ConfigCommonCardToolbar<TEntity>(this CardMetadataBuilder<TEntity> builder)
-             where TEntity : class, IEntityKey, IEntity
+            where TEntity : class, IEntityKey, IEntity
         {
             builder.Actions
-                   .Attach(UiElementMetadata.Config.SaveAction<TEntity>(),
+                   .Attach(UiElementMetadata.Config.CreateAction<TEntity>(),
+                           UiElementMetadata.Config.UpdateAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
                            UiElementMetadata.Config.SaveAndCloseAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
                            UiElementMetadata.Config.RefreshAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
                            UiElementMetadata.Config.CloseAction());
-           
+
             return builder;
         }
 
@@ -49,7 +50,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
              where TEntity : class, IEntityKey, IEntity
         {
             builder.Actions
-                   .Attach(UiElementMetadata.Config.SaveAction<TEntity>(),
+                   .Attach(UiElementMetadata.Config.CreateAction<TEntity>(),
+                           UiElementMetadata.Config.UpdateAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
                            UiElementMetadata.Config.SaveAndCloseAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),

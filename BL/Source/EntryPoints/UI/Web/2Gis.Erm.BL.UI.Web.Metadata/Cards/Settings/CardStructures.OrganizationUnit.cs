@@ -14,7 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata OrganizationUnit =
             CardMetadata.For<OrganizationUnit>()
                         .MainAttribute<OrganizationUnit, IOrganizationUnitViewModel>(x => x.Name)
-                        .Actions.Attach(UiElementMetadata.Config.SaveAction<OrganizationUnit>(),
+                        .Actions.Attach(UiElementMetadata.Config.CreateAction<OrganizationUnit>(),
+                                        UiElementMetadata.Config.UpdateAction<OrganizationUnit>(),
                                         UiElementMetadata.Config.SplitterAction(),
                                         UiElementMetadata.Config.SaveAndCloseAction<OrganizationUnit>(),
                                         UiElementMetadata.Config.SplitterAction(),

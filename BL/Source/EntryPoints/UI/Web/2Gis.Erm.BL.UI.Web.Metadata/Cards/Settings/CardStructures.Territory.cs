@@ -14,14 +14,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Territory>()
                         .MainAttribute<Territory, ITerritoryViewModel>(x => x.Name)
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<Territory>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.SaveAndCloseAction<Territory>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.RefreshAction<Territory>(),
-                                    UiElementMetadata.Config.ActivateAction<Territory>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.CloseAction())
+                        .Attach(UiElementMetadata.Config.CreateAction<Territory>(),
+                                UiElementMetadata.Config.UpdateAction<Territory>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.SaveAndCloseAction<Territory>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.RefreshAction<Territory>(),
+                                UiElementMetadata.Config.ActivateAction<Territory>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
                                             UiElementMetadata.Config
                                                              .Name.Static("Firm")

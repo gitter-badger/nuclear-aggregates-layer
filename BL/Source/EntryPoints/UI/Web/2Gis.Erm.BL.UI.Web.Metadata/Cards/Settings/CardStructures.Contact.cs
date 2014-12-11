@@ -14,25 +14,26 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Contact>()
                         .MainAttribute<Contact, IContactViewModel>(x => x.FullName)
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<Contact>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.SaveAndCloseAction<Contact>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.RefreshAction<Contact>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.AdditionalActions(
-                                                                                // COMMENT {all, 27.11.2014}: а почему не Assign?
-                                                                                UiElementMetadata.Config.ChangeOwnerAction<Contact>()),
-                                  UiElementMetadata.Config.SplitterAction(),
-                                  UiElementMetadata.Config.CloseAction())
-                            .ConfigRelatedItems(
-                                        UiElementMetadata.Config.ContentTab("en_ico_16_Contact.gif"),
-                                        UiElementMetadata.Config
-                                                         .Name.Static("Actions")
-                                                         .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                                         .Icon.Path("en_ico_16_Action.gif")
-                                                         .Handler.ShowGridByConvention(EntityName.Activity)
-                                                         .FilterToParents()
-                                                         .LockOnNew());
+                        .Attach(UiElementMetadata.Config.CreateAction<Contact>(),
+                                UiElementMetadata.Config.UpdateAction<Contact>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.SaveAndCloseAction<Contact>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.RefreshAction<Contact>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.AdditionalActions(
+                                                                           // COMMENT {all, 27.11.2014}: а почему не Assign?
+                                                                           UiElementMetadata.Config.ChangeOwnerAction<Contact>()),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.CloseAction())
+                        .ConfigRelatedItems(
+                                            UiElementMetadata.Config.ContentTab("en_ico_16_Contact.gif"),
+                                            UiElementMetadata.Config
+                                                             .Name.Static("Actions")
+                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
+                                                             .Icon.Path("en_ico_16_Action.gif")
+                                                             .Handler.ShowGridByConvention(EntityName.Activity)
+                                                             .FilterToParents()
+                                                             .LockOnNew());
     }
 }

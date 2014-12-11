@@ -13,20 +13,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<WithdrawalInfo>()
                         .MainAttribute(x => x.Id)
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<WithdrawalInfo>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.SaveAndCloseAction<WithdrawalInfo>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.RefreshAction<WithdrawalInfo>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.AdditionalActions(UiElementMetadata.Config
-                                                                                                .Name.Static("DownloadResults")
-                                                                                                .Title.Resource(() => ErmConfigLocalization.ControlDownloadResults)
-                                                                                                .LockOnNew()
-                                                                                                .LockOnInactive()
-                                                                                                .ControlType(ControlType.TextButton)
-                                                                                                .Handler.Name("scope.DownloadResults")),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.CloseAction());
+                        .Attach(UiElementMetadata.Config.CreateAction<WithdrawalInfo>(),
+                                UiElementMetadata.Config.UpdateAction<WithdrawalInfo>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.SaveAndCloseAction<WithdrawalInfo>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.RefreshAction<WithdrawalInfo>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.AdditionalActions(UiElementMetadata.Config
+                                                                                            .Name.Static("DownloadResults")
+                                                                                            .Title.Resource(() => ErmConfigLocalization.ControlDownloadResults)
+                                                                                            .LockOnNew()
+                                                                                            .LockOnInactive()
+                                                                                            .ControlType(ControlType.TextButton)
+                                                                                            .Handler.Name("scope.DownloadResults")),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.CloseAction());
     }
 }

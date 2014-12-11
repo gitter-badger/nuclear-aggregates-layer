@@ -17,39 +17,40 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Theme>()
                         .MainAttribute<Theme, IThemeViewModel>(x => x.Name)
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<Theme>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.SaveAndCloseAction<Theme>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.RefreshAction<Theme>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.AdditionalActions(UiElementMetadata.Config
-                                                                                                .Name.Static("SetDefaultTheme")
-                                                                                                .Title.Resource(() => ErmConfigLocalization.ControlSetDefaultTheme)
-                                                                                                .ControlType(ControlType.TextButton)
-                                                                                                .LockOnInactive()
-                                                                                                .LockOnNew()
-                                                                                                .Handler.Name("scope.SetDefaultTheme")
+                        .Attach(UiElementMetadata.Config.CreateAction<Theme>(),
+                                UiElementMetadata.Config.UpdateAction<Theme>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.SaveAndCloseAction<Theme>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.RefreshAction<Theme>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.AdditionalActions(UiElementMetadata.Config
+                                                                                            .Name.Static("SetDefaultTheme")
+                                                                                            .Title.Resource(() => ErmConfigLocalization.ControlSetDefaultTheme)
+                                                                                            .ControlType(ControlType.TextButton)
+                                                                                            .LockOnInactive()
+                                                                                            .LockOnNew()
+                                                                                            .Handler.Name("scope.SetDefaultTheme")
 
-                                                                                                // COMMENT {all, 01.12.2014}: А зачем права на создание? 
-                                                                                                .AccessWithPrivelege<Theme>(EntityAccessTypes.Create)
-                                                                                                .AccessWithPrivelege<Theme>(EntityAccessTypes.Update)
-                                                                                                .Operation.NonCoupled<SetAsDefaultThemeIdentity>(),
+                                                                               // COMMENT {all, 01.12.2014}: А зачем права на создание? 
+                                                                                            .AccessWithPrivelege<Theme>(EntityAccessTypes.Create)
+                                                                                            .AccessWithPrivelege<Theme>(EntityAccessTypes.Update)
+                                                                                            .Operation.NonCoupled<SetAsDefaultThemeIdentity>(),
 
-                                                                               UiElementMetadata.Config
-                                                                                                .Name.Static("UnSetDefaultTheme")
-                                                                                                .Title.Resource(() => ErmConfigLocalization.ControlUnSetDefaultTheme)
-                                                                                                .ControlType(ControlType.TextButton)
-                                                                                                .LockOnInactive()
-                                                                                                .LockOnNew()
-                                                                                                .Handler.Name("scope.UnSetDefaultTheme")
+                                                                           UiElementMetadata.Config
+                                                                                            .Name.Static("UnSetDefaultTheme")
+                                                                                            .Title.Resource(() => ErmConfigLocalization.ControlUnSetDefaultTheme)
+                                                                                            .ControlType(ControlType.TextButton)
+                                                                                            .LockOnInactive()
+                                                                                            .LockOnNew()
+                                                                                            .Handler.Name("scope.UnSetDefaultTheme")
 
-                                                                                                // COMMENT {all, 01.12.2014}: А зачем права на создание? 
-                                                                                                .AccessWithPrivelege<Theme>(EntityAccessTypes.Create)
-                                                                                                .AccessWithPrivelege<Theme>(EntityAccessTypes.Update)
-                                                                                                .Operation.NonCoupled<SetAsDefaultThemeIdentity>()),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.CloseAction())
+                                                                               // COMMENT {all, 01.12.2014}: А зачем права на создание? 
+                                                                                            .AccessWithPrivelege<Theme>(EntityAccessTypes.Create)
+                                                                                            .AccessWithPrivelege<Theme>(EntityAccessTypes.Update)
+                                                                                            .Operation.NonCoupled<SetAsDefaultThemeIdentity>()),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
                                             UiElementMetadata.Config
                                                              .Name.Static("ThemeOrganizationUnit")

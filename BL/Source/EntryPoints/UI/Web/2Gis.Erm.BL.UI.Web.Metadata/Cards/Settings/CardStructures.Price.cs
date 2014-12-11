@@ -25,53 +25,54 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .LockOnNew()
                                                              .FilterToParent())
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<Price>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.SaveAndCloseAction<Price>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.RefreshAction<Price>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config
-                                                     .Name.Static("PublishPrice")
-                                                     .Title.Resource(() => ErmConfigLocalization.ControlPublishPrice)
-                                                     .Icon.Path("Refresh.gif")
-                                                     .ControlType(ControlType.TextImageButton)
-                                                     .Handler.Name("scope.Publish")
-                                                     .LockOnInactive()
-                                                     .LockOnNew()
+                        .Attach(UiElementMetadata.Config.CreateAction<Price>(),
+                                UiElementMetadata.Config.UpdateAction<Price>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.SaveAndCloseAction<Price>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.RefreshAction<Price>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config
+                                                 .Name.Static("PublishPrice")
+                                                 .Title.Resource(() => ErmConfigLocalization.ControlPublishPrice)
+                                                 .Icon.Path("Refresh.gif")
+                                                 .ControlType(ControlType.TextImageButton)
+                                                 .Handler.Name("scope.Publish")
+                                                 .LockOnInactive()
+                                                 .LockOnNew()
 
-                                                     // COMMENT {all, 01.12.2014}: а зачем права на создание?
-                                                     .AccessWithPrivelege<Price>(EntityAccessTypes.Create)
-                                                     .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
-                                                     .Operation.NonCoupled<PublishPriceIdentity>(),
+                                    // COMMENT {all, 01.12.2014}: а зачем права на создание?
+                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Create)
+                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
+                                                 .Operation.NonCoupled<PublishPriceIdentity>(),
 
-                                    UiElementMetadata.Config
-                                                     .Name.Static("UnpublishPrice")
-                                                     .Title.Resource(() => ErmConfigLocalization.ControlUnpublishPrice)
-                                                     .Icon.Path("Refresh.gif")
-                                                     .ControlType(ControlType.TextImageButton)
-                                                     .Handler.Name("scope.Unpublish")
-                                                     .LockOnNew()
+                                UiElementMetadata.Config
+                                                 .Name.Static("UnpublishPrice")
+                                                 .Title.Resource(() => ErmConfigLocalization.ControlUnpublishPrice)
+                                                 .Icon.Path("Refresh.gif")
+                                                 .ControlType(ControlType.TextImageButton)
+                                                 .Handler.Name("scope.Unpublish")
+                                                 .LockOnNew()
 
-                                                     // COMMENT {all, 01.12.2014}: а зачем права на создание?
-                                                     .AccessWithPrivelege<Price>(EntityAccessTypes.Create)
-                                                     .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
-                                                     .Operation.NonCoupled<UnpublishPriceIdentity>(),
+                                    // COMMENT {all, 01.12.2014}: а зачем права на создание?
+                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Create)
+                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
+                                                 .Operation.NonCoupled<UnpublishPriceIdentity>(),
 
-                                    UiElementMetadata.Config
-                                                     .Name.Static("CopyPrice")
-                                                     .Title.Resource(() => ErmConfigLocalization.ControlCopyPrice)
-                                                     .Icon.Path("Refresh.gif")
-                                                     .ControlType(ControlType.TextImageButton)
-                                                     .Handler.Name("scope.Copy")
-                                                     .LockOnNew()
+                                UiElementMetadata.Config
+                                                 .Name.Static("CopyPrice")
+                                                 .Title.Resource(() => ErmConfigLocalization.ControlCopyPrice)
+                                                 .Icon.Path("Refresh.gif")
+                                                 .ControlType(ControlType.TextImageButton)
+                                                 .Handler.Name("scope.Copy")
+                                                 .LockOnNew()
 
-                                                     // COMMENT {all, 01.12.2014}: а зачем права на создание?
-                                                     .AccessWithPrivelege<Price>(EntityAccessTypes.Create)
-                                                     .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
-                                                     .Operation.NonCoupled<CopyPriceIdentity>(),
+                                    // COMMENT {all, 01.12.2014}: а зачем права на создание?
+                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Create)
+                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
+                                                 .Operation.NonCoupled<CopyPriceIdentity>(),
 
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.CloseAction());
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.CloseAction());
     }
 }

@@ -13,7 +13,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
         public static CardMetadataBuilder<Order> ConfigOrderToolbarWithSpecificPrintActions(this CardMetadataBuilder<Order> metadataBuilder, params UiElementMetadata[] printActions)
         {
             return metadataBuilder.Actions
-                                  .Attach(UiElementMetadata.Config.SaveAction<Order>(),
+                                  .Attach(UiElementMetadata.Config.CreateAction<Order>(),
+                                          UiElementMetadata.Config.UpdateAction<Order>(),
                                           UiElementMetadata.Config.SplitterAction(),
                                           UiElementMetadata.Config.SaveAndCloseAction<Order>(),
                                           UiElementMetadata.Config.SplitterAction(),
@@ -25,10 +26,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                           UiElementMetadata.Config.CloseAction());
         }
 
-        public static CardMetadataBuilder<Bargain> ConfigBargainToolbarWithSpecificPrintActions(this CardMetadataBuilder<Bargain> metadataBuilder, params UiElementMetadata[] printActions)
+        public static CardMetadataBuilder<Bargain> ConfigBargainToolbarWithSpecificPrintActions(this CardMetadataBuilder<Bargain> metadataBuilder,
+                                                                                                params UiElementMetadata[] printActions)
         {
             return metadataBuilder.Actions
-                                  .Attach(UiElementMetadata.Config.SaveAction<Bargain>(),
+                                  .Attach(UiElementMetadata.Config.CreateAction<Bargain>(),
+                                          UiElementMetadata.Config.UpdateAction<Bargain>(),
                                           UiElementMetadata.Config.SplitterAction(),
                                           UiElementMetadata.Config.SaveAndCloseAction<Bargain>(),
                                           UiElementMetadata.Config.SplitterAction(),
@@ -42,7 +45,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
         public static CardMetadataBuilder<LegalPerson> ConfigLegalPersonToolbarWithSpecificAdditionalActions(this CardMetadataBuilder<LegalPerson> metadataBuilder, params UiElementMetadata[] additionalActions)
         {
             return metadataBuilder.Actions
-                                  .Attach(UiElementMetadata.Config.SaveAction<LegalPerson>(),
+                                  .Attach(UiElementMetadata.Config.CreateAction<LegalPerson>(),
+                                          UiElementMetadata.Config.UpdateAction<LegalPerson>(),
                                           UiElementMetadata.Config.SplitterAction(),
                                           UiElementMetadata.Config.SaveAndCloseAction<LegalPerson>(),
                                           UiElementMetadata.Config.SplitterAction(),
@@ -55,7 +59,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
         public static CardMetadataBuilder<Bill> ConfigBillToolbarWithPrinting(this CardMetadataBuilder<Bill> metadataBuilder)
         {
             return metadataBuilder.Actions
-                                  .Attach(UiElementMetadata.Config.SaveAction<Bill>(),
+                                  .Attach(UiElementMetadata.Config.CreateAction<Bill>(),
+                                          UiElementMetadata.Config.UpdateAction<Bill>(),
                                           UiElementMetadata.Config.SplitterAction(),
                                           UiElementMetadata.Config.SaveAndCloseAction<Bill>(),
                                           UiElementMetadata.Config.SplitterAction(),

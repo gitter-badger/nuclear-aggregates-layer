@@ -16,20 +16,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<User>()
                         .MainAttribute<User, IUserViewModel>(x => x.DisplayName)
                         .Actions
-                            .Attach(UiElementMetadata.Config.SaveAction<User>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.SaveAndCloseAction<User>(),
-                                    UiElementMetadata.Config.SplitterAction(),
-                                    UiElementMetadata.Config.RefreshAction<User>(),
-                                    UiElementMetadata.Config.AdditionalActions(
-                                                                               // COMMENT {all, 01.12.2014}: а как же безопасность? 
-                                                                               UiElementMetadata.Config
-                                                                                                .Name.Static("ShowUserProfile")
-                                                                                                .Title.Resource(() => ErmConfigLocalization.EnUserProfile)
-                                                                                                .LockOnNew()
-                                                                                                .ControlType(ControlType.TextButton)
-                                                                                                .Handler.Name("scope.ProcessUserProfile")),
-                                    UiElementMetadata.Config.CloseAction())
+                        .Attach(UiElementMetadata.Config.CreateAction<User>(),
+                                UiElementMetadata.Config.UpdateAction<User>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.SaveAndCloseAction<User>(),
+                                UiElementMetadata.Config.SplitterAction(),
+                                UiElementMetadata.Config.RefreshAction<User>(),
+                                UiElementMetadata.Config.AdditionalActions(
+                                                                           // COMMENT {all, 01.12.2014}: а как же безопасность? 
+                                                                           UiElementMetadata.Config
+                                                                                            .Name.Static("ShowUserProfile")
+                                                                                            .Title.Resource(() => ErmConfigLocalization.EnUserProfile)
+                                                                                            .LockOnNew()
+                                                                                            .ControlType(ControlType.TextButton)
+                                                                                            .Handler.Name("scope.ProcessUserProfile")),
+                                UiElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_UserAccount.gif"),
                                             UiElementMetadata.Config
                                                              .Name.Static("UserRole")

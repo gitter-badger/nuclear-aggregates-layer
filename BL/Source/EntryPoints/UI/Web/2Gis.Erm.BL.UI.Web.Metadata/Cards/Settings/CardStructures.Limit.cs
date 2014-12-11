@@ -14,7 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Limit>()
                         .MainAttribute(x => x.Id)
                         .Actions
-                        .Attach(UiElementMetadata.Config.SaveAction<Limit>(),
+                        .Attach(UiElementMetadata.Config.CreateAction<Limit>(),
+                                UiElementMetadata.Config.UpdateAction<Limit>(),
                                 UiElementMetadata.Config.SplitterAction(),
                                 UiElementMetadata.Config.SaveAndCloseAction<Limit>(),
                                 UiElementMetadata.Config.SplitterAction(),

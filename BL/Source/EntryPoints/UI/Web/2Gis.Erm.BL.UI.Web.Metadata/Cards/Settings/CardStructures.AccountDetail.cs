@@ -10,7 +10,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata AccountDetail =
             CardMetadata.For<AccountDetail>()
                         .MainAttribute(x => x.Id)
-                        .Actions.Attach(UiElementMetadata.Config.SaveAction<AccountDetail>(),
+                        .Actions.Attach(UiElementMetadata.Config.CreateAction<AccountDetail>(),
+                                        UiElementMetadata.Config.UpdateAction<AccountDetail>(),
                                         UiElementMetadata.Config.SaveAndCloseAction<AccountDetail>(),
                                         UiElementMetadata.Config.RefreshAction<AccountDetail>(),
                                         UiElementMetadata.Config.CloseAction());

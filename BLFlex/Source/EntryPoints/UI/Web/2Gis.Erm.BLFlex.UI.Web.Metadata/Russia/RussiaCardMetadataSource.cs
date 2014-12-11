@@ -105,7 +105,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         #region Advertisement
                         CardMetadata.For<Advertisement>()
                                     .Actions
-                                    .Attach(UiElementMetadata.Config.SaveAction<Advertisement>(),
+                                    .Attach(UiElementMetadata.Config.CreateAction<Advertisement>(),
+                                            UiElementMetadata.Config.UpdateAction<Advertisement>(),
                                             UiElementMetadata.Config.SplitterAction(),
                                             UiElementMetadata.Config.SaveAndCloseAction<Advertisement>(),
                                             UiElementMetadata.Config.SplitterAction(),

@@ -18,7 +18,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<PricePosition>()
                         .MainAttribute<PricePosition, IPricePositionViewModel>(x => x.Position.Value)
                         .Actions
-                        .Attach(UiElementMetadata.Config.SaveAction<PricePosition>(),
+                        .Attach(UiElementMetadata.Config.CreateAction<PricePosition>(),
+                                UiElementMetadata.Config.UpdateAction<PricePosition>(),
                                 UiElementMetadata.Config.SplitterAction(),
                                 UiElementMetadata.Config.SaveAndCloseAction<PricePosition>(),
                                 UiElementMetadata.Config.SplitterAction(),
