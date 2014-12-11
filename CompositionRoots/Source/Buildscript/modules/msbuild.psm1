@@ -63,9 +63,9 @@ function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets 
 	
 	if ($Properties -ne $null){
 		$propertiesElement = $xmlDocument.CreateElement('PropertyGroup')
-		foreach($propertyKey in $Properties.Keys){
-			$propertyElement = $xmlDocument.CreateElement($propertyKey)
-			$propertyElement.InnerText = $Properties[$propertyKey]
+		foreach($property in $Properties.GetEnumerator()){
+			$propertyElement = $xmlDocument.CreateElement($property.Key)
+			$propertyElement.InnerText = $property.Value
 			[void]$propertiesElement.AppendChild($propertyElement)
 		}
 		[void]$root.AppendChild($propertiesElement)
