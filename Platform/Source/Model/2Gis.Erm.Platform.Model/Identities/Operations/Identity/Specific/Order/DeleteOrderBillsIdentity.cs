@@ -6,7 +6,7 @@
         {
             get
             {
-                return OperationIdentityIds.CalculateReleaseWithdrawalsIdentity;
+                return OperationIdentityIds.DeleteOrderBillsIdentity;
             }
         }
 
