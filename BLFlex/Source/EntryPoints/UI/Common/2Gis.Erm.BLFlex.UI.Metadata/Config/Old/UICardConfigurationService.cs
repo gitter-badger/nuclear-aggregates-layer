@@ -959,7 +959,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                         }
                                 },
                                 {
-                                    "PrintActions",
+                                    "PrintBillAction",
                                     new Dictionary<string, Tuple<object, object>>
                                         {
                                             {

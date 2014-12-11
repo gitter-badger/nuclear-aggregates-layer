@@ -310,8 +310,6 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <!--<ToolbarItem Name="Preview" NameLocaleResourceId="ControlPreviewAdvertisement" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.Preview" Icon="PreviewAd.png" />-->
-        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="false" LockOnNew="false" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
       </ToolbarItems>
     </Card>
@@ -881,9 +879,9 @@
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Client.gif" />
           <RelatedItem Name="Firm" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Contact" NameLocaleResourceId="CrdRelContacts" RequestUrl="/Grid/View/Contact" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Contact" NameLocaleResourceId="CrdRelContacts" Icon="en_ico_16_Contact.gif" RequestUrl="/Grid/View/Contact" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Deal" NameLocaleResourceId="CrdRelDeals" Icon="en_ico_16_Deal.gif" RequestUrl="/Grid/View/Deal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="LegalPerson" NameLocaleResourceId="CrdRelLegalPersons" RequestUrl="/Grid/View/LegalPerson" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="LegalPerson" NameLocaleResourceId="CrdRelLegalPersons" Icon="en_ico_16_LegalPerson.gif" RequestUrl="/Grid/View/LegalPerson" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />

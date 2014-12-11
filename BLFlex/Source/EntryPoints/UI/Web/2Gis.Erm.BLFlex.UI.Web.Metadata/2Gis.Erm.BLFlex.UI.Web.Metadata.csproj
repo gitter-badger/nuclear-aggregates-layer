@@ -48,6 +48,8 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="CardMetadataExtensions.cs" />
+    <Compile Include="UiMetadataExtensions.cs" />
     <Compile Include="Chile\ChileCardMetadataSource.cs" />
     <Compile Include="Cyprus\CyprusCardMetadataSource.cs" />
     <Compile Include="Czech\CzechCardMetadataSource.cs" />

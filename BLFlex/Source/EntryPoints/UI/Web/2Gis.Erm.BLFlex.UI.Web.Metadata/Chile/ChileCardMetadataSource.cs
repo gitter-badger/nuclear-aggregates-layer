@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
 {
@@ -42,6 +43,22 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
                         CardMetadata.For<Bank>()
                                     .MainAttribute<Bank, IBankViewModel>(x => x.Name)
                                     .ConfigCommonCardToolbar(),
+
+                        CardMetadata.For<Advertisement>()
+                                    .ConfigCommonCardToolbar(),
+
+                        CardMetadata.For<Bargain>()
+                                    .ConfigBargainToolbarWithSpecificPrintActions(UiElementMetadata.Config.PrintBargainAction()),
+
+                        CardMetadata.For<Bill>()
+                                    .ConfigBillToolbarWithPrinting(),
+
+                        CardMetadata.For<LegalPerson>()
+                                    .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UiElementMetadata.Config.CommonLegalPersonAdditionalActions()),
+
+                        CardMetadata.For<Order>()
+                                    .ConfigRelatedItems(UiElementMetadata.Config.CommonOrderRelatedActions())
+                                    .ConfigOrderToolbarWithSpecificPrintActions(UiElementMetadata.Config.ChileOrderPrintActions()),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
