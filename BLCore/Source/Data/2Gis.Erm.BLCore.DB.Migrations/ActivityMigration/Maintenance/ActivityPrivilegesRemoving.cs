@@ -43,7 +43,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
                             ActivityPrivilege.Append, 
                             ActivityPrivilege.AppendTo, 
                             ActivityPrivilege.Assign, 
-                            ActivityPrivilege.Share, 
+                            ActivityPrivilege.Share,
+                            ActivityPrivilege.AllowQuickCampaign
                         })
                     {
                         try
@@ -87,6 +88,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
             public static readonly Guid AppendTo = new Guid("6EC8E901-D770-44C0-8F12-D07425F638BD");
             public static readonly Guid Assign = new Guid("8B99344E-EBBF-4F84-8438-E1E34D194DE9");
             public static readonly Guid Share = new Guid("B5F2EE06-D359-4495-BBDA-312AAE1C6B1E");
+            public static readonly Guid AllowQuickCampaign = new Guid("5677ECB3-A34D-4AC5-99CE-9E2DBF2B3246");
         }
     }
 }
