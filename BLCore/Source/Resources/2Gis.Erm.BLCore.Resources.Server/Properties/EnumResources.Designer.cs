@@ -3175,7 +3175,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тёплый клиент.
+        ///   Looks up a localized string similar to Горячий клиент.
         /// </summary>
         public static string InformationSourceWarmClient {
             get {
@@ -4786,7 +4786,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тёплый клиент.
+        ///   Looks up a localized string similar to Горячий клиент.
         /// </summary>
         public static string ReasonForNewDealWarmClient {
             get {

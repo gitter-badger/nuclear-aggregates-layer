@@ -1711,10 +1711,10 @@
     <value>Просроченные задачи по горячим клиентам</value>
   </data>
   <data name="DListClientsWithWarmClientTask" xml:space="preserve">
-    <value>Клиенты, для которых есть задачи типа "Тёплый клиент"</value>
+    <value>Клиенты, для которых есть задачи типа "Горячий клиент"</value>
   </data>
   <data name="DListClientsWithOutdatedWarmClientTask" xml:space="preserve">
-    <value>Клиенты, для которых есть просроченные задачи типа "Тёплый клиент"</value>
+    <value>Клиенты, для которых есть просроченные задачи типа "Горячий клиент"</value>
   </data>
   <data name="ControlPublishAdvertisementTemplate" xml:space="preserve">
     <value>Опубликовать</value>

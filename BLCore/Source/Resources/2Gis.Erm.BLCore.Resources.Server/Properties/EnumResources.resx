@@ -277,7 +277,7 @@
     <value>Инициатива Менеджера Визит</value>
   </data>
   <data name="InformationSourceWarmClient" xml:space="preserve">
-    <value>Тёплый клиент</value>
+    <value>Горячий клиент</value>
   </data>
   <data name="OrderStateApproved" xml:space="preserve">
     <value>Одобрен</value>
@@ -319,7 +319,7 @@
     <value>Отклонено</value>
   </data>
   <data name="ReasonForNewDealWarmClient" xml:space="preserve">
-    <value>Тёплый клиент</value>
+    <value>Горячий клиент</value>
   </data>
   <data name="AdvertisementElementRestrictionTypeArticle" xml:space="preserve">
     <value>Статья</value>
