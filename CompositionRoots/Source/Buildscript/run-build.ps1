@@ -1,28 +1,28 @@
 ﻿# COMMENT FOR LOCAL DEBUG
-#param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
+param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 # COMMENT FOR LOCAL DEBUG
 
 # UNCOMMENT FOR LOCAL DEBUG
-$TaskList = @('Create-GlobalContext', 'Build-Plugins')
-$Properties = @{
-	'OptionWebApp' = $true
-	'OptionBasicOperations' = $true
-	'OptionModi' = $true
-	'OptionMetadata' = $true
-	'OptionOrderValidation' = $true
-	'OptionFinancialOperations' = $true
-	'OptionReleasing' = $true
-
-	'OptionTaskService' = $true
-	'OptionWpfClient' = $false
-	'OptionDynamics' = $true
-	'OptionReports' = $true
-	
-	'Revision' = '1'
-	'Build' = 2
-	
-	'EnvironmentName' = 'Production.Russia'
-}
+#$TaskList = @('Create-GlobalContext', 'Build-Plugins')
+#$Properties = @{
+#	'OptionWebApp' = $true
+#	'OptionBasicOperations' = $true
+#	'OptionModi' = $true
+#	'OptionMetadata' = $true
+#	'OptionOrderValidation' = $true
+#	'OptionFinancialOperations' = $true
+#	'OptionReleasing' = $true
+#
+#	'OptionTaskService' = $true
+#	'OptionWpfClient' = $false
+#	'OptionDynamics' = $true
+#	'OptionReports' = $true
+#	
+#	'Revision' = '1'
+#	'Build' = 2
+#	
+#	'EnvironmentName' = 'Production.Russia'
+#}
 # UNCOMMENT FOR LOCAL DEBUG
 
 Set-StrictMode -Version Latest
