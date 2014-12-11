@@ -462,7 +462,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
 
                 private class UserMap : Map
                 {
-                    private const string IntegrationAccout = "Integration";
+                    private const string IntegrationAccount = "Integration";
 
                     private IActivityMigrationContext _context;
                     private IDictionary<Guid, long> _userMap;
@@ -508,7 +508,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                                                                 })
                                               .Select(x => new { Key = (Key)x[CrmUserMetadata.Id], Account = (string)x[CrmUserMetadata.DomainName] })
                                               .Where(x => !string.IsNullOrWhiteSpace(x.Account) && x.Account.StartsWith("2GIS\\"))
-                                              .ToDictionary(x => OmitDomainName(x.Account), x => x.Key.Value);
+                                              .ToDictionary(x => OmitDomainName(x.Account), x => x.Key.Value, StringComparer.OrdinalIgnoreCase);
                         }
 
                         var users = new Dictionary<Guid, long>();
@@ -525,7 +525,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                                 continue;
                             }
 
-                            if (string.CompareOrdinal(IntegrationAccout, account.Value) == 0)
+                            if (string.CompareOrdinal(IntegrationAccount, account.Value) == 0)
                             {
                                 integrationUserId = ermId.Value;
                             }
