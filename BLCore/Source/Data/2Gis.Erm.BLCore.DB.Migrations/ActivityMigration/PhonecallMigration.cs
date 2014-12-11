@@ -220,6 +220,8 @@ INSERT INTO [Activity].[PhonecallReferences]
             {
                 switch (code)
                 {
+                    case 1:
+                        return ErmPhonecallPurpose.FirstCall;
                     case 3:
                         return ErmPhonecallPurpose.ProductPresentation;
                     case 4:
