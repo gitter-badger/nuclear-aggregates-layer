@@ -37,7 +37,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                    .Attach(UiElementMetadata.Config.CreateAction<TEntity>(),
                            UiElementMetadata.Config.UpdateAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
-                           UiElementMetadata.Config.SaveAndCloseAction<TEntity>(),
+                           UiElementMetadata.Config.CreateAndCloseAction<TEntity>(),
+                           UiElementMetadata.Config.UpdateAndCloseAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
                            UiElementMetadata.Config.RefreshAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
@@ -53,7 +54,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                    .Attach(UiElementMetadata.Config.CreateAction<TEntity>(),
                            UiElementMetadata.Config.UpdateAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
-                           UiElementMetadata.Config.SaveAndCloseAction<TEntity>(),
+                           UiElementMetadata.Config.CreateAndCloseAction<TEntity>(),
+                           UiElementMetadata.Config.UpdateAndCloseAction<TEntity>(),
                            UiElementMetadata.Config.SplitterAction(),
 
                            UiElementMetadata.Config

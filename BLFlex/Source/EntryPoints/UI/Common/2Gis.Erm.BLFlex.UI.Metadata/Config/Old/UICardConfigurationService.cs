@@ -1513,6 +1513,17 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             var cardMetadataCorrections = _cardMetadataCorrections.ContainsKey(entity) ? _cardMetadataCorrections[entity] : null;
             var errors = new List<string>();
             const string SplitterElementName = "Splitter";
+            var elementsToIgnore = new List<string>
+                                       {
+                                           SplitterElementName,
+                                           "Save",
+                                           "Create",
+                                           "Update",
+                                           "SaveAndClose",
+                                           "CreateAndClose",
+                                           "UpdateAndClose"
+                                       };
+
             errors.AddRange(CheckProperties(xmlData,
                                             codeData,
                                             cardMetadataCorrections != null && cardMetadataCorrections.ContainsKey(entity.ToString()) ? cardMetadataCorrections[entity.ToString()] : null,
@@ -1529,8 +1540,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
             errors.AddRange(GetCardRelatedItemsGroupErrors(xmlData.CardRelatedItems.SingleOrDefault(), codeData.CardRelatedItems.SingleOrDefault(), cardMetadataCorrections));
 
-            var xmlToolbarElementsCount = xmlData.CardToolbar.Count();
-            var codeToolbarElementsCount = codeData.CardToolbar.Count();
+            var xmlToolbarElementsCount = xmlData.CardToolbar.Count(x => !elementsToIgnore.Contains(x.Name));
+            var codeToolbarElementsCount = codeData.CardToolbar.Count(x => !elementsToIgnore.Contains(x.Name));
             if (xmlToolbarElementsCount != codeToolbarElementsCount)
             {
                 errors.Add(string.Format("Расхождение в количестве элементов меню. Зарегестрировано в xml: {0}; Зарегестрировано в коде: {1}",
@@ -1546,7 +1557,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 errors.Add(string.Format("Расхождение в количестве резделителей элементов меню. Зарегестрировано в xml: {0}; Зарегестрировано в коде: {1}", xmlToolbarSplittersCount, codeToolbarSplittersCount));
             }
 
-            foreach (var xmlToolbarElement in xmlData.CardToolbar.Where(x => x.Name != SplitterElementName))
+            foreach (var xmlToolbarElement in xmlData.CardToolbar.Where(x => !elementsToIgnore.Contains(x.Name)))
             {
                 errors.AddRange(GetToolbarElementErrors(xmlToolbarElement, codeData.CardToolbar.SingleOrDefault(x => x.Name == xmlToolbarElement.Name), cardMetadataCorrections));
             }

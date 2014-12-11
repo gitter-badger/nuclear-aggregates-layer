@@ -18,16 +18,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .Actions
                         .Attach(UiElementMetadata.Config.CreateAction<AdvertisementElement>(),
                                 UiElementMetadata.Config.UpdateAction<AdvertisementElement>(),
-
                                 UiElementMetadata.Config
                                                  .Name.Static("ResetToDraft")
                                                  .Title.Resource(() => MetadataResources.ControlResetToDraft)
                                                  .ControlType(ControlType.TextButton)
                                                  .Handler.Name("scope.ResetToDraft")
                                                  .Operation.NonCoupled<ChangeAdvertisementElementStatusIdentity>(),
-
                                 UiElementMetadata.Config.SplitterAction(),
-
                                 UiElementMetadata.Config
                                                  .Name.Static("SaveAndVerify")
                                                  .Title.Resource(() => MetadataResources.ControlSaveAndVerify)
@@ -40,8 +37,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                  .Operation.SpecificFor<CreateIdentity, AdvertisementElement>()
                                                  .Operation.SpecificFor<UpdateIdentity, AdvertisementElement>()
                                                  .Operation.NonCoupled<ChangeAdvertisementElementStatusIdentity>(),
-
-                                UiElementMetadata.Config.SaveAndCloseAction<AdvertisementElement>(),
+                                UiElementMetadata.Config.CreateAndCloseAction<AdvertisementElement>(),
+                                UiElementMetadata.Config.UpdateAndCloseAction<AdvertisementElement>(),
                                 UiElementMetadata.Config.SplitterAction(),
                                 UiElementMetadata.Config.RefreshAction<AdvertisementElement>(),
                                 UiElementMetadata.Config.SplitterAction(),

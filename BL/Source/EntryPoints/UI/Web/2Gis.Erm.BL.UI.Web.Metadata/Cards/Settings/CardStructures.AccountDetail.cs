@@ -12,7 +12,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .MainAttribute(x => x.Id)
                         .Actions.Attach(UiElementMetadata.Config.CreateAction<AccountDetail>(),
                                         UiElementMetadata.Config.UpdateAction<AccountDetail>(),
-                                        UiElementMetadata.Config.SaveAndCloseAction<AccountDetail>(),
+                                        UiElementMetadata.Config.CreateAndCloseAction<AccountDetail>(),
+                                        UiElementMetadata.Config.UpdateAndCloseAction<AccountDetail>(),
                                         UiElementMetadata.Config.RefreshAction<AccountDetail>(),
                                         UiElementMetadata.Config.CloseAction());
     }

@@ -18,9 +18,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .Attach(UiElementMetadata.Config.CreateAction<AdvertisementTemplate>(),
                                 UiElementMetadata.Config.UpdateAction<AdvertisementTemplate>(),
                                 UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.SaveAndCloseAction<AdvertisementTemplate>(),
+                                UiElementMetadata.Config.CreateAndCloseAction<AdvertisementTemplate>(),
+                                UiElementMetadata.Config.UpdateAndCloseAction<AdvertisementTemplate>(),
                                 UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<AccountDetail>(),
+                                UiElementMetadata.Config.RefreshAction<AdvertisementTemplate>(),
                                 UiElementMetadata.Config.SplitterAction(),
                                 UiElementMetadata.Config
                                                  .Name.Static("PublishAdvertisementTemplate")
