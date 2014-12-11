@@ -16,9 +16,9 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             var runningReleases = releases.Where(x => x.Status == ReleaseStatus.InProgressInternalProcessingStarted &&
                                                       x.IsBeta == isBeta)
                                           .ToArray();
-            if (runningReleases.Count() != 1)
+            if (runningReleases.Count() > 1)
             {
-                return ReleaseStartingOption.Denied | ReleaseStartingOption.BecauseOfFinal;
+                return ReleaseStartingOption.Denied | ReleaseStartingOption.BecauseOfInconsistency;
             }
 
             var finalSuccessRelease = releases.SingleOrDefault(x => !x.IsBeta && x.Status == ReleaseStatus.Success);
