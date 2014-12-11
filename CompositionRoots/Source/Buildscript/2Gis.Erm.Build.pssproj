@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="default.ps1" />
     <Compile Include="dynamics.ps1" />
-    <Compile Include="Erm.Web.targets" />
     <Compile Include="Erm.WPF.Shell.targets" />
     <Compile Include="fxcop.ps1" />
     <Content Include="fxcop.ruleset" />
