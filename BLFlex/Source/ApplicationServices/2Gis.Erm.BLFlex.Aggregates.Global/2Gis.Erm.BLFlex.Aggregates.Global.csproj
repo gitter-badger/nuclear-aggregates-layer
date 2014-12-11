@@ -57,7 +57,6 @@
     <Compile Include="Chile\Bills\BillSpecifications.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\BankSpecs.cs" />
     <Compile Include="Chile\Crosscutting\ChileRutService.cs" />
-    <Compile Include="Chile\Crosscutting\ChileValidateBillsService.cs" />
     <Compile Include="Chile\LegalPersonAggregate\ReadModel\ChileLegalPersonReadModel.cs" />
     <Compile Include="Chile\LegalPersonAggregate\ReadModel\IChileLegalPersonReadModel.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\BankReadModel.cs" />
@@ -67,11 +66,17 @@
     <Compile Include="Kazakhstan\Crosscutting\KazakhstanBinInnService.cs" />
     <Compile Include="Kazakhstan\LegalPerson\ReadModel\KazakhstanLegalPersonReadModel.cs" />
     <Compile Include="MultiCulture\BranchOfficesAggregate\ReadModel\MultiCultureBranchOfficeReadModel.cs" />
+    <Compile Include="MultiCulture\Crosscutting\BillDatesInvariant.cs" />
+    <Compile Include="MultiCulture\Crosscutting\BillDublicateNumbersInvariant.cs" />
+    <Compile Include="MultiCulture\Crosscutting\BillSummInvariant.cs" />
+    <Compile Include="MultiCulture\Crosscutting\ChileBillNumberFormatInvariant.cs" />
+    <Compile Include="MultiCulture\Crosscutting\ValidateBillsService.cs" />
+    <Compile Include="MultiCulture\Crosscutting\IBillInvariant.cs" />
+    <Compile Include="MultiCulture\Crosscutting\LockedOrderInvariant.cs" />
     <Compile Include="MultiCulture\Firms\Operations\MultiCultureImportCardAggregateService.cs" />
     <Compile Include="MultiCulture\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
-    <Compile Include="MultiCulture\Crosscutting\DefaultValidateBillsService.cs" />
     <Compile Include="Russia\LegalPersons\RussiaLegalPersonReadModel.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />

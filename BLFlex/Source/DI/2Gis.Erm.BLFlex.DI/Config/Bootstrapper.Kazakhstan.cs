@@ -2,11 +2,10 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.Crosscutting;
-using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Kazakhstan.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic;
-using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
@@ -40,7 +39,10 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<ICheckInnService, KazakhstanBinInnService>(Lifetime.Singleton)
                 .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.PerResolve, Mapping.Erm)
-                .RegisterType<IValidateBillsService, DefaultValidateBillsService>(Lifetime.Singleton)
+                .RegisterType<IValidateBillsService, ValidateBillsService>(Lifetime.PerResolve,
+                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillInvariant>(typeof(LockedOrderInvariant),
+                                                                                                                                               typeof(BillSummInvariant),
+                                                                                                                                               typeof(BillDatesInvariant))))
                 .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                 .ConfigureUkraineSpecificNumberServices();
         }
