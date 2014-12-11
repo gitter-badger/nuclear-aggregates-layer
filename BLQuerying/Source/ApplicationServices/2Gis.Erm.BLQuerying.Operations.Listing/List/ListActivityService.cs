@@ -65,16 +65,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override void Transform(ListActivityDto dto)
         {
             dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
-            
-            if (dto.ScheduledEnd == null)
-            {
-                var zoneInfo = _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo;
-                var localScheduledStart = TimeZoneInfo.ConvertTimeFromUtc(dto.ScheduledStart, zoneInfo);
-
-                dto.ScheduledEnd = TimeZoneInfo.ConvertTimeToUtc(
-                                                                 new DateTime(localScheduledStart.Year, localScheduledStart.Month, localScheduledStart.Day, 23, 59, 59, 999),
-                                                                 zoneInfo);
-            }
         }
 
         private IQueryable<ListActivityDto> ListAppointments(bool filterByParent, EntityName entityName, long? entityId)
@@ -277,8 +267,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             if (entityName == EntityName.Deal || entityName == EntityName.Firm || entityName == EntityName.Contact)
             {
-                var activityies = _compositeEntityDecorator.Find(ActivitySpecs.Find.ByReferencedObject<TActivity, TEntityReference>(entityName, entityId));
-                return activity => (from referencedEntity in activityies select referencedEntity.SourceEntityId).Contains(activity.Id);
+                var activities = _compositeEntityDecorator.Find(ActivitySpecs.Find.ByReferencedObject<TActivity, TEntityReference>(entityName, entityId));
+                return activity => (from referencedEntity in activities select referencedEntity.SourceEntityId).Contains(activity.Id);
             }
 
             throw new NotSupportedException();

@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Мои запланированные действия на сегодня
             {"DListMyActivitiesInProgressForToday", "ActiveAndNotDeleted=true;InProgress=true;ForToday=true;ForMe=true" },
             // Действия по теплым клиентам
-            {"DListActivitiesForWarmClients", "ActiveAndNotDeleted=true;InProgress=true;Expired=false;WarmClient=true" },
+            {"DListActivitiesForWarmClients", "ActiveAndNotDeleted=true;InProgress=true;WarmClient=true" },
             // Просроченные действия по теплым клиентам
             {"DListOverdueActivitiesForWarmClients", "ActiveAndNotDeleted=true;InProgress=true;Expired=true;WarmClient=true" },
 
