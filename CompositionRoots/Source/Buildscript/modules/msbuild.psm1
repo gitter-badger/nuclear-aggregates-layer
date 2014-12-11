@@ -14,39 +14,39 @@ $MSBuildDir = "${Env:ProgramFiles(x86)}\MSBuild\$MSBuildVersion\Bin"
 $MsBuildPath_x86 = Join-Path $MSBuildDir 'MSBuild.exe'
 $MsBuildPath_x64 = Join-Path $MSBuildDir 'amd64\MSBuild.exe'
 
-function Invoke-MSBuild ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, $MsBuildPlatform = 'x64'){
+function Invoke-MSBuild ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml]$CustomXml = $null, $MsBuildPlatform = 'x64'){
 
-		$allProperties = $CommonProperties
-		if ($Properties -ne $null){
-			$allProperties += $Properties
+	$allProperties = $CommonProperties
+	if ($Properties -ne $null){
+		$allProperties += $Properties
+	}
+
+	$buildProjectFileName = Get-BuildProjectFileName $ProjectFileName $Targets $allProperties $CustomXml
+
+	$arguments = @(
+		$buildProjectFileName
+		'/nologo'
+		'/consoleloggerparameters:ErrorsOnly'
+	)
+
+	switch ($MsBuildPlatform){
+		'x86' {
+			& $MsBuildPath_x86 $arguments
 		}
-
-		$buildProjectFileName = Get-BuildProjectFileName $ProjectFileName $Targets $allProperties
-
-		$arguments = @(
-			$buildProjectFileName
-			'/nologo'
-			'/consoleloggerparameters:ErrorsOnly'
-		)
-
-		switch ($MsBuildPlatform){
-			'x86' {
-				& $MsBuildPath_x86 $arguments
-			}
-			'x64' {
-				& $MsBuildPath_x64 $arguments
-			}
-			default {
-				throw "MSBuild platform (x86, x64) is not defined"
-			}
+		'x64' {
+			& $MsBuildPath_x64 $arguments
 		}
-
-		if ($lastExitCode -ne 0) {
-			throw "Command failed with exit code $lastExitCode"
+		default {
+			throw "MSBuild platform (x86, x64) is not defined"
 		}
+	}
+
+	if ($lastExitCode -ne 0) {
+		throw "Command failed with exit code $lastExitCode"
+	}
 }
 
-function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null){
+function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml]$CustomXml = $null){
 
 	if ($Targets -eq $null -and $Properties -eq $null){
 		return $ProjectFileName
@@ -54,7 +54,6 @@ function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets 
 
 	$xmlDocument = New-Object System.Xml.XmlDocument
 	$root = $xmlDocument.CreateElement('Project')
-	$root.SetAttribute('xmlns', 'http://schemas.microsoft.com/developer/msbuild/2003')
 	[void]$xmlDocument.AppendChild($root)
 
 	if ($Targets -ne $null){
@@ -72,9 +71,18 @@ function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets 
 	}
 
 	$importElement = $xmlDocument.CreateElement('Import')
-	$importElement.SetAttribute('Project', $ProjectFileName)
+	$importElement.SetAttribute('Project', [System.IO.Path]::GetFileName($ProjectFileName))
 	[void]$root.AppendChild($importElement)
 
+	if ($CustomXml -ne $null){
+		foreach($customNode in $CustomXml.DocumentElement.ChildNodes){
+			$node = $xmlDocument.ImportNode($customNode, $true)
+			[void]$root.AppendChild($node)
+		}
+	}
+
+	$root.SetAttribute('xmlns', 'http://schemas.microsoft.com/developer/msbuild/2003')
+	
 	$fileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.buildproj')
 	$xmlDocument.Save($fileName)
 	return $fileName
