@@ -25,8 +25,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             _finder = finder;
         }
 
-        #region Implementation of IReleaseInfoRepository
-
         public IEnumerable<ReleaseProcessingMessage> GetReleaseValidationResults(long releaseInfoId)
         {
             return _finder.Find<ReleaseValidationResult>(x => x.ReleaseInfoId == releaseInfoId)
@@ -89,20 +87,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(ou => ou.Name).Single();
         }
 
-        public int? GetOrganizationUnitDgppId(long organizationUnitId)
-        {
-            return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(x => x.DgppId).SingleOrDefault();
-        }
-
-        public ReleaseInfo GetLastRelease(long organizationUnitId, TimePeriod period)
-        {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() &&
-                                ReleaseSpecs.Releases.Find.ByOrganization(organizationUnitId) &&
-                                ReleaseSpecs.Releases.Find.ForPeriod(period))
-                          .OrderByDescending(x => x.StartDate)
-                          .FirstOrDefault();
-        }
-
         public ReleaseInfo GetLastFinalRelease(long organizationUnitId, TimePeriod period)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() &&
@@ -111,6 +95,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
                                 ReleaseSpecs.Releases.Find.Final())
                           .OrderByDescending(x => x.StartDate)
                           .FirstOrDefault();
+        }
+
+        public IReadOnlyCollection<ReleaseInfo> GetReleasesInDescOrder(long organizationUnitId, TimePeriod period)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() &&
+                                ReleaseSpecs.Releases.Find.ByOrganization(organizationUnitId) &&
+                                ReleaseSpecs.Releases.Find.ForPeriod(period))
+                          .OrderByDescending(x => x.StartDate)
+                          .ToArray();
         }
 
         public bool HasFinalReleaseAfterDate(long organizationUnitId, DateTime periodStartDate)
@@ -162,7 +155,5 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
         {
             return _finder.Find(ReleaseSpecs.Releases.Find.FinalInProgress(organizationUnitId, period)).Any();
         }
-
-        #endregion
     }
 }
