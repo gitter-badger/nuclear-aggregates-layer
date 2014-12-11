@@ -14,14 +14,14 @@ $MSBuildDir = "${Env:ProgramFiles(x86)}\MSBuild\$MSBuildVersion\Bin"
 $MsBuildPath_x86 = Join-Path $MSBuildDir 'MSBuild.exe'
 $MsBuildPath_x64 = Join-Path $MSBuildDir 'amd64\MSBuild.exe'
 
-function Invoke-MSBuild ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml]$CustomXml = $null, $MsBuildPlatform = 'x64'){
+function Invoke-MSBuild ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml[]]$CustomXmls = $null, $MsBuildPlatform = 'x64'){
 
 	$allProperties = $CommonProperties
 	if ($Properties -ne $null){
 		$allProperties += $Properties
 	}
 
-	$buildProjectFileName = Get-BuildProjectFileName $ProjectFileName $Targets $allProperties $CustomXml
+	$buildProjectFileName = Get-BuildProjectFileName $ProjectFileName $Targets $allProperties $CustomXmls
 
 	$arguments = @(
 		$buildProjectFileName
@@ -46,7 +46,7 @@ function Invoke-MSBuild ([string]$ProjectFileName, [string[]]$Targets = $null, [
 	}
 }
 
-function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml]$CustomXml = $null){
+function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml[]]$CustomXmls = $null){
 
 	if ($Targets -eq $null -and $Properties -eq $null){
 		return $ProjectFileName
@@ -74,10 +74,12 @@ function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets 
 	$importElement.SetAttribute('Project', [System.IO.Path]::GetFileName($ProjectFileName))
 	[void]$root.AppendChild($importElement)
 
-	if ($CustomXml -ne $null){
-		foreach($customNode in $CustomXml.DocumentElement.ChildNodes){
-			$node = $xmlDocument.ImportNode($customNode, $true)
-			[void]$root.AppendChild($node)
+	if ($CustomXmls -ne $null){
+		foreach($customXml in $CustomXmls){
+			foreach($customNode in $customXml.DocumentElement.ChildNodes){
+				$node = $xmlDocument.ImportNode($customNode, $true)
+				[void]$root.AppendChild($node)
+			}
 		}
 	}
 

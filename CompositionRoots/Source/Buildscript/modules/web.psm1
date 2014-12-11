@@ -18,14 +18,15 @@ function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatfor
 	$content2 = Transform-Config $configFileName2
 	Backup-Config $configFileName2 $content2
 	try {
-		$customXml = Get-MSBuildCustomXml
+		$customXmls = @(Get-VersionFileXml)
+		
 		$packageLocation = "Packages\$($global:Context.EnvironmentName)\Package.zip"
 		
 		Invoke-MSBuild $ProjectFileName -Targets 'Package' -Properties @{
 			'PackageLocation' = $packageLocation
 			'DeployIisAppPath' = $EntryPointMetadata.IisAppPath
 			'GenerateSampleDeployScript' = $false
-		} -CustomXml $customXml -MsBuildPlatform $MsBuildPlatform
+		} -CustomXmls $customXmls -MsBuildPlatform $MsBuildPlatform
 	}
 	finally {
 		Restore-Config $configFileName1
@@ -99,7 +100,7 @@ function Create-RemoteWebsite($TargetHost, $WebsiteName){
 	}
 }
 
-function Get-MSBuildCustomXml {
+function Get-VersionFileXml {
 
 	$versionFileName = Get-VersionFileName
 	$branchFileName = Get-BranchFileName
