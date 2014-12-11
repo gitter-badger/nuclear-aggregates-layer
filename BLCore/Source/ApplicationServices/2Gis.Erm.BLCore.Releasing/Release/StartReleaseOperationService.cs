@@ -491,11 +491,16 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             var releases = _releaseReadModel.GetReleasesInDescOrder(acquiredRelease.OrganizationUnitId,
                                                                     new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
 
-            var lockedRelease = releases.First(x => x.IsBeta == acquiredRelease.IsBeta);
-            return lockedRelease != null &&
-                   lockedRelease.Id == acquiredRelease.Id &&
-                   lockedRelease.Status == ReleaseStatus.InProgressInternalProcessingStarted &&
-                   acquiredRelease.SameVersionAs(lockedRelease);
+            var runningReleases = releases.Where(x => x.Status == ReleaseStatus.InProgressInternalProcessingStarted &&
+                                                      x.IsBeta == acquiredRelease.IsBeta)
+                                          .ToArray();
+            if (runningReleases.Count() != 1)
+            {
+                return false;
+            }
+
+            var lockedRelease = runningReleases.Single();
+            return lockedRelease.Id == acquiredRelease.Id && acquiredRelease.SameVersionAs(lockedRelease);
         }
     }
 }

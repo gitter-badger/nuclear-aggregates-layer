@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -8,7 +9,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 {
     public class ReleaseStartingAsPreviousAllowedConditionSet : IReleaseStartingOptionConditionSet
     {
-        public ReleaseStartingOption EvaluateStartingOption(bool isBeta, ReleaseInfo[] releases, out ReleaseInfo previousRelease)
+        public ReleaseStartingOption EvaluateStartingOption(bool isBeta, IReadOnlyCollection<ReleaseInfo> releases, out ReleaseInfo previousRelease)
         {
             previousRelease = null;
 

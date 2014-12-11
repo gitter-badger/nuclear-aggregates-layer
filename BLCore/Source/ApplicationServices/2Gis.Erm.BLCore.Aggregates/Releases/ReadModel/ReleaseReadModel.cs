@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
                           .FirstOrDefault();
         }
 
-        public ReleaseInfo[] GetReleasesInDescOrder(long organizationUnitId, TimePeriod period)
+        public IReadOnlyCollection<ReleaseInfo> GetReleasesInDescOrder(long organizationUnitId, TimePeriod period)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() &&
                                 ReleaseSpecs.Releases.Find.ByOrganization(organizationUnitId) &&
