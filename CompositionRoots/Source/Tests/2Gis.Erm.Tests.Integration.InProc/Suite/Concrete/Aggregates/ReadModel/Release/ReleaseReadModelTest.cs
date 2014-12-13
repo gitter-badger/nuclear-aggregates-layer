@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
                 return OrdinaryTestResult.As.NotExecuted;
             }
 
-            var lastRelease = _releaseReadModel.GetLastRelease(releaseInfo.OrganizationUnitId, timePeriod);
+            var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(releaseInfo.OrganizationUnitId, timePeriod);
             var validationReportLines = _releaseReadModel.GetOrderValidationLines(orders.Select(x => x.Id).ToArray());
             // ReSharper disable once PossibleInvalidOperationException
             _releaseReadModel.GetOrganizationUnitId((int)orgUnitForRelease.DgppId);
@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
 
             return new object[]
                 {
-                    lastRelease,
+                    lastFinalRelease,
                     validationReportLines,
                     organizationUnitName,
                     releaseInfoFromReadModel,

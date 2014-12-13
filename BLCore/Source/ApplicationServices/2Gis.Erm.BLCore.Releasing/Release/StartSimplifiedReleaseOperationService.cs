@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.Operations;
@@ -13,6 +14,7 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
@@ -21,6 +23,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     {
         private readonly IOrderReadModel _orderReadModel;
         private readonly IReleaseReadModel _releaseReadModel;
+        private readonly IEnumerable<IReleaseStartingOptionConditionSet> _releaseStartingOptionConditionSets;
         private readonly IReleaseStartAggregateService _releaseStartAggregateService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
@@ -29,6 +32,8 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
         public StartSimplifiedReleaseOperationService(IOrderReadModel orderReadModel,
                                                       IReleaseReadModel releaseReadModel,
+                                                      // ReSharper disable once ParameterTypeCanBeEnumerable.Local
+                                                      IReleaseStartingOptionConditionSet[] releaseStartingOptionConditionSets,
                                                       IReleaseStartAggregateService releaseStartAggregateService,
                                                       ISecurityServiceFunctionalAccess functionalAccessService,
                                                       IUserContext userContext,
@@ -37,6 +42,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         {
             _orderReadModel = orderReadModel;
             _releaseReadModel = releaseReadModel;
+            _releaseStartingOptionConditionSets = releaseStartingOptionConditionSets;
             _releaseStartAggregateService = releaseStartAggregateService;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
@@ -60,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 int countryCode;
                 string report;
-                if (!CanStartRelease(organizationUnitId, period, out countryCode, out report))
+                if (!CanStartRelease(organizationUnitId, period, isBeta, out countryCode, out report))
                 {
                     _logger.ErrorFormatEx("Can't start simlified releasing for organization unit with id {0} by period {1} is beta {2}. " +
                                           "Release initiator user id {3}. Error: {4}",
@@ -94,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             return releaseDescriptor;
         }
 
-        private bool CanStartRelease(long organizationUnitId, TimePeriod period, out int countryCode, out string report)
+        private bool CanStartRelease(long organizationUnitId, TimePeriod period, bool isBeta, out int countryCode, out string report)
         {
             countryCode = 0;
             report = null;
@@ -113,32 +119,21 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 return false;
             }
 
-            var previousReleaseInfo = _releaseReadModel.GetLastRelease(organizationUnitId, period);
-            if (previousReleaseInfo != null)
+            var releaseStartingOption = ReleaseStartingOption.Undifined;
+            var releases = _releaseReadModel.GetReleasesInDescOrder(organizationUnitId, period);
+            foreach (var conditionSet in _releaseStartingOptionConditionSets)
             {
-                switch (previousReleaseInfo.Status)
-                {
-                    case ReleaseStatus.InProgressInternalProcessingStarted:
-                    {
-                        report = BLResources.CannotStartReleaseBecauseAnotherReleaseIsRunning;
-                        return false;
-                    }
-                    case ReleaseStatus.InProgressWaitingExternalProcessing:
-                    {
-                        report = BLResources.CannotStartReleaseBecauseAnotherReleaseIsRunning;
-                        return false;
-                    }
-                    case ReleaseStatus.Success:
-                    {
-                        if (!previousReleaseInfo.IsBeta)
-                        {
-                            report = BLResources.CannotStartReleaseBecausePreviousReleaseWasFinal;
-                            return false;
-                        }
+                ReleaseInfo previousRelease;
+                releaseStartingOption |= conditionSet.EvaluateStartingOption(isBeta, releases, out previousRelease);
+            }
 
-                        break;
-                    }
-                }
+            if (releaseStartingOption.HasFlag(ReleaseStartingOption.Denied))
+            {
+                report = releaseStartingOption.HasFlag(ReleaseStartingOption.BecauseOfFinal)
+                             ? BLResources.CannotStartReleaseBecausePreviousReleaseWasFinal
+                             : BLResources.CannotStartReleaseBecauseAnotherReleaseIsRunning;
+
+                return false;
             }
 
             if (!_orderReadModel.GetOrdersForRelease(organizationUnitId, period).Any())
