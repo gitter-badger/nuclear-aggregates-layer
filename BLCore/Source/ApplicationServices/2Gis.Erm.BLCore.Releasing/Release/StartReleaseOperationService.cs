@@ -494,7 +494,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             var runningReleases = releases.Where(x => x.Status == ReleaseStatus.InProgressInternalProcessingStarted &&
                                                       x.IsBeta == acquiredRelease.IsBeta)
                                           .ToArray();
-            if (runningReleases.Count() != 1)
+            if (runningReleases.Count() > 1)
             {
                 return false;
             }
