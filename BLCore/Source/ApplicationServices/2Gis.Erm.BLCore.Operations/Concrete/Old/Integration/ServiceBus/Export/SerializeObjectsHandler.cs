@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 .Select(x => new
                     {
                         ExportableEntityDto = x,
-                        SerializedEntityDto = new XDocument(SerializeDtoToXElement(x)),
+                        SerializedEntityDto = SerializeDtoToXElement(x).ToString(SaveOptions.None),
                     })
                 .Where(x => ValidXmlObject(x.ExportableEntityDto, x.SerializedEntityDto, xsdSchemaContent, unsuccessfulExportObjects))
                 .ToArray();
@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             return new SerializeObjectsResponse
                 {
-                    SerializedObjects = serializedObjects.Select(x => x.SerializedEntityDto.ToString(SaveOptions.None)).ToArray(),
+                    SerializedObjects = serializedObjects.Select(x => x.SerializedEntityDto).ToArray(),
                     SuccessObjects = serializedObjects.Select(x => x.ExportableEntityDto).ToArray(), 
                     FailedObjects = unsuccessfulExportObjects
                 };
@@ -107,11 +107,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return true;
         }
 
-        private bool ValidXmlObject(IExportableEntityDto exportableEntityDto, XDocument document, string xsd, ICollection<IExportableEntityDto> unsuccessfulExportObjects)
+        private bool ValidXmlObject(IExportableEntityDto exportableEntityDto, string xml, string xsd, ICollection<IExportableEntityDto> unsuccessfulExportObjects)
         {
             // validate order xml
             string error;
-            var isValidXml = document.Validate(xsd, out error);
+            var isValidXml = xml.ValidateXml(xsd, out error);
             if (!isValidXml)
             {
                 unsuccessfulExportObjects.Add(exportableEntityDto);

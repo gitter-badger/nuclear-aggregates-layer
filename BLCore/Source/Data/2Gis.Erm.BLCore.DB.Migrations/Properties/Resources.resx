@@ -577,4 +577,16 @@
   <data name="Migration201412081011_Create_ReplicateTasks" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.12.08 rev. 201412081011\Create ReplicateTasks.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="ReplicateDeals_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201411261501\replicatedeals.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="ReplicateLegalPersons_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201411261501\replicatelegalpersons.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="ReplicateLimits_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201411261501\replicatelimits.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="ReplicateOrders_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201411261501\replicateorders.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>
