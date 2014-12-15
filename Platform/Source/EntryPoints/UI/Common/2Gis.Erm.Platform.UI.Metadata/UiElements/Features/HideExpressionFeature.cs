@@ -5,28 +5,11 @@ using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features
 {
-    // тут, наверное, наследование к месту будет
-    public sealed class HideExpressionFeature<T> : IHideExpressionFeature
+    public sealed class HideExpressionFeature<T> : ExpressionFeatureAbstract<T>, IHideExpressionFeature
         where T : IViewModelAbstract
     {
-        public HideExpressionFeature(Expression<Func<T, bool>> expression)
+        public HideExpressionFeature(Expression<Func<T, bool>> expression) : base(expression)
         {
-            Expression = expression;
-        }
-
-        public Expression<Func<T, bool>> Expression { get; private set; }
-
-        public bool TryExecute(IViewModelAbstract viewModel, out bool result)
-        {
-            result = false;
-            if (!(viewModel is T))
-            {
-                return false;
-            }
-
-            var func = Expression.Compile();
-            result = func.Invoke((T)viewModel);
-            return true;
         }
     }
 }

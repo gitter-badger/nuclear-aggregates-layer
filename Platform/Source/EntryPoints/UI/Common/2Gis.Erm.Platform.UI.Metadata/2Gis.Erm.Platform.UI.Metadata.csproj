@@ -53,6 +53,7 @@
     </Compile>
     <Compile Include="Config\Common\Card\Features\ICardFeature.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewPathMapping.cs" />
+    <Compile Include="UiElements\Features\ExpressionFeatureAbstract.cs" />
     <Compile Include="UiElements\Features\HideExpressionFeature.cs" />
     <Compile Include="UiElements\Features\IUiElementExpressionFeature.cs" />
     <Compile Include="UiElements\Features\IHideExpressionFeature.cs" />
