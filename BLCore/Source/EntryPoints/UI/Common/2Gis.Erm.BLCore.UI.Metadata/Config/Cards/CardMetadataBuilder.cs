@@ -67,6 +67,12 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             return this;
         }
 
+        public CardMetadataBuilder<TEntity> ReadOnly()
+        {
+            AddFeatures(new ReadOnlyFeature());
+            return this;
+        }
+
         public CardMetadataBuilder<TEntity> WithComments()
         {
             AddFeatures(new ShowNotesFeature(),

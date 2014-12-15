@@ -52,6 +52,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             var entityModel = model as IEntityViewModelBase;
             if (entityModel != null)
             {
+                EvaluateIsReadOnly(entityModel, metadata);
                 EvaluateTitle(entityModel, metadata);
 
                 foreach (var actionElement in metadata.ActionsDescriptors)
@@ -67,6 +68,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                     }
                 }
             }
+        }
+
+        internal void EvaluateIsReadOnly(IEntityViewModelBase entityModel, CardMetadata metadata)
+        {
+            entityModel.ViewConfig.ReadOnly |= metadata.Uses<ReadOnlyFeature>();
         }
 
         internal void EvaluateTitle(IEntityViewModelBase entityModel, CardMetadata metadata)
@@ -169,8 +175,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 model.ViewConfig
                      .CardSettings
                      .CardRelatedItems
-                     .SingleOrDefault()
-                     .Items
+                     .SelectMany(x => x.Items)
                      .SingleOrDefault(x => x.Name == elementName);
 
             if (elementToEvaluate == null)
@@ -236,6 +241,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             var modelOwnerCode = model.Owner != null && model.Owner.Key.HasValue
                                      ? model.Owner.Key.Value
                                      : _currentUserCode;
+
             foreach (var feature in element.Features<SecuredByEntityPrivelegeFeature>())
             {
                 if (feature.Entity == model.ViewConfig.EntityName)

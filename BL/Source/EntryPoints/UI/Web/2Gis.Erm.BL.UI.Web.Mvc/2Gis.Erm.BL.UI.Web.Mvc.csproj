@@ -754,6 +754,10 @@
       <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
       <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj">
+      <Project>{995BF65F-5951-40E5-A0F0-DF8DD343116A}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
       <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
       <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>

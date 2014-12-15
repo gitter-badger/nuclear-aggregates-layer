@@ -100,17 +100,17 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
             return this;
         }
 
-        public UiElementMetadataBuilder DisableOn<T>(Expression<Func<T, bool>> expression)
+        public UiElementMetadataBuilder DisableOn<T>(params Expression<Func<T, bool>>[] expressions)
             where T : IViewModelAbstract
         {
-            AddFeatures(new DisableExpressionFeature<T>(expression));
+            AddFeatures(expressions.Select(expression => new DisableExpressionFeature<T>(expression)).ToArray());
             return this;
         }
 
-        public UiElementMetadataBuilder HideOn<T>(Expression<Func<T, bool>> expression)
-           where T : IViewModelAbstract
+        public UiElementMetadataBuilder HideOn<T>(params Expression<Func<T, bool>>[] expressions)
+            where T : IViewModelAbstract
         {
-            AddFeatures(new HideExpressionFeature<T>(expression));
+            AddFeatures(expressions.Select(expression => new HideExpressionFeature<T>(expression)).ToArray());
             return this;
         }
 

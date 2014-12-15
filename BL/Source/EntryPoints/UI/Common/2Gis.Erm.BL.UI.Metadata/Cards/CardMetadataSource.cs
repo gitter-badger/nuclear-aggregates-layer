@@ -119,6 +119,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<Category>()
+                                    .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnCategories)
                                     .Icon.Path("en_ico_lrg_Category.gif")
                                     .WithAdminTab(),
@@ -191,6 +192,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<FirmContact>()
+                                    .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnFirmContacts)
                                     .Icon.Path("en_ico_lrg_Default.gif")
                                     .WithAdminTab(),
@@ -218,10 +220,12 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithComments(),
 
                         CardMetadata.For<LocalMessage>()
+                                    .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnLocalMessage)
                                     .Icon.Path("Default.gif"),
 
                         CardMetadata.For<Lock>()
+                                    .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnLocks)
                                     .Icon.Path("en_ico_lrg_Default.gif")
                                     .WithAdminTab(),
@@ -313,6 +317,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<ReleaseInfo>()
+                                    .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnReleaseInfo)
                                     .Icon.Path("en_ico_lrg_Default.gif")
                                     .WithAdminTab(),
@@ -359,6 +364,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<WithdrawalInfo>()
+                                    .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnWithdrawalInfo)
                                     .Icon.Path("en_ico_lrg_Default.gif")
                                     .WithAdminTab()
