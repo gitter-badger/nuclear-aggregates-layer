@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var blockingErrors = EvaluateAllBlockingErrors(accountDetailDtos, validateLegalPersonsResponse.BlockingErrors);
 
-            var debitInfoDto = ConvertToDebitInfoDto(organizationUnitSyncCode1C, period, accountDetailDtos);
+            var debitInfoDto = ConvertToDebitsInfoInitialDto(organizationUnitSyncCode1C, period, accountDetailDtos);
             var debitsStream = CreateDebitsStream(debitInfoDto.ToXElement());
 
             var response = ConstructResponse(blockingErrors,
@@ -144,67 +144,68 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return dataTable;
         }
 
-        private DebitsInfoDto ConvertToDebitInfoDto(string organizationUnitSyncCode1C,
-                                                    TimePeriod period,
-                                                    IEnumerable<AccountDetailDto> accountDetailDtos)
+        private DebitsInfoInitialDto ConvertToDebitsInfoInitialDto(string organizationUnitSyncCode1C,
+                                                                   TimePeriod period,
+                                                                   IEnumerable<AccountDetailDto> accountDetailDtos)
         {
             var debits = accountDetailDtos
                 .Select(x => new DebitDto
-                {
-                    AccountCode = x.AccountCode,
-                    ProfileCode = x.ProfileCode,
-                    Amount = GetAccountDetailAmount(x),
-                    SignupDate = x.OrderSignupDateUtc,
-                    ClientOrderNumber = x.ClientOrderNumber,
-                    OrderType = (int)x.OrderType,
-                    OrderNumber = x.OrderNumber,
-                    MediaInfo = x.ElectronicMedia,
-                    LegalEntityBranchCode1C = x.BranchOfficeOrganizationUnitSyncCode1C,
-                    Type = x.Type == ExportOrderType.LocalAndOutgoing || x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
-                               ? DebitDto.DebitType.Client
-                               : DebitDto.DebitType.Regional,
-                    PlatformDistributions = new[]
-                            {
-                                new PlatformDistribution
-                                    {
-                                        PlatformCode = PlatformEnum.Desktop,
-                                        Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Desktop)
-                                                     ? x.PlatformDistributions[PlatformEnum.Desktop]
-                                                     : 0
-                                    },
-                                new PlatformDistribution
-                                    {
-                                        PlatformCode = PlatformEnum.Mobile,
-                                        Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Mobile)
-                                                     ? x.PlatformDistributions[PlatformEnum.Mobile]
-                                                     : 0
-                                    },
-                                new PlatformDistribution
-                                    {
-                                        PlatformCode = PlatformEnum.Api,
-                                        Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Api)
-                                                     ? x.PlatformDistributions[PlatformEnum.Api]
-                                                     : 0
-                                    },
-                                new PlatformDistribution
-                                    {
-                                        PlatformCode = PlatformEnum.Online,
-                                        Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Online)
-                                                     ? x.PlatformDistributions[PlatformEnum.Online]
-                                                     : 0
-                                    }
-                            }
-                })
+                                 {
+                                     OrderCode = x.OrderId,
+                                     AccountCode = x.AccountCode,
+                                     ProfileCode = x.ProfileCode,
+                                     Amount = GetAccountDetailAmount(x),
+                                     SignupDate = x.OrderSignupDateUtc,
+                                     ClientOrderNumber = x.ClientOrderNumber,
+                                     OrderType = (int)x.OrderType,
+                                     OrderNumber = x.OrderNumber,
+                                     MediaInfo = x.ElectronicMedia,
+                                     LegalEntityBranchCode1C = x.BranchOfficeOrganizationUnitSyncCode1C,
+                                     Type = x.Type == ExportOrderType.LocalAndOutgoing || x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
+                                                ? DebitDto.DebitType.Client
+                                                : DebitDto.DebitType.Regional,
+                                     PlatformDistributions = new[]
+                                                                 {
+                                                                     new PlatformDistribution
+                                                                         {
+                                                                             PlatformCode = PlatformEnum.Desktop,
+                                                                             Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Desktop)
+                                                                                          ? x.PlatformDistributions[PlatformEnum.Desktop]
+                                                                                          : 0
+                                                                         },
+                                                                     new PlatformDistribution
+                                                                         {
+                                                                             PlatformCode = PlatformEnum.Mobile,
+                                                                             Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Mobile)
+                                                                                          ? x.PlatformDistributions[PlatformEnum.Mobile]
+                                                                                          : 0
+                                                                         },
+                                                                     new PlatformDistribution
+                                                                         {
+                                                                             PlatformCode = PlatformEnum.Api,
+                                                                             Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Api)
+                                                                                          ? x.PlatformDistributions[PlatformEnum.Api]
+                                                                                          : 0
+                                                                         },
+                                                                     new PlatformDistribution
+                                                                         {
+                                                                             PlatformCode = PlatformEnum.Online,
+                                                                             Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Online)
+                                                                                          ? x.PlatformDistributions[PlatformEnum.Online]
+                                                                                          : 0
+                                                                         }
+                                                                 }
+                                 })
                 .ToArray();
 
-            return new DebitsInfoDto
-            {
-                OrganizationUnitCode = organizationUnitSyncCode1C,
-                StartDate = period.Start,
-                EndDate = period.End,
-                ClientDebitTotalAmount = debits.Where(x => x.Type == DebitDto.DebitType.Client).Sum(x => x.Amount),
-                Debits = debits
-            };
+            return new DebitsInfoInitialDto
+                       {
+                           OrganizationUnitCode = organizationUnitSyncCode1C,
+                           StartDate = period.Start,
+                           EndDate = period.End,
+                           ClientDebitTotalAmount = debits.Where(x => x.Type == DebitDto.DebitType.Client).Sum(x => x.Amount),
+                           Debits = debits
+                       };
         }
 
         private decimal GetAccountDetailAmount(AccountDetailDto accountDetailDto)
@@ -254,7 +255,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 streamDictionary.Add(errorsFileName, new MemoryStream(CyrillicEncoding.GetBytes(errorContent)));
             }
 
-            streamDictionary.Add("DebitsInfo_" + DateTime.Today.ToShortDateString() + ".xml", debitsStream);
+            streamDictionary.Add("DebitsInfoInitial_" + DateTime.Today.ToShortDateString() + ".xml", debitsStream);
 
             response.FileName = "Acts.zip";
             response.ContentType = MediaTypeNames.Application.Zip;
