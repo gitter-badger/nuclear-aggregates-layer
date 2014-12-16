@@ -2,6 +2,8 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
+Import-Module .\modules\metadata.dynamics.psm1 -DisableNameChecking
+
 $DomainNames = @{
 	'Chile' = 'cl'
 	'Cyprus' = 'com.cy'
@@ -12,12 +14,16 @@ $DomainNames = @{
 	'Kazakhstan' = 'kz'
 }
 
-function Get-TargetHostsMetadata ($EnvType, $Country, $EntryPoint){
+function Get-TargetHostsMetadata ($EnvType, $Country, $EntryPoint, $Index){
 
 	switch ($EnvType) {
 		'Test' {
 			switch ($Country) {
 				'Russia' {
+					if ($Index -eq '06'){
+						return @{ 'TargetHosts' = @('uk-erm-test06') }
+					}
+				
 					return @{ 'TargetHosts' = @('uk-erm-test01') }
 				}
 				default {
@@ -104,11 +110,11 @@ function Get-TakeOfflineMetadata ($EnvType) {
 	}
 }
 
-function Get-WebMetadata ($EnvType, $Country, $EntryPoint) {
+function Get-WebMetadata ($EnvType, $Country, $EntryPoint, $Index) {
 
 	$metadata = @{}
 	$metadata += Get-ValidateWebsiteMetadata $EnvType
-	$metadata += Get-TargetHostsMetadata $EnvType $Country $EntryPoint
+	$metadata += Get-TargetHostsMetadata $EnvType $Country $EntryPoint $Index
 	$metadata += Get-IisAppPathMetadata $EnvType $Country $EntryPoint
 	$metadata += Get-TakeOfflineMetadata $EnvType
 	
