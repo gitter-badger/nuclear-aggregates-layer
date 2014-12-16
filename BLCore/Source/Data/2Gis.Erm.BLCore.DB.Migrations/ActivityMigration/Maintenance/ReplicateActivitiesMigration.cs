@@ -30,9 +30,9 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
                 }
                 catch (Exception ex)
                 {
-                    context.Connection.RollBackTransaction();
                     Console.WriteLine("Replication of {0} was failed.", tuple.Item3);
                     Console.WriteLine(ex);
+                    context.Connection.RollBackTransaction();
                     throw;
                 }
             }
