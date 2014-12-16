@@ -104,7 +104,7 @@ function Get-TakeOfflineMetadata ($EnvType) {
 	}
 }
 
-function Get-WebMetadata ($EnvType, $Country, $EntryPoint) {
+function Get-WebMetadata ($EnvType, $Country, $EntryPoint, $Index) {
 
 	$metadata = @{}
 	$metadata += Get-ValidateWebsiteMetadata $EnvType
