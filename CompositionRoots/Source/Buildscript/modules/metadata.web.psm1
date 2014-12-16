@@ -64,7 +64,7 @@ function Get-ValidateWebsiteMetadata ($EnvType){
 	}
 }
 
-function Get-IisAppPathMetadata ($EnvType, $Country, $EntryPoint) {
+function Get-IisAppPathMetadata ($EnvType, $Country, $EntryPoint, $Index) {
 
 	switch ($EntryPoint) {
 		'2Gis.Erm.UI.Web.Mvc' { $prefix = "web-app$Index" }
@@ -109,7 +109,7 @@ function Get-WebMetadata ($EnvType, $Country, $EntryPoint) {
 	$metadata = @{}
 	$metadata += Get-ValidateWebsiteMetadata $EnvType
 	$metadata += Get-TargetHostsMetadata $EnvType $Country $EntryPoint
-	$metadata += Get-IisAppPathMetadata $EnvType $Country $EntryPoint
+	$metadata += Get-IisAppPathMetadata $EnvType $Country $EntryPoint $Index
 	$metadata += Get-TakeOfflineMetadata $EnvType
 	
 	return $metadata
