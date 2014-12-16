@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills
 {
-    public interface ICreateBillsAggregateService : IAggregateSpecificOperation<Order, BulkCreateIdentity>
+    public interface IBulkCreateBillAggregateService : IAggregateSpecificOperation<Order, BulkCreateIdentity>
     {
         void Create(Order order, IEnumerable<Bill> bills);
     }

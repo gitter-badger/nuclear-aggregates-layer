@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
 {
-    public sealed class CreateBillsAggregateService : ICreateBillsAggregateService
+    public sealed class BulkCreateBillAggregateService : IBulkCreateBillAggregateService
     {
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
         private readonly IValidateBillsService _validateBillsService;
         private readonly IEvaluateBillNumberService _evaluateBillNumberService;
 
-        public CreateBillsAggregateService(
+        public BulkCreateBillAggregateService(
             IOperationScopeFactory scopeFactory, 
             IRepository<Bill> billGenericRepository, 
             IIdentityProvider identityProvider,

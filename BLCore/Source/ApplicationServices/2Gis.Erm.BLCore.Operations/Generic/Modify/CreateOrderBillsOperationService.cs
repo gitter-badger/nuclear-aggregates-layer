@@ -19,13 +19,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
     {
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IBulkDeleteBillAggregateService _deleteAggregateService;
-        private readonly ICreateBillsAggregateService _createAggregateService;
+        private readonly IBulkCreateBillAggregateService _createAggregateService;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IBusinessModelSettings _businessModelSettings;
 
         public CreateOrderBillsOperationService(
             IBusinessModelSettings businessModelSettings,
-            ICreateBillsAggregateService createAggregateService,
+            IBulkCreateBillAggregateService createAggregateService,
             IOrderReadModel orderReadModel,
             IBulkDeleteBillAggregateService deleteAggregateService,
             IOperationScopeFactory scopeFactory)

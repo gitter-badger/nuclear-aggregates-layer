@@ -247,7 +247,7 @@
     <Compile Include="Orders\IOrderRepository.cs" />
     <Compile Include="Orders\Operations\Bargains\ICloseClientBargainsAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IBulkDeleteBillAggregateService.cs" />
-    <Compile Include="Orders\Operations\Bills\ICreateBillsAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\IBulkCreateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IUpdateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillNumberService.cs" />
