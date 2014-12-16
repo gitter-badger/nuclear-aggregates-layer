@@ -282,7 +282,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public ViewResult SelectLegalPersonProfile(long orderId)
         {
-            var dto = _orderReadModel.GetOrderLegalPersonProfile(orderId);
+            var dto = _orderReadModel.GetLegalPersonProfileByOrder(orderId);
 
             var model = new SelectLegalPersonProfileViewModel
             {

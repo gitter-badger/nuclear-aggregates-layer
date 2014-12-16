@@ -1306,7 +1306,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
         }
 
-        public long? GetOrderLegalPersonProfileId(long orderId)
+        public long? GetLegalPersonProfileIdByOrder(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
                           .Select(order => order.LegalPersonProfileId)
@@ -1434,7 +1434,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
         }
 
-        public OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId)
+        public OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId)
         {
             var dto = _secureFinder.Find(Specs.Find.ById<Order>(orderId))
                                    .Select(order => new 
@@ -1458,7 +1458,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        };
         }
 
-        public OrderLegalPersonProfileDto GetBargainLegalPersonProfile(long bargainId)
+        public OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId)
         {
             var dto = _secureFinder.Find(Specs.Find.ById<Bargain>(bargainId))
                                    .Select(x => new

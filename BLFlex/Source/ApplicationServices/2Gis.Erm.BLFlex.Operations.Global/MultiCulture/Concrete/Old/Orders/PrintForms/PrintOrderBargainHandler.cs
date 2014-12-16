@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
             }
 
-            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetLegalPersonProfileIdByOrder(request.OrderId.Value);
             if (legalPersonProfileId == null)
             {
                 throw new LegalPersonProfileMustBeSpecifiedException();

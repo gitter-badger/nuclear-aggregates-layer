@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
                 throw new NotificationException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
-            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetLegalPersonProfileIdByOrder(request.OrderId.Value);
             if (legalPersonProfileId == null)
             {
                 throw new LegalPersonProfileMustBeSpecifiedException();

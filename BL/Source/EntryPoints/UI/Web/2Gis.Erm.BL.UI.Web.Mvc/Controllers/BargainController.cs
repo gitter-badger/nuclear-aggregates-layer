@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public ViewResult SelectLegalPersonProfile(long bargainId)
         {
-            var dto = _orderReadModel.GetBargainLegalPersonProfile(bargainId);
+            var dto = _orderReadModel.GetLegalPersonProfileByBargain(bargainId);
 
             var model = new SelectLegalPersonProfileViewModel
                             {
