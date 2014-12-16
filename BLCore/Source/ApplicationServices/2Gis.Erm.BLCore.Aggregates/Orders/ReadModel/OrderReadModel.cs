@@ -1152,20 +1152,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public OrderPositionAdvertisementLinksDto GetOrderPositionAdvertisementLinksInfo(long orderPositionId)
         {
             return _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId))
-                          .Select(position => new 
+                          .Select(position => new OrderPositionAdvertisementLinksDto
                               {
-                                  AdverisementLinks = position.OrderPositionAdvertisements,
+                                  AdvertisementLinks = position.OrderPositionAdvertisements,
                                   BindingType = position.PricePosition.Position.BindingObjectTypeEnum,
                                   OrderWorkflowState = position.Order.WorkflowStepId,
                                   OrderId = position.Order.Id
-                              })
-                          .AsEnumerable()
-                          .Select(x => new OrderPositionAdvertisementLinksDto
-                              {
-                                  AdverisementLinks = x.AdverisementLinks.ToArray(),
-                                  BindingType = x.BindingType,
-                                  OrderWorkflowState = x.OrderWorkflowState,
-                                  OrderId = x.OrderId
                               })
                           .Single();
         }

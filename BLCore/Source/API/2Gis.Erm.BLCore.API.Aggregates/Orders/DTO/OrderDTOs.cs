@@ -115,7 +115,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
     public sealed class OrderPositionAdvertisementLinksDto
     {
-        public IReadOnlyList<OrderPositionAdvertisement> AdverisementLinks { get; set; }
+        public IEnumerable<OrderPositionAdvertisement> AdvertisementLinks { get; set; }
         public PositionBindingObjectType BindingType { get; set; }
         public OrderState OrderWorkflowState { get; set; }
         public long OrderId { get; set; }

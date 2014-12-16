@@ -44,10 +44,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             using (var scope = _scopeFactory.CreateNonCoupled<ReplaceOrderPositionAdvertisementLinksIdentity>())
             {
                 var orderPositionAdvertisementLinksInfo = _orderReadModel.GetOrderPositionAdvertisementLinksInfo(orderPositionId);
-                ValidateOrderPositionAdvertisementsInLockedOrder(
-                    orderPositionAdvertisementLinksInfo.AdverisementLinks,
-                    advertisementLinkDescriptors,
-                    orderPositionAdvertisementLinksInfo.OrderWorkflowState != OrderState.OnRegistration);
+
+                if (orderPositionAdvertisementLinksInfo.OrderWorkflowState != OrderState.OnRegistration
+                    && IsChangedOrderPositionAdvertisementsLinksInLockedOrder(
+                            orderPositionAdvertisementLinksInfo.AdvertisementLinks,
+                            advertisementLinkDescriptors))
+                {
+                    // ошибка если как-то смогли изменить позиции у заблокированного заказа
+                    throw new BusinessLogicException(BLResources.ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked);
+                }
 
                 // повторяю прежнюю логику. По-хорошему все ошибки можно показать в окошечке. Сейчас этого не делаем, т.к.надо тестировать и релизить.
                 var firstError = _validateOrderPositionAdvertisementsOperationService.Validate(orderPositionId, advertisementLinkDescriptors).FirstOrDefault();
@@ -57,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 }
 
                 _replaceOrderPositionAdvertisementLinksAggregateService.Replace(
-                    orderPositionAdvertisementLinksInfo.AdverisementLinks, 
+                    orderPositionAdvertisementLinksInfo.AdvertisementLinks, 
                     advertisementLinkDescriptors.Select(descriptor => 
                         new AdvertisementLinkDescriptor
                             {
@@ -76,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                                                                OrderId = orderPositionAdvertisementLinksInfo.OrderId,
                                                                                ChangedAspects = new[]
                                                                                                     {
-                                                                                                        OrderValidationRuleGroup.AdvertisementMaterialsValidation,
+                                                                                                        OrderValidationRuleGroup.AdvertisementMaterialsValidation
                                                                                                     }
                                                                            }
                                                                    });
@@ -86,58 +91,42 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             }
         }
 
-        // ошибка если как-то смогли изменить позиции у заблокированного заказа
-        private static void ValidateOrderPositionAdvertisementsInLockedOrder(IReadOnlyList<OrderPositionAdvertisement> oldAdvertisementsLinks,
-                                                                             IReadOnlyList<AdvertisementDescriptor> newAdvertisementsLinks,
-                                                                             bool orderIsLocked)
+        private static bool IsChangedOrderPositionAdvertisementsLinksInLockedOrder(
+            IEnumerable<OrderPositionAdvertisement> oldAdvertisementsLinks,
+            IEnumerable<AdvertisementDescriptor> newAdvertisementsLinks)
         {
-            if (!orderIsLocked)
+            // поэлементная сортировка 
+            var oldAdvertisementsLinksOrdered = oldAdvertisementsLinks
+                .OrderBy(x => x.PositionId)
+                .ThenBy(x => x.FirmAddressId)
+                .ThenBy(x => x.CategoryId)
+                .ToArray();
+
+            var newAdvertisementsLinksOrdered = newAdvertisementsLinks
+                .OrderBy(x => x.PositionId)
+                .ThenBy(x => x.FirmAddressId)
+                .ThenBy(x => x.CategoryId)
+                .ToArray();
+
+            if (oldAdvertisementsLinksOrdered.Length != newAdvertisementsLinksOrdered.Length)
             {
-                return;
+                return true;
             }
 
-            bool throwError;
-
-            if (newAdvertisementsLinks.Count != oldAdvertisementsLinks.Count)
+            for (var i = 0; i < newAdvertisementsLinksOrdered.Length; i++)
             {
-                throwError = true;
-            }
-            else
-            {
-                // поэлементная сортировка 
-                oldAdvertisementsLinks = oldAdvertisementsLinks
-                    .OrderBy(x => x.PositionId)
-                    .ThenBy(x => x.FirmAddressId)
-                    .ThenBy(x => x.CategoryId)
-                    .ToArray();
+                var oldAdvertisementsLink = oldAdvertisementsLinksOrdered[i];
+                var newAdvertisementsLink = newAdvertisementsLinksOrdered[i];
 
-                newAdvertisementsLinks = newAdvertisementsLinks
-                    .OrderBy(x => x.PositionId)
-                    .ThenBy(x => x.FirmAddressId)
-                    .ThenBy(x => x.CategoryId)
-                    .ToArray();
-
-                throwError = false;
-
-                for (var i = 0; i < newAdvertisementsLinks.Count; i++)
+                if (newAdvertisementsLink.PositionId != oldAdvertisementsLink.PositionId ||
+                    newAdvertisementsLink.FirmAddressId != oldAdvertisementsLink.FirmAddressId ||
+                    newAdvertisementsLink.CategoryId != oldAdvertisementsLink.CategoryId)
                 {
-                    var newAdvertisementsLink = newAdvertisementsLinks[i];
-                    var oldAdvertisementsLink = oldAdvertisementsLinks[i];
-
-                    if (newAdvertisementsLink.PositionId != oldAdvertisementsLink.PositionId ||
-                        newAdvertisementsLink.FirmAddressId != oldAdvertisementsLink.FirmAddressId ||
-                        newAdvertisementsLink.CategoryId != oldAdvertisementsLink.CategoryId)
-                    {
-                        throwError = true;
-                        break;
-                    }
+                    return true;
                 }
             }
 
-            if (throwError)
-            {
-                throw new BusinessLogicException(BLResources.ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked);
-            }
+            return false;
         }
     }
 }

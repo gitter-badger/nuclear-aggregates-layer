@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
         {
             return _finder.Find(Specs.Find.ById<Position>(positionId))
                           .Select(item => item.Name)
-                          .SingleOrDefault();
+                          .Single();
         }
     }
 }

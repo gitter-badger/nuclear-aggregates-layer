@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                     orderPositionAdvertisementLinksInfo.OrderWorkflowState, 
                     orderPositionAdvertisementLinksInfo.BindingType,
                     false,
-                    orderPositionAdvertisementLinksInfo.AdverisementLinks.Count,
+                    orderPositionAdvertisementLinksInfo.AdvertisementLinks.Count(),
                     advertisementLinkDescriptors.Count,
                     out report))
                 {
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 }
 
                 _replaceOrderPositionAdvertisementLinksAggregateService.Replace(
-                    orderPositionAdvertisementLinksInfo.AdverisementLinks,
+                    orderPositionAdvertisementLinksInfo.AdvertisementLinks,
                     advertisementLinkDescriptors.Select(descriptor => new AdvertisementLinkDescriptor
                                                                           {
                                                                               OrderPositionId = orderPositionId,
