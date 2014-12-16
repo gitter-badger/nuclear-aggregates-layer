@@ -181,4 +181,10 @@
   <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
     <value>Reklamní agentura nemůže být zadána jako zprostředkovaný klient</value>
   </data>
+  <data name="ChangeProfilesOperationMessage" xml:space="preserve">
+    <value>Выберите профиль юридического лица клиента</value>
+  </data>
+  <data name="ChangeProfilesOperationTitle" xml:space="preserve">
+    <value>Выберите профиль</value>
+  </data>
 </root>

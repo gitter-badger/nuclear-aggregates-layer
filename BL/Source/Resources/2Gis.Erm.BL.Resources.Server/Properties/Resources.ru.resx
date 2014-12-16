@@ -181,4 +181,10 @@
   <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
     <value>Рекламное агентство не может быть указано в качестве дочернего клиента</value>
   </data>
+  <data name="ChangeProfilesOperationMessage" xml:space="preserve">
+    <value>Выберите профиль юридического лица клиента</value>
+  </data>
+  <data name="ChangeProfilesOperationTitle" xml:space="preserve">
+    <value>Выберите профиль</value>
+  </data>
 </root>

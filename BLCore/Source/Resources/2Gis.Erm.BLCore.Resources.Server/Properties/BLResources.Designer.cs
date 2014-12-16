@@ -5170,7 +5170,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string DealIdOrFirmIdIsNotSpecified {
             get {
                 return ResourceManager.GetString("DealIdOrFirmIdIsNotSpecified", resourceCulture);
-            }
+        }
         }
         
         /// <summary>
@@ -7835,7 +7835,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string ItIsNotAllowedToCreateAgentBargains {
             get {
                 return ResourceManager.GetString("ItIsNotAllowedToCreateAgentBargains", resourceCulture);
-            }
+        }
         }
         
         /// <summary>
@@ -7925,6 +7925,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string LegalPersonDealLinkAlreadyExists {
             get {
                 return ResourceManager.GetString("LegalPersonDealLinkAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LegalPersonFieldsMustBeFilled {
+            get {
+                return ResourceManager.GetString("LegalPersonFieldsMustBeFilled", resourceCulture);
             }
         }
         
@@ -8033,6 +8042,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string LegalPersonProfileMissing {
             get {
                 return ResourceManager.GetString("LegalPersonProfileMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LegalPersonProfileMustBeSpecified {
+            get {
+                return ResourceManager.GetString("LegalPersonProfileMustBeSpecified", resourceCulture);
             }
         }
         
@@ -14378,6 +14396,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TitlePlan {
             get {
                 return ResourceManager.GetString("TitlePlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TitlePrinting {
+            get {
+                return ResourceManager.GetString("TitlePrinting", resourceCulture);
             }
         }
         

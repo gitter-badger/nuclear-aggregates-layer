@@ -183,6 +183,9 @@
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\OrderChangesDescriptor.cs" />
+    <Compile Include="Concrete\Orders\IChangeOrderLegalPersonProfileOperationService.cs" />
+    <Compile Include="Concrete\Orders\LegalPersonProfileMustBeSpecifiedException.cs" />
+    <Compile Include="Concrete\Orders\OrderLegalPersonProfileDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
@@ -322,7 +325,6 @@
     <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderResponse.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\ChangeOrderLegalPersonProfileRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CheckOrderBeginDistributionDateRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CloseOrderRequest.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\RecalculateOrderDiscountRequest.cs" />

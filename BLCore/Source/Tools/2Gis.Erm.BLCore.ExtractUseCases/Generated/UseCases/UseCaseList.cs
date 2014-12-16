@@ -1779,16 +1779,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         },
     }
                     }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintOrder",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(SetLegalPersonProfileForOrderHandler),
-                        Request = typeof(ChangeOrderLegalPersonProfileRequest)
-                    }
                 }
             };
         }

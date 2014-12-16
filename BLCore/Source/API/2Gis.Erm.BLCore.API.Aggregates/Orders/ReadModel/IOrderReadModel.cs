@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -108,5 +109,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId);
         long? GetBargainIdByOrder(long orderId);
         long GetBargainLegalPersonId(long bargainId);
+        OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId);
+        OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId);
+        long? GetLegalPersonProfileIdByOrder(long orderId);
     }
 }
