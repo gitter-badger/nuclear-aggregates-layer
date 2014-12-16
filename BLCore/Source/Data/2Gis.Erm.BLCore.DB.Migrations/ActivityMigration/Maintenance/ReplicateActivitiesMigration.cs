@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
     {
         public void Apply(IActivityMigrationContext context)
         {
-            context.Connection.StatementTimeout = 1 * 60 * 60; // a hour
+            context.Connection.StatementTimeout = 6 * 60 * 60; // six hours
 
             foreach (var tuple in new[]
                 {
