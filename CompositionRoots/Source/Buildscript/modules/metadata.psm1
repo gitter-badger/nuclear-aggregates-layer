@@ -23,14 +23,14 @@ function Get-EnvironmentMetadata ($EnvName, [ValidateSet('Test', 'Int', 'Load', 
 	return @{
 		'Common' = @{ 'EnvType' = $EnvType }
 		'Transform' = Get-TransformMetadata $EnvName $EnvType $Country $Index
-		'2Gis.Erm.UI.Web.Mvc' = Get-WebMetadata $EnvType $Country '2Gis.Erm.UI.Web.Mvc' $Index
-		'2Gis.Erm.API.WCF.Operations' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Operations' $Index
-		'2Gis.Erm.API.WCF.MoDi' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.MoDi' $Index
-		'2Gis.Erm.API.WCF.Metadata' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Metadata' $Index
-		'2Gis.Erm.API.WCF.OrderValidation' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.OrderValidation' $Index
-		'2Gis.Erm.API.WCF.Operations.Special' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Operations.Special' $Index
-		'2Gis.Erm.API.WCF.Releasing' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Releasing' $Index
-		'2Gis.Erm.UI.Desktop.WPF' = Get-WebMetadata $EnvType $Country '2Gis.Erm.UI.Desktop.WPF' $Index
+		'2Gis.Erm.UI.Web.Mvc' = Get-WebMetadata $EnvType $Country '2Gis.Erm.UI.Web.Mvc'
+		'2Gis.Erm.API.WCF.Operations' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Operations'
+		'2Gis.Erm.API.WCF.MoDi' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.MoDi'
+		'2Gis.Erm.API.WCF.Metadata' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Metadata'
+		'2Gis.Erm.API.WCF.OrderValidation' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.OrderValidation'
+		'2Gis.Erm.API.WCF.Operations.Special' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Operations.Special'
+		'2Gis.Erm.API.WCF.Releasing' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Releasing'
+		'2Gis.Erm.UI.Desktop.WPF' = Get-WebMetadata $EnvType $Country '2Gis.Erm.UI.Desktop.WPF'
 		'2Gis.Erm.TaskService.Installer' = Get-TaskServiceMetadata $EnvName $EnvType $Country $Index
 		'Migrations' = Get-MigrationsMetadata $Country
 		'Dynamics' = Get-DynamicsMetadata $EnvType $Country $Index

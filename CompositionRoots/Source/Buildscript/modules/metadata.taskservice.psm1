@@ -169,9 +169,9 @@ function Get-AutoStartMetadata ($EnvType){
 	return @{ 'AutoStart' = $true}
 }
 
-function Get-TargetHostsMetadata ($EnvType, $Country, $Index){
+function Get-TargetHostsMetadata ($EnvType, $Country){
 
-	$webMetadata = Get-WebMetadata $EnvType $Country '2Gis.Erm.TaskService.Installer' $Index
+	$webMetadata = Get-WebMetadata $EnvType $Country '2Gis.Erm.TaskService.Installer'
 
 	switch ($EnvType) {
 		'Production' {
@@ -198,7 +198,7 @@ function Get-UpgradeCodeMetadata($EnvName){
 function Get-TaskServiceMetadata ($EnvName, $EnvType, $Country, $Index) {
 
 	$metadata = @{}
-	$metadata += Get-TargetHostsMetadata $EnvType $Country $Index
+	$metadata += Get-TargetHostsMetadata $EnvType $Country
 	$metadata += Get-AutoStartMetadata $EnvType
 	$metadata += Get-QuartzConfigMetadata $EnvType $Country $Index
 	$metadata += Get-UpgradeCodeMetadata $EnvName
