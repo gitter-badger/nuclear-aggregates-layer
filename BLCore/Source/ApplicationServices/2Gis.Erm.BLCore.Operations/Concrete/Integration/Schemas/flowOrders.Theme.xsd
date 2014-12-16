@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="string256">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:complexType name="Theme">
     <xs:sequence>
       <xs:element name="Rubrics" minOccurs="1" maxOccurs="1">
@@ -23,12 +30,12 @@
         <xs:documentation>Стабильный код стартовой тематики</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Name" type="xs:string" use="required">
+    <xs:attribute name="Name" type="string256" use="required">
       <xs:annotation>
         <xs:documentation>Наименование стартовой тематики</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Description" type="xs:string" use="optional">
+    <xs:attribute name="Description" type="string256" use="optional">
       <xs:annotation>
         <xs:documentation>Описание стартовой тематики</xs:documentation>
       </xs:annotation>
@@ -64,5 +71,5 @@
     <xs:annotation>
       <xs:documentation>Объект передачи тематической подборки</xs:documentation>
     </xs:annotation>
-  </xs:element> 
+  </xs:element>
 </xs:schema>
