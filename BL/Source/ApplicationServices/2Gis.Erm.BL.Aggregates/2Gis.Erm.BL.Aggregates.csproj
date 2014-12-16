@@ -52,9 +52,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Accounts\Operations\ActivateLimitAggregateService.cs" />
     <Compile Include="Accounts\Operations\CreateLimitAggregateService.cs" />
-    <Compile Include="Accounts\Operations\DeactivateLimitAggregateService.cs" />
     <Compile Include="Accounts\Operations\DeleteLimitAggregateService.cs" />
     <Compile Include="Accounts\Operations\UpdateLimitAggregateService.cs" />
     <Compile Include="DI\BlAggregatesAssembly.cs" />
