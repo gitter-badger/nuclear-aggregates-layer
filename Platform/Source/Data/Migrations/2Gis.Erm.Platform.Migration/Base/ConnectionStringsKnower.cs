@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.Platform.Migration.Base
 
                 case ErmConnectionStringKey.Logging:
                     {
-                        return TryGetConnectionStringInternal("ErmLogging", out connectionString);
+                        return TryGetConnectionStringInternal("Logging", out connectionString);
                     }
 
                 case ErmConnectionStringKey.CrmConnection:
@@ -123,9 +123,9 @@ namespace DoubleGis.Erm.Platform.Migration.Base
             return false;
         }
 
-        private bool TryGetConnectionStringInternal(string connectionStringName, out string connectionString)
+        private bool TryGetConnectionStringInternal(string connectionStringNameAlias, out string connectionString)
         {
-            var connectionStringSettings = _connectionStrings[connectionStringName];
+            var connectionStringSettings = _connectionStrings[connectionStringNameAlias];
             if (connectionStringSettings == null)
             {
                 connectionString = null;
