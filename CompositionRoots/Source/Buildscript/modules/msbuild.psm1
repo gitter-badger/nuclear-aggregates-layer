@@ -29,28 +29,28 @@ function Invoke-MSBuild ([string]$ProjectFileName, [string[]]$Targets = $null, [
 		'/consoleloggerparameters:ErrorsOnly'
 	)
 
-	switch ($MsBuildPlatform){
-		'x86' {
+		switch ($MsBuildPlatform){
+			'x86' {
 			& $MsBuildPath_x86 $arguments
-		}
-		'x64' {
+			}
+			'x64' {
 			& $MsBuildPath_x64 $arguments
+			}
+			default {
+				throw "MSBuild platform (x86, x64) is not defined"
+			}
 		}
-		default {
-			throw "MSBuild platform (x86, x64) is not defined"
-		}
-	}
 
-	if ($lastExitCode -ne 0) {
-		throw "Command failed with exit code $lastExitCode"
-	}
+		if ($lastExitCode -ne 0) {
+			throw "Command failed with exit code $lastExitCode"
+		}
 }
 
 function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml[]]$CustomXmls = $null){
 
 	if ($Targets -eq $null -and $Properties -eq $null){
 		return $ProjectFileName
-	}
+}
 
 	$xmlDocument = New-Object System.Xml.XmlDocument
 	$root = $xmlDocument.CreateElement('Project')

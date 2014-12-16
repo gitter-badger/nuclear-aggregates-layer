@@ -58,42 +58,6 @@
 
     <!-- third party components -->
     <ComponentGroup Id="ThirdParty" Directory="INSTALLFOLDER">
-      <ComponentGroupRef Id="BinaryThirdParty" />
-      <ComponentGroupRef Id="NugetThirdParty" />
-    </ComponentGroup>
-
-    <ComponentGroup Id="BinaryThirdParty" Directory="INSTALLFOLDER">
-      <?define LibsDir = "$(var.ProjectDir)..\Libs" ?>
-      <Component>
-        <File Source="!(bindpath.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll" />
-      </Component>
-      <Component>
-        <File Source="!(bindpath.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.Sdk.dll" />
-      </Component>
-      <Component>
-        <File Source="!(bindpath.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.dll" />
-      </Component>
-      <Component>
-        <File Source="!(bindpath.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" />
-      </Component>
-      <Component>
-        <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Client.dll" />
-      </Component>
-      <Component>
-        <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Core.dll" />
-      </Component>
-      <Component>
-        <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Common.dll" />
-      </Component>
-      <Component>
-        <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Data.Common.dll" />
-      </Component>
-	  <Component>
-        <File Source="$(var.LibsDir)\protobuf-net_2.0.0.669\protobuf-net.dll" />
-      </Component>
-    </ComponentGroup>
-
-    <ComponentGroup Id="NugetThirdParty" Directory="INSTALLFOLDER">
       <?define PackagesDir = "$(var.ProjectDir)..\packages" ?>
       <Component>
         <File Source="!(bindpath.PackagesDir)\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
@@ -120,19 +84,19 @@
         <File Source="!(bindpath.PackagesDir)\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll" />
+        <File Source="!(bindpath.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll" />
+        <File Source="!(bindpath.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+        <File Source="!(bindpath.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+        <File Source="!(bindpath.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll" />
+        <File Source="!(bindpath.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll" />
       </Component>
       <Component>
         <File Source="!(bindpath.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
@@ -172,6 +136,33 @@
       </Component>
       <Component>
         <File Source="!(bindpath.PackagesDir)\ServiceBus.v1_1.1.0.4.0\lib\net40-full\Microsoft.ServiceBus.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\Microsoft.CrmSdk.4.0.13\lib\net35\Microsoft.Xrm.Client.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\Microsoft.CrmSdk.4.0.13\lib\net35\Microsoft.Crm.Sdk.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\Microsoft.CrmSdk.4.0.13\lib\net35\Microsoft.Crm.SdkTypeProxy.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\Microsoft.CrmSdk.4.0.13\lib\net35\Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\Microsoft.ApplicationServer.Caching.Client.1.0.0.0\lib\net35\Microsoft.ApplicationServer.Caching.Client.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\Microsoft.ApplicationServer.Caching.Client.1.0.0.0\lib\net35\Microsoft.ApplicationServer.Caching.Core.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\Microsoft.ApplicationServer.Caching.Client.1.0.0.0\lib\net35\Microsoft.WindowsFabric.Common.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\Microsoft.ApplicationServer.Caching.Client.1.0.0.0\lib\net35\Microsoft.WindowsFabric.Data.Common.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\protobuf-net.2.0.0.669\lib\net35\protobuf-net.dll" />
       </Component>
     </ComponentGroup>
     

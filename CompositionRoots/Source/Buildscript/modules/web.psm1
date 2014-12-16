@@ -11,7 +11,7 @@ function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatfor
 
 	$customXmls = @((Get-ConfigsXml $ProjectFileName), (Get-VersionFileXml))
 	$packageLocation = "Packages\$($global:Context.EnvironmentName)\Package.zip"
-	
+
 	Invoke-MSBuild $ProjectFileName -Targets 'Package' -Properties @{
 		'PackageLocation' = $packageLocation
 		'DeployIisAppPath' = $EntryPointMetadata.IisAppPath
@@ -64,15 +64,27 @@ function Create-RemoteWebsite($TargetHost, $WebsiteName){
             }
             md $websitePhysicalPath | Out-Null
 
-			# todo: создавать ErmAppPool
+			# создаём AppPool
+			$appPoolPath = 'IIS:\AppPools\ErmAppPool'
+			if (!(Test-Path $appPoolPath)){
+				New-Item $appPoolPath | Out-Null
+				Set-ItemProperty $appPoolPath -Name 'managedRuntimeVersion' -Value 'v4.0'
+				Set-ItemProperty $appPoolPath -Name 'queueLength' -Value 10000 # число одновременных соединений
+				Set-ItemProperty $appPoolPath -Name 'startMode' -Value 'AlwaysRunning'
+				Set-ItemProperty $appPoolPath -Name 'processModel' -Value @{
+					'identityType' = 'NetworkService'
+					'idleTimeout' = '00:00:00'
+				}
+			}
 			
-            $website = New-Website -Name $WebsiteName -HostHeader $WebsiteName -ApplicationPool "ErmAppPool" -PhysicalPath $websitePhysicalPath
+            $website = New-Website -Name $WebsiteName -HostHeader $WebsiteName -ApplicationPool 'ErmAppPool' -PhysicalPath $websitePhysicalPath
 
             # добавляем https к созданному сайту
             New-WebBinding -Name $WebsiteName -Protocol https -HostHeader $WebsiteName
 
-            # добавляем аутентификацию Windows
-            Set-WebConfigurationProperty -filter "/system.WebServer/security/authentication/windowsAuthentication" -name "enabled" -value "true" -location $WebsiteName
+			# добавляем аутентификацию (анонимная и Windows)
+			Set-WebConfigurationProperty -Location $WebsiteName -Filter '/system.WebServer/security/authentication/anonymousAuthentication' -Name 'enabled' -Value 'true'
+            Set-WebConfigurationProperty -Location $WebsiteName -Filter '/system.WebServer/security/authentication/windowsAuthentication' -Name 'enabled' -Value 'true'
 			Start-Website $WebsiteName
 		}
 		
@@ -156,7 +168,7 @@ function Get-VersionFileName {
 	$filePath = Join-Path $global:Context.Dir.Temp $fileName
 	
 	if (!(Test-Path $filePath)){
-		Set-Content -Path $filePath -Value $version.SemanticVersion -Encoding UTF8
+	Set-Content -Path $filePath -Value $version.SemanticVersion -Encoding UTF8
 	}
 	
 	return $filePath
@@ -168,7 +180,7 @@ function Get-BranchFileName {
 	$filePath = Join-Path $global:Context.Dir.Temp $fileName
 	
 	if (!(Test-Path $filePath)){
-		Set-Content -Path $filePath -Value $branch -Encoding UTF8
+	Set-Content -Path $filePath -Value $branch -Encoding UTF8
 	}
 	
 	return $filePath
