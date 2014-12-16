@@ -38,6 +38,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         private readonly IPublicService _publicService;
         private readonly IDeleteOrderBillsOperationService _deleteBillsService;
+        private readonly ICreateOrderBillsOperationService _createOrderBillsService;
 
         public BillController(IMsCrmSettings msCrmSettings,
                               IUserContext userContext,
@@ -46,11 +47,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
-                              IDeleteOrderBillsOperationService deleteBillsService)
+                              IDeleteOrderBillsOperationService deleteBillsService,
+                              ICreateOrderBillsOperationService createOrderBillsService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _publicService = publicService;
             _deleteBillsService = deleteBillsService;
+            _createOrderBillsService = createOrderBillsService;
         }
 
         public ActionResult DeleteAll()
@@ -115,11 +118,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var createBillInfos = JsonConvert.DeserializeObject<CreateBillInfo[]>(paymentsInfo);
             var orders = JsonConvert.DeserializeObject<long[]>(relatedOrders);
 
-            _publicService.Handle(new CreateBillsRequest
-            {
-                OrderId = orderId,
-                CreateBillInfos = createBillInfos,
-            });
+            _createOrderBillsService.Create(orderId, createBillInfos);
 
             if (orders != null && orders.Length > 0)
             {
@@ -131,11 +130,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                });
                 foreach (var orderInfo in response.OrdersCreateBillInfos)
                 {
-                    _publicService.Handle(new CreateBillsRequest
-                    {
-                        OrderId = orderInfo.Item1,
-                        CreateBillInfos = orderInfo.Item2,
-                    });
+                    _createOrderBillsService.Create(orderInfo.Item1, orderInfo.Item2);
                 }
             }
         }
