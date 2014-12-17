@@ -43,7 +43,7 @@
 			InstallScope="perMachine"
 			InstallerVersion="500"
 			Compressed="yes"
-      
+
       Description="$(var.PackageDescription)"
 		/>
 
@@ -58,7 +58,6 @@
 
     <!-- third party components -->
     <ComponentGroup Id="ThirdParty" Directory="INSTALLFOLDER">
-      <?define PackagesDir = "$(var.ProjectDir)..\packages" ?>
       <Component>
         <File Source="!(bindpath.PackagesDir)\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
       </Component>
@@ -165,7 +164,7 @@
         <File Source="!(bindpath.PackagesDir)\protobuf-net.2.0.0.669\lib\net35\protobuf-net.dll" />
       </Component>
     </ComponentGroup>
-    
+
     <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">
 
     <!-- NT service -->
@@ -186,7 +185,7 @@
 				Start="$(var.ServiceStartType)"
 				ErrorControl="ignore"
 				Interactive="no"
-        
+
 				Name="$(var.ServiceName)"
 				DisplayName="$(var.ProductLongNameWithVersion)"
         Description="$(var.PackageDescription)"
@@ -195,7 +194,7 @@
       <ServiceControl
 				Id="Service1"
         Name="$(var.ServiceName)"
-        
+
 				Stop="both"
 				Remove="uninstall"
 				Wait="yes"
@@ -204,11 +203,11 @@
       </Component>
 
       <ComponentGroupRef Id="QuartzConfigs" />
-      
+
     </ComponentGroup>
 
     <ComponentGroup Id="QuartzConfigs" Directory="INSTALLFOLDER">
-     
+
       <?ifdef QuartzIncludeFileName ?>
         <?include $(var.QuartzIncludeFileName) ?>
       <?else ?>
@@ -226,7 +225,7 @@
 
       <!-- pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
-      
+
     </Feature>
 
     <!-- newer versions overwrites older versions -->
