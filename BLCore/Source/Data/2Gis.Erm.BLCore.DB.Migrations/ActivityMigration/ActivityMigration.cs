@@ -507,7 +507,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                                                                     ColumnSet = new ColumnSet(new[] { CrmUserMetadata.Id, CrmUserMetadata.DomainName }),
                                                                 })
                                               .Select(x => new { Key = (Key)x[CrmUserMetadata.Id], Account = (string)x[CrmUserMetadata.DomainName] })
-                                              .Where(x => !string.IsNullOrWhiteSpace(x.Account) && x.Account.StartsWith("2GIS\\"))
+                                              .Where(x => !string.IsNullOrWhiteSpace(x.Account) && x.Account.StartsWith("2GIS\\", StringComparison.OrdinalIgnoreCase))
                                               .ToDictionary(x => OmitDomainName(x.Account), x => x.Key.Value, StringComparer.OrdinalIgnoreCase);
                         }
 
