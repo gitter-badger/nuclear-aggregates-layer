@@ -5,7 +5,6 @@ $ErrorActionPreference = 'Stop'
 Import-Module .\modules\metadata.dynamics.psm1 -DisableNameChecking
 Import-Module .\modules\metadata.web.psm1 -DisableNameChecking
 Import-Module .\modules\metadata.taskservice.psm1 -DisableNameChecking
-Import-Module .\modules\msbuild.psm1 -DisableNameChecking
 Import-Module .\modules\metadata.transform.psm1 -DisableNameChecking
 
 function Get-MigrationsMetadata ($Country){
@@ -161,46 +160,4 @@ function Get-EntryPointMetadata([ValidateSet(
 	return $entryPointMetadata
 }
 
-function Get-ConnectionString ($ConnectionStringName) {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Web.Mvc'
-	$projectDir = Split-Path $ProjectFileName
-	$configFileName = Join-Path $projectDir 'web.config'
-	[xml]$configFileContent = Get-TransformedConfigFileContent $configFileName
-
-	$xmlNode = $configFileContent.SelectNodes("configuration/connectionStrings/add[@name = '$ConnectionStringName']")
-	if ($xmlNode -eq $null){
-		throw "Could not find connection string '$ConnectionStringName' in config file of project '$projectFileName'"
-	}
-
-	return $xmlNode.connectionString
-}
-
-function Get-ServiceUriString ($ServiceName) {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Web.Mvc'
-	$projectDir = Split-Path $ProjectFileName
-	$configFileName = Join-Path $projectDir 'web.config'
-	[xml]$configFileContent = Get-TransformedConfigFileContent $configFileName
-
-	$xmlNode = $configFileContent.SelectNodes("configuration/ermServicesSettings/ermServices/ermService[@name = '$ServiceName']")
-	if ($xmlNode -eq $null){
-		throw "Could not find service '$ServiceName' in config file of project '$projectFileName'"
-	}
-
-	return $xmlNode.baseUrl
-}
-
-function Get-AppSetting ($SettingName) {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Web.Mvc'
-	$projectDir = Split-Path $ProjectFileName
-	$configFileName = Join-Path $projectDir 'web.config'
-	[xml]$configFileContent = Get-TransformedConfigFileContent $configFileName
-
-	$xmlNode = $configFileContent.SelectNodes("configuration/appSettings/add[@key = '$SettingName']")
-	if ($xmlNode -eq $null){
-		throw "Could not find setting '$SettingName' in config file of project '$projectFileName'"
-	}
-
-	return $xmlNode.value
-}
-
-Export-ModuleMember -Function Get-EntryPointMetadata, Get-ConnectionString, Get-ServiceUriString, Get-AppSetting
+Export-ModuleMember -Function Get-EntryPointMetadata
