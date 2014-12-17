@@ -178,8 +178,8 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\ExportLegalPersonsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\MergeLegalPersonsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\PrintLimitsHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\RecalculateLimitHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\SetLimitStatusHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Limits\RecalculateLimitOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Limits\SetLimitStatusOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\CreateLocalMessageHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\ExportLocalMessageHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\ProcessLocalMessagesHandlerTest.cs" />
@@ -452,6 +452,10 @@
     <ProjectReference Include="..\..\..\..\BLQuerying\Source\EntryPoints\UI\Common\2Gis.Erm.BLQuerying.UI.Metadata\2Gis.Erm.BLQuerying.UI.Metadata.csproj">
       <Project>{8C7E352B-1450-4C92-9F53-EABEB51E1F79}</Project>
       <Name>2Gis.Erm.BLQuerying.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Project>{F5C50F83-8C4F-42F9-AD37-03740AB78416}</Project>
+      <Name>2Gis.Erm.BL.API.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>

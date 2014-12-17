@@ -966,6 +966,12 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value> Tato PO již je hlavní</value>
   </data>
+  <data name="LimitIncreasingIsNotRequired" xml:space="preserve">
+    <value>Увеличение лимита не требуется</value>
+  </data>
+  <data name="LimitWillBeIncreased" xml:space="preserve">
+    <value>Лимит будет увеличен на сумму {0}</value>
+  </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
     <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
   </data>

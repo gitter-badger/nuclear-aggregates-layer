@@ -724,6 +724,10 @@
       <Project>{a46e837a-d855-4d0b-b7e7-9f1f4c23fc32}</Project>
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Project>{F5C50F83-8C4F-42F9-AD37-03740AB78416}</Project>
+      <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{b268f8cb-8aef-4402-8cf5-a8e6ac5eec0b}</Project>
       <Name>2Gis.Erm.BL.Operations.Special</Name>

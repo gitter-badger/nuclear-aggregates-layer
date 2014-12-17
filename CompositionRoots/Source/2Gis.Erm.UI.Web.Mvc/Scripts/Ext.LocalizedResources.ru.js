@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 11.11.2014 15:44:37
+// File updated : 22.09.2014 17:04:46
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -171,11 +171,13 @@ JustifyRightTitle : 'Выровнять текст по правому краю.
 LastPageText : 'Последняя страница',
 LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Данный профиль уже является основным',
+LimitIncreasingIsNotRequired : 'Увеличение лимита не требуется',
 LimitStatusApproved : 'Одобрен',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.',
 LimitStatusError : 'ОШИБКА',
 LimitStatusOpened : 'Открыт',
 LimitStatusRejected : 'Отклонен',
+LimitWillBeIncreased : 'Лимит будет увеличен на сумму {0}',
 LineBreaksLeft : 'Строк осталось {0}',
 LinkFieldInvalidEmailMessage : 'Введенное значение не является корректным e-mail адресом',
 LinkFieldInvalidWebsiteMessage : 'Введенное значение не является корректным url адресом',
