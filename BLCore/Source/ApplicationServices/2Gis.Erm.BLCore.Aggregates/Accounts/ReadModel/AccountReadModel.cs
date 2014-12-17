@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
             var checkingOrders = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>()
                                               && OrderSpecs.Orders.Find.ByPeriod(checkingPeriod)
                                               && OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved, OrderState.OnTermination, OrderState.Archive)
-                                              && OrderSpecs.Orders.Find.ByAccountExtended(limit.AccountId));
+                                              && OrderSpecs.Orders.Find.ByAccountWithLegalPersonCorrectnessCheck(limit.AccountId));
 
             var blockingReleases = 
                     checkingOrders
