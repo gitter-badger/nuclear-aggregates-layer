@@ -93,10 +93,6 @@ function Get-Branch {
 		return 'local'
 	}
 	
-	if ($branch.StartsWith('release', 'OrdinalIgnoreCase')){
-		return 'release'
-	}
-	
 	# trim branch prefix
 	$slashIndex = $branch.LastIndexOf('/')
 	if ($slashIndex -ne -1){
