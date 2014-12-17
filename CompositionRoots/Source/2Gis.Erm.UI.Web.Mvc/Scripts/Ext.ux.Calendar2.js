@@ -7,11 +7,10 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         relative: 'YYYY-MM-DDTHH:mm:ss'
     },
 
-    // momentjs использует mm - для минут, MM - для месяца, DD - для дня
     displayFormats: {
-        day: Ext.CultureInfo.DateTimeFormatInfo.DotNetShortDatePattern.toUpperCase(),
-        month: Ext.CultureInfo.DateTimeFormatInfo.DotNetYearMonthPattern.toUpperCase(),
-        time: Ext.CultureInfo.DateTimeFormatInfo.DotNetShortTimePattern
+        day: Ext.CultureInfo.DateTimeFormatInfo.MomentJsShortDatePattern,
+        month: Ext.CultureInfo.DateTimeFormatInfo.MomentJsYearMonthPattern,
+        time: Ext.CultureInfo.DateTimeFormatInfo.MomentJsShortTimePattern
     },
 
     initComponent: function () {

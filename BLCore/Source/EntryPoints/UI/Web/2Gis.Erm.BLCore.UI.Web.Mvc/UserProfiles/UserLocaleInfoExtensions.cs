@@ -86,7 +86,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
                 //Делаем так потому, что все полные форматы в дотнет выводят месяц названием.
                 PhpFullDateTimePattern = DateTimeExtensions.ConvertNetToPhp(dateTimeFormatInfo.ShortDatePattern + " " + dateTimeFormatInfo.LongTimePattern),
                 PhpInvariantDateTimePattern = DateTimeExtensions.ConvertNetToPhp("MM/dd/yyyy HH:mm:ss"),        
-                PhpYearMonthPattern = DateTimeExtensions.ConvertNetToPhp(dateTimeFormatInfo.YearMonthPattern) // todo разделить php и dotnet версии, чтобы по названию было четко ясно что за версию шаблона используем
+                PhpYearMonthPattern = DateTimeExtensions.ConvertNetToPhp(dateTimeFormatInfo.YearMonthPattern), // todo разделить php и dotnet версии, чтобы по названию было четко ясно что за версию шаблона используем
+
+                MomentJsShortDatePattern = DateTimeExtensions.ConvertNetToMomentJs(dateTimeFormatInfo.ShortDatePattern),
+                MomentJsYearMonthPattern = DateTimeExtensions.ConvertNetToMomentJs(dateTimeFormatInfo.YearMonthPattern),
+                MomentJsShortTimePattern = DateTimeExtensions.ConvertNetToMomentJs(dateTimeFormatInfo.ShortTimePattern),
             };
         }
     }
