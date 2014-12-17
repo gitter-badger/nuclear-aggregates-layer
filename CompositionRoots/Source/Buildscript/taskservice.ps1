@@ -151,7 +151,6 @@ function Create-QuartzIncludeFile {
 function Get-InstallerConfigXmls ($projectFileName) {
 
 	$shortProjectFileName = [System.IO.Path]::GetFileNameWithoutExtension($projectFileName)
-	$buildProjectFileName = [System.IO.Path]::ChangeExtension($projectFileName, '.buildproj')
 	
 	[xml]$xml = @"
 <Project>
@@ -164,14 +163,15 @@ function Get-InstallerConfigXmls ($projectFileName) {
 	</PropertyGroup>
 	<Target Name="ErmPreprocess">
 		<ItemGroup>
-		    <ProjectReferenceToRemove Include="@(ProjectReference)" Condition=" '%(ProjectReference.Name)' == '$shortProjectFileName' " />
+		    <ProjectReferenceToRemove Include="@(ProjectReference)" Condition=" '%(Filename)' == '$shortProjectFileName' " />
 		    <ProjectReference Remove="@(ProjectReferenceToRemove)" />
 
-			<ProjectReference Include="$buildProjectFileName" Condition=" '@(ProjectReferenceToRemove)' != '' ">
-				<Name>$shortProjectFileName</Name>
-				<DoNotHarvest>True</DoNotHarvest>
-				<RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-				<RefTargetDir>INSTALLFOLDER</RefTargetDir>
+			<ProjectReference Include="%(ProjectReferenceToRemove.RelativeDir)%(ProjectReferenceToRemove.Filename).buildproj" Condition=" '@(ProjectReferenceToRemove)' != '' ">
+				<Name>%(ProjectReferenceToRemove.Name)</Name>
+				<Project>%(ProjectReferenceToRemove.Project)</Project>
+				<DoNotHarvest>%(ProjectReferenceToRemove.DoNotHarvest)</DoNotHarvest>
+				<RefProjectOutputGroups>%(ProjectReferenceToRemove.RefProjectOutputGroups)</RefProjectOutputGroups>
+				<RefTargetDir>%(ProjectReferenceToRemove.RefTargetDir)</RefTargetDir>
 	    	</ProjectReference>
 		</ItemGroup>
 	</Target>

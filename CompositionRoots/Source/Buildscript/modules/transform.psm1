@@ -22,7 +22,7 @@ function Get-MSBuildCustomXml ($ConfigFileName, [xml]$configFile){
 	
 	$configFile.Save($newConfigFileName)
 	
-	$targetName = "Target-$(Get-Random)"
+	$targetName = "TransformConfig-$(Get-Random)"
 	[xml]$xml = @"
 <Project>
 	<!-- Трансформация $fileName -->

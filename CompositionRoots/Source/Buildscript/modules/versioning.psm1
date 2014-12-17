@@ -35,8 +35,6 @@ function Update-AssemblyInfo ($AssemblyInfos)  {
 
 	foreach($assemblyInfo in $AssemblyInfos){
 	
-	    $assemblyInfo.IsReadOnly = $false
-		
 		$content = Get-Content -Encoding UTF8 -Path $assemblyInfo.FullName
 		
 		$content = $content -replace 'AssemblyInformationalVersion\(".*"\)', "AssemblyInformationalVersion(""$($version.SemanticVersion)"")"
