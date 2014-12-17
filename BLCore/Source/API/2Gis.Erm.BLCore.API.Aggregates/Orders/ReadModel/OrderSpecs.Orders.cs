@@ -195,7 +195,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                         BargainRef = new EntityReference { Id = x.BargainId, Name = x.Bargain.Number },
                         Platform = x.Platform == null ? string.Empty : x.Platform.Name,
                         PlatformRef = new EntityReference { Id = x.PlatformId, Name = x.Platform == null ? string.Empty : x.Platform.Name },
-                        HasDocumentsDebt = (DocumentsDebt)x.HasDocumentsDebt,
+                        HasDocumentsDebt = x.HasDocumentsDebt,
                         DocumentsComment = x.DocumentsComment,
                         AccountRef = new EntityReference { Id = x.AccountId, Name = null },
                         OwnerRef = new EntityReference { Id = x.OwnerCode, Name = null },

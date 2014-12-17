@@ -21,6 +21,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Limit
 
 namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
 {
+    // TODO {all, 17.12.2014}: Идеально было бы отказаться от данного operation service, реализовав вместо него отдельные SRP cервисы Reject, Approve, Open
+    // + к каждому из них aggregate service со специфичной сигнатурой, тогда и проверки на допустимость переходов статусов упростятся
     public sealed class SetLimitStatusOperationService : ISetLimitStatusOperationService
     {
         private readonly ISecurityServiceFunctionalAccess _securityService;
@@ -53,6 +55,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
             _actionLogger = actionLogger;
         }
 
+        // TODO {all, 17.12.2014}: limitReplicationCodes лучше выпилить - пусть либо клиент выполняет resolve crmid->ermid, либо сontroller там же можно заблокировать групповые вызовы.
         public void SetStatus(long limitId, LimitStatus status, params Guid[] limitReplicationCodes)
         {
             // Проверка касается только функциональных разрешений, если не хватает сущностных,
