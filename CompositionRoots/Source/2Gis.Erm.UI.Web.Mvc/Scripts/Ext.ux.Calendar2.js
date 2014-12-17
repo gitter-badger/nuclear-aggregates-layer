@@ -68,7 +68,15 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         this.mon(this.menu, 'select', this.onDateSelect, this);
         if (this.time) this.mon(this.time, 'change', this.onEditorChange, this);
 
-        this.updateButtonState();
+        var calendarControl = this;
+        this.editor.dom.onpropertychange = function () {
+            if (calendarControl.readOnly == this.readOnly) {
+                return;
+            }
+
+            calendarControl.setReadOnly(this.readOnly);
+        };
+        
         this.editor.setReadOnly(this.readOnly);
     },
 
@@ -100,6 +108,14 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
 
     onDateSelect: function (unused, date) {
         this.setValue(date);
+    },
+
+    setReadOnly: function(value) {
+        this.readOnly = value;
+        this.updateButtonState();
+        if (this.time) {
+            this.time.setReadOnly(value);
+        }
     },
 
     updateButtonState: function (event) {
