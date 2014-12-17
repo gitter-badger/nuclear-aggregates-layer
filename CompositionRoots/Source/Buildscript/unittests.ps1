@@ -55,7 +55,8 @@ Task Run-CompositionTeamUnitTests {
 function Build-UnitTestProjects ($Projects){
 
 	foreach($project in $Projects){
-		Invoke-MSBuild $project.FullName
+		$buildFileName = Create-BuildFile $project.FullName
+		Invoke-MSBuild $buildFileName
 	}
 }
 

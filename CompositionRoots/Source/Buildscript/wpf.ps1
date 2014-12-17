@@ -45,7 +45,7 @@ function Build-WpfShell {
 	$configFileName = Join-Path $projectDir 'log4net.config'
 	$configXml = Transform-Config $configFileName
 
-	Invoke-MSBuild $projectFileName -Targets 'Publish' -Properties @{
+	$buildFileName = Create-BuildFile $projectFileName -Targets 'Publish' -Properties @{
 		'ApplicationVersion' = $version.NumericVersion
 		'IsWebBootstrapper' = $true
 		'InstallUrl' = $installUrl
@@ -53,6 +53,8 @@ function Build-WpfShell {
 		'ProductName' = $productName
 		'PublishDir' = $conventionalPublishDir + '\'
 	}  -CustomXmls $configXml
+	
+	Invoke-MSBuild $buildFileName
 
 	# TODO: auto generate publish.htm file
 	Copy-Item (Join-Path $projectDir 'index.htm') $conventionalPublishDir
@@ -71,5 +73,6 @@ function Build-WpfClientModule {
 	$configFileName = Join-Path $projectDir 'app.config'
 	$configXml = Transform-Config $configFileName
 	
-	Invoke-MSBuild $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
+	$buildFileName = Create-BuildFile $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
+	Invoke-MSBuild $buildFileName
 }

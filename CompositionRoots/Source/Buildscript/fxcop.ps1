@@ -65,10 +65,13 @@ Task Analyze-CompositionTeam {
 function Analyze-Projects ($Projects, $MsBuildPlatform = 'x64') {
 
 	foreach($project in $Projects){
-		Invoke-MSBuild $project.FullName -Properties @{
+	
+		$buildFileName = Create-BuildFile $project.FullName -Properties @{
 			'RunCodeAnalysis' = $true
 			'CodeAnalysisRuleSet' = $RulesetPath
-		} -MsBuildPlatform $MsBuildPlatform
+		}
+	
+		Invoke-MSBuild $buildFileName -MsBuildPlatform $MsBuildPlatform
 	}
 }
 

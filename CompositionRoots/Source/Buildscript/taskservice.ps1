@@ -12,13 +12,13 @@ Properties{ $OptionTaskService=$false }
 Task Build-TaskService -Precondition { return $OptionTaskService } -Depends Update-AssemblyInfo {
 
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService'
-	Build-TaskService $projectFileName
+	$buildFileName = Create-TaskServiceBuildFile $projectFileName
 	
 	$installerProjectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService.Installer' '.wixproj'
-	Build-TaskServiceInstaller $installerProjectFileName $projectFileName
+	Build-TaskServiceInstaller $installerProjectFileName $buildFileName
 }
 
-function Build-TaskService ($ProjectFileName) {
+function Create-TaskServiceBuildFile ($ProjectFileName) {
 
 	$projectDir = Split-Path $ProjectFileName
 
@@ -30,14 +30,16 @@ function Build-TaskService ($ProjectFileName) {
 	
 	$configXmls = @($customXml1, $customXml2)
 	
-	Invoke-MSBuild $ProjectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXmls
+	$buildFileName = Create-BuildFile $ProjectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXmls
+	return $buildFileName
 }
 
-function Build-TaskServiceInstaller ($InstallerProjectFileName, $projectFileName) {
+function Build-TaskServiceInstaller ($InstallerProjectFileName, $buildFileName) {
 	
 	$properties = Get-InstallerBuildProperties
-	$configXmls = Get-InstallerConfigXmls $projectFileName
-	Invoke-MSBuild $InstallerProjectFileName -Properties $properties -CustomXmls $configXmls
+	$configXmls = Get-InstallerConfigXmls $buildFileName
+	$InstallerBuildFileName = Create-BuildFile $InstallerProjectFileName -Properties $properties -CustomXmls $configXmls
+	Invoke-MSBuild $installerBuildFileName
 
 	$convensionalArtifactName = Join-Path (Split-Path $InstallerProjectFileName) 'bin\x64\Release\2Gis.Erm.TaskService.Installer.msi'
 	Publish-Artifacts $convensionalArtifactName
@@ -155,6 +157,7 @@ function Get-InstallerConfigXmls ($projectFileName) {
 	
 	[xml]$xml = @"
 <Project>
+	<!-- Подменяем csproj на buildproj -->
 	<PropertyGroup>
 		<CoreBuildDependsOn>
 			ErmPreprocess;
@@ -173,7 +176,6 @@ function Get-InstallerConfigXmls ($projectFileName) {
 				<RefTargetDir>INSTALLFOLDER</RefTargetDir>
 	    	</ProjectReference>
 		</ItemGroup>
-		<Message Importance="high" Text="!!!TEST!!!" />
 	</Target>
 </Project>
 "@

@@ -25,6 +25,7 @@ function Get-MSBuildCustomXml ($ConfigFileName, $ConfigFileContent){
 	$targetName = "Target-$(Get-Random)"
 	[xml]$xml = @"
 <Project>
+	<!-- Трансформация $fileName -->
 	<PropertyGroup>
 		<CoreBuildDependsOn>
 			$targetName;
@@ -50,7 +51,6 @@ function Get-MSBuildCustomXml ($ConfigFileName, $ConfigFileContent){
 			</Content>
 
 		</ItemGroup>
-		<Message Importance="high" Text="!!!TESTTRANSFORM!!!" />
 	</Target>
 </Project>
 "@

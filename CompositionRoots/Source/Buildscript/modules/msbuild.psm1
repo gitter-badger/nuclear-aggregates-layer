@@ -14,17 +14,57 @@ $MSBuildDir = "${Env:ProgramFiles(x86)}\MSBuild\$MSBuildVersion\Bin"
 $MsBuildPath_x86 = Join-Path $MSBuildDir 'MSBuild.exe'
 $MsBuildPath_x64 = Join-Path $MSBuildDir 'amd64\MSBuild.exe'
 
-function Invoke-MSBuild ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml[]]$CustomXmls = $null, $MsBuildPlatform = 'x64'){
+function Create-BuildFile ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml[]]$CustomXmls = $null){
 
-	$allProperties = $CommonProperties
-	if ($Properties -ne $null){
-		$allProperties += $Properties
+	# TODO: перейти на метаданные
+	$Properties += $CommonProperties
+
+	if ($Targets -eq $null -and $Properties -eq $null -and $CustomXmls -eq $null){
+		return $ProjectFileName
 	}
 
-	$buildProjectFileName = Get-BuildProjectFileName $ProjectFileName $Targets $allProperties $CustomXmls
+	$xmlDocument = New-Object System.Xml.XmlDocument
+	$root = $xmlDocument.CreateElement('Project')
+	[void]$xmlDocument.AppendChild($root)
+
+	if ($Targets -ne $null -and $Targets.Count -ne 0){
+		$root.SetAttribute('DefaultTargets', [string]::Join(';', $Targets))
+	}
+	
+	if ($Properties -ne $null -and $Properties.Count -ne 0){
+		$propertiesElement = $xmlDocument.CreateElement('PropertyGroup')
+		foreach($property in $Properties.GetEnumerator()){
+			$propertyElement = $xmlDocument.CreateElement($property.Key)
+			$propertyElement.InnerText = $property.Value
+			[void]$propertiesElement.AppendChild($propertyElement)
+		}
+		[void]$root.AppendChild($propertiesElement)
+	}
+
+	$importElement = $xmlDocument.CreateElement('Import')
+	$importElement.SetAttribute('Project', [System.IO.Path]::GetFileName($ProjectFileName))
+	[void]$root.AppendChild($importElement)
+
+	if ($CustomXmls -ne $null -and $CustomXmls.Count -ne 0){
+		foreach($customXml in $CustomXmls){
+			foreach($customNode in $customXml.DocumentElement.ChildNodes){
+				$node = $xmlDocument.ImportNode($customNode, $true)
+				[void]$root.AppendChild($node)
+			}
+		}
+	}
+
+	$root.SetAttribute('xmlns', 'http://schemas.microsoft.com/developer/msbuild/2003')
+	
+	$fileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.buildproj')
+	$xmlDocument.Save($fileName)
+	return $fileName
+}
+
+function Invoke-MSBuild ($BuildFileName, $MsBuildPlatform = 'x64'){
 
 	$arguments = @(
-		$buildProjectFileName
+		$BuildFileName
 		'/nologo'
 		'/consoleloggerparameters:ErrorsOnly'
 	)
@@ -44,50 +84,6 @@ function Invoke-MSBuild ([string]$ProjectFileName, [string[]]$Targets = $null, [
 		if ($lastExitCode -ne 0) {
 			throw "Command failed with exit code $lastExitCode"
 		}
-}
-
-function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml[]]$CustomXmls = $null){
-
-	if ($Targets -eq $null -and $Properties -eq $null){
-		return $ProjectFileName
-	}
-
-	$xmlDocument = New-Object System.Xml.XmlDocument
-	$root = $xmlDocument.CreateElement('Project')
-	[void]$xmlDocument.AppendChild($root)
-
-	if ($Targets -ne $null){
-		$root.SetAttribute('DefaultTargets', [string]::Join(';', $Targets))
-	}
-	
-	if ($Properties -ne $null){
-		$propertiesElement = $xmlDocument.CreateElement('PropertyGroup')
-		foreach($property in $Properties.GetEnumerator()){
-			$propertyElement = $xmlDocument.CreateElement($property.Key)
-			$propertyElement.InnerText = $property.Value
-			[void]$propertiesElement.AppendChild($propertyElement)
-		}
-		[void]$root.AppendChild($propertiesElement)
-	}
-
-	$importElement = $xmlDocument.CreateElement('Import')
-	$importElement.SetAttribute('Project', [System.IO.Path]::GetFileName($ProjectFileName))
-	[void]$root.AppendChild($importElement)
-
-	if ($CustomXmls -ne $null){
-		foreach($customXml in $CustomXmls){
-			foreach($customNode in $customXml.DocumentElement.ChildNodes){
-				$node = $xmlDocument.ImportNode($customNode, $true)
-				[void]$root.AppendChild($node)
-			}
-		}
-	}
-
-	$root.SetAttribute('xmlns', 'http://schemas.microsoft.com/developer/msbuild/2003')
-	
-	$fileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.buildproj')
-	$xmlDocument.Save($fileName)
-	return $fileName
 }
 
 function Get-ProjectFileName ($ProjectDir, $ProjectName, $Extension = '.csproj'){
@@ -196,4 +192,4 @@ function Get-VersionedDirName ($DirName) {
 	return $versionedDirName
 }
 
-Export-ModuleMember -Function Invoke-MSBuild, Get-ProjectFileName, Find-Projects, Get-Artifacts, Publish-Artifacts
+Export-ModuleMember -Function Create-BuildFile, Invoke-MSBuild, Get-ProjectFileName, Find-Projects, Get-Artifacts, Publish-Artifacts

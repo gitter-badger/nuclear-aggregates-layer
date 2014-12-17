@@ -15,7 +15,6 @@ $Servers = @{
 
 Import-Module .\modules\nuget.psm1 -DisableNameChecking
 Import-Module .\modules\versioning.psm1 -DisableNameChecking
-Import-Module .\modules\msbuild.psm1 -DisableNameChecking
 
 Task Build-AutoTestsPackages -Depends Create-GlobalContext, Set-BuildNumber {
 
@@ -79,13 +78,12 @@ function Build-Packages ($ProjectsDir, $Include, $OutputDirectory){
 	$projects = Get-ChildItem $projectsDir -Include $include -Recurse
 	foreach($project in $projects){
 		
-		Invoke-MSBuild $project.FullName
+		$buildFileName = Create-BuildFile $project.FullName
 		
 		Invoke-NuGet @(
 			'pack'
-			$project.FullName
-			'-Properties'
-			'Configuration=Release'
+			$buildFileName
+			'-Build'
 			'-IncludeReferencedProjects'
 			'-ExcludeEmptyDirectories'
 			'-NoPackageAnalysis'

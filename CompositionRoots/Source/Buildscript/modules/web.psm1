@@ -11,12 +11,13 @@ function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatfor
 
 	$configXmls = (Get-ConfigXmls $ProjectFileName) + (Get-VersionFileXml)
 	$packageLocation = "Packages\$($global:Context.EnvironmentName)\Package.zip"
-
-	Invoke-MSBuild $ProjectFileName -Targets 'Package' -Properties @{
+	$buildFileName = Create-BuildFile $ProjectFileName -Targets 'Package' -Properties @{
 		'PackageLocation' = $packageLocation
 		'DeployIisAppPath' = $EntryPointMetadata.IisAppPath
 		'GenerateSampleDeployScript' = $false
-	} -CustomXmls $configXmls -MsBuildPlatform $MsBuildPlatform
+	} -CustomXmls $configXmls
+	
+	Invoke-MSBuild $buildFileName -MsBuildPlatform $MsBuildPlatform
 	
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) $packageLocation
 	$artifactFileName = Join-Path $global:Context.Dir.Temp ([System.IO.Path]::GetFileNameWithoutExtension($ProjectFileName) + '.zip')
@@ -116,6 +117,7 @@ function Get-VersionFileXml {
 
 	[xml]$xml = @"
 <Project>
+	<!-- Добавление version-файлов -->
     <ItemGroup>
       <Content Include="$versionFileName">
         <Link>$([System.IO.Path]::GetFileName($versionFileName))</Link>

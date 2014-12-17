@@ -27,7 +27,8 @@ Task Deploy-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations
 
 function Build-SearchMigrationProject($ProjectFileName, $Properties, $CustomXmls){
 
-	Invoke-MSBuild $ProjectFileName -Properties $Properties -CustomXmls $CustomXmls
+	$buildFileName = Create-BuildFile $ProjectFileName -Properties $Properties -CustomXmls $CustomXmls
+	Invoke-MSBuild $buildFileName
 
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) 'bin\Release'
 	Publish-Artifacts $convensionalArtifactName 'Search Migrations'

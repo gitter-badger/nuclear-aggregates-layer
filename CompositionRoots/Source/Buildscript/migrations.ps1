@@ -35,7 +35,8 @@ Task Deploy-Migrations -Depends Build-Migrations {
 
 function Build-MigrationProject($ProjectFileName, $Properties, $CustomXmls) {
 
-	Invoke-MSBuild $ProjectFileName -Properties $Properties -CustomXmls $CustomXmls
+	$buildFileName = Create-BuildFile $ProjectFileName -Properties $Properties -CustomXmls $CustomXmls
+	Invoke-MSBuild $buildFileName
 
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) 'bin\Release'
 	Publish-Artifacts $convensionalArtifactName 'Database Migrations'

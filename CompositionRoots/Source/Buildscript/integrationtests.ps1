@@ -12,7 +12,8 @@ Task Build-IntegrationTests {
 	
 	$configFileName = Join-Path $projectDir 'app.config'
 	$configXml = Transform-Config $configFileName
-	Invoke-MSBuild $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
+	$buildFileName = Create-BuildFile $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
+	Invoke-MSBuild $buildFileName
 
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) 'bin\Release'
 	Publish-Artifacts $convensionalArtifactName 'Integration Tests'

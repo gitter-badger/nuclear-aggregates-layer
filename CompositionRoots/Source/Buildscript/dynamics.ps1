@@ -48,9 +48,10 @@ Task Deploy-HackFiles -Depends Build-HackFiles {
 }
 
 Task Build-Plugins -Depends Update-AssemblyInfo {
+
 	$projectFileName = Get-ProjectFileName '..\..\BLCore\Source\ApplicationServices' '2Gis.Erm.BLCore.MsCRM.Plugins'
-	
-	Invoke-MSBuild $projectFileName
+	$buildFileName = Create-BuildFile $projectFileName
+	Invoke-MSBuild $buildFileName
 
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) 'bin\Release'
 	Publish-Artifacts $convensionalArtifactName 'Plugin Registration'
