@@ -48,7 +48,7 @@ JOIN [Security].[Users] [owners] ON [owners].[Id] = [appointments].[OwnerCode]
 LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
 JOIN [Security].[Users] [creators] ON [creators].[Id] = [appointments].[CreatedBy]
 LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmCreators] WITH ( NOEXPAND ) ON [crmCreators].[ErmUserAccount] = [creators].[Account] COLLATE Database_Default
-JOIN [Security].[Users] [modifiers] ON [modifiers].[Id] = [appointments].[CreatedBy]
+JOIN [Security].[Users] [modifiers] ON [modifiers].[Id] = [appointments].[ModifiedBy]
 LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmModifiers] WITH ( NOEXPAND ) ON [crmModifiers].[ErmUserAccount] = [modifiers].[Account] COLLATE Database_Default
 OUTER APPLY (
 	SELECT TOP 1
