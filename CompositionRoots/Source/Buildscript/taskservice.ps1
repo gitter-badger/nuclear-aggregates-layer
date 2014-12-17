@@ -24,10 +24,8 @@ function Create-TaskServiceBuildFile ($ProjectFileName) {
 
 	$configFileName1 = Join-Path $projectDir 'log4net.config'
 	$customXml1 = Transform-Config $configFileName1
-
 	$configFileName2 = Join-Path $projectDir 'app.config'
 	$customXml2 = Transform-Config $configFileName2
-	
 	$configXmls = @($customXml1, $customXml2)
 	
 	$buildFileName = Create-BuildFile $ProjectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXmls

@@ -10,17 +10,17 @@ $PackageInfo = Get-PackageInfo 'Microsoft.Web.Xdt'
 Add-Type -Path (Join-Path $PackageInfo.VersionedDir 'lib\net40\Microsoft.Web.XmlTransform.dll')
 
 function Transform-Config ($ConfigFileName) {
-	$configFileContent = Get-TransformedConfigFileContent $ConfigFileName
-	$customXml = Get-MSBuildCustomXml $ConfigFileName $configFileContent
+	[xml]$configFile = Get-TransformedConfigFileContent $ConfigFileName
+	$customXml = Get-MSBuildCustomXml $ConfigFileName $configFile
 	return $customXml
 }
 
-function Get-MSBuildCustomXml ($ConfigFileName, $ConfigFileContent){
+function Get-MSBuildCustomXml ($ConfigFileName, [xml]$configFile){
 	$fileName = [System.IO.Path]::GetFileName($ConfigFileName)
 	$newExtension = '.transformed' + [System.IO.Path]::GetExtension($ConfigFileName)
 	$newConfigFileName = [System.IO.Path]::ChangeExtension($ConfigFileName, $newExtension)
 	
-	Set-Content $newConfigFileName $ConfigFileContent -Encoding UTF8
+	$configFile.Save($newConfigFileName)
 	
 	$targetName = "Target-$(Get-Random)"
 	[xml]$xml = @"
@@ -59,18 +59,19 @@ function Get-MSBuildCustomXml ($ConfigFileName, $ConfigFileContent){
 
 function Get-TransformedConfigFileContent ($ConfigFileName){
 	$configTransforms = Get-ConfigTransforms
-	$configFileContent = Apply-XdtTransform $ConfigFileName $configTransforms.Xdt
-	$configFileContent = Apply-RegexTransform $configFileContent $configTransforms.Regex
+	
+	[xml]$configFile = Apply-XdtTransform $ConfigFileName $configTransforms.Xdt
+	[xml]$configFile = Apply-RegexTransform $configFile $configTransforms.Regex
 
-	return $configFileContent
+	return $configFile
 }
 
-function Apply-XdtTransform ($ConfigFileName, $TransformFileNames) {
+function Apply-XdtTransform ($ConfigFileName, [string[]]$TransformFileNames) {
 	$configXml = New-Object Microsoft.Web.XmlTransform.XmlTransformableDocument
     $configXml.PreserveWhitespace = $true
     $configXml.Load($ConfigFileName)
 	
-	foreach($TransformFileName in $TransformFileNames){
+	foreach ($TransformFileName in $TransformFileNames){
 		$xmlTransformation = New-Object Microsoft.Web.XmlTransform.XmlTransformation($TransformFileName)
 		$success = $xmlTransformation.Apply($configXml)
 		if (!$success){
@@ -78,17 +79,35 @@ function Apply-XdtTransform ($ConfigFileName, $TransformFileNames) {
 		}
 	}
 	
-	return $configXml.OuterXml
+	return $configXml
 }
 
-function Apply-RegexTransform ($ConfigFileContent, $Regexes){
+function Apply-RegexTransform ([xml]$configXml, [hashtable]$Regexes){
 
-	foreach ($regex in $Regexes.Keys){
-		$replacement = $Regexes[$regex]
-		$ConfigFileContent = $ConfigFileContent -replace $regex, $replacement
+	$allAttributes = New-Object System.Collections.ArrayList
+	LoadAllAttributes $configXml.DocumentElement $allAttributes
+
+	foreach ($regex in $Regexes.GetEnumerator()){
+	
+		foreach ($attribute in $allAttributes){
+			if ($attribute.Value.Contains($regex.Key)){
+				$attribute.Value = $attribute.Value.Replace($regex.Key, $regex.Value)
+			}
+		}
 	}
 	
-	return $ConfigFileContent
+	return $configXml
+}
+
+function LoadAllAttributes ([System.Xml.XmlNode]$xmlNode, [System.Collections.ArrayList]$arrayList){
+
+	$arrayList.AddRange($xmlNode.Attributes)
+	
+	foreach($childNode in $xmlNode.ChildNodes){
+		if ($childNode.NodeType -eq 'Element'){
+			LoadAllAttributes $childNode $arrayList
+		}
+	}
 }
 
 function Get-ConfigTransforms {
