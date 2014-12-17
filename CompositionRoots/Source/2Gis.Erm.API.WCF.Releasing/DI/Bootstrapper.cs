@@ -3,6 +3,7 @@ using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.Releasing.Config;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
@@ -153,7 +154,10 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                         })));
             
             return container.RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
-                            .RegisterOne2ManyTypesPerTypeUniqueness<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>(EntryPointSpecificLifetimeManagerFactory());
+                            .RegisterOne2ManyTypesPerTypeUniqueness<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>(EntryPointSpecificLifetimeManagerFactory())
+                            .RegisterOne2ManyTypesPerTypeUniqueness<IReleaseStartingOptionConditionSet, ReleaseStartingDeniedConditionSet>(EntryPointSpecificLifetimeManagerFactory())
+                            .RegisterOne2ManyTypesPerTypeUniqueness<IReleaseStartingOptionConditionSet, NewReleaseStartingAllowedConditionSet>(EntryPointSpecificLifetimeManagerFactory())
+                            .RegisterOne2ManyTypesPerTypeUniqueness<IReleaseStartingOptionConditionSet, ReleaseStartingAsPreviousAllowedConditionSet>(EntryPointSpecificLifetimeManagerFactory());
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)
