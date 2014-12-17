@@ -8,7 +8,6 @@ Import-Module .\modules\dynamics.psm1 -DisableNameChecking
 Import-Module .\modules\metadata.psm1 -DisableNameChecking
 Import-Module .\modules\sqlserver.psm1 -DisableNameChecking
 Import-Module .\modules\web.psm1 -DisableNameChecking
-Import-Module .\modules\transform.psm1 -DisableNameChecking
 
 Properties{ $OptionDynamics=$false }
 Task Build-Dynamics -Precondition { return $OptionDynamics } -Depends `

@@ -4,7 +4,6 @@ $ErrorActionPreference = 'Stop'
 
 Import-Module .\modules\metadata.psm1 -DisableNameChecking
 Import-Module .\modules\sqlserver.psm1 -DisableNameChecking
-Import-Module .\modules\transform.psm1 -DisableNameChecking
 Import-Module .\modules\reports.psm1 -DisableNameChecking
 
 Properties { $OptionReports=$false }
