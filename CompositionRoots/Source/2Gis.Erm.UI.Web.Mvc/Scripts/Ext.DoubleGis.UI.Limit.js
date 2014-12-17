@@ -53,6 +53,8 @@
                 return;
             }
 
+            limitIncreasingInfo.AmountToIncrease = Ext.util.Format.exNumber(limitIncreasingInfo.AmountToIncrease, Ext.CultureInfo.NumberFormatInfo, false);
+
             Ext.MessageBox.show({
                 title: Ext.LocalizedResources.Alert,
                 msg: String.format(Ext.LocalizedResources.LimitWillBeIncreased, limitIncreasingInfo.AmountToIncrease),
