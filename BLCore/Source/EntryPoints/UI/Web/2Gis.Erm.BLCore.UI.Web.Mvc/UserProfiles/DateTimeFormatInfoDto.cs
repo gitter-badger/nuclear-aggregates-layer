@@ -33,5 +33,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
         public string PhpYearMonthPattern { get; set; }
         
         public string DotNetYearMonthPattern { get; set; }
+
+        public string MomentJsShortDatePattern { get; set; }
+
+        public string MomentJsYearMonthPattern { get; set; }
+
+        public string MomentJsShortTimePattern { get; set; }
     }
 }
