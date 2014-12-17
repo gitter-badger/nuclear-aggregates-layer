@@ -556,11 +556,6 @@
     <Compile Include="Generic\Update\AdvertisementElements\ModifyingAdvertisementElementValidator.cs" />
     <Compile Include="Crosscutting\PaymentsDistributor.cs" />
     <Compile Include="Generic\Update\UpdateAdvertisementElementStatusOperationService.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Crosscutting\EmailResolvers\MsCrmEmployeeEmailResolveStrategy.cs" />
     <Compile Include="Crosscutting\EmailResolvers\UserProfileEmployeeEmailResolveStrategy.cs" />
     <Compile Include="Crosscutting\AD\GetUserInfoFromAdService.cs" />
@@ -574,6 +569,11 @@
     <Compile Include="Concrete\Orders\ObtainDealForBizzacountOrderOperationService.cs" />
     <Compile Include="Concrete\Deals\ClientDealSelectionService.cs" />
     <Compile Include="DI\BlCoreOperationsAssembly.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="microsoft.crm.sdk, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -747,7 +747,7 @@
     <None Include="Concrete\Integration\Schemas\flowFinancialData.Client.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Concrete\Integration\Schemas\flowFinancialData.DebitsInfo.xsd">
+    <None Include="Concrete\Integration\Schemas\flowFinancialData.DebitsInfoInitial.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Concrete\Integration\Schemas\flowFinancialData.LegalEntity.xsd">

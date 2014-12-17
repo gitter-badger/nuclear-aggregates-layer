@@ -24,23 +24,6 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="LinkObjectType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="None"/>
-      <xs:enumeration value="Firm"/>
-      <xs:enumeration value="CategorySingle"/>
-      <xs:enumeration value="CategoryMultiple"/>
-      <xs:enumeration value="CategoryMultipleAsterix"/>
-      <xs:enumeration value="AddressSingle"/>
-      <xs:enumeration value="AddressMultiple"/>
-      <xs:enumeration value="AddressCategorySingle"/>
-      <xs:enumeration value="AddressCategoryMultiple"/>
-      <xs:enumeration value="AddressFirstLevelCategorySingle"/>
-      <xs:enumeration value="AddressFirstLevelCategoryMultiple"/>
-      <xs:enumeration value="ThemeMultiple"/>
-    </xs:restriction>
-  </xs:simpleType>
-
   <xs:simpleType name="OrderType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Sale"/>
@@ -103,11 +86,6 @@
         </xs:annotation>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="LinkObjectType" type="LinkObjectType" use="required">
-      <xs:annotation>
-        <xs:documentation>Тип объекта привязки</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
     <xs:attribute name="NomenclatureElementCode" type="xs:long" use="required">
       <xs:annotation>
         <xs:documentation>Код дочернего элемента номенклатуры</xs:documentation>
