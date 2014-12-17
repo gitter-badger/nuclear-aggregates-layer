@@ -8,18 +8,10 @@ Import-Module .\modules\transform.psm1 -DisableNameChecking
 Task Build-Migrations -Depends Update-AssemblyInfo {
 
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.Migrator'
-	$projectDir = Split-Path $ProjectFileName
-	$configFileName = Join-Path $projectDir 'app.config'
-
-	$content = Transform-Config $configFileName
-	Backup-Config $configFileName $content
-	try{
-		Build-MigrationProject $projectFileName
-	}
-	finally{
-		Restore-Config $configFileName
-	}
-
+	$configFileName = Join-Path (Split-Path $ProjectFileName) 'app.config'
+	$configXml = Transform-Config $configFileName
+	Build-MigrationProject $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
+	
 	$projectFileName = Get-ProjectFileName '..\..\BLCore\Source\Data\' '2Gis.Erm.BLCore.DB.Migrations'
 	Build-MigrationProject $projectFileName
 	
@@ -41,9 +33,9 @@ Task Deploy-Migrations -Depends Build-Migrations {
 	}
 }
 
-function Build-MigrationProject($ProjectFileName) {
+function Build-MigrationProject($ProjectFileName, $Properties, $CustomXmls) {
 
-	Invoke-MSBuild $ProjectFileName
+	Invoke-MSBuild $ProjectFileName -Properties $Properties -CustomXmls $CustomXmls
 
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) 'bin\Release'
 	Publish-Artifacts $convensionalArtifactName 'Database Migrations'

@@ -5,21 +5,12 @@ $ErrorActionPreference = 'Stop'
 Import-Module .\modules\msbuild.psm1 -DisableNameChecking
 Import-Module .\modules\transform.psm1 -DisableNameChecking
 
-# hack: search migrations пока только для россии
 Task Build-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations').RunElasticsearchMigrations } -Depends Update-AssemblyInfo {
 
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.Qds.Migrator'
-	$projectDir = Split-Path $ProjectFileName
-	$configFileName = Join-Path $projectDir 'app.config'
-	
-	$content = Transform-Config $configFileName
-	Backup-Config $configFileName $content
-	try{
-		Build-SearchMigrationProject $projectFileName
-	}
-	finally{
-		Restore-Config $configFileName
-	}
+	$configFileName = Join-Path (Split-Path $ProjectFileName) 'app.config'
+	$configXml = Transform-Config $configFileName
+	Build-SearchMigrationProject $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
 }
 
 Task Deploy-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations').RunElasticsearchMigrations } -Depends Build-SearchMigrations {
@@ -34,9 +25,9 @@ Task Deploy-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations
 	}
 }
 
-function Build-SearchMigrationProject($ProjectFileName){
+function Build-SearchMigrationProject($ProjectFileName, $Properties, $CustomXmls){
 
-	Invoke-MSBuild $ProjectFileName
+	Invoke-MSBuild $ProjectFileName -Properties $Properties -CustomXmls $CustomXmls
 
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) 'bin\Release'
 	Publish-Artifacts $convensionalArtifactName 'Search Migrations'

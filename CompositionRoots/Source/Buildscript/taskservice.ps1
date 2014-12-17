@@ -11,56 +11,173 @@ Import-Module .\modules\versioning.psm1 -DisableNameChecking
 Properties{ $OptionTaskService=$false }
 Task Build-TaskService -Precondition { return $OptionTaskService } -Depends Update-AssemblyInfo {
 
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService.Installer' '.wixproj'
+	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService'
+	Build-TaskService $projectFileName
 	
+	$installerProjectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService.Installer' '.wixproj'
+	Build-TaskServiceInstaller $installerProjectFileName $projectFileName
+}
+
+function Build-TaskService ($ProjectFileName) {
+
+	$projectDir = Split-Path $ProjectFileName
+
+	$configFileName1 = Join-Path $projectDir 'log4net.config'
+	$customXml1 = Transform-Config $configFileName1
+
+	$configFileName2 = Join-Path $projectDir 'app.config'
+	$customXml2 = Transform-Config $configFileName2
+	
+	$configXmls = @($customXml1, $customXml2)
+	
+	Invoke-MSBuild $ProjectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXmls
+}
+
+function Build-TaskServiceInstaller ($InstallerProjectFileName, $projectFileName) {
+	
+	$properties = Get-InstallerBuildProperties
+	$configXmls = Get-InstallerConfigXmls $projectFileName
+	Invoke-MSBuild $InstallerProjectFileName -Properties $properties -CustomXmls $configXmls
+
+	$convensionalArtifactName = Join-Path (Split-Path $InstallerProjectFileName) 'bin\x64\Release\2Gis.Erm.TaskService.Installer.msi'
+	Publish-Artifacts $convensionalArtifactName
+}
+
+function Get-InstallerBuildProperties {
+
 	$compilerOptions = @()
 	$variablesIncludeFileName = Create-VariablesIncludeFile
 	$compilerOptions += "-dVariablesIncludeFileName=$variablesIncludeFileName"
 	$quartzIncludeFileName = Create-QuartzIncludeFile
 	$compilerOptions += "-dQuartzIncludeFileName=$quartzIncludeFileName"
 	$compilerOptionsStr = [string]::Join(' ', $compilerOptions)
-	
+
 	$linkerOptions = @()
 	$linkerOptions += "-b PackagesDir=$($global:Context.Dir.Solution)\packages"
 	$linkerOptionsStr = [string]::Join(' ', $linkerOptions)
 
-	Transform-TaskServiceConfigs
-	try {
-		Invoke-MSBuild $projectFileName -Properties @{
-			'CompilerAdditionalOptions' = $compilerOptionsStr
-			'LinkerAdditionalOptions' = $linkerOptionsStr
+	return @{
+		'CompilerAdditionalOptions' = $compilerOptionsStr
+		'LinkerAdditionalOptions' = $linkerOptionsStr
+	}
+}
+
+function Create-VariablesIncludeFile {
+
+	$version = Get-Version
+	$environmentName = $global:Context.EnvironmentName
+	
+	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService.Installer'
+	$upgradeCode = $entryPointMetadata['UpgradeCode']
+	
+	$autoStart = $entryPointMetadata['AutoStart']
+	if ($autoStart){
+		$serviceStartType = 'auto'
+	} else {
+		$serviceStartType = 'demand'
+	}
+
+	$content = @"
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+	<?define ProductVersion = "$($version.NumericVersion)" ?>
+	<?define SemanticVersion = "$($version.SemanticVersion)" ?>
+	<?define EnvironmentName = "$environmentName" ?>
+	<?define UpgradeCode = "$upgradeCode" ?>
+	<?define ServiceStartType = "$serviceStartType" ?>
+</Include>
+"@
+
+	$variablesIncludeFileName = Join-Path $global:Context.Dir.Temp 'Variables.wxi' 
+	Out-File $variablesIncludeFileName -InputObject $content -Encoding UTF8 -Force
+	return $variablesIncludeFileName
+}
+
+function Create-QuartzIncludeFile {
+
+	$quartzConfigs = @()
+
+	$baseDir = Join-Path $global:Context.Dir.Solution 'Environments'
+	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService.Installer'
+	foreach($quartzConfig in $entryPointMetadata.QuartzConfigs){
+		
+		$quartzConfigFileName = Join-Path $baseDir $quartzConfig
+		
+		if (Test-Path $quartzConfigFileName){
+			$quartzConfigs += $quartzConfigFileName
+		} elseif ($entryPointMetadata.AlterQuartzConfigs.Count -gt 0) {
+			foreach($alterQuartzConfig in $entryPointMetadata.AlterQuartzConfigs){
+				$quartzConfigs += Join-Path $baseDir $alterQuartzConfig
+			}
+			break
+		} else {
+			throw "Can't find config $quartzConfigFileName "
 		}
 	}
-	finally {
-		Restore-TaskServiceConfigs
+	
+	# если нашли именной quartz.config файл то плюём на всё и используем только его
+	$environmentName = $global:Context.EnvironmentName
+	$environmentQuartzConfig = Join-Path $baseDir "quartz.$environmentName.config"
+	if (Test-Path $environmentQuartzConfig){
+		if ($quartzConfigs -notcontains $environmentQuartzConfig){
+			$quartzConfigs = @($environmentQuartzConfig)
+		}
+	}
+	
+	[xml]$xml = @"
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+</Include>
+"@
+	$includeNode = $xml['Include']
+
+	
+	foreach ($quartzConfig in $quartzConfigs){
+	
+		$fileNode = $xml.CreateElement('File')
+		$fileNode.SetAttribute('Name', [System.IO.Path]::GetFileName($quartzConfig))
+		$fileNode.SetAttribute('Source', $quartzConfig)
+		
+		$componentNode = $xml.CreateElement('Component')
+		[void]$componentNode.AppendChild($fileNode)
+		[void]$includeNode.AppendChild($componentNode)
 	}
 
-	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) 'bin\x64\Release\2Gis.Erm.TaskService.Installer.msi'
-	Publish-Artifacts $convensionalArtifactName
+	$quartzIncludeFileName = Join-Path $global:Context.Dir.Temp 'Quartz.wxi'
+	$xml.Save($quartzIncludeFileName)
+	return $quartzIncludeFileName
 }
 
-function Transform-TaskServiceConfigs {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService'
-	$projectDir = Split-Path $ProjectFileName
+function Get-InstallerConfigXmls ($projectFileName) {
 
-	$configFileName1 = Join-Path $projectDir 'log4net.config'
-	$content1 = Transform-Config $configFileName1
-	Backup-Config $configFileName1 $content1
-
-	$configFileName2 = Join-Path $projectDir 'app.config'
-	$content2 = Transform-Config $configFileName2
-	Backup-Config $configFileName2 $content2
-}
-
-function Restore-TaskServiceConfigs {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService'
-	$projectDir = Split-Path $ProjectFileName
-
-	$configFileName1 = Join-Path $projectDir 'log4net.config'
-	Restore-Config $configFileName1
+	$shortProjectFileName = [System.IO.Path]::GetFileNameWithoutExtension($projectFileName)
+	$buildProjectFileName = [System.IO.Path]::ChangeExtension($projectFileName, '.buildproj')
 	
-	$configFileName2 = Join-Path $projectDir 'app.config'
-	Restore-Config $configFileName2
+	[xml]$xml = @"
+<Project>
+	<PropertyGroup>
+		<CoreBuildDependsOn>
+			ErmPreprocess;
+			`$(CoreBuildDependsOn)
+		</CoreBuildDependsOn>
+	</PropertyGroup>
+	<Target Name="ErmPreprocess">
+		<ItemGroup>
+		    <ProjectReferenceToRemove Include="@(ProjectReference)" Condition=" '%(ProjectReference.Name)' == '$shortProjectFileName' " />
+		    <ProjectReference Remove="@(ProjectReferenceToRemove)" />
+
+			<ProjectReference Include="$buildProjectFileName" Condition=" '@(ProjectReferenceToRemove)' != '' ">
+				<Name>$shortProjectFileName</Name>
+				<DoNotHarvest>True</DoNotHarvest>
+				<RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+				<RefTargetDir>INSTALLFOLDER</RefTargetDir>
+	    	</ProjectReference>
+		</ItemGroup>
+		<Message Importance="high" Text="!!!TEST!!!" />
+	</Target>
+</Project>
+"@
+	return $xml
 }
 
 Task Deploy-TaskService -Precondition { return $OptionTaskService } -Depends Build-TaskService {
@@ -168,90 +285,4 @@ Task Take-TaskServiceOnline -Precondition { return $OptionTaskService -and (Get-
 		-Args $environmentName `
 		-ScriptBlock $remoteScriptBlock
 	}
-}
-
-function Create-VariablesIncludeFile {
-
-	$version = Get-Version
-	$environmentName = $global:Context.EnvironmentName
-	
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService.Installer'
-	$upgradeCode = $entryPointMetadata['UpgradeCode']
-	
-	$autoStart = $entryPointMetadata['AutoStart']
-	if ($autoStart){
-		$serviceStartType = 'auto'
-	} else {
-		$serviceStartType = 'demand'
-	}
-
-	$content = @"
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-	<?define ProductVersion = "$($version.NumericVersion)" ?>
-	<?define SemanticVersion = "$($version.SemanticVersion)" ?>
-	<?define EnvironmentName = "$environmentName" ?>
-	<?define UpgradeCode = "$upgradeCode" ?>
-	<?define ServiceStartType = "$serviceStartType" ?>
-</Include>
-"@
-
-	$variablesIncludeFileName = Join-Path $global:Context.Dir.Temp 'Variables.wxi' 
-	Out-File $variablesIncludeFileName -InputObject $content -Encoding UTF8 -Force
-	return $variablesIncludeFileName
-}
-
-function Create-QuartzIncludeFile {
-
-	$quartzConfigs = @()
-
-	$baseDir = Join-Path $global:Context.Dir.Solution 'Environments'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService.Installer'
-	foreach($quartzConfig in $entryPointMetadata.QuartzConfigs){
-		
-		$quartzConfigFileName = Join-Path $baseDir $quartzConfig
-		
-		if (Test-Path $quartzConfigFileName){
-			$quartzConfigs += $quartzConfigFileName
-		} elseif ($entryPointMetadata.AlterQuartzConfigs.Count -gt 0) {
-			foreach($alterQuartzConfig in $entryPointMetadata.AlterQuartzConfigs){
-				$quartzConfigs += Join-Path $baseDir $alterQuartzConfig
-			}
-			break
-		} else {
-			throw "Can't find config $quartzConfigFileName "
-		}
-	}
-	
-	# если нашли именной quartz.config файл то плюём на всё и используем только его
-	$environmentName = $global:Context.EnvironmentName
-	$environmentQuartzConfig = Join-Path $baseDir "quartz.$environmentName.config"
-	if (Test-Path $environmentQuartzConfig){
-		if ($quartzConfigs -notcontains $environmentQuartzConfig){
-			$quartzConfigs = @($environmentQuartzConfig)
-		}
-	}
-	
-	[xml]$xml = @"
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-</Include>
-"@
-	$includeNode = $xml['Include']
-
-	
-	foreach ($quartzConfig in $quartzConfigs){
-	
-		$fileNode = $xml.CreateElement('File')
-		$fileNode.SetAttribute('Name', [System.IO.Path]::GetFileName($quartzConfig))
-		$fileNode.SetAttribute('Source', $quartzConfig)
-		
-		$componentNode = $xml.CreateElement('Component')
-		[void]$componentNode.AppendChild($fileNode)
-		[void]$includeNode.AppendChild($componentNode)
-	}
-
-	$quartzIncludeFileName = Join-Path $global:Context.Dir.Temp 'Quartz.wxi'
-	$xml.Save($quartzIncludeFileName)
-	return $quartzIncludeFileName
 }

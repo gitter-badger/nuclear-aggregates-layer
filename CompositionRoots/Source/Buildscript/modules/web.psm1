@@ -9,14 +9,14 @@ Import-Module .\modules\versioning.psm1 -DisableNameChecking
 
 function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatform = 'x64'){
 
-	$customXmls = @((Get-ConfigsXml $ProjectFileName), (Get-VersionFileXml))
+	$configXmls = (Get-ConfigXmls $ProjectFileName) + (Get-VersionFileXml)
 	$packageLocation = "Packages\$($global:Context.EnvironmentName)\Package.zip"
 
 	Invoke-MSBuild $ProjectFileName -Targets 'Package' -Properties @{
 		'PackageLocation' = $packageLocation
 		'DeployIisAppPath' = $EntryPointMetadata.IisAppPath
 		'GenerateSampleDeployScript' = $false
-	} -CustomXmls $customXmls -MsBuildPlatform $MsBuildPlatform
+	} -CustomXmls $configXmls -MsBuildPlatform $MsBuildPlatform
 	
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) $packageLocation
 	$artifactFileName = Join-Path $global:Context.Dir.Temp ([System.IO.Path]::GetFileNameWithoutExtension($ProjectFileName) + '.zip')
@@ -97,45 +97,16 @@ function Create-RemoteWebsite($TargetHost, $WebsiteName){
 	}
 }
 
-function Get-ConfigsXml ($ProjectFileName){
+function Get-ConfigXmls ($ProjectFileName){
 	$projectDir = Split-Path $ProjectFileName
 	
 	$configFileName1 = Join-Path $projectDir 'log4net.config'
-	$transformedContent1 = Transform-Config $configFileName1
-	$transfromedConfigFileName1 = Join-Path $projectDir 'log4net.transformed.config'
-	Set-Content $transfromedConfigFileName1 $transformedContent1 -Encoding UTF8
+	$customXml1 = Transform-Config $configFileName1
 
 	$configFileName2 = Join-Path $projectDir 'web.config'
-	$transformedContent2 = Transform-Config $configFileName2
-	$transfromedConfigFileName2 = Join-Path $projectDir 'web.transformed.config'
-	Set-Content $transfromedConfigFileName2 $transformedContent2 -Encoding UTF8
+	$customXml2 = Transform-Config $configFileName2
 	
-	[xml]$xml = @'
-<Project>
-  <!-- Подсовываем наши конфиги -->
-  <PropertyGroup>
-    <BuildDependsOn>
-      ErmWebProjectConfigs;
-      $(BuildDependsOn)
-    </BuildDependsOn>
-  </PropertyGroup>
-  <Target Name="ErmWebProjectConfigs">
-    <ItemGroup Condition="Exists('log4net.config')">
-      <Content Remove="log4net.config" />
-      <Content Include="log4net.transformed.config">
-        <Link>log4net.config</Link>
-      </Content>
-    </ItemGroup>
-    <ItemGroup Condition="Exists('web.config')">
-      <Content Remove="web.config" />
-      <Content Include="web.transformed.config">
-        <Link>web.config</Link>
-      </Content>
-    </ItemGroup>
-  </Target>
-</Project>
-'@
-	return $xml
+	return @($customXml1, $customXml2)
 }
 
 function Get-VersionFileXml {
@@ -145,7 +116,6 @@ function Get-VersionFileXml {
 
 	[xml]$xml = @"
 <Project>
-	<!-- Добавляем файл с версией -->
     <ItemGroup>
       <Content Include="$versionFileName">
         <Link>$([System.IO.Path]::GetFileName($versionFileName))</Link>

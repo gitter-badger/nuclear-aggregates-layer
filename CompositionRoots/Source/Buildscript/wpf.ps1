@@ -43,22 +43,17 @@ function Build-WpfShell {
 	$conventionalPublishDir = Join-Path $projectDir 'publish'
 
 	$configFileName = Join-Path $projectDir 'log4net.config'
-	$content = Transform-Config $configFileName
-	Backup-Config $configFileName $content
-	try {
-		Invoke-MSBuild $projectFileName -Targets 'Publish' -Properties @{
-			'ApplicationVersion' = $version.NumericVersion
-			'IsWebBootstrapper' = $true
-			'InstallUrl' = $installUrl
-			'UpdateUrl' = $installUrl
-			'ProductName' = $productName
-			'PublishDir' = $conventionalPublishDir + '\'
-		}
-	}
-	finally {
-		Restore-Config $configFileName
-	}
-	
+	$configXml = Transform-Config $configFileName
+
+	Invoke-MSBuild $projectFileName -Targets 'Publish' -Properties @{
+		'ApplicationVersion' = $version.NumericVersion
+		'IsWebBootstrapper' = $true
+		'InstallUrl' = $installUrl
+		'UpdateUrl' = $installUrl
+		'ProductName' = $productName
+		'PublishDir' = $conventionalPublishDir + '\'
+	}  -CustomXmls $configXml
+
 	# TODO: auto generate publish.htm file
 	Copy-Item (Join-Path $projectDir 'index.htm') $conventionalPublishDir
 
@@ -72,13 +67,9 @@ function Build-WpfShell {
 function Build-WpfClientModule {
 	$projectFileName = Get-ProjectFileName '..\..\BLCore\Source\EntryPoints\UI\Desktop' '2Gis.Erm.BLCore.UI.WPF.Client'
 	$projectDir = Split-Path $projectFileName
+	
 	$configFileName = Join-Path $projectDir 'app.config'
-	$content = Transform-Config $configFileName
-	Backup-Config $configFileName $content
-	try {
-		Invoke-MSBuild $projectFileName
-	}
-	finally {
-		Restore-Config $configFileName
-	}
+	$configXml = Transform-Config $configFileName
+	
+	Invoke-MSBuild $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
 }

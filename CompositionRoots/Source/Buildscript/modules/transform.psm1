@@ -10,7 +10,54 @@ $PackageInfo = Get-PackageInfo 'Microsoft.Web.Xdt'
 Add-Type -Path (Join-Path $PackageInfo.VersionedDir 'lib\net40\Microsoft.Web.XmlTransform.dll')
 
 function Transform-Config ($ConfigFileName) {
+	$configFileContent = Get-TransformedConfigFileContent $ConfigFileName
+	$customXml = Get-MSBuildCustomXml $ConfigFileName $configFileContent
+	return $customXml
+}
 
+function Get-MSBuildCustomXml ($ConfigFileName, $ConfigFileContent){
+	$fileName = [System.IO.Path]::GetFileName($ConfigFileName)
+	$newExtension = '.transformed' + [System.IO.Path]::GetExtension($ConfigFileName)
+	$newConfigFileName = [System.IO.Path]::ChangeExtension($ConfigFileName, $newExtension)
+	
+	Set-Content $newConfigFileName $ConfigFileContent -Encoding UTF8
+	
+	$targetName = "Target-$(Get-Random)"
+	[xml]$xml = @"
+<Project>
+	<PropertyGroup>
+		<CoreBuildDependsOn>
+			$targetName;
+			`$(CoreBuildDependsOn)
+		</CoreBuildDependsOn>
+	</PropertyGroup>
+	<Target Name="$targetName">
+		<ItemGroup Condition="Exists('$fileName')">
+		
+			<!-- primary -->
+		    <NoneToRemove Include="@(None)" Condition=" '%(None.Identity)' == '$fileName' " />
+		    <None Remove="@(NoneToRemove)" />
+		    <None Include="$newConfigFileName" Condition=" '@(NoneToRemove)' != '' ">
+				<Link>$fileName</Link>
+				<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			</None>
+
+			<!-- secondary -->
+		    <ContentToRemove Include="@(Content)" Condition=" '%(Content.Identity)' == '$fileName' " />
+		    <Content Remove="@(ContentToRemove)" />
+		    <Content Include="$newConfigFileName" Condition=" '@(ContentToRemove)' != '' ">
+				<Link>$fileName</Link>			
+			</Content>
+
+		</ItemGroup>
+		<Message Importance="high" Text="!!!TESTTRANSFORM!!!" />
+	</Target>
+</Project>
+"@
+	return $xml
+}
+
+function Get-TransformedConfigFileContent ($ConfigFileName){
 	$configTransforms = Get-ConfigTransforms
 	$configFileContent = Apply-XdtTransform $ConfigFileName $configTransforms.Xdt
 	$configFileContent = Apply-RegexTransform $configFileContent $configTransforms.Regex
@@ -44,29 +91,6 @@ function Apply-RegexTransform ($ConfigFileContent, $Regexes){
 	return $ConfigFileContent
 }
 
-function Backup-Config ($fileName, $newContent) {
-	$backupFileName = Get-TempFileName $fileName
-	Copy-Item $fileName $backupFileName -Force
-	Set-Content $fileName $newContent -Encoding UTF8 -Force
-}
-
-function Restore-Config ($fileName) {
-	$backupFileName = Get-TempFileName $fileName
-	if (Test-Path $backupFileName){
-		Copy-Item $backupFileName $fileName -Force
-	}
-}
-
-function Get-TempFileName ($ConfigFileName) {
-	$projectDir = Split-Path $ConfigFileName
-	$projectFolderName = Split-Path $projectDir -Leaf
-	$fileName = Split-Path $ConfigFileName -Leaf
-
-	$tempFileName = "$projectFolderName.$fileName"
-
-	return Join-Path $global:Context.Dir.Temp $tempFileName
-}
-
 function Get-ConfigTransforms {
 
 	$configTransforms = @{
@@ -96,7 +120,7 @@ function Get-ConnectionString ($ConnectionStringName) {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Web.Mvc'
 	$projectDir = Split-Path $ProjectFileName
 	$configFileName = Join-Path $projectDir 'web.config'
-	[xml]$configFileContent = Transform-Config $configFileName
+	[xml]$configFileContent = Get-TransformedConfigFileContent $configFileName
 
 	$xmlNode = $configFileContent.SelectNodes("configuration/connectionStrings/add[@name = '$ConnectionStringName']")
 	if ($xmlNode -eq $null){
@@ -110,7 +134,7 @@ function Get-ServiceUriString ($ServiceName) {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Web.Mvc'
 	$projectDir = Split-Path $ProjectFileName
 	$configFileName = Join-Path $projectDir 'web.config'
-	[xml]$configFileContent = Transform-Config $configFileName
+	[xml]$configFileContent = Get-TransformedConfigFileContent $configFileName
 
 	$xmlNode = $configFileContent.SelectNodes("configuration/ermServicesSettings/ermServices/ermService[@name = '$ServiceName']")
 	if ($xmlNode -eq $null){
@@ -124,7 +148,7 @@ function Get-AppSetting ($SettingName) {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Web.Mvc'
 	$projectDir = Split-Path $ProjectFileName
 	$configFileName = Join-Path $projectDir 'web.config'
-	[xml]$configFileContent = Transform-Config $configFileName
+	[xml]$configFileContent = Get-TransformedConfigFileContent $configFileName
 
 	$xmlNode = $configFileContent.SelectNodes("configuration/appSettings/add[@key = '$SettingName']")
 	if ($xmlNode -eq $null){
@@ -134,4 +158,4 @@ function Get-AppSetting ($SettingName) {
 	return $xmlNode.value
 }
 
-Export-ModuleMember -Function Transform-Config, Backup-Config, Restore-Config, Get-ConnectionString, Get-ServiceUriString, Get-AppSetting
+Export-ModuleMember -Function Transform-Config, Get-ConnectionString, Get-ServiceUriString, Get-AppSetting

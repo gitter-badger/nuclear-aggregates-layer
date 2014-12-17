@@ -50,7 +50,7 @@ function Get-BuildProjectFileName ([string]$ProjectFileName, [string[]]$Targets 
 
 	if ($Targets -eq $null -and $Properties -eq $null){
 		return $ProjectFileName
-}
+	}
 
 	$xmlDocument = New-Object System.Xml.XmlDocument
 	$root = $xmlDocument.CreateElement('Project')
