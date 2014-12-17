@@ -53,11 +53,11 @@
                 return;
             }
 
-            limitIncreasingInfo.AmountToIncrease = Ext.util.Format.exNumber(limitIncreasingInfo.AmountToIncrease, Ext.CultureInfo.NumberFormatInfo, false);
+            var amountToIncreaseLocalized = Ext.util.Format.exNumber(limitIncreasingInfo.AmountToIncrease, Ext.CultureInfo.NumberFormatInfo, false);
 
             Ext.MessageBox.show({
                 title: Ext.LocalizedResources.Alert,
-                msg: String.format(Ext.LocalizedResources.LimitWillBeIncreased, limitIncreasingInfo.AmountToIncrease),
+                msg: String.format(Ext.LocalizedResources.LimitWillBeIncreased, amountToIncreaseLocalized),
                 width: 300,
                 buttons: window.Ext.MessageBox.ContinueCANCEL,
                 fn: function(buttonId) {
@@ -66,7 +66,7 @@
                             timeout: 1200000,
                             method: 'POST',
                             url: '/Limit/IncreaseLimit',
-                            params: { limitId: options.limitId, amountToIncrease: limitIncreasingInfo.AmountToIncrease },
+                            params: { limitId: options.limitId, amountToIncrease: amountToIncreaseLocalized },
                             success: function() {
                                 card.refresh(true);
                             },
