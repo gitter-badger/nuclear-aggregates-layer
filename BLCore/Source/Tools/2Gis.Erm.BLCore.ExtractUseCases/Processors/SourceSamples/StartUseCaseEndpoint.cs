@@ -164,7 +164,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Processors.SourceSamples
             // Проверить функциональные разрешения
             orderModel.HasOrderCreationExtended = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderCreationExtended);
             orderModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
-            orderModel.HasOrderBranchOfficeOrganizationUnitSelection = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
 
             orderModel.HasOrderDocumentsDebtChecking = FunctionalAccessService.HasOrderChangeDocumentsDebtAccess(orderModel.SourceOrganizationUnit.Key.Value, currentUserCode);
 
