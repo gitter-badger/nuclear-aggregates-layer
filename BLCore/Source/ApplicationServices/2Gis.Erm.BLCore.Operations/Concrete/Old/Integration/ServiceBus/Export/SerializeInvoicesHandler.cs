@@ -30,63 +30,62 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         protected override ISelectSpecification<Order, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<Order, IExportableEntityDto>(x => new InvoiceDto
-                {
-                    Id = x.Id,
-                    Number = x.Number,
-                    FirmCode = x.FirmId,
-                    FirmName = x.Firm.Name,
-                    BranchSrcCode = x.SourceOrganizationUnit.DgppId.Value,
-                    BranchDestCode = x.DestOrganizationUnit.DgppId.Value,
-                    LegalEntityCode = x.LegalPersonId,
-                    LegalEntityBranchCode = x.BranchOfficeOrganizationUnitId,
-                    CreatedDate = x.CreatedOn,
-                    ApprovedDate = x.ApprovalDate,
-                    StartDate = x.BeginDistributionDate,
-                    EndDate = x.EndDistributionDateFact,
-                    EndDatePlan = x.EndDistributionDatePlan,
-                    Status = x.WorkflowStepId,
-                    OrderType = x.OrderType,
-                    OwnerCode = x.OwnerCode,
-                    IsActive = x.IsActive,
-                    IsDeleted = x.IsDeleted,
-                    InvoiceItems =
-                        x.OrderPositions
-                         .Where(z => z.IsActive && !z.IsDeleted)
-                         .Select(z => new
-                             {
-                                 OrderPosition = z,
+            {
+                Id = x.Id,
+                Number = x.Number,
+                FirmCode = x.FirmId,
+                FirmName = x.Firm.Name,
+                BranchSrcCode = x.SourceOrganizationUnit.DgppId.Value,
+                BranchDestCode = x.DestOrganizationUnit.DgppId.Value,
+                LegalEntityCode = x.LegalPersonId,
+                LegalEntityBranchCode = x.BranchOfficeOrganizationUnitId,
+                CreatedDate = x.CreatedOn,
+                ApprovedDate = x.ApprovalDate,
+                StartDate = x.BeginDistributionDate,
+                EndDate = x.EndDistributionDateFact,
+                EndDatePlan = x.EndDistributionDatePlan,
+                Status = x.WorkflowStepId,
+                OrderType = x.OrderType,
+                OwnerCode = x.OwnerCode,
+                IsActive = x.IsActive,
+                IsDeleted = x.IsDeleted,
+                InvoiceItems =
+                    x.OrderPositions
+                     .Where(z => z.IsActive && !z.IsDeleted)
+                     .Select(z => new
+                     {
+                         OrderPosition = z,
 
-                                 // учитываем и обычные и пакетные позиции
-                                 z.PricePosition.Position,
-                                 ChildPositions = new[] { z.PricePosition.Position }
-                                          .Union(z.PricePosition.Position.ChildPositions
-                                                  .Where(p => p.IsActive && !p.IsDeleted)
-                                                  .Select(p => p.ChildPosition))
-                                          .Where(p => !p.IsComposite),
-                             })
-                         .Select(z => new InvoiceItemDto
-                             {
-                                 PriceListPositionCode = z.OrderPosition.PricePositionId,
-                                 NomenclatureElementCode = z.Position.Id,
-                                 Amount = z.OrderPosition.Amount,
-                                 DiscountPercent = z.OrderPosition.DiscountPercent,
-                                 CategoryRate = z.OrderPosition.CategoryRate,
-                                 SubInvoiceItems = z.ChildPositions
-                                                    .Select(p => new SubInvoiceItemDto
-                                                        {
-                                                            NomenclatureElementCode = p.Id,
-                                                            LinkObjectType = (PositionBindingObjectType)p.BindingObjectTypeEnum,
-                                                            LinkObjects = z.OrderPosition.OrderPositionAdvertisements
-                                                                           .Where(q => q.PositionId == p.Id)
-                                                                           .Select(q => new LinkObjectDto
-                                                                               {
-                                                                                   IsLinkedWithExportableLinkingObject = q.CategoryId.HasValue || q.FirmAddressId.HasValue,
-                                                                                   RubricCode = q.Category.Id,
-                                                                                   CardCode = q.FirmAddressId
-                                                                               })
-                                                        })
-                             })
-                });
+                         // учитываем и обычные и пакетные позиции
+                         z.PricePosition.Position,
+                         ChildPositions = new[] { z.PricePosition.Position }
+                                  .Union(z.PricePosition.Position.ChildPositions
+                                          .Where(p => p.IsActive && !p.IsDeleted)
+                                          .Select(p => p.ChildPosition))
+                                  .Where(p => !p.IsComposite),
+                     })
+                     .Select(z => new InvoiceItemDto
+                     {
+                         PriceListPositionCode = z.OrderPosition.PricePositionId,
+                         NomenclatureElementCode = z.Position.Id,
+                         Amount = z.OrderPosition.Amount,
+                         DiscountPercent = z.OrderPosition.DiscountPercent,
+                         CategoryRate = z.OrderPosition.CategoryRate,
+                         SubInvoiceItems = z.ChildPositions
+                                            .Select(p => new SubInvoiceItemDto
+                                            {
+                                                NomenclatureElementCode = p.Id,
+                                                LinkObjects = z.OrderPosition.OrderPositionAdvertisements
+                                                               .Where(q => q.PositionId == p.Id)
+                                                               .Select(q => new LinkObjectDto
+                                                               {
+                                                                   IsLinkedWithExportableLinkingObject = q.CategoryId.HasValue || q.FirmAddressId.HasValue,
+                                                                   RubricCode = q.Category.Id,
+                                                                   CardCode = q.FirmAddressId
+                                                               })
+                                            })
+                     })
+            });
         }
 
         protected override string GetXsdSchemaContent(string schemaName)
@@ -193,9 +192,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             foreach (var subInvoiceItem in invoiceItemDto.SubInvoiceItems.Where(x => x.LinkObjects.Any()))
             {
                 var subInvoiceItemElement = new XElement("SubInvoiceItem",
-                                                         new XAttribute("NomenclatureElementCode", subInvoiceItem.NomenclatureElementCode),
-                                                         new XAttribute("LinkObjectType", subInvoiceItem.LinkObjectType));
-                
+                                                         new XAttribute("NomenclatureElementCode", subInvoiceItem.NomenclatureElementCode));
+
                 foreach (var linkObject in subInvoiceItem.LinkObjects.Where(lo => lo.IsLinkedWithExportableLinkingObject))
                 {
                     subInvoiceItemElement.Add(GetLinkObjectElement(linkObject));
@@ -264,7 +262,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         public sealed class SubInvoiceItemDto
         {
             public long NomenclatureElementCode { get; set; }
-            public PositionBindingObjectType LinkObjectType { get; set; }
             public IEnumerable<LinkObjectDto> LinkObjects { get; set; }
         }
 
