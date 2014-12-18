@@ -14,18 +14,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
     {
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IRepository<Bill> _billGenericRepository;
-        private readonly IValidateBillsService _validateBillsService;
+        private readonly IBillsConsistencyService _billsConsistencyService;
 
-        public BulkDeleteBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository, IValidateBillsService validateBillsService)
+        public BulkDeleteBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository, IBillsConsistencyService billsConsistencyService)
         {
             _scopeFactory = scopeFactory;
             _billGenericRepository = billGenericRepository;
-            _validateBillsService = validateBillsService;
+            _billsConsistencyService = billsConsistencyService;
         }
 
         public void DeleteBills(Order order, IEnumerable<Bill> bills)
         {
-            _validateBillsService.Validate(new Bill[0], order);
+            _billsConsistencyService.Validate(new Bill[0], order);
             using (var scope = _scopeFactory.CreateSpecificFor<BulkDeleteIdentity, Bill>())
             {
                 foreach (var bill in bills)

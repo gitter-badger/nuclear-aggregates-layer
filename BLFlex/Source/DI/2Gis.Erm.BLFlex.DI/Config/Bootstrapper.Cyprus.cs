@@ -36,10 +36,10 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, CyprusLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                .RegisterType<IValidateBillsService, ValidateBillsService>(Lifetime.PerResolve,
-                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillInvariant>(typeof(LockedOrderInvariant),
-                                                                                                                                               typeof(BillSummInvariant),
-                                                                                                                                               typeof(BillDatesInvariant))))
+                .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
+                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
+                                                                                                                                               typeof(BillSummConsistencyRule),
+                                                                                                                                               typeof(BillDatesConsistencyRule))))
                 .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
                 .ConfigureCyprusSpecificNumberServices();
         }

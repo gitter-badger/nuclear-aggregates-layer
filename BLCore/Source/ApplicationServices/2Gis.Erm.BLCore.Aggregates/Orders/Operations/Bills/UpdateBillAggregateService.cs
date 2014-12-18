@@ -14,18 +14,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
     {
         private readonly IRepository<Bill> _billGenericRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IValidateBillsService _validateBillsService;
+        private readonly IBillsConsistencyService _billsConsistencyService;
 
-        public UpdateBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository, IValidateBillsService validateBillsService)
+        public UpdateBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository, IBillsConsistencyService billsConsistencyService)
         {
             _scopeFactory = scopeFactory;
             _billGenericRepository = billGenericRepository;
-            _validateBillsService = validateBillsService;
+            _billsConsistencyService = billsConsistencyService;
         }
 
         public void Update(Bill bill, IEnumerable<Bill> bills, Order order)
         {
-            _validateBillsService.Validate(bills, order);
+            _billsConsistencyService.Validate(bills, order);
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Bill>())
             {
                 _billGenericRepository.Update(bill);

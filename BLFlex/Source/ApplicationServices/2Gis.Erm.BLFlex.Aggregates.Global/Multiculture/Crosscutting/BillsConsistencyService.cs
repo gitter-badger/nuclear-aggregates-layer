@@ -6,13 +6,13 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
 {
-    public class ValidateBillsService : IValidateBillsService
+    public class BillsConsistencyService : IBillsConsistencyService
     {
-        private readonly IEnumerable<IBillInvariant> _invariants;
+        private readonly IEnumerable<IBillConsistencyRule> _rules;
 
-        public ValidateBillsService(IEnumerable<IBillInvariant> invariants)
+        public BillsConsistencyService(IEnumerable<IBillConsistencyRule> rules)
         {
-            _invariants = invariants;
+            _rules = rules;
         }
 
         public void Validate(IEnumerable<Bill> bills, Order order)
@@ -23,11 +23,11 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
                 throw new NotificationException(report);
             }
         }
-
+        
         public bool Validate(IEnumerable<Bill> bills, Order order, out string report)
         {
             report = null;
-            foreach (var invariant in _invariants)
+            foreach (var invariant in _rules)
             {
                 if (!invariant.Validate(bills, order, out report))
                 {

@@ -43,11 +43,11 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<IPartableEntityValidator<BranchOffice>, ChileBranchOfficeValidator>(Lifetime.Singleton)
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, ChileLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                .RegisterType<IValidateBillsService, ValidateBillsService>(Lifetime.PerResolve,
-                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillInvariant>(typeof(ChileBillNumberFormatInvariant),
-                                                                                                                                               typeof(BillSummInvariant),
-                                                                                                                                               typeof(BillDublicateNumbersInvariant),
-                                                                                                                                               typeof(BillDatesInvariant))))
+                .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
+                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(ChileBillNumberFormatConsistencyRule),
+                                                                                                                                               typeof(BillSummConsistencyRule),
+                                                                                                                                               typeof(BillDublicateNumbersConsistencyRule),
+                                                                                                                                               typeof(BillDatesConsistencyRule))))
                 .ConfigureChileSpecificNumberServices();
         }
 

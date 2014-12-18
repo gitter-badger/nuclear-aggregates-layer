@@ -252,7 +252,7 @@
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateOrderNumberService.cs" />
-    <Compile Include="Orders\Operations\Crosscutting\IValidateBillsService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IBillsConsistencyService.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderChangeStateOrders2ArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderRestoreOrdersFromArchiveAggregateService.cs" />

@@ -53,10 +53,10 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, EmiratesLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IFormatterFactory, EmiratesFormatterFactory>(Lifetime.Singleton)
                 .RegisterType<ICheckInnService, EmiratesInnService>(Lifetime.Singleton)
-                .RegisterType<IValidateBillsService, ValidateBillsService>(Lifetime.PerResolve,
-                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillInvariant>(typeof(LockedOrderInvariant),
-                                                                                                                                               typeof(BillSummInvariant),
-                                                                                                                                               typeof(BillDatesInvariant))))
+                .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
+                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
+                                                                                                                                               typeof(BillSummConsistencyRule),
+                                                                                                                                               typeof(BillDatesConsistencyRule))))
                 .ConfigureEmiratesSpecificNumberServices();
         }
 

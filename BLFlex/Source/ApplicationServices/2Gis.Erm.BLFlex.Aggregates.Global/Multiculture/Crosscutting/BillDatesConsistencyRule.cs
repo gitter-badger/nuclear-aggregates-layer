@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
 {
-    public sealed class BillDatesInvariant : IBillInvariant
+    public sealed class BillDatesConsistencyRule : IBillConsistencyRule
     {
         public bool Validate(IEnumerable<Bill> bills, Order order, out string report)
         {

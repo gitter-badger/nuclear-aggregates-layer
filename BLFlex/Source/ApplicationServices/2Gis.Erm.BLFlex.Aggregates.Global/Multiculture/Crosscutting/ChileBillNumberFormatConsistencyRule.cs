@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
 {
-    public sealed class ChileBillNumberFormatInvariant : IBillInvariant
+    public sealed class ChileBillNumberFormatConsistencyRule : IBillConsistencyRule
     {
         private static readonly Regex ChileBillNumberPattern = new Regex(@"^\d{7}$", RegexOptions.Compiled);
 

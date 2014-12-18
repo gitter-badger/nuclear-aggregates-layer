@@ -11,11 +11,11 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
 {
-    public sealed class BillDublicateNumbersInvariant : IBillInvariant
+    public sealed class BillDublicateNumbersConsistencyRule : IBillConsistencyRule
     {
         private readonly IFinder _finder;
 
-        public BillDublicateNumbersInvariant(IFinder finder)
+        public BillDublicateNumbersConsistencyRule(IFinder finder)
         {
             _finder = finder;
         }

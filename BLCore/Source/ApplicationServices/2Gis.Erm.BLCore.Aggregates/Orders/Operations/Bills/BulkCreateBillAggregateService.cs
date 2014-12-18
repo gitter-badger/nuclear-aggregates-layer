@@ -16,23 +16,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IRepository<Bill> _billGenericRepository; 
-        private readonly IValidateBillsService _validateBillsService;
+        private readonly IBillsConsistencyService _billsConsistencyService;
 
         public BulkCreateBillAggregateService(
             IOperationScopeFactory scopeFactory, 
             IRepository<Bill> billGenericRepository, 
             IIdentityProvider identityProvider,
-            IValidateBillsService validateBillsService)
+            IBillsConsistencyService billsConsistencyService)
         {
             _scopeFactory = scopeFactory;
             _billGenericRepository = billGenericRepository;
             _identityProvider = identityProvider;
-            _validateBillsService = validateBillsService;
+            _billsConsistencyService = billsConsistencyService;
         }
 
         public void Create(Order order, IEnumerable<Bill> bills)
         {
-            _validateBillsService.Validate(bills, order);
+            _billsConsistencyService.Validate(bills, order);
             using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, Bill>())
             {
                 foreach (var bill in bills)
