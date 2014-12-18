@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
         {
             // simple validation
             var createBillsPayablePlan = bills.OrderBy(x => x.PayablePlan).Sum(x => x.PayablePlan);
-            if (createBillsPayablePlan != order.PayablePlan)
+            if (bills.Any() && createBillsPayablePlan != order.PayablePlan)
             {
                 report = BLCore.Resources.Server.Properties.BLResources.BillsPayableSumNotEqualsToOrderPayable;
                 return false;

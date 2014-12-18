@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
@@ -15,19 +14,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
     {
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IRepository<Bill> _billGenericRepository;
+        private readonly IValidateBillsService _validateBillsService;
 
-        public BulkDeleteBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository)
+        public BulkDeleteBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository, IValidateBillsService validateBillsService)
         {
             _scopeFactory = scopeFactory;
             _billGenericRepository = billGenericRepository;
+            _validateBillsService = validateBillsService;
         }
 
         public void DeleteBills(Order order, IEnumerable<Bill> bills)
         {
-            var isOrderOnApproval = order != null && order.WorkflowStepId == OrderState.OnRegistration;
-            if (!isOrderOnApproval)
+            string report;
+            if (!_validateBillsService.Validate(new Bill[0], order, out report))
             {
-                throw new NotificationException(BLResources.CantEditBillsWhenOrderIsNotOnRegistration);
+                throw new NotificationException(report);
             }
 
             using (var scope = _scopeFactory.CreateSpecificFor<BulkDeleteIdentity, Bill>())
