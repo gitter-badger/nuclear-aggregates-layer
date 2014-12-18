@@ -25,6 +25,7 @@ Task Hello { "Билдскрипт запущен без цели, укажит�
 Task Build-Packages -Depends `
 Set-BuildNumber, `
 Build-Migrations, `
+Build-SearchMigrations, `
 Build-WebApp, `
 Build-BasicOperations, `
 Build-TaskService, `
