@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting
 {
     public interface IValidateBillsService : IInvariantSafeCrosscuttingService
     {
-        bool Validate(IEnumerable<Bill> bills, Order order, out string report);
+        void Validate(IEnumerable<Bill> bills, Order order);
     }
 }

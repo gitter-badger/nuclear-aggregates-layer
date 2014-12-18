@@ -32,12 +32,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
 
         public void Create(Order order, IEnumerable<Bill> bills)
         {
-            string report;
-            if (!_validateBillsService.Validate(bills, order, out report))
-            {
-                throw new NotificationException(report);
-            }
-
+            _validateBillsService.Validate(bills, order);
             using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, Bill>())
             {
                 foreach (var bill in bills)

@@ -25,12 +25,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
 
         public void Update(Bill bill, IEnumerable<Bill> bills, Order order)
         {
-            string report;
-            if (!_validateBillsService.Validate(bills, order, out report))
-            {
-                throw new NotificationException(report);
-            }
-
+            _validateBillsService.Validate(bills, order);
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Bill>())
             {
                 _billGenericRepository.Update(bill);

@@ -25,12 +25,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
 
         public void DeleteBills(Order order, IEnumerable<Bill> bills)
         {
-            string report;
-            if (!_validateBillsService.Validate(new Bill[0], order, out report))
-            {
-                throw new NotificationException(report);
-            }
-
+            _validateBillsService.Validate(new Bill[0], order);
             using (var scope = _scopeFactory.CreateSpecificFor<BulkDeleteIdentity, Bill>())
             {
                 foreach (var bill in bills)
