@@ -219,6 +219,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 model.IsDeleted = domainEntityDto.GetPropertyValue<IDomainEntityDto, IDeletableEntity, bool>(x => x.IsDeleted);
             }
 
+            if (model.IsStateTracking)
+            {
+                model.Timestamp = domainEntityDto.GetPropertyValue<IDomainEntityDto, IStateTrackingEntity, byte[]>(x => x.Timestamp);
+            }
+
             return model;
         }
 

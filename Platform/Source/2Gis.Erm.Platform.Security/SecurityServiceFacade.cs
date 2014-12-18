@@ -42,7 +42,8 @@ namespace DoubleGis.Erm.Platform.Security
                 {
                     { EntityName.Appointment, EntityName.Activity}, 
                     { EntityName.Phonecall, EntityName.Activity}, 
-                    { EntityName.Task, EntityName.Activity}
+                    { EntityName.Task, EntityName.Activity},
+                    { EntityName.Letter, EntityName.Activity},
                 };
 
         private readonly IFinder _finder;
