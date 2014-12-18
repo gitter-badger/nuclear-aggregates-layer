@@ -961,12 +961,9 @@
     <value> This legal entity is already specified as the main one</value>
   </data>
   <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД/ММ/ГГГГ'</value>
+    <value>Incorrect value. Please use the 'DD/MM/YYYY' format</value>
   </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
-    <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
-  </data>
-  <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД/ММ/ГГГГ'</value>
+    <value>Error connecting to {0} service. Contact the developers.</value>
   </data>
 </root>

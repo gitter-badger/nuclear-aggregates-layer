@@ -1955,7 +1955,7 @@
     <value>Contract Extension Agreement</value>
   </data>
   <data name="ActivityTypeLetter" xml:space="preserve">
-    <value>Письмо</value>
+    <value>E-mail</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Postponement</value>

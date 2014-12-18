@@ -1955,7 +1955,7 @@
     <value>Dohoda o prodloužení smlouvy</value>
   </data>
   <data name="ActivityTypeLetter" xml:space="preserve">
-    <value>Письмо</value>
+    <value>Dopis</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Odklad</value>

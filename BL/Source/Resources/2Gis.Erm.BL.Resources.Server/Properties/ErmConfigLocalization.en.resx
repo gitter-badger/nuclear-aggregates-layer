@@ -1831,10 +1831,10 @@
     <value>Number of documents</value>
   </data>
   <data name="EnLetter" xml:space="preserve">
-    <value>Письмо</value>
+    <value>E-mail</value>
   </data>
   <data name="ControlCreateLetter" xml:space="preserve">
-    <value>Создать Письмо</value>
+    <value>Write e-mail</value>
   </data>
   <data name="CrdRelClientLinks" xml:space="preserve">
     <value>Links</value>

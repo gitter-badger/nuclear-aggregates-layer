@@ -961,12 +961,9 @@
     <value> Tato PO již je hlavní</value>
   </data>
   <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД. MM. ГГГГ'</value>
+    <value>Chybná hodnota. Použijte formát "DD. MM. RRRR"</value>
   </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
-    <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
-  </data>
-  <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД. MM. ГГГГ'</value>
+    <value>Chyba při kontaktování služby {0}. Kontaktujte vývojáře.</value>
   </data>
 </root>
