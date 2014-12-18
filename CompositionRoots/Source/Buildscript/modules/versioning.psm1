@@ -2,7 +2,7 @@
 $GlobalVersion = @{
 	'Major' = 2
 	'Minor' = 52
-	'Patch' = 5
+	'Patch' = 6
 }
 #------------------------------
 
@@ -91,10 +91,6 @@ function Get-Branch {
 	$branch = $global:Context.Branch
 	if ($branch -eq $null){
 		return 'local'
-	}
-	
-	if ($branch.StartsWith('release', 'OrdinalIgnoreCase')){
-		return 'release'
 	}
 	
 	# trim branch prefix
