@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementValidation
 {
-    // FIXME {all, 01.12.2014}: d operation service bcgjkmpetncz finder, те же вопросы к AdverisementValidationRule - скорее всего их resolve вынести в factory, а ещё лучше подтягивать через сonstructor injection
+    // FIXME {all, 01.12.2014}: в operation service используется finder, те же вопросы к AdverisementValidationRule - скорее всего их resolve вынести в factory, а ещё лучше подтягивать через сonstructor injection
     public class ValidateOrderPositionAdvertisementsOperationService : IValidateOrderPositionAdvertisementsOperationService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;

@@ -27,12 +27,8 @@ namespace DoubleGis.Erm.Platform.DAL
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
         private readonly ICommonLog _logger;
 
-        #region Хранилище Domain Context которые контролируются UoW
-
         private readonly object _domainContextRegistrarSynch = new object();
         private readonly IDictionary<Guid, HostDomainContextsStorage> _domainContextRegistrar = new Dictionary<Guid, HostDomainContextsStorage>();
-        
-        #endregion
 
         private readonly Guid _directlyNestedDomainContextsHostId = Guid.NewGuid();
 
@@ -51,8 +47,6 @@ namespace DoubleGis.Erm.Platform.DAL
         {
             get { return _directlyNestedDomainContextsHostId; }
         }
-
-        #region Implementation of IAggregateRepository factory functionality
 
         public TAggregateRepository CreateRepository<TAggregateRepository>() where TAggregateRepository : class, IAggregateRepository
         {
@@ -75,10 +69,6 @@ namespace DoubleGis.Erm.Platform.DAL
 
             return (TAggregateRepository)CreateRepository(targetType, domainContextHost);
         }
-
-        #endregion
-        
-        #region Implementation of IAggregatesLayerRuntimeFactory
 
         object IAggregatesLayerRuntimeFactory.CreateRepository(Type aggregateRepositoryType)
         {
@@ -110,10 +100,6 @@ namespace DoubleGis.Erm.Platform.DAL
             var readDomainContextProviderProxy = new ReadDomainContextProviderProxy(this, this);
             return CreateAggregateReadModel(aggregateReadModelType, readDomainContextProviderProxy);
         }
-
-        #endregion
-
-        #region Implementation of ISimplifiedModelConsumerFactory
 
         object ISimplifiedModelConsumerRuntimeFactory.CreateConsumer(Type consumerType)
         {
@@ -149,10 +135,6 @@ namespace DoubleGis.Erm.Platform.DAL
                                   new ModifiableDomainContextProviderProxy(this, this));
         }
 
-        #endregion
-
-        #region Implementation of IPersistenceServiceRuntimeFactory
-
         object IPersistenceServiceRuntimeFactory.CreatePersistenceService(Type persistenceServiceType)
         {
             if (!typeof(IPersistenceService).IsAssignableFrom(persistenceServiceType))
@@ -170,15 +152,12 @@ namespace DoubleGis.Erm.Platform.DAL
                 new ModifiableDomainContextProviderProxy(this, this));
         }
 
-        #endregion
-
-        #region Implementation of IUnitOfWork
         /// <summary>
         /// Возвращает для указанного host все связанные с ним domain context, допускающие модификацию данных
         /// </summary>
         /// <param name="host"></param>
         /// <returns></returns>
-        public IEnumerable<IModifiableDomainContext> GetModifiableDomainContexts(IDomainContextHost host)
+        IEnumerable<IModifiableDomainContext> IUnitOfWork.GetModifiableDomainContexts(IDomainContextHost host)
         {
             lock (_domainContextRegistrarSynch)
             {
@@ -199,7 +178,7 @@ namespace DoubleGis.Erm.Platform.DAL
         /// </summary>
         /// <param name="host"></param>
         /// <returns></returns>
-        public IEnumerable<IModifiableDomainContext> DeattachModifiableDomainContexts(IDomainContextHost host)
+        IEnumerable<IModifiableDomainContext> IUnitOfWork.DeattachModifiableDomainContexts(IDomainContextHost host)
         {
             lock (_domainContextRegistrarSynch)
             {
@@ -218,16 +197,12 @@ namespace DoubleGis.Erm.Platform.DAL
         /// Создает новый UoWScope
         /// </summary>
         /// <returns></returns>
-        public IUnitOfWorkScope CreateScope()
+        IUnitOfWorkScope IUnitOfWork.CreateScope()
         {
             return new UnitOfWorkScope(this, this, _pendingChangesHandlingStrategy);
         }
 
-        #endregion
-
-        #region Implementation of IReadDomainContextProviderForHost
-
-        public IReadDomainContext Get(IDomainContextHost domainContextHost)
+        IReadDomainContext IReadDomainContextProviderForHost.Get(IDomainContextHost domainContextHost)
         {
             lock (_domainContextRegistrarSynch)
             {
@@ -241,10 +216,6 @@ namespace DoubleGis.Erm.Platform.DAL
 
             return _readDomainContext;
         }
-
-        #endregion
-        
-        #region Implementation of IModifiableDomainContextProviderForHost
 
         IModifiableDomainContext IModifiableDomainContextProviderForHost.Get<TEntity>(IDomainContextHost domainContextHost)
         {
@@ -270,8 +241,6 @@ namespace DoubleGis.Erm.Platform.DAL
 
             return domainContext;
         }
-
-        #endregion
 
         protected abstract object CreateRepository(Type aggregateRepositoryType,
                                                    IReadDomainContextProvider readDomainContextProvider,
