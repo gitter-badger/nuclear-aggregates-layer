@@ -54,9 +54,10 @@ function Create-BuildFile ([string]$ProjectFileName, [string[]]$Targets = $null,
 		}
 	}
 
+	$root.SetAttribute('ToolsVersion', $MSBuildVersion)
 	$root.SetAttribute('xmlns', 'http://schemas.microsoft.com/developer/msbuild/2003')
 	
-	$fileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.buildproj')
+	$fileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.build' + [System.IO.Path]::GetExtension($ProjectFileName))
 	$xmlDocument.Save($fileName)
 	return $fileName
 }
@@ -96,7 +97,7 @@ function Get-ProjectFileName ($ProjectDir, $ProjectName, $Extension = '.csproj')
 	return $projectFileName
 }
 
-function Find-Projects ($ProjectDirs, $Include, $Exclude, $Filter = '*.csproj'){
+function Find-Projects ($ProjectDirs, $Include, $Exclude = '*.build.csproj', $Filter = '*.csproj'){
 
 	$solutionProjectDirs = $ProjectDirs | Select-Object @{Name='Expand'; Expression = {
 		$solutionProjectDir = Join-Path $global:Context.Dir.Solution $_
@@ -109,7 +110,7 @@ function Find-Projects ($ProjectDirs, $Include, $Exclude, $Filter = '*.csproj'){
 	$projects = Get-ChildItem $solutionProjectDirs -Filter $Filter -Include $Include -Exclude $Exclude -Recurse
 	
 	$projectNames = $projects | Select-Object -ExpandProperty 'Name'
-	Write-Host "Found projects:" $projectNames -Separator "`n"
+	#Write-Host "Found projects:" $projectNames -Separator "`n"
 	
 	return $projects
 }

@@ -50,7 +50,7 @@ Task Analyze-ResearchTeam {
 
 Task Analyze-CompositionTeam {
 
-	# NCrunch csproj located in 'packages' folder
+	# NCrunch projects located in 'packages' folder
 	$projects = Find-Projects '.' -Exclude ($ExcludeProjects + @('*Mvc*', '*NCrunch*'))
 	Analyze-Projects $projects
 	

@@ -24,24 +24,29 @@ Task Build-AutoTestsPackages -Depends Create-GlobalContext, Set-BuildNumber {
 	}
 
 	Copy-NugetConfig
-	$nuspecDir = Join-Path $global:Context.Dir.Solution '..\..'
-	Create-NuspecFiles $nuspecDir
-
-	$projectsDir = Join-Path $global:Context.Dir.Solution '..\..\Platform'
+	
+	# нужно создать nuspec файлы для вообще всех проектов, чтобы правильно работал флаг IncludeReferencedProjects
+	$projects = Find-Projects @('..\..')
+	Create-NuspecFiles $projects
+	
+	$projectDirs = @(
+		'..\..\Platform'
+		'..\..\BLQuerying'
+	)
+	
 	$include = @(
 		'2Gis.Erm.Platform.Model.csproj'
 		'2Gis.Erm.Platform.Common.csproj'
-
 		'2Gis.Erm.Platform.API.ServiceBusBroker.csproj'
 		'2Gis.Erm.Platform.API.Core.csproj'
+		
+		'2Gis.Erm.Qds.API.Operations.csproj'		
 	)
-	Build-Packages $projectsDir $include $tempDir
 	
-	$projectsDir = Join-Path $global:Context.Dir.Solution '..\..\BLQuerying'
-	$include = @(
-		'2Gis.Erm.Qds.API.Operations.csproj'
-	)
-	Build-Packages $projectsDir $include $tempDir
+	Update-AssemblyInfos $projectDirs
+	
+	$projects = Find-Projects $projectDirs $include
+	Build-Packages $projects $tempDir
 	
 	Publish-Artifacts $tempDir 'NuGet'
 }
@@ -70,20 +75,27 @@ Task Deploy-NuGet {
 	}
 }
 
-function Build-Packages ($ProjectsDir, $Include, $OutputDirectory){
+function Update-AssemblyInfos ($ProjectsDirs){
+	
+	$absoluteProjectDirs = @()
+	foreach ($projectDir in $ProjectDirs){
+		$absoluteProjectDirs += Join-Path $global:Context.Dir.Solution $projectDir
+	}
 
-	$assemblyInfos = Get-ChildItem $projectsDir -Filter 'AssemblyInfo.Version.cs' -Recurse
+	$assemblyInfos = Get-ChildItem $absoluteProjectDirs -Filter 'AssemblyInfo.Version.cs' -Recurse
 	Update-AssemblyInfo $assemblyInfos
+}
 
-	$projects = Get-ChildItem $projectsDir -Include $include -Recurse
-	foreach($project in $projects){
+function Build-Packages ($Projects, $OutputDirectory){
+
+	foreach($project in $Projects){
 		
 		$buildFileName = Create-BuildFile $project.FullName
+		Invoke-MSBuild $buildFileName
 		
 		Invoke-NuGet @(
 			'pack'
 			$buildFileName
-			'-Build'
 			'-IncludeReferencedProjects'
 			'-ExcludeEmptyDirectories'
 			'-NoPackageAnalysis'
@@ -96,7 +108,8 @@ function Build-Packages ($ProjectsDir, $Include, $OutputDirectory){
 }
 
 # создаём типовой nuspec файл
-function Create-NuspecFiles ($solutionDir){
+function Create-NuspecFiles ($Projects){
+
 	$content = @'
 <?xml version="1.0" encoding="utf-8"?>
 <package>
@@ -114,15 +127,14 @@ function Create-NuspecFiles ($solutionDir){
 </package>
 '@
 
-	$projects = Get-ChildItem $solutionDir -Filter '*.csproj' -Recurse
-	foreach($project in $projects){
-		$projectFileName = $project.FullName
-		$projectDir = Split-Path $projectFileName
-		
-		$nuspecFileName = Join-Path $projectDir ([System.IO.Path]::GetFileNameWithoutExtension($projectFileName) + '.nuspec')
-		if (!(Test-Path $nuspecFileName)){
-			Set-Content $nuspecFileName $content -Encoding UTF8 -Force
+	foreach($project in $Projects){
+	
+		$nuspecFileName = [System.IO.Path]::ChangeExtension($project.FullName, '.nuspec')
+		if ((Test-Path $nuspecFileName)){
+			continue
 		}
+		
+		Set-Content $nuspecFileName $content -Encoding UTF8 -Force
 	}
 }
 

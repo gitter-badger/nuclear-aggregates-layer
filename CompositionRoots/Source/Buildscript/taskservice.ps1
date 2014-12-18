@@ -154,7 +154,7 @@ function Get-InstallerConfigXmls ($projectFileName) {
 	
 	[xml]$xml = @"
 <Project>
-	<!-- Подменяем csproj на buildproj -->
+	<!-- Подменяем project referenes -->
 	<PropertyGroup>
 		<CoreBuildDependsOn>
 			ErmPreprocess;
@@ -166,7 +166,7 @@ function Get-InstallerConfigXmls ($projectFileName) {
 		    <ProjectReferenceToRemove Include="@(ProjectReference)" Condition=" '%(Filename)' == '$shortProjectFileName' " />
 		    <ProjectReference Remove="@(ProjectReferenceToRemove)" />
 
-			<ProjectReference Include="%(ProjectReferenceToRemove.RelativeDir)%(ProjectReferenceToRemove.Filename).buildproj" Condition=" '@(ProjectReferenceToRemove)' != '' ">
+			<ProjectReference Include="%(ProjectReferenceToRemove.RelativeDir)%(ProjectReferenceToRemove.Filename).build%(ProjectReferenceToRemove.Extension)" Condition=" '@(ProjectReferenceToRemove)' != '' ">
 				<Name>%(ProjectReferenceToRemove.Name)</Name>
 				<Project>%(ProjectReferenceToRemove.Project)</Project>
 				<DoNotHarvest>%(ProjectReferenceToRemove.DoNotHarvest)</DoNotHarvest>
