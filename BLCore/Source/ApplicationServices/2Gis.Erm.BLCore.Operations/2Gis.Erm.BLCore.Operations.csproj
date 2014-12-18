@@ -430,6 +430,7 @@
     <Compile Include="Generic\Get\GetUserDtoService.cs" />
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
+    <Compile Include="Generic\Modify\BillFactory.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Generic\Modify\Custom\ActivityExtensions.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />

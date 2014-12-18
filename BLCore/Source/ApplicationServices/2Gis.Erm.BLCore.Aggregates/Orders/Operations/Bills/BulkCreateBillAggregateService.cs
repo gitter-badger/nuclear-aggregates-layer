@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
@@ -19,44 +17,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IRepository<Bill> _billGenericRepository; 
         private readonly IValidateBillsService _validateBillsService;
-        private readonly IEvaluateBillNumberService _evaluateBillNumberService;
 
         public BulkCreateBillAggregateService(
             IOperationScopeFactory scopeFactory, 
             IRepository<Bill> billGenericRepository, 
             IIdentityProvider identityProvider,
-            IValidateBillsService validateBillsService, 
-            IEvaluateBillNumberService evaluateBillNumberService)
+            IValidateBillsService validateBillsService)
         {
             _scopeFactory = scopeFactory;
             _billGenericRepository = billGenericRepository;
             _identityProvider = identityProvider;
             _validateBillsService = validateBillsService;
-            _evaluateBillNumberService = evaluateBillNumberService;
         }
 
         public void Create(Order order, IEnumerable<Bill> bills)
         {
-            var billsArray = bills as Bill[] ?? bills.ToArray();
-
-            var numberEvaluation = billsArray.Length == 1
-                ? new Func<Bill, int, string>((bill, index) => _evaluateBillNumberService.Evaluate(bill.BillNumber, order.Number))
-                : new Func<Bill, int, string>((bill, index) => _evaluateBillNumberService.Evaluate(bill.BillNumber, order.Number, index + 1));
-
-            for (var i = 0; i < billsArray.Length; i++)
-            {
-                billsArray[i].BillNumber = numberEvaluation.Invoke(billsArray[i], i);
-            }
-
             string report;
-            if (!_validateBillsService.Validate(billsArray, order, out report))
+            if (!_validateBillsService.Validate(bills, order, out report))
             {
                 throw new NotificationException(report);
             }
 
             using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, Bill>())
             {
-                foreach (var bill in billsArray)
+                foreach (var bill in bills)
                 {
                     _identityProvider.SetFor(bill);
                     _billGenericRepository.Add(bill);
