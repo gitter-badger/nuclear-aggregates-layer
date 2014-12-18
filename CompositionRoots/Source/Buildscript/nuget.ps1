@@ -15,7 +15,7 @@ $Servers = @{
 
 Import-Module .\modules\nuget.psm1 -DisableNameChecking
 
-Task Build-AutoTestsPackages -Depends Create-GlobalContext, Set-BuildNumber, Update-AssemblyInfo {
+Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 
 	$tempDir = Join-Path $global:Context.Dir.Temp 'NuGet'
 	if (!(Test-Path $tempDir)){

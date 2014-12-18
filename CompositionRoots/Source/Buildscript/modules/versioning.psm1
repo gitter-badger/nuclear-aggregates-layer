@@ -86,10 +86,7 @@ function Get-Revision {
 }
 
 function Get-Branch {
-	$branch = $global:Context.Branch
-	if ($branch -eq $null){
-		return 'local'
-	}
+	$branch = [string]$global:Context.Branch
 	
 	# trim branch prefix
 	$slashIndex = $branch.LastIndexOf('/')
