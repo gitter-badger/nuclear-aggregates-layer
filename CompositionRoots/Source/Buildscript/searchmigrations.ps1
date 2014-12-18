@@ -13,11 +13,10 @@ Task Build-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations'
 	Build-SearchMigrationProject $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
 }
 
-Task Deploy-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations').RunElasticsearchMigrations } -Depends Build-SearchMigrations {
-
+Task Deploy-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations').RunElasticsearchMigrations } {
 	$artifactName = Get-Artifacts 'Search Migrations'
-	$migrationsExePath = Join-Path $artifactName '2Gis.Erm.Qds.Migrator.exe'
 	
+	$migrationsExePath = Join-Path $artifactName '2Gis.Erm.Qds.Migrator.exe'
 	& $migrationsExePath
 	
 	if ($LastExitCode -ne 0) {

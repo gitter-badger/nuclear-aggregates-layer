@@ -46,8 +46,7 @@ Build-WpfClient, `
 Build-Dynamics
 
 Task Deploy-Packages -Depends `
-Create-GlobalContext, `
-Set-BuildNumber, `
+Build-Packages, `
 Take-TaskServiceOffline, `
 Take-WebAppOffline, `
 Deploy-Migrations, `
@@ -69,6 +68,23 @@ Deploy-Reports
 Task Create-GlobalContext {
 
 	$buildDir = Resolve-Path .
+	
+	$solutionDir = Join-Path $buildDir '..'
+	if (!(Test-Path $solutionDir)){
+		throw "Can't find solution dir $solutionDir"
+	}
+	
+	$tempDir = Join-Path $buildDir 'temp'
+	if (Test-Path $tempDir){
+		rd $tempDir -Recurse -Force | Out-Null
+	}
+	md $tempDir | Out-Null
+
+	$artifactsDir = Join-Path $buildDir 'artifacts'
+	if (Test-Path $artifactsDir){
+		rd $artifactsDir -Recurse -Force | Out-Null
+	}
+	md $artifactsDir | Out-Null
 
 	$global:Context = @{
 		'Revision' = $Revision
@@ -76,20 +92,9 @@ Task Create-GlobalContext {
 		'Branch' = $Branch
 		'EnvironmentName' = $EnvironmentName
 		'Dir' = @{
-			'Solution' = Join-Path $buildDir '..'
-			'Temp' = Join-Path $buildDir 'temp'
-			'Artifacts' = Join-Path $buildDir 'artifacts'
+			'Solution' = $solutionDir
+			'Temp' = $tempDir
+			'Artifacts' = $artifactsDir
 		}
 	}
-	
-	# create dirs
-	if (Test-Path $global:Context.Dir.Temp){
-		rd $global:Context.Dir.Temp -Recurse -Force | Out-Null
-	}
-	md $global:Context.Dir.Temp | Out-Null
-	
-	if (Test-Path $global:Context.Dir.Artifacts){
-		rd $global:Context.Dir.Artifacts -Recurse -Force | Out-Null
-	}
-	md $global:Context.Dir.Artifacts | Out-Null
 }

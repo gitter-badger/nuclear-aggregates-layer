@@ -14,9 +14,8 @@ $Servers = @{
 }
 
 Import-Module .\modules\nuget.psm1 -DisableNameChecking
-Import-Module .\modules\versioning.psm1 -DisableNameChecking
 
-Task Build-AutoTestsPackages -Depends Create-GlobalContext, Set-BuildNumber {
+Task Build-AutoTestsPackages -Depends Create-GlobalContext, Set-BuildNumber, Update-AssemblyInfo {
 
 	$tempDir = Join-Path $global:Context.Dir.Temp 'NuGet'
 	if (!(Test-Path $tempDir)){
@@ -43,8 +42,6 @@ Task Build-AutoTestsPackages -Depends Create-GlobalContext, Set-BuildNumber {
 		'2Gis.Erm.Qds.API.Operations.csproj'		
 	)
 	
-	Update-AssemblyInfos $projectDirs
-	
 	$projects = Find-Projects $projectDirs $include
 	Build-Packages $projects $tempDir
 	
@@ -53,6 +50,7 @@ Task Build-AutoTestsPackages -Depends Create-GlobalContext, Set-BuildNumber {
 
 Task Deploy-NuGet {
 	$artifactName = Get-Artifacts 'NuGet'
+	
 	$packages = Get-ChildItem $artifactName -Filter '*.nupkg' -Recurse
 	foreach($package in $packages){
 		
@@ -73,17 +71,6 @@ Task Deploy-NuGet {
 			$apiKey
 		)
 	}
-}
-
-function Update-AssemblyInfos ($ProjectsDirs){
-	
-	$absoluteProjectDirs = @()
-	foreach ($projectDir in $ProjectDirs){
-		$absoluteProjectDirs += Join-Path $global:Context.Dir.Solution $projectDir
-	}
-
-	$assemblyInfos = Get-ChildItem $absoluteProjectDirs -Filter 'AssemblyInfo.Version.cs' -Recurse
-	Update-AssemblyInfo $assemblyInfos
 }
 
 function Build-Packages ($Projects, $OutputDirectory){

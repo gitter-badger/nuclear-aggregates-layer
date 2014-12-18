@@ -180,7 +180,7 @@ function Get-InstallerConfigXmls ($projectFileName) {
 	return $xml
 }
 
-Task Deploy-TaskService -Precondition { return $OptionTaskService } -Depends Build-TaskService {
+Task Deploy-TaskService -Precondition { return $OptionTaskService } {
 	
 	$remoteScriptBlock = {
 		param($artifactFileName)
@@ -197,9 +197,8 @@ Task Deploy-TaskService -Precondition { return $OptionTaskService } -Depends Bui
 		Remove-Item $artifactName -Force
 	}
 	
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService.Installer' '.wixproj'
 	$artifactName = Get-Artifacts '' '2Gis.Erm.TaskService.Installer.msi'
-	$artifactFileName = Split-Path $artifactName -Leaf
+	$artifactFileName = [System.IO.Path]::GetFileName($artifactName)
 
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService.Installer'
 	foreach($targetHost in $entryPointMetadata.TargetHosts){

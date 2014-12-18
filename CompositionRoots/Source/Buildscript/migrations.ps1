@@ -19,11 +19,10 @@ Task Build-Migrations -Depends Update-AssemblyInfo {
 	Build-MigrationProject $projectFileName
 }
 
-Task Deploy-Migrations -Depends Build-Migrations {
-
+Task Deploy-Migrations {
 	$artifactName = Get-Artifacts 'Database Migrations'
-	$migrationsExePath = Join-Path $artifactName '2Gis.Erm.Migrator.exe'
 	
+	$migrationsExePath = Join-Path $artifactName '2Gis.Erm.Migrator.exe'
 	& $migrationsExePath @(
 		"-update"
 	)

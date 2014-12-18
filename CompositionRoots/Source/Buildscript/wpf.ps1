@@ -16,11 +16,10 @@ Task Build-WpfClient -Precondition { return $OptionWpfClient } -Depends Update-A
 	Build-WpfShell
 }
 
-Task Deploy-WpfClient -Precondition { return $OptionWpfClient } -Depends Build-WpfClient {
+Task Deploy-WpfClient -Precondition { return $OptionWpfClient } {
+	$artifactName = Get-Artifacts '' '2Gis.Erm.UI.Desktop.WPF.zip'
 	
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Desktop.WPF'
-	$artifactName = Get-Artifacts '' '2Gis.Erm.UI.Desktop.WPF.zip'	
-	
 	foreach($targetHost in $EntryPointMetadata.TargetHosts){
 		Create-RemoteWebsite $targetHost $entryPointMetadata.IisAppPath
 

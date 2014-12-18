@@ -31,11 +31,10 @@ Task Build-HackFiles {
 	Publish-Artifacts $artifactFileName
 }
 
-Task Deploy-HackFiles -Depends Build-HackFiles {
+Task Deploy-HackFiles {
 	$artifactName = Get-Artifacts '' '2Gis.Erm.BLCore.MsCRM.HackFiles.zip'
 	
 	$entryPointMetadata = Get-EntryPointMetadata 'Dynamics'
-	
 	foreach($crmHost in $EntryPointMetadata.CrmHosts){
 		# DoNotDeleteRule чтобы не затирать существующий сайт Dynamics CRM а дописывать в него контент
 		Invoke-MSDeploy `
@@ -57,18 +56,15 @@ Task Build-Plugins -Depends Update-AssemblyInfo {
 	Publish-Artifacts $convensionalArtifactName 'Plugin Registration'
 }
 
-Task Deploy-Plugins -Depends Build-Plugins {
+Task Deploy-Plugins {
+	$artifactName = Get-Artifacts 'Plugin Registration'
 	
 	$crmConnectionString = Get-ConnectionString 'CrmConnection'
-	
 	Unregister-Plugins $crmConnectionString '2Gis.Erm.*'
 
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations'
 	$uriBuilder = New-Object System.UriBuilder('https', $entryPointMetadata.IisAppPath, -1, 'MsCrm.svc/Soap')
-
-	$artifactName = Get-Artifacts 'Plugin Registration'
 	$pluginRegistrationXml = Join-Path $artifactName 'PluginRegistration.xml'
-
 	Register-Plugins $crmConnectionString $uriBuilder.ToString() $pluginRegistrationXml
 }
 
