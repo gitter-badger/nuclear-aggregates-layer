@@ -249,6 +249,7 @@
     <Compile Include="Orders\Operations\Bills\IBulkDeleteBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IBulkCreateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IUpdateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\BillsConsistencyException.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateOrderNumberService.cs" />
