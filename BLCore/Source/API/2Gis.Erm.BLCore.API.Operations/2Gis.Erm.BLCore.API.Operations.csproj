@@ -178,6 +178,8 @@
     <Compile Include="Concrete\OrderPositions\ICalculateCategoryRateOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IViewOrderPositionOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\Dto\OrderPositionWithSchemaDto.cs" />
+    <Compile Include="Concrete\Orders\Bills\ICreateOrderBillsOperationService.cs" />
+    <Compile Include="Concrete\Orders\Bills\IDeleteOrderBillsOperationService.cs" />
     <Compile Include="Concrete\Orders\Copy\CopyOrderResult.cs" />
     <Compile Include="Concrete\Orders\Copy\DiscountType.cs" />
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
@@ -249,8 +251,7 @@
     <Compile Include="Concrete\Old\AfterSaleServices\CrmCreateAfterSaleServiceActivities.cs" />
     <Compile Include="Concrete\Old\Bills\BillPaymentType.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplate.cs" />
-    <Compile Include="Concrete\Old\Bills\CreateBillsRequest.cs" />
-    <Compile Include="Concrete\Old\Bills\DeleteBillsRequest.cs" />
+    <Compile Include="Concrete\Old\Bills\CreateBillInfo.cs" />
     <Compile Include="Concrete\Old\Bills\DistributeBillPayments.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfo.cs" />
     <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfo.cs" />

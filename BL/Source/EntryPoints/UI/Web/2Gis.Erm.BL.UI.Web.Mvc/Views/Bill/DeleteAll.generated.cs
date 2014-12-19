@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Bill
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Bill/DeleteAll.cshtml")]
-    public partial class DeleteAll : System.Web.Mvc.WebViewPage<BL.UI.Web.Mvc.Models.DeleteAllBillsViewModel>
+    public partial class DeleteAll : System.Web.Mvc.WebViewPage<DeleteAllBillsViewModel>
     {
         public DeleteAll()
         {
