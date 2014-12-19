@@ -167,8 +167,9 @@ function Get-InstallerConfigXmls ($projectFileName) {
 		    <ProjectReference Remove="@(ProjectReferenceToRemove)" />
 
 			<ProjectReference Include="%(ProjectReferenceToRemove.RelativeDir)%(ProjectReferenceToRemove.Filename).build%(ProjectReferenceToRemove.Extension)" Condition=" '@(ProjectReferenceToRemove)' != '' ">
-				<Name>%(ProjectReferenceToRemove.Name)</Name>
 				<Project>%(ProjectReferenceToRemove.Project)</Project>
+				<Name>%(ProjectReferenceToRemove.Name)</Name>
+				
 				<DoNotHarvest>%(ProjectReferenceToRemove.DoNotHarvest)</DoNotHarvest>
 				<RefProjectOutputGroups>%(ProjectReferenceToRemove.RefProjectOutputGroups)</RefProjectOutputGroups>
 				<RefTargetDir>%(ProjectReferenceToRemove.RefTargetDir)</RefTargetDir>

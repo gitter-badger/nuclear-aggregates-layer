@@ -23,9 +23,12 @@ function Create-BuildFile ([string]$ProjectFileName, [string[]]$Targets = $null,
 		return $ProjectFileName
 	}
 
-	$xmlNamespace = 'http://schemas.microsoft.com/developer/msbuild/2003'
-
 	$xmlDocument = New-Object System.Xml.XmlDocument
+	$xmlDeclaration = $xmlDocument.CreateXmlDeclaration('1.0', 'utf-8', $null)
+	[void]$xmlDocument.AppendChild($xmlDeclaration)
+
+	$xmlNamespace = 'http://schemas.microsoft.com/developer/msbuild/2003'
+	
 	$root = $xmlDocument.CreateElement('Project', $xmlNamespace)
 	$root.SetAttribute('ToolsVersion', $MSBuildVersion)
 	[void]$xmlDocument.AppendChild($root)
