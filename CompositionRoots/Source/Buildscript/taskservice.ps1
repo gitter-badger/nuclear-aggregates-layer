@@ -265,16 +265,26 @@ Task Take-TaskServiceOnline -Precondition { return $OptionTaskService -and (Get-
 		$ErrorActionPreference = 'Stop'
 		#------------------------------
 
+		$WaitAttempts = 5
+		for ($i = 0; $i -lt $WaitAttempts; $i++){
+		
+			$service = Get-WmiObject Win32_Service -Filter "(name='$EnvironmentName' or name like '%$($EnvironmentName)[_]%') and startmode!='disabled'"
+			if ($service -is [System.Array] -and $service.Length -ne 1){
+				throw "Found more than one service $EnvironmentName"
+			}
 
-		$service = Get-WmiObject Win32_Service -Filter "(name='$EnvironmentName' or name like '%$($EnvironmentName)[_]%') and startmode!='disabled'"
-		if ($service -is [System.Array] -and $service.Length -ne 1){
-			throw "Found more than one service $EnvironmentName"
-		}
-
-		if ($service -eq $null){
-			throw "Cannot found just installed service $EnvironmentName"
+			if ($service -ne $null){
+				break
+			} else {
+				Write-Host "Cannot found just installed service '$EnvironmentName' (attempt $($i + 1))"
+				Start-Sleep -Second 5
+			}
 		}
 		
+		if ($i -eq $WaitAttempts){
+			throw "Cannot found just installed service '$EnvironmentName' after $WaitAttempts attempts"
+		}
+
 		if ($service.state -eq 'stopped'){
 			$serviceResult = $service.startService()
 			if ($serviceResult.returnvalue -ne 0){
