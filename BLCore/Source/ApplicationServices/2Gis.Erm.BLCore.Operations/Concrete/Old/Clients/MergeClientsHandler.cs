@@ -77,46 +77,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             {
                 _clientRepository.MergeErmClients(request.Client.Id, request.AppendedClientId, request.Client, request.AssignAllObjects);
 
-                ChangeRelatedActivities(request.Client.Id, request.AppendedClientId);
+                ChangeRelatedActivities(request.Client.Id, request.AppendedClientId, request.Client.OwnerCode, request.AssignAllObjects);
 
                 operationScope
                     .Updated<Client>(request.Client.Id, request.AppendedClientId)
                     .Complete();
             }
-
-            if (request.AssignAllObjects)
-            {
-                // обновляем куратора у активностей, привязанных к удаляемому клиенту
-                AssignRelatedActivities(request.AppendedClientId, request.Client.OwnerCode);
-            }
-
+            
             return Response.Empty;
         }
 
-        private void AssignRelatedActivities(long appendedClientId, long newOwnerCode)
-        {
-            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityName.Client, appendedClientId))
-            {
-                _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
-            }
-            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityName.Client, appendedClientId))
-            {
-                _assignLetterAggregateService.Assign(letter, newOwnerCode);
-            }
-            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityName.Client, appendedClientId))
-            {
-                _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
-            }
-            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityName.Client, appendedClientId))
-            {
-                _assignTaskAggregateService.Assign(task, newOwnerCode);
-            }
-        }
-
-        private void ChangeRelatedActivities(long newClientId, long appendedClientId)
+        private void ChangeRelatedActivities(long newClientId, long appendedClientId, long newOwnerCode, bool reassign)
         {
             foreach (var appointment in _appointmentReadModel.LookupAppointmentsRegarding(EntityName.Client, appendedClientId))
             {
+                if (reassign && appointment.Status == ActivityStatus.InProgress)
+                {
+                    _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
+                }
                 var regardingObjects = _appointmentReadModel.GetRegardingObjects(appointment.Id).ToList();
                 _updateAppointmentAggregateService.ChangeRegardingObjects(
                                                                           appointment,
@@ -125,6 +103,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             }
             foreach (var letter in _letterReadModel.LookupLettersRegarding(EntityName.Client, appendedClientId))
             {
+                if (reassign && letter.Status == ActivityStatus.InProgress)
+                {
+                    _assignLetterAggregateService.Assign(letter, newOwnerCode);
+                }
                 var regardingObjects = _letterReadModel.GetRegardingObjects(letter.Id).ToList();
                 _updateLetterAggregateService.ChangeRegardingObjects(
                                                                      letter,
@@ -133,6 +115,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             }
             foreach (var phonecall in _phonecallReadModel.LookupPhonecallsRegarding(EntityName.Client, appendedClientId))
             {
+                if (reassign && phonecall.Status == ActivityStatus.InProgress)
+                {
+                    _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
+                }
                 var regardingObjects = _phonecallReadModel.GetRegardingObjects(phonecall.Id).ToList();
                 _updatePhonecallAggregateService.ChangeRegardingObjects(
                                                                         phonecall,
@@ -141,6 +127,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             }
             foreach (var task in _taskReadModel.LookupTasksRegarding(EntityName.Client, appendedClientId))
             {
+                if (reassign && task.Status == ActivityStatus.InProgress)
+                {
+                    _assignTaskAggregateService.Assign(task, newOwnerCode);
+                }
                 var regardingObjects = _taskReadModel.GetRegardingObjects(task.Id).ToList();
                 _updateTaskAggregateService.ChangeRegardingObjects(task, regardingObjects, ReplaceClient<Task, TaskRegardingObject>(regardingObjects, newClientId));
             }

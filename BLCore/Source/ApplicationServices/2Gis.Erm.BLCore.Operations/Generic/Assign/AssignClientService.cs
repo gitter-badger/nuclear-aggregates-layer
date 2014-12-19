@@ -133,19 +133,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 
         private void AssignRelatedActivities(long clientId, long prevOwnerCode, long newOwnerCode, bool isPartialAssign)
         {
-            foreach (var appointment in _appointmentReadModel.LookupAppointmentsRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
                 _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
             }
-            foreach (var letter in _letterReadModel.LookupLettersRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
                 _assignLetterAggregateService.Assign(letter, newOwnerCode);
             }
-            foreach (var phonecall in _phonecallReadModel.LookupPhonecallsRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
                 _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
             }
-            foreach (var task in _taskReadModel.LookupTasksRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
                 _assignTaskAggregateService.Assign(task, newOwnerCode);
             }

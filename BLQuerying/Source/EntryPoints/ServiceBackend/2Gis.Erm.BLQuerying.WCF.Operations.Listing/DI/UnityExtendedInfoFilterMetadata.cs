@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             });
             RegisterExtendedInfoFilter<ListActivityDto, bool>("Expired", value =>
             {
-                const int HotClientTaskThreshold = 48; // in hours
+                const int HotClientTaskThreshold = 60; // in hours
                 var userContext = _unityContainer.Resolve<IUserContext>();
 
                 var startOfTheDay = TimeZoneInfo.ConvertTimeFromUtc(

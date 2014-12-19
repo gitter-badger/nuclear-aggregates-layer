@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Appointment>() & Specs.Find.ByIds<Appointment>(ids));
+            return _finder.FindMany(Specs.Find.Active<Appointment>() & Specs.Find.ByIds<Appointment>(ids)).ToArray();
         }
 
         public IEnumerable<Appointment> LookupOpenAppointmentsRegarding(EntityName entityName, long entityId)
@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Appointment>() & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Appointment>(ids));
+            return _finder.FindMany(Specs.Find.Active<Appointment>() & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Appointment>(ids)).ToArray();
         }
 
         public IEnumerable<Appointment> LookupOpenAppointmentsOwnedBy(long ownerCode)

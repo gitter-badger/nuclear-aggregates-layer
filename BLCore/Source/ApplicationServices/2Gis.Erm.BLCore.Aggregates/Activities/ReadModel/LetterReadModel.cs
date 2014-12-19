@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Letter>() & Specs.Find.ByIds<Letter>(ids));
+            return _finder.FindMany(Specs.Find.Active<Letter>() & Specs.Find.ByIds<Letter>(ids)).ToArray();
         }
 
         public IEnumerable<Letter> LookupOpenLettersRegarding(EntityName entityName, long entityId)
@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Letter>() & Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Letter>(ids));
+            return _finder.FindMany(Specs.Find.Active<Letter>() & Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Letter>(ids)).ToArray();
         }
 
         public IEnumerable<Letter> LookupOpenLettersOwnedBy(long ownerCode)

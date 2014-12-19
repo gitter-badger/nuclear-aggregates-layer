@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Task>() & Specs.Find.ByIds<Task>(ids));
+            return _finder.FindMany(Specs.Find.Active<Task>() & Specs.Find.ByIds<Task>(ids)).ToArray();
         }
 
         public IEnumerable<Task> LookupOpenTasksRegarding(EntityName entityName, long entityId)
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Task>() & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Task>(ids));
+            return _finder.FindMany(Specs.Find.Active<Task>() & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Task>(ids)).ToArray();
         }
 
         public IEnumerable<Task> LookupOpenTasksOwnedBy(long ownerCode)
