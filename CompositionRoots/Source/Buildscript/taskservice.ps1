@@ -15,7 +15,7 @@ Task Build-TaskService -Precondition { return $OptionTaskService } -Depends Upda
 	$buildFileName = Create-TaskServiceBuildFile $projectFileName
 	
 	$installerProjectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService.Installer' '.wixproj'
-	Build-TaskServiceInstaller $installerProjectFileName $buildFileName
+	Build-TaskServiceInstaller $installerProjectFileName $projectFileName $buildFileName
 }
 
 function Create-TaskServiceBuildFile ($ProjectFileName) {
@@ -32,10 +32,10 @@ function Create-TaskServiceBuildFile ($ProjectFileName) {
 	return $buildFileName
 }
 
-function Build-TaskServiceInstaller ($InstallerProjectFileName, $buildFileName) {
+function Build-TaskServiceInstaller ($InstallerProjectFileName, $projectFileName, $buildFileName) {
 	
 	$properties = Get-InstallerBuildProperties
-	$configXmls = Get-InstallerConfigXmls $buildFileName
+	$configXmls = Get-InstallerConfigXmls $projectFileName $buildFileName
 	$InstallerBuildFileName = Create-BuildFile $InstallerProjectFileName -Properties $properties -CustomXmls $configXmls
 	Invoke-MSBuild $installerBuildFileName
 
@@ -148,7 +148,7 @@ function Create-QuartzIncludeFile {
 	return $quartzIncludeFileName
 }
 
-function Get-InstallerConfigXmls ($projectFileName) {
+function Get-InstallerConfigXmls ($projectFileName, $buildFileName) {
 
 	$shortProjectFileName = [System.IO.Path]::GetFileNameWithoutExtension($projectFileName)
 	
@@ -166,7 +166,7 @@ function Get-InstallerConfigXmls ($projectFileName) {
 		    <ProjectReferenceToRemove Include="@(ProjectReference)" Condition=" '%(Filename)' == '$shortProjectFileName' " />
 		    <ProjectReference Remove="@(ProjectReferenceToRemove)" />
 
-			<ProjectReference Include="%(ProjectReferenceToRemove.RelativeDir)%(ProjectReferenceToRemove.Filename).build%(ProjectReferenceToRemove.Extension)" Condition=" '@(ProjectReferenceToRemove)' != '' ">
+			<ProjectReference Include="$buildFileName" Condition=" '@(ProjectReferenceToRemove)' != '' ">
 				<Project>%(ProjectReferenceToRemove.Project)</Project>
 				<Name>%(ProjectReferenceToRemove.Name)</Name>
 				

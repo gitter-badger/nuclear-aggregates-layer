@@ -4,24 +4,19 @@ $ErrorActionPreference = 'Stop'
 
 Import-Module .\modules\versioning.psm1 -DisableNameChecking
 
-$CommonProperties = @{
-	'Configuration' = 'Release'
-	'VisualStudioVersion' = '12.0'
-}
-
 $MSBuildVersion = '12.0'
 $MSBuildDir = "${Env:ProgramFiles(x86)}\MSBuild\$MSBuildVersion\Bin"
 $MsBuildPath_x86 = Join-Path $MSBuildDir 'MSBuild.exe'
 $MsBuildPath_x64 = Join-Path $MSBuildDir 'amd64\MSBuild.exe'
 
+$CommonMSBuildProperties = @{
+	'Configuration' = 'Release'
+}
+$CommonProjectProperties = @{
+	'VisualStudioVersion' = '12.0'
+}
+
 function Create-BuildFile ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml[]]$CustomXmls = $null){
-
-	# TODO: перейти на метаданные
-	$Properties += $CommonProperties
-
-	if ($Targets -eq $null -and $Properties -eq $null -and $CustomXmls -eq $null){
-		return $ProjectFileName
-	}
 
 	$xmlDocument = New-Object System.Xml.XmlDocument
 	$xmlDeclaration = $xmlDocument.CreateXmlDeclaration('1.0', 'utf-8', $null)
@@ -37,20 +32,19 @@ function Create-BuildFile ([string]$ProjectFileName, [string[]]$Targets = $null,
 		$root.SetAttribute('DefaultTargets', [string]::Join(';', $Targets))
 	}
 
-	if ($Properties -ne $null -and $Properties.Count -ne 0){
-		$propertiesElement = $xmlDocument.CreateElement('PropertyGroup', $xmlNamespace)
-		foreach($property in $Properties.GetEnumerator()){
-			$propertyElement = $xmlDocument.CreateElement($property.Key, $xmlNamespace)
-			$propertyElement.InnerText = $property.Value
-			[void]$propertiesElement.AppendChild($propertyElement)
-		}
-		[void]$root.AppendChild($propertiesElement)
+	$Properties += $CommonProjectProperties
+	$propertiesElement = $xmlDocument.CreateElement('PropertyGroup', $xmlNamespace)
+	foreach($property in $Properties.GetEnumerator()){
+		$propertyElement = $xmlDocument.CreateElement($property.Key, $xmlNamespace)
+		$propertyElement.InnerText = $property.Value
+		[void]$propertiesElement.AppendChild($propertyElement)
 	}
+	[void]$root.AppendChild($propertiesElement)
 
 	$importElement = $xmlDocument.CreateElement('Import', $xmlNamespace)
 	$importElement.SetAttribute('Project', [System.IO.Path]::GetFileName($ProjectFileName))
 	[void]$root.AppendChild($importElement)
-	
+
 	if ($CustomXmls -ne $null -and $CustomXmls.Count -ne 0){
 		foreach($customXml in $CustomXmls){
 			foreach($customNode in $customXml.DocumentElement.ChildNodes){
@@ -60,9 +54,9 @@ function Create-BuildFile ([string]$ProjectFileName, [string[]]$Targets = $null,
 		}
 	}
 
-	$fileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.build' + [System.IO.Path]::GetExtension($ProjectFileName))
-	$xmlDocument.Save($fileName)
-	return $fileName
+	$buildFileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.build' + [System.IO.Path]::GetExtension($ProjectFileName))
+	$xmlDocument.Save($buildFileName)
+	return $buildFileName
 }
 
 function Invoke-MSBuild ($BuildFileName, $MsBuildPlatform = 'x64'){
@@ -73,21 +67,25 @@ function Invoke-MSBuild ($BuildFileName, $MsBuildPlatform = 'x64'){
 		'/consoleloggerparameters:ErrorsOnly'
 	)
 
-		switch ($MsBuildPlatform){
-			'x86' {
-			& $MsBuildPath_x86 $arguments
-			}
-			'x64' {
-			& $MsBuildPath_x64 $arguments
-			}
-			default {
-				throw "MSBuild platform (x86, x64) is not defined"
-			}
-		}
+	foreach ($msbuildProperty in $CommonMSBuildProperties.GetEnumerator()){
+		$arguments += "/p:$($msbuildProperty.Key)=$($msbuildProperty.Value)"
+	}
 
-		if ($lastExitCode -ne 0) {
-			throw "Command failed with exit code $lastExitCode"
+	switch ($MsBuildPlatform){
+		'x86' {
+		& $MsBuildPath_x86 $arguments
 		}
+		'x64' {
+		& $MsBuildPath_x64 $arguments
+		}
+		default {
+			throw "MSBuild platform (x86, x64) is not defined"
+		}
+	}
+
+	if ($lastExitCode -ne 0) {
+		throw "Command failed with exit code $lastExitCode"
+	}
 }
 
 function Get-ProjectFileName ($ProjectDir, $ProjectName, $Extension = '.csproj'){
@@ -182,7 +180,7 @@ function Get-VersionedFileName ($FileName) {
 	
 	$extension = [System.IO.Path]::GetExtension($FileName)
 	$versionedFileName += $extension
-		
+	
 	return $versionedFileName
 }
 

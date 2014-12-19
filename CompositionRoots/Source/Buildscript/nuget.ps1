@@ -83,6 +83,8 @@ function Build-Packages ($Projects, $OutputDirectory){
 		Invoke-NuGet @(
 			'pack'
 			$buildFileName
+			'-Properties'
+			'Configuration=Release'
 			'-IncludeReferencedProjects'
 			'-ExcludeEmptyDirectories'
 			'-NoPackageAnalysis'
