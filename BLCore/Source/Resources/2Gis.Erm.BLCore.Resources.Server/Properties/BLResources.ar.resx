@@ -969,7 +969,7 @@ Locking errors:{2}</value>
     <value>Closure of the period</value>
   </data>
   <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>Only items with accounting method "Guaranteed rendering" can be added to an order with type "Sales"!</value>
+    <value>В заказ с типом "Продажи" можно добавлять только позиции с моделью продаж "Гарантированное оказание"!</value>
   </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>'Hidden' attribute</value>
@@ -990,7 +990,7 @@ Locking errors:{2}</value>
     <value>Default filter</value>
   </data>
   <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>Only items with accounting method "Planned rendering" can be added to an order with type "Budget"!</value>
+    <value>В заказ с типом "Бюджет" можно добавлять только позиции с моделью продаж "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>These legal entities have different T.I.C., merging cannot be performed.</value>
@@ -3184,8 +3184,8 @@ The operation has been executed: {6}.</value>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Results of the order check</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>Cannot add an element with accounting method different from accounting method of other elements</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>Нельзя добавить элемент с моделью продаж, отличающегося от моделей продаж остальных элементов</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>1C identifier</value>
@@ -5192,5 +5192,8 @@ Placement period: {3}.</value>
   </data>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value>{0} No.{1} as of {2}</value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>В заказе могут присутствовать позиции только одной модели продаж</value>
   </data>
 </root>

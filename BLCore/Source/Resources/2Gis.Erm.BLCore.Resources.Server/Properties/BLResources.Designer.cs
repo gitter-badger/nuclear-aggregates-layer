@@ -3025,9 +3025,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CantAddChildPositionWithDifferentAccountingMethod {
+        public static string CantAddChildPositionWithDifferentSalesModel {
             get {
-                return ResourceManager.GetString("CantAddChildPositionWithDifferentAccountingMethod", resourceCulture);
+                return ResourceManager.GetString("CantAddChildPositionWithDifferentSalesModel", resourceCulture);
             }
         }
         
@@ -3055,6 +3055,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CantAddNewGroupWhenPriceIsPublished {
             get {
                 return ResourceManager.GetString("CantAddNewGroupWhenPriceIsPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel {
+            get {
+                return ResourceManager.GetString("CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel", resourceCulture);
             }
         }
         

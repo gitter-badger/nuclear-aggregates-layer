@@ -222,11 +222,11 @@
   <data name="OrderTypeSelfAds" xml:space="preserve">
     <value>Self-advertisement</value>
   </data>
-  <data name="PositionAccountingMethodGuaranteedProvision" xml:space="preserve">
+  <data name="SalesModelGuaranteedProvision" xml:space="preserve">
     <value>Guaranteed rendering</value>
   </data>
-  <data name="PositionAccountingMethodPlannedProvision" xml:space="preserve">
-    <value>Planned rendering</value>
+  <data name="SalesModelPlannedProvision" xml:space="preserve">
+    <value>Плановое оказание услуг по одной рубрике</value>
   </data>
   <data name="PositionCalculationMethodPosition" xml:space="preserve">
     <value>Item</value>
@@ -1533,7 +1533,7 @@
   <data name="OrderTerminationReasonNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionAccountingMethodNone" xml:space="preserve">
+  <data name="SalesModelNone" xml:space="preserve">
     <value />
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
@@ -2010,5 +2010,8 @@
   </data>
   <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
     <value>Other</value>
+  </data>
+  <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
+    <value>Плановое оказание услуг по нескольким рубрикам</value>
   </data>
 </root>

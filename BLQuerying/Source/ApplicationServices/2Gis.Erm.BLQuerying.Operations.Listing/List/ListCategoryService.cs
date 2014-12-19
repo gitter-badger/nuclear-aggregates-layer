@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
-
+        
         public ListCategoryService(
             IFinder finder, FilterHelper filterHelper)
         {

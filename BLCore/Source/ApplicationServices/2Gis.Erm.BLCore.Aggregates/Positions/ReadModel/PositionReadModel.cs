@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -44,6 +45,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
             message = null;
             return true;
+        }
+
+        public Position GetPositionByPricePositionId(long pricePositionId)
+        {
+            return _finder.FindOne(PositionSpecs.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>());
         }
     }
 }

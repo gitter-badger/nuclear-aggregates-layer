@@ -114,6 +114,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Order = 151
         public const int ExportAccountDetailsTo1CIdentity = 15102;
+        [Obsolete]
         public const int PrintRegionalOrderIdentity = 15103;
         public const int ReportsServiceIdentity = 15104;
         [Obsolete]
@@ -127,6 +128,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int CalculateOrderCostIdentity = 15112;
         public const int CopyOrderIdentity = 15113;
         public const int ObtainDealForBizaccountOrderIdentity = 15114;
+        public const int CheckIfOrderPositionCanBeCreatedForOrderIdentity = 15115;
 
         // EntityName.OrderPosition = 150
         public const int CalculateOrderPositionCostIdentity = 15001;

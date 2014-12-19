@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
@@ -49,7 +48,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public class OrderController : ControllerBase
     {
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly ICopyOrderOperationService _copyOrderOperationService;
         private readonly IFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -66,6 +64,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
+        private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -80,7 +79,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ISecureFinder secureFinder,
                                IFinder finder,
                                IReleaseReadModel releaseReadModel,
-                               IBranchOfficeRepository branchOfficeRepository,
                                IOrderReadModel orderReadModel,
                                IOrderRepository orderRepository,
                                IOperationService operationService,
@@ -88,7 +86,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IProcessOrderCreationRequestSingleOperation orderCreationOperation,
                                ICopyOrderOperationService copyOrderOperationService,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
-                               IDetermineOrderBargainOperationService determineOrderBargainOperationService)
+                               IDetermineOrderBargainOperationService determineOrderBargainOperationService,
+                               ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
@@ -98,7 +97,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _secureFinder = secureFinder;
             _finder = finder;
             _releaseReadModel = releaseReadModel;
-            _branchOfficeRepository = branchOfficeRepository;
             _orderReadModel = orderReadModel;
             _orderRepository = orderRepository;
             _operationService = operationService;
@@ -107,6 +105,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _copyOrderOperationService = copyOrderOperationService;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
+            _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
         }
 
         #region Ajax methods
@@ -219,22 +218,23 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public JsonNetResult CanCreateOrderPositionsForOrder(long orderId, string orderTypeValue)
         {
-            CanCreateOrderPositionForOrderResponse response;
             OrderType orderType;
+            string report;
             if (!Enum.TryParse(orderTypeValue, out orderType))
             {
-                response = new CanCreateOrderPositionForOrderResponse { Message = BLResources.WrongOrderType };
-            }
-            else
-            {
-                response = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(new CanCreateOrderPositionForOrderRequest
-                    {
-                        OrderId = orderId,
-                        OrderType = orderType
-                    });
+                return new JsonNetResult(new
+                                             {
+                                                 CanCreate = false,
+                                                 Message = BLResources.WrongOrderType
+                                             });
             }
 
-            return new JsonNetResult(response);
+
+            return new JsonNetResult(new
+                                         {
+                                             CanCreate = _checkIfOrderPositionCanBeCreatedForOrderOperationService.CanCreateOrderPosition(orderId, orderType, out report),
+                                             Message = report
+                                         });
         }
 
         [HttpPost]

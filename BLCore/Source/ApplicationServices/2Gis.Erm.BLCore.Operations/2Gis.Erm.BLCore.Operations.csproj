@@ -194,7 +194,7 @@
     <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderHandler.cs" />
+    <Compile Include="Concrete\Orders\CheckIfOrderPositionCanBeCreatedForOrderOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CloseOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\RecalculateOrderDiscountHandler.cs" />
@@ -712,6 +712,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
       <Project>{133c0a52-2556-4b09-a046-1beda9aa3ae4}</Project>

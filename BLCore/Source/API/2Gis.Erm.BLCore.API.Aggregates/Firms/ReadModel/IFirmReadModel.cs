@@ -47,5 +47,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         IReadOnlyDictionary<long, long> GetFirmTerritories(IEnumerable<long> firmIds, string regionalTerritoryWord);
         IReadOnlyDictionary<long, CardRelation> GetCardRelationsByIds(IEnumerable<long> cardRelationIds);
         bool IsFirmInReserve(long firmId);
+        IEnumerable<long> GetFirmAddressesIds(long firmId);
+        IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds);
     }
 }

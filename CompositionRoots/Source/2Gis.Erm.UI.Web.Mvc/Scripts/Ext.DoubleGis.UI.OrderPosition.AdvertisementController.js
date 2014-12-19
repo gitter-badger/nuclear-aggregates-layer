@@ -240,14 +240,12 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 object.type == Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.AddressFirstLevelCategorySingle;
         };
 
-        if (this.localData.useSingleCategoryForPackage && source && isSingleCategoryType(source)) {
+        if (this.localData.useSingleCategoryForPackage && source) {
             this.localData.linkingObjects.forEach(function(object) {
-                if (isSingleCategoryType(object)) {
-                    if (object.categoryId == source.categoryId) {
-                        object.checkbox.checked = source.checkbox.checked;
-                    } else {
-                        object.checkbox.checked = false;
-                    }
+                if (object.categoryId == source.categoryId) {
+                    object.checkbox.checked = source.checkbox.checked;
+                } else if (isSingleCategoryType(object)) {
+                    object.checkbox.checked = false;
                 }
             });
         }
@@ -876,20 +874,6 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 results.push({ Level: 'CriticalError', Message: message });
             }
         }
-        //var badPositions = [];
-
-        //for (i = 0; i < this.serverData.linkingObjectsSchema.Positions.length; i++) {
-        //    var position = this.serverData.linkingObjectsSchema.Positions[i];
-        //    var found = false;
-        //    for (var j = 0; j < position.LinkingObjects.length && !found; j++) {
-        //        if (position.LinkingObjects[j].isSelected() && position.LinkingObjects[j].getAdvertisement() == null) {
-        //            found = true;
-        //        }
-        //    }
-        //    if (found) {
-        //        badPositions.push(position);
-        //    }
-        //}
 
         return results;
     },

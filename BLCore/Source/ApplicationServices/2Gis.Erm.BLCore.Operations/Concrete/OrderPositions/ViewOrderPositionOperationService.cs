@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+﻿using DoubleGis.Erm.BLCore.Aggregates.Positions;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             var positionInfo = _priceReadModel.GetPricePositionDetailedInfo(pricePositionId);
             var categoryRate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculatedOrDefault(orderId, pricePositionId, null);
             var priceCalulations = _orderReadModel.CalculatePricePerUnit(orderId, categoryRate, positionInfo.PricePositionCost);
-            var isNewSalesModel = _positionReadModel.IsNewSalesModel(positionInfo.AccountingMethod);
+            var isNewSalesModel = positionInfo.SalesModel.IsNewSalesModel();
             var linkingObjectsSchema = _positionReadModel.GetLinkingObjectsSchema(order, positionInfo, includeHidden, orderPositionId);
 
             return new OrderPositionWithSchemaDto

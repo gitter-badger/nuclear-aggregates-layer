@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
 
                 public static FindSpecification<OrderPosition> PlannedProvision()
                 {
-                    return new FindSpecification<OrderPosition>(x => x.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision);
+                    return new FindSpecification<OrderPosition>(x => x.PricePosition.Position.SalesModelEnum == SalesModel.PlannedProvision);
                 } 
             }
 

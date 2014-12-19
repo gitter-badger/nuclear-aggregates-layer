@@ -17,11 +17,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 {
     public partial class PositionReadModel
     {
-        public bool IsNewSalesModel(PositionAccountingMethod accountingMethod)
-        {
-            return accountingMethod == PositionAccountingMethod.PlannedProvision;
-        }
-
         public LinkingObjectsSchemaDto GetLinkingObjectsSchema(OrderLinkingObjectsDto dto, PricePositionDetailedInfo pricePositionInfo, bool includeHiddenAddresses, long? orderPositionId)
         {
             var firmAddresses = GetFirmAddresses(dto.FirmId, includeHiddenAddresses, dto.DestOrganizationUnitId);
@@ -40,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
             var firmCategories = GetFirmCategories(firmCategoryIds);
             var additionalCategories = GetAdditionalCategories(firmCategoryIds, orderPositionId);
-            var categoriesFilter = CreateCategoryFilter(pricePositionInfo.AccountingMethod,
+            var categoriesFilter = CreateCategoryFilter(pricePositionInfo.SalesModel,
                                                         dto.DestOrganizationUnitId);
 
             return new LinkingObjectsSchemaDto
@@ -54,11 +49,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             };
         }
 
-        public IDictionary<long, string> GetNewSalesModelDeniedCategories(PositionAccountingMethod accountingMethod,
+        public IDictionary<long, string> PickCategoriesUnsupportedBySalesModelInOrganizationUnit(SalesModel salesModel,
                                                                           long destOrganizationUnitId,
                                                                           IEnumerable<long> categoryIds)
         {
-            var filter = CreateCategoryFilter(accountingMethod, destOrganizationUnitId);
+            var filter = CreateCategoryFilter(salesModel, destOrganizationUnitId);
             var deniedCategories = categoryIds.Where(id => !filter(id));
             return _finder.Find(Specs.Find.ByIds<Category>(deniedCategories))
                           .ToDictionary(category => category.Id, category => category.Name);
@@ -86,30 +81,37 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             }
         }
 
-        private Func<long, bool> CreateCategoryFilter(PositionAccountingMethod accountingMethod, long destOrganizationUnitId)
+        private Func<long, bool> CreateCategoryFilter(SalesModel salesModel, long destOrganizationUnitId)
         {
-            var isNewSalesModel = IsNewSalesModel(accountingMethod);
-            if (!isNewSalesModel)
+            if (!salesModel.IsNewSalesModel())
             {
                 return categoryId => true;
             }
 
-            if (!NewSalesModelRestrictions.IsOrganizationUnitSupported(destOrganizationUnitId))
+            if (salesModel == SalesModel.PlannedProvision && !NewSalesModelRestrictions.IsOrganizationUnitSupported(destOrganizationUnitId))
             {
                 return categoryId => false;
             }
 
-            var supportedCategoryIds = NewSalesModelRestrictions.GetSupportedCategoryIds(destOrganizationUnitId);
-            var organizationUnitCategories = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>() &&
-                                                          CategorySpecifications.CategoryOrganizationUnits.Find.ForOrganizationUnit(destOrganizationUnitId) &&
-                                                          CategorySpecifications.CategoryOrganizationUnits.Find.ForCategories(supportedCategoryIds))
-                                                    .Select(x => x.CategoryId)
-                                                    .ToArray();
+            var organizationUnitCategories = GetCategoriesSupportedBySalesModelInOrganizationUnit(salesModel, destOrganizationUnitId);
 
-            return categoryId => organizationUnitCategories.Contains(categoryId);
+            return organizationUnitCategories.Contains;
         }
 
-        private LinkingObjectsSchemaDto.PositionDto[] GetPositions(bool isPricePositionComposite, long positionId)
+        private IEnumerable<long> GetCategoriesSupportedBySalesModelInOrganizationUnit(SalesModel salesModel, long organizationUnitId)
+        {
+            var supportedCategoryIds = salesModel == SalesModel.PlannedProvision
+                                           ? NewSalesModelRestrictions.GetSupportedCategoryIds(organizationUnitId)
+                                           : _finder.Find(Specs.Find.ActiveAndNotDeleted<Category>()).Select(x => x.Id).ToArray();
+
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>() &&
+                                CategorySpecifications.CategoryOrganizationUnits.Find.ForOrganizationUnit(organizationUnitId) &&
+                                CategorySpecifications.CategoryOrganizationUnits.Find.ForCategories(supportedCategoryIds))
+                          .Select(x => x.CategoryId)
+                          .ToArray();
+        }
+
+        private IEnumerable<LinkingObjectsSchemaDto.PositionDto> GetPositions(bool isPricePositionComposite, long positionId)
         {
             var positions = _finder.Find(Specs.Find.ById<Position>(positionId));
 
@@ -133,7 +135,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                             {
                                 Id = x.Id,
                                 Name = x.Name,
-                                LinkingObjectType = (x.BindingObjectTypeEnum).ToString(),
+                                LinkingObjectType = x.BindingObjectTypeEnum.ToString(),
                                 AdvertisementTemplateId = x.AdvertisementTemplateId,
                                 DummyAdvertisementId = x.DummyAdvertisementId,
                                 IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType(x.BindingObjectTypeEnum)
@@ -141,7 +143,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                             .ToArray();
         }
 
-        private LinkingObjectsSchemaDto.CategoryDto[] GetFirmCategories(IEnumerable<long> firmCategoryIds)
+        private IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetFirmCategories(IEnumerable<long> firmCategoryIds)
         {
             return _finder.Find(Specs.Find.ByIds<Category>(firmCategoryIds))
                           .Select(item => new LinkingObjectsSchemaDto.CategoryDto { Id = item.Id, Name = item.Name, Level = item.Level, })
@@ -149,7 +151,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                           .ToArray();
         }
 
-        private LinkingObjectsSchemaDto.CategoryDto[] GetAdditionalCategories(IEnumerable<long> firmCategoryIds, long? orderPositionId)
+        private IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetAdditionalCategories(IEnumerable<long> firmCategoryIds, long? orderPositionId)
         {
             if (orderPositionId == null)
             {
@@ -174,29 +176,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             var firmAddresses =
                 _finder.Find(firmAddressSpecification)
                        .Select(address => new
-                       {
-                           address.Id,
-                           address.Address,
-                           address.ReferencePoint,
-                           IsDeleted = address.IsDeleted || (address.ClosedForAscertainment && !address.IsActive),
-                           IsHidden = address.ClosedForAscertainment && address.IsActive && !address.IsDeleted,
-                           address.IsLocatedOnTheMap,
-                       })
+                                              {
+                                                  address.Id,
+                                                  address.Address,
+                                                  address.ReferencePoint,
+                                                  IsDeleted = address.IsDeleted || (address.ClosedForAscertainment && !address.IsActive),
+                                                  IsHidden = address.ClosedForAscertainment && address.IsActive && !address.IsDeleted,
+                                                  address.IsLocatedOnTheMap,
+                                              })
                        .ToArray();
 
             return firmAddresses.Select(fa => new LinkingObjectsSchemaDto.FirmAddressDto
-            {
-                Id = fa.Id,
-                Address = FormatAddress(fa.Address, fa.ReferencePoint),
-                IsDeleted = fa.IsDeleted,
-                IsHidden = fa.IsHidden,
-                IsLocatedOnTheMap = fa.IsLocatedOnTheMap,
-                Categories = GetFirmAddressCategories(fa.Id, destOrganizationUnitId),
-            })
+                                                  {
+                                                      Id = fa.Id,
+                                                      Address = FormatAddress(fa.Address, fa.ReferencePoint),
+                                                      IsDeleted = fa.IsDeleted,
+                                                      IsHidden = fa.IsHidden,
+                                                      IsLocatedOnTheMap = fa.IsLocatedOnTheMap,
+                                                      Categories = GetFirmAddressCategories(fa.Id, destOrganizationUnitId),
+                                                  })
                                 .ToArray();
         }
 
-        private long[] GetFirmAddressCategories(long firmAddressId, long destOrganizationUnitId)
+        private IEnumerable<long> GetFirmAddressCategories(long firmAddressId, long destOrganizationUnitId)
         {
             var categoryOrganizationUnits = _finder.Find<CategoryOrganizationUnit>(link => link.OrganizationUnitId == destOrganizationUnitId && link.IsActive && !link.IsDeleted);
             var categoryFirmAddress = _finder.Find<CategoryFirmAddress>(link => link.FirmAddressId == firmAddressId && link.IsActive && !link.IsDeleted);

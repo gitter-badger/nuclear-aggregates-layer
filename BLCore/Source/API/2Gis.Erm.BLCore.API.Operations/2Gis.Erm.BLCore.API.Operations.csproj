@@ -319,8 +319,7 @@
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsRequest.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsResponse.cs" />
     <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderResponse.cs" />
+    <Compile Include="Concrete\Orders\ICheckIfOrderPositionCanBeCreatedForOrderOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealRequest.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderLegalPersonProfileRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CheckOrderBeginDistributionDateRequest.cs" />

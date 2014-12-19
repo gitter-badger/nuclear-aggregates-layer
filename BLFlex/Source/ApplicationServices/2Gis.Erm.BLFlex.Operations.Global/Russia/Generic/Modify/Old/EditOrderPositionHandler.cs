@@ -41,6 +41,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
         private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
+        private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
+
         private readonly IOperationScopeFactory _scopeFactory;
 
         public EditOrderPositionHandler(
@@ -53,7 +55,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
             ICalculateOrderPositionCostService calculateOrderPositionCostService,
             IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
-            IOperationScopeFactory scopeFactory)
+            IOperationScopeFactory scopeFactory,
+            ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService)
         {
             _finder = finder;
             _orderReadModel = orderReadModel;
@@ -65,6 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
             _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
+            _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -88,27 +92,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                 })
                 .Single();
 
-            var subRequest = new CanCreateOrderPositionForOrderRequest
+            string checkReport;
+            if (!_checkIfOrderPositionCanBeCreatedForOrderOperationService.CanCreateOrderPosition(orderPosition.OrderId,
+                                                                                             orderPosition.PricePositionId,
+                                                                                             advertisementsLinks,
+                                                                                             out checkReport))
             {
-                OrderId = orderPosition.OrderId,
-                OrderType = orderInfo.OrderType,
-                FirmId = orderInfo.FirmId,
-                OrderPositionCategoryIds = advertisementsLinks
-                    .Where(x => x.CategoryId.HasValue)
-                    .Select(x => x.CategoryId.Value)
-                    .ToArray(),
-                OrderPositionFirmAddressIds = advertisementsLinks
-                    .Where(x => x.FirmAddressId.HasValue)
-                    .Select(x => x.FirmAddressId.Value)
-                    .ToArray(),
-                IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
-                AdvertisementLinksCount = advertisementsLinks.Count()
-            };
-
-            var canCreateResponse = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(subRequest);
-            if (!canCreateResponse.CanCreate)
-            {
-                throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, canCreateResponse.Message));
+                throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, checkReport));
             }
 
             if (orderInfo.WorkflowStepId != OrderState.OnRegistration)
@@ -140,7 +130,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                                                            new
                                                            {
                                                                x.Cost,
-                                                               x.Position.AccountingMethodEnum,
+                                                               SalesModel = x.Position.SalesModelEnum,
                                                                x.Price.OrganizationUnitId,
                                                                x.RateType,
                                                                x.Position.IsComposite,
@@ -156,7 +146,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
                     if (request.CategoryIds.Any())
                     {
-                        var unsupported = _positionReadModel.GetNewSalesModelDeniedCategories(pricePositionInfo.AccountingMethodEnum,
+                        var unsupported = _positionReadModel.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
                                                                                       orderInfo.DestOrganizationUnitId,
                                                                                       request.CategoryIds);
                         if (unsupported.Any())
@@ -233,7 +223,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                         orderPosition.DiscountSum = calculateOrderPositionPricesResponse.DiscountSum;
                     }
 
-                    ValidateEntity(orderPosition, pricePositionInfo.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision);
+                    ValidateEntity(orderPosition, pricePositionInfo.SalesModel == SalesModel.PlannedProvision);
 
                     // Сохраняем изменения OrderPosition в БД
                     _orderRepository.CreateOrUpdate(orderPosition);

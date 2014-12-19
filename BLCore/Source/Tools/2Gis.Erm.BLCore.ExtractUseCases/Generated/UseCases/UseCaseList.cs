@@ -54,7 +54,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserOperations;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserProfiles;
-using DoubleGis.Erm.BLCore.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.OrderValidation;
@@ -227,26 +226,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(ReprocessLocalMessagesHandler),
                         Request = typeof(ReprocessLocalMessagesRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Handlers.OrderPositions.EditOrderPositionHandler\Handle",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CanCreateOrderPositionForOrderHandler),
-                        Request = typeof(CanCreateOrderPositionForOrderRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\CanCreateOrderPositionsForOrder",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CanCreateOrderPositionForOrderHandler),
-                        Request = typeof(CanCreateOrderPositionForOrderRequest)
                     }
                 },
                 new UseCase

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
 {
+    [Obsolete]
     public static class NewSalesModelRestrictions
     {
         private static readonly IReadOnlyDictionary<long, IReadOnlyCollection<long>> SupportedCategoryOrganizationUnits =
@@ -65,5 +67,4 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
             return SupportedCategoryOrganizationUnits[destOrganizationUnitId];
         }
     }
-
 }

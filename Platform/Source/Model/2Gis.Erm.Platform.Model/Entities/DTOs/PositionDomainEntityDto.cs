@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public PositionBindingObjectType BindingObjectTypeEnum { get; set; }
 
         [DataMember]
-        public PositionAccountingMethod AccountingMethodEnum { get; set; }
+        public SalesModel SalesModelEnum { get; set; }
 
         [DataMember]
         public EntityReference PlatformRef { get; set; }

@@ -969,7 +969,7 @@ Blokujících chyb:{2}</value>
     <value>Uzavření období</value>
   </data>
   <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>K objednávce typu „Prodeje“ je možné přidávat pouze položky, které budou účtovány jako „Garantované zobrazování“!</value>
+    <value>В заказ с типом "Продажи" можно добавлять только позиции с моделью продаж "Гарантированное оказание"!</value>
   </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Příznak skrytí</value>
@@ -990,7 +990,7 @@ Blokujících chyb:{2}</value>
     <value>Výchozí filtr</value>
   </data>
   <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>V objednávce typu „Rozpočet“ je možné přidávat pouze položky, které budou účtovány jako „Plánované zobrazování“!</value>
+    <value>В заказ с типом "Бюджет" можно добавлять только позиции с моделью продаж "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>U těchto právnických osob nesouhlasí IČ, sloučení není možné.</value>
@@ -3185,8 +3185,8 @@ Operace se uskutečnila: {6}.</value>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Výsledky kontroly objednávky</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>Není možné přidat prvek, který je evidován jinak než ostatní prvky</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>Нельзя добавить элемент с моделью продаж, отличающегося от моделей продаж остальных элементов</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Identifikátor 1C</value>
@@ -5195,5 +5195,8 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value>{0} č.{1} od {2}</value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>В заказе могут присутствовать позиции только одной модели продаж</value>
   </data>
 </root>

@@ -969,7 +969,7 @@
     <value>Закрытие периода</value>
   </data>
   <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>В заказ с типом "Продажи" можно добавлять только позиции со способом учёта "Гарантированное оказание"!</value>
+    <value>В заказ с типом "Продажи" можно добавлять только позиции с моделью продаж "Гарантированное оказание"!</value>
   </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Признак скрытия</value>
@@ -990,7 +990,7 @@
     <value>Фильтр по умолчанию</value>
   </data>
   <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>В заказ с типом "Бюджет" можно добавлять только позиции со способом учёта "Планируемое оказание"!</value>
+    <value>В заказ с типом "Бюджет" можно добавлять только позиции с моделью продаж "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>У данных юридических лиц не совпадает ИНН, слияние невозможно.</value>
@@ -3188,8 +3188,8 @@ Cумма по операции: {5}.
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Результаты проверки заказа</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>Нельзя добавить элемент со способом учета, отличающегося от способов учета остальных элементов</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>Нельзя добавить элемент с моделью продаж, отличающегося от моделей продаж остальных элементов</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Идентификатор 1С</value>
@@ -5196,7 +5196,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-</data>
+  </data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5205,5 +5205,8 @@ Cумма по операции: {5}.
   </data>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value>{0} №{1} от {2}</value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>В заказе могут присутствовать позиции только одной модели продаж</value>
   </data>
 </root>

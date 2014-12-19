@@ -37,7 +37,8 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.RestrictChildPositionPlatforms).HasColumnName("RestrictChildPositionPlatforms");
             Property(t => t.CalculationMethodEnum).HasColumnName("CalculationMethodEnum");
             Property(t => t.BindingObjectTypeEnum).HasColumnName("BindingObjectTypeEnum");
-            Property(t => t.AccountingMethodEnum).HasColumnName("AccountingMethodEnum");
+            // TODO {y.baranihin, 19.12.2014}: Переименовать колонку в базе
+            Property(t => t.SalesModelEnum).HasColumnName("AccountingMethodEnum");
             Property(t => t.PlatformId).HasColumnName("PlatformId");
             Property(t => t.CategoryId).HasColumnName("CategoryId");
             Property(t => t.AdvertisementTemplateId).HasColumnName("AdvertisementTemplateId");

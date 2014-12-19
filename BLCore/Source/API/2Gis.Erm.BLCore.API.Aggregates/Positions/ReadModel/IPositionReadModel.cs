@@ -11,12 +11,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel
 {
     public interface IPositionReadModel : IAggregateReadModel<Position>
     {
+        // TODO {y.baranihin, 19.12.2014}: вынести в отдельный read-only OperationService
         PositionBindingObjectType GetPositionBindingObjectType(long positionId);
         bool IsSupportedByExport(long positionId);
         bool PositionsExist(IReadOnlyCollection<long> positionIds, out string message);
 
         LinkingObjectsSchemaDto GetLinkingObjectsSchema(OrderLinkingObjectsDto dto, PricePositionDetailedInfo pricePositionInfo, bool includeHiddenAddresses, long? orderPositionId);
-        bool IsNewSalesModel(PositionAccountingMethod accountingMethod);
-        IDictionary<long, string> GetNewSalesModelDeniedCategories(PositionAccountingMethod accountingMethod, long destOrganizationUnitId, IEnumerable<long> categoryIds);
+        IDictionary<long, string> PickCategoriesUnsupportedBySalesModelInOrganizationUnit(SalesModel salesModel, long destOrganizationUnitId, IEnumerable<long> categoryIds);
+        Position GetPositionByPricePositionId(long pricePositionId);
     }
 }

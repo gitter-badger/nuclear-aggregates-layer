@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                                  .Select(rw => rw.AmountToWithdraw)
                                                                                  .FirstOrDefault(),
                                                             IsPlannedProvision =
-                                                                op.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision
+                                                                op.PricePosition.Position.SalesModelEnum == SalesModel.PlannedProvision
                                                         })
                               })
                           .ToArray();
@@ -804,6 +804,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             order.EndDistributionDateFact = distributionDatesDto.EndDistributionDateFact;
         }
 
+        // COMMENT {all, 18.12.2014}: это PayablePriceWithVat
         public decimal GetPayablePlanSum(long orderId, int releaseCount)
         {
             return _finder.Find<OrderPosition>(x => x.OrderId == orderId)
@@ -823,7 +824,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                        .All(y => y.CalculateDiscountViaPercent),
                                   IsBudget = x.OrderPositions
                                               .Any(y => !y.IsDeleted && y.IsActive &&
-                                                        y.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision)
+                                                        y.PricePosition.Position.SalesModelEnum == SalesModel.PlannedProvision)
                               })
                           .Single();
         }
@@ -1423,6 +1424,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public long GetBargainLegalPersonId(long bargainId)
         {
             return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
+        }
+
+        public OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(x => new OrderDtoToCheckPossibilityOfOrderPositionCreation
+                                           {
+                                               OrderId = x.Id,
+                                               FirmId = x.FirmId,
+                                               OrderPositions =
+                                                   x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                                    .Select(y => new OrderPositionSalesModelDto
+                                                                     {
+                                                                         OrderPositionId = y.Id,
+                                                                         SalesModel =
+                                                                             y.PricePosition
+                                                                              .Position
+                                                                              .SalesModelEnum
+                                                                     })
+                                           }).Single();
         }
 
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)
