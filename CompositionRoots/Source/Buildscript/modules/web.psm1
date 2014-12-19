@@ -232,7 +232,7 @@ function Take-WebsiteOnline ($TargetHosts, $IisAppPath) {
 				
 				$filePath = Join-Path $website.PhysicalPath 'App_offline.htm'
 				if (Test-Path $filePath){
-					Remove-Item $filePath				
+					Remove-Item $filePath -ErrorAction SilentlyContinue
 				}
 			}
 
