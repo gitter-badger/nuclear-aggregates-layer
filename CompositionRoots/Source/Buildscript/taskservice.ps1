@@ -226,17 +226,20 @@ Task Take-TaskServiceOffline -Precondition { return $OptionTaskService } {
 		$ErrorActionPreference = 'Stop'
 		#------------------------------
 
-		$service = Get-WmiObject Win32_Service -Filter "(name='$EnvironmentName' or name like '%$($EnvironmentName)[_]%') and startmode!='disabled' and state='running'"
+		$service = Get-WmiObject Win32_Service -Filter "(name='$EnvironmentName' or name like '%$($EnvironmentName)[_]%') and startmode!='disabled'"
+		if ($service -is [System.Array] -and $service.Length -ne 1){
+			throw "Found more than one service with name similar to $EnvironmentName"
+		}
 		if ($service -eq $null){
 			# fresh install, nothing to stop
 			return
 		}
-		if ($service -is [System.Array] -and $service.Length -ne 1){
-			throw "Found more than one service with name similar to $EnvironmentName"
-		}
-		$serviceResult = $service.stopService()
-		if ($serviceResult.returnvalue -ne 0){
-			throw "Can't stop service $EnvironmentName, error code $($serviceResult.returnvalue)"
+
+		if ($service.state -eq 'running'){
+			$serviceResult = $service.stopService()
+			if ($serviceResult.returnvalue -ne 0){
+				throw "Can't stop service $EnvironmentName, error code $($serviceResult.returnvalue)"
+			}
 		}
 	}
 
@@ -262,17 +265,22 @@ Task Take-TaskServiceOnline -Precondition { return $OptionTaskService -and (Get-
 		$ErrorActionPreference = 'Stop'
 		#------------------------------
 
-			$service = Get-WmiObject Win32_Service -Filter "(name='$EnvironmentName' or name like '%$($EnvironmentName)[_]%') and startmode!='disabled' and state='stopped'"
-			if ($service -eq $null){
-				throw "Cannot found just installed service $EnvironmentName"
-			}
-			if ($service -is [System.Array] -and $service.Length -ne 1){
-				throw "Found more than one service $EnvironmentName"
-			}
-		$serviceResult = $service.startService()
-		if ($serviceResult.returnvalue -ne 0){
-			throw "Can't start service $EnvironmentName, error code $($serviceResult.returnvalue)"
-        }
+
+		$service = Get-WmiObject Win32_Service -Filter "(name='$EnvironmentName' or name like '%$($EnvironmentName)[_]%') and startmode!='disabled'"
+		if ($service -is [System.Array] -and $service.Length -ne 1){
+			throw "Found more than one service $EnvironmentName"
+		}
+
+		if ($service -eq $null){
+			throw "Cannot found just installed service $EnvironmentName"
+		}
+		
+		if ($service.state -eq 'stopped'){
+			$serviceResult = $service.startService()
+			if ($serviceResult.returnvalue -ne 0){
+				throw "Can't start service $EnvironmentName, error code $($serviceResult.returnvalue)"
+	        }
+		}
 	}
 	
 	$environmentName = $global:Context.EnvironmentName
