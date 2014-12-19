@@ -14,6 +14,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
         bool CheckIfOpenTaskExistsRegarding(EntityName entityName, long entityId);
 
         IEnumerable<Task> LookupTasksRegarding(EntityName entityName, long entityId);
+        IEnumerable<Task> LookupOpenTasksRegarding(EntityName entityName, long entityId);
         IEnumerable<Task> LookupOpenTasksOwnedBy(long ownerCode);
     }
 }

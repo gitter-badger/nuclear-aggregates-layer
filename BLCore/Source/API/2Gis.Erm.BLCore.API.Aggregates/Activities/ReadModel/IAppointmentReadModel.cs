@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
         bool CheckIfOpenAppointmentExistsRegarding(EntityName entityName, long entityId);
 
         IEnumerable<Appointment> LookupAppointmentsRegarding(EntityName entityName, long entityId);
+        IEnumerable<Appointment> LookupOpenAppointmentsRegarding(EntityName entityName, long entityId);
         IEnumerable<Appointment> LookupOpenAppointmentsOwnedBy(long ownerCode);
     }
 }

@@ -56,12 +56,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Phonecall>() && Specs.Find.ByIds<Phonecall>(ids));
+            return _finder.FindMany(Specs.Find.Active<Phonecall>() & Specs.Find.ByIds<Phonecall>(ids));
+        }
+
+        public IEnumerable<Phonecall> LookupOpenPhonecallsRegarding(EntityName entityName, long entityId)
+        {
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId))
+                       select reference.SourceEntityId)
+                .ToArray();
+
+            return _finder.FindMany(Specs.Find.Active<Phonecall>() & Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Phonecall>(ids));
         }
 
         public IEnumerable<Phonecall> LookupOpenPhonecallsOwnedBy(long ownerCode)
         {
-            return _finder.FindMany(Specs.Find.Owned<Phonecall>(ownerCode) &&
+            return _finder.FindMany(Specs.Find.Owned<Phonecall>(ownerCode) &
                                     Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress));
         }
     }

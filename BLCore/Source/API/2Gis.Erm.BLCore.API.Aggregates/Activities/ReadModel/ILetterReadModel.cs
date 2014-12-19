@@ -17,6 +17,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
         bool CheckIfOpenLetterExistsRegarding(EntityName entityName, long entityId);
 
         IEnumerable<Letter> LookupLettersRegarding(EntityName entityName, long entityId);
+        IEnumerable<Letter> LookupOpenLettersRegarding(EntityName entityName, long entityId);
         IEnumerable<Letter> LookupOpenLettersOwnedBy(long ownerCode);
     }
 }
