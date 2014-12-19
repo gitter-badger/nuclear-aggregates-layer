@@ -153,7 +153,7 @@ function Get-InstallerConfigXmls ($projectFileName) {
 	$shortProjectFileName = [System.IO.Path]::GetFileNameWithoutExtension($projectFileName)
 	
 	[xml]$xml = @"
-<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<!-- Подменяем project referenes -->
 	<PropertyGroup>
 		<CoreBuildDependsOn>

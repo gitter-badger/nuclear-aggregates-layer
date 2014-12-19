@@ -116,7 +116,7 @@ function Get-VersionFileXml {
 	$branchFileName = Get-BranchFileName
 
 	[xml]$xml = @"
-<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<!-- Добавление version-файлов -->
     <ItemGroup>
       <Content Include="$versionFileName">

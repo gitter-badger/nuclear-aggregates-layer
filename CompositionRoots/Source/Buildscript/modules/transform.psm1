@@ -24,7 +24,7 @@ function Get-MSBuildCustomXml ($ConfigFileName, [xml]$configFile){
 	
 	$targetName = "TransformConfig-$(Get-Random)"
 	[xml]$xml = @"
-<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<!-- Трансформация $fileName -->
 	<PropertyGroup>
 		<CoreBuildDependsOn>

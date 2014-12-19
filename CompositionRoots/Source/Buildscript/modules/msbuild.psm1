@@ -23,28 +23,31 @@ function Create-BuildFile ([string]$ProjectFileName, [string[]]$Targets = $null,
 		return $ProjectFileName
 	}
 
+	$xmlNamespace = 'http://schemas.microsoft.com/developer/msbuild/2003'
+
 	$xmlDocument = New-Object System.Xml.XmlDocument
-	$root = $xmlDocument.CreateElement('Project')
+	$root = $xmlDocument.CreateElement('Project', $xmlNamespace)
+	$root.SetAttribute('ToolsVersion', $MSBuildVersion)
 	[void]$xmlDocument.AppendChild($root)
 
 	if ($Targets -ne $null -and $Targets.Count -ne 0){
 		$root.SetAttribute('DefaultTargets', [string]::Join(';', $Targets))
 	}
-	
+
 	if ($Properties -ne $null -and $Properties.Count -ne 0){
-		$propertiesElement = $xmlDocument.CreateElement('PropertyGroup')
+		$propertiesElement = $xmlDocument.CreateElement('PropertyGroup', $xmlNamespace)
 		foreach($property in $Properties.GetEnumerator()){
-			$propertyElement = $xmlDocument.CreateElement($property.Key)
+			$propertyElement = $xmlDocument.CreateElement($property.Key, $xmlNamespace)
 			$propertyElement.InnerText = $property.Value
 			[void]$propertiesElement.AppendChild($propertyElement)
 		}
 		[void]$root.AppendChild($propertiesElement)
 	}
 
-	$importElement = $xmlDocument.CreateElement('Import')
+	$importElement = $xmlDocument.CreateElement('Import', $xmlNamespace)
 	$importElement.SetAttribute('Project', [System.IO.Path]::GetFileName($ProjectFileName))
 	[void]$root.AppendChild($importElement)
-
+	
 	if ($CustomXmls -ne $null -and $CustomXmls.Count -ne 0){
 		foreach($customXml in $CustomXmls){
 			foreach($customNode in $customXml.DocumentElement.ChildNodes){
@@ -54,9 +57,6 @@ function Create-BuildFile ([string]$ProjectFileName, [string[]]$Targets = $null,
 		}
 	}
 
-	$root.SetAttribute('ToolsVersion', $MSBuildVersion)
-	$root.SetAttribute('xmlns', 'http://schemas.microsoft.com/developer/msbuild/2003')
-	
 	$fileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.build' + [System.IO.Path]::GetExtension($ProjectFileName))
 	$xmlDocument.Save($fileName)
 	return $fileName
