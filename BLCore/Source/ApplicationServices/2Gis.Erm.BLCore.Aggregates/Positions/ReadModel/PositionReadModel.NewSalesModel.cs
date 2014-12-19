@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 {
-    public partial class PositionReadModel
+    public sealed partial class PositionReadModel
     {
         public bool IsNewSalesModel(PositionAccountingMethod accountingMethod)
         {

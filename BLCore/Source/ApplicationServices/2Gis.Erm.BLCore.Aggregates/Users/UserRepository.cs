@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
@@ -22,7 +21,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
@@ -481,9 +479,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
                 return cnt;
             }
-            
-
-           
         }
 
         public int Delete(UserOrganizationUnit userOrganizationUnit)
@@ -561,26 +556,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                                   CategoryName = x.Category.Name,
                                   CategoryLevel = x.Category.Level
                               }).ToArray();
-        }
-
-        public void CreateOrUpdate(UserRole userRole)
-        {
-            var userRoleAlreadyAdded = _finder.Find<UserRole>(x => x.RoleId == userRole.RoleId && x.UserId == userRole.UserId && x.Id != userRole.Id).Any();
-            if (userRoleAlreadyAdded)
-            {
-                throw new NotificationException(BLResources.RoleAlreadyAdded);
-            }
-
-            _identityProvider.SetFor(userRole);
-            _userRoleGenericRepository.Add(userRole);
-
-            var isServiceUser = _finder.Find<User>(x => x.Id == userRole.UserId).Select(x => x.IsServiceUser).Single();
-            if (!isServiceUser)
-            {
-                AddRoleToCrm(userRole);
-            }
-
-            _userRoleGenericRepository.Save();
         }
 
         public void CreateOrUpdate(UserOrganizationUnit userOrganizationUnit)
@@ -1078,29 +1053,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             return crmRoleName;
         }
 
-        private void AddRoleToCrm(UserRole userRole)
-        {
-            if (!_msCrmSettings.EnableReplication)
-            {
-                return;
-            }
-
-            try
-            {
-                var crmRoleName = GetCrmRoleName(userRole);
-
-                var crmDataContext = _msCrmSettings.CreateDataContext();
-                var crmUserInfo = GetCrmUserInfo(crmDataContext, userRole.UserId);
-                var crmRoleId = GetCrmRoleId(crmDataContext, crmRoleName, crmUserInfo);
-
-                crmDataContext.UsingService(x => x.Execute(new AssignUserRolesRoleRequest { UserId = crmUserInfo.UserId, RoleIds = new[] { crmRoleId } }));
-            }
-            catch (WebException ex)
-            {
-                throw new NotificationException(BLResources.Errors_DynamicsCrmConectionFailed, ex);
-            }
-        }
-
         private void DeleteRoleFromCrm(UserRole userRole)
         {
             if (!_msCrmSettings.EnableReplication)
@@ -1128,7 +1080,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         {
             var userAccount = _finder.Find(Specs.Find.ById<User>(userId)).Select(x => x.Account).Single();
             var userInfo = crmDataContext.GetSystemUserByDomainName(userAccount, true);
-
             return userInfo;
         }
 

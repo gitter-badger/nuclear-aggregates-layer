@@ -3,6 +3,8 @@
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
@@ -39,6 +41,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                     .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                     .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
                     .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
+                    .RegisterType<IPriceCostsForSubPositionsProvider, MoDiPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
                     .ConfigureRussiaSpecificNumberServices();
         }
 

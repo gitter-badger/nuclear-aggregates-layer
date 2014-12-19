@@ -324,7 +324,6 @@
     <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\PhoneCallObtainer.cs" />
     <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
     <Compile Include="Czech\Concrete\Old\Bills\CzechPrintBillHandler.cs" />
-    <Compile Include="MultiCulture\Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechValidatePaymentRequisitesIsUniqueHandler.cs" />
