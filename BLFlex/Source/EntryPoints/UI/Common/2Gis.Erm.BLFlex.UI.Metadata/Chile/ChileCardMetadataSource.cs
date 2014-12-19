@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.UI.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Chile
                     {
                         CardMetadata.For<Bank>()
                                     .EntityLocalization(() => EnumResources.EntityNameBank)
-                                    .Icon.Path("en_ico_lrg_Default.gif")
+                                    .WithDefaultIcon()
                                     .WithAdminTab(),
                     };
 

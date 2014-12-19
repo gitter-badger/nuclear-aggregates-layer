@@ -14,17 +14,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Category>()
                         .MainAttribute<Category, ICategoryViewModel>(x => x.Name)                
                         .Actions
-                            .Attach(UiElementMetadata.Config.CloseAction())
+                            .Attach(UIElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(
-                                    UiElementMetadata.Config.ContentTab("en_ico_16_Category.gif"),
-                                    UiElementMetadata.Config
+                                    UIElementMetadata.Config.ContentTab("en_ico_16_Category.gif"),
+                                    UIElementMetadata.Config
                                                      .Name.Static("Category")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCategory)
                                                      .LockOnNew()
                                                      .Icon.Path("en_ico_16_Category.gif")
                                                      .Handler.ShowGridByConvention(EntityName.Category)
                                                      .FilterToParent(),
-                                    UiElementMetadata.Config
+                                    UIElementMetadata.Config
                                                      .Name.Static("CategoryOrganizationUnit")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCategoryOU)
                                                      .LockOnNew()

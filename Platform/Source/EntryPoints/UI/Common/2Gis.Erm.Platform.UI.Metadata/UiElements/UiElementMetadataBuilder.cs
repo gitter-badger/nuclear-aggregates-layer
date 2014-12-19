@@ -20,112 +20,112 @@ using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
 {
-    public sealed class UiElementMetadataBuilder : MetadataElementBuilder<UiElementMetadataBuilder, UiElementMetadata>
+    public sealed class UIElementMetadataBuilder : MetadataElementBuilder<UIElementMetadataBuilder, UIElementMetadata>
     {
-        private readonly IdentifiableAspect<UiElementMetadataBuilder, UiElementMetadata> _id;
-        private readonly NameFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _name;
-        private readonly TitleFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _title;
-        private readonly ImageFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _icon;
-        private readonly HandlerFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _handler;
-        private readonly OperationFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _operation;
+        private readonly IdentifiableAspect<UIElementMetadataBuilder, UIElementMetadata> _id;
+        private readonly NameFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> _name;
+        private readonly TitleFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> _title;
+        private readonly ImageFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> _icon;
+        private readonly HandlerFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> _handler;
+        private readonly OperationFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> _operation;
 
-        public UiElementMetadataBuilder()
+        public UIElementMetadataBuilder()
         {
-            _id = new IdentifiableAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
-            _name = new NameFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
-            _title = new TitleFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
-            _icon = new ImageFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
-            _handler = new HandlerFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
-            _operation = new OperationFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
+            _id = new IdentifiableAspect<UIElementMetadataBuilder, UIElementMetadata>(this);
+            _name = new NameFeatureAspect<UIElementMetadataBuilder, UIElementMetadata>(this);
+            _title = new TitleFeatureAspect<UIElementMetadataBuilder, UIElementMetadata>(this);
+            _icon = new ImageFeatureAspect<UIElementMetadataBuilder, UIElementMetadata>(this);
+            _handler = new HandlerFeatureAspect<UIElementMetadataBuilder, UIElementMetadata>(this);
+            _operation = new OperationFeatureAspect<UIElementMetadataBuilder, UIElementMetadata>(this);
         }
 
-        public NameFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Name
+        public NameFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> Name
         {
             get { return _name; }
         }
 
-        public TitleFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Title
+        public TitleFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> Title
         {
             get { return _title; }
         }
 
-        public ImageFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Icon
+        public ImageFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> Icon
         {
             get { return _icon; }
         }
 
-        public HandlerFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Handler
+        public HandlerFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> Handler
         {
             get { return _handler; }
         }
 
-        public OperationFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Operation
+        public OperationFeatureAspect<UIElementMetadataBuilder, UIElementMetadata> Operation
         {
             get { return _operation; }
         }
 
-        public IdentifiableAspect<UiElementMetadataBuilder, UiElementMetadata> Id
+        public IdentifiableAspect<UIElementMetadataBuilder, UIElementMetadata> Id
         {
             get { return _id; }
         }
 
-        public UiElementMetadataBuilder AccessWithPrivelege(FunctionalPrivilegeName privilege)
+        public UIElementMetadataBuilder AccessWithPrivelege(FunctionalPrivilegeName privilege)
         {
             AddFeatures(new SecuredByFunctionalPrivelegeFeature(privilege));
             return this;
         }
 
-        public UiElementMetadataBuilder AccessWithPrivelege<TEntity>(EntityAccessTypes privilege)
+        public UIElementMetadataBuilder AccessWithPrivelege<TEntity>(EntityAccessTypes privilege)
             where TEntity : IEntity
         {
             AddFeatures(new SecuredByEntityPrivelegeFeature(privilege, typeof(TEntity).AsEntityName()));
             return this;
         }
 
-        public UiElementMetadataBuilder ControlType(ControlType type)
+        public UIElementMetadataBuilder ControlType(ControlType type)
         {
             AddFeatures(new ControlTypeFeature(new EnumControlTypeDescriptor(type)));
             return this;
         }
 
-        public UiElementMetadataBuilder LockOnNew()
+        public UIElementMetadataBuilder LockOnNew()
         {
             AddFeatures(new LockOnNewCardFeature());
             return this;
         }
 
-        public UiElementMetadataBuilder LockOnInactive()
+        public UIElementMetadataBuilder LockOnInactive()
         {
             AddFeatures(new LockOnInactiveCardFeature());
             return this;
         }
 
-        public UiElementMetadataBuilder DisableOn<T>(params Expression<Func<T, bool>>[] expressions)
+        public UIElementMetadataBuilder DisableOn<T>(params Expression<Func<T, bool>>[] expressions)
             where T : IViewModelAbstract
         {
             AddFeatures(expressions.Select(expression => new DisableExpressionFeature<T>(expression)).ToArray());
             return this;
         }
 
-        public UiElementMetadataBuilder HideOn<T>(params Expression<Func<T, bool>>[] expressions)
+        public UIElementMetadataBuilder HideOn<T>(params Expression<Func<T, bool>>[] expressions)
             where T : IViewModelAbstract
         {
             AddFeatures(expressions.Select(expression => new HideExpressionFeature<T>(expression)).ToArray());
             return this;
         }
 
-        protected override UiElementMetadata Create()
+        protected override UIElementMetadata Create()
         {
             if (_id.HasValue)
             {
-                return new UiElementMetadata(_id.Value, Features.ToArray());
+                return new UIElementMetadata(_id.Value, Features.ToArray());
             }
 
             var name = Features.OfType<NameFeature>().SingleOrDefault();
             var title = Features.OfType<TitleFeature>().SingleOrDefault();
             if (name == null && title == null)
             {
-                return new UiElementMetadata(IdBuilder.StubUnique, Features.ToArray());
+                return new UIElementMetadata(IdBuilder.StubUnique, Features.ToArray());
             }
 
             string relativePath = null;
@@ -144,7 +144,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
                 }
             }
 
-            return new UiElementMetadata(new Uri(relativePath, UriKind.Relative), Features.ToArray());
+            return new UIElementMetadata(new Uri(relativePath, UriKind.Relative), Features.ToArray());
         }
     }
 }

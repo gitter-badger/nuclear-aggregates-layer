@@ -9,6 +9,6 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems
     {
         IResourceDescriptor NameDescriptor { get;  }
         ITitleDescriptor TitleDescriptor { get; }
-        UiElementMetadata[] RelatedItems { get; }
+        UIElementMetadata[] RelatedItems { get; }
     }
 }

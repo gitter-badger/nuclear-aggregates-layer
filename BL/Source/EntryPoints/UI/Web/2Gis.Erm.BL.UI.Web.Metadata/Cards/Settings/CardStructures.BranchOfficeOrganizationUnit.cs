@@ -16,18 +16,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<BranchOfficeOrganizationUnit>()
                         .MainAttribute<BranchOfficeOrganizationUnit, IBranchOfficeOrganizationUnitViewModel>(x => x.ShortLegalName)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<BranchOfficeOrganizationUnit>(),
-                                UiElementMetadata.Config.UpdateAction<BranchOfficeOrganizationUnit>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<BranchOfficeOrganizationUnit>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<BranchOfficeOrganizationUnit>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<BranchOfficeOrganizationUnit>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.AdditionalActions(
+                        .Attach(UIElementMetadata.Config.CreateAction<BranchOfficeOrganizationUnit>(),
+                                UIElementMetadata.Config.UpdateAction<BranchOfficeOrganizationUnit>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<BranchOfficeOrganizationUnit>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<BranchOfficeOrganizationUnit>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<BranchOfficeOrganizationUnit>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.AdditionalActions(
 
                                                                            // COMMENT {all, 27.11.2014}: а как же безопасность?
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("SetAsPrimary")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlSetAsPrimary)
                                                                                             .ControlType(ControlType.TextButton)
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .Operation.NonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryIdentity>(),
 
                                                                            // COMMENT {all, 27.11.2014}: а как же безопасность?
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("SetAsPrimaryForRegSales")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlSetAsPrimaryForRegSales)
                                                                                             .ControlType(ControlType.TextButton)
@@ -45,10 +45,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .LockOnNew()
                                                                                             .Handler.Name("scope.SetAsPrimaryForRegSales")
                                                                                             .Operation.NonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity>()),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
-                                            UiElementMetadata.Config
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction())
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab(),
+                                            UIElementMetadata.Config
                                                              .Name.Static("PrintFormTemplates")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelPrintFormTemplates)
                                                              .LockOnNew()

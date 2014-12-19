@@ -17,11 +17,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
 {
     public static class UiMetadataExtensions
     {
-        public static UiElementMetadata[] OrderAdditionalActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] OrderAdditionalActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("ChangeDeal")
                                             .Title.Resource(() => ErmConfigLocalization.ControlChangeDeal)
                                             .ControlType(ControlType.TextButton)
@@ -32,15 +32,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                             .AccessWithPrivelege<Order>(EntityAccessTypes.Create)
                                             .AccessWithPrivelege<Order>(EntityAccessTypes.Update)
                                             .Operation.NonCoupled<ChangeDealIdentity>(),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("CheckOrder")
                                             .Title.Resource(() => ErmConfigLocalization.ControlCheckOrder)
                                             .ControlType(ControlType.TextButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.CheckOrder")
                                             .Operation.NonCoupled<ValidateOrdersIdentity>(),
-                           UiElementMetadata.Config.ChangeOwnerAction<Order>(),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config.ChangeOwnerAction<Order>(),
+                           UIElementMetadata.Config
                                             .Name.Static("CloseWithDenial")
                                             .Title.Resource(() => ErmConfigLocalization.ControlCloseWithDenial)
                                             .ControlType(ControlType.TextButton)
@@ -53,14 +53,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                             .Operation.NonCoupled<CloseWithDenialIdentity>(),
 
                            // COMMENT {all, 01.12.2014}: а как же безопасность?
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("SwitchToAccount")
                                             .Title.Resource(() => ErmConfigLocalization.ControlSwitchToAccount)
                                             .ControlType(ControlType.TextButton)
                                             .LockOnInactive()
                                             .LockOnNew()
                                             .Handler.Name("scope.SwitchToAccount"),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("CopyOrder")
                                             .Title.Resource(() => ErmConfigLocalization.ControlCopyOrder)
                                             .ControlType(ControlType.TextButton)
@@ -72,33 +72,33 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata[] CyprusOrderPrintActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] CyprusOrderPrintActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintOrderAction")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                             .ControlType(ControlType.TextButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.PrintOrder")
                                             .Operation.SpecificFor<PrintIdentity, Order>(),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintActionsAdditional")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintActionsAdditional)
                                             .ControlType(ControlType.Menu)
-                                            .Childs(UiElementMetadata.Config
+                                            .Childs(UIElementMetadata.Config
                                                                      .Name.Static("PrintBargainAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBargain")
                                                                      .Operation.SpecificFor<PrintIdentity, Bargain>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintTerminationNoticeAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintTermNoticeAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintTerminationNotice"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintAdditionalAgreementAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintAdditAgreementAction)
                                                                      .ControlType(ControlType.TextButton)
@@ -106,64 +106,64 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata[] CzechOrderPrintActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] CzechOrderPrintActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintOrderAction")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                             .ControlType(ControlType.TextButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.PrintOrder")
                                             .Operation.SpecificFor<PrintIdentity, Order>(),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintActionsAdditional")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintActionsAdditional)
                                             .ControlType(ControlType.Menu)
-                                            .Childs(UiElementMetadata.Config
+                                            .Childs(UIElementMetadata.Config
                                                                      .Name.Static("PrintBillAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBillsAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBills")
                                                                      .Operation.SpecificFor<PrintIdentity, Bill>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintBargainAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBargain")
                                                                      .Operation.SpecificFor<PrintIdentity, Bargain>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintTerminationNoticeAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintTermNoticeAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintTerminationNotice"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintTerminationNoticeWithoutReasonAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintTermNoticeWithoutReasonAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintTerminationNoticeWithoutReason"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintTerminationBargainNoticeAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintTermBargainNoticeAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintTerminationBargainNotice"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintTerminationBargainNoticeWithoutReasonAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintTermBargainNoticeWithoutReasonAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintTerminationBargainNoticeWithoutReason"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintAdditionalAgreementAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintAdditAgreementAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintAdditionalAgreement"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintBargainAdditionalAgreementAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAdditAgreementAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBargainAdditionalAgreement"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintLetterOfGuarantee")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintSwornStatementAction)
                                                                      .ControlType(ControlType.TextButton)
@@ -171,55 +171,55 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata[] RussianOrderPrintActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] RussianOrderPrintActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintOrderAction")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                             .ControlType(ControlType.TextButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.PrintOrder")
                                             .Operation.SpecificFor<PrintIdentity, Order>(),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintActionsAdditional")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintActionsAdditional)
                                             .ControlType(ControlType.Menu)
-                                            .Childs(UiElementMetadata.Config
+                                            .Childs(UIElementMetadata.Config
                                                                      .Name.Static("PrintBargainAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBargain")
                                                                      .Operation.SpecificFor<PrintIdentity, Bargain>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintNewSalesModelBargainAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintNewSalesModelBargainAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintNewSalesModelOrderBargain")
                                                                      .Operation.SpecificFor<PrintIdentity, Bargain>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrepareJointBillsAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrepareJointBillsAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrepareJointBill"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintBillAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBillsAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBills")
                                                                      .Operation.SpecificFor<PrintIdentity, Bill>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintTerminationNoticeAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintTermNoticeAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintTerminationNotice"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintAdditionalAgreementAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintAdditAgreementAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintAdditionalAgreement"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintLetterOfGuarantee")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintLetterOfGuaranteeAction)
                                                                      .ControlType(ControlType.TextButton)
@@ -227,39 +227,39 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata[] ChileOrderPrintActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] ChileOrderPrintActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintOrderAction")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                             .ControlType(ControlType.TextButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.PrintOrder")
                                             .Operation.SpecificFor<PrintIdentity, Order>(),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintActionsAdditional")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintActionsAdditional)
                                             .ControlType(ControlType.Menu)
-                                            .Childs(UiElementMetadata.Config
+                                            .Childs(UIElementMetadata.Config
                                                                      .Name.Static("PrintBargainAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBargain")
                                                                      .Operation.SpecificFor<PrintIdentity, Bargain>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintBillAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBillsAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBills")
                                                                      .Operation.SpecificFor<PrintIdentity, Bill>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintTerminationNoticeAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintTerminationBargainNoticeAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintTerminationNotice"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintLetterOfGuarantee")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintLetterOfGuaranteeAction)
                                                                      .ControlType(ControlType.TextButton)
@@ -267,44 +267,44 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata[] UkraineOrderPrintActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] UkraineOrderPrintActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintOrderAction")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                             .ControlType(ControlType.TextButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.PrintOrder")
                                             .Operation.SpecificFor<PrintIdentity, Order>(),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintActionsAdditional")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintActionsAdditional)
                                             .ControlType(ControlType.Menu)
-                                            .Childs(UiElementMetadata.Config
+                                            .Childs(UIElementMetadata.Config
                                                                      .Name.Static("PrintBillAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBillsAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBills")
                                                                      .Operation.SpecificFor<PrintIdentity, Bill>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintBargainAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBargain")
                                                                      .Operation.SpecificFor<PrintIdentity, Bargain>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintTerminationNoticeAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintTermNoticeAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintTerminationNotice"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintAdditionalAgreementAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintAdditAgreementAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintAdditionalAgreement"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintLetterOfGuarantee")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintLetterOfGuaranteeAction)
                                                                      .ControlType(ControlType.TextButton)
@@ -312,39 +312,39 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata[] EmiratesOrderPrintActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] EmiratesOrderPrintActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintOrderAction")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                             .ControlType(ControlType.TextButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.PrintOrder")
                                             .Operation.SpecificFor<PrintIdentity, Order>(),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintActionsAdditional")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintActionsAdditional)
                                             .ControlType(ControlType.Menu)
-                                            .Childs(UiElementMetadata.Config
+                                            .Childs(UIElementMetadata.Config
                                                                      .Name.Static("PrintBargainAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBargain")
                                                                      .Operation.SpecificFor<PrintIdentity, Bargain>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintBillAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBillsAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBills")
                                                                      .Operation.SpecificFor<PrintIdentity, Bill>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintAdditionalAgreementAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintAdditAgreementAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintAdditionalAgreement"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintBargainAdditionalAgreementAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAdditAgreementAction)
                                                                      .ControlType(ControlType.TextButton)
@@ -352,44 +352,44 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata[] KazakhstanOrderPrintActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] KazakhstanOrderPrintActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintOrderAction")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                             .ControlType(ControlType.TextButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.PrintOrder")
                                             .Operation.SpecificFor<PrintIdentity, Order>(),
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("PrintActionsAdditional")
                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintActionsAdditional)
                                             .ControlType(ControlType.Menu)
-                                            .Childs(UiElementMetadata.Config
+                                            .Childs(UIElementMetadata.Config
                                                                      .Name.Static("PrintBillAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBillsAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBills")
                                                                      .Operation.SpecificFor<PrintIdentity, Bill>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintBargainAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintOrderBargain")
                                                                      .Operation.SpecificFor<PrintIdentity, Bargain>(),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintTerminationNoticeAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintTermNoticeAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintTerminationNotice"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintAdditionalAgreementAction")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintAdditAgreementAction)
                                                                      .ControlType(ControlType.TextButton)
                                                                      .Handler.Name("scope.PrintAdditionalAgreement"),
-                                                    UiElementMetadata.Config
+                                                    UIElementMetadata.Config
                                                                      .Name.Static("PrintLetterOfGuarantee")
                                                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintLetterOfGuaranteeAction)
                                                                      .ControlType(ControlType.TextButton)
@@ -397,12 +397,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata[] CommonLegalPersonAdditionalActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] CommonLegalPersonAdditionalActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
                            // COMMENT {all, 29.11.2014}: а как же безопасность?
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("ChangeLegalPersonClient")
                                             .Title.Resource(() => ErmConfigLocalization.ControlChangeLegalPersonClient)
                                             .ControlType(ControlType.TextButton)
@@ -412,7 +412,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                             .Operation.SpecificFor<ChangeClientIdentity, LegalPerson>(),
 
                            // COMMENT {all, 29.11.2014}: а как же безопасность?
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("ChangeLPRequisites")
                                             .Title.Resource(() => ErmConfigLocalization.ControlChangeLPRequisites)
                                             .ControlType(ControlType.TextButton)
@@ -423,24 +423,24 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata[] CommonOrderRelatedActions(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata[] CommonOrderRelatedActions(this UIElementMetadataBuilder elementMetadata)
         {
-            return new UiElementMetadata[]
+            return new UIElementMetadata[]
                        {
-                          UiElementMetadata.Config.ContentTab(),
-                                            UiElementMetadata.Config
+                          UIElementMetadata.Config.ContentTab(),
+                                            UIElementMetadata.Config
                                                              .Name.Static("Bills")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.Bill)
                                                              .FilterToParent(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("Locks")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.Lock)
                                                              .FilterToParent(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("OrderFiles")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
                                                              .LockOnNew()
@@ -449,9 +449,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                        };
         }
 
-        public static UiElementMetadata PrintBargainAction(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata PrintBargainAction(this UIElementMetadataBuilder elementMetadata)
         {
-            return UiElementMetadata.Config
+            return UIElementMetadata.Config
                                     .Name.Static("PrintBargainAction")
                                     .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                     .ControlType(ControlType.TextButton)
@@ -460,9 +460,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                     .Operation.SpecificFor<PrintIdentity, Bargain>();
         }
 
-        public static UiElementMetadata PrintNewSalesModelBargainAction(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata PrintNewSalesModelBargainAction(this UIElementMetadataBuilder elementMetadata)
         {
-            return UiElementMetadata.Config
+            return UIElementMetadata.Config
                                     .Name.Static("PrintNewSalesModelBargainAction")
                                     .Title.Resource(() => ErmConfigLocalization.ControlPrintNewSalesModelBargainAction)
                                     .ControlType(ControlType.TextButton)
@@ -471,9 +471,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                     .Operation.SpecificFor<PrintIdentity, Bargain>();
         }
 
-        public static UiElementMetadata PrintBargainProlongationAgreementAction(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata PrintBargainProlongationAgreementAction(this UIElementMetadataBuilder elementMetadata)
         {
-            return UiElementMetadata.Config
+            return UIElementMetadata.Config
                                     .Name.Static("PrintBargainProlongationAgreementAction")
                                     .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainProlongationAgreementAction)
                                     .ControlType(ControlType.TextButton)
@@ -481,9 +481,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                     .Handler.Name("scope.PrintBargainProlongationAgreement");
         }
 
-        public static UiElementMetadata MergeLegalPersonsAction(this UiElementMetadataBuilder elementMetadata)
+        public static UIElementMetadata MergeLegalPersonsAction(this UIElementMetadataBuilder elementMetadata)
         {
-            return UiElementMetadata.Config
+            return UIElementMetadata.Config
                                     .Name.Static("Merge")
                                     .Icon.Path("Merge.gif")
                                     .Title.Resource(() => ErmConfigLocalization.ControlMerge)
@@ -496,7 +496,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                     .SpecificFor<MergeIdentity, LegalPerson>();
         }
 
-        public static UiElementMetadata[] With(this UiElementMetadata[] elements, params UiElementMetadata[] additionalElements)
+        public static UIElementMetadata[] With(this UIElementMetadata[] elements, params UIElementMetadata[] additionalElements)
         {
             return elements.Concat(additionalElements).ToArray();
         }

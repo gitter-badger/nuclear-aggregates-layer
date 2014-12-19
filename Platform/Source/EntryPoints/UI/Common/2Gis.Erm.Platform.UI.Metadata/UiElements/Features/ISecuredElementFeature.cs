@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features
 {
-    public interface ISecuredElementFeature : IUiElementFeature
+    public interface ISecuredElementFeature : IUIElementFeature
     {
     }
 }

@@ -11,6 +11,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata FirmContact =
             CardMetadata.For<FirmContact>()
                         .MainAttribute<FirmContact, IFirmContactViewModel>(x => x.Contact)
-                        .Actions.Attach(UiElementMetadata.Config.CloseAction());
+                        .Actions.Attach(UIElementMetadata.Config.CloseAction());
     }
 }

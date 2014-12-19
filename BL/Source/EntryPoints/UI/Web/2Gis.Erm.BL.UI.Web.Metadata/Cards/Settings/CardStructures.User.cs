@@ -16,38 +16,38 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<User>()
                         .MainAttribute<User, IUserViewModel>(x => x.DisplayName)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<User>(),
-                                UiElementMetadata.Config.UpdateAction<User>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<User>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<User>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<User>(),
-                                UiElementMetadata.Config.AdditionalActions(
+                        .Attach(UIElementMetadata.Config.CreateAction<User>(),
+                                UIElementMetadata.Config.UpdateAction<User>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<User>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<User>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<User>(),
+                                UIElementMetadata.Config.AdditionalActions(
                                                                            // COMMENT {all, 01.12.2014}: а как же безопасность? 
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("ShowUserProfile")
                                                                                             .Title.Resource(() => ErmConfigLocalization.EnUserProfile)
                                                                                             .LockOnNew()
                                                                                             .ControlType(ControlType.TextButton)
                                                                                             .Handler.Name("scope.ProcessUserProfile")),
-                                UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_UserAccount.gif"),
-                                            UiElementMetadata.Config
+                                UIElementMetadata.Config.CloseAction())
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_UserAccount.gif"),
+                                            UIElementMetadata.Config
                                                              .Name.Static("UserRole")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelUserRole)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.UserRole)
                                                              .FilterToParent()
                                                              .AppendapleEntity<Role>(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("UserTerritory")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelUserTerritory)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.UserTerritory)
                                                              .FilterToParent()
                                                              .AppendapleEntity<Territory>(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("UserOrganizationUnit")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelUserOrganizationUnit)
                                                              .LockOnNew()

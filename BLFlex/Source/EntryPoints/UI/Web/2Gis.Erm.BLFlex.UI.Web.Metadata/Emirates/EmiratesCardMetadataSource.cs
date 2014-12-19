@@ -43,17 +43,17 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Emirates
                                     .ConfigCommonCardToolbar(),
 
                         CardMetadata.For<Bargain>()
-                                    .ConfigBargainToolbarWithSpecificPrintActions(UiElementMetadata.Config.PrintBargainAction()),
+                                    .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction()),
 
                         CardMetadata.For<Bill>()
                                     .ConfigBillToolbarWithPrinting(),
 
                         CardMetadata.For<LegalPerson>()
-                                    .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UiElementMetadata.Config.CommonLegalPersonAdditionalActions()),
+                                    .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UIElementMetadata.Config.CommonLegalPersonAdditionalActions()),
 
                         CardMetadata.For<Order>()
-                                    .ConfigRelatedItems(UiElementMetadata.Config.CommonOrderRelatedActions())
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UiElementMetadata.Config.EmiratesOrderPrintActions()),
+                                    .ConfigRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
+                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.EmiratesOrderPrintActions()),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

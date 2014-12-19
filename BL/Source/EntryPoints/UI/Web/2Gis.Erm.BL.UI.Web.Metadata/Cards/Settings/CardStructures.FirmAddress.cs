@@ -14,14 +14,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<FirmAddress>()
                         .MainAttribute<FirmAddress, IFirmAddressViewModel>(x => x.Address)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
-                                            UiElementMetadata.Config
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab(),
+                                            UIElementMetadata.Config
                                                              .Name.Static("FirmContacts")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmContacts)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.FirmContact)
                                                              .FilterToParent(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("CategoryFirmAddress")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAddressCategories)
                                                              .LockOnNew()

@@ -15,15 +15,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<AdvertisementTemplate>()
                         .MainAttribute<AdvertisementTemplate, IAdvertisementTemplateViewModel>(x => x.Name)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<AdvertisementTemplate>(),
-                                UiElementMetadata.Config.UpdateAction<AdvertisementTemplate>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<AdvertisementTemplate>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<AdvertisementTemplate>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<AdvertisementTemplate>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config
+                        .Attach(UIElementMetadata.Config.CreateAction<AdvertisementTemplate>(),
+                                UIElementMetadata.Config.UpdateAction<AdvertisementTemplate>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<AdvertisementTemplate>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<AdvertisementTemplate>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<AdvertisementTemplate>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config
                                                  .Name.Static("PublishAdvertisementTemplate")
                                                  .Title.Resource(() => ErmConfigLocalization.ControlPublishAdvertisementTemplate)
                                                  .ControlType(ControlType.TextImageButton)
@@ -31,17 +31,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                  .LockOnNew()
                                                  .Handler.Name("scope.Publish")
                                                  .Icon.Path("Refresh.gif"),
-                                UiElementMetadata.Config
+                                UIElementMetadata.Config
                                                  .Name.Static("UnpublishAdvertisementTemplate")
                                                  .Title.Resource(() => ErmConfigLocalization.ControlUnpublishAdvertisementTemplate)
                                                  .ControlType(ControlType.TextImageButton)
                                                  .LockOnNew()
                                                  .Handler.Name("scope.Unpublish")
                                                  .Icon.Path("Refresh.gif"),
-                                UiElementMetadata.Config.CloseAction())
+                                UIElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(
-                                            UiElementMetadata.Config.ContentTab(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config.ContentTab(),
+                                            UIElementMetadata.Config
                                                              .Name.Static("Children")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
                                                              .LockOnNew()

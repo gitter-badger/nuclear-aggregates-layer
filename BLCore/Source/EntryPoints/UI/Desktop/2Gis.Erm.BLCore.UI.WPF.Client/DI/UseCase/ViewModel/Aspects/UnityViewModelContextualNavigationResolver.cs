@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             items.AddRange(metadata.RelatedItems.Select(relatedItem => ConvertItem(relatedItem, relatedItemNavigateCommand)));
         }
 
-        private INavigationItem ConvertItem(UiElementMetadata metadata, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
+        private INavigationItem ConvertItem(UIElementMetadata metadata, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
         {
             var item = new NavigationItem(
                 metadata.Identity.Id,
@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             };
             if (metadata.Elements != null && metadata.Elements.Any())
             {
-                item.Items = metadata.Elements.OfType<UiElementMetadata>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
+                item.Items = metadata.Elements.OfType<UIElementMetadata>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
             }
 
             return item;

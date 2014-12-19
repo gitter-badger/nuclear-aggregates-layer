@@ -16,8 +16,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata Price =
             CardMetadata.For<Price>()
                         .MainAttribute<Price, IPriceViewModel>(x => x.Name)
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_Price.gif"),
-                                            UiElementMetadata.Config
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_Price.gif"),
+                                            UIElementMetadata.Config
                                                              .Name.Static("PricePosition")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelPricePosition)
                                                              .Icon.Path("en_ico_16_PricePosition.gif")
@@ -25,15 +25,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .LockOnNew()
                                                              .FilterToParent())
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<Price>(),
-                                UiElementMetadata.Config.UpdateAction<Price>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<Price>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<Price>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<Price>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config
+                        .Attach(UIElementMetadata.Config.CreateAction<Price>(),
+                                UIElementMetadata.Config.UpdateAction<Price>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<Price>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<Price>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<Price>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config
                                                  .Name.Static("PublishPrice")
                                                  .Title.Resource(() => ErmConfigLocalization.ControlPublishPrice)
                                                  .Icon.Path("Refresh.gif")
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                  .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
                                                  .Operation.NonCoupled<PublishPriceIdentity>(),
 
-                                UiElementMetadata.Config
+                                UIElementMetadata.Config
                                                  .Name.Static("UnpublishPrice")
                                                  .Title.Resource(() => ErmConfigLocalization.ControlUnpublishPrice)
                                                  .Icon.Path("Refresh.gif")
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                  .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
                                                  .Operation.NonCoupled<UnpublishPriceIdentity>(),
 
-                                UiElementMetadata.Config
+                                UIElementMetadata.Config
                                                  .Name.Static("CopyPrice")
                                                  .Title.Resource(() => ErmConfigLocalization.ControlCopyPrice)
                                                  .Icon.Path("Refresh.gif")
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                  .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
                                                  .Operation.NonCoupled<CopyPriceIdentity>(),
 
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction());
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction());
     }
 }

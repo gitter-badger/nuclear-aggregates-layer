@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             get { return Features.OfType<RelatedItemsFeature>().Any(); }
         }
 
-        public UiElementMetadata[] RelatedItems
+        public UIElementMetadata[] RelatedItems
         {
             get
             {
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 
         public bool HasActions { get; private set; }
 
-        public UiElementMetadata[] ActionsDescriptors
+        public UIElementMetadata[] ActionsDescriptors
         {
             get { return Features.OfType<ActionsFeature>().SelectMany(x => x.ActionsDescriptors).ToArray(); }
         }

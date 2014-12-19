@@ -18,18 +18,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<PricePosition>()
                         .MainAttribute<PricePosition, IPricePositionViewModel>(x => x.Position.Value)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<PricePosition>(),
-                                UiElementMetadata.Config.UpdateAction<PricePosition>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<PricePosition>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<PricePosition>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<PricePosition>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.AdditionalActions(
+                        .Attach(UIElementMetadata.Config.CreateAction<PricePosition>(),
+                                UIElementMetadata.Config.UpdateAction<PricePosition>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<PricePosition>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<PricePosition>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<PricePosition>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.AdditionalActions(
 
                                                                            // COMMENT {all, 01.12.2014}: а как же безопасность?
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("CopyPricePosition")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlCopyPricePosition)
                                                                                             .ControlType(ControlType.TextButton)
@@ -37,16 +37,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .LockOnInactive()
                                                                                             .LockOnNew()
                                                                                             .Operation.NonCoupled<CopyPricePositionIdentity>()),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_PricePosition.gif"),
-                                            UiElementMetadata.Config
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction())
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_PricePosition.gif"),
+                                            UIElementMetadata.Config
                                                              .Name.Static("AssociatedPositionsGroup")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelAssociatedPositionsGroup)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.AssociatedPositionsGroup)
                                                              .FilterToParent(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("DeniedPosition")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelDeniedPosition)
                                                              .ExtendedInfo(new TemplateDescriptor(

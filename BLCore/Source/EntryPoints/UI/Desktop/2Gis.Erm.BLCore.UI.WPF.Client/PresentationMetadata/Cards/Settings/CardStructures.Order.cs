@@ -27,36 +27,36 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
                                    () => BLResources.TitleControl,
                                    () => BLResources.AdministrationTabTitle)
                         .Actions.Attach(
-                                        UiElementMetadata.Config
+                                        UIElementMetadata.Config
                                                          .Title.Resource(() => ErmConfigLocalization.ControlSave)
                                                          .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>(),
-                                        UiElementMetadata.Config
+                                        UIElementMetadata.Config
                                                          .Title.Resource(() => ErmConfigLocalization.ControlSaveAndClose)
                                                          .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>()
                                                          .Operation.NonCoupled<CloseIdentity>(),
-                                        UiElementMetadata.Config
+                                        UIElementMetadata.Config
                                                          .Title.Resource(() => ErmConfigLocalization.ControlRefresh)
                                                          .Operation.SpecificFor<GetDomainEntityDtoIdentity, Order>(),
-                                        UiElementMetadata.Config
+                                        UIElementMetadata.Config
                                                          .Title.Resource(() => ErmConfigLocalization.ControlAssign)
                                                          .Operation.SpecificFor<AssignIdentity, Order>(),
-                                        UiElementMetadata.Config
+                                        UIElementMetadata.Config
                                                          .Title.Resource(() => ErmConfigLocalization.ControlClose)
                                                          .Operation.NonCoupled<CloseIdentity>(),
-                                        UiElementMetadata.Config
+                                        UIElementMetadata.Config
                                                          .Title.Resource(() => ErmConfigLocalization.ControlActions)
                                                          .Childs(
-                                                                 UiElementMetadata.Config
+                                                                 UIElementMetadata.Config
                                                                                   .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                                                                   .Operation.SpecificFor<PrintIdentity, Order>()))
                         .RelatedItems.Attach(
-                                             UiElementMetadata.Config
+                                             UIElementMetadata.Config
                                                               .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
                                                               .Handler.ShowGrid(OrderAggregate.Bill.AsEntityName()),
-                                             UiElementMetadata.Config
+                                             UIElementMetadata.Config
                                                               .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
                                                               .Handler.ShowGrid(AccountAggregate.Lock.AsEntityName()),
-                                             UiElementMetadata.Config
+                                             UIElementMetadata.Config
                                                               .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
                                                               .Handler.ShowGrid(OrderAggregate.OrderFile.AsEntityName()))
                         .MVVM.Bind<DynamicCardViewModel, OrderView>()

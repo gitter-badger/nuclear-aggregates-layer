@@ -13,26 +13,26 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Account>()
                         .MainAttribute(x => x.Id)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
-                                            UiElementMetadata.Config
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab(),
+                                            UIElementMetadata.Config
                                                              .Name.Static("AccountDetails")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelAccountDetails)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.AccountDetail)
                                                              .FilterToParent(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("Locks")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.Lock)
                                                              .FilterToParent(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("Limits")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelLimits)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.Limit)
                                                              .FilterToParent(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("Orders")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
                                                              .Icon.Path("en_ico_16_Order.gif")

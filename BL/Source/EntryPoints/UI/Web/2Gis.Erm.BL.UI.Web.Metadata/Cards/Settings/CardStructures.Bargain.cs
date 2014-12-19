@@ -14,14 +14,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Bargain>()
                         .MainAttribute<Bargain, IBargainViewModel>(x => x.Number)                
                         .ConfigRelatedItems(
-                                    UiElementMetadata.Config.ContentTab(),
-                                    UiElementMetadata.Config
+                                    UIElementMetadata.Config.ContentTab(),
+                                    UIElementMetadata.Config
                                                      .Name.Static("BargainFiles")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelBargainFiles)
                                                      .LockOnNew()
                                                      .Handler.ShowGridByConvention(EntityName.BargainFile)
                                                      .FilterToParent(),
-                                    UiElementMetadata.Config
+                                    UIElementMetadata.Config
                                                      .Name.Static("Orders")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
                                                      .LockOnNew()

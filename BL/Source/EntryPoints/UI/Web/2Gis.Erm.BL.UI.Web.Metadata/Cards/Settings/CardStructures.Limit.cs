@@ -14,16 +14,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Limit>()
                         .MainAttribute(x => x.Id)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<Limit>(),
-                                UiElementMetadata.Config.UpdateAction<Limit>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<Limit>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<Limit>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<Limit>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.AdditionalActions( // COMMENT {all, 28.11.2014}: а как же безопасность?
-                                                                           UiElementMetadata.Config
+                        .Attach(UIElementMetadata.Config.CreateAction<Limit>(),
+                                UIElementMetadata.Config.UpdateAction<Limit>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<Limit>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<Limit>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<Limit>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.AdditionalActions( // COMMENT {all, 28.11.2014}: а как же безопасность?
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("ApproveLimit")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlApproveLimit)
                                                                                             .ControlType(ControlType.TextButton)
@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .Handler.Name("scope.ApproveLimit"),
 
                                                                            // COMMENT {all, 28.11.2014}: а как же безопасность?
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("RejectLimit")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlRejectLimit)
                                                                                             .ControlType(ControlType.TextButton)
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .Handler.Name("scope.RejectLimit"),
 
                                                                            // COMMENT {all, 28.11.2014}: а как же безопасность?
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("OpenLimit")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlOpenLimit)
                                                                                             .ControlType(ControlType.TextButton)
@@ -49,14 +49,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .LockOnNew()
                                                                                             .Handler.Name("scope.OpenLimit"),
 
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("RecalculateLimit")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlRecalculateLimit)
                                                                                             .ControlType(ControlType.TextButton)
                                                                                             .LockOnInactive()
                                                                                             .Handler.Name("scope.RecalculateLimit")
                                                                                             .AccessWithPrivelege(FunctionalPrivilegeName.LimitRecalculation)),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction());
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction());
     }
 }

@@ -14,17 +14,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata OrganizationUnit =
             CardMetadata.For<OrganizationUnit>()
                         .MainAttribute<OrganizationUnit, IOrganizationUnitViewModel>(x => x.Name)
-                        .Actions.Attach(UiElementMetadata.Config.CreateAction<OrganizationUnit>(),
-                                        UiElementMetadata.Config.UpdateAction<OrganizationUnit>(),
-                                        UiElementMetadata.Config.SplitterAction(),
-                                        UiElementMetadata.Config.CreateAndCloseAction<OrganizationUnit>(),
-                                        UiElementMetadata.Config.UpdateAndCloseAction<OrganizationUnit>(),
-                                        UiElementMetadata.Config.SplitterAction(),
-                                        UiElementMetadata.Config.RefreshAction<OrganizationUnit>(),
-                                        UiElementMetadata.Config.SplitterAction(),
+                        .Actions.Attach(UIElementMetadata.Config.CreateAction<OrganizationUnit>(),
+                                        UIElementMetadata.Config.UpdateAction<OrganizationUnit>(),
+                                        UIElementMetadata.Config.SplitterAction(),
+                                        UIElementMetadata.Config.CreateAndCloseAction<OrganizationUnit>(),
+                                        UIElementMetadata.Config.UpdateAndCloseAction<OrganizationUnit>(),
+                                        UIElementMetadata.Config.SplitterAction(),
+                                        UIElementMetadata.Config.RefreshAction<OrganizationUnit>(),
+                                        UIElementMetadata.Config.SplitterAction(),
 
                                         // COMMENT {all, 01.12.2014}: а как же безопасность?
-                                        UiElementMetadata.Config
+                                        UIElementMetadata.Config
                                                          .Name.Static("ManageCategories")
                                                          .Title.Resource(() => ErmConfigLocalization.ControlManageCategories)
                                                          .ControlType(ControlType.TextImageButton)
@@ -32,22 +32,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                          .LockOnNew()
                                                          .Handler.Name("scope.ManageCategories")
                                                          .Icon.Path("en_ico_16_Category.gif"),
-                                        UiElementMetadata.Config.SplitterAction(),
-                                        UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_OrganizationUnit.gif"),
-                                            UiElementMetadata.Config
+                                        UIElementMetadata.Config.SplitterAction(),
+                                        UIElementMetadata.Config.CloseAction())
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_OrganizationUnit.gif"),
+                                            UIElementMetadata.Config
                                                              .Name.Static("OUBO")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOUBO)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit)
                                                              .FilterToParent(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("Prices")
                                                              .Title.Resource(() => ErmConfigLocalization.EnMPrices)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.Price)
                                                              .FilterToParent(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("Projects")
                                                              .Title.Resource(() => ErmConfigLocalization.EnMProjects)
                                                              .LockOnNew()

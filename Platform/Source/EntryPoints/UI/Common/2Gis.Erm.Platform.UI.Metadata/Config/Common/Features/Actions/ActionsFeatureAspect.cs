@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions
         {
         }
 
-        public TBuilder Attach(params UiElementMetadata[] actions)
+        public TBuilder Attach(params UIElementMetadata[] actions)
         {
             if (actions == null || actions.Length == 0)
             {

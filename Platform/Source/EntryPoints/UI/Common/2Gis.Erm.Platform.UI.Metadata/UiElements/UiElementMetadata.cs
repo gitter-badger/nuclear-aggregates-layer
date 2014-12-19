@@ -14,8 +14,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
 {
-    // TODO {all, 20.11.2014}: Перекликается с реализацией HierarchyMetadata.
-    public sealed class UiElementMetadata : MetadataElement<UiElementMetadata, UiElementMetadataBuilder>,
+    public sealed class UIElementMetadata : MetadataElement<UIElementMetadata, UIElementMetadataBuilder>,
         INamedElement,
         ITitledElement,
         IImageBoundElement,
@@ -24,7 +23,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
     {
         private IMetadataElementIdentity _identity;
 
-        public UiElementMetadata(Uri id, IEnumerable<IMetadataFeature> features)
+        public UIElementMetadata(Uri id, IEnumerable<IMetadataFeature> features)
             : base(features)
         {
             _identity = id.AsIdentity();

@@ -14,18 +14,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Territory>()
                         .MainAttribute<Territory, ITerritoryViewModel>(x => x.Name)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<Territory>(),
-                                UiElementMetadata.Config.UpdateAction<Territory>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<Territory>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<Territory>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<Territory>(),
-                                UiElementMetadata.Config.ActivateAction<Territory>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
-                                            UiElementMetadata.Config
+                        .Attach(UIElementMetadata.Config.CreateAction<Territory>(),
+                                UIElementMetadata.Config.UpdateAction<Territory>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<Territory>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<Territory>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<Territory>(),
+                                UIElementMetadata.Config.ActivateAction<Territory>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction())
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab(),
+                                            UIElementMetadata.Config
                                                              .Name.Static("Firm")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
                                                              .Icon.Path("en_ico_16_Firm.gif")

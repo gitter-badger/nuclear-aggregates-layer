@@ -18,11 +18,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<AdvertisementElement>()
                         .MainAttribute(x => x.Id)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<AdvertisementElement>()
+                        .Attach(UIElementMetadata.Config.CreateAction<AdvertisementElement>()
                                                  .HideOn<IAdvertisementElementViewModel>(x => x.NeedsValidation),
-                                UiElementMetadata.Config.UpdateAction<AdvertisementElement>()
+                                UIElementMetadata.Config.UpdateAction<AdvertisementElement>()
                                                  .HideOn<IAdvertisementElementViewModel>(x => x.NeedsValidation),
-                                UiElementMetadata.Config
+                                UIElementMetadata.Config
                                                  .Name.Static("ResetToDraft")
                                                  .Title.Resource(() => MetadataResources.ControlResetToDraft)
                                                  .ControlType(ControlType.TextButton)
@@ -32,8 +32,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             x => x.Status == AdvertisementElementStatusValue.Draft)
                                                  .HideOn<IAdvertisementElementViewModel>(x => !x.NeedsValidation)
                                                  .Operation.NonCoupled<ChangeAdvertisementElementStatusIdentity>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config
                                                  .Name.Static("SaveAndVerify")
                                                  .Title.Resource(() => MetadataResources.ControlSaveAndVerify)
                                                  .ControlType(ControlType.TextButton)
@@ -47,13 +47,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                  .Operation.SpecificFor<CreateIdentity, AdvertisementElement>()
                                                  .Operation.SpecificFor<UpdateIdentity, AdvertisementElement>()
                                                  .Operation.NonCoupled<ChangeAdvertisementElementStatusIdentity>(),
-                                UiElementMetadata.Config.CreateAndCloseAction<AdvertisementElement>()
+                                UIElementMetadata.Config.CreateAndCloseAction<AdvertisementElement>()
                                                  .HideOn<IAdvertisementElementViewModel>(x => x.NeedsValidation),
-                                UiElementMetadata.Config.UpdateAndCloseAction<AdvertisementElement>()
+                                UIElementMetadata.Config.UpdateAndCloseAction<AdvertisementElement>()
                                                  .HideOn<IAdvertisementElementViewModel>(x => x.NeedsValidation),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<AdvertisementElement>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction());
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<AdvertisementElement>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction());
     }
 }

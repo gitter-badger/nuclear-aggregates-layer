@@ -10,75 +10,75 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
 {
     public static class CardMetadataExtensions
     {
-        public static CardMetadataBuilder<Order> ConfigOrderToolbarWithSpecificPrintActions(this CardMetadataBuilder<Order> metadataBuilder, params UiElementMetadata[] printActions)
+        public static CardMetadataBuilder<Order> ConfigOrderToolbarWithSpecificPrintActions(this CardMetadataBuilder<Order> metadataBuilder, params UIElementMetadata[] printActions)
         {
             return metadataBuilder.Actions
-                                  .Attach(UiElementMetadata.Config.CreateAction<Order>(),
-                                          UiElementMetadata.Config.UpdateAction<Order>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.CreateAndCloseAction<Order>(),
-                                          UiElementMetadata.Config.UpdateAndCloseAction<Order>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.RefreshAction<Order>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.PrintActions(printActions),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.AdditionalActions(UiElementMetadata.Config.OrderAdditionalActions()),
-                                          UiElementMetadata.Config.CloseAction());
+                                  .Attach(UIElementMetadata.Config.CreateAction<Order>(),
+                                          UIElementMetadata.Config.UpdateAction<Order>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.CreateAndCloseAction<Order>(),
+                                          UIElementMetadata.Config.UpdateAndCloseAction<Order>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.RefreshAction<Order>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.PrintActions(printActions),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.AdditionalActions(UIElementMetadata.Config.OrderAdditionalActions()),
+                                          UIElementMetadata.Config.CloseAction());
         }
 
         public static CardMetadataBuilder<Bargain> ConfigBargainToolbarWithSpecificPrintActions(this CardMetadataBuilder<Bargain> metadataBuilder,
-                                                                                                params UiElementMetadata[] printActions)
+                                                                                                params UIElementMetadata[] printActions)
         {
             return metadataBuilder.Actions
-                                  .Attach(UiElementMetadata.Config.CreateAction<Bargain>(),
-                                          UiElementMetadata.Config.UpdateAction<Bargain>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.CreateAndCloseAction<Bargain>(),
-                                          UiElementMetadata.Config.UpdateAndCloseAction<Bargain>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.RefreshAction<Bargain>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.PrintActions(printActions),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.CloseAction());
+                                  .Attach(UIElementMetadata.Config.CreateAction<Bargain>(),
+                                          UIElementMetadata.Config.UpdateAction<Bargain>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.CreateAndCloseAction<Bargain>(),
+                                          UIElementMetadata.Config.UpdateAndCloseAction<Bargain>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.RefreshAction<Bargain>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.PrintActions(printActions),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.CloseAction());
         }
 
-        public static CardMetadataBuilder<LegalPerson> ConfigLegalPersonToolbarWithSpecificAdditionalActions(this CardMetadataBuilder<LegalPerson> metadataBuilder, params UiElementMetadata[] additionalActions)
+        public static CardMetadataBuilder<LegalPerson> ConfigLegalPersonToolbarWithSpecificAdditionalActions(this CardMetadataBuilder<LegalPerson> metadataBuilder, params UIElementMetadata[] additionalActions)
         {
             return metadataBuilder.Actions
-                                  .Attach(UiElementMetadata.Config.CreateAction<LegalPerson>(),
-                                          UiElementMetadata.Config.UpdateAction<LegalPerson>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.CreateAndCloseAction<LegalPerson>(),
-                                          UiElementMetadata.Config.UpdateAndCloseAction<LegalPerson>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.RefreshAction<LegalPerson>(),
-                                          UiElementMetadata.Config.AdditionalActions(additionalActions),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.CloseAction());
+                                  .Attach(UIElementMetadata.Config.CreateAction<LegalPerson>(),
+                                          UIElementMetadata.Config.UpdateAction<LegalPerson>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.CreateAndCloseAction<LegalPerson>(),
+                                          UIElementMetadata.Config.UpdateAndCloseAction<LegalPerson>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.RefreshAction<LegalPerson>(),
+                                          UIElementMetadata.Config.AdditionalActions(additionalActions),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.CloseAction());
         }
 
         public static CardMetadataBuilder<Bill> ConfigBillToolbarWithPrinting(this CardMetadataBuilder<Bill> metadataBuilder)
         {
             return metadataBuilder.Actions
-                                  .Attach(UiElementMetadata.Config.CreateAction<Bill>(),
-                                          UiElementMetadata.Config.UpdateAction<Bill>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.CreateAndCloseAction<Bill>(),
-                                          UiElementMetadata.Config.UpdateAndCloseAction<Bill>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.RefreshAction<Bill>(),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.PrintActions(UiElementMetadata.Config
+                                  .Attach(UIElementMetadata.Config.CreateAction<Bill>(),
+                                          UIElementMetadata.Config.UpdateAction<Bill>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.CreateAndCloseAction<Bill>(),
+                                          UIElementMetadata.Config.UpdateAndCloseAction<Bill>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.RefreshAction<Bill>(),
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.PrintActions(UIElementMetadata.Config
                                                                                                  .Name.Static("PrintBillAction")
                                                                                                  .Title.Resource(() => ErmConfigLocalization.ControlPrintBillAction)
                                                                                                  .ControlType(ControlType.TextButton)
                                                                                                  .Handler.Name("scope.PrintBill")
                                                                                                  .LockOnNew()
                                                                                                  .Operation.SpecificFor<PrintIdentity, Bill>()),
-                                          UiElementMetadata.Config.SplitterAction(),
-                                          UiElementMetadata.Config.CloseAction());
+                                          UIElementMetadata.Config.SplitterAction(),
+                                          UIElementMetadata.Config.CloseAction());
         }
     }
 }

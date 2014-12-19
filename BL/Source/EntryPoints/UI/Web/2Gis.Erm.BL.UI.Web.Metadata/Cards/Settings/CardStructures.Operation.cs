@@ -11,6 +11,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata Operation =
             CardMetadata.For<Operation>()
                         .MainAttribute<Operation, IOperationViewModel>(x => x.Type)
-                        .Actions.Attach(UiElementMetadata.Config.CloseAction());
+                        .Actions.Attach(UIElementMetadata.Config.CloseAction());
     }
 }

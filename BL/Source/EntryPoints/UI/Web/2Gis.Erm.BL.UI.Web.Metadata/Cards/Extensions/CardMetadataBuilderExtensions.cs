@@ -34,15 +34,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             where TEntity : class, IEntityKey, IEntity
         {
             builder.Actions
-                   .Attach(UiElementMetadata.Config.CreateAction<TEntity>(),
-                           UiElementMetadata.Config.UpdateAction<TEntity>(),
-                           UiElementMetadata.Config.SplitterAction(),
-                           UiElementMetadata.Config.CreateAndCloseAction<TEntity>(),
-                           UiElementMetadata.Config.UpdateAndCloseAction<TEntity>(),
-                           UiElementMetadata.Config.SplitterAction(),
-                           UiElementMetadata.Config.RefreshAction<TEntity>(),
-                           UiElementMetadata.Config.SplitterAction(),
-                           UiElementMetadata.Config.CloseAction());
+                   .Attach(UIElementMetadata.Config.CreateAction<TEntity>(),
+                           UIElementMetadata.Config.UpdateAction<TEntity>(),
+                           UIElementMetadata.Config.SplitterAction(),
+                           UIElementMetadata.Config.CreateAndCloseAction<TEntity>(),
+                           UIElementMetadata.Config.UpdateAndCloseAction<TEntity>(),
+                           UIElementMetadata.Config.SplitterAction(),
+                           UIElementMetadata.Config.RefreshAction<TEntity>(),
+                           UIElementMetadata.Config.SplitterAction(),
+                           UIElementMetadata.Config.CloseAction());
 
             return builder;
         }
@@ -51,14 +51,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
              where TEntity : class, IEntityKey, IEntity
         {
             builder.Actions
-                   .Attach(UiElementMetadata.Config.CreateAction<TEntity>(),
-                           UiElementMetadata.Config.UpdateAction<TEntity>(),
-                           UiElementMetadata.Config.SplitterAction(),
-                           UiElementMetadata.Config.CreateAndCloseAction<TEntity>(),
-                           UiElementMetadata.Config.UpdateAndCloseAction<TEntity>(),
-                           UiElementMetadata.Config.SplitterAction(),
+                   .Attach(UIElementMetadata.Config.CreateAction<TEntity>(),
+                           UIElementMetadata.Config.UpdateAction<TEntity>(),
+                           UIElementMetadata.Config.SplitterAction(),
+                           UIElementMetadata.Config.CreateAndCloseAction<TEntity>(),
+                           UIElementMetadata.Config.UpdateAndCloseAction<TEntity>(),
+                           UIElementMetadata.Config.SplitterAction(),
 
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("Complete")
                                             .Title.Resource(() => ErmConfigLocalization.ControlComplete)
                                             .ControlType(ControlType.TextImageButton)
@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                             .Operation.SpecificFor<UpdateIdentity, TEntity>(),
 
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("Cancel")
                                             .Title.Resource(() => ErmConfigLocalization.ControlCancel)
                                             .ControlType(ControlType.TextImageButton)
@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                             .Operation.SpecificFor<UpdateIdentity, TEntity>(),
 
-                           UiElementMetadata.Config
+                           UIElementMetadata.Config
                                             .Name.Static("Revert")
                                             .Title.Resource(() => ErmConfigLocalization.ControlRevert)
                                             .ControlType(ControlType.TextImageButton)
@@ -97,15 +97,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                             .Operation.SpecificFor<UpdateIdentity, TEntity>(),
 
-                           UiElementMetadata.Config.AssignAction<TEntity>(),
-                           UiElementMetadata.Config.SplitterAction(),
-                           UiElementMetadata.Config.RefreshAction<TEntity>(),
-                           UiElementMetadata.Config.CloseAction());
+                           UIElementMetadata.Config.AssignAction<TEntity>(),
+                           UIElementMetadata.Config.SplitterAction(),
+                           UIElementMetadata.Config.RefreshAction<TEntity>(),
+                           UIElementMetadata.Config.CloseAction());
 
             return builder;
         }
 
-        public static CardMetadataBuilder<TEntity> ConfigRelatedItems<TEntity>(this CardMetadataBuilder<TEntity> builder, params UiElementMetadata[] items)
+        public static CardMetadataBuilder<TEntity> ConfigRelatedItems<TEntity>(this CardMetadataBuilder<TEntity> builder, params UIElementMetadata[] items)
             where TEntity : class, IEntityKey, IEntity
         {
             builder.RelatedItems

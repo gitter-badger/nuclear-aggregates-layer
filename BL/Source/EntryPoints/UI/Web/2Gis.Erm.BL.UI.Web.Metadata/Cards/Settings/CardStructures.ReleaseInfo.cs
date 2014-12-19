@@ -13,14 +13,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<ReleaseInfo>()
                         .MainAttribute(x => x.Id)
                         .Actions.Attach(
-                            UiElementMetadata.Config.RefreshAction<ReleaseInfo>(),
-                            UiElementMetadata.Config.AdditionalActions(UiElementMetadata.Config
+                            UIElementMetadata.Config.RefreshAction<ReleaseInfo>(),
+                            UIElementMetadata.Config.AdditionalActions(UIElementMetadata.Config
                                                                                         .Name.Static("DownloadResults")
                                                                                         .Title.Resource(() => ErmConfigLocalization.ControlDownloadResults)
                                                                                         .ControlType(ControlType.TextButton)
                                                                                         .Handler.Name("scope.DownloadResults")
                                                                                         .LockOnNew()),
-                            UiElementMetadata.Config.SplitterAction(),
-                            UiElementMetadata.Config.CloseAction());
+                            UIElementMetadata.Config.SplitterAction(),
+                            UIElementMetadata.Config.CloseAction());
     }
 }

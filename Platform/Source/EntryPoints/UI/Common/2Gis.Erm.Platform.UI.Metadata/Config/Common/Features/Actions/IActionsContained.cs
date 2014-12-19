@@ -6,6 +6,6 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions
     public interface IActionsContained : IMetadataElementAspect
     {
         bool HasActions { get; }
-        UiElementMetadata[] ActionsDescriptors { get; }
+        UIElementMetadata[] ActionsDescriptors { get; }
     }
 }

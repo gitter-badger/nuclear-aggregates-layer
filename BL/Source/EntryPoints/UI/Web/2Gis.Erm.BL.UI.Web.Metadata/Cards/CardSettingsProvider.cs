@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             return result;
         }
 
-        internal IEnumerable<ToolbarElementStructure> ToToolbarStructure(UiElementMetadata toolbarElement, UiElementMetadata parentElement)
+        internal IEnumerable<ToolbarElementStructure> ToToolbarStructure(UIElementMetadata toolbarElement, UIElementMetadata parentElement)
         {
             var resultElement = new ToolbarElementStructure();
             var result = new List<ToolbarElementStructure>
@@ -149,7 +149,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 resultElement.ParentName = parentElement.NameDescriptor.ToString();
             }
 
-            result.AddRange(toolbarElement.Elements.OfType<UiElementMetadata>().SelectMany(x => ToToolbarStructure(x, toolbarElement)));
+            result.AddRange(toolbarElement.Elements.OfType<UIElementMetadata>().SelectMany(x => ToToolbarStructure(x, toolbarElement)));
 
             return result;
         }
@@ -173,7 +173,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             return result;
         }
 
-        internal CardRelatedItemStructure ToCardRelatedItemStructure(UiElementMetadata element)
+        internal CardRelatedItemStructure ToCardRelatedItemStructure(UIElementMetadata element)
         {
             var result = new CardRelatedItemStructure();
             if (element.NameDescriptor != null)

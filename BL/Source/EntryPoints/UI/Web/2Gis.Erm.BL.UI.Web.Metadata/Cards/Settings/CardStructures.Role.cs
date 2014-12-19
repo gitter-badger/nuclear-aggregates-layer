@@ -13,14 +13,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Role>()
                         .MainAttribute<Role, IRoleViewModel>(x => x.Name)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_UserGroup.gif"),
-                                            UiElementMetadata.Config
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_UserGroup.gif"),
+                                            UIElementMetadata.Config
                                                              .Name.Static("RoleEntityPrivilege")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelRoleEntityPrivilege)
                                                              .FilterToParent()
                                                              .Handler.Request("/Edit/EntityPrivileges")
                                                              .LockOnNew(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("RoleFunctionalPrivilege")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelRoleFunctionalPrivilege)
                                                              .FilterToParent()

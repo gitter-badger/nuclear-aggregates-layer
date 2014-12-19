@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features
 {
-    public abstract class ExpressionFeatureAbstract<T> : IUiElementExpressionFeature
+    public abstract class ExpressionFeatureAbstract<T> : IUIElementExpressionFeature
         where T : IViewModelAbstract
     {
         protected ExpressionFeatureAbstract(Expression<Func<T, bool>> expression)

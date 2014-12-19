@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
         }
 
         private static INavigationItem[] GetNavigationItems(CardViewModelIdentity cardViewModelIdentity,
-                                                            UiElementMetadata[] actions,
+                                                            UIElementMetadata[] actions,
                                                             ITitleProviderFactory titleProviderFactory,
                                                             IMessageSink messageSink)
         {
@@ -82,14 +82,14 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
 
                     navigationItem = new NavigationItem(IdBuilder.UniqueFor("CardsStructures/Toolbar"), titleProviderFactory.Create(action.TitleDescriptor), actionCommand)
                         {
-                            Items = GetNavigationItems(cardViewModelIdentity, action.Elements.OfType<UiElementMetadata>().ToArray(), titleProviderFactory, messageSink)
+                            Items = GetNavigationItems(cardViewModelIdentity, action.Elements.OfType<UIElementMetadata>().ToArray(), titleProviderFactory, messageSink)
                         };
                 }
                 else
                 {
                     navigationItem = new NavigationItem(IdBuilder.UniqueFor("CardsStructures/Toolbar"), titleProviderFactory.Create(action.TitleDescriptor), null)
                     {
-                        Items = GetNavigationItems(cardViewModelIdentity, action.Elements.OfType<UiElementMetadata>().ToArray(), titleProviderFactory, messageSink)
+                        Items = GetNavigationItems(cardViewModelIdentity, action.Elements.OfType<UIElementMetadata>().ToArray(), titleProviderFactory, messageSink)
                     };
                 }
 

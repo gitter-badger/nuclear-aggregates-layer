@@ -14,22 +14,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Contact>()
                         .MainAttribute<Contact, IContactViewModel>(x => x.FullName)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<Contact>(),
-                                UiElementMetadata.Config.UpdateAction<Contact>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<Contact>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<Contact>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<Contact>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.AdditionalActions(
+                        .Attach(UIElementMetadata.Config.CreateAction<Contact>(),
+                                UIElementMetadata.Config.UpdateAction<Contact>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<Contact>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<Contact>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<Contact>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.AdditionalActions(
                                                                            // COMMENT {all, 27.11.2014}: а почему не Assign?
-                                                                           UiElementMetadata.Config.ChangeOwnerAction<Contact>()),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction())
+                                                                           UIElementMetadata.Config.ChangeOwnerAction<Contact>()),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction())
                         .ConfigRelatedItems(
-                                            UiElementMetadata.Config.ContentTab("en_ico_16_Contact.gif"),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config.ContentTab("en_ico_16_Contact.gif"),
+                                            UIElementMetadata.Config
                                                              .Name.Static("Actions")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
                                                              .Icon.Path("en_ico_16_Action.gif")

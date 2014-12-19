@@ -43,18 +43,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Kazakhstan
                                     .ConfigCommonCardToolbar(),
 
                         CardMetadata.For<Bargain>()
-                                    .ConfigBargainToolbarWithSpecificPrintActions(UiElementMetadata.Config.PrintBargainAction(),
-                                                                                  UiElementMetadata.Config.PrintBargainProlongationAgreementAction()),
+                                    .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction(),
+                                                                                  UIElementMetadata.Config.PrintBargainProlongationAgreementAction()),
 
                         CardMetadata.For<Bill>()
                                     .ConfigBillToolbarWithPrinting(),
 
                         CardMetadata.For<LegalPerson>()
-                                    .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UiElementMetadata.Config.CommonLegalPersonAdditionalActions()),
+                                    .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UIElementMetadata.Config.CommonLegalPersonAdditionalActions()),
 
                         CardMetadata.For<Order>()
-                                    .ConfigRelatedItems(UiElementMetadata.Config.CommonOrderRelatedActions())
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UiElementMetadata.Config.KazakhstanOrderPrintActions()),
+                                    .ConfigRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
+                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.KazakhstanOrderPrintActions()),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

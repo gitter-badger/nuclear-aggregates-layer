@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features
 {
-    public interface IUiElementFeature : IMetadataFeature
+    public interface IUIElementFeature : IMetadataFeature
     {
     }
 }

@@ -106,9 +106,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             }
         }
 
-        internal void ProcessToolbarElementMetadata(UiElementMetadata toolbarElement, UiElementMetadata parentElement, IEntityViewModelBase model)
+        internal void ProcessToolbarElementMetadata(UIElementMetadata toolbarElement, UIElementMetadata parentElement, IEntityViewModelBase model)
         {
-            foreach (var childElement in toolbarElement.Elements.OfType<UiElementMetadata>())
+            foreach (var childElement in toolbarElement.Elements.OfType<UIElementMetadata>())
             {
                 ProcessToolbarElementMetadata(childElement, toolbarElement, model);
             }
@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             EvaluateToolbarElementAvailability(toolbarElement, elementToEvaluate, model);
         }
 
-        internal void EvaluateToolbarElementAvailability<TViewModel>(UiElementMetadata toolbarElementMetadata, ToolbarElementStructure toolbarlement, TViewModel model)
+        internal void EvaluateToolbarElementAvailability<TViewModel>(UIElementMetadata toolbarElementMetadata, ToolbarElementStructure toolbarlement, TViewModel model)
             where TViewModel : IEntityViewModelBase
         {
             toolbarlement.Disabled |= IsUiElementDisabled(toolbarElementMetadata, model);
@@ -159,7 +159,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             }
         }
 
-        internal void ProcessRelatedItemMetadata(UiElementMetadata relatedItemElementMetadata, IEntityViewModelBase model)
+        internal void ProcessRelatedItemMetadata(UIElementMetadata relatedItemElementMetadata, IEntityViewModelBase model)
         {
             if (relatedItemElementMetadata.NameDescriptor == null)
             {
@@ -187,7 +187,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             EvaluateRelatedItemExtendedInfo(relatedItemElementMetadata, elementToEvaluate, model);
         }
 
-        internal void EvaluateRelatedItemAvailability(UiElementMetadata relatedItemElementMetadata, CardRelatedItemStructure relatedItemElement, IEntityViewModelBase model)
+        internal void EvaluateRelatedItemAvailability(UIElementMetadata relatedItemElementMetadata, CardRelatedItemStructure relatedItemElement, IEntityViewModelBase model)
         {
             relatedItemElement.Disabled |= IsUiElementDisabled(relatedItemElementMetadata, model);
 
@@ -198,7 +198,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             }
         }
 
-        internal void EvaluateRelatedItemExtendedInfo(UiElementMetadata relatedItemElementMetadata, CardRelatedItemStructure relatedItemElement, IEntityViewModelBase model)
+        internal void EvaluateRelatedItemExtendedInfo(UIElementMetadata relatedItemElementMetadata, CardRelatedItemStructure relatedItemElement, IEntityViewModelBase model)
         {
             foreach (var extendedInfoFeature in relatedItemElementMetadata.Features.OfType<ExtendedInfoFeature>())
             {
@@ -221,7 +221,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             }
         }
 
-        internal bool IsUiElementDisabled(UiElementMetadata element, IEntityViewModelBase model)
+        internal bool IsUiElementDisabled(UIElementMetadata element, IEntityViewModelBase model)
         {
             if (element.Uses<LockOnNewCardFeature>() && model.IsNew)
             {
@@ -272,7 +272,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             return false;
         }
 
-        internal bool IsUiElementInvisible<TViewModel>(UiElementMetadata element, TViewModel model)
+        internal bool IsUiElementInvisible<TViewModel>(UIElementMetadata element, TViewModel model)
             where TViewModel : IViewModelAbstract
         {
             foreach (var feature in element.Features<IHideExpressionFeature>())

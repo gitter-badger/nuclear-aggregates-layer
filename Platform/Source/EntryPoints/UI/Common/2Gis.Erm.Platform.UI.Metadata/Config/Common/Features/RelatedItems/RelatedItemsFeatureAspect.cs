@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems
         }
 
 
-        public TBuilder Attach(params UiElementMetadata[] relatedItems)
+        public TBuilder Attach(params UIElementMetadata[] relatedItems)
         {
             if (relatedItems == null || relatedItems.Length == 0)
             {

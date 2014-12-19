@@ -6,14 +6,14 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems
 {
     public sealed class RelatedItemsFeature : IRelatedItemsFeature
     {
-        private readonly UiElementMetadata[] _relatedItems;
+        private readonly UIElementMetadata[] _relatedItems;
 
-        public RelatedItemsFeature(params UiElementMetadata[] relatedItems)
+        public RelatedItemsFeature(params UIElementMetadata[] relatedItems)
         {
             _relatedItems = relatedItems;
         }
 
-        public RelatedItemsFeature(IResourceDescriptor name, ITitleDescriptor title, params UiElementMetadata[] relatedItems)
+        public RelatedItemsFeature(IResourceDescriptor name, ITitleDescriptor title, params UIElementMetadata[] relatedItems)
         {
             _relatedItems = relatedItems;
             NameDescriptor = name;
@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems
         public IResourceDescriptor NameDescriptor { get; private set; }
         public ITitleDescriptor TitleDescriptor { get; private set; }
 
-        public UiElementMetadata[] RelatedItems
+        public UIElementMetadata[] RelatedItems
         {
             get
             {

@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
     public static class UiElementMetadataBuilderExtensions
     {
-        public static UiElementMetadataBuilder CreateAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder CreateAction<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : class, IEntity, IEntityKey
         {
             return builder.Name.Static("Create")
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.SpecificFor<CreateIdentity, TEntity>();
         }
 
-        public static UiElementMetadataBuilder UpdateAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder UpdateAction<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : class, IEntity, IEntityKey
         {
             return builder.Name.Static("Update")
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.SpecificFor<UpdateIdentity, TEntity>();
         }
 
-        public static UiElementMetadataBuilder SplitterAction(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder SplitterAction(this UIElementMetadataBuilder builder)
         {
             return builder.Name.Static("Splitter")
                           .Title.Resource(() => ErmConfigLocalization.ControlSplitter)
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .LockOnInactive();
         }
 
-        public static UiElementMetadataBuilder PrintActions(this UiElementMetadataBuilder builder, params UiElementMetadata[] printActions)
+        public static UIElementMetadataBuilder PrintActions(this UIElementMetadataBuilder builder, params UIElementMetadata[] printActions)
         {
             return builder.Name.Static("PrintActions")
                           .Title.Resource(() => ErmConfigLocalization.ControlPrintActions)
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Childs(printActions);
         }
 
-        public static UiElementMetadataBuilder AdditionalActions(this UiElementMetadataBuilder builder, params UiElementMetadata[] actions)
+        public static UIElementMetadataBuilder AdditionalActions(this UIElementMetadataBuilder builder, params UIElementMetadata[] actions)
         {
             return builder.Name.Static("Actions")
                           .Title.Resource(() => ErmConfigLocalization.ControlActions)
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Childs(actions);
         }
 
-        public static UiElementMetadataBuilder CreateAndCloseAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder CreateAndCloseAction<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : class, IEntity, IEntityKey
         {
             return builder.Name.Static("CreateAndClose")
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.NonCoupled<CloseIdentity>();
         }
 
-        public static UiElementMetadataBuilder UpdateAndCloseAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder UpdateAndCloseAction<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : class, IEntity, IEntityKey
         {
             return builder.Name.Static("UpdateAndClose")
@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.NonCoupled<CloseIdentity>();
         }
 
-        public static UiElementMetadataBuilder QualifyAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder QualifyAction<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : class, IEntity
         {
             return builder.Name.Static("Qualify")
@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.SpecificFor<QualifyIdentity, TEntity>();
         }
 
-        public static UiElementMetadataBuilder DisqualifyAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder DisqualifyAction<TEntity>(this UIElementMetadataBuilder builder)
            where TEntity : class, IEntity
         {
             return builder.Name.Static("Disqualify")
@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.SpecificFor<QualifyIdentity, TEntity>();
         }
 
-        public static UiElementMetadataBuilder ActivateAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder ActivateAction<TEntity>(this UIElementMetadataBuilder builder)
            where TEntity : class, IEntity
         {
             return builder.Name.Static("Activate")
@@ -134,7 +134,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.SpecificFor<ActivateIdentity, TEntity>();
         }
 
-        public static UiElementMetadataBuilder RefreshAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder RefreshAction<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : class, IEntity
         {
             return builder.Name.Static("Refresh")
@@ -146,7 +146,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
         }
 
         // COMMENT {all, 28.11.2014}: А почему не assign?
-        public static UiElementMetadataBuilder ChangeOwnerAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder ChangeOwnerAction<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : class, IEntity
         {
             return builder.Name.Static("ChangeOwner")
@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.SpecificFor<AssignIdentity, TEntity>();
         }
 
-        public static UiElementMetadataBuilder AssignAction<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder AssignAction<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : class, IEntity
         {
             return builder.Name.Static("Assign")
@@ -172,7 +172,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             // COMMENT {all, 26.11.2014}: Доступ никак не ограничиваем?
         }
 
-        public static UiElementMetadataBuilder CloseAction(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder CloseAction(this UIElementMetadataBuilder builder)
         {
             return builder.Name.Static("Close")
                           .Title.Resource(() => ErmConfigLocalization.ControlClose)
@@ -182,35 +182,35 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                           .Operation.NonCoupled<CloseIdentity>();
         }
 
-        public static UiElementMetadataBuilder ContentTab(this UiElementMetadataBuilder builder, string icon)
+        public static UIElementMetadataBuilder ContentTab(this UIElementMetadataBuilder builder, string icon)
         {
             return builder.Name.Static("ContentTab")
                           .Title.Resource(() => ErmConfigLocalization.CrdRelInformation)
                           .Icon.Path(icon);
         }
 
-        public static UiElementMetadataBuilder ContentTab(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder ContentTab(this UIElementMetadataBuilder builder)
         {
             return builder.ContentTab("en_ico_16_Default.gif");
         }
 
-        public static UiElementMetadataBuilder AppendapleEntity<TEntity>(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder AppendapleEntity<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : IEntity
         {
             return builder.WithFeatures(new AppendableEntityFeature(typeof(TEntity).AsEntityName()));
         }
 
-        public static UiElementMetadataBuilder FilterToParent(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder FilterToParent(this UIElementMetadataBuilder builder)
         {
             return builder.WithFeatures(new FilterToParentFeature());
         }
 
-        public static UiElementMetadataBuilder FilterToParents(this UiElementMetadataBuilder builder)
+        public static UIElementMetadataBuilder FilterToParents(this UIElementMetadataBuilder builder)
         {
             return builder.WithFeatures(new FilterByParentsFeature());
         }
 
-        public static UiElementMetadataBuilder ExtendedInfo(this UiElementMetadataBuilder builder, IResourceDescriptor extendedInfo)
+        public static UIElementMetadataBuilder ExtendedInfo(this UIElementMetadataBuilder builder, IResourceDescriptor extendedInfo)
         {
             return builder.WithFeatures(new ExtendedInfoFeature(extendedInfo));
         }

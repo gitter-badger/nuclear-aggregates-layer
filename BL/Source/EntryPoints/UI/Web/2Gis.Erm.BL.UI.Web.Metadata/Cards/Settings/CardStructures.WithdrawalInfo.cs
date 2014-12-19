@@ -13,22 +13,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<WithdrawalInfo>()
                         .MainAttribute(x => x.Id)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<WithdrawalInfo>(),
-                                UiElementMetadata.Config.UpdateAction<WithdrawalInfo>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<WithdrawalInfo>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<WithdrawalInfo>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<WithdrawalInfo>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.AdditionalActions(UiElementMetadata.Config
+                        .Attach(UIElementMetadata.Config.CreateAction<WithdrawalInfo>(),
+                                UIElementMetadata.Config.UpdateAction<WithdrawalInfo>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<WithdrawalInfo>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<WithdrawalInfo>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<WithdrawalInfo>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.AdditionalActions(UIElementMetadata.Config
                                                                                             .Name.Static("DownloadResults")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlDownloadResults)
                                                                                             .LockOnNew()
                                                                                             .LockOnInactive()
                                                                                             .ControlType(ControlType.TextButton)
                                                                                             .Handler.Name("scope.DownloadResults")),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction());
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction());
     }
 }

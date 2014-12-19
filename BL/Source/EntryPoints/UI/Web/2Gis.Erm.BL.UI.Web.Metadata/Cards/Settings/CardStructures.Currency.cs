@@ -15,15 +15,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .MainAttribute<Currency, ICurrencyViewModel>(x => x.Name)
                         .ConfigCommonCardToolbar()
                         .ConfigRelatedItems(
-                                    UiElementMetadata.Config.ContentTab("en_ico_16_Currency.gif"),
-                                    UiElementMetadata.Config
+                                    UIElementMetadata.Config.ContentTab("en_ico_16_Currency.gif"),
+                                    UIElementMetadata.Config
                                                      .Name.Static("CurrencyRate")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCurrencyRate)
                                                      .LockOnNew()
                                                      .DisableOn<ICurrencyViewModel>(x => x.IsBase)
                                                      .Handler.ShowGridByConvention(EntityName.CurrencyRate)
                                                      .FilterToParent(),
-                                    UiElementMetadata.Config
+                                    UIElementMetadata.Config
                                                      .Name.Static("Country")
                                                      .Title.Resource(() => ErmConfigLocalization.CrdRelCountry)
                                                      .Icon.Path("en_ico_16_Country.gif")

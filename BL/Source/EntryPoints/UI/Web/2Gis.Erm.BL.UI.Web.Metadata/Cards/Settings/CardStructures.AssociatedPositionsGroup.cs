@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<AssociatedPositionsGroup>()
                         .MainAttribute<AssociatedPositionsGroup, IAssociatedPositionsGroupViewModel>(x => x.Name)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
-                                            UiElementMetadata.Config.Name.Static("AssociatedPosition")
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab(),
+                                            UIElementMetadata.Config.Name.Static("AssociatedPosition")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelAssociatedPosition)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.AssociatedPosition)

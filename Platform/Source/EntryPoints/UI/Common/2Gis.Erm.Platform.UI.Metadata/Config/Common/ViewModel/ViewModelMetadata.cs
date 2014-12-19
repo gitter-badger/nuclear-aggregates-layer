@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public UiElementMetadata[] RelatedItems
+        public UIElementMetadata[] RelatedItems
         {
             get
             {
@@ -124,11 +124,11 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public UiElementMetadata[] ActionsDescriptors
+        public UIElementMetadata[] ActionsDescriptors
         {
             get
             {
-                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new UiElementMetadata[0];
+                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new UIElementMetadata[0];
             }
         }
     }

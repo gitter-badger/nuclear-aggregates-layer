@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features
 {
-    public interface IDisableExpressionFeature : IUiElementExpressionFeature
+    public interface IDisableExpressionFeature : IUIElementExpressionFeature
     {
     }
 }

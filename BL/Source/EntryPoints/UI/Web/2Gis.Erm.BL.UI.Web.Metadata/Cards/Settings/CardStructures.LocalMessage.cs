@@ -12,12 +12,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata LocalMessage =
             CardMetadata.For<LocalMessage>()
                         .MainAttribute(x => x.Id)
-                        .Actions.Attach(UiElementMetadata.Config
-                                                         .AdditionalActions(UiElementMetadata.Config
+                        .Actions.Attach(UIElementMetadata.Config
+                                                         .AdditionalActions(UIElementMetadata.Config
                                                                                              .Name.Static("SaveAs")
                                                                                              .Title.Resource(() => ErmConfigLocalization.ControlSaveAs)
                                                                                              .ControlType(ControlType.TextButton)
                                                                                              .Handler.Name("scope.SaveAs")),
-                                        UiElementMetadata.Config.CloseAction());
+                                        UIElementMetadata.Config.CloseAction());
     }
 }

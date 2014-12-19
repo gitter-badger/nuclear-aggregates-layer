@@ -17,18 +17,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Firm>()
                         .MainAttribute<Firm, IFirmViewModel>(x => x.Name)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<Firm>(),
-                                UiElementMetadata.Config.UpdateAction<Firm>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<Firm>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<Firm>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<Firm>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.AdditionalActions(UiElementMetadata.Config.ChangeOwnerAction<Firm>(),
+                        .Attach(UIElementMetadata.Config.CreateAction<Firm>(),
+                                UIElementMetadata.Config.UpdateAction<Firm>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<Firm>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<Firm>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<Firm>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.AdditionalActions(UIElementMetadata.Config.ChangeOwnerAction<Firm>(),
 
                                                                            // COMMENT {all, 28.11.2014}: а как же безопасность?
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("ChangeFirmClient")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlChangeFirmClient)
                                                                                             .ControlType(ControlType.TextButton)
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .Operation.SpecificFor<ChangeClientIdentity, Firm>(),
 
                                                                            // COMMENT {all, 28.11.2014}: а как же безопасность?
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("ChangeTerritory")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlChangeTerritory)
                                                                                             .ControlType(ControlType.TextButton)
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .Operation.SpecificFor<ChangeTerritoryIdentity, Firm>(),
 
                                                                            // COMMENT {all, 28.11.2014}: а как же безопасность?
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("AssignWhiteListedAd")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlAssignWhiteListedAd)
                                                                                             .ControlType(ControlType.TextButton)
@@ -54,18 +54,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .Handler.Name("scope.AssignWhiteListedAd")
                                                                                             .Operation.NonCoupled<SelectAdvertisementToWhitelistIdentity>(),
 
-                                                                           UiElementMetadata.Config.QualifyAction<Firm>()),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
-                                            UiElementMetadata.Config
+                                                                           UIElementMetadata.Config.QualifyAction<Firm>()),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction())
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab(),
+                                            UIElementMetadata.Config
                                                              .Name.Static("FirmAddresses")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAddresses)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.FirmAddress)
                                                              .FilterToParent(),
 
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("FirmCategories")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelCategories)
                                                              .Icon.Path("en_ico_16_Category.gif")
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Handler.ShowGridByConvention(EntityName.CategoryFirmAddress)
                                                              .FilterToParent(),
 
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("FirmAdvertisements")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAdvertisements)
                                                              .Icon.Path("en_ico_16_Advertisement.gif")
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Handler.ShowGridByConvention(EntityName.Advertisement)
                                                              .FilterToParent(),
 
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("Orders")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
                                                              .Icon.Path("en_ico_16_Order.gif")
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .Handler.ShowGridByConvention(EntityName.Order)
                                                              .FilterToParent(),
 
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("Actions")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
                                                              .Icon.Path("en_ico_16_Action.gif")

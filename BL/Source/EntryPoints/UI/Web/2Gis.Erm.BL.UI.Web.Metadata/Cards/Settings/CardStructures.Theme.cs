@@ -17,15 +17,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Theme>()
                         .MainAttribute<Theme, IThemeViewModel>(x => x.Name)
                         .Actions
-                        .Attach(UiElementMetadata.Config.CreateAction<Theme>(),
-                                UiElementMetadata.Config.UpdateAction<Theme>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CreateAndCloseAction<Theme>(),
-                                UiElementMetadata.Config.UpdateAndCloseAction<Theme>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.RefreshAction<Theme>(),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.AdditionalActions(UiElementMetadata.Config
+                        .Attach(UIElementMetadata.Config.CreateAction<Theme>(),
+                                UIElementMetadata.Config.UpdateAction<Theme>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CreateAndCloseAction<Theme>(),
+                                UIElementMetadata.Config.UpdateAndCloseAction<Theme>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.RefreshAction<Theme>(),
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.AdditionalActions(UIElementMetadata.Config
                                                                                             .Name.Static("SetDefaultTheme")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlSetDefaultTheme)
                                                                                             .ControlType(ControlType.TextButton)
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .AccessWithPrivelege<Theme>(EntityAccessTypes.Update)
                                                                                             .Operation.NonCoupled<SetAsDefaultThemeIdentity>(),
 
-                                                                           UiElementMetadata.Config
+                                                                           UIElementMetadata.Config
                                                                                             .Name.Static("UnSetDefaultTheme")
                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlUnSetDefaultTheme)
                                                                                             .ControlType(ControlType.TextButton)
@@ -50,17 +50,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                                             .AccessWithPrivelege<Theme>(EntityAccessTypes.Create)
                                                                                             .AccessWithPrivelege<Theme>(EntityAccessTypes.Update)
                                                                                             .Operation.NonCoupled<SetAsDefaultThemeIdentity>()),
-                                UiElementMetadata.Config.SplitterAction(),
-                                UiElementMetadata.Config.CloseAction())
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab(),
-                                            UiElementMetadata.Config
+                                UIElementMetadata.Config.SplitterAction(),
+                                UIElementMetadata.Config.CloseAction())
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab(),
+                                            UIElementMetadata.Config
                                                              .Name.Static("ThemeOrganizationUnit")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelThemeOrganizationUnit)
                                                              .LockOnNew()
                                                              .Handler.ShowGridByConvention(EntityName.ThemeOrganizationUnit)
                                                              .FilterToParent()
                                                              .AppendapleEntity<OrganizationUnit>(),
-                                            UiElementMetadata.Config
+                                            UIElementMetadata.Config
                                                              .Name.Static("ThemeCategory")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelThemeCategory)
                                                              .LockOnNew()

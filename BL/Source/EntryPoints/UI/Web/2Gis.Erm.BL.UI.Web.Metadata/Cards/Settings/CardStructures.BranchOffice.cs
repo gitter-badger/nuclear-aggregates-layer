@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<BranchOffice>()
                         .MainAttribute<BranchOffice, IBranchOfficeViewModel>(x => x.Name)
                         .ConfigCommonCardToolbar()
-                        .ConfigRelatedItems(UiElementMetadata.Config.ContentTab("en_ico_16_BranchOffice.gif"),
-                                            UiElementMetadata.Config
+                        .ConfigRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_BranchOffice.gif"),
+                                            UIElementMetadata.Config
                                                              .Name.Static("BOOU")
                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelBOOU)
                                                              .LockOnNew()
