@@ -158,7 +158,7 @@ function Get-BranchFileName {
 	return $filePath
 }
 
-function Validate-WebSite($EntryPointMetadata, $UriPath){
+function Validate-WebSite($EntryPointMetadata, $UriPath, $WaitAttempts = 5){
 
 	if (!$EntryPointMetadata.ValidateWebsite){
 		return
@@ -166,12 +166,20 @@ function Validate-WebSite($EntryPointMetadata, $UriPath){
 
 	$uriBuilder = New-Object System.UriBuilder('https', $EntryPointMetadata.IisAppPath, -1, $UriPath)
 	
-	try{
-		Invoke-WebRequest $uriBuilder.Uri -UseDefaultCredentials -UseBasicParsing -TimeoutSec 300 | Out-Null
+	for ($i = 0; $i -lt $WaitAttempts; $i++){
+
+		try{
+			Invoke-WebRequest $uriBuilder.Uri -UseDefaultCredentials -UseBasicParsing -TimeoutSec 300 | Out-Null
+			break
+		}
+		catch [System.Net.WebException] {
+			Write-Host "Error then calling '$($uriBuilder.Uri)' (attempt $($i + 1))"
+			Start-Sleep -Second 5
+		}
 	}
-	catch{
-		Write-Host "Error then calling '$($uriBuilder.Uri)'"
-		throw
+	
+	if ($i -eq $WaitAttempts){
+		throw "Failed to get '$($uriBuilder.Uri)' after $WaitAttempts attempts"
 	}
 }
 
