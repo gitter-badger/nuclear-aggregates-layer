@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
@@ -13,12 +14,6 @@ using DoubleGis.Platform.UI.WPF.Shell.Layout.Documents;
 using DoubleGis.Platform.UI.WPF.Shell.Layout.Navigation;
 using DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability;
 using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
-
-using log4net;
-using log4net.Appender;
-using log4net.Core;
-using log4net.Layout;
-using log4net.Repository.Hierarchy;
 
 using Microsoft.Practices.Unity;
 
@@ -46,7 +41,11 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 // Более цивилизованные варианты - подключиться к API автоматизации Visual studio (см. EnvDTE) и провоцировать перезагрузку/перерисовку Designer 
                 #endregion
 
-                logger = DesignTimeCreateLogger();
+                logger = Log4NetLoggerBuilder.Use
+                                             .Trace
+                                             .File("Erm.WPF.Client.DesignTime")
+                                             .Build;
+
                 logger.InfoEx("Design time configuring started ...");
 
                 DesignTimeAssemblyLoader.Attach(logger);
@@ -102,35 +101,6 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 //DesignTimeAssemblyLoader.Deattach();
             }
         }
-
-        private static ICommonLog DesignTimeCreateLogger()
-        {
-            const string ErmWpfClientDebugLogger = "ErmWpfClientDebugLogger";
-
-            var patternLayout =
-                new PatternLayout
-                {
-                    ConversionPattern = "%date [%thread] %-5level %message %newline %exception"
-                };
-
-            patternLayout.ActivateOptions();
-
-            var logfileFullPath = string.Format(
-                @"{0}\2GIS\InternalLogs\designtime_ermclient.log", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
-            var fileAppender  = new FileAppender { File = logfileFullPath, AppendToFile = false, ImmediateFlush = true, Layout = patternLayout };
-            fileAppender.ActivateOptions();
-            var traceAppender = new TraceAppender { Name = "Trace", Layout = patternLayout, Threshold = Level.All };
-            // необязательно traceAppender.ActivateOptions();
-
-            var logger = LogManager.GetLogger(ErmWpfClientDebugLogger);
-            var coreLogger = (Logger)logger.Logger;
-            coreLogger.AddAppender(fileAppender);
-            coreLogger.AddAppender(traceAppender);
-            coreLogger.Hierarchy.Configured = true;
-
-            return Log4NetImpl.GetLogger(ErmWpfClientDebugLogger);
-        }
-
 
         private static IUnityContainer DesignTimeConfigureModules(this IUnityContainer container)
         {

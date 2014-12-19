@@ -377,6 +377,30 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ALTER Procedure [dbo].[WriteSeanceData]
+        ///	@SeanceCode  char(36), 
+        ///	@ModuleName  NVARCHAR(50),
+        ///	@MessageDate datetime2
+        ///AS
+        ///SET NOCOUNT ON;
+        ///Declare @ModuleId tinyint
+        ///Select @ModuleId=Id from Modules where Name=@ModuleName
+        ///IF(@ModuleId is null)
+        ///Begin
+        ///	INSERT INTO Modules(Name) VALUES (@ModuleName)
+        ///	SET @ModuleId = SCOPE_IDENTITY()
+        ///End
+        ///
+        ///INSERT INTO [dbo].[Seances]([Id], [ModuleId], [MessageDate]) 
+        ///	VALUES(CAST(@SeanceCode as uniqueidentifier), @ModuleId, @MessageDate).
+        /// </summary>
+        internal static string _201411241430_UpgradeLoggingStorage_ {
+            get {
+                return ResourceManager.GetString("_201411241430_UpgradeLoggingStorage_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///-- 05.06.2013, a.rechkalov: добавил параметр RegionalTerritoryLocalName
         ///-- 05.06.2013, a.rechkalov: добавил условие, чтобы в Integration.Builings не пытался вставиться NULL

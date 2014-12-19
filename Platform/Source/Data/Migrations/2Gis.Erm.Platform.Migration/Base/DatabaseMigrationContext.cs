@@ -14,7 +14,13 @@ namespace DoubleGis.Erm.Platform.Migration.Base
         private Database _database;
         private ServerConnection _connection;
 
-        public DatabaseMigrationContext(string connectionString, string crmDatabaseName, string loggingDatabaseName, string ermDatabaseName, TextWriter output, bool isCaptureMode = false)
+        public DatabaseMigrationContext(
+            string connectionString, 
+            string crmDatabaseName, 
+            string loggingDatabaseName, 
+            string ermDatabaseName, 
+            TextWriter output, 
+            bool isCaptureMode = false)
         {
             _connectionString = connectionString;
             _isCaptureMode = isCaptureMode;

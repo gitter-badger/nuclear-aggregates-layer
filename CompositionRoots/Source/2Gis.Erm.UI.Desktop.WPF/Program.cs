@@ -1,16 +1,12 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows;
 
-using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Platform.UI.WPF.Shell;
 using DoubleGis.Platform.UI.WPF.Shell.DI;
-
-using log4net.Config;
 
 namespace DoubleGis.Erm.UI.Desktop.WPF
 {
@@ -19,7 +15,10 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
         [STAThread]
         public static void Main(string[] args)
         {
-            var logger = CreateLogger(); 
+            var logger = Log4NetLoggerBuilder.Use
+                                             .XmlConfig(Path.Combine(Bootstrapper.GetApplicationWorkingDirectory, Log4NetLoggerBuilder.DefaultLogConfigFileName))
+                                             .File("Erm.WPF.Client")
+                                             .Build; 
 
             logger.InfoEx("Application starting ...");
 
@@ -45,13 +44,6 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
             }
 
             logger.InfoEx("Application finished");
-        }
-
-        private static ICommonLog CreateLogger()
-        {
-            var logConfigFileFullPath = Path.Combine(Bootstrapper.GetApplicationWorkingDirectory, LogUtils.DefaultLogConfigFileName);
-            XmlConfigurator.Configure(new FileInfo(logConfigFileFullPath));
-            return Log4NetImpl.GetLogger(LoggerConstants.Erm);
         }
     }
 }

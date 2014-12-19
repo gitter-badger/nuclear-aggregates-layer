@@ -57,7 +57,10 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(
+            ISettingsContainer settingsContainer,
+            ICommonLog logger,
+            ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -86,6 +89,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                          logger,
                                                                           loggerContextManager))
                             .ConfigureServiceClient();
         }
@@ -102,10 +106,11 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
+            ICommonLog logger,
             ILoggerContextManager loggerContextManager)
         {
             return container
-                .ConfigureLogging(loggerContextManager)
+                .ConfigureLogging(logger, loggerContextManager)
                 .CreateErmSpecific(msCrmSettings)
                 .CreateSecuritySpecific()
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
@@ -122,7 +127,6 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                                        typeof(EnumResources),
                                        typeof(BLFlex.Resources.Server.Properties.BLResources))
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, SpecialOperationsSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
@@ -140,11 +144,6 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-        }
-
-        private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
-        {
-            return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
@@ -189,6 +188,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                 .RegisterTypeWithDependencies<ISecurityServiceSharings, SecurityServiceFacade>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterType<IUserContext, UserContext>(CustomLifetime.PerOperationContext, new InjectionFactory(c => new UserContext(null, null)))
+                .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterType<ISignInByIdentityService, ExplicitlyIdentitySignInService>(CustomLifetime.PerOperationContext,
                                     new InjectionConstructor(typeof(ISecurityServiceAuthentication),
