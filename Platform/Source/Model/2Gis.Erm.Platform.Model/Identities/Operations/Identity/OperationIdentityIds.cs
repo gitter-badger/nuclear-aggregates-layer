@@ -55,8 +55,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int AttachExternalReleaseProcessingMessagesIdentity = 1009;
         public const int ValidateOrdersForReleaseIdentity = 1010;
         public const int EnsureOrdersForReleaseCompletelyExportedIdentity = 1011;
-        public const int ReplicateDealStageIdentity = 1012;
-        public const int UpdateAfterSaleServiceIdentity = 1013;
+        public const int ChangeDealStageIdentity = 1012;
         public const int ActualizeAccountsDuringWithdrawalIdentity = 1014;
         public const int WithdrawFromAccountsIdentity = 1015;
         public const int ActualizeOrdersDuringWithdrawalIdentity = 1016;
@@ -74,9 +73,6 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.OrderValidationResult = 232
         public const int ResetValidationGroupIdentity = 23201;
-
-		// EntityName.Activity = 500
-		public const int AssignRegardingObjectIdentity = 50001;
 
         // EntityName.Advertisement = 186
         public const int SelectAdvertisementToWhitelistIdentity = 18601;
@@ -150,8 +146,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.HotClientRequest = 257
         public const int ImportHotClientIdentity = 25701;
-        public const int GetHotClientTaskToReplicateIdentity = 25702;
-        public const int BindCrmTaskToHotClientRequestIdentity = 25703;
+        public const int GetHotClientRequestIdentity = 25702;
+        public const int ProcessHotClientRequestIdentity = 25704;
+        public const int BindTaskToHotClientRequestIdentity = 25703;
 
         // EntityName.AccountDetail = 141
         public const int ImportOperationsInfoIdentity = 14101;
@@ -233,6 +230,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.BranchOfficeOrganizationUnit = 139
         public const int SetBranchOfficeOrganizationUnitAsPrimaryIdentity = 13901;
         public const int SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity = 13902;
+
+        // EntityName.Activity = 500
+        public const int CheckRelatedActivitiesIdentity = 50001;
 
         // EntityName.ClientLink = 609
         public const int UpdateOrganizationStructureDenormalization = 60901;

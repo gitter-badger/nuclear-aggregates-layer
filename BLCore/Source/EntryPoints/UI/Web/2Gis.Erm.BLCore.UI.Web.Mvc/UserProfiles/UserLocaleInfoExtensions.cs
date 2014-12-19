@@ -28,7 +28,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
                                         ermUserProfile.UserLocaleInfo.UserCultureInfo.TwoLetterISOLanguageName, 
                                         ermUserProfile.UserLocaleInfo.UserCultureInfo.NumberFormat, 
                                         ermUserProfile.UserLocaleInfo.UserCultureInfo.DateTimeFormat,
-                                        ermUserProfile.UserLocaleInfo.UserTimeZoneInfo.ToOffsetFromUtcInMinutes());   
+                                        ermUserProfile.UserLocaleInfo.UserTimeZoneInfo.ToOffsetFromUtcInMinutes(),
+                                        ermUserProfile.UserLocaleInfo.UserTimeZoneInfo.Id);   
         }
 
         public static UserLocaleInfo GetUserLocaleInfo(this ViewDataDictionary viewData)
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
             };
         }
 
-        public static DateTimeFormatInfoDto ToDto(this DateTimeFormatInfo dateTimeFormatInfo, int timeOffsetInMinutes)
+        public static DateTimeFormatInfoDto ToDto(this DateTimeFormatInfo dateTimeFormatInfo, int timeOffsetInMinutes, string timeZoneId)
         {
             return new DateTimeFormatInfoDto
             {
@@ -73,6 +74,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
                 FirstDayOfWeek = (int)dateTimeFormatInfo.FirstDayOfWeek,
                 MonthNames = dateTimeFormatInfo.MonthNames,
                 TimeOffsetInMinutes = timeOffsetInMinutes,
+                TimeZoneId = timeZoneId,
                 DotNetShortDatePattern = dateTimeFormatInfo.ShortDatePattern,
                 DotNetShortTimePattern = dateTimeFormatInfo.ShortTimePattern,
                 //Делаем так потому, что все полные форматы в дотнет выводят месяц названием.
@@ -84,7 +86,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
                 //Делаем так потому, что все полные форматы в дотнет выводят месяц названием.
                 PhpFullDateTimePattern = DateTimeExtensions.ConvertNetToPhp(dateTimeFormatInfo.ShortDatePattern + " " + dateTimeFormatInfo.LongTimePattern),
                 PhpInvariantDateTimePattern = DateTimeExtensions.ConvertNetToPhp("MM/dd/yyyy HH:mm:ss"),        
-                PhpYearMonthPattern = DateTimeExtensions.ConvertNetToPhp(dateTimeFormatInfo.YearMonthPattern) // todo разделить php и dotnet версии, чтобы по названию было четко ясно что за версию шаблона используем
+                PhpYearMonthPattern = DateTimeExtensions.ConvertNetToPhp(dateTimeFormatInfo.YearMonthPattern), // todo разделить php и dotnet версии, чтобы по названию было четко ясно что за версию шаблона используем
+
+                MomentJsShortDatePattern = DateTimeExtensions.ConvertNetToMomentJs(dateTimeFormatInfo.ShortDatePattern),
+                MomentJsYearMonthPattern = DateTimeExtensions.ConvertNetToMomentJs(dateTimeFormatInfo.YearMonthPattern),
+                MomentJsShortTimePattern = DateTimeExtensions.ConvertNetToMomentJs(dateTimeFormatInfo.ShortTimePattern),
             };
         }
     }

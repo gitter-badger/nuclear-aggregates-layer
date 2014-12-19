@@ -23,7 +23,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Deal()
         {
             Orders = new HashSet<Order>();
-            AfterSaleServiceActivities = new HashSet<AfterSaleServiceActivity>();
             FirmDeals = new HashSet<FirmDeal>();
             LegalPersonDeals = new HashSet<LegalPersonDeal>();
         }
@@ -76,7 +75,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public ICollection<Order> Orders { get; set; }
         public Client Client { get; set; }
         public Firm Firm { get; set; }
-        public ICollection<AfterSaleServiceActivity> AfterSaleServiceActivities { get; set; }
         public Bargain Bargain { get; set; }
         public ICollection<FirmDeal> FirmDeals { get; set; }
         public ICollection<LegalPersonDeal> LegalPersonDeals { get; set; }

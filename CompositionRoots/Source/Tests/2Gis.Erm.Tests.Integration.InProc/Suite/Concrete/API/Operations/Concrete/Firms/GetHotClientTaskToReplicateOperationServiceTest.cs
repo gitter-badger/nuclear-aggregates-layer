@@ -11,12 +11,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 {
     public class GetHotClientTaskToReplicateOperationServiceTest : UseModelEntityTestBase<HotClientRequest>
     {
-        private readonly IGetHotClientTaskToReplicateOperationService _getHotClientTaskToReplicateOperationService;
+        private readonly IGetHotClientRequestOperationService _getHotClientTaskToReplicateOperationService;
         private readonly IMsCrmSettings _msCrmSettings;
 
         public GetHotClientTaskToReplicateOperationServiceTest(
             IAppropriateEntityProvider<HotClientRequest> appropriateEntityProvider,
-            IGetHotClientTaskToReplicateOperationService getHotClientTaskToReplicateOperationService,
+            IGetHotClientRequestOperationService getHotClientTaskToReplicateOperationService,
             IMsCrmSettings msCrmSettings)
             : base(appropriateEntityProvider)
         {

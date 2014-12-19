@@ -159,12 +159,11 @@
             }
         });
 
-        Ext.onReady(function ()
-        {
+        Ext.onReady(function () {
             var dialogArguments = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
             var ids = dialogArguments;
 
-            var isExtendedMode = (dialogArguments != null && dialogArguments.length > 0 && dialogArguments[0].hasOwnProperty('entityId'));
+            var isExtendedMode = (Ext.isArray(dialogArguments) && dialogArguments.length > 0 && Ext.isObject(dialogArguments[0]) && dialogArguments[0].hasOwnProperty('entityId'));
             if (isExtendedMode) {
             	ids = [];
             	Ext.each(dialogArguments, function (x) { ids.push(x.entityId); });

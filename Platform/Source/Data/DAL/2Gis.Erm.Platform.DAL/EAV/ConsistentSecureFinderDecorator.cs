@@ -12,13 +12,16 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
     public sealed class ConsistentSecureFinderDecorator : ISecureFinder
     {
         private readonly ISecureFinder _secureFinder;
+        private readonly ICompositeEntityDecorator _compositeEntityDecorator;
         private readonly DynamicStorageFinderWrapper _dynamicStorageFinderWrapper;
 
         public ConsistentSecureFinderDecorator(ISecureFinder secureFinder,
                                                IDynamicStorageFinder dynamicStorageFinder,
+                                               ICompositeEntityDecorator compositeEntityDecorator,
                                                IDynamicEntityMetadataProvider dynamicEntityMetadataProvider)
         {
             _secureFinder = secureFinder;
+            _compositeEntityDecorator = compositeEntityDecorator;
             _dynamicStorageFinderWrapper = new DynamicStorageFinderWrapper(dynamicStorageFinder, dynamicEntityMetadataProvider);
         }
 
@@ -63,10 +66,15 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
                 return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, id).SingleOrDefault();
             }
 
+            if (typeof(TEntity).AsEntityName().HasMapping())
+            {
+                return _compositeEntityDecorator.Find(findSpecification).SingleOrDefault();
+            }
+
             return Find(findSpecification).SingleOrDefault();
         }
 
-        public IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity, IEntityKey
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
@@ -79,6 +87,11 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
                 var ids = findSpecification.ExtractEntityIds();
                 // FIXME {d.ivanov, 06.05.2014}: Заменить q => q на реальный restrictor
                 return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, ids).ToArray();
+            }
+
+            if (typeof(TEntity).AsEntityName().HasMapping())
+            {
+                return _compositeEntityDecorator.Find(findSpecification).AsEnumerable();
             }
 
             return Find(findSpecification).ToArray();

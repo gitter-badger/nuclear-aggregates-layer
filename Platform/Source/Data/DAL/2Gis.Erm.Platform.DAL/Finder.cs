@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.Platform.DAL
         }
 
         public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+            where TEntity : class, IEntity
         {
             throw new NotSupportedException("ConsistentFinderDecorator should be used");
         }
