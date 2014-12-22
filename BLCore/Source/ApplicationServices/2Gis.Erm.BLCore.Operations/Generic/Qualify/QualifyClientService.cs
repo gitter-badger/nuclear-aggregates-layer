@@ -109,19 +109,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 
         private void AssignRelatedActivities(long clientId, long newOwnerCode)
         {
-            foreach (var appointment in _appointmentReadModel.LookupAppointmentsRegarding(EntityName.Client, clientId))
+            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityName.Client, clientId))
             {
                 _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
             }
-            foreach (var letter in _letterReadModel.LookupLettersRegarding(EntityName.Client, clientId))
+            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityName.Client, clientId))
             {
                 _assignLetterAggregateService.Assign(letter, newOwnerCode);
             }
-            foreach (var phonecall in _phonecallReadModel.LookupPhonecallsRegarding(EntityName.Client, clientId))
+            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityName.Client, clientId))
             {
                 _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
             }
-            foreach (var task in _taskReadModel.LookupTasksRegarding(EntityName.Client, clientId))
+            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityName.Client, clientId))
             {
                 _assignTaskAggregateService.Assign(task, newOwnerCode);
             }
