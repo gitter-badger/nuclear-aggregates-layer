@@ -19,11 +19,17 @@ window.InitPage = function () {
             CreateAppointment: function () {
                 this.Create({ overridenEntityName: "Appointment" });
             },
+            CreateLetter: function () {
+                this.Create({ overridenEntityName: "Letter" });
+            },
             renderImage: function (id, col, record) {
                 var iconFileName;
                 switch (record.data.ActivityTypeEnum) {
                     case "Appointment":
                         iconFileName = "en_ico_16_Appointment.gif";
+                        break;
+                    case "Letter":
+                        iconFileName = "en_ico_16_Letter.gif";
                         break;
                     case "Phonecall":
                         iconFileName = "en_ico_16_Phonecall.gif";

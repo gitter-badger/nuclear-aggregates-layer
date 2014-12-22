@@ -23,13 +23,14 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 	}
 
 	Copy-NugetConfig
-	
+
 	# нужно создать nuspec файлы для вообще всех проектов, чтобы правильно работал флаг IncludeReferencedProjects
 	$projects = Find-Projects @('..\..')
 	Create-NuspecFiles $projects
 	
 	$projectDirs = @(
 		'..\..\Platform'
+		'..\..\BLCore'
 		'..\..\BLQuerying'
 	)
 	
@@ -38,8 +39,10 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 		'2Gis.Erm.Platform.Common.csproj'
 		'2Gis.Erm.Platform.API.ServiceBusBroker.csproj'
 		'2Gis.Erm.Platform.API.Core.csproj'
-		
-		'2Gis.Erm.Qds.API.Operations.csproj'		
+		'2Gis.Erm.BLCore.API.Releasing.csproj'
+		'2Gis.Erm.BLCore.API.Operations.Special.csproj'
+	
+		'2Gis.Erm.Qds.API.Operations.csproj'
 	)
 	
 	$projects = Find-Projects $projectDirs $include
@@ -84,7 +87,8 @@ function Build-Packages ($Projects, $OutputDirectory){
 			'pack'
 			$buildFileName
 			'-Properties'
-			'Configuration=Release'
+			# TODO отрефакторить
+			'Configuration=Release;VisualStudioVersion=12.0'
 			'-IncludeReferencedProjects'
 			'-ExcludeEmptyDirectories'
 			'-NoPackageAnalysis'
@@ -123,9 +127,9 @@ function Create-NuspecFiles ($Projects){
 			continue
 		}
 		
-		Set-Content $nuspecFileName $content -Encoding UTF8 -Force
+			Set-Content $nuspecFileName $content -Encoding UTF8 -Force
+		}
 	}
-}
 
 # костыль чтобы указать repositoryPath
 function Copy-NugetConfig {

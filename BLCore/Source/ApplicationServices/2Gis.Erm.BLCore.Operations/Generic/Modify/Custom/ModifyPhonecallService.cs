@@ -1,38 +1,41 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
     public sealed class ModifyPhonecallService : IModifyBusinessModelEntityService<Phonecall>
     {
-        private readonly IActivityReadModel _readModel;
+        private readonly IPhonecallReadModel _readModel;
         private readonly IBusinessModelEntityObtainer<Phonecall> _activityObtainer;
-        private readonly ICreateAggregateRepository<Phonecall> _createOperationService;
+        private readonly ICreatePhonecallAggregateService _createOperationService;
         private readonly IUpdatePhonecallAggregateService _updateOperationService;
-        private readonly IUpdateRegardingObjectAggregateService<Phonecall> _updateRegardingObjectService;
+        private readonly IChangeDealStageOperationService _changeDealStageOperationService;
 
         public ModifyPhonecallService(
-            IActivityReadModel readModel,
+            IPhonecallReadModel readModel,
             IBusinessModelEntityObtainer<Phonecall> obtainer,
-            ICreateAggregateRepository<Phonecall> createOperationService,
+            ICreatePhonecallAggregateService createOperationService,
             IUpdatePhonecallAggregateService updateOperationService,
-            IUpdateRegardingObjectAggregateService<Phonecall> updateRegardingObjectService)
+            IChangeDealStageOperationService changeDealStageOperationService)
         {
             _readModel = readModel;
             _activityObtainer = obtainer;
             _createOperationService = createOperationService;
             _updateOperationService = updateOperationService;
-            _updateRegardingObjectService = updateRegardingObjectService;
+            _changeDealStageOperationService = changeDealStageOperationService;
         }
 
         public long Modify(IDomainEntityDto domainEntityDto)
@@ -40,29 +43,83 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             var phonecallDto = (PhonecallDomainEntityDto)domainEntityDto;
             var phonecall = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            IEnumerable<RegardingObject<Phonecall>> oldRegardingObjects;
-            if (phonecall.IsNew())
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                _createOperationService.Create(phonecall);
-                oldRegardingObjects = null;
+                IEnumerable<PhonecallRegardingObject> oldRegardingObjects;
+                PhonecallRecipient oldRecipient;
+                if (phonecall.IsNew())
+                {
+                    _createOperationService.Create(phonecall);
+                    oldRegardingObjects = null;
+                    oldRecipient = null;
+                }
+                else
+                {
+                    _updateOperationService.Update(phonecall);
+                    oldRegardingObjects = _readModel.GetRegardingObjects(phonecall.Id);
+                    oldRecipient = _readModel.GetRecipient(phonecall.Id);
+                }
+
+                _updateOperationService.ChangeRegardingObjects(phonecall,
+                                                               oldRegardingObjects,
+                                                               phonecall.ReferencesIfAny<Phonecall, PhonecallRegardingObject>(phonecallDto.RegardingObjects));
+                _updateOperationService.ChangeRecipient(phonecall, oldRecipient, phonecall.ReferencesIfAny<Phonecall, PhonecallRecipient>(phonecallDto.RecipientRef));
+
+                if (phonecall.Status == ActivityStatus.Completed)
+                {
+                    UpdateDealStage(phonecallDto);
+                }
+
+                transaction.Complete();
+
+                return phonecall.Id;
             }
-            else
+        }
+
+        /// <summary>
+        /// Tries to update the related deal stage if any.
+        /// </summary>
+        /// <remarks>
+        /// See the specs on https://confluence.2gis.ru/pages/viewpage.action?pageId=48464616.
+        /// </remarks>
+        private void UpdateDealStage(PhonecallDomainEntityDto appointmentDto)
+        {
+            var dealRef = appointmentDto.RegardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal);
+            if (dealRef == null || !dealRef.Id.HasValue)
             {
-                _updateOperationService.Update(phonecall);
-                oldRegardingObjects = _readModel.GetRegardingObjects<Phonecall>(phonecall.Id);
+                return;
             }
 
-            _updateRegardingObjectService.ChangeRegardingObjects(
-                oldRegardingObjects,
-                new[]
-                    {
-                        phonecall.ReferenceIfAny(EntityName.Client, phonecallDto.ClientRef != null ? phonecallDto.ClientRef.Id : null),
-                        phonecall.ReferenceIfAny(EntityName.Contact, phonecallDto.ContactRef != null ? phonecallDto.ContactRef.Id : null),
-                        phonecall.ReferenceIfAny(EntityName.Deal, phonecallDto.DealRef != null ? phonecallDto.DealRef.Id : null),
-                        phonecall.ReferenceIfAny(EntityName.Firm, phonecallDto.FirmRef != null ? phonecallDto.FirmRef.Id : null)
-                    }.Where(x => x != null));
+            var dealId = dealRef.Id.Value;
+            var purpose = appointmentDto.Purpose;
 
-            return phonecall.Id;
+            var newDealStage = ConvertToStage(purpose);
+            if (newDealStage == DealStage.None)
+            {
+                return;
+            }
+
+            _changeDealStageOperationService.Change(dealId, newDealStage);
+        }
+
+        private static DealStage ConvertToStage(ActivityPurpose purpose)
+        {
+            switch (purpose)
+            {
+                case ActivityPurpose.FirstCall:
+                    return DealStage.CollectInformation;
+
+                case ActivityPurpose.ProductPresentation:
+                case ActivityPurpose.OpportunitiesPresentation:
+                    return DealStage.HoldingProductPresentation;
+
+                case ActivityPurpose.OfferApproval:
+                case ActivityPurpose.DecisionApproval:
+                    return DealStage.MatchAndSendProposition;
+
+                default:
+                    return DealStage.None;
+            }
         }
     }
 }

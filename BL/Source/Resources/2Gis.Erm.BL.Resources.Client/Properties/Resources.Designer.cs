@@ -324,15 +324,6 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AfterSalesServiceOperationStartedMessage {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationStartedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string Alert {
             get {
                 return ResourceManager.GetString("Alert", resourceCulture);
@@ -2433,15 +2424,6 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         public static string TabPanelItemCloseText {
             get {
                 return ResourceManager.GetString("TabPanelItemCloseText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string Task {
-            get {
-                return ResourceManager.GetString("Task", resourceCulture);
             }
         }
         

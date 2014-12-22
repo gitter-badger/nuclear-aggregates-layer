@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.Core.Utils;
+using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.Core.Dto.DomainEntity.Custom
 {
