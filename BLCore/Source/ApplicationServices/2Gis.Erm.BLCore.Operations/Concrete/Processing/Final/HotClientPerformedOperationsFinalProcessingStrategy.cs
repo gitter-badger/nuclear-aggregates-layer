@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 {
     public sealed class HotClientPerformedOperationsFinalProcessingStrategy :
-        MessageProcessingStrategyBase<FinalProcessingOfHotClientPerformedOperationsFlow, PerformedOperationsFinalProcessingMessage, HotClientFinalProcessingResultsMessage>
+        MessageProcessingStrategyBase<FinalProcessHotClientPerformedOperationsFlow, PerformedOperationsFinalProcessingMessage, HotClientFinalProcessingResultsMessage>
     {
         private readonly IGetHotClientRequestOperationService _getHotClientRequestOperationService;
 
