@@ -190,12 +190,28 @@ Task Deploy-TaskService -Precondition { return $OptionTaskService } {
 		$ErrorActionPreference = 'Stop'
 		#------------------------------
 
-		$artifactName = "C:\Windows\Temp\$artifactFileName"
-		cmd.exe /c msiexec.exe -i $artifactName -quiet -norestart -lv "C:\Windows\Temp\2Gis.Erm.TaskService.Installer.log"
-        if ($LastExitCode -ne 0) {
-          throw "Command failed with exit code $LastExitCode"
-        }
-		Remove-Item $artifactName -Force
+		$timeout = '00:01:00'
+		$mutex = New-Object System.Threading.Mutex($false, 'Global\ErmTaskService')
+		$hasHandle = $false
+		
+		try{
+			$hasHandle = $mutex.WaitOne($timeout)
+			if(!$hasHandle){
+				throw "Can't install task service, msiexec is locked by another installation"
+			}
+			
+			$artifactName = "C:\Windows\Temp\$artifactFileName"
+			cmd.exe /c msiexec.exe -i $artifactName -quiet -norestart -lv "C:\Windows\Temp\2Gis.Erm.TaskService.Installer.log"
+	        if ($LastExitCode -ne 0) {
+	          throw "Command failed with exit code $LastExitCode"
+	        }
+			Remove-Item $artifactName -Force
+		}
+		finally {
+			if ($hasHandle){
+				$mutex.ReleaseMutex()
+			}
+		}
 	}
 	
 	$artifactName = Get-Artifacts '' '2Gis.Erm.TaskService.Installer.msi'
