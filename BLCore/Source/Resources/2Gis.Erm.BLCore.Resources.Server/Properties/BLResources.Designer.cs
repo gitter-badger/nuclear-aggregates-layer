@@ -8813,6 +8813,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ModifyAppointmentService_EmptyAttendees {
+            get {
+                return ResourceManager.GetString("ModifyAppointmentService_EmptyAttendees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ModifyAppointmentService_ScheduleRangeIsIncorrect {
             get {
                 return ResourceManager.GetString("ModifyAppointmentService_ScheduleRangeIsIncorrect", resourceCulture);

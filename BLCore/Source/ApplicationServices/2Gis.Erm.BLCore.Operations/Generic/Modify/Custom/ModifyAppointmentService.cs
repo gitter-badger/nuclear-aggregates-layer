@@ -45,6 +45,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             var appointmentDto = (AppointmentDomainEntityDto)domainEntityDto;
             var appointment = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
+            if(!appointmentDto.Attendees.Any())
+            {
+                // TODO {a.pashkin, 22.12.2014}: Я создал ресурс для локализации, обращаю внимание на то, что его нужно перевести, а как правильно переводить я не знаю 
+                throw new NotificationException(BLResources.ModifyAppointmentService_EmptyAttendees);
+            }
+
             if (appointment.ScheduledStart > appointment.ScheduledEnd)
             {
                 throw new NotificationException(BLResources.ModifyAppointmentService_ScheduleRangeIsIncorrect);

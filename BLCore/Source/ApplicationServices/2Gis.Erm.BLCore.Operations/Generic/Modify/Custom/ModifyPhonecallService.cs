@@ -7,6 +7,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -42,6 +44,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         {
             var phonecallDto = (PhonecallDomainEntityDto)domainEntityDto;
             var phonecall = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
+
+            if (!phonecallDto.RegardingObjects.Any())
+            {
+                throw new NotificationException(BLResources.ModifyAppointmentService_EmptyAttendees);
+            }
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
