@@ -174,7 +174,7 @@ function Validate-WebSite($EntryPointMetadata, $UriPath, $WaitAttempts = 5){
 		}
 		catch [System.Net.WebException] {
 			Write-Host "Error then calling '$($uriBuilder.Uri)' (attempt $($i + 1))"
-			Start-Sleep -Second 5
+			Start-Sleep -Second 10
 		}
 	}
 	
