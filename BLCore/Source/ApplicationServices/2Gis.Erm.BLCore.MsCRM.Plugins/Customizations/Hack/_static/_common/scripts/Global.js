@@ -925,7 +925,7 @@ window.CrmUrlToErmUrlTemplateMapping =
     { CrmUrl: "http://uk-crm-test03/DoubleGis03", ErmUrlTemplate: "//web-app03.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app03.test.erm.2gis.ru/" },
     { CrmUrl: "http://uk-crm-test04/DoubleGis04", ErmUrlTemplate: "//web-app04.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app04.test.erm.2gis.ru/" },
     { CrmUrl: "http://uk-crm-test05/DoubleGis05", ErmUrlTemplate: "//web-app05.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app05.test.erm.2gis.ru/" },
-    { CrmUrl: "http://uk-erm-test06/DoubleGis06", ErmUrlTemplate: "//web-app06.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app06.test.erm.2gis.ru/" }
+    { CrmUrl: "http://uk-crm-test06/DoubleGis06", ErmUrlTemplate: "//web-app06.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app06.test.erm.2gis.ru/" }
 ];
 
 window.CrmEntityMapping =
