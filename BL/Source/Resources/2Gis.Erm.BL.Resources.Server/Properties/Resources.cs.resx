@@ -182,15 +182,15 @@
     <value>Reklamní agentura nemůže být zadána jako zprostředkovaný klient</value>
   </data>
   <data name="AccessToChangePeriodOfLimitIsDenied" xml:space="preserve">
-    <value>Недостаточно прав для смены периода лимита</value>
+    <value>Nemáte oprávnění pro změnu lhůty limitu</value>
   </data>
   <data name="AmountToIncreaseLimitIsOutdated" xml:space="preserve">
-    <value>Cумма для увелечения лимита неактуальна</value>
+    <value>Částka pro zvýšení limitu není aktuální</value>
   </data>
   <data name="WrongAmountToIncreaseLimit" xml:space="preserve">
-    <value>Указана некорректная сумма для увелечения лимита</value>
+    <value>Částka pro zvýšení limitu je zadána nesprávně</value>
   </data>
   <data name="OnlyApprovedLimitCanBeIncreased" xml:space="preserve">
-    <value>Увеличить можно только одобренный лимит</value>
+    <value>Zvýšit můžete pouze schválený limit</value>
   </data>
 </root>

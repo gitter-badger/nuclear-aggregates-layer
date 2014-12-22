@@ -157,6 +157,6 @@
     <value>Hodnota pole "{0}" nemá správný formát</value>
   </data>
   <data name="InvalidFieldValue" xml:space="preserve">
-    <value>Hodnota pole "{0}" neobsahuje platnou hodnotu</value>
+    <value>Hodnota pole "{0}" nemá validní hodnotu</value>
   </data>
 </root>

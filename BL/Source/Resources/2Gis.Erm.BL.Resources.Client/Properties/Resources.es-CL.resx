@@ -967,15 +967,15 @@
     <value> Esta razón social ya figura como principal</value>
   </data>
   <data name="LimitIncreasingIsNotRequired" xml:space="preserve">
-    <value>Увеличение лимита не требуется</value>
+    <value>No es necesario aumentar la línea de crédito</value>
   </data>
   <data name="LimitWillBeIncreased" xml:space="preserve">
-    <value>Лимит будет увеличен на сумму {0}</value>
+    <value>La línea de crédito será aumentada por el monto de {0}</value>
   </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
-    <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
+    <value>Error al dirigirse al servidor {0}. Dirígense a los desarrolladores.</value>
   </data>
   <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД-ММ-ГГГГ'</value>
+    <value>Valor incorrecto. Use el formato  'DD-MM-XXXX'</value>
   </data>
 </root>
