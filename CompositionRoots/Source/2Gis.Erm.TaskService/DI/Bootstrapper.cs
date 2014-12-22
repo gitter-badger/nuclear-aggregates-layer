@@ -244,11 +244,11 @@ namespace DoubleGis.Erm.TaskService.DI
                         (flowType, message) => typeof(ReplicateToCRMPerformedOperationsFinalProcessingStrategy)
                     },
                     {
-                        FinalStorageProcessingOfHotClientPerformedOperationsFlow.Instance,
+                        FinalStorageProcessHotClientPerformedOperationsFlow.Instance,
                         (flowType, message) => typeof(HotClientPerformedOperationsPrimaryProcessingStrategy)
                     },
                     {
-                        FinalProcessingOfHotClientPerformedOperationsFlow.Instance,
+                        FinalProcessHotClientPerformedOperationsFlow.Instance,
                         (flowType, message) => typeof(HotClientPerformedOperationsFinalProcessingStrategy)
                     },
                     {
@@ -268,11 +268,11 @@ namespace DoubleGis.Erm.TaskService.DI
                         () => typeof(ReplicateToCRMMessageAggregatedProcessingResultHandler)
                     },
                     {
-                        FinalStorageProcessingOfHotClientPerformedOperationsFlow.Instance,
+                        FinalStorageProcessHotClientPerformedOperationsFlow.Instance,
                         () => typeof(PerformedOperationsMessageAggregatedProcessingResultHandler)
                     },
                     {
-                        FinalProcessingOfHotClientPerformedOperationsFlow.Instance,
+                        FinalProcessHotClientPerformedOperationsFlow.Instance,
                         () => typeof(HotClientMessageAggregatedProcessingResultHandler)
                     },
                     {

@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
             {
                 foreach (var processingResults in processingResultBucket.Value)
                 {
-                    if (!Equals(processingResults.TargetFlow, FinalProcessingOfHotClientPerformedOperationsFlow.Instance))
+                    if (!Equals(processingResults.TargetFlow, FinalProcessHotClientPerformedOperationsFlow.Instance))
                     {
                         continue;
                     }
