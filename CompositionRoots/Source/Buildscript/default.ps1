@@ -38,7 +38,6 @@ Build-WpfClient, `
 Build-Dynamics
 
 Task Deploy-Packages -Depends `
-Build-Packages, `
 Take-TaskServiceOffline, `
 Take-WebAppOffline, `
 Deploy-Migrations, `
