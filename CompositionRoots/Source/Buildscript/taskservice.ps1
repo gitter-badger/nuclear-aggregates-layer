@@ -190,7 +190,7 @@ Task Deploy-TaskService -Precondition { return $OptionTaskService } {
 		$ErrorActionPreference = 'Stop'
 		#------------------------------
 
-		$timeout = '00:01:00'
+		$timeout = [timespan]'00:01:00'
 		$mutex = New-Object System.Threading.Mutex($false, 'Global\ErmTaskService')
 		$hasHandle = $false
 		
