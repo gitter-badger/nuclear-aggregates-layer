@@ -27,15 +27,15 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Flows
                     Enumerable.Empty<IMessageFlow>()
                 },
                 {
-                    PrimaryProcessingOfHotClientPerformedOperationsFlow.Instance,
-                    new IMessageFlow[] { FinalStorageProcessingOfHotClientPerformedOperationsFlow.Instance }
+                    PrimaryProcessHotClientPerformedOperationsFlow.Instance,
+                    new IMessageFlow[] { FinalStorageProcessHotClientPerformedOperationsFlow.Instance }
                 },
                 {
-                    FinalStorageProcessingOfHotClientPerformedOperationsFlow.Instance,
-                    new IMessageFlow[] { FinalProcessingOfHotClientPerformedOperationsFlow.Instance }
+                    FinalStorageProcessHotClientPerformedOperationsFlow.Instance,
+                    new IMessageFlow[] { FinalProcessHotClientPerformedOperationsFlow.Instance }
                 },
                 {
-                    FinalProcessingOfHotClientPerformedOperationsFlow.Instance,
+                    FinalProcessHotClientPerformedOperationsFlow.Instance,
                     Enumerable.Empty<IMessageFlow>()
                 },
                 {
