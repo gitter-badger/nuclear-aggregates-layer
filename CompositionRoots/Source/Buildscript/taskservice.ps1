@@ -72,33 +72,6 @@ Task Deploy-TaskService -Precondition { return $OptionTaskService } -Depends Bui
 		Set-StrictMode -Version Latest
 		$ErrorActionPreference = 'Stop'
 		#------------------------------
-		
-		function WaitFor-MsiExec([timespan] $timeout){
-			$mutex = $null
-			$signalRecieved = $false
-
-			try {
-				$mutex = [System.Threading.Mutex]::OpenExisting('Global\_MSIExecute', 'Synchronize')
-				$signalRecieved = $mutex.WaitOne($timeout)
-			}
-			catch [System.Threading.WaitHandleCannotBeOpenedException] {
-				return $true
-			}
-			catch [System.ObjectDisposedException] {
-				return $true
-			}
-			finally {
-				if ($mutex -ne $null -and $signalRecieved){
-					$mutex.ReleaseMutex()
-				}
-			}
-			
-			return $signalRecieved
-		}
-
-		if (!(WaitFor-MsiExec '00:01:00')){
-			throw 'Can''t install task service, msiexec is locked by another installation'
-		}
 
 		$artifactName = "C:\Windows\Temp\$artifactFileName"
 		cmd.exe /c msiexec.exe -i $artifactName -quiet -norestart -lv "C:\Windows\Temp\2Gis.Erm.TaskService.Installer.log"
