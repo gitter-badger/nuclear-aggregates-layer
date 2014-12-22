@@ -471,9 +471,6 @@
   <data name="DListOperations" xml:space="preserve">
     <value>Všechny operace</value>
   </data>
-  <data name="DListOperationsAfterSaleService" xml:space="preserve">
-    <value>Operace vytváření PPS</value>
-  </data>
   <data name="DListThemeCategory" xml:space="preserve">
     <value>Rubriky</value>
   </data>
@@ -1832,6 +1829,12 @@
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Počet dokumentů</value>
+  </data>
+  <data name="EnLetter" xml:space="preserve">
+    <value>Dopis</value>
+  </data>
+  <data name="ControlCreateLetter" xml:space="preserve">
+    <value>Vytvořit dopis</value>
   </data>
   <data name="CrdRelClientLinks" xml:space="preserve">
     <value>Links</value>

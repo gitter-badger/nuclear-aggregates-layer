@@ -1,4 +1,4 @@
-﻿// File updated : 22.12.2014 16:50:27
+﻿// File updated : 02.12.2014 16:13:25
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -38,7 +38,6 @@ AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Do you really want to p
 AdvertisingElementAccept : 'Approve',
 AdvertisingElementValidate : 'Verification',
 AfterPageText : 'of {0}',
-AfterSalesServiceOperationStartedMessage : 'Process of after-sake service generation has been started. This is a long-term process, its progress can be tracked in the operations logbook.',
 Alert : 'Attention!',
 AllExistingBillsWillBeDeleted : 'All existing payments will be deleted. Continue?',
 AllFieldsMustBeSetForPayment : 'All payment fields should be filled in.',
@@ -298,7 +297,6 @@ SumRemainingMustBeNull : 'The remaining amount of the order is not equal to zero
 Sunday : 'Sunday',
 SymbolsLeft : 'Number of symbols remained: {0}',
 TabPanelItemCloseText : 'Close the tab',
-Task : 'Task',
 TextEditorLineBreaksOverflow : 'Number of lines exceeds permitted {0} lines per {1}.',
 TextEditorOverflow : 'Number of symbols exceeds permitted {0} symbols per {1}.',
 TheAdvertisement : 'Advertising material',

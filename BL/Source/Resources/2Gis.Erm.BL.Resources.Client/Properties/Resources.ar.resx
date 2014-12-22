@@ -900,9 +900,6 @@
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Messages for the request</value>
   </data>
-  <data name="Task" xml:space="preserve">
-    <value>Task</value>
-  </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
     <value>Do you really want to change limit status to</value>
   </data>
@@ -953,9 +950,6 @@
   </data>
   <data name="OperationFailed" xml:space="preserve">
     <value>Operation failed</value>
-  </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Process of after-sake service generation has been started. This is a long-term process, its progress can be tracked in the operations logbook.</value>
   </data>
   <data name="DisabledFunctionality" xml:space="preserve">
     <value>This functionality is temporarily unavailable</value>

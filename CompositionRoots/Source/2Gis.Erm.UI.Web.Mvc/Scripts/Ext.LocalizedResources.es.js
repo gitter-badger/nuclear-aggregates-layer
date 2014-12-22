@@ -1,4 +1,4 @@
-﻿// File updated : 22.12.2014 16:50:27
+﻿// File updated : 02.12.2014 16:13:25
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -38,7 +38,6 @@ AdvertisementTemplatePublishConfirmationWithDirtyForm : '¿Está seguro que quie
 AdvertisingElementAccept : 'Aprobar',
 AdvertisingElementValidate : 'Verificación',
 AfterPageText : 'de {0}',
-AfterSalesServiceOperationStartedMessage : 'El proceso de creación del servicio postventa está en marcha. Es un proceso largo, puede seguir su ejecución en el historial de operaciones.',
 Alert : '¡Atención!',
 AllExistingBillsWillBeDeleted : 'Se eliminarán todas las facturas existentes. ¿Desea seguir?',
 AllFieldsMustBeSetForPayment : 'Todos los campos deben completarse para el pago',
@@ -298,7 +297,6 @@ SumRemainingMustBeNull : 'El resto del importe de la orden no es igual a cero. E
 Sunday : 'Domingo',
 SymbolsLeft : 'Caracteres restantes: {0}',
 TabPanelItemCloseText : 'Cerrar pestaña',
-Task : 'Tarea',
 TextEditorLineBreaksOverflow : 'El número de líneas excede el permitido {0} en {1}.',
 TextEditorOverflow : 'El número de caracteres excede el permitido {0} en {1} caracteres.',
 TheAdvertisement : 'Material publicitario',

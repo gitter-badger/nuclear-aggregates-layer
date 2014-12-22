@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -71,7 +71,6 @@
     <Compile Include="Metadata\Old\Dto\ToolbarElementStructure.cs" />
     <Compile Include="Metadata\Old\IUIConfigurationService.cs" />
     <Compile Include="Enums\AccountOperationTypeEnum.cs" />
-    <Compile Include="Enums\AfterSaleServiceType.cs" />
     <Compile Include="Enums\ContributionTypeEnum.cs" />
     <Compile Include="Enums\PlatformEnum.cs" />
     <Compile Include="Crosscutting\AD\IGetUserInfoFromAdSettings.cs" />

@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
         public abstract class BasicContext
         {
-            protected static GetHotClientTaskToReplicateOperationService Service;
+            protected static GetHotClientRequestOperationService Service;
             protected static IMsCrmSettings AppSettings;
             protected static IBranchOfficeReadModel BranchOfficeReadModel;
             protected static IFirmReadModel FirmReadModel;
@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
                     BranchOfficeReadModel = SetupBranchOfficeReadModel();
                     FirmReadModel = SetupFirmReadModel();
 
-                    Service = new GetHotClientTaskToReplicateOperationService(UserReadModel, FirmReadModel, BranchOfficeReadModel);
+                    Service = new GetHotClientRequestOperationService(UserReadModel, FirmReadModel, BranchOfficeReadModel);
                 };
 
             Because of = () =>
@@ -275,7 +275,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
             It should_telemarketing_become_task_executor = () =>
             {
-                TaskDto.TaskOwner.Id.Should().Be(TelemarketingBranchManagerId);
+                TaskDto.TaskOwner.Should().Be(TelemarketingBranchManagerId);
             };
         }
 
@@ -296,7 +296,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
             It should_search_for_branch_user = () =>
             {
-                TaskDto.TaskOwner.Id.Should().Be(TelemarketingBranchManagerId);
+                TaskDto.TaskOwner.Should().Be(TelemarketingBranchManagerId);
             };
         }
 
@@ -317,7 +317,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
             It should_search_for_franchisee_user = () =>
             {
-                TaskDto.TaskOwner.Id.Should().Be(TelemarketingFranchiseeManagerId);
+                TaskDto.TaskOwner.Should().Be(TelemarketingFranchiseeManagerId);
             };
         }
 
@@ -343,7 +343,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
             It should_search_for_organization_unit_director = () =>
             {
-                TaskDto.TaskOwner.Id.Should().Be(OrganizationUnitDirectorId);
+                TaskDto.TaskOwner.Should().Be(OrganizationUnitDirectorId);
             };
         }
 
@@ -361,7 +361,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
             It should_client_owner_become_task_executor = () =>
             {
-                TaskDto.TaskOwner.Id.Should().Be(ClientOwnerId);
+                TaskDto.TaskOwner.Should().Be(ClientOwnerId);
             };
         }
 
@@ -379,7 +379,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
             It should_organization_unit_director_become_task_executor = () =>
                 {
-                    TaskDto.TaskOwner.Id.Should().Be(OrganizationUnitDirectorId);
+                    TaskDto.TaskOwner.Should().Be(OrganizationUnitDirectorId);
                 };
         }
 
@@ -397,7 +397,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
             It should_organization_unit_director_become_task_executor = () =>
             {
-                TaskDto.TaskOwner.Id.Should().Be(ProjectDirectorId);
+                TaskDto.TaskOwner.Should().Be(ProjectDirectorId);
             };
         } 
         #endregion

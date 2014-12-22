@@ -900,9 +900,6 @@
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Zprávy pro pažadavek</value>
   </data>
-  <data name="Task" xml:space="preserve">
-    <value>Úkol</value>
-  </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
     <value>Skutečně si přejete změnit stav limitu na</value>
   </data>
@@ -953,9 +950,6 @@
   </data>
   <data name="OperationFailed" xml:space="preserve">
     <value>Chyba při uskutečnění operace</value>
-  </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Spuštěno vytvoření PPS. Tato akce nějakou dobu potrvá, její průběh můžete sledovat v protokolu operací.</value>
   </data>
   <data name="DisabledFunctionality" xml:space="preserve">
     <value>Tato funkce je dočasně nedostupná</value>

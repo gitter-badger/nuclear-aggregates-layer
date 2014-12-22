@@ -652,7 +652,7 @@
     <value>Текущий договор устарел, для размещения заказа в рамках договора необходимо создать новый договор</value>
   </data>
   <data name="IsWarmClientWarningFormat" xml:space="preserve">
-    <value>Выставлена причина сделки "Теплый клиент", т.к. для данного клиента существует задача "{0}", закрытая {1} с типом "Теплый клиент"</value>
+    <value>Выставлена причина сделки "Горячий клиент", т.к. для данного клиента существует задача "{0}", закрытая {1} с типом "Горячий клиент"</value>
   </data>
   <data name="BillCreationApprovalNeeded" xml:space="preserve">
     <value>Требуется согласование!</value>
@@ -954,9 +954,6 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Ошибка выполнения операции</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.</value>
-  </data>
   <data name="DisabledFunctionality" xml:space="preserve">
     <value>Данный функционал временно недоступен</value>
   </data>
@@ -974,8 +971,5 @@
   </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
     <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
-  </data>
-  <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД-MMM-ГГГГ'</value>
   </data>
 </root>

@@ -50,6 +50,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
         private sealed class DefaultModelBinder : System.Web.Mvc.DefaultModelBinder
         {
+            private const string ValueIsNotApplicableToField = "The value '{0}' is not applicable to the field {1}.";
+
             public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
             {
                 var modelType = bindingContext.ModelType;
@@ -237,7 +239,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 }
 
                 // if cannot parse datetime, raise an error
-                var errorMessage = string.Format("The value '{0}' is not applicable to the field {1}", valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
+                var errorMessage = string.Format(ValueIsNotApplicableToField, valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
                 bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
                 return null;
             }
@@ -270,7 +272,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 }
 
                 // if cannot parse datetime, raise an error
-                var errorMessage = string.Format("The value '{0}' is not applicable to the field {1}", valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
+                var errorMessage = string.Format(ValueIsNotApplicableToField, valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
                 bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
                 return null;
             }
@@ -296,7 +298,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 }
 
                 // if cannot parse datetime, raise an error
-                var errorMessage = string.Format("The value '{0}' is not applicable to the field {1}", valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
+                var errorMessage = string.Format(ValueIsNotApplicableToField, valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
                 bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
                 return null;
             }
@@ -319,7 +321,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                     }
                     catch (ArgumentException)
                     {
-                        var errorMessage = string.Format("The value '{0}' is not applicable to the field {1}", valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
+                        var errorMessage = string.Format(ValueIsNotApplicableToField, valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
                         bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
                         return null;
                     }
@@ -345,7 +347,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 }
 
                 // if cannot parse datetime, raise an error
-                var errorMessage = string.Format("The value '{0}' is not applicable to the field {1}", valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
+                var errorMessage = string.Format(ValueIsNotApplicableToField, valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
                 bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
                 return null;
             }

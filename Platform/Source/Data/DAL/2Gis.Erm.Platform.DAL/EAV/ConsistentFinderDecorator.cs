@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         }
 
         public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+            where TEntity : class, IEntity
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
             {

@@ -948,7 +948,11 @@ window.CrmEntityMapping =
     { ObjectTypeCode: "10016", EntityName: "BranchOffice" },
     { ObjectTypeCode: "10017", EntityName: "OrganizationUnit" },
 	{ ObjectTypeCode: "10023", EntityName: "Account" },
-    { ObjectTypeCode: "10026", EntityName: "OrderProcessingRequest" }
+    { ObjectTypeCode: "10026", EntityName: "OrderProcessingRequest" },
+    { ObjectTypeCode: Appointment, EntityName: "Appointment" },
+    { ObjectTypeCode: Letter, EntityName: "Letter" },
+    { ObjectTypeCode: PhoneCall, EntityName: "Phonecall" },
+    { ObjectTypeCode: Task, EntityName: "Task" }
 ];
 
 function GetErmWebAppUrl() {
@@ -1001,7 +1005,7 @@ function openObj(iType, sId, sParams, sUrlPrefix, bNewWindow)
     /*CRM Hack*/
     var ermUrl = GetErmUrl(iType, sId);
     var entityName = GetErmEntityName(iType);
-    var rate = 0.6;
+    var rate = 0.7;
     if (entityName == 'Order') {
         rate = 0.9;
     }
