@@ -34,12 +34,12 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             AddMapping(resolversMap,
                        PerformedOperations,
                        PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance,
-                       PrimaryReplicateHotClientPerformedOperationsFlow.Instance,
+                       PrimaryProcessHotClientPerformedOperationsFlow.Instance,
                        PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance);
             AddMapping(resolversMap,
                        FinalProcessorCommonQueue,
                        FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance,
-                       FinalStorageReplicateHotClientPerformedOperationsFlow.Instance);
+                       FinalStorageProcessHotClientPerformedOperationsFlow.Instance);
             
             _resolversMap = resolversMap;
 

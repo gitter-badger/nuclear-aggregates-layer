@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -82,7 +82,6 @@
     <Compile Include="Infrastructure\Handlers\UseCaseResumeContext.cs" />
     <Compile Include="Infrastructure\MsCRM\CrmDataContextExtensions.cs" />
     <Compile Include="Infrastructure\MsCRM\CrmEntityName.cs" />
-    <Compile Include="Infrastructure\MsCRM\CrmUserDto.cs" />
     <Compile Include="Infrastructure\MsCRM\CrmUtils.cs" />
   </ItemGroup>
   <ItemGroup>

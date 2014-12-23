@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.Platform.DAL
         /// <summary>
         /// Find one entity object based on findSpecification.
         /// </summary>
-        TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity, IEntityKey;
+        TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
 
         /// <summary>
         /// Find and select collection of entity objects based on findSpecification.

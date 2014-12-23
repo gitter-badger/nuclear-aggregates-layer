@@ -18,7 +18,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(AdvertisementElementStatus),
     		typeof(AdvertisementElementTemplate),
     		typeof(AdvertisementTemplate),
-    		typeof(AfterSaleServiceActivity),
     		typeof(AppointmentBase),
     		typeof(AppointmentReference),
     		typeof(AssociatedPosition),

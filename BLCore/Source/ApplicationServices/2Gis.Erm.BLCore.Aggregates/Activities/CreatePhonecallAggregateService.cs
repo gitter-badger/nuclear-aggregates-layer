@@ -1,17 +1,16 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
-    public sealed class CreatePhonecallAggregateService : IAggregateRootRepository<Phonecall>, ICreateAggregateRepository<Phonecall>
+    public sealed class CreatePhonecallAggregateService : ICreatePhonecallAggregateService
     {
         private const string ActivityHasAlreadyTheIdentityMessage = "The phonecall has already the identity.";
 
@@ -29,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             _repository = repository;
         }
 
-        public int Create(Phonecall phonecall)
+        public void Create(Phonecall phonecall)
         {
             if (!phonecall.IsNew())
             {
@@ -41,13 +40,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
                 _identityProvider.SetFor(phonecall);
 
                 _repository.Add(phonecall);
+                _repository.Save();
+                
                 operationScope.Added<Phonecall>(phonecall.Id);
-
-                var count = _repository.Save();
-
                 operationScope.Complete();
-
-                return count;
             }
         }
     }

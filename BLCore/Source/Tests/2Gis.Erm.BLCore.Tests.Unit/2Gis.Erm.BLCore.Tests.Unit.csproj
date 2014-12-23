@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -120,7 +120,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BL\CostCalculationService\OrderPositionCostCalculationOperationServiceSpecs.cs" />
-    <Compile Include="BL\CreateAfterSaleServiceActivitiesHandlerSpecs.cs" />
     <Compile Include="BL\Export\GetHotClientTaskToReplicateOperationServiceSpecs.cs" />
     <Compile Include="BL\Export\OperationsExportServiceSpecs.cs" />
     <Compile Include="BL\FirmWorkingTimeLocalizerSpecs.cs" />
@@ -160,6 +159,7 @@
     <Compile Include="Model\UserRepositoryTests\UserRepositorySpecs.cs" />
     <Compile Include="Operations\Concrete\Orders\Processing\OrderEditingStrategySpecs.cs" />
     <Compile Include="Operations\Concrete\Orders\Processing\OrderCreationStrategySpecs.cs" />
+    <Compile Include="Operations\ReplicationCodeConverterTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

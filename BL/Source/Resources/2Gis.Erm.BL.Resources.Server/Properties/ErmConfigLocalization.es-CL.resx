@@ -471,9 +471,6 @@
   <data name="DListOperations" xml:space="preserve">
     <value>Todas las operaciones</value>
   </data>
-  <data name="DListOperationsAfterSaleService" xml:space="preserve">
-    <value>Operación de formación del servicio postventa</value>
-  </data>
   <data name="DListThemeCategory" xml:space="preserve">
     <value>Categorías</value>
   </data>
@@ -1832,6 +1829,12 @@
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Número de documentos</value>
+  </data>
+  <data name="EnLetter" xml:space="preserve">
+    <value>Carta</value>
+  </data>
+  <data name="ControlCreateLetter" xml:space="preserve">
+    <value>Crear carta</value>
   </data>
   <data name="CrdRelClientLinks" xml:space="preserve">
     <value>Links</value>
