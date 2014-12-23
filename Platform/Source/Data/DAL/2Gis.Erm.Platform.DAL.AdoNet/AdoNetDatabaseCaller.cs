@@ -4,10 +4,13 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
+using Dapper;
+
 namespace DoubleGis.Erm.Platform.DAL.AdoNet
 {
     public sealed class AdoNetDatabaseCaller : IDatabaseCaller
     {
+        const string ReturnValueParameterName = "ReturnValue";
         private readonly string _connectionString;
 
         public AdoNetDatabaseCaller(string connectionString)
@@ -163,6 +166,35 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                 connection.Open();
                 sqlCommand.ExecuteNonQuery();
             }
+        }
+
+        public int ExecuteRawSql(string queryString, object parameters)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Execute(queryString, parameters);
+            }
+        }
+
+        public IEnumerable<TResult> QueryRawSql<TResult>(string queryString, object parameters = null)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Query<TResult>(queryString, parameters);
+            }
+        }
+
+        public T ExecuteProcedureWithReturnValue<T>(string procedureName, object parameters, IDbConnection existingConnection = null, IDbTransaction existingTransaction = null)
+        {
+            var connection = existingConnection ?? new SqlConnection(_connectionString);
+
+            var p = new DynamicParameters(parameters);
+            p.Add(ReturnValueParameterName, direction: ParameterDirection.ReturnValue);
+            connection.Execute(procedureName, p, existingTransaction, commandType: CommandType.StoredProcedure);
+
+            return p.Get<T>(ReturnValueParameterName);
         }
 
         private static T Cast<T>(object value)

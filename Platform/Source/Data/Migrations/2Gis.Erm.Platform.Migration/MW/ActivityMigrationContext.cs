@@ -72,24 +72,22 @@ namespace DoubleGis.Erm.Platform.Migration.MW
 
 		private static class IdentityGenerator
 		{
-			private static readonly BufferedIdentityProviderService IdentityRequest = new BufferedIdentityProviderService(new IdentityProviderService(new Settings()));
+			private static readonly BufferedIdentityProviderService IdentityRequest = new BufferedIdentityProviderService(new IdentityProviderService(new IdentityServiceUniqueIdProvider()));
 
 			public static long NewIdentity()
 			{
 				return IdentityRequest.GetIdentities(1)[0];
 			}
 
-			private class Settings : IIdentityProviderSettings
+			private class IdentityServiceUniqueIdProvider : IIdentityServiceUniqueIdProvider
 			{
 				// NOTE: it's reserved especially for Activity migration from CRM to ERM
-				private const int CrmMigrationServiceId = 50; 
-				
-				public Settings()
-				{
-					IdentityServiceUniqueId = CrmMigrationServiceId;
-				}
+				private const byte CrmMigrationServiceId = 50;
 
-				public int IdentityServiceUniqueId { get; private set; }
+			    public byte GetUniqueId()
+			    {
+			        return CrmMigrationServiceId;
+			    }
 			}
 
 			private sealed class BufferedIdentityProviderService : IIdentityProviderService

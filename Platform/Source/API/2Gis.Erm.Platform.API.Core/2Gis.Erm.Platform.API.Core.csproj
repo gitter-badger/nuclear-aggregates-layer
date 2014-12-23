@@ -64,6 +64,8 @@
     </Compile>
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
+    <Compile Include="Checkin\IServiceInstanceCheckinService.cs" />
+    <Compile Include="Checkin\IServiceInstanceIdProvider.cs" />
     <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />
@@ -84,6 +86,12 @@
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForProjectException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
     <Compile Include="Exceptions\Withdrawal\WithdrawalException.cs" />
+    <Compile Include="Locking\IApplicationLocksManager.cs" />
+    <Compile Include="Locking\IApplicationLocksService.cs" />
+    <Compile Include="Locking\ILockingScope.cs" />
+    <Compile Include="Locking\ITrackedLockingScope.cs" />
+    <Compile Include="Locking\LockingScope.cs" />
+    <Compile Include="Locking\LockName.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\Flows\IMessageFlow.cs" />
     <Compile Include="Messaging\MessageBase.cs" />
