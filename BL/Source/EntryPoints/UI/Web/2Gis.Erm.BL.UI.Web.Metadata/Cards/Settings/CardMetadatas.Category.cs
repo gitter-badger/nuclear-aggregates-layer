@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -14,7 +15,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Category>()
                         .MainAttribute<Category, ICategoryViewModel>(x => x.Name)                
                         .Actions
-                            .Attach(UIElementMetadata.Config.CloseAction())
+                            .Attach(ToolbarElements.Close())
                         .WithRelatedItems(
                                     UIElementMetadata.Config.ContentTab("en_ico_16_Category.gif"),
                                     UIElementMetadata.Config

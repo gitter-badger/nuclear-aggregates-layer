@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -14,23 +15,23 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Territory>()
                         .MainAttribute<Territory, ITerritoryViewModel>(x => x.Name)
                         .Actions
-                        .Attach(UIElementMetadata.Config.CreateAction<Territory>(),
-                                UIElementMetadata.Config.UpdateAction<Territory>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.CreateAndCloseAction<Territory>(),
-                                UIElementMetadata.Config.UpdateAndCloseAction<Territory>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.RefreshAction<Territory>(),
-                                UIElementMetadata.Config.ActivateAction<Territory>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.CloseAction())
+                        .Attach(ToolbarElements.Create<Territory>(),
+                                ToolbarElements.Update<Territory>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.CreateAndClose<Territory>(),
+                                ToolbarElements.UpdateAndClose<Territory>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.Refresh<Territory>(),
+                                ToolbarElements.Activate<Territory>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.Close())
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Firm")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
-                                                             .Icon.Path("en_ico_16_Firm.gif")
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Firm)
-                                                             .FilterToParent());
+                                          UIElementMetadata.Config
+                                                           .Name.Static("Firm")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
+                                                           .Icon.Path("en_ico_16_Firm.gif")
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.Firm)
+                                                           .FilterToParent());
     }
 }

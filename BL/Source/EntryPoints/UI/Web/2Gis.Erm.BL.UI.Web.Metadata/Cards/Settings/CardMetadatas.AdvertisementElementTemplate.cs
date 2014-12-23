@@ -15,11 +15,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .MainAttribute<AdvertisementElementTemplate, IAdvertisementElementTemplateViewModel>(x => x.Name)
                         .CommonCardToolbar()
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Children")
-                                                             .Title.Resource(() => ErmConfigLocalization.EnMAdvertisementTemplate)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.AdsTemplatesAdsElementTemplate)
-                                                             .FilterToParent());
+                                          UIElementMetadata.Config
+                                                           .Name.Static("Children")
+                                                           .Title.Resource(() => ErmConfigLocalization.EnMAdvertisementTemplate)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.AdsTemplatesAdsElementTemplate)
+                                                           .FilterToParent());
     }
 }

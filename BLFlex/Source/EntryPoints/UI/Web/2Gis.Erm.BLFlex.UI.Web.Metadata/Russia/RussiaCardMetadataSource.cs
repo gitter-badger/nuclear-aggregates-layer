@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -50,8 +51,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         #region OrderProcessingRequest
                         CardMetadata.For<OrderProcessingRequest>()
                                     .MainAttribute<OrderProcessingRequest, IOrderProcessingRequestViewModel>(x => x.Title)
-                                    .Actions.Attach(UIElementMetadata.Config.RefreshAction<OrderProcessingRequest>(),
-                                                    UIElementMetadata.Config.AdditionalActions
+                                    .Actions.Attach(ToolbarElements.Refresh<OrderProcessingRequest>(),
+                                                    ToolbarElements.Additional
                                                         (UIElementMetadata.Config
                                                                           .Name.Static("CreateOrder")
                                                                           .Title.Resource(() => ErmConfigLocalization.ControlCreateOrder)
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                                                           .ControlType(ControlType.TextButton)
                                                                           .AccessWithPrivelege<OrderProcessingRequest>(EntityAccessTypes.Update)
                                                                           .Operation.NonCoupled<CancelOrderProcessingRequestIdentity>()),
-                                                    UIElementMetadata.Config.CloseAction()),
+                                                    ToolbarElements.Close()),
 
                         #endregion
 
@@ -105,14 +106,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         #region Advertisement
                         CardMetadata.For<Advertisement>()
                                     .Actions
-                                    .Attach(UIElementMetadata.Config.CreateAction<Advertisement>(),
-                                            UIElementMetadata.Config.UpdateAction<Advertisement>(),
-                                            UIElementMetadata.Config.SplitterAction(),
-                                            UIElementMetadata.Config.CreateAndCloseAction<Advertisement>(),
-                                            UIElementMetadata.Config.UpdateAndCloseAction<Advertisement>(),
-                                            UIElementMetadata.Config.SplitterAction(),
-                                            UIElementMetadata.Config.RefreshAction<Advertisement>(),
-                                            UIElementMetadata.Config.SplitterAction(),
+                                    .Attach(ToolbarElements.Create<Advertisement>(),
+                                            ToolbarElements.Update<Advertisement>(),
+                                            ToolbarElements.Splitter(),
+                                            ToolbarElements.CreateAndClose<Advertisement>(),
+                                            ToolbarElements.UpdateAndClose<Advertisement>(),
+                                            ToolbarElements.Splitter(),
+                                            ToolbarElements.Refresh<Advertisement>(),
+                                            ToolbarElements.Splitter(),
                                             UIElementMetadata.Config
                                                              .Name.Static("Preview")
                                                              .Title.Resource(() => ErmConfigLocalization.ControlPreviewAdvertisement)
@@ -120,8 +121,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                                              .LockOnNew()
                                                              .Handler.Name("scope.Preview")
                                                              .Icon.Path("PreviewAd.png"),
-                                            UIElementMetadata.Config.SplitterAction(),
-                                            UIElementMetadata.Config.CloseAction()),
+                                            ToolbarElements.Splitter(),
+                                            ToolbarElements.Close()),
 
                         #endregion
 

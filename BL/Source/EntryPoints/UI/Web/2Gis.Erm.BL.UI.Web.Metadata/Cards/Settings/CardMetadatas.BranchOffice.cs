@@ -15,11 +15,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .MainAttribute<BranchOffice, IBranchOfficeViewModel>(x => x.Name)
                         .CommonCardToolbar()
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_BranchOffice.gif"),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("BOOU")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelBOOU)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit)
-                                                             .FilterToParent());
+                                          UIElementMetadata.Config
+                                                           .Name.Static("BOOU")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelBOOU)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit)
+                                                           .FilterToParent());
     }
 }

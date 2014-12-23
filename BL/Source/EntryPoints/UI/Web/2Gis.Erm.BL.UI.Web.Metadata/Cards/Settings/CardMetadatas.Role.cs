@@ -14,17 +14,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .MainAttribute<Role, IRoleViewModel>(x => x.Name)
                         .CommonCardToolbar()
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_UserGroup.gif"),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("RoleEntityPrivilege")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelRoleEntityPrivilege)
-                                                             .FilterToParent()
-                                                             .Handler.Request("/Edit/EntityPrivileges")
-                                                             .LockOnNew(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("RoleFunctionalPrivilege")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelRoleFunctionalPrivilege)
-                                                             .FilterToParent()
-                                                             .Handler.Request("/Edit/FunctionalPrivileges")
-                                                             .LockOnNew());
+                                          UIElementMetadata.Config
+                                                           .Name.Static("RoleEntityPrivilege")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelRoleEntityPrivilege)
+                                                           .FilterToParent()
+                                                           .Handler.Request("/Edit/EntityPrivileges")
+                                                           .LockOnNew(),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("RoleFunctionalPrivilege")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelRoleFunctionalPrivilege)
+                                                           .FilterToParent()
+                                                           .Handler.Request("/Edit/FunctionalPrivileges")
+                                                           .LockOnNew());
     }
 }

@@ -1,13 +1,11 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -25,55 +23,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                              .LockOnNew()
                                                              .FilterToParent())
                         .Actions
-                        .Attach(UIElementMetadata.Config.CreateAction<Price>(),
-                                UIElementMetadata.Config.UpdateAction<Price>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.CreateAndCloseAction<Price>(),
-                                UIElementMetadata.Config.UpdateAndCloseAction<Price>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.RefreshAction<Price>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config
-                                                 .Name.Static("PublishPrice")
-                                                 .Title.Resource(() => ErmConfigLocalization.ControlPublishPrice)
-                                                 .Icon.Path("Refresh.gif")
-                                                 .ControlType(ControlType.TextImageButton)
-                                                 .Handler.Name("scope.Publish")
-                                                 .LockOnInactive()
-                                                 .LockOnNew()
-
-                                    // COMMENT {all, 01.12.2014}: а зачем права на создание?
-                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Create)
-                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
-                                                 .Operation.NonCoupled<PublishPriceIdentity>(),
-
-                                UIElementMetadata.Config
-                                                 .Name.Static("UnpublishPrice")
-                                                 .Title.Resource(() => ErmConfigLocalization.ControlUnpublishPrice)
-                                                 .Icon.Path("Refresh.gif")
-                                                 .ControlType(ControlType.TextImageButton)
-                                                 .Handler.Name("scope.Unpublish")
-                                                 .LockOnNew()
-
-                                    // COMMENT {all, 01.12.2014}: а зачем права на создание?
-                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Create)
-                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
-                                                 .Operation.NonCoupled<UnpublishPriceIdentity>(),
-
-                                UIElementMetadata.Config
-                                                 .Name.Static("CopyPrice")
-                                                 .Title.Resource(() => ErmConfigLocalization.ControlCopyPrice)
-                                                 .Icon.Path("Refresh.gif")
-                                                 .ControlType(ControlType.TextImageButton)
-                                                 .Handler.Name("scope.Copy")
-                                                 .LockOnNew()
-
-                                    // COMMENT {all, 01.12.2014}: а зачем права на создание?
-                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Create)
-                                                 .AccessWithPrivelege<Price>(EntityAccessTypes.Update)
-                                                 .Operation.NonCoupled<CopyPriceIdentity>(),
-
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.CloseAction());
+                        .Attach(ToolbarElements.Create<Price>(),
+                                ToolbarElements.Update<Price>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.CreateAndClose<Price>(),
+                                ToolbarElements.UpdateAndClose<Price>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.Refresh<Price>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.Prices.Publish(),
+                                ToolbarElements.Prices.Unpublish(),
+                                ToolbarElements.Prices.Copy(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.Close());
     }
 }

@@ -1,9 +1,7 @@
-﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -12,12 +10,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata LocalMessage =
             CardMetadata.For<LocalMessage>()
                         .MainAttribute(x => x.Id)
-                        .Actions.Attach(UIElementMetadata.Config
-                                                         .AdditionalActions(UIElementMetadata.Config
-                                                                                             .Name.Static("SaveAs")
-                                                                                             .Title.Resource(() => ErmConfigLocalization.ControlSaveAs)
-                                                                                             .ControlType(ControlType.TextButton)
-                                                                                             .Handler.Name("scope.SaveAs")),
-                                        UIElementMetadata.Config.CloseAction());
+                        .Actions.Attach(ToolbarElements.Additional(ToolbarElements.LocalMessages.SaveAs()),
+                                        ToolbarElements.Close());
     }
 }

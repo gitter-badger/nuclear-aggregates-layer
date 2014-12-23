@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                             .LockOnNew()
                                             .Handler.Name("scope.CheckOrder")
                                             .Operation.NonCoupled<ValidateOrdersIdentity>(),
-                           UIElementMetadata.Config.ChangeOwnerAction<Order>(),
+                           ToolbarElements.ChangeOwner<Order>(),
                            UIElementMetadata.Config
                                             .Name.Static("CloseWithDenial")
                                             .Title.Resource(() => ErmConfigLocalization.ControlCloseWithDenial)

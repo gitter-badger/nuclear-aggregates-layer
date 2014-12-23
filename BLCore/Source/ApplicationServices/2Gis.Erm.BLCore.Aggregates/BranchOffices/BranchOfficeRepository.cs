@@ -276,9 +276,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                 branchOffice.IsActive = true;
                 _branchOfficeGenericRepository.Update(branchOffice);
 
-                var cnt =  _branchOfficeGenericRepository.Save();
-                scope.Updated(branchOffice).
-                      Complete();
+                var cnt = _branchOfficeGenericRepository.Save();
+                scope.Updated(branchOffice)
+                     .Complete();
 
                 return cnt;
             }

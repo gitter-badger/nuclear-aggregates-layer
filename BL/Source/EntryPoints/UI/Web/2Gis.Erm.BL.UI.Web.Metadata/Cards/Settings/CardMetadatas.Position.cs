@@ -15,12 +15,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .MainAttribute<Position, IPositionViewModel>(x => x.Name)
                         .CommonCardToolbar()
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_Position.gif"),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Children")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
-                                                             .LockOnNew()
-                                                             .DisableOn<IPositionViewModel>(x => !x.IsComposite)
-                                                             .Handler.ShowGridByConvention(EntityName.PositionChildren)
-                                                             .FilterToParent());
+                                          UIElementMetadata.Config
+                                                           .Name.Static("Children")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
+                                                           .LockOnNew()
+                                                           .DisableOn<IPositionViewModel>(x => !x.IsComposite)
+                                                           .Handler.ShowGridByConvention(EntityName.PositionChildren)
+                                                           .FilterToParent());
     }
 }

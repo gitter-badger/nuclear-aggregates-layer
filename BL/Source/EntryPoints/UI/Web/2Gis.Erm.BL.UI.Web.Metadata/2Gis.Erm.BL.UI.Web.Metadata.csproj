@@ -129,6 +129,22 @@
     <Compile Include="Cards\Extensions\UIElementMetadataBuilderExtensions.cs" />
     <Compile Include="DI\BlUIMetadataAssembly.cs" />
     <Compile Include="FeatureExtensions.cs" />
+    <Compile Include="Toolbar\ToolbarElements.WithdrawalInfo.cs" />
+    <Compile Include="Toolbar\ToolbarElements.User.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Theme.cs" />
+    <Compile Include="Toolbar\ToolbarElements.ReleaseInfo.cs" />
+    <Compile Include="Toolbar\ToolbarElements.PricePosition.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Price.cs" />
+    <Compile Include="Toolbar\ToolbarElements.OrganizationUnit.cs" />
+    <Compile Include="Toolbar\ToolbarElements.LocalMessage.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Limit.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Firm.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Deal.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Client.cs" />
+    <Compile Include="Toolbar\ToolbarElements.BranchOfficeOrganizationUnit.cs" />
+    <Compile Include="Toolbar\ToolbarElements.AdvertisementTemplate.cs" />
+    <Compile Include="Toolbar\ToolbarElements.AdvertisementElement.cs" />
+    <Compile Include="Toolbar\ToolbarElements.cs" />
     <Compile Include="ViewNameProvider.cs" />
   </ItemGroup>
   <ItemGroup>

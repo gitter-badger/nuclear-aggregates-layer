@@ -1,12 +1,12 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -16,22 +16,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<User>()
                         .MainAttribute<User, IUserViewModel>(x => x.DisplayName)
                         .Actions
-                        .Attach(UIElementMetadata.Config.CreateAction<User>(),
-                                UIElementMetadata.Config.UpdateAction<User>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.CreateAndCloseAction<User>(),
-                                UIElementMetadata.Config.UpdateAndCloseAction<User>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.RefreshAction<User>(),
-                                UIElementMetadata.Config.AdditionalActions(
-                                                                           // COMMENT {all, 01.12.2014}: а как же безопасность? 
-                                                                           UIElementMetadata.Config
-                                                                                            .Name.Static("ShowUserProfile")
-                                                                                            .Title.Resource(() => ErmConfigLocalization.EnUserProfile)
-                                                                                            .LockOnNew()
-                                                                                            .ControlType(ControlType.TextButton)
-                                                                                            .Handler.Name("scope.ProcessUserProfile")),
-                                UIElementMetadata.Config.CloseAction())
+                        .Attach(ToolbarElements.Create<User>(),
+                                ToolbarElements.Update<User>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.CreateAndClose<User>(),
+                                ToolbarElements.UpdateAndClose<User>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.Refresh<User>(),
+                                ToolbarElements.Additional(ToolbarElements.Users.Profile()),
+                                ToolbarElements.Close())
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_UserAccount.gif"),
                                             UIElementMetadata.Config
                                                              .Name.Static("UserRole")

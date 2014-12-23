@@ -1,11 +1,11 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -15,37 +15,23 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<AdvertisementTemplate>()
                         .MainAttribute<AdvertisementTemplate, IAdvertisementTemplateViewModel>(x => x.Name)
                         .Actions
-                        .Attach(UIElementMetadata.Config.CreateAction<AdvertisementTemplate>(),
-                                UIElementMetadata.Config.UpdateAction<AdvertisementTemplate>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.CreateAndCloseAction<AdvertisementTemplate>(),
-                                UIElementMetadata.Config.UpdateAndCloseAction<AdvertisementTemplate>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config.RefreshAction<AdvertisementTemplate>(),
-                                UIElementMetadata.Config.SplitterAction(),
-                                UIElementMetadata.Config
-                                                 .Name.Static("PublishAdvertisementTemplate")
-                                                 .Title.Resource(() => ErmConfigLocalization.ControlPublishAdvertisementTemplate)
-                                                 .ControlType(ControlType.TextImageButton)
-                                                 .LockOnInactive()
-                                                 .LockOnNew()
-                                                 .Handler.Name("scope.Publish")
-                                                 .Icon.Path("Refresh.gif"),
-                                UIElementMetadata.Config
-                                                 .Name.Static("UnpublishAdvertisementTemplate")
-                                                 .Title.Resource(() => ErmConfigLocalization.ControlUnpublishAdvertisementTemplate)
-                                                 .ControlType(ControlType.TextImageButton)
-                                                 .LockOnNew()
-                                                 .Handler.Name("scope.Unpublish")
-                                                 .Icon.Path("Refresh.gif"),
-                                UIElementMetadata.Config.CloseAction())
-                        .WithRelatedItems(
-                                            UIElementMetadata.Config.ContentTab(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Children")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.AdsTemplatesAdsElementTemplate)
-                                                             .FilterToParent());
+                        .Attach(ToolbarElements.Create<AdvertisementTemplate>(),
+                                ToolbarElements.Update<AdvertisementTemplate>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.CreateAndClose<AdvertisementTemplate>(),
+                                ToolbarElements.UpdateAndClose<AdvertisementTemplate>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.Refresh<AdvertisementTemplate>(),
+                                ToolbarElements.Splitter(),
+                                ToolbarElements.AdvertisementTemplates.Publish(),
+                                ToolbarElements.AdvertisementTemplates.Unpublish(),
+                                ToolbarElements.Close())
+                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("Children")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.AdsTemplatesAdsElementTemplate)
+                                                           .FilterToParent());
     }
 }

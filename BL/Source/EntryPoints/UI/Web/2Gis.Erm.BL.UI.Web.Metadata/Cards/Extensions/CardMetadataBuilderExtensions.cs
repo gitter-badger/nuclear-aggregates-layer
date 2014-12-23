@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -34,15 +35,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             where TEntity : class, IEntityKey, IEntity
         {
             builder.Actions
-                   .Attach(UIElementMetadata.Config.CreateAction<TEntity>(),
-                           UIElementMetadata.Config.UpdateAction<TEntity>(),
-                           UIElementMetadata.Config.SplitterAction(),
-                           UIElementMetadata.Config.CreateAndCloseAction<TEntity>(),
-                           UIElementMetadata.Config.UpdateAndCloseAction<TEntity>(),
-                           UIElementMetadata.Config.SplitterAction(),
-                           UIElementMetadata.Config.RefreshAction<TEntity>(),
-                           UIElementMetadata.Config.SplitterAction(),
-                           UIElementMetadata.Config.CloseAction());
+                   .Attach(ToolbarElements.Create<TEntity>(),
+                           ToolbarElements.Update<TEntity>(),
+                           ToolbarElements.Splitter(),
+                           ToolbarElements.CreateAndClose<TEntity>(),
+                           ToolbarElements.UpdateAndClose<TEntity>(),
+                           ToolbarElements.Splitter(),
+                           ToolbarElements.Refresh<TEntity>(),
+                           ToolbarElements.Splitter(),
+                           ToolbarElements.Close());
 
             return builder;
         }
@@ -51,12 +52,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
              where TEntity : class, IEntityKey, IEntity
         {
             builder.Actions
-                   .Attach(UIElementMetadata.Config.CreateAction<TEntity>(),
-                           UIElementMetadata.Config.UpdateAction<TEntity>(),
-                           UIElementMetadata.Config.SplitterAction(),
-                           UIElementMetadata.Config.CreateAndCloseAction<TEntity>(),
-                           UIElementMetadata.Config.UpdateAndCloseAction<TEntity>(),
-                           UIElementMetadata.Config.SplitterAction(),
+                   .Attach(ToolbarElements.Create<TEntity>(),
+                           ToolbarElements.Update<TEntity>(),
+                           ToolbarElements.Splitter(),
+                           ToolbarElements.CreateAndClose<TEntity>(),
+                           ToolbarElements.UpdateAndClose<TEntity>(),
+                           ToolbarElements.Splitter(),
 
                            UIElementMetadata.Config
                                             .Name.Static("Complete")
@@ -97,10 +98,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                             .Operation.SpecificFor<UpdateIdentity, TEntity>(),
 
-                           UIElementMetadata.Config.AssignAction<TEntity>(),
-                           UIElementMetadata.Config.SplitterAction(),
-                           UIElementMetadata.Config.RefreshAction<TEntity>(),
-                           UIElementMetadata.Config.CloseAction());
+                           ToolbarElements.Assign<TEntity>(),
+                           ToolbarElements.Splitter(),
+                           ToolbarElements.Refresh<TEntity>(),
+                           ToolbarElements.Close());
 
             return builder;
         }

@@ -14,30 +14,30 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .MainAttribute(x => x.Id)
                         .CommonCardToolbar()
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("AccountDetails")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelAccountDetails)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.AccountDetail)
-                                                             .FilterToParent(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Locks")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Lock)
-                                                             .FilterToParent(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Limits")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelLimits)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Limit)
-                                                             .FilterToParent(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Orders")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                             .Icon.Path("en_ico_16_Order.gif")
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Order)
-                                                             .FilterToParent());
+                                          UIElementMetadata.Config
+                                                           .Name.Static("AccountDetails")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelAccountDetails)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.AccountDetail)
+                                                           .FilterToParent(),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("Locks")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.Lock)
+                                                           .FilterToParent(),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("Limits")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelLimits)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.Limit)
+                                                           .FilterToParent(),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("Orders")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
+                                                           .Icon.Path("en_ico_16_Order.gif")
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.Order)
+                                                           .FilterToParent());
     }
 }
