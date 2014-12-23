@@ -103,7 +103,7 @@
     <Compile Include="DI\MassProcessing\UIServicesMassProcessor.cs" />
     <Compile Include="DI\UnityPerWebRequestLifetimeManager.cs" />
     <Compile Include="DI\UnityPerWebRequestLifetimeModule.cs" />
-    <Compile Include="DI\PlatformUiWebMvcAssembly.cs" />
+    <Compile Include="DI\PlatformUIWebMvcAssembly.cs" />
     <Compile Include="DI\WebMvcZone.cs" />
     <Compile Include="ResourceHandling\ResourcesResolver.cs" />
     <Compile Include="Security\IDefaultUserContextConfigurator.cs" />

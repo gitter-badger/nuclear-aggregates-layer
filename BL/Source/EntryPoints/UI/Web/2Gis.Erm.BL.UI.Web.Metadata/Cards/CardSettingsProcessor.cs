@@ -17,8 +17,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 {
@@ -150,9 +150,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
         internal void EvaluateToolbarElementAvailability<TViewModel>(UIElementMetadata toolbarElementMetadata, ToolbarElementStructure toolbarlement, TViewModel model)
             where TViewModel : IEntityViewModelBase
         {
-            toolbarlement.Disabled |= IsUiElementDisabled(toolbarElementMetadata, model);
+            toolbarlement.Disabled |= IsUIElementDisabled(toolbarElementMetadata, model);
 
-            if (IsUiElementInvisible(toolbarElementMetadata, model))
+            if (IsUIElementInvisible(toolbarElementMetadata, model))
             {
                 model.ViewConfig.CardSettings.CardToolbar
                     = model.ViewConfig.CardSettings.CardToolbar.Except(new[] { toolbarlement }).ToArray();
@@ -189,9 +189,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 
         internal void EvaluateRelatedItemAvailability(UIElementMetadata relatedItemElementMetadata, CardRelatedItemStructure relatedItemElement, IEntityViewModelBase model)
         {
-            relatedItemElement.Disabled |= IsUiElementDisabled(relatedItemElementMetadata, model);
+            relatedItemElement.Disabled |= IsUIElementDisabled(relatedItemElementMetadata, model);
 
-            if (IsUiElementInvisible(relatedItemElementMetadata, model))
+            if (IsUIElementInvisible(relatedItemElementMetadata, model))
             {
                 model.ViewConfig.CardSettings.CardRelatedItems.SingleOrDefault().Items
                     = model.ViewConfig.CardSettings.CardRelatedItems.SingleOrDefault().Items.Except(new[] { relatedItemElement }).ToArray();
@@ -221,7 +221,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             }
         }
 
-        internal bool IsUiElementDisabled(UIElementMetadata element, IEntityViewModelBase model)
+        internal bool IsUIElementDisabled(UIElementMetadata element, IEntityViewModelBase model)
         {
             if (element.Uses<LockOnNewCardFeature>() && model.IsNew)
             {
@@ -272,7 +272,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             return false;
         }
 
-        internal bool IsUiElementInvisible<TViewModel>(UIElementMetadata element, TViewModel model)
+        internal bool IsUIElementInvisible<TViewModel>(UIElementMetadata element, TViewModel model)
             where TViewModel : IViewModelAbstract
         {
             foreach (var feature in element.Features<IHideExpressionFeature>())

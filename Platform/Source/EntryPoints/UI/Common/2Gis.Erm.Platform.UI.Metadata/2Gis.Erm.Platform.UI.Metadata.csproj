@@ -53,11 +53,11 @@
     </Compile>
     <Compile Include="Config\Common\Card\Features\ICardFeature.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewPathMapping.cs" />
-    <Compile Include="UiElements\Features\ExpressionFeatureAbstract.cs" />
-    <Compile Include="UiElements\Features\HideExpressionFeature.cs" />
-    <Compile Include="UiElements\Features\IUiElementExpressionFeature.cs" />
-    <Compile Include="UiElements\Features\IHideExpressionFeature.cs" />
-    <Compile Include="UiElements\Features\LockOnInactiveCardFeature.cs" />
+    <Compile Include="UIElements\Features\ExpressionFeatureAbstract.cs" />
+    <Compile Include="UIElements\Features\HideExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\IUIElementExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\IHideExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\LockOnInactiveCardFeature.cs" />
     <Compile Include="Config\Common\Card\Features\Parts\IPartsContainerElement.cs" />
     <Compile Include="Config\Common\Card\Features\Parts\IPartFeature.cs" />
     <Compile Include="Config\Common\Card\Features\Parts\PartFeature.cs" />
@@ -106,18 +106,18 @@
     <Compile Include="Indicators\MVVMIndicators.cs" />
     <Compile Include="Operations\IClientOperationIdentity.cs" />
     <Compile Include="Operations\OperationUtils.cs" />
-    <Compile Include="UiElements\ControlTypes\ControlType.cs" />
-    <Compile Include="UiElements\ControlTypes\EnumControlTypeDescriptor.cs" />
-    <Compile Include="UiElements\ControlTypes\ControlTypeFeature.cs" />
-    <Compile Include="UiElements\Features\IDisableExpressionFeature.cs" />
-    <Compile Include="UiElements\Features\ISecuredElementFeature.cs" />
-    <Compile Include="UiElements\Features\IUiElementFeature.cs" />
-    <Compile Include="UiElements\Features\SecuredByEntityPrivelegeFeature.cs" />
-    <Compile Include="UiElements\Features\SecuredByFunctionalPrivelegeFeature.cs" />
-    <Compile Include="UiElements\UiElementMetadata.cs" />
-    <Compile Include="UiElements\UiElementMetadataBuilder.cs" />
-    <Compile Include="UiElements\Features\DisableExpressionFeature.cs" />
-    <Compile Include="UiElements\Features\LockOnNewCardFeature.cs" />
+    <Compile Include="UIElements\ControlTypes\ControlType.cs" />
+    <Compile Include="UIElements\ControlTypes\EnumControlTypeDescriptor.cs" />
+    <Compile Include="UIElements\ControlTypes\ControlTypeFeature.cs" />
+    <Compile Include="UIElements\Features\IDisableExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\ISecuredElementFeature.cs" />
+    <Compile Include="UIElements\Features\IUIElementFeature.cs" />
+    <Compile Include="UIElements\Features\SecuredByEntityPrivelegeFeature.cs" />
+    <Compile Include="UIElements\Features\SecuredByFunctionalPrivelegeFeature.cs" />
+    <Compile Include="UIElements\UIElementMetadata.cs" />
+    <Compile Include="UIElements\UIElementMetadataBuilder.cs" />
+    <Compile Include="UIElements\Features\DisableExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\LockOnNewCardFeature.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

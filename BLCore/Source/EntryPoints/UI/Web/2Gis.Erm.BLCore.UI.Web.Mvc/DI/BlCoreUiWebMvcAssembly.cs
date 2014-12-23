@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
 {
-    public sealed class BlCoreUiWebMvcAssembly : IZoneAssembly<WebMvcZone>,
+    public sealed class BlCoreUIWebMvcAssembly : IZoneAssembly<WebMvcZone>,
                                                  IZoneAnchor<WebMvcZone>,
                                                  IContainsType<IController>,
                                                  IContainsType<IEnumAdaptationService>,

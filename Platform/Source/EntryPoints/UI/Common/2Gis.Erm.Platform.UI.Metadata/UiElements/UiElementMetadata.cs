@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 
-namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
+namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements
 {
     public sealed class UIElementMetadata : MetadataElement<UIElementMetadata, UIElementMetadataBuilder>,
         INamedElement,

@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 
-namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes
+namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes
 {
     public sealed class EnumControlTypeDescriptor : IResourceDescriptor
     {

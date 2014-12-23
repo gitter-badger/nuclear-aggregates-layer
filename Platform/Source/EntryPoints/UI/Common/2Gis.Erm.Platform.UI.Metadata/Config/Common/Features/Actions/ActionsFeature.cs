@@ -1,5 +1,5 @@
 ﻿using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions
 {

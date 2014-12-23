@@ -337,7 +337,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="DI\BlflexUiWebMvcAssembly.cs" />
+    <Compile Include="DI\BlflexUIWebMvcAssembly.cs" />
     <Compile Include="Models\Chile\ChileCreateBillViewModel.cs" />
     <Compile Include="Models\Chile\CommuneViewModel.cs" />
     <Compile Include="Models\Emirates\EmiratesGenerateAcceptanceReportViewModel.cs" />

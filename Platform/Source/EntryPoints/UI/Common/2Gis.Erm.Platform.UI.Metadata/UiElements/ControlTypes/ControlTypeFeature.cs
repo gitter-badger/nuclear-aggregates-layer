@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
-namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes
+namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes
 {
     public sealed class ControlTypeFeature : ISecuredElementFeature
     {

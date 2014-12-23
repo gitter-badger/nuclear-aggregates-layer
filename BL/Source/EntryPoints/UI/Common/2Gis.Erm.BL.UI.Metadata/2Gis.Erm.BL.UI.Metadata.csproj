@@ -54,7 +54,7 @@
     </Compile>
     <Compile Include="Cards\CardMetadataSource.cs" />
     <Compile Include="Cards\Extensions\CardMetadataBuilderExtensions.cs" />
-    <Compile Include="DI\BlUiMetadataAssembly.cs" />
+    <Compile Include="DI\BlUIMetadataAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">

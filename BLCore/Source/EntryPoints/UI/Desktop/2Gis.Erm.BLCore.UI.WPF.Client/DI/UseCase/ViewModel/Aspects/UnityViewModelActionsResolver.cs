@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Actions;

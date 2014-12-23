@@ -15,9 +15,9 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 {

@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
 {

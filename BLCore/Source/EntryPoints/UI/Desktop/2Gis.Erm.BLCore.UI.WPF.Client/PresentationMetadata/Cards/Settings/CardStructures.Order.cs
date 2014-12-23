@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation;
 

@@ -126,8 +126,8 @@
     <Compile Include="Cards\Settings\CardStructures.AccountDetail.cs" />
     <Compile Include="Cards\Settings\CardStructures.Account.cs" />
     <Compile Include="Cards\Settings\CardStructures.cs" />
-    <Compile Include="Cards\Extensions\UiElementMetadataBuilderExtensions.cs" />
-    <Compile Include="DI\BlUiMetadataAssembly.cs" />
+    <Compile Include="Cards\Extensions\UIElementMetadataBuilderExtensions.cs" />
+    <Compile Include="DI\BlUIMetadataAssembly.cs" />
     <Compile Include="FeatureExtensions.cs" />
     <Compile Include="ViewNameProvider.cs" />
   </ItemGroup>

@@ -25,7 +25,6 @@ using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
-using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
@@ -42,10 +41,10 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             {
                 return CompositionRoot.Config
                                       .RequireZone<WebMvcZone>()
-                                          .UseAnchor<BlCoreUiWebMvcAssembly>()
-                                          .UseAnchor<BlUiWebMvcAssembly>()
-                                          .UseAnchor<BlFlexUiWebMvcAssembly>()
-                                          .UseAnchor<PlatformUiWebMvcAssembly>()
+                                          .UseAnchor<BlCoreUIWebMvcAssembly>()
+                                          .UseAnchor<BlUIWebMvcAssembly>()
+                                          .UseAnchor<BlFlexUIWebMvcAssembly>()
+                                          .UseAnchor<PlatformUIWebMvcAssembly>()
                                       .RequireZone<AggregatesZone>()
                                           .UseAnchor<PlatformAggregatesAssembly>()
                                           .UseAnchor<BlCoreAggregatesAssembly>()
@@ -74,10 +73,10 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                           .UseAnchor<PlatformModelEntityFrameworkAssembly>()
                                       .RequireZone<MetadataZone>()
                                           .UseAnchor<PlatformModelMetadataAssembly>()
-                                          .UseAnchor<BlUiMetadataAssembly>()
-                                          .UseAnchor<BlUiWebMetadataAssembly>()
-                                          .UseAnchor<BlFlexUiWebMetadataAssembly>()
-                                          .UseAnchor<BlFlexUiMetadataAssembly>()
+                                          .UseAnchor<BlUIMetadataAssembly>()
+                                          .UseAnchor<BlUIWebMetadataAssembly>()
+                                          .UseAnchor<BlFlexUIWebMetadataAssembly>()
+                                          .UseAnchor<BlFlexUIMetadataAssembly>()
                                       .RequireZone<AppFabricZone>()
                                           .UseAnchor<PlatformAppFabricAssembly>();
             }

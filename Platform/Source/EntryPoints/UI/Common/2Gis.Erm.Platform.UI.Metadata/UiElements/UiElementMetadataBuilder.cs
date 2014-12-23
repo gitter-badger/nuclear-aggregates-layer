@@ -15,10 +15,10 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
-namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
+namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements
 {
     public sealed class UIElementMetadataBuilder : MetadataElementBuilder<UIElementMetadataBuilder, UIElementMetadata>
     {

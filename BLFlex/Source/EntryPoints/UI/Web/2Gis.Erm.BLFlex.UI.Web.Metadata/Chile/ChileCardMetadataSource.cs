@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
 {

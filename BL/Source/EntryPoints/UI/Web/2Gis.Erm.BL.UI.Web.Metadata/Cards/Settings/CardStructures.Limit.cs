@@ -3,8 +3,8 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {

@@ -10,12 +10,12 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderValidation;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
 {
-    public static class UiMetadataExtensions
+    public static class UIMetadataExtensions
     {
         public static UIElementMetadata[] OrderAdditionalActions(this UIElementMetadataBuilder elementMetadata)
         {

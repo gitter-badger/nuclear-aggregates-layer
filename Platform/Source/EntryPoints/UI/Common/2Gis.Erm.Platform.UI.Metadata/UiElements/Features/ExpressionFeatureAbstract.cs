@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
-namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features
+namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features
 {
     public abstract class ExpressionFeatureAbstract<T> : IUIElementExpressionFeature
         where T : IViewModelAbstract

@@ -20,7 +20,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 {

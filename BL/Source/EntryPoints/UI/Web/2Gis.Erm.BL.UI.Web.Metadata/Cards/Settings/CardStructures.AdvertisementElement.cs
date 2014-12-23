@@ -7,8 +7,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {

@@ -87,7 +87,7 @@
     <Compile Include="Config\Grids\MetadataGridsIdentity.cs" />
     <Compile Include="Config\ViewModel\ViewModelParts.cs" />
     <Compile Include="Confirmations\ConfirmationManager.cs" />
-    <Compile Include="DI\BlCoreUiMetadataAssembly.cs" />
+    <Compile Include="DI\BlCoreUIMetadataAssembly.cs" />
     <Compile Include="Entities\EntitiesMetadataSource.cs" />
     <Compile Include="Entities\Properties\EntityProperties.Account.cs" />
     <Compile Include="Entities\Properties\EntityProperties.AccountDetails.cs" />

@@ -7,12 +7,12 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
-    public static class UiElementMetadataBuilderExtensions
+    public static class UIElementMetadataBuilderExtensions
     {
         public static UIElementMetadataBuilder CreateAction<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : class, IEntity, IEntityKey

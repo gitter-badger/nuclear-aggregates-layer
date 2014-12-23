@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
-using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {

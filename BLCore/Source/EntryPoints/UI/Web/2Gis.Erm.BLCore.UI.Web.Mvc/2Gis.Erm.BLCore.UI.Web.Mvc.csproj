@@ -518,7 +518,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WithdrawalRevertDialog.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="DI\BlCoreUiWebMvcAssembly.cs" />
+    <Compile Include="DI\BlCoreUIWebMvcAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

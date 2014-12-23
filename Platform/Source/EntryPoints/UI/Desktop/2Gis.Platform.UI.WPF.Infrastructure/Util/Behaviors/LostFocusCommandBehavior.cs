@@ -43,15 +43,15 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Util.Behaviors
 
             if ((e.NewValue != null) && (e.OldValue == null))
             {
-                uiElement.LostFocus += UiElementOnLostFocus;
+                uiElement.LostFocus += UIElementOnLostFocus;
             }
             else if ((e.NewValue == null) && (e.OldValue != null))
             {
-                uiElement.LostFocus -= UiElementOnLostFocus;
+                uiElement.LostFocus -= UIElementOnLostFocus;
             }
         }
 
-        private static void UiElementOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
+        private static void UIElementOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
         {
             var element = (UIElement)sender;
             var command = GetCommand(element);

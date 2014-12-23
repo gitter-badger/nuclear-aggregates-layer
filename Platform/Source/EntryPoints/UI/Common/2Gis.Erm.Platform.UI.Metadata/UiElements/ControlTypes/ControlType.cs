@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes
+﻿namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes
 {
     public enum ControlType
     {
