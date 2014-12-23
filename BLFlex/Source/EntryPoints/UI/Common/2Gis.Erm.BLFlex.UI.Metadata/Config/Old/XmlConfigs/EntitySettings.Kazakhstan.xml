@@ -645,7 +645,7 @@
         </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextButton" LockOnInactive="true" Action="scope.Create" SecurityPrivelegeFlag="0" />
-          <ToolbarItem Name="DeleteAll" NameLocaleResourceId="ControlDeleteAll" ControlType="TextButton" LockOnInactive="true" Action="scope.DeleteAll" SecurityPrivelegeFlag="0" />
+          <ToolbarItem Name="DeleteAll" NameLocaleResourceId="ControlDeleteAll" ControlType="TextButton" LockOnInactive="true" DisableOnEmpty="true" Action="scope.DeleteAll" SecurityPrivelegeFlag="0" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
