@@ -23,5 +23,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                 }
             }
         }
+
+        public static class CategoryFirmAddresses
+        {
+            public static class Find
+            {
+                public static FindSpecification<CategoryFirmAddress> ByFirmAddresses(IEnumerable<long> addressIds)
+                {
+                    return new FindSpecification<CategoryFirmAddress>(x => addressIds.Contains(x.FirmAddressId));
+                }
+            }
+        }
     }
 }

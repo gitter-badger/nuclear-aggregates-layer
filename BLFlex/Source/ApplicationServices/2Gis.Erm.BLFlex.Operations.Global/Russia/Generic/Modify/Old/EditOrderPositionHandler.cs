@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -43,6 +44,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
         private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
 
+        private readonly ICategoryService _categoryService;
+
         private readonly IOperationScopeFactory _scopeFactory;
 
         public EditOrderPositionHandler(
@@ -56,7 +59,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             ICalculateOrderPositionCostService calculateOrderPositionCostService,
             IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
             IOperationScopeFactory scopeFactory,
-            ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService)
+            ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
+            ICategoryService categoryService)
         {
             _finder = finder;
             _orderReadModel = orderReadModel;
@@ -69,6 +73,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
             _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
+            _categoryService = categoryService;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -146,9 +151,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
                     if (request.CategoryIds.Any())
                     {
-                        var unsupported = _positionReadModel.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
-                                                                                      orderInfo.DestOrganizationUnitId,
-                                                                                      request.CategoryIds);
+                        var unsupported = _categoryService.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
+                                                                                                                   orderInfo.DestOrganizationUnitId,
+                                                                                                                   request.CategoryIds);
                         if (unsupported.Any())
                         {
                             var organizationUnitName = _organizationUnitReadModel.GetName(orderInfo.DestOrganizationUnitId);

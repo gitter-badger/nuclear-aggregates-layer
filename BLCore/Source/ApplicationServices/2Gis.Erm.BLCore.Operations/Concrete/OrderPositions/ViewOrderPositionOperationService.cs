@@ -1,6 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
@@ -11,19 +10,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
     public class ViewOrderPositionOperationService : IViewOrderPositionOperationService
     {
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IPositionReadModel _positionReadModel;
         private readonly IPriceReadModel _priceReadModel;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
+        private readonly IFormAvailableBindingObjectsOperationService _formAvailableBindingObjectsOperationService;
 
         public ViewOrderPositionOperationService(IOrderReadModel orderReadModel,
                                                  IPriceReadModel priceReadModel,
-                                                 IPositionReadModel positionReadModel,
-                                                 ICalculateCategoryRateOperationService calculateCategoryRateOperationService)
+                                                 ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
+                                                 IFormAvailableBindingObjectsOperationService formAvailableBindingObjectsOperationService)
         {
             _orderReadModel = orderReadModel;
-            _priceReadModel = priceReadModel;
-            _positionReadModel = positionReadModel;
+            _priceReadModel = priceReadModel;            
             _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
+            _formAvailableBindingObjectsOperationService = formAvailableBindingObjectsOperationService;
         }
 
         public OrderPositionWithSchemaDto ViewOrderPosition(long orderId, long pricePositionId, long? orderPositionId, bool includeHidden)
@@ -33,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             var categoryRate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculatedOrDefault(orderId, pricePositionId, null);
             var priceCalulations = _orderReadModel.CalculatePricePerUnit(orderId, categoryRate, positionInfo.PricePositionCost);
             var isNewSalesModel = positionInfo.SalesModel.IsNewSalesModel();
-            var linkingObjectsSchema = _positionReadModel.GetLinkingObjectsSchema(order, positionInfo, includeHidden, orderPositionId);
+            var linkingObjectsSchema = _formAvailableBindingObjectsOperationService.GetLinkingObjectsSchema(orderId, pricePositionId, includeHidden, orderPositionId);
 
             return new OrderPositionWithSchemaDto
             {

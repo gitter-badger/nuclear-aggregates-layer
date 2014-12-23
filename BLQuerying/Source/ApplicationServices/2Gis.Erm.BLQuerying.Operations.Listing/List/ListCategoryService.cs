@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -16,12 +16,16 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
-        
+        private readonly ICategoryService _categoryService;
+
         public ListCategoryService(
-            IFinder finder, FilterHelper filterHelper)
+            IFinder finder,
+            FilterHelper filterHelper,
+            ICategoryService categoryService)
         {
             _finder = finder;
             _filterHelper = filterHelper;
+            _categoryService = categoryService;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
@@ -104,23 +108,23 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                                                                                                             !y.IsDeleted &&
                                                                                                                                                                             y.OrganizationUnitId == organizationUnitId))));
 
-            bool forNewSalesModel;
-            IReadOnlyCollection<long> supportedCategoriesForNewSalesModel = new long[0];
-            if (querySettings.TryGetExtendedProperty("forNewSalesModel", out forNewSalesModel))
-            {
-                long organizationUnitId;
-                if (!querySettings.TryGetExtendedProperty("OrganizationUnitId", out organizationUnitId) ||
-                    !NewSalesModelRestrictions.IsOrganizationUnitSupported(organizationUnitId))
-                {
-                    return new RemoteCollection<ListCategoryDto>(new ListCategoryDto[0], 0);
-                }
+            var salesModelFilter =
+                querySettings.CreateForExtendedProperty<Category, SalesModel>("salesModel",
+                                                                              salesModel =>
+                                                                              {
+                                                                                  long organizationUnitId;
+                                                                                  if (!querySettings.TryGetExtendedProperty("OrganizationUnitId",
+                                                                                                                            out organizationUnitId))
+                                                                                  {
+                                                                                      return x => false;
+                                                                                  }
 
-                supportedCategoriesForNewSalesModel = NewSalesModelRestrictions.GetSupportedCategoryIds(organizationUnitId);
-            }
+                                                                                  var supportedCategoriesForNewSalesModel =
+                                                                                      _categoryService
+                                                                                          .GetCategoriesSupportedBySalesModelInOrganizationUnit(salesModel, organizationUnitId);
 
-            var forNewSalesModelFilter = querySettings.CreateForExtendedProperty<Category, bool>(
-                "forNewSalesModel",
-                nsm => x => !forNewSalesModel || supportedCategoriesForNewSalesModel.Contains(x.Id));
+                                                                                  return x => supportedCategoriesForNewSalesModel.Contains(x.Id);
+                                                                              });
 
             return query
                 .Where(x => !x.IsDeleted)
@@ -128,7 +132,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 , firmIdFilter
                 , firmAddressIdFilter
                 , organizationUnitIdFilter
-                , forNewSalesModelFilter)
+                , salesModelFilter)
                 .Select(x => new ListCategoryDto
                 {
                     Id = x.Id,

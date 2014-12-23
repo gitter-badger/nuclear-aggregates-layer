@@ -144,6 +144,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             return _finder.FindMany(FirmSpecs.Addresses.Find.ActiveByFirmId(firmId)).ToArray();
         }
 
+        public IEnumerable<FirmAddress> GetActiveOrWithSalesByFirm(long firmId)
+        {
+            return _finder.FindMany(FirmSpecs.Addresses.Find.ActiveOrWithSalesByFirmId(firmId)).ToArray();
+        }
+
         public IEnumerable<FirmContact> GetContacts(long firmAddressId)
         {
             // В данном случае намеренно используется небезопасная версия файндера

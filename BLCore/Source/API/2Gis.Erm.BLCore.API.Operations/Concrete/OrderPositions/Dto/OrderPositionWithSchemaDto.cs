@@ -34,5 +34,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto
         public bool IsPositionCategoryBound { get; set; }
         [DataMember]
         public LinkingObjectsSchemaDto LinkingObjectsSchema { get; set; }
+        [DataMember]
+        public SalesModel SalesModel { get; set; }
     }
 }

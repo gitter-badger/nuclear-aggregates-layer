@@ -275,7 +275,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
                 self.ServerData.IsPositionCategoryBound = responseData.IsPositionCategoryBound;
                 self.recalculateAll(responseData);
                 self.recalculateDiscount();
-                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema, responseData.IsPositionNewSalesModel);
+                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema, responseData.IsPositionNewSalesModel, responseData.SalesModel);
             },
             failure: function (response)
             {

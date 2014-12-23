@@ -27,6 +27,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         organizationUnitId: null,
         areLinkingObjectParametersLocked: null,
         useSingleCategoryForPackage: null,
+        salesModel: null,
         linkingObjectsByKey: [],
         linkingObjects: [],
         positions: [],
@@ -947,7 +948,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         var extendedInfo = "OrganizationUnitId=" + this.localData.organizationUnitId.toString() + "&" + ("Level=" + categoryLevel);
 
         if (this.localData.useSingleCategoryForPackage) {
-            extendedInfo += "&forNewSalesModel=true";
+            extendedInfo += "&salesModel=" + this.localData.salesModel;
         }
 
         var url = "/Grid/Search/Category?" + "extendedInfo=" + encodeURIComponent(extendedInfo);

@@ -4,12 +4,12 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -31,8 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
     public sealed class MultiCultureEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly IFinder _finder;
-        private readonly IOrderReadModel _orderReadModel;
-        private readonly IPositionReadModel _positionReadModel;
+        private readonly IOrderReadModel _orderReadModel;        
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
 
         private readonly IPublicService _publicService;
@@ -40,12 +39,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
+        private readonly ICategoryService _categoryService;
 
         private readonly IOperationScopeFactory _scopeFactory;
 
         public MultiCultureEditOrderPositionHandler(IFinder finder,
                                                     IOrderReadModel orderReadModel,
-                                                    IPositionReadModel positionReadModel,
                                                     IOrganizationUnitReadModel organizationUnitReadModel,
                                                     IPublicService publicService,
                                                     IOrderRepository orderRepository,
@@ -55,8 +54,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                                                     ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService)
         {
             _finder = finder;
-            _orderReadModel = orderReadModel;
-            _positionReadModel = positionReadModel;
+            _orderReadModel = orderReadModel;            
             _organizationUnitReadModel = organizationUnitReadModel;
             _publicService = publicService;
             _orderRepository = orderRepository;
@@ -140,9 +138,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
                     if (request.CategoryIds.Any())
                     {
-                        var unsupported = _positionReadModel.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
-                                                                                      orderInfo.DestOrganizationUnitId,
-                                                                                      request.CategoryIds);
+                        var unsupported = _categoryService.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
+                                                                                                                   orderInfo.DestOrganizationUnitId,
+                                                                                                                   request.CategoryIds);
                         if (unsupported.Any())
                         {
                             var organizationUnitName = _organizationUnitReadModel.GetName(orderInfo.DestOrganizationUnitId);

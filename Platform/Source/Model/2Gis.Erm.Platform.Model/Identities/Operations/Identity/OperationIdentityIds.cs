@@ -135,6 +135,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ValidateOrderPositionAdvertisementsIdentity = 15002;
         public const int CalculateCategoryRateIdentity = 15003;
         public const int ViewOrderPositionIdentity = 15004;
+        public const int FormAvailableBinfingObjectsIdentity = 15005;
 
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;

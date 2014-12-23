@@ -17,6 +17,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         bool HasFirmClient(long firmId);
         bool TryGetFirmAndClientByFirmAddress(long firmAddressCode, out FirmAndClientDto dto);
         IEnumerable<FirmAddress> GetFirmAddressesByFirm(long firmId);
+        IEnumerable<FirmAddress> GetActiveOrWithSalesByFirm(long firmId);
         IEnumerable<FirmContact> GetContacts(long firmAddressId);
         IDictionary<long, IEnumerable<FirmContact>> GetFirmContactsByAddresses(long firmId);
         string GetFirmName(long firmId);
