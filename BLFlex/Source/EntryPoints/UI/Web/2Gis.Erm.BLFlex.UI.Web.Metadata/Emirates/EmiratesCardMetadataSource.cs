@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Emirates
                                     .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Emirates/OrderPosition.cshtml"),
 
                         CardMetadata.For<Advertisement>()
-                                    .ConfigCommonCardToolbar(),
+                                    .CommonCardToolbar(),
 
                         CardMetadata.For<Bargain>()
                                     .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction()),
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Emirates
                                     .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UIElementMetadata.Config.CommonLegalPersonAdditionalActions()),
 
                         CardMetadata.For<Order>()
-                                    .ConfigRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
+                                    .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
                                     .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.EmiratesOrderPrintActions()),
                     };
 

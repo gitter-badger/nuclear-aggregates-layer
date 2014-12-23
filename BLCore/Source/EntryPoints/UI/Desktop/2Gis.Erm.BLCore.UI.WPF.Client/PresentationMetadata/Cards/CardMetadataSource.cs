@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
 
         public CardMetadataSource()
         {
-            _metadata = CardStructures.Settings.Aggregate(new Dictionary<Uri, IMetadataElement>(), Process);
+            _metadata = CardMetadatas.Settings.Aggregate(new Dictionary<Uri, IMetadataElement>(), Process);
         }
 
         public override IReadOnlyDictionary<Uri, IMetadataElement> Metadata

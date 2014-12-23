@@ -122,6 +122,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Chile\ChileCardMetadataSource.cs" />
+    <Compile Include="Config\Old\UICardConfigurationService.MetadataCorrections.cs" />
     <Compile Include="Config\Old\UICardConfigurationService.cs" />
     <Compile Include="Config\Old\UIConfigurationService.cs" />
     <Compile Include="DI\BlFlexUIMetadataAssembly.cs" />

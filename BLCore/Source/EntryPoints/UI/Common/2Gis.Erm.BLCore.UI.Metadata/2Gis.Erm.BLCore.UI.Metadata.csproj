@@ -49,7 +49,6 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Config\Cards\ICardMainAttributeFeature.cs" />
     <Compile Include="Config\Cards\ICardSettingsProcessor.cs" />
     <Compile Include="Config\Cards\ICardSettingsProvider.cs" />
     <Compile Include="Config\Cards\ReadOnlyFeature.cs" />
@@ -244,7 +243,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Config\DataLists\Configuration\" />
     <Folder Include="Operations\Specific\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

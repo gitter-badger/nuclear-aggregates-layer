@@ -98,13 +98,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             foreach (var resourceEntryKey in metadata.Parts)
             {
                 var item =
-                    new NavigationItem(IdBuilder.UniqueFor("CardStructures/Parts"), _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
+                    new NavigationItem(IdBuilder.UniqueFor("CardMetadatas/Parts"), _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
                 cardPartsItems.Add(item);
                 partsMap.Add(resourceEntryKey.ResourceEntryName, item);
             }
 
             var cardPartsRootItem = new NavigationItem(
-                IdBuilder.UniqueFor("CardStructures/Parts"),
+                IdBuilder.UniqueFor("CardMetadatas/Parts"),
                 _titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ErmConfigLocalization.CrdRelInformation)),
                 cardPartsRootNavigateCommand) { Items = cardPartsItems.ToArray() };
             items.Add(cardPartsRootItem);

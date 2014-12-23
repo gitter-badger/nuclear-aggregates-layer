@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 }
                 else
                 {
-                    var mainAttributeFeature = metadata.Features<ICardMainAttributeFeature>().SingleOrDefault();
+                    var mainAttributeFeature = metadata.Features<CardMainAttributeFeature>().SingleOrDefault();
                     if (mainAttributeFeature == null)
                     {
                         return;

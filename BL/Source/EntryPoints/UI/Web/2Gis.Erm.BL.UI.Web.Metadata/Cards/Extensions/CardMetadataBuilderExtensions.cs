@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             return builder;
         }
 
-        public static CardMetadataBuilder<TEntity> ConfigCommonCardToolbar<TEntity>(this CardMetadataBuilder<TEntity> builder)
+        public static CardMetadataBuilder<TEntity> CommonCardToolbar<TEntity>(this CardMetadataBuilder<TEntity> builder)
             where TEntity : class, IEntityKey, IEntity
         {
             builder.Actions
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             return builder;
         }
 
-        public static CardMetadataBuilder<TEntity> ConfigActivityCardToolbar<TEntity>(this CardMetadataBuilder<TEntity> builder)
+        public static CardMetadataBuilder<TEntity> ActivityCardToolbar<TEntity>(this CardMetadataBuilder<TEntity> builder)
              where TEntity : class, IEntityKey, IEntity
         {
             builder.Actions
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             return builder;
         }
 
-        public static CardMetadataBuilder<TEntity> ConfigRelatedItems<TEntity>(this CardMetadataBuilder<TEntity> builder, params UIElementMetadata[] items)
+        public static CardMetadataBuilder<TEntity> WithRelatedItems<TEntity>(this CardMetadataBuilder<TEntity> builder, params UIElementMetadata[] items)
             where TEntity : class, IEntityKey, IEntity
         {
             builder.RelatedItems

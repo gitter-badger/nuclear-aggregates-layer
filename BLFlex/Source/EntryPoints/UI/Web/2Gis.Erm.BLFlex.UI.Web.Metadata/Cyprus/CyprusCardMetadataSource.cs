@@ -40,19 +40,19 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Cyprus
                                     .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Cyprus/OrderPosition.cshtml"),
 
                         CardMetadata.For<Advertisement>()
-                                    .ConfigCommonCardToolbar(),
+                                    .CommonCardToolbar(),
 
                         CardMetadata.For<Bargain>()
                                     .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction()),
 
                         CardMetadata.For<Bill>()
-                                    .ConfigCommonCardToolbar(),
+                                    .CommonCardToolbar(),
 
                         CardMetadata.For<LegalPerson>()
                                     .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UIElementMetadata.Config.CommonLegalPersonAdditionalActions()),
 
                         CardMetadata.For<Order>()
-                                    .ConfigRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
+                                    .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
                                     .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.CyprusOrderPrintActions()),
                     };
 

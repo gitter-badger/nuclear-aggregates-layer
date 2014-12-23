@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         #region Order
                         CardMetadata.For<Order>()
                                     .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.RussianOrderPrintActions())
-                                    .ConfigRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions()
+                                    .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions()
                                                                          .With(UIElementMetadata.Config.Name.Static("OrderProcessingRequests")
                                                                                                 .Title.Resource(() => ErmConfigLocalization.CrdRelOrderProcessingRequests)
                                                                                                 .LockOnNew()

@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 {
-    public class ExtendedInfoFeature : IMetadataFeature
+    public sealed class ExtendedInfoFeature : IMetadataFeature
     {
         public ExtendedInfoFeature(IResourceDescriptor extendedInfo)
         {

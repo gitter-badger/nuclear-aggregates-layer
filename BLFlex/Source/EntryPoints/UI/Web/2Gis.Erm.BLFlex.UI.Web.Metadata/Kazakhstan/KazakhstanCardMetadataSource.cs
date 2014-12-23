@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Kazakhstan
                                     .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Kazakhstan/OrderPosition.cshtml"),
 
                         CardMetadata.For<Advertisement>()
-                                    .ConfigCommonCardToolbar(),
+                                    .CommonCardToolbar(),
 
                         CardMetadata.For<Bargain>()
                                     .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction(),
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Kazakhstan
                                     .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UIElementMetadata.Config.CommonLegalPersonAdditionalActions()),
 
                         CardMetadata.For<Order>()
-                                    .ConfigRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
+                                    .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
                                     .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.KazakhstanOrderPrintActions()),
                     };
 

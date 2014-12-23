@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
-    public class ShowAdminPartFeature : ICardFeature
+    public sealed class ShowAdminPartFeature : ICardFeature
     {
     }
 }

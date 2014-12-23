@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             return ToCardStructure(metadata);
         }
 
-        internal CardStructure ToCardStructure(CardMetadata card)
+        private CardStructure ToCardStructure(CardMetadata card)
         {            
             var result = new CardStructure
             {
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.EntityLocalizedName = card.EntityLocalizationDescriptor.GetValue(_currentCulture);
             }
 
-            var mainAttributeFeature = card.Features<ICardMainAttributeFeature>().SingleOrDefault();
+            var mainAttributeFeature = card.Features<CardMainAttributeFeature>().SingleOrDefault();
             if (mainAttributeFeature != null)
             {
                 result.EntityMainAttribute = mainAttributeFeature.PropertyDescriptor.PropertyName;
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             return result;
         }
 
-        internal IEnumerable<ToolbarElementStructure> ToToolbarStructure(UIElementMetadata toolbarElement, UIElementMetadata parentElement)
+        private IEnumerable<ToolbarElementStructure> ToToolbarStructure(UIElementMetadata toolbarElement, UIElementMetadata parentElement)
         {
             var resultElement = new ToolbarElementStructure();
             var result = new List<ToolbarElementStructure>
@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             return result;
         }
 
-        internal CardRelatedItemsGroupStructure ToCardRelatedItemsGroupStructure(RelatedItemsFeature relatedItemsElement)
+        private CardRelatedItemsGroupStructure ToCardRelatedItemsGroupStructure(RelatedItemsFeature relatedItemsElement)
         {
             var result = new CardRelatedItemsGroupStructure();
             if (relatedItemsElement.NameDescriptor != null)
@@ -173,7 +173,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             return result;
         }
 
-        internal CardRelatedItemStructure ToCardRelatedItemStructure(UIElementMetadata element)
+        private CardRelatedItemStructure ToCardRelatedItemStructure(UIElementMetadata element)
         {
             var result = new CardRelatedItemStructure();
             if (element.NameDescriptor != null)

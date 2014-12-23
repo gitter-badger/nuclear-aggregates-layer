@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Ukraine
                                     .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Ukraine/OrderPosition.cshtml"),
 
                         CardMetadata.For<Advertisement>()
-                                    .ConfigCommonCardToolbar(),
+                                    .CommonCardToolbar(),
 
                         CardMetadata.For<Bargain>()
                                     .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction()),
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Ukraine
                                     .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UIElementMetadata.Config.CommonLegalPersonAdditionalActions()),
 
                         CardMetadata.For<Order>()
-                                    .ConfigRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
+                                    .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
                                     .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.UkraineOrderPrintActions()),
                     };
 

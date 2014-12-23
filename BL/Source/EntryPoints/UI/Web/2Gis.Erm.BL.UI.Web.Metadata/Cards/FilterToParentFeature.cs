@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 {
-    public class FilterToParentFeature : IMetadataFeature
+    public sealed class FilterToParentFeature : IMetadataFeature
     {
     }
 }

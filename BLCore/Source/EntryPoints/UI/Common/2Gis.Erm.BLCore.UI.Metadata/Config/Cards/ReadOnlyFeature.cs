@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
-    public class ReadOnlyFeature : ICardFeature
+    public sealed class ReadOnlyFeature : ICardFeature
     {
     }
 }

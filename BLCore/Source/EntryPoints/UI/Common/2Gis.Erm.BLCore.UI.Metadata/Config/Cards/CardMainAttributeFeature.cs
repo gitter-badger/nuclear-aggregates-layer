@@ -3,8 +3,17 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
-    public interface ICardMainAttributeFeature : ICardFeature
+    public sealed class CardMainAttributeFeature : ICardFeature
     {
-        IPropertyDescriptor PropertyDescriptor { get; }
+        public CardMainAttributeFeature(IPropertyDescriptor propertyDescriptor)
+        {
+            PropertyDescriptor = propertyDescriptor;
+        }
+
+        public IPropertyDescriptor PropertyDescriptor { get; private set; }
+        public string PropertyName
+        {
+            get { return PropertyDescriptor.PropertyName; }
+        }
     }
 }

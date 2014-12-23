@@ -42,10 +42,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
 
                         CardMetadata.For<Bank>()
                                     .MainAttribute<Bank, IBankViewModel>(x => x.Name)
-                                    .ConfigCommonCardToolbar(),
+                                    .CommonCardToolbar(),
 
                         CardMetadata.For<Advertisement>()
-                                    .ConfigCommonCardToolbar(),
+                                    .CommonCardToolbar(),
 
                         CardMetadata.For<Bargain>()
                                     .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction()),
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
                                     .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UIElementMetadata.Config.CommonLegalPersonAdditionalActions()),
 
                         CardMetadata.For<Order>()
-                                    .ConfigRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
+                                    .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
                                     .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.ChileOrderPrintActions()),
                     };
 
