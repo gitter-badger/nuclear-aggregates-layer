@@ -1,4 +1,4 @@
-﻿// File updated : 06.11.2014 12:25:31
+﻿// File updated : 02.12.2014 16:13:25
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -38,7 +38,6 @@ AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Opravdu chcete publikov
 AdvertisingElementAccept : 'Schválit',
 AdvertisingElementValidate : 'Ověření',
 AfterPageText : 'z {0}',
-AfterSalesServiceOperationStartedMessage : 'Spuštěno vytvoření PPS. Tato akce nějakou dobu potrvá, její průběh můžete sledovat v protokolu operací.',
 Alert : 'Pozor!',
 AllExistingBillsWillBeDeleted : 'Všechny stávající faktury budou odstraněny. Pokračovat?',
 AllFieldsMustBeSetForPayment : 'K úhradě musí být vyplněna všechna pole',
@@ -296,7 +295,6 @@ SumRemainingMustBeNull : 'Zůstatek objednávky se nerovná nule. Zůstatek je t
 Sunday : 'Neděle',
 SymbolsLeft : 'Zbyvajici symboly: {0}',
 TabPanelItemCloseText : 'Zavřít záložku',
-Task : 'Úkol',
 TextEditorLineBreaksOverflow : 'Pocet radku presahuje povoleny pocet {0} o {1}.',
 TextEditorOverflow : 'Pocet symbolu presahuje povoleny pocet {0} symbolu o {1}.',
 TheAdvertisement : 'Reklamní materiál',

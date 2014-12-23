@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -24,23 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
 
         public long ConvertToEntityId(EntityName entityName, Guid replicationCode)
         {
-            IQueryable<IReplicableEntity> unsecureQuery;
-            IQueryable<IReplicableEntity> secureQuery;
-            GetQueries(entityName.AsEntityType(), out unsecureQuery, out secureQuery);
-            
-            var entityId = unsecureQuery.Where(x => x.ReplicationCode == replicationCode).Select(x => (long?)x.Id).SingleOrDefault();
-            if (entityId == null)
-            {
-                throw new ArgumentException(BLResources.CannotFindEntityByReplicationCode, "replicationCode");
-            }
-
-            var userCanRead = secureQuery.Any(x => x.ReplicationCode == replicationCode);
-            if (!userCanRead)
-            {
-                throw new ArgumentException(BLResources.CurrentUserHasNoReadEntityPermission, "replicationCode");
-            }
-
-            return entityId.Value;
+            return LookupEntityId(entityName, replicationCode);
         }
 
         public Guid ConvertToReplicationCode(EntityName entityName, long entityId)
@@ -50,13 +37,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
 
         public IEnumerable<long> ConvertToEntityIds(EntityName entityName, IEnumerable<Guid> replicationCodes)
         {
-            IQueryable<IReplicableEntity> unsecureQuery;
-            IQueryable<IReplicableEntity> secureQuery;
-            GetQueries(entityName.AsEntityType(), out unsecureQuery, out secureQuery);
-            var entityIds = unsecureQuery
-                .Where(x => replicationCodes.Contains(x.ReplicationCode))
-                .Select(x => x.Id).ToArray();
-            if (entityIds.Count() != replicationCodes.Count())
+            var codes = replicationCodes.ToList();
+            var entityIds = LookupEntities(_finder, entityName, codes).Select(x => x.Id).ToList();
+            if (entityIds.Count != codes.Count)
             {
                 throw new ArgumentException("Some replication codes cannot be converted to entity identifiers", "replicationCodes");
             }
@@ -69,17 +52,74 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             throw new NotImplementedException();
         }
 
-        private void GetQueries(
-            Type entityType,
-            out IQueryable<IReplicableEntity> unsecureQueryService,
-            out IQueryable<IReplicableEntity> secureQueryService)
+        private long LookupEntityId(EntityName entityName, Guid replicationCode)
         {
-            unsecureQueryService = _finder.FindAll(entityType) as IQueryable<IReplicableEntity>;
-            secureQueryService = _secureFinder.FindAll(entityType) as IQueryable<IReplicableEntity>;
-            if (unsecureQueryService == null || secureQueryService == null)
+            var entity = LookupEntity(_finder, entityName, replicationCode);
+            if (entity == null)
             {
-                throw new ArgumentException("Entity is not replicable", "entityType");
+                throw new ArgumentException(BLResources.CannotFindEntityByReplicationCode, "replicationCode");
             }
+
+            var userCannotRead = LookupEntity(_secureFinder, entityName, replicationCode) == null;
+            if (userCannotRead)
+            {
+                throw new ArgumentException(BLResources.CurrentUserHasNoReadEntityPermission, "replicationCode");
+            }
+
+            return entity.Id;
         }
+
+        private static IReplicableEntity LookupEntity(IFinderBase finder, EntityName entityName, Guid replicationCode)
+        {
+            var findOneMethodInfo = finder.GetType().GetMethods().First(x => x.Name == "FindOne");
+            if (findOneMethodInfo == null)
+            {
+                throw new ArgumentException("The finder does not have required method.", "finder");
+            }
+
+            var entityType = entityName.AsEntityType();
+
+            var findSpecExpression = Expression.Call(
+                ByReplicationCodeMethodInfo.MakeGenericMethod(entityType),
+                Expression.Constant(replicationCode)
+                );
+
+            var findOneExpression = Expression.Call(
+                Expression.Constant(finder),
+                findOneMethodInfo.MakeGenericMethod(entityType),
+                new Expression[] { findSpecExpression });
+
+            var queryLambda = Expression.Lambda<Func<IReplicableEntity>>(findOneExpression).Compile();
+
+            return queryLambda();
+        }
+
+        private static IEnumerable<IReplicableEntity> LookupEntities(IFinderBase finder, EntityName entityName, IEnumerable<Guid> replicationCodes)
+        {
+            var findManyMethodInfo = finder.GetType().GetMethods().First(x => x.Name == "FindMany");
+            if (findManyMethodInfo == null)
+            {
+                throw new ArgumentException("The finder does not have required method.", "finder");
+            }
+
+            var entityType = entityName.AsEntityType();
+
+            var findSpecExpression = Expression.Call(
+                ByReplicationCodesMethodInfo.MakeGenericMethod(entityType),
+                Expression.Constant(replicationCodes)
+                );
+
+            var findManyExpression = Expression.Call(
+                Expression.Constant(finder),
+                findManyMethodInfo.MakeGenericMethod(entityType),
+                new Expression[] { findSpecExpression });
+
+            var queryLambda = Expression.Lambda<Func<IEnumerable<IReplicableEntity>>>(findManyExpression).Compile();
+
+            return queryLambda();
+        }
+
+        private static readonly MethodInfo ByReplicationCodeMethodInfo = typeof(Specs.Find).GetMethods().First(x => x.Name == "ByReplicationCode");
+        private static readonly MethodInfo ByReplicationCodesMethodInfo = typeof(Specs.Find).GetMethods().First(x => x.Name == "ByReplicationCodes");
     }
 }

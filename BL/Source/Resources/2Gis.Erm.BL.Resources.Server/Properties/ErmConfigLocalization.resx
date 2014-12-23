@@ -276,6 +276,9 @@
   <data name="ControlCreateAppointment" xml:space="preserve">
     <value />
   </data>
+  <data name="ControlCreateLetter" xml:space="preserve">
+    <value />
+  </data>
   <data name="EnNavigationArea" xml:space="preserve">
     <value />
   </data>
@@ -393,6 +396,9 @@
   <data name="EnTask" xml:space="preserve">
     <value />
   </data>
+  <data name="EnLetter" xml:space="preserve">
+    <value />
+  </data>
   <data name="DListAccountDetails" xml:space="preserve">
     <value />
   </data>
@@ -469,9 +475,6 @@
     <value />
   </data>
   <data name="DListOperations" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DListOperationsAfterSaleService" xml:space="preserve">
     <value />
   </data>
   <data name="DListThemeCategory" xml:space="preserve">

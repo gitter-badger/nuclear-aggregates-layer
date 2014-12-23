@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         ChangeTerritory = 102,
         ChangeClient = 103,
 
-        AfterSaleServiceActivitiesCreation = 150,
+        [Obsolete] AfterSaleServiceActivitiesCreation = 150,
         ExportAccountDetailsTo1CForFranchisees = 151,
         CheckOrdersReadinessForRelease = 152,
         
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         ChangeTerritory = 102,
         ChangeClient = 103,
 
-        AfterSaleServiceActivitiesCreation = 150,
+        [Obsolete] AfterSaleServiceActivitiesCreation = 150,
         ExportAccountDetailsTo1CForFranchisees = 151,
         CheckOrdersReadinessForRelease = 152,
         MakeRegionalAdsDocs = 153,

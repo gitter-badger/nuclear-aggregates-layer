@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             _resolversMap = new Dictionary<IMessageFlow, Func<Type, IMessage, Type>> 
                 {
                     { PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance, PerformedOperations },
-                    { PrimaryReplicateHotClientPerformedOperationsFlow.Instance, PerformedOperations },
+                    { PrimaryProcessHotClientPerformedOperationsFlow.Instance, PerformedOperations },
                     { PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance, PerformedOperations },
                 };
         }

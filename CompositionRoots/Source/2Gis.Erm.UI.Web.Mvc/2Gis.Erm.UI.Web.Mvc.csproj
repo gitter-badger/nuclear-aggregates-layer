@@ -315,6 +315,7 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Firm.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_history.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_LegalPerson.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Letter.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_LocalMessage.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Metadata.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Module.gif" />
@@ -337,6 +338,7 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccount.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccountGroup.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_UserGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Appointment.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Assembly.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Bargain.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_BargainType.gif" />
@@ -358,17 +360,20 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Entity.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_FieldType.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_LegalPerson.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Letter.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_LocalMessage.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Module.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_NavigationArea.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_NavigationGroup.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Note.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_OrganizationUnit.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Phonecall.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Platform.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Position.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_PositionCategory.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Price.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_PricePosition.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Task.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Territory.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_User.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserAccount.gif" />
@@ -662,6 +667,11 @@
     <Content Include="Content\slider.css" />
     <Content Include="Content\Spinner.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Scripts\Activity\Ext.DoubleGis.UI.Phonecall.js" />
+    <Content Include="Scripts\Activity\Ext.DoubleGis.UI.Letter.js" />
+    <Content Include="Scripts\Activity\Ext.DoubleGis.UI.ContactRelationController.js" />
+    <Content Include="Scripts\Activity\Ext.DoubleGis.UI.RegardingObjectController.js" />
+    <Content Include="Scripts\Activity\Ext.DoubleGis.UI.ActivityBase.js" />
     <Content Include="Scripts\Chile\DataList\Bill.DataList.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.BillPayments.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.LegalPerson.Chile.js" />
@@ -671,6 +681,7 @@
     <Content Include="Scripts\DataList\ClientLink.DataList.js" />
     <Content Include="Scripts\DataList\FirmDeal.DataList.js" />
     <Content Include="Scripts\DataList\LegalPersonDeal.DataList.js" />
+    <Content Include="Scripts\DoubleGis.TimeZoneMap.js" />
     <Content Include="Scripts\Emirates\DataList\Order.DataList.js" />
     <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.Client.Emirates.js" />
     <Content Include="Scripts\Emirates\MergeClients.Emirates.js" />
@@ -690,12 +701,22 @@
     <Content Include="Scripts\Kazakhstan\Ext.DoubleGis.UI.LegalPerson.Kazakhstan.js" />
     <Content Include="Scripts\Ext.ux.Calendar2.js" />
     <Content Include="Scripts\Ext.ux.MonthPicker.js" />
+    <Content Include="Scripts\moment-timezone-utils.js" />
+    <Content Include="Scripts\moment-timezone-with-data-2010-2020.js" />
+    <Content Include="Scripts\moment-timezone-with-data-2010-2020.min.js" />
+    <Content Include="Scripts\moment-timezone-with-data.js" />
+    <Content Include="Scripts\moment-timezone-with-data.min.js" />
+    <Content Include="Scripts\moment-timezone.js" />
+    <Content Include="Scripts\moment-timezone.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MultiCulture\DataList\Client.DataList.js" />
     <Content Include="Scripts\MultiCulture\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.ChileOrder.js" />
     <Content Include="Scripts\Czech\Ext.DoubleGis.UI.CzechOrder.js" />
     <Content Include="Scripts\Cyprus\Ext.DoubleGis.UI.CyprusOrder.js" />
-    <Content Include="Scripts\Ext.DoubleGis.UI.ActivityBase.js" />
     <Content Include="Scripts\DoubleGis.UI.Services.js" />
     <Content Include="Scripts\DataList\Activity.DataList.js" />
     <Content Include="Scripts\DataList\Contact.DataList.js" />
@@ -743,7 +764,8 @@
     <Content Include="Scripts\Russia\Ext.DoubleGis.UI.AdvertisementElementStatus.js" />
     <Content Include="Scripts\Russia\Ext.DoubleGis.UI.Client.Russia.js" />
     <Content Include="Scripts\Russia\Ext.DoubleGis.UI.LegalPerson.Russia.js" />
-    <Content Include="Scripts\Russia\Ext.DoubleGis.UI.RussiaActivityBase.js" />
+    <Content Include="Scripts\Activity\Ext.DoubleGis.UI.Appointment.js" />
+    <Content Include="Scripts\Activity\Ext.DoubleGis.UI.Task.js" />
     <Content Include="Scripts\Ext.ux.IdField.js" />
     <Content Include="Scripts\DataList\CategoryFirmAddress.DataList.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Report.js" />
@@ -1406,7 +1428,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts\Card\" />
     <Folder Include="Scripts\Cyprus\DataList\" />
     <Folder Include="Scripts\Czech\DataList\" />
   </ItemGroup>

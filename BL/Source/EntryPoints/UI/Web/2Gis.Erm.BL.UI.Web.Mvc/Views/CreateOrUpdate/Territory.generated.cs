@@ -159,7 +159,7 @@ WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 
 WriteLiteral("\r\n");
 
-DefineSection("CustomCard", () => {
+DefineSection("CustomInit", () => {
 
 WriteLiteral("\r\n    <script");
 

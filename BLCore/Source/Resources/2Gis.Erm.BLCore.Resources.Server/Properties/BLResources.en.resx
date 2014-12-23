@@ -549,7 +549,7 @@
   <data name="TitlePlan" xml:space="preserve">
     <value>Planning</value>
   </data>
-  <data name="TitlePurpose" xml:space="preserve">
+  <data name="TitleResult" xml:space="preserve">
     <value>Purpose/Result</value>
   </data>
   <data name="TitleRegarding" xml:space="preserve">
@@ -689,9 +689,6 @@
   </data>
   <data name="Number" xml:space="preserve">
     <value>No.</value>
-  </data>
-  <data name="AfterSalesServiceOperationDescriptionFormat" xml:space="preserve">
-    <value>Creation of plans for after-sale service for the company division in {0} for {1}</value>
   </data>
   <data name="UnableToDeleteAssignedAdvertisementElementTemplate" xml:space="preserve">
     <value>Element of advertising material template is used in one or several templates and cannot be deleted.</value>
@@ -1048,9 +1045,6 @@ Locking errors:{2}</value>
   </data>
   <data name="IncorrectBeginDistributionDateMax" xml:space="preserve">
     <value>This start date of the order placement cannot be specified</value>
-  </data>
-  <data name="AfterSalesServiceOperationErrorsMessage" xml:space="preserve">
-    <value>Number of errors during creation of calls: {0}{1}{2}</value>
   </data>
   <data name="LockListByAccount" xml:space="preserve">
     <value>View the list of all holds for the personal account</value>
@@ -1801,9 +1795,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="DisqualifyOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>The operation of returning to the reserve is not defined for the specified type of entity</value>
   </data>
-  <data name="AfterSalesServiceCreationErrorFormat" xml:space="preserve">
-    <value>Error while creating after-sale service, Id: {0}, {1}{2}</value>
-  </data>
   <data name="OrdersCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit" xml:space="preserve">
     <value>The order {0} contains an item linked to the category that is not linked to the company division in the destination city of the order</value>
   </data>
@@ -2091,9 +2082,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   </data>
   <data name="OrderAmountFact" xml:space="preserve">
     <value>Actual amount of the order</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesEmpty" xml:space="preserve">
-    <value>No orders are found to generated after-sale service plans</value>
   </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>Writing off</value>
@@ -2613,9 +2601,6 @@ The operation has been executed: {6}.</value>
   </data>
   <data name="SystemID" xml:space="preserve">
     <value>Belongs to the system</value>
-  </data>
-  <data name="AfterSaleServiceActivitiesCreate" xml:space="preserve">
-    <value>Formation of after-sale service</value>
   </data>
   <data name="OrderCheckWhiteListedAdvertismentIsRequired" xml:space="preserve">
     <value>It is necessary to specify AM for the white list</value>
@@ -3178,8 +3163,8 @@ The operation has been executed: {6}.</value>
   <data name="CurrentUserHasNoReadEntityPermission" xml:space="preserve">
     <value>The current user has no rights to read entity</value>
   </data>
-  <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
-    <value>Number of deals processed: {0}, number of calls created: {1}</value>
+  <data name="RegionalAdvertisingSharing" xml:space="preserve">
+    <value>Exchange of regional advertisements</value>
   </data>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Results of the order check</value>
@@ -3336,9 +3321,6 @@ The operation has been executed: {6}.</value>
   </data>
   <data name="CopyPriceCreateNewLegend" xml:space="preserve">
     <value>Copy an existing price-list to a new one</value>
-  </data>
-  <data name="CrmEntityCode" xml:space="preserve">
-    <value>CRM code of entity</value>
   </data>
   <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
     <value>Sales territory with DGPP code [{0}] is not found</value>
@@ -3529,9 +3511,6 @@ The operation has been executed: {6}.</value>
   <data name="MergeLegalPersonsMainNotFoundError" xml:space="preserve">
     <value>Cannot perform merging since the main legal entity is not found.</value>
   </data>
-  <data name="ViewAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Not enough rights to review log of after-sale service</value>
-  </data>
   <data name="CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning" xml:space="preserve">
     <value>Cannot start cancellation, please wait until the previous operation ends</value>
   </data>
@@ -3558,9 +3537,6 @@ The operation has been executed: {6}.</value>
   </data>
   <data name="AdsCheckInvalidImageDimension" xml:space="preserve">
     <value>Resolution of the loaded image does not correspond to any of the specified limits</value>
-  </data>
-  <data name="CreateAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Not enough rights to generate after-sale service</value>
   </data>
   <data name="UserControllerDefaultDeactivateError" xml:space="preserve">
     <value>Standard deactivation functionality is not available for the object User.</value>
@@ -3717,9 +3693,6 @@ The operation has been executed: {6}.</value>
   </data>
   <data name="OrderFirmHiddenForAscertainmentTemplate" xml:space="preserve">
     <value>The company {0} is hidden till clarification</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesCompleted" xml:space="preserve">
-    <value>Plans of after-sale service have been generated. Number of deals processed: {0}, number of calls created: {1}</value>
   </data>
   <data name="ProcessOrderRejected_TerminationReasonNeeds" xml:space="preserve">
     <value>The reason for cancellation is not specified in Comment field</value>
@@ -5195,6 +5168,10 @@ Placement period: {3}.</value>
   </data>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value>{0} No.{1} as of {2}</value>
+  </data>
+  <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
+    <value>The start and end dates of the meeting are set incorrectly.
+</value>
   </data>
   <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
     <value>Для работы с профилями требуется, чтобы были указаны юридические лица</value>

@@ -1002,9 +1002,6 @@
   <data name="Purpose" xml:space="preserve">
     <value>Цель</value>
   </data>
-  <data name="AfterSaleServiceType" xml:space="preserve">
-    <value>Тип ППС</value>
-  </data>
   <data name="TaskType" xml:space="preserve">
     <value>Тип задачи</value>
   </data>
