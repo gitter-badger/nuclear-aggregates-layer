@@ -5181,6 +5181,6 @@ Cумма по операции: {5}.
 </value>
   </data>
   <data name="NoRegardingObjectValidationError" xml:space="preserve">
-    <value>Поля Клиент, Сделка и Фирма пустые. Необходимо заполнить как минимум одно из полей</value>
+    <value>Поля Клиент, Сделка и Фирма пустые. Необходимо заполнить как минимум одно из полей.</value>
   </data>
 </root>
