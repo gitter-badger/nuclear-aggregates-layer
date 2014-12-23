@@ -15,6 +15,7 @@ function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatfor
 		'PackageLocation' = $packageLocation
 		'DeployIisAppPath' = $EntryPointMetadata.IisAppPath
 		'GenerateSampleDeployScript' = $false
+		# у нас свои трансформации конфигов, параметризации не нужны
 		'AutoParameterizationWebConfigConnectionStrings' = $false
 	} -CustomXmls $configXmls
 	
