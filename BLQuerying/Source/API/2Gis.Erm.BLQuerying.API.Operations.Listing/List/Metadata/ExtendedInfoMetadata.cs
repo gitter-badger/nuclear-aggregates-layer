@@ -28,10 +28,12 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListInactiveActivities", "NotActiveBusinessMeaning=true"},
             // Мои действия
             {"DListMyActivities", "ActiveAndNotDeleted=true;ForMe=true" },
+            //Мои открытые планы
+            {"DListMyOpenedActivities","ActiveAndNotDeleted=true;InProgress=true;ForMe=true"},
             // Действия по моим подчиненным
             {"DListActivitiesForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Мои завершенные действия
-            {"DListMyCompletedActivities", "ActiveAndNotDeleted=true;Completed=true;ForMe=true" },
+            {"DListMyCompletedActivities", "ActiveAndNotDeleted=true;CompletedOrCanceled=true;ForMe=true" },
             // Завершенные действия по моим подчиненным
             {"DListCompletedActivitiesForSubordinates", "ActiveAndNotDeleted=true;Completed=true;ForSubordinates=true" },
             // Мои запланированные действия

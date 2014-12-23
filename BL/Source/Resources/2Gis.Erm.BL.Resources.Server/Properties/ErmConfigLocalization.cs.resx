@@ -1860,4 +1860,7 @@
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Hlavní</value>
   </data>
+  <data name="DListMyOpenedActivities" xml:space="preserve">
+    <value>Мои открытые планы</value>
+  </data>
 </root>

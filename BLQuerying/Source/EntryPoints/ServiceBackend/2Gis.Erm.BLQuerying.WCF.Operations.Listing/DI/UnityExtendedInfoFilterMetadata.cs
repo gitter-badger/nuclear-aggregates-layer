@@ -45,6 +45,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             RegisterExtendedInfoFilter<ListActivityDto, bool>("NotActiveBusinessMeaning", value => x => x.IsDeleted || !x.IsActive || x.StatusEnum == ActivityStatus.Completed || x.StatusEnum == ActivityStatus.Canceled);
             RegisterExtendedInfoFilter<ListActivityDto, bool>("InProgress", value => x => x.StatusEnum == ActivityStatus.InProgress);
             RegisterExtendedInfoFilter<ListActivityDto, bool>("Completed", value => x => x.StatusEnum == ActivityStatus.Completed);
+            RegisterExtendedInfoFilter<ListActivityDto, bool>("CompletedOrCanceled",value=> x => x.StatusEnum == ActivityStatus.Canceled || x.StatusEnum == ActivityStatus.Completed);
             RegisterExtendedInfoFilter<ListActivityDto, bool>("WarmClient", value => x => x.TaskType == TaskType.WarmClient);
 
             RegisterExtendedInfoFilter<ListActivityDto, bool>("ForToday", value =>

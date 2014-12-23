@@ -3357,6 +3357,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DListMyOpenedActivities {
+            get {
+                return ResourceManager.GetString("DListMyOpenedActivities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DListMyOpenedLimits {
             get {
                 return ResourceManager.GetString("DListMyOpenedLimits", resourceCulture);
