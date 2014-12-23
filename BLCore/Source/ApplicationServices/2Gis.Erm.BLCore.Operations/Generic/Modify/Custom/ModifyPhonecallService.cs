@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var phonecallDto = (PhonecallDomainEntityDto)domainEntityDto;
-            if (!phonecallDto.RegardingObjects.Any())
+            if (phonecallDto.RegardingObjects==null || !phonecallDto.RegardingObjects.Any())
             {
                 throw new NotificationException(BLResources.NoRegardingObjectValidationError);
             }

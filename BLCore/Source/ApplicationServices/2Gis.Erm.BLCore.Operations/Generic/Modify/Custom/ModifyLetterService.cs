@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var letterDto = (LetterDomainEntityDto)domainEntityDto;
-            if (!letterDto.RegardingObjects.Any())
+            if (letterDto.RegardingObjects == null || !letterDto.RegardingObjects.Any())
             {
                 throw new NotificationException(BLResources.NoRegardingObjectValidationError);
             }

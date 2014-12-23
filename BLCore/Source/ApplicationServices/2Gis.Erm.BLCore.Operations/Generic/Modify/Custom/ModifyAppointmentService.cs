@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var appointmentDto = (AppointmentDomainEntityDto)domainEntityDto;
-            if (!appointmentDto.RegardingObjects.Any())
+            if (appointmentDto.RegardingObjects==null || !appointmentDto.RegardingObjects.Any())
             {
 
                 throw new NotificationException(BLResources.NoRegardingObjectValidationError);
