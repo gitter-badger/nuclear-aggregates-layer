@@ -24,7 +24,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -146,8 +146,8 @@
     </Compile>
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessor.cs" />
     <Compile Include="Operations\Processing\Primary\MsCRM\ReplicateToCRMPerformedOperationsPrimaryProcessingStrategy.cs" />
-    <Compile Include="Operations\Processing\Primary\HotClient\ReplicateHotClientPerformedOperationsPrimaryProcessingStrategy.cs" />
     <Compile Include="Operations\Processing\Final\Transports\FinalProcessingQueueReceiver.cs" />
+    <Compile Include="Operations\Processing\Primary\HotClient\HotClientPerformedOperationsPrimaryProcessingStrategy.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsFlowProcessor.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsMessageAggregatedProcessingResultHandler.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\ServiceBusPerformedOperationsMessage.cs" />

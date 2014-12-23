@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Limit
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Limit/SetStatus.cshtml")]
-    public partial class SetStatus : System.Web.Mvc.WebViewPage<Models.SetLimitStatusViewModel>
+    public partial class SetStatus : System.Web.Mvc.WebViewPage<SetLimitStatusViewModel>
     {
         public SetStatus()
         {

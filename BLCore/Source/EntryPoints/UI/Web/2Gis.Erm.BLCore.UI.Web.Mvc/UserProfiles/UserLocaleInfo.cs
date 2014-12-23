@@ -13,12 +13,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
         private readonly NumberFormatInfoDto _numberFormatInfo;
         private readonly DateTimeFormatInfoDto _dateTimeFormatInfo;
 
-        public UserLocaleInfo(string cultureName, string twoLetterISOLanguageName, NumberFormatInfo numberFormatInfo, DateTimeFormatInfo dateTimeFormatInfo, int timeOffsetInMinutes)
+        public UserLocaleInfo(string cultureName, string twoLetterISOLanguageName, NumberFormatInfo numberFormatInfo, DateTimeFormatInfo dateTimeFormatInfo, int timeOffsetInMinutes, string timeZoneId)
         {
             _cultureName = cultureName;
             _twoLetterISOLanguageName = twoLetterISOLanguageName;
             _numberFormatInfo = numberFormatInfo.ToDto();
-            _dateTimeFormatInfo = dateTimeFormatInfo.ToDto(timeOffsetInMinutes);
+            _dateTimeFormatInfo = dateTimeFormatInfo.ToDto(timeOffsetInMinutes, timeZoneId);
         }
 
         public DateTimeFormatInfoDto DateTimeFormatInfo

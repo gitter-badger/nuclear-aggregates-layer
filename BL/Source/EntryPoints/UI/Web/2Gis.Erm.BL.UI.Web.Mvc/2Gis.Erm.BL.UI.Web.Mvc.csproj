@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -123,7 +123,6 @@
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
     <Compile Include="Controllers\AdvertisementTemplateController.cs" />
-    <Compile Include="Controllers\AfterSaleServiceController.cs" />
     <Compile Include="Controllers\BargainController.cs" />
     <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\BranchOfficeOrganizationUnitController.cs" />
@@ -144,6 +143,11 @@
     <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Models\AccountDetailViewModel.cs" />
     <Compile Include="Models\ActivateDealViewModel.cs" />
+    <Compile Include="Models\Activity\IActivityViewModel.cs" />
+    <Compile Include="Models\Activity\AppointmentViewModel.cs" />
+    <Compile Include="Models\Activity\LetterViewModel.cs" />
+    <Compile Include="Models\Activity\PhonecallViewModel.cs" />
+    <Compile Include="Models\Activity\TaskViewModel.cs" />
     <Compile Include="Models\AdditionalFirmServiceViewModel.cs" />
     <Compile Include="Models\AdsTemplatesAdsElementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementElementPreviewModel.cs" />
@@ -151,7 +155,6 @@
     <Compile Include="Models\AdvertisementElementViewModel.cs" />
     <Compile Include="Models\AdvertisementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementViewModel.cs" />
-    <Compile Include="Models\AfterSaleServiceCreateDialogModel.cs" />
     <Compile Include="Models\AllClientsDebtReportViewModel.cs" />
     <Compile Include="Models\AssociatedPositionsGroupViewModel.cs" />
     <Compile Include="Models\AssociatedPositionViewModel.cs" />
@@ -222,8 +225,10 @@
     <Compile Include="Models\ThemeViewModel.cs" />
     <Compile Include="Models\UnpublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
+    <Compile Include="Services\Cards\ActivityViewModelCustomizationServiceHelper.cs" />
     <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\AppointmentViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
@@ -235,9 +240,12 @@
     <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\OrderProcessingRequestViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\PhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PricePositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PriceViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\LetterViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\TaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
@@ -262,6 +270,26 @@
     </Compile>
     <Compile Include="Views\Shared\EditorTemplates\DateTimeViewModel.generated.cs">
       <DependentUpon>DateTimeViewModel.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Letter.generated.cs">
+      <DependentUpon>Letter.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -314,11 +342,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PreviewOnline.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CreateAfterSaleServiceActivitiesDialog.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Bargain\CloseBargains.generated.cs">
       <AutoGen>True</AutoGen>
@@ -724,6 +747,10 @@
       <Project>{a46e837a-d855-4d0b-b7e7-9f1f4c23fc32}</Project>
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Project>{F5C50F83-8C4F-42F9-AD37-03740AB78416}</Project>
+      <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{b268f8cb-8aef-4402-8cf5-a8e6ac5eec0b}</Project>
       <Name>2Gis.Erm.BL.Operations.Special</Name>
@@ -749,6 +776,22 @@
     <None Include="Views\Shared\EditorTemplates\DateTimeViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DateTimeViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Letter.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Letter.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\EditorTemplates\PeriodViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -789,10 +832,6 @@
     <None Include="Views\Advertisement\PreviewOnline.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PreviewOnline.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>CreateAfterSaleServiceActivitiesDialog.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Bargain\CloseBargains.cshtml">
       <Generator>RazorGenerator</Generator>

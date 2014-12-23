@@ -37,8 +37,10 @@ DIV.Tab
 }
 TD.title-icon
 {
+/*
     padding-left: 48px;
     width: 120px;
+*/
 }
 TD.title-bar
 {
@@ -66,7 +68,6 @@ span.title-breadcrumb
 }
 IMG.title-breadcrumb-nav
 {
-    width: 20px;
     height: 16px;
     margin-right: 8px;
     vertical-align: middle;
@@ -308,7 +309,6 @@ vertical-align: middle;
 /*Стили для верстки на дивах*/
 DIV.section-bar
 {
-    width: 100%;
     border-bottom: #96b3dd 1px solid!important;
     font-weight: bold;
     font-size: 11px;

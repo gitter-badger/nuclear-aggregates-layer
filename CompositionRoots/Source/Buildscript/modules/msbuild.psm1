@@ -5,40 +5,90 @@ $ErrorActionPreference = 'Stop'
 Import-Module .\modules\versioning.psm1 -DisableNameChecking
 
 $MSBuildVersion = '12.0'
-$VisualStudioVersion = '12.0'
-$Configuration = 'Release'
-
 $MSBuildDir = "${Env:ProgramFiles(x86)}\MSBuild\$MSBuildVersion\Bin"
 $MsBuildPath_x86 = Join-Path $MSBuildDir 'MSBuild.exe'
 $MsBuildPath_x64 = Join-Path $MSBuildDir 'amd64\MSBuild.exe'
 
-function Invoke-MSBuild ([string[]]$Arguments, $MsBuildPlatform = 'x64'){
-
-		$allArguments = @(
-		'/nologo'
-		'/consoleloggerparameters:ErrorsOnly'
-		"/p:Configuration=$Configuration"
-		"/p:VisualStudioVersion=$VisualStudioVersion"
-		) + $Arguments
-
-		switch ($MsBuildPlatform){
-			'x86' {
-				& $MsBuildPath_x86 $allArguments
-			}
-			'x64' {
-				& $MsBuildPath_x64 $allArguments
-			}
-			default {
-				throw "MSBuild platform (x86, x64) is not defined"
-			}
-		}
-
-		if ($lastExitCode -ne 0) {
-			throw "Command failed with exit code $lastExitCode"
-		}
+$CommonMSBuildProperties = @{
+	'Configuration' = 'Release'
+}
+$CommonProjectProperties = @{
+	'VisualStudioVersion' = '12.0'
 }
 
-function Get-ProjectFileName($ProjectDir, $ProjectName, $Extension = '.csproj'){
+function Create-BuildFile ([string]$ProjectFileName, [string[]]$Targets = $null, [hashtable]$Properties = $null, [xml[]]$CustomXmls = $null){
+
+	$xmlDocument = New-Object System.Xml.XmlDocument
+	$xmlDeclaration = $xmlDocument.CreateXmlDeclaration('1.0', 'utf-8', $null)
+	[void]$xmlDocument.AppendChild($xmlDeclaration)
+
+	$xmlNamespace = 'http://schemas.microsoft.com/developer/msbuild/2003'
+	
+	$root = $xmlDocument.CreateElement('Project', $xmlNamespace)
+	$root.SetAttribute('ToolsVersion', $MSBuildVersion)
+	[void]$xmlDocument.AppendChild($root)
+
+	if ($Targets -ne $null -and $Targets.Count -ne 0){
+		$root.SetAttribute('DefaultTargets', [string]::Join(';', $Targets))
+	}
+
+	$Properties += $CommonProjectProperties
+	$propertiesElement = $xmlDocument.CreateElement('PropertyGroup', $xmlNamespace)
+	foreach($property in $Properties.GetEnumerator()){
+		$propertyElement = $xmlDocument.CreateElement($property.Key, $xmlNamespace)
+		$propertyElement.InnerText = $property.Value
+		[void]$propertiesElement.AppendChild($propertyElement)
+	}
+	[void]$root.AppendChild($propertiesElement)
+
+	$importElement = $xmlDocument.CreateElement('Import', $xmlNamespace)
+	$importElement.SetAttribute('Project', [System.IO.Path]::GetFileName($ProjectFileName))
+	[void]$root.AppendChild($importElement)
+
+	if ($CustomXmls -ne $null -and $CustomXmls.Count -ne 0){
+		foreach($customXml in $CustomXmls){
+			foreach($customNode in $customXml.DocumentElement.ChildNodes){
+				$node = $xmlDocument.ImportNode($customNode, $true)
+				[void]$root.AppendChild($node)
+			}
+		}
+	}
+
+	$buildFileName = [System.IO.Path]::ChangeExtension($ProjectFileName, '.build' + [System.IO.Path]::GetExtension($ProjectFileName))
+	$xmlDocument.Save($buildFileName)
+	return $buildFileName
+}
+
+function Invoke-MSBuild ($BuildFileName, $MsBuildPlatform = 'x64'){
+
+	$arguments = @(
+		$BuildFileName
+		'/nologo'
+		'/consoleloggerparameters:ErrorsOnly'
+	)
+
+	foreach ($msbuildProperty in $CommonMSBuildProperties.GetEnumerator()){
+		$arguments += "/p:$($msbuildProperty.Key)=$($msbuildProperty.Value)"
+	}
+
+	switch ($MsBuildPlatform){
+		'x86' {
+		& $MsBuildPath_x86 $arguments
+		}
+		'x64' {
+		& $MsBuildPath_x64 $arguments
+		}
+		default {
+			throw "MSBuild platform (x86, x64) is not defined"
+		}
+	}
+
+	if ($lastExitCode -ne 0) {
+		throw "Command failed with exit code $lastExitCode"
+	}
+}
+
+function Get-ProjectFileName ($ProjectDir, $ProjectName, $Extension = '.csproj'){
 
 	$projectFileName = Join-Path $global:Context.Dir.Solution (Join-Path $ProjectDir (Join-Path  $ProjectName ($ProjectName + $Extension)))
 	if (!(Test-Path $projectFileName)){
@@ -48,7 +98,7 @@ function Get-ProjectFileName($ProjectDir, $ProjectName, $Extension = '.csproj'){
 	return $projectFileName
 }
 
-function Find-Projects ($ProjectDirs, $Include, $Exclude, $Filter = '*.csproj'){
+function Find-Projects ($ProjectDirs, $Include, $Exclude = '*.build.csproj', $Filter = '*.csproj'){
 
 	$solutionProjectDirs = $ProjectDirs | Select-Object @{Name='Expand'; Expression = {
 		$solutionProjectDir = Join-Path $global:Context.Dir.Solution $_
@@ -61,7 +111,7 @@ function Find-Projects ($ProjectDirs, $Include, $Exclude, $Filter = '*.csproj'){
 	$projects = Get-ChildItem $solutionProjectDirs -Filter $Filter -Include $Include -Exclude $Exclude -Recurse
 	
 	$projectNames = $projects | Select-Object -ExpandProperty 'Name'
-	Write-Host "Found projects:" $projectNames -Separator "`n"
+	#Write-Host "Found projects:" $projectNames -Separator "`n"
 	
 	return $projects
 }
@@ -130,7 +180,7 @@ function Get-VersionedFileName ($FileName) {
 	
 	$extension = [System.IO.Path]::GetExtension($FileName)
 	$versionedFileName += $extension
-		
+	
 	return $versionedFileName
 }
 
@@ -144,4 +194,4 @@ function Get-VersionedDirName ($DirName) {
 	return $versionedDirName
 }
 
-Export-ModuleMember -Function Invoke-MSBuild, Get-ProjectFileName, Find-Projects, Get-Artifacts, Publish-Artifacts
+Export-ModuleMember -Function Create-BuildFile, Invoke-MSBuild, Get-ProjectFileName, Find-Projects, Get-Artifacts, Publish-Artifacts

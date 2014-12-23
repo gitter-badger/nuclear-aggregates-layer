@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -83,11 +83,23 @@
     <Compile Include="Accounts\ReadModel\AccountSpecs.OperationTypes.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Withdrawals.cs" />
     <Compile Include="Accounts\ReadModel\IAccountReadModel.cs" />
+    <Compile Include="Activities\IAssignAppointmentAggregateService .cs" />
+    <Compile Include="Activities\IAssignLetterAggregateService.cs" />
+    <Compile Include="Activities\IAssignPhonecallAggregateService.cs" />
+    <Compile Include="Activities\IAssignTaskAggregateService.cs" />
+    <Compile Include="Activities\ICreateLetterAggregateService.cs" />
+    <Compile Include="Activities\ICreatePhonecallAggregateService.cs" />
+    <Compile Include="Activities\ICreateTaskAggregateService.cs" />
+    <Compile Include="Activities\ICreateAppointmentAggregateService.cs" />
     <Compile Include="Activities\IUpdateAppointmentAggregateService.cs" />
     <Compile Include="Activities\IUpdatePhonecallAggregateService.cs" />
-    <Compile Include="Activities\IUpdateRegardingObjectAggregateService.cs" />
+    <Compile Include="Activities\IUpdateLetterAggregateService.cs" />
     <Compile Include="Activities\IUpdateTaskAggregateService.cs" />
-    <Compile Include="Activities\ReadModel\IActivityReadModel.cs" />
+    <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
+    <Compile Include="Activities\ReadModel\ITaskReadModel.cs" />
+    <Compile Include="Activities\ReadModel\IAppointmentReadModel.cs" />
+    <Compile Include="Activities\ReadModel\ILetterReadModel.cs" />
+    <Compile Include="Activities\ReadModel\IPhonecallReadModel.cs" />
     <Compile Include="Advertisements\DTO\AdvertisementBagItem.cs" />
     <Compile Include="Advertisements\DTO\AdvertisementElementCreationDto.cs" />
     <Compile Include="Advertisements\DTO\AdvertisementElementModifyDto.cs" />
@@ -121,7 +133,7 @@
     <Compile Include="Clients\Operations\ICreateClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\ICreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\ICreateHotClientRequestAggregateService.cs" />
-    <Compile Include="Clients\Operations\IBindCrmTaskToHotClientRequestAggregateService.cs" />
+    <Compile Include="Clients\Operations\IBindTaskToHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientSpecs.DenormalizedClientLinks.cs" />
     <Compile Include="Clients\Operations\IDetachClientFromFirmAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientSpecs.Contacts.cs" />
@@ -174,8 +186,6 @@
     <Compile Include="Deals\Operations\IUpdateLegalPersonDealAggregateService.cs" />
     <Compile Include="Deals\Operations\ICreateLegalPersonDealAggregateService.cs" />
     <Compile Include="Deals\Operations\IDealChangeStageAggregateService.cs" />
-    <Compile Include="Deals\Operations\IDealCreateAfterSaleServiceAggregateService.cs" />
-    <Compile Include="Deals\Operations\IDeleteAfterSaleServiceAggregateService.cs" />
     <Compile Include="Deals\Operations\IDetachDealFromFirmAggregateService.cs" />
     <Compile Include="Deals\ReadModel\DealSpecs.LegalPersonDeals.cs" />
     <Compile Include="Deals\ReadModel\DealSpecs.FirmDeals.cs" />
@@ -260,6 +270,7 @@
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositionAdvertisements.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.OrderReleaseTotals.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
