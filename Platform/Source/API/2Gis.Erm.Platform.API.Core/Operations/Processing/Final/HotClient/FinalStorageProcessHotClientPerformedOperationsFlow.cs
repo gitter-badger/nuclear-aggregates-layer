@@ -5,8 +5,8 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient
 {
-    public class FinalStorageProcessingOfHotClientPerformedOperationsFlow : MessageFlowBase<FinalStorageProcessingOfHotClientPerformedOperationsFlow>, 
-                                                                            ISourceMessageFlow<PrimaryProcessingOfHotClientPerformedOperationsFlow>
+    public class FinalStorageProcessHotClientPerformedOperationsFlow : MessageFlowBase<FinalStorageProcessHotClientPerformedOperationsFlow>, 
+                                                                            ISourceMessageFlow<PrimaryProcessHotClientPerformedOperationsFlow>
     {
         public override Guid Id
         {

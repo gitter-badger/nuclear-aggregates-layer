@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Processing.Final.HotClien
 
         public IMessageFlow TargetFlow
         {
-            get { return FinalProcessingOfHotClientPerformedOperationsFlow.Instance; }
+            get { return FinalProcessHotClientPerformedOperationsFlow.Instance; }
         }
 
         public HotClientRequestDto HotClientRequest { get; set; }
