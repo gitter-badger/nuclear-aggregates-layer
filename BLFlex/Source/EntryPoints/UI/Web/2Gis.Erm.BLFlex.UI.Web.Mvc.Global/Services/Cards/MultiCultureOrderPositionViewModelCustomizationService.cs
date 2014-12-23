@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                     .DiscountPercent;
             }
 
-            if (!IsBindingObjectChangeAllowed(entityViewModel.Id))
+            if (entityViewModel.IsNew || !IsBindingObjectChangeAllowed(entityViewModel.Id))
             {
                 entityViewModel.ViewConfig.CardSettings.CardToolbar = entityViewModel.ViewConfig.CardSettings.CardToolbar
                                                                                      .Where(
