@@ -38,13 +38,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var taskDto = (TaskDomainEntityDto)domainEntityDto;
-            var task = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
-
             if (!taskDto.RegardingObjects.Any())
             {
-                throw new NotificationException(BLResources.ModifyAppointmentService_EmptyAttendees);
+                throw new NotificationException(BLResources.NoRegardingObjectValidationError);
             }
 
+            var task = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
+            
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 IEnumerable<TaskRegardingObject> oldRegardingObjects;

@@ -5154,7 +5154,7 @@
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value></value>
   </data>
-  <data name="ModifyAppointmentService_EmptyAttendees" xml:space="preserve">
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
     <value></value>
   </data>
 </root>

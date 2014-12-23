@@ -8813,15 +8813,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ModifyAppointmentService_EmptyAttendees {
-            get {
-                return ResourceManager.GetString("ModifyAppointmentService_EmptyAttendees", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string ModifyAppointmentService_ScheduleRangeIsIncorrect {
             get {
                 return ResourceManager.GetString("ModifyAppointmentService_ScheduleRangeIsIncorrect", resourceCulture);
@@ -9248,6 +9239,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string NonDraftAdvertisementElementEditing {
             get {
                 return ResourceManager.GetString("NonDraftAdvertisementElementEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NoRegardingObjectValidationError {
+            get {
+                return ResourceManager.GetString("NoRegardingObjectValidationError", resourceCulture);
             }
         }
         

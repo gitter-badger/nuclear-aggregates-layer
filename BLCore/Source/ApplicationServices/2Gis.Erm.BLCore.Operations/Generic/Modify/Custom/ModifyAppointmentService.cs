@@ -43,14 +43,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var appointmentDto = (AppointmentDomainEntityDto)domainEntityDto;
-            var appointment = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
-
-            if(!appointmentDto.Attendees.Any())
+            if (!appointmentDto.RegardingObjects.Any())
             {
-                // TODO {a.pashkin, 22.12.2014}: Я создал ресурс для локализации, обращаю внимание на то, что его нужно перевести, а как правильно переводить я не знаю 
-                throw new NotificationException(BLResources.ModifyAppointmentService_EmptyAttendees);
+
+                throw new NotificationException(BLResources.NoRegardingObjectValidationError);
             }
 
+            var appointment = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);            
             if (appointment.ScheduledStart > appointment.ScheduledEnd)
             {
                 throw new NotificationException(BLResources.ModifyAppointmentService_ScheduleRangeIsIncorrect);

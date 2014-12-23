@@ -43,13 +43,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var phonecallDto = (PhonecallDomainEntityDto)domainEntityDto;
-            var phonecall = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
-
             if (!phonecallDto.RegardingObjects.Any())
             {
-                throw new NotificationException(BLResources.ModifyAppointmentService_EmptyAttendees);
+                throw new NotificationException(BLResources.NoRegardingObjectValidationError);
             }
 
+            var phonecall = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
+            
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 IEnumerable<PhonecallRegardingObject> oldRegardingObjects;

@@ -5174,7 +5174,7 @@ Cумма по операции: {5}.
     <value>Неправильно запланированы даты начала и окончания встречи.
 </value>
   </data>
-  <data name="ModifyAppointmentService_EmptyAttendees" xml:space="preserve">
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
     <value>Поля Клиент, Сделка и Фирма пустые. Необходимо заполнить как минимум одно из полей</value>
   </data>
 </root>

@@ -4712,7 +4712,7 @@ Contacto: {1}</value>
   <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para la posición: "{0}"</value>
   </data>
-    <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+  <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
@@ -5173,5 +5173,8 @@ Periodo de la publicación: {3}.</value>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value>Están planificadas incorrectamente las fechas del inicio y término de la reunión.
 </value>
+  </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Поля Клиент, Сделка и Фирма пустые. Необходимо заполнить как минимум одно из полей</value>
   </data>
 </root>
