@@ -50,7 +50,7 @@ Task Analyze-ResearchTeam {
 
 Task Analyze-CompositionTeam {
 
-	# NCrunch csproj located in 'packages' folder
+	# NCrunch projects located in 'packages' folder
 	$projects = Find-Projects '.' -Exclude ($ExcludeProjects + @('*Mvc*', '*NCrunch*'))
 	Analyze-Projects $projects
 	
@@ -66,12 +66,12 @@ function Analyze-Projects ($Projects, $MsBuildPlatform = 'x64') {
 
 	foreach($project in $Projects){
 	
-		Invoke-MSBuild @(
-			"""$($project.FullName)"""
-			
-			'/p:RunCodeAnalysis=true'
-			"""/p:CodeAnalysisRuleSet=$RulesetPath"""
-		) -MsBuildPlatform $MsBuildPlatform
+		$buildFileName = Create-BuildFile $project.FullName -Properties @{
+			'RunCodeAnalysis' = $true
+			'CodeAnalysisRuleSet' = $RulesetPath
+		}
+	
+		Invoke-MSBuild $buildFileName -MsBuildPlatform $MsBuildPlatform
 	}
 }
 
