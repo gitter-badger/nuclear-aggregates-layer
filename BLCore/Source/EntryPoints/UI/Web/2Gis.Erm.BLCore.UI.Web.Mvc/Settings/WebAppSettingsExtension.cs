@@ -1,7 +1,4 @@
-﻿using System.Web;
-using System.Web.Mvc;
-
-using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+﻿using System.Web.Mvc;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
 {
@@ -11,18 +8,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
         public const string BasicOperationsServiceRestUrlKey = "BasicOperationsServiceRestUrlKey";
         public const string SpecialOperationsServiceRestUrlKey = "SpecialOperationsServiceRestUrlKey";
         public const string ErmBaseCurrencyKey = "ErmBaseCurrencyKey";
-
-        public static IHtmlString GetMsCrmSettingsUrl(this ViewDataDictionary viewData)
-        {
-            var crmSettings = viewData.GetMsCrmSettings();
-            if (crmSettings == null || !crmSettings.EnableReplication)
-            {
-                return new HtmlString(string.Empty);
-            }
-
-            var crmUrl = crmSettings.CrmHost + "/" + crmSettings.CrmOrganizationName;
-            return new HtmlString(crmUrl);
-        }
 
         public static string GetBasicOperationsServiceRestUrl(this ViewDataDictionary viewData)
         {
@@ -55,17 +40,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
             }
 
             return (string)baseCurrencySymbol;
-        }
-
-        private static IMsCrmSettings GetMsCrmSettings(this ViewDataDictionary viewData)
-        {
-            object crmSettings;
-            if (!viewData.TryGetValue(MsCrmSettingsKey, out crmSettings))
-            {
-                return null;
-            }
-
-            return (IMsCrmSettings)crmSettings;
         }
     }
 }

@@ -52,15 +52,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public string Subject { get; set; }
         public string Description { get; set; }
-        public DateTime ScheduledStart { get; set; }
-        public DateTime ScheduledEnd { get; set; }
-        public DateTime? ActualEnd { get; set; }
+        public DateTime ScheduledOn { get; set; }
         public int Priority { get; set; }
-        public int Status { get; set; }
-        public bool Direction { get; set; }
-        public string PhoneNumber { get; set; }
         public int Purpose { get; set; }
-        public int AfterSaleType { get; set; }
+        public int Status { get; set; }
 
         public ICollection<PhonecallReference> PhonecallReferences { get; set; }
 

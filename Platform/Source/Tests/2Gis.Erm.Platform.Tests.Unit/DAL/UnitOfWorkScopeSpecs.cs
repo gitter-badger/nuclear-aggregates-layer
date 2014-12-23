@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWorkScope = UnitOfWork.CreateScope();
                 };
 
-            protected static UnitOfWork UnitOfWork { get; private set; }
+            protected static IUnitOfWork UnitOfWork { get; private set; }
             protected static Dictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IAggregateRepository>> Factories { get; private set; }
         }
 
@@ -292,7 +292,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             Establish context = () =>
                 {
-                    var unitOfWork = new StubUnitOfWork(Factories,
+                    IUnitOfWork unitOfWork = new StubUnitOfWork(Factories,
                                                         new StubDomainContext(),
                                                         new StubDomainContextFactory(),
                                                         new ForcePendingChangesHandlingStrategy(),

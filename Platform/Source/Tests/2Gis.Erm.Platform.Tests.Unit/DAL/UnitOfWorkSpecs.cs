@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             static IEnumerable<IModifiableDomainContext> _modifiableDomainContexts;
 
-            Because of = () => _modifiableDomainContexts = _unitOfWork.GetModifiableDomainContexts(Mock.Of<IDomainContextHost>());
+            Because of = () => _modifiableDomainContexts = ((IUnitOfWork)_unitOfWork).GetModifiableDomainContexts(Mock.Of<IDomainContextHost>());
             It contexts_should_be_empty = () => _modifiableDomainContexts.Should().BeEmpty();
         }
 
@@ -191,7 +191,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Because of = () =>
                 {
                     _readDomainContext1 = ((IReadDomainContextProviderForHost)_unitOfWork).Get(_unitOfWork);
-                    using (var scope = _unitOfWork.CreateScope())
+                    using (var scope = ((IUnitOfWork)_unitOfWork).CreateScope())
                     {
                         _readDomainContext2 = ((IReadDomainContextProviderForHost)_unitOfWork).Get(scope);
                     }
@@ -269,7 +269,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Because of = () =>
                 {
                     ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<IEntity>(_unitOfWork);
-                    using (var scope = _unitOfWork.CreateScope())
+                    using (var scope = ((IUnitOfWork)_unitOfWork).CreateScope())
                     {
                         ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<IEntity>(scope);
                     }
@@ -328,7 +328,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Because of = () =>
                 {
                     ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<ErmScopeEntity1>(_unitOfWork);
-                    using (var scope = _unitOfWork.CreateScope())
+                    using (var scope = ((IUnitOfWork)_unitOfWork).CreateScope())
                     {
                         ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<ErmScopeEntity2>(scope);
                     }
@@ -364,8 +364,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 {
                     ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<IEntity>(_unitOfWork);
 
-                    _modifiableDomainContexts1 = _unitOfWork.GetModifiableDomainContexts(_unitOfWork);
-                    _modifiableDomainContexts2 = _unitOfWork.GetModifiableDomainContexts(_unitOfWork);
+                    _modifiableDomainContexts1 = ((IUnitOfWork)_unitOfWork).GetModifiableDomainContexts(_unitOfWork);
+                    _modifiableDomainContexts2 = ((IUnitOfWork)_unitOfWork).GetModifiableDomainContexts(_unitOfWork);
                 };
 
             It result_1_should_be_of_array_type = () => _modifiableDomainContexts1.Should().BeOfType<IModifiableDomainContext[]>();

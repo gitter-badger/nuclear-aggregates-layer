@@ -925,7 +925,7 @@ window.CrmUrlToErmUrlTemplateMapping =
     { CrmUrl: "http://uk-crm-test03/DoubleGis03", ErmUrlTemplate: "//web-app03.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app03.test.erm.2gis.ru/" },
     { CrmUrl: "http://uk-crm-test04/DoubleGis04", ErmUrlTemplate: "//web-app04.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app04.test.erm.2gis.ru/" },
     { CrmUrl: "http://uk-crm-test05/DoubleGis05", ErmUrlTemplate: "//web-app05.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app05.test.erm.2gis.ru/" },
-    { CrmUrl: "http://uk-erm-test06/DoubleGis06", ErmUrlTemplate: "//web-app06.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app06.test.erm.2gis.ru/" }
+    { CrmUrl: "http://uk-crm-test06/DoubleGis06", ErmUrlTemplate: "//web-app06.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app06.test.erm.2gis.ru/" }
 ];
 
 window.CrmEntityMapping =
@@ -948,7 +948,11 @@ window.CrmEntityMapping =
     { ObjectTypeCode: "10016", EntityName: "BranchOffice" },
     { ObjectTypeCode: "10017", EntityName: "OrganizationUnit" },
 	{ ObjectTypeCode: "10023", EntityName: "Account" },
-    { ObjectTypeCode: "10026", EntityName: "OrderProcessingRequest" }
+    { ObjectTypeCode: "10026", EntityName: "OrderProcessingRequest" },
+    { ObjectTypeCode: Appointment, EntityName: "Appointment" },
+    { ObjectTypeCode: Letter, EntityName: "Letter" },
+    { ObjectTypeCode: PhoneCall, EntityName: "Phonecall" },
+    { ObjectTypeCode: Task, EntityName: "Task" }
 ];
 
 function GetErmWebAppUrl() {
@@ -1001,7 +1005,7 @@ function openObj(iType, sId, sParams, sUrlPrefix, bNewWindow)
     /*CRM Hack*/
     var ermUrl = GetErmUrl(iType, sId);
     var entityName = GetErmEntityName(iType);
-    var rate = 0.6;
+    var rate = 0.7;
     if (entityName == 'Order') {
         rate = 0.9;
     }

@@ -43,6 +43,13 @@ Task Build-AutoTestsPackages -Depends Create-GlobalContext, Set-BuildNumber {
 		'2Gis.Erm.Qds.API.Operations.csproj'
 	)
 	Build-Packages $projectsDir $include $tempDir
+
+	$projectsDir = Join-Path $global:Context.Dir.Solution '..\..\BLCore'
+	$include = @(
+		'2Gis.Erm.BLCore.API.Releasing.csproj'
+		'2Gis.Erm.BLCore.API.Operations.Special.csproj'
+	)
+	Build-Packages $projectsDir $include $tempDir
 	
 	Publish-Artifacts $tempDir 'NuGet'
 }
@@ -88,7 +95,8 @@ function Build-Packages ($ProjectsDir, $Include, $OutputDirectory){
 			'pack'
 			$projectFileName
 			'-Properties'
-			'Configuration=Release'
+			# TODO отрефакторить
+			'Configuration=Release;VisualStudioVersion=12.0'
 			'-IncludeReferencedProjects'
 			'-ExcludeEmptyDirectories'
 			'-NoPackageAnalysis'

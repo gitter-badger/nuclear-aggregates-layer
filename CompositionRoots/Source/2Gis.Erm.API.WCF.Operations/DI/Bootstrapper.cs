@@ -180,7 +180,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                     {
                         deactivateOperation, new IOperationServiceInterceptionDescriptor<IOperation>[]
                             {
-                                new OperationServiceInterceptionDescriptor<DeactivateUserService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
+                                new OperationServiceInterceptionDescriptor<DeactivateUserOperationService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
                             }
                     },
                     {

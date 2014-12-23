@@ -184,6 +184,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         }
         }
 
+        // FIXME {all, 23.12.2014}: при конвертации в OperationService + набор AggregateService, учесть наличие ещё и связанных действий см. метод   
         public void AssignUserRelatedEntities(long userId, long newOwnerCode)
         {
             var clients = _finder.FindMany(Specs.Find.Owned<Client>(userId));

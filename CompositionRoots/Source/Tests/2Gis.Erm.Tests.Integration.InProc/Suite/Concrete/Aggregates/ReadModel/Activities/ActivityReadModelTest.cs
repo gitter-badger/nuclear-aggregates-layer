@@ -12,37 +12,52 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
     public class ActivityReadModelTest : IIntegrationTest
     {
 	    private readonly IFinder _finder;
-	    private readonly IActivityReadModel _activityReadModel;
+        private readonly IAppointmentReadModel _appointmentReadModel;
+        private readonly ILetterReadModel _letterReadModel;
+        private readonly IPhonecallReadModel _phonecallReadModel;
+        private readonly ITaskReadModel _taskReadModel;
 
-        public ActivityReadModelTest(IFinder finder, IActivityReadModel activityReadModel)
+        public ActivityReadModelTest(
+            IFinder finder, 
+            IAppointmentReadModel appointmentReadModel,
+            ILetterReadModel letterReadModel,
+            IPhonecallReadModel phonecallReadModel,
+            ITaskReadModel taskReadModel
+            )
         {
 	        _finder = finder;
-	        _activityReadModel = activityReadModel;
+            _appointmentReadModel = appointmentReadModel;
+            _letterReadModel = letterReadModel;
+            _phonecallReadModel = phonecallReadModel;
+            _taskReadModel = taskReadModel;
         }
 
         public ITestResult Execute()
         {
 	        var appropriateAppointment = _finder.FindMany(Specs.Find.Active<Appointment>()).FirstOrDefault();
+	        var appropriateLetter = _finder.FindMany(Specs.Find.Active<Letter>()).FirstOrDefault();
             var appropriatePhonecall = _finder.FindMany(Specs.Find.Active<Phonecall>()).FirstOrDefault();
             var appropriateTask = _finder.FindMany(Specs.Find.Active<Task>()).FirstOrDefault();
-	        var reference = _finder.FindMany(Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == EntityName.Client)).FirstOrDefault();
+	        var reference = _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == EntityName.Client)).FirstOrDefault();
 	        var activityWithClient = reference != null ? _finder.FindMany(Specs.Find.ById<Appointment>(reference.SourceEntityId)) : null;
 
-	        if (appropriateAppointment == null || appropriatePhonecall == null || appropriateTask == null || activityWithClient == null)
+	        if (appropriateAppointment == null || appropriateLetter == null|| appropriatePhonecall == null || appropriateTask == null || activityWithClient == null)
 	        {
 		        return OrdinaryTestResult.As.NotExecuted;
 	        }
 
-	        var appointment = _activityReadModel.GetAppointment(appropriateAppointment.Id);
-	        var task = _activityReadModel.GetTask(appropriateTask.Id);
-	        var phonecall = _activityReadModel.GetPhonecall(appropriatePhonecall.Id);
+            var appointment = _appointmentReadModel.GetAppointment(appropriateAppointment.Id);
+            var letter = _letterReadModel.GetLetter(appropriateLetter.Id);
+            var phonecall = _phonecallReadModel.GetPhonecall(appropriatePhonecall.Id);
+            var task = _taskReadModel.GetTask(appropriateTask.Id);
 
 	        // ReSharper disable once PossibleInvalidOperationException
-	        _activityReadModel.CheckIfActivityExistsRegarding(reference.TargetEntityId);
+            _appointmentReadModel.CheckIfAppointmentExistsRegarding(EntityName.Client, reference.TargetEntityId);
 
 	        return new object[]
 		        {
 			        appointment,
+                    letter,
 			        task,
 			        phonecall
 		        }.Any(x => x == null)

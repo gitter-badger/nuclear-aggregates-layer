@@ -11,17 +11,18 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 {
     public class ReplicateDealStageOperationServiceTest : UseModelEntityTestBase<Deal>
     {
-        private readonly IReplicateDealStageOperationService _replicateDealStageOperationService;
+        private readonly IChangeDealStageOperationService _replicateDealStageOperationService;
 
         public ReplicateDealStageOperationServiceTest(IAppropriateEntityProvider<Deal> appropriateEntityProvider,
-                                                      IReplicateDealStageOperationService replicateDealStageOperationService) : base(appropriateEntityProvider)
+                                                      IChangeDealStageOperationService replicateDealStageOperationService)
+            : base(appropriateEntityProvider)
         {
             _replicateDealStageOperationService = replicateDealStageOperationService;
         }
 
         protected override OrdinaryTestResult ExecuteWithModel(Deal modelEntity)
         {
-            return Result.When(() => _replicateDealStageOperationService.Replicate(modelEntity.ReplicationCode, DealStage.MatchAndSendProposition, null))
+            return Result.When(() => _replicateDealStageOperationService.Change(modelEntity.Id, DealStage.MatchAndSendProposition))
                          .Then(result => result.Status.Should().Be(TestResultStatus.Succeeded));
         }
     }
