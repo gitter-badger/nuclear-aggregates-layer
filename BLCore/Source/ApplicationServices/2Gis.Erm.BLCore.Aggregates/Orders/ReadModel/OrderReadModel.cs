@@ -1306,7 +1306,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public IEnumerable<Bill> GetBillsForOrder(long orderId)
         {
-            return _finder.FindMany(OrderSpecs.Bills.Find.ByOrder(orderId));
+            return _finder.FindMany(OrderSpecs.Bills.Find.ByOrder(orderId) & Specs.Find.ActiveAndNotDeleted<Bill>());
         }
 
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
