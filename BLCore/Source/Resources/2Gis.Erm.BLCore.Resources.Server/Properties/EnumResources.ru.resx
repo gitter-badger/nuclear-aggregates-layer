@@ -1894,7 +1894,7 @@
   <data name="BargainKindClient" xml:space="preserve">
     <value>Клиентский</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Действие</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
