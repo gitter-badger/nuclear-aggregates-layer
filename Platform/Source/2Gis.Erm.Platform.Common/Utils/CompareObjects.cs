@@ -165,6 +165,9 @@ namespace DoubleGis.Erm.Platform.Common.Utils
         /// </summary>
         public bool CompareChildren { get; set; }
 
+        // COMMENT {all, 24.12.2014}: Костыль для возможности сравнения enum даже при CompareChildren = false
+        public bool CompareEnumChildren { get; set; }
+
         /// <summary>
         /// If true, compare read only properties (only the getter is implemented).
         /// The default is true.
@@ -781,7 +784,12 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             {
                 //Skip if this is a shallow compare
                 if (!CompareChildren && IsChildType(item.FieldType))
-                    continue;
+                {
+                    if (!CompareEnumChildren || !IsEnum(item.FieldType))
+                    {
+                        continue;
+                    }
+                }
 
                 //If we should ignore it, skip it
                 if (ElementsToIgnore.Contains(item.Name) || IgnoredByAttribute(item.FieldType))
@@ -852,7 +860,12 @@ namespace DoubleGis.Erm.Platform.Common.Utils
 
                 //Skip if this is a shallow compare
                 if (!CompareChildren && IsChildType(info.PropertyType))
-                    continue;
+                {
+                    if (!CompareEnumChildren || !IsEnum(info.PropertyType))
+                    {
+                        continue;
+                    }
+                }
 
                 //If we should ignore it, skip it
                 if (ElementsToIgnore.Contains(info.Name) || IgnoredByAttribute(info.PropertyType))
