@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Активные действия
             {"DListActiveActivities", "ActiveAndNotDeleted=true;InProgress=true"},
             // Закрытые действия
-            {"DListInactiveActivities", "NotActiveBusinessMeaning=true"},
+            {"DListInactiveActivities", "ActiveAndNotDeleted=true;Completed=true;"},
             // Мои действия
             {"DListMyActivities", "ActiveAndNotDeleted=true;ForMe=true" },
             //Мои открытые планы
