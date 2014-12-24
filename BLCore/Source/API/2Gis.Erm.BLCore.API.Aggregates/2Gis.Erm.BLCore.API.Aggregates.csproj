@@ -147,7 +147,6 @@
     <Compile Include="Common\Generics\IUpdateAggregateRepository.cs" />
     <Compile Include="Common\Generics\IUploadFileAggregateRepository.cs" />
     <Compile Include="Common\Specs\Dictionary\CategorySpecifications.cs" />
-    <Compile Include="Common\Specs\Dictionary\NewSalesModelRestrictions.cs" />
     <Compile Include="Common\Specs\Dictionary\OrganizationUnitSpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\TerritoryDtoSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
