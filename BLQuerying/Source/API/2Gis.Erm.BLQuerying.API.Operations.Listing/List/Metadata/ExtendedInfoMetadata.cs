@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Действия по моим подчиненным
             {"DListActivitiesForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Мои завершенные действия
-            {"DListMyCompletedActivities", "ActiveAndNotDeleted=true;CompletedOrCanceled=true;ForMe=true" },
+            {"DListMyCompletedActivities", "ActiveAndNotDeleted=true;Completed=true;ForMe=true" },
             // Завершенные действия по моим подчиненным
             {"DListCompletedActivitiesForSubordinates", "ActiveAndNotDeleted=true;Completed=true;ForSubordinates=true" },
             // Мои запланированные действия
