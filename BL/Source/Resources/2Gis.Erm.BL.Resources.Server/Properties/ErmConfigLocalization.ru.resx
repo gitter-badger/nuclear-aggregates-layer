@@ -1863,4 +1863,7 @@
   <data name="ControlIncreaseLimit" xml:space="preserve">
     <value>Увеличить</value>
   </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Часовые пояса</value>
+  </data>
 </root>

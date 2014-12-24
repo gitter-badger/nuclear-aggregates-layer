@@ -1863,4 +1863,7 @@
   <data name="ControlIncreaseLimit" xml:space="preserve">
     <value>Aumentar</value>
   </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Husos horarios</value>
+  </data>
 </root>
