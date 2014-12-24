@@ -217,7 +217,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IEntityViewNameProvider, EntityViewNameProvider>(CustomLifetime.PerRequest)
                      .RegisterType<ICardSettingsProvider, CardSettingsProvider>(CustomLifetime.PerRequest)
-                     .RegisterType<ICardSettingsProcessor, CardSettingsProcessor>(CustomLifetime.PerRequest)
                      .RegisterType<IUIServicesManager, UnityUIServicesManager>(CustomLifetime.PerRequest)
                      .RegisterType<IControllerActivator, UnityControllerActivator>(Lifetime.Singleton)
                      .RegisterType<UnityDependencyResolver>(

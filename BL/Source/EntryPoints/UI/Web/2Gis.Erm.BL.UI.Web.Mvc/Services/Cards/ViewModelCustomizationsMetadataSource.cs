@@ -178,9 +178,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
                         ViewModelCustomizationsMetadata.For<Theme, ThemeViewModel>()
                                                        .Use<ManageDefaultThemeButtonsCustomization>(),
-
-                        ViewModelCustomizationsMetadata.For<User, IEntityViewModelBase>()
-                                                       .Use<EntityIsInactiveCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

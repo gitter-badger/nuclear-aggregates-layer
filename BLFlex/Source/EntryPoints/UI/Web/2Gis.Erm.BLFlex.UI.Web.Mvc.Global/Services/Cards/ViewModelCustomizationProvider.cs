@@ -16,7 +16,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 
         private readonly Type[] _sharedCustomizations =
             {
-                typeof(SetReadonlyCustomization)
+                typeof(EntityIsInactiveCustomization),
+                typeof(SetReadonlyCustomization),
+                typeof(SetTitleCustomization),
+                typeof(RelatedItemsAvailabilityCustomization),
+                typeof(RelatedItemsExtendedInfoCustomization),
+                typeof(ToolbarElementsAvailabilityCustomization)
             };
 
         public ViewModelCustomizationProvider(IMetadataProvider metadataProvider)

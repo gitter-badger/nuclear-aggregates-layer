@@ -39,7 +39,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
-        private readonly ICardSettingsProcessor _cardSettingsProcessor;
         private readonly ICardSettingsProvider _cardSettingsProvider;
 
         public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
@@ -53,7 +52,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IEntityViewNameProvider entityViewNameProvider,
-                                        ICardSettingsProcessor cardSettingsProcessor,
                                         ICardSettingsProvider cardSettingsProvider)
             : base(msCrmSettings,
                    userContext,
@@ -66,8 +64,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             _uiServicesManager = uiServicesManager;
             _userIdentifierService = userIdentifierService;
             _entityAccessService = entityAccessService;
-            _entityViewNameProvider = entityViewNameProvider;
-            _cardSettingsProcessor = cardSettingsProcessor;
+            _entityViewNameProvider = entityViewNameProvider;            
             _cardSettingsProvider = cardSettingsProvider;
         }
 
@@ -82,7 +79,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             var model = GetViewModel(actualEntityId, actualReadOnly, pId, pType, extendedInfo);
             SetViewModelProperties(model, actualReadOnly, pId, pType, extendedInfo);
             CustomizeModelAfterMetadataReady(model);
-            _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
             var viewName = _entityViewNameProvider.GetView<TModel, TEntity>();
             return View(viewName, model);
         }
@@ -115,7 +111,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             {
                 SetViewModelProperties(model, model.ViewConfig.ReadOnly, model.ViewConfig.PId, model.ViewConfig.PType, model.ViewConfig.ExtendedInfo);
                 CustomizeModelAfterMetadataReady(model);
-                _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
             }
 
             UpdateValidationMessages(model);

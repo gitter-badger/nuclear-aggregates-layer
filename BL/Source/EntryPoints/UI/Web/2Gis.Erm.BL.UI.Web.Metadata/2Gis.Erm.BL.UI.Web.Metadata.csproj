@@ -52,7 +52,6 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Cards\CardSettingsProcessor.cs" />
     <Compile Include="Cards\CardSettingsProvider.cs" />
     <Compile Include="Cards\ExtendedInfoFeature.cs" />
     <Compile Include="Cards\FilterByParentsFeature.cs" />
@@ -157,10 +156,6 @@
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj">
       <Project>{995BF65F-5951-40E5-A0F0-DF8DD343116A}</Project>
       <Name>2Gis.Erm.BLCore.UI.Web.Metadata</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
-      <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
-      <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
