@@ -657,7 +657,10 @@ namespace DoubleGis.Erm.Platform.Common.Utils
         {
             if (object1.ToString() != object2.ToString())
             {
-                string currentBreadCrumb = AddBreadCrumb(breadCrumb, object1.GetType().Name, string.Empty, -1);
+                string currentBreadCrumb = CompareChildren
+                    ? AddBreadCrumb(breadCrumb, object1.GetType().Name, string.Empty, -1) 
+                    : breadCrumb;
+
                 Differences.Add(string.Format("object1{0} != object2{0} ({1},{2})", currentBreadCrumb, object1, object2));
                 AddToDifferenceMap(currentBreadCrumb, object1, object2);
             }
