@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListAccountDetails", "Deleted=false"},
             {"DListAccountDetailsWithDeletedOperations", "Deleted=true"},
 
-            {"DListAllActivities", "NotDeleted=true"},
+            {"DListAllActivities", "ActiveAndNotDeleted=true"},
             // Активные действия
             {"DListActiveActivities", "ActiveAndNotDeleted=true;InProgress=true"},
             // Закрытые действия
