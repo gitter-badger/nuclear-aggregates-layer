@@ -209,5 +209,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .ControlType(ControlType.Menu)
                                     .Childs(actions);
         }
+
+        // COMMENT {all, 23.12.2014}: Есть подозрение, что нужно объединить с SaveAs (LocalMessage)
+        public static UIElementMetadataBuilder DownloadResult()
+        {
+            return
+
+                // COMMENT {all, 28.11.2014}: а как же безопасность?
+                UIElementMetadata.Config
+                                 .Name.Static("DownloadResults")
+                                 .Title.Resource(() => ErmConfigLocalization.ControlDownloadResults)
+                                 .ControlType(ControlType.TextButton)
+                                 .Handler.Name("scope.DownloadResults")
+                                 .LockOnNew();
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .MainAttribute(x => x.Id)
                         .Actions.Attach(
                             ToolbarElements.Refresh<ReleaseInfo>(),
-                            ToolbarElements.Additional(ToolbarElements.ReleaseInfos.Download()),
+                            ToolbarElements.Additional(ToolbarElements.DownloadResult()),
                             ToolbarElements.Splitter(),
                             ToolbarElements.Close());
     }

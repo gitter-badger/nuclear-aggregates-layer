@@ -5,25 +5,25 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 
-namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
+namespace DoubleGis.Erm.BLFlex.UI.Metadata
 {
-    // Для обеспечения возможности сравнения метаданных в EntitySettings.xml и метаданных в коде.
-    // Также обеспечит возможность переключится с одного источника метаданных на другой
-    public sealed partial class UICardConfigurationService : IUICardConfigurationService
+    public sealed partial class CardMetadataValidator : MetadataValidatorBase<MetadataCardsIdentity>
     {
         private const string EntitySettingsResourceEntry = "EntitySettings.xml";
         private const string EntitySettingsResourceEntryFormat = "EntitySettings.{0}.xml";
@@ -31,27 +31,59 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
         private static readonly Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>> CardSettings = ParseCardSettings();
 
         private readonly IGlobalizationSettings _globalizationSettings;
-
         private readonly ICardSettingsProvider _cardSettingsProvider;
-
         private readonly ICommonLog _commonLog;
 
-        private readonly ICardsMetadataSettings _cardsMetadataSettings;
+        private readonly IDictionary<BusinessModel, CultureInfo> _culturesMap =
+            new Dictionary<BusinessModel, CultureInfo>
+                {
+                    { BusinessModel.Russia, new CultureInfo("ru-RU") },
+                    { BusinessModel.Cyprus, new CultureInfo("en") },
+                    { BusinessModel.Czech, new CultureInfo("cs-CZ") },
+                    { BusinessModel.Chile, new CultureInfo("es-CL") },
+                    { BusinessModel.Ukraine, new CultureInfo("ru-RU") },
+                    { BusinessModel.Emirates, new CultureInfo("ar") },
+                    { BusinessModel.Kazakhstan, new CultureInfo("kk-KZ") }
+                };
 
-        public UICardConfigurationService(
+        public CardMetadataValidator(
             IGlobalizationSettings globalizationSettings,
             ICardSettingsProvider cardSettingsProvider,
-            ICommonLog commonLog,
-            ICardsMetadataSettings cardsMetadataSettings)
+            IMetadataProvider metadataProvider, 
+            ICommonLog commonLog)
+            : base(metadataProvider)
         {
             _globalizationSettings = globalizationSettings;
             _cardSettingsProvider = cardSettingsProvider;
             _commonLog = commonLog;
-            _cardsMetadataSettings = cardsMetadataSettings;
         }
 
-        public CardStructure GetCardSettings(EntityName entityName, CultureInfo culture)
+        protected override bool IsValidImpl(MetadataSet targetMetadata, out string report)
         {
+            var errorsBuilder = new StringBuilder();
+            foreach (var cardMetadata in targetMetadata.Metadata.Values.Cast<CardMetadata>())
+            {
+                var codedCardSettings = _cardSettingsProvider.GetCardSettings(cardMetadata.Entity, _culturesMap[_globalizationSettings.BusinessModel]);
+                var xmlCardSettings = GetXmlCardSettings(cardMetadata.Entity);
+                var errors = GetCardSettingsErrors(xmlCardSettings, codedCardSettings, cardMetadata.Entity);
+                if (errors.Any())
+                {
+                    var errorMessage = string.Format("Для карточки {0} обнаружены следующие расхождения в метаданных: {1}",
+                                                     cardMetadata.Entity,
+                                                     string.Join(";" + Environment.NewLine, errors));
+
+                    errorsBuilder.AppendLine(errorMessage);
+                    _commonLog.ErrorEx(errorMessage);
+                }
+            }
+
+            report = errorsBuilder.ToString();
+            return string.IsNullOrWhiteSpace(report);
+        }
+
+        private CardStructure GetXmlCardSettings(EntityName entityName)
+        {
+            var culture = _culturesMap[_globalizationSettings.BusinessModel];
             var cardSettings = GetCardSettings(_globalizationSettings.BusinessModel, entityName);
 
             var localizedCardSettings = new CardStructure
@@ -104,29 +136,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 EntityNameLocaleResourceId = cardSettings.EntityNameLocaleResourceId,
             };
 
-            var codedCardSettings = _cardSettingsProvider.GetCardSettings(entityName);
-            var errors = GetCardSettingsErrors(localizedCardSettings, codedCardSettings, entityName);
-            if (errors.Any())
-            {
-                var errorMessage = string.Format("Для карточки {0} обнаружены следующие расхождения в метаданных: {1}",
-                                                 entityName,
-                                                 string.Join(";" + Environment.NewLine, errors));
-
-                _commonLog.ErrorEx(errorMessage);
-            }
-
-            switch (_cardsMetadataSettings.CardsMetadataSource)
-            {
-                case CardsMetadataSource.EntitySettingsXml:
-                    return localizedCardSettings;
-                case CardsMetadataSource.CodedMetadata:
-                    return codedCardSettings;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            return localizedCardSettings;
         }
 
-        public CardStructure GetCardSettings(BusinessModel adaptation, EntityName entityName)
+        private CardStructure GetCardSettings(BusinessModel adaptation, EntityName entityName)
         {
             Dictionary<EntityName, CardStructure> container;
             if (!CardSettings.TryGetValue(adaptation, out container))

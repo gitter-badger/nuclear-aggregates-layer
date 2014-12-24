@@ -6,7 +6,6 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -26,23 +25,29 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
         private readonly IGlobalizationSettings _globalizationSettings;
 
         private readonly IMetadataProvider _metadataProvider;
+        private CultureInfo _currentCulture;
 
-        private readonly CultureInfo _currentCulture;
-
-        public CardSettingsProvider(IGlobalizationSettings globalizationSettings, IMetadataProvider metadataProvider, IUserContext userContext)
+        public CardSettingsProvider(IGlobalizationSettings globalizationSettings, IMetadataProvider metadataProvider)
         {
             _globalizationSettings = globalizationSettings;
             _metadataProvider = metadataProvider;
-            _currentCulture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
         }
 
-        public CardStructure GetCardSettings<TEntity>() where TEntity : IEntity
+        // TODO {all, 24.12.2014}: Культура передается т.к. на старте приложения проверяется корректность метаданных.
+        // Контекст пользователя в это время неопределен. После удаления метаданных карточек из EntitySettings.xml и соответсвующей проверки метаданных карточек
+        // культуру можно будет брать из контекста пользователя
+        public CardStructure GetCardSettings<TEntity>(CultureInfo culture) where TEntity : IEntity
         {
-            return GetCardSettings(typeof(TEntity).AsEntityName());
+            _currentCulture = culture;
+            return GetCardSettings(typeof(TEntity).AsEntityName(), culture);
         }
 
-        public CardStructure GetCardSettings(EntityName entity)
+        // TODO {all, 24.12.2014}: Культура передается т.к. на старте приложения проверяется корректность метаданных.
+        // Контекст пользователя в это время неопределен. После удаления метаданных карточек из EntitySettings.xml и соответсвующей проверки метаданных карточек
+        // культуру можно будет брать из контекста пользователя
+        public CardStructure GetCardSettings(EntityName entity, CultureInfo culture)
         {
+            _currentCulture = culture;
             CardMetadata metadata;
             if (!_metadataProvider.TryGetMetadata(IdBuilder.For<MetadataCardsIdentity>(entity.ToString()).AsIdentity().Id, out metadata))
             {

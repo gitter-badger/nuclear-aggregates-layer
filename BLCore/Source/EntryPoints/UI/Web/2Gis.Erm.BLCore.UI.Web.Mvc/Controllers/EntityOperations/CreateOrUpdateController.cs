@@ -3,7 +3,6 @@ using System.Linq;
 using System.ServiceModel.Security;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
@@ -11,7 +10,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Metadata;
-using DoubleGis.Erm.BLCore.UI.Web.Metadata.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -19,13 +17,11 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
@@ -34,36 +30,31 @@ using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.Controll
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
     // FIXME {all, 22.02.2014}: добавить в данные передавемые на карточку в create usecase (возможно одновреммено с разделением на update и create) url до IdentityService - при этом удалить протаксивание этого URL, через многие DomainEntityDto (удалив при этом и соответсвующие partial части этих DTO), то же касается и MVC ViewModel
-    public sealed class CreateOrUpdateController<TEntity, TModel, TAdapted> : ControllerBase
+    public sealed class CreateOrUpdateController<TEntity, TModel> : ControllerBase
         where TEntity : class, IEntity, IEntityKey
         where TModel : EntityViewModelBase<TEntity>, new()
-        where TAdapted : IAdapted
     {
-        private readonly IUICardConfigurationService _uiConfigurationService;
         private readonly IUIServicesManager _uiServicesManager;
         private readonly IEntityViewNameProvider _entityViewNameProvider;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly ICardSettingsProcessor _cardSettingsProcessor;
-        private readonly ICardsMetadataSettings _cardsMetadataSettings;
+        private readonly ICardSettingsProvider _cardSettingsProvider;
 
         public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
                                         IUserContext userContext,
                                         ICommonLog logger,
-                                        IUICardConfigurationService uiConfigurationService,
                                         IUIServicesManager uiServicesManager,
                                         IOperationServicesManager operationServicesManager,
                                         ISecurityServiceUserIdentifier userIdentifierService,
-                                        ISecurityServiceFunctionalAccess functionalAccessService,
                                         ISecurityServiceEntityAccess entityAccessService,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IEntityViewNameProvider entityViewNameProvider,
                                         ICardSettingsProcessor cardSettingsProcessor,
-                                        ICardsMetadataSettings cardsMetadataSettings)
+                                        ICardSettingsProvider cardSettingsProvider)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -72,14 +63,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                    getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
-            _uiConfigurationService = uiConfigurationService;
             _uiServicesManager = uiServicesManager;
             _userIdentifierService = userIdentifierService;
-            _functionalAccessService = functionalAccessService;
             _entityAccessService = entityAccessService;
             _entityViewNameProvider = entityViewNameProvider;
             _cardSettingsProcessor = cardSettingsProcessor;
-            _cardsMetadataSettings = cardsMetadataSettings;
+            _cardSettingsProvider = cardSettingsProvider;
         }
 
         [HttpGet]
@@ -93,19 +82,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             var model = GetViewModel(actualEntityId, actualReadOnly, pId, pType, extendedInfo);
             SetViewModelProperties(model, actualReadOnly, pId, pType, extendedInfo);
             CustomizeModelAfterMetadataReady(model);
-
-            switch (_cardsMetadataSettings.CardsMetadataSource)
-            {
-                case CardsMetadataSource.EntitySettingsXml:
-            ApplyToolbarItemsLock(model);
-                    break;
-                case CardsMetadataSource.CodedMetadata:
-                    _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
+            _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
             var viewName = _entityViewNameProvider.GetView<TModel, TEntity>();
             return View(viewName, model);
         }
@@ -138,18 +115,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             {
                 SetViewModelProperties(model, model.ViewConfig.ReadOnly, model.ViewConfig.PId, model.ViewConfig.PType, model.ViewConfig.ExtendedInfo);
                 CustomizeModelAfterMetadataReady(model);
-
-                switch (_cardsMetadataSettings.CardsMetadataSource)
-                {
-                    case CardsMetadataSource.EntitySettingsXml:
-                ApplyToolbarItemsLock(model);
-                        break;
-                    case CardsMetadataSource.CodedMetadata:
-                        _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                _cardSettingsProcessor.ProcessCardSettings<TEntity, TModel>(model);
             }
 
             UpdateValidationMessages(model);
@@ -296,66 +262,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             // 3) значение, запрошенное в query string.
             model.ViewConfig.ReadOnly = securityReadonlyMode || baseReadonlyMode || readOnly;
 
-            model.ViewConfig.CardSettings = _uiConfigurationService.GetCardSettings(typeof(TEntity).AsEntityName(), UserContext.Profile.UserLocaleInfo.UserCultureInfo);
+            model.ViewConfig.CardSettings = _cardSettingsProvider.GetCardSettings<TEntity>(UserContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         private void CustomizeModelAfterMetadataReady(TModel model)
         {
             var viewModelCustomizationService = _uiServicesManager.GetModelCustomizationService<TModel, TEntity>();
             viewModelCustomizationService.CustomizeViewModel(model, ModelState);
-        }
-
-        /// <summary>
-        /// Финальный дисейблинг кнопок, должен вызываться после метода CustomizeModelAfterMetadataReady, т.к. основывается на значении model.ViewConfig.ReadOnly.
-        /// </summary>
-        /// <param name="model"></param>
-        [Obsolete]
-        private void ApplyToolbarItemsLock(TModel model)
-        {
-            var ownerCode = UserContext.Identity.Code;
-            var oldOwnerCode = (long?)null;
-
-            if (model.IsCurated && model.Owner != null)
-            {
-                ownerCode = model.Owner.Key.Value;
-                oldOwnerCode = model.OldOwnerCode;
-            }
-
-            var entityAccess = _entityAccessService.RestrictEntityAccess(typeof(TEntity).AsEntityName(),
-                                                                         EntityAccessTypes.All,
-                                                                         UserContext.Identity.Code,
-                                                                         model.Id,
-                                                                         ownerCode,
-                                                                         oldOwnerCode);
-
-            var cardSettings = model.ViewConfig.CardSettings;
-            // NOTE: Внимание!!!
-            // Ниже жесткий копипаст из EntityGridViewServiceBase.SecureViewsToolbars для поддержания работы с тубарами карточки
-            // TODO: Учесть текущую реализацию работы с тулбарами и дотюнить ее при реализации EditController. 
-            foreach (var toolbarItem in cardSettings.CardToolbar)
-            {
-                // Для всех сущностей кнопки тулбара блокируются в случае отсутствия соответствующей привилегии,
-                // либо, если сущность неактивна/удалена и в настройках флаг LockOnInactive = true
-                if (toolbarItem.SecurityPrivelege.HasValue && toolbarItem.SecurityPrivelege.Value != 0)
-                {
-                    var privilegeMask = toolbarItem.SecurityPrivelege.Value;
-                    if (Enum.IsDefined(typeof(FunctionalPrivilegeName), privilegeMask))
-                    {
-                        toolbarItem.Disabled = !_functionalAccessService.HasFunctionalPrivilegeGranted((FunctionalPrivilegeName)privilegeMask,
-                                                                                                      UserContext.Identity.Code);
-                    }
-                    else
-                    {
-                        toolbarItem.Disabled = !entityAccess.HasFlag((EntityAccessTypes)privilegeMask);
-                    }
-                }
-            }
-
-            foreach (var toolbarItem in model.ViewConfig.CardSettings.CardToolbar.Where(t => !t.Disabled))
-            {
-                // Если кнопка не заблокирована в результате проверки привилегий, блокируем ее на основании EntitySettings
-                toolbarItem.Disabled |= (model.ViewConfig.ReadOnly && toolbarItem.LockOnInactive) || (toolbarItem.LockOnNew && model.Id == 0);
-            }                
         }
 
         private void UpdateValidationMessages(TModel model)

@@ -8,11 +8,9 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
-namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
+namespace DoubleGis.Erm.BLFlex.UI.Metadata
 {
-    // Для обеспечения возможности сравнения метаданных в EntitySettings.xml и метаданных в коде.
-    // Также обеспечит возможность переключится с одного источника метаданных на другой
-    public sealed partial class UICardConfigurationService
+    public sealed partial class CardMetadataValidator
     {
         private readonly IDictionary<EntityName, IDictionary<string, IDictionary<string, Tuple<object, object>>>> _cardMetadataCorrections =
             new Dictionary<EntityName, IDictionary<string, IDictionary<string, Tuple<object, object>>>>
@@ -382,6 +380,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             },
                                         }
                                 },
+                                {
+                                    "ChangeTerritory",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "LockOnNew",
+                                                new Tuple<object, object>(false, true)
+                                            },
+                                        }
+                                },
                             }
                     },
 
@@ -433,6 +441,36 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                             {
                                                 "EntityLocalizedName",
                                                 new Tuple<object, object>("EnAdvertisementElementStatus", EnumResources.EntityNameAdvertisementElementStatus)
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
+                    #region AdvertisementTemplate
+                    {
+                        EntityName.AdvertisementTemplate,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "PublishAdvertisementTemplate",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>(null, (int)FunctionalPrivilegeName.PublishAdvertisementTemplate)
+                                            },
+                                        }
+                                },
+                                {
+                                    "UnpublishAdvertisementTemplate",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>(null, (int)FunctionalPrivilegeName.UnpublishAdvertisementTemplate)
                                             },
                                         }
                                 },
@@ -1029,10 +1067,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                                         {
                                             {
                                                 "LockOnNew",
-                                                new Tuple<object, object>(false, true)
-                                            },
-                                            {
-                                                "LockOnInactive",
                                                 new Tuple<object, object>(false, true)
                                             },
                                         }

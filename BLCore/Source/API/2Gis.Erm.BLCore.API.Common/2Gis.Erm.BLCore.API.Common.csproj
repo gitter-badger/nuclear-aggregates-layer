@@ -69,7 +69,6 @@
     <Compile Include="Metadata\Old\Dto\EntityDataListsContainer.cs" />
     <Compile Include="Metadata\Old\Dto\NavigationElementStructure.cs" />
     <Compile Include="Metadata\Old\Dto\ToolbarElementStructure.cs" />
-    <Compile Include="Metadata\Old\IUICardConfigurationService.cs" />
     <Compile Include="Metadata\Old\IUIConfigurationService.cs" />
     <Compile Include="Enums\AccountOperationTypeEnum.cs" />
     <Compile Include="Enums\ContributionTypeEnum.cs" />

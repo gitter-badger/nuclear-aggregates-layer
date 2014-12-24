@@ -129,10 +129,8 @@
     <Compile Include="Cards\Extensions\UIElementMetadataBuilderExtensions.cs" />
     <Compile Include="DI\BlUIMetadataAssembly.cs" />
     <Compile Include="FeatureExtensions.cs" />
-    <Compile Include="Toolbar\ToolbarElements.WithdrawalInfo.cs" />
     <Compile Include="Toolbar\ToolbarElements.User.cs" />
     <Compile Include="Toolbar\ToolbarElements.Theme.cs" />
-    <Compile Include="Toolbar\ToolbarElements.ReleaseInfo.cs" />
     <Compile Include="Toolbar\ToolbarElements.PricePosition.cs" />
     <Compile Include="Toolbar\ToolbarElements.Price.cs" />
     <Compile Include="Toolbar\ToolbarElements.OrganizationUnit.cs" />

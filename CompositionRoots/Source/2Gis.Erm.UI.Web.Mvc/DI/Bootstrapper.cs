@@ -53,6 +53,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
+using DoubleGis.Erm.BLFlex.UI.Metadata;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards;
@@ -88,6 +89,7 @@ using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing;
@@ -138,7 +140,8 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    settingsContainer.AsSettings<IWebAppProcesingSettings>()))
                      .ConfigureInterception(settingsContainer.AsSettings<IGlobalizationSettings>())
-                     .ConfigureServiceClient();
+                     .ConfigureServiceClient()
+                     .EnsureMetadataCorrectness();
                 
             /// TODO {all, 15.07.2013}: Инициализировать что-то такое совсем MVC специфичное лучше скорее в Application_Start MVCApplication внутри bootstrapper в идеале лучше не иметь вызово container resolve
             /// TODO {all, 15.07.2013}: Стоит проанализировать корректность такой статической привязки работы HTMLHelpers к кэшу, возможно стоит доступ к этому кэшу прокидывать в вызовы htmlhelpers прямо во view извлекая его из viewdata или @model и т.п.
@@ -212,7 +215,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                      .ConfigureIdentityInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
-                     .RegisterType<IUICardConfigurationService, UICardConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IEntityViewNameProvider, EntityViewNameProvider>(CustomLifetime.PerRequest)
                      .RegisterType<ICardSettingsProvider, CardSettingsProvider>(CustomLifetime.PerRequest)
                      .RegisterType<ICardSettingsProcessor, CardSettingsProcessor>(CustomLifetime.PerRequest)
@@ -232,16 +234,24 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
-            {
+        {
             var checkingResourceStorages = new[]
-            {
-                    typeof(BLResources),
-                    typeof(MetadataResources),
-                    typeof(EnumResources)
-                };
+                                               {
+                                                   typeof(BLResources),
+                                                   typeof(MetadataResources),
+                                                   typeof(EnumResources)
+                                               };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-            }
+        }
+
+        private static IUnityContainer ConfigureMetadata(this IUnityContainer container)
+        {
+            CommonBootstrapper.ConfigureMetadata(container);
+
+            // validators
+            return container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataValidator, CardMetadataValidator>(Lifetime.Singleton);
+        }
 
         private static IUnityContainer CreateErmReportsSpecific(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
         {

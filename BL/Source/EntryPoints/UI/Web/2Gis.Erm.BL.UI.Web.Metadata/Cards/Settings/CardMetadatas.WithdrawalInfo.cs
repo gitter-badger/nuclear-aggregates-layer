@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Refresh<WithdrawalInfo>(),
                                 ToolbarElements.Splitter(),
-                                ToolbarElements.Additional(ToolbarElements.WithdrawalInfos.Download()),
+                                ToolbarElements.Additional(ToolbarElements.DownloadResult()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close());
     }
