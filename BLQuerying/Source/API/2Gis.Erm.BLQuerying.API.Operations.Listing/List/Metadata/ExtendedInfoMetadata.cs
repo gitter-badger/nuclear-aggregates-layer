@@ -368,6 +368,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListPlatform", ""},
             {"DListReleaseInfo", ""},
             {"DListRole", ""},
+            {"DListTimeZones", ""},
             {"DListUserRole", ""},
             {"DListWithdrawalInfo", ""},
         };

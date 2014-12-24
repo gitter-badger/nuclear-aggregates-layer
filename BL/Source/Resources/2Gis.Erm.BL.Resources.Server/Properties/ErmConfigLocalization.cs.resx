@@ -1863,4 +1863,7 @@
   <data name="ControlIncreaseLimit" xml:space="preserve">
     <value>Zvýšit</value>
   </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Časová pásma</value>
+  </data>
 </root>

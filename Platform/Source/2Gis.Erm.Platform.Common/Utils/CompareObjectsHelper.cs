@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             var objectComparer = new CompareObjects
                 {
                     CompareChildren = compareObjectMode == CompareObjectMode.Deep,
+                    CompareEnumChildren = true,
                     CompareFields = false,
                     ComparePrivateFields = false,
                     CompareReadOnly = false,
