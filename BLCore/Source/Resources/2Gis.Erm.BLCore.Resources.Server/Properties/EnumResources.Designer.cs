@@ -1269,15 +1269,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Действие.
         /// </summary>
-        public static string EntityNameActivity {
-            get {
-                return ResourceManager.GetString("EntityNameActivity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Действие.
-        /// </summary>
         public static string EntityNameActivityBase {
             get {
                 return ResourceManager.GetString("EntityNameActivityBase", resourceCulture);

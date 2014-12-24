@@ -1909,9 +1909,6 @@
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Соглашение о продлении договора</value>
   </data>
-  <data name="EntityNameActivity" xml:space="preserve">
-    <value>Действие</value>
-  </data>
   <data name="EntityNameActivityBase" xml:space="preserve">
     <value>Действие</value>
   </data>
