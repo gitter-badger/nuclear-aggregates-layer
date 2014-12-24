@@ -4032,6 +4032,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DListTimeZones {
+            get {
+                return ResourceManager.GetString("DListTimeZones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DListUser {
             get {
                 return ResourceManager.GetString("DListUser", resourceCulture);

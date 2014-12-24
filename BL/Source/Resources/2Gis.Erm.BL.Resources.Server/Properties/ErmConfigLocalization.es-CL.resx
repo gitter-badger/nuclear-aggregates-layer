@@ -1860,4 +1860,7 @@
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Principal</value>
   </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Husos horarios</value>
+  </data>
 </root>
