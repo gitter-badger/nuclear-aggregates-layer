@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
@@ -12,6 +13,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
     public class ViewModelCustomizationProvider : IViewModelCustomizationProvider
     {
         private readonly IMetadataProvider _metadataProvider;
+
+        private readonly Type[] _sharedCustomizations =
+            {
+                typeof(SetReadonlyCustomization)
+            };
 
         public ViewModelCustomizationProvider(IMetadataProvider metadataProvider)
         {
@@ -31,6 +37,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                                          .Cast<IViewModelCustomizationFeature>()
                                          .OrderBy(x => x.Order)
                                          .Select(x => x.CustomizationType)
+                                         .Union(_sharedCustomizations)
                                          .ToArray();
         }
     }

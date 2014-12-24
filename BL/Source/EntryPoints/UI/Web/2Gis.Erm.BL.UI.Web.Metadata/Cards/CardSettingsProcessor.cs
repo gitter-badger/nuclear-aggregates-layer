@@ -52,7 +52,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             var entityModel = model as IEntityViewModelBase;
             if (entityModel != null)
             {
-                EvaluateIsReadOnly(entityModel, metadata);
                 EvaluateTitle(entityModel, metadata);
 
                 foreach (var actionElement in metadata.ActionsDescriptors)
@@ -68,11 +67,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                     }
                 }
             }
-        }
-
-        internal void EvaluateIsReadOnly(IEntityViewModelBase entityModel, CardMetadata metadata)
-        {
-            entityModel.ViewConfig.ReadOnly |= metadata.Uses<ReadOnlyFeature>();
         }
 
         internal void EvaluateTitle(IEntityViewModelBase entityModel, CardMetadata metadata)

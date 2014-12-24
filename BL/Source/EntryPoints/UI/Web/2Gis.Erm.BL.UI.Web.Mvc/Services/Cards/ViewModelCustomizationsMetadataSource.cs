@@ -89,9 +89,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .UseOrdered<AssociatedPositionGroupsPriceIsDeletedCustomization>()
                                                        .UseOrdered<AssociatedPositionGroupsPriceIsPublishedCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<Category, IEntityViewModelBase>()
-                                                       .Use<SetReadonlyCustomization>(),
-
                         ViewModelCustomizationsMetadata.For<Client, IEntityViewModelBase>()
                                                        .Use<WarnLinkToAdvAgencyExistsVmCustomization>(),
 
@@ -110,9 +107,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .Use<ChangeTerritoryPrivilegeCustomization>()
                                                        .Use<FirmIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<FirmContact, IEntityViewModelBase>()
-                                                       .Use<SetReadonlyCustomization>(),
-
                         ViewModelCustomizationsMetadata.For<LegalPerson, ICustomizableLegalPersonViewModel>()
                                                        .UseOrdered<LegalPersonDoesntHaveAnyProfilesCustomization>()
                                                        .UseOrdered<LegalPersonIsInactiveCustomization>(),
@@ -130,11 +124,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .Use<ManageLimitWorkflowButtonsCustomization>()
                                                        .Use<SetLimitInspectorNameCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<LocalMessage, IEntityViewModelBase>()
-                                                       .Use<SetReadonlyCustomization>(),
-
                         ViewModelCustomizationsMetadata.For<Lock, LockViewModel>()
-                                                       .Use<SetReadonlyCustomization>()
                                                        .Use<NewLockCustomization>()
                                                        .Use<LocalizeLockStatusCustomization>(),
 
@@ -180,9 +170,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetadata.For<PricePosition, IEntityViewModelBase>()
                                                        .Use<InactivePricePositionCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<ReleaseInfo, IEntityViewModelBase>()
-                                                       .Use<SetReadonlyCustomization>(),
-
                         ViewModelCustomizationsMetadata.For<Task, ICustomizableActivityViewModel>()
                                                        .Use<DisableActivityButtonsCustomization>(),
 
@@ -194,9 +181,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
                         ViewModelCustomizationsMetadata.For<User, IEntityViewModelBase>()
                                                        .Use<EntityIsInactiveCustomization>(),
-
-                        ViewModelCustomizationsMetadata.For<WithdrawalInfo, IEntityViewModelBase>()
-                                                       .Use<SetReadonlyCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

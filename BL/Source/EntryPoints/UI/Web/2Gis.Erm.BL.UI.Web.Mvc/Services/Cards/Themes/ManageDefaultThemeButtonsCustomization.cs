@@ -6,7 +6,6 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 
-
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Themes
 {
     public sealed class ManageDefaultThemeButtonsCustomization : IViewModelCustomization<ThemeViewModel>
