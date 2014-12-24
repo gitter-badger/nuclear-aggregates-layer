@@ -1996,4 +1996,7 @@
   <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
     <value>Otro</value>
   </data>
+  <data name="EntityNameActivity" xml:space="preserve">
+    <value>Acción</value>
+  </data>
 </root>
