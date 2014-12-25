@@ -6,6 +6,7 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLFlex.UI.Metadata.ViewModels.Contracts.Chile;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
                                     .CommonCardToolbar(),
 
                         CardMetadata.For<Bargain>()
-                                    .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction()),
+                                    .ConfigBargainToolbarWithSpecificPrintActions(ToolbarElementsFlex.Bargains.PrintBargain()),
 
                         CardMetadata.For<Bill>()
                                     .ConfigBillToolbarWithPrinting(),
@@ -58,7 +59,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
 
                         CardMetadata.For<Order>()
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.ChileOrderPrintActions()),
+                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.ChileOrderPrintActions())
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

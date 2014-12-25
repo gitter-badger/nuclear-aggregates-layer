@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -43,8 +44,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Kazakhstan
                                     .CommonCardToolbar(),
 
                         CardMetadata.For<Bargain>()
-                                    .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction(),
-                                                                                  UIElementMetadata.Config.PrintBargainProlongationAgreementAction()),
+                                    .ConfigBargainToolbarWithSpecificPrintActions(ToolbarElementsFlex.Bargains.PrintBargain(),
+                                                                                  ToolbarElementsFlex.Bargains.PrintBargainProlongation()),
 
                         CardMetadata.For<Bill>()
                                     .ConfigBillToolbarWithPrinting(),
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Kazakhstan
 
                         CardMetadata.For<Order>()
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.KazakhstanOrderPrintActions()),
+                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.UkraineAndKazakhstanOrderPrintActions()),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

@@ -1,10 +1,8 @@
-﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
+﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
 {
@@ -70,14 +68,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                           ToolbarElements.Splitter(),
                                           ToolbarElements.Refresh<Bill>(),
                                           ToolbarElements.Splitter(),
-                                          ToolbarElements.Print(
-                                                                       UIElementMetadata.Config
-                                                                                        .Name.Static("PrintBillAction")
-                                                                                        .Title.Resource(() => ErmConfigLocalization.ControlPrintBillAction)
-                                                                                        .ControlType(ControlType.TextButton)
-                                                                                        .Handler.Name("scope.PrintBill")
-                                                                                        .LockOnNew()
-                                                                                        .Operation.SpecificFor<PrintIdentity, Bill>()),
+                                          ToolbarElements.Print(ToolbarElementsFlex.Bills.PrintBill()),
                                           ToolbarElements.Splitter(),
                                           ToolbarElements.Close());
         }

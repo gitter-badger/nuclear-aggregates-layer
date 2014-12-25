@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
@@ -34,18 +35,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
         private readonly ICardSettingsProvider _cardSettingsProvider;
         private readonly ICommonLog _commonLog;
 
-        private readonly IDictionary<BusinessModel, CultureInfo> _culturesMap =
-            new Dictionary<BusinessModel, CultureInfo>
-                {
-                    { BusinessModel.Russia, new CultureInfo("ru-RU") },
-                    { BusinessModel.Cyprus, new CultureInfo("en") },
-                    { BusinessModel.Czech, new CultureInfo("cs-CZ") },
-                    { BusinessModel.Chile, new CultureInfo("es-CL") },
-                    { BusinessModel.Ukraine, new CultureInfo("ru-RU") },
-                    { BusinessModel.Emirates, new CultureInfo("ar") },
-                    { BusinessModel.Kazakhstan, new CultureInfo("kk-KZ") }
-                };
-
         public CardMetadataValidator(
             IGlobalizationSettings globalizationSettings,
             ICardSettingsProvider cardSettingsProvider,
@@ -63,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
             var errorsBuilder = new StringBuilder();
             foreach (var cardMetadata in targetMetadata.Metadata.Values.Cast<CardMetadata>())
             {
-                var codedCardSettings = _cardSettingsProvider.GetCardSettings(cardMetadata.Entity, _culturesMap[_globalizationSettings.BusinessModel]);
+                var codedCardSettings = _cardSettingsProvider.GetCardSettings(cardMetadata.Entity, Thread.CurrentThread.CurrentUICulture);
                 var xmlCardSettings = GetXmlCardSettings(cardMetadata.Entity);
                 var errors = GetCardSettingsErrors(xmlCardSettings, codedCardSettings, cardMetadata.Entity);
                 if (errors.Any())
@@ -83,7 +72,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
         private CardStructure GetXmlCardSettings(EntityName entityName)
         {
-            var culture = _culturesMap[_globalizationSettings.BusinessModel];
+            var culture = Thread.CurrentThread.CurrentUICulture;
             var cardSettings = GetCardSettings(_globalizationSettings.BusinessModel, entityName);
 
             var localizedCardSettings = new CardStructure

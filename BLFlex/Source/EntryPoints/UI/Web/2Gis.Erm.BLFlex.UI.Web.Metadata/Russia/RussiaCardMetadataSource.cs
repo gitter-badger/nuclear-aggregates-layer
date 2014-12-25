@@ -7,17 +7,15 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderProcessingRequest;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
 {
@@ -53,30 +51,22 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         CardMetadata.For<OrderProcessingRequest>()
                                     .MainAttribute<OrderProcessingRequest, IOrderProcessingRequestViewModel>(x => x.Title)
                                     .Actions.Attach(ToolbarElements.Refresh<OrderProcessingRequest>(),
-                                                    ToolbarElements.Additional
-                                                        (UIElementMetadata.Config
-                                                                          .Name.Static("CreateOrder")
-                                                                          .Title.Resource(() => ErmConfigLocalization.ControlCreateOrder)
-                                                                          .LockOnNew()
-                                                                          .Handler.Name("scope.CreateOrder")
-                                                                          .ControlType(ControlType.TextButton)
-                                                                          .DisableOn<IOrderProcessingRequestViewModel>(x => x.State == OrderProcessingRequestState.Cancelled,
-                                                                                                                       x => x.State == OrderProcessingRequestState.Completed)
-                                                                          .AccessWithPrivelege<OrderProcessingRequest>(EntityAccessTypes.Update)
-                                                                          .AccessWithPrivelege<Order>(EntityAccessTypes.Create)
-                                                                          .AccessWithPrivelege<OrderPosition>(EntityAccessTypes.Create)
-                                                                          .AccessWithPrivelege<OrderPositionAdvertisement>(EntityAccessTypes.Create)
-                                                                          .Operation.NonCoupled<CreateOrderByRequestIdentity>(),
-                                                         UIElementMetadata.Config
-                                                                          .Name.Static("CancelOrderProcessingRequest")
-                                                                          .Title.Resource(() => ErmConfigLocalization.ControlCancelOrderProcessingRequest)
-                                                                          .LockOnNew()
-                                                                          .DisableOn<IOrderProcessingRequestViewModel>(x => x.State == OrderProcessingRequestState.Cancelled,
-                                                                                                                       x => x.State == OrderProcessingRequestState.Completed)
-                                                                          .Handler.Name("scope.CancelOrderProcessingRequest")
-                                                                          .ControlType(ControlType.TextButton)
-                                                                          .AccessWithPrivelege<OrderProcessingRequest>(EntityAccessTypes.Update)
-                                                                          .Operation.NonCoupled<CancelOrderProcessingRequestIdentity>()),
+                                                    ToolbarElements.Additional(ToolbarElementsFlex.OrderProcessingRequests.CreateOrder()
+                                                                                                  .DisableOn<IOrderProcessingRequestViewModel>(
+                                                                                                                                               x =>
+                                                                                                                                               x.State ==
+                                                                                                                                               OrderProcessingRequestState.Cancelled,
+                                                                                                                                               x =>
+                                                                                                                                               x.State ==
+                                                                                                                                               OrderProcessingRequestState.Completed),
+                                                                               ToolbarElementsFlex.OrderProcessingRequests.Cancel()
+                                                                                                  .DisableOn<IOrderProcessingRequestViewModel>(
+                                                                                                                                               x =>
+                                                                                                                                               x.State ==
+                                                                                                                                               OrderProcessingRequestState.Cancelled,
+                                                                                                                                               x =>
+                                                                                                                                               x.State ==
+                                                                                                                                               OrderProcessingRequestState.Completed)),
                                                     ToolbarElements.Close()),
 
                         #endregion
@@ -84,7 +74,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         #region LegalPerson
                         CardMetadata.For<LegalPerson>()
                                     .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UIElementMetadata.Config.CommonLegalPersonAdditionalActions()
-                                                                                                            .With(UIElementMetadata.Config.MergeLegalPersonsAction())),
+                                                                                                            .With(ToolbarElementsFlex.LegalPersons.Russia.Merge())),
 
                         #endregion
 
@@ -102,9 +92,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
 
                         #region Bargain
                         CardMetadata.For<Bargain>()
-                                    .ConfigBargainToolbarWithSpecificPrintActions(UIElementMetadata.Config.PrintBargainAction(),
-                                                                                  UIElementMetadata.Config.PrintNewSalesModelBargainAction(),
-                                                                                  UIElementMetadata.Config.PrintBargainProlongationAgreementAction()),
+                                    .ConfigBargainToolbarWithSpecificPrintActions(ToolbarElementsFlex.Bargains.PrintBargain(),
+                                                                                  ToolbarElementsFlex.Bargains.Russia.PrintNewSalesModelBargainAction(),
+                                                                                  ToolbarElementsFlex.Bargains.PrintBargainProlongation()),
 
                         #endregion
 
@@ -119,13 +109,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                             ToolbarElements.Splitter(),
                                             ToolbarElements.Refresh<Advertisement>(),
                                             ToolbarElements.Splitter(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Preview")
-                                                             .Title.Resource(() => ErmConfigLocalization.ControlPreviewAdvertisement)
-                                                             .ControlType(ControlType.TextImageButton)
-                                                             .LockOnNew()
-                                                             .Handler.Name("scope.Preview")
-                                                             .Icon.Path("PreviewAd.png"),
+                                            ToolbarElementsFlex.Advertisements.Preview(),
                                             ToolbarElements.Splitter(),
                                             ToolbarElements.Close()),
 

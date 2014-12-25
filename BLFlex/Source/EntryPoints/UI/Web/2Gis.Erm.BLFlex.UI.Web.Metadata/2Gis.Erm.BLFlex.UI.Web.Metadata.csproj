@@ -49,6 +49,12 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="CardMetadataExtensions.cs" />
+    <Compile Include="Toolbar\ToolbarElementsFlex.Order.cs" />
+    <Compile Include="Toolbar\ToolbarElementsFlex.Bill.cs" />
+    <Compile Include="Toolbar\ToolbarElementsFlex.Bargain.cs" />
+    <Compile Include="Toolbar\ToolbarElementsFlex.LegalPerson.cs" />
+    <Compile Include="Toolbar\ToolbarElementsFlex.Advertisement.cs" />
+    <Compile Include="Toolbar\ToolbarElementsFlex.OrderProcessingRequest.cs" />
     <Compile Include="UIMetadataExtensions.cs" />
     <Compile Include="Chile\ChileCardMetadataSource.cs" />
     <Compile Include="Cyprus\CyprusCardMetadataSource.cs" />
