@@ -45,6 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
                                                     entityName);
             }
 
+            var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
             var metadata = _metadataProvider.GetOperationMetadata<ActionHistoryMetadata, ActionHistoryIdentity>(entityName);
             var actionsInfo = _finder.Find<ActionsHistory>(x => x.EntityType == (int)entityName && x.EntityId == entityId)
                                      .OrderByDescending(x => x.Id)
@@ -85,11 +86,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
                                                                   {
                                                                       Id = y.Id,
                                                                       ActionsHistoryId = y.ActionsHistoryId,
-                                                                      PropertyName = MetadataResources.ResourceManager.GetString(y.PropertyName,
-                                                                                                                                 _userContext.Profile.UserLocaleInfo
-                                                                                                                                             .UserCultureInfo),
-                                                                      OriginalValue = ProcessValue(entityName, y.PropertyName, y.OriginalValue),
-                                                                      ModifiedValue = ProcessValue(entityName, y.PropertyName, y.ModifiedValue)
+                                                                      PropertyName = MetadataResources.ResourceManager.GetString(y.PropertyName, userCultureInfo),
+                                                                      OriginalValue = ProcessValue(entityName, y.PropertyName, y.OriginalValue, userCultureInfo),
+                                                                      ModifiedValue = ProcessValue(entityName, y.PropertyName, y.ModifiedValue, userCultureInfo)
                                                                   })
                                                       .ToArray();
 
@@ -100,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
             };
         }
 
-        private string ProcessValue(EntityName entityName, string propertyName, string value)
+        private string ProcessValue(EntityName entityName, string propertyName, string value, CultureInfo userCultureInfo)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
@@ -114,20 +113,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
                 case "ModifiedBy":
                     return _userIdentifierService.GetUserInfo(long.Parse(value)).DisplayName;
                 case "WorkflowStepId":
-                    return EnumUtils.ParseEnum<OrderState>(value).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture);
+                    return EnumUtils.ParseEnum<OrderState>(value).ToStringLocalized(EnumResources.ResourceManager, userCultureInfo);
                 case "DealStage":
-                    return EnumUtils.ParseEnum<DealStage>(value).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture);
+                    return EnumUtils.ParseEnum<DealStage>(value).ToStringLocalized(EnumResources.ResourceManager, userCultureInfo);
                 case "Status":
                     if (entityName == EntityName.Limit)
                     {
                         LimitStatus status;
-                        return EnumUtils.TryParseEnum(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture) : value;
+                        return EnumUtils.TryParseEnum(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, userCultureInfo) : value;
                     }
 
                     if (entityName == EntityName.AdvertisementElementStatus)
                     {
                         AdvertisementElementStatusValue status;
-                        return EnumUtils.TryParseEnum(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture) : value;
+                        return EnumUtils.TryParseEnum(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, userCultureInfo) : value;
                     }
 
                     break;
