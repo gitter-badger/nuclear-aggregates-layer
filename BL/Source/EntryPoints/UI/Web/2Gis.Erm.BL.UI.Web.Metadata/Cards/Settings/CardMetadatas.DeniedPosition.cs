@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata DeniedPosition =
             CardMetadata.For<DeniedPosition>()
-                        .MainAttribute(x => x.Id)
+                        .WithDefaultIcon()
                         .CommonCardToolbar();
     }
 }

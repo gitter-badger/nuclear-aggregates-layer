@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata CurrencyRate =
             CardMetadata.For<CurrencyRate>()
-                        .MainAttribute(x => x.Id)
+                        .WithDefaultIcon()
                         .CommonCardToolbar();
     }
 }

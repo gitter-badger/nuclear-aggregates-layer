@@ -45,11 +45,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                     .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Russia/OrderPosition.cshtml"),
 
                         CardMetadata.For<AdvertisementElementStatus>()
-                                    .MainAttribute(x => x.Id),
+                                    .WithDefaultIcon(),
 
                         #region OrderProcessingRequest
                         CardMetadata.For<OrderProcessingRequest>()
-                                    .MainAttribute<OrderProcessingRequest, IOrderProcessingRequestViewModel>(x => x.Title)
+                                    .WithDefaultIcon()
                                     .Actions.Attach(ToolbarElements.Refresh<OrderProcessingRequest>(),
                                                     ToolbarElements.Additional(ToolbarElementsFlex.OrderProcessingRequests.CreateOrder()
                                                                                                   .DisableOn<IOrderProcessingRequestViewModel>(

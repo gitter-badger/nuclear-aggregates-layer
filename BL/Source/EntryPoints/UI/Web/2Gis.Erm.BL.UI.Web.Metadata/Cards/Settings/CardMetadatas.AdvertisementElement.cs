@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata AdvertisementElement =
             CardMetadata.For<AdvertisementElement>()
-                        .MainAttribute(x => x.Id)
+                        .WithDefaultIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<AdvertisementElement>()
                                                .HideOn<IAdvertisementElementViewModel>(x => x.NeedsValidation),

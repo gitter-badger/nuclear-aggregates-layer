@@ -615,6 +615,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
+                                    "Project",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_16_Default.gif", "en_ico_lrg_Default.gif")
+                                            },
+                                        }
+                                },
+                                {
                                     "Save",
                                     new Dictionary<string, Tuple<object, object>>
                                         {
@@ -885,6 +895,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                         EntityName.LocalMessage,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
+                                {
+                                    "LocalMessage",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("Default.gif", "en_ico_lrg_LocalMessage.gif")
+                                            },
+                                        }
+                                },
                                 {
                                     "Close",
                                     new Dictionary<string, Tuple<object, object>>

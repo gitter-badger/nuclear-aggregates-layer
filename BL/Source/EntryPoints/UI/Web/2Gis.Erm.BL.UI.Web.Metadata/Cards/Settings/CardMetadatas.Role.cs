@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
@@ -11,9 +10,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Role =
             CardMetadata.For<Role>()
-                        .MainAttribute<Role, IRoleViewModel>(x => x.Name)
+                        .Icon.Path(Icons.Icons.Entity.Role)
                         .CommonCardToolbar()
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_UserGroup.gif"),
+                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.RoleSmall),
                                           UIElementMetadata.Config
                                                            .Name.Static("RoleEntityPrivilege")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelRoleEntityPrivilege)

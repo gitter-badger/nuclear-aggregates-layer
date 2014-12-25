@@ -8,6 +8,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata LockDetail =
             CardMetadata.For<LockDetail>()
-                        .MainAttribute(x => x.Id);
+                        .WithDefaultIcon();
     }
 }

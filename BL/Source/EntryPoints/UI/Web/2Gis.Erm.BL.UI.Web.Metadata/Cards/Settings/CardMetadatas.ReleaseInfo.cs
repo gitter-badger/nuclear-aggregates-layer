@@ -9,11 +9,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata ReleaseInfo =
             CardMetadata.For<ReleaseInfo>()
-                        .MainAttribute(x => x.Id)
-                        .Actions.Attach(
-                            ToolbarElements.Refresh<ReleaseInfo>(),
-                            ToolbarElements.Additional(ToolbarElements.DownloadResult()),
-                            ToolbarElements.Splitter(),
-                            ToolbarElements.Close());
+                        .WithDefaultIcon()
+                        .Actions.Attach(ToolbarElements.Refresh<ReleaseInfo>(),
+                                        ToolbarElements.Additional(ToolbarElements.DownloadResult()),
+                                        ToolbarElements.Splitter(),
+                                        ToolbarElements.Close());
     }
 }

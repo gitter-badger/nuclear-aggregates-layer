@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata AccountDetail =
             CardMetadata.For<AccountDetail>()
-                        .MainAttribute(x => x.Id)
+                        .WithDefaultIcon()
                         .Actions.Attach(ToolbarElements.Create<AccountDetail>(),
                                         ToolbarElements.Update<AccountDetail>(),
                                         ToolbarElements.CreateAndClose<AccountDetail>(),

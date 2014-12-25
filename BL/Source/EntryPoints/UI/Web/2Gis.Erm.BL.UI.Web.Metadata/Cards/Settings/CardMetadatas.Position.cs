@@ -12,9 +12,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Position =
             CardMetadata.For<Position>()
-                        .MainAttribute<Position, IPositionViewModel>(x => x.Name)
+                        .Icon.Path(Icons.Icons.Entity.Position)
                         .CommonCardToolbar()
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_Position.gif"),
+                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.PositionSmall),
                                           UIElementMetadata.Config
                                                            .Name.Static("Children")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)

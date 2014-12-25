@@ -12,23 +12,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Currency =
             CardMetadata.For<Currency>()
-                        .MainAttribute<Currency, ICurrencyViewModel>(x => x.Name)
+                        .Icon.Path(Icons.Icons.Entity.Currency)
                         .CommonCardToolbar()
-                        .WithRelatedItems(
-                                    UIElementMetadata.Config.ContentTab("en_ico_16_Currency.gif"),
-                                    UIElementMetadata.Config
-                                                     .Name.Static("CurrencyRate")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelCurrencyRate)
-                                                     .LockOnNew()
-                                                     .DisableOn<ICurrencyViewModel>(x => x.IsBase)
-                                                     .Handler.ShowGridByConvention(EntityName.CurrencyRate)
-                                                     .FilterToParent(),
-                                    UIElementMetadata.Config
-                                                     .Name.Static("Country")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelCountry)
-                                                     .Icon.Path("en_ico_16_Country.gif")
-                                                     .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.Country)
-                                                     .FilterToParent());
+                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.CurrencySmall),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("CurrencyRate")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelCurrencyRate)
+                                                           .LockOnNew()
+                                                           .DisableOn<ICurrencyViewModel>(x => x.IsBase)
+                                                           .Handler.ShowGridByConvention(EntityName.CurrencyRate)
+                                                           .FilterToParent(),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("Country")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelCountry)
+                                                           .Icon.Path(Icons.Icons.Entity.CountrySmall)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.Country)
+                                                           .FilterToParent());
     }
 }

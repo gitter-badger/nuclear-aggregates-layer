@@ -2,7 +2,6 @@
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -13,24 +12,24 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Category =
             CardMetadata.For<Category>()
-                        .MainAttribute<Category, ICategoryViewModel>(x => x.Name)                
+                        .Icon.Path(Icons.Icons.Entity.Category)
                         .Actions
-                            .Attach(ToolbarElements.Close())
+                        .Attach(ToolbarElements.Close())
                         .WithRelatedItems(
-                                    UIElementMetadata.Config.ContentTab("en_ico_16_Category.gif"),
-                                    UIElementMetadata.Config
-                                                     .Name.Static("Category")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelCategory)
-                                                     .LockOnNew()
-                                                     .Icon.Path("en_ico_16_Category.gif")
-                                                     .Handler.ShowGridByConvention(EntityName.Category)
-                                                     .FilterToParent(),
-                                    UIElementMetadata.Config
-                                                     .Name.Static("CategoryOrganizationUnit")
-                                                     .Title.Resource(() => ErmConfigLocalization.CrdRelCategoryOU)
-                                                     .LockOnNew()
-                                                     .Handler.ShowGridByConvention(EntityName.CategoryOrganizationUnit)
-                                                     .FilterToParent()
-                                                     .AppendapleEntity<OrganizationUnit>());
+                                          UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.CategorySmall),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("Category")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelCategory)
+                                                           .LockOnNew()
+                                                           .Icon.Path(Icons.Icons.Entity.CategorySmall)
+                                                           .Handler.ShowGridByConvention(EntityName.Category)
+                                                           .FilterToParent(),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("CategoryOrganizationUnit")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelCategoryOU)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.CategoryOrganizationUnit)
+                                                           .FilterToParent()
+                                                           .AppendapleEntity<OrganizationUnit>());
     }
 }

@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata AdvertisementTemplate =
             CardMetadata.For<AdvertisementTemplate>()
-                        .MainAttribute<AdvertisementTemplate, IAdvertisementTemplateViewModel>(x => x.Name)
+                        .WithDefaultIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<AdvertisementTemplate>(),
                                 ToolbarElements.Update<AdvertisementTemplate>(),

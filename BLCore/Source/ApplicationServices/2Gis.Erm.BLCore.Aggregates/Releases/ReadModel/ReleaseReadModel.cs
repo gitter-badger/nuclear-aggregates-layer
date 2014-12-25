@@ -89,6 +89,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(ou => ou.Name).Single();
         }
 
+        // TODO {all, 25.12.2014}: Похоже, нигде не используется
         public int? GetOrganizationUnitDgppId(long organizationUnitId)
         {
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(x => x.DgppId).SingleOrDefault();

@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Theme =
             CardMetadata.For<Theme>()
-                        .MainAttribute<Theme, IThemeViewModel>(x => x.Name)
+                        .WithDefaultIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<Theme>(),
                                 ToolbarElements.Update<Theme>(),

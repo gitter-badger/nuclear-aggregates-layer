@@ -2,7 +2,6 @@
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -13,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Territory =
             CardMetadata.For<Territory>()
-                        .MainAttribute<Territory, ITerritoryViewModel>(x => x.Name)
+                        .Icon.Path(Icons.Icons.Entity.Territory)
                         .Actions
                         .Attach(ToolbarElements.Create<Territory>(),
                                 ToolbarElements.Update<Territory>(),
@@ -29,7 +28,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                           UIElementMetadata.Config
                                                            .Name.Static("Firm")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
-                                                           .Icon.Path("en_ico_16_Firm.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Firm)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Firm)
                                                            .FilterToParent());

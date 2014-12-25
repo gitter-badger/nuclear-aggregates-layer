@@ -2,7 +2,6 @@
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -13,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Client =
             CardMetadata.For<Client>()
-                        .MainAttribute<Client, IClientViewModel>(x => x.Name)
+            .Icon.Path(Icons.Icons.Entity.Client)
                         .Actions
                         .Attach(ToolbarElements.Create<Client>(),
                                 ToolbarElements.Update<Client>(),
@@ -30,7 +29,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                            ToolbarElements.Clients.Merge()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_Client.gif"),
+                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.Client),
                                           UIElementMetadata.Config
                                                            .Name.Static("Firm")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)

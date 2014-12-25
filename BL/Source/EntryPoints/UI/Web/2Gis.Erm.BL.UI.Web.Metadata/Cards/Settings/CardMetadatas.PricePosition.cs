@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata PricePosition =
             CardMetadata.For<PricePosition>()
-                        .MainAttribute<PricePosition, IPricePositionViewModel>(x => x.Position.Value)
+                        .Icon.Path(Icons.Icons.Entity.PricePosition)
                         .Actions
                         .Attach(ToolbarElements.Create<PricePosition>(),
                                 ToolbarElements.Update<PricePosition>(),
@@ -28,21 +28,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Additional(ToolbarElements.PricePositions.Copy()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_PricePosition.gif"),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("AssociatedPositionsGroup")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelAssociatedPositionsGroup)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.AssociatedPositionsGroup)
-                                                             .FilterToParent(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("DeniedPosition")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelDeniedPosition)
-                                                             .ExtendedInfo(new TemplateDescriptor(
-                                                                               new StaticStringResourceDescriptor("PositionId={0}&&PriceId={1}"),
-                                                                               new PropertyDescriptor<IPricePositionViewModel>(x => x.Position.Key),
-                                                                               new PropertyDescriptor<IPricePositionViewModel>(x => x.Price.Key)))
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.DeniedPosition));
+                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.PricePositionSmall),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("AssociatedPositionsGroup")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelAssociatedPositionsGroup)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.AssociatedPositionsGroup)
+                                                           .FilterToParent(),
+                                          UIElementMetadata.Config
+                                                           .Name.Static("DeniedPosition")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelDeniedPosition)
+                                                           .ExtendedInfo(new TemplateDescriptor(
+                                                                             new StaticStringResourceDescriptor("PositionId={0}&&PriceId={1}"),
+                                                                             new PropertyDescriptor<IPricePositionViewModel>(x => x.Position.Key),
+                                                                             new PropertyDescriptor<IPricePositionViewModel>(x => x.Price.Key)))
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.DeniedPosition));
     }
 }

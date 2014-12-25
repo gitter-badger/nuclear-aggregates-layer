@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata PositionChildren =
             CardMetadata.For<PositionChildren>()
-                        .MainAttribute(x => x.Id)
+                        .WithDefaultIcon()
                         .CommonCardToolbar();
     }
 }

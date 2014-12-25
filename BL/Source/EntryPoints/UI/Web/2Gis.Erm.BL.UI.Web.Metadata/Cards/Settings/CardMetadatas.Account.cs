@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Account =
             CardMetadata.For<Account>()
-                        .MainAttribute(x => x.Id)
+            .Icon.Path(Icons.Icons.Entity.Account)
                         .CommonCardToolbar()
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
                                           UIElementMetadata.Config

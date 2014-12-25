@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -12,9 +11,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata BranchOffice =
             CardMetadata.For<BranchOffice>()
-                        .MainAttribute<BranchOffice, IBranchOfficeViewModel>(x => x.Name)
+                        .Icon.Path(Icons.Icons.Entity.BranchOffice)
                         .CommonCardToolbar()
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_BranchOffice.gif"),
+                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.BranchOfficeSmall),
                                           UIElementMetadata.Config
                                                            .Name.Static("BOOU")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelBOOU)

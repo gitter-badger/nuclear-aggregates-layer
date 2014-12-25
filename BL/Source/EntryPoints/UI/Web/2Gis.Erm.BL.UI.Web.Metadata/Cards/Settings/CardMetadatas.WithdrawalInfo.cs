@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata WithdrawalInfo =
             CardMetadata.For<WithdrawalInfo>()
-                        .MainAttribute(x => x.Id)
+                        .WithDefaultIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<WithdrawalInfo>(),
                                 ToolbarElements.Update<WithdrawalInfo>(),

@@ -2,7 +2,6 @@
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -14,7 +13,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Firm =
             CardMetadata.For<Firm>()
-                        .MainAttribute<Firm, IFirmViewModel>(x => x.Name)
+            .Icon.Path(Icons.Icons.Entity.Firm)  
                         .Actions
                         .Attach(ToolbarElements.Create<Firm>(),
                                 ToolbarElements.Update<Firm>(),
@@ -43,7 +42,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                           UIElementMetadata.Config
                                                            .Name.Static("FirmCategories")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelCategories)
-                                                           .Icon.Path("en_ico_16_Category.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.CategorySmall)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.CategoryFirmAddress)
                                                            .FilterToParent(),
@@ -51,7 +50,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                           UIElementMetadata.Config
                                                            .Name.Static("FirmAdvertisements")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAdvertisements)
-                                                           .Icon.Path("en_ico_16_Advertisement.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Advertisement)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Advertisement)
                                                            .FilterToParent(),
@@ -59,7 +58,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                           UIElementMetadata.Config
                                                            .Name.Static("Orders")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                           .Icon.Path("en_ico_16_Order.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Order)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Order)
                                                            .FilterToParent(),
@@ -67,7 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                           UIElementMetadata.Config
                                                            .Name.Static("Actions")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                                           .Icon.Path("en_ico_16_Action.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Activity)
                                                            .Handler.ShowGridByConvention(EntityName.Activity)
                                                            .FilterToParents()
                                                            .LockOnNew());

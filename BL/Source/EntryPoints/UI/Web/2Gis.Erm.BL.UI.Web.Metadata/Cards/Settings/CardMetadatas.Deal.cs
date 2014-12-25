@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Deal =
             CardMetadata.For<Deal>()
-                        .MainAttribute<Deal, IDealViewModel>(x => x.Name)
+            .Icon.Path(Icons.Icons.Entity.Deal) 
                         .Actions
                         .Attach(ToolbarElements.Create<Deal>(),
                                 ToolbarElements.Update<Deal>(),
@@ -30,17 +30,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                            ToolbarElements.ChangeOwner<Deal>()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_Deal.gif"),
+                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.DealSmall),
                                           UIElementMetadata.Config
                                                            .Name.Static("Orders")
-                                                           .Icon.Path("en_ico_16_Order.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Order)
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Order)
                                                            .FilterToParent(),
                                           UIElementMetadata.Config
                                                            .Name.Static("Actions")
-                                                           .Icon.Path("en_ico_16_Action.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Activity)
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
                                                            .Handler.ShowGridByConvention(EntityName.Activity)
                                                            .FilterToParents()

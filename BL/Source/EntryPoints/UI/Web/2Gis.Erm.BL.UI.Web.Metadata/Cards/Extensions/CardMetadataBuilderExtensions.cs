@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
@@ -10,7 +7,6 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
@@ -18,19 +14,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
     public static class CardMetadataBuilderExtensions
     {
-        public static CardMetadataBuilder<TEntity> MainAttribute<TEntity, TViewModel>(this CardMetadataBuilder<TEntity> builder, Expression<Func<TViewModel, object>> propertyNameExpression)
-            where TEntity : IEntityKey, IEntity
-            where TViewModel : IEntityViewModelAbstract<TEntity>
+        public static CardMetadataBuilder<TEntity> WithDefaultIcon<TEntity>(this CardMetadataBuilder<TEntity> builder)
+            where TEntity : class, IEntityKey, IEntity
         {
-            builder.WithFeatures(new CardMainAttributeFeature(new PropertyDescriptor<TViewModel>(propertyNameExpression)));
-            return builder;
-        }
-
-        public static CardMetadataBuilder<TEntity> MainAttribute<TEntity>(this CardMetadataBuilder<TEntity> builder, Expression<Func<IEntityViewModelAbstract<TEntity>, object>> propertyNameExpression)
-            where TEntity : IEntityKey, IEntity
-        {
-            builder.WithFeatures(new CardMainAttributeFeature(new PropertyDescriptor<IEntityViewModelAbstract<TEntity>>(propertyNameExpression)));
-            return builder;
+            return builder.Icon.Path(Icons.Icons.Entity.Default);
         }
 
         public static CardMetadataBuilder<TEntity> CommonCardToolbar<TEntity>(this CardMetadataBuilder<TEntity> builder)

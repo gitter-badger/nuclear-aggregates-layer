@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Limit =
             CardMetadata.For<Limit>()
-                        .MainAttribute(x => x.Id)
+                        .WithDefaultIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<Limit>(),
                                 ToolbarElements.Update<Limit>(),

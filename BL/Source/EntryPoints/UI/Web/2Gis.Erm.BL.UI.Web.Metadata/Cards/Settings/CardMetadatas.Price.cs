@@ -13,12 +13,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Price =
             CardMetadata.For<Price>()
-                        .MainAttribute<Price, IPriceViewModel>(x => x.Name)
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_Price.gif"),
+                        .Icon.Path(Icons.Icons.Entity.Price)
+                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.PriceSmall),
                                           UIElementMetadata.Config
                                                            .Name.Static("PricePosition")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelPricePosition)
-                                                           .Icon.Path("en_ico_16_PricePosition.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.PricePositionSmall)
                                                            .Handler.ShowGridByConvention(EntityName.PricePosition)
                                                            .LockOnNew()
                                                            .FilterToParent())

@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata AdditionalFirmService =
             CardMetadata.For<AdditionalFirmService>()
-                        .MainAttribute(x => x.Id)
+                        .WithDefaultIcon()
                         .CommonCardToolbar();
     }
 }

@@ -11,13 +11,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Lock =
             CardMetadata.For<Lock>()
-                        .MainAttribute(x => x.Id)
+                        .WithDefaultIcon()
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("LockDetails")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelLockDetails)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.LockDetail)
-                                                             .FilterToParent());
+                                          UIElementMetadata.Config
+                                                           .Name.Static("LockDetails")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelLockDetails)
+                                                           .LockOnNew()
+                                                           .Handler.ShowGridByConvention(EntityName.LockDetail)
+                                                           .FilterToParent());
     }
 }

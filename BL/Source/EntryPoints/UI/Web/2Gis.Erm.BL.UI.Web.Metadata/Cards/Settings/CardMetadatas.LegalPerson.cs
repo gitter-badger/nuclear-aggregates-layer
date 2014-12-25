@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -12,12 +11,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata LegalPerson =
             CardMetadata.For<LegalPerson>()
-                        .MainAttribute<LegalPerson, ILegalPersonViewModel>(x => x.LegalName)
+                        .WithDefaultIcon()
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
                                           UIElementMetadata.Config
                                                            .Name.Static("Account")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelAccounts)
-                                                           .Icon.Path("en_ico_16_Account.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Account)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Account)
                                                            .FilterToParent(),
@@ -30,14 +29,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                           UIElementMetadata.Config
                                                            .Name.Static("Bargains")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelBargains)
-                                                           .Icon.Path("en_ico_16_Bargain.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.BargainSmall)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Bargain)
                                                            .FilterToParent(),
                                           UIElementMetadata.Config
                                                            .Name.Static("Orders")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                           .Icon.Path("en_ico_16_Order.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Order)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Order)
                                                            .FilterToParent());
