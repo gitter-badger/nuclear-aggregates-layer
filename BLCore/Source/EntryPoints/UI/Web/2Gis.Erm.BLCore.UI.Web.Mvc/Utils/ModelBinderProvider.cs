@@ -24,6 +24,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             typeof(TimeSpan),
             typeof(TimeSpan?),
             typeof(Guid[]),
+            typeof(decimal),
+            typeof(decimal?),
             typeof(long),
             typeof(long?),
         };
@@ -105,6 +107,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 if (modelType == typeof(long) || modelType == typeof(long?))
                 {
                     return BindInt64(bindingContext);
+                }
+
+                if (modelType == typeof(decimal) || modelType == typeof(decimal?))
+                {
+                    return BindDecimal(bindingContext);
                 }
 
                 return base.BindModel(controllerContext, bindingContext);
@@ -341,6 +348,25 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
                 // if cannot parse datetime, raise an error
                 var errorMessage = string.Format(ValueIsNotApplicableToField, valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
+                bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
+                return null;
+            }
+
+            private static object BindDecimal(ModelBindingContext bindingContext)
+            {
+                var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+                if (valueProviderResult == null || string.IsNullOrEmpty(valueProviderResult.AttemptedValue) || string.Equals(valueProviderResult.AttemptedValue, "null"))
+                {
+                    return null;
+                }
+
+                decimal parsedDecimal;
+                if (decimal.TryParse(valueProviderResult.AttemptedValue, NumberStyles.Any, valueProviderResult.Culture, out parsedDecimal))
+                {
+                    return parsedDecimal;
+                }
+
+                var errorMessage = string.Format("The value '{0}' is not applicable to the field {1}", valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
                 bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
                 return null;
             }

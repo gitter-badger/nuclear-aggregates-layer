@@ -16,11 +16,10 @@ Task Build-WpfClient -Precondition { return $OptionWpfClient } -Depends Update-A
 	Build-WpfShell
 }
 
-Task Deploy-WpfClient -Precondition { return $OptionWpfClient } -Depends Build-WpfClient {
+Task Deploy-WpfClient -Precondition { return $OptionWpfClient } {
+	$artifactName = Get-Artifacts '' '2Gis.Erm.UI.Desktop.WPF.zip'
 	
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Desktop.WPF'
-	$artifactName = Get-Artifacts '' '2Gis.Erm.UI.Desktop.WPF.zip'	
-	
 	foreach($targetHost in $EntryPointMetadata.TargetHosts){
 		Create-RemoteWebsite $targetHost $entryPointMetadata.IisAppPath
 
@@ -43,24 +42,19 @@ function Build-WpfShell {
 	$conventionalPublishDir = Join-Path $projectDir 'publish'
 
 	$configFileName = Join-Path $projectDir 'log4net.config'
-	$content = Transform-Config $configFileName
-	Backup-Config $configFileName $content
-	try {
-		Invoke-MSBuild @(
-		"""$projectFileName"""
-		"/t:Publish"
-		"/p:ApplicationVersion=$($version.NumericVersion)"
-		"/p:IsWebBootstrapper=true"
-		"/p:InstallUrl=$installUrl"
-		"/p:UpdateUrl=$installUrl"
-		"/p:ProductName=$productName"
-		"/p:PublishDir=""$conventionalPublishDir\\"""
-		)	
-	}
-	finally {
-		Restore-Config $configFileName
-	}
+	$configXml = Transform-Config $configFileName
+
+	$buildFileName = Create-BuildFile $projectFileName -Targets 'Publish' -Properties @{
+		'ApplicationVersion' = $version.NumericVersion
+		'IsWebBootstrapper' = $true
+		'InstallUrl' = $installUrl
+		'UpdateUrl' = $installUrl
+		'ProductName' = $productName
+		'PublishDir' = $conventionalPublishDir + '\'
+	}  -CustomXmls $configXml
 	
+	Invoke-MSBuild $buildFileName
+
 	# TODO: auto generate publish.htm file
 	Copy-Item (Join-Path $projectDir 'index.htm') $conventionalPublishDir
 
@@ -74,15 +68,10 @@ function Build-WpfShell {
 function Build-WpfClientModule {
 	$projectFileName = Get-ProjectFileName '..\..\BLCore\Source\EntryPoints\UI\Desktop' '2Gis.Erm.BLCore.UI.WPF.Client'
 	$projectDir = Split-Path $projectFileName
+	
 	$configFileName = Join-Path $projectDir 'app.config'
-	$content = Transform-Config $configFileName
-	Backup-Config $configFileName $content
-	try {
-		Invoke-MSBuild @(
-		"""$projectFileName"""
-		)
-	}
-	finally {
-		Restore-Config $configFileName
-	}
+	$configXml = Transform-Config $configFileName
+	
+	$buildFileName = Create-BuildFile $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
+	Invoke-MSBuild $buildFileName
 }
