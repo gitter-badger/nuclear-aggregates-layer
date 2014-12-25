@@ -47,10 +47,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public DateTime BeginDistributionDate { get; set; }
 
-        // Определяет хватает ли у пользователя прав на создание заказа по заявке
-        [Obsolete]
-        public bool CanCreateOrder { get; set; }
-
         public OrderProcessingRequestType RequestType { get; set; }
 
         public override byte[] Timestamp { get; set; }

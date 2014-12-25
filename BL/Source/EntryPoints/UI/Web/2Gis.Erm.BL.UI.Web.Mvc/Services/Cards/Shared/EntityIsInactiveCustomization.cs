@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            if (!viewModel.IsNew && !viewModel.IsActive)
+            if (!viewModel.IsNew && !viewModel.IsActive && string.IsNullOrWhiteSpace(viewModel.Message))
             {
                 viewModel.SetWarning(BLResources.EntityIsInactive);
             }

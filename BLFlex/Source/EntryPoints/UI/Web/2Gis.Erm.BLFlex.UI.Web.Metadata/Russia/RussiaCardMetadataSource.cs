@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderProcessingRequest;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -59,6 +60,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                                                           .LockOnNew()
                                                                           .Handler.Name("scope.CreateOrder")
                                                                           .ControlType(ControlType.TextButton)
+                                                                          .DisableOn<IOrderProcessingRequestViewModel>(x => x.State == OrderProcessingRequestState.Cancelled,
+                                                                                                                       x => x.State == OrderProcessingRequestState.Completed)
                                                                           .AccessWithPrivelege<OrderProcessingRequest>(EntityAccessTypes.Update)
                                                                           .AccessWithPrivelege<Order>(EntityAccessTypes.Create)
                                                                           .AccessWithPrivelege<OrderPosition>(EntityAccessTypes.Create)
@@ -68,6 +71,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                                                           .Name.Static("CancelOrderProcessingRequest")
                                                                           .Title.Resource(() => ErmConfigLocalization.ControlCancelOrderProcessingRequest)
                                                                           .LockOnNew()
+                                                                          .DisableOn<IOrderProcessingRequestViewModel>(x => x.State == OrderProcessingRequestState.Cancelled,
+                                                                                                                       x => x.State == OrderProcessingRequestState.Completed)
                                                                           .Handler.Name("scope.CancelOrderProcessingRequest")
                                                                           .ControlType(ControlType.TextButton)
                                                                           .AccessWithPrivelege<OrderProcessingRequest>(EntityAccessTypes.Update)
@@ -87,11 +92,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         CardMetadata.For<Order>()
                                     .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.RussianOrderPrintActions())
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions()
-                                                                         .With(UIElementMetadata.Config.Name.Static("OrderProcessingRequests")
-                                                                                                .Title.Resource(() => ErmConfigLocalization.CrdRelOrderProcessingRequests)
-                                                                                                .LockOnNew()
-                                                                                                .Handler.ShowGridByConvention(EntityName.OrderProcessingRequest)
-                                                                                                .FilterToParent())),
+                                                                       .With(UIElementMetadata.Config.Name.Static("OrderProcessingRequests")
+                                                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrderProcessingRequests)
+                                                                                              .LockOnNew()
+                                                                                              .Handler.ShowGridByConvention(EntityName.OrderProcessingRequest)
+                                                                                              .FilterToParent())),
 
                         #endregion
 

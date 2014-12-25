@@ -19,8 +19,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                 typeof(EntityIsInactiveCustomization),
                 typeof(SetReadonlyCustomization),
                 typeof(SetTitleCustomization),
-                typeof(RelatedItemsAvailabilityCustomization),
-                typeof(RelatedItemsExtendedInfoCustomization),
+                typeof(RelatedItemsCustomization),
                 typeof(ToolbarElementsAvailabilityCustomization)
             };
 

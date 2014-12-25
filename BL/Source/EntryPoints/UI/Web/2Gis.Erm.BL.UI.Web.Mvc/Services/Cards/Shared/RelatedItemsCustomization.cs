@@ -17,15 +17,18 @@ using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 {
-    public sealed class RelatedItemsExtendedInfoCustomization : IViewModelCustomization<IEntityViewModelBase>
+    public sealed class RelatedItemsCustomization : IViewModelCustomization<IEntityViewModelBase>
     {
         private readonly IMetadataProvider _metadataProvider;
+        private readonly UIElementAvailabilityHelper _elementAvailabilityHelper;
         private readonly IUserContext _userContext;
 
-        public RelatedItemsExtendedInfoCustomization(IMetadataProvider metadataProvider,
-                                                        IUserContext userContext)
+        public RelatedItemsCustomization(IMetadataProvider metadataProvider,
+                                         UIElementAvailabilityHelper elementAvailabilityHelper,
+                                         IUserContext userContext)
         {
             _metadataProvider = metadataProvider;
+            _elementAvailabilityHelper = elementAvailabilityHelper;
             _userContext = userContext;
         }
 
@@ -52,6 +55,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             if (relatedItemElementMetadata.NameDescriptor == null)
             {
                 return;
+
                 // Или это не нормально и бросим исключение? Пока не ясно.
             }
 
@@ -72,6 +76,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             }
 
             EvaluateRelatedItemExtendedInfo(relatedItemElementMetadata, elementToEvaluate, model);
+            EvaluateRelatedItemAvailability(relatedItemElementMetadata, elementToEvaluate, model);
+        }
+
+        private void EvaluateRelatedItemAvailability(UIElementMetadata relatedItemElementMetadata, CardRelatedItemStructure relatedItemElement, IEntityViewModelBase model)
+        {
+            relatedItemElement.Disabled |= _elementAvailabilityHelper.IsUIElementDisabled(relatedItemElementMetadata, model);
+
+            if (_elementAvailabilityHelper.IsUIElementInvisible(relatedItemElementMetadata, model))
+            {
+                model.ViewConfig.CardSettings.CardRelatedItems.SingleOrDefault().Items
+                    = model.ViewConfig.CardSettings.CardRelatedItems.SingleOrDefault().Items.Except(new[] { relatedItemElement }).ToArray();
+            }
         }
 
         private void EvaluateRelatedItemExtendedInfo(UIElementMetadata relatedItemElementMetadata, CardRelatedItemStructure relatedItemElement, IEntityViewModelBase model)

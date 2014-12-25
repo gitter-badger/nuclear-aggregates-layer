@@ -3,6 +3,7 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -25,7 +26,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Additional(ToolbarElements.ChangeOwner<Firm>(),
                                                            ToolbarElements.Firms.ChangeClient(),
-                                                           ToolbarElements.ChangeTerritory<Firm>(),
+                                                           ToolbarElements.ChangeTerritory<Firm>()
+                                                                          .AccessWithPrivelege(FunctionalPrivilegeName.ChangeFirmTerritory),
                                                            ToolbarElements.Firms.AssignWhiteListedAd(),
                                                            ToolbarElements.Qualify<Firm>()),
                                 ToolbarElements.Splitter(),

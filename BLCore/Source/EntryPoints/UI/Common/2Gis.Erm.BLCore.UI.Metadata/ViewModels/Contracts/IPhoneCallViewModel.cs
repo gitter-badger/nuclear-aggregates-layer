@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
 {
-    public interface IPhonecallViewModel : IEntityViewModelAbstract<Phonecall>
+    public interface IPhonecallViewModel : IEntityViewModelAbstract<Phonecall>, IActivityViewModel
     {
         string Title { get; set; }
     }

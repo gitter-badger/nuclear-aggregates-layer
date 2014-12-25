@@ -24,7 +24,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Refresh<Deal>(),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Additional(ToolbarElements.Deals.CloseDeal(),
-                                                           ToolbarElements.Deals.Reopen(),
+                                                           ToolbarElements.Deals.Reopen()
+                                                                          .DisableOn<IDealViewModel>(x => x.IsActive),
                                                            ToolbarElements.Deals.ChangeClient(),
                                                            ToolbarElements.ChangeOwner<Deal>()),
                                 ToolbarElements.Splitter(),

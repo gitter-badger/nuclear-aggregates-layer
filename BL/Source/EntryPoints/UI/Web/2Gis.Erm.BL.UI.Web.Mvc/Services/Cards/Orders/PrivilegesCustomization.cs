@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.API.Security;
@@ -37,11 +36,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
             // Если есть права и нет сборки в настоящий момент 
             viewModel.HasOrderDocumentsDebtChecking &= !viewModel.IsWorkflowLocked;
-
-            if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.OrderChangeDealExtended, currentUserCode))
-            {
-                viewModel.ViewConfig.DisableCardToolbarItem("ChangeDeal", false);
-            }
         }
     }
 }

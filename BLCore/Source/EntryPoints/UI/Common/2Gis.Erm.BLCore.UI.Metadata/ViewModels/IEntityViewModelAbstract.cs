@@ -11,5 +11,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels
     {
         long Id { get; }
         bool IsNew { get; }
+        bool IsActive { get; }
     }
 }

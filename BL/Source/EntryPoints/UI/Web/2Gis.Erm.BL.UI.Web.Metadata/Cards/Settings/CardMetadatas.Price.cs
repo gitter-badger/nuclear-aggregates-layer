@@ -15,13 +15,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Price>()
                         .MainAttribute<Price, IPriceViewModel>(x => x.Name)
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab("en_ico_16_Price.gif"),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("PricePosition")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelPricePosition)
-                                                             .Icon.Path("en_ico_16_PricePosition.gif")
-                                                             .Handler.ShowGridByConvention(EntityName.PricePosition)
-                                                             .LockOnNew()
-                                                             .FilterToParent())
+                                          UIElementMetadata.Config
+                                                           .Name.Static("PricePosition")
+                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelPricePosition)
+                                                           .Icon.Path("en_ico_16_PricePosition.gif")
+                                                           .Handler.ShowGridByConvention(EntityName.PricePosition)
+                                                           .LockOnNew()
+                                                           .FilterToParent())
                         .Actions
                         .Attach(ToolbarElements.Create<Price>(),
                                 ToolbarElements.Update<Price>(),
@@ -31,8 +31,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Refresh<Price>(),
                                 ToolbarElements.Splitter(),
-                                ToolbarElements.Prices.Publish(),
-                                ToolbarElements.Prices.Unpublish(),
+                                ToolbarElements.Prices.Publish()
+                                               .DisableOn<IPriceViewModel>(x => x.IsPublished),
+                                ToolbarElements.Prices.Unpublish()
+                                               .DisableOn<IPriceViewModel>(x => !x.IsPublished),
                                 ToolbarElements.Prices.Copy(),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close());

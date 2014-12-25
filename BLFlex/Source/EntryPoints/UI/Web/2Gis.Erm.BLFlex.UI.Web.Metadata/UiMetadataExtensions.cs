@@ -32,6 +32,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                // COMMENT {all, 01.12.2014}: а зачем права на создание?
                                             .AccessWithPrivelege<Order>(EntityAccessTypes.Create)
                                             .AccessWithPrivelege<Order>(EntityAccessTypes.Update)
+                                            .AccessWithPrivelege(FunctionalPrivilegeName.OrderChangeDealExtended)
                                             .Operation.NonCoupled<ChangeDealIdentity>(),
                            UIElementMetadata.Config
                                             .Name.Static("CheckOrder")

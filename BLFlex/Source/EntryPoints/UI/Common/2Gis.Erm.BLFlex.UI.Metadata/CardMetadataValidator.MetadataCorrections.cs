@@ -72,6 +72,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                                 "ControlType",
                                                 new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
                                             },
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)(EntityAccessTypes.Create | EntityAccessTypes.Update), (int)(EntityAccessTypes.Create | EntityAccessTypes.Update) | (int)FunctionalPrivilegeName.OrderChangeDealExtended)
+                                            },
                                         }
                                 },
                                 {
@@ -387,6 +391,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                             {
                                                 "LockOnNew",
                                                 new Tuple<object, object>(false, true)
+                                            },
+                                            {
+                                                "SecurityPrivelege",
+                                                new Tuple<object, object>((int)EntityAccessTypes.None, (int)FunctionalPrivilegeName.ChangeFirmTerritory)
                                             },
                                         }
                                 },

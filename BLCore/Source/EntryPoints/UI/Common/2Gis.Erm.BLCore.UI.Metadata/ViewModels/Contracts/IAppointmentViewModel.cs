@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
 {
-    public interface IAppointmentViewModel : IEntityViewModelAbstract<Appointment>
+    public interface IAppointmentViewModel : IEntityViewModelAbstract<Appointment>, IActivityViewModel
     {
         string Title { get; set; }
     }

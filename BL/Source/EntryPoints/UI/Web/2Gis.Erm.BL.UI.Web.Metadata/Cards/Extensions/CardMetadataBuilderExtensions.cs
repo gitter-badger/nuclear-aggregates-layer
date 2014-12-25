@@ -5,7 +5,9 @@ using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
@@ -49,7 +51,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
         }
 
         public static CardMetadataBuilder<TEntity> ActivityCardToolbar<TEntity>(this CardMetadataBuilder<TEntity> builder)
-             where TEntity : class, IEntityKey, IEntity
+            where TEntity : class, IEntityKey, IEntity
         {
             builder.Actions
                    .Attach(ToolbarElements.Create<TEntity>(),
@@ -66,8 +68,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .LockOnNew()
                                             .Handler.Name("scope.CompleteActivity")
                                             .Icon.Path("Check.gif")
-                                                         
-                                            // COMMENT {all, 26.11.2014}:  А зачем права на создание? 
+                                            .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
+                                            .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.Canceled,
+                                                                           x => x.Status == ActivityStatus.Completed)
+                                                                           
+                               // COMMENT {all, 26.11.2014}:  А зачем права на создание? 
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                             .Operation.SpecificFor<UpdateIdentity, TEntity>(),
@@ -79,8 +84,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .LockOnNew()
                                             .Handler.Name("scope.CancelActivity")
                                             .Icon.Path("Delete.png")
-                                                         
-                                            // COMMENT {all, 26.11.2014}:  А зачем права на создание? 
+                                            .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
+                                            .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.Canceled,
+                                                                           x => x.Status == ActivityStatus.Completed)
+
+                               // COMMENT {all, 26.11.2014}:  А зачем права на создание? 
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                             .Operation.SpecificFor<UpdateIdentity, TEntity>(),
@@ -92,8 +100,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .LockOnNew()
                                             .Handler.Name("scope.RevertActivity")
                                             .Icon.Path("Reschedule.gif")
+                                            .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
+                                            .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.InProgress)
                                                          
-                                            // COMMENT {all, 26.11.2014}:  А зачем права на создание? 
+                               // COMMENT {all, 26.11.2014}:  А зачем права на создание? 
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
                                             .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                             .Operation.SpecificFor<UpdateIdentity, TEntity>(),

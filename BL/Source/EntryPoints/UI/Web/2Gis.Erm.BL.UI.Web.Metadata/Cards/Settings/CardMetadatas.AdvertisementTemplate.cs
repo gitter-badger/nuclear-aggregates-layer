@@ -23,8 +23,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Refresh<AdvertisementTemplate>(),
                                 ToolbarElements.Splitter(),
-                                ToolbarElements.AdvertisementTemplates.Publish(),
-                                ToolbarElements.AdvertisementTemplates.Unpublish(),
+                                ToolbarElements.AdvertisementTemplates.Publish()
+                                               .DisableOn<IAdvertisementTemplateViewModel>(x => x.IsPublished),
+                                ToolbarElements.AdvertisementTemplates.Unpublish()
+                                               .DisableOn<IAdvertisementTemplateViewModel>(x => !x.IsPublished),
                                 ToolbarElements.Close())
                         .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
                                           UIElementMetadata.Config

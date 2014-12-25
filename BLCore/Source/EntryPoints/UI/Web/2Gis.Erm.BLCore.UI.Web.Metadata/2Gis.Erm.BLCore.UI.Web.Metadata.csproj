@@ -49,8 +49,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="IEntityViewNameProvider.cs" />
-    <Compile Include="Settings\CardsMetadataSource.cs" />
-    <Compile Include="Settings\ICardsMetadataSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
