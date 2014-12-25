@@ -2,7 +2,7 @@
 $GlobalVersion = @{
 	'Major' = 2
 	'Minor' = 54
-	'Patch' = 1
+	'Patch' = 2
 }
 #------------------------------
 
