@@ -4,7 +4,6 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -26,12 +25,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                            ToolbarElements.BranchOfficeOrganizationUnits.SetAsPrimaryForRegSales()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("PrintFormTemplates")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelPrintFormTemplates)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.PrintFormTemplate)
-                                                           .FilterToParent());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.PrintFormTemplate, () => ErmConfigLocalization.CrdRelPrintFormTemplates));
     }
 }

@@ -3,7 +3,6 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -13,18 +12,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<FirmAddress>()
                         .WithDefaultIcon()
                         .CommonCardToolbar()
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("FirmContacts")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelFirmContacts)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.FirmContact)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("CategoryFirmAddress")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAddressCategories)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.CategoryFirmAddress)
-                                                           .FilterToParent());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.FirmContact, () => ErmConfigLocalization.CrdRelFirmContacts),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.CategoryFirmAddress, () => ErmConfigLocalization.CrdRelFirmAddressCategories));
     }
 }

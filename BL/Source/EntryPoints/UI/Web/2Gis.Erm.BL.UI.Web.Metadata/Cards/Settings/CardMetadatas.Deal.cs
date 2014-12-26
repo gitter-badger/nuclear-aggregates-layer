@@ -5,7 +5,6 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -13,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Deal =
             CardMetadata.For<Deal>()
-            .Icon.Path(Icons.Icons.Entity.Deal) 
+                        .Icon.Path(Icons.Icons.Entity.Deal)
                         .Actions
                         .Attach(ToolbarElements.Create<Deal>(),
                                 ToolbarElements.Update<Deal>(),
@@ -30,27 +29,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                            ToolbarElements.ChangeOwner<Deal>()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.DealSmall),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Orders")
-                                                           .Icon.Path(Icons.Icons.Entity.Order)
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Order)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Actions")
-                                                           .Icon.Path(Icons.Icons.Entity.Activity)
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                                           .Handler.ShowGridByConvention(EntityName.Activity)
-                                                           .FilterToParents()
-                                                           .LockOnNew(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Firms")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.FirmDeal)
-                                                           .FilterToParent()
-                                                           .AppendapleEntity<Firm>());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.DealSmall),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Order, () => ErmConfigLocalization.CrdRelOrders),
+                                          RelatedItems.RelatedItem.ActivitiesGrid(),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.FirmDeal, () => ErmConfigLocalization.CrdRelFirms)
+                                                      .AppendapleEntity<Firm>());
     }
 }

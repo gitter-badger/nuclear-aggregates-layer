@@ -375,7 +375,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                         }
                                 },
                                 {
-                                    "FirmCategories",
+                                    "CategoryFirmAddresses",
                                     new Dictionary<string, Tuple<object, object>>
                                         {
                                             {
@@ -543,7 +543,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
-                                    "ThemeCategory",
+                                    "ThemeCategories",
                                     new Dictionary<string, Tuple<object, object>>
                                         {
                                             {
@@ -655,7 +655,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
-                                    "CurrencyRate",
+                                    "CurrencyRates",
                                     new Dictionary<string, Tuple<object, object>>
                                         {
                                             {
@@ -813,7 +813,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                         }
                                 },
                                 {
-                                    "DeniedPosition",
+                                    "DeniedPositions",
                                     new Dictionary<string, Tuple<object, object>>
                                         {
                                             {

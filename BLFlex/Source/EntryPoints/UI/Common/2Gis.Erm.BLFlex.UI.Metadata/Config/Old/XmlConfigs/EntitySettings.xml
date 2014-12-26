@@ -477,7 +477,7 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
-					<RelatedItem Name="AssociatedPosition" NameLocaleResourceId="CrdRelAssociatedPosition" RequestUrl="/Grid/View/AssociatedPosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="AssociatedPositions" NameLocaleResourceId="CrdRelAssociatedPosition" RequestUrl="/Grid/View/AssociatedPosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -691,7 +691,7 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_BranchOffice.gif" />
-					<RelatedItem Name="BOOU" NameLocaleResourceId="CrdRelBOOU" RequestUrl="/Grid/View/BranchOfficeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="BranchOfficeOrganizationUnits" NameLocaleResourceId="CrdRelBOOU" RequestUrl="/Grid/View/BranchOfficeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -774,9 +774,8 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Category.gif" />
-					<RelatedItem Name="Category" NameLocaleResourceId="CrdRelCategory" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/Category" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<!--<RelatedItem Name="CategoryOU" NameLocaleResourceId="CrdRelCategoryOU" RequestUrl="/Grid/View/CategoryOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />-->
-					<RelatedItem Name="CategoryOrganizationUnit" NameLocaleResourceId="CrdRelCategoryOU" RequestUrl="/Grid/View/CategoryOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="Categories" NameLocaleResourceId="CrdRelCategory" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/Category" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="CategoryOrganizationUnits" NameLocaleResourceId="CrdRelCategoryOU" RequestUrl="/Grid/View/CategoryOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -898,15 +897,15 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Client.gif" />
-					<RelatedItem Name="Firm" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="Contact" NameLocaleResourceId="CrdRelContacts" Icon="en_ico_16_Contact.gif" RequestUrl="/Grid/View/Contact" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="Deal" NameLocaleResourceId="CrdRelDeals" Icon="en_ico_16_Deal.gif" RequestUrl="/Grid/View/Deal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="LegalPerson" NameLocaleResourceId="CrdRelLegalPersons" Icon="en_ico_16_LegalPerson.gif" RequestUrl="/Grid/View/LegalPerson" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="Firms" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="Contacts" NameLocaleResourceId="CrdRelContacts" Icon="en_ico_16_Contact.gif" RequestUrl="/Grid/View/Contact" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="Deals" NameLocaleResourceId="CrdRelDeals" Icon="en_ico_16_Deal.gif" RequestUrl="/Grid/View/Deal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="LegalPeople" NameLocaleResourceId="CrdRelLegalPersons" Icon="en_ico_16_LegalPerson.gif" RequestUrl="/Grid/View/LegalPerson" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
-          <RelatedItem Name="Links" NameLocaleResourceId="CrdRelClientLinks" Icon="en_ico_16_Links.gif" RequestUrl="/Grid/View/ClientLink" AppendableEntity="Client" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"/>
+          <RelatedItem Name="Activities" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
+          <RelatedItem Name="ClientLinks" NameLocaleResourceId="CrdRelClientLinks" Icon="en_ico_16_Links.gif" RequestUrl="/Grid/View/ClientLink" AppendableEntity="Client" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"/>
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -1052,7 +1051,7 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Contact.gif" />
-          <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
+          <RelatedItem Name="Activities" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
         </RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -1170,8 +1169,8 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Currency.gif" />
-					<RelatedItem Name="CurrencyRate" NameLocaleResourceId="CrdRelCurrencyRate" RequestUrl="/Grid/View/CurrencyRate" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0 || Ext.getDom(&quot;IsBase&quot;).checked" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="Country" NameLocaleResourceId="CrdRelCountry" Icon="en_ico_16_Country.gif" RequestUrl="/Grid/View/Country" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="CurrencyRates" NameLocaleResourceId="CrdRelCurrencyRate" RequestUrl="/Grid/View/CurrencyRate" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0 || Ext.getDom(&quot;IsBase&quot;).checked" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="Countries" NameLocaleResourceId="CrdRelCountry" Icon="en_ico_16_Country.gif" RequestUrl="/Grid/View/Country" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -1260,8 +1259,8 @@
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Deal.gif" />
 					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
-          <RelatedItem Name="Firms" NameLocaleResourceId="CrdRelFirms" RequestUrl="/Grid/View/FirmDeal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Firm" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Activities" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
+          <RelatedItem Name="FirmDeals" NameLocaleResourceId="CrdRelFirms" RequestUrl="/Grid/View/FirmDeal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Firm" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -1390,10 +1389,10 @@
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
 					<RelatedItem Name="FirmAddresses" NameLocaleResourceId="CrdRelFirmAddresses" RequestUrl="/Grid/View/FirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="FirmCategories" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="firmId={Id}" />
-					<RelatedItem Name="FirmAdvertisements" NameLocaleResourceId="CrdRelFirmAdvertisements" Icon="en_ico_16_Advertisement.gif" RequestUrl="/Grid/View/Advertisement" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="CategoryFirmAddresses" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="firmId={Id}" />
+					<RelatedItem Name="Advertisements" NameLocaleResourceId="CrdRelFirmAdvertisements" Icon="en_ico_16_Advertisement.gif" RequestUrl="/Grid/View/Advertisement" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
+          <RelatedItem Name="Activities" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -1465,7 +1464,7 @@
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
 					<RelatedItem Name="FirmContacts" NameLocaleResourceId="CrdRelFirmContacts" RequestUrl="/Grid/View/FirmContact" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="CategoryFirmAddress" NameLocaleResourceId="CrdRelFirmAddressCategories" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="CategoryFirmAddresses" NameLocaleResourceId="CrdRelFirmAddressCategories" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -1559,7 +1558,7 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
-					<RelatedItem Name="Account" NameLocaleResourceId="CrdRelAccounts" Icon="en_ico_16_Account.gif" RequestUrl="/Grid/View/Account" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="Accounts" NameLocaleResourceId="CrdRelAccounts" Icon="en_ico_16_Account.gif" RequestUrl="/Grid/View/Account" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
@@ -2248,7 +2247,7 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_OrganizationUnit.gif" />
-					<RelatedItem Name="OUBO" NameLocaleResourceId="CrdRelOUBO" RequestUrl="/Grid/View/BranchOfficeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="BranchOfficeOrganizationUnits" NameLocaleResourceId="CrdRelOUBO" RequestUrl="/Grid/View/BranchOfficeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Prices" NameLocaleResourceId="EnMPrices" RequestUrl="/Grid/View/Price" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Projects" NameLocaleResourceId="EnMProjects" RequestUrl="/Grid/View/Project" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
@@ -2486,8 +2485,8 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_PricePosition.gif" />
-					<RelatedItem Name="AssociatedPositionsGroup" NameLocaleResourceId="CrdRelAssociatedPositionsGroup" RequestUrl="/Grid/View/AssociatedPositionsGroup" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="DeniedPosition" NameLocaleResourceId="CrdRelDeniedPosition" RequestUrl="/Grid/View/DeniedPosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="PositionId={PositionId}&amp;&amp;PriceId={PriceId}" />
+					<RelatedItem Name="AssociatedPositionsGroups" NameLocaleResourceId="CrdRelAssociatedPositionsGroup" RequestUrl="/Grid/View/AssociatedPositionsGroup" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="DeniedPositions" NameLocaleResourceId="CrdRelDeniedPosition" RequestUrl="/Grid/View/DeniedPosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="PositionId={PositionId}&amp;&amp;PriceId={PriceId}" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -2539,7 +2538,7 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Price.gif" />
-					<RelatedItem Name="PricePosition" NameLocaleResourceId="CrdRelPricePosition" Icon="en_ico_16_PricePosition.gif" RequestUrl="/Grid/View/PricePosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="PricePositions" NameLocaleResourceId="CrdRelPricePosition" Icon="en_ico_16_PricePosition.gif" RequestUrl="/Grid/View/PricePosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -2742,8 +2741,8 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" />
-					<RelatedItem Name="ThemeOrganizationUnit" NameLocaleResourceId="CrdRelThemeOrganizationUnit" RequestUrl="/Grid/View/ThemeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="ThemeCategory" NameLocaleResourceId="CrdRelThemeCategory" RequestUrl="/Grid/View/ThemeCategory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0||Ext.getDom(&quot;OrganizationUnitCount&quot;).value==0" AppendableEntity="Category" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="ThemeOrganizationUnits" NameLocaleResourceId="CrdRelThemeOrganizationUnit" RequestUrl="/Grid/View/ThemeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="ThemeCategories" NameLocaleResourceId="CrdRelThemeCategory" RequestUrl="/Grid/View/ThemeCategory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0||Ext.getDom(&quot;OrganizationUnitCount&quot;).value==0" AppendableEntity="Category" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -2838,7 +2837,7 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" />
-					<RelatedItem Name="Firm" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="Firms" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -2884,9 +2883,9 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_UserAccount.gif" />
-					<RelatedItem Name="UserRole" NameLocaleResourceId="CrdRelUserRole" RequestUrl="/Grid/View/UserRole" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Role" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="UserTerritory" NameLocaleResourceId="CrdRelUserTerritory" RequestUrl="/Grid/View/UserTerritory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Territory" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="UserOrganizationUnit" NameLocaleResourceId="CrdRelUserOrganizationUnit" RequestUrl="/Grid/View/UserOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="UserRoles" NameLocaleResourceId="CrdRelUserRole" RequestUrl="/Grid/View/UserRole" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Role" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="UserTerritories" NameLocaleResourceId="CrdRelUserTerritory" RequestUrl="/Grid/View/UserTerritory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Territory" ExtendedInfo="filterToParent=true" />
+					<RelatedItem Name="UserOrganizationUnits" NameLocaleResourceId="CrdRelUserOrganizationUnit" RequestUrl="/Grid/View/UserOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>

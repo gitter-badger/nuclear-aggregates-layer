@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
@@ -47,21 +48,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         CardMetadata.For<AdvertisementElementStatus>()
                                     .WithDefaultIcon(),
 
-                        #region OrderProcessingRequest
                         CardMetadata.For<OrderProcessingRequest>()
                                     .WithDefaultIcon()
                                     .Actions.Attach(ToolbarElements.Refresh<OrderProcessingRequest>(),
-                                                    ToolbarElements.Additional(ToolbarElementsFlex.OrderProcessingRequests.CreateOrder()
-                                                                                                  .DisableOn<IOrderProcessingRequestViewModel>(
-                                                                                                                                               x =>
+                                                    ToolbarElements.Additional(ToolbarElementsFlex.OrderProcessingRequests
+                                                                                                  .CreateOrder()
+                                                                                                  .DisableOn<IOrderProcessingRequestViewModel>(x =>
                                                                                                                                                x.State ==
                                                                                                                                                OrderProcessingRequestState.Cancelled,
                                                                                                                                                x =>
                                                                                                                                                x.State ==
                                                                                                                                                OrderProcessingRequestState.Completed),
-                                                                               ToolbarElementsFlex.OrderProcessingRequests.Cancel()
-                                                                                                  .DisableOn<IOrderProcessingRequestViewModel>(
-                                                                                                                                               x =>
+                                                                               ToolbarElementsFlex.OrderProcessingRequests
+                                                                                                  .Cancel()
+                                                                                                  .DisableOn<IOrderProcessingRequestViewModel>(x =>
                                                                                                                                                x.State ==
                                                                                                                                                OrderProcessingRequestState.Cancelled,
                                                                                                                                                x =>
@@ -69,36 +69,21 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                                                                                                                                OrderProcessingRequestState.Completed)),
                                                     ToolbarElements.Close()),
 
-                        #endregion
-
-                        #region LegalPerson
                         CardMetadata.For<LegalPerson>()
                                     .ConfigLegalPersonToolbarWithSpecificAdditionalActions(UIElementMetadata.Config.CommonLegalPersonAdditionalActions()
                                                                                                             .With(ToolbarElementsFlex.LegalPersons.Russia.Merge())),
 
-                        #endregion
-
-                        #region Order
                         CardMetadata.For<Order>()
                                     .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.RussianOrderPrintActions())
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions()
-                                                                       .With(UIElementMetadata.Config.Name.Static("OrderProcessingRequests")
-                                                                                              .Title.Resource(() => ErmConfigLocalization.CrdRelOrderProcessingRequests)
-                                                                                              .LockOnNew()
-                                                                                              .Handler.ShowGridByConvention(EntityName.OrderProcessingRequest)
-                                                                                              .FilterToParent())),
+                                                                       .With(RelatedItem.EntityGrid(EntityName.OrderProcessingRequest,
+                                                                                                     () => ErmConfigLocalization.CrdRelOrderProcessingRequests))),
 
-                        #endregion
-
-                        #region Bargain
                         CardMetadata.For<Bargain>()
                                     .ConfigBargainToolbarWithSpecificPrintActions(ToolbarElementsFlex.Bargains.PrintBargain(),
                                                                                   ToolbarElementsFlex.Bargains.Russia.PrintNewSalesModelBargainAction(),
                                                                                   ToolbarElementsFlex.Bargains.PrintBargainProlongation()),
 
-                        #endregion
-
-                        #region Advertisement
                         CardMetadata.For<Advertisement>()
                                     .Actions
                                     .Attach(ToolbarElements.Create<Advertisement>(),
@@ -113,13 +98,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                             ToolbarElements.Splitter(),
                                             ToolbarElements.Close()),
 
-                        #endregion
-
-                        #region Bill
                         CardMetadata.For<Bill>()
                                     .ConfigBillToolbarWithPrinting(),
-
-                        #endregion
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

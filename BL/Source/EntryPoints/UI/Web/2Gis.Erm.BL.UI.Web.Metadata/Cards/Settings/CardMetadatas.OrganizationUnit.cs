@@ -4,7 +4,6 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -24,24 +23,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                         ToolbarElements.OrganizationUnits.ManageCategories(),
                                         ToolbarElements.Splitter(),
                                         ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.OrganizationUnitSmall),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("OUBO")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelOUBO)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Prices")
-                                                           .Title.Resource(() => ErmConfigLocalization.EnMPrices)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Price)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Projects")
-                                                           .Title.Resource(() => ErmConfigLocalization.EnMProjects)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Project)
-                                                           .FilterToParent());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.OrganizationUnitSmall),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.BranchOfficeOrganizationUnit, () => ErmConfigLocalization.CrdRelOUBO),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Price, () => ErmConfigLocalization.EnMPrices),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Project, () => ErmConfigLocalization.EnMProjects));
     }
 }

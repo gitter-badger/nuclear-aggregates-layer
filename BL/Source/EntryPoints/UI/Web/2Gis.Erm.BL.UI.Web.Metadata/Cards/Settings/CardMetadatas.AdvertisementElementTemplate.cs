@@ -3,7 +3,6 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -13,12 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<AdvertisementElementTemplate>()
                         .WithDefaultIcon()
                         .CommonCardToolbar()
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Children")
-                                                           .Title.Resource(() => ErmConfigLocalization.EnMAdvertisementTemplate)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.AdsTemplatesAdsElementTemplate)
-                                                           .FilterToParent());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
+                                          RelatedItems.RelatedItem.ChildrenGrid(EntityName.AdsTemplatesAdsElementTemplate, () => ErmConfigLocalization.EnMAdvertisementTemplate));
     }
 }

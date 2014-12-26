@@ -3,7 +3,6 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -11,33 +10,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Account =
             CardMetadata.For<Account>()
-            .Icon.Path(Icons.Icons.Entity.Account)
+                        .Icon.Path(Icons.Icons.Entity.Account)
                         .CommonCardToolbar()
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("AccountDetails")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelAccountDetails)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.AccountDetail)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Locks")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Lock)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Limits")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelLimits)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Limit)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Orders")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                           .Icon.Path(Icons.Icons.Entity.Order)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Order)
-                                                           .FilterToParent());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.AccountDetail, () => ErmConfigLocalization.CrdRelAccountDetails),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Lock, () => ErmConfigLocalization.CrdRelLocks),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Limit, () => ErmConfigLocalization.CrdRelLimits),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Order, () => ErmConfigLocalization.CrdRelOrders));
     }
 }

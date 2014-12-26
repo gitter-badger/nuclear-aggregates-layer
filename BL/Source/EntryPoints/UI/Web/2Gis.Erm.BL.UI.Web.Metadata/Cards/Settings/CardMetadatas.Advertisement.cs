@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Advertisement =
             CardMetadata.For<Advertisement>()
-            .Icon.Path(Icons.Icons.Entity.Advertisement);
+                        .Icon.Path(Icons.Icons.Entity.Advertisement);
     }
 }

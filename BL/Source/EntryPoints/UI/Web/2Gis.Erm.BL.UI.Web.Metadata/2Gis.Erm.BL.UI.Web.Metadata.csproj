@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Humanizer">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Humanizer.1.32.0\lib\portable-win+net40+sl50+wp8+wpa81\Humanizer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -130,6 +133,10 @@
     <Compile Include="FeatureExtensions.cs" />
     <Compile Include="Icons\Icons.Toolbar.cs" />
     <Compile Include="Icons\Icons.Entity.cs" />
+    <Compile Include="RelatedItems\RelatedItems.Client.cs" />
+    <Compile Include="RelatedItems\RelatedItems.Role.cs" />
+    <Compile Include="RelatedItems\RelatedItems.PricePosition.cs" />
+    <Compile Include="RelatedItems\RelatedItems.cs" />
     <Compile Include="Toolbar\ToolbarElements.User.cs" />
     <Compile Include="Toolbar\ToolbarElements.Theme.cs" />
     <Compile Include="Toolbar\ToolbarElements.PricePosition.cs" />
@@ -195,6 +202,9 @@
       <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

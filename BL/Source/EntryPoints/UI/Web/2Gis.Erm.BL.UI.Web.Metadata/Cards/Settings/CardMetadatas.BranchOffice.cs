@@ -3,7 +3,6 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -13,12 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<BranchOffice>()
                         .Icon.Path(Icons.Icons.Entity.BranchOffice)
                         .CommonCardToolbar()
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.BranchOfficeSmall),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("BOOU")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelBOOU)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.BranchOfficeOrganizationUnit)
-                                                           .FilterToParent());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.BranchOfficeSmall),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.BranchOfficeOrganizationUnit, () => ErmConfigLocalization.CrdRelBOOU));
     }
 }

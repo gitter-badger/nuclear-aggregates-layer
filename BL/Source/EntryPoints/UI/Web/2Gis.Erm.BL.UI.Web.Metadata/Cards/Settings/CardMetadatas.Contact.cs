@@ -1,10 +1,7 @@
-﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -25,13 +22,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Additional(ToolbarElements.ChangeOwner<Contact>()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.ContactSmall),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Actions")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                                           .Icon.Path(Icons.Icons.Entity.Activity)
-                                                           .Handler.ShowGridByConvention(EntityName.Activity)
-                                                           .FilterToParents()
-                                                           .LockOnNew());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.ContactSmall),
+                                          RelatedItems.RelatedItem.ActivitiesGrid());
     }
 }

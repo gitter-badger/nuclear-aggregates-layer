@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -14,13 +13,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Position>()
                         .Icon.Path(Icons.Icons.Entity.Position)
                         .CommonCardToolbar()
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.PositionSmall),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Children")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelChildrenPositions)
-                                                           .LockOnNew()
-                                                           .DisableOn<IPositionViewModel>(x => !x.IsComposite)
-                                                           .Handler.ShowGridByConvention(EntityName.PositionChildren)
-                                                           .FilterToParent());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.PositionSmall),
+                                          RelatedItems.RelatedItem.ChildrenGrid(EntityName.PositionChildren, () => ErmConfigLocalization.CrdRelChildrenPositions)
+                                                      .DisableOn<IPositionViewModel>(x => !x.IsComposite));
     }
 }

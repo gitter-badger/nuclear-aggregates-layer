@@ -5,7 +5,6 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -13,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Firm =
             CardMetadata.For<Firm>()
-            .Icon.Path(Icons.Icons.Entity.Firm)  
+                        .Icon.Path(Icons.Icons.Entity.Firm)
                         .Actions
                         .Attach(ToolbarElements.Create<Firm>(),
                                 ToolbarElements.Update<Firm>(),
@@ -31,44 +30,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                            ToolbarElements.Qualify<Firm>()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("FirmAddresses")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAddresses)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.FirmAddress)
-                                                           .FilterToParent(),
-
-                                          UIElementMetadata.Config
-                                                           .Name.Static("FirmCategories")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelCategories)
-                                                           .Icon.Path(Icons.Icons.Entity.CategorySmall)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.CategoryFirmAddress)
-                                                           .FilterToParent(),
-
-                                          UIElementMetadata.Config
-                                                           .Name.Static("FirmAdvertisements")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelFirmAdvertisements)
-                                                           .Icon.Path(Icons.Icons.Entity.Advertisement)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Advertisement)
-                                                           .FilterToParent(),
-
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Orders")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                           .Icon.Path(Icons.Icons.Entity.Order)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Order)
-                                                           .FilterToParent(),
-
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Actions")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                                           .Icon.Path(Icons.Icons.Entity.Activity)
-                                                           .Handler.ShowGridByConvention(EntityName.Activity)
-                                                           .FilterToParents()
-                                                           .LockOnNew());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.FirmAddress, () => ErmConfigLocalization.CrdRelFirmAddresses),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.CategoryFirmAddress,
+                                                                               Icons.Icons.Entity.CategorySmall,
+                                                                               () => ErmConfigLocalization.CrdRelCategories),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Advertisement,
+                                                                               Icons.Icons.Entity.Advertisement,
+                                                                               () => ErmConfigLocalization.CrdRelFirmAdvertisements),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Order, () => ErmConfigLocalization.CrdRelOrders),
+                                          RelatedItems.RelatedItem.ActivitiesGrid());
     }
 }

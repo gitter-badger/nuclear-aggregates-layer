@@ -4,7 +4,6 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -12,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Client =
             CardMetadata.For<Client>()
-            .Icon.Path(Icons.Icons.Entity.Client)
+                        .Icon.Path(Icons.Icons.Entity.Client)
                         .Actions
                         .Attach(ToolbarElements.Create<Client>(),
                                 ToolbarElements.Update<Client>(),
@@ -29,68 +28,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                            ToolbarElements.Clients.Merge()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.Client),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Firm")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
-                                                           .Icon.Path(Icons.Icons.Entity.Firm)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Firm)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Contact")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelContacts)
-                                                           .Icon.Path(Icons.Icons.Entity.ContactSmall)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Contact)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Deal")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelDeals)
-                                                           .Icon.Path(Icons.Icons.Entity.DealSmall)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Deal)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("LegalPerson")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelLegalPersons)
-                                                           .Icon.Path(Icons.Icons.Entity.LegalPerson)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.LegalPerson)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Orders")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                           .Icon.Path(Icons.Icons.Entity.Order)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Order)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Limits")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelLimits)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Limit)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Bargains")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelBargains)
-                                                           .Icon.Path(Icons.Icons.Entity.BargainSmall)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.Bargain)
-                                                           .FilterToParent(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Actions")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                                           .Icon.Path(Icons.Icons.Entity.Activity)
-                                                           .Handler.ShowGridByConvention(EntityName.Activity)
-                                                           .FilterToParents()
-                                                           .LockOnNew(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("Links")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelClientLinks)
-                                                           .Icon.Path(Icons.Icons.Entity.ClientLink)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.ClientLink)
-                                                           .AppendapleEntity<Client>());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Client),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Firm, Icons.Icons.Entity.Firm, () => ErmConfigLocalization.CrdRelFirms),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Contact, Icons.Icons.Entity.ContactSmall, () => ErmConfigLocalization.CrdRelContacts),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Deal, Icons.Icons.Entity.DealSmall, () => ErmConfigLocalization.CrdRelDeals),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.LegalPerson,
+                                                                               Icons.Icons.Entity.LegalPerson,
+                                                                               () => ErmConfigLocalization.CrdRelLegalPersons),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Order, () => ErmConfigLocalization.CrdRelOrders),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Limit, () => ErmConfigLocalization.CrdRelLimits),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Bargain, Icons.Icons.Entity.BargainSmall, () => ErmConfigLocalization.CrdRelBargains),
+                                          RelatedItems.RelatedItem.ActivitiesGrid(),
+                                          RelatedItems.RelatedItem.Client.ClientLinksGrid()
+                                                      .AppendapleEntity<Client>());
     }
 }

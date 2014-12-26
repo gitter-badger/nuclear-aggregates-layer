@@ -5,7 +5,6 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -27,21 +26,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                            ToolbarElements.Themes.UnsetAsDefault()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("ThemeOrganizationUnit")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelThemeOrganizationUnit)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.ThemeOrganizationUnit)
-                                                           .FilterToParent()
-                                                           .AppendapleEntity<OrganizationUnit>(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("ThemeCategory")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelThemeCategory)
-                                                           .LockOnNew()
-                                                           .DisableOn<IThemeViewModel>(x => x.OrganizationUnitCount == 0)
-                                                           .Handler.ShowGridByConvention(EntityName.ThemeCategory)
-                                                           .FilterToParent()
-                                                           .AppendapleEntity<Category>());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
+                                          RelatedItems.RelatedItem
+                                                      .EntityGrid(EntityName.ThemeOrganizationUnit, () => ErmConfigLocalization.CrdRelThemeOrganizationUnit)
+                                                      .AppendapleEntity<OrganizationUnit>(),
+                                          RelatedItems.RelatedItem
+                                                      .EntityGrid(EntityName.ThemeCategory, () => ErmConfigLocalization.CrdRelThemeCategory)
+                                                      .DisableOn<IThemeViewModel>(x => x.OrganizationUnitCount == 0)
+                                                      .AppendapleEntity<Category>());
     }
 }

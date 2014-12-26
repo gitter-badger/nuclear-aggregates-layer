@@ -5,7 +5,6 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -24,27 +23,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Refresh<User>(),
                                 ToolbarElements.Additional(ToolbarElements.Users.Profile()),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(UIElementMetadata.Config.ContentTab(Icons.Icons.Entity.UserSmall),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("UserRole")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelUserRole)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.UserRole)
-                                                           .FilterToParent()
-                                                           .AppendapleEntity<Role>(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("UserTerritory")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelUserTerritory)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.UserTerritory)
-                                                           .FilterToParent()
-                                                           .AppendapleEntity<Territory>(),
-                                          UIElementMetadata.Config
-                                                           .Name.Static("UserOrganizationUnit")
-                                                           .Title.Resource(() => ErmConfigLocalization.CrdRelUserOrganizationUnit)
-                                                           .LockOnNew()
-                                                           .Handler.ShowGridByConvention(EntityName.UserOrganizationUnit)
-                                                           .FilterToParent()
-                                                           .AppendapleEntity<OrganizationUnit>());
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.UserSmall),
+                                          RelatedItems.RelatedItem
+                                                      .EntityGrid(EntityName.UserRole, () => ErmConfigLocalization.CrdRelUserRole)
+                                                      .AppendapleEntity<Role>(),
+                                          RelatedItems.RelatedItem
+                                                      .EntityGrid(EntityName.UserTerritory, () => ErmConfigLocalization.CrdRelUserTerritory)
+                                                      .AppendapleEntity<Territory>(),
+                                          RelatedItems.RelatedItem
+                                                      .EntityGrid(EntityName.UserOrganizationUnit, () => ErmConfigLocalization.CrdRelUserOrganizationUnit)
+                                                      .AppendapleEntity<OrganizationUnit>());
     }
 }

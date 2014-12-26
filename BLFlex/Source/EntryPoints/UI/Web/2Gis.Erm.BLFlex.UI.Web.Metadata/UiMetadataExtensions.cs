@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -118,25 +118,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
         {
             return new UIElementMetadata[]
                        {
-                          UIElementMetadata.Config.ContentTab(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Bills")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Bill)
-                                                             .FilterToParent(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("Locks")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.Lock)
-                                                             .FilterToParent(),
-                                            UIElementMetadata.Config
-                                                             .Name.Static("OrderFiles")
-                                                             .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
-                                                             .LockOnNew()
-                                                             .Handler.ShowGridByConvention(EntityName.OrderFile)
-                                                             .FilterToParent()
+                           RelatedItem.ContentTab(),
+                           RelatedItem.EntityGrid(EntityName.Bill, () => ErmConfigLocalization.CrdRelBills),
+                           RelatedItem.EntityGrid(EntityName.Lock, () => ErmConfigLocalization.CrdRelLocks),
+                           RelatedItem.EntityGrid(EntityName.OrderFile, () => ErmConfigLocalization.CrdRelOrderFiles)
                        };
         }
 
