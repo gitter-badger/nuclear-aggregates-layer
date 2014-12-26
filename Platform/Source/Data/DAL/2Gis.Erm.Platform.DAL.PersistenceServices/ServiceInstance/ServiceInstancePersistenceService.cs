@@ -26,6 +26,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
                                                        ,[FirstCheckinTime]
                                                        ,[LastCheckinTime]
                                                        ,[CheckinIntervalMs]
+                                                       ,[TimeSafetyOffsetMs]
                                                        ,[IsRunning]
                                                        ,[IsSelfReport])
                                                  VALUES
@@ -37,6 +38,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
                                                        ,@FirstCheckinTime
                                                        ,@LastCheckinTime
                                                        ,@CheckinIntervalMs
+                                                       ,@TimeSafetyOffsetMs
                                                        ,@IsRunning
                                                        ,@IsSelfReport)",
                                           new ServiceInstance
@@ -49,6 +51,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
                                                   FirstCheckinTime = serviceInstance.FirstCheckinTime,
                                                   LastCheckinTime = serviceInstance.LastCheckinTime,
                                                   CheckinIntervalMs = (int)serviceInstance.CheckinInterval.TotalMilliseconds,
+                                                  TimeSafetyOffsetMs = (int)serviceInstance.TimeSafetyOffset.TotalMilliseconds,
                                                   IsRunning = serviceInstance.IsRunning,
                                                   IsSelfReport = serviceInstance.IsSelfReport
                                               });
@@ -59,12 +62,14 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
             return _databaseCaller.QueryRawSql<RunningServiceInstance>(@"SELECT [Id]
                                                                           ,[LastCheckinTime]
                                                                           ,[CheckinIntervalMs]
+                                                                          ,[TimeSafetyOffsetMs]
                                                                 FROM [Metadata].[ServiceInstances] WHERE [IsRunning] = 1")
                                   .Select(x => new RunningServiceInstanceDto
                                                    {
                                                        Id = x.Id,
+                                                       LastCheckinTime = x.LastCheckinTime,
                                                        CheckinInterval = TimeSpan.FromMilliseconds(x.CheckinIntervalMs),
-                                                       LastCheckinTime = x.LastCheckinTime
+                                                       TimeSafetyOffset = TimeSpan.FromMilliseconds(x.TimeSafetyOffsetMs)
                                                    });
         }
 
@@ -89,8 +94,9 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
         private class RunningServiceInstance
         {
             public Guid Id { get; set; }
-            public long CheckinIntervalMs { get; set; }
+            public int CheckinIntervalMs { get; set; }
             public DateTimeOffset LastCheckinTime { get; set; }
+            public int TimeSafetyOffsetMs { get; set; }
         }
 
         #endregion

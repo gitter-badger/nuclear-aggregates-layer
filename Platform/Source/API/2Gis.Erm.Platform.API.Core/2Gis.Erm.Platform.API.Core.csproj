@@ -201,6 +201,8 @@
     <Compile Include="Settings\APIServices\RequiredServices.cs" />
     <Compile Include="Settings\Caching\CachingSettingsAspect.cs" />
     <Compile Include="Settings\Caching\ICachingSettings.cs" />
+    <Compile Include="Settings\Checkin\IServiceInstanceCheckinSettings.cs" />
+    <Compile Include="Settings\Checkin\ServiceInstanceCheckinSettingsAspect.cs" />
     <Compile Include="Settings\ConnectionStrings\IConnectionStringSettings.cs" />
     <Compile Include="Settings\CRM\MsCrmIntegrationMode.cs" />
     <Compile Include="Settings\Globalization\GlobalizationAspect.cs" />

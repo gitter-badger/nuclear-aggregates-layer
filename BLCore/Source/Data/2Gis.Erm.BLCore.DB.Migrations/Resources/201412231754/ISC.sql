@@ -27,7 +27,8 @@ CREATE TABLE [Metadata].[ServiceInstances](
 	[Host] [nvarchar](100) NOT NULL,
 	[FirstCheckinTime] [datetimeoffset](3) NOT NULL,
 	[LastCheckinTime] [datetimeoffset](3) NOT NULL,
-	[CheckinIntervalMs] [bigint] NOT NULL,
+	[CheckinIntervalMs] [int] NOT NULL,
+	[TimeSafetyOffsetMs] [int] NOT NULL,
 	[IsRunning] [bit] NOT NULL,
 	[IsSelfReport] [bit] NOT NULL,
  CONSTRAINT [PK_Metadata.ServiceInstances] PRIMARY KEY CLUSTERED 

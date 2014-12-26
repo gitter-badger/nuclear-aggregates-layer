@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             byte id;
             using (var appLock = _applicationLocksService.Acquire(LockName.ReserveIdentityServiceUniqueId, _timeout))
             {
-                using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+                using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, new TransactionOptions {IsolationLevel = IsolationLevel.ReadCommitted}))
                 {
                     if (!_identityServiceUniqueIdPersistenceService.TryGetFirstIdleId((int)_globalizationSettings.BusinessModel, out id))
                     {

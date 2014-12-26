@@ -14,6 +14,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
         public DateTimeOffset FirstCheckinTime { get; set; }
         public DateTimeOffset LastCheckinTime { get; set; }
         public TimeSpan CheckinInterval { get; set; }
+        public TimeSpan TimeSafetyOffset { get; set; }
 
         public bool IsRunning { get; set; }
         public bool IsSelfReport { get; set; }

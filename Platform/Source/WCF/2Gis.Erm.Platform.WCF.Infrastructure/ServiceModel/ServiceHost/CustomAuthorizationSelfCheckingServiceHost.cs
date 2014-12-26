@@ -23,14 +23,23 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceHost
 
         protected override void OnOpening()
         {
+            _serviceInstanceCheckinService.Faulted += OnFaulted;
             _serviceInstanceCheckinService.Start();
+
             base.OnOpening();
         }
 
         protected override void OnClosing()
         {
+            _serviceInstanceCheckinService.Faulted -= OnFaulted;
             _serviceInstanceCheckinService.Stop();
+
             base.OnClosing();
+        }
+
+        private void OnFaulted(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        {
+            Close();
         }
     }
 }

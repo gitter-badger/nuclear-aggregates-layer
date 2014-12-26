@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -8,19 +9,15 @@ using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Checkin;
 using DoubleGis.Erm.Platform.API.Core.Locking;
+using DoubleGis.Erm.Platform.API.Core.Settings.Checkin;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 
 namespace DoubleGis.Erm.Platform.Core.Checkin
 {
     public sealed class ServiceInstanceCheckinService : IServiceInstanceCheckinService, IServiceInstanceIdProvider, IDisposable
     {
-        // FIXME {a.tukaev, 19.12.2014}: Вытащить в настройки
-        private readonly TimeSpan _checkinInterval = TimeSpan.FromSeconds(5);
-        private readonly TimeSpan _timeSafetyOffset = TimeSpan.FromSeconds(5);
-
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly Task _workerTask;
         private readonly AutoResetEvent _asyncWorkerSignal;
@@ -28,32 +25,38 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
         private Guid? _instanceId;
         private readonly string _host;
 
-
         private readonly IApplicationLocksService _applicationLocksService;
         private readonly IServiceInstancePersistenceService _serviceInstancePersistenceService;
-        private readonly ICommonLog _logger;
         private readonly IEnvironmentSettings _environmentSettings;
+        private readonly IServiceInstanceCheckinSettings _serviceInstanceCheckinSettings;
+        private readonly ICommonLog _logger;
         private readonly string _serviceName;
 
         private bool _disposed;
 
+        public event EventHandler<UnhandledExceptionEventArgs> Faulted = delegate { };
+
         public ServiceInstanceCheckinService(IServiceInstancePersistenceService serviceInstancePersistenceService,
-                                             ICommonLog logger,
-                                             IApplicationLocksService applicationLocksService, 
+                                             IApplicationLocksService applicationLocksService,
                                              IEnvironmentSettings environmentSettings,
+                                             IServiceInstanceCheckinSettings serviceInstanceCheckinSettings,
+                                             ICommonLog logger,
                                              string serviceName)
         {
             _serviceInstancePersistenceService = serviceInstancePersistenceService;
             _logger = logger;
             _applicationLocksService = applicationLocksService;
             _environmentSettings = environmentSettings;
+            _serviceInstanceCheckinSettings = serviceInstanceCheckinSettings;
             _serviceName = serviceName;
 
             _cancellationTokenSource = new CancellationTokenSource();
             _workerTask = new Task(() => Worker(_cancellationTokenSource.Token), _cancellationTokenSource.Token, TaskCreationOptions.LongRunning);
+            _workerTask.ContinueWith(OnFaulted, TaskContinuationOptions.OnlyOnFaulted);
+
             _asyncWorkerSignal = new AutoResetEvent(false);
             _instanceIdAcquiredSignal = new ManualResetEventSlim(false);
-            _host = ResolveHostName();
+            _host = GetHostName();
         }
 
         public void Start()
@@ -70,141 +73,27 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             _logger.InfoEx("Stopping service instance checkin service...");
             _cancellationTokenSource.Cancel();
             _asyncWorkerSignal.Set();
-            _workerTask.Wait();
 
-            using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
-            {
-                // ReSharper disable once PossibleInvalidOperationException
-                _serviceInstancePersistenceService.ReportNotRunning(new[] { _instanceId.Value }, true);
-                transaction.Complete();
-            }
-
-            _asyncWorkerSignal.Close();
-            _logger.InfoEx("Service instance checkin service successfully stopped");
-        }
-
-        private void Worker(CancellationToken cancellationToken)
-        {
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                var startTime = DateTimeOffset.UtcNow;
-                if (_instanceId == null)
-                {
-                    _instanceId = FirstCheckin();
-                    _instanceIdAcquiredSignal.Set();
-                }
-                else
-                {
-                    Checkin();
-                }
-
-                ILockingScope serviceInstancesAccessLock;
-                if (_applicationLocksService.TryAcquire(LockName.ReportFailedInstances, out serviceInstancesAccessLock))
-                {
-                    using (serviceInstancesAccessLock)
-                    {
-                        ReportNotRunningInstances();
-                        serviceInstancesAccessLock.Release();
-                    }
-                }
-
-                var timeElapsed = DateTimeOffset.UtcNow.Subtract(startTime);
-                var timeToSleep = _checkinInterval.Subtract(timeElapsed);
-                if (timeToSleep > TimeSpan.Zero)
-                {
-                    _asyncWorkerSignal.WaitOne(timeToSleep);
-                }
-            }
-        }
-
-        private void Checkin()
-        {
-            using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
-            {
-                // ReSharper disable once PossibleInvalidOperationException
-                _serviceInstancePersistenceService.Checkin(_instanceId.Value, DateTimeOffset.UtcNow);
-
-                transaction.Complete();
-            }
-        }
-
-        private void ReportNotRunningInstances()
-        {
-            using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
-            {
-                var now = DateTimeOffset.UtcNow;
-                var runningInstances = _serviceInstancePersistenceService.GetRunningInstances();
-
-                bool currentInstanceFound = false;
-                var failedInstances = new List<Guid>();
-                foreach (var runningInstance in runningInstances)
-                {
-                    if (runningInstance.Id == _instanceId)
-                    {
-                        currentInstanceFound = true;
-                    }
-                    else if (IsFailed(now, runningInstance.LastCheckinTime, runningInstance.CheckinInterval))
-                    {
-                        failedInstances.Add(runningInstance.Id);
-                    }
-                }
-
-                if (!currentInstanceFound)
-                {
-                    throw new InvalidOperationException("Current instance has been considered as not running");
-                }
-
-                if (failedInstances.Contains(_instanceId.Value))
-                {
-                    _logger.WarnEx("Current instance has been considered as not running by itself");
-                }
-
-                _serviceInstancePersistenceService.ReportNotRunning(failedInstances, false);
-                transaction.Complete();
-            }
-        }
-
-        private bool IsFailed(DateTimeOffset now, DateTimeOffset lastCheckinTime, TimeSpan checkinInterval)
-        {
-            return now.Subtract(lastCheckinTime) >= checkinInterval.Add(_timeSafetyOffset);
-        }
-
-        private Guid FirstCheckin()
-        {
-            var id = Guid.NewGuid();
-            var serviceInstance = new ServiceInstanceDto
-                                      {
-                                          Id = id,
-                                          Environment = _environmentSettings.EnvironmentName,
-                                          EntryPoint = _environmentSettings.EntryPointName,
-                                          Host = _host,
-                                          ServiceName = _serviceName,
-                                          FirstCheckinTime = DateTimeOffset.UtcNow,
-                                          LastCheckinTime = DateTimeOffset.UtcNow,
-                                          CheckinInterval = _checkinInterval,
-                                          IsRunning = true,
-                                          IsSelfReport = true
-                                      };
-
-            using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
-            {
-                _serviceInstancePersistenceService.Add(serviceInstance);
-                transaction.Complete();
-            }
-            
-            return id;
-        }
-
-        private static string ResolveHostName()
-        {
             try
             {
-                return Dns.GetHostName();
+                if (!_workerTask.IsCompleted)
+                {
+                    _workerTask.Wait();
+                }
             }
-            catch (SocketException)
+            finally
             {
-                return "[UNRESOLVED]";
+                using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
+                {
+                    // ReSharper disable once PossibleInvalidOperationException
+                    _serviceInstancePersistenceService.ReportNotRunning(new[] { _instanceId.Value }, true);
+                    transaction.Complete();
+                }
+
+                _asyncWorkerSignal.Close();
             }
+
+            _logger.InfoEx("Service instance checkin service successfully stopped");
         }
 
         public Guid GetInstanceId(TimeSpan timeout)
@@ -246,6 +135,136 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             _instanceIdAcquiredSignal.Dispose();
 
             _disposed = true;
+        }
+
+        private void Worker(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                var startTime = DateTimeOffset.UtcNow;
+                if (_instanceId == null)
+                {
+                    _instanceId = FirstCheckin(startTime);
+                    _instanceIdAcquiredSignal.Set();
+                }
+                else
+                {
+                    Checkin(startTime);
+                }
+
+                ILockingScope serviceInstancesAccessLock;
+                if (_applicationLocksService.TryAcquire(LockName.ReportFailedInstances, out serviceInstancesAccessLock))
+                {
+                    using (serviceInstancesAccessLock)
+                    {
+                        ReportNotRunningInstances(startTime);
+                        serviceInstancesAccessLock.Release();
+                    }
+                }
+
+                var timeElapsed = DateTimeOffset.UtcNow.Subtract(startTime);
+                var timeToSleep = _serviceInstanceCheckinSettings.CheckinInterval.Subtract(timeElapsed);
+                if (timeToSleep > TimeSpan.Zero)
+                {
+                    _asyncWorkerSignal.WaitOne(timeToSleep);
+                }
+            }
+        }
+
+        private void Checkin(DateTimeOffset startTime)
+        {
+            using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
+            {
+                // ReSharper disable once PossibleInvalidOperationException
+                _serviceInstancePersistenceService.Checkin(_instanceId.Value, startTime);
+                transaction.Complete();
+            }
+        }
+
+        private void ReportNotRunningInstances(DateTimeOffset startTime)
+        {
+            using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
+            {
+                var runningInstances = _serviceInstancePersistenceService.GetRunningInstances();
+
+                var currentInstanceFound = false;
+                var failedInstances = new List<Guid>();
+                foreach (var runningInstance in runningInstances)
+                {
+                    if (runningInstance.Id == _instanceId)
+                    {
+                        currentInstanceFound = true;
+                    }
+                    else if (IsFailed(startTime, runningInstance.LastCheckinTime, runningInstance.CheckinInterval, runningInstance.TimeSafetyOffset))
+                    {
+                        failedInstances.Add(runningInstance.Id);
+                    }
+                }
+
+                if (!currentInstanceFound)
+                {
+                    throw new InvalidOperationException("Current instance has been considered as not running");
+                }
+
+                if (failedInstances.Any())
+                {
+                    _serviceInstancePersistenceService.ReportNotRunning(failedInstances, false);
+                }
+
+                transaction.Complete();
+            }
+        }
+
+        private static bool IsFailed(DateTimeOffset startTime, DateTimeOffset lastCheckinTime, TimeSpan checkinInterval, TimeSpan timeSafetyOffset)
+        {
+            return startTime.Subtract(lastCheckinTime) >= checkinInterval.Add(timeSafetyOffset);
+        }
+
+        private Guid FirstCheckin(DateTimeOffset startTime)
+        {
+            var id = Guid.NewGuid();
+            var serviceInstance = new ServiceInstanceDto
+                                      {
+                                          Id = id,
+                                          Environment = _environmentSettings.EnvironmentName,
+                                          EntryPoint = _environmentSettings.EntryPointName,
+                                          Host = _host,
+                                          ServiceName = _serviceName,
+                                          FirstCheckinTime = startTime,
+                                          LastCheckinTime = startTime,
+                                          CheckinInterval = _serviceInstanceCheckinSettings.CheckinInterval,
+                                          TimeSafetyOffset = _serviceInstanceCheckinSettings.CheckinTimeSafetyOffset,
+                                          IsRunning = true,
+                                          IsSelfReport = true
+                                      };
+
+            using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
+            {
+                _logger.InfoFormatEx("Starting first checkin - {0}", _instanceId);
+                _serviceInstancePersistenceService.Add(serviceInstance);
+                _logger.InfoFormatEx("Successfully checked in");
+                transaction.Complete();
+            }
+
+            return id;
+        }
+
+        private static string GetHostName()
+        {
+            return Dns.GetHostEntry(string.Empty).HostName;
+        }
+
+        private void OnFaulted(Task task)
+        {
+            if (task.Exception != null)
+            {
+                task.Exception.Flatten().Handle(ex =>
+                                                    {
+                                                        _logger.FatalEx(ex, "Service instance checkin service is faulted");
+                                                        Faulted(this, new UnhandledExceptionEventArgs(ex, false));
+                                                        return true;
+                                                    });
+            }
         }
 
         private void ThrowIfDisposed()

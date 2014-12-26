@@ -54,6 +54,9 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
                 return true;
             }
 
+            transaction.Commit();
+            connection.Close();
+
             lockId = default(Guid);
             return false;
         }
