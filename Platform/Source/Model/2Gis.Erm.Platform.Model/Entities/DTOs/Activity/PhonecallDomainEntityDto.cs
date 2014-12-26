@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -14,11 +15,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         [DataMember]
         public string Header { get; set; }
         [DataMember]
-        public DateTime ScheduledStart { get; set; }
+        public string Description { get; set; }
         [DataMember]
-        public DateTime ScheduledEnd { get; set; }
-        [DataMember]
-        public DateTime? ActualEnd { get; set; }
+        public DateTime ScheduledOn { get; set; }
         [DataMember]
         public ActivityPriority Priority { get; set; }
         [DataMember]
@@ -26,17 +25,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         [DataMember]
 		public ActivityPurpose Purpose { get; set; }
         [DataMember]
-        public byte AfterSaleServiceType { get; set; }
+        public IEnumerable<EntityReference> RegardingObjects { get; set; }
         [DataMember]
-        public string Description { get; set; }
-        [DataMember]
-        public EntityReference ClientRef { get; set; }
-        [DataMember]
-        public EntityReference DealRef { get; set; }
-        [DataMember]
-        public EntityReference FirmRef { get; set; }
-        [DataMember]
-        public EntityReference ContactRef { get; set; }
+        public EntityReference RecipientRef { get; set; }
+
         [DataMember]
         public bool IsActive { get; set; }
         [DataMember]

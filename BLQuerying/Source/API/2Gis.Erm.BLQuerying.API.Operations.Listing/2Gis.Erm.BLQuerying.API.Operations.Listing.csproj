@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -116,6 +116,7 @@
     <Compile Include="List\DTO\ListReleaseInfoDto.cs" />
     <Compile Include="List\DTO\ListTerritoryDto.cs" />
     <Compile Include="List\DTO\ListThemeDto.cs" />
+    <Compile Include="List\DTO\ListTimeZoneDto.cs" />
     <Compile Include="List\DTO\ListUserOrganizationUnitDto.cs" />
     <Compile Include="List\DTO\ListThemeTemplateDto.cs" />
     <Compile Include="List\DTO\ListUserDto.cs" />

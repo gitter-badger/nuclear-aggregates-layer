@@ -18,25 +18,13 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Subject)
                 .HasMaxLength(256);
 
-            Property(t => t.PhoneNumber)
-                .HasMaxLength(200);
-
             Property(t => t.Timestamp)
                 .IsRequired()
                 .IsFixedLength()
                 .HasMaxLength(8)
                 .IsRowVersion();
 
-
-            Property(t => t.ScheduledStart)
-                .HasColumnType("datetime2")
-                .HasPrecision(7);
-
-            Property(t => t.ScheduledEnd)
-                .HasColumnType("datetime2")
-                .HasPrecision(7);
-
-            Property(t => t.ActualEnd)
+            Property(t => t.ScheduledOn)
                 .HasColumnType("datetime2")
                 .HasPrecision(7);
 
@@ -54,15 +42,10 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.ReplicationCode).HasColumnName("ReplicationCode");
             Property(t => t.Subject).HasColumnName("Subject");
             Property(t => t.Description).HasColumnName("Description");
-            Property(t => t.ScheduledStart).HasColumnName("ScheduledStart");
-            Property(t => t.ScheduledEnd).HasColumnName("ScheduledEnd");
-            Property(t => t.ActualEnd).HasColumnName("ActualEnd");
+            Property(t => t.ScheduledOn).HasColumnName("ScheduledOn");
             Property(t => t.Priority).HasColumnName("Priority");
-            Property(t => t.Status).HasColumnName("Status");
-            Property(t => t.Direction).HasColumnName("Direction");
-            Property(t => t.PhoneNumber).HasColumnName("PhoneNumber");
             Property(t => t.Purpose).HasColumnName("Purpose");
-            Property(t => t.AfterSaleType).HasColumnName("AfterSaleType");
+            Property(t => t.Status).HasColumnName("Status");
             Property(t => t.IsActive).HasColumnName("IsActive");
             Property(t => t.IsDeleted).HasColumnName("IsDeleted");
             Property(t => t.OwnerCode).HasColumnName("OwnerCode");

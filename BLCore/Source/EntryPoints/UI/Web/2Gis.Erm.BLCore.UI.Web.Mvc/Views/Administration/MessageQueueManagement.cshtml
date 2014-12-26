@@ -28,7 +28,6 @@
         Ext.USER_NAME = @ViewData.GetUserIdentityDisplayName();
         Ext.CultureInfo = @Html.WriteJson(ViewData.GetUserLocaleInfo());
         Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
-        Ext.CRM_URL = '@ViewData.GetMsCrmSettingsUrl()';
         Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
         Ext.SpecialOperationsServiceRestUrl = '@ViewData.GetSpecialOperationsServiceRestUrl()';
     </script>

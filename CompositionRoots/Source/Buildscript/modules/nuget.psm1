@@ -23,7 +23,7 @@ function Invoke-NuGet ($Arguments) {
 	}
 }
 
-function Download-Nuget{
+function Download-Nuget {
 
 	$uriString = "https://packages.nuget.org/api/v2/package/$($PackageInfo.Id)/$($PackageInfo.Version)"
 	

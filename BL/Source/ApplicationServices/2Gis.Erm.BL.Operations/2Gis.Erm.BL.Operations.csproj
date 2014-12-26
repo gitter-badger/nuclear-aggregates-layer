@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +61,10 @@
     <Compile Include="Concrete\Integration\Import\IImportSaleTerritoryService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportBuildingService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportSaleTerritoryService.cs" />
+    <Compile Include="Concrete\Limits\IncreaseLimitOperationService.cs" />
+    <Compile Include="Concrete\Limits\CalculateLimitIncreasingOperationService.cs" />
+    <Compile Include="Concrete\Limits\RecalculateLimitOperationService.cs" />
+    <Compile Include="Concrete\Limits\SetLimitStatusOperationService.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\ExportFlowDeliveryData\SerializeBirthdayCongratulationHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionChildrenHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionHandler.cs" />
@@ -74,6 +79,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Generic\Activate\ActivateLimitService.cs" />
     <Compile Include="Generic\Append\AppendException.cs" />
     <Compile Include="Generic\Append\AppendClientClientService.cs" />
     <Compile Include="Generic\Append\AppendAdvertisingAgencyException.cs" />
@@ -82,7 +88,11 @@
     <Compile Include="Generic\Append\SameIdsForEntitiesToLinkException.cs" />
     <Compile Include="Generic\Append\InvalidEntityTypesForLinkingException.cs" />
     <Compile Include="Generic\Deactivate\DeactivateDenialReasonOperationService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateLimitService.cs" />
+    <Compile Include="Generic\Delete\DeleteLimitService.cs" />
     <Compile Include="Generic\Get\GetDenialReasonDtoOperationService.cs" />
+    <Compile Include="Generic\Get\GetLimitDtoService.cs" />
+    <Compile Include="Generic\Modify\ModifyLimitService.cs" />
     <Compile Include="Generic\Modify\SimplifiedModel\ModifyDenialReasonOperationService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -94,6 +104,10 @@
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
       <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
       <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>

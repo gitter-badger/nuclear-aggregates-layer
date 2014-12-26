@@ -120,6 +120,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         public JsonNetResult GetSupportedLocalSettings()
         {
             const int StubOffsetValue = 0;
+            const string StubTimeZoneId = "";
 
             var supportedTimeZones = _finder.FindAll<TimeZone>().AsEnumerable().Select(tz => new
             {
@@ -137,7 +138,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                     ThreeLetterISOLanguageName = ci.ThreeLetterISOLanguageName,
                     TwoLetterISOLanguageName = ci.TwoLetterISOLanguageName,
                     NumberFormat = ci.NumberFormat.ToDto(),
-                    DateTimeFormat = ci.DateTimeFormat.ToDto(StubOffsetValue)
+                    DateTimeFormat = ci.DateTimeFormat.ToDto(StubOffsetValue, StubTimeZoneId),
                 }).ToArray(),
                 SupportedTimeZones = supportedTimeZones.Select(tz => new TimeZoneDto
                 {

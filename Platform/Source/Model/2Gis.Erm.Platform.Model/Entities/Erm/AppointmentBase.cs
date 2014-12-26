@@ -52,15 +52,12 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public string Subject { get; set; }
         public string Description { get; set; }
+        public int Priority { get; set; }
         public DateTime ScheduledStart { get; set; }
         public DateTime ScheduledEnd { get; set; }
-        public DateTime? ActualEnd { get; set; }
-        public int Priority { get; set; }
-        public int Status { get; set; }
-        public bool IsAllDayEvent { get; set; }
-        public string Location { get; set; }
         public int Purpose { get; set; }
-        public int AfterSaleType { get; set; }
+        public int Status { get; set; }
+        public string Location { get; set; }
 
         public ICollection<AppointmentReference> AppointmentReferences { get; set; }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Limits;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Limits;
@@ -18,6 +19,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -27,6 +29,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly IPublicService _publicService;
         private readonly ISecureFinder _secureFinder;
+        private readonly IRecalculateLimitOperationService _recalculateLimitOperationService;
+        private readonly ISetLimitStatusOperationService _setLimitStatusOperationService;
+        private readonly ICalculateLimitIncreasingOperationService _calculateLimitIncreasingOperationService;
+        private readonly IIncreaseLimitOperationService _increaseLimitOperationService;
 
         public LimitController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -35,7 +41,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ISecureFinder securefinder,
                                IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                               IGetBaseCurrencyService getBaseCurrencyService)
+                               IGetBaseCurrencyService getBaseCurrencyService,
+                               IRecalculateLimitOperationService recalculateLimitOperationService,
+                               ISetLimitStatusOperationService setLimitStatusOperationService,
+                               ICalculateLimitIncreasingOperationService calculateLimitIncreasingOperationService,
+                               IIncreaseLimitOperationService increaseLimitOperationService)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -45,6 +55,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             _publicService = publicService;
             _secureFinder = securefinder;
+            _recalculateLimitOperationService = recalculateLimitOperationService;
+            _setLimitStatusOperationService = setLimitStatusOperationService;
+            _calculateLimitIncreasingOperationService = calculateLimitIncreasingOperationService;
+            _increaseLimitOperationService = increaseLimitOperationService;
         }
 
         #region set status
@@ -60,12 +74,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             try
             {
-                _publicService.Handle(new SetLimitStatusRequest
-                {
-                    LimitId = model.Id,
-                    LimitReplicationCodes = model.CrmIds,
-                    Status = model.Status
-                });
+                _setLimitStatusOperationService.SetStatus(model.Id, model.Status, model.CrmIds);
                 model.Message = BLResources.OK;
             }
             catch (Exception ex)
@@ -140,14 +149,32 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
         }
 
+        #endregion
+
         [HttpPost]
         public EmptyResult Recalculate(long id)
         {
-            var request = new RecalculateLimitRequest { LimitId = id };
-            _publicService.Handle(request);
+            _recalculateLimitOperationService.Recalculate(id);
             return new EmptyResult();
         }
 
-        #endregion
+        [HttpGet]
+        public JsonNetResult IncreaseLimit(long limitId)
+        {
+            decimal amountToIncrease;
+            var isLimitIncreasingRequired = _calculateLimitIncreasingOperationService.IsIncreasingRequired(limitId, out amountToIncrease);
+            return new JsonNetResult(new
+                                         {
+                                             IsLimitIncreasingRequired = isLimitIncreasingRequired,
+                                             AmountToIncrease = amountToIncrease
+                                         });
+        }
+
+        [HttpPost]
+        public EmptyResult IncreaseLimit(long limitId, decimal amountToIncrease)
+        {
+            _increaseLimitOperationService.IncreaseLimit(limitId, amountToIncrease);
+            return new EmptyResult();
+        }
     }
 }

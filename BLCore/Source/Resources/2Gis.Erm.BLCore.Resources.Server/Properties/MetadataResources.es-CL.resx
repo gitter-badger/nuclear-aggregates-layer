@@ -990,20 +990,11 @@
   <data name="Email" xml:space="preserve">
     <value>Correo electrónico</value>
   </data>
-  <data name="ActivityBaseViewModelAbstract_Type" xml:space="preserve">
-    <value>Tipo</value>
-  </data>
   <data name="Priority" xml:space="preserve">
     <value>Prioridad</value>
   </data>
-  <data name="ActivityBaseViewModelAbstract_Status" xml:space="preserve">
-    <value>Estado</value>
-  </data>
   <data name="Purpose" xml:space="preserve">
     <value>Objetivo</value>
-  </data>
-  <data name="AfterSaleServiceType" xml:space="preserve">
-    <value>Tipo del servicio postventa</value>
   </data>
   <data name="TaskType" xml:space="preserve">
     <value>Tipo de tarea</value>
@@ -1406,6 +1397,20 @@
   </data>
   <data name="ControlResetToDraft" xml:space="preserve">
     <value>Editar</value>
+  </data>
+  <data name="Attendee" xml:space="preserve">
+    <value>Participante</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Lugar de encuentro</value>
+  </data>
+  <data name="Recipient" xml:space="preserve">
+    <value>Destinatario</value>
+    <comment>Кому направлено действие, например, письмо.</comment>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Remitente</value>
+    <comment>От кого направлено действие, например, письмо.</comment>
   </data>
   <data name="NameOfChildClient" xml:space="preserve">
     <value>Cliente afiliado</value>

@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.Platform.DAL
             throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
         }
 
-        public IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity, IEntityKey
         {
             throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");

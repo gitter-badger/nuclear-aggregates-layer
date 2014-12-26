@@ -900,9 +900,6 @@
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Zprávy pro pažadavek</value>
   </data>
-  <data name="Task" xml:space="preserve">
-    <value>Úkol</value>
-  </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
     <value>Skutečně si přejete změnit stav limitu na</value>
   </data>
@@ -954,9 +951,6 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Chyba při uskutečnění operace</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Spuštěno vytvoření PPS. Tato akce nějakou dobu potrvá, její průběh můžete sledovat v protokolu operací.</value>
-  </data>
   <data name="DisabledFunctionality" xml:space="preserve">
     <value>Tato funkce je dočasně nedostupná</value>
   </data>
@@ -966,10 +960,16 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value> Tato PO již je hlavní</value>
   </data>
+  <data name="LimitIncreasingIsNotRequired" xml:space="preserve">
+    <value>Zvýšení limitu není vyžadováno</value>
+  </data>
+  <data name="LimitWillBeIncreased" xml:space="preserve">
+    <value>Limit bude zvýšen  na částku {0}</value>
+  </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
-    <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
+    <value>Chyba při kontaktování služby {0}. Kontaktujte vývojáře.</value>
   </data>
   <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД. MM. ГГГГ'</value>
+    <value>Chybná hodnota. Použijte formát "DD. MM. RRRR"</value>
   </data>
 </root>

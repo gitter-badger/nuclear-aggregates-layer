@@ -181,4 +181,16 @@
   <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
     <value>Reklamní agentura nemůže být zadána jako zprostředkovaný klient</value>
   </data>
+  <data name="AccessToChangePeriodOfLimitIsDenied" xml:space="preserve">
+    <value>Nemáte oprávnění pro změnu lhůty limitu</value>
+  </data>
+  <data name="AmountToIncreaseLimitIsOutdated" xml:space="preserve">
+    <value>Částka pro zvýšení limitu není aktuální</value>
+  </data>
+  <data name="WrongAmountToIncreaseLimit" xml:space="preserve">
+    <value>Částka pro zvýšení limitu je zadána nesprávně</value>
+  </data>
+  <data name="OnlyApprovedLimitCanBeIncreased" xml:space="preserve">
+    <value>Zvýšit můžete pouze schválený limit</value>
+  </data>
 </root>
