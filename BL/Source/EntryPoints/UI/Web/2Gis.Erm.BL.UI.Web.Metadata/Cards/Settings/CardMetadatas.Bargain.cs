@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Bargain =
             CardMetadata.For<Bargain>()
-                        .Icon.Path(Icons.Icons.Entity.Bargain)
+                        .WithEntityIcon()
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.BargainFile, () => ErmConfigLocalization.CrdRelBargainFiles),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.Order, () => ErmConfigLocalization.CrdRelOrders));

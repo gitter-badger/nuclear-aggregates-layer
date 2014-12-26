@@ -94,10 +94,6 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\2Gis.Erm.BLFlex.UI.Metadata\2Gis.Erm.BLFlex.UI.Metadata.csproj">
-      <Project>{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}</Project>
-      <Name>2Gis.Erm.BLFlex.UI.Metadata</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Department =
             CardMetadata.For<Department>()
-                        .Icon.Path(Icons.Icons.Entity.Department)
+                        .WithEntityIcon()
                         .CommonCardToolbar();
     }
 }

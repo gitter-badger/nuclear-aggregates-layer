@@ -280,8 +280,8 @@
     <Content Include="Content\images\Configuration\Entity\Delete.gif" />
     <Content Include="Content\images\Configuration\Entity\Delete.png" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Account.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_16_Links.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_16_Action.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_ClientLink.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Activity.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Advertisement.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElement.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElementTemplate.gif" />
@@ -335,9 +335,8 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Task.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Territory.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_User.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccount.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccountGroup.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_16_UserGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Role.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Appointment.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Assembly.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Bargain.gif" />
@@ -376,9 +375,8 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Task.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Territory.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_User.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserAccount.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserAccountGroup.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_RolePrivilege.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Role.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_importCustomizations.gif" />
     <Content Include="Content\images\Configuration\Entity\Merge.gif" />
     <Content Include="Content\images\Configuration\Entity\NavCalendar.gif" />

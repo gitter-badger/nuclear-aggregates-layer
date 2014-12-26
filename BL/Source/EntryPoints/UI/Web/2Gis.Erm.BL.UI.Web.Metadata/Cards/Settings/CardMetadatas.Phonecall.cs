@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Phonecall =
             CardMetadata.For<Phonecall>()
-                        .Icon.Path(Icons.Icons.Entity.Phonecall)
+                        .WithEntityIcon()
                         .ActivityCardToolbar();
     }
 }

@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Deal =
             CardMetadata.For<Deal>()
-                        .Icon.Path(Icons.Icons.Entity.Deal)
+                        .WithEntityIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<Deal>(),
                                 ToolbarElements.Update<Deal>(),
@@ -29,8 +29,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                            ToolbarElements.ChangeOwner<Deal>()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.DealSmall),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Order, () => ErmConfigLocalization.CrdRelOrders),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Deal)),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Small(EntityName.Order), () => ErmConfigLocalization.CrdRelOrders),
                                           RelatedItems.RelatedItem.ActivitiesGrid(),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.FirmDeal, () => ErmConfigLocalization.CrdRelFirms)
                                                       .AppendapleEntity<Firm>());

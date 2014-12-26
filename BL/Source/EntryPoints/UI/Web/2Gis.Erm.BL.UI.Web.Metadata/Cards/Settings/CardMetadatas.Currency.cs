@@ -11,11 +11,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Currency =
             CardMetadata.For<Currency>()
-                        .Icon.Path(Icons.Icons.Entity.Currency)
+                        .WithEntityIcon()
                         .CommonCardToolbar()
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.CurrencySmall),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Currency)),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.CurrencyRate, () => ErmConfigLocalization.CrdRelCurrencyRate)
                                                       .DisableOn<ICurrencyViewModel>(x => x.IsBase),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Country, Icons.Icons.Entity.CountrySmall, () => ErmConfigLocalization.CrdRelCountry));
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Country, Icons.Icons.Entity.Small(EntityName.Country), () => ErmConfigLocalization.CrdRelCountry));
     }
 }

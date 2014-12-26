@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
                                      .LockOnNew()
-                                     .Handler.Name("scope.ApproveLimit");
+                                     .JSHandler("ApproveLimit");
             }
 
             public static UIElementMetadataBuilder Reject()
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
                                      .LockOnNew()
-                                     .Handler.Name("scope.RejectLimit");
+                                     .JSHandler("RejectLimit");
             }
 
             public static UIElementMetadataBuilder Open()
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
                                      .LockOnNew()
-                                     .Handler.Name("scope.OpenLimit");
+                                     .JSHandler("OpenLimit");
             }
 
             public static UIElementMetadataBuilder Recalculate()
@@ -58,7 +59,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .Title.Resource(() => ErmConfigLocalization.ControlRecalculateLimit)
                                         .ControlType(ControlType.TextButton)
                                         .LockOnInactive()
-                                        .Handler.Name("scope.RecalculateLimit")
+                                        .JSHandler("RecalculateLimit")
                                         .AccessWithPrivelege(FunctionalPrivilegeName.LimitRecalculation);
             }
         }

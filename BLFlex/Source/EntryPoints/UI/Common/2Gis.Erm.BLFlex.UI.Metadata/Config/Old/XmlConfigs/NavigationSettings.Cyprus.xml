@@ -1,7 +1,7 @@
 ﻿<NavigationSettings>
   <Items Name="NavAreaBilling" Icon="Billing.gif">
     <Items Name="NavAreaWorkspace">
-      <Items Name="NavAreaHistory" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity?defaultDataView=DListMyActivities" />
+      <Items Name="NavAreaHistory" Icon="en_ico_16_Activity.gif" RequestUrl="/Grid/View/Activity?defaultDataView=DListMyActivities" />
       <Items Name="NavGroupReports" Icon="en_ico_16_Report.gif" RequestUrl="/Report/Complex" />
     </Items>
     <Items Name="NavAreaBusinessDirectory" Icon="BusinessDirectory.gif">
@@ -28,8 +28,8 @@
       <Items Name="NavGroupMessageQueueManagement" RequestUrl="/Administration/MessageQueueManagement" />
     </Items>
     <Items Name="NavGroupSecurity">
-      <Items Name="NavGroupUsers" Icon="en_ico_16_UserAccount.gif" RequestUrl="/Grid/View/User" />
-      <Items Name="NavGroupRoles" Icon="en_ico_16_UserGroup.gif" RequestUrl="/Grid/View/Role" />
+      <Items Name="NavGroupUsers" Icon="en_ico_16_User.gif" RequestUrl="/Grid/View/User" />
+      <Items Name="NavGroupRoles" Icon="en_ico_16_Role.gif" RequestUrl="/Grid/View/Role" />
       <Items Name="NavGroupDepartments" Icon="en_ico_16_Department.gif" RequestUrl="/Grid/View/Department" />
     </Items>
   </Items>

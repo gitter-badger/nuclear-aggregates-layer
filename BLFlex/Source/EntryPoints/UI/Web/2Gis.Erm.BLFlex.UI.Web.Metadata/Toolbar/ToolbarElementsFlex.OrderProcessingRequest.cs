@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Name.Static("CreateOrder")
                                      .Title.Resource(() => ErmConfigLocalization.ControlCreateOrder)
                                      .LockOnNew()
-                                     .Handler.Name("scope.CreateOrder")
+                                     .JSHandler("CreateOrder")
                                      .ControlType(ControlType.TextButton)
                                      .AccessWithPrivelege<OrderProcessingRequest>(EntityAccessTypes.Update)
                                      .AccessWithPrivelege<Order>(EntityAccessTypes.Create)
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .LockOnNew()
                                      .DisableOn<IOrderProcessingRequestViewModel>(x => x.State == OrderProcessingRequestState.Cancelled,
                                                                                   x => x.State == OrderProcessingRequestState.Completed)
-                                     .Handler.Name("scope.CancelOrderProcessingRequest")
+                                     .JSHandler("CancelOrderProcessingRequest")
                                      .ControlType(ControlType.TextButton)
                                      .AccessWithPrivelege<OrderProcessingRequest>(EntityAccessTypes.Update)
                                      .Operation.NonCoupled<CancelOrderProcessingRequestIdentity>();

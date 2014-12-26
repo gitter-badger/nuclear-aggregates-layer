@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
@@ -9,7 +10,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Contact =
             CardMetadata.For<Contact>()
-            .Icon.Path(Icons.Icons.Entity.Contact)
+                        .WithEntityIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<Contact>(),
                                 ToolbarElements.Update<Contact>(),
@@ -22,7 +23,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Additional(ToolbarElements.ChangeOwner<Contact>()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.ContactSmall),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Contact)),
                                           RelatedItems.RelatedItem.ActivitiesGrid());
     }
 }

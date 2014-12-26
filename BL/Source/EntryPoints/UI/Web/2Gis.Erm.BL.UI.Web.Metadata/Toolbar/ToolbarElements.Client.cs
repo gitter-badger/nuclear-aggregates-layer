@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .ControlType(ControlType.ImageButton)
                                         .LockOnNew()
                                         .LockOnInactive()
-                                        .Handler.Name("scope.Merge")
+                                        .JSHandler("Merge")
                                         .AccessWithPrivelege(FunctionalPrivilegeName.MergeClients)
                                         .Operation.SpecificFor<MergeIdentity, Client>();
             }

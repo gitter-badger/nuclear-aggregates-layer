@@ -8,8 +8,8 @@
     <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupReports}" UriSource="../Images/Navigation/en_ico_16_Default.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
     <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavAreaSettings}" UriSource="../Images/Navigation/Settings.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
     <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupServices}" UriSource="../Images/Navigation/en_ico_16_Default.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
-    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupUsers}" UriSource="../Images/Navigation/en_ico_16_UserAccount.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
-    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupRoles}" UriSource="../Images/Navigation/en_ico_16_UserGroup.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupUsers}" UriSource="../Images/Navigation/en_ico_16_User.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupRoles}" UriSource="../Images/Navigation/en_ico_16_Role.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
     <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupDepartments}" UriSource="../Images/Navigation/en_ico_16_Department.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
     <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupLegalPersons}" UriSource="../Images/Navigation/en_ico_16_LegalPerson.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
 </ResourceDictionary>

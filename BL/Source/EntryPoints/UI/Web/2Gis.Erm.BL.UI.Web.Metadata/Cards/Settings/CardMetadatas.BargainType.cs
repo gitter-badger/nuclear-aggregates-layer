@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata BargainType =
             CardMetadata.For<BargainType>()
-                        .Icon.Path(Icons.Icons.Entity.BargainType)
+                        .WithEntityIcon()
                         .CommonCardToolbar();
     }
 }

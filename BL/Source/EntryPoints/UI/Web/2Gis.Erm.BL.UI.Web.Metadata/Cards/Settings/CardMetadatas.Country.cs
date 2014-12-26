@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Country =
             CardMetadata.For<Country>()
-                        .Icon.Path(Icons.Icons.Entity.Country)
+                        .WithEntityIcon()
                         .CommonCardToolbar();
     }
 }

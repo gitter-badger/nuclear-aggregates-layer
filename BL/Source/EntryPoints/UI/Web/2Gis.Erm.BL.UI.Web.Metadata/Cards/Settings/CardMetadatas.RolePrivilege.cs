@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata RolePrivilege =
             CardMetadata.For<RolePrivilege>()
-                        .Icon.Path(Icons.Icons.Entity.RolePrivilege)
+                        .WithEntityIcon()
                         .CommonCardToolbar();
     }
 }

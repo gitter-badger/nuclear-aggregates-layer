@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -22,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.ControlChangeDeal)
                                      .ControlType(ControlType.TextButton)
                                      .LockOnNew()
-                                     .Handler.Name("scope.ChangeDeal")
+                                     .JSHandler("ChangeDeal")
 
                                       // COMMENT {all, 01.12.2014}: а зачем права на создание?
                                      .AccessWithPrivelege<Order>(EntityAccessTypes.Create)
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.ControlCheckOrder)
                                      .ControlType(ControlType.TextButton)
                                      .LockOnNew()
-                                     .Handler.Name("scope.CheckOrder")
+                                     .JSHandler("CheckOrder")
                                      .Operation.NonCoupled<ValidateOrdersIdentity>();
             }
 
@@ -51,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.ControlCloseWithDenial)
                                      .ControlType(ControlType.TextButton)
                                      .LockOnNew()
-                                     .Handler.Name("scope.CloseWithDenial")
+                                     .JSHandler("CloseWithDenial")
 
                                      // COMMENT {all, 01.12.2014}: а зачем права на создание?
                                      .AccessWithPrivelege<Order>(EntityAccessTypes.Create)
@@ -70,7 +71,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
                                      .LockOnNew()
-                                     .Handler.Name("scope.SwitchToAccount");
+                                     .JSHandler("SwitchToAccount");
             }
 
             public static UIElementMetadataBuilder CopyOrder()
@@ -82,7 +83,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.ControlCopyOrder)
                                      .ControlType(ControlType.TextButton)
                                      .LockOnNew()
-                                     .Handler.Name("scope.CopyOrder")
+                                     .JSHandler("CopyOrder")
                                      .AccessWithPrivelege<Order>(EntityAccessTypes.Create)
                                      .AccessWithPrivelege<Order>(EntityAccessTypes.Update)
                                      .Operation.NonCoupled<CopyOrderIdentity>();
@@ -108,7 +109,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                          .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                          .ControlType(ControlType.TextButton)
                                          .LockOnNew()
-                                         .Handler.Name("scope.PrintOrder")
+                                         .JSHandler("PrintOrder")
                                          .Operation.SpecificFor<PrintIdentity, Order>();
                 }
 
@@ -119,7 +120,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                          .Name.Static("PrintBargainAction")
                                          .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                          .ControlType(ControlType.TextButton)
-                                         .Handler.Name("scope.PrintOrderBargain")
+                                         .JSHandler("PrintOrderBargain")
                                          .Operation.SpecificFor<PrintIdentity, Bargain>();
                 }
 
@@ -130,7 +131,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                          .Name.Static("PrintBillAction")
                                          .Title.Resource(() => ErmConfigLocalization.ControlPrintBillsAction)
                                          .ControlType(ControlType.TextButton)
-                                         .Handler.Name("scope.PrintOrderBills")
+                                         .JSHandler("PrintOrderBills")
                                          .Operation.SpecificFor<PrintIdentity, Bill>();
                 }
 
@@ -141,7 +142,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                          .Name.Static("PrintTerminationNoticeAction")
                                          .Title.Resource(() => ErmConfigLocalization.ControlPrintTermNoticeAction)
                                          .ControlType(ControlType.TextButton)
-                                         .Handler.Name("scope.PrintTerminationNotice");
+                                         .JSHandler("PrintTerminationNotice");
                 }
 
                 public static UIElementMetadataBuilder AdditionalAgreement()
@@ -151,7 +152,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                          .Name.Static("PrintAdditionalAgreementAction")
                                          .Title.Resource(() => ErmConfigLocalization.ControlPrintAdditAgreementAction)
                                          .ControlType(ControlType.TextButton)
-                                         .Handler.Name("scope.PrintAdditionalAgreement");
+                                         .JSHandler("PrintAdditionalAgreement");
                 }
 
                 public static UIElementMetadataBuilder LetterOfGuarantee()
@@ -161,7 +162,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                          .Name.Static("PrintLetterOfGuarantee")
                                          .Title.Resource(() => ErmConfigLocalization.ControlPrintLetterOfGuaranteeAction)
                                          .ControlType(ControlType.TextButton)
-                                         .Handler.Name("scope.PrintLetterOfGuarantee");
+                                         .JSHandler("PrintLetterOfGuarantee");
                 }
 
                 public static UIElementMetadataBuilder BargainAdditionalAgreement()
@@ -171,7 +172,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                          .Name.Static("PrintBargainAdditionalAgreementAction")
                                          .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAdditAgreementAction)
                                          .ControlType(ControlType.TextButton)
-                                         .Handler.Name("scope.PrintOrderBargainAdditionalAgreement");
+                                         .JSHandler("PrintOrderBargainAdditionalAgreement");
                 }
             }
 
@@ -186,7 +187,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                              .Name.Static("PrintLetterOfGuarantee")
                                              .Title.Resource(() => ErmConfigLocalization.ControlPrintSwornStatementAction)
                                              .ControlType(ControlType.TextButton)
-                                             .Handler.Name("scope.PrintLetterOfGuarantee");
+                                             .JSHandler("PrintLetterOfGuarantee");
                     }
 
                     public static UIElementMetadataBuilder TerminationNoticeWithoutReason()
@@ -196,7 +197,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                              .Name.Static("PrintTerminationNoticeWithoutReasonAction")
                                              .Title.Resource(() => ErmConfigLocalization.ControlPrintTermNoticeWithoutReasonAction)
                                              .ControlType(ControlType.TextButton)
-                                             .Handler.Name("scope.PrintTerminationNoticeWithoutReason");
+                                             .JSHandler("PrintTerminationNoticeWithoutReason");
                     }
 
                     public static UIElementMetadataBuilder TerminationBargainNotice()
@@ -206,7 +207,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                              .Name.Static("PrintTerminationBargainNoticeAction")
                                              .Title.Resource(() => ErmConfigLocalization.ControlPrintTermBargainNoticeAction)
                                              .ControlType(ControlType.TextButton)
-                                             .Handler.Name("scope.PrintTerminationBargainNotice");
+                                             .JSHandler("PrintTerminationBargainNotice");
                     }
 
                     public static UIElementMetadataBuilder TerminationBargainNoticeWithoutReason()
@@ -216,7 +217,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                              .Name.Static("PrintTerminationBargainNoticeWithoutReasonAction")
                                              .Title.Resource(() => ErmConfigLocalization.ControlPrintTermBargainNoticeWithoutReasonAction)
                                              .ControlType(ControlType.TextButton)
-                                             .Handler.Name("scope.PrintTerminationBargainNoticeWithoutReason");
+                                             .JSHandler("PrintTerminationBargainNoticeWithoutReason");
                     }
                 }
             }
@@ -233,7 +234,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                              .Name.Static("PrintTerminationNoticeAction")
                                              .Title.Resource(() => ErmConfigLocalization.ControlPrintTerminationBargainNoticeAction)
                                              .ControlType(ControlType.TextButton)
-                                             .Handler.Name("scope.PrintTerminationNotice");
+                                             .JSHandler("PrintTerminationNotice");
                     }
                 }
             }
@@ -249,7 +250,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                              .Name.Static("PrintNewSalesModelBargainAction")
                                              .Title.Resource(() => ErmConfigLocalization.ControlPrintNewSalesModelBargainAction)
                                              .ControlType(ControlType.TextButton)
-                                             .Handler.Name("scope.PrintNewSalesModelOrderBargain")
+                                             .JSHandler("PrintNewSalesModelOrderBargain")
                                              .Operation.SpecificFor<PrintIdentity, Bargain>();
                     }
 
@@ -260,7 +261,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                              .Name.Static("PrepareJointBillsAction")
                                              .Title.Resource(() => ErmConfigLocalization.ControlPrepareJointBillsAction)
                                              .ControlType(ControlType.TextButton)
-                                             .Handler.Name("scope.PrepareJointBill");
+                                             .JSHandler("PrepareJointBill");
                     }
                 }
             }

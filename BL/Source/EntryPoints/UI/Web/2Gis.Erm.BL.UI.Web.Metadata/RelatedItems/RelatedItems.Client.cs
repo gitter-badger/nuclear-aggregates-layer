@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems
                 return UIElementMetadata.Config
                                         .Name.Static(EntityName.ClientLink.ToString().Pluralize())
                                         .Title.Resource(() => ErmConfigLocalization.CrdRelClientLinks)
-                                        .Icon.Path(Icons.Icons.Entity.ClientLink)
+                                        .Icon.Path(Icons.Icons.Entity.Small(EntityName.ClientLink))
                                         .LockOnNew()
                                         .Handler.ShowGridByConvention(EntityName.ClientLink);
             }

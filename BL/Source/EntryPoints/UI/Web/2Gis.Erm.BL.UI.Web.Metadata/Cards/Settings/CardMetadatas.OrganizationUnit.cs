@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata OrganizationUnit =
             CardMetadata.For<OrganizationUnit>()
-                        .Icon.Path(Icons.Icons.Entity.OrganizationUnit)
+                        .WithEntityIcon()
                         .Actions.Attach(ToolbarElements.Create<OrganizationUnit>(),
                                         ToolbarElements.Update<OrganizationUnit>(),
                                         ToolbarElements.Splitter(),
@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                         ToolbarElements.OrganizationUnits.ManageCategories(),
                                         ToolbarElements.Splitter(),
                                         ToolbarElements.Close())
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.OrganizationUnitSmall),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.OrganizationUnit)),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.BranchOfficeOrganizationUnit, () => ErmConfigLocalization.CrdRelOUBO),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.Price, () => ErmConfigLocalization.EnMPrices),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.Project, () => ErmConfigLocalization.EnMProjects));

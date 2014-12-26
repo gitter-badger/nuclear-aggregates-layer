@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Themes;
@@ -19,7 +20,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .ControlType(ControlType.TextButton)
                                         .LockOnInactive()
                                         .LockOnNew()
-                                        .Handler.Name("scope.SetDefaultTheme")
+                                        .JSHandler("SetDefaultTheme")
 
                                         // COMMENT {all, 01.12.2014}: А зачем права на создание? 
                                         .AccessWithPrivelege<Theme>(EntityAccessTypes.Create)
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
                                      .LockOnNew()
-                                     .Handler.Name("scope.UnSetDefaultTheme")
+                                     .JSHandler("UnSetDefaultTheme")
 
                                      // COMMENT {all, 01.12.2014}: А зачем права на создание? 
                                      .AccessWithPrivelege<Theme>(EntityAccessTypes.Create)

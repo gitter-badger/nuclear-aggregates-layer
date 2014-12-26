@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Firm =
             CardMetadata.For<Firm>()
-                        .Icon.Path(Icons.Icons.Entity.Firm)
+                        .Icon.Path(Icons.Icons.Entity.Small(EntityName.Firm))
                         .Actions
                         .Attach(ToolbarElements.Create<Firm>(),
                                 ToolbarElements.Update<Firm>(),
@@ -33,12 +33,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.FirmAddress, () => ErmConfigLocalization.CrdRelFirmAddresses),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.CategoryFirmAddress,
-                                                                               Icons.Icons.Entity.CategorySmall,
+                                                                               Icons.Icons.Entity.Small(EntityName.Category),
                                                                                () => ErmConfigLocalization.CrdRelCategories),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.Advertisement,
-                                                                               Icons.Icons.Entity.Advertisement,
+                                                                               Icons.Icons.Entity.Small(EntityName.Advertisement),
                                                                                () => ErmConfigLocalization.CrdRelFirmAdvertisements),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Order, () => ErmConfigLocalization.CrdRelOrders),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Small(EntityName.Order), () => ErmConfigLocalization.CrdRelOrders),
                                           RelatedItems.RelatedItem.ActivitiesGrid());
     }
 }

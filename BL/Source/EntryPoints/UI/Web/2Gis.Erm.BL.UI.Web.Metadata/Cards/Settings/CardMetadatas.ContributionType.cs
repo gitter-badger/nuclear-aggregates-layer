@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata ContributionType =
             CardMetadata.For<ContributionType>()
-                        .Icon.Path(Icons.Icons.Entity.ContributionType)
+                        .WithEntityIcon()
                         .CommonCardToolbar();
     }
 }

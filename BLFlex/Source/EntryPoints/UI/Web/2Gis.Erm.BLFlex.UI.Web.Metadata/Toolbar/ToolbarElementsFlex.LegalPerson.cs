@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Icons;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
                                      .LockOnNew()
-                                     .Handler.Name("scope.ChangeLegalPersonClient")
+                                     .JSHandler("ChangeLegalPersonClient")
                                      .Operation.SpecificFor<ChangeClientIdentity, LegalPerson>();
             }
 
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
                                      .LockOnNew()
-                                     .Handler.Name("scope.ChangeLegalPersonRequisites")
+                                     .JSHandler("ChangeLegalPersonRequisites")
                                      .Operation.NonCoupled<ChangeRequisitesIdentity>();
             }
 
@@ -55,7 +56,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                          .ControlType(ControlType.ImageButton)
                                          .LockOnInactive()
                                          .LockOnNew()
-                                         .Handler.Name("scope.Merge")
+                                         .JSHandler("Merge")
                                          .AccessWithPrivelege(FunctionalPrivilegeName.MergeLegalPersons)
                                          .Operation
                                          .SpecificFor<MergeIdentity, LegalPerson>();

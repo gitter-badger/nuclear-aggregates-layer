@@ -12,9 +12,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Price =
             CardMetadata.For<Price>()
-                        .Icon.Path(Icons.Icons.Entity.Price)
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.PriceSmall),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.PricePosition, Icons.Icons.Entity.PricePositionSmall, () => ErmConfigLocalization.CrdRelPricePosition))
+                        .WithEntityIcon()
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Price)),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.PricePosition, Icons.Icons.Entity.Small(EntityName.PricePosition), () => ErmConfigLocalization.CrdRelPricePosition))
                         .Actions
                         .Attach(ToolbarElements.Create<Price>(),
                                 ToolbarElements.Update<Price>(),

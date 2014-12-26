@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Platform =
             CardMetadata.For<Platform.Model.Entities.Erm.Platform>()
-                        .Icon.Path(Icons.Icons.Entity.Platform)
+                        .WithEntityIcon()
                         .CommonCardToolbar();
     }
 }

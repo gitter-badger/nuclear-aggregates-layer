@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata PricePosition =
             CardMetadata.For<PricePosition>()
-                        .Icon.Path(Icons.Icons.Entity.PricePosition)
+                        .WithEntityIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<PricePosition>(),
                                 ToolbarElements.Update<PricePosition>(),
@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Additional(ToolbarElements.PricePositions.Copy()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.PricePositionSmall),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.PricePosition)),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.AssociatedPositionsGroup, () => ErmConfigLocalization.CrdRelAssociatedPositionsGroup),
                                           RelatedItems.RelatedItem.PricePosition.DeniedPositionsGrid());
     }

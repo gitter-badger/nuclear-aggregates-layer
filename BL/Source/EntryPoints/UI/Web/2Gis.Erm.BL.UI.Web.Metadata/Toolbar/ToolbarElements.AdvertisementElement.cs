@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .Name.Static("ResetToDraft")
                                         .Title.Resource(() => MetadataResources.ControlResetToDraft)
                                         .ControlType(ControlType.TextButton)
-                                        .Handler.Name("scope.ResetToDraft")
+                                        .JSHandler("ResetToDraft")
                                         .Operation.NonCoupled<ResetAdvertisementElementToDraftIdentity>();
             }
 
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .Title.Resource(() => MetadataResources.ControlSaveAndVerify)
                                         .ControlType(ControlType.TextButton)
                                         .LockOnInactive()
-                                        .Handler.Name("scope.SaveAndVerify")
+                                        .JSHandler("SaveAndVerify")
                                         .Icon.Path(Icons.Icons.Toolbar.Save)
                                         .AccessWithPrivelege<AdvertisementElement>(EntityAccessTypes.Create)
                                         .AccessWithPrivelege<AdvertisementElement>(EntityAccessTypes.Update)

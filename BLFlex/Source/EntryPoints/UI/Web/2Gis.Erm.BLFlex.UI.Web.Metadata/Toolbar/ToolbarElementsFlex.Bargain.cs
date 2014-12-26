@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAction)
                                      .ControlType(ControlType.TextButton)
                                      .LockOnNew()
-                                     .Handler.Name("scope.PrintBargain")
+                                     .JSHandler("PrintBargain")
                                      .Operation.SpecificFor<PrintIdentity, Bargain>();
             }
 
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainProlongationAgreementAction)
                                      .ControlType(ControlType.TextButton)
                                      .LockOnNew()
-                                     .Handler.Name("scope.PrintBargainProlongationAgreement");
+                                     .JSHandler("PrintBargainProlongationAgreement");
             }
 
             public static class Russia
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlPrintNewSalesModelBargainAction)
                                     .ControlType(ControlType.TextButton)
                                     .LockOnNew()
-                                    .Handler.Name("scope.PrintNewSalesModelBargain")
+                                    .JSHandler("PrintNewSalesModelBargain")
                                     .Operation.SpecificFor<PrintIdentity, Bargain>();
                 }
             }

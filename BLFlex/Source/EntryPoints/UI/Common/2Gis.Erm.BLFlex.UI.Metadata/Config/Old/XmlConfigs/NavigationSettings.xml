@@ -1,7 +1,7 @@
 ﻿<NavigationSettings>
   <Items Name="NavAreaBilling" Icon="Billing.gif">
     <Items Name="NavAreaWorkspace">
-      <Items Name="NavAreaHistory" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity?defaultDataView=DListMyActivities" />
+      <Items Name="NavAreaHistory" Icon="en_ico_16_Activity.gif" RequestUrl="/Grid/View/Activity?defaultDataView=DListMyActivities" />
       <Items Name="NavOrderProcessingRequest" Icon="en_ico_16_Default.gif" RequestUrl="/Grid/View/OrderProcessingRequest" />
       <!-- // TODO {all, 04.09.2013}: отключено до запиливание календаря, чтобы не смущало пользователей 
       <Items Name="NavAreaCalendar" Icon="NavCalendar.gif" RequestUrl="/Error/UnderConstruction" />-->
@@ -31,8 +31,8 @@
       <Items Name="NavGroupMessageQueueManagement" RequestUrl="/Administration/MessageQueueManagement" />
     </Items>
     <Items Name="NavGroupSecurity">
-      <Items Name="NavGroupUsers" Icon="en_ico_16_UserAccount.gif" RequestUrl="/Grid/View/User" />
-      <Items Name="NavGroupRoles" Icon="en_ico_16_UserGroup.gif" RequestUrl="/Grid/View/Role" />
+      <Items Name="NavGroupUsers" Icon="en_ico_16_User.gif" RequestUrl="/Grid/View/User" />
+      <Items Name="NavGroupRoles" Icon="en_ico_16_Role.gif" RequestUrl="/Grid/View/Role" />
       <Items Name="NavGroupDepartments" Icon="en_ico_16_Department.gif" RequestUrl="/Grid/View/Department" />
     </Items>
   </Items>

@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Name.Static("PrintBillAction")
                                      .Title.Resource(() => ErmConfigLocalization.ControlPrintBillAction)
                                      .ControlType(ControlType.TextButton)
-                                     .Handler.Name("scope.PrintBill")
+                                     .JSHandler("PrintBill")
                                      .LockOnNew()
                                      .Operation.SpecificFor<PrintIdentity, Bill>();
             }

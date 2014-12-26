@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlSave)
                                     .ControlType(ControlType.ImageButton)
                                     .LockOnInactive()
-                                    .Handler.Name("scope.Save")
+                                    .JSHandler("Save")
                                     .Icon.Path(Icons.Icons.Toolbar.Save)
                                     .HideOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlSave)
                                     .ControlType(ControlType.ImageButton)
                                     .LockOnInactive()
-                                    .Handler.Name("scope.Save")
+                                    .JSHandler("Save")
                                     .Icon.Path(Icons.Icons.Toolbar.Save)
                                     .HideOn<IEntityViewModelAbstract<TEntity>>(x => x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
@@ -59,7 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlSaveAndClose)
                                     .ControlType(ControlType.TextImageButton)
                                     .LockOnInactive()
-                                    .Handler.Name("scope.SaveAndClose")
+                                    .JSHandler("SaveAndClose")
                                     .Icon.Path(Icons.Icons.Toolbar.SaveAndClose)
                                     .HideOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlSaveAndClose)
                                     .ControlType(ControlType.TextImageButton)
                                     .LockOnInactive()
-                                    .Handler.Name("scope.SaveAndClose")
+                                    .JSHandler("SaveAndClose")
                                     .Icon.Path(Icons.Icons.Toolbar.SaveAndClose)
                                     .HideOn<IEntityViewModelAbstract<TEntity>>(x => x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
@@ -91,7 +92,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlQualify)
                                     .ControlType(ControlType.TextButton)
                                     .LockOnNew()
-                                    .Handler.Name("scope.Qualify")
+                                    .JSHandler("Qualify")
                                     .AccessWithPrivelege(FunctionalPrivilegeName.ReserveAccess)
                                     .Operation.SpecificFor<QualifyIdentity, TEntity>();
         }
@@ -105,7 +106,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .ControlType(ControlType.TextButton)
                                     .LockOnInactive()
                                     .LockOnNew()
-                                    .Handler.Name("scope.Disqualify")
+                                    .JSHandler("Disqualify")
                                     .AccessWithPrivelege(FunctionalPrivilegeName.ReserveAccess)
                                     .Operation.SpecificFor<QualifyIdentity, TEntity>();
         }
@@ -119,7 +120,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Icon.Path(Icons.Icons.Toolbar.Activate)
                                     .ControlType(ControlType.TextImageButton)
                                     .LockOnNew()
-                                    .Handler.Name("scope.Activate")
+                                    .JSHandler("Activate")
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                     .Operation.SpecificFor<ActivateIdentity, TEntity>();
         }
@@ -131,7 +132,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Name.Static("Refresh")
                                     .Title.Resource(() => ErmConfigLocalization.ControlRefresh)
                                     .ControlType(ControlType.TextImageButton)
-                                    .Handler.Name("scope.refresh")
+                                    .JSHandler("refresh")
                                     .Icon.Path(Icons.Icons.Toolbar.Refresh)
                                     .Operation.SpecificFor<GetDomainEntityDtoIdentity, TEntity>();
         }
@@ -145,7 +146,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlChangeOwner)
                                     .ControlType(ControlType.ImageButton)
                                     .LockOnInactive()
-                                    .Handler.Name("scope.ChangeOwner")
+                                    .JSHandler("ChangeOwner")
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Assign)
                                     .Operation.SpecificFor<AssignIdentity, TEntity>();
         }
@@ -158,7 +159,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlAssign)
                                     .ControlType(ControlType.TextImageButton)
                                     .LockOnInactive()
-                                    .Handler.Name("scope.Assign")
+                                    .JSHandler("Assign")
                                     .Icon.Path(Icons.Icons.Toolbar.Assign)
                                     .Operation.SpecificFor<AssignIdentity, TEntity>();
 
@@ -177,7 +178,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                  .ControlType(ControlType.TextButton)
                                  .LockOnNew()
                                  .LockOnInactive()
-                                 .Handler.Name("scope.ChangeTerritory")
+                                 .JSHandler("ChangeTerritory")
                                  .Operation.SpecificFor<ChangeTerritoryIdentity, TEntity>();
         }
 
@@ -187,7 +188,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Name.Static("Close")
                                     .Title.Resource(() => ErmConfigLocalization.ControlClose)
                                     .ControlType(ControlType.TextImageButton)
-                                    .Handler.Name("scope.Close")
+                                    .JSHandler("Close")
                                     .Icon.Path(Icons.Icons.Toolbar.Close)
                                     .Operation.NonCoupled<CloseIdentity>();
         }
@@ -220,7 +221,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                  .Name.Static("DownloadResults")
                                  .Title.Resource(() => ErmConfigLocalization.ControlDownloadResults)
                                  .ControlType(ControlType.TextButton)
-                                 .Handler.Name("scope.DownloadResults")
+                                 .JSHandler("DownloadResults")
                                  .LockOnNew();
         }
     }

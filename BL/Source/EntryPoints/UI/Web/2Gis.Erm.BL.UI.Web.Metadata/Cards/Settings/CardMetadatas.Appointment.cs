@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Appointment =
             CardMetadata.For<Appointment>()
-                        .Icon.Path(Icons.Icons.Entity.Appointment)
+                        .WithEntityIcon()
                         .ActivityCardToolbar();
     }
 }

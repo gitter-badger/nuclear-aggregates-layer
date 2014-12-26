@@ -11,9 +11,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Position =
             CardMetadata.For<Position>()
-                        .Icon.Path(Icons.Icons.Entity.Position)
+                        .WithEntityIcon()
                         .CommonCardToolbar()
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.PositionSmall),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Position)),
                                           RelatedItems.RelatedItem.ChildrenGrid(EntityName.PositionChildren, () => ErmConfigLocalization.CrdRelChildrenPositions)
                                                       .DisableOn<IPositionViewModel>(x => !x.IsComposite));
     }

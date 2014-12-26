@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems
             return UIElementMetadata.Config
                                     .Name.Static(EntityName.Activity.ToString().Pluralize())
                                     .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                    .Icon.Path(Icons.Icons.Entity.Activity)
+                                    .Icon.Path(Icons.Icons.Entity.Small(EntityName.Activity))
                                     .LockOnNew()
                                     .Handler.ShowGridByConvention(EntityName.Activity)
                                     .FilterToParents();

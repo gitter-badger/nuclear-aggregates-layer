@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata User =
             CardMetadata.For<User>()
-                        .Icon.Path(Icons.Icons.Entity.User)
+                        .WithEntityIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<User>(),
                                 ToolbarElements.Update<User>(),
@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Refresh<User>(),
                                 ToolbarElements.Additional(ToolbarElements.Users.Profile()),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.UserSmall),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.User)),
                                           RelatedItems.RelatedItem
                                                       .EntityGrid(EntityName.UserRole, () => ErmConfigLocalization.CrdRelUserRole)
                                                       .AppendapleEntity<Role>(),

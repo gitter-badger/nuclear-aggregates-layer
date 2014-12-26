@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.BranchOfficeOrganizationUnit;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .ControlType(ControlType.TextButton)
                                      .LockOnNew()
                                      .LockOnInactive()
-                                     .Handler.Name("scope.SetAsPrimary")
+                                     .JSHandler("SetAsPrimary")
                                      .Operation.NonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryIdentity>();
             }
 
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
                                      .LockOnNew()
-                                     .Handler.Name("scope.SetAsPrimaryForRegSales")
+                                     .JSHandler("SetAsPrimaryForRegSales")
                                      .Operation.NonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity>();
             }
         }

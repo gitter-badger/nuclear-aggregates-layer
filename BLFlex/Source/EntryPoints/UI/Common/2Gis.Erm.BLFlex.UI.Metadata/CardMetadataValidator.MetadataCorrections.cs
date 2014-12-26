@@ -205,6 +205,26 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #endregion
 
+                    #region Contact
+                    {
+                        EntityName.Contact,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Activities",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_16_Action.gif", "en_ico_16_Activity.gif")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
                     #region Deal
                     {
                         EntityName.Deal,
@@ -227,6 +247,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                             {
                                                 "ControlType",
                                                 new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
+                                            },
+                                        }
+                                },
+                                {
+                                    "Activities",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_16_Action.gif", "en_ico_16_Activity.gif")
                                             },
                                         }
                                 },
@@ -285,6 +315,26 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                             {
                                                 "SecurityPrivelege",
                                                 new Tuple<object, object>((int)EntityAccessTypes.None, (int)FunctionalPrivilegeName.MergeClients)
+                                            },
+                                        }
+                                },
+                                {
+                                    "Activities",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_16_Action.gif", "en_ico_16_Activity.gif")
+                                            },
+                                        }
+                                },
+                                {
+                                    "ClientLinks",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_16_Links.gif", "en_ico_16_ClientLink.gif")
                                             },
                                         }
                                 },
@@ -398,6 +448,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                             },
                                         }
                                 },
+                                {
+                                    "Activities",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_16_Action.gif", "en_ico_16_Activity.gif")
+                                            },
+                                        }
+                                },
                             }
                     },
 
@@ -492,6 +552,26 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                         EntityName.User,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
+                                {
+                                    "User",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_lrg_UserAccount.gif", "en_ico_lrg_User.gif")
+                                            },
+                                        }
+                                },
+                                {
+                                    "ContentTab",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_16_UserAccount.gif", "en_ico_16_User.gif")
+                                            },
+                                        }
+                                },
                                 {
                                     "ShowUserProfile",
                                     new Dictionary<string, Tuple<object, object>>
@@ -731,6 +811,36 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #endregion
 
+                    #region Role
+                    {
+                        EntityName.Role,
+                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
+                            {
+                                {
+                                    "Role",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_lrg_UserGroup.gif", "en_ico_lrg_Role.gif")
+                                            },
+                                        }
+                                },
+                                {
+                                    "ContentTab",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_16_UserGroup.gif", "en_ico_16_Role.gif")
+                                            },
+                                        }
+                                },
+                            }
+                    },
+
+                    #endregion
+
                     #region RolePrivilege
                     {
                         EntityName.RolePrivilege,
@@ -741,8 +851,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                     new Dictionary<string, Tuple<object, object>>
                                         {
                                             {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_lrg_UserAccountGroup.gif", "en_ico_lrg_RolePrivilege.gif")
+                                            },
+                                            {
                                                 "EntityMainAttribute",
-                                                new Tuple<object, object>(@"Name", @"Id")
+                                                new Tuple<object, object>("Name", "Id")
                                             },
                                         }
                                 },
@@ -1113,6 +1227,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                     "UserProfile",
                                     new Dictionary<string, Tuple<object, object>>
                                         {
+                                            {
+                                                "Icon",
+                                                new Tuple<object, object>("en_ico_lrg_UserAccount.gif", "en_ico_lrg_User.gif")
+                                            },
                                             {
                                                 "EntityMainAttribute",
                                                 new Tuple<object, object>("TimeZoneInfoId", "Id")

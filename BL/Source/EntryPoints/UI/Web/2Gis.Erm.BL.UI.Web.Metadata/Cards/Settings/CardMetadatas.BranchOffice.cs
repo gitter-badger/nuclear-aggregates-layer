@@ -10,9 +10,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata BranchOffice =
             CardMetadata.For<BranchOffice>()
-                        .Icon.Path(Icons.Icons.Entity.BranchOffice)
+                        .WithEntityIcon()
                         .CommonCardToolbar()
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.BranchOfficeSmall),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.BranchOffice)),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.BranchOfficeOrganizationUnit, () => ErmConfigLocalization.CrdRelBOOU));
     }
 }

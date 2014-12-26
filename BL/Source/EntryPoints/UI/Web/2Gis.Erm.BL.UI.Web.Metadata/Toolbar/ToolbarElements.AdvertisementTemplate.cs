@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .LockOnInactive()
                                         .LockOnNew()
                                         .AccessWithPrivelege(FunctionalPrivilegeName.PublishAdvertisementTemplate)
-                                        .Handler.Name("scope.Publish")
+                                        .JSHandler("Publish")
                                         .Icon.Path(Icons.Icons.Toolbar.Refresh);
             }
 
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .ControlType(ControlType.TextImageButton)
                                         .LockOnNew()
                                         .AccessWithPrivelege(FunctionalPrivilegeName.UnpublishAdvertisementTemplate)
-                                        .Handler.Name("scope.Unpublish")
+                                        .JSHandler("Unpublish")
                                         .Icon.Path(Icons.Icons.Toolbar.Refresh);
             }
         }

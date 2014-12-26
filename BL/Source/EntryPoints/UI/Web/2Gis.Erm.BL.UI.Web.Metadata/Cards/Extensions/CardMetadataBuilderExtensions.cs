@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -14,6 +15,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
     public static class CardMetadataBuilderExtensions
     {
+        public static CardMetadataBuilder<TEntity> WithEntityIcon<TEntity>(this CardMetadataBuilder<TEntity> builder)
+            where TEntity : class, IEntityKey, IEntity
+        {
+            return builder.Icon.Path(Icons.Icons.Entity.Large(typeof(TEntity).AsEntityName()));
+        }
+
         public static CardMetadataBuilder<TEntity> WithDefaultIcon<TEntity>(this CardMetadataBuilder<TEntity> builder)
             where TEntity : class, IEntityKey, IEntity
         {
@@ -53,7 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .Title.Resource(() => ErmConfigLocalization.ControlComplete)
                                             .ControlType(ControlType.TextImageButton)
                                             .LockOnNew()
-                                            .Handler.Name("scope.CompleteActivity")
+                                            .JSHandler("CompleteActivity")
                                             .Icon.Path(Icons.Icons.Toolbar.Check)
                                             .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
                                             .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.Canceled,
@@ -69,7 +76,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .Title.Resource(() => ErmConfigLocalization.ControlCancel)
                                             .ControlType(ControlType.TextImageButton)
                                             .LockOnNew()
-                                            .Handler.Name("scope.CancelActivity")
+                                            .JSHandler("CancelActivity")
                                             .Icon.Path(Icons.Icons.Toolbar.Delete)
                                             .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
                                             .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.Canceled,
@@ -85,7 +92,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .Title.Resource(() => ErmConfigLocalization.ControlRevert)
                                             .ControlType(ControlType.TextImageButton)
                                             .LockOnNew()
-                                            .Handler.Name("scope.RevertActivity")
+                                            .JSHandler("RevertActivity")
                                             .Icon.Path(Icons.Icons.Toolbar.Reschedule)
                                             .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
                                             .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.InProgress)

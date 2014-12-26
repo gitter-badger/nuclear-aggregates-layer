@@ -11,11 +11,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Category =
             CardMetadata.For<Category>()
-                        .Icon.Path(Icons.Icons.Entity.Category)
+                        .WithEntityIcon()
                         .Actions
                         .Attach(ToolbarElements.Close())
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.CategorySmall),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Category, Icons.Icons.Entity.CategorySmall, () => ErmConfigLocalization.CrdRelCategory),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Category)),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Category, Icons.Icons.Entity.Small(EntityName.Category), () => ErmConfigLocalization.CrdRelCategory),
                                           RelatedItems.RelatedItem
                                                       .EntityGrid(EntityName.CategoryOrganizationUnit, () => ErmConfigLocalization.CrdRelCategoryOU)
                                                       .AppendapleEntity<OrganizationUnit>());

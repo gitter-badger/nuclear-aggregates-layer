@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Advertisement;
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.ControlAssignWhiteListedAd)
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
-                                     .Handler.Name("scope.AssignWhiteListedAd")
+                                     .JSHandler("AssignWhiteListedAd")
                                      .Operation.NonCoupled<SelectAdvertisementToWhitelistIdentity>();
             }
 
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.ControlChangeFirmClient)
                                      .ControlType(ControlType.TextButton)
                                      .LockOnInactive()
-                                     .Handler.Name("scope.ChangeFirmClient")
+                                     .JSHandler("ChangeFirmClient")
                                      .Operation.SpecificFor<ChangeClientIdentity, Firm>();
             }
         }

@@ -7,8 +7,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
     public static class UIElementMetadataBuilderExtensions
     {
-        
-
         public static UIElementMetadataBuilder AppendapleEntity<TEntity>(this UIElementMetadataBuilder builder)
             where TEntity : IEntity
         {
@@ -28,6 +26,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
         public static UIElementMetadataBuilder ExtendedInfo(this UIElementMetadataBuilder builder, IResourceDescriptor extendedInfo)
         {
             return builder.WithFeatures(new ExtendedInfoFeature(extendedInfo));
+        }
+
+        public static UIElementMetadataBuilder JSHandler(this UIElementMetadataBuilder builder, string handlerName)
+        {
+            return builder.Handler.Name("scope." + handlerName);
         }
     }
 }

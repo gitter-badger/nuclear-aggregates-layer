@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .Title.Resource(() => ErmConfigLocalization.ControlCloseDeal)
                                         .ControlType(ControlType.TextButton)
                                         .LockOnInactive()
-                                        .Handler.Name("scope.CloseDeal");
+                                        .JSHandler("CloseDeal");
             }
 
             public static UIElementMetadataBuilder Reopen()
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .Name.Static("ReopenDeal")
                                         .Title.Resource(() => ErmConfigLocalization.ControlReopenDeal)
                                         .ControlType(ControlType.TextButton)
-                                        .Handler.Name("scope.ReopenDeal");
+                                        .JSHandler("ReopenDeal");
             }
 
             // TODO {all, 23.12.2014}: У фирмы тоже есть смена клиента. Кнопки визуально отличаются надписями. Вероятно, их можно объединить.
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .Title.Resource(() => ErmConfigLocalization.ControlChangeDealClient)
                                         .ControlType(ControlType.TextButton)
                                         .LockOnInactive()
-                                        .Handler.Name("scope.ChangeDealClient")
+                                        .JSHandler("ChangeDealClient")
                                         .Operation.SpecificFor<ChangeClientIdentity, Deal>();
             }
         }

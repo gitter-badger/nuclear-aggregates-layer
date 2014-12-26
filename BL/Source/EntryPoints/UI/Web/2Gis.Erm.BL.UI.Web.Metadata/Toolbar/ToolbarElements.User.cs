@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.EnUserProfile)
                                      .LockOnNew()
                                      .ControlType(ControlType.TextButton)
-                                     .Handler.Name("scope.ProcessUserProfile");
+                                     .JSHandler("ProcessUserProfile");
             }
         }
     }

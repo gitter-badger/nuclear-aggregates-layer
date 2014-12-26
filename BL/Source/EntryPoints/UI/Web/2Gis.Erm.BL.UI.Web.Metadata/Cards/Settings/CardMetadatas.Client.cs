@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Client =
             CardMetadata.For<Client>()
-                        .Icon.Path(Icons.Icons.Entity.Client)
+                        .Icon.Path(Icons.Icons.Entity.Small(EntityName.Client))
                         .Actions
                         .Attach(ToolbarElements.Create<Client>(),
                                 ToolbarElements.Update<Client>(),
@@ -28,16 +28,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                            ToolbarElements.Clients.Merge()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Client),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Firm, Icons.Icons.Entity.Firm, () => ErmConfigLocalization.CrdRelFirms),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Contact, Icons.Icons.Entity.ContactSmall, () => ErmConfigLocalization.CrdRelContacts),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Deal, Icons.Icons.Entity.DealSmall, () => ErmConfigLocalization.CrdRelDeals),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Client)),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Firm, Icons.Icons.Entity.Small(EntityName.Firm), () => ErmConfigLocalization.CrdRelFirms),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Contact, Icons.Icons.Entity.Small(EntityName.Contact), () => ErmConfigLocalization.CrdRelContacts),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Deal, Icons.Icons.Entity.Small(EntityName.Deal), () => ErmConfigLocalization.CrdRelDeals),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.LegalPerson,
-                                                                               Icons.Icons.Entity.LegalPerson,
+                                                                               Icons.Icons.Entity.Small(EntityName.LegalPerson),
                                                                                () => ErmConfigLocalization.CrdRelLegalPersons),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Order, () => ErmConfigLocalization.CrdRelOrders),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Small(EntityName.Order), () => ErmConfigLocalization.CrdRelOrders),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.Limit, () => ErmConfigLocalization.CrdRelLimits),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Bargain, Icons.Icons.Entity.BargainSmall, () => ErmConfigLocalization.CrdRelBargains),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Bargain, Icons.Icons.Entity.Small(EntityName.Bargain), () => ErmConfigLocalization.CrdRelBargains),
                                           RelatedItems.RelatedItem.ActivitiesGrid(),
                                           RelatedItems.RelatedItem.Client.ClientLinksGrid()
                                                       .AppendapleEntity<Client>());

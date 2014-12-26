@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Letter =
             CardMetadata.For<Letter>()
-                        .Icon.Path(Icons.Icons.Entity.Letter)
+                        .WithEntityIcon()
                         .ActivityCardToolbar();
     }
 }

@@ -10,12 +10,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Account =
             CardMetadata.For<Account>()
-                        .Icon.Path(Icons.Icons.Entity.Account)
+                        .Icon.Path(Icons.Icons.Entity.Small(EntityName.Account))
                         .CommonCardToolbar()
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.AccountDetail, () => ErmConfigLocalization.CrdRelAccountDetails),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.Lock, () => ErmConfigLocalization.CrdRelLocks),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.Limit, () => ErmConfigLocalization.CrdRelLimits),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Order, () => ErmConfigLocalization.CrdRelOrders));
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Order, Icons.Icons.Entity.Small(EntityName.Order), () => ErmConfigLocalization.CrdRelOrders));
     }
 }

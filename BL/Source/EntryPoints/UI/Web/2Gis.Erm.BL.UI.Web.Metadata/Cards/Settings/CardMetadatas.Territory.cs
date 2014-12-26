@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Territory =
             CardMetadata.For<Territory>()
-                        .Icon.Path(Icons.Icons.Entity.Territory)
+                        .WithEntityIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<Territory>(),
                                 ToolbarElements.Update<Territory>(),
@@ -24,6 +24,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Firm, Icons.Icons.Entity.Firm, () => ErmConfigLocalization.CrdRelFirms));
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Firm, Icons.Icons.Entity.Small(EntityName.Firm), () => ErmConfigLocalization.CrdRelFirms));
     }
 }

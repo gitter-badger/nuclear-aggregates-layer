@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Note =
             CardMetadata.For<Note>()
-                        .Icon.Path(Icons.Icons.Entity.Note)
+                        .WithEntityIcon()
                         .CommonCardToolbar();
     }
 }

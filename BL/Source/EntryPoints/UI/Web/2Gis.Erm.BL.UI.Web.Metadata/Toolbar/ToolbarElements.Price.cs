@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .Title.Resource(() => ErmConfigLocalization.ControlPublishPrice)
                                         .Icon.Path(Icons.Icons.Toolbar.Refresh)
                                         .ControlType(ControlType.TextImageButton)
-                                        .Handler.Name("scope.Publish")
+                                        .JSHandler("Publish")
                                         .LockOnInactive()
                                         .LockOnNew()
 
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .Title.Resource(() => ErmConfigLocalization.ControlUnpublishPrice)
                                         .Icon.Path(Icons.Icons.Toolbar.Refresh)
                                         .ControlType(ControlType.TextImageButton)
-                                        .Handler.Name("scope.Unpublish")
+                                        .JSHandler("Unpublish")
                                         .LockOnNew()
 
                                         // COMMENT {all, 01.12.2014}: а зачем права на создание?
@@ -51,7 +52,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .Title.Resource(() => ErmConfigLocalization.ControlCopyPrice)
                                         .Icon.Path(Icons.Icons.Toolbar.Refresh)
                                         .ControlType(ControlType.TextImageButton)
-                                        .Handler.Name("scope.Copy")
+                                        .JSHandler("Copy")
                                         .LockOnNew()
 
                                         // COMMENT {all, 01.12.2014}: а зачем права на создание?
