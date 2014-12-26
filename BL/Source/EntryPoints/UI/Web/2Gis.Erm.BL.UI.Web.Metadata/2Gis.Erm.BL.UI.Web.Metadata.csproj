@@ -128,7 +128,8 @@
     <Compile Include="Cards\Extensions\UIElementMetadataBuilderExtensions.cs" />
     <Compile Include="DI\BlUIMetadataAssembly.cs" />
     <Compile Include="FeatureExtensions.cs" />
-    <Compile Include="Icons\Icons.cs" />
+    <Compile Include="Icons\Icons.Toolbar.cs" />
+    <Compile Include="Icons\Icons.Entity.cs" />
     <Compile Include="Toolbar\ToolbarElements.User.cs" />
     <Compile Include="Toolbar\ToolbarElements.Theme.cs" />
     <Compile Include="Toolbar\ToolbarElements.PricePosition.cs" />

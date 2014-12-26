@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Icons;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .ControlType(ControlType.TextImageButton)
                                      .LockOnNew()
                                      .Handler.Name("scope.Preview")
-                                     .Icon.Path("PreviewAd.png");
+                                     .Icon.Path(Icons.Toolbar.PreviewAdvertisement);
             }
         }
     }

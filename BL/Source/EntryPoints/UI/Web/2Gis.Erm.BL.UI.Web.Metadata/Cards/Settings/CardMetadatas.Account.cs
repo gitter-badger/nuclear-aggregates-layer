@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                           UIElementMetadata.Config
                                                            .Name.Static("Orders")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                           .Icon.Path("en_ico_16_Order.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Order)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Order)
                                                            .FilterToParent());

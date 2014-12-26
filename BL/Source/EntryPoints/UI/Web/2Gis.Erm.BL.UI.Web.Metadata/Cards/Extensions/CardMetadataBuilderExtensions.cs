@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .ControlType(ControlType.TextImageButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.CompleteActivity")
-                                            .Icon.Path("Check.gif")
+                                            .Icon.Path(Icons.Icons.Toolbar.Check)
                                             .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
                                             .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.Canceled,
                                                                            x => x.Status == ActivityStatus.Completed)
@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .ControlType(ControlType.TextImageButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.CancelActivity")
-                                            .Icon.Path("Delete.png")
+                                            .Icon.Path(Icons.Icons.Toolbar.Delete)
                                             .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
                                             .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.Canceled,
                                                                            x => x.Status == ActivityStatus.Completed)
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
                                             .ControlType(ControlType.TextImageButton)
                                             .LockOnNew()
                                             .Handler.Name("scope.RevertActivity")
-                                            .Icon.Path("Reschedule.gif")
+                                            .Icon.Path(Icons.Icons.Toolbar.Reschedule)
                                             .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
                                             .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.InProgress)
                                                          

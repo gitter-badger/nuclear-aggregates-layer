@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .ControlType(ControlType.TextButton)
                                         .LockOnInactive()
                                         .Handler.Name("scope.SaveAndVerify")
-                                        .Icon.Path("Save.gif")
+                                        .Icon.Path(Icons.Icons.Toolbar.Save)
                                         .AccessWithPrivelege<AdvertisementElement>(EntityAccessTypes.Create)
                                         .AccessWithPrivelege<AdvertisementElement>(EntityAccessTypes.Update)
                                         .Operation.SpecificFor<CreateIdentity, AdvertisementElement>()

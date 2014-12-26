@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .ControlType(ControlType.ImageButton)
                                     .LockOnInactive()
                                     .Handler.Name("scope.Save")
-                                    .Icon.Path("Save.gif")
+                                    .Icon.Path(Icons.Icons.Toolbar.Save)
                                     .HideOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
                                     .Operation.SpecificFor<CreateIdentity, TEntity>();
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .ControlType(ControlType.ImageButton)
                                     .LockOnInactive()
                                     .Handler.Name("scope.Save")
-                                    .Icon.Path("Save.gif")
+                                    .Icon.Path(Icons.Icons.Toolbar.Save)
                                     .HideOn<IEntityViewModelAbstract<TEntity>>(x => x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                     .Operation.SpecificFor<UpdateIdentity, TEntity>();
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .ControlType(ControlType.TextImageButton)
                                     .LockOnInactive()
                                     .Handler.Name("scope.SaveAndClose")
-                                    .Icon.Path("SaveAndClose.gif")
+                                    .Icon.Path(Icons.Icons.Toolbar.SaveAndClose)
                                     .HideOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
                                     .Operation.SpecificFor<CreateIdentity, TEntity>()
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .ControlType(ControlType.TextImageButton)
                                     .LockOnInactive()
                                     .Handler.Name("scope.SaveAndClose")
-                                    .Icon.Path("SaveAndClose.gif")
+                                    .Icon.Path(Icons.Icons.Toolbar.SaveAndClose)
                                     .HideOn<IEntityViewModelAbstract<TEntity>>(x => x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                     .Operation.SpecificFor<UpdateIdentity, TEntity>()
@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
             return UIElementMetadata.Config
                                     .Name.Static("Activate")
                                     .Title.Resource(() => ErmConfigLocalization.ControlActivate)
-                                    .Icon.Path("Activate.png")
+                                    .Icon.Path(Icons.Icons.Toolbar.Activate)
                                     .ControlType(ControlType.TextImageButton)
                                     .LockOnNew()
                                     .Handler.Name("scope.Activate")
@@ -132,7 +132,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlRefresh)
                                     .ControlType(ControlType.TextImageButton)
                                     .Handler.Name("scope.refresh")
-                                    .Icon.Path("Refresh.gif")
+                                    .Icon.Path(Icons.Icons.Toolbar.Refresh)
                                     .Operation.SpecificFor<GetDomainEntityDtoIdentity, TEntity>();
         }
 
@@ -159,7 +159,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .ControlType(ControlType.TextImageButton)
                                     .LockOnInactive()
                                     .Handler.Name("scope.Assign")
-                                    .Icon.Path("en_ico_16_Assign.gif")
+                                    .Icon.Path(Icons.Icons.Toolbar.Assign)
                                     .Operation.SpecificFor<AssignIdentity, TEntity>();
 
             // COMMENT {all, 26.11.2014}: а как же безопасность?
@@ -188,7 +188,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlClose)
                                     .ControlType(ControlType.TextImageButton)
                                     .Handler.Name("scope.Close")
-                                    .Icon.Path("Close.gif")
+                                    .Icon.Path(Icons.Icons.Toolbar.Close)
                                     .Operation.NonCoupled<CloseIdentity>();
         }
 

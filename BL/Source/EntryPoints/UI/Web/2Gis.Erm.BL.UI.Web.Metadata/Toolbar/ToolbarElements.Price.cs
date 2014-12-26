@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                 return UIElementMetadata.Config
                                         .Name.Static("PublishPrice")
                                         .Title.Resource(() => ErmConfigLocalization.ControlPublishPrice)
-                                        .Icon.Path("Refresh.gif")
+                                        .Icon.Path(Icons.Icons.Toolbar.Refresh)
                                         .ControlType(ControlType.TextImageButton)
                                         .Handler.Name("scope.Publish")
                                         .LockOnInactive()
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                 return UIElementMetadata.Config
                                         .Name.Static("UnpublishPrice")
                                         .Title.Resource(() => ErmConfigLocalization.ControlUnpublishPrice)
-                                        .Icon.Path("Refresh.gif")
+                                        .Icon.Path(Icons.Icons.Toolbar.Refresh)
                                         .ControlType(ControlType.TextImageButton)
                                         .Handler.Name("scope.Unpublish")
                                         .LockOnNew()
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                 return UIElementMetadata.Config
                                         .Name.Static("CopyPrice")
                                         .Title.Resource(() => ErmConfigLocalization.ControlCopyPrice)
-                                        .Icon.Path("Refresh.gif")
+                                        .Icon.Path(Icons.Icons.Toolbar.Refresh)
                                         .ControlType(ControlType.TextImageButton)
                                         .Handler.Name("scope.Copy")
                                         .LockOnNew()

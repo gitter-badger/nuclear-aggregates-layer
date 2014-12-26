@@ -1,10 +1,11 @@
 ﻿namespace DoubleGis.Erm.BL.UI.Web.Metadata.Icons
 {
-    public static class Icons
+    public static partial class Icons
     {
         public static class Entity
         {
-            public const string Default = "en_ico_lrg_Default.gif";            
+            public const string Default = "en_ico_lrg_Default.gif";
+            public const string DefaultSmall = "en_ico_16_Default.gif";
             public const string Activity = "en_ico_16_Action.gif";
             public const string Account = "en_ico_16_Account.gif";
             public const string Advertisement = "en_ico_16_Advertisement.gif";
@@ -17,6 +18,7 @@
             public const string Category = "en_ico_lrg_Category.gif";
             public const string CategorySmall = "en_ico_16_Category.gif";
             public const string Client = "en_ico_16_Client.gif";
+            public const string ClientLink = "en_ico_16_Links.gif";
             public const string Contact = "en_ico_lrg_Contact.gif";
             public const string ContactSmall = "en_ico_16_Contact.gif";
             public const string ContributionType = "en_ico_lrg_ContributionType.gif";
@@ -28,6 +30,7 @@
             public const string DealSmall = "en_ico_16_Deal.gif";
             public const string Department = "en_ico_lrg_Department.gif";
             public const string Firm = "en_ico_16_Firm.gif";
+            public const string LegalPerson = "en_ico_16_LegalPerson.gif";
             public const string Letter = "en_ico_lrg_Letter.gif";
             public const string LocalMessage = "en_ico_lrg_LocalMessage.gif";
             public const string Note = "en_ico_lrg_Note.gif";

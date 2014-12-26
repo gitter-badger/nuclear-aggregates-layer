@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                 return UIElementMetadata.Config
                                         .Name.Static("Merge")
                                         .Title.Resource(() => ErmConfigLocalization.ControlMerge)
-                                        .Icon.Path("Merge.gif")
+                                        .Icon.Path(Icons.Icons.Toolbar.Merge)
                                         .ControlType(ControlType.ImageButton)
                                         .LockOnNew()
                                         .LockOnInactive()

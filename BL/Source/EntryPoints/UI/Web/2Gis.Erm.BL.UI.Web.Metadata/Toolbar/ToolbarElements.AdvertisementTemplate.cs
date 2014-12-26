@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .LockOnNew()
                                         .AccessWithPrivelege(FunctionalPrivilegeName.PublishAdvertisementTemplate)
                                         .Handler.Name("scope.Publish")
-                                        .Icon.Path("Refresh.gif");
+                                        .Icon.Path(Icons.Icons.Toolbar.Refresh);
             }
 
             public static UIElementMetadataBuilder Unpublish()
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .LockOnNew()
                                         .AccessWithPrivelege(FunctionalPrivilegeName.UnpublishAdvertisementTemplate)
                                         .Handler.Name("scope.Unpublish")
-                                        .Icon.Path("Refresh.gif");
+                                        .Icon.Path(Icons.Icons.Toolbar.Refresh);
             }
         }
     }

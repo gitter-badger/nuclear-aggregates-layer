@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Icons;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                     return
                         UIElementMetadata.Config
                                          .Name.Static("Merge")
-                                         .Icon.Path("Merge.gif")
+                                         .Icon.Path(Icons.Toolbar.Merge)
                                          .Title.Resource(() => ErmConfigLocalization.ControlMerge)
                                          .ControlType(ControlType.ImageButton)
                                          .LockOnInactive()

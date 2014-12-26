@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .LockOnInactive()
                                      .LockOnNew()
                                      .Handler.Name("scope.ManageCategories")
-                                     .Icon.Path("en_ico_16_Category.gif");
+                                     .Icon.Path(Icons.Icons.Entity.CategorySmall);
             }
         }
     }

@@ -33,35 +33,35 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                           UIElementMetadata.Config
                                                            .Name.Static("Firm")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelFirms)
-                                                           .Icon.Path("en_ico_16_Firm.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Firm)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Firm)
                                                            .FilterToParent(),
                                           UIElementMetadata.Config
                                                            .Name.Static("Contact")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelContacts)
-                                                           .Icon.Path("en_ico_16_Contact.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.ContactSmall)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Contact)
                                                            .FilterToParent(),
                                           UIElementMetadata.Config
                                                            .Name.Static("Deal")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelDeals)
-                                                           .Icon.Path("en_ico_16_Deal.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.DealSmall)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Deal)
                                                            .FilterToParent(),
                                           UIElementMetadata.Config
                                                            .Name.Static("LegalPerson")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelLegalPersons)
-                                                           .Icon.Path("en_ico_16_LegalPerson.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.LegalPerson)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.LegalPerson)
                                                            .FilterToParent(),
                                           UIElementMetadata.Config
                                                            .Name.Static("Orders")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelOrders)
-                                                           .Icon.Path("en_ico_16_Order.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Order)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Order)
                                                            .FilterToParent(),
@@ -74,21 +74,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                           UIElementMetadata.Config
                                                            .Name.Static("Bargains")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelBargains)
-                                                           .Icon.Path("en_ico_16_Bargain.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.BargainSmall)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.Bargain)
                                                            .FilterToParent(),
                                           UIElementMetadata.Config
                                                            .Name.Static("Actions")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                                           .Icon.Path("en_ico_16_Action.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.Activity)
                                                            .Handler.ShowGridByConvention(EntityName.Activity)
                                                            .FilterToParents()
                                                            .LockOnNew(),
                                           UIElementMetadata.Config
                                                            .Name.Static("Links")
                                                            .Title.Resource(() => ErmConfigLocalization.CrdRelClientLinks)
-                                                           .Icon.Path("en_ico_16_Links.gif")
+                                                           .Icon.Path(Icons.Icons.Entity.ClientLink)
                                                            .LockOnNew()
                                                            .Handler.ShowGridByConvention(EntityName.ClientLink)
                                                            .AppendapleEntity<Client>());

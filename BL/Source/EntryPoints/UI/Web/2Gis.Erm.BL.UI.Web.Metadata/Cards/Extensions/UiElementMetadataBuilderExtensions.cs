@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 
         public static UIElementMetadataBuilder ContentTab(this UIElementMetadataBuilder builder)
         {
-            return builder.ContentTab("en_ico_16_Default.gif");
+            return builder.ContentTab(Icons.Icons.Entity.DefaultSmall);
         }
 
         public static UIElementMetadataBuilder AppendapleEntity<TEntity>(this UIElementMetadataBuilder builder)
