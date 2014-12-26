@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -62,15 +61,15 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
         public void Start()
         {
             ThrowIfDisposed();
-            _logger.InfoEx("Starting service instance checkin service...");
+            _logger.InfoEx("Starting service instance checkin service");
             _workerTask.Start();
-            _logger.InfoEx("Service instance checkin service successfully started");
+            _logger.InfoFormatEx("Service instance checkin service successfully started");
         }
 
         public void Stop()
         {
             ThrowIfDisposed();
-            _logger.InfoEx("Stopping service instance checkin service...");
+            _logger.InfoFormatEx("Stopping service instance checkin service. Id = {0}", _instanceId);
             _cancellationTokenSource.Cancel();
             _asyncWorkerSignal.Set();
 
@@ -93,7 +92,7 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
                 _asyncWorkerSignal.Close();
             }
 
-            _logger.InfoEx("Service instance checkin service successfully stopped");
+            _logger.InfoFormatEx("Service instance checkin service successfully stopped. Id = {0}", _instanceId);
         }
 
         public Guid GetInstanceId(TimeSpan timeout)
@@ -203,7 +202,7 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
 
                 if (!currentInstanceFound)
                 {
-                    throw new InvalidOperationException("Current instance has been considered as not running");
+                    throw new InvalidOperationException(string.Format("Current instance has been considered as not running. Id = {0}", _instanceId));
                 }
 
                 if (failedInstances.Any())
@@ -240,9 +239,9 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
 
             using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
             {
-                _logger.InfoFormatEx("Starting first checkin - {0}", _instanceId);
+                _logger.InfoFormatEx("Starting first checkin. Id = {0}", id);
                 _serviceInstancePersistenceService.Add(serviceInstance);
-                _logger.InfoFormatEx("Successfully checked in");
+                _logger.InfoFormatEx("Successfully checked in. Id = {0}", id);
                 transaction.Complete();
             }
 
@@ -260,7 +259,7 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             {
                 task.Exception.Flatten().Handle(ex =>
                                                     {
-                                                        _logger.FatalEx(ex, "Service instance checkin service is faulted");
+                                                        _logger.FatalFormatEx(ex, "Service instance checkin service is faulted. Id = {0}", _instanceId);
                                                         Faulted(this, new UnhandledExceptionEventArgs(ex, false));
                                                         return true;
                                                     });
