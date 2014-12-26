@@ -10,16 +10,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups
     {
         public void Customize(AssociatedPositionsGroupViewModel viewModel, ModelStateDictionary modelState)
         {
-
-            if (!viewModel.PriceIsPublished)
+            if (viewModel.PriceIsPublished)
             {
-                return;
+                viewModel.SetInfo(viewModel.IsNew
+                                      ? BLResources.CantAddNewGroupWhenPriceIsPublished
+                                      : BLResources.CantEditGroupWhenPriceIsPublished);
             }
-
-            viewModel.ViewConfig.ReadOnly = true;
-            viewModel.SetInfo(viewModel.IsNew
-                                  ? BLResources.CantAddNewGroupWhenPriceIsPublished
-                                  : BLResources.CantEditGroupWhenPriceIsPublished);
         }
     }
 }

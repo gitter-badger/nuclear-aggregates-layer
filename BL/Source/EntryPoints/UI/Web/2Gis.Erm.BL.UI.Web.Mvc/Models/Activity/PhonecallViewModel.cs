@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
@@ -19,7 +18,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 {
-    public sealed class PhonecallViewModel : EntityViewModelBase<Phonecall>, IPhonecallViewModel, ICustomizableActivityViewModel
+    public sealed class PhonecallViewModel : EntityViewModelBase<Phonecall>, IPhonecallViewModel
     {
         public override byte[] Timestamp { get; set; }
 

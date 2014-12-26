@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         }
 
         public static CardMetadataBuilder<TEntity> For<TEntity>()
-            where TEntity : IEntity
+            where TEntity : IEntity, IEntityKey
         {
             return new CardMetadataBuilder<TEntity>();
         }

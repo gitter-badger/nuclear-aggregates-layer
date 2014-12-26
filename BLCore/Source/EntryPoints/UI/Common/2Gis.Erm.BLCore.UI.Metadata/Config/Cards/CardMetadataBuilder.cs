@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
@@ -12,11 +14,12 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
     public sealed class CardMetadataBuilder<TEntity> : ViewModelMetadataBuilder<CardMetadataBuilder<TEntity>, CardMetadata>
-        where TEntity : IEntity
+        where TEntity : IEntity, IEntityKey
     {
         private readonly TitleFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _title;
         private readonly ImageFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _icon;
@@ -70,6 +73,13 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         public CardMetadataBuilder<TEntity> ReadOnly()
         {
             AddFeatures(new ReadOnlyFeature());
+            return this;
+        }
+
+        public CardMetadataBuilder<TEntity> ReadOnlyOn<T>(params Expression<Func<T, bool>>[] expressions)
+            where T : IEntityViewModelAbstract<TEntity>
+        {
+            AddFeatures(expressions.Select(expression => new DisableExpressionFeature<T>(expression)).ToArray());
             return this;
         }
 

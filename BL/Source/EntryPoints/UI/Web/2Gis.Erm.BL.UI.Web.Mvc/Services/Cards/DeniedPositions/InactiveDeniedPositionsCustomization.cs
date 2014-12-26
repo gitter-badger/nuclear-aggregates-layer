@@ -10,13 +10,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.DeniedPositions
     {
         public void Customize(DeniedPositionViewModel viewModel, ModelStateDictionary modelState)
         {
-            if (!viewModel.IsDeleted)
+            if (viewModel.IsDeleted)
             {
-                return;
+                viewModel.SetInfo(BLResources.CantEditDeactivatedDeniedPosition);
             }
-
-            viewModel.SetInfo(BLResources.CantEditDeactivatedDeniedPosition);
-            viewModel.ViewConfig.ReadOnly = true;
         }
     }
 }

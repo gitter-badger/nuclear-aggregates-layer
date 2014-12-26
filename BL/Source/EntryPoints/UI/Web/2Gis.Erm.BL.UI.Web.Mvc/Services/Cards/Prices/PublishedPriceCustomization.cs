@@ -10,13 +10,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Prices
     {
         public void Customize(PriceViewModel viewModel, ModelStateDictionary modelState)
         {
-            if (!viewModel.IsPublished)
+            if (viewModel.IsPublished)
             {
-                return;
+                viewModel.SetInfo(BLResources.CantEditPriceWhenPublished);
             }
-
-            viewModel.SetInfo(BLResources.CantEditPriceWhenPublished);
-            viewModel.ViewConfig.ReadOnly = true;
         }
     }
 }

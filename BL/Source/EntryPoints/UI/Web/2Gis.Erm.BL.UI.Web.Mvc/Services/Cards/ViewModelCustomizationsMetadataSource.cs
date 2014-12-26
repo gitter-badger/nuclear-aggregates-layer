@@ -5,7 +5,6 @@ using System.Linq;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementElements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates;
@@ -20,7 +19,6 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LockDetails;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Locks;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderFiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Positions;
@@ -30,7 +28,6 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Territories;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Themes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -61,21 +58,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
                         ViewModelCustomizationsMetadata.For<Advertisement, AdvertisementViewModel>()
                                                        .Use<AdvertisementAccessCustomization>()
-                                                       .Use<DummyAdvertisementCustomization>()
                                                        .Use<SelectedToWhiteListAdvertisementCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<AdvertisementElement, AdvertisementElementViewModel>()
-                                                       .Use<AdvertisementElementFasCommentCustomization>()
-                                                       .Use<CheckIfAdvertisementElementReadOnly>(),
+                                                       .Use<AdvertisementElementFasCommentCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<AdvertisementTemplate, AdvertisementTemplateViewModel>()
                                                        .Use<PublishedAdvertisementTemplateCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<Appointment, ICustomizableActivityViewModel>()
-                                                       .Use<SetActivityReadonlyCustomization>(),
-
                         ViewModelCustomizationsMetadata.For<AssociatedPosition, AssociatedPositionViewModel>()
-                                                       .Use<AssociatedPositionsPriceIsDeletedCustomization>()
                                                        .Use<AssociatedPositionsPriceIsPublishedCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<AssociatedPositionsGroup, AssociatedPositionsGroupViewModel>()
@@ -104,13 +95,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetadata.For<LegalPersonProfile, ICustomizableLegalPersonProfileViewModel>()
                                                        .Use<MainLegalPersonProfileCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<Letter, ICustomizableActivityViewModel>()
-                                                       .Use<SetActivityReadonlyCustomization>(),
-
                         ViewModelCustomizationsMetadata.For<Limit, LimitViewModel>()
                                                        .Use<CheckIfLimitRecalculationAvailableCustomization>()
                                                        .Use<CheckLimitPrivilegeCustomization>()
-                                                       .Use<LockLimitByWorkflowCustomization>()
                                                        .Use<SetLimitInspectorNameCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<Lock, LockViewModel>()
@@ -127,12 +114,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .Use<PrivilegesCustomization>()
                                                        .Use<WorkflowStepsCustomization>()
                                                        .Use<LockOrderByReleaseCustomization>()
-                                                       .Use<LockByWorkflowCustomization>()
                                                        .Use<SignupDateCustomization>()
                                                        .UseOrdered<InactiveOrderCustomization>(),
-
-                        ViewModelCustomizationsMetadata.For<OrderFile, OrderFileViewModel>()
-                                                       .Use<OrderFileAccessCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<OrderPosition, ICustomizableOrderPositionViewModel>()
                                                        .Use<MoneySignificantDigitsNumberCustomization>()
@@ -140,9 +123,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .Use<InitOrderPositionDiscountCustomization>()
                                                        .UseOrdered<OrderPositionRateCustomization>()
                                                        .UseOrdered<LockOrderPositionByReleaseCustomization>(),
-
-                        ViewModelCustomizationsMetadata.For<Phonecall, ICustomizableActivityViewModel>()
-                                                       .Use<SetActivityReadonlyCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<Position, PositionViewModel>()
                                                        .Use<CheckIfPositionTemplateIsReadOnlyCustomization>(),
@@ -153,9 +133,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
                         ViewModelCustomizationsMetadata.For<PricePosition, IEntityViewModelBase>()
                                                        .Use<InactivePricePositionCustomization>(),
-
-                        ViewModelCustomizationsMetadata.For<Task, ICustomizableActivityViewModel>()
-                                                       .Use<SetActivityReadonlyCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<Territory, TerritoryViewModel>()
                                                        .Use<ActiveTerritoryCustomization>(),

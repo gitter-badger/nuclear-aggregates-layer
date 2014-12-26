@@ -171,7 +171,6 @@
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
     <Compile Include="Models\AdvertisementElementModels\FasCommentViewModelHelper.cs" />
-    <Compile Include="Models\Contracts\ICustomizableActivityViewModel.cs" />
     <Compile Include="Models\Contracts\ICustomizableContactViewModel.cs" />
     <Compile Include="Models\Contracts\ICustomizableFirmViewModel.cs" />
     <Compile Include="Models\Contracts\ICustomizableLegalPersonProfileViewModel.cs" />
@@ -235,10 +234,7 @@
     <Compile Include="Models\UnpublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
     <Compile Include="Services\Cards\Accounts\AccountIsInactiveCustomization.cs" />
-    <Compile Include="Services\Cards\Activities\SetActivityReadonlyCustomization.cs" />
-    <Compile Include="Services\Cards\AdvertisementElements\CheckIfAdvertisementElementReadOnly.cs" />
     <Compile Include="Services\Cards\AdvertisementElements\AdvertisementElementFasCommentCustomization.cs" />
-    <Compile Include="Services\Cards\Advertisements\DummyAdvertisementCustomization.cs" />
     <Compile Include="Services\Cards\Advertisements\AdvertisementAccessCustomization.cs" />
     <Compile Include="Services\Cards\Advertisements\SelectedToWhiteListAdvertisementCustomization.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplates\PublishedAdvertisementTemplateCustomization.cs" />
@@ -246,7 +242,6 @@
     <Compile Include="Services\Cards\AssociatedPositionGroups\AssociatedPositionGroupsPriceIsDeletedCustomization.cs" />
     <Compile Include="Services\Cards\AssociatedPositionGroups\AssociatedPositionGroupsPriceIsPublishedCustomization.cs" />
     <Compile Include="Services\Cards\AssociatedPositions\AssociatedPositionsPriceIsPublishedCustomization.cs" />
-    <Compile Include="Services\Cards\AssociatedPositions\AssociatedPositionsPriceIsDeletedCustomization.cs" />
     <Compile Include="Services\Cards\Contacts\BusinessModelAreaCustomization.cs" />
     <Compile Include="Services\Cards\Contacts\ContactSalutationsCustomization.cs" />
     <Compile Include="Services\Cards\DeniedPositions\InactiveDeniedPositionsCustomization.cs" />
@@ -258,12 +253,10 @@
     <Compile Include="Services\Cards\Limits\CheckLimitPrivilegeCustomization.cs" />
     <Compile Include="Services\Cards\Limits\CheckIfLimitRecalculationAvailableCustomization.cs" />
     <Compile Include="Services\Cards\Limits\SetLimitInspectorNameCustomization.cs" />
-    <Compile Include="Services\Cards\Limits\LockLimitByWorkflowCustomization.cs" />
     <Compile Include="Services\Cards\LockDetails\NewLockDetailCustomization.cs" />
     <Compile Include="Services\Cards\LockDetails\LocalizeLockDetailsPriceCustomization.cs" />
     <Compile Include="Services\Cards\Locks\NewLockCustomization.cs" />
     <Compile Include="Services\Cards\Locks\LocalizeLockStatusCustomization.cs" />
-    <Compile Include="Services\Cards\OrderFiles\OrderFileAccessCustomization.cs" />
     <Compile Include="Services\Cards\Prices\InactivePriceCustomization.cs" />
     <Compile Include="Services\Cards\Prices\PublishedPriceCustomization.cs" />
     <Compile Include="Services\Cards\Shared\EntityIsInactiveCustomization.cs" />
@@ -277,7 +270,6 @@
     <Compile Include="Services\Cards\OrderPositions\HideChangeBindingObjectsButtonCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\OrderPositionRateCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\LockOrderPositionByReleaseCustomization.cs" />
-    <Compile Include="Services\Cards\Orders\LockByWorkflowCustomization.cs" />
     <Compile Include="Services\Cards\Orders\SignupDateCustomization.cs" />
     <Compile Include="Services\Cards\Orders\InactiveOrderCustomization.cs" />
     <Compile Include="Services\Cards\Orders\InspectorNameCustomization.cs" />
@@ -823,9 +815,7 @@
       <Name>2Gis.Erm.BL.UI.Web.Metadata</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Cards\Categories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config">

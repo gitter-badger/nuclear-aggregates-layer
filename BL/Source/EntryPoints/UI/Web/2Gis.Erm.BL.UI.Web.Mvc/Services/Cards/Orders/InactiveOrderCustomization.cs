@@ -19,7 +19,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             {
                 viewModel.LockToolbar();
                 viewModel.SetWarning(BLResources.WarningOrderIsRejected);
-                viewModel.ViewConfig.ReadOnly = true;
             }
         }
     }

@@ -10,15 +10,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.DeniedPositions
     {
         public void Customize(DeniedPositionViewModel viewModel, ModelStateDictionary modelState)
         {
-            if (!viewModel.IsPricePublished)
+            if (viewModel.IsPricePublished)
             {
-                return;
+                viewModel.SetInfo(viewModel.IsNew
+                                      ? BLResources.CantAddDeniedPositionWhenPriceIsPublished
+                                      : BLResources.CantEditDeniedPositionWhenPriceIsPublished);
             }
-
-            viewModel.ViewConfig.ReadOnly = true;
-            viewModel.SetInfo(viewModel.IsNew
-                                  ? BLResources.CantAddDeniedPositionWhenPriceIsPublished
-                                  : BLResources.CantEditDeniedPositionWhenPriceIsPublished);
         }
     }
 }

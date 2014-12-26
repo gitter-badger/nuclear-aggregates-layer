@@ -31,18 +31,23 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
         public IEnumerable<Type> GetCustomizations(EntityName entityName)
         {
             ViewModelCustomizationsMetadata customizationsMetadata;
+            IEnumerable<Type> result;
 
             if (!_metadataProvider.TryGetMetadata(IdBuilder.For<ViewModelCustomizationsIdentity>(entityName.ToString()), out customizationsMetadata))
             {
-                return Enumerable.Empty<Type>();
+                result = Enumerable.Empty<Type>();
+            }
+            else
+            {
+                result = customizationsMetadata.Features
+                                               .Cast<IViewModelCustomizationFeature>()
+                                               .OrderBy(x => x.Order)
+                                               .Select(x => x.CustomizationType)
+                                               .ToArray();
             }
 
-            return customizationsMetadata.Features
-                                         .Cast<IViewModelCustomizationFeature>()
-                                         .OrderBy(x => x.Order)
-                                         .Select(x => x.CustomizationType)
-                                         .Union(_sharedCustomizations)
-                                         .ToArray();
+            return result.Union(_sharedCustomizations)
+                         .ToArray();
         }
     }
 }

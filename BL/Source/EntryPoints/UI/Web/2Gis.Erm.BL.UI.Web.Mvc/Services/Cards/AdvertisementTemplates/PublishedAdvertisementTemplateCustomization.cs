@@ -11,17 +11,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates
     {
         public void Customize(AdvertisementTemplateViewModel viewModel, ModelStateDictionary modelState)
         {
-            if (!viewModel.IsPublished)
-            {
-                return;
-            }
-
-            if (viewModel.MessageType != MessageType.None)
+            if (viewModel.IsPublished && viewModel.MessageType != MessageType.None)
             {
                 viewModel.SetInfo(BLResources.CanNotChangePublishedAdvertisementTemplate);
             }
-
-            viewModel.ViewConfig.ReadOnly = true;
         }
     }
 }

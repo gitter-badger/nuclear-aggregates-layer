@@ -10,13 +10,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups
     {
         public void Customize(AssociatedPositionsGroupViewModel viewModel, ModelStateDictionary modelState)
         {            
-            if (!viewModel.IsDeleted)
+            if (viewModel.IsDeleted)
             {
-                return;
+                viewModel.SetInfo(BLResources.CantEditDeactivatedAssociatedPositionsGroup);
             }
-
-            viewModel.ViewConfig.ReadOnly = true;
-            viewModel.SetInfo(BLResources.CantEditDeactivatedAssociatedPositionsGroup);
         }
     }
 }

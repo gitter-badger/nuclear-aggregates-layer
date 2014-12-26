@@ -10,13 +10,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Prices
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            if (!viewModel.IsDeleted)
+            if (viewModel.IsDeleted)
             {
-                return;
+                viewModel.SetInfo(BLResources.CantEditPriceWhenDeactivated);
             }
-
-            viewModel.SetInfo(BLResources.CantEditPriceWhenDeactivated);
-            viewModel.ViewConfig.ReadOnly = true;
         }
     }
 }

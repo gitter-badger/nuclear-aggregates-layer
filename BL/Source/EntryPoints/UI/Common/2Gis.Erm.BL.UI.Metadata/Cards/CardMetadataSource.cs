@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -55,11 +56,15 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Advertisement>()
                                     .MainAttribute<Advertisement, IAdvertisementViewModel>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisement)
+                                    .ReadOnlyOn<IAdvertisementViewModel>(x => x.IsDummy)
                                     .WithAdminTab(),
 
                         CardMetadata.For<AdvertisementElement>()
                                     .MainAttribute(x => x.Id)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementElement)
+                                    .ReadOnlyOn<IAdvertisementElementViewModel>(x => x.DisableEdit,
+                                                                                x => x.CanUserChangeStatus,
+                                                                                x => (x.NeedsValidation && x.Status != AdvertisementElementStatusValue.Draft))
                                     .WithAdminTab()
                                     .WithComments(),
 
@@ -71,22 +76,29 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<AdvertisementTemplate>()
                                     .MainAttribute<AdvertisementTemplate, IAdvertisementTemplateViewModel>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementTemplate)
+                                    .ReadOnlyOn<IAdvertisementTemplateViewModel>(x => x.IsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Appointment>()
                                     .MainAttribute<Appointment, IAppointmentViewModel>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAppointment)
+                                    .ReadOnlyOn<IAppointmentViewModel>(x => x.Status == ActivityStatus.Canceled,
+                                                                       x => x.Status == ActivityStatus.Completed)
                                     .WithAdminTab()
                                     .WithComments(),
 
                         CardMetadata.For<AssociatedPosition>()
                                     .MainAttribute(x => x.Id)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPosition)
+                                    .ReadOnlyOn<IAssociatedPositionViewModel>(x => x.PriceIsDeleted,
+                                                                              x => x.PriceIsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<AssociatedPositionsGroup>()
                                     .MainAttribute<AssociatedPositionsGroup, IAssociatedPositionsGroupViewModel>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPositionsGroup)
+                                    .ReadOnlyOn<IAssociatedPositionsGroupViewModel>(x => x.PriceIsDeleted,
+                                                                                    x => x.PriceIsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Bargain>()
@@ -176,6 +188,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<DeniedPosition>()
                                     .MainAttribute(x => x.Id)
                                     .EntityLocalization(() => ErmConfigLocalization.EnDeniedPosition)
+                                    .ReadOnlyOn<IDeniedPositionViewModel>(x => x.IsPricePublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Department>()
@@ -213,12 +226,15 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Letter>()
                                     .MainAttribute<Letter, ILetterViewModel>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnLetter)
+                                    .ReadOnlyOn<ILetterViewModel>(x => x.Status == ActivityStatus.Canceled,
+                                                                  x => x.Status == ActivityStatus.Completed)
                                     .WithAdminTab()
                                     .WithComments(),
 
                         CardMetadata.For<Limit>()
                                     .MainAttribute(x => x.Id)
                                     .EntityLocalization(() => ErmConfigLocalization.EnLimit)
+                                    .ReadOnlyOn<ILimitViewModel>(x => x.Status != LimitStatus.Opened)
                                     .WithComments(),
 
                         CardMetadata.For<LocalMessage>()
@@ -255,11 +271,13 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Order>()
                                     .MainAttribute<Order, IOrderViewModel>(x => x.OrderNumber)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrders)
+                                    .ReadOnlyOn<IOrderViewModel>(x => x.WorkflowStepId != (int)OrderState.OnRegistration)
                                     .WithComments(),
 
                         CardMetadata.For<OrderFile>()
                                     .MainAttribute<OrderFile, IOrderFileViewModel>(x => x.FileName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrderFile)
+                                    .ReadOnlyOn<IOrderFileViewModel>(x => x.UserDoesntHaveRightsToEditOrder)
                                     .WithAdminTab(),
 
                         CardMetadata.For<OrderPosition>()
@@ -275,6 +293,8 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Phonecall>()
                                     .MainAttribute<Phonecall, IPhonecallViewModel>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPhonecall)
+                                    .ReadOnlyOn<IPhonecallViewModel>(x => x.Status == ActivityStatus.Canceled,
+                                                                     x => x.Status == ActivityStatus.Completed)
                                     .WithComments()
                                     .WithAdminTab(),
 
@@ -301,6 +321,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Price>()
                                     .MainAttribute<Price, IPriceViewModel>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPrices)
+                                    .ReadOnlyOn<IPriceViewModel>(x => x.IsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<PricePosition>()
@@ -337,6 +358,8 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Task>()
                                     .MainAttribute<Task, ITaskViewModel>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnTask)
+                                    .ReadOnlyOn<ITaskViewModel>(x => x.Status == ActivityStatus.Canceled,
+                                                                x => x.Status == ActivityStatus.Completed)
                                     .WithComments()
                                     .WithAdminTab(),
 

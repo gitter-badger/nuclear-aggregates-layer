@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
@@ -8,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 {
@@ -17,7 +19,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 
         public SetReadonlyCustomization(IMetadataProvider metadataProvider)
         {
-            
             _metadataProvider = metadataProvider;
         }
 
@@ -28,6 +29,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             if (!_metadataProvider.TryGetMetadata(metadataId.Id, out metadata))
             {
                 throw new MetadataNotFoundException(metadataId);
+            }
+
+            foreach (var feature in metadata.Features<IDisableExpressionFeature>())
+            {
+                bool expressionResult;
+
+                if (!feature.TryExecute(viewModel, out expressionResult))
+                {
+                    // TODO {y.baranihin, 26.12.2014}: написать вменяемое сообщение
+                    throw new InvalidOperationException();
+                }
+
+                viewModel.ViewConfig.ReadOnly |= expressionResult;
             }
 
             viewModel.ViewConfig.ReadOnly |= metadata.Uses<ReadOnlyFeature>();

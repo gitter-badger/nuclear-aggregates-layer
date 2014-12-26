@@ -29,10 +29,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 
             if (!checkResponse.IsChangeAllowed)
             {
-                viewModel.ViewConfig.CardSettings.CardToolbar = viewModel.ViewConfig.CardSettings.CardToolbar
-                                                                         .Where(x =>
-                                                                                !string.Equals(x.Name, "ChangeBindingObjects", StringComparison.Ordinal))
-                                                                         .ToArray();
+                viewModel.ViewConfig.CardSettings.CardToolbar
+                    = viewModel.ViewConfig.CardSettings.CardToolbar
+                               .Where(x => !string.Equals(x.Name, "ChangeBindingObjects", StringComparison.Ordinal))
+                               .ToArray();
             }
         }
     }
