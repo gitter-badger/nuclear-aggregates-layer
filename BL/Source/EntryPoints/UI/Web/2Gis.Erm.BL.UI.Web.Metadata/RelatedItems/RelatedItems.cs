@@ -27,44 +27,33 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems
 
         public static UIElementMetadataBuilder ActivitiesGrid()
         {
-            return UIElementMetadata.Config
-                                    .Name.Static(EntityName.Activity.ToString().Pluralize())
-                                    .Title.Resource(() => ErmConfigLocalization.CrdRelErmActions)
-                                    .Icon.Path(Icons.Icons.Entity.Small(EntityName.Activity))
-                                    .LockOnNew()
-                                    .Handler.ShowGridByConvention(EntityName.Activity)
-                                    .FilterToParents();
+            return EntityGrid(EntityName.Activity.ToString().Pluralize(), EntityName.Activity, () => ErmConfigLocalization.CrdRelErmActions)
+                .Icon.Path(Icons.Icons.Entity.Small(EntityName.Activity))
+                .FilterToParents();
         }
 
         public static UIElementMetadataBuilder ChildrenGrid<TKey>(EntityName entity, Expression<Func<TKey>> resourceKeyExpression)
         {
-            return UIElementMetadata.Config
-                                    .Name.Static("Children")
-                                    .Title.Resource(resourceKeyExpression)
-                                    .LockOnNew()
-                                    .Handler.ShowGridByConvention(entity)
-                                    .FilterToParent();
+            return EntityGrid("Children", entity, resourceKeyExpression).FilterToParent();
         }
 
         public static UIElementMetadataBuilder EntityGrid<TKey>(EntityName entity, Expression<Func<TKey>> resourceKeyExpression)
         {
-            return UIElementMetadata.Config
-                                    .Name.Static(entity.ToString().Pluralize())
-                                    .Title.Resource(resourceKeyExpression)
-                                    .LockOnNew()
-                                    .Handler.ShowGridByConvention(entity)
-                                    .FilterToParent();
+            return EntityGrid(entity.ToString().Pluralize(), entity, resourceKeyExpression).FilterToParent();
         }
 
         public static UIElementMetadataBuilder EntityGrid<TKey>(EntityName entity, string iconPath, Expression<Func<TKey>> resourceKeyExpression)
         {
+            return EntityGrid(entity, resourceKeyExpression).Icon.Path(iconPath);
+        }
+
+        private static UIElementMetadataBuilder EntityGrid<TKey>(string name, EntityName entity, Expression<Func<TKey>> resourceKeyExpression)
+        {
             return UIElementMetadata.Config
-                                    .Name.Static(entity.ToString().Pluralize())
+                                    .Name.Static(name)
                                     .Title.Resource(resourceKeyExpression)
-                                    .Icon.Path(iconPath)
                                     .LockOnNew()
-                                    .Handler.ShowGridByConvention(entity)
-                                    .FilterToParent();
+                                    .Handler.ShowGridByConvention(entity);
         }
     }
 }

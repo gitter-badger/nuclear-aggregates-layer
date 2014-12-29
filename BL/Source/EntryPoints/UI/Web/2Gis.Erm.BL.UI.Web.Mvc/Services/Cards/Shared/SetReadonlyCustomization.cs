@@ -37,8 +37,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 
                 if (!feature.TryExecute(viewModel, out expressionResult))
                 {
-                    // TODO {y.baranihin, 26.12.2014}: написать вменяемое сообщение
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException(string.Format("Unable to execute metadata expression for {0} card with {1} viewmodel", metadata.Entity, viewModel.GetType()));
                 }
 
                 viewModel.ViewConfig.ReadOnly |= expressionResult;
