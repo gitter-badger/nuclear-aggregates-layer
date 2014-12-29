@@ -112,7 +112,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                               out string report)
         {
             report = null;
-            var firmAddresses = _firmReadModel.GetFirmAddressesIds(firmId);
 
             var distinctOrderPositionFirmAddressIds = orderPositionAdvertisements
                 .Where(x => x.FirmAddressId.HasValue)
@@ -120,16 +119,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 .Distinct()
                 .ToArray();
 
-            // Проверяем соответствие адреса фирме заказа
-            var invalidAddressIds = distinctOrderPositionFirmAddressIds.Where(x => !firmAddresses.Contains(x)).ToArray();
+            var invalidAddresses = _firmReadModel.GetAddressesNamesWhichNotBelongToFirm(firmId, distinctOrderPositionFirmAddressIds);
 
-            if (invalidAddressIds.Any())
+            if (invalidAddresses.Any())
             {
-                var invalidAddressNames = _firmReadModel.GetAddressesNames(invalidAddressIds);
-
                 var firmName = _firmReadModel.GetFirmName(firmId);
 
-                var addressNamesDescription = string.Join(", ", invalidAddressNames.Select(x => string.Format(@"""{0}""", x)));
+                var addressNamesDescription = string.Join(", ", invalidAddresses.Select(x => string.Format(@"""{0}""", x)));
 
                 report = string.Format(BLResources.AddressesNotBelongToFirm, addressNamesDescription, firmName);
                 return false;

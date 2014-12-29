@@ -42,13 +42,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         Dictionary<int, string> GetPhoneFormats(IEnumerable<int> phoneFormatCodes);
         Dictionary<int, string> GetPaymentMethods(IEnumerable<int> paymentMethodCodes);
 
-
         HotClientRequest GetHotClientRequest(long hotClientRequestId);
         bool IsTelesaleFirmAddress(long firmAddressId);
         IReadOnlyDictionary<long, long> GetFirmTerritories(IEnumerable<long> firmIds, string regionalTerritoryWord);
         IReadOnlyDictionary<long, CardRelation> GetCardRelationsByIds(IEnumerable<long> cardRelationIds);
         bool IsFirmInReserve(long firmId);
-        IEnumerable<long> GetFirmAddressesIds(long firmId);
-        IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds);
+        IEnumerable<string> GetAddressesNamesWhichNotBelongToFirm(long firmId, IEnumerable<long> firmAddressIds);
     }
 }

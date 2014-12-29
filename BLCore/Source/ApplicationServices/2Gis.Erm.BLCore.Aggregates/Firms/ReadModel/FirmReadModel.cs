@@ -141,12 +141,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public IEnumerable<FirmAddress> GetFirmAddressesByFirm(long firmId)
         {
-            return _finder.FindMany(FirmSpecs.Addresses.Find.ActiveByFirmId(firmId)).ToArray();
+            return _finder.FindMany(FirmSpecs.Addresses.Find.ByFirmId(firmId)
+                                    && Specs.Find.ActiveAndNotDeleted<FirmAddress>()).ToArray();
         }
 
         public IEnumerable<FirmAddress> GetActiveOrWithSalesByFirm(long firmId)
         {
-            return _finder.FindMany(FirmSpecs.Addresses.Find.ActiveOrWithSalesByFirmId(firmId)).ToArray();
+            return _finder.FindMany(FirmSpecs.Addresses.Find.ByFirmId(firmId) &&
+                                    (Specs.Find.ActiveAndNotDeleted<FirmAddress>() || FirmSpecs.Addresses.Find.WithSales())).ToArray();
         }
 
         public IEnumerable<FirmContact> GetContacts(long firmAddressId)
@@ -354,16 +356,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             return firmOwner == _securityServiceUserIdentifier.GetReserveUserIdentity().Code;
         }
 
-        public IEnumerable<long> GetFirmAddressesIds(long firmId)
+        public IEnumerable<string> GetAddressesNamesWhichNotBelongToFirm(long firmId, IEnumerable<long> firmAddressIds)
         {
-            return _finder.Find(FirmSpecs.Addresses.Find.ActiveByFirmId(firmId))
-                          .Select(address => address.Id)
-                          .ToArray();
-        }
-
-        public IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds)
-        {
-            return _finder.Find(Specs.Find.ByIds<FirmAddress>(firmAddressIds))
+            return _finder.Find(Specs.Find.ByIds<FirmAddress>(firmAddressIds) && FirmSpecs.Addresses.Find.NotBelongToFirm(firmId))
                           .Select(x => x.Address)
                           .ToArray();
         }
