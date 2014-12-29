@@ -589,4 +589,7 @@
   <data name="ReplicateOrders_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\201411261501\replicateorders.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="InsertMissingOrganizers_201412291720" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201412291720 - Insert missing organizers.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>
