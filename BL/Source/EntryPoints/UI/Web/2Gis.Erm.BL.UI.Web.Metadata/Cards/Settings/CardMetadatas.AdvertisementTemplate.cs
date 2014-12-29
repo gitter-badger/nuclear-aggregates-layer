@@ -1,10 +1,12 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -13,6 +15,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata AdvertisementTemplate =
             CardMetadata.For<AdvertisementTemplate>()
                         .WithDefaultIcon()
+                        .InfoOn<AdvertisementTemplate, IAdvertisementTemplateViewModel>(x => x.IsPublished,
+                                                                                        StringResourceDescriptor.Create(() => BLResources.CanNotChangePublishedAdvertisementTemplate))
                         .Actions
                         .Attach(ToolbarElements.Create<AdvertisementTemplate>(),
                                 ToolbarElements.Update<AdvertisementTemplate>(),

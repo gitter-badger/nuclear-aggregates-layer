@@ -137,6 +137,7 @@
     <Compile Include="RelatedItems\RelatedItems.Role.cs" />
     <Compile Include="RelatedItems\RelatedItems.PricePosition.cs" />
     <Compile Include="RelatedItems\RelatedItems.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Activity.cs" />
     <Compile Include="Toolbar\ToolbarElements.User.cs" />
     <Compile Include="Toolbar\ToolbarElements.Theme.cs" />
     <Compile Include="Toolbar\ToolbarElements.PricePosition.cs" />

@@ -6,5 +6,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
     {
         string Name { get; set; }
         bool IsDummy { get; set; }
+        bool IsSelectedToWhiteList { get; set; }
     }
 }

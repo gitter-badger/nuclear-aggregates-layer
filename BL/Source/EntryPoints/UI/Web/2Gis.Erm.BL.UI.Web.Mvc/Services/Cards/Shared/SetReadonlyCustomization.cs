@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 
                 if (!feature.TryExecute(viewModel, out expressionResult))
                 {
-                    throw new InvalidOperationException(string.Format("Unable to execute metadata expression for {0} card with {1} viewmodel", metadata.Entity, viewModel.GetType()));
+                    throw new InvalidOperationException(string.Format("Unable to execute disable expression for {0} card with {1} viewmodel", metadata.Entity, viewModel.GetType()));
                 }
 
                 viewModel.ViewConfig.ReadOnly |= expressionResult;

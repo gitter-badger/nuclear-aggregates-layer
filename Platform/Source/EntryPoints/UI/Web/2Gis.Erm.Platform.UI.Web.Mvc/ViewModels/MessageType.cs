@@ -4,7 +4,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels
     {
         None = 0,
         CriticalError = 1,
-        Info = 2,
-        Warning = 3,
+        Warning = 2,
+        Info = 3
     }
 }

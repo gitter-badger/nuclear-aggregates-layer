@@ -2,6 +2,7 @@
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -20,7 +21,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.UpdateAndClose<Territory>(),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Refresh<Territory>(),
-                                ToolbarElements.Activate<Territory>(),
+                                ToolbarElements.Activate<Territory>()
+                                               .HideOn<ITerritoryViewModel>(x => x.IsActive),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),

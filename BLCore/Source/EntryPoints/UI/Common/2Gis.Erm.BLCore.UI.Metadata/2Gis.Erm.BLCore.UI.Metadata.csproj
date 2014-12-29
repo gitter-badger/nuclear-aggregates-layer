@@ -153,6 +153,8 @@
     <Compile Include="ViewModels\Contracts\IAdvertisementElementViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IActivityViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IAssociatedPositionViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IAccountViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ILockViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IDeniedPositionViewModel.cs" />
     <Compile Include="ViewModels\Contracts\ILimitViewModel.cs" />
     <Compile Include="ViewModels\Contracts\ILetterViewModel.cs" />

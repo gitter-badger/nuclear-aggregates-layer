@@ -1,3 +1,4 @@
+using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -9,7 +10,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
     // FIXME {all, 24.09.2014}: Не отличается от MultiCultureAccountViewModel
-    public sealed class CyprusAccountViewModel : EntityViewModelBase<Account>, ICyprusAdapted
+    public sealed class CyprusAccountViewModel : EntityViewModelBase<Account>, IAccountViewModel, ICyprusAdapted
     {
         // Юридическое лицо отделения организации
         [RequiredLocalized]
