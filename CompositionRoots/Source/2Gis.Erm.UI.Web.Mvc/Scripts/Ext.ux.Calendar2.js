@@ -57,7 +57,7 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         this.editor.setReadOnly(this.readOnly);
 
         if (this.mode.display == 'month') {
-            this.editor.setReadOnly(true);
+            this.editor.dom.readOnly = true;
             this.mon(this.editor, 'focus', this.onButtonClick, this);
         }
 
