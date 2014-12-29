@@ -36,5 +36,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             repository.DeleteRange(removingLinks);
             repository.Save();
         }
+
+        /// <summary>
+        /// Updates the references building the differences.
+        /// </summary>
+        public static void Update<TEntity, TEntityReference>(this IRepository<TEntityReference> repository,
+                                                             TEntityReference oldReference,
+                                                             TEntityReference newReference)
+            where TEntity : IEntity
+            where TEntityReference : EntityReference<TEntity>, IEntity
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException("repository");
+            }
+
+            if (!EqualityComparer<TEntityReference>.Default.Equals(oldReference, newReference))
+            {
+                if(newReference!=null)
+                    repository.Add(newReference);
+                if(oldReference!=null)
+                    repository.Delete(oldReference);
+                repository.Save();
+            }
+
+           
+        }
     }
 }

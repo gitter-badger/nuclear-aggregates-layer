@@ -57,6 +57,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.Appointment,
                 EntityName.AppointmentRegardingObject,
 				EntityName.AppointmentAttendee,
+                EntityName.AppointmentOrganizer,
                 EntityName.Phonecall,
                 EntityName.PhonecallRegardingObject,
 				EntityName.PhonecallRecipient,

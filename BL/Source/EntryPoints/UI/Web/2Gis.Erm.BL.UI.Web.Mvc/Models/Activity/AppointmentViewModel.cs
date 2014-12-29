@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     Location = Location,
                     RegardingObjects = regardingObjects,
                     Attendees = attendees,
-                    OwnerRef = Owner.ToReference(),
+                    OwnerRef = Owner.ToReference(EntityName.User),
 
                     CreatedByRef = CreatedBy.ToReference(),
                     CreatedOn = CreatedOn,

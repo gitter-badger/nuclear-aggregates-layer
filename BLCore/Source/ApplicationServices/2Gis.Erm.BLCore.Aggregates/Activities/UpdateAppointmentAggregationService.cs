@@ -17,17 +17,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
         private readonly IRepository<Appointment> _repository;
         private readonly IRepository<AppointmentRegardingObject> _referenceRepository;
         private readonly IRepository<AppointmentAttendee> _attendeeRepository;
+        private readonly IRepository<AppointmentOrganizer> _organizerRepository;
 
         public UpdateAppointmentAggregationService(
             IOperationScopeFactory operationScopeFactory,
             IRepository<Appointment> repository,
             IRepository<AppointmentRegardingObject> referenceRepository,
-            IRepository<AppointmentAttendee> attendeeRepository)
+            IRepository<AppointmentAttendee> attendeeRepository,
+            IRepository<AppointmentOrganizer> organizerRepository)
         {
             _operationScopeFactory = operationScopeFactory;
             _repository = repository;
             _referenceRepository = referenceRepository;
             _attendeeRepository = attendeeRepository;
+            _organizerRepository = organizerRepository;
         }
 
         public void Update(Appointment appointment)
@@ -69,6 +72,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
                 operationScope.Updated<Appointment>(appointment.Id);
                 operationScope.Complete();
             }
+        }
+
+        public void ChangeOrganizer(Appointment appointment, AppointmentOrganizer oldReference, AppointmentOrganizer newReference)
+        {
+            CheckAppointment(appointment);
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Appointment>())
+            {
+                _organizerRepository.Update<Appointment, AppointmentOrganizer>(oldReference, newReference);
+
+                operationScope.Updated<Appointment>(appointment.Id);
+                operationScope.Complete();
+            }
+
         }
 
         private static void CheckAppointment(Appointment appointment)
