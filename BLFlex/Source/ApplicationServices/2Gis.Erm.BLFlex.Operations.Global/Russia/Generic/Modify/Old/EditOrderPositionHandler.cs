@@ -4,13 +4,12 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -34,7 +33,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
     {
         private readonly IFinder _finder;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IPositionReadModel _positionReadModel;
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
 
         private readonly IPublicService _publicService;
@@ -44,14 +42,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
         private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
 
-        private readonly ICategoryService _categoryService;
-
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ICategoryReadModel _categoryReadModel;
 
         public EditOrderPositionHandler(
             IFinder finder,
             IOrderReadModel orderReadModel,
-            IPositionReadModel positionReadModel,
             IOrganizationUnitReadModel organizationUnitReadModel,
             IPublicService publicService,
             IOrderRepository orderRepository,
@@ -60,11 +56,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
             IOperationScopeFactory scopeFactory,
             ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
-            ICategoryService categoryService)
+            ICategoryReadModel categoryReadModel)
         {
             _finder = finder;
             _orderReadModel = orderReadModel;
-            _positionReadModel = positionReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
             _publicService = publicService;
             _orderRepository = orderRepository;
@@ -73,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
             _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
-            _categoryService = categoryService;
+            _categoryReadModel = categoryReadModel;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -82,26 +77,27 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             var advertisementsLinks = request.AdvertisementsLinks;
 
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderPosition.OrderId))
-                .Select(x => new
-                {
-                    x.Id,
-                    x.FirmId,
-                    x.WorkflowStepId,
-                    x.ReleaseCountFact,
-                    x.EndDistributionDateFact,
-                    x.OwnerCode,
-                    x.SourceOrganizationUnitId,
-                    x.DestOrganizationUnitId,
-                    x.PlatformId,
-                    OrderType = x.OrderType
-                })
-                .Single();
+                                   .Select(x => new
+                                                    {
+                                                        x.Id,
+                                                        x.FirmId,
+                                                        x.WorkflowStepId,
+                                                        x.ReleaseCountFact,
+                                                        x.EndDistributionDateFact,
+                                                        x.OwnerCode,
+                                                        x.SourceOrganizationUnitId,
+                                                        x.DestOrganizationUnitId,
+                                                        x.PlatformId,
+                                                        OrderType = x.OrderType
+                                                    })
+                                   .Single();
 
             string checkReport;
-            if (!_checkIfOrderPositionCanBeCreatedForOrderOperationService.CanCreateOrderPosition(orderPosition.OrderId,
-                                                                                             orderPosition.PricePositionId,
-                                                                                             advertisementsLinks,
-                                                                                             out checkReport))
+            if (!_checkIfOrderPositionCanBeCreatedForOrderOperationService.Check(orderPosition.OrderId,
+                                                                                 orderPosition.Id,
+                                                                                 orderPosition.PricePositionId,
+                                                                                 advertisementsLinks,
+                                                                                 out checkReport))
             {
                 throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, checkReport));
             }
@@ -133,16 +129,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                                                    .Select(
                                                            x =>
                                                            new
-                                                           {
-                                                               x.Cost,
-                                                               SalesModel = x.Position.SalesModelEnum,
-                                                               x.Price.OrganizationUnitId,
-                                                               x.RateType,
-                                                               x.Position.IsComposite,
-                                                               x.PositionId,
-                                                               x.PriceId
-                                                           })
-                        .Single();
+                                                               {
+                                                                   x.Cost,
+                                                                   SalesModel = x.Position.SalesModel,
+                                                                   x.Price.OrganizationUnitId,
+                                                                   x.RateType,
+                                                                   x.Position.IsComposite,
+                                                                   x.PositionId,
+                                                                   x.PriceId
+                                                               })
+                                                   .Single();
 
                     if (orderInfo.DestOrganizationUnitId != pricePositionInfo.OrganizationUnitId)
                     {
@@ -151,7 +147,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
                     if (request.CategoryIds.Any())
                     {
-                        var unsupported = _categoryService.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
+                        var unsupported = _categoryReadModel.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
                                                                                                                    orderInfo.DestOrganizationUnitId,
                                                                                                                    request.CategoryIds);
                         if (unsupported.Any())
@@ -166,19 +162,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     if (pricePositionInfo.IsComposite)
                     {
                         var positionInfo = new CalcPositionWithDiscountInfo
-                        {
-                            PositionInfo = new CalcPositionInfo
-                            {
-                                Amount = orderPosition.Amount,
-                                PositionId = pricePositionInfo.PositionId,
-                            },
-                            DiscountInfo = new DiscountInfo
-                            {
-                                Percent = orderPosition.DiscountPercent,
-                                Sum = orderPosition.DiscountSum,
-                                CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent
-                            }
-                        };
+                                               {
+                                                   PositionInfo = new CalcPositionInfo
+                                                                      {
+                                                                          Amount = orderPosition.Amount,
+                                                                          PositionId = pricePositionInfo.PositionId,
+                                                                      },
+                                                   DiscountInfo = new DiscountInfo
+                                                                      {
+                                                                          Percent = orderPosition.DiscountPercent,
+                                                                          Sum = orderPosition.DiscountSum,
+                                                                          CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent
+                                                                      }
+                                               };
 
                         var calcResult = _calculateOrderPositionCostService.CalculateOrderPositionCost(orderInfo.OrderType,
                                                                                                        orderInfo.ReleaseCountFact,
@@ -202,20 +198,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     else
                     {
                         var categoryRate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculated(request.Entity.OrderId,
-                                                                       request.Entity.PricePositionId,
-                                                                       request.CategoryIds);
+                                                                                                                    request.Entity.PricePositionId,
+                                                                                                                    request.CategoryIds);
 
                         var calculateOrderPositionPricesResponse =
                             (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
-                            {
-                                Cost = pricePositionInfo.Cost,
-                                DiscountPercent = orderPosition.DiscountPercent,
-                                DiscountSum = orderPosition.DiscountSum,
-                                CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
-                                OrderId = orderPosition.OrderId,
-                                CategoryRate = categoryRate,
-                                Amount = orderPosition.Amount
-                            });
+                                                                                            {
+                                                                                                Cost = pricePositionInfo.Cost,
+                                                                                                DiscountPercent = orderPosition.DiscountPercent,
+                                                                                                DiscountSum = orderPosition.DiscountSum,
+                                                                                                CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
+                                                                                                OrderId = orderPosition.OrderId,
+                                                                                                CategoryRate = categoryRate,
+                                                                                                Amount = orderPosition.Amount
+                                                                                            });
 
                         orderPosition.CategoryRate = calculateOrderPositionPricesResponse.CategoryRate;
                         orderPosition.ShipmentPlan = calculateOrderPositionPricesResponse.ShipmentPlan;
@@ -329,4 +325,3 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
         }
     }
 }
-

@@ -194,7 +194,7 @@
     <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
-    <Compile Include="Concrete\OrderPositions\FormAvailableBindingObjectsOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\GetAvailableBindingObjectsOperationService.cs" />
     <Compile Include="Concrete\Orders\CheckIfOrderPositionCanBeCreatedForOrderOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CloseOrderHandler.cs" />

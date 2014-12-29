@@ -416,7 +416,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\HotClientRequest\GetHotClientTaskToReplicateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\FormAvailableBinfingObjectsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\GetAvailableBinfingObjectsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ViewOrderPositionIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\CancelOrderProcessingRequestIdentity .cs" />

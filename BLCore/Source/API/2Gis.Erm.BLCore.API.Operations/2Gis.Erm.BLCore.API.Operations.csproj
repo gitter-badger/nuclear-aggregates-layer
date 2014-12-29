@@ -75,7 +75,7 @@
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
-    <Compile Include="Concrete\OrderPositions\IFormAvailableBindingObjectsOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\IGetAvailableBindingObjectsOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\IDetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\ICloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -16,16 +16,16 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
-        private readonly ICategoryService _categoryService;
+        private readonly ICategoryReadModel _categoryReadModel;
 
         public ListCategoryService(
             IFinder finder,
-            FilterHelper filterHelper,
-            ICategoryService categoryService)
+            FilterHelper filterHelper,            
+            ICategoryReadModel categoryReadModel)
         {
             _finder = finder;
             _filterHelper = filterHelper;
-            _categoryService = categoryService;
+            _categoryReadModel = categoryReadModel;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                   }
 
                                                                                   var supportedCategoriesForNewSalesModel =
-                                                                                      _categoryService
+                                                                                      _categoryReadModel
                                                                                           .GetCategoriesSupportedBySalesModelInOrganizationUnit(salesModel, organizationUnitId);
 
                                                                                   return x => supportedCategoriesForNewSalesModel.Contains(x.Id);

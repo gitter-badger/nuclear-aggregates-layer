@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Migration.Extensions;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
 {
-    [Migration(201412240529, "Переименовываем колонку AccountingMethodEnum в SalesModelEnum", "y.baranihin")]
+    [Migration(201412240529, "Переименовываем колонку AccountingMethodEnum в SalesModel", "y.baranihin")]
     public class Migration201412240529 : TransactedMigration
     {
         protected override void ApplyOverride(IMigrationContext context)
@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
             var columnToRename = table.Columns["AccountingMethodEnum"];
             if (columnToRename != null)
             {
-                columnToRename.Rename("SalesModelEnum");
+                columnToRename.Rename("SalesModel");
             }
         }
     }

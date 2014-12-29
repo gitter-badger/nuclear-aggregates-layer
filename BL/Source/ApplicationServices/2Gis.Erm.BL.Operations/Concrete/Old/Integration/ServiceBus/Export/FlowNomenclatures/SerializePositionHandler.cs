@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                 Id = x.Id,
                 Name = x.Name,
                 PlatformCode = x.Platform.DgppId,
-                SalesModel = x.SalesModelEnum,
+                SalesModel = x.SalesModel,
                 IsHidden = !x.IsActive,
                 IsDeleted = x.IsDeleted,
                 ProductCode = x.ExportCode,

@@ -232,7 +232,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             return new JsonNetResult(new
                                          {
-                                             CanCreate = _checkIfOrderPositionCanBeCreatedForOrderOperationService.CanCreateOrderPosition(orderId, orderType, out report),
+                                             CanCreate = _checkIfOrderPositionCanBeCreatedForOrderOperationService.Check(orderId, orderType, out report),
                                              Message = report
                                          });
         }

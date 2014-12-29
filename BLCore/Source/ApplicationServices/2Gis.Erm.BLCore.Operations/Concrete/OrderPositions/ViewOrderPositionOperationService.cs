@@ -12,12 +12,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
         private readonly IOrderReadModel _orderReadModel;
         private readonly IPriceReadModel _priceReadModel;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
-        private readonly IFormAvailableBindingObjectsOperationService _formAvailableBindingObjectsOperationService;
+        private readonly IGetAvailableBindingObjectsOperationService _formAvailableBindingObjectsOperationService;
 
         public ViewOrderPositionOperationService(IOrderReadModel orderReadModel,
                                                  IPriceReadModel priceReadModel,
                                                  ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
-                                                 IFormAvailableBindingObjectsOperationService formAvailableBindingObjectsOperationService)
+                                                 IGetAvailableBindingObjectsOperationService formAvailableBindingObjectsOperationService)
         {
             _orderReadModel = orderReadModel;
             _priceReadModel = priceReadModel;            
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             var positionInfo = _priceReadModel.GetPricePositionDetailedInfo(pricePositionId);
             var categoryRate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculatedOrDefault(orderId, pricePositionId, null);
             var priceCalulations = _orderReadModel.CalculatePricePerUnit(orderId, categoryRate, positionInfo.PricePositionCost);
-            var isNewSalesModel = positionInfo.SalesModel.IsNewSalesModel();
+            var isPlannedProvisionSalesModel = positionInfo.SalesModel.IsPlannedProvisionSalesModel();
             var linkingObjectsSchema = _formAvailableBindingObjectsOperationService.GetLinkingObjectsSchema(orderId, pricePositionId, includeHidden, orderPositionId);
 
             return new OrderPositionWithSchemaDto
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 VatRatio = priceCalulations.VatRatio,
 
                 LinkingObjectsSchema = linkingObjectsSchema,
-                IsPositionNewSalesModel = isNewSalesModel,
+                IsPositionOfPlannedProvisionSalesModel = isPlannedProvisionSalesModel,
             };
         }
     }

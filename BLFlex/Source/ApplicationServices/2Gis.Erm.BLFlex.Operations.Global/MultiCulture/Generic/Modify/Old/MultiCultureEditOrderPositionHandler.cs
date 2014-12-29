@@ -4,12 +4,12 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -39,9 +39,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
-        private readonly ICategoryService _categoryService;
 
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ICategoryReadModel _categoryReadModel;
 
         public MultiCultureEditOrderPositionHandler(IFinder finder,
                                                     IOrderReadModel orderReadModel,
@@ -51,10 +51,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                                                     ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
                                                     IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
                                                     IOperationScopeFactory scopeFactory,
-                                                    ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService)
+                                                    ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
+                                                    ICategoryReadModel categoryReadModel)
         {
             _finder = finder;
-            _orderReadModel = orderReadModel;            
+            _orderReadModel = orderReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
             _publicService = publicService;
             _orderRepository = orderRepository;
@@ -62,6 +63,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
             _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
             _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
+            _categoryReadModel = categoryReadModel;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -85,10 +87,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                                    .Single();
 
             string checkReport;
-            if (!_checkIfOrderPositionCanBeCreatedForOrderOperationService.CanCreateOrderPosition(orderPosition.OrderId,
-                                                                                             orderPosition.PricePositionId,
-                                                                                             advertisementsLinks,
-                                                                                             out checkReport))
+            if (!_checkIfOrderPositionCanBeCreatedForOrderOperationService.Check(orderPosition.OrderId,
+                                                                                 orderPosition.Id,
+                                                                                 orderPosition.PricePositionId,
+                                                                                 advertisementsLinks,
+                                                                                 out checkReport))
             {
                 throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, checkReport));
             }
@@ -122,7 +125,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                                                        new
                                                        {
                                                            x.Cost,
-                                                           SalesModel = x.Position.SalesModelEnum,
+                                                           SalesModel = x.Position.SalesModel,
                                                            x.Price.OrganizationUnitId,
                                                            x.RateType,
                                                            x.Position.IsComposite,
@@ -138,7 +141,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
                     if (request.CategoryIds.Any())
                     {
-                        var unsupported = _categoryService.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
+                        var unsupported = _categoryReadModel.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
                                                                                                                    orderInfo.DestOrganizationUnitId,
                                                                                                                    request.CategoryIds);
                         if (unsupported.Any())

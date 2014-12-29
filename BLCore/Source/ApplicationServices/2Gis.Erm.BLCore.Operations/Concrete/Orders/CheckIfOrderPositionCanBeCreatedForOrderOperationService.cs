@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             _firmReadModel = firmReadModel;
         }
 
-        public bool CanCreateOrderPosition(long orderId, OrderType orderType, out string report)
+        public bool Check(long orderId, OrderType orderType, out string report)
         {
             if (!AreLegalPersonsSpecified(orderId, out report))
             {
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             return true;
         }
 
-        public bool CanCreateOrderPosition(long orderId, long pricePositionId, IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements, out string report)
+        public bool Check(long orderId, long orderPositionId, long pricePositionId, IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements, out string report)
         {
             var position = _positionReadModel.GetPositionByPricePositionId(pricePositionId);
             var orderInfo = _orderReadModel.GetOrderInfoToCheckPossibilityOfOrderPositionCreation(orderId);
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 return false;
             }
 
-            if (!AllRequiredAdvertisementsAreSpecified(position.SalesModelEnum, orderInfo.OrderPositions.Select(x => x.SalesModel).ToArray(), out report))
+            if (!AllPositionsOfTheSameSalesModel(orderPositionId, position.SalesModel, orderInfo.OrderPositions.ToDictionary(x => x.OrderPositionId, x => x.SalesModel), out report))
             {
                 return false;
             }
@@ -153,12 +153,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             return true;
         }
 
-        private bool AllRequiredAdvertisementsAreSpecified(SalesModel salesModelOfEditingOrderPosition,
-            IEnumerable<SalesModel> saleModelsOfOtherOrderPositions,
-                                              out string report)
+        private bool AllPositionsOfTheSameSalesModel(long orderPositionId,
+                                                     SalesModel salesModelOfEditingOrderPosition,
+                                                     IEnumerable<KeyValuePair<long, SalesModel>> saleModelsOfOrderPositions,
+                                                     out string report)
         {
             report = null;
-            if (saleModelsOfOtherOrderPositions.Any(x => x != salesModelOfEditingOrderPosition))
+            var orderPositionsWithAnotherSalesModel = saleModelsOfOrderPositions.Where(x => x.Value != salesModelOfEditingOrderPosition).ToArray();
+            if (orderPositionsWithAnotherSalesModel.Any() && (orderPositionsWithAnotherSalesModel.Count() > 1 || orderPositionsWithAnotherSalesModel.Single().Key != orderPositionId))
             {
                 report = BLResources.CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel;
                 return false;
@@ -166,6 +168,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
             return true;
         }
+
         #endregion
     }
 }

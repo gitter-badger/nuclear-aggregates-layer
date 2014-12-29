@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             IsControledByAmount = modelDto.IsControlledByAmount;
 
             BindingObjectType = modelDto.BindingObjectTypeEnum;
-            SalesModel = modelDto.SalesModelEnum;
+            SalesModel = modelDto.SalesModel;
             CalculationMethod = modelDto.CalculationMethodEnum;
 
             RestrictChildPositionPlatforms = modelDto.RestrictChildPositionPlatforms;
@@ -99,7 +99,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
                 IsComposite = IsComposite,
                 IsControlledByAmount = IsControledByAmount,
                 BindingObjectTypeEnum = BindingObjectType,
-                SalesModelEnum = SalesModel,
+                SalesModel = SalesModel,
                 CalculationMethodEnum = CalculationMethod,
                 AdvertisementTemplateRef = AdvertisementTemplate != null ? AdvertisementTemplate.ToReference() : null,
                 PlatformRef = Platform.ToReference(),

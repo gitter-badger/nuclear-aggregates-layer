@@ -314,7 +314,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             var childPositionInfo = _finder.Find<Position>(x => x.Id == positionChildren.ChildPositionId)
                                            .Select(x => new
                                                {
-                                                   SalesModel = x.SalesModelEnum,
+                                                   SalesModel = x.SalesModel,
                                                    x.IsComposite,
                                                    x.PlatformId,
                                                })
@@ -325,12 +325,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 throw new NotificationException(BLResources.CantAddCompositePosition);
             }
 
-            var isAccountingMethodNotMatched = _finder.Find<PositionChildren>(x => !x.IsDeleted &&
+            var isSalesMethodNotMatched = _finder.Find<PositionChildren>(x => !x.IsDeleted &&
                                                                                    x.MasterPositionId == positionChildren.MasterPositionId &&
-                                                                                   x.ChildPosition.SalesModelEnum !=
+                                                                                   x.ChildPosition.SalesModel !=
                                                                                    childPositionInfo.SalesModel)
                                                       .Any();
-            if (isAccountingMethodNotMatched)
+            if (isSalesMethodNotMatched)
             {
                 throw new NotificationException(BLResources.CantAddChildPositionWithDifferentSalesModel);
             }

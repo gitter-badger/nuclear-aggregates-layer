@@ -75,8 +75,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.OrderValidationResult = 232
         public const int ResetValidationGroupIdentity = 23201;
 
-		// EntityName.Activity = 500
-		public const int AssignRegardingObjectIdentity = 50001;
+        // EntityName.Activity = 500
+        public const int AssignRegardingObjectIdentity = 50001;
 
         // EntityName.Advertisement = 186
         public const int SelectAdvertisementToWhitelistIdentity = 18601;
@@ -135,7 +135,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ValidateOrderPositionAdvertisementsIdentity = 15002;
         public const int CalculateCategoryRateIdentity = 15003;
         public const int ViewOrderPositionIdentity = 15004;
-        public const int FormAvailableBinfingObjectsIdentity = 15005;
+        public const int GetAvailableBinfingObjectsIdentity = 15005;
 
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;
@@ -180,7 +180,6 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         public const int NotifyAboutAdvertisementElementFileChangedIdentity = 19903;
         public const int NotifyAboutAdvertisementElementValidationStatusChangedIdentity = 19904;
-
 
         // EntityName.Project = 158
         public const int ImportBranchIdentity = 15801;

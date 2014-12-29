@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions
 {
-    public interface IFormAvailableBindingObjectsOperationService : IOperation<FormAvailableBinfingObjectsIdentity>
+    public interface IGetAvailableBindingObjectsOperationService : IOperation<GetAvailableBinfingObjectsIdentity>
     {
         LinkingObjectsSchemaDto GetLinkingObjectsSchema(long orderId, long pricePositionId, bool includeHiddenAddresses, long? orderPositionId);
     }

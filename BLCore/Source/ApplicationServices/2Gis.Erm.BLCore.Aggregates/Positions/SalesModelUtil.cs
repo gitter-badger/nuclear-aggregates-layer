@@ -6,7 +6,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions
 {
     public static class SalesModelUtil
     {
-        public static bool IsNewSalesModel(this SalesModel salesModel)
+        public static bool IsPlannedProvisionSalesModel(this SalesModel salesModel)
         {
             var newSalesModels = new[]
                                      {

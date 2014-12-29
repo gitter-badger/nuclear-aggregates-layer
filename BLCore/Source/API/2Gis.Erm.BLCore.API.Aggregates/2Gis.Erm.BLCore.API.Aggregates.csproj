@@ -146,7 +146,7 @@
     <Compile Include="Common\Generics\IQualifyAggregateRepository.cs" />
     <Compile Include="Common\Generics\IUpdateAggregateRepository.cs" />
     <Compile Include="Common\Generics\IUploadFileAggregateRepository.cs" />
-    <Compile Include="Common\Specs\Dictionary\CategorySpecifications.cs" />
+    <Compile Include="Common\Specs\Dictionary\CategorySpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\OrganizationUnitSpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\TerritoryDtoSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
@@ -302,6 +302,7 @@
     <Compile Include="Roles\IRoleRepository.cs" />
     <Compile Include="Roles\RoleSpecifications.cs" />
     <Compile Include="Settings\IDebtProcessingSettings.cs" />
+    <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />

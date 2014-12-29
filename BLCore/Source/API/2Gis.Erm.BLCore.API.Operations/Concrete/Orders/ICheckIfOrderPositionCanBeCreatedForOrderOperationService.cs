@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders
 {
     public interface ICheckIfOrderPositionCanBeCreatedForOrderOperationService : IOperation<CheckIfOrderPositionCanBeCreatedForOrderIdentity>
     {
-        bool CanCreateOrderPosition(long orderId, OrderType orderType, out string report);
-        bool CanCreateOrderPosition(long orderId, long pricePositionId, IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements, out string report);
+        bool Check(long orderId, OrderType orderType, out string report);
+        bool Check(long orderId, long orderPositionId, long pricePositionId, IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements, out string report);
     }
 }

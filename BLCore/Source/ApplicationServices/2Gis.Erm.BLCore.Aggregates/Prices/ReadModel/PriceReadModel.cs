@@ -240,7 +240,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
                                                PricePositionCost = item.Cost,
                                                item.Position.IsComposite,
                                                LinkingObjectType = item.Position.BindingObjectTypeEnum,
-                                               SalesModel = item.Position.SalesModelEnum
+                                               SalesModel = item.Position.SalesModel
                                            })
                                            .Single();
 

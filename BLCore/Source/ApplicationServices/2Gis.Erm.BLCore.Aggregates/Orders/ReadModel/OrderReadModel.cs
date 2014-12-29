@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                                  .Select(rw => rw.AmountToWithdraw)
                                                                                  .FirstOrDefault(),
                                                             IsPlannedProvision =
-                                                                op.PricePosition.Position.SalesModelEnum == SalesModel.PlannedProvision
+                                                                op.PricePosition.Position.SalesModel == SalesModel.PlannedProvision
                                                         })
                               })
                           .ToArray();
@@ -824,7 +824,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                        .All(y => y.CalculateDiscountViaPercent),
                                   IsBudget = x.OrderPositions
                                               .Any(y => !y.IsDeleted && y.IsActive &&
-                                                        y.PricePosition.Position.SalesModelEnum == SalesModel.PlannedProvision)
+                                                        y.PricePosition.Position.SalesModel == SalesModel.PlannedProvision)
                               })
                           .Single();
         }
@@ -1441,7 +1441,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                          SalesModel =
                                                                              y.PricePosition
                                                                               .Position
-                                                                              .SalesModelEnum
+                                                                              .SalesModel
                                                                      })
                                            }).Single();
         }

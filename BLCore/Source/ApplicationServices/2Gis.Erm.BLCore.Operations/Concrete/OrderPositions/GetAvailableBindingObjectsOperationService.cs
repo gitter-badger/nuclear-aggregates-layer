@@ -7,10 +7,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -18,41 +18,41 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
 {
-    public sealed class FormAvailableBindingObjectsOperationService : IFormAvailableBindingObjectsOperationService
+    public sealed class GetAvailableBindingObjectsOperationService : IGetAvailableBindingObjectsOperationService
     {
         private readonly IFirmReadModel _firmReadModel;
-        private readonly ICategoryService _categoryService;
         private readonly IThemeReadModel _themeReadModel;
         private readonly IPositionReadModel _positionReadModel;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IPriceReadModel _priceReadModel;
         private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly ICategoryReadModel _categoryReadModel;
 
-        public FormAvailableBindingObjectsOperationService(IFirmReadModel firmReadModel,
-                                                           ICategoryService categoryService,
+        public GetAvailableBindingObjectsOperationService(IFirmReadModel firmReadModel,
                                                            IThemeReadModel themeReadModel,
                                                            IPositionReadModel positionReadModel,
                                                            IOrderReadModel orderReadModel,
                                                            IPriceReadModel priceReadModel,
-                                                           IOperationScopeFactory operationScopeFactory)
+                                                           IOperationScopeFactory operationScopeFactory,
+                                                           ICategoryReadModel categoryReadModel)
         {
             _firmReadModel = firmReadModel;
-            _categoryService = categoryService;
             _themeReadModel = themeReadModel;
             _positionReadModel = positionReadModel;
             _orderReadModel = orderReadModel;
             _priceReadModel = priceReadModel;
             _operationScopeFactory = operationScopeFactory;
+            _categoryReadModel = categoryReadModel;
         }
 
         public LinkingObjectsSchemaDto GetLinkingObjectsSchema(long orderId, long pricePositionId, bool includeHiddenAddresses, long? orderPositionId)
         {
-            using (var operationScope = _operationScopeFactory.CreateNonCoupled<FormAvailableBinfingObjectsIdentity>())
+            using (var operationScope = _operationScopeFactory.CreateNonCoupled<GetAvailableBinfingObjectsIdentity>())
             {
                 var orderDto = _orderReadModel.GetOrderLinkingObjectsDto(orderId);
                 var pricePositionInfo = _priceReadModel.GetPricePositionDetailedInfo(pricePositionId);
                 var firmAddresses = GetFirmAddresses(orderDto.FirmId, includeHiddenAddresses);
-                var firmAddressesCategories = _categoryService.GetFirmAddressesCategories(orderDto.DestOrganizationUnitId, firmAddresses.Select(x => x.Id));
+                var firmAddressesCategories = _categoryReadModel.GetFirmAddressesCategories(orderDto.DestOrganizationUnitId, firmAddresses.Select(x => x.Id));
                 foreach (var firmAddress in firmAddresses)
                 {
                     firmAddress.Categories = firmAddressesCategories.ContainsKey(firmAddress.Id) ? firmAddressesCategories[firmAddress.Id] : Enumerable.Empty<long>();
@@ -71,9 +71,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.ThereIsNoSuitableThemes } };
                 }
 
-                var firmCategories = _categoryService.GetFirmCategories(firmCategoryIds);
+                var firmCategories = _categoryReadModel.GetFirmCategories(firmCategoryIds);
                 var additionalCategories = orderPositionId.HasValue
-                                               ? _categoryService.GetAdditionalCategories(firmCategoryIds, orderPositionId.Value)
+                                               ? _categoryReadModel.GetAdditionalCategories(firmCategoryIds, orderPositionId.Value)
                                                : Enumerable.Empty<LinkingObjectsSchemaDto.CategoryDto>();
                 var categoriesFilter = CreateCategoryFilter(pricePositionInfo.SalesModel,
                                                             orderDto.DestOrganizationUnitId);
@@ -127,12 +127,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
 
         private Func<long, bool> CreateCategoryFilter(SalesModel salesModel, long destOrganizationUnitId)
         {
-            if (!salesModel.IsNewSalesModel())
+            if (!salesModel.IsPlannedProvisionSalesModel())
             {
                 return categoryId => true;
             }
 
-            var organizationUnitCategories = _categoryService.GetCategoriesSupportedBySalesModelInOrganizationUnit(salesModel, destOrganizationUnitId);
+            var organizationUnitCategories = _categoryReadModel.GetCategoriesSupportedBySalesModelInOrganizationUnit(salesModel, destOrganizationUnitId);
 
             return organizationUnitCategories.Contains;
         }

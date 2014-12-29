@@ -39,7 +39,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         AmountSpecificationMode: null,
         LinkingObjectsSchema: null,
         IsPositionComposite: null,
-        IsPositionNewSalesModel: null,
+        IsPositionOfPlannedProvisionSalesModel: null,
         IsPositionCategoryBound: null
     },
 
@@ -271,11 +271,11 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
             timeout: 1200000,
             success: function (response, opts) {
                 var responseData = window.Ext.decode(response.responseText);
-                self.ServerData.IsPositionNewSalesModel = responseData.IsPositionNewSalesModel;
+                self.ServerData.IsPositionOfPlannedProvisionSalesModel = responseData.IsPositionOfPlannedProvisionSalesModel;
                 self.ServerData.IsPositionCategoryBound = responseData.IsPositionCategoryBound;
                 self.recalculateAll(responseData);
                 self.recalculateDiscount();
-                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema, responseData.IsPositionNewSalesModel, responseData.SalesModel);
+                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema, responseData.IsPositionOfPlannedProvisionSalesModel, responseData.SalesModel);
             },
             failure: function (response)
             {
