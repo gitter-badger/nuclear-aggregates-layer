@@ -1861,6 +1861,6 @@
     <value>Main</value>
   </data>
   <data name="DListMyOpenedActivities" xml:space="preserve">
-    <value>Мои открытые планы</value>
+    <value>My active plans</value>
   </data>
 </root>
