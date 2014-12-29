@@ -6,5 +6,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
     {
         string OrderNumber { get; set; }
         int WorkflowStepId { get; set; }
+        bool CanSwitchToAccount { get; set; }
     }
 }

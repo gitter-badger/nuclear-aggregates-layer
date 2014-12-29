@@ -7,13 +7,7 @@
         }
     },
 
-    setupMenuAvailability: function () {
-        var item = this.getMenuItem('Actions', 'SwitchToAccount');
-        if (Ext.getDom("CanSwitchToAccount").checked)
-            item.enable();
-        else {
-            item.disable();
-        }
+    setupMenuAvailability: function () {  
     },
     
     onLegalPersonChanged: function (cmp) {
