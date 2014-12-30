@@ -1,15 +1,44 @@
-﻿using DoubleGis.Erm.BLCore.DB.Migrations.Properties;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.DB.Migrations.Properties;
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Core;
+using DoubleGis.Erm.Platform.Migration.MW;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
 {
     [Migration(201412291720, "ERM-5524:Не отображаются созданные встречи в гриде Календаря","a.pashkin")]
-    public class Migration201412291720:TransactedMigration
+    public class Migration201412291720:IContextedMigration<IActivityMigrationContext>
     {
-       protected override void ApplyOverride(IMigrationContext context)
-       {
-           context.Database.ExecuteNonQuery(Resources.InsertMissingOrganizers_201412291720);
-       }
+        public void Apply(IActivityMigrationContext context)
+        {
+            context.Connection.StatementTimeout = 6 * 60 * 60; // six hours
+            try
+            {
+                context.Connection.BeginTransaction();
+                var queryString = BuildSql(Resources.InsertMissingOrganizers_201412291720, context.CrmDatabaseName);
+                context.Connection.ExecuteNonQuery(queryString);                
+                context.Connection.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(@"ERM-5524: Adding missing organizer records failed");
+                Console.WriteLine(ex);
+                context.Connection.RollBackTransaction();
+                throw;
+            }
+        }
+
+        public void Revert(IActivityMigrationContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static string BuildSql(String script, String crmDbName)
+        {
+            return String.Format(script, crmDbName);
+        }
+
+       
     }
 }

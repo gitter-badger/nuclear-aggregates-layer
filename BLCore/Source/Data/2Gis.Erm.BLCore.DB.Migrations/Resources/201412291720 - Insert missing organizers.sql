@@ -1,6 +1,17 @@
-﻿		--добавляет в базу MSCRM записи организоторов, которые не были добавлены
-		MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPartyBase] as [Current]
-		USING (
+﻿		--создаем не созданные записи организаторов в ERM
+		INSERT INTO [Activity].[AppointmentReferences]([AppointmentId],[Reference],[ReferencedType],[ReferencedObjectId])
+		SELECT 
+			[a1].[id] as [AppointmentId],
+			2 as Reference,
+			53 as ReferencedType, 	
+			[a1].[OwnerCode] as [ReferencedObjectId]
+		FROM [Activity].[AppointmentBase] a1 
+        LEFT OUTER JOIN [Activity].[AppointmentReferences] a2
+        ON [a1].[Id] = [a2].[AppointmentId] and [a2].[Reference] = 2
+        WHERE [a2].[AppointmentId] is NULL
+
+		--добавляет в базу MSCRM записи организоторов, которые не были добавлены
+		INSERT INTO [{0}].[dbo].[ActivityPartyBase]  ([ActivityPartyId], [ActivityId], [ParticipationTypeMask], [PartyObjectTypeCode], [PartyId], [PartyIdName])
 		SELECT 
 			NEWID() as [ActivityPartyId],
 			[a].[ReplicationCode] as [ActivityId],
@@ -10,28 +21,6 @@
 			[owners].[DisplayName] as [PartyIdName]
 		FROM [Activity].[AppointmentBase] a 
 		JOIN [Security].[Users] [owners] ON [owners].[Id] = [a].[OwnerCode]
-					LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
-		WHERE not exists (SELECT * FROM [Activity].[AppointmentReferences] r WHERE [r].[AppointmentId] = [a].[Id] and [Reference] = 2)
-		) as [Modified]
-		ON [Current].[ActivityId]=[Modified].[ActivityId] and [Current].[ParticipationTypeMask]=7
-		WHEN NOT MATCHED BY TARGET THEN
-			INSERT ([ActivityPartyId], [ActivityId], [ParticipationTypeMask], [PartyObjectTypeCode], [PartyId], [PartyIdName])
-			VALUES ([ActivityPartyId], [ActivityId], [ParticipationTypeMask], [PartyObjectTypeCode], [PartyId], [PartyIdName])
-			;
-
-		--создаем не созданные записи организаторов в ERM
-		MERGE INTO [Activity].[AppointmentReferences] as [Current]
-		USING (
-		SELECT 
-	
-			[a].[id] as [AppointmentId],
-			2 as [Reference],
-			53 as [ReferencedType], 	
-			[a].[OwnerCode] as [ReferencedObjectId]
-		FROM [Activity].[AppointmentBase] a 
-		) as [Modified]
-		ON [Current].[AppointmentId]=[Modified].[AppointmentId] and [Current].[Reference]=2
-		WHEN NOT MATCHED BY TARGET THEN
-			INSERT ([AppointmentId],[Reference],[ReferencedType],[ReferencedObjectId])
-			VALUES ([AppointmentId],[Reference],[ReferencedType],[ReferencedObjectId])
-			;
+		LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
+		LEFT OUTER JOIN [{0}].[dbo].[ActivityPartyBase] r ON ( [r].[ActivityId] = [a].[ReplicationCode] and [ParticipationTypeMask] = 7)
+		WHERE [r].[ActivityId] is NULL
