@@ -46,21 +46,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             where TEntity : IEntity
             where TEntityReference : EntityReference<TEntity>, IEntity
         {
-            if (repository == null)
-            {
-                throw new ArgumentNullException("repository");
-            }
-
-            if (!EqualityComparer<TEntityReference>.Default.Equals(oldReference, newReference))
-            {
-                if(newReference!=null)
-                    repository.Add(newReference);
-                if(oldReference!=null)
-                    repository.Delete(oldReference);
-                repository.Save();
-            }
-
-           
+            Update<TEntity,TEntityReference>(repository,new List<TEntityReference>(){oldReference},new List<TEntityReference>(){newReference});
+          
         }
     }
 }
