@@ -101,10 +101,10 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             Guid id;
             if (!TryGetInstanceId(timeout, out id))
             {
-                return id;
+                throw new TimeoutException();
             }
 
-            throw new TimeoutException();
+            return id;
         }
 
         public bool TryGetInstanceId(TimeSpan timeout, out Guid id)
