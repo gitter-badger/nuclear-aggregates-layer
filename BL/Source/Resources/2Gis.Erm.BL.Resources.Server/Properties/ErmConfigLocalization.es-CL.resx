@@ -1831,10 +1831,10 @@
     <value>Número de documentos</value>
   </data>
   <data name="EnLetter" xml:space="preserve">
-    <value>Письмо</value>
+    <value>Carta</value>
   </data>
   <data name="ControlCreateLetter" xml:space="preserve">
-    <value>Создать Письмо</value>
+    <value>Crear carta</value>
   </data>
   <data name="CrdRelClientLinks" xml:space="preserve">
     <value>Links</value>
@@ -1859,5 +1859,11 @@
   </data>
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Principal</value>
+  </data>
+  <data name="ControlIncreaseLimit" xml:space="preserve">
+    <value>Aumentar</value>
+  </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Husos horarios</value>
   </data>
 </root>

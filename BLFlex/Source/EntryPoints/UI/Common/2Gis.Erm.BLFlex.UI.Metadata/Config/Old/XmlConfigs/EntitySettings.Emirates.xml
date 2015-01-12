@@ -110,7 +110,7 @@
   </Entity>
   <Entity Name="Activity">
     <DataLists>
-      <DataList NameLocaleResourceId="DListAllActivities" HideInCardRelatedGrid="*" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
+      <DataList NameLocaleResourceId="DListAllActivities" HideInCardRelatedGrid="*" DefaultSortField="ScheduledStart" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
         <Scripts>
           <Script FileName="DataList/Activity.DataList.js" />
         </Scripts>
@@ -443,7 +443,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />        
+        <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
       </ToolbarItems>
     </Card>
     <DataLists>
@@ -1658,6 +1658,7 @@
         <ToolbarItem ParentName="Actions" Name="RejectLimit" NameLocaleResourceId="ControlRejectLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.RejectLimit" />
         <ToolbarItem ParentName="Actions" Name="OpenLimit" NameLocaleResourceId="ControlOpenLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.OpenLimit" />
         <ToolbarItem ParentName="Actions" Name="RecalculateLimit" NameLocaleResourceId="ControlRecalculateLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="false" Action="scope.RecalculateLimit" SecurityPrivelegeFlag="638" />
+        <ToolbarItem ParentName="Actions" Name="IncreaseLimit" NameLocaleResourceId="ControlIncreaseLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="true" Action="scope.IncreaseLimit" SecurityPrivelegeFlag="189"/>
       </ToolbarItems>
     </Card>
     <DataLists>
@@ -2713,6 +2714,16 @@
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="CategoryId" NameLocaleResourceId="DFieldCategoryId" Width="200" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="CategoryName" NameLocaleResourceId="Name" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Category" ReferenceFieldName="CategoryId" />
+        </Fields>
+      </DataList>
+    </DataLists>
+  </Entity>
+  <Entity Name="TimeZone">
+    <DataLists>
+      <DataList NameLocaleResourceId="DListTimeZones" DefaultSortField="TimeZoneId" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="TimeZoneId" Icon="en_ico_16_UserAccount.gif">
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="TimeZoneId" NameLocaleResourceId="TimeZoneId" Width="200" FieldType="String" ExtTypeName="String" />
         </Fields>
       </DataList>
     </DataLists>

@@ -5167,7 +5167,7 @@ Doba zveřejnění: {3}.</value>
     <value>{0} č.{1} od {2}</value>
   </data>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
-    <value>Неправильно запланированы даты начала и окончания встречи.
+    <value>Data začátku a konce schůzky nejsou správně naplánovány.
 </value>
   </data>
 </root>

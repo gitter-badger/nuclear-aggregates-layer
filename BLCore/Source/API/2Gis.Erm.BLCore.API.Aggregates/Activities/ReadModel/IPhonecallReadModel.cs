@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
         bool CheckIfOpenPhonecallExistsRegarding(EntityName entityName, long entityId);
 
         IEnumerable<Phonecall> LookupPhonecallsRegarding(EntityName entityName, long entityId);
+        IEnumerable<Phonecall> LookupOpenPhonecallsRegarding(EntityName entityName, long entityId);
         IEnumerable<Phonecall> LookupOpenPhonecallsOwnedBy(long ownerCode);
     }
 }

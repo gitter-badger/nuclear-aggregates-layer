@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -21,16 +22,19 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ICompositeEntityDecorator _compositeEntityDecorator;
+        private readonly IUserContext _userContext;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
         public ListActivityService(ISecurityServiceUserIdentifier userIdentifierService,
                                    ICompositeEntityDecorator compositeEntityDecorator,
+                                   IUserContext userContext,
                                    IFinder finder,
                                    FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
             _compositeEntityDecorator = compositeEntityDecorator;
+            _userContext = userContext;
             _finder = finder;
             _filterHelper = filterHelper;
         }
@@ -61,13 +65,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override void Transform(ListActivityDto dto)
         {
             dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
-            
-            if (dto.ScheduledEnd == null)
-            {
-                dto.ScheduledEnd = TimeZoneInfo.ConvertTimeToUtc(
-                                                                 new DateTime(dto.ScheduledStart.Year, dto.ScheduledStart.Month, dto.ScheduledStart.Day, 23, 59, 59, 999),
-                                                                 TimeZoneInfo.Local);
-            }
         }
 
         private IQueryable<ListActivityDto> ListAppointments(bool filterByParent, EntityName entityName, long? entityId)
@@ -270,8 +267,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             if (entityName == EntityName.Deal || entityName == EntityName.Firm || entityName == EntityName.Contact)
             {
-                var activityies = _compositeEntityDecorator.Find(ActivitySpecs.Find.ByReferencedObject<TActivity, TEntityReference>(entityName, entityId));
-                return activity => (from referencedEntity in activityies select referencedEntity.SourceEntityId).Contains(activity.Id);
+                var activities = _compositeEntityDecorator.Find(ActivitySpecs.Find.ByReferencedObject<TActivity, TEntityReference>(entityName, entityId));
+                return activity => (from referencedEntity in activities select referencedEntity.SourceEntityId).Contains(activity.Id);
             }
 
             throw new NotSupportedException();

@@ -18,6 +18,8 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\CompositionRoots\Source\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -160,7 +162,7 @@
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusReceiverSettingsAspect.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusSenderSettingsAspect.cs" />
     <Compile Include="Operations\Processing\Final\FinalProcessingQueueReceiverSettings.cs" />
-    <Compile Include="Operations\Processing\Final\HotClient\FinalProcessingOfHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalProcessHotClientPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\IFinalProcessingQueueReceiverSettings.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\AsyncMsCRMReplicationSettingsAspect.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\IAsyncMsCRMReplicationSettings.cs" />
@@ -172,8 +174,8 @@
     <Compile Include="Operations\Processing\Final\MsCRM\FinalStorageReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\IPerformedOperationsFinalFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessorSettings.cs" />
-    <Compile Include="Operations\Processing\Final\HotClient\FinalStorageProcessingOfHotClientPerformedOperationsFlow.cs" />
-    <Compile Include="Operations\Processing\Primary\HotClient\PrimaryProcessingOfHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalStorageProcessHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\HotClient\PrimaryProcessHotClientPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ElasticRuntimeFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\PrimaryReplicate2ElasticSearchPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ReplicateToElasticSearchPrimaryProcessingResultsMessage.cs" />
@@ -305,6 +307,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

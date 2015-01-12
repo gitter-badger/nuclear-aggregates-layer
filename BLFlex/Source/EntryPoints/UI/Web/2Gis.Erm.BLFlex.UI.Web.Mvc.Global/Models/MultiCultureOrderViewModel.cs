@@ -45,8 +45,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             "(this.value && this.value.toLowerCase()=='true')||(Ext.getDom('Id').value=='0'&&Ext.getCmp('SourceOrganizationUnit').getValue()!=undefined)")]
         [Dependency(DependencyType.ReadOnly, "DestinationOrganizationUnit", "this.value && this.value.toLowerCase()=='true'")]
         [Dependency(DependencyType.ReadOnly, "LegalPerson", "this.value && this.value.toLowerCase()=='true'")]
-        [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit",
-            "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('HasOrderBranchOfficeOrganizationUnitSelection').value.toLowerCase()=='false'")]
+        [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit", "(this.value && this.value.toLowerCase()=='true')")]
         [Dependency(DependencyType.ReadOnly, "Firm", "this.value && this.value.toLowerCase()=='true'")]
         [Dependency(DependencyType.Disable, "OrderType",
             "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('CanEditOrderType').value.toLowerCase()=='false'")]
@@ -62,7 +61,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public bool HasDestOrganizationUnitPublishedPrice { get; set; }
 
-        public bool HasOrderBranchOfficeOrganizationUnitSelection { get; set; }
         public bool CanEditOrderType { get; set; }
         public bool HasOrderDocumentsDebtChecking { get; set; }
 

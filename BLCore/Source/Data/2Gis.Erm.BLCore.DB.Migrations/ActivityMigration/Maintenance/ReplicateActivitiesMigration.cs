@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
     {
         public void Apply(IActivityMigrationContext context)
         {
-            context.Connection.StatementTimeout = 1 * 60 * 60; // a hour
+            context.Connection.StatementTimeout = 6 * 60 * 60; // six hours
 
             foreach (var tuple in new[]
                 {
@@ -30,9 +30,9 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
                 }
                 catch (Exception ex)
                 {
-                    context.Connection.RollBackTransaction();
                     Console.WriteLine("Replication of {0} was failed.", tuple.Item3);
                     Console.WriteLine(ex);
+                    context.Connection.RollBackTransaction();
                     throw;
                 }
             }

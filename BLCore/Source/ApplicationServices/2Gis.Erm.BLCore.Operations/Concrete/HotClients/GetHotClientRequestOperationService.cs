@@ -211,7 +211,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
 
         private StrategyDto ForOrganizationUnitDirector(long organizationUnitId)
         {
-            return new StrategyDto("по привилегии \"Обработка теплых клиентов\" в OrganizationUnit.Id = {0}", organizationUnitId, FindOrganizationUnitDirector);
+            return new StrategyDto("по привилегии \"Обработка горячих клиентов\" в OrganizationUnit.Id = {0}", organizationUnitId, FindOrganizationUnitDirector);
         }
 
         private StrategyDto ForOrganizationUnitTelesales(long organizationUnitId)
@@ -232,7 +232,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
 
         private StrategyDto ForProjectDirector(long projectCode)
         {
-            return new StrategyDto("по привилегии \"Обработка теплых клиентов\" в Project.Code = {0}", projectCode, FindProjectDirector);
+            return new StrategyDto("по привилегии \"Обработка горячих клиентов\" в Project.Code = {0}", projectCode, FindProjectDirector);
         }
 
         private sealed class StrategyDto

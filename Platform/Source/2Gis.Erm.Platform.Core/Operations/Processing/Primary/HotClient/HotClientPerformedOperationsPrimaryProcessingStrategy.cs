@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient
 {
     public sealed class HotClientPerformedOperationsPrimaryProcessingStrategy :
-        MessageProcessingStrategyBase<FinalStorageProcessingOfHotClientPerformedOperationsFlow, TrackedUseCase, PrimaryProcessingResultsMessage>
+        MessageProcessingStrategyBase<FinalStorageProcessHotClientPerformedOperationsFlow, TrackedUseCase, PrimaryProcessingResultsMessage>
     {
         private static readonly Type HotClientRequestType = typeof(HotClientRequest);
 

@@ -9,21 +9,11 @@ Task Build-IntegrationTests {
 
 	$projectFileName = Get-ProjectFileName '.\Tests' '2Gis.Erm.Tests.Integration.InProc'
 	$projectDir = Split-Path $projectFileName
-	$configFileName = Join-Path $projectDir 'app.config'
 	
-	$content = Transform-Config $configFileName
-	Backup-Config $configFileName $content
-	try {
-		$publishProfileName = $global:Context.EnvironmentName
-
-		Invoke-MSBuild @(
-		"""$projectFileName"""
-		"/p:PublishProfileName=$publishProfileName"
-		)	
-	}
-	finally {
-		Restore-Config $configFileName
-	}
+	$configFileName = Join-Path $projectDir 'app.config'
+	$configXml = Transform-Config $configFileName
+	$buildFileName = Create-BuildFile $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
+	Invoke-MSBuild $buildFileName
 
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) 'bin\Release'
 	Publish-Artifacts $convensionalArtifactName 'Integration Tests'

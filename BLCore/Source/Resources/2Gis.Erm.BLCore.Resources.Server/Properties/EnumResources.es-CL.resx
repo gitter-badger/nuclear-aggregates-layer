@@ -1906,7 +1906,7 @@
   <data name="DenialReasonTypeOther" xml:space="preserve">
     <value>Otro</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Acción</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1967,7 +1967,7 @@
     <value>La información contenida en esta sección corresponde a productos farmacéuticos autorizados para venta bajo receta médica. Conforme a la actual legislación, su promoción está dirigida sólo a profesionales médicos y químicos farmacéuticos. Parus S.p.A. no se hace responsable por la indebida interpretación y consecuencias del mal uso de la información aquí contenida.</value>
   </data>
   <data name="ActivityTypeLetter" xml:space="preserve">
-    <value>Письмо</value>
+    <value>Carta</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Prórroga</value>

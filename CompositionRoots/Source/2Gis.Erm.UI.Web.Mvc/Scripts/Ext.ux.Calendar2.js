@@ -7,11 +7,10 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         relative: 'YYYY-MM-DDTHH:mm:ss'
     },
 
-    // momentjs использует mm - для минут, MM - для месяца, DD - для дня
     displayFormats: {
-        day: Ext.CultureInfo.DateTimeFormatInfo.DotNetShortDatePattern.toUpperCase(),
-        month: Ext.CultureInfo.DateTimeFormatInfo.DotNetYearMonthPattern.toUpperCase(),
-        time: Ext.CultureInfo.DateTimeFormatInfo.DotNetShortTimePattern
+        day: Ext.CultureInfo.DateTimeFormatInfo.MomentJsShortDatePattern,
+        month: Ext.CultureInfo.DateTimeFormatInfo.MomentJsYearMonthPattern,
+        time: Ext.CultureInfo.DateTimeFormatInfo.MomentJsShortTimePattern
     },
 
     initComponent: function () {
@@ -55,6 +54,8 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
             this.time.removeClass('x-form-text'); // Наличие этого класса заставляет контрол "прыгать"
         }
 
+        this.editor.setReadOnly(this.readOnly);
+
         if (this.mode.display == 'month') {
             this.editor.dom.readOnly = true;
             this.mon(this.editor, 'focus', this.onButtonClick, this);
@@ -68,9 +69,6 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         this.mon(this.button, 'click', this.onButtonClick, this);
         this.mon(this.menu, 'select', this.onDateSelect, this);
         if (this.time) this.mon(this.time, 'change', this.onEditorChange, this);
-
-        this.updateButtonState();
-        this.editor.setReadOnly(this.readOnly);
     },
 
     initTime: function (start, end, step) {
@@ -101,6 +99,14 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
 
     onDateSelect: function (unused, date) {
         this.setValue(date);
+    },
+
+    setReadOnly: function(value) {
+        this.readOnly = value;
+        this.updateButtonState();
+        if (this.time) {
+            this.time.setReadOnly(value);
+        }
     },
 
     updateButtonState: function (event) {

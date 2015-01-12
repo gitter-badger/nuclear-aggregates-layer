@@ -62,6 +62,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                         .JSHandler("RecalculateLimit")
                                         .AccessWithPrivelege(FunctionalPrivilegeName.LimitRecalculation);
             }
+
+            public static UIElementMetadataBuilder Increase()
+            {
+                return UIElementMetadata.Config
+                                        .Name.Static("IncreaseLimit")
+                                        .Title.Resource(() => ErmConfigLocalization.ControlIncreaseLimit)
+                                        .ControlType(ControlType.TextButton)
+                                        .LockOnNew()
+                                        .JSHandler("IncreaseLimit")
+                                        .AccessWithPrivelege(FunctionalPrivilegeName.LimitManagement);
+            }
         }
     }
 }

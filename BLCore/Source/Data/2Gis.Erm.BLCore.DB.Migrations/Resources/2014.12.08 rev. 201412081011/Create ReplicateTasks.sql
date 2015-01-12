@@ -53,7 +53,7 @@ AS
             LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
             JOIN [Security].[Users] [creators] ON [creators].[Id] = [tasks].[CreatedBy]
             LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmCreators] WITH ( NOEXPAND ) ON [crmCreators].[ErmUserAccount] = [creators].[Account] COLLATE Database_Default
-            JOIN [Security].[Users] [modifiers] ON [modifiers].[Id] = [tasks].[CreatedBy]
+            JOIN [Security].[Users] [modifiers] ON [modifiers].[Id] = [tasks].[ModifiedBy]
             LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmModifiers] WITH ( NOEXPAND ) ON [crmModifiers].[ErmUserAccount] = [modifiers].[Account] COLLATE Database_Default
             OUTER APPLY (
 	            SELECT TOP 1

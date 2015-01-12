@@ -33,7 +33,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                                           .DisableOn<ILimitViewModel>(x => x.IsNew,
                                                                                                       x => x.Status == LimitStatus.Opened),
                                                            ToolbarElements.Limits.Recalculate()
-                                                                          .DisableOn<ILimitViewModel>(x => x.IsNew)),
+                                                                          .DisableOn<ILimitViewModel>(x => x.IsNew),
+                                                           ToolbarElements.Limits.Increase()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close());
     }

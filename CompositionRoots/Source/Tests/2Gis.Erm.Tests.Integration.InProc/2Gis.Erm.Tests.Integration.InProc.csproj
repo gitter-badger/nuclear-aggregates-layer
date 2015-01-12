@@ -19,6 +19,8 @@
     <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkProfile />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -156,7 +158,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Advertisements\SelectAdvertisementToWhiteListHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Bills\DeleteBillsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Bills\PrintBillHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Bills\PrintJointBillHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesTest.cs" />
@@ -173,8 +174,8 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\ExportLegalPersonsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\MergeLegalPersonsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\PrintLimitsHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\RecalculateLimitHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\SetLimitStatusHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Limits\RecalculateLimitOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Limits\SetLimitStatusOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\CreateLocalMessageHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\ExportLocalMessageHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\ProcessLocalMessagesHandlerTest.cs" />
@@ -448,6 +449,10 @@
       <Project>{8C7E352B-1450-4C92-9F53-EABEB51E1F79}</Project>
       <Name>2Gis.Erm.BLQuerying.UI.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Project>{F5C50F83-8C4F-42F9-AD37-03740AB78416}</Project>
+      <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>
       <Name>2Gis.Erm.BL.Operations.Special</Name>
@@ -571,7 +576,7 @@
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.Client.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.DebitsInfo.xml">
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.DebitsInfoInitial.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.LegalEntity.xml">
@@ -658,6 +663,13 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

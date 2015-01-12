@@ -1030,7 +1030,7 @@
     <value>Договоры</value>
   </data>
   <data name="CrdRelErmActions" xml:space="preserve">
-    <value>Действия</value>
+    <value>История/планы</value>
   </data>
   <data name="EnCategoryOrganizationUnit" xml:space="preserve">
     <value>Рубрика отделения организации</value>
@@ -1528,7 +1528,7 @@
     <value>Мои региональные клиенты</value>
   </data>
   <data name="DListMyWarmClients" xml:space="preserve">
-    <value>Мои теплые клиенты</value>
+    <value>Мои горячие клиенты</value>
   </data>
   <data name="DListRegionalClientsForSubordinates" xml:space="preserve">
     <value>Региональные клиенты моих подчиненных</value>
@@ -1540,7 +1540,7 @@
     <value>Фирмы в резерве на моей территории</value>
   </data>
   <data name="DListWarmClientsForSubordinates" xml:space="preserve">
-    <value>Теплые клиенты моих подчиненных</value>
+    <value>Горячие клиенты моих подчиненных</value>
   </data>
   <data name="DListApprovedByMeLimits" xml:space="preserve">
     <value>Одобренные мною лимиты</value>
@@ -1705,16 +1705,16 @@
     <value>Быстрый поиск заказов</value>
   </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
-    <value>Задачи по теплым клиентам</value>
+    <value>Задачи по горячим клиентам</value>
   </data>
   <data name="DListOverdueActivitiesForWarmClients" xml:space="preserve">
-    <value>Просроченные задачи по теплым клиентам</value>
+    <value>Просроченные задачи по горячим клиентам</value>
   </data>
   <data name="DListClientsWithWarmClientTask" xml:space="preserve">
-    <value>Клиенты, для которых есть задачи типа "Тёплый клиент"</value>
+    <value>Клиенты, для которых есть задачи типа "Горячий клиент"</value>
   </data>
   <data name="DListClientsWithOutdatedWarmClientTask" xml:space="preserve">
-    <value>Клиенты, для которых есть просроченные задачи типа "Тёплый клиент"</value>
+    <value>Клиенты, для которых есть просроченные задачи типа "Горячий клиент"</value>
   </data>
   <data name="ControlPublishAdvertisementTemplate" xml:space="preserve">
     <value>Опубликовать</value>
@@ -1859,5 +1859,11 @@
   </data>
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Основное</value>
+  </data>
+  <data name="ControlIncreaseLimit" xml:space="preserve">
+    <value>Увеличить</value>
+  </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Часовые пояса</value>
   </data>
 </root>

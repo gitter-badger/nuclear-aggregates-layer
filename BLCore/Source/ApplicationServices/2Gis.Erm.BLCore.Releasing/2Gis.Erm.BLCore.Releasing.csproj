@@ -63,9 +63,12 @@
     <Compile Include="Release\IEnsureOrderExportedStrategyContainer.cs" />
     <Compile Include="Release\Old\DownloadReleaseInfoResultsHandler.cs" />
     <Compile Include="Release\Old\PrepareValidationReportHandler.cs" />
+    <Compile Include="Release\ReleaseStartingDeniedConditionSet.cs" />
     <Compile Include="Release\ReleaseInfoDto.cs" />
     <Compile Include="Release\RevertReleaseOperationService.cs" />
     <Compile Include="Release\ServiceBusEnsureOrderExportedStrategy.cs" />
+    <Compile Include="Release\NewReleaseStartingAllowedConditionSet.cs" />
+    <Compile Include="Release\ReleaseStartingAsPreviousAllowedConditionSet.cs" />
     <Compile Include="Release\StartReleaseOperationService.cs" />
     <Compile Include="Release\StartSimplifiedReleaseOperationService.cs" />
     <Compile Include="Release\ValidateOrdersForReleaseOperationService.cs" />

@@ -960,13 +960,16 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value> Tato PO již je hlavní</value>
   </data>
-  <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД. MM. ГГГГ'</value>
+  <data name="LimitIncreasingIsNotRequired" xml:space="preserve">
+    <value>Zvýšení limitu není vyžadováno</value>
+  </data>
+  <data name="LimitWillBeIncreased" xml:space="preserve">
+    <value>Limit bude zvýšen  na částku {0}</value>
   </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
-    <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
+    <value>Chyba při kontaktování služby {0}. Kontaktujte vývojáře.</value>
   </data>
   <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД. MM. ГГГГ'</value>
+    <value>Chybná hodnota. Použijte formát "DD. MM. RRRR"</value>
   </data>
 </root>

@@ -277,7 +277,7 @@
     <value>Инициатива Менеджера Визит</value>
   </data>
   <data name="InformationSourceWarmClient" xml:space="preserve">
-    <value>Тёплый клиент</value>
+    <value>Горячий клиент</value>
   </data>
   <data name="OrderStateApproved" xml:space="preserve">
     <value>Одобрен</value>
@@ -319,7 +319,7 @@
     <value>Отклонено</value>
   </data>
   <data name="ReasonForNewDealWarmClient" xml:space="preserve">
-    <value>Тёплый клиент</value>
+    <value>Горячий клиент</value>
   </data>
   <data name="AdvertisementElementRestrictionTypeArticle" xml:space="preserve">
     <value>Статья</value>
@@ -1372,7 +1372,7 @@
     <value>Отменено</value>
   </data>
   <data name="TaskTypeWarmClient" xml:space="preserve">
-    <value>Теплый клиент</value>
+    <value>Горячий клиент</value>
   </data>
   <data name="TaskTypeBossTask" xml:space="preserve">
     <value>Поручение</value>
@@ -1893,7 +1893,7 @@
   <data name="BargainKindClient" xml:space="preserve">
     <value>Клиентский</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Действие</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">

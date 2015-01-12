@@ -55,6 +55,12 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="string150">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="150"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
   <xs:simpleType name="DocumentDeliveryMethod">
     <xs:annotation>
       <xs:documentation>Способ доставки документов</xs:documentation>
@@ -66,7 +72,7 @@
       <xs:enumeration value="ByEmail"/>
     </xs:restriction>
   </xs:simpleType>
-
+  
   <xs:simpleType name="BargainType">
     <xs:annotation>
       <xs:documentation>Тип договора</xs:documentation>
@@ -84,7 +90,7 @@
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-
+  
   <xs:complexType name="LegalPerson">
     <xs:attribute name="TIN" type="string12" use="required">
       <xs:annotation>
@@ -102,7 +108,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-
+  
   <xs:complexType name="Profile">
     <xs:attribute name="Code" type="xs:long" use="required">
       <xs:annotation>
@@ -162,7 +168,7 @@
         <xs:documentation>Должность</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="OnBasicOf" type="string50" use="optional">
+    <xs:attribute name="OnBasicOf" type="string150" use="optional">
       <xs:annotation>
         <xs:documentation>Действует на основании</xs:documentation>
       </xs:annotation>
@@ -183,12 +189,12 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-
+  
   <xs:complexType name="SoleProprietor">
     <xs:attribute name="TIN" type="string12" use="required"/>
     <xs:attribute name="LegalAddress" type="string250" use="required"/>
   </xs:complexType>
-
+  
   <xs:complexType name="IndividualPerson">
     <xs:attribute name="PassportSeries" type="string4" use="required">
       <xs:annotation>
@@ -211,7 +217,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-
+  
   <xs:complexType name="Account">
     <xs:attribute name="Code" type="xs:long" use="required">
       <xs:annotation>
@@ -249,7 +255,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-
+  
   <xs:complexType name="LegalEntity">
     <xs:sequence>
       <xs:element name="Profiles" minOccurs="1" maxOccurs="1">
@@ -325,7 +331,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-
+  
   <xs:element name="LegalEntity" type="LegalEntity">
     <xs:annotation>
       <xs:documentation>Объект передачи юридического лица клиента</xs:documentation>

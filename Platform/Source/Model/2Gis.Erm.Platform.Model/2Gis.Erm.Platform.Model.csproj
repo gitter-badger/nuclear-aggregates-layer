@@ -515,6 +515,10 @@
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmAddressesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmPromisingIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\HotClientRequest\GetHotClientRequestIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Limit\IncreaseLimitIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Limit\CalculateLimitIncreasingIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Limit\RecalculateLimitIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Limit\SetLimitStatusIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
@@ -530,6 +534,8 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\RegisterOrderStateChangesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ValidateOrdersIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\CreateOrderBillsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\DeleteOrderBillsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CopyOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ObtainDealForBizaccountOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPriceIdentity.cs" />

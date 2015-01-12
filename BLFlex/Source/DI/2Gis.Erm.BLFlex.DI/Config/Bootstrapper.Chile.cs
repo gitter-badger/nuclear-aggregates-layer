@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic;
@@ -45,8 +46,11 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<IPartableEntityValidator<BranchOffice>, ChileBranchOfficeValidator>(Lifetime.Singleton)
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, ChileLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                        .RegisterType<IValidateBillsService, ChileValidateBillsService>(Lifetime.PerResolve)
-
+                .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
+                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(ChileBillNumberFormatConsistencyRule),
+                                                                                                                                               typeof(BillSummConsistencyRule),
+                                                                                                                                               typeof(BillDublicateNumbersConsistencyRule),
+                                                                                                                                               typeof(BillDatesConsistencyRule))))
                         .ConfigureChileSpecificNumberServices();
         }
 

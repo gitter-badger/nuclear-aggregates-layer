@@ -33,20 +33,24 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                                 new XAttribute("PlatformCode", dto.PlatformCode),
                                 new XAttribute("AccountingMethod", dto.AccountingMethod),
                                 new XAttribute("IsHidden", dto.IsHidden),
-                                new XAttribute("IsDeleted", dto.IsDeleted));
+                                new XAttribute("IsDeleted", dto.IsDeleted),
+                                new XAttribute("ProductCode", dto.ProductCode),
+                                new XAttribute("LinkObjectType", dto.LinkObjectType));
         }
 
         protected override ISelectSpecification<Position, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<Position, IExportableEntityDto>(x => new PositionDto
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    PlatformCode = x.Platform.DgppId,
-                    AccountingMethod = x.AccountingMethodEnum,
-                    IsHidden = !x.IsActive,
-                    IsDeleted = x.IsDeleted
-                });
+            {
+                Id = x.Id,
+                Name = x.Name,
+                PlatformCode = x.Platform.DgppId,
+                AccountingMethod = x.AccountingMethodEnum,
+                IsHidden = !x.IsActive,
+                IsDeleted = x.IsDeleted,
+                ProductCode = x.ExportCode,
+                LinkObjectType = x.BindingObjectTypeEnum,
+            });
         }
 
         #region dto
@@ -59,6 +63,8 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             public PositionAccountingMethod AccountingMethod { get; set; }
             public bool IsHidden { get; set; }
             public bool IsDeleted { get; set; }
+            public long ProductCode { get; set; }
+            public PositionBindingObjectType LinkObjectType { get; set; }
         }
 
         #endregion

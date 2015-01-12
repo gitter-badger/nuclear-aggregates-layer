@@ -1831,10 +1831,10 @@
     <value>Počet dokumentů</value>
   </data>
   <data name="EnLetter" xml:space="preserve">
-    <value>Письмо</value>
+    <value>Dopis</value>
   </data>
   <data name="ControlCreateLetter" xml:space="preserve">
-    <value>Создать Письмо</value>
+    <value>Vytvořit dopis</value>
   </data>
   <data name="CrdRelClientLinks" xml:space="preserve">
     <value>Links</value>
@@ -1859,5 +1859,11 @@
   </data>
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Hlavní</value>
+  </data>
+  <data name="ControlIncreaseLimit" xml:space="preserve">
+    <value>Zvýšit</value>
+  </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Časová pásma</value>
   </data>
 </root>

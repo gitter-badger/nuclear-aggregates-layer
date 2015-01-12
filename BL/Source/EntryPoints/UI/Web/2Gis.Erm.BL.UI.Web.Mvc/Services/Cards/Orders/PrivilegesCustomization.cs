@@ -29,8 +29,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             viewModel.CurrenctUserCode = currentUserCode;
 
             viewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
-            viewModel.HasOrderBranchOfficeOrganizationUnitSelection =
-                functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
             viewModel.HasOrderDocumentsDebtChecking =
                 _functionalAccessService.HasOrderChangeDocumentsDebtAccess(viewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);
 

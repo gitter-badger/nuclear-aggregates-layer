@@ -144,7 +144,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             }
 
             bool canBeReverted = false;
-            switch ((ReleaseStatus)lastFinalRelease.Status)
+            switch (lastFinalRelease.Status)
             {
                 case ReleaseStatus.InProgressInternalProcessingStarted:
                 {
@@ -190,7 +190,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private bool LockSuccessfullyAcquired(ReleaseInfo acquiredRelease)
         {
             var lockedRelease = _releaseReadModel.GetLastFinalRelease(acquiredRelease.OrganizationUnitId,
-                                            new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
+                                                                      new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
             return lockedRelease != null &&
                    lockedRelease.Id == acquiredRelease.Id &&
                    lockedRelease.Status == ReleaseStatus.Reverting &&

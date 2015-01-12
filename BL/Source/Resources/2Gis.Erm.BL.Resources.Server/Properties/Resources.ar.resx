@@ -138,6 +138,18 @@
   <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
     <value>An advertising agency cannot be specified as a subclient</value>
   </data>
+  <data name="AccessToChangePeriodOfLimitIsDenied" xml:space="preserve">
+    <value>Not enough rights to change the limit period</value>
+  </data>
+  <data name="AmountToIncreaseLimitIsOutdated" xml:space="preserve">
+    <value>The sum for limit increase is irrelevant</value>
+  </data>
+  <data name="WrongAmountToIncreaseLimit" xml:space="preserve">
+    <value>The sum entered for limit increase is incorrect</value>
+  </data>
+  <data name="OnlyApprovedLimitCanBeIncreased" xml:space="preserve">
+    <value>Only approved limits can be increased</value>
+  </data>
   <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
     <value>The following advertising agency works with this client:</value>
   </data>

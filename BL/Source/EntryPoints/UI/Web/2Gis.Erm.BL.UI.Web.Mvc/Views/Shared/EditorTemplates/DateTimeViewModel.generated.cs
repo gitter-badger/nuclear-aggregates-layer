@@ -116,22 +116,22 @@ WriteLiteral("\r\n\r\n");
 
             
             #line 53 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
-Write(Html.TextBox(string.Empty, value));
+Write(Html.Hidden(string.Empty, value));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n<table");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 2015), Tuple.Create("\"", 2046)
+WriteAttribute("id", Tuple.Create(" id=\"", 2014), Tuple.Create("\"", 2045)
             
             #line 54 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
-, Tuple.Create(Tuple.Create("", 2020), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
+, Tuple.Create(Tuple.Create("", 2019), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
             
             #line default
             #line hidden
-, 2020), false)
-, Tuple.Create(Tuple.Create("", 2038), Tuple.Create("_wrapper", 2038), true)
+, 2019), false)
+, Tuple.Create(Tuple.Create("", 2037), Tuple.Create("_wrapper", 2037), true)
 );
 
 WriteLiteral(" class=\"x-calendar-v2\"");
@@ -153,15 +153,15 @@ WriteLiteral(" style=\"width: 36px;\"");
 
 WriteLiteral(">\r\n                <div");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 2304), Tuple.Create("\"", 2331)
+WriteAttribute("id", Tuple.Create(" id=\"", 2303), Tuple.Create("\"", 2330)
             
             #line 61 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
-, Tuple.Create(Tuple.Create("", 2309), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
+, Tuple.Create(Tuple.Create("", 2308), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
             
             #line default
             #line hidden
-, 2309), false)
-, Tuple.Create(Tuple.Create("", 2327), Tuple.Create("_btn", 2327), true)
+, 2308), false)
+, Tuple.Create(Tuple.Create("", 2326), Tuple.Create("_btn", 2326), true)
 );
 
 WriteLiteral(" class=\"calendar-button calendar-button-normal\"");
@@ -192,15 +192,15 @@ WriteLiteral("                <td");
 
 WriteLiteral(" style=\"width: 80px;\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 2543), Tuple.Create("\"", 2571)
+WriteAttribute("id", Tuple.Create(" id=\"", 2542), Tuple.Create("\"", 2570)
             
             #line 67 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
-, Tuple.Create(Tuple.Create("", 2548), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
+, Tuple.Create(Tuple.Create("", 2547), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
             
             #line default
             #line hidden
-, 2548), false)
-, Tuple.Create(Tuple.Create("", 2566), Tuple.Create("_time", 2566), true)
+, 2547), false)
+, Tuple.Create(Tuple.Create("", 2565), Tuple.Create("_time", 2565), true)
 );
 
 WriteLiteral("></td>\r\n");
@@ -281,10 +281,19 @@ WriteLiteral("\r\n<script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n    new Ext.ux.Calendar2({\r\n        readOnly: ");
+WriteLiteral(">\r\n    new Ext.ux.Calendar2({\r\n        id: \'");
 
             
             #line 92 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+        Write(Html.IdForModel());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\',\r\n        readOnly: ");
+
+            
+            #line 93 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
              Write(readOnly);
 
             
@@ -293,7 +302,7 @@ WriteLiteral(">\r\n    new Ext.ux.Calendar2({\r\n        readOnly: ");
 WriteLiteral(",\r\n        storeId: \'");
 
             
-            #line 93 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+            #line 94 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
              Write(Html.IdForModel());
 
             
@@ -302,7 +311,7 @@ WriteLiteral(",\r\n        storeId: \'");
 WriteLiteral("\',\r\n        editorId: \'");
 
             
-            #line 94 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+            #line 95 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
               Write(Html.IdForModel());
 
             
@@ -311,7 +320,7 @@ WriteLiteral("\',\r\n        editorId: \'");
 WriteLiteral("_editor\',\r\n        buttonId: \'");
 
             
-            #line 95 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+            #line 96 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
               Write(Html.IdForModel());
 
             
@@ -320,7 +329,7 @@ WriteLiteral("_editor\',\r\n        buttonId: \'");
 WriteLiteral("_btn\',\r\n        timeId: \'");
 
             
-            #line 96 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+            #line 97 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
             Write(Html.IdForModel());
 
             
@@ -329,7 +338,7 @@ WriteLiteral("_btn\',\r\n        timeId: \'");
 WriteLiteral("_time\',\r\n        mode: {\r\n            store: \'");
 
             
-            #line 98 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+            #line 99 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
                Write(storeMode);
 
             
@@ -338,7 +347,7 @@ WriteLiteral("_time\',\r\n        mode: {\r\n            store: \'");
 WriteLiteral("\',\r\n            display: \'");
 
             
-            #line 99 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+            #line 100 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
                  Write(displayMode);
 
             
@@ -347,7 +356,7 @@ WriteLiteral("\',\r\n            display: \'");
 WriteLiteral("\',\r\n            time: time\r\n        },\r\n        minDate: \'");
 
             
-            #line 102 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+            #line 103 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
              Write(minDate);
 
             
@@ -356,7 +365,7 @@ WriteLiteral("\',\r\n            time: time\r\n        },\r\n        minDate: \'
 WriteLiteral("\',\r\n        maxDate: \'");
 
             
-            #line 103 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+            #line 104 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
              Write(maxDate);
 
             

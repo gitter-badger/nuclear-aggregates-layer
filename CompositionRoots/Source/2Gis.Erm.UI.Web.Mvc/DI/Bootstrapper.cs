@@ -22,6 +22,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports;
 using DoubleGis.Erm.BLCore.DI.Config;
@@ -41,6 +42,7 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
+using DoubleGis.Erm.BLCore.Releasing.Release;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Metadata;
@@ -214,6 +216,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureReplicationMetadata(msCrmSettings)
                      .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                      .ConfigureIdentityInfrastructure()
+                     .ConfigureReleasingInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IEntityViewNameProvider, EntityViewNameProvider>(CustomLifetime.PerRequest)
                      .RegisterType<ICardSettingsProvider, CardSettingsProvider>(CustomLifetime.PerRequest)
@@ -326,6 +329,13 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerRequest)
                      .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(CustomLifetime.PerRequest)
                      .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerRequest);
+        }
+
+        private static IUnityContainer ConfigureReleasingInfrastructure(this IUnityContainer container)
+        {
+            return container.RegisterOne2ManyTypesPerTypeUniqueness<IReleaseStartingOptionConditionSet, ReleaseStartingDeniedConditionSet>(EntryPointSpecificLifetimeManagerFactory())
+                            .RegisterOne2ManyTypesPerTypeUniqueness<IReleaseStartingOptionConditionSet, NewReleaseStartingAllowedConditionSet>(EntryPointSpecificLifetimeManagerFactory())
+                            .RegisterOne2ManyTypesPerTypeUniqueness<IReleaseStartingOptionConditionSet, ReleaseStartingAsPreviousAllowedConditionSet>(EntryPointSpecificLifetimeManagerFactory());
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container, IWebAppProcesingSettings webAppProcesingSettings)

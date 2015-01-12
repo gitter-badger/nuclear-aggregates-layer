@@ -292,5 +292,100 @@ namespace DoubleGis.Erm.Platform.Common.Utils
 
             return result;
         }
+
+        public static string ConvertNetToMomentJs(string format)
+        {
+            if (string.IsNullOrEmpty(format))
+            {
+                return string.Empty;
+            }
+
+            var final = new StringBuilder(128);
+
+            switch (format.Trim())
+            {
+                case "d":
+                    format = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                    break;
+                case "D":
+                    format = CultureInfo.CurrentCulture.DateTimeFormat.LongDatePattern;
+                    break;
+                case "t":
+                    format = CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern;
+                    break;
+                case "T":
+                    format = CultureInfo.CurrentCulture.DateTimeFormat.LongTimePattern;
+                    break;
+            }
+
+            var m = Regex.Match(format, @"(\\)?(dd?d?d?|MM?M?M?|yy?y?y?|hh?|HH?|mm?|ss?|tt?|S)|.", RegexOptions.IgnoreCase);
+
+            while (m.Success)
+            {
+                string temp = m.Value;
+
+                switch (temp)
+                {
+                    case "dd":
+                        final.Append("DD");
+                        break;
+                    case "ddd":
+                        final.Append("ddd");
+                        break;
+                    case "d":
+                        final.Append("D");
+                        break;
+                    case "dddd":
+                        final.Append("dddd");
+                        break;
+                    case "MMMM":
+                        final.Append("MMMM");
+                        break;
+                    case "MM":
+                        final.Append("MM");
+                        break;
+                    case "MMM":
+                        final.Append("MMM");
+                        break;
+                    case "M":
+                        final.Append("M");
+                        break;
+                    case "yyyy":
+                        final.Append("YYYY");
+                        break;
+                    case "yy":
+                        final.Append("YY");
+                        break;
+                    case "tt":
+                        final.Append("a");
+                        break;
+                    case "h":
+                        final.Append("h");
+                        break;
+                    case "H":
+                        final.Append("H");
+                        break;
+                    case "hh":
+                        final.Append("hh");
+                        break;
+                    case "HH":
+                        final.Append("HH");
+                        break;
+                    case "mm":
+                        final.Append("mm");
+                        break;
+                    case "ss":
+                        final.Append("ss");
+                        break;
+                    default:
+                        final.Append(temp);
+                        break;
+                }
+
+                m = m.NextMatch();
+            }
+
+            return final.ToString();
+        }
     }
 }

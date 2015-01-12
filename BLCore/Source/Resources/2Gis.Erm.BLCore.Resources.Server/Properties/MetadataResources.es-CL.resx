@@ -1399,17 +1399,17 @@
     <value>Editar</value>
   </data>
   <data name="Attendee" xml:space="preserve">
-    <value>Участник</value>
+    <value>Participante</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Место встречи</value>
+    <value>Lugar de encuentro</value>
   </data>
   <data name="Recipient" xml:space="preserve">
-    <value>Получатель</value>
+    <value>Destinatario</value>
     <comment>Кому направлено действие, например, письмо.</comment>
   </data>
   <data name="Sender" xml:space="preserve">
-    <value>Отправитель</value>
+    <value>Remitente</value>
     <comment>От кого направлено действие, например, письмо.</comment>
   </data>
   <data name="NameOfChildClient" xml:space="preserve">

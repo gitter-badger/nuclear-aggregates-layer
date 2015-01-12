@@ -1894,7 +1894,7 @@
   <data name="DenialReasonTypeOther" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Action</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1955,7 +1955,7 @@
     <value>Contract Extension Agreement</value>
   </data>
   <data name="ActivityTypeLetter" xml:space="preserve">
-    <value>Письмо</value>
+    <value>E-mail</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Postponement</value>

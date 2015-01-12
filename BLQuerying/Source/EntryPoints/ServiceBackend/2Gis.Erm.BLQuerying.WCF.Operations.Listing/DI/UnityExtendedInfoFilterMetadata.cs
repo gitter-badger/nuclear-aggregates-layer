@@ -68,17 +68,21 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             });
             RegisterExtendedInfoFilter<ListActivityDto, bool>("Expired", value =>
             {
+                const int HotClientTaskThreshold = 60; // in hours
                 var userContext = _unityContainer.Resolve<IUserContext>();
 
-                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
+                var startOfTheDay = TimeZoneInfo.ConvertTimeFromUtc(
+                    DateTime.UtcNow.AddHours(-HotClientTaskThreshold), 
+                    userContext.Profile.UserLocaleInfo.UserTimeZoneInfo
+                    ).Date;
+                var thresholdDate = TimeZoneInfo.ConvertTimeToUtc(startOfTheDay, userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
 
                 if (value)
                 {
-                    return x => x.ScheduledEnd < userDateTimeTodayUtc;
+                    return x => x.ScheduledStart < thresholdDate;
                 }
 
-                return x => x.ScheduledEnd >= userDateTimeTodayUtc;
+                return x => true;
             });
 
             RegisterExtendedInfoFilter<ListAdsTemplatesAdsElementTemplateDto, bool>("NotDeleted", value => x => !x.IsDeleted);

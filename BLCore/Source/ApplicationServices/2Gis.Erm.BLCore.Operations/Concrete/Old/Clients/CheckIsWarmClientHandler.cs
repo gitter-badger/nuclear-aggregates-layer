@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
                                  .Select(x => new TaskSummary
                                                   {
                                                       ActualEnd = x.ModifiedOn.Value,
-                                                      Description = x.Description
+                                                      Description = x.Header
                                                   })
                                  .FirstOrDefault();
         }

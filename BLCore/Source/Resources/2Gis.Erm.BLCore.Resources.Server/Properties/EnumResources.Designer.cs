@@ -1269,9 +1269,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Действие.
         /// </summary>
-        public static string EntityNameActivityBase {
+        public static string EntityNameActivity {
             get {
-                return ResourceManager.GetString("EntityNameActivityBase", resourceCulture);
+                return ResourceManager.GetString("EntityNameActivity", resourceCulture);
             }
         }
         
@@ -3175,7 +3175,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тёплый клиент.
+        ///   Looks up a localized string similar to Горячий клиент.
         /// </summary>
         public static string InformationSourceWarmClient {
             get {
@@ -4786,7 +4786,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тёплый клиент.
+        ///   Looks up a localized string similar to Горячий клиент.
         /// </summary>
         public static string ReasonForNewDealWarmClient {
             get {
@@ -5074,7 +5074,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Теплый клиент.
+        ///   Looks up a localized string similar to Горячий клиент.
         /// </summary>
         public static string TaskTypeWarmClient {
             get {

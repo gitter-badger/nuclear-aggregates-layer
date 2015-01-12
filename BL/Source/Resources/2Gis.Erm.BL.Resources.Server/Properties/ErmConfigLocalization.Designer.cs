@@ -522,6 +522,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlIncreaseLimit {
+            get {
+                return ResourceManager.GetString("ControlIncreaseLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlMakeMain {
             get {
                 return ResourceManager.GetString("ControlMakeMain", resourceCulture);
@@ -4026,6 +4035,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DListThemeTemplateActive {
             get {
                 return ResourceManager.GetString("DListThemeTemplateActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListTimeZones {
+            get {
+                return ResourceManager.GetString("DListTimeZones", resourceCulture);
             }
         }
         

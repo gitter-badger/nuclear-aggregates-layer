@@ -17,7 +17,7 @@ function Replace-StoredProcs ($SourceConnectionString, $Regex, $Replace){
 		$serverConnection = New-Object Microsoft.SqlServer.Management.Common.ServerConnection($sqlConnection)
 		$server = New-Object Microsoft.SqlServer.Management.Smo.Server($serverConnection)
 		$database = $server.Databases[$builder['Initial Catalog']];
-		$storedProcs = $database.StoredProcedures + $database.UserDefinedFunctions | where { $_.Schema -ne 'sys' -and $_.TextMode }
+		$storedProcs = $database.StoredProcedures | where { $_.Schema -ne 'sys' }
 		
 		foreach($storedProc in $storedProcs){
 			

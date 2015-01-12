@@ -11,8 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts
         int WorkflowStepId { get; set; }
         int PreviousWorkflowStepId { get; set; }
         long CurrenctUserCode { get; set; }
-        bool CanEditOrderType { get; set; }
-        bool HasOrderBranchOfficeOrganizationUnitSelection { get; set; }
+        bool CanEditOrderType { get; set; }        
         bool HasOrderDocumentsDebtChecking { get; set; }
         LookupField SourceOrganizationUnit { get; set; }
         LookupField DestinationOrganizationUnit { get; set; }

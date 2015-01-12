@@ -53,6 +53,7 @@
     <Compile Include="DI\ReleasingZone.cs" />
     <Compile Include="Releases\ExternalReleaseProcessingMessage.cs" />
     <Compile Include="Releases\IAttachExternalReleaseProcessingMessagesOperationService.cs" />
+    <Compile Include="Releases\IReleaseStartingOptionConditionSet.cs" />
     <Compile Include="Releases\IEnsureOrdersForReleaseCompletelyExportedOperationService.cs" />
     <Compile Include="Releases\IFinishReleaseOperationService.cs" />
     <Compile Include="Releases\IRevertReleaseOperationService.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Releases\Old\PrepareValidationReportRequest.cs" />
     <Compile Include="Releases\ReleaseProcessingMessage.cs" />
     <Compile Include="Releases\ReleaseRevertingResult.cs" />
+    <Compile Include="Releases\ReleaseStartingOption.cs" />
     <Compile Include="Releases\ReleaseStartingResult.cs" />
     <Compile Include="Remote\Release\IReleaseApplicationService.cs" />
     <Compile Include="Remote\Release\ReleasingErrorDescription.cs" />

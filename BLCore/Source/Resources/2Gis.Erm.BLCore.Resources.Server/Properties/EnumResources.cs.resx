@@ -1894,7 +1894,7 @@
   <data name="DenialReasonTypeOther" xml:space="preserve">
     <value>Jiné</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Akce</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1955,7 +1955,7 @@
     <value>Dohoda o prodloužení smlouvy</value>
   </data>
   <data name="ActivityTypeLetter" xml:space="preserve">
-    <value>Письмо</value>
+    <value>Dopis</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Odklad</value>

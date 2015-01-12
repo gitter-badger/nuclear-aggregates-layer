@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public int Status { get; set; }
         public int TaskType { get; set; }
         public DateTime ScheduledOn { get; set; }
-
+    
         public ICollection<TaskReference> TaskReferences { get; set; }
 
         public override bool Equals(object obj)

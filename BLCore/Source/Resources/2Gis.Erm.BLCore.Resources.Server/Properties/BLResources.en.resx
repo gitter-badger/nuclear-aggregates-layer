@@ -5167,7 +5167,7 @@ Placement period: {3}.</value>
     <value>{0} No.{1} as of {2}</value>
   </data>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
-    <value>Неправильно запланированы даты начала и окончания встречи.
+    <value>The start and end dates of the meeting are set incorrectly.
 </value>
   </data>
 </root>
