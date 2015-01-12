@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
                 _updateOperationService.ChangeOrganizer(appointment,
                                                         oldOrganizers,
-                                                        appointment.ReferencesIfAny<Appointment, AppointmentOrganizer>(appointmentDto.OwnerRef));
+                                                        appointment.ReferencesIfAny<Appointment, AppointmentOrganizer>(appointmentDto.Organizer));
 
                 if (appointment.Status == ActivityStatus.Completed)
                 {

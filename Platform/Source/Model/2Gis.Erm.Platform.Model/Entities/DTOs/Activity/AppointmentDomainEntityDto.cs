@@ -36,6 +36,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         [DataMember]
         public EntityReference OwnerRef { get; set; }
         [DataMember]
+        public EntityReference Organizer { get; set; }
+        [DataMember]
         public EntityReference CreatedByRef { get; set; }
         [DataMember]
         public DateTime CreatedOn { get; set; }
