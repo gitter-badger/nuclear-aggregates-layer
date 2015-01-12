@@ -307,6 +307,7 @@
     <Compile Include="Entities\Erm\PerformedOperationPrimaryProcessing.cs" />
     <Compile Include="Entities\Erm\PhonecallBase.cs" />
     <Compile Include="Entities\Erm\PhonecallReference.cs" />
+    <Compile Include="Entities\Erm\SalesModelCategoryRestriction.cs" />
     <Compile Include="Entities\Erm\Platform.cs" />
     <Compile Include="Entities\Erm\Position.cs" />
     <Compile Include="Entities\Erm\PositionCategory.cs" />

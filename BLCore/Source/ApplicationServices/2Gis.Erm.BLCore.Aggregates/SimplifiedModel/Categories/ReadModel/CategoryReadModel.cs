@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
@@ -16,58 +15,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
     public class CategoryReadModel : ICategoryReadModel
     {
         private readonly IFinder _finder;
-
-        [Obsolete]
-        private readonly IReadOnlyDictionary<long, IReadOnlyCollection<long>> _supportedCategoryOrganizationUnits =
-            new Dictionary<long, IReadOnlyCollection<long>>
-                {
-                    {
-                        6,          // Новосибирск:
-                        new long[]
-                            {
-                                192,    // Кинотеатры
-                                356,    // Магазины обувные
-                                390,    // Часы
-                                15502,  // Товары для творчества и рукоделия
-                                207,    // Аптеки
-                                526,    // Сумки / кожгалантерея
-                                405,    // Автомойки
-                                508,    // Ткани
-                                384,    // Охотничьи принадлежности / Аксессуары
-                                347,    // Книги
-                                205     // Ветеринарные клиники
-                            }
-                    },
-                    {
-                        1,          // Самара:
-                        new long[]
-                            {
-                                13100,  // Детская обувь 
-                                609,    // Детская одежда
-                                346,    // Игрушки 
-                                345,    // Товары для новорожденных 
-                                533,    // Заказ пассажирского легкового транспорта
-                                207,    // Аптеки 
-                                1203,   // Доставка готовых блюд
-                                161,    // Кафе
-                                164,    // Рестораны
-                                15791,  // Суши-бары / рестораны
-                            }
-                    },
-                    {
-                        2,          // Екатеринбург:
-                        new long[]
-                            {
-                                14426,  // Верхняя одежда 
-                                354,    // Головные уборы
-                                606,    // Женская одежда
-                                355,    // Меха/Дублёнки/Кожа
-                                612,    // Мужская одежда 
-                                383,    // Свадебные товары 
-                                207,    // Аптеки
-                            }
-                    }
-                };
 
         public CategoryReadModel(IFinder finder)
         {
@@ -131,16 +78,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
 
         public IEnumerable<long> GetCategoriesSupportedBySalesModelInOrganizationUnit(SalesModel salesModel, long organizationUnitId)
         {
-            var supportedCategoryIds = salesModel == SalesModel.PlannedProvision
-                                           ? _supportedCategoryOrganizationUnits.ContainsKey(organizationUnitId)
-                                                 ? _supportedCategoryOrganizationUnits[organizationUnitId]
-                                                 : Enumerable.Empty<long>()
-                                           : _finder.Find(Specs.Find.ActiveAndNotDeleted<Category>()).Select(x => x.Id).ToArray();
-
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>() &&
-                                CategorySpecs.CategoryOrganizationUnits.Find.ForOrganizationUnit(organizationUnitId) &&
-                                CategorySpecs.CategoryOrganizationUnits.Find.ForCategories(supportedCategoryIds))
-                          .Select(x => x.CategoryId)
+                                CategorySpecs.CategoryOrganizationUnits.Find.ForOrganizationUnit(organizationUnitId))
+                          .Select(x => x.Category)
+                          .Where(x =>
+                                 x.SalesModelRestrictions.Any(CategorySpecs.SalesModelCategoryRestrictions.Find.BySalesModelAndOrganizationUnit(salesModel, organizationUnitId)
+                                                                           .Predicate.Compile()))
+                          .Select(x => x.Id)
                           .ToArray();
         }
 

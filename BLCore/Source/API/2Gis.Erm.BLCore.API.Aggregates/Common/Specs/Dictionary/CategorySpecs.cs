@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
@@ -16,11 +17,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                 {
                     return new FindSpecification<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId);
                 }
-
-                public static FindSpecification<CategoryOrganizationUnit> ForCategories(IEnumerable<long> categoryIds)
-                {
-                    return new FindSpecification<CategoryOrganizationUnit>(x => categoryIds.Contains(x.CategoryId));
-                }
             }
         }
 
@@ -31,6 +27,17 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                 public static FindSpecification<CategoryFirmAddress> ByFirmAddresses(IEnumerable<long> addressIds)
                 {
                     return new FindSpecification<CategoryFirmAddress>(x => addressIds.Contains(x.FirmAddressId));
+                }
+            }
+        }
+
+        public static class SalesModelCategoryRestrictions
+        {
+            public static class Find
+            {
+                public static FindSpecification<SalesModelCategoryRestriction> BySalesModelAndOrganizationUnit(SalesModel model, long organizationUnitId)
+                {
+                    return new FindSpecification<SalesModelCategoryRestriction>(x => x.SalesModel == model && x.Project.OrganizationUnitId == organizationUnitId);
                 }
             }
         }
