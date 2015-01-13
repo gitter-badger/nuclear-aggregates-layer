@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
@@ -29,7 +30,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
             return _finder.Find(Specs.Find.ById<Project>(projectId))
                           .Select(x => x.OrganizationUnit)
                           .SelectMany(x => x.OrdersByDestination)
-                          .Where(Specs.Find.ActiveAndNotDeleted<Order>() && OrderSpecs.Orders.Find.ReleasableStatuses)
+                          .Where(Specs.Find.ActiveAndNotDeleted<Order>() &&
+                                 OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved,
+                                                                     OrderState.OnApproval,
+                                                                     OrderState.OnRegistration,
+                                                                     OrderState.OnTermination))
                           .Select(x => x.Id)
                           .ToArray();
         }

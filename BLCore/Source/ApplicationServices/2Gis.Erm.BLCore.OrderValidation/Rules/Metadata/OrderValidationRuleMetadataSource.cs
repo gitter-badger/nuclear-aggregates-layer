@@ -113,8 +113,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
             OrderValidationRuleGroupMetadata.Config
                                             .Group(OrderValidationRuleGroup.SalesModelValidation)
                                             .UseCaching
-                                            .EnableCachingFor(ValidationType.PreReleaseBeta)
-                                            .EnableCachingFor(ValidationType.PreReleaseFinal)
                                             .Rules(OrderValidationRuleMetadata.Config.Rule<SalesModelRestrictionsOrderValidationRule>(45)
                                                                               .Common);
 
