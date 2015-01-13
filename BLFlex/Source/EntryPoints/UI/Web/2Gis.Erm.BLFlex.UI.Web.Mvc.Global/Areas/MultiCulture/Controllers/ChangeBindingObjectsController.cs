@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -23,19 +24,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         private readonly IPublicService _publicService;
 
         public ChangeBindingObjectsController(IMsCrmSettings msCrmSettings,
-                                              IUserContext userContext,
-                                              ICommonLog logger,
                                               IAPIOperationsServiceSettings operationsServiceSettings,
                                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                              IAPIIdentityServiceSettings identityServiceSettings,
+                                              IUserContext userContext,
+                                              ICommonLog logger,
                                               IGetBaseCurrencyService getBaseCurrencyService,
                                               IOperationServicesManager operationServicesManager,
                                               IPublicService publicService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _publicService = publicService;

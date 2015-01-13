@@ -16,6 +16,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -46,30 +47,26 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
 
-        public CreateOrUpdateController(IBusinessModelSettings businessModelSettings,
-                                        IMsCrmSettings msCrmSettings,
+        public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
+                                        IAPIOperationsServiceSettings operationsServiceSettings,
+                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                        IAPIIdentityServiceSettings identityServiceSettings,
                                         IUserContext userContext,
                                         ICommonLog logger,
+                                        IGetBaseCurrencyService getBaseCurrencyService,
                                         IUIConfigurationService uiConfigurationService,
                                         IUIServicesManager uiServicesManager,
+                                        IBusinessModelSettings businessModelSettings,
                                         IOperationServicesManager operationServicesManager,
                                         ISecurityServiceUserIdentifier userIdentifierService,
                                         ISecurityServiceFunctionalAccess functionalAccessService,
-                                        ISecurityServiceEntityAccess entityAccessService,
-                                        IAPIOperationsServiceSettings operationsServiceSettings,
-                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                        ISecurityServiceEntityAccess entityAccessService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
-            _businessModelSettings = businessModelSettings;
-            _operationServicesManager = operationServicesManager;
             _uiConfigurationService = uiConfigurationService;
             _uiServicesManager = uiServicesManager;
+            _businessModelSettings = businessModelSettings;
+            _operationServicesManager = operationServicesManager;
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
             _entityAccessService = entityAccessService;
