@@ -61,6 +61,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                 {
                     { "Inn", legalPerson.Inn },
                     { "Kpp", legalPerson.Kpp },
+                    { "VAT", legalPerson.VAT },
                     { "LegalAddress", legalPerson.LegalAddress },
                     { "LegalName", legalPerson.LegalName },
                     { "PassportIssuedBy", legalPerson.PassportIssuedBy },
