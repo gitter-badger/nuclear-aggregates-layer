@@ -3745,6 +3745,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CategoryIsRestrictedForSpecifiedSalesModelError {
+            get {
+                return ResourceManager.GetString("CategoryIsRestrictedForSpecifiedSalesModelError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CategoryShouldBeSpecifiedForAllSubpositions {
             get {
                 return ResourceManager.GetString("CategoryShouldBeSpecifiedForAllSubpositions", resourceCulture);

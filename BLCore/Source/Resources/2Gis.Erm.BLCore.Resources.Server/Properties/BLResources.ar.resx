@@ -5196,4 +5196,7 @@ Placement period: {3}.</value>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>В заказе могут присутствовать позиции только одной модели продаж</value>
   </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
 </root>

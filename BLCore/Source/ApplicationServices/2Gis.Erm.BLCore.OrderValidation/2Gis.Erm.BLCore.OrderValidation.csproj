@@ -97,6 +97,7 @@
     <Compile Include="Rules\Contexts\MassOverridibleValidationRuleContext.cs" />
     <Compile Include="Rules\Contexts\OrdinaryValidationRuleContext.cs" />
     <Compile Include="Rules\Contexts\SingleValidationRuleContext.cs" />
+    <Compile Include="Rules\SalesModelRestrictionsOrderValidationRule.cs" />
     <Compile Include="Rules\Metadata\OrderValidationMetadataValidator.cs" />
     <Compile Include="Rules\Metadata\OrderValidationRuleMetadataSource.cs" />
     <Compile Include="Settings\Xml\AssociatedDeniedPositionsDescriptionsAccessor.cs" />

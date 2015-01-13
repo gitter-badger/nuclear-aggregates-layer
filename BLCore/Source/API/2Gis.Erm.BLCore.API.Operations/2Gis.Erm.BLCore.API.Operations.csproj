@@ -72,6 +72,9 @@
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
+    <Compile Include="Concrete\Integration\Dto\Billing\AdvModelInRubricInfoServiceBusDto.cs" />
+    <Compile Include="Concrete\Integration\Flows\FlowAdvModelsInfo.cs" />
+    <Compile Include="Concrete\Integration\Import\Operations\IImportAdvModelInRubricInfoService.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />

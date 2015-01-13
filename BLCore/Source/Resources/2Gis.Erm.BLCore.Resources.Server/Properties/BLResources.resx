@@ -5181,4 +5181,7 @@
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value />
   </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value />
+  </data>
 </root>

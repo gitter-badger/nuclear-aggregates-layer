@@ -39,6 +39,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                 {
                     return new FindSpecification<SalesModelCategoryRestriction>(x => x.SalesModel == model && x.Project.OrganizationUnitId == organizationUnitId);
                 }
+
+                public static FindSpecification<SalesModelCategoryRestriction> ByProject(long projectId)
+                {
+                    return new FindSpecification<SalesModelCategoryRestriction>(x => x.ProjectId == projectId);
+                }
             }
         }
     }

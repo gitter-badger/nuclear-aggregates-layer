@@ -116,6 +116,7 @@
         UserEntity = 239,
         DepCard = 240,
         Building = 241,
+        SalesModelCategoryRestriction = 272,
 
         PerformedBusinessOperation = 244,
         PerformedOperationPrimaryProcessing = 269,
