@@ -1670,6 +1670,7 @@
 				<ToolbarItem ParentName="Actions" Name="RejectLimit" NameLocaleResourceId="ControlRejectLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.RejectLimit" />
 				<ToolbarItem ParentName="Actions" Name="OpenLimit" NameLocaleResourceId="ControlOpenLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.OpenLimit" />
 				<ToolbarItem ParentName="Actions" Name="RecalculateLimit" NameLocaleResourceId="ControlRecalculateLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="false" Action="scope.RecalculateLimit" SecurityPrivelegeFlag="638" />
+        <ToolbarItem ParentName="Actions" Name="IncreaseLimit" NameLocaleResourceId="ControlIncreaseLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="true" Action="scope.IncreaseLimit" SecurityPrivelegeFlag="189"/>
 			</ToolbarItems>
 		</Card>
 		<DataLists>
@@ -2825,6 +2826,16 @@
 			</DataList>
 		</DataLists>
 	</Entity>
+  <Entity Name="TimeZone">
+    <DataLists>
+      <DataList NameLocaleResourceId="DListTimeZones" DefaultSortField="TimeZoneId" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="TimeZoneId" Icon="en_ico_16_UserAccount.gif">
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="TimeZoneId" NameLocaleResourceId="TimeZoneId" Width="200" FieldType="String" ExtTypeName="String" />
+        </Fields>
+      </DataList>
+    </DataLists>
+  </Entity>
 	<Entity Name="Territory">
 		<Card EntityNameLocaleResourceId="EnTerritory" EntityMainAttribute="Name" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Territory.gif" LargeIcon="en_ico_lrg_Territory.gif">
 			<ToolbarItems>

@@ -165,6 +165,9 @@ namespace DoubleGis.Erm.Platform.Common.Utils
         /// </summary>
         public bool CompareChildren { get; set; }
 
+        // COMMENT {all, 24.12.2014}: Костыль для возможности сравнения enum даже при CompareChildren = false
+        public bool CompareEnumChildren { get; set; }
+
         /// <summary>
         /// If true, compare read only properties (only the getter is implemented).
         /// The default is true.
@@ -654,7 +657,10 @@ namespace DoubleGis.Erm.Platform.Common.Utils
         {
             if (object1.ToString() != object2.ToString())
             {
-                string currentBreadCrumb = AddBreadCrumb(breadCrumb, object1.GetType().Name, string.Empty, -1);
+                string currentBreadCrumb = CompareChildren
+                    ? AddBreadCrumb(breadCrumb, object1.GetType().Name, string.Empty, -1) 
+                    : breadCrumb;
+
                 Differences.Add(string.Format("object1{0} != object2{0} ({1},{2})", currentBreadCrumb, object1, object2));
                 AddToDifferenceMap(currentBreadCrumb, object1, object2);
             }
@@ -781,7 +787,12 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             {
                 //Skip if this is a shallow compare
                 if (!CompareChildren && IsChildType(item.FieldType))
-                    continue;
+                {
+                    if (!CompareEnumChildren || !IsEnum(item.FieldType))
+                    {
+                        continue;
+                    }
+                }
 
                 //If we should ignore it, skip it
                 if (ElementsToIgnore.Contains(item.Name) || IgnoredByAttribute(item.FieldType))
@@ -852,7 +863,12 @@ namespace DoubleGis.Erm.Platform.Common.Utils
 
                 //Skip if this is a shallow compare
                 if (!CompareChildren && IsChildType(info.PropertyType))
-                    continue;
+                {
+                    if (!CompareEnumChildren || !IsEnum(info.PropertyType))
+                    {
+                        continue;
+                    }
+                }
 
                 //If we should ignore it, skip it
                 if (ElementsToIgnore.Contains(info.Name) || IgnoredByAttribute(info.PropertyType))

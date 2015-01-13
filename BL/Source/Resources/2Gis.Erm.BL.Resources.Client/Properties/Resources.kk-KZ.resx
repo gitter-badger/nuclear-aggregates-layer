@@ -963,8 +963,11 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value> Данное юр. лицо уже является основным</value>
   </data>
-  <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД-MMM-ГГГГ'</value>
+  <data name="LimitIncreasingIsNotRequired" xml:space="preserve">
+    <value>Увеличение лимита не требуется</value>
+  </data>
+  <data name="LimitWillBeIncreased" xml:space="preserve">
+    <value>Лимит будет увеличен на сумму {0}</value>
   </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
     <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>

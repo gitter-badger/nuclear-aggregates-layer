@@ -1306,6 +1306,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
         }
 
+        public IEnumerable<Bill> GetBillsForOrder(long orderId)
+        {
+            return _finder.FindMany(OrderSpecs.Bills.Find.ByOrder(orderId) & Specs.Find.ActiveAndNotDeleted<Bill>());
+        }
+
         public long? GetLegalPersonProfileIdByOrder(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))

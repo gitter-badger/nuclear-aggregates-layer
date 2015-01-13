@@ -245,42 +245,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\SavePayments",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CreateBillsHandler),
-                        Request = typeof(CreateBillsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DeleteBillsHandler),
-            Request = typeof(DeleteBillsRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\SavePayments",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CreateBillsHandler),
-                        Request = typeof(CreateBillsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DeleteBillsHandler),
-            Request = typeof(DeleteBillsRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintOrder",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
@@ -478,16 +442,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 new UseCase
                 {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(EditBillHandler),
-                        Request = typeof(EditRequest<Bill>)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
                     {
@@ -541,16 +495,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(EditTerritoryHandler),
                         Request = typeof(EditRequest<Territory>)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(EditLimitHandler),
-                        Request = typeof(EditRequest<Limit>)
                     }
                 },
                 new UseCase
@@ -689,16 +633,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(ValidatePaymentRequisitesIsUniqueHandler),
                         Request = typeof(ValidatePaymentRequisitesIsUniqueRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(SetLimitStatusHandler),
-                        Request = typeof(SetLimitStatusRequest)
                     }
                 },
                 new UseCase
@@ -1280,16 +1214,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\DeleteAll",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(DeleteBillsHandler),
-                        Request = typeof(DeleteBillsRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Handlers.Orders.Discounts.UpdateOrderDiscountHandler\Handle",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
@@ -1475,16 +1399,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.LimitController\SetStatus",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(SetLimitStatusHandler),
-                        Request = typeof(SetLimitStatusRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\ChangeOrderDeal",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
@@ -1583,16 +1497,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(SelectOrganizationUnitTerritoriesHandler),
                         Request = typeof(SelectOrganizationUnitTerritoriesRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.LimitController\Recalculate",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(RecalculateLimitHandler),
-                        Request = typeof(RecalculateLimitRequest)
                     }
                 },
                 new UseCase

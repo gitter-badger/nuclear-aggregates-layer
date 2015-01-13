@@ -329,7 +329,7 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
@@ -358,7 +358,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\Buildscript\Erm.Web.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

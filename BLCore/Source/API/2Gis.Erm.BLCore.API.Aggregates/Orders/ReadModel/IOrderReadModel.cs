@@ -109,6 +109,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId);
         long? GetBargainIdByOrder(long orderId);
         long GetBargainLegalPersonId(long bargainId);
+        IEnumerable<Bill> GetBillsForOrder(long orderId);
         OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId);
         OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId);
         long? GetLegalPersonProfileIdByOrder(long orderId);

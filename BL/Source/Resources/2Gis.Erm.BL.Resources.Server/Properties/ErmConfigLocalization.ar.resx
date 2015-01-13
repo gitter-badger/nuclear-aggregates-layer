@@ -1860,6 +1860,12 @@
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Main</value>
   </data>
+  <data name="ControlIncreaseLimit" xml:space="preserve">
+    <value>Increase</value>
+  </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Time zones</value>
+  </data>
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Сменить профиль</value>
   </data>
