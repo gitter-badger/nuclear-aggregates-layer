@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -14,17 +13,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class SalesModelRestrictionsOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
+        private const int CategoryLevelToCheck = 3;
         private readonly IFinder _finder;
-
-        private readonly IEnumerable<PositionBindingObjectType> _bindingObjectTypeToCheck
-            = new[]
-                  {
-                      PositionBindingObjectType.CategoryMultipleAsterix,
-                      PositionBindingObjectType.AddressCategorySingle,
-                      PositionBindingObjectType.AddressCategoryMultiple,
-                      PositionBindingObjectType.CategorySingle,
-                      PositionBindingObjectType.CategoryMultiple
-                  };
 
         public SalesModelRestrictionsOrderValidationRule(IFinder finder)
         {
@@ -33,28 +23,32 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
+            var projectInfo = _finder.Find(ruleContext.OrdersFilterPredicate)
+                                     .Select(x => x.DestOrganizationUnit.Projects.FirstOrDefault())
+                                     .Select(x => new
+                                                      {
+                                                          Id = x.Id,
+                                                          Name = x.DisplayName
+                                                      }).First();
+
             var badAdvertisemements =
                 _finder.Find(ruleContext.OrdersFilterPredicate)
                        .SelectMany(order => order.OrderPositions)
                        .Where(orderPosition => orderPosition.IsActive
                                                && !orderPosition.IsDeleted)
-                       .SelectMany(
-                                   orderPosition =>
+                       .SelectMany(orderPosition =>
                                    orderPosition.OrderPositionAdvertisements.Where(opa =>
                                                                                    opa.CategoryId.HasValue
-                                                                                   && _bindingObjectTypeToCheck.Contains(opa.Position.BindingObjectTypeEnum)
+                                                                                   && opa.Category.Level == CategoryLevelToCheck
                                                                                    && !opa.Category.SalesModelRestrictions.Any(sr =>
                                                                                                                                sr.SalesModel == opa.Position.SalesModel &&
-                                                                                                                               sr.ProjectId ==
-                                                                                                                               orderPosition.Order.DestOrganizationUnit.Projects
-                                                                                                                                            .FirstOrDefault().Id))
+                                                                                                                               sr.ProjectId == projectInfo.Id))
                                                 .Select(advertisement => new
                                                                              {
                                                                                  OrderPositionId = orderPosition.Id,
                                                                                  OrderPositionName = advertisement.Position.Name,
                                                                                  OrderId = orderPosition.Order.Id,
                                                                                  OrderNumber = orderPosition.Order.Number,
-                                                                                 ProjectName = orderPosition.Order.DestOrganizationUnit.Projects.FirstOrDefault().DisplayName,
                                                                                  CategoryId = advertisement.CategoryId.Value,
                                                                                  CategoryName = advertisement.Category.Name,
                                                                              }))
@@ -74,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                                                                            EntityName.Category,
                                                                                                            x.CategoryName,
                                                                                                            x.CategoryId),
-                                                                                       x.ProjectName)
+                                                                                       projectInfo.Name)
                                                        });
         }
     }

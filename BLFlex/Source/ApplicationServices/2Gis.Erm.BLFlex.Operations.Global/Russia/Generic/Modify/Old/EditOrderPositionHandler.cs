@@ -319,6 +319,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                                                                                ChangedAspects = new[]
                                                                                                     {
                                                                                                         OrderValidationRuleGroup.AdvertisementMaterialsValidation,
+                                                                                                        OrderValidationRuleGroup.SalesModelValidation,
                                                                                                     }
                                                                            }
                                                                    });

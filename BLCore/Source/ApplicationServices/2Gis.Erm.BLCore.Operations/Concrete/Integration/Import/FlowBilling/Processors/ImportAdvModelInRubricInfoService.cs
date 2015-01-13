@@ -7,6 +7,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -20,16 +22,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IBulkCreateSalesModelCategoryRestrictionsService _bulkCreateSalesModelCategoryRestrictionsService;
         private readonly IBulkDeleteSalesModelCategoryRestrictionsService _bulkDeleteSalesModelCategoryRestrictionsService;
+        private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
 
         public ImportAdvModelInRubricInfoService(ISalesModelCategoryRestrictionReadModel restrictionReadModel,
                                                  IOperationScopeFactory operationScopeFactory,
                                                  IBulkCreateSalesModelCategoryRestrictionsService bulkCreateSalesModelCategoryRestrictionsService,
-                                                 IBulkDeleteSalesModelCategoryRestrictionsService bulkDeleteSalesModelCategoryRestrictionsService)
+                                                 IBulkDeleteSalesModelCategoryRestrictionsService bulkDeleteSalesModelCategoryRestrictionsService,
+                                                 IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService)
         {
             _restrictionReadModel = restrictionReadModel;
             _operationScopeFactory = operationScopeFactory;
             _bulkCreateSalesModelCategoryRestrictionsService = bulkCreateSalesModelCategoryRestrictionsService;
             _bulkDeleteSalesModelCategoryRestrictionsService = bulkDeleteSalesModelCategoryRestrictionsService;
+            _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
         }
 
         public void Import(IEnumerable<IServiceBusDto> dtos)
@@ -42,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                     var oldRestrictions = _restrictionReadModel.GetRestrictionsByProject(serviceBusDto.BranchCode);
                     _bulkDeleteSalesModelCategoryRestrictionsService.Delete(oldRestrictions.ToArray());
                     scope.Deleted(oldRestrictions);
-                   
+
                     var newRestrictions = serviceBusDto.AdvModelInRubrics
                                                        .Select(advModelInRubricDto => new SalesModelCategoryRestriction
                                                                                           {
@@ -53,6 +58,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
 
                     _bulkCreateSalesModelCategoryRestrictionsService.Create(newRestrictions);
                     scope.Added(newRestrictions.AsEnumerable());
+
+                    var orderIds = _restrictionReadModel.GetDependedByRestrictionsInProjectOrderIds(serviceBusDto.BranchCode);
+
+                    _registerOrderStateChangesOperationService.Changed(orderIds.Select(x => new OrderChangesDescriptor
+                                                                                                {
+                                                                                                    OrderId = x,
+                                                                                                    ChangedAspects =
+                                                                                                        new[]
+                                                                                                            {
+                                                                                                                OrderValidationRuleGroup
+                                                                                                                    .SalesModelValidation
+                                                                                                            }
+                                                                                                }));
                 }
 
                 scope.Complete();

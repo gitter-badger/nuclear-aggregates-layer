@@ -272,6 +272,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                                                                                ChangedAspects = new[]
                                                                                                     {
                                                                                                         OrderValidationRuleGroup.AdvertisementMaterialsValidation,
+                                                                                                        OrderValidationRuleGroup.SalesModelValidation,
                                                                                                     }
                                                                            }
                                                                    });

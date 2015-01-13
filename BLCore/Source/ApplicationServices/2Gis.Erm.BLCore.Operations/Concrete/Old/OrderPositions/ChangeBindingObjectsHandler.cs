@@ -55,6 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
                                                                                                         {
                                                                                                             OrderValidationRuleGroup.Generic,
                                                                                                             OrderValidationRuleGroup.AdvertisementMaterialsValidation,
+                                                                                                            OrderValidationRuleGroup.SalesModelValidation,
                                                                                                             OrderValidationRuleGroup.ADPositionsValidation
                                                                                                         }
                                                                                }

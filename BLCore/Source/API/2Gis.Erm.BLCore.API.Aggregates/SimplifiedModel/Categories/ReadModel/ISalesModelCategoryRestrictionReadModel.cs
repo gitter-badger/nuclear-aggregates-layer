@@ -8,5 +8,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadMod
     public interface ISalesModelCategoryRestrictionReadModel : ISimplifiedModelConsumerReadModel
     {
         IEnumerable<SalesModelCategoryRestriction> GetRestrictionsByProject(long projectId);
+        IReadOnlyCollection<long> GetDependedByRestrictionsInProjectOrderIds(long projectId);
     }
 }

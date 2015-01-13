@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                                                                              RubricCode = (long)x.Attribute("Code"),
                                                                              AdvModel =
                                                                                  (AdvModel)
-                                                                                 Enum.Parse(typeof(AdvModel), xml.Attribute("AdvModel").Value, false)
+                                                                                 Enum.Parse(typeof(AdvModel), x.Attribute("AdvModel").Value, true)
                                                                          }).ToArray(),
                        };
         }
