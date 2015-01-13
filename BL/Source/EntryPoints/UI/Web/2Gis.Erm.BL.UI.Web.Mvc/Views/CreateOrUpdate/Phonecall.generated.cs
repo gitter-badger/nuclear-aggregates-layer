@@ -235,7 +235,7 @@ WriteLiteral("        ");
 
             
             #line 38 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndItsDescendants=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
             #line default
@@ -294,7 +294,7 @@ WriteLiteral("        ");
 
             
             #line 48 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Contact, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Contact, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndItsDescendants=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
             #line default

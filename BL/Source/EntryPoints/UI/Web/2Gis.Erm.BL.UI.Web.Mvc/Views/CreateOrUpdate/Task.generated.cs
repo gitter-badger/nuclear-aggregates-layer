@@ -218,7 +218,7 @@ WriteLiteral("        ");
 
             
             #line 37 "..\..\Views\CreateOrUpdate\Task.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndItsDescendants=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
             #line default
