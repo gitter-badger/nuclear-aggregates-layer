@@ -12,7 +12,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
     {
         public void Apply(IActivityMigrationContext context)
         {
-            context.Connection.StatementTimeout = 6 * 60 * 60; // six hours
             try
             {
                 context.Connection.BeginTransaction();
@@ -20,10 +19,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
                 context.Connection.ExecuteNonQuery(queryString);                
                 context.Connection.CommitTransaction();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(@"ERM-5524: Adding missing organizer records failed");
-                Console.WriteLine(ex);
                 context.Connection.RollBackTransaction();
                 throw;
             }

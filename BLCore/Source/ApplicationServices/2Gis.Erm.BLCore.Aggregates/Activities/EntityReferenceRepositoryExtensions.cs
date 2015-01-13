@@ -46,7 +46,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             where TEntity : IEntity
             where TEntityReference : EntityReference<TEntity>, IEntity
         {
-            Update<TEntity,TEntityReference>(repository,new List<TEntityReference>(){oldReference},new List<TEntityReference>(){newReference});
+           
+            Update<TEntity,TEntityReference>(repository,new []{oldReference},new []{newReference});
           
         }
     }
