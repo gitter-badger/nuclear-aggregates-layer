@@ -92,6 +92,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 clientFilter = querySettings.CreateForExtendedProperty<Firm, long>("clientId", clientId => x => x.ClientId == clientId);
             }
 
+            bool addCityToName;
+            querySettings.TryGetExtendedProperty("AddCityToName", out addCityToName);   
+
             return query
                 .Where(x => !x.IsDeleted)
                 .Filter(_filterHelper,
@@ -103,7 +106,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .Select(x => new ListFirmDto
                     {
                         Id = x.Id,
-                        Name = x.Name,
+                        Name = (addCityToName && x.OrganizationUnit != null) ? x.Name+","+x.OrganizationUnit.Name : x.Name,
                         CreatedOn = x.CreatedOn,
 
                         ClientId = x.Client != null ? x.Client.Id : (long?)null,
