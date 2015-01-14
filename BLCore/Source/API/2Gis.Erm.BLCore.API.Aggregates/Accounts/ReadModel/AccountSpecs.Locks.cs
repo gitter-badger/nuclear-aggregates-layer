@@ -24,6 +24,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                     return new FindSpecification<Lock>(x => x.OrderId == orderId);
                 }
 
+                public static FindSpecification<Lock> ByAccount(long accountId)
+                {
+                    return new FindSpecification<Lock>(x => x.AccountId == accountId);
+                }
+
+                public static FindSpecification<Lock> ForPreviousPeriods(DateTime periodStart, DateTime periodEnd)
+                {
+                    return new FindSpecification<Lock>(x => x.PeriodStartDate < periodStart && x.PeriodEndDate < periodEnd);
+                }
+
                 public static FindSpecification<Lock> ByDestinationOrganizationUnit(long destinationOrganizationUnitId, TimePeriod period)
                 {
                     return new FindSpecification<Lock>(x => x.PeriodStartDate == period.Start &&

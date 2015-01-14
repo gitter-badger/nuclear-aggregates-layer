@@ -40,9 +40,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListActivitiesInProgressForSubordinates", "ActiveAndNotDeleted=true;InProgress=true;ForSubordinates=true" },
             // Мои запланированные действия на сегодня
             {"DListMyActivitiesInProgressForToday", "ActiveAndNotDeleted=true;InProgress=true;ForToday=true;ForMe=true" },
-            // Действия по теплым клиентам
-            {"DListActivitiesForWarmClients", "ActiveAndNotDeleted=true;InProgress=true;Expired=false;WarmClient=true" },
-            // Просроченные действия по теплым клиентам
+            // Действия по горячим клиентам
+            {"DListActivitiesForWarmClients", "ActiveAndNotDeleted=true;InProgress=true;WarmClient=true" },
+            // Просроченные действия по горячим клиентам
             {"DListOverdueActivitiesForWarmClients", "ActiveAndNotDeleted=true;InProgress=true;Expired=true;WarmClient=true" },
 
             {"DListAdsTemplatesAdsElementTemplate", "NotDeleted=true"},
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListMyClientsWithDebt", "ActiveAndNotDeleted=true;ForMe=true;WithDebt=true" },
             // Клиенты в резерве на моей территории
             {"DListReservedClientsOnMyTerritory", "ActiveAndNotDeleted=true;MyTerritory=true;ForReserve=true" },
-            // Мои теплые клиенты
+            // Мои горячие клиенты
             {"DListMyWarmClients", "ActiveAndNotDeleted=true;ForMe=true;Warm=true" },
             // Клиенты, у которых есть заказы с типом Бартер
             {"DListClientsWithBarter", "ActiveAndNotDeleted=true;WithBarterOrders=true" },
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListMyClientsWithoutMakeDecisionContacts", "ActiveAndNotDeleted=true;ForMe=true;NoMakingDecisions=true" },
             // Клиенты по моим подчиненным
             {"DListClientsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
-            // Теплые клиенты моих подчиненных
+            // Горячие клиенты моих подчиненных
             {"DListWarmClientsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;Warm=true" },
             // Клиенты моих подчиненных, у которых есть заказы с типом Бартер
             {"DListClientsWithBarterForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;WithBarterOrders=true" },
@@ -317,8 +317,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListOrganizationUnitActiveMovedToErm", "ActiveAndNotDeleted=true;UseErm=true"}, 
             {"DListOrganizationUnitActiveMovedToIR", "ActiveAndNotDeleted=true;UseIR=true"}, 
 
-            {"DListOperationsAfterSaleService", "AfterSaleServiceActivitiesCreation=true"},
-
             {"DListPositions", "ActiveAndNotDeleted=true"},
             {"DListPositionInactive", "NotActiveAndNotDeleted=true"},
 
@@ -370,6 +368,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListPlatform", ""},
             {"DListReleaseInfo", ""},
             {"DListRole", ""},
+            {"DListTimeZones", ""},
             {"DListUserRole", ""},
             {"DListWithdrawalInfo", ""},
         };

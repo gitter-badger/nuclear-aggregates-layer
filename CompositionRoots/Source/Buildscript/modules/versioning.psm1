@@ -1,8 +1,8 @@
 ﻿#------ Указать версию --------
 $GlobalVersion = @{
 	'Major' = 2
-	'Minor' = 52
-	'Patch' = 6
+	'Minor' = 55
+	'Patch' = 0
 }
 #------------------------------
 
@@ -35,8 +35,6 @@ function Update-AssemblyInfo ($AssemblyInfos)  {
 
 	foreach($assemblyInfo in $AssemblyInfos){
 	
-	    $assemblyInfo.IsReadOnly = $false
-		
 		$content = Get-Content -Encoding UTF8 -Path $assemblyInfo.FullName
 		
 		$content = $content -replace 'AssemblyInformationalVersion\(".*"\)', "AssemblyInformationalVersion(""$($version.SemanticVersion)"")"
@@ -88,10 +86,7 @@ function Get-Revision {
 }
 
 function Get-Branch {
-	$branch = $global:Context.Branch
-	if ($branch -eq $null){
-		return 'local'
-	}
+	$branch = [string]$global:Context.Branch
 	
 	# trim branch prefix
 	$slashIndex = $branch.LastIndexOf('/')

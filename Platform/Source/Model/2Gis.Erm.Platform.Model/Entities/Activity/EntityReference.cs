@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Activity
@@ -49,11 +47,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
                 && TargetEntityName == other.TargetEntityName
                 && TargetEntityId == other.TargetEntityId;
         }
-    }
-
-    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public sealed class RegardingObject<TEntity> : EntityReference<TEntity>, IEntity
-        where TEntity : class, IEntity
-    {
     }
 }

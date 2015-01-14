@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
@@ -123,16 +120,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             return count;
         }
 
-        public Limit GetLimitById(long id)
-        {
-            return _finder.Find(Specs.Find.ById<Limit>(id)).SingleOrDefault();
-        }
-
-        public Limit GetLimitByReplicationCode(Guid replicationCode)
-        {
-            return _finder.Find<Limit>(limit => limit.ReplicationCode == replicationCode).SingleOrDefault();
-        }
-
         public int Update(AccountDetail accountDetail)
         {
             int count;
@@ -227,50 +214,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             return count;
         }
 
-        public int Create(Limit limit)
-        {
-            int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.Limit))
-            {
-                _identityProvider.SetFor(limit);
-
-                var accountOwnerCode = _finder.Find(Specs.Find.ById<Account>(limit.AccountId))
-                                              .Select(x => x.OwnerCode)
-                                              .Single();
-                limit.OwnerCode = accountOwnerCode;
-                
-                _limitGenericSecureRepository.Add(limit);
-                count = _limitGenericSecureRepository.Save();
-
-                operationScope
-                    .Added<Limit>(limit.Id)
-                    .Complete();
-            }
-
-            return count;
-        }
-
-        public int Update(Limit limit)
-        {
-            int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity>(EntityName.Limit))
-            {
-                var accountOwnerCode = _finder.Find(Specs.Find.ById<Account>(limit.AccountId))
-                                              .Select(x => x.OwnerCode)
-                                              .Single();
-                limit.OwnerCode = accountOwnerCode;
-
-                _limitGenericSecureRepository.Update(limit);
-                count = _limitGenericSecureRepository.Save();
-
-                operationScope
-                    .Updated<Limit>(limit.Id)
-                    .Complete();
-            }
-
-            return count;
-        }
-
         public int Delete(LockDetail entity)
         {
             int count;
@@ -281,24 +224,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
                 operationScope
                     .Deleted<LockDetail>(entity.Id)
-                    .Complete();
-            }
-
-            return count;
-        }
-
-        public int Activate(Limit limit)
-        {
-            int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<ActivateIdentity>(EntityName.Limit))
-            {
-                limit.IsActive = true;
-                limit.CloseDate = null;
-                _limitGenericSecureRepository.Update(limit);
-                count = _limitGenericSecureRepository.Save();
-
-                operationScope
-                    .Updated<Limit>(limit.Id)
                     .Complete();
             }
 
@@ -449,22 +374,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             return count;
         }
 
-        public int Delete(Limit limit)
-        {
-            int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity>(EntityName.Limit))
-            {
-                _limitGenericSecureRepository.Delete(limit);
-                count = _limitGenericSecureRepository.Save();
-
-                operationScope
-                    .Deleted<Limit>(limit.Id)
-                    .Complete();
-            }
-
-            return count;
-        }
-
         public int Delete(OperationType entity)
         {
             int count;
@@ -484,11 +393,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public IEnumerable<OperationType> GetOperationTypes(string syncCode1C)
         {
             return _finder.Find<OperationType>(x => x.IsActive && !x.IsDeleted && x.SyncCode1C == syncCode1C && x.IsInSyncWith1C).ToArray();
-        }
-
-        public int Deactivate(Limit limit)
-        {
-            throw new NotSupportedException(BLResources.OperationIsDiabled);
         }
 
         public void UpdateAccountBalance(IEnumerable<long> accountIds)
@@ -556,11 +460,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             return _secureFinder.Find(Specs.Find.ById<AccountDetail>(entityId)).Single();
         }
 
-        public Limit FindLimit(long entityId)
-        {
-            return _finder.Find(Specs.Find.ById<Limit>(entityId)).SingleOrDefault();
-        }
-
         public OperationTypeDto GetOperationTypeDto(long entityId)
         {
             // CR: {a.bakhturin}:{312}:{Minor}:{15.04.2011}: т.е. неактивные позиции тоже не будут позволять удалить тип операции
@@ -619,69 +518,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             return _finder.Find(AccountSpecs.Accounts.Find.ByLegalPersonSyncCode1C(legalPersonSyncCode1C)).ToArray();
         }
 
-        public void RecalculateLimitValue(Limit limit, DateTime periodStart, DateTime periodEnd)
-        {
-            limit.Amount = RecalculateLimitValue(limit.AccountId, periodStart, periodEnd);
-        }
-
-        public bool IsLimitRecalculationAvailable(long limitId)
-        {
-            var limit = _finder.Find(Specs.Find.ById<Limit>(limitId)).Single();
-
-            // заказы, по которым считается лимит плюс заказы в состоянии "на расторжении"
-            var orderOrganizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>())
-                .Where(order => order.AccountId == limit.AccountId &&
-                    (order.BeginDistributionDate < limit.EndPeriodDate && order.EndDistributionDateFact > limit.StartPeriodDate) &&
-                    (order.WorkflowStepId == OrderState.Approved || order.WorkflowStepId == OrderState.OnTermination))
-                .Select(order => order.DestOrganizationUnitId)
-                .Distinct()
-                .ToArray();
-
-            var releaseOrganizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>())
-                .Where(info => (info.PeriodStartDate < limit.EndPeriodDate && info.PeriodEndDate > limit.StartPeriodDate) &&
-                               !info.IsBeta &&
-                               info.Status == ReleaseStatus.Success)
-                .Select(info => info.OrganizationUnitId)
-                .Distinct()
-                .ToArray();
-
-            var existsOrderWithoutFinalRelease = orderOrganizationUnits.Except(releaseOrganizationUnits).Any();
-
-            // если заказов нет вообще (а не только заказов, по которым не проведена сборка), то пересчёт лимита возможен
-            return !orderOrganizationUnits.Any() || existsOrderWithoutFinalRelease;
-        }
-
         public void RecalculateLockValue(Lock lockEntity)
         {
             lockEntity.Balance = _finder.Find(Specs.Find.ActiveAndNotDeleted<LockDetail>())
                                         .Where(detail => detail.LockId == lockEntity.Id)
                                         .Sum(detail => (decimal?)detail.Amount) ?? 0;
-        }
-
-        public LimitDto InitializeLimitForAccount(long accountId, DateTime periodStart, DateTime periodEnd)
-        {
-            var dto = _finder.Find(Specs.Find.ById<Account>(accountId))
-                .Select(x => new LimitDto
-                {
-                    LegalPersonId = x.LegalPerson.Id,
-                    LegalPersonName = x.LegalPerson.LegalName,
-                    BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
-                    BranchOfficeId = x.BranchOfficeOrganizationUnit.BranchOffice.Id,
-                    BranchOfficeName = x.BranchOfficeOrganizationUnit.BranchOffice.Name,
-                    LegalPersonOwnerId = x.LegalPerson.OwnerCode,
-                })
-                .Single();
-
-            dto.Amount = RecalculateLimitValue(accountId, periodStart, periodEnd);
-            return dto;
-        }
-
-        public bool IsLimitExists(long accountId, DateTime periodStartDate, DateTime periodEndDate, long excludeLimitId)
-        {
-            return _finder.Find(Specs.Find.ById<Account>(accountId))
-                .SelectMany(account => account.Limits)
-                .Where(limit => !limit.IsDeleted)
-                .Any(limit => limit.StartPeriodDate == periodStartDate && limit.EndPeriodDate == periodEndDate && limit.Id != excludeLimitId);
         }
 
         public IEnumerable<AccountFor1CExportDto> GetAccountsForExortTo1C(long organizationUnitId)
@@ -770,18 +611,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             }
         }
 
-        int IDeactivateAggregateRepository<Limit>.Deactivate(long entityId)
-        {
-            var entity = _secureFinder.Find(Specs.Find.ById<Limit>(entityId)).Single();
-            return Deactivate(entity);
-        }
-
-        int IActivateAggregateRepository<Limit>.Activate(long entityId)
-        {
-            var entity = _secureFinder.Find(Specs.Find.ById<Limit>(entityId)).Single();
-            return Activate(entity);
-        }
-
         int IDeleteAggregateRepository<Lock>.Delete(long entityId)
         {
             var entity = _finder.Find(Specs.Find.ById<Lock>(entityId)).Single();
@@ -791,12 +620,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         int IDeleteAggregateRepository<LockDetail>.Delete(long entityId)
         {
             var entity = _finder.Find(Specs.Find.ById<LockDetail>(entityId)).Single();
-            return Delete(entity);
-        }
-
-        int IDeleteAggregateRepository<Limit>.Delete(long entityId)
-        {
-            var entity = _secureFinder.Find(Specs.Find.ById<Limit>(entityId)).Single();
             return Delete(entity);
         }
 
@@ -838,24 +661,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             {
                 throw new ProcessAccountsWithDebtsException(errorMessage);
             }
-        }
-
-        private decimal RecalculateLimitValue(long accountId, DateTime periodStart, DateTime periodEnd)
-        {
-            var lockSum = _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>())
-                .Where(@lock => @lock.AccountId == accountId && @lock.PeriodStartDate < periodStart && @lock.PeriodEndDate < periodEnd)
-                .Sum(@lock => (decimal?)@lock.PlannedAmount) ?? 0;
-
-            var orderReleaseSum = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>())
-                .Where(order => order.AccountId == accountId)
-                .Where(order => order.WorkflowStepId == OrderState.Approved)
-                .SelectMany(order => order.OrderReleaseTotals)
-                .Where(total => total.ReleaseBeginDate == periodStart && total.ReleaseEndDate == periodEnd)
-                .Sum(total => (decimal?)total.AmountToWithdraw) ?? 0;
-
-            var account = _finder.Find(Specs.Find.ById<Account>(accountId)).Single();
-            var accountBalance = account.Balance - (lockSum + orderReleaseSum);
-            return accountBalance > 0 ? 0 : Math.Abs(accountBalance);
         }
 
         private Account CreateAccountImpl(long legalPersonId, long branchOfficeOrganizationUnitId)

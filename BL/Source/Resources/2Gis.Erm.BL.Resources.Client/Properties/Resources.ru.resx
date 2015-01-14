@@ -652,7 +652,7 @@
     <value>Текущий договор устарел, для размещения заказа в рамках договора необходимо создать новый договор</value>
   </data>
   <data name="IsWarmClientWarningFormat" xml:space="preserve">
-    <value>Выставлена причина сделки "Теплый клиент", т.к. для данного клиента существует задача "{0}", закрытая {1} с типом "Теплый клиент"</value>
+    <value>Выставлена причина сделки "Горячий клиент", т.к. для данного клиента существует задача "{0}", закрытая {1} с типом "Горячий клиент"</value>
   </data>
   <data name="BillCreationApprovalNeeded" xml:space="preserve">
     <value>Требуется согласование!</value>
@@ -900,9 +900,6 @@
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Сообщения по заявке</value>
   </data>
-  <data name="Task" xml:space="preserve">
-    <value>Задача</value>
-  </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
     <value>Вы действительно хотите изменить статус лимита на</value>
   </data>
@@ -954,9 +951,6 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Ошибка выполнения операции</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.</value>
-  </data>
   <data name="DisabledFunctionality" xml:space="preserve">
     <value>Данный функционал временно недоступен</value>
   </data>
@@ -966,10 +960,13 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value> Данное юр. лицо уже является основным</value>
   </data>
+  <data name="LimitIncreasingIsNotRequired" xml:space="preserve">
+    <value>Увеличение лимита не требуется</value>
+  </data>
+  <data name="LimitWillBeIncreased" xml:space="preserve">
+    <value>Лимит будет увеличен на сумму {0}</value>
+  </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
     <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
-  </data>
-  <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Некорректное значение. Используйте формат 'ДД.MM.ГГГГ'</value>
   </data>
 </root>
