@@ -182,6 +182,7 @@
     <Compile Include="Concrete\Orders\Copy\CopyOrderResult.cs" />
     <Compile Include="Concrete\Orders\Copy\DiscountType.cs" />
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
+    <Compile Include="Concrete\Orders\ICheckIfOrderPositionCanBeModifiedOperationService.cs" />
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\OrderChangesDescriptor.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />

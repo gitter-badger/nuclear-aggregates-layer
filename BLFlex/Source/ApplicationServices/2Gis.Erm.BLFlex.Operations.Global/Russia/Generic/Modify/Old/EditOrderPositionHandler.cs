@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
         private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
-        private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
+        private readonly ICheckIfOrderPositionCanBeModifiedOperationService _checkIfOrderPositionCanBeModifiedOperationService;
 
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICategoryReadModel _categoryReadModel;
@@ -55,8 +55,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             ICalculateOrderPositionCostService calculateOrderPositionCostService,
             IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
             IOperationScopeFactory scopeFactory,
-            ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
-            ICategoryReadModel categoryReadModel)
+            ICategoryReadModel categoryReadModel, 
+            ICheckIfOrderPositionCanBeModifiedOperationService checkIfOrderPositionCanBeModifiedOperationService)
         {
             _finder = finder;
             _orderReadModel = orderReadModel;
@@ -67,8 +67,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
             _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
-            _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
             _categoryReadModel = categoryReadModel;
+            _checkIfOrderPositionCanBeModifiedOperationService = checkIfOrderPositionCanBeModifiedOperationService;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                                    .Single();
 
             string checkReport;
-            if (!_checkIfOrderPositionCanBeCreatedForOrderOperationService.Check(orderPosition.OrderId,
+            if (!_checkIfOrderPositionCanBeModifiedOperationService.Check(orderPosition.OrderId,
                                                                                  orderPosition.Id,
                                                                                  orderPosition.PricePositionId,
                                                                                  advertisementsLinks,
