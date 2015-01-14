@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
@@ -114,16 +115,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                               {
                                                                                   long organizationUnitId;
                                                                                   if (!querySettings.TryGetExtendedProperty("OrganizationUnitId",
-                                                                                                                            out organizationUnitId))
+                                                                                      out organizationUnitId))
                                                                                   {
                                                                                       return x => false;
                                                                                   }
 
-                                                                                  var supportedCategoriesForNewSalesModel =
-                                                                                      _categoryReadModel
-                                                                                          .GetCategoriesSupportedBySalesModelInOrganizationUnit(salesModel, organizationUnitId);
-
-                                                                                  return x => supportedCategoriesForNewSalesModel.Contains(x.Id);
+                                                                                  var specification = CategorySpecs.Categories.Find.ForSalesModelInOrganizationUnit(salesModel, organizationUnitId);
+                                                                                  return specification.Predicate;
                                                                               });
 
             return query
