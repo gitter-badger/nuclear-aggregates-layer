@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
-using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -17,16 +16,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
-        private readonly ICategoryReadModel _categoryReadModel;
 
         public ListCategoryService(
             IFinder finder,
-            FilterHelper filterHelper,            
-            ICategoryReadModel categoryReadModel)
+            FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
-            _categoryReadModel = categoryReadModel;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
