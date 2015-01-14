@@ -10,7 +10,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
     {
         private readonly ConnectionStringsSettingsAspect _connectionStringsSettings;
 
-        private readonly StringSetting _crmHost = ConfigFileSetting.String.Optional("CrmHost", string.Empty);
         private readonly EnumSetting<MsCrmIntegrationMode> _integrationMode = ConfigFileSetting.Enum.Required<MsCrmIntegrationMode>("MsCrmIntegrationMode");
 
         private readonly Lazy<string> _crmOrganizationName;
@@ -39,11 +38,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
         public string CrmRuntimeConnectionString
         {
             get { return _connectionStringsSettings.GetConnectionString(ConnectionStringName.CrmConnection); }
-        }
-
-        public string CrmHost
-        {
-            get { return _crmHost.Value; }
         }
 
         private string ExtractOrganizationName()

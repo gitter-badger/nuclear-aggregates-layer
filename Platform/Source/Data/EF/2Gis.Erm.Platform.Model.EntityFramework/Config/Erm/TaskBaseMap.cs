@@ -24,17 +24,10 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
                 .HasMaxLength(8)
                 .IsRowVersion();
 
-            Property(t => t.ScheduledStart)
+            Property(t => t.ScheduledOn)
                 .HasColumnType("datetime2")
                 .HasPrecision(7);
 
-            Property(t => t.ScheduledEnd)
-                .HasColumnType("datetime2")
-                .HasPrecision(7);
-
-            Property(t => t.ActualEnd)
-                .HasColumnType("datetime2")
-                .HasPrecision(7);
 
             Property(t => t.CreatedOn)
                 .HasColumnType("datetime2")
@@ -50,9 +43,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.ReplicationCode).HasColumnName("ReplicationCode");
             Property(t => t.Subject).HasColumnName("Subject");
             Property(t => t.Description).HasColumnName("Description");
-            Property(t => t.ScheduledStart).HasColumnName("ScheduledStart");
-            Property(t => t.ScheduledEnd).HasColumnName("ScheduledEnd");
-            Property(t => t.ActualEnd).HasColumnName("ActualEnd");
+            Property(t => t.ScheduledOn).HasColumnName("ScheduledOn");
             Property(t => t.Priority).HasColumnName("Priority");
             Property(t => t.Status).HasColumnName("Status");
             Property(t => t.TaskType).HasColumnName("TaskType");

@@ -1,0 +1,53 @@
+﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity.PhonecallViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.ux.TimeComboBox.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Activity/Ext.DoubleGis.UI.ContactRelationController.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Activity/Ext.DoubleGis.UI.Phonecall.js?@ThisAssembly.Build" type="text/javascript"></script>
+}
+
+@section CustomInit
+{
+    <script type="text/javascript">
+        Ext.onReady(function() {
+            var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
+            Ext.apply(cardSettings, { contactField: "ContactId", contactComponent: "Contact" });
+            window.Card = new window.Ext.DoubleGis.UI.Phonecall(cardSettings);
+            window.Card.Build();
+        });
+    </script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Status)
+
+        @Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding)
+        @Html.SectionRow(
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }))
+        @Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }))
+
+        @Html.SectionHead("planHeader", BLResources.TitlePlan)
+        @Html.SectionRow(@Html.TemplateField(m => m.Purpose, FieldFlex.lone, null, EnumResources.ResourceManager))
+        @Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone))
+        @Html.SectionRow(
+            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
+            @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager)
+            )
+        @Html.SectionRow(@Html.TemplateField(m => m.Contact, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }))
+
+        @Html.SectionHead("resultHeader", BLResources.TitleResult)
+        @Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } }))
+    </div>
+}

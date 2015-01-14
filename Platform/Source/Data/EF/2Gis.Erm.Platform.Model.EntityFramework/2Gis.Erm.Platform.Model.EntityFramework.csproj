@@ -24,7 +24,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -53,6 +53,8 @@
     <Compile Include="Config\Erm\FirmDealMap.cs" />
     <Compile Include="Config\Erm\LegalPersonDealMap.cs" />
     <Compile Include="Config\Erm\OrderValidationCacheEntryMap.cs" />
+    <Compile Include="Config\Erm\LetterBaseMap.cs" />
+    <Compile Include="Config\Erm\LetterReferenceMap.cs" />
     <Compile Include="DI\PlatformModelEntityFrameworkAssembly.cs" />
     <Compile Include="EntityConfig.cs" />
     <Compile Include="EntityConvention.cs" />
@@ -69,7 +71,6 @@
     <Compile Include="Config\Erm\AdvertisementElementTemplateMap.cs" />
     <Compile Include="Config\Erm\AdvertisementMap.cs" />
     <Compile Include="Config\Erm\AdvertisementTemplateMap.cs" />
-    <Compile Include="Config\Erm\AfterSaleServiceActivityMap.cs" />
     <Compile Include="Config\Erm\AppointmentBaseMap.cs" />
     <Compile Include="Config\Erm\AppointmentReferenceMap.cs" />
     <Compile Include="Config\Erm\AssociatedPositionMap.cs" />

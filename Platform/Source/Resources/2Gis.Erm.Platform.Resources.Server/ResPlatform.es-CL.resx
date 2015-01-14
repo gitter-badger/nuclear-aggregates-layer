@@ -157,6 +157,6 @@
     <value>El valor del campo "{0}" tiene el formato inválido</value>
   </data>
   <data name="InvalidFieldValue" xml:space="preserve">
-    <value>Значение поля "{0}" имеет невалидное значение</value>
+    <value>Valor del campo "{0}" tiene el valor invalido</value>
   </data>
 </root>

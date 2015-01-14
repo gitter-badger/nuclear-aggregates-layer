@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -58,6 +58,15 @@
     <Compile Include="Concrete\AdvertisementElements\IDenyAdvertisementElementOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IResetAdvertisementElementToDraftOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\ITransferAdvertisementElementToReadyForValidationOpeationService.cs" />
+    <Compile Include="Concrete\Limits\IIncreaseLimitOperationService.cs" />
+    <Compile Include="Concrete\Limits\ICalculateLimitIncreasingOperationService.cs" />
+    <Compile Include="Concrete\Limits\IRecalculateLimitOperationService.cs" />
+    <Compile Include="Concrete\Limits\ISetLimitStatusOperationService.cs" />
+    <Compile Include="Concrete\Limits\LimitIncreasingAmountIsOutdatedException.cs" />
+    <Compile Include="Concrete\Limits\LimitIncreasingAmountException.cs" />
+    <Compile Include="Concrete\Limits\LimitAmountException.cs" />
+    <Compile Include="Concrete\Limits\LimitIsBlockedByReleaseException.cs" />
+    <Compile Include="Concrete\Limits\LimitWorkflowIsViolatedException.cs" />
     <Compile Include="Concrete\Simplified\BirthdayCongratulationIsNotUniqueException.cs" />
     <Compile Include="Concrete\Simplified\IRequestBirthdayCongratulationOperationService.cs" />
     <Compile Include="Concrete\Simplified\ThereAreNoContactsToCongratulateException.cs" />

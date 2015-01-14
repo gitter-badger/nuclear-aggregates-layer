@@ -990,20 +990,11 @@
   <data name="Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
-  <data name="ActivityBaseViewModelAbstract_Type" xml:space="preserve">
-    <value>Type</value>
-  </data>
   <data name="Priority" xml:space="preserve">
     <value>Priority</value>
   </data>
-  <data name="ActivityBaseViewModelAbstract_Status" xml:space="preserve">
-    <value>Status</value>
-  </data>
   <data name="Purpose" xml:space="preserve">
     <value>Purpose</value>
-  </data>
-  <data name="AfterSaleServiceType" xml:space="preserve">
-    <value>Type of after-sale service</value>
   </data>
   <data name="TaskType" xml:space="preserve">
     <value>Task type</value>
@@ -1439,6 +1430,20 @@
   </data>
   <data name="ControlResetToDraft" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="Attendee" xml:space="preserve">
+    <value>Participant</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Meeting place</value>
+  </data>
+  <data name="Recipient" xml:space="preserve">
+    <value>Recipient</value>
+    <comment>Кому направлено действие, например, письмо.</comment>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Sender</value>
+    <comment>От кого направлено действие, например, письмо.</comment>
   </data>
   <data name="DListActiveFirmsForDeal" xml:space="preserve">
     <value>Active companies</value>

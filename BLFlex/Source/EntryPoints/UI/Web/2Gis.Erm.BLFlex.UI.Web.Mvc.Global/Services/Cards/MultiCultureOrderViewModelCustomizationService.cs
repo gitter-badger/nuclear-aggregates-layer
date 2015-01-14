@@ -78,8 +78,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 
             // Проверить функциональные разрешения
             entityViewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
-            entityViewModel.HasOrderBranchOfficeOrganizationUnitSelection =
-                functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
 
             entityViewModel.HasOrderDocumentsDebtChecking =
                 _functionalAccessService.HasOrderChangeDocumentsDebtAccess(entityViewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);

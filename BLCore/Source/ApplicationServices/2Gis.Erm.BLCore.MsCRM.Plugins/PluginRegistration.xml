@@ -11,44 +11,9 @@
           </Step>
         </Steps>
       </Plugin>
-      <Plugin TypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.UpdateAndReplicateOpportunityToErmPlugin" FriendlyName="218c9aa2-e4e8-417b-9650-c115c21dde8c" Id="d563564a-6faa-4228-8660-910ed38a5813">
-        <Steps>
-          <Step PluginTypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.UpdateAndReplicateOpportunityToErmPlugin" PluginTypeFriendlyName="218c9aa2-e4e8-417b-9650-c115c21dde8c" CustomConfiguration="https://basic-operations.api.erm.2gis.local/MsCrm.svc/Soap" SecureConfiguration="" Description="Book of appointment in Parent Pipeline" FilteringAttributes="" ImpersonatingUserId="" InvocationSource="0" MessageName="Book" Mode="0" PrimaryEntityName="appointment" SecondaryEntityName="none" Stage="50" SupportedDeployment="0" Rank="1" Id="947346a0-0f95-e211-abc4-00155d161162">
-            <Images/>
-          </Step>
-          <Step PluginTypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.UpdateAndReplicateOpportunityToErmPlugin" PluginTypeFriendlyName="218c9aa2-e4e8-417b-9650-c115c21dde8c" CustomConfiguration="https://basic-operations.api.erm.2gis.local/MsCrm.svc/Soap" SecureConfiguration="" Description="Reschedule of appointment in Parent Pipeline" FilteringAttributes="" ImpersonatingUserId="" InvocationSource="0" MessageName="Reschedule" Mode="0" PrimaryEntityName="appointment" SecondaryEntityName="none" Stage="50" SupportedDeployment="0" Rank="1" Id="f71b8c0c-1f95-e211-abc4-00155d161162">
-            <Images>
-              <Image EntityAlias="Target" ImageType="1" MessagePropertyName="Target" Attributes="activityid,dg_purpose,scheduledstart,dg_aftersaletype,regardingobjectid" Id="73557F11-D8B5-4AAE-B785-C4846A97B1BD" />
-            </Images>
-          </Step>
-          <Step PluginTypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.UpdateAndReplicateOpportunityToErmPlugin" PluginTypeFriendlyName="218c9aa2-e4e8-417b-9650-c115c21dde8c" CustomConfiguration="https://basic-operations.api.erm.2gis.local/MsCrm.svc/Soap" SecureConfiguration="" Description="Create of phonecall in Parent Pipeline" FilteringAttributes="" ImpersonatingUserId="" InvocationSource="0" MessageName="Create" Mode="0" PrimaryEntityName="phonecall" SecondaryEntityName="none" Stage="50" SupportedDeployment="0" Rank="1" Id="8e6213a4-42fe-e111-85f5-00155d161162">
-            <Images>
-              <Image EntityAlias="Target" ImageType="1" MessagePropertyName="Id" Attributes="activityid,dg_purpose,scheduledstart,dg_aftersaletype,regardingobjectid" Id="96c105d7-a800-e211-82db-00155d161162" />
-            </Images>
-          </Step>
-          <Step PluginTypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.UpdateAndReplicateOpportunityToErmPlugin" PluginTypeFriendlyName="218c9aa2-e4e8-417b-9650-c115c21dde8c" CustomConfiguration="https://basic-operations.api.erm.2gis.local/MsCrm.svc/Soap" SecureConfiguration="" Description="Update of phonecall in Parent Pipeline" FilteringAttributes="scheduledstart,dg_result,statuscode,statecode,scheduledend,dg_purpose" ImpersonatingUserId="" InvocationSource="0" MessageName="Update" Mode="0" PrimaryEntityName="phonecall" SecondaryEntityName="none" Stage="50" SupportedDeployment="0" Rank="1" Id="45d878b9-42fe-e111-85f5-00155d161162">
-            <Images>
-              <Image EntityAlias="Target" ImageType="1" MessagePropertyName="Target" Attributes="activityid,dg_purpose,scheduledstart,dg_aftersaletype,regardingobjectid" Id="e4d0efe8-a800-e211-82db-00155d161162" />
-            </Images>
-          </Step>
-        </Steps>
-      </Plugin>
       <Plugin TypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.RetrieveMultipleHandler" FriendlyName="60fd13b8-9dee-4d75-b6b5-6246b60da097" Id="24878fef-f385-4dff-9074-ff5010a1d243">
         <Steps>
           <Step PluginTypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.RetrieveMultipleHandler" PluginTypeFriendlyName="60fd13b8-9dee-4d75-b6b5-6246b60da097" CustomConfiguration="" SecureConfiguration="" Description="RetrieveMultiple of none in Parent Pipeline" FilteringAttributes="" ImpersonatingUserId="" InvocationSource="0" MessageName="RetrieveMultiple" Mode="0" PrimaryEntityName="" SecondaryEntityName="" Stage="50" SupportedDeployment="0" Rank="1" Id="26666b08-e600-e211-a2fc-e61f13cf0323">
-            <Images />
-          </Step>
-        </Steps>
-      </Plugin>
-      <Plugin TypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.AfterSalePhonecallStateChangedPlugin" FriendlyName="b6e075d4-6449-465e-8ddb-34a5f6c54bea" Id="b14fcb17-6b7a-4bde-8e13-f2bc65e82046">
-        <Steps>
-          <Step PluginTypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.AfterSalePhonecallStateChangedPlugin" PluginTypeFriendlyName="b6e075d4-6449-465e-8ddb-34a5f6c54bea" CustomConfiguration="https://basic-operations.api.erm.2gis.local/MsCrm.svc/Soap" SecureConfiguration="" Description="SetState of phonecall in Parent Pipeline" FilteringAttributes="" ImpersonatingUserId="" InvocationSource="0" MessageName="SetState" Mode="0" PrimaryEntityName="phonecall" SecondaryEntityName="none" Stage="50" SupportedDeployment="0" Rank="1" Id="b1daa2a4-281c-e211-a189-00155d161162">
-            <Images />
-          </Step>
-          <Step PluginTypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.AfterSalePhonecallStateChangedPlugin" PluginTypeFriendlyName="b6e075d4-6449-465e-8ddb-34a5f6c54bea" CustomConfiguration="https://basic-operations.api.erm.2gis.local/MsCrm.svc/Soap" SecureConfiguration="" Description="SetStateDynamicEntity of phonecall in Parent Pipeline" FilteringAttributes="" ImpersonatingUserId="" InvocationSource="0" MessageName="SetStateDynamicEntity" Mode="0" PrimaryEntityName="phonecall" SecondaryEntityName="none" Stage="50" SupportedDeployment="0" Rank="1" Id="f61872ca-281c-e211-a189-00155d161162">
-            <Images />
-          </Step>
-          <Step PluginTypeName="DoubleGis.Erm.BLCore.MsCRM.Plugins.Concrete.AfterSalePhonecallStateChangedPlugin" PluginTypeFriendlyName="b6e075d4-6449-465e-8ddb-34a5f6c54bea" CustomConfiguration="https://basic-operations.api.erm.2gis.local/MsCrm.svc/Soap" SecureConfiguration="" Description="Delete of phonecall in Parent Pipeline" FilteringAttributes="" ImpersonatingUserId="" InvocationSource="0" MessageName="Delete" Mode="0" PrimaryEntityName="phonecall" SecondaryEntityName="none" Stage="10" SupportedDeployment="0" Rank="1" Id="57d6d9f0-281c-e211-a189-00155d161162">
             <Images />
           </Step>
         </Steps>

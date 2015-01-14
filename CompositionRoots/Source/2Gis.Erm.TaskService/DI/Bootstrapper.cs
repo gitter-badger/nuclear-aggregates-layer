@@ -225,12 +225,12 @@ namespace DoubleGis.Erm.TaskService.DI
             container.RegisterTypeWithDependencies(typeof(DBOnlinePerformedOperationsReceiver<>), Lifetime.PerScope, null)
                      .RegisterTypeWithDependencies(typeof(PerformedOperationsMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null)
                      .RegisterTypeWithDependencies(typeof(BinaryEntireBrokeredMessage2TrackedUseCaseTransformer<>), Lifetime.Singleton, null)
-                     .RegisterTypeWithDependencies(typeof(ReplicateHotClientPerformedOperationsFinalProcessingStrategy), Lifetime.PerResolve, null);
+                     .RegisterTypeWithDependencies(typeof(HotClientPerformedOperationsFinalProcessingStrategy), Lifetime.PerResolve, null);
             
             // final
             container.RegisterTypeWithDependencies(typeof(FinalProcessingQueueReceiver<>), Lifetime.PerScope, null)
                      .RegisterTypeWithDependencies(typeof(ReplicateToCRMMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null)
-                     .RegisterTypeWithDependencies(typeof(ReplicateHotClientMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null);
+                     .RegisterTypeWithDependencies(typeof(HotClientMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null);
 
 
             var messageProcessingStrategyResolversMap = new Dictionary<IMessageFlow, Func<Type, IMessage, Type>>
@@ -244,12 +244,12 @@ namespace DoubleGis.Erm.TaskService.DI
                         (flowType, message) => typeof(ReplicateToCRMPerformedOperationsFinalProcessingStrategy)
                     },
                     {
-                        FinalStorageReplicateHotClientPerformedOperationsFlow.Instance,
-                        (flowType, message) => typeof(ReplicateHotClientPerformedOperationsPrimaryProcessingStrategy)
+                        FinalStorageProcessHotClientPerformedOperationsFlow.Instance,
+                        (flowType, message) => typeof(HotClientPerformedOperationsPrimaryProcessingStrategy)
                     },
                     {
-                        FinalReplicateHotClientPerformedOperationsFlow.Instance,
-                        (flowType, message) => typeof(ReplicateHotClientPerformedOperationsFinalProcessingStrategy)
+                        FinalProcessHotClientPerformedOperationsFlow.Instance,
+                        (flowType, message) => typeof(HotClientPerformedOperationsFinalProcessingStrategy)
                     },
                     {
                         ElasticRuntimeFlow.Instance,
@@ -268,12 +268,12 @@ namespace DoubleGis.Erm.TaskService.DI
                         () => typeof(ReplicateToCRMMessageAggregatedProcessingResultHandler)
                     },
                     {
-                        FinalStorageReplicateHotClientPerformedOperationsFlow.Instance,
+                        FinalStorageProcessHotClientPerformedOperationsFlow.Instance,
                         () => typeof(PerformedOperationsMessageAggregatedProcessingResultHandler)
                     },
                     {
-                        FinalReplicateHotClientPerformedOperationsFlow.Instance,
-                        () => typeof(ReplicateHotClientMessageAggregatedProcessingResultHandler)
+                        FinalProcessHotClientPerformedOperationsFlow.Instance,
+                        () => typeof(HotClientMessageAggregatedProcessingResultHandler)
                     },
                     {
                         PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance,

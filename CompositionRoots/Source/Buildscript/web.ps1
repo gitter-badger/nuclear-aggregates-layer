@@ -14,7 +14,7 @@ Task Build-WebApp -Precondition { return $OptionWebApp } -Depends Update-Assembl
 	# for silverlight project we need to build in x86 mode
 	Build-WebPackage $projectFileName $entryPointMetadata -MsBuildPlatform 'x86'
 }
-Task Deploy-WebApp -Precondition { return $OptionWebApp } -Depends Build-WebApp {
+Task Deploy-WebApp -Precondition { return $OptionWebApp } {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Web.Mvc'
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Web.Mvc'
 	
@@ -31,7 +31,7 @@ Task Build-BasicOperations -Precondition { return $OptionBasicOperations } -Depe
 	
 	Build-WebPackage $projectFileName $entryPointMetadata
 }
-Task Deploy-BasicOperations -Precondition { return $OptionBasicOperations } -Depends Build-BasicOperations {
+Task Deploy-BasicOperations -Precondition { return $OptionBasicOperations } {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Operations'
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations'
 	
@@ -46,7 +46,7 @@ Task Build-Modi -Precondition { return $OptionModi } -Depends Update-AssemblyInf
 	
 	Build-WebPackage $projectFileName $entryPointMetadata
 }
-Task Deploy-Modi -Precondition { return $OptionModi } -Depends Build-Modi {
+Task Deploy-Modi -Precondition { return $OptionModi } {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.MoDi'
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.MoDi'
 	
@@ -61,7 +61,7 @@ Task Build-Metadata -Precondition { return $OptionMetadata } -Depends Update-Ass
 	
 	Build-WebPackage $projectFileName $entryPointMetadata
 }
-Task Deploy-Metadata -Precondition { return $OptionMetadata } -Depends Build-Metadata {
+Task Deploy-Metadata -Precondition { return $OptionMetadata } {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Metadata'
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Metadata'
 	
@@ -76,7 +76,7 @@ Task Build-OrderValidation -Precondition { return $OptionOrderValidation } -Depe
 	
 	Build-WebPackage $projectFileName $entryPointMetadata
 }
-Task Deploy-OrderValidation -Precondition { return $OptionOrderValidation } -Depends Build-OrderValidation {
+Task Deploy-OrderValidation -Precondition { return $OptionOrderValidation } {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.OrderValidation'
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.OrderValidation'
 	
@@ -91,7 +91,7 @@ Task Build-FinancialOperations -Precondition { return $OptionFinancialOperations
 	
 	Build-WebPackage $projectFileName $entryPointMetadata
 }
-Task Deploy-FinancialOperations -Precondition { return $OptionFinancialOperations } -Depends Build-FinancialOperations {
+Task Deploy-FinancialOperations -Precondition { return $OptionFinancialOperations } {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Operations.Special'
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations.Special'
 	
@@ -106,7 +106,7 @@ Task Build-Releasing -Precondition { return $OptionReleasing } -Depends Update-A
 	
 	Build-WebPackage $projectFileName $entryPointMetadata
 }
-Task Deploy-Releasing -Precondition { return $OptionReleasing } -Depends Build-Releasing {
+Task Deploy-Releasing -Precondition { return $OptionReleasing } {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Releasing'
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Releasing'
 	
