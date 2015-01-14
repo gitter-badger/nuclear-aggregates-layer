@@ -7,6 +7,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     emptyText: Ext.LocalizedResources.LookupEmptyValue,
 
     extendedInfo: "",
+    additionalName:"",
     showReadOnlyCard: false,
     entityName: "",
     entityIcon: "",
@@ -316,12 +317,12 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                 idProperty: 'Id',
                 root: 'Data',
                 totalProperty: 'RowCount',
-                fields: [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute}]
+                fields: [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute }, { name: "additionalName", mapping: this.additionalName}]
             })
         });
 
         var tpl = new window.Ext.XTemplate(
-                    '<tpl for=".">', '<div class="x-lookup-thumb" id="{id}">', '<img alt="" src="' + this.entityIcon + '" class="x-lookup-item"/>', '<span class="x-lookup-thumb">{name}</span>&nbsp;', '</div>', '</tpl>', '<div class="x-clear"></div>');
+                    '<tpl for=".">', '<div class="x-lookup-thumb" id="{id}">', '<img alt="" src="' + this.entityIcon + '" class="x-lookup-item"/>', '<span class="x-lookup-thumb">{name}</span>&nbsp;', '<span class="x-lookup-thumb" style="color:gray">{additionalName}</span>&nbsp;', '</div>', '</tpl>', '<div class="x-clear"></div>');
 
         var dataView = new window.Ext.DataView({
             tpl: tpl,

@@ -16,5 +16,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
         public EntityName ParentEntityName { get; set; }
         public string ParentIdPattern { get; set; }
+
+        public string AdditionalName { get; set; }
     }
 }
