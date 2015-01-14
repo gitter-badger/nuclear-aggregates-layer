@@ -89,6 +89,11 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
                                           new { IsSelfReport = isSelfReport, Ids = ids });
         }
 
+        public bool IsRunning(Guid instanceId)
+        {
+            return _databaseCaller.QueryRawSql<bool>(@"SELECT [IsRunning] FROM [Metadata].[ServiceInstances] WHERE [Id] = @Id", new { Id = instanceId }).Single();
+        }
+
         #region nested
 
         private class RunningServiceInstance

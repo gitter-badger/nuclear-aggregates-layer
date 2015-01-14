@@ -17,23 +17,24 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
 {
     public sealed class ServiceInstanceCheckinService : IServiceInstanceCheckinService, IServiceInstanceIdProvider, IDisposable
     {
+        public event EventHandler<UnhandledExceptionEventArgs> Faulted = delegate { };
+
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly Task _workerTask;
         private readonly AutoResetEvent _asyncWorkerSignal;
         private readonly ManualResetEventSlim _instanceIdAcquiredSignal;
-        private Guid? _instanceId;
-        private readonly string _host;
 
         private readonly IApplicationLocksService _applicationLocksService;
         private readonly IServiceInstancePersistenceService _serviceInstancePersistenceService;
         private readonly IEnvironmentSettings _environmentSettings;
         private readonly IServiceInstanceCheckinSettings _serviceInstanceCheckinSettings;
         private readonly ICommonLog _logger;
+
         private readonly string _serviceName;
+        private readonly string _host;
 
+        private Guid? _instanceId;
         private bool _disposed;
-
-        public event EventHandler<UnhandledExceptionEventArgs> Faulted = delegate { };
 
         public ServiceInstanceCheckinService(IServiceInstancePersistenceService serviceInstancePersistenceService,
                                              IApplicationLocksService applicationLocksService,
@@ -175,6 +176,11 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
             {
                 // ReSharper disable once PossibleInvalidOperationException
+                if (!_serviceInstancePersistenceService.IsRunning(_instanceId.Value))
+                {
+                    throw new InvalidOperationException(string.Format("Current instance has been considered as not running. Id = {0}", _instanceId));
+                }
+
                 _serviceInstancePersistenceService.Checkin(_instanceId.Value, startTime);
                 transaction.Complete();
             }
@@ -186,23 +192,13 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             {
                 var runningInstances = _serviceInstancePersistenceService.GetRunningInstances();
 
-                var currentInstanceFound = false;
                 var failedInstances = new List<Guid>();
                 foreach (var runningInstance in runningInstances)
                 {
-                    if (runningInstance.Id == _instanceId)
-                    {
-                        currentInstanceFound = true;
-                    }
-                    else if (IsFailed(startTime, runningInstance.LastCheckinTime, runningInstance.CheckinInterval, runningInstance.TimeSafetyOffset))
+                    if (runningInstance.Id != _instanceId && IsFailed(startTime, runningInstance.LastCheckinTime, runningInstance.CheckinInterval, runningInstance.TimeSafetyOffset))
                     {
                         failedInstances.Add(runningInstance.Id);
                     }
-                }
-
-                if (!currentInstanceFound)
-                {
-                    throw new InvalidOperationException(string.Format("Current instance has been considered as not running. Id = {0}", _instanceId));
                 }
 
                 if (failedInstances.Any())
