@@ -159,12 +159,6 @@
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
     <value>Medios de comunicación: "{0}" (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.</value>
-  </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
     <value>Imposible crear la orden de compra para la persona jurídica '{0}' especificada en el perfil</value>
   </data>
@@ -190,10 +184,10 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+    <value></value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+    <value>Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>Una EIRL con el RUT especificado ya existe</value>

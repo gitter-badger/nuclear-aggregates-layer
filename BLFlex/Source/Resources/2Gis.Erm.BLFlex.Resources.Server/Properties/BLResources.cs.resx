@@ -158,12 +158,6 @@
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
     <value>Média: „{0}“ (verze pro PC). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.</value>
-  </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
     <value>Není možné vytvořit objednávku pro typ právnické osoby '{0}' uvedený v profilu</value>
   </data>
@@ -189,10 +183,10 @@
     <value>Název právnické osoby</value>
   </data>
   <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+    <value></value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+    <value>Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>

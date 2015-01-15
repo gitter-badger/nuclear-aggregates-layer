@@ -846,24 +846,6 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string PrintOrderHandler_TechnicalTerminationParagraph1 {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_TechnicalTerminationParagraph1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_TechnicalTerminationParagraph2 {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_TechnicalTerminationParagraph2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string QuotedValue {
             get {
                 return ResourceManager.GetString("QuotedValue", resourceCulture);

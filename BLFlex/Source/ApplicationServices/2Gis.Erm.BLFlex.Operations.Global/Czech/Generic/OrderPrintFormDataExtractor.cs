@@ -141,6 +141,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
         {
             var categories = _printOrderHelper.GetCategories(query);
 
+            bool useTechnicalTermination;
             var stuff = query
                 .Select(order => new
                 {
@@ -156,7 +157,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
                         { "ElectronicMedia", x.ElectronicMedia },
                         { "SourceElectronicMedia", x.SourceElectronicMedia },
                         { "Firm.Name", x.FirmName },
-                        { "TechnicalTerminationParagraph", GetTechnicalTerminationParagraph(x.Order, x.TerminatedOrder) }
+                        { "TechnicalTerminationParagraph", GetTechnicalTerminationParagraph(x.Order, x.TerminatedOrder, out useTechnicalTermination) },
+                        { "UseTechnicalTermination", useTechnicalTermination },
                     })
                 .Single();
 
@@ -204,11 +206,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
                 profile.WarrantyBeginDate.Value.ToShortDateString()); // FIXME {a.rechkalov, 12.03.2014}: неправильное форматирование даты
         }
 
-        private string GetTechnicalTerminationParagraph(Order order, Order terminatedOrder)
+        private string GetTechnicalTerminationParagraph(Order order, Order terminatedOrder, out bool useTechnicalTerminationParagraph)
         {
             if (terminatedOrder == null)
             {
-                return BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph1;
+                useTechnicalTerminationParagraph = false;
+                return BLFlexResources.PrintOrderHandler_EmptyTechnicalTerminationParagraph;
             }
 
             // order.BeginDistributionDate
@@ -223,9 +226,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
             // terminatedOrder.EndDistributionDateFact
             var terminatedOrderEndDistributionDateFact = _longDateFormatter.Format(terminatedOrder.EndDistributionDateFact);
 
+            useTechnicalTerminationParagraph = true;
             return string.Format(
                 CultureInfo.CurrentCulture,
-                BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph2,
+                BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph,
                 beginDistributionDate,
                 terminatedOrderNumber,
                 terminatedOrderSignupDate,
