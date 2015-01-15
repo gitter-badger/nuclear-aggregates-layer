@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
@@ -25,13 +24,10 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
 
         public bool AcquireLock(string lockName, TimeSpan timeout, out Guid lockId)
         {
-            SqlConnection connection = new SqlConnection(_connectionStringSettings.GetConnectionString(ConnectionStringName.Erm));
-            using (var ts = new TransactionScope(TransactionScopeOption.Suppress))
-            {
-                connection.Open();
-                ts.Complete();
-            }
+            var builder = new SqlConnectionStringBuilder(_connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)) { Pooling = false, Enlist = false };
+            var connection = new SqlConnection(builder.ConnectionString);
 
+            connection.Open();
             var transaction = connection.BeginTransaction();
             var result = _databaseCaller.ExecuteProcedureWithReturnValue<LockAcquirementResult>("sys.sp_getapplock",
                                                                                                 new

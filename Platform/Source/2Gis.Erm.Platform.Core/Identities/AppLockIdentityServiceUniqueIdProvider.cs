@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking;
 
 namespace DoubleGis.Erm.Platform.Core.Identities
 {
-    public class AppLockIdentityServiceUniqueIdProvider : IIdentityServiceUniqueIdProvider
+    public class AppLockIdentityServiceUniqueIdProvider : IIdentityServiceUniqueIdProvider, IDisposable
     {
         private const string IdAppLockTemplate = "Id={0}";
 
@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
         private byte? _id;
         private Guid? _lockId;
-
+        private bool _disposed;
 
         public AppLockIdentityServiceUniqueIdProvider(IApplicationLocksPersistenceService applicationLocksPersistenceService)
         {
@@ -23,16 +23,38 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
         public byte GetUniqueId()
         {
+            CheckNotDisposed();
             EnsureIdReserved();
+
             // ReSharper disable once PossibleInvalidOperationException
             return _id.Value;
         }
 
-        private void EnsureIdReserved()
+        void IDisposable.Dispose()
         {
-            if (_id != null && _lockId != null && _applicationLocksPersistenceService.IsLockActive(_lockId.Value))
+            if (_disposed)
             {
                 return;
+            }
+
+            if (_lockId != null)
+            {
+                _applicationLocksPersistenceService.ReleaseLock(_lockId.Value);
+            }
+
+            _disposed = true;
+        }
+
+        private void EnsureIdReserved()
+        {
+            if (_id != null && _lockId != null)
+            {
+                if (_applicationLocksPersistenceService.IsLockActive(_lockId.Value))
+                {
+                    return;
+                }
+
+                _applicationLocksPersistenceService.ReleaseLock(_lockId.Value);
             }
 
             var startId = _id ?? (byte)_rnd.Next(255);
@@ -49,6 +71,14 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             }
 
             throw new InvalidOperationException("Can't acquire id appliaction lock for identity service");
+        }
+
+        private void CheckNotDisposed()
+        {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(GetType().Name);
+            }
         }
     }
 }
