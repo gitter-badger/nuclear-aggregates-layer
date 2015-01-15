@@ -34,7 +34,6 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Process
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -208,12 +207,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             return container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataValidator, CardsMetadataValidator>(Lifetime.Singleton);
         }
 
-        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
-        {
-            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(EntryPointSpecificLifetimeManagerFactory())
-                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(EntryPointSpecificLifetimeManagerFactory())
-                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(EntryPointSpecificLifetimeManagerFactory());
-        }
 
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IMsCrmSettings msCrmSettings)
         {

@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Factories.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.API.Core.Checkin;
+using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -26,10 +24,12 @@ using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
+using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Checkin;
+using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Locking;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -320,10 +320,29 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                                                                                                new InjectionConstructor(asyncReplicatedTypes, syncReplicatedTypes));
         }
 
+        public static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container, bool useNullChecker = false)
+        {
+            container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(Lifetime.Singleton);
+
+            if (useNullChecker)
+            {
+                container.RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(Lifetime.Singleton);
+            }
+            else
+            {
+                container.RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
+            }
+
+            return container;
+        }
+
+
         public static IUnityContainer ConfigureServiceInstanceCheckin(this IUnityContainer container)
         {
-            return container.RegisterType<IServiceInstanceCheckinService, ServiceInstanceCheckinService>(Lifetime.Singleton)
-                            .RegisterType<IServiceInstanceIdProvider, ServiceInstanceCheckinService>(Lifetime.Singleton)
+            return container.RegisterType<IServiceInstanceCheckinService, ServiceInstanceCheckinService>(Lifetime.PerResolve)
+                            .RegisterType<IServiceInstanceIdProviderHolder, ServiceInstanceIdProviderHolder>(Lifetime.Singleton)
+                            .RegisterType<IServiceInstanceIdProvider, ServiceInstanceIdProviderHolder>(Lifetime.Singleton)
                             .RegisterType<IServiceInstancePersistenceService, ServiceInstancePersistenceService>(Lifetime.Singleton);
         }
 

@@ -66,6 +66,7 @@
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
     <Compile Include="Checkin\IServiceInstanceCheckinService.cs" />
     <Compile Include="Checkin\IServiceInstanceIdProvider.cs" />
+    <Compile Include="Checkin\IServiceInstanceIdProviderHolder.cs" />
     <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />

@@ -28,7 +28,8 @@ namespace DoubleGis.Erm.API.WCF.Metadata
                                                                   DIContainer.Resolve<IServiceBehavior>(),
                                                                   serviceType,
                                                                   baseAddresses,
-                                                                  DIContainer.Resolve<IServiceInstanceCheckinService>(new ParameterOverride("serviceName", serviceType.Name)));
+                                                                  DIContainer.Resolve<IServiceInstanceCheckinService>(new ParameterOverride("serviceName", serviceType.Name)),
+                                                                  DIContainer.Resolve<IServiceInstanceIdProviderHolder>());
         }
     }
 }

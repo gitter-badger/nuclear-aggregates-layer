@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="ActionLogging\ActionsLogger.cs" />
     <Compile Include="Checkin\ServiceInstanceCheckinService.cs" />
+    <Compile Include="Checkin\ServiceInstanceIdProviderHolder.cs" />
     <Compile Include="EntityProjection\AssignSpecification.cs" />
     <Compile Include="EntityProjection\IAssignSpecification.cs" />
     <Compile Include="EntityProjection\IProjectSpecification.cs" />

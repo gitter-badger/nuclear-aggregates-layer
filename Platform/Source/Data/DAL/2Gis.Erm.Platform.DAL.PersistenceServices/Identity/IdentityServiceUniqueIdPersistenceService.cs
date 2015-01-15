@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Transactions;
 
 using DoubleGis.Erm.Platform.DAL.AdoNet;
-using DoubleGis.Erm.Platform.DAL.Transactions;
-using DoubleGis.Erm.Platform.Model;
 
 namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Identity
 {
@@ -45,7 +42,18 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Identity
                                             SET [ServiceInstanceId] = @ServiceInstanceId
                                             WHERE [IdentityServiceUniqueId] = @IdentityServiceUniqueId",
                                               new { IdentityServiceUniqueId = id, ServiceInstanceId = serviceInstanceId });
-               
+        }
+
+        public bool IsIdReservedBy(byte id, Guid serviceInstanceId)
+        {
+            return _databaseCaller.QueryRawSql<int>(@"SELECT 1 
+                                                      FROM [Metadata].[IdentityServiceIds] 
+                                                      WHERE [IdentityServiceUniqueId] = @IdentityServiceUniqueId AND [ServiceInstanceId] = @ServiceInstanceId",
+                                                    new
+                                                        {
+                                                            IdentityServiceUniqueId = id,
+                                                            ServiceInstanceId = serviceInstanceId
+                                                        }).Any();
         }
     }
 }

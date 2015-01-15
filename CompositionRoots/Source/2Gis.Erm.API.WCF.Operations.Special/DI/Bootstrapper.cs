@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IdentityModel.Policy;
+﻿using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.Operations.Special.Config;
@@ -22,7 +21,6 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
@@ -35,15 +33,12 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
-using DoubleGis.Erm.Platform.Core.Identities;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
-using DoubleGis.Erm.Platform.Model.EntityFramework;
 using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
@@ -145,15 +140,6 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
         {
             return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
-        }
-
-        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
-        {
-            container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerOperationContext);
-
-            return container;
         }
 
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IMsCrmSettings msCrmSettings)
