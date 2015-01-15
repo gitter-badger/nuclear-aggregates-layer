@@ -212,14 +212,8 @@ SWIFT {5}
   <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
     <value></value>
   </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value></value>
-  </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>9. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
+    <value>Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>Индивидуальный предприниматель с указанным RUT уже существует</value>
