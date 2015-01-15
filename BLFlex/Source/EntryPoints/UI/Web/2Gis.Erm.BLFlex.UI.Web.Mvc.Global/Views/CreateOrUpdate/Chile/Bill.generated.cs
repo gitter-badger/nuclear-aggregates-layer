@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Chile
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Chile/Bill.cshtml")]
-    public partial class Bill : System.Web.Mvc.WebViewPage<Models.Chile.ChileBillViewModel>
+    public partial class Bill : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile.ChileBillViewModel>
     {
         public Bill()
         {
@@ -63,30 +63,30 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 138), Tuple.Create("\"", 195)
-, Tuple.Create(Tuple.Create("", 144), Tuple.Create("/Scripts/Ext.DoubleGis.Print.js?", 144), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 177), Tuple.Create("\"", 234)
+, Tuple.Create(Tuple.Create("", 183), Tuple.Create("/Scripts/Ext.DoubleGis.Print.js?", 183), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Chile\Bill.cshtml"
-, Tuple.Create(Tuple.Create("", 176), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 215), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 176), false)
+, 215), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>       \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 249), Tuple.Create("\"", 308)
-, Tuple.Create(Tuple.Create("", 255), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Bill.js?", 255), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 288), Tuple.Create("\"", 347)
+, Tuple.Create(Tuple.Create("", 294), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Bill.js?", 294), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\Chile\Bill.cshtml"
-, Tuple.Create(Tuple.Create("", 289), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 328), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 289), false)
+, 328), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -105,14 +105,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 404), Tuple.Create("\"", 440)
+WriteAttribute("title", Tuple.Create(" title=\"", 443), Tuple.Create("\"", 479)
             
             #line 16 "..\..\Views\CreateOrUpdate\Chile\Bill.cshtml"
-, Tuple.Create(Tuple.Create("", 412), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 451), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 412), false)
+, 451), false)
 );
 
 WriteLiteral(">\r\n");

@@ -35,6 +35,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto
         [DataMember]
         public LinkingObjectsSchemaDto LinkingObjectsSchema { get; set; }
         [DataMember]
-        public SalesModel SalesModel { get; set; }
+        public int SalesModel { get; set; }
     }
 }

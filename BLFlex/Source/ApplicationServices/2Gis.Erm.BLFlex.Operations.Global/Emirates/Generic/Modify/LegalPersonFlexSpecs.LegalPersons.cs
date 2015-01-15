@@ -118,7 +118,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                             PositionInNominative = x.PositionInNominative,
                                             PostAddress = x.PostAddress,
                                             EmailForAccountingDocuments = x.EmailForAccountingDocuments,
-                                            AdditionalPaymentElements = x.AdditionalPaymentElements,
+                                            PaymentEssentialElements = x.PaymentEssentialElements,
                                             PaymentMethod = x.PaymentMethod == null
                                                                 ? PaymentMethod.Undefined
                                                                 : (PaymentMethod)x.PaymentMethod,
@@ -165,7 +165,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                     legalPersonProfile.IBAN = dto.IBAN;
                                     legalPersonProfile.SWIFT = dto.SWIFT;
                                     legalPersonProfile.BankName = dto.BankName;
-                                    legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
+                                    legalPersonProfile.PaymentEssentialElements = dto.PaymentEssentialElements;
                                     legalPersonProfile.ChiefNameInNominative = dto.ChiefNameInNominative;
                                     legalPersonProfile.PositionInNominative = dto.PositionInNominative;
                                     legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;

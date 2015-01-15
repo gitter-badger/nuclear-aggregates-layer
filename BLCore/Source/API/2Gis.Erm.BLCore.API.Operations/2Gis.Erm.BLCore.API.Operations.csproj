@@ -33,7 +33,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -71,19 +71,19 @@
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
-    <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
-    <Compile Include="Concrete\Integration\Dto\Billing\AdvModelInRubricInfoServiceBusDto.cs" />
+    <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
+    <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Flows\FlowAdvModelsInfo.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportAdvModelInRubricInfoService.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
+    <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IGetAvailableBindingObjectsOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\IDetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\ICloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
     <Compile Include="Concrete\Deals\IGenerateDealNameService.cs" />
-    <Compile Include="Concrete\Deals\IReplicateDealStageOperationService.cs" />
+    <Compile Include="Concrete\Deals\IChangeDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\AdditionalServiceDisplay.cs" />
     <Compile Include="Concrete\Firms\AdditionalServicesDto.cs" />
     <Compile Include="Concrete\Firms\Dto\BlankFirmDto.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="Concrete\Firms\IFirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardAddressDto.cs" />
     <Compile Include="Concrete\HotClients\HotClientTaskDto.cs" />
-    <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
+    <Compile Include="Concrete\HotClients\IGetHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardForErmServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardRelationForErmServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\FirmForErmDto.cs" />
@@ -182,9 +182,12 @@
     <Compile Include="Concrete\OrderPositions\ICalculateCategoryRateOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IViewOrderPositionOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\Dto\OrderPositionWithSchemaDto.cs" />
+    <Compile Include="Concrete\Orders\Bills\ICreateOrderBillsOperationService.cs" />
+    <Compile Include="Concrete\Orders\Bills\IDeleteOrderBillsOperationService.cs" />
     <Compile Include="Concrete\Orders\Copy\CopyOrderResult.cs" />
     <Compile Include="Concrete\Orders\Copy\DiscountType.cs" />
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
+    <Compile Include="Concrete\Orders\ICheckIfOrderPositionCanBeModifiedOperationService.cs" />
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\OrderChangesDescriptor.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
@@ -195,10 +198,9 @@
     <Compile Include="Concrete\Prices\ICopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\IReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Prices\PriceDto.cs" />
-    <Compile Include="Concrete\Processing\Final\HotClient\ReplicateHotClientFinalProcessingResultsMessage.cs" />
-    <Compile Include="Concrete\Simplified\MsCRM\Dto\HotClientRequestDto.cs" />
-    <Compile Include="Concrete\Simplified\MsCRM\Dto\RegardingObject.cs" />
-    <Compile Include="Concrete\Simplified\MsCRM\Dto\UserDto.cs" />
+    <Compile Include="Concrete\Processing\Final\HotClient\HotClientFinalProcessingResultsMessage.cs" />
+    <Compile Include="Concrete\HotClients\HotClientRequestDto.cs" />
+    <Compile Include="Concrete\HotClients\RegardingObject.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />
@@ -249,12 +251,9 @@
     <Compile Include="Concrete\Old\Advertisements\SelectAdvertisementToWhiteList.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateRequest.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateRequest.cs" />
-    <Compile Include="Concrete\Old\AfterSaleServices\CreateAfterSaleServiceActivities.cs" />
-    <Compile Include="Concrete\Old\AfterSaleServices\CrmCreateAfterSaleServiceActivities.cs" />
     <Compile Include="Concrete\Old\Bills\BillPaymentType.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplate.cs" />
-    <Compile Include="Concrete\Old\Bills\CreateBillsRequest.cs" />
-    <Compile Include="Concrete\Old\Bills\DeleteBillsRequest.cs" />
+    <Compile Include="Concrete\Old\Bills\CreateBillInfo.cs" />
     <Compile Include="Concrete\Old\Bills\DistributeBillPayments.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfo.cs" />
     <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfo.cs" />
@@ -304,8 +303,6 @@
     <Compile Include="Concrete\Old\LegalPersons\MergeLegalPersons.cs" />
     <Compile Include="Concrete\Old\LegalPersons\ValidatePaymentRequisitesIsUniqueRequest.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsRequest.cs" />
-    <Compile Include="Concrete\Old\Limits\RecalculateLimitRequest.cs" />
-    <Compile Include="Concrete\Old\Limits\SetLimitStatusRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\CreateLocalMessageRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ExportLocalMessageRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ProcessLocalMessagesRequest.cs" />
@@ -421,6 +418,7 @@
     <Compile Include="Generic\Qualify\IQualifyEntityService.cs" />
     <Compile Include="Generic\Qualify\IQualifyGenericEntityService.cs" />
     <Compile Include="Concrete\Themes\ISetDefaultOperation.cs" />
+    <Compile Include="Generic\Read\IActivityReadService.cs" />
     <Compile Include="Generic\Update\IUpdateOperationService.cs" />
     <Compile Include="IOperationServicesManager.cs" />
     <Compile Include="Metadata\IMessageWithType.cs" />
@@ -450,7 +448,6 @@
     <Compile Include="Remote\CheckForDebts\ICheckForDebtsApplicationService.cs" />
     <Compile Include="Remote\CreateOrUpdate\CreateOrUpdateOperationErrorDescription.cs" />
     <Compile Include="Remote\CreateOrUpdate\ICreateOrUpdateApplicationService.cs" />
-    <Compile Include="Remote\Disqualify\CheckClientActivitiesRequest.cs" />
     <Compile Include="Remote\Disqualify\IDisqualifyApplicationRestService.cs" />
     <Compile Include="Remote\Disqualify\IDisqualifyApplicationService.cs" />
     <Compile Include="Remote\Disqualify\DisqualifyOperationErrorDescription.cs" />
@@ -470,9 +467,6 @@
     <Compile Include="Remote\Settings\IAPIOperationsServiceSettings.cs" />
     <Compile Include="Remote\Settings\IAPIWebClientServiceSettings.cs" />
     <Compile Include="Remote\Settings\INotifiyProgressSettings.cs" />
-    <Compile Include="Remote\MsCrm\IMsCrm2ErmApplicationService.cs" />
-    <Compile Include="Remote\MsCrm\MsCrm2ErmErrorDescription.cs" />
-    <Compile Include="Remote\MsCrm\MsCrmDealStage.cs" />
     <Compile Include="Remote\Qualify\QualifyOperationErrorDescription.cs" />
     <Compile Include="Remote\Qualify\IQualifyApplicationRestService.cs" />
     <Compile Include="Remote\Qualify\IQualifyApplicationService.cs" />
@@ -518,8 +512,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Concrete\Integration\Import\FlowBilling\" />
+    <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\PricePositions\" />
+    <Folder Include="Concrete\Simplified\MsCRM\Dto\" />
+    <Folder Include="Generic\Modify\Exceptions\Limits\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

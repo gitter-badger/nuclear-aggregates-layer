@@ -945,13 +945,13 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         else
             categoryLevel = 3;
 
-        var extendedInfo = "OrganizationUnitId=" + this.localData.organizationUnitId.toString() + "&" + ("Level=" + categoryLevel);
-
-        if (this.localData.useSingleCategoryForPackage) {
-            extendedInfo += "&salesModel=" + this.localData.salesModel;
+        var extendedInfo = {
+            OrganizationUnitId: this.localData.organizationUnitId.toString(),
+            Level: categoryLevel,
+            SalesModel: this.localData.salesModel
         }
 
-        var url = "/Grid/Search/Category?" + "extendedInfo=" + encodeURIComponent(extendedInfo);
+        var url = "/Grid/Search/Category?" + "extendedInfo=" + encodeURIComponent(Ext.urlEncode(extendedInfo));
 
         var result = window.showModalDialog(url, null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
         return result ? result.items[0].data : null;

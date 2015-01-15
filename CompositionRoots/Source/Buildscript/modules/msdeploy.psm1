@@ -27,7 +27,8 @@ function Invoke-MSDeploy ($Source, $Dest = 'auto', $HostName = $null, $AuthType 
 	$sourceArray + `
 	$destArray + @(
 	'-allowUntrusted'
-	'-retryAttempts:2'
+	'-retryAttempts:5'
+	'-retryInterval:5000'
 	'-disableLink:AppPoolExtension'
 	'-disableLink:ContentExtension'
 	'-disableLink:CertificateExtension'

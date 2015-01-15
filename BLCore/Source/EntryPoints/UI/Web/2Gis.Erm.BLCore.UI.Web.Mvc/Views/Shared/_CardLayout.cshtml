@@ -21,16 +21,20 @@
     <link rel="stylesheet" type="text/css" href="/Content/Card.css?@ThisAssembly.Build" />
     <link rel="stylesheet" type="text/css" href="/Content/ext-extend.css?@ThisAssembly.Build" />
     <link rel="stylesheet" type="text/css" href="/Content/AsyncFileUpload.css?@ThisAssembly.Build" />
-
+    
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
         <script src="/Scripts/ext-base-debug.js?@ThisAssembly.Build" type="text/javascript"></script>
         <script src="/Scripts/ext-all-debug-w-comments.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/moment-with-locales.js"></script>
+        <script src="/Scripts/moment-timezone-with-data.js"></script>
     }
     else
     {
         <script src="/Scripts/ext-base.js?@ThisAssembly.Build" type="text/javascript"></script>
         <script src="/Scripts/ext-all.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/moment-with-locales.min.js"></script>
+        <script src="/Scripts/moment-timezone-with-data.min.js"></script>
     }
     
     <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@ThisAssembly.Build" type="text/javascript"></script>
@@ -40,12 +44,12 @@
         Ext.USER_NAME = @ViewData.GetUserIdentityDisplayName();
         Ext.CultureInfo = @Html.WriteJson(ViewData.GetUserLocaleInfo());
         Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
-        Ext.CRM_URL = '@ViewData.GetMsCrmSettingsUrl()';
         Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
         Ext.SpecialOperationsServiceRestUrl = '@ViewData.GetSpecialOperationsServiceRestUrl()';
     </script>
     
     <script src="/Scripts/DoubleGis.GlobalVariables.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.TimeZoneMap.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Common.ErrorHandler.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.FitToParent.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/DoubleGis.MvcFormValidator.js?@ThisAssembly.Build" type="text/javascript"></script>
@@ -105,9 +109,9 @@
             </div>            
         }   
         
-        @if (IsSectionDefined("CustomCard"))
+        @if (IsSectionDefined("CustomInit"))
         {
-            @RenderSection("CustomCard");
+            @RenderSection("CustomInit");
         }
         else
         {

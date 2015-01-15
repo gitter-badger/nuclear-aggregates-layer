@@ -57,42 +57,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
             return directLinkedCategories.Union(firstLevelCategories).GroupBy(x => x.FirmAddressId).ToDictionary(x => x.Key, x => x.Select(y => y.Category.Id));
         }
 
-        public IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetFirmCategories(IEnumerable<long> firmCategoryIds)
+        public IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetFirmCategories(IEnumerable<long> firmCategoryIds, SalesModel salesModel, long organizationUnitId)
         {
-            return _finder.Find(Specs.Find.ByIds<Category>(firmCategoryIds))
+            return _finder.Find(Specs.Find.ByIds<Category>(firmCategoryIds)
+                                && CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, organizationUnitId))
                           .Select(item => new LinkingObjectsSchemaDto.CategoryDto { Id = item.Id, Name = item.Name, Level = item.Level, })
                           .Distinct()
                           .ToArray();
         }
 
-        public IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetAdditionalCategories(IEnumerable<long> firmCategoryIds, long orderPositionId)
+        public IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetAdditionalCategories(IEnumerable<long> firmCategoryIds, long orderPositionId, SalesModel salesModel, long organizationUnitId)
         {
             return _finder.Find(OrderSpecs.OrderPositionAdvertisements.Find.ByOrderPosition(orderPositionId))
                           .Where(opa => opa.CategoryId.HasValue)
                           .Select(opa => opa.Category)
+                          .Where(CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, organizationUnitId))
                           .Where(category => !firmCategoryIds.Contains(category.Id))
                           .Select(category => new LinkingObjectsSchemaDto.CategoryDto { Id = category.Id, Name = category.Name, Level = category.Level, })
                           .Distinct()
                           .ToArray();
         }
 
-        public IEnumerable<long> GetCategoriesSupportedBySalesModelInOrganizationUnit(SalesModel salesModel, long organizationUnitId)
-        {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>() &&
-                                CategorySpecs.CategoryOrganizationUnits.Find.ForOrganizationUnit(organizationUnitId))
-                          .Select(x => x.Category)
-                          .Where(x =>
-                                 x.SalesModelRestrictions.Any(CategorySpecs.SalesModelCategoryRestrictions.Find.BySalesModelAndOrganizationUnit(salesModel, organizationUnitId)
-                                                                           .Predicate.Compile()))
-                          .Select(x => x.Id)
-                          .ToArray();
-        }
-
         public IDictionary<long, string> PickCategoriesUnsupportedBySalesModelInOrganizationUnit(SalesModel salesModel, long destOrganizationUnitId, IEnumerable<long> categoryIds)
         {
-            var allowedCategories = GetCategoriesSupportedBySalesModelInOrganizationUnit(salesModel, destOrganizationUnitId);
-            var deniedCategories = categoryIds.Where(x => !allowedCategories.Contains(x));
-            return _finder.Find(Specs.Find.ByIds<Category>(deniedCategories))
+            var allowedCategoriesSpecification = CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, destOrganizationUnitId);
+            return _finder.Find(Specs.Find.ByIds<Category>(categoryIds) && !allowedCategoriesSpecification)
                           .ToDictionary(category => category.Id, category => category.Name);
         }
     }

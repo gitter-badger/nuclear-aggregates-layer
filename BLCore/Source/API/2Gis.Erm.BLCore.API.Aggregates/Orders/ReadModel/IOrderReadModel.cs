@@ -109,5 +109,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         long? GetBargainIdByOrder(long orderId);
         long GetBargainLegalPersonId(long bargainId);
         OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId);
+        IEnumerable<Bill> GetBillsForOrder(long orderId);
     }
 }

@@ -443,27 +443,27 @@
     <value>S tímto klientem spolupracuje následující reklamní agentura:</value>
   </data>
   <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
-    <value>Смена реквизитов скрытого юр. лица запрещена</value>
+    <value>Změna platebních údajů u skryté PO je zakázána</value>
   </data>
   <data name="ActiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
-    <value>Уже существует юр. лицо клиента с указанным БИН/ИИН</value>
+    <value>PO klienta s uvedeným DIČ již existuje</value>
   </data>
   <data name="InactiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
-    <value>Уже существует скрытое юр. лицо клиента с указанным БИН/ИИН</value>
+    <value>Skrytá PO klienta s uvedeným DIČ již existuje</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedIinExists" xml:space="preserve">
-    <value>Уже существует удалённое юр. лицо клиента с указанным БИН/ИИН</value>
+    <value>Odstraněná PO klienta s uvedeným DIČ již existuje </value>
   </data>
   <data name="ActiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
-    <value>Уже существует юр. лицо с указанным номером удостоверения личности</value>
+    <value>PO s uvedeným číslem OP již existuje</value>
   </data>
   <data name="InactiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
-      <value>Уже существует скрытое юр. лицо с указанным номером удостоверения личности</value>
+      <value>Skrytá PO klienta s uvedeným číslem OP již existuje</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
-      <value>Уже существует удалённое юр. лицо с указанным номером удостоверения личности</value>
+      <value>Odstraněná PO klienta s uvedeným číslem OP již existuje</value>
   </data>
   <data name="OrderFieldNotSpecified" xml:space="preserve">
-    <value>В заказе не заполнено поле "{0}"</value>
+    <value>V objednávce není vyplněno pole "{0}"</value>
   </data>
 </root>

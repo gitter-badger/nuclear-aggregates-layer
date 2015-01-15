@@ -51,14 +51,14 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         }
 
         public TEntity FindOne<TEntity>(Func<IFindSpecification<TEntity>, IQueryable<TEntity>> queryExecutor, IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+            where TEntity : class, IEntity
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 var entity = queryExecutor(findSpecification).SingleOrDefault();
-                if (entity != null)
+                if (entity is IEntityKey)
                 {
-                    var specs = _dynamicEntityMetadataProvider.GetSpecifications<BusinessEntityInstance, BusinessEntityPropertyInstance>(entity.GetType(), new[] { entity.Id });
+                    var specs = _dynamicEntityMetadataProvider.GetSpecifications<BusinessEntityInstance, BusinessEntityPropertyInstance>(entity.GetType(), new[] { ((IEntityKey)entity).Id });
                     ((IPartable)entity).Parts = _dynamicStorageFinder.Find(specs).Cast<IEntityPart>();
                 }
 

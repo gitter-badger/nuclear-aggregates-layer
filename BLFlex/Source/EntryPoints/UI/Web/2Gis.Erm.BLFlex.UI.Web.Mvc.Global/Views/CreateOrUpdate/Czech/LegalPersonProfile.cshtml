@@ -67,7 +67,7 @@
             @Html.TemplateField(m => m.BankName, FieldFlex.twins)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.AdditionalPaymentElements, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } })
+            @Html.TemplateField(m => m.PaymentEssentialElements, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Registered, FieldFlex.lone, new Dictionary<string, object> { { "rows", 2 } })

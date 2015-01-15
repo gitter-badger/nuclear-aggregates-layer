@@ -549,8 +549,8 @@
   <data name="TitlePlan" xml:space="preserve">
     <value>Planificación</value>
   </data>
-  <data name="TitlePurpose" xml:space="preserve">
-    <value>Objetivo / Resultado</value>
+  <data name="TitleResult" xml:space="preserve">
+    <value>Resultado</value>
   </data>
   <data name="TitleRegarding" xml:space="preserve">
     <value>En relación a</value>
@@ -689,9 +689,6 @@
   </data>
   <data name="Number" xml:space="preserve">
     <value>Número</value>
-  </data>
-  <data name="AfterSalesServiceOperationDescriptionFormat" xml:space="preserve">
-    <value>Crear el servicio postventa para la sucursal de la entidad en la ciudad de {0} durante {1}</value>
   </data>
   <data name="UnableToDeleteAssignedAdvertisementElementTemplate" xml:space="preserve">
     <value>El elemento de la plantilla de material publicitario se utiliza en una o más plantillas de material publicitario y no puede eliminarse.</value>
@@ -1048,9 +1045,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="IncorrectBeginDistributionDateMax" xml:space="preserve">
     <value>Esta fecha de publicación de la orden no puede especificarse</value>
-  </data>
-  <data name="AfterSalesServiceOperationErrorsMessage" xml:space="preserve">
-    <value>Errores al crear llamadas: {0}{1}{2}</value>
   </data>
   <data name="LockListByAccount" xml:space="preserve">
     <value>Vista previa de la lista de bloqueos de la cuenta personal</value>
@@ -1802,9 +1796,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="DisqualifyOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>La operación de la devolución a la reserva no está definida para el tipo especificado de esencia</value>
   </data>
-  <data name="AfterSalesServiceCreationErrorFormat" xml:space="preserve">
-    <value>Error durante la creación del servicio postventa, Id: {0}, {1}{2}</value>
-  </data>
   <data name="OrdersCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit" xml:space="preserve">
     <value>En la orden {0} hay una posición enlazada a la categoría sin enlace a la sucursal de la entidad de la ciudad de destino de la orden</value>
   </data>
@@ -2092,9 +2083,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="OrderAmountFact" xml:space="preserve">
     <value>Importe real de la orden</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesEmpty" xml:space="preserve">
-    <value>No se han encontrado las órdenes para realizar la planificación del servicio postventa.</value>
   </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>Amortización</value>
@@ -2614,9 +2602,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="SystemID" xml:space="preserve">
     <value>Pertenece al sistema</value>
-  </data>
-  <data name="AfterSaleServiceActivitiesCreate" xml:space="preserve">
-    <value>Formación del servicio postventa</value>
   </data>
   <data name="OrderCheckWhiteListedAdvertismentIsRequired" xml:space="preserve">
     <value>Se requiere indicar el material publicitario para la lista blanca</value>
@@ -3179,8 +3164,8 @@ Operación realizada con éxito: {6}.</value>
   <data name="CurrentUserHasNoReadEntityPermission" xml:space="preserve">
     <value>El usuario actual no tiene permisos de lectura de esencia</value>
   </data>
-  <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
-    <value>Transacciones procesadas: {0}, llamadas creadas: {1}</value>
+  <data name="RegionalAdvertisingSharing" xml:space="preserve">
+    <value>Cambio de la publicidad regional</value>
   </data>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Resultados de verificación de la orden</value>
@@ -3337,9 +3322,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="CopyPriceCreateNewLegend" xml:space="preserve">
     <value>Copiar la lista de precios existente a una nueva</value>
-  </data>
-  <data name="CrmEntityCode" xml:space="preserve">
-    <value>Código de esencia CRM</value>
   </data>
   <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
     <value>No se ha encontrado ningún territorio con el código DGPP [{0}]</value>
@@ -3530,9 +3512,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="MergeLegalPersonsMainNotFoundError" xml:space="preserve">
     <value>Es Imposible realizar la fusión, ya que la persona jurídica principal no ha sido encontrada.</value>
   </data>
-  <data name="ViewAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Permisos insuficientes para ver el historial del servicio postventa</value>
-  </data>
   <data name="CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning" xml:space="preserve">
     <value>Imposible ejecutar la cancelación, espere hasta que finalice la operación anterior</value>
   </data>
@@ -3559,9 +3538,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="AdsCheckInvalidImageDimension" xml:space="preserve">
     <value>La resolución de la imagen cargada no coincide con ninguna de las restricciones especificadas</value>
-  </data>
-  <data name="CreateAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Permisos insuficientes para formalizar el servicio postventa</value>
   </data>
   <data name="UserControllerDefaultDeactivateError" xml:space="preserve">
     <value>Para el objeto Usuario no está disponible la funcionalidad estándar de desactivación.</value>
@@ -3718,9 +3694,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="OrderFirmHiddenForAscertainmentTemplate" xml:space="preserve">
     <value>La empresa {0} oculta hasta validar.</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesCompleted" xml:space="preserve">
-    <value>Se ha generado la planificación del servicio postventa. Transacciones procesadas: {0}, llamadas creadas: {1}</value>
   </data>
   <data name="ProcessOrderRejected_TerminationReasonNeeds" xml:space="preserve">
     <value>No está especificado ningún motivo de anulación en el campo Comentario</value>
@@ -4739,7 +4712,7 @@ Contacto: {1}</value>
   <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para la posición: "{0}"</value>
   </data>
-  <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+    <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
@@ -5196,6 +5169,10 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value>{0} №{1} del {2}</value>
+  </data>
+  <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
+    <value>Están planificadas incorrectamente las fechas del inicio y término de la reunión.
+</value>
   </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>В заказе могут присутствовать позиции только одной модели продаж</value>

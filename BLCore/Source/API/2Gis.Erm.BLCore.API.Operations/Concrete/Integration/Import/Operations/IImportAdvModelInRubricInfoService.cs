@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.AdvModelsInfo;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Charge;
 

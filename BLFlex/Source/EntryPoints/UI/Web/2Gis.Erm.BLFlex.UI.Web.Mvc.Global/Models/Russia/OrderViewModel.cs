@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [Dependency(DependencyType.ReadOnly, "DestinationOrganizationUnit", "this.value && this.value.toLowerCase()=='true'")]
         [Dependency(DependencyType.ReadOnly, "LegalPerson", "this.value && this.value.toLowerCase()=='true'")]
         [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit",
-            "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('HasOrderBranchOfficeOrganizationUnitSelection').value.toLowerCase()=='false'")]
+            "(this.value && this.value.toLowerCase()=='true')")]
         [Dependency(DependencyType.ReadOnly, "Firm", "this.value && this.value.toLowerCase()=='true'")]
         [Dependency(DependencyType.Disable, "OrderType",
             "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('CanEditOrderType').value.toLowerCase()=='false'")]
@@ -60,7 +60,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public bool HasDestOrganizationUnitPublishedPrice { get; set; }
 
-        public bool HasOrderBranchOfficeOrganizationUnitSelection { get; set; }
         public bool CanEditOrderType { get; set; }
         public bool HasOrderDocumentsDebtChecking { get; set; }
 

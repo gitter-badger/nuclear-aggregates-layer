@@ -1341,51 +1341,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AfterSaleServiceActivitiesCreate {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceActivitiesCreate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceCreationErrorFormat {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceCreationErrorFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceOperationCompletedDetailsMessage {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationCompletedDetailsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceOperationDescriptionFormat {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationDescriptionFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceOperationErrorsMessage {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationErrorsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AgencyFeePercentMustBeBetweenZeroAndOneHundred {
             get {
                 return ResourceManager.GetString("AgencyFeePercentMustBeBetweenZeroAndOneHundred", resourceCulture);
@@ -4582,33 +4537,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CreateAfterSalesActivitiesAccessDeniedError {
-            get {
-                return ResourceManager.GetString("CreateAfterSalesActivitiesAccessDeniedError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CreateAfterSaleServiceActivitiesCompleted {
-            get {
-                return ResourceManager.GetString("CreateAfterSaleServiceActivitiesCompleted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CreateAfterSaleServiceActivitiesEmpty {
-            get {
-                return ResourceManager.GetString("CreateAfterSaleServiceActivitiesEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string CreateBill {
             get {
                 return ResourceManager.GetString("CreateBill", resourceCulture);
@@ -4801,15 +4729,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CrmCode {
             get {
                 return ResourceManager.GetString("CrmCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CrmEntityCode {
-            get {
-                return ResourceManager.GetString("CrmEntityCode", resourceCulture);
             }
         }
         
@@ -8912,6 +8831,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ModifyAppointmentService_ScheduleRangeIsIncorrect {
+            get {
+                return ResourceManager.GetString("ModifyAppointmentService_ScheduleRangeIsIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string MoDiUnknownError {
             get {
                 return ResourceManager.GetString("MoDiUnknownError", resourceCulture);
@@ -12818,6 +12746,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string RegionalAdvertisingSharing {
+            get {
+                return ResourceManager.GetString("RegionalAdvertisingSharing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string RegionalApiError {
             get {
                 return ResourceManager.GetString("RegionalApiError", resourceCulture);
@@ -14402,15 +14339,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string TitlePurpose {
-            get {
-                return ResourceManager.GetString("TitlePurpose", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string TitleRegarding {
             get {
                 return ResourceManager.GetString("TitleRegarding", resourceCulture);
@@ -14432,6 +14360,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TitleReleasesPlan {
             get {
                 return ResourceManager.GetString("TitleReleasesPlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TitleResult {
+            get {
+                return ResourceManager.GetString("TitleResult", resourceCulture);
             }
         }
         
@@ -14972,15 +14909,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string View {
             get {
                 return ResourceManager.GetString("View", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string ViewAfterSalesActivitiesAccessDeniedError {
-            get {
-                return ResourceManager.GetString("ViewAfterSalesActivitiesAccessDeniedError", resourceCulture);
             }
         }
         

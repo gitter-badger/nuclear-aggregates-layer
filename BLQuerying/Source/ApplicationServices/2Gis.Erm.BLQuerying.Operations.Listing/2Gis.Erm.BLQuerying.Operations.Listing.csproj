@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -118,6 +118,7 @@
     <Compile Include="List\ListTerritoryService.cs" />
     <Compile Include="List\ListThemeService.cs" />
     <Compile Include="List\ListThemeTemplateService.cs" />
+    <Compile Include="List\ListTimeZoneService.cs" />
     <Compile Include="List\ListUserOrganizationUnitService.cs" />
     <Compile Include="List\ListUserTerritoryService.cs" />
     <Compile Include="List\ListUserRoleService.cs" />
