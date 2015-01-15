@@ -293,7 +293,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             if (terminatedOrder == null)
             {
                 useTechnicalTerminationParagraph = false;
-                return BLFlexResources.PrintOrderHandler_EmptyTechnicalTerminationParagraph;
+                return string.Empty;
             }
 
             // order.BeginDistributionDate

@@ -201,9 +201,6 @@ SWIFT {5}
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value>Nazev pravnicke osoby:</value>
   </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph" xml:space="preserve">
-    <value></value>
-  </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph" xml:space="preserve">
     <value>Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
   </data>
