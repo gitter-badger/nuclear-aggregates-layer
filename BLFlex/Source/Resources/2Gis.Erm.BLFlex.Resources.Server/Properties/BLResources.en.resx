@@ -193,9 +193,6 @@ Bank Name: {7}
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value>[Not defined for current business model and language]:</value>
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph" xml:space="preserve">
-    <value>This Invoice comes into effect from {0}. The Invoice No.{1} as of {2} becomes inoperative from {3}.</value>
-  </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>

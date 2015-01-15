@@ -182,9 +182,6 @@
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value>Název právnické osoby</value>
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph" xml:space="preserve">
-    <value>Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.</value>
-  </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>

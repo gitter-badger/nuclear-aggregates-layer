@@ -130,7 +130,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                                  .Distinct()
                                  .ToArray();
 
-            bool useTechnicalTermination;
             return new PrintData
                 {
                     { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(data.BeginDistributionDate) },
@@ -139,8 +138,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                     { "ElectronicMedia", data.ElectronicMedia },
                     { "RelatedBargainInfo", data.Bargain != null ? GetRelatedBargainInfo(data.Bargain.Number, data.Bargain.CreatedOn) : null },
                     { "SourceElectronicMedia", data.SourceElectronicMedia },
-                    { "TechnicalTerminationParagraph", GetTechnicalTerminationParagraph(data.Order, data.TerminatedOrder, out useTechnicalTermination) },
-                    { "UseTechnicalTermination", useTechnicalTermination },
+                    { "TerminatedOrder", GetTerminatedOrder(data.TerminatedOrder) },
+                    { "UseTechnicalTermination", data.TerminatedOrder != null },
                     { "DiscountSum", data.discountSum },
                     { "PriceWithoutDiscount", data.discountSum + data.PayablePlan },
                     { "UseAsteriskParagraph", platforms.Contains(PlatformEnum.Independent) || platforms.Contains(PlatformEnum.Api) },
@@ -288,34 +287,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             }
         }
 
-        private string GetTechnicalTerminationParagraph(Order order, Order terminatedOrder, out bool useTechnicalTerminationParagraph)
+        private PrintData GetTerminatedOrder(Order terminatedOrder)
         {
-            if (terminatedOrder == null)
-            {
-                useTechnicalTerminationParagraph = false;
-                return string.Empty;
-            }
-
-            // order.BeginDistributionDate
-            var beginDistributionDate = _longDateFormatter.Format(order.BeginDistributionDate);
-
-            // terminatedOrder.Number
-            var terminatedOrderNumber = terminatedOrder.Number;
-
-            // terminatedOrder.SignupDate
-            var terminatedOrderSignupDate = _longDateFormatter.Format(terminatedOrder.SignupDate);
-
-            // terminatedOrder.EndDistributionDateFact
-            var terminatedOrderEndDistributionDateFact = _longDateFormatter.Format(terminatedOrder.EndDistributionDateFact);
-
-            useTechnicalTerminationParagraph = true;
-            return string.Format(
-                CultureInfo.CurrentCulture,
-                BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph,
-                beginDistributionDate,
-                terminatedOrderNumber,
-                terminatedOrderSignupDate,
-                terminatedOrderEndDistributionDateFact);
+            return terminatedOrder == null
+                       ? null
+                       : new PrintData
+                             {
+                                 { "Number", terminatedOrder.Number },
+                                 { "SignupDate", terminatedOrder.SignupDate },
+                                 { "EndDistributionDateFact", terminatedOrder.EndDistributionDateFact },
+                             };
         }
 
         private sealed class BusinessLogicDataException : BusinessLogicException

@@ -302,6 +302,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                 .Select(x => new
                     {
                         x.Number,
+                        x.BeginDistributionDate,
                         x.SignupDate,
                         x.OwnerCode,
                         x.PayablePlan,
@@ -313,6 +314,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                 .Select(x => new PrintData
                     {
                         { "Number", x.Number },
+                        { "BeginDistributionDate", x.BeginDistributionDate },
                         { "SignupDate", x.SignupDate },
                         { "OwnerName", _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName },
                         { "PayablePlan", x.PayablePlan },

@@ -183,9 +183,6 @@
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph" xml:space="preserve">
-    <value>Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.</value>
-  </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>Una EIRL con el RUT especificado ya existe</value>
   </data>
