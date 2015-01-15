@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
             var connection = new SqlConnection(builder.ConnectionString);
 
             connection.Open();
-            var transaction = connection.BeginTransaction();
+            var transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted);
             var result = _databaseCaller.ExecuteProcedureWithReturnValue<LockAcquirementResult>("sys.sp_getapplock",
                                                                                                 new
                                                                                                     {

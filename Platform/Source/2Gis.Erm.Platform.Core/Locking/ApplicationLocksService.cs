@@ -14,11 +14,6 @@ namespace DoubleGis.Erm.Platform.Core.Locking
             _applicationLocksPersistenceService = applicationLocksPersistenceService;
         }
 
-        public ILockingScope Acquire(string lockName)
-        {
-            return AcquireInternal(lockName, null);
-        }
-
         public ILockingScope Acquire(string lockName, TimeSpan timeout)
         {
             return AcquireInternal(lockName, timeout);
@@ -27,11 +22,6 @@ namespace DoubleGis.Erm.Platform.Core.Locking
         public bool TryAcquire(string lockName, out ILockingScope lockingScope)
         {
             return TryAcquireInternal(lockName, null, out lockingScope);
-        }
-
-        public bool TryAcquire(string lockName, TimeSpan timeout, out ILockingScope lockingScope)
-        {
-            return TryAcquireInternal(lockName, timeout, out lockingScope);
         }
 
         public void Release(ITrackedLockingScope scope)

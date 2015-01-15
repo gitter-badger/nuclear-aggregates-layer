@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
 {
     public sealed class AdoNetDatabaseCaller : IDatabaseCaller
     {
-        const string ReturnValueParameterName = "ReturnValue";
+        private const string ReturnValueParameterName = "ReturnValue";
         private readonly string _connectionString;
 
         public AdoNetDatabaseCaller(string connectionString)

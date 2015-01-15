@@ -70,7 +70,8 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
                                                        LastCheckinTime = x.LastCheckinTime,
                                                        CheckinInterval = TimeSpan.FromMilliseconds(x.CheckinIntervalMs),
                                                        TimeSafetyOffset = TimeSpan.FromMilliseconds(x.TimeSafetyOffsetMs)
-                                                   });
+                                                   })
+                                  .ToArray();
         }
 
         public void Checkin(Guid instanceId, DateTimeOffset now)
@@ -91,7 +92,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
 
         public bool IsRunning(Guid instanceId)
         {
-            return _databaseCaller.QueryRawSql<bool>(@"SELECT [IsRunning] FROM [Metadata].[ServiceInstances] WHERE [Id] = @Id", new { Id = instanceId }).Single();
+            return _databaseCaller.QueryRawSql<bool>(@"SELECT [IsRunning] FROM [Metadata].[ServiceInstances] WHERE [Id] = @Id", new { Id = instanceId }).SingleOrDefault();
         }
 
         #region nested

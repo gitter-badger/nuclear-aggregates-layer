@@ -17,8 +17,6 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
 {
     public sealed class ServiceInstanceCheckinService : IServiceInstanceCheckinService, IServiceInstanceIdProvider, IDisposable
     {
-        public event EventHandler<UnhandledExceptionEventArgs> Faulted = delegate { };
-
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly Task _workerTask;
         private readonly AutoResetEvent _asyncWorkerSignal;
@@ -36,11 +34,11 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
         private Guid? _instanceId;
         private bool _disposed;
 
-        public ServiceInstanceCheckinService(IServiceInstancePersistenceService serviceInstancePersistenceService,
-                                             IApplicationLocksService applicationLocksService,
-                                             IEnvironmentSettings environmentSettings,
-                                             IServiceInstanceCheckinSettings serviceInstanceCheckinSettings,
-                                             ICommonLog logger,
+        public ServiceInstanceCheckinService(IServiceInstancePersistenceService serviceInstancePersistenceService, 
+                                             IApplicationLocksService applicationLocksService, 
+                                             IEnvironmentSettings environmentSettings, 
+                                             IServiceInstanceCheckinSettings serviceInstanceCheckinSettings, 
+                                             ICommonLog logger, 
                                              string serviceName)
         {
             _serviceInstancePersistenceService = serviceInstancePersistenceService;
@@ -58,6 +56,8 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             _instanceIdAcquiredSignal = new ManualResetEventSlim(false);
             _host = GetHostName();
         }
+
+        public event EventHandler<UnhandledExceptionEventArgs> Faulted = delegate { };
 
         public void Start()
         {
@@ -137,6 +137,16 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             _disposed = true;
         }
 
+        private static bool IsFailed(DateTimeOffset startTime, DateTimeOffset lastCheckinTime, TimeSpan checkinInterval, TimeSpan timeSafetyOffset)
+        {
+            return startTime.Subtract(lastCheckinTime) >= checkinInterval.Add(timeSafetyOffset);
+        }
+
+        private static string GetHostName()
+        {
+            return Dns.GetHostEntry(string.Empty).HostName;
+        }
+
         private void Worker(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
@@ -210,26 +220,21 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             }
         }
 
-        private static bool IsFailed(DateTimeOffset startTime, DateTimeOffset lastCheckinTime, TimeSpan checkinInterval, TimeSpan timeSafetyOffset)
-        {
-            return startTime.Subtract(lastCheckinTime) >= checkinInterval.Add(timeSafetyOffset);
-        }
-
         private Guid FirstCheckin(DateTimeOffset startTime)
         {
             var id = Guid.NewGuid();
             var serviceInstance = new ServiceInstanceDto
                                       {
-                                          Id = id,
-                                          Environment = _environmentSettings.EnvironmentName,
-                                          EntryPoint = _environmentSettings.EntryPointName,
-                                          Host = _host,
-                                          ServiceName = _serviceName,
-                                          FirstCheckinTime = startTime,
-                                          LastCheckinTime = startTime,
-                                          CheckinInterval = _serviceInstanceCheckinSettings.CheckinInterval,
-                                          TimeSafetyOffset = _serviceInstanceCheckinSettings.CheckinTimeSafetyOffset,
-                                          IsRunning = true,
+                                          Id = id, 
+                                          Environment = _environmentSettings.EnvironmentName, 
+                                          EntryPoint = _environmentSettings.EntryPointName, 
+                                          Host = _host, 
+                                          ServiceName = _serviceName, 
+                                          FirstCheckinTime = startTime, 
+                                          LastCheckinTime = startTime, 
+                                          CheckinInterval = _serviceInstanceCheckinSettings.CheckinInterval, 
+                                          TimeSafetyOffset = _serviceInstanceCheckinSettings.CheckinTimeSafetyOffset, 
+                                          IsRunning = true, 
                                           IsSelfReport = true
                                       };
 
@@ -242,11 +247,6 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
             }
 
             return id;
-        }
-
-        private static string GetHostName()
-        {
-            return Dns.GetHostEntry(string.Empty).HostName;
         }
 
         private void OnFaulted(Task task)
