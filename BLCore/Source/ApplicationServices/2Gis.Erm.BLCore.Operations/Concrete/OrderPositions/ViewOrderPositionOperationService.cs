@@ -52,6 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
 
                 LinkingObjectsSchema = linkingObjectsSchema,
                 IsPositionOfPlannedProvisionSalesModel = isPlannedProvisionSalesModel,
+                SalesModel = (int)positionInfo.SalesModel
             };
         }
     }

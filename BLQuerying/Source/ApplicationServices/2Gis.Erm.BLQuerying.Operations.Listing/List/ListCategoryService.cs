@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                                                                                                             y.OrganizationUnitId == organizationUnitId))));
 
             var salesModelFilter =
-                querySettings.CreateForExtendedProperty<Category, SalesModel>("salesModel",
+                querySettings.CreateForExtendedProperty<Category, int>("salesModel",
                                                                               salesModel =>
                                                                               {
                                                                                   long organizationUnitId;
@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                       return x => false;
                                                                                   }
 
-                                                                                  var specification = CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, organizationUnitId);
+                                                                                  var specification = CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit((SalesModel)salesModel, organizationUnitId);
                                                                                   return specification.Predicate;
                                                                               });
 

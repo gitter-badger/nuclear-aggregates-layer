@@ -126,8 +126,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ObtainDealForBizaccountOrderIdentity = 15114;
         public const int CreateOrderBillsIdentity = 15115;
         public const int DeleteOrderBillsIdentity = 15116;
-        public const int CheckIfOrderPositionCanBeCreatedForOrderIdentity = 15117;
-        public const int CheckIfOrderPositionCanBeModifiedIdentity = 15118;
+        public const int CheckIfOrderPositionCanBeCreatedForOrderIdentity = 15118;
+        public const int CheckIfOrderPositionCanBeModifiedIdentity = 15119;
 
         // EntityName.OrderPosition = 150
         public const int CalculateOrderPositionCostIdentity = 15001;

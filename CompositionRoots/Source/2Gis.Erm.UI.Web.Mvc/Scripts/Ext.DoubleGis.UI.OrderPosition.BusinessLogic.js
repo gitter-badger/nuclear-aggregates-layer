@@ -281,7 +281,6 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
             {
                 if (response.status == 500 && response.responseText && response.responseText.length > 0)
                 {
-                    //alert(Ext.LocalizedResources.ErrorRetrievingDataFromServer + ': \n' + response.responseText);
                     Ext.Msg.show({
                         title: Ext.LocalizedResources.Error,
                         msg: Ext.LocalizedResources.ErrorRetrievingDataFromServer + ': \n' + response.responseText,
