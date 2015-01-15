@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             return _printOrderHelper.GetOrderPositionsWithDetailedName(orderQuery, query);
         }
 
-        public PrintData GetUngrouppedFields(IQueryable<Order> query, BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile legalPersonProfile, TemplateCode templateCode)
+        public PrintData GetUngrouppedFields(IQueryable<Order> query, BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile legalPersonProfile)
         {
             var data = query
                 .Select(order => new
@@ -139,7 +139,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                     { "ElectronicMedia", data.ElectronicMedia },
                     { "RelatedBargainInfo", data.Bargain != null ? GetRelatedBargainInfo(data.Bargain.Number, data.Bargain.CreatedOn) : null },
                     { "SourceElectronicMedia", data.SourceElectronicMedia },
-                    { "TechnicalTerminationParagraph", GetTechnicalTerminationParagraph(data.Order, data.TerminatedOrder, templateCode, out useTechnicalTermination) },
+                    { "TechnicalTerminationParagraph", GetTechnicalTerminationParagraph(data.Order, data.TerminatedOrder, out useTechnicalTermination) },
                     { "UseTechnicalTermination", useTechnicalTermination },
                     { "DiscountSum", data.discountSum },
                     { "PriceWithoutDiscount", data.discountSum + data.PayablePlan },
@@ -150,32 +150,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
         private string GetRelatedBargainInfo(string bargainNumber, DateTime createdOn)
         {
             return string.Format(BLCoreResources.RelatedToBargainInfoTemplate, bargainNumber, _longDateFormatter.Format(createdOn));
-        }
-
-        private static string TechnicalTerminationParagraph(TemplateCode templateCode)
-        {
-            return TechnicalTerminationParagraphDependsOnTemplate(templateCode,
-                                                                  BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount);
-        }
-
-        private static string EmptyTechnicalTerminationParagraph(TemplateCode templateCode)
-        {
-            return TechnicalTerminationParagraphDependsOnTemplate(templateCode,
-                                                                  BLFlexResources.PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount);
-        }
-
-        private static string TechnicalTerminationParagraphDependsOnTemplate(TemplateCode templateCode, string withDiscount)
-        {
-            switch (templateCode)
-            {
-                case TemplateCode.OrderWithVatWithDiscount:
-                case TemplateCode.OrderWithoutVatWithDiscount:
-                case TemplateCode.OrderWithVatWithoutDiscount:
-                case TemplateCode.OrderWithoutVatWithoutDiscount:
-                    return withDiscount;
-                default:
-                    throw new ArgumentException(string.Format("Шаблон не может быть {0}", templateCode), "templateCode");
-            }
         }
 
         private string GetBeginContractParagraph(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile profile)
@@ -314,12 +288,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             }
         }
 
-        private string GetTechnicalTerminationParagraph(Order order, Order terminatedOrder, TemplateCode templateCode, out bool useTechnicalTerminationParagraph)
+        private string GetTechnicalTerminationParagraph(Order order, Order terminatedOrder, out bool useTechnicalTerminationParagraph)
         {
             if (terminatedOrder == null)
             {
                 useTechnicalTerminationParagraph = false;
-                return EmptyTechnicalTerminationParagraph(templateCode);
+                return BLFlexResources.PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount;
             }
 
             // order.BeginDistributionDate
@@ -337,7 +311,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             useTechnicalTerminationParagraph = true;
             return string.Format(
                 CultureInfo.CurrentCulture,
-                TechnicalTerminationParagraph(templateCode),
+                BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount,
                 beginDistributionDate,
                 terminatedOrderNumber,
                 terminatedOrderSignupDate,

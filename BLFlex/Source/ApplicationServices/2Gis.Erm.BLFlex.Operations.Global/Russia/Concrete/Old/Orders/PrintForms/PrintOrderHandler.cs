@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                     FileName = orderInfo.OrderNumber,
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
                     TemplateCode = templateCode,
-                    PrintData = GetPrintData(request, orderInfo, templateCode)
+                    PrintData = GetPrintData(request, orderInfo)
                 };
 
             var response = (StreamResponse)_requestProcessor.HandleSubRequest(printDocumentRequest, Context);
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             }
         }
 
-        private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order, TemplateCode templateCode)
+        private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order)
         {
             var profileId = request.LegalPersonProfileId.HasValue ? request.LegalPersonProfileId.Value : order.MainLegalPersonProfileId;
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
@@ -94,7 +94,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                     _orderPrintFormDataExtractor.GetOrder(orderQuery),
                                     _orderPrintFormDataExtractor.GetOrderPositions(orderQuery, orderPositionQuery),
                                     _orderPrintFormDataExtractor.GetPaymentSchedule(billQuery),
-                                    _orderPrintFormDataExtractor.GetUngrouppedFields(orderQuery, boou, legalPerson, profile, templateCode),
+                                    _orderPrintFormDataExtractor.GetUngrouppedFields(orderQuery, boou, legalPerson, profile),
                                     _orderPrintFormDataExtractor.GetBranchOfficeOrganizationUnit(boou),
                                     _orderPrintFormDataExtractor.GetLegalPersonProfile(profile));
         }
