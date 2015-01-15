@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
@@ -61,6 +62,22 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
             return false;
         }
 
+        public bool IsLockActive(Guid lockId)
+        {
+            ApplicationLockDescriptor descriptor;
+            if (!_acquiredLocks.TryGetValue(lockId, out descriptor))
+            {
+                return false;
+            }
+
+            if (!descriptor.Connection.State.HasFlag(ConnectionState.Open))
+            {
+                return false;
+            }
+
+            return _databaseCaller.QueryRawSql<int>("SELECT @@TRANCOUNT", null, descriptor.Connection, descriptor.Transaction).Single() != 0;
+        }
+
         public bool ReleaseLock(Guid lockId)
         {
             lock (_sync)
@@ -77,6 +94,11 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
 
                 try
                 {
+                    if (IsLockActive(lockId))
+                    {
+                        return false;
+                    }
+
                     var result = _databaseCaller.ExecuteProcedureWithReturnValue<LockReleasingResult>("sys.sp_releaseapplock",
                                                                                                       new
                                                                                                           {

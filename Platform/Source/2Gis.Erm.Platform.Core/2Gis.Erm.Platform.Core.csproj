@@ -81,6 +81,7 @@
     <Compile Include="EntityProjection\IAssignSpecification.cs" />
     <Compile Include="EntityProjection\IProjectSpecification.cs" />
     <Compile Include="EntityProjection\ProjectSpecification.cs" />
+    <Compile Include="Identities\AppLockIdentityServiceUniqueIdProvider.cs" />
     <Compile Include="Identities\BufferedIdentityRequestStrategy.cs" />
     <Compile Include="Identities\IdentityProviderBase.cs" />
     <Compile Include="Identities\IdentityRequestChecker.cs" />

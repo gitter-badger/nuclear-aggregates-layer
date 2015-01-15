@@ -177,22 +177,19 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             }
         }
 
-        public IEnumerable<TResult> QueryRawSql<TResult>(string queryString, object parameters = null)
+        public IEnumerable<TResult> QueryRawSql<TResult>(string queryString, object parameters = null, IDbConnection existingConnection = null, IDbTransaction transaction = null)
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                return connection.Query<TResult>(queryString, parameters);
-            }
+            var connection = existingConnection ?? new SqlConnection(_connectionString);
+            return connection.Query<TResult>(queryString, parameters, transaction);
         }
 
-        public T ExecuteProcedureWithReturnValue<T>(string procedureName, object parameters, IDbConnection existingConnection = null, IDbTransaction existingTransaction = null)
+        public T ExecuteProcedureWithReturnValue<T>(string procedureName, object parameters, IDbConnection existingConnection = null, IDbTransaction transaction = null)
         {
             var connection = existingConnection ?? new SqlConnection(_connectionString);
 
             var p = new DynamicParameters(parameters);
             p.Add(ReturnValueParameterName, direction: ParameterDirection.ReturnValue);
-            connection.Execute(procedureName, p, existingTransaction, commandType: CommandType.StoredProcedure);
+            connection.Execute(procedureName, p, transaction, commandType: CommandType.StoredProcedure);
 
             return p.Get<T>(ReturnValueParameterName);
         }

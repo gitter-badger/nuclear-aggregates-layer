@@ -6,5 +6,6 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
     {
         bool AcquireLock(string lockName, TimeSpan timeout, out Guid lockId);
         bool ReleaseLock(Guid lockId);
+        bool IsLockActive(Guid lockId);
     }
 }

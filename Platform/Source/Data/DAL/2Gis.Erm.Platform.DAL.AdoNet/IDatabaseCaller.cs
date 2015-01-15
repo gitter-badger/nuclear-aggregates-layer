@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
         DataTable ExecuteProcedureWithResultTable(string procedureName, TimeSpan? commandTimeout, params Tuple<string, object>[] inputParameters);
         void ExecuteRawSql(string queryString);
         int ExecuteRawSql(string queryString, object parameters);
-        IEnumerable<TResult> QueryRawSql<TResult>(string queryString, object parameters = null);
-        T ExecuteProcedureWithReturnValue<T>(string procedureName, object parameters, IDbConnection existingConnection = null, IDbTransaction existingTransaction = null);
+        IEnumerable<TResult> QueryRawSql<TResult>(string queryString, object parameters = null, IDbConnection existingConnection = null, IDbTransaction transaction = null);
+        T ExecuteProcedureWithReturnValue<T>(string procedureName, object parameters, IDbConnection existingConnection = null, IDbTransaction transaction = null);
     }
 }
