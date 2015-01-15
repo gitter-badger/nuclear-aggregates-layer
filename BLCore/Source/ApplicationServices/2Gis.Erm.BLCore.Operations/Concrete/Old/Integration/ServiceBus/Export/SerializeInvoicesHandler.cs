@@ -32,6 +32,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return new SelectSpecification<Order, IExportableEntityDto>(x => new InvoiceDto
             {
                 Id = x.Id,
+                SalesModel = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                             .Select(y => y.PricePosition.Position.SalesModel)
+                                             .FirstOrDefault(),
                 Number = x.Number,
                 FirmCode = x.FirmId,
                 FirmName = x.Firm.Name,
@@ -49,6 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 OwnerCode = x.OwnerCode,
                 IsActive = x.IsActive,
                 IsDeleted = x.IsDeleted,
+                ModifiedOn = x.ModifiedOn.Value,
                 InvoiceItems =
                     x.OrderPositions
                      .Where(z => z.IsActive && !z.IsDeleted)
@@ -66,11 +70,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                      })
                      .Select(z => new InvoiceItemDto
                      {
+                         OrderPositionCode = z.OrderPosition.Id,
                          PriceListPositionCode = z.OrderPosition.PricePositionId,
                          NomenclatureElementCode = z.Position.Id,
                          Amount = z.OrderPosition.Amount,
                          DiscountPercent = z.OrderPosition.DiscountPercent,
                          CategoryRate = z.OrderPosition.CategoryRate,
+                         ReleasesWithdrawals = z.OrderPosition.ReleasesWithdrawals.Select(r =>
+                             new ReleasesWithdrawalDto
+                                 {
+                                     ReleaseBeginDate = r.ReleaseBeginDate,
+                                     ReleaseEndDate = r.ReleaseEndDate,
+                                     AmountToWithdraw = z.OrderPosition.PricePosition.Cost * z.OrderPosition.Amount
+                                 }),
                          SubInvoiceItems = z.ChildPositions
                                             .Select(p => new SubInvoiceItemDto
                                             {
@@ -128,6 +140,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             var invoiceElement = new XElement("Invoice",
                                               new XAttribute("Code", invoiceDto.Id),
+                                              new XAttribute("SalesModel", ConvertToServiceBusSalesModel(invoiceDto.SalesModel)),
                                               new XAttribute("Number", invoiceDto.Number),
                                               new XAttribute("FirmCode", invoiceDto.FirmCode),
                                               new XAttribute("FirmName", invoiceDto.FirmName),
@@ -141,6 +154,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                               new XAttribute("EndDatePlan", invoiceDto.EndDatePlan),
                                               new XAttribute("Status", invoiceDto.Status),
                                               new XAttribute("OrderType", invoiceDto.OrderType),
+                                              new XAttribute("ModifiedOn", invoiceDto.ModifiedOn),
                                               new XAttribute("UserCode", invoiceDto.UserCode));
 
             if (invoiceDto.ApprovedDate.HasValue)
@@ -174,12 +188,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             foreach (var invoiceItem in invoiceDto.InvoiceItems)
             {
                 var invoiceItemElement = new XElement("InvoiceItem",
+                                                      new XAttribute("OrderPositionCode", invoiceItem.OrderPositionCode),
                                                       new XAttribute("PriceListPositionCode", invoiceItem.PriceListPositionCode),
                                                       new XAttribute("NomenclatureElementCode", invoiceItem.NomenclatureElementCode),
                                                       new XAttribute("Amount", invoiceItem.Amount),
                                                       new XAttribute("DiscountPercent", invoiceItem.DiscountPercent),
                                                       new XAttribute("CategoryRate", invoiceItem.CategoryRate));
                 invoiceItemElement.Add(GetSubInvoiceItemsElement(invoiceItem));
+                invoiceItemElement.Add(GetReleasesWithdrawalsElement(invoiceItem));
                 invoiceItemsElement.Add(invoiceItemElement);
             }
 
@@ -205,6 +221,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return subInvoiceItemsElement;
         }
 
+        private static XElement GetReleasesWithdrawalsElement(InvoiceItemDto invoiceItemDto)
+        {
+            var releasesWithdrawalsElement = new XElement("ReleasesWithdrawals");
+            foreach (var releasesWithdrawalItem in invoiceItemDto.ReleasesWithdrawals)
+            {
+                var releasesWithdrawalItemElement = new XElement("ReleasesWithdrawal",
+                                                                 new XAttribute("ReleaseBeginDate", releasesWithdrawalItem.ReleaseBeginDate),
+                                                                 new XAttribute("ReleaseEndDate", releasesWithdrawalItem.ReleaseEndDate),
+                                                                 new XAttribute("AmountToWithdraw", releasesWithdrawalItem.AmountToWithdraw));
+
+                releasesWithdrawalsElement.Add(releasesWithdrawalItemElement);
+            }
+
+            return releasesWithdrawalsElement;
+        }
+
         private static XElement GetLinkObjectElement(LinkObjectDto linkObject)
         {
             var objectLinkElement = new XElement("LinkObject");
@@ -219,8 +251,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 objectLinkElement.Add(new XAttribute("CardCode", linkObject.CardCode.Value));
             }
 
-
             return objectLinkElement;
+        }
+
+        private ServiceBusSalesModel ConvertToServiceBusSalesModel(SalesModel model)
+        {
+            switch (model)
+            {
+                case SalesModel.None:
+                    return ServiceBusSalesModel.None;
+                case SalesModel.GuaranteedProvision:
+                    return ServiceBusSalesModel.CPS;
+                case SalesModel.PlannedProvision:
+                    return ServiceBusSalesModel.FH;
+                case SalesModel.MultiPlannedProvision:
+                    return ServiceBusSalesModel.MFH;
+                default:
+                    throw new ArgumentOutOfRangeException("model");
+            }
         }
 
         #region nested types
@@ -247,16 +295,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public IEnumerable<InvoiceItemDto> InvoiceItems { get; set; }
             public long OwnerCode { get; set; }
             public string UserCode { get; set; }
+            public SalesModel SalesModel { get; set; }
+            public DateTime ModifiedOn { get; set; }
         }
 
         public sealed class InvoiceItemDto
         {
+            public long OrderPositionCode { get; set; }
             public long PriceListPositionCode { get; set; }
             public long NomenclatureElementCode { get; set; }
             public int Amount { get; set; }
             public decimal DiscountPercent { get; set; }
             public decimal CategoryRate { get; set; }
             public IEnumerable<SubInvoiceItemDto> SubInvoiceItems { get; set; }
+            public IEnumerable<ReleasesWithdrawalDto> ReleasesWithdrawals { get; set; }
         }
 
         public sealed class SubInvoiceItemDto
@@ -272,6 +324,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public long? CardCode { get; set; }
         }
 
+        public sealed class ReleasesWithdrawalDto
+        {
+            public DateTime ReleaseBeginDate { get; set; }
+            public DateTime ReleaseEndDate { get; set; }
+            public decimal AmountToWithdraw { get; set; }
+        }
+
         #endregion
+
+        private enum ServiceBusSalesModel
+        {
+            None = 0,
+            CPS = 10,
+            FH = 11,
+            MFH = 12 
+        }
     }
 }

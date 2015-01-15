@@ -9,7 +9,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
@@ -148,6 +147,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 new XAttribute("EndDate", order.EndDistributionDateFact),
                 new XAttribute("PayablePlan", orderDto.PayablePlan),
                 new XAttribute("Status", order.WorkflowStepId),
+                new XAttribute("ModifiedOn", order.ModifiedOn.Value),
                 new XAttribute("Curator", curator));
 
             if (order.ApprovalDate != null)
