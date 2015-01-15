@@ -293,7 +293,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             if (terminatedOrder == null)
             {
                 useTechnicalTerminationParagraph = false;
-                return BLFlexResources.PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount;
+                return BLFlexResources.PrintOrderHandler_EmptyTechnicalTerminationParagraph;
             }
 
             // order.BeginDistributionDate
@@ -311,7 +311,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             useTechnicalTerminationParagraph = true;
             return string.Format(
                 CultureInfo.CurrentCulture,
-                BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount,
+                BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph,
                 beginDistributionDate,
                 terminatedOrderNumber,
                 terminatedOrderSignupDate,

@@ -200,10 +200,10 @@ Bank Name: {7}
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value>[Not defined for current business model and language]:</value>
   </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
+  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
