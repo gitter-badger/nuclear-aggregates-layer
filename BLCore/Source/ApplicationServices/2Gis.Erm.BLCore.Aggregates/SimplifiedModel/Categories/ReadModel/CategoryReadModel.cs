@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
         public IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetFirmCategories(IEnumerable<long> firmCategoryIds, SalesModel salesModel, long organizationUnitId)
         {
             return _finder.Find(Specs.Find.ByIds<Category>(firmCategoryIds)
-                                && CategorySpecs.Categories.Find.ForSalesModelInOrganizationUnit(salesModel, organizationUnitId))
+                                && CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, organizationUnitId))
                           .Select(item => new LinkingObjectsSchemaDto.CategoryDto { Id = item.Id, Name = item.Name, Level = item.Level, })
                           .Distinct()
                           .ToArray();
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
             return _finder.Find(OrderSpecs.OrderPositionAdvertisements.Find.ByOrderPosition(orderPositionId))
                           .Where(opa => opa.CategoryId.HasValue)
                           .Select(opa => opa.Category)
-                          .Where(CategorySpecs.Categories.Find.ForSalesModelInOrganizationUnit(salesModel, organizationUnitId))
+                          .Where(CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, organizationUnitId))
                           .Where(category => !firmCategoryIds.Contains(category.Id))
                           .Select(category => new LinkingObjectsSchemaDto.CategoryDto { Id = category.Id, Name = category.Name, Level = category.Level, })
                           .Distinct()
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
 
         public IDictionary<long, string> PickCategoriesUnsupportedBySalesModelInOrganizationUnit(SalesModel salesModel, long destOrganizationUnitId, IEnumerable<long> categoryIds)
         {
-            var allowedCategoriesSpecification = CategorySpecs.Categories.Find.ForSalesModelInOrganizationUnit(salesModel, destOrganizationUnitId);
+            var allowedCategoriesSpecification = CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, destOrganizationUnitId);
             return _finder.Find(Specs.Find.ByIds<Category>(categoryIds) && !allowedCategoriesSpecification)
                           .ToDictionary(category => category.Id, category => category.Name);
         }

@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                       return x => false;
                                                                                   }
 
-                                                                                  var specification = CategorySpecs.Categories.Find.ForSalesModelInOrganizationUnit(salesModel, organizationUnitId);
+                                                                                  var specification = CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, organizationUnitId);
                                                                                   return specification.Predicate;
                                                                               });
 

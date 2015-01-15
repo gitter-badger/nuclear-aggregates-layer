@@ -65,19 +65,24 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                             }
                         };
 
-                public static FindSpecification<Category> ForSalesModelInOrganizationUnit(SalesModel salesModel, long organizationUnitId)
+                public static FindSpecification<Category> ActiveCategoryForSalesModelInOrganizationUnit(SalesModel salesModel, long organizationUnitId)
                 {
-                    var dict = new Dictionary<SalesModel, Func<FindSpecification<Category>>>
-                           {
-                               { SalesModel.None, () => DoubleGis.Erm.Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>() },
-                               { SalesModel.GuaranteedProvision, () => DoubleGis.Erm.Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>() },
-                               { SalesModel.MultiPlannedProvision, () => DoubleGis.Erm.Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>() }, // TODO {all, 14.01.2015}: Доделать фильтрацию после потока интеграции
-                               { SalesModel.PlannedProvision, () => PlannedProvisionCategories.ContainsKey(organizationUnitId)
-                                                                          ? new FindSpecification<Category>(category => PlannedProvisionCategories[organizationUnitId].Contains(category.Id))
-                                                                          : new FindSpecification<Category>(category => false) }
-                           };
+                    var resultSpec = ForOrganizationUnit(organizationUnitId) && Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>();
 
-                    return dict[salesModel].Invoke();
+                    // TODO {y.baranihin, 15.01.2015}: Использовать IsPlannedProvisionSalesModel() после появления справочника ограничений
+                    if (salesModel == SalesModel.PlannedProvision)
+                    {
+                        resultSpec &= PlannedProvisionCategories.ContainsKey(organizationUnitId)
+                                          ? new FindSpecification<Category>(category => PlannedProvisionCategories[organizationUnitId].Contains(category.Id))
+                                          : new FindSpecification<Category>(category => false);
+                    }
+
+                    return resultSpec;
+                }
+
+                public static FindSpecification<Category> ForOrganizationUnit(long organizationUnitId)
+                {
+                    return new FindSpecification<Category>(x => x.CategoryOrganizationUnits.Any(y => y.IsActive && !y.IsDeleted && y.OrganizationUnitId == organizationUnitId));
                 }
             }
         }
