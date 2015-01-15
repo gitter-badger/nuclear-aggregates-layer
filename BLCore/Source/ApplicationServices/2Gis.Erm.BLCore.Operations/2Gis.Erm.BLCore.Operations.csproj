@@ -104,8 +104,6 @@
     <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplateHandler.cs" />
-    <Compile Include="Concrete\Old\Bills\CreateBillsHandler.cs" />
-    <Compile Include="Concrete\Old\Bills\DeleteBillsHandler.cs" />
     <Compile Include="Concrete\Old\Bills\DistributeBillPaymentsHandler.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfoHandler.cs" />
     <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfoHandler.cs" />
@@ -423,6 +421,7 @@
     <Compile Include="Generic\Get\GetUserDtoService.cs" />
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
+    <Compile Include="Generic\Modify\BillFactory.cs" />
     <Compile Include="Generic\Modify\Custom\ActivityReadService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Generic\Modify\Custom\ActivityExtensions.cs" />
@@ -431,6 +430,7 @@
     <Compile Include="Generic\Modify\Custom\ModifyLetterService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyTaskService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
+    <Compile Include="Generic\Modify\CreateOrderBillsOperationService.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\Activity\LetterObtainer.cs" />
@@ -485,6 +485,8 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\UserObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\UserProfileObtainer.cs" />
     <Compile Include="Generic\Modify\ModifyBargainService.cs" />
+    <Compile Include="Generic\Modify\DeleteOrderBillsOperationService.cs" />
+    <Compile Include="Generic\Modify\ModifyBillService.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountDetailHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountHandler.cs" />
@@ -497,7 +499,6 @@
     <Compile Include="Generic\Modify\Old\EditAssociatedPositionHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditBargainFileHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditBargainTypeHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditBillHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCategoryGroupHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditContactHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditContributionTypeHandler.cs" />

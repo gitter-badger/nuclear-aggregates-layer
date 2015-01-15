@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                    ? profile.PaymentMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
                                    : string.Empty
                            },
-                    { "AdditionalPaymentElements", profile.AdditionalPaymentElements },
+                    { "PaymentEssentialElements", profile.PaymentEssentialElements },
                     { "Mfo", profile.Within<UkraineLegalPersonProfilePart>().GetPropertyValue(part => part.Mfo) },
                 };
         }

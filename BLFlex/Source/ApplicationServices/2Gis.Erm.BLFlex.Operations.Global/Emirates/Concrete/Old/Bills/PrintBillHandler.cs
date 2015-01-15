@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
                     profile.BankName,
                     profile.SWIFT,
                     profile.IBAN,
-                    profile.AdditionalPaymentElements,
+                    profile.PaymentEssentialElements,
                 },
             };
         }
