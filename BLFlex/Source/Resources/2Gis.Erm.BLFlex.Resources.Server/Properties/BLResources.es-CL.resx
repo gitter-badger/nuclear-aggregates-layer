@@ -160,11 +160,10 @@
     <value>Medios de comunicación: "{0}" (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
-    <value>8.</value>
+    <value></value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.
-8.</value>
+    <value>Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
     <value>Imposible crear la orden de compra para la persona jurídica '{0}' especificada en el perfil</value>

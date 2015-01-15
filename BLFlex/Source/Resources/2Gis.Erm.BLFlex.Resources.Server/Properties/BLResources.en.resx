@@ -170,11 +170,10 @@ Bank Name: {7}
     <value>Mass media: "{0}" (PC version). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
-    <value>7.</value>
+    <value></value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>7. This Invoice comes into effect from {0}. The Invoice No.{1} as of {2} becomes inoperative from {3}.
-8.</value>
+    <value>This Invoice comes into effect from {0}. The Invoice No.{1} as of {2} becomes inoperative from {3}.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
     <value>Cannot create an Invoice for legal entity of the type '{0}' specified in the profile</value>
