@@ -33,7 +33,6 @@ using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.Controll
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
-    // FIXME {all, 22.02.2014}: добавить в данные передавемые на карточку в create usecase (возможно одновреммено с разделением на update и create) url до IdentityService - при этом удалить протаксивание этого URL, через многие DomainEntityDto (удалив при этом и соответсвующие partial части этих DTO), то же касается и MVC ViewModel
     public sealed class CreateOrUpdateController<TEntity, TModel, TAdapted> : ControllerBase
         where TEntity : class, IEntityKey
         where TModel : EntityViewModelBase<TEntity>, new()
