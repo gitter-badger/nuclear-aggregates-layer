@@ -308,6 +308,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         x.PayablePlan,
                         x.VatPlan,
                         x.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                        DiscountSum = x.DiscountSum.HasValue ? x.DiscountSum.Value : 0,
                         PayablePlanWithoutVat = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted).Select(position => position.PayablePlanWoVat),
                     })
                 .AsEnumerable()
@@ -322,6 +323,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         { "VatPlan", x.VatPlan },
                         { "VatRatio", x.VatRate },
                         { "VatSum", x.PayablePlan - x.PayablePlanWithoutVat.Sum() },
+
+                        { "UseVat", x.VatPlan > 0 },
+                        { "UseNoVat", x.VatPlan == 0 },
+                        { "UseDiscount", x.DiscountSum > 0 },
+                        { "UseNoDiscount", x.DiscountSum == 0 },
                     })
                 .Single();
 
