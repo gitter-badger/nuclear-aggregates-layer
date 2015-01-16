@@ -87,7 +87,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
 
         [SanitizedString]
         [StringLengthLocalized(512, MinimumLength = 0)]
-        public string AdditionalPaymentElements { get; set; }
+        [DisplayNameLocalized("AdditionalPaymentElements")]
+        public string PaymentEssentialElements { get; set; }
 
         [SanitizedString]
         [StringLengthLocalized(50)]
@@ -200,7 +201,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
             BankName = modelDto.BankName;
             IBAN = modelDto.IBAN;
             SWIFT = modelDto.SWIFT;
-            AdditionalPaymentElements = modelDto.AdditionalPaymentElements;
+            PaymentEssentialElements = modelDto.PaymentEssentialElements;
 
             ActualAddress = modelDto.ActualAddress;
         }
@@ -246,7 +247,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
                            BankName = BankName,
                            IBAN = IBAN,
                            SWIFT = SWIFT,
-                           AdditionalPaymentElements = AdditionalPaymentElements,
+                           PaymentEssentialElements = PaymentEssentialElements,
 
                            ActualAddress = ActualAddress
                        };

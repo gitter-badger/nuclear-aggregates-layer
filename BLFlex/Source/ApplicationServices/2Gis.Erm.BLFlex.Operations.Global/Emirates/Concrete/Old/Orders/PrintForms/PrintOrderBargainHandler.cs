@@ -138,7 +138,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                     legalPersonProfile.BankName,
                     legalPersonProfile.SWIFT,
                     legalPersonProfile.IBAN,
-                    legalPersonProfile.AdditionalPaymentElements,
+                    legalPersonProfile.PaymentEssentialElements,
                     legalPersonProfile.Parts.OfType<EmiratesLegalPersonProfilePart>().Single().Phone,
                 }
             };
