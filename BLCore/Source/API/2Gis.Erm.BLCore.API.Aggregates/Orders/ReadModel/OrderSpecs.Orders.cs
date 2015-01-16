@@ -133,6 +133,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                     return new FindSpecification<Order>(x => x.SourceOrganizationUnitId == sourceOrganizationUnitId &&
                                                              x.DestOrganizationUnitId == destOrganizationUnitId);
                 }
+
+                public static FindSpecification<Order> ByLegalPersonProfileId(long legalPersonProfileId)
+                {
+                    return new FindSpecification<Order>(x => !x.IsDeleted && x.IsActive &&
+                                                             x.WorkflowStepId != OrderState.Archive &&
+                                                             x.LegalPersonProfileId == legalPersonProfileId);
+                }
             }
 
             public static class Select
