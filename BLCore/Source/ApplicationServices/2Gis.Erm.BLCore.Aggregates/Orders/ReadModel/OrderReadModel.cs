@@ -1473,15 +1473,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                    })
                                    .Single();
 
-            if (dto.LegalPersonId == null)
-            {
-                throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
-            }
+            var profiles = _secureFinder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(dto.LegalPersonId)
+                                              && Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>())
+                                        .Select(x => new { x.Id, x.Name })
+                                        .Take(2)
+                                        .ToArray();
 
             return new OrderLegalPersonProfileDto
             {
                 LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
-                LegalPersonProfile = new EntityReference()
+                LegalPersonProfile = profiles.Length == 1 ? new EntityReference(profiles[0].Id, profiles[0].Name) : new EntityReference(),
             };
         }
 
