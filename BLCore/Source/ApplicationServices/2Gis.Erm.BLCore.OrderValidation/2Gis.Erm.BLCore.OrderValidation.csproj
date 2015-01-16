@@ -224,7 +224,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\..\CompositionRoots\Source\packages\DevUtils.ETWIMBA.2.0.0\build\net45\DevUtils.ETWIMBA.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\CompositionRoots\Source\packages\DevUtils.ETWIMBA.2.0.0\build\net45\DevUtils.ETWIMBA.targets'))" />
   </Target>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
