@@ -324,10 +324,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         { "VatRatio", x.VatRate },
                         { "VatSum", x.PayablePlan - x.PayablePlanWithoutVat.Sum() },
 
-                        { "UseVat", x.VatPlan > 0 },
-                        { "UseNoVat", x.VatPlan == 0 },
-                        { "UseDiscount", x.DiscountSum > 0 },
-                        { "UseNoDiscount", x.DiscountSum == 0 },
+                        { "UseWithVatWithDiscount", x.VatPlan > 0 && x.DiscountSum > 0 },
+                        { "UseWithVatNoDiscount", x.VatPlan > 0 && x.DiscountSum == 0 },
+                        { "UseNoVatWithDiscount", x.VatPlan == 0 && x.DiscountSum > 0 },
+                        { "UseNoVatNoDiscount", x.VatPlan == 0 && x.DiscountSum == 0 },
                     })
                 .Single();
 
