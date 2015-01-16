@@ -47,35 +47,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                 throw new NotificationException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
-            var templateCode = GetTemplateCode(request, orderInfo);
             var printDocumentRequest = new PrintDocumentRequest
                 {
                     CurrencyIsoCode = orderInfo.CurrencyIsoCode,
                     FileName = orderInfo.OrderNumber,
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
-                    TemplateCode = templateCode,
+                    TemplateCode = TemplateCode.Order,
                     PrintData = GetPrintData(request, orderInfo)
                 };
 
             var response = (StreamResponse)_requestProcessor.HandleSubRequest(printDocumentRequest, Context);
             return response;
-        }
-
-        private TemplateCode GetTemplateCode(PrintOrderRequest request, OrderRelationsDto orderInfo)
-        {
-            var withDiscount = _orderPrintFormReadModel.GetOrderDicount(request.OrderId) > 0;
-            switch (_orderPrintFormReadModel.GetOrderContributionType(orderInfo.SourceOrganizationUnitId))
-            {
-                case ContributionTypeEnum.Branch:
-                    return withDiscount ? TemplateCode.OrderWithVatWithDiscount : TemplateCode.OrderWithVatWithoutDiscount;
-
-                case ContributionTypeEnum.Franchisees:
-                    return withDiscount ? TemplateCode.OrderWithoutVatWithDiscount : TemplateCode.OrderWithoutVatWithoutDiscount;
-
-                default:
-                    var message = string.Format(CultureInfo.CurrentCulture, BLFlexResources.ContributionTypeIsNotSet, orderInfo.SourceOrganizationUnitId);
-                    throw new NotificationException(message);
-            }
         }
 
         private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order)

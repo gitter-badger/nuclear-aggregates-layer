@@ -5308,6 +5308,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Бланк заказа.
+        /// </summary>
+        public static string TemplateCodeOrder {
+            get {
+                return ResourceManager.GetString("TemplateCodeOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Бланк заказа (API, без НДС).
         /// </summary>
         public static string TemplateCodeOrderApiWithoutVat {
@@ -5376,42 +5385,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TemplateCodeOrderOnlineWithVat {
             get {
                 return ResourceManager.GetString("TemplateCodeOrderOnlineWithVat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Бланк заказа без НДС со скидкой.
-        /// </summary>
-        public static string TemplateCodeOrderWithoutVatWithDiscount {
-            get {
-                return ResourceManager.GetString("TemplateCodeOrderWithoutVatWithDiscount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Бланк заказа без НДС без скидки.
-        /// </summary>
-        public static string TemplateCodeOrderWithoutVatWithoutDiscount {
-            get {
-                return ResourceManager.GetString("TemplateCodeOrderWithoutVatWithoutDiscount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Бланк заказа с НДС со скидкой.
-        /// </summary>
-        public static string TemplateCodeOrderWithVatWithDiscount {
-            get {
-                return ResourceManager.GetString("TemplateCodeOrderWithVatWithDiscount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Бланк заказа с НДС без скидки.
-        /// </summary>
-        public static string TemplateCodeOrderWithVatWithoutDiscount {
-            get {
-                return ResourceManager.GetString("TemplateCodeOrderWithVatWithoutDiscount", resourceCulture);
             }
         }
         
