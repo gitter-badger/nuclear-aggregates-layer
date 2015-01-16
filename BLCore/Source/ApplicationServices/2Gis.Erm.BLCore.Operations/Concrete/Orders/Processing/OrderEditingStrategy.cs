@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Security;
 using System.Text;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -45,6 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly IAccountRepository _accountRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IEvaluateOrderNumberService _numberService;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public OrderEditingStrategy(IUserContext userContext,
                                     IOrderRepository orderRepository,
@@ -57,7 +60,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                     IReleaseReadModel releaseRepository,
                                     IAccountRepository accountRepository,
                                     ISecurityServiceFunctionalAccess functionalAccessService,
-                                    IEvaluateOrderNumberService numberService)
+                                    IEvaluateOrderNumberService numberService,
+                                    ILegalPersonReadModel legalPersonReadModel)
             : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
             _logger = logger;
@@ -65,6 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             _accountRepository = accountRepository;
             _functionalAccessService = functionalAccessService;
             _numberService = numberService;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         public override void FinishProcessing(Order order)
@@ -224,6 +229,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             var account = _accountRepository.CreateAccount(order.LegalPersonId.Value, order.BranchOfficeOrganizationUnitId.Value);
             order.AccountId = account.Id;
             OperationScope.Added<Account>(order.AccountId.Value);
+        }
+
+        protected override void UpdateDefaultProfile(Order order)
+        {
+            if (order.LegalPersonId.HasValue && order.LegalPersonProfileId == null)
+            {
+                var profiles = _legalPersonReadModel.GetLegalPersonProfileIds(order.LegalPersonId.Value).ToList();
+                if (profiles.Count() == 1)
+                {
+                    order.LegalPersonProfileId = profiles.Single();
+                }
+            }
         }
     }
 }
