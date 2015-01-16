@@ -34,7 +34,8 @@ namespace DoubleGis.Erm.Platform.Common.Identities
                 throw new ArgumentException(string.Format("Can not generate more than {0} ids at once", SequenceMask));
             }
 
-            if ((_identityServiceUniqueIdProvider.GetUniqueId() & ~IdentityProviderMask) != 0)
+            var identityServiceUniqueId = _identityServiceUniqueIdProvider.GetUniqueId();
+            if ((identityServiceUniqueId & ~IdentityProviderMask) != 0)
             {
                 throw new ArgumentException(string.Format("Can not generate with id provider value greater than {0}", IdentityProviderMask));
             }
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.Platform.Common.Identities
                                                           new DateTime(ErmEpochStart + (TimeMask * 10000))));
             }
 
-            return Ids(timestamp, count, startIndex, _identityServiceUniqueIdProvider.GetUniqueId());
+            return Ids(timestamp, count, startIndex, identityServiceUniqueId);
         }
 
         private static long GetCurrentTimestamp()
