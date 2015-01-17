@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories;
 
@@ -54,11 +50,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 objectContext.Setup(x => x.Set<TEntity>()).Returns(new StubObjectSet<TEntity>());
 
                 var domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
-                                                        "Erm",
                                                         objectContext.Object,
-                                                        Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                        new MsCrmReplicationMetadataProvider(EntityNameUtils.AsyncReplicated2MsCrmEntities, EntityNameUtils.AllReplicated2MsCrmEntities.Except(EntityNameUtils.AsyncReplicated2MsCrmEntities)),
-                                                        Mock.Of<ICommonLog>());
+                                                        Mock.Of<IPendingChangesHandlingStrategy>());
 
                 var modifiableDomainContextProviderMock = new Mock<IModifiableDomainContextProvider>();
                 modifiableDomainContextProviderMock.Setup(p => p.Get<TEntity>()).Returns(domainContext);

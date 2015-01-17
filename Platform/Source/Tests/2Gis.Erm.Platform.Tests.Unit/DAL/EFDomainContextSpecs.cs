@@ -4,7 +4,6 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
@@ -29,13 +28,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         static IModifiableDomainContext _domainContext;
 
-        static IMsCrmReplicationMetadataProvider _enabledReplicationMetadataProvider = new MsCrmReplicationMetadataProvider(EntityNameUtils.AsyncReplicated2MsCrmEntities,
-                                                                                                                            EntityNameUtils.AllReplicated2MsCrmEntities
-                                                                                                                            .Except(
-                                                                                                                                                                               EntityNameUtils
-                                                                                                                                                                                   .AsyncReplicated2MsCrmEntities));
+        static IMsCrmReplicationMetadataProvider _enabledReplicationMetadataProvider = new MsCrmReplicationMetadataProvider(EntityNameUtils.AllReplicated2MsCrmEntities);
 
-        static IMsCrmReplicationMetadataProvider _disabledReplicationMetadataProvider = new MsCrmReplicationMetadataProvider(Enumerable.Empty<Type>(), Enumerable.Empty<Type>());
+        static IMsCrmReplicationMetadataProvider _disabledReplicationMetadataProvider = new MsCrmReplicationMetadataProvider(Enumerable.Empty<Type>());
 
         [Tags("DAL")]
         [Subject(typeof(EFDomainContext))]
@@ -47,11 +42,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 ObjectContextMock  = new Mock<IDbContext>();
 
                 _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
-                                                     DefaultContextName,
                                                      ObjectContextMock.Object,
-                                                     Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     _enabledReplicationMetadataProvider,
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<IPendingChangesHandlingStrategy>());
             };
 
             protected static Mock<IDbContext> ObjectContextMock { get; private set; }
@@ -115,11 +107,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                      .Verifiable();
 
                     _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
-                                                     DefaultContextName,
                                                      ObjectContextMock.Object,
-                                                     Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     _enabledReplicationMetadataProvider,
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<IPendingChangesHandlingStrategy>());
                 };
 
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
@@ -159,11 +148,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                          });
 
                     _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
-                                                         DefaultContextName,
                                                          ObjectContextMock.Object,
-                                                         Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                         _disabledReplicationMetadataProvider,
-                                                         Mock.Of<ICommonLog>());
+                                                         Mock.Of<IPendingChangesHandlingStrategy>());
                 };
 
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
@@ -185,11 +171,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                      .Returns(new[] { new StubEntityEntry(null, Moq.It.IsAny<EntityState>()) });
 
                     _domainContext = new EFDomainContext(new ProcessingContext(),
-                                                         DefaultContextName,
                                                          objectContextMock.Object,
-                                                         new NullPendingChangesHandlingStrategy(),
-                                                         _disabledReplicationMetadataProvider,
-                                                         Mock.Of<ICommonLog>());
+                                                         new NullPendingChangesHandlingStrategy());
                 };
 
             Because of = () => _exception = Catch.Exception(() => _domainContext.Dispose());
@@ -210,11 +193,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                  .Returns(true);
 
                 _domainContext = new EFDomainContext(new ProcessingContext(),
-                                                     DefaultContextName,
                                                      objectContextMock.Object,
-                                                     new ForcePendingChangesHandlingStrategy(),
-                                                    _disabledReplicationMetadataProvider,
-                                                     Mock.Of<ICommonLog>());
+                                                     new ForcePendingChangesHandlingStrategy());
             };
 
             Because of = () => _exception = Catch.Exception(() => _domainContext.Dispose());

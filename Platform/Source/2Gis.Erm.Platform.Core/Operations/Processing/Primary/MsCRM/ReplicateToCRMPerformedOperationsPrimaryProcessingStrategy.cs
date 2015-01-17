@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
             OperationScopeNode operation,
             IDictionary<Tuple<Type, long>, PerformedOperationFinalProcessing> intermediateResults)
         {
-            foreach (var entityType in _msCrmReplicationMetadataProvider.GetAsyncReplicationTypeSequence())
+            foreach (var entityType in _msCrmReplicationMetadataProvider.GetReplicationTypeSequence())
             {
                 ProcessConcreteEntityChanges(useCaseId, entityType, operation.ChangesContext, context => context.AddedChanges, intermediateResults);
                 ProcessConcreteEntityChanges(useCaseId, entityType, operation.ChangesContext, context => context.UpdatedChanges, intermediateResults);

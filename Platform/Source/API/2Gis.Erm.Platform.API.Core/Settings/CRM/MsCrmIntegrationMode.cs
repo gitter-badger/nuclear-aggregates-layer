@@ -1,11 +1,13 @@
-﻿namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
+﻿using System;
+
+namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
 {
+    [Flags]
     public enum MsCrmIntegrationMode
     {
-        None = 0,
-        Disabled = 1,
-        Sync = 2,
-        Mixed = 3,
-        Async = 4
+        Disabled = 0,
+        Database = 1,
+        Sdk = 2,
+        Full = Database | Sdk
     }
 }

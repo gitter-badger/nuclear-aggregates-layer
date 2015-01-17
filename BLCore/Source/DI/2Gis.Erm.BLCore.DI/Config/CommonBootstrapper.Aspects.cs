@@ -267,7 +267,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                                                    string mappingScope, 
                                                                    Func<LifetimeManager> lifetimeManagerCreator)
         {
-            if (msCrmSettings.EnableReplication)
+            if (msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk))
             {
                 unityContainer.RegisterOne2ManyTypesPerTypeUniqueness<IEmployeeEmailResolveStrategy, MsCrmEmployeeEmailResolveStrategy>(lifetimeManagerCreator());
             }
@@ -281,7 +281,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                             (container, type, arg3) =>
                                 {
                                     var crmSettings = container.Resolve<IMsCrmSettings>(); 
-                                    var strategies = crmSettings.EnableReplication
+                                    var strategies = crmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk)
                                         ? new[]
                                             {
                                                 container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(),
@@ -304,47 +304,11 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
         public static IUnityContainer ConfigureReplicationMetadata(this IUnityContainer container, IMsCrmSettings msCrmSettings)
         {
-            Type[] asyncReplicatedTypes;
-            Type[] syncReplicatedTypes;
-            ResolveReplicatedTypes(msCrmSettings.IntegrationMode, out asyncReplicatedTypes, out syncReplicatedTypes);
+            object replicatedTypes = msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Database)
+                                         ? EntityNameUtils.AllReplicated2MsCrmEntities
+                                         : new Type[0];
 
-            return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton,
-                                                                                                               new InjectionConstructor(asyncReplicatedTypes, syncReplicatedTypes));
-        }
-
-        private static void ResolveReplicatedTypes(MsCrmIntegrationMode integrationMode, out Type[] asyncReplicatedTypes, out Type[] syncReplicatedTypes)
-        {
-            switch (integrationMode)
-            {
-                case MsCrmIntegrationMode.Disabled:
-                {
-                    asyncReplicatedTypes = new Type[0];
-                    syncReplicatedTypes = new Type[0];
-                    break;
-                }
-                case MsCrmIntegrationMode.Sync:
-                {
-                    asyncReplicatedTypes = new Type[0];
-                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities;
-                    break;
-                }
-                case MsCrmIntegrationMode.Mixed:
-                {
-                    asyncReplicatedTypes = EntityNameUtils.AsyncReplicated2MsCrmEntities;
-                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities.Except(EntityNameUtils.AsyncReplicated2MsCrmEntities).ToArray();
-                    break;
-                }
-                case MsCrmIntegrationMode.Async:
-                {
-                    asyncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities.Union(EntityNameUtils.AsyncReplicated2MsCrmEntities).ToArray();
-                    syncReplicatedTypes = new Type[0];
-                    break;
-                }
-                default:
-                {
-                    throw new ArgumentOutOfRangeException("integrationMode");
-                }
-            }
+            return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton, new InjectionConstructor(replicatedTypes));
         }
     }
 }

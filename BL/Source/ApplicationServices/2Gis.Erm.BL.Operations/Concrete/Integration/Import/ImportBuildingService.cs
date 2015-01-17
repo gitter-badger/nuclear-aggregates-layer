@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Integration.Import
             {
                 _importBuildingAggregateService.ImportBuildingFromServiceBus(buildingServiceBusDtos,
                                                                              _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord,
-                                                                             _msCrmSettings.EnableReplication,
+                                                                             _msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Database),
                                                                              _integrationSettings.UseWarehouseIntegration);
 
                 scope.Complete();

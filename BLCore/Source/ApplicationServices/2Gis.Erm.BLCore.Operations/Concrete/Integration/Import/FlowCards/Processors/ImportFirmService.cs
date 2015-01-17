@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCards.
                                                         _userContext.Identity.Code,
                                                         _securityServiceUserIdentifier.GetReserveUserIdentity().Code,
                                                         _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord,
-                                                        _msCrmSettings.EnableReplication);
+                                                        _msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Database));
 
                 scope.ApplyChanges<Firm>(importFirmChanges)
                      .ApplyChanges<FirmAddress>(importFirmChanges)

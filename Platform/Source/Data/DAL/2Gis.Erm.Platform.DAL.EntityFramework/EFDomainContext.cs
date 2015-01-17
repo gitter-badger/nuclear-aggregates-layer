@@ -1,43 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
-using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
     public sealed class EFDomainContext : IModifiableDomainContext, IReadDomainContext
     {
-        private readonly HashSet<Tuple<IEntityKey, string>> _replicableHashSet = new HashSet<Tuple<IEntityKey, string>>();
         private readonly IProcessingContext _processingContext;
-        private readonly string _defaultContextName;
         private readonly IDbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
-        private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
-        private readonly ICommonLog _logger;
 
         public EFDomainContext(IProcessingContext processingContext,
-                               string defaultContextName,
                                IDbContext dbContext,
-                               IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-                               IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider,
-                               ICommonLog logger)
+                               IPendingChangesHandlingStrategy pendingChangesHandlingStrategy)
         {
             _processingContext = processingContext;
-            _defaultContextName = defaultContextName;
             _dbContext = dbContext;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
-            _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
-            _logger = logger;
 
             EnsureUseCaseDuration();
         }
@@ -63,29 +48,16 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             foreach (var entry in _dbContext.Entries())
             {
-                var entity = entry.Entity;
-                if (entity == null || entry.State == EntityState.Unchanged)
+                var replicateableEntity = entry.Entity as IReplicableEntity;
+                if (replicateableEntity != null && entry.State == EntityState.Added)
                 {
-                    continue;
+                    replicateableEntity.ReplicationCode = Guid.NewGuid();
                 }
-
-                if (entry.State == EntityState.Added)
-                {
-                    var replicateableEntity = entity as IReplicableEntity;
-                    if (replicateableEntity != null)
-                    {
-                        replicateableEntity.ReplicationCode = Guid.NewGuid();
-                    }
-                }
-
-                MarkEntityAsReplicable(entity);
             }
 
             EnsureUseCaseDuration();
 
             var savedCount = _dbContext.SaveChanges(options);
-
-            Replicate();
 
             return savedCount;
         }
@@ -110,11 +82,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public DbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return _dbContext.Set<TEntity>();
-        }
-
-        public DbEntityEntry Entry(object entity)
-        {
-            return _dbContext.Entry(entity);
         }
 
         public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
@@ -144,51 +111,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                                     : UseCaseDuration.Normal);
             var currentValue = _dbContext.CommandTimeout ?? 0;
             _dbContext.CommandTimeout = Math.Max(timeout, currentValue);
-        }
-
-        private void MarkEntityAsReplicable(object entity)
-        {
-            EntityReplicationInfo replicationInfo;
-            if (!_msCrmReplicationMetadataProvider.TryGetSyncMetadata(entity.GetType(), out replicationInfo))
-            {
-                return;
-            }
-
-            _replicableHashSet.Add(Tuple.Create((IEntityKey)entity, string.Format("EXEC {0} @Id", replicationInfo.SchemaQualifiedStoredProcedureName)));
-        }
-
-        private void Replicate()
-        {
-            if (!_replicableHashSet.Any())
-            {
-                return;
-            }
-
-            var replicableHashSetCopy = new Tuple<IEntityKey, string>[_replicableHashSet.Count];
-            _replicableHashSet.CopyTo(replicableHashSetCopy);
-
-            foreach (var entityReplicationInfo in replicableHashSetCopy)
-            {
-                var entity = entityReplicationInfo.Item1;
-                var replicationProcedureCallSql = entityReplicationInfo.Item2;
-
-                try
-                {
-                    _dbContext.ExecuteSql(replicationProcedureCallSql, new SqlParameter("Id", entity.Id));
-                    _replicableHashSet.Remove(entityReplicationInfo);
-                }
-                catch (Exception ex)
-                {
-                    _replicableHashSet.Clear();
-
-                    if (_logger != null)
-                    {
-                        _logger.ErrorEx(ex, string.Format("Произошла ошибка при репликации сущности EntityType=[{0}], Id=[{1}]", entity.GetType().Name, entity.Id));
-                    }
-
-                    throw;
-                }
-            }
         }
     }
 }
