@@ -3960,9 +3960,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Se han establecido incorrectamente los tipos de esencia para agregar sucursales al tema</value>
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>No se puede agregar una sucursal al tema establecido por defecto</value>
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>No se puede eliminar el tema que se usa en las órdenes</value>
   </data>

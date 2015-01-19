@@ -3960,9 +3960,6 @@ Cумма по операции: {5}.
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Неверно заданы типы сущностей для добавления подразделения в тематику</value>
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>Нельзя добавить подразделение к тематике, установленной по умолчанию</value>
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>Нельзя удалить тематику, которая используется в заказах</value>
   </data>
