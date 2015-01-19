@@ -194,9 +194,9 @@
     <value>Solo se puede aumentar la línea de crédito aprobada</value>
   </data>
   <data name="ChangeProfilesOperationMessage" xml:space="preserve">
-    <value>Выберите профиль юридического лица клиента</value>
+    <value>Elija el perfil de la razón social de cliente</value>
   </data>
   <data name="ChangeProfilesOperationTitle" xml:space="preserve">
-    <value>Выберите профиль</value>
+    <value>Elija el perfil</value>
   </data>
 </root>
