@@ -1318,6 +1318,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .SingleOrDefault();
         }
 
+        public IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId)
+        {
+            return _finder.FindMany(OrderSpecs.Orders.Find.NotInArchive()
+                                    && Specs.Find.ActiveAndNotDeleted<Order>()
+                                    && OrderSpecs.Orders.Find.ByLegalPersonProfileId(legalPersonProfileId));
+        }
+
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
         {
             var dto = _finder.Find(Specs.Find.ById<Deal>(dealId) & Specs.Find.NotDeleted<Deal>())
