@@ -142,11 +142,13 @@ Ext.ux.AdvertisementBagPanel = Ext.extend(Ext.Panel, {
                 mask.hide();
                 if (xmlhttp.status == 200) {
                     bag.refresh();
-                } else if (xmlhttp.status == 12029) {
+                } else if (xmlhttp.responseText) {
+                    bag.showError(xmlhttp.responseText);
+                } else if (xmlhttp.statusText) {
+                    bag.showErrorText(xmlhttp.statusText);
+                } else {
                     var errorText = String.format(Ext.LocalizedResources.ErrorOnServiceAccess, Ext.SpecialOperationsServiceRestUrl);
                     bag.showErrorText(errorText);
-                } else if (xmlhttp.responseText || xmlhttp.statusText) {
-                    bag.showError(xmlhttp.responseText || xmlhttp.statusText);
                 }
             }
         };
