@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.Common.Identities;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking;
 
@@ -62,7 +63,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             {
                 var id = (byte)((startId + i) % 256);
                 Guid lockId;
-                if (_applicationLocksPersistenceService.AcquireLock(string.Format(IdAppLockTemplate, id), TimeSpan.Zero, out lockId))
+                if (_applicationLocksPersistenceService.AcquireLock(string.Format(IdAppLockTemplate, id), LockOwner.Transaction, TimeSpan.Zero, out lockId))
                 {
                     _lockId = lockId;
                     _id = id;

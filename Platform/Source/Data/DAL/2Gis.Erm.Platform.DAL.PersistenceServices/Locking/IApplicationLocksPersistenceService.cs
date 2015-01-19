@@ -1,10 +1,12 @@
 using System;
 
+using DoubleGis.Erm.Platform.API.Core.Locking;
+
 namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
 {
     public interface IApplicationLocksPersistenceService
     {
-        bool AcquireLock(string lockName, TimeSpan timeout, out Guid lockId);
+        bool AcquireLock(string lockName, LockOwner lockOwner, TimeSpan timeout, out Guid lockId);
         bool ReleaseLock(Guid lockId);
         bool IsLockActive(Guid lockId);
     }

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 
@@ -22,22 +23,22 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
             _connectionStringSettings = connectionStringSettings;
         }
 
-        public bool AcquireLock(string lockName, TimeSpan timeout, out Guid lockId)
+        public bool AcquireLock(string lockName, LockOwner lockOwner, TimeSpan timeout, out Guid lockId)
         {
             var builder = new SqlConnectionStringBuilder(_connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)) { Pooling = false, Enlist = false };
             var connection = new SqlConnection(builder.ConnectionString);
 
             connection.Open();
-            var transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted);
-            var result = _databaseCaller.ExecuteProcedureWithReturnValue<LockAcquirementResult>("sys.sp_getapplock",
+            var transaction = lockOwner == LockOwner.Transaction ? connection.BeginTransaction(IsolationLevel.ReadUncommitted) : null;
+            var result = _databaseCaller.ExecuteProcedureWithReturnValue<LockAcquirementResult>("sys.sp_getapplock", 
                                                                                                 new
                                                                                                     {
-                                                                                                        Resource = lockName,
-                                                                                                        LockMode = "Exclusive",
-                                                                                                        LockOwner = "Transaction",
+                                                                                                        Resource = lockName, 
+                                                                                                        LockMode = "Exclusive", 
+                                                                                                        LockOwner = lockOwner.ToString(), 
                                                                                                         LockTimeout = timeout.TotalMilliseconds
-                                                                                                    },
-                                                                                                connection,
+                                                                                                    }, 
+                                                                                                connection, 
                                                                                                 transaction);
 
             if (result == LockAcquirementResult.GrantedSynchronously || result == LockAcquirementResult.GrantedAfterWaiting)
@@ -45,13 +46,17 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
                 lockId = Guid.NewGuid();
                 lock (_sync)
                 {
-                    _acquiredLocks.Add(lockId, new ApplicationLockDescriptor(lockName, connection, transaction));
+                    _acquiredLocks.Add(lockId, new ApplicationLockDescriptor(lockName, lockOwner, connection, transaction));
                 }
 
                 return true;
             }
 
-            transaction.Commit();
+            if (transaction != null)
+            {
+                transaction.Commit();
+            }
+
             connection.Close();
 
             lockId = default(Guid);
@@ -71,7 +76,12 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
                 return false;
             }
 
-            return _databaseCaller.QueryRawSql<int>("SELECT @@TRANCOUNT", null, descriptor.Connection, descriptor.Transaction).Single() != 0;
+            if (descriptor.LockOwner == LockOwner.Session)
+            {
+                return true;
+            }
+
+            return _databaseCaller.QueryRawSql<int>("SELECT @@TRANCOUNT", null, descriptor.Connection, descriptor.Transaction).Single() == 1;
         }
 
         public bool ReleaseLock(Guid lockId)
@@ -99,25 +109,37 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
                                                                                                       new
                                                                                                           {
                                                                                                               Resource = lockName,
-                                                                                                              LockOwner = "Transaction"
+                                                                                                              LockOwner = lockDescriptor.LockOwner.ToString()
                                                                                                           },
                                                                                                       connection,
                                                                                                       transaction);
 
                     if (result == LockReleasingResult.Released)
                     {
-                        transaction.Commit();
+                        if (transaction != null)
+                        {
+                            transaction.Commit();
+                        }
+
                         return true;
                     }
                     else
                     {
-                        transaction.Rollback();
+                        if (transaction != null)
+                        {
+                            transaction.Rollback();
+                        }
+
                         return false;
                     }
                 }
                 finally
                 {
-                    transaction.Dispose();
+                    if (transaction != null)
+                    {
+                        transaction.Dispose();
+                    }
+
                     connection.Dispose();
                     _acquiredLocks.Remove(lockId);
                 }
@@ -129,12 +151,14 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
         private class ApplicationLockDescriptor
         {
             private readonly string _name;
+            private readonly LockOwner _lockOwner;
             private readonly SqlConnection _connection;
             private readonly SqlTransaction _transaction;
 
-            public ApplicationLockDescriptor(string name, SqlConnection connection, SqlTransaction transaction)
+            public ApplicationLockDescriptor(string name, LockOwner lockOwner, SqlConnection connection, SqlTransaction transaction)
             {
                 _name = name;
+                _lockOwner = lockOwner;
                 _connection = connection;
                 _transaction = transaction;
             }
@@ -152,6 +176,11 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
             public SqlTransaction Transaction
             {
                 get { return _transaction; }
+            }
+
+            public LockOwner LockOwner
+            {
+                get { return _lockOwner; }
             }
         }
 

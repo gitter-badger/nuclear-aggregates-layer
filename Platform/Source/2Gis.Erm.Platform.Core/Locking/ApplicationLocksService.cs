@@ -14,14 +14,14 @@ namespace DoubleGis.Erm.Platform.Core.Locking
             _applicationLocksPersistenceService = applicationLocksPersistenceService;
         }
 
-        public ILockingScope Acquire(string lockName, TimeSpan timeout)
+        public ILockingScope Acquire(string lockName, LockOwner lockOwner, TimeSpan timeout)
         {
-            return AcquireInternal(lockName, timeout);
+            return AcquireInternal(lockName, lockOwner, timeout);
         }
 
-        public bool TryAcquire(string lockName, out ILockingScope lockingScope)
+        public bool TryAcquire(string lockName, LockOwner lockOwner, out ILockingScope lockingScope)
         {
-            return TryAcquireInternal(lockName, null, out lockingScope);
+            return TryAcquireInternal(lockName, lockOwner, null, out lockingScope);
         }
 
         public void Release(ITrackedLockingScope scope)
@@ -29,10 +29,10 @@ namespace DoubleGis.Erm.Platform.Core.Locking
             _applicationLocksPersistenceService.ReleaseLock(scope.Id);
         }
 
-        private ILockingScope AcquireInternal(string lockName, TimeSpan? timeout)
+        private ILockingScope AcquireInternal(string lockName, LockOwner lockOwner, TimeSpan? timeout)
         {
             ILockingScope lockingScope;
-            if (!TryAcquireInternal(lockName, timeout, out lockingScope))
+            if (!TryAcquireInternal(lockName, lockOwner, timeout, out lockingScope))
             {
                 throw new InvalidOperationException(string.Format("Can't acquire lock named {0}", lockName));
             }
@@ -40,10 +40,10 @@ namespace DoubleGis.Erm.Platform.Core.Locking
             return lockingScope;
         }
 
-        private bool TryAcquireInternal(string lockName, TimeSpan? timeout, out ILockingScope lockingScope)
+        private bool TryAcquireInternal(string lockName, LockOwner lockOwner, TimeSpan? timeout, out ILockingScope lockingScope)
         {
             Guid lockId;
-            if (_applicationLocksPersistenceService.AcquireLock(lockName, timeout ?? TimeSpan.Zero, out lockId))
+            if (_applicationLocksPersistenceService.AcquireLock(lockName, lockOwner, timeout ?? TimeSpan.Zero, out lockId))
             {
                 lockingScope = new LockingScope(lockId, this);
                 return true;

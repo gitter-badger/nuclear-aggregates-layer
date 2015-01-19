@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             }
 
             byte id;
-            using (var appLock = _applicationLocksService.Acquire(LockName.ReserveIdentityServiceUniqueId, _timeout))
+            using (var appLock = _applicationLocksService.Acquire(LockName.ReserveIdentityServiceUniqueId, LockOwner.Session, _timeout))
             {
                 if (!_identityServiceUniqueIdPersistenceService.TryGetFirstIdleId((int)_globalizationSettings.BusinessModel, out id))
                 {
