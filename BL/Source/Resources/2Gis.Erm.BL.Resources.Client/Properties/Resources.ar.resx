@@ -960,10 +960,16 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value> This legal entity is already specified as the main one</value>
   </data>
-  <data name="InvalidDateTimeText" xml:space="preserve">
-    <value>Incorrect value. Please use the 'DD/MM/YYYY' format</value>
+  <data name="LimitIncreasingIsNotRequired" xml:space="preserve">
+    <value>There is no need to increase the limit</value>
+  </data>
+  <data name="LimitWillBeIncreased" xml:space="preserve">
+    <value>The limit will be increased by {0}</value>
   </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
     <value>Error connecting to {0} service. Contact the developers.</value>
+  </data>
+  <data name="InvalidDateTimeText" xml:space="preserve">
+    <value>Incorrect value. Please use the 'DD/MM/YYYY' format</value>
   </data>
 </root>

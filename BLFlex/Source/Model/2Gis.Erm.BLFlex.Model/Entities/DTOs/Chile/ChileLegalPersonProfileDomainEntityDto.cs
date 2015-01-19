@@ -10,6 +10,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile
 {
     // FIXME {all, 14.02.2014}: Временное решение, до начала работы IPartable на сущностях IDomainEntityDto
     // COMMENT {a.rechkalov, 21.04.2014}: Что скрывается за этой фразой?
+    // COMMENT {a.rechkalov, 04.12.2014}: Теперь понял.
     [DataContract]
     public sealed class ChileLegalPersonProfileDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.LegalPersonProfile>, IChileAdapted
     {
@@ -68,7 +69,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile
         [DataMember]
         public string AccountNumber { get; set; }
         [DataMember]
-        public string AdditionalPaymentElements { get; set; }
+        public string PaymentEssentialElements { get; set; }
         [DataMember]
         public AccountType AccountType { get; set; }
         [DataMember]

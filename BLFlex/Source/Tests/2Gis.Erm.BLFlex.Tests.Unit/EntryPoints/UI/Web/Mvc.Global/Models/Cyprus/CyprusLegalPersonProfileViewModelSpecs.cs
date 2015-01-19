@@ -38,7 +38,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.C
             It should_have_expected_PostAddress = () => Target.PostAddress.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPostAddress);
             It should_have_expected_PaymentMethod = () => Target.PaymentMethod.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPaymentMethod);
             It should_have_expected_AccountNumber = () => Target.AccountNumber.Should().Be(LegalPersonViewProfileModelsTestHelper.TestAccountNumber);
-            It should_have_expected_AdditionalPaymentElements = () => Target.AdditionalPaymentElements.Should().Be(LegalPersonViewProfileModelsTestHelper.TestAdditionalPaymentElements);
             It should_have_expected_Phone = () => Target.Phone.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPhone);
             It should_have_expected_OperatesOnTheBasisInGenitive = () => Target.OperatesOnTheBasisInGenitive.Should().Be(LegalPersonViewProfileModelsTestHelper.TestOperatesOnTheBasisType);
             It should_have_expected_Timestamp = () => Target.Timestamp.Should().BeEquivalentTo(LegalPersonViewProfileModelsTestHelper.TestTimestamp);
@@ -89,7 +88,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.C
             It should_have_expected_PostAddress = () => DomainEntityDto.PostAddress.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPostAddress);
             It should_have_expected_PaymentMethod = () => DomainEntityDto.PaymentMethod.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPaymentMethod);
             It should_have_expected_AccountNumber = () => DomainEntityDto.AccountNumber.Should().Be(LegalPersonViewProfileModelsTestHelper.TestAccountNumber);
-            It should_have_expected_AdditionalPaymentElements = () => DomainEntityDto.AdditionalPaymentElements.Should().Be(LegalPersonViewProfileModelsTestHelper.TestAdditionalPaymentElements);
             It should_have_expected_Phone = () => DomainEntityDto.Phone.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPhone);
             It should_have_expected_OperatesOnTheBasisInGenitive = () => DomainEntityDto.OperatesOnTheBasisInGenitive.Should().Be(LegalPersonViewProfileModelsTestHelper.TestOperatesOnTheBasisType);
             It should_have_expected_Timestamp = () => DomainEntityDto.Timestamp.Should().BeEquivalentTo(LegalPersonViewProfileModelsTestHelper.TestTimestamp);

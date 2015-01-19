@@ -98,7 +98,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                     { "SWIFT", legalPersonProfile.SWIFT },
                     { "AccountNumber", legalPersonProfile.AccountNumber },
                     { "BankName", legalPersonProfile.BankName },
-                    { "AdditionalPaymentElements", legalPersonProfile.AdditionalPaymentElements },
                     { "Phone", legalPersonProfile.Phone },
                     { "Email", legalPersonProfile.AdditionalEmail },
                 };

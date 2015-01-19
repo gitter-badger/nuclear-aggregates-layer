@@ -1903,7 +1903,7 @@
   <data name="DenialReasonTypeOther" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Action</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">

@@ -1860,4 +1860,10 @@
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Hlavní</value>
   </data>
+  <data name="ControlIncreaseLimit" xml:space="preserve">
+    <value>Zvýšit</value>
+  </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Časová pásma</value>
+  </data>
 </root>
