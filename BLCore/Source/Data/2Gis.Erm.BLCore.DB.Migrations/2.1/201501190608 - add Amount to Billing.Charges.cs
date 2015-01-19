@@ -23,16 +23,16 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
                 return;
             }
 
-            InsertColumn(table);
+            InsertColumn(context, table);
             FillColumnWithValues(context.Connection);
-            SetColumnNotNullable(table);
+            SetColumnNotNullable(context.Database.GetTable(_targetTableName));
         }
 
-        private void InsertColumn(Table table)
+        private void InsertColumn(IMigrationContext context, Table table)
         {
-            var column = new Column(table, TargetColumnName, DataType.Decimal(2, 9)) { Nullable = true };
-            table.Columns.Add(column);
-            table.Alter();
+            const int TargetColumnIndex = 7;
+            var columnsToInsert = new[] { new InsertedColumnDefinition(TargetColumnIndex, x => new Column(x, TargetColumnName, DataType.Decimal(2, 9)) { Nullable = true }) };
+            EntityCopyHelper.CopyAndInsertColumns(context.Database, table, columnsToInsert);
         }
 
         private void FillColumnWithValues(ServerConnection connection)
