@@ -24,12 +24,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
 
         public Price GetPrice(long priceId)
         {
-            return _finder.Find(Specs.Find.ById<Price>(priceId)).Single();
+            return _finder.FindOne(Specs.Find.ById<Price>(priceId));
         }
 
         public PricePosition GetPricePosition(long pricePositionId)
         {
-            return _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId)).SingleOrDefault();
+            return _finder.FindOne(Specs.Find.ById<PricePosition>(pricePositionId));
         }
 
         public PricePositionRateType GetPricePositionRateType(long pricePositionId)
@@ -240,7 +240,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
                                                PricePositionCost = item.Cost,
                                                item.Position.IsComposite,
                                                LinkingObjectType = item.Position.BindingObjectTypeEnum,
-                                               AccountingMethod = item.Position.AccountingMethodEnum
+                                               SalesModel = item.Position.SalesModel
                                            })
                                            .Single();
 
@@ -254,7 +254,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
                 RateType = pricePositionInfo.RateType,
 
                 LinkingObjectType = pricePositionInfo.LinkingObjectType,
-                AccountingMethod = pricePositionInfo.AccountingMethod,
+                SalesModel = pricePositionInfo.SalesModel,
                 PositionId = pricePositionInfo.PositionId,
             };
         }

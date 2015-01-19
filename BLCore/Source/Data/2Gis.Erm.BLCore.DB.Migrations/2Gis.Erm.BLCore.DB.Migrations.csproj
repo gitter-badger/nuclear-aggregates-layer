@@ -849,6 +849,7 @@
     <Compile Include="ActivityMigration\TaskMigration.cs" />
     <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
     <Compile Include="2.1\201412040408 - Drop column PaymentEssentialElements.cs" />
+    <Compile Include="2.1\Migration201412240529 - rename AccountingMethodEnum to SalesModelEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />

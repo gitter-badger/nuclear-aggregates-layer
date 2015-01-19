@@ -187,6 +187,21 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class OrderPositionSalesModelDto
+    {
+        public long OrderPositionId { get; set; }
+        public SalesModel SalesModel { get; set; }
+    }
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class OrderDtoToCheckPossibilityOfOrderPositionCreation
+    {
+        public long OrderId { get; set; }
+        public long FirmId { get; set; }
+        public IEnumerable<OrderPositionSalesModelDto> OrderPositions { get; set; }
+    }
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
     public class RecipientDto
     {
         public long FirmCode { get; set; }

@@ -110,6 +110,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Order = 151
         public const int ExportAccountDetailsTo1CIdentity = 15102;
+        [Obsolete]
         public const int PrintRegionalOrderIdentity = 15103;
         public const int ReportsServiceIdentity = 15104;
         [Obsolete]
@@ -125,12 +126,15 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ObtainDealForBizaccountOrderIdentity = 15114;
         public const int CreateOrderBillsIdentity = 15115;
         public const int DeleteOrderBillsIdentity = 15116;
+        public const int CheckIfOrderPositionCanBeCreatedForOrderIdentity = 15118;
+        public const int CheckIfOrderPositionCanBeModifiedIdentity = 15119;
 
         // EntityName.OrderPosition = 150
         public const int CalculateOrderPositionCostIdentity = 15001;
         public const int ValidateOrderPositionAdvertisementsIdentity = 15002;
         public const int CalculateCategoryRateIdentity = 15003;
         public const int ViewOrderPositionIdentity = 15004;
+        public const int GetAvailableBinfingObjectsIdentity = 15005;
 
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;
@@ -180,7 +184,6 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         public const int NotifyAboutAdvertisementElementFileChangedIdentity = 19903;
         public const int NotifyAboutAdvertisementElementValidationStatusChangedIdentity = 19904;
-
 
         // EntityName.Project = 158
         public const int ImportBranchIdentity = 15801;

@@ -3153,7 +3153,7 @@
   <data name="OrderCheckResults" xml:space="preserve">
     <value />
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
     <value />
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
@@ -5147,5 +5147,8 @@
   </data>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value></value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value />
   </data>
 </root>

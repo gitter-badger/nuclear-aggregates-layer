@@ -4,14 +4,13 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -29,40 +28,42 @@ using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderV
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 {
     // FIXME {all, 10.07.2014}: почти полная copy/paste других adapted версий этого handler, при рефакторинге ApplicationServices - попытаться объеденить обратно + использование finder и т.п.
-
     public sealed class MultiCultureEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly IFinder _finder;
-        private readonly IOrderReadModel _orderReadModel;
-        private readonly IPositionReadModel _positionReadModel;
+        private readonly IOrderReadModel _orderReadModel;        
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
 
         private readonly IPublicService _publicService;
         private readonly IOrderRepository _orderRepository;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
+        private readonly ICheckIfOrderPositionCanBeModifiedOperationService _checkIfOrderPositionCanBeModifiedOperationService;
 
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ICategoryReadModel _categoryReadModel;
 
         public MultiCultureEditOrderPositionHandler(IFinder finder,
                                                     IOrderReadModel orderReadModel,
-                                                    IPositionReadModel positionReadModel,
                                                     IOrganizationUnitReadModel organizationUnitReadModel,
                                                     IPublicService publicService,
                                                     IOrderRepository orderRepository,
                                                     ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
                                                     IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
-                                                    IOperationScopeFactory scopeFactory)
+                                                    IOperationScopeFactory scopeFactory,
+                                                    ICategoryReadModel categoryReadModel,
+                                                    ICheckIfOrderPositionCanBeModifiedOperationService checkIfOrderPositionCanBeModifiedOperationService)
         {
             _finder = finder;
             _orderReadModel = orderReadModel;
-            _positionReadModel = positionReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
             _publicService = publicService;
             _orderRepository = orderRepository;
             _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
             _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
+            _categoryReadModel = categoryReadModel;
+            _checkIfOrderPositionCanBeModifiedOperationService = checkIfOrderPositionCanBeModifiedOperationService;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -85,27 +86,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                                    })
                                    .Single();
 
-            var subRequest = new CanCreateOrderPositionForOrderRequest
+            string checkReport;
+            if (!_checkIfOrderPositionCanBeModifiedOperationService.Check(orderPosition.OrderId,
+                                                                                 orderPosition.Id,
+                                                                                 orderPosition.PricePositionId,
+                                                                                 advertisementsLinks,
+                                                                                 out checkReport))
             {
-                OrderId = orderPosition.OrderId,
-                OrderType = orderInfo.OrderType,
-                FirmId = orderInfo.FirmId,
-                OrderPositionCategoryIds = advertisementsLinks
-                    .Where(x => x.CategoryId.HasValue)
-                    .Select(x => x.CategoryId.Value)
-                    .ToArray(),
-                OrderPositionFirmAddressIds = advertisementsLinks
-                    .Where(x => x.FirmAddressId.HasValue)
-                    .Select(x => x.FirmAddressId.Value)
-                    .ToArray(),
-                IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
-                AdvertisementLinksCount = advertisementsLinks.Count()
-            };
-
-            var canCreateResponse = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(subRequest);
-            if (!canCreateResponse.CanCreate)
-            {
-                throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, canCreateResponse.Message));
+                throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, checkReport));
             }
 
             if (orderInfo.WorkflowStepId != OrderState.OnRegistration)
@@ -137,7 +125,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                                                        new
                                                        {
                                                            x.Cost,
-                                                           x.Position.AccountingMethodEnum,
+                                                           SalesModel = x.Position.SalesModel,
                                                            x.Price.OrganizationUnitId,
                                                            x.RateType,
                                                            x.Position.IsComposite,
@@ -153,9 +141,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
                     if (request.CategoryIds.Any())
                     {
-                        var unsupported = _positionReadModel.GetNewSalesModelDeniedCategories(pricePositionInfo.AccountingMethodEnum,
-                                                                                      orderInfo.DestOrganizationUnitId,
-                                                                                      request.CategoryIds);
+                        var unsupported = _categoryReadModel.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
+                                                                                                                   orderInfo.DestOrganizationUnitId,
+                                                                                                                   request.CategoryIds);
                         if (unsupported.Any())
                         {
                             var organizationUnitName = _organizationUnitReadModel.GetName(orderInfo.DestOrganizationUnitId);
@@ -189,7 +177,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     orderPosition.DiscountPercent = calculateOrderPositionPricesResponse.DiscountPercent;
                     orderPosition.DiscountSum = calculateOrderPositionPricesResponse.DiscountSum;
 
-                    ValidateEntity(orderPosition, pricePositionInfo.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision);
+                    ValidateEntity(orderPosition, pricePositionInfo.SalesModel == SalesModel.PlannedProvision);
 
                     // Сохраняем изменения OrderPosition в БД
                     _orderRepository.CreateOrUpdate(orderPosition);

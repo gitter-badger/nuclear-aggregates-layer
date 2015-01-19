@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
@@ -19,11 +18,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                 {
                     return new FindSpecification<OrderPosition>(x => x.OrderId == orderId);
                 }
-
-                public static FindSpecification<OrderPosition> PlannedProvision()
-                {
-                    return new FindSpecification<OrderPosition>(x => x.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision);
-                } 
             }
 
             public static class Select

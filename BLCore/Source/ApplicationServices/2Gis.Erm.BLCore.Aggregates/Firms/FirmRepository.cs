@@ -284,13 +284,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             return _firmGenericSecureRepository.Save();
         }
 
-        public IEnumerable<long> GetFirmAddressesIds(long firmId)
-        {
-            return _finder.Find(FirmSpecs.Addresses.Find.ActiveByFirmId(firmId))
-                          .Select(address => address.Id)
-                          .ToArray();
-        }
-
         public IEnumerable<OrganizationUnitDto> ExportFirmWithActiveOrders()
         {
             // Выгрузка фирм идет только на текущий период, поскольку версионирования данных в системе не выполняется, 
@@ -985,12 +978,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             }
         }
 
-        // TODO {a.rechkalov, 19.03.2014}: Перенести в Read-model
-        // DONE {all, 13.05.2014}:done
-
-        // TODO {a.rechkalov, 19.03.2014}: Перенести в Read-model
-        // DONE {all, 13.05.2014}:done
-
         int IQualifyAggregateRepository<Firm>.Qualify(long entityId, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate)
         {
             var entity = _secureFinder.Find(Specs.Find.ById<Firm>(entityId)).Single();
@@ -1090,22 +1077,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                                              .Single();
 
             return oldOrganizationUnit == newOrganizationUnit;
-        }
-
-        public IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds)
-        {
-            return _finder.Find(Specs.Find.ByIds<FirmAddress>(firmAddressIds))
-                          .Select(x => x.Address)
-                          .ToArray();
-        }
-
-        public long GetFirmAddressOrganizationUnitId(long firmAddressId)
-        {
-            var organizationUnitId = _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
-                                            .Select(address => address.Firm.Territory.OrganizationUnitId)
-                                            .Single();
-
-            return organizationUnitId;
         }
 
         public void UpdateFirmAddresses(IEnumerable<FirmAddress> firmAddresses)

@@ -966,7 +966,7 @@
     <value>Закрытие периода</value>
   </data>
   <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>В заказ с типом "Продажи" можно добавлять только позиции со способом учёта "Гарантированное оказание"!</value>
+    <value>В заказ с типом "Продажи" можно добавлять только позиции с моделью продаж "Гарантированное оказание"!</value>
   </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Признак скрытия</value>
@@ -987,7 +987,7 @@
     <value>Фильтр по умолчанию</value>
   </data>
   <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>В заказ с типом "Бюджет" можно добавлять только позиции со способом учёта "Планируемое оказание"!</value>
+    <value>В заказ с типом "Бюджет" можно добавлять только позиции с моделью продаж "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>У данных юридических лиц не совпадает ИНН, слияние невозможно.</value>
@@ -3163,8 +3163,8 @@ Cумма по операции: {5}.
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Результаты проверки заказа</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>Нельзя добавить элемент со способом учета, отличающегося от способов учета остальных элементов</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>Нельзя добавить элемент с моделью продаж, отличающегося от моделей продаж остальных элементов</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Идентификатор 1С</value>
@@ -5166,5 +5166,8 @@ Cумма по операции: {5}.
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value>Неправильно запланированы даты начала и окончания встречи.
 </value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>В заказе могут присутствовать позиции только одной модели продаж</value>
   </data>
 </root>

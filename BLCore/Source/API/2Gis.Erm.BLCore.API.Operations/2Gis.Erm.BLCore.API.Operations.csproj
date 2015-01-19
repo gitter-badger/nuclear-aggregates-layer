@@ -75,6 +75,7 @@
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\IGetAvailableBindingObjectsOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\IDetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\ICloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Concrete\Orders\Copy\CopyOrderResult.cs" />
     <Compile Include="Concrete\Orders\Copy\DiscountType.cs" />
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
+    <Compile Include="Concrete\Orders\ICheckIfOrderPositionCanBeModifiedOperationService.cs" />
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\OrderChangesDescriptor.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
@@ -315,8 +317,7 @@
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsRequest.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsResponse.cs" />
     <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderResponse.cs" />
+    <Compile Include="Concrete\Orders\ICheckIfOrderPositionCanBeCreatedForOrderOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealRequest.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderLegalPersonProfileRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CheckOrderBeginDistributionDateRequest.cs" />
