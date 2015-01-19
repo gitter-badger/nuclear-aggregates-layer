@@ -22,6 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly IEvaluateOrderNumberService _numberService;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
 
+        // TODO {all, 19.01.2015}: Есть смысл в этих стратегиях не использовать ReadModel, а передавать уже считанные данные.
         public OrderCreationStrategy(IUserContext userContext,
                                      IOrderRepository orderRepository,
                                      IUseCaseResumeContext<EditOrderRequest> resumeContext,
