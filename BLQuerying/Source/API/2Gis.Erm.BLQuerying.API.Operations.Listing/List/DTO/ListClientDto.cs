@@ -26,5 +26,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public InformationSource InformationSourceEnum { get; set; }
+        public bool IsOwner { get; set; }
     }
 }

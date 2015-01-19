@@ -34,5 +34,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.List
 
         [DataMember]
         public string Sort { get; set; }
+
+        [DataMember]
+        public bool IsDefaultSort { get; set; }
     }
 }

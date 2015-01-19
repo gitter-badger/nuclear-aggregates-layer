@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -60,6 +61,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Client>();
+
+            string sortedField;
+            if (querySettings.SearchListModel.IsDefaultSort && querySettings.TryGetExtendedProperty("SortedField", out sortedField))
+            {
+                querySettings.Sort = querySettings.Sort.InsertAndGetQuerySettingsSort(sortedField, SortDirection.Descending);
+            }
 
             bool availableForLinking;
             if (querySettings.TryGetExtendedProperty("AvailableForLinking", out availableForLinking))
@@ -387,6 +394,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 CreatedOn = x.CreatedOn,
                 IsAdvertisingAgency = x.IsAdvertisingAgency,
                 InformationSourceEnum = x.InformationSource,
+                IsOwner = (_userContext.Identity.Code == x.OwnerCode),
                 OwnerName = null,
             })
             .QuerySettings(_filterHelper, querySettings);

@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
@@ -21,6 +22,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
                            string dir,
                            string sort,
                            long? parentId,
+                           bool isDefaultSort,
                            EntityName parentType);
     }
 }

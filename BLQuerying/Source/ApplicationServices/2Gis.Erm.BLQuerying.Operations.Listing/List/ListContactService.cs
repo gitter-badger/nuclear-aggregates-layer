@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -34,6 +37,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Contact>();
+
+            string sortedField;
+            if (querySettings.SearchListModel.IsDefaultSort && querySettings.TryGetExtendedProperty("SortedField", out sortedField))
+            {
+                querySettings.Sort = querySettings.Sort.InsertAndGetQuerySettingsSort(sortedField, SortDirection.Descending);
+            }
 
             return query
             .Select(x => new ListContactDto

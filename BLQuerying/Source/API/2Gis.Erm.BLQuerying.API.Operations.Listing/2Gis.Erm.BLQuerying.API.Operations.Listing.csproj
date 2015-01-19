@@ -131,6 +131,7 @@
     <Compile Include="List\Metadata\QuerySettingsExtensions.cs" />
     <Compile Include="List\Metadata\RelationalMetadata.cs" />
     <Compile Include="DI\QueryingZone.cs" />
+    <Compile Include="QuerySettingsSortExtension.cs" />
     <Compile Include="Remote\List\IListApplicationRestService.cs" />
     <Compile Include="Remote\List\IListApplicationService.cs" />
     <Compile Include="Remote\List\ListOperationErrorDescription.cs" />

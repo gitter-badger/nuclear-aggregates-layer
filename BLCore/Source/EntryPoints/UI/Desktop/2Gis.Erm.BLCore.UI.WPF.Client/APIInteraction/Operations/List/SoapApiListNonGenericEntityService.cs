@@ -29,6 +29,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                                                               searchListModel.Dir,
                                                               searchListModel.Sort,
                                                               searchListModel.ParentEntityId,
+                                                              searchListModel.IsDefaultSort,
                                                               searchListModel.ParentEntityName));
         }
     }
