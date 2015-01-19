@@ -11,7 +11,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Metadata;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -34,17 +34,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         where TEntity : class, IEntity, IEntityKey
         where TModel : EntityViewModelBase<TEntity>, new()
     {
-        private readonly IUIServicesManager _uiServicesManager;
         private readonly IEntityViewNameProvider _entityViewNameProvider;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly ICardSettingsProvider _cardSettingsProvider;
+        private readonly IViewModelCustomizationService _viewModelCustomizationService;
 
         public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
                                         IUserContext userContext,
                                         ICommonLog logger,
-                                        IUIServicesManager uiServicesManager,
                                         IOperationServicesManager operationServicesManager,
                                         ISecurityServiceUserIdentifier userIdentifierService,
                                         ISecurityServiceEntityAccess entityAccessService,
@@ -52,7 +51,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IEntityViewNameProvider entityViewNameProvider,
-                                        ICardSettingsProvider cardSettingsProvider)
+                                        ICardSettingsProvider cardSettingsProvider,
+                                        IViewModelCustomizationService viewModelCustomizationService)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -61,11 +61,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                    getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
-            _uiServicesManager = uiServicesManager;
             _userIdentifierService = userIdentifierService;
             _entityAccessService = entityAccessService;
-            _entityViewNameProvider = entityViewNameProvider;            
+            _entityViewNameProvider = entityViewNameProvider;
             _cardSettingsProvider = cardSettingsProvider;
+            _viewModelCustomizationService = viewModelCustomizationService;
         }
 
         [HttpGet]
@@ -262,8 +262,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
         private void CustomizeModelAfterMetadataReady(TModel model)
         {
-            var viewModelCustomizationService = _uiServicesManager.GetModelCustomizationService<TModel, TEntity>();
-            viewModelCustomizationService.CustomizeViewModel(model, ModelState);
+            _viewModelCustomizationService.CustomizeViewModel<TModel, TEntity>(model, ModelState);
         }
 
         private void UpdateValidationMessages(TModel model)

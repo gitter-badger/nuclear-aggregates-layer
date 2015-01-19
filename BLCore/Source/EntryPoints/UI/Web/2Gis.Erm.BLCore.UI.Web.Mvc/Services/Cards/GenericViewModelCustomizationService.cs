@@ -1,24 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-
+﻿using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
-    public class GenericViewModelCustomizationService<TModel> : IViewModelCustomizationService<TModel>
-        where TModel : IEntityViewModelBase
+    public sealed class GenericViewModelCustomizationService : IViewModelCustomizationService
     {
-        private readonly IEnumerable<IViewModelCustomization<TModel>> _customizations;
+        private readonly IViewModelCustomizationProvider _viewModelCustomizationProvider;
 
-        public GenericViewModelCustomizationService(IEnumerable<IViewModelCustomization<TModel>> customizations)
+        public GenericViewModelCustomizationService(IViewModelCustomizationProvider viewModelCustomizationProvider)
         {
-            _customizations = customizations;
+            _viewModelCustomizationProvider = viewModelCustomizationProvider;
         }
 
-        public void CustomizeViewModel(TModel viewModel, ModelStateDictionary modelState)
+        public void CustomizeViewModel<TModel, TEntity>(TModel viewModel, ModelStateDictionary modelState)
+            where TModel : IEntityViewModelBase
+            where TEntity : IEntityKey
         {
-            foreach (var customization in _customizations)
+            var customizations = _viewModelCustomizationProvider.GetCustomizations<TModel, TEntity>();
+            foreach (var customization in customizations)
             {
                 customization.Customize(viewModel, modelState);
             }

@@ -226,7 +226,6 @@
     <Compile Include="Services\Enumeration\Ukraine\UkraineFasCommentCustomization.cs" />
     <Compile Include="DI\ViewModelCustomizationsMassProcessor.cs" />
     <Compile Include="Services\Cards\Russia\Clients\EditIsAdvertisingAgencyViewModelCustomization.cs" />
-    <Compile Include="Services\Cards\ViewModelCustomizationProvider.cs" />
     <Compile Include="Views\CreateOrUpdate\Kazakhstan\Account.generated.cs">
       <DependentUpon>Account.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -8,6 +8,7 @@ using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Reports;
 using DoubleGis.Erm.BL.UI.Web.Metadata;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
@@ -319,7 +320,8 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, NullOrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
                 .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
 
-                .RegisterTypeWithDependencies<IViewModelCustomizationProvider, ViewModelCustomizationProvider>(CustomLifetime.PerRequest, mappingScope)
+                .RegisterTypeWithDependencies<IViewModelCustomizationProvider, UnityViewModelCustomizationProvider>(Lifetime.Singleton, mappingScope)
+                .RegisterTypeWithDependencies<IViewModelCustomizationService, GenericViewModelCustomizationService>(Lifetime.Singleton, mappingScope)
 
                 .ConfigureNotificationsSender(msCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory); 
         }
