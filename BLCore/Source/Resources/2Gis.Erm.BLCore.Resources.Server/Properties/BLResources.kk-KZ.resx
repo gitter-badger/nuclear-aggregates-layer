@@ -4076,10 +4076,10 @@ Cумма по операции: {5}.
     <value>Произошла ошибка: {0}. Подробности см. в описании сообщения</value>
   </data>
   <data name="CannotApppendMoreThemesToOrganizationUnit" xml:space="preserve">
-    <value>Достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="CannotSaveThemeOrganizationUnitThemeLimitReached" xml:space="preserve">
-    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="PricePositionCannotBeChoosedSinceThereIsNoFirm" xml:space="preserve">
     <value>Данная позиция не может быть выбрана в заказ, т.к. не указана фирма</value>
@@ -4106,7 +4106,7 @@ Cумма по операции: {5}.
     <value>Дата должна быть в промежутке между 1 января 1753 г. и 31 декабря 9999 г.</value>
   </data>
   <data name="CannotSaveBranchOfficeInnExists" xml:space="preserve">
-    <value>Отделение огранизации с данным ИНН уже существует</value>
+    <value>Отделение организации с данным ИНН уже существует</value>
   </data>
   <data name="CannotReplaceTerritories" xml:space="preserve">
     <value>Выбранная территория должна принадлежать тому же подразделению, что и деактивируемая.</value>
