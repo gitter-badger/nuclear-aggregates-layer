@@ -14,14 +14,14 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards.Extensions
             where TEntity : IEntityKey, IEntity
             where TViewModel : IEntityViewModelAbstract<TEntity>
         {
-            builder.WithFeatures(new CardMainAttributeFeature(new PropertyDescriptor<TViewModel>(propertyNameExpression)));
+            builder.WithFeatures(new MainAttributeFeature(new PropertyDescriptor<TViewModel>(propertyNameExpression)));
             return builder;
         }
 
-        public static CardMetadataBuilder<TEntity> MainAttribute<TEntity>(this CardMetadataBuilder<TEntity> builder, Expression<Func<IEntityViewModelAbstract<TEntity>, object>> propertyNameExpression)
+        public static CardMetadataBuilder<TEntity> WithDefaultMainAttribute<TEntity>(this CardMetadataBuilder<TEntity> builder)
             where TEntity : IEntityKey, IEntity
         {
-            builder.WithFeatures(new CardMainAttributeFeature(new PropertyDescriptor<IEntityViewModelAbstract<TEntity>>(propertyNameExpression)));
+            builder.WithFeatures(new MainAttributeFeature(new PropertyDescriptor<IEntityViewModelAbstract<TEntity>>(x => x.Id)));
             return builder;
         }
     }

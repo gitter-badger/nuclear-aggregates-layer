@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.EntityLocalizedName = card.EntityLocalizationDescriptor.GetValue(_currentCulture);
             }
 
-            var mainAttributeFeature = card.Features<CardMainAttributeFeature>().SingleOrDefault();
+            var mainAttributeFeature = card.Features<MainAttributeFeature>().SingleOrDefault();
             if (mainAttributeFeature != null)
             {
                 result.EntityMainAttribute = mainAttributeFeature.PropertyDescriptor.PropertyName;

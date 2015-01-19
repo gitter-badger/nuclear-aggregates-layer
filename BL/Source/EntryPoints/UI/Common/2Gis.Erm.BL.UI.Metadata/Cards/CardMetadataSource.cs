@@ -37,19 +37,19 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                 new CardMetadata[]
                     {
                         CardMetadata.For<Account>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAccounts),
 
                         CardMetadata.For<AccountDetail>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAccountDetails),
 
                         CardMetadata.For<AdditionalFirmService>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.AdditionalFirmServices),
 
                         CardMetadata.For<AdsTemplatesAdsElementTemplate>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdsTemplatesAdsElementTemplate)
                                     .WithAdminTab(),
 
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<AdvertisementElement>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementElement)
                                     .ReadOnlyOn<IAdvertisementElementViewModel>(x => x.DisableEdit,
                                                                                 x => x.CanUserChangeStatus,
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithComments(),
 
                         CardMetadata.For<AssociatedPosition>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPosition)
                                     .ReadOnlyOn<IAssociatedPositionViewModel>(x => x.PriceIsDeleted,
                                                                               x => x.PriceIsPublished)
@@ -170,7 +170,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<CurrencyRate>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnCurrencyRates)
                                     .WithAdminTab(),
 
@@ -186,7 +186,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<DeniedPosition>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnDeniedPosition)
                                     .ReadOnlyOn<IDeniedPositionViewModel>(x => x.IsPricePublished)
                                     .WithAdminTab(),
@@ -232,24 +232,24 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithComments(),
 
                         CardMetadata.For<Limit>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnLimit)
                                     .ReadOnlyOn<ILimitViewModel>(x => x.Status != LimitStatus.Opened)
                                     .WithComments(),
 
                         CardMetadata.For<LocalMessage>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnLocalMessage),
 
                         CardMetadata.For<Lock>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnLocks)
                                     .WithAdminTab(),
 
                         CardMetadata.For<LockDetail>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnLockDetails)
                                     .WithAdminTab(),
 
@@ -281,7 +281,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<OrderPosition>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrderPositions)
                                     .WithAdminTab(),
 
@@ -314,7 +314,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<PositionChildren>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnPositionChildren)
                                     .WithAdminTab(),
 
@@ -340,7 +340,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<ReleaseInfo>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnReleaseInfo)
                                     .WithAdminTab(),
@@ -351,7 +351,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<RolePrivilege>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnRolePrivilege)
                                     .WithAdminTab(),
 
@@ -384,12 +384,12 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<UserProfile>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnUserProfile)
                                     .WithAdminTab(),
 
                         CardMetadata.For<WithdrawalInfo>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnWithdrawalInfo)
                                     .WithAdminTab()

@@ -18,6 +18,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
@@ -60,6 +61,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                     var errorMessage = string.Format("Для карточки {0} обнаружены следующие расхождения в метаданных: {1}",
                                                      cardMetadata.Entity,
                                                      string.Join(";" + Environment.NewLine, errors));
+
+                    errorsBuilder.AppendLine(errorMessage);
+                    _commonLog.ErrorEx(errorMessage);
+                }
+
+                // TODO {all, 19.01.2015}: Убрать эту проверку, когда найдется случай, что MainAttribute явно не нужен.
+                if (!cardMetadata.Uses<MainAttributeFeature>())
+                {
+                    var errorMessage = string.Format("Для карточки {0} не задан основной атрибут",
+                                                     cardMetadata.Entity);
 
                     errorsBuilder.AppendLine(errorMessage);
                     _commonLog.ErrorEx(errorMessage);

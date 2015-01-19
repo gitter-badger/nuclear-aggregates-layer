@@ -51,7 +51,6 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Config\Common\Card\Features\ICardFeature.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewPathMapping.cs" />
     <Compile Include="UIElements\Features\ExpressionFeatureAbstract.cs" />
     <Compile Include="UIElements\Features\HideExpressionFeature.cs" />

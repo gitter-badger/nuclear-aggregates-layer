@@ -55,10 +55,9 @@
     <Compile Include="Config\Cards\ShowNotesFeature.cs" />
     <Compile Include="Config\Cards\CardMetadata.cs" />
     <Compile Include="Config\Cards\CardMetadataBuilder.cs" />
-    <Compile Include="Config\Cards\CardMainAttributeFeature.cs" />
+    <Compile Include="Config\Cards\MainAttributeFeature.cs" />
     <Compile Include="Config\DataLists\ExtraDataFieldsFeature.cs" />
     <Compile Include="Config\DataLists\MetadataListingsIdentity.cs" />
-    <Compile Include="Config\DataLists\UISpecific\IUIMetadataFeature.cs" />
     <Compile Include="Config\DataLists\BasedOnDataListFeature.cs" />
     <Compile Include="Config\DataLists\DataFieldExpressionFeature.cs" />
     <Compile Include="Config\DataLists\DataFieldsFeature.cs" />

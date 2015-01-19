@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Russia
                 new CardMetadata[]
                     {
                         CardMetadata.For<AdvertisementElementStatus>()
-                                    .MainAttribute(x => x.Id)
+                                    .WithDefaultMainAttribute()
                                     .EntityLocalization(() => EnumResources.EntityNameAdvertisementElementStatus)
                                     .WithAdminTab()
                                     .WithComments(),

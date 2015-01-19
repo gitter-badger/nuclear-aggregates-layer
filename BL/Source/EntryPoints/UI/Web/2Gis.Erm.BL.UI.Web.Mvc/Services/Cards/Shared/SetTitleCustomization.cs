@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
                 }
                 else
                 {
-                    var mainAttributeFeature = metadata.Features<CardMainAttributeFeature>().SingleOrDefault();
+                    var mainAttributeFeature = metadata.Features<MainAttributeFeature>().SingleOrDefault();
                     if (mainAttributeFeature == null)
                     {
                         return;
