@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
                                                                            legalPersonProfile.OwnerCode,
                                                                            null);
 
-                var orders = _orderReadModel.GetActiveOrdersWithProfile(legalPersonProfile.Id);
+                var orders = _orderReadModel.GetActiveOrdersForLegalPersonProfile(legalPersonProfile.Id);
 
                 if (!isDeleteAllowed)
                 {
