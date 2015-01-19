@@ -5175,12 +5175,12 @@ Periodo de la publicación: {3}.</value>
 </value>
   </data>
   <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
-    <value>Для работы с профилями требуется, чтобы были указаны юридические лица</value>
+    <value>Para trabajar con el perfil se necesita que estén indicadas las razones sociales</value>
   </data>
   <data name="TitlePrinting" xml:space="preserve">
-    <value>Печать</value>
+    <value>Impresión</value>
   </data>
   <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
-    <value>Должен быть указан профиль юридического лица</value>
+    <value>Debe estar indicado el perfil de la razón social</value>
   </data>
 </root>
