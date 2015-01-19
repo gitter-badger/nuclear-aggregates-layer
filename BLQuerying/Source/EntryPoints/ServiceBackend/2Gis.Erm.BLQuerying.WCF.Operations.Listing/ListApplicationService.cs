@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
         {
             try
             {
-                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType,isDefaultSort);
+                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType, isDefaultSort);
             }
             catch (Exception ex)
             {
@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                 }
                 
 
-                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType,isDefaultSort);
+                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType, isDefaultSort);
             }
             catch (Exception ex)
             {

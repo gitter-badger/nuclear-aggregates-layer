@@ -131,7 +131,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         IsDeleted = x.IsDeleted,
                         ClosedForAscertainment = x.ClosedForAscertainment,
                         OwnerName = null,
-                        IsOwner = x.OwnerCode==_userContext.Identity.Code,
+                        IsOwner = (x.OwnerCode == _userContext.Identity.Code)
                     })
                 .QuerySettings(_filterHelper, querySettings);
         }

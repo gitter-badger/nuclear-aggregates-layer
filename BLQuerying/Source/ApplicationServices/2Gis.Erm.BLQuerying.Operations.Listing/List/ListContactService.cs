@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 IsActive = x.IsActive,
                 IsDeleted = x.IsDeleted,
                 IsFired = x.IsFired,
-                IsOwner = (_userContext.Identity.Code==x.OwnerCode),
+                IsOwner = (_userContext.Identity.Code == x.OwnerCode),
                 AccountRole = x.AccountRole.ToStringLocalizedExpression(),
                 Owner = null,
             })

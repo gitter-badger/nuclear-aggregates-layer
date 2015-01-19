@@ -376,7 +376,6 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
     },
     createItem: function ()
     {
-        this.getDefaultSort();
         if (this.fireEvent("beforecreate", this) === false)
         {
             return;
@@ -417,7 +416,7 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
         window.open(sUrl, '_blank', params);
     },
     getDefaultSort: function() {
-        if (this.isDefaultSort!==undefined)
+        if (this.isDefaultSort !== undefined)
             return false;
         this.isDefaultSort = false;
         return true;

@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                     OwnerCode = x.OwnerCode,
-                    IsOwner = x.OwnerCode == _userContext.Identity.Code,
+                    IsOwner = (x.OwnerCode == _userContext.Identity.Code)
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }
