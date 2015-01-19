@@ -1323,6 +1323,9 @@
   <data name="TemplateCodeOrder" xml:space="preserve">
     <value>Бланк заказа</value>
   </data>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>Бланк заказа (multi full house)</value>
+  </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Звонок</value>
   </data>

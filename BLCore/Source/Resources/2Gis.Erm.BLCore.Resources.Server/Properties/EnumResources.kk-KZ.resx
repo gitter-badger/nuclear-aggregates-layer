@@ -1668,6 +1668,9 @@
   <data name="TemplateCodeOrder" xml:space="preserve">
     <value>Бланк заказа</value>
   </data>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="OrderProcessingRequestStateCancelled" xml:space="preserve">
     <value>Отменено</value>
   </data>

@@ -5380,6 +5380,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Бланк заказа (multi full house).
+        /// </summary>
+        public static string TemplateCodeOrderMultiPlannedProvision {
+            get {
+                return ResourceManager.GetString("TemplateCodeOrderMultiPlannedProvision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Бланк заказа (Online, без НДС).
         /// </summary>
         public static string TemplateCodeOrderOnlineWithoutVat {

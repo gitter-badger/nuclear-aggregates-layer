@@ -1320,6 +1320,9 @@
   <data name="TemplateCodeOrder" xml:space="preserve">
     <value>Objednávka</value>
   </data>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Hovor</value>
   </data>
