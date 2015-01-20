@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified;
+using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.Exceptions;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -25,18 +29,37 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            var destOrganizationUnitId = ruleContext.ValidationParams.IsMassValidation
-                                             ? ruleContext.ValidationParams.Mass.OrganizationUnitId
-                                             : _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)).Select(x => x.DestOrganizationUnitId).Single();
+            var organizationUnitSelectSpec =
+                new SelectSpecification<OrganizationUnit, OrganizationUnitDto>(
+                    x => new OrganizationUnitDto
+                             {
+                                 Id = x.Id,
+                                 Name = x.Name
+                             });
 
-            var projectInfo = _finder.Find(Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
-                                     .Select(x => x.Projects.FirstOrDefault())
+            var destOrganizationUnitFindSpec = ruleContext.ValidationParams.IsMassValidation
+                                                   ? Specs.Find.ById<OrganizationUnit>(ruleContext.ValidationParams.Mass.OrganizationUnitId)
+                                                   : OrganizationUnitSpecs.Find.DestOrganizationUnitByOrder(ruleContext.ValidationParams.Single.OrderId) &&
+                                                     Specs.Find.ActiveAndNotDeleted<OrganizationUnit>();
+
+            var destOrganizationUnit = _finder.Find(organizationUnitSelectSpec, destOrganizationUnitFindSpec).SingleOrDefault();
+            if (destOrganizationUnit == null)
+            {
+                throw new EntityNotFoundException(typeof(OrganizationUnit));
+            }
+
+            var projectInfo = _finder.Find(ProjectSpecs.Find.ByOrganizationUnit(destOrganizationUnit.Id) && Specs.Find.Active<Project>())
                                      .Select(x => new
                                                       {
-                                                          Id = x.Id,
+                                                          x.Id,
                                                           Name = x.DisplayName
                                                       })
-                                     .Single();
+                                     .SingleOrDefault();
+
+            if (projectInfo == null)
+            {
+                throw new OrganizationUnitHasNoProjectsException(string.Format(BLResources.DestOrganizationUnitHasNoProject, destOrganizationUnit.Name));
+            }
 
             var badAdvertisemements =
                 _finder.Find(ruleContext.OrdersFilterPredicate)
@@ -77,6 +100,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                                                                            x.CategoryId),
                                                                                        projectInfo.Name)
                                                        });
+        }
+
+        private sealed class OrganizationUnitDto
+        {
+            public long Id { get; set; }
+            public string Name { get; set; }
         }
     }
 }

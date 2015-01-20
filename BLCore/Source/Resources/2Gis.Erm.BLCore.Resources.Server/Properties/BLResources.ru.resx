@@ -5160,7 +5160,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-</data>
+  </data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5179,5 +5179,8 @@ Cумма по операции: {5}.
   </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
     <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
   </data>
 </root>
