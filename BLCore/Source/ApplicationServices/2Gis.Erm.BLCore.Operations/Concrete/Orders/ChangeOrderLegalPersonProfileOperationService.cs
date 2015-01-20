@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -9,18 +10,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 {
     public class ChangeOrderLegalPersonProfileOperationService : IChangeOrderLegalPersonProfileOperationService
     {
-        private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IChangeOrderLegalPersonProfileAggregateService _profileAggregateService;
 
         public ChangeOrderLegalPersonProfileOperationService(
-            IOrderRepository orderRepository,
             IOperationScopeFactory scopeFactory,
-            IOrderReadModel orderReadModel)
+            IOrderReadModel orderReadModel, 
+            ILegalPersonReadModel legalPersonReadModel,
+            IChangeOrderLegalPersonProfileAggregateService profileAggregateService)
         {
-            _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
             _orderReadModel = orderReadModel;
+            _legalPersonReadModel = legalPersonReadModel;
+            _profileAggregateService = profileAggregateService;
         }
 
         public void ChangeLegalPersonProfile(long orderId, long profileId)
@@ -28,9 +32,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             using (var scope = _scopeFactory.CreateNonCoupled<ChangeOrderLegalPersonProfileIdentity>())
             {
                 var order = _orderReadModel.GetOrderSecure(orderId);
-                order.LegalPersonProfileId = profileId;
+                var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
 
-                _orderRepository.Update(order);
+                _profileAggregateService.Change(order, profile);
 
                 scope.Updated<Order>(orderId)
                      .Complete();

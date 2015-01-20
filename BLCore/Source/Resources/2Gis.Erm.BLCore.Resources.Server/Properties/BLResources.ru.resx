@@ -5183,4 +5183,7 @@ Cумма по операции: {5}.
   <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
     <value>Должен быть указан профиль юридического лица</value>
   </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
+  </data>
 </root>
