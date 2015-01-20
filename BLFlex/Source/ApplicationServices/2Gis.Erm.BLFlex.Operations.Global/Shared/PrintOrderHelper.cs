@@ -150,6 +150,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         orderPosition.PayablePlanWoVat,
                         orderPosition.PricePerUnit,
                         orderPosition.Order.ReleaseCountPlan,
+                        PricePositionCost = orderPosition.PricePosition.Cost,
 
                         Platform = orderPosition.PricePosition.Position.Platform.DgppId,
 
@@ -174,6 +175,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                 .AsEnumerable()
                 .Select(x => new PrintData
                     {
+                        { "AdvertisingBudget", x.PricePositionCost * x.Amount },
                         { "Amount", x.Amount },
                         { "BeginDistributionDate", orderInfo.Order.BeginDistributionDate },
                         { "DiscountPercent", x.DiscountPercent },
