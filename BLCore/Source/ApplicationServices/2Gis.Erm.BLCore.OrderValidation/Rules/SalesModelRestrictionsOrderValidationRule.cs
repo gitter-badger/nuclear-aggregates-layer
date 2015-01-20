@@ -5,7 +5,9 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -23,13 +25,18 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            var projectInfo = _finder.Find(ruleContext.OrdersFilterPredicate)
-                                     .Select(x => x.DestOrganizationUnit.Projects.FirstOrDefault())
+            var destOrganizationUnitId = ruleContext.ValidationParams.IsMassValidation
+                                             ? ruleContext.ValidationParams.Mass.OrganizationUnitId
+                                             : _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)).Select(x => x.DestOrganizationUnitId).Single();
+
+            var projectInfo = _finder.Find(Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
+                                     .Select(x => x.Projects.FirstOrDefault())
                                      .Select(x => new
                                                       {
                                                           Id = x.Id,
                                                           Name = x.DisplayName
-                                                      }).First();
+                                                      })
+                                     .Single();
 
             var badAdvertisemements =
                 _finder.Find(ruleContext.OrdersFilterPredicate)
