@@ -266,6 +266,7 @@
     <Compile Include="Orders\Operations\Crosscutting\IBillsConsistencyService.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderChangeStateOrders2ArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\IChangeOrderLegalPersonProfileAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\Validation\IAttachValidResultToCacheAggregateService.cs" />
     <Compile Include="Orders\Operations\Validation\IInvalidateCachedValidationResultAggregateService.cs" />

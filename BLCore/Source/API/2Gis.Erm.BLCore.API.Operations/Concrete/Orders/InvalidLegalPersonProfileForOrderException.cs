@@ -7,8 +7,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders
 {
     public sealed class InvalidLegalPersonProfileForOrderException : BusinessLogicException
     {
-        public InvalidLegalPersonProfileForOrderException()
-            : base(BLResources.InvalidLegalPersonProfileForOrder)
+        public InvalidLegalPersonProfileForOrderException(string message)
+            : base(message)
         {
         }
 
