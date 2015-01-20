@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories
 {
     public interface IBulkCreateSalesModelCategoryRestrictionsService : ISimplifiedModelConsumer
     {
-        void Create(IReadOnlyCollection<SalesModelCategoryRestriction> recordsToCreate);
+        void Create(IEnumerable<SalesModelCategoryRestriction> recordsToCreate);
     }
 }

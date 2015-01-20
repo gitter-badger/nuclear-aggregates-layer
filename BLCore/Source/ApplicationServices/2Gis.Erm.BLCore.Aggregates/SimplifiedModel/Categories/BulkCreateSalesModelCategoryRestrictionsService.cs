@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories
             _repository = repository;
         }
 
-        public void Create(IReadOnlyCollection<SalesModelCategoryRestriction> recordsToCreate)
+        public void Create(IEnumerable<SalesModelCategoryRestriction> recordsToCreate)
         {
             using (var scope = _scopeFactory.CreateSpecificFor<BulkCreateIdentity, SalesModelCategoryRestriction>())
             {
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories
                 _repository.AddRange(recordsToCreate);
                 _repository.Save();
 
-                scope.Added<SalesModelCategoryRestriction>(recordsToCreate.Select(x => x.Id))
+                scope.Added(recordsToCreate)
                      .Complete();
             }
         }

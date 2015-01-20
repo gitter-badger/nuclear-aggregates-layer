@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -20,14 +19,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories
             _scopeFactory = scopeFactory;
         }
 
-        public void Delete(IReadOnlyCollection<SalesModelCategoryRestriction> recordsToDelete)
+        public void Delete(IEnumerable<SalesModelCategoryRestriction> recordsToDelete)
         {
             using (var scope = _scopeFactory.CreateSpecificFor<BulkDeleteIdentity, SalesModelCategoryRestriction>())
             {
                 _repository.DeleteRange(recordsToDelete);
                 _repository.Save();
 
-                scope.Deleted<SalesModelCategoryRestriction>(recordsToDelete.Select(x => x.Id))
+                scope.Deleted(recordsToDelete)
                      .Complete();
             }
         }

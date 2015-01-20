@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvMod
                     var serviceBusDto = (AdvModelInRubricInfoServiceBusDto)dto;
                     
                     var oldRestrictions = _restrictionReadModel.GetRestrictionsByProject(serviceBusDto.BranchCode);
-                    _bulkDeleteSalesModelCategoryRestrictionsService.Delete(oldRestrictions.ToArray());
+                    _bulkDeleteSalesModelCategoryRestrictionsService.Delete(oldRestrictions);
                     scope.Deleted(oldRestrictions);
 
                     var newRestrictions = serviceBusDto.AdvModelInRubrics
@@ -55,7 +55,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvMod
                                                                                               CategoryId = advModelInRubricDto.RubricCode,
                                                                                               ProjectId = serviceBusDto.BranchCode,
                                                                                               SalesModel = ConvertAdvModelToSalesModel(advModelInRubricDto.AdvModel)
-                                                                                          }).ToList();
+                                                                                          })
+                                                       .ToArray();
 
                     _bulkCreateSalesModelCategoryRestrictionsService.Create(newRestrictions);
                     scope.Added(newRestrictions.AsEnumerable());
