@@ -5182,4 +5182,7 @@ Doba zveřejnění: {3}.</value>
   <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
     <value>Musí být zadán profil právnické osoby</value>
   </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
+  </data>
 </root>

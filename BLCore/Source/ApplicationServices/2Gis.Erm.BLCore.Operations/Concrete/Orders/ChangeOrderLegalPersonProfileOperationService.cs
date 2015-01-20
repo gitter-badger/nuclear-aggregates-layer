@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -11,16 +12,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public ChangeOrderLegalPersonProfileOperationService(
             IOrderRepository orderRepository,
             IOperationScopeFactory scopeFactory,
-            IOrderReadModel orderReadModel)
+            IOrderReadModel orderReadModel, 
+            ILegalPersonReadModel legalPersonReadModel)
         {
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
             _orderReadModel = orderReadModel;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         public void ChangeLegalPersonProfile(long orderId, long profileId)
@@ -28,6 +32,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             using (var scope = _scopeFactory.CreateNonCoupled<ChangeOrderLegalPersonProfileIdentity>())
             {
                 var order = _orderReadModel.GetOrderSecure(orderId);
+                var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
+                if (profile == null || profile.IsDeleted || !profile.IsActive)
+                {
+                    throw new InvalidLegalPersonProfileForOrderException();
+                }
+
                 order.LegalPersonProfileId = profileId;
 
                 _orderRepository.Update(order);

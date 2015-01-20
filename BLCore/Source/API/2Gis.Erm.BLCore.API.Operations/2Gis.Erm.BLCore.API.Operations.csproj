@@ -184,6 +184,7 @@
     <Compile Include="Concrete\Orders\Copy\DiscountType.cs" />
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
+    <Compile Include="Concrete\Orders\InvalidLegalPersonProfileForOrderException.cs" />
     <Compile Include="Concrete\Orders\OrderChangesDescriptor.cs" />
     <Compile Include="Concrete\Orders\IChangeOrderLegalPersonProfileOperationService.cs" />
     <Compile Include="Concrete\Orders\LegalPersonProfileMustBeSpecifiedException.cs" />

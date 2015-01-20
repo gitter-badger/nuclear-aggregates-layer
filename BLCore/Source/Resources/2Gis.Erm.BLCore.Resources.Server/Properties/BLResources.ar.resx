@@ -5178,4 +5178,7 @@ Placement period: {3}.</value>
   <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
     <value>Please specify legal entity profile</value>
   </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
+  </data>
 </root>
