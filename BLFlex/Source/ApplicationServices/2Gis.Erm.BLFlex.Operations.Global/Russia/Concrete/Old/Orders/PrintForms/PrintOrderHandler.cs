@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                     CurrencyIsoCode = orderInfo.CurrencyIsoCode,
                     FileName = orderInfo.OrderNumber,
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
-                    TemplateCode = TemplateCode.Order,
+                    TemplateCode = TemplateCode.OrderMultiPlannedProvision,
                     PrintData = GetPrintData(request, orderInfo)
                 };
 

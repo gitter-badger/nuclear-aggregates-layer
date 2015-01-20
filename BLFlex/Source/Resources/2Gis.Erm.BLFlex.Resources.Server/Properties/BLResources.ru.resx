@@ -464,4 +464,25 @@ SWIFT {5}
   <data name="OrderFieldNotSpecified" xml:space="preserve">
     <value>В заказе не заполнено поле "{0}"</value>
   </data>
+  <data name="PositionNameFormatContextCategorySingle" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategorySingle" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0} в привязке к адресу {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategoryMultiple" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0} в привязке к адресам {1}</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultiple" xml:space="preserve">
+    <value>размещается в Контекстных рубриках: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategorySingle" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0} в привязке к адресу: {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategoryMultiple" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0} в привязке к адресам: {1}</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultipleAsterix" xml:space="preserve">
+    <value>размещается в Контекстных рубриках: {0}</value>
+  </data>
 </root>

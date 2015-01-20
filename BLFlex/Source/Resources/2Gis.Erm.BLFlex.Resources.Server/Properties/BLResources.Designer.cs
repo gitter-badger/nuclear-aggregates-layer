@@ -648,6 +648,24 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string PositionNameFormatAddressContextCategoryMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressContextCategoryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressContextCategorySingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressContextCategorySingle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string PositionNameFormatAddressFirstLevelCategoryMultiple {
             get {
                 return ResourceManager.GetString("PositionNameFormatAddressFirstLevelCategoryMultiple", resourceCulture);
@@ -660,6 +678,24 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         public static string PositionNameFormatAddressFirstLevelCategorySingle {
             get {
                 return ResourceManager.GetString("PositionNameFormatAddressFirstLevelCategorySingle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressFirstLevelContextCategoryMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressFirstLevelContextCategoryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressFirstLevelContextCategorySingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressFirstLevelContextCategorySingle", resourceCulture);
             }
         }
         
@@ -714,6 +750,33 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         public static string PositionNameFormatCompositeDetalization {
             get {
                 return ResourceManager.GetString("PositionNameFormatCompositeDetalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatContextCategoryMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatContextCategoryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatContextCategoryMultipleAsterix {
+            get {
+                return ResourceManager.GetString("PositionNameFormatContextCategoryMultipleAsterix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatContextCategorySingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatContextCategorySingle", resourceCulture);
             }
         }
         

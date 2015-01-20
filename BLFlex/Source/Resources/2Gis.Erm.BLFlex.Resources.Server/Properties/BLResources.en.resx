@@ -455,4 +455,25 @@ Bank Name: {7}
   <data name="OrderFieldNotSpecified" xml:space="preserve">
     <value>The "{0}" field in the order is not filled in</value>
   </data>
+  <data name="PositionNameFormatContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultipleAsterix" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
 </root>

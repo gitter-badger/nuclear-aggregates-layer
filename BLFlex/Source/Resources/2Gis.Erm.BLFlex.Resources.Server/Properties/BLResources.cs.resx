@@ -447,4 +447,25 @@
   <data name="OrderFieldNotSpecified" xml:space="preserve">
     <value>V objednávce není vyplněno pole "{0}"</value>
   </data>
+  <data name="PositionNameFormatContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultipleAsterix" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
 </root>

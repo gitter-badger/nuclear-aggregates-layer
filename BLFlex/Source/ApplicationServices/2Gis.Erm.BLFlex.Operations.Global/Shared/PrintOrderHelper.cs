@@ -129,9 +129,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                     order.DestOrganizationUnit.BranchOfficeOrganizationUnits
                          .FirstOrDefault(y => y.IsActive && !y.IsDeleted && y.IsPrimaryForRegionalSales)
                          .RegistrationCertificate,
-                    Order = order
+                    Order = order,
+                    SalesModel = order.OrderPositions.Where(position => position.IsActive && !position.IsDeleted)
+                         .Select(position => position.PricePosition.Position.SalesModel)
+                         .FirstOrDefault()
                 })
                 .Single();
+
+            var orderPositionNameFormat = orderInfo.SalesModel == SalesModel.MultiPlannedProvision
+                                              ? PositionDetailedName.FormatMultiFullHouse
+                                              : PositionDetailedName.FormatOldSalesModels;
 
             var orderPositions = orderPositionsQuery
                 .Select(orderPosition => new
@@ -172,7 +179,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         { "DiscountPercent", x.DiscountPercent },
                         { "ElectronicMediaParagraph", GetElectronicMediaParagraph((PlatformEnum)x.Platform, orderInfo.ElectronicMedia, orderInfo.RegistrationCertificate, orderInfo.Order) },
                         { "FirmName", orderInfo.FirmName },
-                        { "Name", PositionDetailedName.Format(x.Key, x.Values) },
+                        { "Name", orderPositionNameFormat.Invoke(x.Key, x.Values) },
                         { "PayablePlan", x.PayablePlan },
                         { "PayablePlanWithoutVat", x.PayablePlanWoVat },
                         { "PriceForMonthWithDiscount", (x.PayablePlanWoVat / x.Amount) / x.ReleaseCountPlan },
@@ -308,7 +315,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         x.PayablePlan,
                         x.VatPlan,
                         x.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
-                        DiscountSum = x.DiscountSum.HasValue ? x.DiscountSum.Value : 0,
+                        DiscountPercent = x.DiscountPercent.HasValue ? x.DiscountPercent.Value : 0,
                         PayablePlanWithoutVat = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted).Select(position => position.PayablePlanWoVat),
                     })
                 .AsEnumerable()
@@ -323,11 +330,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         { "VatPlan", x.VatPlan },
                         { "VatRatio", x.VatRate },
                         { "VatSum", x.PayablePlan - x.PayablePlanWithoutVat.Sum() },
+                        { "DiscountPercent", x.DiscountPercent },
 
-                        { "UseWithVatWithDiscount", x.VatPlan > 0 && x.DiscountSum > 0 },
-                        { "UseWithVatNoDiscount", x.VatPlan > 0 && x.DiscountSum == 0 },
-                        { "UseNoVatWithDiscount", x.VatPlan == 0 && x.DiscountSum > 0 },
-                        { "UseNoVatNoDiscount", x.VatPlan == 0 && x.DiscountSum == 0 },
+                        { "UseWithVat", x.VatPlan > 0 },
+                        { "UseNoVat", x.VatPlan == 0 },
+                        { "UseWithDiscount", x.DiscountPercent > 0 },
+
+                        { "UseWithVatWithDiscount", x.VatPlan > 0 && x.DiscountPercent > 0 },
+                        { "UseWithVatNoDiscount", x.VatPlan > 0 && x.DiscountPercent == 0 },
+                        { "UseNoVatWithDiscount", x.VatPlan == 0 && x.DiscountPercent > 0 },
+                        { "UseNoVatNoDiscount", x.VatPlan == 0 && x.DiscountPercent == 0 },
                     })
                 .Single();
 

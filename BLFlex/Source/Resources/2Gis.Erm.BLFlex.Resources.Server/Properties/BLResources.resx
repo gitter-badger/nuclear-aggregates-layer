@@ -441,4 +441,25 @@
   <data name="OrderFieldNotSpecified" xml:space="preserve">
     <value />
   </data>
+  <data name="PositionNameFormatContextCategorySingle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatAddressContextCategorySingle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatAddressContextCategoryMultiple" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatContextCategoryMultiple" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategorySingle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategoryMultiple" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatContextCategoryMultipleAsterix" xml:space="preserve">
+    <value />
+  </data>
 </root>
