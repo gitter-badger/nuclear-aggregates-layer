@@ -8,9 +8,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 {
     public sealed class RussianPercentToWordsFormatter : IFormatter
     {
-        private static readonly IWordPluralizer Integer = new RussianWordPluralizer("целая", "целых", "целых");
-        private static readonly IWordPluralizer Percent = new RussianWordPluralizer("процент", "процента", "процентов");
-        private static readonly IDictionary<int, IWordPluralizer> Fractional
+        private static readonly IWordPluralizer IntegerWord = new RussianWordPluralizer("целая", "целых", "целых");
+        private static readonly IWordPluralizer PercentWord = new RussianWordPluralizer("процент", "процента", "процентов");
+        private static readonly IDictionary<int, IWordPluralizer> FractionalWords
             = new Dictionary<int, IWordPluralizer>
                   {
                       { 10, new RussianWordPluralizer("десятая", "десятых", "десятых") },
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 
         public string Format(object data)
         {
-            if (_significantDigitsNumber > Math.Log10(Fractional.Keys.Max()))
+            if (_significantDigitsNumber > Math.Log10(FractionalWords.Keys.Max()))
             {
                 var message = string.Format("Невозможно вывести проценты с точностью до {0} знаков после запятой, нужно дополнить описание",
                                             _significantDigitsNumber);
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
             {
                 // один процент
                 var maleFormatter = new RussianNumberToWordsConverter(true);
-                return string.Format("{0} {1}", maleFormatter.Convert(integerPart), Percent.GetPluralFor(integerPart));
+                return string.Format("{0} {1}", maleFormatter.Convert(integerPart), PercentWord.GetPluralFor(integerPart));
             }
 
             var femaleFormatter = new RussianNumberToWordsConverter(false);
@@ -57,17 +57,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
                 // одна десятая процента
                 return string.Format("{0} {1} {2}",
                                      femaleFormatter.Convert(displayedFractionalPart),
-                                     Fractional[fractionName].GetPluralFor(displayedFractionalPart),
-                                     Percent.GetPluralFor(2));
+                                     FractionalWords[fractionName].GetPluralFor(displayedFractionalPart),
+                                     PercentWord.GetPluralFor(2));
             }
 
             // одна целая одна десятая процента
             return string.Format("{0} {1} {2} {3} {4}",
                                  femaleFormatter.Convert(integerPart),
-                                 Integer.GetPluralFor(integerPart),
+                                 IntegerWord.GetPluralFor(integerPart),
                                  femaleFormatter.Convert(displayedFractionalPart),
-                                 Fractional[fractionName].GetPluralFor(displayedFractionalPart),
-                                 Percent.GetPluralFor(2));
+                                 FractionalWords[fractionName].GetPluralFor(displayedFractionalPart),
+                                 PercentWord.GetPluralFor(2));
         }
     }
 }
