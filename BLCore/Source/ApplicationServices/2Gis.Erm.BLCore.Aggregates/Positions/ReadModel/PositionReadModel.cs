@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -9,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 {
-    public partial class PositionReadModel : IPositionReadModel
+    public sealed partial class PositionReadModel : IPositionReadModel
     {
         private readonly IFinder _finder;
 
@@ -44,6 +45,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
             message = null;
             return true;
+        }
+
+        public IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds)
+        {
+            return _finder.Find<Platform.Model.Entities.Erm.Platform>(x => platformDgppIds.Contains(x.DgppId))
+                                .ToDictionary(x => (PlatformEnum)x.DgppId, x => x.Id);
+        }
+
+        public string GetPositionName(long positionId)
+        {
+            return _finder.Find(Specs.Find.ById<Position>(positionId))
+                          .Select(item => item.Name)
+                          .Single();
         }
     }
 }

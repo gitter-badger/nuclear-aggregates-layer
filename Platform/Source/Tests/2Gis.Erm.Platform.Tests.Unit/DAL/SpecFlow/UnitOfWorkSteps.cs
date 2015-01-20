@@ -26,7 +26,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
 
         private IReadDomainContextProvider _readDomainContextProvider;
         private IModifiableDomainContextProvider _modifiableDomainContextProvider;
-        private IDomainContextSaveStrategy _saveStrategy;
         
         private TestDelegate _thenAction;
 
@@ -36,14 +35,14 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
         [Given(@"create instance of StubUnitOfWork class")]
         public void GivenCreateInstanceOfStubUnitOfWorkClass()
         {
-            var factories = new Dictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IDomainContextSaveStrategy, IAggregateRepository>>
+            var factories = new Dictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IAggregateRepository>>
                 {
                     {
                         typeof(ConcreteAggregateRepository),
-                        (readContextProvider, modifiableContextProvider, saveStrategy) =>
+                        (readContextProvider, modifiableContextProvider) =>
                         new ConcreteAggregateRepository(new StubFinder(readContextProvider),
-                                                        new StubEntityRepository<ErmScopeEntity1>(readContextProvider, modifiableContextProvider, saveStrategy),
-                                                        new StubEntityRepository<ErmScopeEntity2>(readContextProvider, modifiableContextProvider, saveStrategy))
+                                                        new StubEntityRepository<ErmScopeEntity1>(readContextProvider, modifiableContextProvider),
+                                                        new StubEntityRepository<ErmScopeEntity2>(readContextProvider, modifiableContextProvider))
                     }
                 };
             _stubUnitOfWork = new StubUnitOfWork(factories,
@@ -57,11 +56,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
         public void GivenCreateInstanceOfMockUnitOfWorkClass()
         {
             _mockUnitOfWork = new MockUnitOfWork(
-                (x, y, z) =>
+                (x, y) =>
                     {
                         _readDomainContextProvider = x;
                         _modifiableDomainContextProvider = y;
-                        _saveStrategy = z;
                     },
                 Mock.Of<IReadDomainContext>(),
                 Mock.Of<IModifiableDomainContextFactory>(),
@@ -111,7 +109,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
         [Then(@"ScopeId should not be Guid\.Empty")]
         public void ThenScopeIdShouldNotBeGuid_Empty()
         {
-            Assert.That(_stubUnitOfWork.ScopeId, Is.Not.EqualTo(Guid.Empty));
+            Assert.That(((IDomainContextHost)_stubUnitOfWork).ScopeId, Is.Not.EqualTo(Guid.Empty));
         }
         
         [Then(@"exception shoud not be thrown")]
@@ -131,7 +129,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
         {
             Assert.That(_readDomainContextProvider, Is.InstanceOf<ReadDomainContextProviderProxy>());
             Assert.That(_modifiableDomainContextProvider, Is.InstanceOf<ModifiableDomainContextProviderProxy>());
-            Assert.That(_saveStrategy, Is.InstanceOf<DomainContextSaveStrategy>());
         }
 
         #endregion

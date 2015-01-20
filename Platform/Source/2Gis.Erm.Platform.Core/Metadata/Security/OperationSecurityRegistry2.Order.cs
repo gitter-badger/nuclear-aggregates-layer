@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.Platform.Core.Metadata.Security
     public static partial class OperationSecurityRegistry
     {
         private static readonly IOperationAccessRequirement CalculateReleaseWithdrawals =
-            AccessRequirementBuilder.ForOperation<CalculateReleaseWithdrawalsIdentity>(
+            AccessRequirementBuilder.ForOperation<ActualizeOrderReleaseWithdrawalsIdentity>(
                 x => x.Require(EntityAccessTypes.Create, EntityName.OrderReleaseTotal)
                       .Require(EntityAccessTypes.Create, EntityName.ReleasesWithdrawalsPosition)
                       .Require(EntityAccessTypes.Create, EntityName.ReleaseWithdrawal)
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.Platform.Core.Metadata.Security
                   .Require(EntityAccessTypes.Update, EntityName.Deal));
 
         private static readonly IOperationAccessRequirement UpdateOrder = AccessRequirementBuilder.ForOperation<UpdateIdentity, Order>(
-            x => x.UsesOperation<CalculateReleaseWithdrawalsIdentity>()
+            x => x.UsesOperation<ActualizeOrderReleaseWithdrawalsIdentity>()
                   .Require(EntityAccessTypes.Create, EntityName.Account)
                   .Require(EntityAccessTypes.Create, EntityName.NotificationAddress)
                   .Require(EntityAccessTypes.Create, EntityName.NotificationEmail)
