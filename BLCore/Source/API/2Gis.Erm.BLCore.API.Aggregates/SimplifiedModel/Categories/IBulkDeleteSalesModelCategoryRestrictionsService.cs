@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories
 {
     public interface IBulkDeleteSalesModelCategoryRestrictionsService : ISimplifiedModelConsumer
     {
-        void Delete(IReadOnlyCollection<SalesModelCategoryRestriction> recordsToDelete);
+        void Delete(IEnumerable<SalesModelCategoryRestriction> recordsToDelete);
     }
 }
