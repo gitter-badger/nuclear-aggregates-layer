@@ -55,9 +55,7 @@ using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
-using DoubleGis.Erm.Platform.DAL.PersistenceServices.Identity;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -180,7 +178,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .ConfigureExportMetadata()
                 .ConfigureMetadata()
                 .ConfigureTestInfrastructure(environmentSettings)
-                .ConfigureServiceInstanceCheckin()
                 .ConfigureTestsDependenciesExplicitly();
         }
 
@@ -230,8 +227,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
 
 
-                     .RegisterType<IIdentityServiceUniqueIdPersistenceService, IdentityServiceUniqueIdPersistenceService>(Lifetime.Singleton, new InjectionConstructor(new ResolvedParameter<IDatabaseCaller>(Mapping.ErmInfrastructure)))
-                     .RegisterType<IIdentityServiceUniqueIdProvider, IdentityServiceUniqueIdProvider>(Lifetime.Singleton)
+                     .RegisterType<IIdentityServiceUniqueIdProvider, AppLockIdentityServiceUniqueIdProvider>(Lifetime.Singleton)
 
 
                      // notification sender

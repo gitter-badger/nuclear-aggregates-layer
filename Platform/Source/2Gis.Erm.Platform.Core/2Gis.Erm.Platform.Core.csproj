@@ -75,8 +75,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="ActionLogging\ActionsLogger.cs" />
-    <Compile Include="Checkin\ServiceInstanceCheckinService.cs" />
-    <Compile Include="Checkin\ServiceInstanceIdProviderHolder.cs" />
     <Compile Include="EntityProjection\AssignSpecification.cs" />
     <Compile Include="EntityProjection\IAssignSpecification.cs" />
     <Compile Include="EntityProjection\IProjectSpecification.cs" />
@@ -86,7 +84,6 @@
     <Compile Include="Identities\IdentityProviderBase.cs" />
     <Compile Include="Identities\IdentityRequestChecker.cs" />
     <Compile Include="Identities\IdentityServiceIdentityProvider.cs" />
-    <Compile Include="Identities\IdentityServiceUniqueIdProvider.cs" />
     <Compile Include="Identities\NullIdentityRequestChecker.cs" />
     <Compile Include="Identities\NullIdentityRequestStrategy.cs" />
     <Compile Include="Locking\ApplicationLocksService.cs" />

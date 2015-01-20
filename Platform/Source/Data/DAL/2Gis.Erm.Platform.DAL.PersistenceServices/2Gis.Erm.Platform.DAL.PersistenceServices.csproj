@@ -50,8 +50,6 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Identity\IdentityServiceUniqueIdPersistenceService.cs" />
-    <Compile Include="Identity\IIdentityServiceUniqueIdPersistenceService.cs" />
     <Compile Include="Locking\ApplicationLocksPersistenceService.cs" />
     <Compile Include="BatchDeletePersistenceService.cs" />
     <Compile Include="CleanupPersistenceService.cs" />
@@ -63,11 +61,6 @@
     <Compile Include="Locking\LockAcquirementResult.cs" />
     <Compile Include="Locking\LockReleasingResult.cs" />
     <Compile Include="ReplicationPersistenceService.cs" />
-    <Compile Include="ServiceInstance\IServiceInstancePersistenceService.cs" />
-    <Compile Include="ServiceInstance\RunningServiceInstanceDto.cs" />
-    <Compile Include="ServiceInstance\ServiceInstance.cs" />
-    <Compile Include="ServiceInstance\ServiceInstanceDto.cs" />
-    <Compile Include="ServiceInstance\ServiceInstancePersistenceService.cs" />
     <Compile Include="Utils\DataUtils.cs" />
   </ItemGroup>
   <ItemGroup>

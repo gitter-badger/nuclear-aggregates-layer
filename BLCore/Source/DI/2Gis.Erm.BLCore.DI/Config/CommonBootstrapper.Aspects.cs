@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Factories.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.API.Core.Checkin;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
@@ -28,7 +27,6 @@ using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Core.Checkin;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Locking;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
@@ -47,7 +45,6 @@ using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking;
-using DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config;
 using DoubleGis.Erm.Platform.DI.EAV;
@@ -344,18 +341,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             }
 
             return container;
-        }
-
-
-        public static IUnityContainer ConfigureServiceInstanceCheckin(this IUnityContainer container)
-        {
-            return container.RegisterType<IServiceInstanceCheckinService, ServiceInstanceCheckinService>(Lifetime.PerResolve)
-                            .RegisterType<IServiceInstanceIdProviderHolder, ServiceInstanceIdProviderHolder>(Lifetime.Singleton)
-                            .RegisterType<IServiceInstanceIdProvider, ServiceInstanceIdProviderHolder>(Lifetime.Singleton)
-                            .RegisterType<IServiceInstancePersistenceService, ServiceInstancePersistenceService>(Lifetime.Singleton,
-                                                                                                                 new InjectionConstructor(
-                                                                                                                     new ResolvedParameter<IDatabaseCaller>(
-                                                                                                                         Mapping.ErmInfrastructure)));
         }
 
         private static void ResolveReplicatedTypes(MsCrmIntegrationMode integrationMode, out Type[] asyncReplicatedTypes, out Type[] syncReplicatedTypes)

@@ -99,7 +99,6 @@
     <Compile Include="ServiceModel\EndpointBehaviors\WebHttpOperationSelection\WebHttpOperationSelectionBehavior.cs" />
     <Compile Include="ServiceModel\EndpointBehaviors\WebHttpOperationSelection\OperationSelectionBehaviorExtension.cs" />
     <Compile Include="ServiceModel\Formatters\JsonSerializerServerFormatterWrapper.cs" />
-    <Compile Include="ServiceModel\ServiceHost\CustomAuthorizationSelfCheckingServiceHost.cs" />
     <Compile Include="ServiceModel\ServiceHost\CustomAuthorizationServiceHost.cs" />
     <Compile Include="ServiceModel\ServiceBehaviors\ErmDispatchMessageInspectorFactory.cs" />
     <Compile Include="ServiceModel\ServiceBehaviors\ErmOperationContextMessageInspector.cs" />

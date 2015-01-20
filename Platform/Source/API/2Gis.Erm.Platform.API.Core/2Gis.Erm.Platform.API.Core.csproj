@@ -64,9 +64,6 @@
     </Compile>
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
-    <Compile Include="Checkin\IServiceInstanceCheckinService.cs" />
-    <Compile Include="Checkin\IServiceInstanceIdProvider.cs" />
-    <Compile Include="Checkin\IServiceInstanceIdProviderHolder.cs" />
     <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />
@@ -87,7 +84,6 @@
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForProjectException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
     <Compile Include="Exceptions\Withdrawal\WithdrawalException.cs" />
-    <Compile Include="Identities\IdentityProviderSettingsAspect.cs" />
     <Compile Include="Locking\IApplicationLocksManager.cs" />
     <Compile Include="Locking\IApplicationLocksService.cs" />
     <Compile Include="Locking\ILockingScope.cs" />
@@ -205,8 +201,6 @@
     <Compile Include="Settings\APIServices\RequiredServices.cs" />
     <Compile Include="Settings\Caching\CachingSettingsAspect.cs" />
     <Compile Include="Settings\Caching\ICachingSettings.cs" />
-    <Compile Include="Settings\Checkin\IServiceInstanceCheckinSettings.cs" />
-    <Compile Include="Settings\Checkin\ServiceInstanceCheckinSettingsAspect.cs" />
     <Compile Include="Settings\ConnectionStrings\IConnectionStringSettings.cs" />
     <Compile Include="Settings\CRM\MsCrmIntegrationMode.cs" />
     <Compile Include="Settings\Globalization\GlobalizationAspect.cs" />
