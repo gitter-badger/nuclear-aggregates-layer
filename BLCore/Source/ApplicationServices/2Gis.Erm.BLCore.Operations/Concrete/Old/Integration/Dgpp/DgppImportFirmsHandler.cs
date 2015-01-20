@@ -139,6 +139,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private void ImportContactsAndCategories(IEnumerable<Tuple<FirmAddress, ImportFirmAddressDto>> importedAddresses, FirmImportContext context)
         {
+            // COMMENT {all, 05.12.2014}: здесь использование UoWScope оставил, т.к. решил что разбираться необходима или нет изоляция между DomainContext для фирм и т.п. не целесообразно, лучше оставить
+            // Данный usecase фактически уже не используется, код интеграции с ДГПП пока оставлен на всякий случай, но скоро пойдет идет под снос, так что код будет выпилен вместе со всей интеграцией с ДГПП.
+            // В данном usecase после выпиливания отложенного сохранения просела бы производительность , если бы он массово использовался (т.к. UoWScope дает теперь только изоляцию, но не batch cохранение изменений),
+            // однако, т.к. этого нет, и, скорее всего, не будет существенный рефакторинг не выполнялся
             using (var scope = _unitOfWork.CreateScope())
             {
                 var firmRepository = scope.CreateRepository<IFirmRepository>();
@@ -162,6 +166,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private IEnumerable<Tuple<FirmAddress, ImportFirmAddressDto>> ImportAddresses(IEnumerable<Tuple<Firm, ImportFirmDto>> importedFirms, FirmImportContext context)
         {
+            // COMMENT {all, 05.12.2014}: здесь использование UoWScope оставил, т.к. решил что разбираться необходима или нет изоляция между DomainContext для фирм и т.п. не целесообразно, лучше оставить
+            // Данный usecase фактически уже не используется, код интеграции с ДГПП пока оставлен на всякий случай, но скоро пойдет идет под снос, так что код будет выпилен вместе со всей интеграцией с ДГПП.
+            // В данном usecase после выпиливания отложенного сохранения просела бы производительность, если бы он массово использовался (т.к. UoWScope дает теперь только изоляцию, но не batch cохранение изменений),
+            // однако, т.к. этого нет, и, скорее всего, не будет существенный рефакторинг не выполнялся
             var importedAddresses = new List<Tuple<FirmAddress, ImportFirmAddressDto>>();
             using (var scope = _unitOfWork.CreateScope())
             {
