@@ -5,6 +5,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 {
     public sealed class RussianNumberToWordsConverter : INumberToWordsConverter
     {
+        private static readonly IWordPluralizer Thousand = new RussianWordPluralizer("тысяча", "тысячи", "тысяч");
+        private static readonly IWordPluralizer Million = new RussianWordPluralizer("миллион", "миллиона", "миллионов");
+        private static readonly IWordPluralizer Milliard = new RussianWordPluralizer("миллиард", "миллиарда", "миллиардов");
+        private static readonly IWordPluralizer Trillion = new RussianWordPluralizer("триллион", "триллиона", "триллионов");
+        private static readonly IWordPluralizer Trilliard = new RussianWordPluralizer("триллиард", "триллиарда", "триллиардов");
+
         private readonly bool _isObjectMale;
 
         public RussianNumberToWordsConverter(bool isObjectMale)
@@ -24,7 +30,41 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 			"шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто "
 		};
 
-        private static string ToWords(long val, bool male, string one, string two, string five)
+        public string Convert(long number)
+        {
+            var minus = false;
+            if (number < 0m)
+            {
+                number = -number;
+                minus = true;
+            }
+
+            var resultBuilder = new StringBuilder();
+
+            if (0 == number) resultBuilder.Append("0 ");
+            
+            resultBuilder.Append(number % 1000 != 0 ? ToWords(number, _isObjectMale, null) : string.Empty);
+            number /= 1000;
+
+            resultBuilder.Insert(0, ToWords(number, false, Thousand));
+            number /= 1000;
+
+            resultBuilder.Insert(0, ToWords(number, true, Million));
+            number /= 1000;
+
+            resultBuilder.Insert(0, ToWords(number, true, Milliard));
+            number /= 1000;
+
+            resultBuilder.Insert(0, ToWords(number, true, Trillion));
+            number /= 1000;
+
+            resultBuilder.Insert(0, ToWords(number, true, Trilliard));
+            if (minus) resultBuilder.Insert(0, "минус ");
+
+            return resultBuilder.ToString().Trim();
+        }
+
+        private static string ToWords(long val, bool male, IWordPluralizer word)
         {
             string[] frac20 =
             {
@@ -63,63 +103,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
                 resultBuilder.Append(frac20[num % 10]);
             }
 
-            resultBuilder.Append(Case(num, one, two, five));
+            if (word != null)
+            {
+                resultBuilder.Append(word.GetPluralFor(num));
+            }
 
             if (resultBuilder.Length != 0) resultBuilder.Append(" ");
             return resultBuilder.ToString();
-        }
-
-        private static string Case(long val, string one, string two, string five)
-        {
-            var t = (val % 100 > 20) ? val % 10 : val % 20;
-
-            switch (t)
-            {
-                case 1:
-                    return one;
-                case 2:
-                case 3:
-                case 4:
-                    return two;
-                default:
-                    return five;
-            }
-        }
-
-        public string Convert(long number)
-        {
-            var minus = false;
-            if (number < 0m)
-            {
-                number = -number;
-                minus = true;
-            }
-
-            var resultBuilder = new StringBuilder();
-
-            if (0 == number) resultBuilder.Append("0 ");
-            resultBuilder.Append(number % 1000 != 0
-                                     ? ToWords(number, _isObjectMale, string.Empty, string.Empty, string.Empty)
-                                     : string.Empty);
-
-            number /= 1000;
-
-            resultBuilder.Insert(0, ToWords(number, false, "тысяча", "тысячи", "тысяч")); // COMMENT {all, 21.04.2014}: RussianWordPluralizer?
-            number /= 1000;
-
-            resultBuilder.Insert(0, ToWords(number, true, "миллион", "миллиона", "миллионов"));
-            number /= 1000;
-
-            resultBuilder.Insert(0, ToWords(number, true, "миллиард", "миллиарда", "миллиардов"));
-            number /= 1000;
-
-            resultBuilder.Insert(0, ToWords(number, true, "триллион", "триллиона", "триллионов"));
-            number /= 1000;
-
-            resultBuilder.Insert(0, ToWords(number, true, "триллиард", "триллиарда", "триллиардов"));
-            if (minus) resultBuilder.Insert(0, "минус ");
-
-            return resultBuilder.ToString().Trim();
         }
     }
 }

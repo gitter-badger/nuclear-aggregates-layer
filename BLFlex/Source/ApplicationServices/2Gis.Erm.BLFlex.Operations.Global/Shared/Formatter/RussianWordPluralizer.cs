@@ -4,15 +4,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 {
     public class RussianWordPluralizer : IWordPluralizer
     {
-        private readonly string _currencyNameForOne;
-        private readonly string _currencyNameForTwoThreeAndFour;
-        private readonly string _currencyNameForFiveAndMore;
+        private readonly string _formForOne;
+        private readonly string _formForTwoThreeAndFour;
+        private readonly string _formForFiveAndMore;
 
-        public RussianWordPluralizer(string currencyNameForOne, string currencyNameForTwoThreeAndFour, string currencyNameForFiveAndMore)
+        public RussianWordPluralizer(string formForOne, string formForTwoThreeAndFour, string formForFiveAndMore)
         {
-            _currencyNameForOne = currencyNameForOne;
-            _currencyNameForTwoThreeAndFour = currencyNameForTwoThreeAndFour;
-            _currencyNameForFiveAndMore = currencyNameForFiveAndMore;
+            _formForOne = formForOne;
+            _formForTwoThreeAndFour = formForTwoThreeAndFour;
+            _formForFiveAndMore = formForFiveAndMore;
         }
 
         public string GetPluralFor(long numberToRead)
@@ -20,8 +20,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
             numberToRead = Math.Abs(numberToRead);
 
             return numberToRead % 1000 != 0
-                       ? Case(numberToRead % 1000, _currencyNameForOne, _currencyNameForTwoThreeAndFour, _currencyNameForFiveAndMore)
-                       : _currencyNameForFiveAndMore;
+                       ? Case(numberToRead % 1000, _formForOne, _formForTwoThreeAndFour, _formForFiveAndMore)
+                       : _formForFiveAndMore;
         }
 
         private static string Case(long val, string one, string two, string five)
