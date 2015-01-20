@@ -20,18 +20,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
     {
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
 
         protected GetBranchOfficeOrganizationUnitDtoServiceBase(
             IUserContext userContext,
             IBranchOfficeReadModel branchOfficeReadModel,
-            IOrganizationUnitReadModel organizationUnitReadModel,
-            IAPIIdentityServiceSettings identityServiceSettings)
+            IOrganizationUnitReadModel organizationUnitReadModel)
             : base(userContext)
         {
             _branchOfficeReadModel = branchOfficeReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
-            _identityServiceSettings = identityServiceSettings;
         }
 
         protected override IDomainEntityDto<BranchOfficeOrganizationUnit> GetDto(long entityId)
@@ -66,8 +63,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
         protected override IDomainEntityDto<BranchOfficeOrganizationUnit> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             var dto = new TDto();
-
-            dto.SetPropertyValue("IdentityServiceUrl", _identityServiceSettings.RestUrl);
 
             switch (parentEntityName)
             {

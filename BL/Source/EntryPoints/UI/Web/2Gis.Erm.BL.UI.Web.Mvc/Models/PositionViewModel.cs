@@ -85,7 +85,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             AdvertisementTemplate = LookupField.FromReference(modelDto.AdvertisementTemplateRef);
             IsReadonlyTemplate = modelDto.IsReadOnlyTemplate;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

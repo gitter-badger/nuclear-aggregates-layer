@@ -17,6 +17,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -49,12 +50,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ISecureFinder secureFinder,
                                IOrderReadModel orderReadModel,
                                ILegalPersonReadModel legalPersonReadModel,
-                               ISecurityServiceEntityAccess securityServiceEntityAccess)
+                               ISecurityServiceEntityAccess securityServiceEntityAccess,
+                               IAPIIdentityServiceSettings identityServiceSettings)
             : base(msCrmSettings,
-                   userContext,
-                   logger,
                    operationsServiceSettings,
                    specialOperationsServiceSettings,
+                   identityServiceSettings,
+                   userContext,
+                   logger,
                    getBaseCurrencyService)
         {
             _publicService = publicService;

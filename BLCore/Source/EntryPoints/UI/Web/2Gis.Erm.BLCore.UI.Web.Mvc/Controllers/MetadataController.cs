@@ -17,15 +17,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
     {
         private readonly IAPIIntrospectionServiceSettings _introspectionServiceSettings;
 
-        public MetadataController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-            IAPIIntrospectionServiceSettings introspectionServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
+        public MetadataController(IMsCrmSettings msCrmSettings,
+                                  IAPIOperationsServiceSettings operationsServiceSettings,
+                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                  IAPIIdentityServiceSettings identityServiceSettings,
+                                  IUserContext userContext,
+                                  ICommonLog logger,
+                                  IGetBaseCurrencyService getBaseCurrencyService,
+                                  IAPIIntrospectionServiceSettings introspectionServiceSettings)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _introspectionServiceSettings = introspectionServiceSettings;
         }
