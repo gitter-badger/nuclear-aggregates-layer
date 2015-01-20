@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                             { 0.1111m, "одна тысяча сто одиннадцать десятитысячных процента" },
                         };
 
-                    _converter = new RussianPercentToWordsFormatter();
+                    _converter = new RussianPercentToWordsFormatter(4);
                 };
 
             Because of = () => Results = Data.Keys.Select(x => _converter.Format(x)).ToArray();

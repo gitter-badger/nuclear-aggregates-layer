@@ -10,7 +10,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
     {
         private static readonly IWordPluralizer Integer = new RussianWordPluralizer("целая", "целых", "целых");
         private static readonly IWordPluralizer Percent = new RussianWordPluralizer("процент", "процента", "процентов");
-
         private static readonly IDictionary<int, IWordPluralizer> Fractional
             = new Dictionary<int, IWordPluralizer>
                   {
@@ -20,13 +19,27 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
                       { 10000, new RussianWordPluralizer("десятитысячная", "десятитысячных", "десятитысячных") },
                   };
 
+        private readonly int _significantDigitsNumber;
+
+        public RussianPercentToWordsFormatter(int significantDigitsNumber)
+        {
+            _significantDigitsNumber = significantDigitsNumber;
+        }
+
         public string Format(object data)
         {
+            if (_significantDigitsNumber > Math.Log10(Fractional.Keys.Max()))
+            {
+                var message = string.Format("Невозможно вывести проценты с точностью до {0} знаков после запятой, нужно дополнить описание",
+                                            _significantDigitsNumber);
+                throw new ArgumentException(message);
+            }
+
             var value = Convert.ToDecimal(data);
 
             var integerPart = (int)Math.Floor(value);
             var fractionalPart = value - integerPart;
-            var displayedFractionalPart = (int)(fractionalPart * Fractional.Keys.Max());
+            var displayedFractionalPart = (int)(fractionalPart * (int)Math.Pow(10, _significantDigitsNumber));
 
             if (displayedFractionalPart == 0)
             {
