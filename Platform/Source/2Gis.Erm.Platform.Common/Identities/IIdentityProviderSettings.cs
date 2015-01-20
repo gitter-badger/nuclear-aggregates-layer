@@ -4,6 +4,6 @@ namespace DoubleGis.Erm.Platform.Common.Identities
 {
     public interface IIdentityProviderSettings : ISettings
     {
-        int IdentityServiceUniqueId { get; }
+        IdentityServiceUniqueIdSource UniqueIdSource { get; }
     }
 }

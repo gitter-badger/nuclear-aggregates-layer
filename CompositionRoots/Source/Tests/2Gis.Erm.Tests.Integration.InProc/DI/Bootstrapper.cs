@@ -55,6 +55,7 @@ using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.Identity;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -173,7 +174,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
                 .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
-                .ConfigureIdentityInfrastructure()
+                .ConfigureIdentityInfrastructure(false, false)
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .ConfigureExportMetadata()
@@ -229,7 +230,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
 
 
-                     .RegisterType<IIdentityServiceUniqueIdPersistenceService, IdentityServiceUniqueIdPersistenceService>(Lifetime.Singleton)
+                     .RegisterType<IIdentityServiceUniqueIdPersistenceService, IdentityServiceUniqueIdPersistenceService>(Lifetime.Singleton, new InjectionConstructor(new ResolvedParameter<IDatabaseCaller>(Mapping.ErmInfrastructure)))
                      .RegisterType<IIdentityServiceUniqueIdProvider, IdentityServiceUniqueIdProvider>(Lifetime.Singleton)
 
 

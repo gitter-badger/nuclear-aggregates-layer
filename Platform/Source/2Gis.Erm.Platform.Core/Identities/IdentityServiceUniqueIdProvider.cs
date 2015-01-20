@@ -3,7 +3,6 @@ using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Checkin;
 using DoubleGis.Erm.Platform.API.Core.Locking;
-using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Identities;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.Identity;
 
@@ -15,18 +14,15 @@ namespace DoubleGis.Erm.Platform.Core.Identities
         private readonly IIdentityServiceUniqueIdPersistenceService _identityServiceUniqueIdPersistenceService;
         private readonly IServiceInstanceIdProvider _serviceInstanceIdProvider;
         private readonly IApplicationLocksService _applicationLocksService;
-        private readonly IGlobalizationSettings _globalizationSettings;
         private readonly Lazy<byte> _lazyIdentityServiceUniqueId;
 
         public IdentityServiceUniqueIdProvider(IIdentityServiceUniqueIdPersistenceService identityServiceUniqueIdPersistenceService, 
                                                IServiceInstanceIdProvider serviceInstanceIdProvider, 
-                                               IApplicationLocksService applicationLocksService, 
-                                               IGlobalizationSettings globalizationSettings)
+                                               IApplicationLocksService applicationLocksService)
         {
             _identityServiceUniqueIdPersistenceService = identityServiceUniqueIdPersistenceService;
             _serviceInstanceIdProvider = serviceInstanceIdProvider;
             _applicationLocksService = applicationLocksService;
-            _globalizationSettings = globalizationSettings;
             _lazyIdentityServiceUniqueId = new Lazy<byte>(AcquireId);
         }
 
@@ -46,9 +42,9 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             }
 
             byte id;
-            using (var appLock = _applicationLocksService.Acquire(LockName.ReserveIdentityServiceUniqueId, LockOwner.Session, _timeout))
+            using (var appLock = _applicationLocksService.Acquire(LockName.ReserveIdentityServiceUniqueId, LockOwner.Session, LockScope.AllInstallations, _timeout))
             {
-                if (!_identityServiceUniqueIdPersistenceService.TryGetFirstIdleId((int)_globalizationSettings.BusinessModel, out id))
+                if (!_identityServiceUniqueIdPersistenceService.TryGetFirstIdleId(out id))
                 {
                     throw new InvalidOperationException(string.Format("Can't get unique id for service instance {0}", instanceId));
                 }

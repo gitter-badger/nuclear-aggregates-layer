@@ -141,7 +141,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                     .ConfigureReplicationMetadata(msCrmSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                    .ConfigureIdentityInfrastructure(true)
+                    .ConfigureIdentityInfrastructure(false, true)
                     .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureMetadata()
                     .ConfigureExportMetadata()

@@ -163,7 +163,7 @@ namespace DoubleGis.Erm.Platform.Core.Checkin
                 }
 
                 ILockingScope serviceInstancesAccessLock;
-                if (_applicationLocksService.TryAcquire(LockName.ReportFailedInstances, LockOwner.Session, out serviceInstancesAccessLock))
+                if (_applicationLocksService.TryAcquire(LockName.ReportFailedInstances, LockOwner.Session, LockScope.AllInstallations, out serviceInstancesAccessLock))
                 {
                     using (serviceInstancesAccessLock)
                     {

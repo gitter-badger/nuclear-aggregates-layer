@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
+                .ConfigureIdentityInfrastructure(false, false)
                 .ConfigureExportMetadata()
                 .ConfigureMetadata()
                 .ConfigureLocalization(typeof(Resources),

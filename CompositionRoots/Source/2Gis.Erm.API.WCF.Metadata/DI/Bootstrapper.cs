@@ -20,6 +20,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Metadata;
+using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.Identity;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -63,6 +64,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                                                                    settingsContainer.AsSettings<IConnectionStringSettings>(),
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                   settingsContainer.AsSettings<IIdentityProviderSettings>(),
                                                                    loggerContextManager))
                      .ConfigureServiceClient();
 
@@ -80,6 +82,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
             IConnectionStringSettings connectionStringSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
+            IIdentityProviderSettings identityProviderSettings,
             ILoggerContextManager loggerContextManager)
         {
             return container
@@ -90,7 +93,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureMetadata()
-                .ConfigureIdentityInfrastructure()
+                .ConfigureIdentityInfrastructure(identityProviderSettings)
                 .ConfigureServiceInstanceCheckin()
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
@@ -102,18 +105,21 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                 .RegisterType<IClientCompatibilityProvider, ClientCompatibilityProvider>(Lifetime.PerResolve);
         }
 
-        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
+        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container, IIdentityProviderSettings identityProviderSettings)
         {
-            return container.RegisterType<IIdentityProviderService, IdentityProviderService>(Lifetime.Singleton)
+            container.RegisterType<IIdentityProviderService, IdentityProviderService>(Lifetime.Singleton)
                 // TODO {all, 29.08.2013}: Удалить регистрацию acessor, после рефакторинга потребителей IIdentityProvider в соответствии с SRP не будет потребителей не будет нужен и accessor
                 // Пока приходится регистрировать не только генератор Id но и accessor для него, чтобы проходил resolve типов, несмотря на то что сервис генерации ID (как и весь сервис metadata) работает только в readonly режиме и создает никакие сущности
                 // Примеры таких не используемых потребителей - Security service facade и т.п.
-                            .RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
-                            .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton)
-                            .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton)
+                     .RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton)
 
-                            .RegisterType<IIdentityServiceUniqueIdPersistenceService, IdentityServiceUniqueIdPersistenceService>(Lifetime.Singleton)
-                            .RegisterType<IIdentityServiceUniqueIdProvider, IdentityServiceUniqueIdProvider>(Lifetime.Singleton);
+                     .RegisterType<IIdentityServiceUniqueIdPersistenceService, IdentityServiceUniqueIdPersistenceService>(Lifetime.Singleton, new InjectionConstructor(new ResolvedParameter<IDatabaseCaller>(Mapping.ErmInfrastructure)));
+
+            return identityProviderSettings.UniqueIdSource == IdentityServiceUniqueIdSource.AppLock
+                       ? container.RegisterTypeWithDependencies<IIdentityServiceUniqueIdProvider, AppLockIdentityServiceUniqueIdProvider>(Lifetime.Singleton, Mapping.ErmInfrastructure)
+                       : container.RegisterType<IIdentityServiceUniqueIdProvider, IdentityServiceUniqueIdProvider>(Lifetime.Singleton);
         }
 
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)

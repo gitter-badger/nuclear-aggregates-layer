@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
 
         public void Add(ServiceInstanceDto serviceInstance)
         {
-            _databaseCaller.ExecuteRawSql(@"INSERT INTO [Metadata].[ServiceInstances]
+            _databaseCaller.ExecuteRawSql(@"INSERT INTO [Identity].[ServiceInstances]
                                                        ([Id]
                                                        ,[Environment]
                                                        ,[EntryPoint]
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
                                                                           ,[LastCheckinTime]
                                                                           ,[CheckinIntervalMs]
                                                                           ,[TimeSafetyOffsetMs]
-                                                                FROM [Metadata].[ServiceInstances] WHERE [IsRunning] = 1")
+                                                                FROM [Identity].[ServiceInstances] WHERE [IsRunning] = 1")
                                   .Select(x => new RunningServiceInstanceDto
                                                    {
                                                        Id = x.Id,
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
 
         public void Checkin(Guid instanceId, DateTimeOffset now)
         {
-            _databaseCaller.ExecuteRawSql("UPDATE [Metadata].[ServiceInstances] SET [LastCheckinTime] = @LastCheckinTime WHERE [Id] = @Id",
+            _databaseCaller.ExecuteRawSql("UPDATE [Identity].[ServiceInstances] SET [LastCheckinTime] = @LastCheckinTime WHERE [Id] = @Id",
                                           new
                                               {
                                                   LastCheckinTime = now,
@@ -86,13 +86,13 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.ServiceInstance
 
         public void ReportNotRunning(IEnumerable<Guid> ids, bool isSelfReport)
         {
-            _databaseCaller.ExecuteRawSql("UPDATE [Metadata].[ServiceInstances] SET [IsRunning] = 0, [IsSelfReport] = @IsSelfReport WHERE [Id] IN @Ids",
+            _databaseCaller.ExecuteRawSql("UPDATE [Identity].[ServiceInstances] SET [IsRunning] = 0, [IsSelfReport] = @IsSelfReport WHERE [Id] IN @Ids",
                                           new { IsSelfReport = isSelfReport, Ids = ids });
         }
 
         public bool IsRunning(Guid instanceId)
         {
-            return _databaseCaller.QueryRawSql<bool>(@"SELECT [IsRunning] FROM [Metadata].[ServiceInstances] WHERE [Id] = @Id", new { Id = instanceId }).SingleOrDefault();
+            return _databaseCaller.QueryRawSql<bool>(@"SELECT [IsRunning] FROM [Identity].[ServiceInstances] WHERE [Id] = @Id", new { Id = instanceId }).SingleOrDefault();
         }
 
         #region nested

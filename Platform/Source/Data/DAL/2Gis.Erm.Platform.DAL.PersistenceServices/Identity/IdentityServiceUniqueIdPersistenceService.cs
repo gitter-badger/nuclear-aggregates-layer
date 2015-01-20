@@ -14,16 +14,12 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Identity
             _databaseCaller = databaseCaller;
         }
 
-        public bool TryGetFirstIdleId(int installationId, out byte id)
+        public bool TryGetFirstIdleId(out byte id)
         {
             var results = _databaseCaller.QueryRawSql<byte>(@"SELECT TOP 1 [isi].[IdentityServiceUniqueId]
-                                                FROM [Metadata].[IdentityServiceIds] [isi]
-                                                LEFT JOIN [Metadata].[ServiceInstances] [si] ON [si].[Id] = [isi].[ServiceInstanceId]
-                                                WHERE [isi].[InstallationId] = @InstallationId AND ([si].[Id] IS NULL OR [si].[IsRunning] = 0)",
-                                                            new
-                                                                {
-                                                                    InstallationId = installationId
-                                                                })
+                                                FROM [Identity].[IdentityServiceIds] [isi]
+                                                LEFT JOIN [Identity].[ServiceInstances] [si] ON [si].[Id] = [isi].[ServiceInstanceId]
+                                                WHERE [si].[Id] IS NULL OR [si].[IsRunning] = 0")
                                          .ToArray();
 
             if (results.Length == 1)
@@ -38,7 +34,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Identity
 
         public void ReserveId(byte id, Guid serviceInstanceId)
         {
-                _databaseCaller.ExecuteRawSql(@"UPDATE [Metadata].[IdentityServiceIds]
+                _databaseCaller.ExecuteRawSql(@"UPDATE [Identity].[IdentityServiceIds]
                                             SET [ServiceInstanceId] = @ServiceInstanceId
                                             WHERE [IdentityServiceUniqueId] = @IdentityServiceUniqueId",
                                               new { IdentityServiceUniqueId = id, ServiceInstanceId = serviceInstanceId });
@@ -47,7 +43,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Identity
         public bool IsIdReservedBy(byte id, Guid serviceInstanceId)
         {
             return _databaseCaller.QueryRawSql<int>(@"SELECT 1 
-                                                      FROM [Metadata].[IdentityServiceIds] 
+                                                      FROM [Identity].[IdentityServiceIds] 
                                                       WHERE [IdentityServiceUniqueId] = @IdentityServiceUniqueId AND [ServiceInstanceId] = @ServiceInstanceId",
                                                     new
                                                         {

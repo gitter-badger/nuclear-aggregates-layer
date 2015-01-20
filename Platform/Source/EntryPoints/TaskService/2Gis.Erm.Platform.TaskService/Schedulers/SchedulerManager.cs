@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -22,8 +25,6 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
 {
     public sealed class SchedulerManager : ISchedulerManager
     {
-        private const string DataSourceName = "SchedulerData";
-
         private readonly ICommonLog _logger;
         private readonly ITaskServiceProcessingSettings _processingSettings;
         private readonly IConnectionStringSettings _connectionStringSettings;
@@ -129,6 +130,19 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
             }
         }
 
+        private static ConnectionStringSettings CreateQuartzJobStoreConnectionString(ConnectionStringSettings ermInfrastructureConnectionString)
+        {
+            var ermInfrastructureConnectionStringBuilder = new SqlConnectionStringBuilder(ermInfrastructureConnectionString.ConnectionString);
+            var jobStoreConnectionStringBuilder = new DbConnectionStringBuilder
+                                                              {
+                                                                  { "Server", ermInfrastructureConnectionStringBuilder.DataSource },
+                                                                  { "Database", ermInfrastructureConnectionStringBuilder.InitialCatalog },
+                                                                  { "Trusted_Connection", ermInfrastructureConnectionStringBuilder.IntegratedSecurity }
+                                                              };
+
+            return new ConnectionStringSettings("SchedulerData", jobStoreConnectionStringBuilder.ConnectionString, "SqlServer-20");
+        }
+
         private IJobStore CreateJobStore(string instanceId)
         {
             switch (_processingSettings.JobStoreType)
@@ -139,15 +153,16 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                 }
                 case JobStoreType.TX:
                 {
-                    var jobStoreConnectionString = _connectionStringSettings.GetConnectionStringSettings(ConnectionStringName.QuartzJobStore);
-                    DBConnectionManager.Instance.AddConnectionProvider(DataSourceName,
+                    var jobStoreConnectionString =
+                        CreateQuartzJobStoreConnectionString(_connectionStringSettings.GetConnectionStringSettings(ConnectionStringName.ErmInfrastructure));
+                    DBConnectionManager.Instance.AddConnectionProvider(jobStoreConnectionString.Name,
                                                                        new DbProvider(jobStoreConnectionString.ProviderName,
                                                                                       jobStoreConnectionString.ConnectionString));
 
                     return new JobStoreTX
                                {
-                                   DataSource = DataSourceName,
-                                   TablePrefix = string.Empty,
+                                   DataSource = jobStoreConnectionString.Name,
+                                   TablePrefix = "Quartz.",
                                    InstanceId = instanceId,
                                    InstanceName = _processingSettings.SchedulerName,
                                    DriverDelegateType = typeof(SqlServerDelegate).AssemblyQualifiedName,

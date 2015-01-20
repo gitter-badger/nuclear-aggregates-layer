@@ -112,6 +112,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IReadDomainContext, ReadDomainContextCachingProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUnitOfWork, UnityUnitOfWork>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
+                        .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmInfrastructure, Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmInfrastructure)))
                         .RegisterType<IAggregatesLayerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IAggregatesLayerRuntimeFactory))
                         .RegisterType<ISimplifiedModelConsumerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as ISimplifiedModelConsumerRuntimeFactory))
                         .RegisterType<IPersistenceServiceRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IPersistenceServiceRuntimeFactory))
@@ -122,8 +123,8 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
 
-                        .RegisterType<IApplicationLocksPersistenceService, ApplicationLocksPersistenceService>(Mapping.ApplicationLocksScope, Lifetime.Singleton)
-                        .RegisterTypeWithDependencies<IApplicationLocksService, ApplicationLocksService>(Lifetime.Singleton, Mapping.ApplicationLocksScope)
+                        .RegisterType<IApplicationLocksPersistenceService, ApplicationLocksPersistenceService>(Mapping.ErmInfrastructure, Lifetime.Singleton)
+                        .RegisterTypeWithDependencies<IApplicationLocksService, ApplicationLocksService>(Lifetime.Singleton, Mapping.ErmInfrastructure)
 
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя
                         // пока без них не смогут работать нарпимер handler в которые напрямую, инжектиться finder
@@ -320,18 +321,26 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                                                                                                new InjectionConstructor(asyncReplicatedTypes, syncReplicatedTypes));
         }
 
-        public static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container, bool useNullChecker = false)
+        public static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container, bool useNullRequestStrategy, bool useNullChecker)
         {
-            container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
-                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(Lifetime.Singleton);
+            container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton);
 
-            if (useNullChecker)
+            if (useNullRequestStrategy)
             {
-                container.RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(Lifetime.Singleton);
+                container.RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton);
             }
             else
             {
+                container.RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(Lifetime.Singleton);
+            }
+
+            if (useNullChecker)
+            {
                 container.RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
+            }
+            else
+            {
+                container.RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(Lifetime.Singleton);
             }
 
             return container;
@@ -343,7 +352,10 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return container.RegisterType<IServiceInstanceCheckinService, ServiceInstanceCheckinService>(Lifetime.PerResolve)
                             .RegisterType<IServiceInstanceIdProviderHolder, ServiceInstanceIdProviderHolder>(Lifetime.Singleton)
                             .RegisterType<IServiceInstanceIdProvider, ServiceInstanceIdProviderHolder>(Lifetime.Singleton)
-                            .RegisterType<IServiceInstancePersistenceService, ServiceInstancePersistenceService>(Lifetime.Singleton);
+                            .RegisterType<IServiceInstancePersistenceService, ServiceInstancePersistenceService>(Lifetime.Singleton,
+                                                                                                                 new InjectionConstructor(
+                                                                                                                     new ResolvedParameter<IDatabaseCaller>(
+                                                                                                                         Mapping.ErmInfrastructure)));
         }
 
         private static void ResolveReplicatedTypes(MsCrmIntegrationMode integrationMode, out Type[] asyncReplicatedTypes, out Type[] syncReplicatedTypes)

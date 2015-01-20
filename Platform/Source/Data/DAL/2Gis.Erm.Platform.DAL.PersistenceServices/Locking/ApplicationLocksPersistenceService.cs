@@ -23,9 +23,10 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
             _connectionStringSettings = connectionStringSettings;
         }
 
-        public bool AcquireLock(string lockName, LockOwner lockOwner, TimeSpan timeout, out Guid lockId)
+        public bool AcquireLock(string lockName, LockOwner lockOwner, LockScope lockScope, TimeSpan timeout, out Guid lockId)
         {
-            var builder = new SqlConnectionStringBuilder(_connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)) { Pooling = false, Enlist = false };
+            var connectionString = lockScope == LockScope.CurrentInstallation ? ConnectionStringName.Erm : ConnectionStringName.ErmInfrastructure;
+            var builder = new SqlConnectionStringBuilder(_connectionStringSettings.GetConnectionString(connectionString)) { Pooling = false, Enlist = false };
             var connection = new SqlConnection(builder.ConnectionString);
 
             connection.Open();

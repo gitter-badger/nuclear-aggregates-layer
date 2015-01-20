@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             {
                 var id = (byte)((startId + i) % 256);
                 Guid lockId;
-                if (_applicationLocksPersistenceService.AcquireLock(string.Format(IdAppLockTemplate, id), LockOwner.Transaction, TimeSpan.Zero, out lockId))
+                if (_applicationLocksPersistenceService.AcquireLock(string.Format(IdAppLockTemplate, id), LockOwner.Transaction, LockScope.AllInstallations, TimeSpan.Zero, out lockId))
                 {
                     _lockId = lockId;
                     _id = id;

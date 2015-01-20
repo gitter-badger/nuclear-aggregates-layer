@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                         .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
+                .ConfigureIdentityInfrastructure(false, false)
                 .ConfigureReadWriteModels()
                 .ConfigureMetadata()
                 .ConfigureLocalization(typeof(Resources),

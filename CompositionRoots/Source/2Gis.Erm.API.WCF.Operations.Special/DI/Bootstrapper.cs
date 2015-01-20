@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                 .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
+                .ConfigureIdentityInfrastructure(false, false)
                 .ConfigureMetadata()
                 .ConfigureLocalization(typeof(Resources),
                                        typeof(ResPlatform),

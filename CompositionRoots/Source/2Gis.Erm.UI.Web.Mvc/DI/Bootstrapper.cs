@@ -206,7 +206,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                      .ConfigureReplicationMetadata(msCrmSettings)
                      .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                     .ConfigureIdentityInfrastructure()
+                     .ConfigureIdentityInfrastructure(false, false)
                      .ConfigureReleasingInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IUIServicesManager, UnityUIServicesManager>(CustomLifetime.PerRequest)

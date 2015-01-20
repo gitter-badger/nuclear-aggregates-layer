@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                 .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
+                .ConfigureIdentityInfrastructure(true, true)
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
@@ -105,14 +105,6 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
         {
             return CustomLifetime.PerOperationContext;
-        }
-
-        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
-        {
-            // MoDi сервис только читает из базы, поэтому ему не нужна полная реализация сервиса получения идентификаторов.
-            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(CustomLifetime.PerOperationContext);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)

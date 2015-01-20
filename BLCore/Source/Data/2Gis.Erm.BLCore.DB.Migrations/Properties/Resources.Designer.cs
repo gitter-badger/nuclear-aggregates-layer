@@ -2793,33 +2793,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SET ANSI_NULLS ON
-        ///GO
-        ///
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///
-        ///CREATE SCHEMA [Metadata]
-        ///
-        ///CREATE TABLE [Metadata].[IdentityServiceIds](
-        ///	[IdentityServiceUniqueId] [tinyint] NOT NULL,
-        ///	[InstallationId] [int] NOT NULL,
-        ///	[ServiceInstanceId] [uniqueidentifier] NULL,
-        /// CONSTRAINT [PK_IdentityServiceIds] PRIMARY KEY CLUSTERED 
-        ///(
-        ///	[IdentityServiceUniqueId] ASC
-        ///)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-        ///) ON [PRIMARY]
-        ///
-        ///GO [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string ISC {
-            get {
-                return ResourceManager.GetString("ISC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to IF object_id(&apos;[Activity].[AppointmentReferences]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentReferences];
         ///IF object_id(&apos;[Activity].[AppointmentBase]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentBase];
         ///
@@ -3064,7 +3037,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	            , [tasks].[ReplicationCode] as [ActivityId]
         ///
         ///	            , [tasks].[Subject]
-        ///	            , [tasks].[Description [rest of string was truncated]&quot;;.
+        ///	            , [tasks].[Description]
+        ///	            , CA [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration_24481_ReplicateTask {
             get {

@@ -85,6 +85,7 @@
     <Compile Include="Crosscutting\ICrosscuttingService.cs" />
     <Compile Include="Crosscutting\IInvariantSafeCrosscuttingService.cs" />
     <Compile Include="Identities\IdentityProviderService.cs" />
+    <Compile Include="Identities\IdentityServiceUniqueIdSource.cs" />
     <Compile Include="Identities\IIdentityProviderService.cs" />
     <Compile Include="Identities\IIdentityProviderSettings.cs" />
     <Compile Include="Identities\IIdentityServiceUniqueIdProvider.cs" />
