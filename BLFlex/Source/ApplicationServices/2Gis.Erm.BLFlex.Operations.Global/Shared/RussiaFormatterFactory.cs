@@ -13,6 +13,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             SetFormat(FormatType.LongDate, "{0:dd MMMM yyyy}");
             SetFormat(FormatType.ShortDate, "{0:dd.MM.yy}");
             SetFormat(FormatType.Money, new RoublesFormatter());
+            SetFormat(FormatType.PercentWords, new RussianPercentToWordsFormatter());
 
             SetMoneyWordsFormatter(RublesCurrencyIsoCode,
                                    new MoneyToWordsFormatter(
