@@ -22,11 +22,11 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
                 SearchListModel = searchListModel,
             };
 
-            querySettings.Sort = new[] { searchListModel.Sort }.Where(x => !string.IsNullOrEmpty(x)).Select(x => new QuerySettingsSort
-            {
-                PropertyName = x,
-                Direction = GetSortDirection(searchListModel.Dir),
-            }).ToArray();
+            querySettings.Sort =
+                (searchListModel.Sort ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                            .Where(x => !string.IsNullOrEmpty(x))
+                                            .Select(x => new QuerySettingsSort { PropertyName = x, Direction = GetSortDirection(searchListModel.Dir), })
+                                            .ToArray();
 
             var extendedInfo = searchListModel.ExtendedInfo;
 

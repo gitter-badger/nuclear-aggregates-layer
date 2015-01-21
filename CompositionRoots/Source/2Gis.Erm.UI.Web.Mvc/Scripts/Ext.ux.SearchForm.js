@@ -217,8 +217,10 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
                 pId: qstringparams.pId,
                 pType: qstringparams.pType,
                 limit: this.currentSettings.RowsPerPage,
+                sort: ["IsOwner", "Name"]
+                /*,
                 dir: this.currentSettings.DefaultSortDirection == 0 ? "ASC" : "DESC",
-                sort: this.currentSettings.DefaultSortField
+                sort: this.currentSettings.DefaultSortField*/
             }),
             listeners:
                             {
