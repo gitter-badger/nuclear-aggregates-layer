@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -18,20 +17,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IAccountRepository _accountRepository;
-        private readonly IWithdrawalInfoRepository _withdrawalInfoRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
 
         public ProcessOrderOnApprovedToOnTerminationHandler(
             ISubRequestProcessor subRequestProcessor, 
             IAccountRepository accountRepository,
-            IWithdrawalInfoRepository withdrawalInfoRepository,
             IOrderRepository orderRepository, 
             IOrderReadModel orderReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
             _accountRepository = accountRepository;
-            _withdrawalInfoRepository = withdrawalInfoRepository;
             _orderRepository = orderRepository;
             _orderReadModel = orderReadModel;
         }
@@ -89,13 +85,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             if (activeLocksCount > 0)
             {
                 var inactiveLocksCount = _accountRepository.GetInactiveLocksCount(order.Id);
-                var releasesSum = _withdrawalInfoRepository.TakeAmountToWithdrawForOrder(order.Id, inactiveLocksCount, 1);
+                var releasesSum = _orderReadModel.TakeAmountToWithdrawForOrder(order.Id, inactiveLocksCount, 1);
                 order.PayableFact += releasesSum ?? 0.0m;
             }
 
             _orderRepository.Update(order); // The following handlers need order and its extension saved
 
-            _subRequestProcessor.HandleSubRequest(new CalculateReleaseWithdrawalsRequest { Order = request.Order }, Context);
+            _subRequestProcessor.HandleSubRequest(new ActualizeOrderReleaseWithdrawalsRequest { Order = request.Order }, Context);
 
             return Response.Empty;
         }

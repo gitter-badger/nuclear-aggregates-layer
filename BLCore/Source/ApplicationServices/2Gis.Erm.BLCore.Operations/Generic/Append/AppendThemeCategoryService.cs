@@ -43,15 +43,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
                 throw new ArgumentException(string.Format(BLResources.CannotAppendMoreCategories, MaxCategoriesPerTheme));
             }
 
-            // FIXME {all, 05.08.2013}: реализация append, а декларируется операция createorupdate - исправить
-            // DONE {i.maslennikov, 2013-08-07}: Да, было дело, вместо append двух сущностей логировался createorupdate одной, их связывающей. 
-            //                                   Исправил в рамках разбиения на атомарные.
             using (var scope = _scopeFactory.CreateSpecificFor<AppendIdentity, Theme, Category>())
             {
                 _themeRepository.AppendThemeToCategory(themeId, categoryId);
+                
                 scope.Updated<Theme>(themeId)
-                     .Updated<Category>(categoryId);
-                scope.Complete();
+                     .Updated<Category>(categoryId)
+                     .Complete();
             }
         }
     }
