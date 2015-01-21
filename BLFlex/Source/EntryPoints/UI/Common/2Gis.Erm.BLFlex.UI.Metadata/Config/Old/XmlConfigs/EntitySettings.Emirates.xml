@@ -115,10 +115,10 @@
         </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
-          <ToolbarItem ParentName="Create" Name="CreateTask" NameLocaleResourceId="ControlCreateTask" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateTask" SecurityPrivelegeFlag="32" />
-          <ToolbarItem ParentName="Create" Name="CreatePhonecall" NameLocaleResourceId="ControlCreatePhonecall" ControlType="TextButton" LockOnInactive="false" Action="scope.CreatePhonecall" SecurityPrivelegeFlag="32" />
-          <ToolbarItem ParentName="Create" Name="CreateAppointment" NameLocaleResourceId="ControlCreateAppointment" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateAppointment" SecurityPrivelegeFlag="32" />
-          <ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
+          <ToolbarItem ParentName="Create" Name="CreateTask" NameLocaleResourceId="ControlCreateTask" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateTask" SecurityPrivelegeFlag="32" />
+          <ToolbarItem ParentName="Create" Name="CreatePhonecall" NameLocaleResourceId="ControlCreatePhonecall" ControlType="TextButton" LockOnInactive="true" Action="scope.CreatePhonecall" SecurityPrivelegeFlag="32" />
+          <ToolbarItem ParentName="Create" Name="CreateAppointment" NameLocaleResourceId="ControlCreateAppointment" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateAppointment" SecurityPrivelegeFlag="32" />
+          <ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
         </ToolbarItems>
