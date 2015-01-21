@@ -3,6 +3,8 @@
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Resources.Server;
 
+using NuClear.Metamodeling.Entities;
+
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {
     public sealed class NonZeroPropertyFeature : IValidatablePropertyFeature

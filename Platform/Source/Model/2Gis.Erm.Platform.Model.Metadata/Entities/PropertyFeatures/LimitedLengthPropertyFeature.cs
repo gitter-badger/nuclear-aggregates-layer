@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
+﻿using NuClear.Metamodeling.Entities;
+
+namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {
     public sealed class LimitedLengthPropertyFeature : IValidatablePropertyFeature
     {

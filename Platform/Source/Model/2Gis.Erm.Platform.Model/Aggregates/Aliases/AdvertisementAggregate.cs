@@ -1,16 +1,35 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum AdvertisementAggregate
+    public static class AdvertisementAggregate
     {
-        Advertisement = EntityName.Advertisement,
-        AdvertisementElement = EntityName.AdvertisementElement,
-        AdvertisementElementStatus = EntityName.AdvertisementElementStatus,
-        AdvertisementElementDenialReason = EntityName.AdvertisementElementDenialReason,
-        AdvertisementTemplate = EntityName.AdvertisementTemplate,
-        AdvertisementElementTemplate = EntityName.AdvertisementElementTemplate,
-        AdsTemplatesAdsElementTemplate = EntityName.AdsTemplatesAdsElementTemplate,
-        FileWithContent = EntityName.FileWithContent
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Advertisement(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.AdvertisementElement(),
+                                    EntityType.Instance.AdvertisementElementStatus(),
+                                    EntityType.Instance.AdvertisementElementDenialReason(),
+                                    EntityType.Instance.AdvertisementTemplate(),
+                                    EntityType.Instance.AdvertisementElementTemplate(),
+                                    EntityType.Instance.AdsTemplatesAdsElementTemplate(),
+                                    EntityType.Instance.FileWithContent()
+                                })
+                    .ToArray();
+            }
+        }
     }
 }

@@ -3,6 +3,8 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
+using NuClear.Metamodeling.Entities;
+
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {
     public class GroupedPropertyFeature : IPropertyFeature

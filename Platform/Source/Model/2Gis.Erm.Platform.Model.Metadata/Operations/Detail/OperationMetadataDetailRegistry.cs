@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
+
+using NuClear.Metamodeling.Operations.Detail;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
 {
     public static class OperationMetadataDetailRegistry
     {
-        private readonly static Dictionary<Type, Func<EntityName[], IOperationMetadata>> Identities2MetadataResolverMap =
-            new Dictionary<Type, Func<EntityName[], IOperationMetadata>>();
+        private readonly static Dictionary<Type, Func<IEntityType[], IOperationMetadata>> Identities2MetadataResolverMap =
+            new Dictionary<Type, Func<IEntityType[], IOperationMetadata>>();
 
         static OperationMetadataDetailRegistry()
         {
@@ -33,20 +36,20 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             Identities2MetadataResolverMap.Add(typeof(ModifyBusinessModelEntityIdentity), GetModifyBusinessModelEntityMetadata);
         }
 
-        public static IOperationMetadata GetOperationMetadata<TOperationIdentity>(params EntityName[] operationProcessingEntities)
+        public static IOperationMetadata GetOperationMetadata<TOperationIdentity>(params IEntityType[] operationProcessingEntities)
             where TOperationIdentity : IOperationIdentity, new()
         {
             return GetOperationMetadata(typeof(TOperationIdentity), operationProcessingEntities);
         }
 
-        public static IOperationMetadata GetOperationMetadata(Type operationIdentityType, params EntityName[] operationProcessingEntities)
+        public static IOperationMetadata GetOperationMetadata(Type operationIdentityType, params IEntityType[] operationProcessingEntities)
         {
             if (!typeof(IOperationIdentity).IsAssignableFrom(operationIdentityType))
             {
                 throw new ArgumentException("Specified type " + operationIdentityType + " is not an operation identity valid type");
             }
 
-            Func<EntityName[], IOperationMetadata> resolver;
+            Func<IEntityType[], IOperationMetadata> resolver;
             if (!Identities2MetadataResolverMap.TryGetValue(operationIdentityType, out resolver) || resolver == null)
             {
                 return null;
@@ -56,213 +59,202 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
         }
 
         #region Metadata Resolvers
-        private static AssignMetadata GetAssignMetadata(EntityName[] entityNames)
+        private static AssignMetadata GetAssignMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
+            var entityName = entityTypes.Single();
             if (!entityName.IsOwnerable())
             {
                 return null;
             }
 
-            var assignMetadata = new AssignMetadata();
-            switch (entityName)
+            if (entityName.Equals(EntityType.Instance.Client()) ||
+                entityName.Equals(EntityType.Instance.LegalPerson()))
             {
-                case EntityName.Client:
-                case EntityName.LegalPerson:
-                    assignMetadata.PartialAssignSupported = true;
-                    break;
+                return new AssignMetadata { PartialAssignSupported = true };
             }
 
-            return assignMetadata;
+            return new AssignMetadata();
         }
 
-        private static QualifyMetadata GetQualifyMetadata(EntityName[] entityNames)
+        private static QualifyMetadata GetQualifyMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Firm()))
             {
-                case EntityName.Firm:
-                    return new QualifyMetadata();
-                case EntityName.Client:
-                    return new QualifyMetadata { CheckForDebtsSupported = true };
+                return new QualifyMetadata();
             }
 
-            return null;
-        }
-
-        private static DisqualifyMetadata GetDisqualifyMetadata(EntityName[] entityNames)
-        {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            if (entityName.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Firm:
-                case EntityName.Client:
-                    return new DisqualifyMetadata();
+                return new QualifyMetadata { CheckForDebtsSupported = true };
             }
 
             return null;
         }
 
-        private static CheckForDebtsMetadata GetCheckForDebtsMetadata(EntityName[] entityNames)
+        private static DisqualifyMetadata GetDisqualifyMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Firm()) ||
+                entityName.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Client:
-                    return new CheckForDebtsMetadata();
+                return new DisqualifyMetadata();
             }
 
             return null;
         }
 
-        private static ChangeTerritoryMetadata GetChangeTerritoryMetadata(EntityName[] entityNames)
+        private static CheckForDebtsMetadata GetCheckForDebtsMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Firm:
-                case EntityName.Client:
-                    return new ChangeTerritoryMetadata();
+                return new CheckForDebtsMetadata();
             }
 
             return null;
         }
 
-        private static ChangeClientMetadata GetChangeClientMetadata(EntityName[] entityNames)
+        private static ChangeTerritoryMetadata GetChangeTerritoryMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Firm()) ||
+                entityName.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Firm:
-                case EntityName.LegalPerson:
-                case EntityName.Deal:
-                    return new ChangeClientMetadata();
+                return new ChangeTerritoryMetadata();
             }
+
             return null;
         }
 
-        private static AppendMetadata GetAppendMetadata(EntityName[] entityNames)
+        private static ChangeClientMetadata GetChangeClientMetadata(IEntityType[] entityTypes)
         {
-            if (entityNames == null || entityNames.Length != 2)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Firm()) ||
+                entityName.Equals(EntityType.Instance.LegalPerson()) ||
+                entityName.Equals(EntityType.Instance.Deal()))
+            {
+                return new ChangeClientMetadata();
+            }
+
+            return null;
+        }
+
+        private static AppendMetadata GetAppendMetadata(IEntityType[] entityTypes)
+        {
+            if (entityTypes == null || entityTypes.Length != 2)
             {
                 throw new InvalidOperationException("Can't resolve append operation metadata for invalid entities types list");
             }
 
-            EntityName parentEntityName = entityNames[1];
-            EntityName appendedEntityName = entityNames[0];
-            switch (parentEntityName)
+            var parentEntityType = entityTypes[1];
+            var appendedEntityType = entityTypes[0];
+            if (parentEntityType.Equals(EntityType.Instance.Client()) &&
+                appendedEntityType.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Client:
-                    {
-                        switch (appendedEntityName)
-                        {
-                            case EntityName.Client:
-                                return new AppendMetadata();
-                        }
+                return new AppendMetadata();
+            }
 
-                        break;
-                    }
+            if (parentEntityType.Equals(EntityType.Instance.Client()) &&
+                (appendedEntityType.Equals(EntityType.Instance.Firm()) ||
+                 appendedEntityType.Equals(EntityType.Instance.LegalPerson())))
+            {
+                return new AppendMetadata();
+            }
 
-                case EntityName.Deal:
-                    {
-                        switch (appendedEntityName)
-                        {
-                            case EntityName.Firm:
-                            case EntityName.LegalPerson:
-                                return new AppendMetadata();
-                        }
+            if (parentEntityType.Equals(EntityType.Instance.User()) &&
+                (appendedEntityType.Equals(EntityType.Instance.OrganizationUnit()) ||
+                 appendedEntityType.Equals(EntityType.Instance.Role()) ||
+                 appendedEntityType.Equals(EntityType.Instance.Territory())))
+            {
+                return new AppendMetadata();
+            }
 
-                        break;
-                    }
-
-                case EntityName.User:
-                    {
-                        switch (appendedEntityName)
-                        {
-                            case EntityName.OrganizationUnit:
-                            case EntityName.Role:
-                            case EntityName.Territory:
-                                return new AppendMetadata();
-                        }
-
-                        break;
-                    }
-                case EntityName.Theme:
-                    {
-                        switch (appendedEntityName)
-                        {
-                            case EntityName.Category:
-                            case EntityName.OrganizationUnit:
-                                return new AppendMetadata();
-                        }
-                        break;
-                    }
+            if (parentEntityType.Equals(EntityType.Instance.Theme()) &&
+                (appendedEntityType.Equals(EntityType.Instance.Category()) ||
+                 appendedEntityType.Equals(EntityType.Instance.OrganizationUnit())))
+            {
+                return new AppendMetadata();
             }
 
             return null;
         }
 
-        private static ActionHistoryMetadata GetActionHistoryMetadata(EntityName[] entityNames)
+        private static ActionHistoryMetadata GetActionHistoryMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Account()) ||
+                entityName.Equals(EntityType.Instance.Client()) ||
+                entityName.Equals(EntityType.Instance.Firm()))
             {
-                case EntityName.Account:
-                case EntityName.Client:
-                case EntityName.Firm:
-                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode" } };
-                case EntityName.AccountDetail:
-                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Amount", "Description" } };
-                case EntityName.Deal:
-                    return new ActionHistoryMetadata { Properties = new[] { "DealStage", "OwnerCode" } };
-                case EntityName.Order:
-                    return new ActionHistoryMetadata { Properties = new[] { "WorkflowStepId", "OwnerCode" } };
-                case EntityName.LegalPerson:
-                    return new ActionHistoryMetadata
-                        {
-                            Properties = new[]
-                                {
-                                    "LegalName",
-                                    "OwnerCode",
-                                    "LegalAddress",
-                                    "Inn",
-                                    "Kpp",
-                                    "RegistrationAddress",
-                                    "PassportNumber",
-                                    "PassportSeries",
-                                    "ShortName"
-                                }
-                        };
-                case EntityName.Limit:
-                    return new ActionHistoryMetadata { Properties = new[] { "StartPeriodDate", "EndPeriodDate", "Amount", "Status" } };
-                case EntityName.AdvertisementElement:
-                    return new ActionHistoryMetadata
-                        {
-                            Properties = new[] { "ModifiedBy" }
-                        };
-                case EntityName.AdvertisementElementStatus:
-                    return new ActionHistoryMetadata
-                        {
-                            Properties = new[] { "Status" }
-                        };
-                case EntityName.Advertisement:
-                    return new ActionHistoryMetadata
-                        {
-                            Properties = new[] { "ModifiedBy" }
-                        };
-                case EntityName.Bargain:
-                    return new ActionHistoryMetadata
-                    {
-                        Properties = new[] { "BargainEndDate" }
-                    };
+                return new ActionHistoryMetadata { Properties = new[] { "OwnerCode" } };
+            }
+
+            if (entityName.Equals(EntityType.Instance.AccountDetail()))
+            {
+                return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Amount", "Description" } };
+            }
+
+            if (entityName.Equals(EntityType.Instance.Deal()))
+            {
+                return new ActionHistoryMetadata { Properties = new[] { "DealStage", "OwnerCode" } };
+            }
+
+            if (entityName.Equals(EntityType.Instance.Order()))
+            {
+                return new ActionHistoryMetadata { Properties = new[] { "WorkflowStepId", "OwnerCode" } };
+            }
+
+            if (entityName.Equals(EntityType.Instance.LegalPerson()))
+            {
+                return new ActionHistoryMetadata
+                {
+                    Properties = new[]
+                                                {
+                                                    "LegalName",
+                                                    "OwnerCode",
+                                                    "LegalAddress",
+                                                    "Inn",
+                                                    "Kpp",
+                                                    "RegistrationAddress",
+                                                    "PassportNumber",
+                                                    "PassportSeries",
+                                                    "ShortName"
+                                                }
+                };
+            }
+
+            if (entityName.Equals(EntityType.Instance.Limit()))
+            {
+                return new ActionHistoryMetadata { Properties = new[] { "StartPeriodDate", "EndPeriodDate", "Amount", "Status" } };
+            }
+
+            if (entityName.Equals(EntityType.Instance.AdvertisementElement()))
+            {
+                return new ActionHistoryMetadata { Properties = new[] { "ModifiedBy" } };
+            }
+
+            if (entityName.Equals(EntityType.Instance.AdvertisementElementStatus()))
+            {
+                return new ActionHistoryMetadata { Properties = new[] { "Status" } };
+            }
+
+            if (entityName.Equals(EntityType.Instance.Advertisement()))
+            {
+                return new ActionHistoryMetadata { Properties = new[] { "ModifiedBy" } };
+            }
+
+            if (entityName.Equals(EntityType.Instance.Bargain()))
+            {
+                return new ActionHistoryMetadata { Properties = new[] { "BargainEndDate" } };
             }
 
             return null;
         }
 
-        private static DownloadFileMetadata GetDownloadFileMetadata(EntityName[] entityNames)
+        private static DownloadFileMetadata GetDownloadFileMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
+            var entityName = entityTypes.Single();
             if (!entityName.IsFileEntity())
             {
                 return null;
@@ -271,9 +263,9 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             return new DownloadFileMetadata();
         }
 
-        private static UploadFileMetadata GetUploadFileMetadata(EntityName[] entityNames)
+        private static UploadFileMetadata GetUploadFileMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
+            var entityName = entityTypes.Single();
             if (!entityName.IsFileEntity())
             {
                 return null;
@@ -282,9 +274,9 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             return new UploadFileMetadata();
         }
 
-        private static ActivateMetadata GetActivateMetadata(EntityName[] entityNames)
+        private static ActivateMetadata GetActivateMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
+            var entityName = entityTypes.Single();
             if (!entityName.IsDeactivatable())
             {
                 return null;
@@ -293,9 +285,9 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             return new ActivateMetadata();
         }
 
-        private static DeactivateMetadata GetDeactivateMetadata(EntityName[] entityNames)
+        private static DeactivateMetadata GetDeactivateMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
+            var entityName = entityTypes.Single();
             if (!entityName.IsDeactivatable())
             {
                 return null;
@@ -304,9 +296,9 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             return new DeactivateMetadata();
         }
 
-        private static DeleteMetadata GetDeleteMetadata(EntityName[] entityNames)
+        private static DeleteMetadata GetDeleteMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
+            var entityName = entityTypes.Single();
             if (!entityName.IsDeletable())
             {
                 return null;
@@ -315,34 +307,32 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             return new DeleteMetadata();
         }
 
-        private static ModifySimplifiedModelEntityMetadata GetModifySimplifiedModelEntityMetadata(EntityName[] entityNames)
+        private static ModifySimplifiedModelEntityMetadata GetModifySimplifiedModelEntityMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Category()) ||
+                entityName.Equals(EntityType.Instance.Operation()))
             {
-                case EntityName.Category:
-                case EntityName.Operation:
-                    return null;
+                return null;
             }
 
             return new ModifySimplifiedModelEntityMetadata();
         }
 
-        private static ModifyBusinessModelEntityMetadata GetModifyBusinessModelEntityMetadata(EntityName[] entityNames)
+        private static ModifyBusinessModelEntityMetadata GetModifyBusinessModelEntityMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.FirmAddress()) ||
+                entityName.Equals(EntityType.Instance.FirmContact()) ||
+                entityName.Equals(EntityType.Instance.Lock()) ||
+                entityName.Equals(EntityType.Instance.LockDetail()))
             {
-                case EntityName.FirmAddress:
-                case EntityName.FirmContact:
-                case EntityName.Lock:
-                case EntityName.LockDetail:
-                    return null;
+                return null;
             }
+
             return new ModifyBusinessModelEntityMetadata();
         }
 
         #endregion
-    
     }
 }

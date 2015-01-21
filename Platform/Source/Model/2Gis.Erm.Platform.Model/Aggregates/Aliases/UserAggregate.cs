@@ -1,27 +1,47 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum UserAggregate
+    public static class UserAggregate
     {
-        User = EntityName.User,
-        UserRole = EntityName.UserRole,
-        UserOrganizationUnit = EntityName.UserOrganizationUnit,
-        UserTerritory = EntityName.UserTerritory,
-        Department = EntityName.Department,
-        UserProfile = EntityName.UserProfile,
-        OrganizationUnit = EntityName.OrganizationUnit, //
-        Territory = EntityName.Territory, //
-        Client = EntityName.Client, //
-        Firm = EntityName.Firm, //
-        Deal = EntityName.Deal, //
-        LegalPerson = EntityName.LegalPerson, //
-        LegalPersonProfile = EntityName.LegalPersonProfile, //
-        Bargain = EntityName.Bargain, //
-        Contact = EntityName.Contact, //
-        Order = EntityName.Order, //
-        OrderPosition = EntityName.OrderPosition, //
-        Account = EntityName.Account, //
-        Limit = EntityName.Limit //
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.User(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.UserRole(),
+                                    EntityType.Instance.UserOrganizationUnit(),
+                                    EntityType.Instance.UserTerritory(),
+                                    EntityType.Instance.Department(),
+                                    EntityType.Instance.FileWithContent(),
+                                    EntityType.Instance.UserProfile(),
+                                    EntityType.Instance.OrganizationUnit(), //
+                                    EntityType.Instance.Territory(), //
+                                    EntityType.Instance.Client(), //
+                                    EntityType.Instance.Firm(), //
+                                    EntityType.Instance.Deal(), //
+                                    EntityType.Instance.LegalPerson(), //
+                                    EntityType.Instance.LegalPersonProfile(), //
+                                    EntityType.Instance.Bargain(), //
+                                    EntityType.Instance.Contact(), //
+                                    EntityType.Instance.Order(), //
+                                    EntityType.Instance.OrderPosition(), //
+                                    EntityType.Instance.Account(), //
+                                    EntityType.Instance.Limit(), //
+                                })
+                    .ToArray();
+            }
+        }
     }
 }

@@ -727,7 +727,6 @@
     <Compile Include="DI\PlatformModelAssembly.cs" />
     <Compile Include="ModelIndicators.AggregateOperationSpecific.cs" />
     <Compile Include="Aggregates\AggregateDescriptor.cs" />
-    <Compile Include="Aggregates\AggregateDescriptorUtils.cs" />
     <Compile Include="Aggregates\AggregatesList.cs" />
     <Compile Include="Aggregates\Aliases\AccountAggregate.cs" />
     <Compile Include="Aggregates\Aliases\ActivityAggregate.cs" />

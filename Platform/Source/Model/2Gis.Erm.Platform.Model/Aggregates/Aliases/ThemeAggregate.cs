@@ -1,13 +1,32 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum ThemeAggregate
+    public static class ThemeAggregate
     {
-        Theme = EntityName.Theme,
-        ThemeTemplate = EntityName.ThemeTemplate,
-        ThemeCategory = EntityName.ThemeCategory,
-        ThemeOrganizationUnit = EntityName.ThemeOrganizationUnit,
-        FileWithContent = EntityName.FileWithContent
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Theme(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.ThemeTemplate(),
+                                    EntityType.Instance.ThemeCategory(),
+                                    EntityType.Instance.ThemeOrganizationUnit(),
+                                    EntityType.Instance.FileWithContent()
+                                })
+                    .ToArray();
+            }
+        }
     }
 }

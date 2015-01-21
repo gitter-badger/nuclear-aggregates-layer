@@ -1,9 +1,22 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum OrganizationUnitAggregate
+    public static class OrganizationUnitAggregate
     {
-         OrganizationUnit = EntityName.OrganizationUnit
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.OrganizationUnit(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root };
+            }
+        }
     }
 }

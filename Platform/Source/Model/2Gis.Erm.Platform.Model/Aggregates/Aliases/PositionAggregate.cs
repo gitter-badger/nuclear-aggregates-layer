@@ -1,11 +1,30 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum PositionAggregate
+    public static class PositionAggregate
     {
-        Position = EntityName.Position,
-        PositionChildren = EntityName.PositionChildren,
-        PositionCategory = EntityName.PositionCategory,
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Position(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.PositionChildren(),
+                                    EntityType.Instance.PositionCategory()
+                                })
+                    .ToArray();
+            }
+        }
     }
 }

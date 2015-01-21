@@ -1,14 +1,34 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum LegalPersonAggregate
+    public static class LegalPersonAggregate
     {
-        LegalPerson = EntityName.LegalPerson,
-        Account = EntityName.Account, //
-        Bargain = EntityName.Bargain, //
-        Order = EntityName.Order, //
-        Limit = EntityName.Limit, //
-        LegalPersonProfile = EntityName.LegalPersonProfile,
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.LegalPerson(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.Account(), //
+                                    EntityType.Instance.Bargain(), //
+                                    EntityType.Instance.Order(), //
+                                    EntityType.Instance.Limit(), //
+                                    EntityType.Instance.Limit(), //
+                                    EntityType.Instance.LegalPersonProfile()
+                                })
+                    .ToArray();
+            }
+        }
     }
 }

@@ -5,6 +5,8 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties.Configuration;
 
+using NuClear.Metamodeling.Entities;
+
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {
     public sealed class LookupPropertyFeature : IPropertyFeature
