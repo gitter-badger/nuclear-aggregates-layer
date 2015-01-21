@@ -1,6 +1,5 @@
-﻿using NuClear.Model.Common.Entities.Aspects;
-
-using NuClear.Model.Common.Entities;
+﻿using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging

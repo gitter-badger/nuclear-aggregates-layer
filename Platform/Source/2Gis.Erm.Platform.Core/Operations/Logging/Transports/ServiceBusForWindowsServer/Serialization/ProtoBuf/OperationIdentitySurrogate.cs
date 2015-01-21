@@ -1,7 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity;
 
 using ProtoBuf;
 
