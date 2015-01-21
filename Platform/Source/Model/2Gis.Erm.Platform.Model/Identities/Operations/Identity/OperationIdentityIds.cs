@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int RegisterOrderStateChangesIdentity = 1024;
 
         // EntityName.ReleaseWithdrawal = 215
-        public const int CalculateReleaseWithdrawalsIdentity = 21501;
+        public const int ActualizeOrderReleaseWithdrawalsIdentity = 21501;
 
         // EntityName.OrderValidationResult = 232
         public const int ResetValidationGroupIdentity = 23201;
@@ -125,13 +125,16 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ObtainDealForBizaccountOrderIdentity = 15114;
         public const int CreateOrderBillsIdentity = 15115;
         public const int DeleteOrderBillsIdentity = 15116;
-        public const int ChangeOrderLegalPersonProfileIdentity = 15117;
+        public const int ActualizeOrderAmountToWithdrawIdentity = 15117;
+        public const int ChangeOrderLegalPersonProfileIdentity = 15120;
 
         // EntityName.OrderPosition = 150
         public const int CalculateOrderPositionCostIdentity = 15001;
         public const int ValidateOrderPositionAdvertisementsIdentity = 15002;
         public const int CalculateCategoryRateIdentity = 15003;
         public const int ViewOrderPositionIdentity = 15004;
+        public const int ReplaceOrderPositionAdvertisementLinksIdentity = 15005;
+        public const int ChangeOrderPositionBindingObjectsIdentity = 15006;
 
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;

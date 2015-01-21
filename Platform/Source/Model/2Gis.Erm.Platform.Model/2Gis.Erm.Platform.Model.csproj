@@ -521,6 +521,8 @@
     <Compile Include="Identities\Operations\Identity\Specific\Limit\SetLimitStatusIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ChangeOrderPositionBindingObjectsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ReplaceOrderPositionAdvertisementLinksIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ViewOrderPositionIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\CancelOrderProcessingRequestIdentity .cs" />
@@ -533,6 +535,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\SelectOrderProcessingOwnerIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\RegisterOrderStateChangesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ValidateOrdersIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\ActualizeOrderAmountToWithdrawIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CreateOrderBillsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\DeleteOrderBillsIdentity.cs" />
@@ -582,7 +585,6 @@
     <Compile Include="Aggregates\Aliases\RoleAggregate.cs" />
     <Compile Include="Aggregates\Aliases\ThemeAggregate.cs" />
     <Compile Include="Aggregates\Aliases\UserAggregate.cs" />
-    <Compile Include="Aggregates\Aliases\WithdrawalAggregate.cs" />
     <Compile Include="Aggregates\IAggregateSpecificOperation.cs" />
     <Compile Include="Aggregates\IUnknownAggregateSpecificOperation.cs" />
     <Compile Include="Ambivalent\AmbivalentEntities.cs" />
@@ -616,7 +618,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\LegalPerson\ChangeRequisitesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Limit\CloseLimitIdenitity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Limit\ReopenLimitIdenitity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateReleaseWithdrawalsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\ActualizeOrderReleaseWithdrawalsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Release\AttachExternalReleaseProcessingMessagesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Release\ValidateOrdersForReleaseIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Release\EnsureOrdersForReleaseCompletelyExportedIdentity.cs" />

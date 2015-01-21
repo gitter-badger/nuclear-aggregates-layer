@@ -195,7 +195,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
             #endregion
 
-            ResumeContext.UseCaseResume(new CalculateReleaseWithdrawalsRequest { Order = order });
+            ResumeContext.UseCaseResume(new ActualizeOrderReleaseWithdrawalsRequest { Order = order });
 
             #region Logging
 
@@ -217,7 +217,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         protected override void DetermineOrderPlatform(Order order)
         {
-            OrderReadModel.UpdateOrderPlatform(order);
+            order.PlatformId = OrderReadModel.EvaluateOrderPlatformId(order.Id);
         }
 
         protected override void CreateAccount(Order order)

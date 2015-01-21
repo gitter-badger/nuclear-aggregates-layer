@@ -3959,9 +3959,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Chybně zadané typy entit pro přidání pododdílu k tématu</value>
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>Nelze přidat pododdíl k výchozímu tématu</value>
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>Není možné odstranit téma, které je použito v objednávkách</value>
   </data>

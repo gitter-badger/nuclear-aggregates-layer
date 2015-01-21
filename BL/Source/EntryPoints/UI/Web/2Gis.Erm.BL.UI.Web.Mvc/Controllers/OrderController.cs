@@ -338,8 +338,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.OrganizationUnit));
                 }
 
-                if (
-                    !_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PrereleaseOrderValidationExecution,
+                if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PrereleaseOrderValidationExecution,
                                                                             UserContext.Identity.Code))
                 {
                     throw new NotificationException(BLResources.AccessDeniedPrereleaseOrderValidationExecution);
