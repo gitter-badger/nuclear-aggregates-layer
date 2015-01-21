@@ -20,7 +20,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     supressMatchesErrors: false,
     parentEntityName: "None",
     parentIdPattern: "",
-
+    
     initComponent: function ()
     {
         window.Ext.ux.LookupField.superclass.initComponent.call(this);
@@ -316,7 +316,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                 idProperty: 'Id',
                 root: 'Data',
                 totalProperty: 'RowCount',
-                fields: this.tplFields || [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute },  { name: "additionalName", mapping: this.additionalName}]
+                fields: this.tplFields || [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute }]
             })
         });
 
