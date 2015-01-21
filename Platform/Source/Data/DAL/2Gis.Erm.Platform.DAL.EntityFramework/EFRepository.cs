@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {

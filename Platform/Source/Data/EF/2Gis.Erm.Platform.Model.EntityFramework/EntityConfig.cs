@@ -3,7 +3,8 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework
 {

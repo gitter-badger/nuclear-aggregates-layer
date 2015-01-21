@@ -9,9 +9,10 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
+
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {

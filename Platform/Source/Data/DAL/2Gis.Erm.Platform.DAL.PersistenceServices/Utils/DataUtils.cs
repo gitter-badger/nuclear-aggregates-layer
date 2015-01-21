@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils
 {
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils
             foreach (DataRow rowData in dataTable.Rows)
             {
                 var entityId = rowData.Column<long>(idColumn);
-                var entityType = rowData.Column<EntityName>(entityNameColumn).AsEntityType();
+                var entityType = rowData.Column<IEntityType>(entityNameColumn).AsEntityType();
                 var changesType = rowData.Column<ChangesType>(changeTypeColumn);
 
                 switch (changesType)
