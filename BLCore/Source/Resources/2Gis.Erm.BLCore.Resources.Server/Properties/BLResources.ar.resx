@@ -3959,9 +3959,6 @@ The operation has been executed: {6}.</value>
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Cannot add subdivision to a topic due to incorrect entity types.</value>
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>You cannot add a company division to the topic set by default</value>
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>You cannot delete the topic which is used in orders</value>
   </data>

@@ -24,8 +24,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderValidationRuleGroup;
-
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 {
     // FIXME {all, 10.07.2014}: почти полная copy/paste других adapted версий этого handler, при рефакторинге ApplicationServices - попытаться объеденить обратно + использование finder и т.п.
@@ -37,9 +35,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
         private readonly IPublicService _publicService;
         private readonly IOrderRepository _orderRepository;
+        private readonly IReplaceOrderPositionAdvertisementLinksOperationService _replaceOrderPositionAdvertisementLinksOperationService;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
-        private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly ICheckIfOrderPositionCanBeModifiedOperationService _checkIfOrderPositionCanBeModifiedOperationService;
 
         private readonly IOperationScopeFactory _scopeFactory;
@@ -51,9 +49,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             IOrganizationUnitReadModel organizationUnitReadModel,
             IPublicService publicService,
             IOrderRepository orderRepository,
+            IReplaceOrderPositionAdvertisementLinksOperationService replaceOrderPositionAdvertisementLinksOperationService,
             ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
             ICalculateOrderPositionCostService calculateOrderPositionCostService,
-            IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
             IOperationScopeFactory scopeFactory,
             ICategoryReadModel categoryReadModel, 
             ICheckIfOrderPositionCanBeModifiedOperationService checkIfOrderPositionCanBeModifiedOperationService)
@@ -63,9 +61,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             _organizationUnitReadModel = organizationUnitReadModel;
             _publicService = publicService;
             _orderRepository = orderRepository;
+            _replaceOrderPositionAdvertisementLinksOperationService = replaceOrderPositionAdvertisementLinksOperationService;
             _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
-            _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
             _categoryReadModel = categoryReadModel;
             _checkIfOrderPositionCanBeModifiedOperationService = checkIfOrderPositionCanBeModifiedOperationService;
@@ -109,16 +107,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                 orderPosition = _finder.Find(Specs.Find.ById<OrderPosition>(orderPosition.Id)).Single();
             }
 
-            using (var operationScope = _scopeFactory.CreateOrUpdateOperationFor(orderPosition))
+            using (var scope = _scopeFactory.CreateOrUpdateOperationFor(orderPosition))
             {
                 // Сохранение рекламы должно быть до расчета списаний
-                var isOrderPositionCreated = !orderPosition.IsNew();
-                if (isOrderPositionCreated)
+                var isOrderPositionAlreadyExisting = !orderPosition.IsNew();
+                if (isOrderPositionAlreadyExisting)
                 {
-                    SetAdsValidationRuleGroupAsInvalid(orderInfo.Id);
-
-                    var orderIsLocked = orderInfo.WorkflowStepId != OrderState.OnRegistration;
-                    _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
+                    _replaceOrderPositionAdvertisementLinksOperationService.Replace(orderPosition.Id, advertisementsLinks);
                 }
 
                 if (orderInfo.WorkflowStepId == OrderState.OnRegistration)
@@ -126,9 +121,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     orderPosition.OwnerCode = orderInfo.OwnerCode;
 
                     var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(orderPosition.PricePositionId))
-                                                   .Select(
-                                                           x =>
-                                                           new
+                                                   .Select(x => new
                                                                {
                                                                    x.Cost,
                                                                    SalesModel = x.Position.SalesModel,
@@ -228,45 +221,44 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
                     // Сохраняем изменения OrderPosition в БД
                     _orderRepository.CreateOrUpdate(orderPosition);
-
-                    if (!isOrderPositionCreated)
+                    if (!isOrderPositionAlreadyExisting)
                     {
-                        SetAdsValidationRuleGroupAsInvalid(orderInfo.Id);
-
-                        var orderIsLocked = orderInfo.WorkflowStepId != OrderState.OnRegistration;
-                        _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
+                        _replaceOrderPositionAdvertisementLinksOperationService.Replace(orderPosition.Id, advertisementsLinks);
                     }
 
                     var order = _orderReadModel.GetOrderSecure(orderPosition.OrderId);
 
-                    _orderReadModel.UpdateOrderPlatform(order);
-
-                    _orderRepository.UpdateOrderNumber(order);
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });
-                    _publicService.Handle(new CalculateReleaseWithdrawalsRequest { Order = order });
+                    _publicService.Handle(new ActualizeOrderReleaseWithdrawalsRequest { Order = order });
 
-                    // Сохраняем изменения объектов Order  в БД, если по каким-то причинам это не сделал один из вышестоящих хендлеров
+                    var targetPlatformId = _orderReadModel.EvaluateOrderPlatformId(order.Id);
+                    var evaluatedOrderNumbersInfo = _orderReadModel.EvaluateOrderNumbers(order.Number, order.RegionalNumber, targetPlatformId);
+
+                    order.PlatformId = targetPlatformId;
+                    order.Number = evaluatedOrderNumbersInfo.Number;
+                    order.RegionalNumber = evaluatedOrderNumbersInfo.RegionalNumber;
                     _orderRepository.Update(order);
+                    scope.Updated<Order>(order.Id);
                 }
 
-                if (isOrderPositionCreated)
+                if (isOrderPositionAlreadyExisting)
                 {
-                    operationScope
+                    scope
                         .Updated<OrderPosition>(orderPosition.Id);
                 }
                 else
                 {
-                    operationScope
+                    scope
                         .Added<OrderPosition>(orderPosition.Id);
                 }
 
-                operationScope.Complete();
+                scope.Complete();
             }
 
             return Response.Empty;
         }
 
-        private static void ValidateEntity(OrderPosition entity, bool isBudget)
+        private static void ValidateEntity(OrderPosition entity, bool isSinglePlannedProvisionSalesModel)
         {
             if (entity == null)
             {
@@ -293,36 +285,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                 throw new NotificationException(BLResources.AttemptToSaveOrderPositionWithNegativeValueOfPayablePrice);
             }
 
-            if (!isBudget)
-            {
-                return;
-            }
-
-            if (entity.Amount != 1)
-            {
-                throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne);
-            }
-
             if (entity.PricePerUnitWithVat < 0 || entity.PricePerUnitWithVat < 0)
             {
                 throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithNegativePrice);
             }
-        }
 
-        private void SetAdsValidationRuleGroupAsInvalid(long orderId)
-        {
-            _registerOrderStateChangesOperationService.Changed(new[]
-                                                                   {
-                                                                       new OrderChangesDescriptor
-                                                                           {
-                                                                               OrderId = orderId,
-                                                                               ChangedAspects = new[]
-                                                                                                    {
-                                                                                                        OrderValidationRuleGroup.AdvertisementMaterialsValidation,
-                                                                                                        OrderValidationRuleGroup.SalesModelValidation,
-                                                                                                    }
-                                                                           }
-                                                                   });
+            if (isSinglePlannedProvisionSalesModel && entity.Amount != 1)
+            {
+                throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne);
+            }
         }
     }
 }
