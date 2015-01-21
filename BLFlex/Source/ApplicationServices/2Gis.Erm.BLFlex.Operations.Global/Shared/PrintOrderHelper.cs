@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             }
         }
 
-        public PrintData GetOrderPositionsWithDetailedName(IQueryable<Order> orderQuery, IQueryable<OrderPosition> orderPositionsQuery)
+        public PrintData GetOrderPositionsWithDetailedName(IQueryable<Order> orderQuery, IQueryable<OrderPosition> orderPositionsQuery, SalesModel? salesModel)
         {
             var orderInfo = orderQuery
                 .Select(order => new
@@ -130,13 +130,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                          .FirstOrDefault(y => y.IsActive && !y.IsDeleted && y.IsPrimaryForRegionalSales)
                          .RegistrationCertificate,
                     Order = order,
-                    SalesModel = order.OrderPositions.Where(position => position.IsActive && !position.IsDeleted)
-                         .Select(position => position.PricePosition.Position.SalesModel)
-                         .FirstOrDefault()
                 })
                 .Single();
 
-            var orderPositionNameFormat = orderInfo.SalesModel == SalesModel.MultiPlannedProvision
+            var orderPositionNameFormat = salesModel == SalesModel.MultiPlannedProvision
                                               ? PositionDetailedName.FormatMultiFullHouse
                                               : PositionDetailedName.FormatOldSalesModels;
 

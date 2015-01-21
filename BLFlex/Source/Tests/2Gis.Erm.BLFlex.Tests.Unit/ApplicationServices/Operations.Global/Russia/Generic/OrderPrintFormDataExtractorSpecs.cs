@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             {
                 Result = PrintData.Concat(DataExtractor.GetBranchOffice(Query(BranchOffice)),
                                           DataExtractor.GetOrder(Query(Order)),
-                                          DataExtractor.GetOrderPositions(Query(Order), Query(OrderPosition)),
+                                          DataExtractor.GetOrderPositions(Query(Order), Query(OrderPosition), null),
                                           DataExtractor.GetPaymentSchedule(Query(Bill)),
                                           DataExtractor.GetUngrouppedFields(Query(Order), BranchOfficeOrganizationUnit, LegalPerson, LegalPersonProfile),
                                           DataExtractor.GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit),

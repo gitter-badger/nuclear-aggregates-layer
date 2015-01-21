@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             return PrintData.Concat(_orderPrintFormDataExtractor.GetBranchOffice(branchOfficeQuery),
                                     _orderPrintFormDataExtractor.GetOrder(orderQuery),
-                                    _orderPrintFormDataExtractor.GetOrderPositions(orderQuery, orderPositionQuery),
+                                    _orderPrintFormDataExtractor.GetOrderPositions(orderQuery, orderPositionQuery, order.SalesModel),
                                     _orderPrintFormDataExtractor.GetPaymentSchedule(billQuery),
                                     _orderPrintFormDataExtractor.GetUngrouppedFields(orderQuery, boou, legalPerson, profile),
                                     _orderPrintFormDataExtractor.GetBranchOfficeOrganizationUnit(boou),

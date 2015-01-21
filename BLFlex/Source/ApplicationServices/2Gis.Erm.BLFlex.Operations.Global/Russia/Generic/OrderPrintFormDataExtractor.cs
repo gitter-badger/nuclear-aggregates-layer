@@ -100,9 +100,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             };
         }
 
-        public PrintData GetOrderPositions(IQueryable<Order> orderQuery, IQueryable<OrderPosition> query)
+        public PrintData GetOrderPositions(IQueryable<Order> orderQuery, IQueryable<OrderPosition> query, SalesModel? salesModel)
         {
-            return _printOrderHelper.GetOrderPositionsWithDetailedName(orderQuery, query);
+            return _printOrderHelper.GetOrderPositionsWithDetailedName(orderQuery, query, salesModel);
         }
 
         public PrintData GetUngrouppedFields(IQueryable<Order> query, BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile legalPersonProfile)
