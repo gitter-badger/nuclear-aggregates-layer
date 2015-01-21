@@ -11,8 +11,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
     {
         private readonly IPersistenceChangesRegistryProvider _changesRegistryProvider;
 
-        public EFGenericRepository(IUserContext userContext,
-                                   IModifiableDomainContextProvider modifiableDomainContextProvider,
+        public EFGenericRepository(IUserContext userContext, 
+                                   IModifiableDomainContextProvider modifiableDomainContextProvider, 
                                    IPersistenceChangesRegistryProvider changesRegistryProvider)
             : base(userContext, modifiableDomainContextProvider)
         {
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             ThrowIfEntityIsNull(entity, "entity");
             ThrowIfEntityHasNoId(entity);
-            
+
             SetEntityAuditableInfo(entity, true);
 
             Set().Add(entity);
@@ -200,10 +200,10 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         IDbEntityEntry IDomainEntityEntryAccessor<TEntity>.GetDomainEntityEntry(TEntity entity, out EntityPlacementState entityPlacementState)
         {
             return EnsureEntityIsAttached(entity, out entityPlacementState);
-                    }
+        }
 
         public int Save()
-            {
+        {
             return SaveChanges();
         }
     }

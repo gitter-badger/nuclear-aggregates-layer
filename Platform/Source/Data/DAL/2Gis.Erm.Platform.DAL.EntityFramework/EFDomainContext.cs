@@ -43,8 +43,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
         }
 
-        // TODO {all, 07.12.2014}: при поседующей очистке DAL (cинхронная репликация и т.п., можно будет выпилить подерржку saveoptions и AcceptAllChanges у DomainContext)
-        int IModifiableDomainContext.SaveChanges(SaveOptions options)
+        int IModifiableDomainContext.SaveChanges()
         {
             foreach (var entry in _dbContext.Entries())
             {
@@ -57,9 +56,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
             EnsureUseCaseDuration();
 
-            var savedCount = _dbContext.SaveChanges(options);
-
-            return savedCount;
+            return _dbContext.SaveChanges();
         }
 
         #region Delegating members for ObjectContext
@@ -71,12 +68,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 _pendingChangesHandlingStrategy.HandlePendingChanges(this);
                 _dbContext.Dispose();
             }
-        }
-
-        // TODO {all, 07.12.2014}: при поседующей очистке DAL (cинхронная репликация и т.п., можно будет выпилить подерржку saveoptions и AcceptAllChanges у DomainContext)
-        void IModifiableDomainContext.AcceptAllChanges()
-        {
-            _dbContext.AcceptAllChanges();
         }
 
         public DbSet<TEntity> Set<TEntity>() where TEntity : class

@@ -37,18 +37,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 
         public bool IsChangesSaved { get; private set; }
 
-        int IModifiableDomainContext.SaveChanges(SaveOptions options)
+        int IModifiableDomainContext.SaveChanges()
         {
             IsChangesSaved = true;
             return 1;
         }
 
         public bool IsChangesAccepted { get; private set; }
-
-        void IModifiableDomainContext.AcceptAllChanges()
-        {
-            IsChangesAccepted = true;
-        }
 
         #endregion
     }

@@ -5,7 +5,6 @@
     /// </summary>
     public interface IModifiableDomainContext : IDomainContext, IPendingChangesMonitorable
     {
-        int SaveChanges(SaveOptions options);
-        void AcceptAllChanges();
+        int SaveChanges();
     }
 }

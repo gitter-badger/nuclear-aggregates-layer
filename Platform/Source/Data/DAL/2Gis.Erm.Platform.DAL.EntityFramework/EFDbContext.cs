@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 
@@ -71,19 +70,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _isDisposed = true;
         }
 
-        public void AcceptAllChanges()
+        public int SaveChanges()
         {
-            ((IObjectContextAdapter)_dbContext).ObjectContext.AcceptAllChanges();
-        }
-
-        public int SaveChanges(SaveOptions options)
-        {
-            return ((IObjectContextAdapter)_dbContext).ObjectContext.SaveChanges(options.ToEFSaveOptions());
-        }
-
-        public int ExecuteSql(string functionName, params object[] parameters)
-        {
-            return _dbContext.Database.ExecuteSqlCommand(functionName, parameters);
+            return _dbContext.SaveChanges();
         }
     }
 }

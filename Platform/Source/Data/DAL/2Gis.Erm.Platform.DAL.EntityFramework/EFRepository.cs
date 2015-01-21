@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         protected int SaveChanges()
         {
-            return ((IModifiableDomainContext)DomainContext).SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
+            return ((IModifiableDomainContext)DomainContext).SaveChanges();
         }
 
         protected DbSet<TPersistentEntity> Set()

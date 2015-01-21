@@ -18,7 +18,6 @@ using Machine.Specifications;
 using Moq;
 
 using It = Machine.Specifications.It;
-using SaveOptions = DoubleGis.Erm.Platform.DAL.SaveOptions;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
@@ -61,7 +60,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                      .Returns(new[] { new StubEntityEntry(_deal, EntityState.Added) });
                 };
 
-            Because of = () => _domainContext.SaveChanges(SaveOptions.None);
+            Because of = () => _domainContext.SaveChanges();
 
             It entity_ReplicationCode_should_be_set = () => _deal.ReplicationCode.Should().NotBe(Guid.Empty);
         }
@@ -80,83 +79,11 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                      .Returns(new[] { new StubEntityEntry(_deal, EntityState.Modified) });
                 };
 
-            Because of = () => _domainContext.SaveChanges(SaveOptions.None);
+            Because of = () => _domainContext.SaveChanges();
 
             It entity_ReplicationCode_should_not_be_changed = () => _deal.ReplicationCode.Should().Be(_guid);
         }
 
-        class When_call_SaveChanges_for_one_simple_and_four_replicable_entities : EFDomainContextMockContext
-        {
-            Establish context = () =>
-                {
-                    var advertisement = new Advertisement();
-                    var deal = new Deal();
-                    var order = new Order();
-                    var orderPosition = new OrderPosition();
-                    var firm = new Firm();
-
-                    ObjectContextMock.Setup(p => p.Entries())
-                                     .Returns(new[]
-                                         {
-                                             new StubEntityEntry(advertisement, EntityState.Added), 
-                                             new StubEntityEntry(deal, EntityState.Added),
-                                             new StubEntityEntry(order, EntityState.Modified),
-                                             new StubEntityEntry(orderPosition, EntityState.Deleted),
-                                             new StubEntityEntry(firm, EntityState.Unchanged)
-                                         })
-                                     .Verifiable();
-
-                    _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
-                                                     ObjectContextMock.Object,
-                                                     Mock.Of<IPendingChangesHandlingStrategy>());
-                };
-
-            Because of = () => _domainContext.SaveChanges(SaveOptions.None);
-
-            It replicate_deal_stored_proc_should_be_called_once = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.Is<string>(y => y == "Erm.ReplicateDeal"), Moq.It.IsAny<object[]>()),
-                                         Times.Once());
-
-            It replicate_order_stored_proc_should_be_called_once = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.Is<string>(y => y == "Erm.ReplicateOrder"), Moq.It.IsAny<object[]>()),
-                                         Times.Once());
-
-            It replicate_order_position_stored_proc_should_be_called_once = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.Is<string>(y => y == "Erm.ReplicateOrderPosition"), Moq.It.IsAny<object[]>()),
-                                         Times.Once());
-
-            It should_be_two_replicate_stored_procs_called = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.IsAny<string>(), Moq.It.IsAny<object[]>()),
-                                         Times.Exactly(3));
-        }
-
-        class When_call_SaveChanges_with_disabled_EnableReplication_param : EFDomainContextMockContext
-        {
-
-            Establish context = () =>
-                {
-                    var deal = new Deal();
-                    var order = new Order();
-                    var orderPosition = new OrderPosition();
-               
-                    ObjectContextMock.Setup(p => p.Entries())
-                                     .Returns(new[]
-                                         {
-                                             new StubEntityEntry(deal, EntityState.Added),
-                                             new StubEntityEntry(order, EntityState.Modified),
-                                             new StubEntityEntry(orderPosition, EntityState.Deleted)
-                                         });
-
-                    _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
-                                                         ObjectContextMock.Object,
-                                                         Mock.Of<IPendingChangesHandlingStrategy>());
-                };
-
-            Because of = () => _domainContext.SaveChanges(SaveOptions.None);
-
-            It any_replicate_stored_procs_should_not_be_called = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.IsAny<string>(), Moq.It.IsAny<object[]>()), Times.Never());
-        }
 
         [Tags("DAL")]
         [Subject(typeof(EFDomainContext))]

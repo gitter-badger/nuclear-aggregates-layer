@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 
@@ -19,9 +18,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         IEnumerable<IDbEntityEntry> Entries();
 
         bool HasChanges();
-        void AcceptAllChanges();
-        int SaveChanges(SaveOptions options);
-        
-        int ExecuteSql(string functionName, params object[] parameters);
+        int SaveChanges();
     }
 }
