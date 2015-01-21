@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderValidation
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderValidation
 {
     public class RegisterOrderStateChangesIdentity : OperationIdentityBase<RegisterOrderStateChangesIdentity>, INonCoupledOperationIdentity
     {

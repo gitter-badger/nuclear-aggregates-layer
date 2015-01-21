@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.BranchOfficeOrganizationUnit
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.BranchOfficeOrganizationUnit
 {
     public class SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity : OperationIdentityBase<SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity>,
                                                                                     INonCoupledOperationIdentity

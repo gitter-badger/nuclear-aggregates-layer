@@ -1,5 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
+using NuClear.Model.Common.Operations.Identity;
+
 namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal
 {
     [DataContract]
@@ -7,7 +9,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.W
     {
         public override int Id
         {
-            get { return OperationIdentityIds.RevertWithdrawalIdentity; }
+            get { return NuClear.Model.Common.Operations.Identity.OperationIdentityIds.RevertWithdrawalIdentity; }
         }
 
         public override string Description

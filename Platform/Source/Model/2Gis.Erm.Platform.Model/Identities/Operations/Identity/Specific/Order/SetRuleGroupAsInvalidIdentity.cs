@@ -1,5 +1,7 @@
 ﻿using System;
 
+using NuClear.Model.Common.Operations.Identity;
+
 namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 {
     [Obsolete("Выводиться из обращения, после обработки всех операций можно будет удалить, также как и ключ OperationIdentityIds.ResetValidationGroupIdentity")]

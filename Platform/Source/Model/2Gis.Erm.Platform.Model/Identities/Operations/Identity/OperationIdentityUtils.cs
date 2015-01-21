@@ -1,27 +1,19 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Simplified;
+﻿using DoubleGis.Erm.Platform.Model.Simplified;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 {
     public static class OperationIdentityUtils
     {
-        public static IOperationIdentity ResolveTargetModelOperation<TBusinessModelIdentity, TSimplifiedModelIdentity>(this EntityName entityName)
+        public static IOperationIdentity ResolveTargetModelOperation<TBusinessModelIdentity, TSimplifiedModelIdentity>(this IEntityType entityName)
             where TBusinessModelIdentity : OperationIdentityBase<TBusinessModelIdentity>, IBusinessModelIdentity, new()
             where TSimplifiedModelIdentity : OperationIdentityBase<TSimplifiedModelIdentity>, ISimplifiedModelIdentity, new()
         {
             return entityName.IsSimplifiedModel() 
                 ? (IOperationIdentity)new TSimplifiedModelIdentity() 
                 : (IOperationIdentity)new TBusinessModelIdentity();
-        }
-
-        public static bool IsEntitySpecific(this IOperationIdentity identity)
-        {
-            return identity is IEntitySpecificOperationIdentity;
-        }
-
-        public static bool IsNonCoupled(this IOperationIdentity identity)
-        {
-            return identity is INonCoupledOperationIdentity;
         }
     }
 }

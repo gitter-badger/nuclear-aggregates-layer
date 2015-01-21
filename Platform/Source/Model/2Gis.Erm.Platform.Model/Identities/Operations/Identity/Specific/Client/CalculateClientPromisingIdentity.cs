@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Client
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Client
 {
     public class CalculateClientPromisingIdentity : OperationIdentityBase<CalculateClientPromisingIdentity>, INonCoupledOperationIdentity
     {

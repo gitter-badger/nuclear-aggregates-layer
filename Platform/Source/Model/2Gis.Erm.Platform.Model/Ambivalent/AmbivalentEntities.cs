@@ -3,6 +3,8 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Platform.Model.Ambivalent
 {
     /// <summary>
@@ -11,19 +13,19 @@ namespace DoubleGis.Erm.Platform.Model.Ambivalent
     /// </summary>
     public static class AmbivalentEntities
     {
-        public static readonly EntityName[] Entities = new[] 
+        public static readonly IEntityType[] Entities =
         { 
-            EntityName.FileWithContent
+            EntityType.Instance.FileWithContent()
         };
 
-        public static bool IsAmbivalent(this EntityName entityName)
+        public static bool IsAmbivalent(this IEntityType entityName)
         {
             return Entities.Contains(entityName);
         }
 
         public static bool IsAmbivalent(this Type entityType)
         {
-            EntityName entityName;
+            IEntityType entityName;
             if (!entityType.TryGetEntityName(out entityName))
             {
                 return false;

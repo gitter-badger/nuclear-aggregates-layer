@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Charge
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Charge
 {
     public class DeleteChargesForPeriodAndProjectIdentity : OperationIdentityBase<DeleteChargesForPeriodAndProjectIdentity>, INonCoupledOperationIdentity
     {

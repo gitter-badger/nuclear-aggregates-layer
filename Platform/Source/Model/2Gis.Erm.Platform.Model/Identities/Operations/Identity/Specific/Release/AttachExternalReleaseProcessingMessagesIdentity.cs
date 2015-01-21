@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release
 {
     public sealed class AttachExternalReleaseProcessingMessagesIdentity : OperationIdentityBase<AttachExternalReleaseProcessingMessagesIdentity>, INonCoupledOperationIdentity
     {

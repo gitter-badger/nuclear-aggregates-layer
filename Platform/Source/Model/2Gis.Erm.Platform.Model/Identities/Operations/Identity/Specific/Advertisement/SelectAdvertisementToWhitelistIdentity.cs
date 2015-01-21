@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Advertisement
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Advertisement
 {
     public sealed class SelectAdvertisementToWhitelistIdentity : OperationIdentityBase<SelectAdvertisementToWhitelistIdentity>, INonCoupledOperationIdentity
     {

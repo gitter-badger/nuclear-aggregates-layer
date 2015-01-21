@@ -1,5 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
+using NuClear.Model.Common.Operations.Identity;
+
 namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Themes
 {
     [DataContract]
@@ -9,7 +11,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.T
         {
             get
             {
-                return OperationIdentityIds.SetAsDefaultThemeIdentity;
+                return NuClear.Model.Common.Operations.Identity.OperationIdentityIds.SetAsDefaultThemeIdentity;
             }
         }
 

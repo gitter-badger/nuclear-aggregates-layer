@@ -1,71 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Platform.Model.Entities
 {
-    public static partial class EntityNameUtils
+    public static class EntityNameUtils
     {
-        /// <summary>
-        /// Список значений EntityName, являющихся composed - т.е. комбинирующими
-        /// </summary>
-        public static readonly EntityName[] ComposedEntityNames = { EntityName.None, EntityName.All };
-        
         /// <summary>
         /// Список значений EntityName, являющихся виртуальными, т.е. существующими только в виде UI-форм
         /// </summary>
-        public static readonly EntityName[] VirtualEntityNames = { EntityName.CategoryGroupMembership };
+        public static readonly IEntityType[] VirtualEntityNames = { EntityType.Instance.CategoryGroupMembership() };
 
         /// <summary>
         /// Список значений EntityName, являющихся расширением для какой-либо инсталляции, данные fake сущности не являются элементами доменной модели ERM, 
         /// а являются просто удобными контейнерами для работы с доп.аттрибутами (своего рода attached properties) доменных сущностей, которые появляются у сущности только в некоторых businessmodel 
         /// </summary>
-        public static readonly EntityName[] EntityParts =
+        public static readonly IEntityType[] EntityParts =
             {
-                EntityName.ChileLegalPersonPart,
-                EntityName.UkraineLegalPersonPart,
-                EntityName.ChileBranchOfficeOrganizationUnitPart,
-                EntityName.UkraineBranchOfficePart,
-                EntityName.ChileLegalPersonProfilePart,
-                EntityName.UkraineLegalPersonProfilePart,
-                EntityName.EmiratesBranchOfficeOrganizationUnitPart,
-                EntityName.EmiratesClientPart,
-                EntityName.EmiratesLegalPersonPart,
-                EntityName.EmiratesLegalPersonProfilePart,
-                EntityName.EmiratesFirmAddressPart,
-                EntityName.KazakhstanLegalPersonPart,
-                EntityName.KazakhstanLegalPersonProfilePart
+                EntityType.Instance.ChileLegalPersonPart(),
+                EntityType.Instance.UkraineLegalPersonPart(),
+                EntityType.Instance.ChileBranchOfficeOrganizationUnitPart(),
+                EntityType.Instance.UkraineBranchOfficePart(),
+                EntityType.Instance.ChileLegalPersonProfilePart(),
+                EntityType.Instance.UkraineLegalPersonProfilePart(),
+                EntityType.Instance.EmiratesBranchOfficeOrganizationUnitPart(),
+                EntityType.Instance.EmiratesClientPart(),
+                EntityType.Instance.EmiratesLegalPersonPart(),
+                EntityType.Instance.EmiratesLegalPersonProfilePart(),
+                EntityType.Instance.EmiratesFirmAddressPart(),
+                EntityType.Instance.KazakhstanLegalPersonPart(),
+                EntityType.Instance.KazakhstanLegalPersonProfilePart()
             };
 
         /// <summary>
         /// Список значений EntityName динамических сущностей
         /// </summary>
-        public static readonly EntityName[] DynamicEntities =
+        public static readonly IEntityType[] DynamicEntities =
             {
-                EntityName.Bank,
-                EntityName.Commune,
+                EntityType.Instance.Bank(),
+                EntityType.Instance.Commune(),
             };
 
-		public static readonly EntityName[] MappingEntities =
+        public static readonly IEntityType[] MappingEntities =
             {
-                EntityName.Appointment,
-                EntityName.AppointmentRegardingObject,
-				EntityName.AppointmentAttendee,
-                EntityName.Phonecall,
-                EntityName.PhonecallRegardingObject,
-				EntityName.PhonecallRecipient,
-                EntityName.Task,
-                EntityName.TaskRegardingObject,
-                EntityName.Letter,
-                EntityName.LetterRegardingObject,
-                EntityName.LetterSender,
-                EntityName.LetterRecipient,
+                EntityType.Instance.Appointment(),
+                EntityType.Instance.AppointmentRegardingObject(),
+                EntityType.Instance.AppointmentAttendee(),
+                EntityType.Instance.Phonecall(),
+                EntityType.Instance.PhonecallRegardingObject(),
+                EntityType.Instance.PhonecallRecipient(),
+                EntityType.Instance.Task(),
+                EntityType.Instance.TaskRegardingObject(),
+                EntityType.Instance.Letter(),
+                EntityType.Instance.LetterRegardingObject(),
+                EntityType.Instance.LetterSender(),
+                EntityType.Instance.LetterRecipient(),
             };
 
         public static readonly Type[] AsyncReplicated2MsCrmEntities =
@@ -118,15 +114,15 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
                 typeof(SecurityAccelerator),
-                
-				typeof(AppointmentBase),
-				typeof(AppointmentReference),
-				typeof(PhonecallBase),
-				typeof(PhonecallReference),
-				typeof(TaskBase),
-				typeof(TaskReference),
-				typeof(LetterBase),
-				typeof(LetterReference),
+
+                typeof(AppointmentBase),
+                typeof(AppointmentReference),
+                typeof(PhonecallBase),
+                typeof(PhonecallReference),
+                typeof(TaskBase),
+                typeof(TaskReference),
+                typeof(LetterBase),
+                typeof(LetterReference),
             };
 
         /// <summary>
@@ -163,51 +159,19 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(Project)
             };
 
-        /// <summary>
-        /// Разложить composed значение на составляющие, если на вход передано не composed (элементарное) значение EntityName - возвращается оно без изменений
-        /// </summary>
-        public static EntityName[] GetDecomposed(this EntityName entityName)
-        {
-            if (entityName == EntityName.None)
-            {
-                return new EntityName[0];
-            }
-
-            if (entityName == EntityName.All)
-            {
-                var allValues = (EntityName[])Enum.GetValues(typeof(EntityName));
-                return allValues
-                    .Except(ComposedEntityNames)
-                    //.Except(VirtualEntityNames)
-                    .ToArray();
-            }
-
-            return new[] { entityName };
-        }
-
-        public static bool IsVirtual(this EntityName entityName)
-        {
-            return VirtualEntityNames.Contains(entityName);
-        }
-
-        public static bool IsPart(this EntityName entityName)
+        public static bool IsPart(this IEntityType entityName)
         {
             return EntityParts.Contains(entityName);
         }
 
-        public static bool IsDynamic(this EntityName entityName)
+        public static bool IsDynamic(this IEntityType entityName)
         {
             return DynamicEntities.Contains(entityName);
         }
 
-        public static bool HasMapping(this EntityName entityName)
+        public static bool HasMapping(this IEntityType entityName)
         {
             return MappingEntities.Contains(entityName);
-        }
-
-        public static bool IsPersistenceOnly(this Type checkingType)
-        {
-            return PersistenceOnlyEntities.Contains(checkingType);
         }
 
         public static bool IsInstanceShared(this Type checkingType)
@@ -225,7 +189,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             return typeof(IEntity).IsAssignableFrom(entityType);
         }
 
-        public static bool IsSecurableAccessRequired(this EntityName entityName)
+        public static bool IsSecurableAccessRequired(this IEntityType entityName)
         {
             return entityName.AsEntityType().IsSecurableAccessRequired();
         }
@@ -240,22 +204,22 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             return typeof(ICuratedEntity).IsAssignableFrom(entityType);
         }
 
-        public static bool IsOwnerable(this EntityName entityName)
+        public static bool IsOwnerable(this IEntityType entityName)
         {
             return typeof(ICuratedEntity).IsAssignableFrom(entityName.AsEntityType());
         }
 
-        public static bool IsDeactivatable(this EntityName entityName)
+        public static bool IsDeactivatable(this IEntityType entityName)
         {
             return typeof(IDeactivatableEntity).IsAssignableFrom(entityName.AsEntityType());
         }
 
-        public static bool IsDeletable(this EntityName entityName)
+        public static bool IsDeletable(this IEntityType entityName)
         {
             return typeof(IDeletableEntity).IsAssignableFrom(entityName.AsEntityType());
         }
 
-        public static bool IsFileEntity(this EntityName entityName)
+        public static bool IsFileEntity(this IEntityType entityName)
         {
             Type entityType = entityName.AsEntityType();
             return typeof(IEntityFile).IsAssignableFrom(entityType) || typeof(IEntityFileOptional).IsAssignableFrom(entityType);
@@ -269,24 +233,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             }
 
             return AsyncReplicated2MsCrmEntities.Contains(entityType);
-        }
-
-        public static string EntitiesToString(this EntityName[] entityNames)
-        {
-            if (entityNames == null || entityNames.Length == 0)
-            {
-                return "Entities list is empty";
-            }
-
-            var sb = new StringBuilder();
-            sb.Append(entityNames[0].ToString());
-            for (int i = 1; i < entityNames.Length; i++)
-            {
-                sb.Append(";")
-                  .Append(entityNames[i].ToString());
-            }
-
-            return sb.ToString();
         }
     }
 }

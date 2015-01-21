@@ -1,6 +1,8 @@
 using System.Runtime.Serialization;
 
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity;
+
+using OperationIdentityIds = DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.OperationIdentityIds;
 
 namespace DoubleGis.Erm.Model.Metadata.Operations.Identity.Specific.OrderProcessingRequest
 {

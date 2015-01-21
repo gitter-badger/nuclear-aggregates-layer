@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement
 {
     public class TransferAdvertisementElementToReadyForValidationIdentity : OperationIdentityBase<TransferAdvertisementElementToReadyForValidationIdentity>, INonCoupledOperationIdentity
     {

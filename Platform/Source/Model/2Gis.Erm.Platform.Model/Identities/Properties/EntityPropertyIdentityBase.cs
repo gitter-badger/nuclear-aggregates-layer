@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
+using NuClear.Model.Common;
+
 namespace DoubleGis.Erm.Platform.Model.Identities.Properties
 {
     [DataContract]
