@@ -203,6 +203,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                              .ToArray();
         }
 
+        public IDictionary<long, string> PickInactiveOrDeletedOrderPositionNames(IEnumerable<long> orderPositionIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<OrderPosition>(orderPositionIds) && Specs.Find.InactiveOrDeletedEntities<OrderPosition>())
+                          .Select(x => new
+                                           {
+                                               Id = x.Id,
+                                               Name = x.PricePosition.Position.Name
+                                           })
+                          .ToDictionary(x => x.Id, y => y.Name);
+        }
+
         public Dictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
             IEnumerable<long> orderIds,
             DateTime startPeriodDate,

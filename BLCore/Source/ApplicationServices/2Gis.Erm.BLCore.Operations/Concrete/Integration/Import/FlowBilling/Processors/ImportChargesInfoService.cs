@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
@@ -32,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         private readonly ICommonLog _logger;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IChargeReadModel _chargeReadModel;
+        private readonly IOrderReadModel _orderReadModel;
 
         public ImportChargesInfoService(IAccountReadModel accountReadModel,
                                         IChargeBulkCreateAggregateService chargeBulkCreateAggregateService,
@@ -39,7 +41,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                                         IDeleteChargesForPeriodAndProjectOperationService deleteChargesService,
                                         ICommonLog logger,
                                         IOperationScopeFactory scopeFactory,
-                                        IChargeReadModel chargeReadModel)
+                                        IChargeReadModel chargeReadModel,
+                                        IOrderReadModel orderReadModel)
         {
             _accountReadModel = accountReadModel;
             _chargeBulkCreateAggregateService = chargeBulkCreateAggregateService;
@@ -48,6 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             _logger = logger;
             _scopeFactory = scopeFactory;
             _chargeReadModel = chargeReadModel;
+            _orderReadModel = orderReadModel;
         }
 
         public void Import(IEnumerable<IServiceBusDto> dtos)
@@ -108,7 +112,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                     }
                 }
 
-                // TODO {y.baranihin, 20.01.2015}: Добавить проверку на активность позиций заказа
+                var inactiveOrderPositions = _orderReadModel.PickInactiveOrDeletedOrderPositionNames(chargesInfo.Charges.Select(x => x.OrderPositionId).ToArray());
+                if (inactiveOrderPositions.Any())
+                {
+                    throw new CannotCreateChargesException(
+                        string.Format("Can't create charges. Following OrderPositions are inactive: {0}",
+                                      string.Join(";", inactiveOrderPositions.Select(x => string.Format("{0} ({1})", x.Value, x.Key)))));
+                }
 
                 _deleteChargesService.Delete(chargesInfo.BranchCode, timePeriod, chargesInfo.SessionId);
 

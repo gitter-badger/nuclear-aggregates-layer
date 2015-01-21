@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
@@ -44,8 +44,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
 
         public bool Validate(XElement xml, out string error)
         {
-            error = null;
-            return true;
+            // TODO {all, 21.01.2015}: надо бы уже как-нибудь сделать ресурсник для нелокализуемых строчек.
+            const string AttributeIsMissingTemplate = "Отсутсвует обязательный атрибут {0}";
+            var errors = new StringBuilder();
+            var requiredAttributes = new[]
+                                         {
+                                             "BranchCode",
+                                             "StartDate",
+                                             "EndDate"
+                                         };
+
+            foreach (var requiredAttribute in requiredAttributes.Where(requiredAttribute => xml.Attribute(requiredAttribute) == null))
+            {
+                errors.AppendLine(string.Format(AttributeIsMissingTemplate, requiredAttribute));
+            }
+
+            error = errors.ToString();
+            return string.IsNullOrWhiteSpace(error);
         }
 
         private static ChargeDto CreateChargeDto(XElement element)

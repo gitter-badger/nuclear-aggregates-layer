@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Flows;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
 
