@@ -5,10 +5,11 @@ using System.Linq;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EAV;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {
@@ -17,22 +18,23 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
         public Type DetermineObjectType<TPropertyInstace>(IEnumerable<TPropertyInstace> dynamicEntityPropertyInstances)
             where TPropertyInstace : class, IDynamicEntityPropertyInstance
         {
-            var entityName = dynamicEntityPropertyInstances
+            var entityTypeId = dynamicEntityPropertyInstances
                 .Where(property => property.PropertyId == EntityTypeNameIdentity.Instance.Id)
-                .Select(instance => (EntityName?)instance.NumericValue)
+                .Select(instance => (int?)instance.NumericValue)
                 .SingleOrDefault();
 
-            if (!entityName.HasValue)
+            if (!entityTypeId.HasValue)
             {
                 throw new InvalidOperationException("Entity part type cannot be determined using it's property instanses collection");
             }
 
-            if (!Enum.IsDefined(typeof(EntityName), entityName))
+            IEntityType entityType;
+            if (!EntityType.Instance.TryParse(entityTypeId.Value, out entityType))
             {
-                throw new InvalidOperationException(string.Format("Value '{0} <-> {1}' isn't definded within EntityName enum", entityName.Value.ToString("F"), entityName));
+                throw new InvalidOperationException(string.Format("Value '{0} <-> {1}' isn't definded within EntityName enum", entityTypeId.Value.ToString("F"), entityTypeId));
             }
 
-            return entityName.Value.AsEntityType();
+            return entityType.AsEntityType();
         }
 
         public SpecsBundle<TEntityInstance, TEntityPropertyInstance> GetSpecifications<TEntityInstance, TEntityPropertyInstance>(Type entityType, IEnumerable<long> entityIds) 
