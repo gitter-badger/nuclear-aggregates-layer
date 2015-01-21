@@ -189,7 +189,6 @@
     <Compile Include="Concrete\Orders\IPriceCostsForSubPositionsProvider.cs" />
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\InvalidLegalPersonProfileForOrderException.cs" />
-    <Compile Include="Concrete\Orders\OrderChangesDescriptor.cs" />
     <Compile Include="Concrete\Orders\IChangeOrderLegalPersonProfileOperationService.cs" />
     <Compile Include="Concrete\Orders\LegalPersonProfileMustBeSpecifiedException.cs" />
     <Compile Include="Concrete\Orders\OrderLegalPersonProfileDto.cs" />
