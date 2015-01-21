@@ -7,7 +7,6 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     emptyText: Ext.LocalizedResources.LookupEmptyValue,
 
     extendedInfo: "",
-    additionalName:"",
     showReadOnlyCard: false,
     entityName: "",
     entityIcon: "",

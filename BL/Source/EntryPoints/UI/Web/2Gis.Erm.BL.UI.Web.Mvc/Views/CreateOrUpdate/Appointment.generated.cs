@@ -235,7 +235,7 @@ WriteLiteral("        ");
             #line 36 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true;",AdditionalName ="OrganizationUnitName",  ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true;AddCityToName=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
             #line default
