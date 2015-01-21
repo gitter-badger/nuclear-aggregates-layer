@@ -12,10 +12,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long Id { get; set; }
         public long OrderPositionId { get; set; }
         public long ProjectId { get; set; }
-        public long PositionId { get; set; }
         public DateTime PeriodStartDate { get; set; }
         public DateTime PeriodEndDate { get; set; }
         public Guid SessionId { get; set; }
+        public decimal Amount { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }

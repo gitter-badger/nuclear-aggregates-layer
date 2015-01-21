@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.Operations
                     var charge = new Charge
                         {
                             OrderPositionId = chargeDto.OrderPositionId,
-                            PositionId = chargeDto.PositionId,
+                            Amount = chargeDto.Amount,
                             ProjectId = projectId,
                             PeriodStartDate = startDate,
                             PeriodEndDate = endDate,

@@ -8,6 +8,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto;
@@ -303,9 +304,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          OrderHasPositionsWithPlannedProvision =
                                              x.Lock.Order.OrderPositions.Any(op => op.IsActive
                                                                                    && !op.IsDeleted
-                                                                                   &&
-                                                                                   op.PricePosition.Position.SalesModel ==
-                                                                                   SalesModel.PlannedProvision),
+                                                                                   && SalesModelUtil.PlannedProvisionSalesModels.Contains(op.PricePosition.Position.SalesModel)),
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
                                          AccountCode = x.Lock.Account.Id,
                                          ProfileCode = x.Lock.Order.LegalPersonProfileId != null

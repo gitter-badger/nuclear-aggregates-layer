@@ -4,9 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
@@ -63,32 +62,32 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>())
                           .Select(o => new OrderReleaseInfo
-                              {
-                                  OrderId = o.Id,
-                                  OrderNumber = o.Number,
-                                  AccountId = o.AccountId
-                                              ?? o.BranchOfficeOrganizationUnit.Accounts
-                                                  .Where(x => x.IsActive && !x.IsDeleted && x.LegalPersonId == o.LegalPersonId)
-                                                  .Select(x => (long?)x.Id)
-                                                  .FirstOrDefault(),
-                                  PriceId = o.OrderPositions.Select(p => p.PricePosition.PriceId).FirstOrDefault(),
-                                  AmountToWithdrawSum = o.OrderReleaseTotals
-                                                         .Where(x => x.ReleaseBeginDate == period.Start && x.ReleaseEndDate == period.End)
-                                                         .Select(x => x.AmountToWithdraw)
-                                                         .FirstOrDefault(),
-                                  OrderPositions = o.OrderPositions.Where(op => op.IsActive && !op.IsDeleted)
-                                                    .Select(op => new OrderPositionReleaseInfo
-                                                        {
-                                                            OrderPositionId = op.Id,
-                                                            AmountToWithdraw = op.ReleasesWithdrawals.Where(rw =>
-                                                                                                            rw.ReleaseBeginDate == period.Start &&
-                                                                                                            rw.ReleaseEndDate == period.End)
-                                                                                 .Select(rw => rw.AmountToWithdraw)
-                                                                                 .FirstOrDefault(),
-                                                            IsPlannedProvision =
-                                                                op.PricePosition.Position.SalesModel == SalesModel.PlannedProvision
-                                                        })
-                              })
+                                           {
+                                               OrderId = o.Id,
+                                               OrderNumber = o.Number,
+                                               AccountId = o.AccountId
+                                                           ?? o.BranchOfficeOrganizationUnit.Accounts
+                                                               .Where(x => x.IsActive && !x.IsDeleted && x.LegalPersonId == o.LegalPersonId)
+                                                               .Select(x => (long?)x.Id)
+                                                               .FirstOrDefault(),
+                                               PriceId = o.OrderPositions.Select(p => p.PricePosition.PriceId).FirstOrDefault(),
+                                               AmountToWithdrawSum = o.OrderReleaseTotals
+                                                                      .Where(x => x.ReleaseBeginDate == period.Start && x.ReleaseEndDate == period.End)
+                                                                      .Select(x => x.AmountToWithdraw)
+                                                                      .FirstOrDefault(),
+                                               OrderPositions = o.OrderPositions.Where(op => op.IsActive && !op.IsDeleted)
+                                                                 .Select(op => new OrderPositionReleaseInfo
+                                                                                   {
+                                                                                       OrderPositionId = op.Id,
+                                                                                       AmountToWithdraw = op.ReleasesWithdrawals.Where(rw =>
+                                                                                                                                       rw.ReleaseBeginDate == period.Start &&
+                                                                                                                                       rw.ReleaseEndDate == period.End)
+                                                                                                            .Select(rw => rw.AmountToWithdraw)
+                                                                                                            .FirstOrDefault(),
+                                                                                       IsPlannedProvision =
+                                                                                           SalesModelUtil.PlannedProvisionSalesModels.Contains(op.PricePosition.Position.SalesModel)
+                                                                                   })
+                                           })
                           .ToArray();
         }
 
@@ -727,7 +726,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                         BranchName = x.Value.BranchName,
                         ContactClientEmail = x.Value.Contact == null ? null : x.Value.Contact.WorkEmail,
                         ContactClientName = x.Value.Contact == null ? null : x.Value.Contact.FullName,
-                        ContactClientSex = x.Value.Contact == null ? null : ((Gender)x.Value.Contact.GenderCode).ToString(),
+                        ContactClientSex = x.Value.Contact == null ? null : x.Value.Contact.GenderCode.ToString(),
                         FirmCode = x.FirmCode,
                         FirmName = x.Value.FirmName,
                         IsClientActually = x.Value.IsClientActually,
@@ -1106,105 +1105,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return sourceVat;
         }
 
-        public bool TryAcquireOrderPositions(long projectId,
-                                             TimePeriod timePeriod,
-                                             IReadOnlyCollection<OrderPositionChargeInfo> orderPositionChargeInfos,
-                                             out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
-                                             out string message)
-        {
-            message = null;
-            acquiredOrderPositions = null;
-            var errors = new List<string>();
-
-            var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(projectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
-
-            if (organizationUnitId == null)
-            {
-                message = string.Format("Can't find appropriate organization unit for project with id = {0}.", projectId);
-                return false;
-            }
-
-            const int ChunkSize = 512;
-            var orderPositionsForCharge = new List<OrderPositionBatchItem>();
-            for (int position = 0; position < orderPositionChargeInfos.Count; position += ChunkSize)
-            {
-                var chargeInfoQuery = orderPositionChargeInfos.Skip(position).Take(ChunkSize);
-                var firmIds = chargeInfoQuery.Select(x => x.FirmId).Distinct().ToArray();
-                var positionIds = chargeInfoQuery.Select(x => x.PositionId).Distinct().ToArray();
-
-                var orderPositionsBatch = _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
-                                                       AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId.Value, timePeriod))
-                                                 .Select(x => new
-                                                     {
-                                                         FirmId = x.Order.FirmId,
-                                                         OrderPositions = x.Order.OrderPositions.Where(op => op.IsActive && !op.IsDeleted),
-                                                     })
-                                                 .Where(x => firmIds.Contains(x.FirmId))
-                                                 .SelectMany(x => x.OrderPositions.Select(op => new OrderPositionBatchItem
-                                                     {
-                                                         OrderPositionId = op.Id,
-                                                         FirmId = x.FirmId,
-                                                         PositionId = op.PricePosition.PositionId,
-                                                         CategoryIds = op.OrderPositionAdvertisements.Select(opa => opa.CategoryId).Distinct()
-                                                     }))
-                                                 .Where(x => positionIds.Contains(x.PositionId))
-                                                 .ToArray();
-
-                orderPositionsForCharge.AddRange(orderPositionsBatch);
-            }
-
-            var itemsWithNoCategory = orderPositionsForCharge.Where(x => !x.CategoryIds.Any(y => y.HasValue)).ToArray();
-            if (itemsWithNoCategory.Any())
-            {
-                errors.Add(string.Format("Order positions for following charges have no category: [{0}].",
-                                         string.Join(", ", itemsWithNoCategory.AsEnumerable())));
-            }
-
-            var itemsWithMultipleCategoreis = orderPositionsForCharge.Where(x => x.CategoryIds.Skip(1).Any()).ToArray();
-            if (itemsWithMultipleCategoreis.Any())
-            {
-                errors.Add(string.Format("Order positions for following charges have more than one category: [{0}].",
-                                         string.Join(", ", itemsWithMultipleCategoreis.AsEnumerable())));
-            }
-
-            var result = new Dictionary<OrderPositionChargeInfo, long>();
-
-            // TODO {a.tukaev, 30.04.2014}: Попробовать заменить на join
-            foreach (var orderPositionChargeInfo in orderPositionChargeInfos)
-            {
-                var chargeInfo = orderPositionChargeInfo;
-                var appropriateOrderPositionIds = orderPositionsForCharge.Where(x => x.FirmId == chargeInfo.FirmId &&
-                                                                                   x.PositionId == chargeInfo.PositionId &&
-                                                                                   x.CategoryIds.First() == chargeInfo.CategoryId)
-                                                                       .Select(x => x.OrderPositionId)
-                                                                       .ToArray();
-                if (appropriateOrderPositionIds.Length == 0)
-                {
-                    errors.Add(string.Format("Cant't find appropriate order position for charge [{0}].", chargeInfo));
-                    continue;
-                }
-
-                if (appropriateOrderPositionIds.Length > 1)
-                {
-                    errors.Add(string.Format("Multiple appropriate order positions are found for charge [{0}] - [{1}].",
-                                             chargeInfo,
-                                             string.Join(", ", appropriateOrderPositionIds)));
-                    continue;
-                }
-
-                result.Add(chargeInfo, appropriateOrderPositionIds[0]);
-            }
-
-            if (errors.Any())
-            {
-                message = string.Join(Environment.NewLine, errors);
-                return false;
-            }
-
-            acquiredOrderPositions = result;
-            return true;
-        }
-
         public long GetOrderOwnerCode(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.OwnerCode).Single();
@@ -1308,6 +1208,36 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IEnumerable<Bill> GetBillsForOrder(long orderId)
         {
             return _finder.FindMany(OrderSpecs.Bills.Find.ByOrder(orderId) & Specs.Find.ActiveAndNotDeleted<Bill>());
+        }
+
+        public long? GetBargainIdByOrder(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.BargainId).Single();
+        }
+
+        public long GetBargainLegalPersonId(long bargainId)
+        {
+            return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
+        }
+
+        public OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(x => new OrderDtoToCheckPossibilityOfOrderPositionCreation
+                          {
+                              OrderId = x.Id,
+                              FirmId = x.FirmId,
+                              OrderPositions =
+                                  x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                   .Select(y => new OrderPositionSalesModelDto
+                                   {
+                                       OrderPositionId = y.Id,
+                                       SalesModel =
+                                           y.PricePosition
+                                            .Position
+                                            .SalesModel
+                                   })
+                          }).Single();
         }
 
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
@@ -1419,36 +1349,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
 
             return result;
-        }
-
-        public long? GetBargainIdByOrder(long orderId)
-        {
-            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.BargainId).Single();
-        }
-
-        public long GetBargainLegalPersonId(long bargainId)
-        {
-            return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
-        }
-
-        public OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId)
-        {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(x => new OrderDtoToCheckPossibilityOfOrderPositionCreation
-                                           {
-                                               OrderId = x.Id,
-                                               FirmId = x.FirmId,
-                                               OrderPositions =
-                                                   x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
-                                                    .Select(y => new OrderPositionSalesModelDto
-                                                                     {
-                                                                         OrderPositionId = y.Id,
-                                                                         SalesModel =
-                                                                             y.PricePosition
-                                                                              .Position
-                                                                              .SalesModel
-                                                                     })
-                                           }).Single();
         }
 
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)

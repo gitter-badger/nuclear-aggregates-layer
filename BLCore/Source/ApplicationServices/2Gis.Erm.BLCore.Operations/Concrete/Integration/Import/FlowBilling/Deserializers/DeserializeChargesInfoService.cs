@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
@@ -21,10 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             var chargesElement = xml.Element("Charges");
             if (chargesElement != null)
             {
-                foreach (var element in chargesElement.Elements("Charge"))
-                {
-                    charges.Add(CreateChargeDto(element));
-                }
+                charges.AddRange(chargesElement.Elements("Charge").Select(CreateChargeDto));
             }
 
             return new ChargesInfoServiceBusDto
@@ -53,10 +52,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         {
             return new ChargeDto
                 {
-                    FirmCode = (long)element.Attribute("FirmCode"),
-                    NomenclatureElementCode = (long)element.Attribute("NomenclatureElementCode"),
-                    NomenclatureElementToChargeCode = (long)element.Attribute("NomenclatureElementToChargeCode"),
-                    RubricCode = (long)element.Attribute("RubricCode"),
+                    OrderPositionId = (long)element.Attribute("OrderPositionCode"),
+                    Amount = (long)element.Attribute("Amount"),
                 };
         }
     }

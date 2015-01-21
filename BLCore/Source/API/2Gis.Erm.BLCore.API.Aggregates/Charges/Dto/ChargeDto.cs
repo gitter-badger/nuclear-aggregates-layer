@@ -3,6 +3,6 @@
     public class ChargeDto
     {
         public long OrderPositionId { get; set; }
-        public long PositionId { get; set; }
+        public decimal Amount { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Text;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
@@ -46,11 +47,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         public ExportAccountDetailsTo1CForBranchHandler(
             IFinder finder,
-                                                        ISubRequestProcessor subRequestProcessor,
-                                                        ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-                                                        ICommonLog logger,
-                                                        IClientProxyFactory clientProxyFactory,
-                                                        IOrderReadModel orderReadModel,
+            ISubRequestProcessor subRequestProcessor,
+            ISecurityServiceUserIdentifier securityServiceUserIdentifier,
+            ICommonLog logger,
+            IClientProxyFactory clientProxyFactory,
+            IOrderReadModel orderReadModel,
             IGlobalizationSettings globalizationSettings,
             IUseCaseTuner useCaseTuner)
         {
@@ -129,7 +130,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          OrderHasPositionsWithPlannedProvision =
                                                 x.Lock.Order.OrderPositions.Any(op => op.IsActive
                                                     && !op.IsDeleted
-                                                    && op.PricePosition.Position.SalesModel == SalesModel.PlannedProvision),
+                                                    && SalesModelUtil.PlannedProvisionSalesModels.Contains(op.PricePosition.Position.SalesModel)),
 
                                          BargainTypeSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.BranchOffice.BargainType.SyncCode1C,
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,

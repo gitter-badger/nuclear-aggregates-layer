@@ -11,7 +11,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel
     {
         PositionBindingObjectType GetPositionBindingObjectType(long positionId);
         bool IsSupportedByExport(long positionId);
-        bool PositionsExist(IReadOnlyCollection<long> positionIds, out string message);
         Position GetPositionByPricePositionId(long pricePositionId);
         IEnumerable<LinkingObjectsSchemaDto.PositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId);
     }
