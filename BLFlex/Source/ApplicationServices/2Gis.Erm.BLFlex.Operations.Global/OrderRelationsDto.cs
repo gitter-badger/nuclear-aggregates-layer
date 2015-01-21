@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.BLFlex.Operations.Global
+﻿using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+namespace DoubleGis.Erm.BLFlex.Operations.Global
 {
     public sealed class OrderRelationsDto
     {
@@ -11,5 +13,6 @@
         public long FirmId { get; set; }
         public long MainLegalPersonProfileId { get; set; }
         public long BranchOfficeId { get; set; }
+        public SalesModel? SalesModel { get; set; }
     }
 }

@@ -47,12 +47,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                 throw new NotificationException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
+            var templateCode = orderInfo.SalesModel == SalesModel.MultiPlannedProvision
+                                   ? TemplateCode.OrderMultiPlannedProvision
+                                   : TemplateCode.Order;
+
             var printDocumentRequest = new PrintDocumentRequest
                 {
                     CurrencyIsoCode = orderInfo.CurrencyIsoCode,
                     FileName = orderInfo.OrderNumber,
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
-                    TemplateCode = TemplateCode.OrderMultiPlannedProvision,
+                    TemplateCode = templateCode,
                     PrintData = GetPrintData(request, orderInfo)
                 };
 
