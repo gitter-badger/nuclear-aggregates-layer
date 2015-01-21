@@ -3,8 +3,9 @@ using System.ServiceModel;
 
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.API.Metadata
 {
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.Platform.API.Metadata
 
         [OperationContract]
         [FaultContract(typeof(MetadataOperationErrorDescription), Namespace = ServiceNamespaces.Metadata.Metadata201307)]
-        OperationApplicability[] GetApplicableOperationsForContext(EntityName[] entityNames, long[] entityIds);
+        OperationApplicability[] GetApplicableOperationsForContext(IEntityType[] entityNames, long[] entityIds);
 
         [OperationContract]
         [FaultContract(typeof(MetadataOperationErrorDescription), Namespace = ServiceNamespaces.Metadata.Metadata201307)]

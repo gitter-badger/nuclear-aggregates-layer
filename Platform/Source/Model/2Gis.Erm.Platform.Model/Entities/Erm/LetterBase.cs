@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {

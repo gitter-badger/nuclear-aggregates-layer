@@ -1,13 +1,14 @@
 ﻿using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.API.Security
 {
     public interface ISecurityServiceEntityAccess
     {
-        bool IsSecureEntity(EntityName entityName);
+        bool IsSecureEntity(IEntityType entityName);
 
-        bool HasEntityAccess(EntityAccessTypes operationType, EntityName entityName, long userCode, long? entityId, long ownerCode, long? oldOwnerCode);
-        EntityAccessTypes RestrictEntityAccess(EntityName entityName, EntityAccessTypes operationType, long userCode, long? entityId, long ownerCode, long? oldOwnerCode);
+        bool HasEntityAccess(EntityAccessTypes operationType, IEntityType entityName, long userCode, long? entityId, long ownerCode, long? oldOwnerCode);
+        EntityAccessTypes RestrictEntityAccess(IEntityType entityName, EntityAccessTypes operationType, long userCode, long? entityId, long ownerCode, long? oldOwnerCode);
     }
 }

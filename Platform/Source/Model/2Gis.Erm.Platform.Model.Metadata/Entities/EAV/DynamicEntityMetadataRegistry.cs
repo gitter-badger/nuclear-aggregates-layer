@@ -6,9 +6,10 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm.Kazakhstan;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Properties;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
 {

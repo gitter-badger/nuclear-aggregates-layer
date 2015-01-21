@@ -5,8 +5,9 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.DAL
 {

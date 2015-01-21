@@ -4,7 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Model.Common.Entities;

@@ -5,7 +5,9 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {

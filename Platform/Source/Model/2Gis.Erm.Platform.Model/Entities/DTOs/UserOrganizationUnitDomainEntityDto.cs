@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs

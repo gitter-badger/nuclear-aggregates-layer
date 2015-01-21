@@ -1,5 +1,7 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Platform.DAL
 {
     public class FinderBaseProvider : IFinderBaseProvider
@@ -15,7 +17,7 @@ namespace DoubleGis.Erm.Platform.DAL
             _secureFinder = secureFinder;
         }
 
-        public IFinderBase GetFinderBase(EntityName entityName)
+        public IFinderBase GetFinderBase(IEntityType entityName)
         {
             return entityName.IsSecurableAccessRequired() ? (IFinderBase)_secureFinder : _finder;
         } 
