@@ -224,7 +224,7 @@ WriteLiteral("        ");
             #line 35 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true;AddCityToName=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
             #line default
