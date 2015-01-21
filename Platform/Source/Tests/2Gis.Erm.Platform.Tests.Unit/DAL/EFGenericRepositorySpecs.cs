@@ -6,7 +6,6 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories;
@@ -16,6 +15,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 using It = Machine.Specifications.It;
 

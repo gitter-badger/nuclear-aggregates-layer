@@ -6,13 +6,15 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 using It = Machine.Specifications.It;
 
@@ -145,7 +147,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             static void VerifyRestrictEntityAccesNeverCalled()
             {
-                _entityAccessService.Verify(e => e.RestrictEntityAccess(Moq.It.IsAny<EntityName>(),
+                _entityAccessService.Verify(e => e.RestrictEntityAccess(Moq.It.IsAny<IEntityType>(),
                                                                         Moq.It.IsAny<EntityAccessTypes>(),
                                                                         Moq.It.IsAny<long>(),
                                                                         Moq.It.IsAny<long?>(),

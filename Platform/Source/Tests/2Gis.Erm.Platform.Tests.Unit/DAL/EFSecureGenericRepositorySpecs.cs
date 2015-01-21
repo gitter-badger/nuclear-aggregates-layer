@@ -6,7 +6,6 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories;
 
@@ -15,6 +14,9 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 using It = Machine.Specifications.It;
 
@@ -92,7 +94,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_Add_with_create_entity_access_type : SecureRepositoryContext<Order>
         {
-            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityName.Order,
+            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityType.Instance.Order(),
                                                                                             Moq.It.IsAny<EntityAccessTypes>(),
                                                                                             Moq.It.IsAny<long>(),
                                                                                             Moq.It.IsAny<long?>(),
@@ -107,7 +109,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_Update_with_update_entity_access_type : SecureRepositoryContext<Order>
         {
-            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityName.Order,
+            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityType.Instance.Order(),
                                                                                                 Moq.It.IsAny<EntityAccessTypes>(),
                                                                                                 Moq.It.IsAny<long>(),
                                                                                                 Moq.It.IsAny<long?>(),
@@ -122,7 +124,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_Delete_with_delete_entity_access_type : SecureRepositoryContext<Order>
         {
-            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityName.Order,
+            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityType.Instance.Order(),
                                                                                                 Moq.It.IsAny<EntityAccessTypes>(),
                                                                                                 Moq.It.IsAny<long>(),
                                                                                                 Moq.It.IsAny<long?>(),
@@ -137,7 +139,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_Add_without_Update_entity_access_type : SecureRepositoryContext<Order>
         {
-            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityName.Order,
+            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityType.Instance.Order(),
                                                                                                 Moq.It.IsAny<EntityAccessTypes>(),
                                                                                                 Moq.It.IsAny<long>(),
                                                                                                 Moq.It.IsAny<long?>(),
@@ -152,7 +154,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_Update_without_Delete_entity_access_type : SecureRepositoryContext<Order>
         {
-            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityName.Order,
+            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityType.Instance.Order(),
                                                                                                 Moq.It.IsAny<EntityAccessTypes>(),
                                                                                                 Moq.It.IsAny<long>(),
                                                                                                 Moq.It.IsAny<long?>(),
@@ -167,7 +169,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_Delete_without_Create_entity_access_type : SecureRepositoryContext<Order>
         {
-            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityName.Order,
+            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityType.Instance.Order(),
                                                                                                 Moq.It.IsAny<EntityAccessTypes>(),
                                                                                                 Moq.It.IsAny<long>(),
                                                                                                 Moq.It.IsAny<long?>(),
@@ -182,7 +184,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_Add_without_Assign_entity_access_type : SecureRepositoryContext<Order>
         {
-            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityName.Order,
+            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityType.Instance.Order(),
                                                                                                 Moq.It.IsAny<EntityAccessTypes>(),
                                                                                                 Moq.It.IsAny<long>(),
                                                                                                 Moq.It.IsAny<long?>(),
@@ -197,7 +199,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_Update_without_Append_entity_access_type : SecureRepositoryContext<Order>
         {
-            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityName.Order,
+            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityType.Instance.Order(),
                                                                                                 Moq.It.IsAny<EntityAccessTypes>(),
                                                                                                 Moq.It.IsAny<long>(),
                                                                                                 Moq.It.IsAny<long?>(),
@@ -212,7 +214,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_Delete_without_None_entity_access_type : SecureRepositoryContext<Order>
         {
-            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityName.Order,
+            Establish context = () => EntityAccessServiceMock.Setup(x => x.RestrictEntityAccess(EntityType.Instance.Order(),
                                                                                                 Moq.It.IsAny<EntityAccessTypes>(),
                                                                                                 Moq.It.IsAny<long>(),
                                                                                                 Moq.It.IsAny<long?>(),
