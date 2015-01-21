@@ -4,9 +4,10 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 {

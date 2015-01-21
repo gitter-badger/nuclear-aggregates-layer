@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using NuClear.Metamodeling.Elements;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 using FluentValidation;

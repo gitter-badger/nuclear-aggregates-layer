@@ -8,9 +8,13 @@ using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Ambivalent;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Simplified;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+
+using EntityNameUtils = DoubleGis.Erm.Platform.Model.Entities.EntityNameUtils;
 
 namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 {
@@ -66,7 +70,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             PersistenceOnlyEntitiesMustBeInModelEntitiesIndex(violationsReport);
             EntitiesHasMappingToTypesMustBeInModelEntitiesIndex(violationsReport);
 
-            foreach (var entityName in EntityName.All.GetDecomposed())
+            foreach (var entityName in EntityType.Instance.All().GetDecomposed())
             {
                 // TODO {all, 26.07.2013}: Пока есть сущности прописанные как элементы разных агрегатов - нужно это исправить и включить проверку
                 // BusinessModelEntityMustBePartOfSingleAggregate(entityName, ref violationsReport);
@@ -129,7 +133,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
         {
             foreach (var type in EntityNameUtils.PersistenceOnlyEntities)
             {
-                EntityName entityName;
+                IEntityType entityName;
                 if (type.TryGetEntityName(out entityName))
                 {
                     report.AppendFormat(
@@ -141,7 +145,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             }
         }
 
-        private static void EntityMustBePartOfBusinessOrSimplifiedModel(EntityName entityName, StringBuilder report)
+        private static void EntityMustBePartOfBusinessOrSimplifiedModel(IEntityType entityName, StringBuilder report)
         {
             if (entityName.IsVirtual())
             {
@@ -154,12 +158,12 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                 report.AppendFormat(
                     "Not ambivalent entity {0} is declared as part of aggregate {1} and simplified model element {2}",
                     entityName,
-                    string.Join(";", aggregates),
+                    string.Join(";", aggregates.Select(x => x.Description)),
                     Environment.NewLine);
             }
         }
 
-        private static void AmbivalentEntityMustBeElementOfBusinessAndSimplifiedModel(EntityName entityName, StringBuilder report)
+        private static void AmbivalentEntityMustBeElementOfBusinessAndSimplifiedModel(IEntityType entityName, StringBuilder report)
         {
             if (entityName.IsVirtual())
             {
@@ -176,7 +180,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             }
         }
 
-        private static void VirtualEntityCantBeElementOfBusinessOrSimplifiedModel(EntityName entityName, StringBuilder report)
+        private static void VirtualEntityCantBeElementOfBusinessOrSimplifiedModel(IEntityType entityName, StringBuilder report)
         {
             var aggregates = entityName.ToAggregates();
             if (entityName.IsVirtual() && (aggregates.Any() || entityName.IsSimplifiedModel()))
@@ -188,7 +192,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             }
         }
 
-        private void BusinessOrSimplifiedModelEntityMustHavePersistance(EntityName entityName, StringBuilder report)
+        private void BusinessOrSimplifiedModelEntityMustHavePersistance(IEntityType entityName, StringBuilder report)
         {
             if (entityName.IsVirtual())
             {
@@ -232,7 +236,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 
         private void EntitiesHasMappingToTypesMustBeInModelEntitiesIndex(StringBuilder report)
         {
-            foreach (var mapping in EntityTypeMap.EntitiesMapping)
+            foreach (var mapping in NuClear.Model.Common.Entities.EntityTypeMap.EntitiesMapping)
             {
                 if (!_modelEntityTypesIndex.Contains(mapping.Value) && !mapping.Value.IsBaseEntity())
                 {
@@ -249,7 +253,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
         {
             foreach (var type in _modelEntityTypesIndex)
             {
-                EntityName entityName;
+                IEntityType entityName;
                 if (!type.TryGetEntityName(out entityName) && !type.IsPersistenceOnly())
                 {
                     report.AppendFormat(

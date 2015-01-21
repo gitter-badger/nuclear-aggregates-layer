@@ -5,11 +5,12 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.DI.Factories
 {
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
             _operationSecurityRegistryReader = operationSecurityRegistryReader;
         }
 
-        public IOperationScope CreateSpecificFor<TOperationIdentity>(params EntityName[] operationEntities) 
+        public IOperationScope CreateSpecificFor<TOperationIdentity>(params IEntityType[] operationEntities) 
             where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, IEntitySpecificOperationIdentity, new()
         {
             var identity = new TOperationIdentity();
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
             return CreateScope(identity.SpecificFor<TEntity1, TEntity2>(), null);
         }
 
-        public IOperationScope CreateSpecificFor<TOperationIdentity>(IOperationScope parentScope, params EntityName[] operationEntities) 
+        public IOperationScope CreateSpecificFor<TOperationIdentity>(IOperationScope parentScope, params IEntityType[] operationEntities) 
             where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, IEntitySpecificOperationIdentity, new()
         {
             var identity = new TOperationIdentity();

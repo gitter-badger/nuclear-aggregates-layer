@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+﻿using NuClear.Metamodeling.Elements;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap
