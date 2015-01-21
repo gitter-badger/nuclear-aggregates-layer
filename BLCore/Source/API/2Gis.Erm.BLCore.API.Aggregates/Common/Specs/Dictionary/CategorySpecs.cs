@@ -70,11 +70,19 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                     var resultSpec = ForOrganizationUnit(organizationUnitId) && Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>();
 
                     // TODO {y.baranihin, 15.01.2015}: Использовать IsPlannedProvisionSalesModel() после появления справочника ограничений
-                    if (salesModel == SalesModel.PlannedProvision)
+                    if (salesModel != SalesModel.PlannedProvision)
                     {
-                        resultSpec &= PlannedProvisionCategories.ContainsKey(organizationUnitId)
-                                          ? new FindSpecification<Category>(category => PlannedProvisionCategories[organizationUnitId].Contains(category.Id))
-                                          : new FindSpecification<Category>(category => false);
+                        return resultSpec;
+                    }
+
+                    if (PlannedProvisionCategories.ContainsKey(organizationUnitId))
+                    {
+                        var restrictions = PlannedProvisionCategories[organizationUnitId];
+                        resultSpec &= new FindSpecification<Category>(category => restrictions.Contains(category.Id));
+                    }
+                    else
+                    {
+                        resultSpec &= new FindSpecification<Category>(category => false);
                     }
 
                     return resultSpec;
