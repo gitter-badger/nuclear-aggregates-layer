@@ -5170,4 +5170,16 @@ Doba zveřejnění: {3}.</value>
     <value>Data začátku a konce schůzky nejsou správně naplánovány.
 </value>
   </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Pro práci s profily je třeba, aby byly zadány právnické osoby</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Tisknout</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Musí být zadán profil právnické osoby</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
+  </data>
 </root>

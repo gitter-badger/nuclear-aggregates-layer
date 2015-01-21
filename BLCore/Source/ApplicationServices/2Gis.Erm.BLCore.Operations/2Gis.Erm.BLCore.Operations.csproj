@@ -194,7 +194,6 @@
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\SetLegalPersonProfileForOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToRejectedHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnRegistrationHandler.cs" />
@@ -231,6 +230,7 @@
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviour.cs" />
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviourFactory.cs" />
     <Compile Include="Concrete\Orders\RegisterOrderStateChangesOperationService.cs" />
+    <Compile Include="Concrete\Orders\ChangeOrderLegalPersonProfileOperationService.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />

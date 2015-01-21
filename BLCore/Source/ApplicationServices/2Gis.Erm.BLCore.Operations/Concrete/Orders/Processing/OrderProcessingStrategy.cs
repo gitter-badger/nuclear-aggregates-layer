@@ -129,12 +129,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             OrderReadModel.UpdateOrderDistributionDates(order);
             OrderReadModel.UpdateOrderReleaseNumbers(order);
 
+            UpdateDefaultProfile(order);
             UpdateFinancialInformation(order);
             var reservedNumberDigit = ResumeContext.Request.ReservedNumberDigit;
             ActualizeOrderNumber(order, reservedNumberDigit);
             UpdateDeal(order);
             DetermineOrderPlatform(order);
             CreateAccount(order);
+        }
+
+        protected virtual void UpdateDefaultProfile(Order order)
+        {
         }
 
         protected virtual void ActualizeOrderNumber(Order order, long? reservedNumberDigit)

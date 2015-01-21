@@ -1866,4 +1866,7 @@
   <data name="DListTimeZones" xml:space="preserve">
     <value>Time zones</value>
   </data>
+  <data name="ControlChangeProfiles" xml:space="preserve">
+    <value>Switch to another profile</value>
+  </data>
 </root>
