@@ -306,12 +306,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             this.thumbEl.fadeOut({ useDisplay: true, duration: 0.3 });
             this.thumbPanel.destroy();
             this.thumbPanel = null;
-        }
-
-        var fieldTemplate = [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute },  { name: "additionalName", mapping: this.additionalName}];
-
-        if (this.tplFields)
-            fieldTemplate = this.tplFields;
+        }       
 
         var store = new window.Ext.data.Store({
             xtype: 'jsonstore',
@@ -321,12 +316,11 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                 idProperty: 'Id',
                 root: 'Data',
                 totalProperty: 'RowCount',
-                fields: fieldTemplate
+                fields: this.tplFields || [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute },  { name: "additionalName", mapping: this.additionalName}]
             })
         });
-        var headerText = '<span class="x-lookup-thumb">{name}</span>&nbsp;';
-        if (this.tplHeaderTextTemplate)
-            headerText = this.tplHeaderTextTemplate;
+
+        var headerText =this.tplHeaderTextTemplate || '<span class="x-lookup-thumb">{name}</span>&nbsp;';        
         var tpl = new window.Ext.XTemplate(
                     '<tpl for=".">', '<div class="x-lookup-thumb" id="{id}">', '<img alt="" src="' + this.entityIcon + '" class="x-lookup-item"/>', headerText, '</div>', '</tpl>', '<div class="x-clear"></div>');
 
