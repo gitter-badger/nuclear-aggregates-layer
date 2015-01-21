@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -14,22 +13,15 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         where TPersistentEntity : class, IEntity
     {
         private readonly IUserContext _userContext;
-        private readonly IDomainContextSaveStrategy _domainContextSaveStrategy;
         private readonly IModifiableDomainContextProvider _domainContextProvider;
         private EFDomainContext _context;
 
         protected EFRepository(IUserContext userContext,
-                               IDomainContextSaveStrategy domainContextSaveStrategy,
                                IModifiableDomainContextProvider domainContextProvider)
         {
             if (userContext == null)
             {
                 throw new ArgumentNullException("userContext");
-            }
-
-            if (domainContextSaveStrategy == null)
-            {
-                throw new ArgumentNullException("domainContextSaveStrategy");
             }
 
             if (domainContextProvider == null)
@@ -38,7 +30,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
 
             _userContext = userContext;
-            _domainContextSaveStrategy = domainContextSaveStrategy;
             _domainContextProvider = domainContextProvider;
         }
 
@@ -82,9 +73,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         protected int SaveChanges()
         {
-            return _domainContextSaveStrategy.IsSaveDeferred
-                       ? 0
-                       : ((IModifiableDomainContext)DomainContext).SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
+            return ((IModifiableDomainContext)DomainContext).SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
         }
 
         protected DbSet<TPersistentEntity> Set()
@@ -100,26 +89,18 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 var entry = DomainContext.Entry(cachedEntity);
                 if (entry.State != EntityState.Unchanged)
                 {
-                    // т.е. объект помечен как измененный => applychanges для него не выполнялся
-                    if (!_domainContextSaveStrategy.IsSaveDeferred)
-                    {
-                        var entityKey = entity as IEntityKey;
+                    var entityKey = entity as IEntityKey;
 
-                        // используется НЕотложенное сохранение - т.е. объект изменили, не сохранили изменения и опять пытаемся менять экземпляр сущности с тем же identity
-                        throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
-                                                                          "with unsaved changes => trying to update not saved entity. " +
-                                                                          "Possible entity repository save method not called before next update. " +
-                                                                          "Save mode is immediately, not deferred",
-                                                                          typeof(TEntity).Name,
-                                                                          entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
-                    }
-
-                    // сохрание отложенное - пытаемся обновить несохраненную сущность, это не хорошо, но пока разрешено, 
-                    // т.к. возможно отложенный save для EF context ещё просто не вызывался
+                    // используется НЕотложенное сохранение - т.е. объект изменили, не сохранили изменения и опять пытаемся менять экземпляр сущности с тем же identity
+                    throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
+                                                                        "with unsaved changes => trying to update not saved entity. " +
+                                                                        "Possible entity repository save method not called before next update. " +
+                                                                        "Save mode is immediately, not deferred",
+                                                                        typeof(TEntity).Name,
+                                                                        entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
                 }
 
                 entityPlacementState = EntityPlacementState.CachedInContext;
-
                 return new EFEntityEntry(entry);
             }
             else

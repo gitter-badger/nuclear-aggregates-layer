@@ -31,25 +31,14 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders
 
         int Delete(OrderPosition orderPosition);
 
-        void CreateOrUpdateOrderPositionAdvertisements(long orderPositionId, AdvertisementDescriptor[] newAdvertisementsLinks, bool orderIsLocked);
-
         int Delete(IEnumerable<OrderPositionAdvertisement> advertisements);
-
-        void UpdateOrderNumber(Order order);
 
         void SetInspector(long orderId, long? inspectorId);
 
         int SetOrderState(Order order, OrderState orderState);
 
-        void ChangeOrderPositionBindingObjects(long orderPositionId, IEnumerable<AdvertisementDescriptor> advertisements);
-
         long GenerateNextOrderUniqueNumber();
 
         Order CreateCopiedOrder(Order order, IEnumerable<OrderPositionWithAdvertisementsDto> orderPositionDtos);
-
-        // Удаляет объекты OrderReleaseTotal, имеющие отношение к заказу и возвращает идентификаторы удалённых объектов
-        long[] DeleteOrderReleaseTotalsForOrder(long orderId);
-
-        void CreateOrderReleaseTotals(IEnumerable<OrderReleaseTotal> orderReleaseTotals);
     }
 }

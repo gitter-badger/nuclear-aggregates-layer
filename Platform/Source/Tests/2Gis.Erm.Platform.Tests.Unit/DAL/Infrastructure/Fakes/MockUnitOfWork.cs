@@ -7,10 +7,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 {
     public class MockUnitOfWork : UnitOfWork
     {
-        private readonly Action<IReadDomainContextProvider, IModifiableDomainContextProvider, IDomainContextSaveStrategy> _createRepositoryAction;
+        private readonly Action<IReadDomainContextProvider, IModifiableDomainContextProvider> _createRepositoryAction;
 
         public MockUnitOfWork(
-            Action<IReadDomainContextProvider, IModifiableDomainContextProvider, IDomainContextSaveStrategy> createRepositoryAction,
+            Action<IReadDomainContextProvider, IModifiableDomainContextProvider> createRepositoryAction,
             IReadDomainContext readDomainContext,
             IModifiableDomainContextFactory modifiableDomainContextFactory,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
@@ -35,12 +35,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
         }
 
         protected override object CreateRepository(Type aggregateRepositoryType,
-                                                   bool createByConcreteType,
                                                    IReadDomainContextProvider readDomainContextProvider,
-                                                   IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                   IDomainContextSaveStrategy saveStrategy)
+                                                   IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
-            _createRepositoryAction(readDomainContextProvider, modifiableDomainContextProvider, saveStrategy);
+            _createRepositoryAction(readDomainContextProvider, modifiableDomainContextProvider);
             return null;
         }
 
@@ -51,8 +49,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 
         protected override object CreateConsumer(Type consumerType,
                                                  IReadDomainContextProvider readDomainContextProvider,
-                                                 IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                 IDomainContextSaveStrategy saveStrategy)
+                                                 IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
             throw new NotImplementedException();
         }
@@ -64,8 +61,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 
         protected override object CreatePersistenceService(Type persistenceServiceType,
                                                            IReadDomainContextProvider readDomainContextProvider,
-                                                           IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                           IDomainContextSaveStrategy saveStrategy)
+                                                           IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
             throw new NotImplementedException();
         }

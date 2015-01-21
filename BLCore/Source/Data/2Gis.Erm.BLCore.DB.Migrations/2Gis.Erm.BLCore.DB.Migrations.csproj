@@ -363,6 +363,7 @@
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicatePhonecalls.sql" />
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateTasks.sql" />
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateAppointments.sql" />
+    <Content Include="Resources\201501201646\Billing.ReplicateDeals.sql" />
     <None Include="packages.config" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />
     <None Include="Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql" />
@@ -809,6 +810,7 @@
     <Compile Include="2.1\2014.10.20 rev. 25393 - Alter OrderValidationResults.cs" />
     <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
+    <Compile Include="2.1\201501201646 - Deal replication fix.cs" />
     <Compile Include="2.1\201501190608 - add Amount to Billing.Charges.cs" />
     <Compile Include="2.1\201501201220 - remove PositionId column.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />

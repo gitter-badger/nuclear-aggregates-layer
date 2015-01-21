@@ -53,7 +53,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
         void CreateOrUpdate(User user);
         void CreateOrUpdate(Department department);
 
-        void CreateOrUpdate(UserRole userRole);
         void CreateOrUpdate(UserOrganizationUnit userOrganizationUnit);
 
         void CreateOrUpdate(UserTerritory userTerritory);
