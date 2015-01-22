@@ -5170,6 +5170,18 @@ Placement period: {3}.</value>
     <value>The start and end dates of the meeting are set incorrectly.
 </value>
   </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Specify legal entities to enable profiles</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Please specify legal entity profile</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
+  </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>В заказе могут присутствовать позиции только одной модели продаж</value>
   </data>

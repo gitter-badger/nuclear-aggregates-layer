@@ -129,6 +129,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ActualizeOrderAmountToWithdrawIdentity = 15117;
         public const int CheckIfOrderPositionCanBeCreatedForOrderIdentity = 15118;
         public const int CheckIfOrderPositionCanBeModifiedIdentity = 15119;
+        public const int ChangeOrderLegalPersonProfileIdentity = 15120;
 
         // EntityName.OrderPosition = 150
         public const int CalculateOrderPositionCostIdentity = 15001;

@@ -29,13 +29,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             var orderRequest = new PrintOrderRequest
             {
                 OrderId = request.OrderId,
-                LegalPersonProfileId = request.LegalPersonProfileId,
             };
 
             var letterRequest = new PrintLetterOfGuaranteeRequest
             {
                 OrderId = request.OrderId,
-                LegalPersonProfileId = request.LegalPersonProfileId
             };
 
             var order = _orderReadModel.GetOrderSecure(request.OrderId);

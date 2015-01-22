@@ -5177,6 +5177,18 @@ Cумма по операции: {5}.
     <value>Неправильно запланированы даты начала и окончания встречи.
 </value>
   </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Для работы с профилями требуется, чтобы были указаны юридические лица</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Печать</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Должен быть указан профиль юридического лица</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
+  </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>В заказе могут присутствовать позиции только одной модели продаж</value>
   </data>

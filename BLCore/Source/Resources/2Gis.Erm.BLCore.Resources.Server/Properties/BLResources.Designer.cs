@@ -7606,6 +7606,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string InvalidLegalPersonProfileForOrder {
+            get {
+                return ResourceManager.GetString("InvalidLegalPersonProfileForOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string InvalidOrderPositionBindingType {
             get {
                 return ResourceManager.GetString("InvalidOrderPositionBindingType", resourceCulture);
@@ -7850,6 +7859,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string LegalPersonFieldsMustBeFilled {
+            get {
+                return ResourceManager.GetString("LegalPersonFieldsMustBeFilled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string LegalPersonHasSeveralMainProfiles {
             get {
                 return ResourceManager.GetString("LegalPersonHasSeveralMainProfiles", resourceCulture);
@@ -7952,6 +7970,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string LegalPersonProfileMissing {
             get {
                 return ResourceManager.GetString("LegalPersonProfileMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LegalPersonProfileMustBeSpecified {
+            get {
+                return ResourceManager.GetString("LegalPersonProfileMustBeSpecified", resourceCulture);
             }
         }
         
@@ -14315,6 +14342,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TitlePlan {
             get {
                 return ResourceManager.GetString("TitlePlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TitlePrinting {
+            get {
+                return ResourceManager.GetString("TitlePrinting", resourceCulture);
             }
         }
         
