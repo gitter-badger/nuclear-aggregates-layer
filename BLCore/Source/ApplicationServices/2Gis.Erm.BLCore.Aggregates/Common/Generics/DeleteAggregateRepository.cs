@@ -1,9 +1,8 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 {
@@ -39,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Delete(long entityId)
         {
-            var entity = _finder.FindOne<T>(Specs.Find.ById<T>(entityId));
+            var entity = _finder.FindOne(Specs.Find.ById<T>(entityId));
             _secureRepository.Delete(entity);
             return _secureRepository.Save();
         }

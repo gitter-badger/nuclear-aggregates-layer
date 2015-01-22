@@ -3,7 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics

@@ -2,9 +2,8 @@
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.Operations
 {
@@ -22,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.Operations
 
         public int Create(BranchOffice entity)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.BranchOffice))
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, BranchOffice>())
             {
                 _branchOfficeRepository.Add(entity);
                 operationScope.Added<BranchOffice>(entity.Id);

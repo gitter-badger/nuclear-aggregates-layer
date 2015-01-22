@@ -2,9 +2,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
 {
@@ -24,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
 
         public int Update(AdvertisementElementStatus entity)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity>(EntityName.AdvertisementElementStatus))
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, AdvertisementElementStatus>())
             {
                 _entityRepository.Update(entity);
                 operationScope.Updated<AdvertisementElementStatus>(entity.Id);

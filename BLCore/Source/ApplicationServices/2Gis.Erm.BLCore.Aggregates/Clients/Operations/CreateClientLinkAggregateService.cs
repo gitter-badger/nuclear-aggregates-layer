@@ -11,6 +11,8 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
+using NuClear.Model.Common.Operations.Identity.Generic;
+
 namespace DoubleGis.Erm.BLCore.Aggregates.Clients.Operations
 {
     public class CreateClientLinkAggregateService : ICreateClientLinkAggregateService

@@ -30,6 +30,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 {
     public sealed class OrderReadModel : IOrderReadModel
@@ -992,7 +994,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             // на текущий момент интересует только возможность деактивировать
             var isDeleteAllowed = _entityAccessService.HasEntityAccess(EntityAccessTypes.Delete,
-                                                                       EntityName.Order,
+                                                                       EntityType.Instance.Order(),
                                                                        _userContext.Identity.Code,
                                                                        orderDto.Id,
                                                                        orderDto.OwnerCode,
@@ -1414,21 +1416,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        };
         }
 
-        public OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId)
+        public OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(IEntityType parentEntityName, long parentEntityId)
         {
-            switch (parentEntityName)
+            if (parentEntityName.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Client:
-                    return GetReferenceByClient(parentEntityId);
-                case EntityName.Firm:
-                    return GetReferencesByFirm(parentEntityId);
-                case EntityName.LegalPerson:
-                    return GetReferencesByLegalPerson(parentEntityId);
-                case EntityName.Deal:
-                    return GetReferencesByDeal(parentEntityId);
-                default:
-                    return new OrderParentEntityDerivedFieldsDto();
+                return GetReferenceByClient(parentEntityId);
             }
+
+            if (parentEntityName.Equals(EntityType.Instance.Firm()))
+            {
+                return GetReferencesByFirm(parentEntityId);
+            }
+
+            if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
+            {
+                return GetReferencesByLegalPerson(parentEntityId);
+            }
+
+            if (parentEntityName.Equals(EntityType.Instance.Deal()))
+            {
+                return GetReferencesByDeal(parentEntityId);
+            }
+            
+            return new OrderParentEntityDerivedFieldsDto();
         }
 
         public IEnumerable<Bill> GetBillsForOrder(long orderId)

@@ -4,8 +4,9 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 {
@@ -28,12 +29,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.SourceEntityId == taskId)).ToList();
         }
 
-        public bool CheckIfTaskExistsRegarding(EntityName entityName, long entityId)
+        public bool CheckIfTaskExistsRegarding(IEntityType entityName, long entityId)
         {
             return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId)).Any();
         }
 
-        public bool CheckIfOpenTaskExistsRegarding(EntityName entityName, long entityId)
+        public bool CheckIfOpenTaskExistsRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                           .Any();
         }
 
-        public IEnumerable<Task> LookupTasksRegarding(EntityName entityName, long entityId)
+        public IEnumerable<Task> LookupTasksRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Active<Task>() & Specs.Find.ByIds<Task>(ids)).ToArray();
         }
 
-        public IEnumerable<Task> LookupOpenTasksRegarding(EntityName entityName, long entityId)
+        public IEnumerable<Task> LookupOpenTasksRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
