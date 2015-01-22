@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.Platform.Common.Identities
                 if (currentTimestamp < _previousTimestamp)
                 {
                     throw new ArgumentException(string.Format("Clock value was moved back, id generation stopped for {0} milliseconds",
-                                                              (_previousTimestamp - currentTimestamp)));
+                                                              _previousTimestamp - currentTimestamp));
                 }
 
                 if (currentTimestamp == _previousTimestamp)

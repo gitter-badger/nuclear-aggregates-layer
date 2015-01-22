@@ -50,16 +50,12 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Locking\ApplicationLocksPersistenceService.cs" />
     <Compile Include="BatchDeletePersistenceService.cs" />
     <Compile Include="CleanupPersistenceService.cs" />
     <Compile Include="IBatchDeletePersistenceService.cs" />
     <Compile Include="ICleanupPersistenceService.cs" />
     <Compile Include="DI\PlatformDalPersistenceServicesAssembly.cs" />
     <Compile Include="IReplicationPersistenceService.cs" />
-    <Compile Include="Locking\IApplicationLocksPersistenceService.cs" />
-    <Compile Include="Locking\LockAcquirementResult.cs" />
-    <Compile Include="Locking\LockReleasingResult.cs" />
     <Compile Include="ReplicationPersistenceService.cs" />
     <Compile Include="Utils\DataUtils.cs" />
   </ItemGroup>
@@ -93,6 +89,7 @@
       <Name>2Gis.Erm.Platform.DAL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

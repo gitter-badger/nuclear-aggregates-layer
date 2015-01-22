@@ -2,7 +2,6 @@
 
 using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.Common.Identities;
-using DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking;
 
 namespace DoubleGis.Erm.Platform.Core.Identities
 {
@@ -10,16 +9,16 @@ namespace DoubleGis.Erm.Platform.Core.Identities
     {
         private const string IdAppLockTemplate = "Id={0}";
 
-        private readonly IApplicationLocksPersistenceService _applicationLocksPersistenceService;
+        private readonly IApplicationLocksManager _applicationLocksManager;
         private readonly Random _rnd = new Random();
 
         private byte? _id;
         private Guid? _lockId;
         private bool _disposed;
 
-        public AppLockIdentityServiceUniqueIdProvider(IApplicationLocksPersistenceService applicationLocksPersistenceService)
+        public AppLockIdentityServiceUniqueIdProvider(IApplicationLocksManager applicationLocksManager)
         {
-            _applicationLocksPersistenceService = applicationLocksPersistenceService;
+            _applicationLocksManager = applicationLocksManager;
         }
 
         public byte GetUniqueId()
@@ -40,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
             if (_lockId != null)
             {
-                _applicationLocksPersistenceService.ReleaseLock(_lockId.Value);
+                _applicationLocksManager.ReleaseLock(_lockId.Value, true);
             }
 
             _disposed = true;
@@ -50,12 +49,12 @@ namespace DoubleGis.Erm.Platform.Core.Identities
         {
             if (_id != null && _lockId != null)
             {
-                if (_applicationLocksPersistenceService.IsLockActive(_lockId.Value))
+                if (_applicationLocksManager.IsLockActive(_lockId.Value))
                 {
                     return;
                 }
 
-                _applicationLocksPersistenceService.ReleaseLock(_lockId.Value);
+                _applicationLocksManager.ReleaseLock(_lockId.Value, false);
             }
 
             var startId = _id ?? (byte)_rnd.Next(255);
@@ -63,7 +62,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             {
                 var id = (byte)((startId + i) % 256);
                 Guid lockId;
-                if (_applicationLocksPersistenceService.AcquireLock(string.Format(IdAppLockTemplate, id), LockOwner.Transaction, LockScope.AllInstallations, TimeSpan.Zero, out lockId))
+                if (_applicationLocksManager.AcquireLock(string.Format(IdAppLockTemplate, id), LockOwner.Transaction, LockScope.AllInstallations, TimeSpan.Zero, out lockId))
                 {
                     _lockId = lockId;
                     _id = id;

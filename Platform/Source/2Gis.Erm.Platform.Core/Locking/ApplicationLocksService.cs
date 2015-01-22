@@ -1,17 +1,16 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.API.Core.Locking;
-using DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking;
 
 namespace DoubleGis.Erm.Platform.Core.Locking
 {
-    public class ApplicationLocksService : IApplicationLocksService, IApplicationLocksManager
+    public class ApplicationLocksService : IApplicationLocksService, IApplicationLocksReleaser
     {
-        private readonly IApplicationLocksPersistenceService _applicationLocksPersistenceService;
+        private readonly IApplicationLocksManager _applicationLocksManager;
 
-        public ApplicationLocksService(IApplicationLocksPersistenceService applicationLocksPersistenceService)
+        public ApplicationLocksService(IApplicationLocksManager applicationLocksManager)
         {
-            _applicationLocksPersistenceService = applicationLocksPersistenceService;
+            _applicationLocksManager = applicationLocksManager;
         }
 
         public ILockingScope Acquire(string lockName, LockOwner lockOwner, LockScope lockScope, TimeSpan timeout)
@@ -24,9 +23,9 @@ namespace DoubleGis.Erm.Platform.Core.Locking
             return TryAcquireInternal(lockName, lockOwner, null, out lockingScope, lockScope);
         }
 
-        public void Release(ITrackedLockingScope scope)
+        public void Release(Guid scopeId, bool directReleasing)
         {
-            _applicationLocksPersistenceService.ReleaseLock(scope.Id);
+            _applicationLocksManager.ReleaseLock(scopeId, directReleasing);
         }
 
         private ILockingScope AcquireInternal(string lockName, LockOwner lockOwner, TimeSpan? timeout, LockScope lockScope)
@@ -43,7 +42,7 @@ namespace DoubleGis.Erm.Platform.Core.Locking
         private bool TryAcquireInternal(string lockName, LockOwner lockOwner, TimeSpan? timeout, out ILockingScope lockingScope, LockScope lockScope)
         {
             Guid lockId;
-            if (_applicationLocksPersistenceService.AcquireLock(lockName, lockOwner, lockScope, timeout ?? TimeSpan.Zero, out lockId))
+            if (_applicationLocksManager.AcquireLock(lockName, lockOwner, lockScope, timeout ?? TimeSpan.Zero, out lockId))
             {
                 lockingScope = new LockingScope(lockId, this);
                 return true;

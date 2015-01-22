@@ -1,7 +1,11 @@
-﻿namespace DoubleGis.Erm.Platform.API.Core.Locking
+using System;
+
+namespace DoubleGis.Erm.Platform.API.Core.Locking
 {
     public interface IApplicationLocksManager
     {
-        void Release(ITrackedLockingScope scope);
+        bool AcquireLock(string lockName, LockOwner lockOwner, LockScope lockScope, TimeSpan timeout, out Guid lockId);
+        bool ReleaseLock(Guid lockId, bool directReleasing);
+        bool IsLockActive(Guid lockId);
     }
 }

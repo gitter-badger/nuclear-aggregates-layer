@@ -2,62 +2,35 @@ using System;
 
 namespace DoubleGis.Erm.Platform.API.Core.Locking
 {
-    public sealed class LockingScope : ILockingScope, ITrackedLockingScope
+    public sealed class LockingScope : ILockingScope
     {
-        private readonly Guid _id;
-        private bool _isReleased;
-        private bool _isDisposed;
-        private readonly IApplicationLocksManager _applicationLocksManager;
+        private readonly IApplicationLocksReleaser _applicationLocksReleaser;
 
-        public LockingScope(Guid id, IApplicationLocksManager applicationLocksManager)
+        private readonly Guid _id;
+
+        private bool _isCompleted;
+        private bool _isDisposed;
+
+        public LockingScope(Guid id, IApplicationLocksReleaser applicationLocksReleaser)
         {
             _id = id;
-            _applicationLocksManager = applicationLocksManager;
+            _applicationLocksReleaser = applicationLocksReleaser;
         }
 
-        public Guid Id
-        {
-            get
-            {
-                ThrowIfDisposed();
-                return _id;
-            }
-        }
-
-        public void Release()
+        public void Complete()
         {
             ThrowIfDisposed();
-            if (_isReleased)
-            {
-                return;
-            }
-
-            _applicationLocksManager.Release(this);
-            _isReleased = true;
+            _isCompleted = true;
         }
 
         public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~LockingScope()
-        {
-            Dispose(false);
-        }
-
-        private void Dispose(bool disposing)
         {
             if (_isDisposed)
             {
                 return;
             }
-
-            if (disposing && !_isReleased)
-            {
-                Release();
-            }
+                
+            _applicationLocksReleaser.Release(_id, _isCompleted);
 
             _isDisposed = true;
         }

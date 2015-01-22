@@ -7,17 +7,18 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
+using DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking;
 
-namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
+namespace DoubleGis.Erm.Platform.Core.Locking
 {
-    public class ApplicationLocksPersistenceService : IApplicationLocksPersistenceService
+    public class ApplicationLocksManager : IApplicationLocksManager
     {
         private readonly IDictionary<Guid, ApplicationLockDescriptor> _acquiredLocks = new Dictionary<Guid, ApplicationLockDescriptor>();
         private readonly IConnectionStringSettings _connectionStringSettings;
         private readonly IDatabaseCaller _databaseCaller;
         private readonly object _sync = new object();
 
-        public ApplicationLocksPersistenceService(IDatabaseCaller databaseCaller, IConnectionStringSettings connectionStringSettings)
+        public ApplicationLocksManager(IDatabaseCaller databaseCaller, IConnectionStringSettings connectionStringSettings)
         {
             _databaseCaller = databaseCaller;
             _connectionStringSettings = connectionStringSettings;
@@ -67,9 +68,12 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
         public bool IsLockActive(Guid lockId)
         {
             ApplicationLockDescriptor descriptor;
-            if (!_acquiredLocks.TryGetValue(lockId, out descriptor))
+            lock (_sync)
             {
-                return false;
+                if (!_acquiredLocks.TryGetValue(lockId, out descriptor))
+                {
+                    return false;
+                }
             }
 
             if (!descriptor.Connection.State.HasFlag(ConnectionState.Open))
@@ -85,7 +89,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
             return _databaseCaller.QueryRawSql<int>("SELECT @@TRANCOUNT", null, descriptor.Connection, descriptor.Transaction).Single() == 1;
         }
 
-        public bool ReleaseLock(Guid lockId)
+        public bool ReleaseLock(Guid lockId, bool directReleasing)
         {
             lock (_sync)
             {
@@ -106,7 +110,10 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
                         return false;
                     }
 
-                    var result = _databaseCaller.ExecuteProcedureWithReturnValue<LockReleasingResult>("sys.sp_releaseapplock",
+                    LockReleasingResult? result = null;
+                    if (directReleasing)
+                    {
+                        result = _databaseCaller.ExecuteProcedureWithReturnValue<LockReleasingResult>("sys.sp_releaseapplock",
                                                                                                       new
                                                                                                           {
                                                                                                               Resource = lockName,
@@ -114,6 +121,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
                                                                                                           },
                                                                                                       connection,
                                                                                                       transaction);
+                    }
 
                     if (result == LockReleasingResult.Released)
                     {

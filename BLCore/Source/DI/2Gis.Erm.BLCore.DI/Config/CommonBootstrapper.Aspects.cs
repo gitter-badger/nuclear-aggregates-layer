@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
 
-                        .RegisterType<IApplicationLocksPersistenceService, ApplicationLocksPersistenceService>(Mapping.ErmInfrastructure, Lifetime.Singleton)
+                        .RegisterType<IApplicationLocksManager, ApplicationLocksManager>(Mapping.ErmInfrastructure, Lifetime.Singleton)
                         .RegisterTypeWithDependencies<IApplicationLocksService, ApplicationLocksService>(Lifetime.Singleton, Mapping.ErmInfrastructure)
 
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя

@@ -85,9 +85,9 @@
     <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
     <Compile Include="Exceptions\Withdrawal\WithdrawalException.cs" />
     <Compile Include="Locking\IApplicationLocksManager.cs" />
+    <Compile Include="Locking\IApplicationLocksReleaser.cs" />
     <Compile Include="Locking\IApplicationLocksService.cs" />
     <Compile Include="Locking\ILockingScope.cs" />
-    <Compile Include="Locking\ITrackedLockingScope.cs" />
     <Compile Include="Locking\LockingScope.cs" />
     <Compile Include="Locking\LockName.cs" />
     <Compile Include="Locking\LockOwner.cs" />
