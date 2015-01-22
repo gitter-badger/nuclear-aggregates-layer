@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
@@ -13,11 +15,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
     public sealed class EFDomainContext : IModifiableDomainContext, IReadDomainContext
     {
         private readonly IProcessingContext _processingContext;
-        private readonly IDbContext _dbContext;
+        private readonly DbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
 
         public EFDomainContext(IProcessingContext processingContext,
-                               IDbContext dbContext,
+                               DbContext dbContext,
                                IPendingChangesHandlingStrategy pendingChangesHandlingStrategy)
         {
             _processingContext = processingContext;
@@ -33,7 +35,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             {
                 try
                 {
-                    return _dbContext.HasChanges();
+                    return _dbContext.ChangeTracker.HasChanges();
                 }
                 catch (InvalidOperationException)
                 {
@@ -43,9 +45,47 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
         }
 
-        int IModifiableDomainContext.SaveChanges()
+        public void Add<TEntity>(TEntity entity) where TEntity : class
         {
-            foreach (var entry in _dbContext.Entries())
+            _dbContext.Set<TEntity>().Add(entity);
+        }
+
+        public void AddRange<TEntity>(IEnumerable<TEntity> castedEntities) where TEntity : class
+        {
+            _dbContext.Set<TEntity>().AddRange(castedEntities);
+        }
+
+        public void Update<TEntity>(TEntity entity) where TEntity : class
+        {
+            EntityPlacementState entityPlacementState;
+            var entry = EnsureEntityIsAttached(entity, out entityPlacementState);
+
+            if (entityPlacementState == EntityPlacementState.CachedInContext)
+            {
+                entry.CurrentValues.SetValues(entity);
+            }
+
+            entry.State = EntityState.Modified;
+        }
+
+        public void Remove<TEntity>(TEntity entity) where TEntity : class
+        {
+            // physically delete from database
+            EntityPlacementState entityPlacementState;
+            var entry = EnsureEntityIsAttached(entity, out entityPlacementState);
+            var entityToRemove = (TEntity)entry.Entity;
+            _dbContext.Set<TEntity>().Remove(entityToRemove);
+        }
+
+        public void RemoveRange<TEntity>(IEnumerable<TEntity> entitiesToDeletePhysically) where TEntity : class
+        {
+            EntityPlacementState entityPlacementState;
+            _dbContext.Set<TEntity>().RemoveRange(entitiesToDeletePhysically.Select(x => (TEntity)EnsureEntityIsAttached(x, out entityPlacementState).Entity));
+        }
+
+        public int SaveChanges()
+        {
+            foreach (var entry in _dbContext.ChangeTracker.Entries())
             {
                 var replicateableEntity = entry.Entity as IReplicableEntity;
                 if (replicateableEntity != null && entry.State == EntityState.Added)
@@ -59,7 +99,17 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             return _dbContext.SaveChanges();
         }
 
-        #region Delegating members for ObjectContext
+        public IQueryable GetQueryableSource(Type entityType)
+        {
+            EnsureUseCaseDuration();
+            return _dbContext.Set(entityType).AsNoTracking();
+        }
+
+        public IQueryable<TEntity> GetQueryableSource<TEntity>() where TEntity : class
+        {
+            EnsureUseCaseDuration();
+            return _dbContext.Set<TEntity>().AsNoTracking();
+        }
 
         public void Dispose()
         {
@@ -70,38 +120,49 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
         }
 
-        public DbSet<TEntity> Set<TEntity>() where TEntity : class
-        {
-            return _dbContext.Set<TEntity>();
-        }
-
-        public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
-        {
-            return _dbContext.Entry(entity);
-        }
-
-        #endregion
-
-        IQueryable IReadDomainContext.GetQueryableSource(Type entityType)
-        {
-            EnsureUseCaseDuration();
-            return _dbContext.Set(entityType).AsNoTracking();
-        }
-
-        IQueryable<TEntity> IReadDomainContext.GetQueryableSource<TEntity>()
-        {
-            EnsureUseCaseDuration();
-            return _dbContext.Set<TEntity>().AsNoTracking();
-        }
-
         private void EnsureUseCaseDuration()
         {
             // пока конвертация простая - значение enum UseCaseDuration используется как значение command timeout в секундах
             var timeout = (int)(_processingContext.ContainsKey(UseCaseDurationKey.Instance)
                                     ? _processingContext.GetValue(UseCaseDurationKey.Instance)
                                     : UseCaseDuration.Normal);
-            var currentValue = _dbContext.CommandTimeout ?? 0;
-            _dbContext.CommandTimeout = Math.Max(timeout, currentValue);
+            var currentValue = _dbContext.Database.CommandTimeout ?? 0;
+            _dbContext.Database.CommandTimeout = Math.Max(timeout, currentValue);
+        }
+
+        private DbEntityEntry EnsureEntityIsAttached<TEntity>(TEntity entity, out EntityPlacementState entityPlacementState) where TEntity : class
+        {
+            var cachedEntity = _dbContext.Set<TEntity>().Local.SingleOrDefault(x => x.Equals(entity));
+            if (cachedEntity != null)
+            {
+                var entry = _dbContext.Entry(cachedEntity);
+                if (entry.State != EntityState.Unchanged)
+                {
+                    var entityKey = entity as IEntityKey;
+
+                    // используется НЕотложенное сохранение - т.е. объект изменили, не сохранили изменения и опять пытаемся менять экземпляр сущности с тем же identity
+                    throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
+                                                                      "with unsaved changes => trying to update not saved entity. " +
+                                                                      "Possible entity repository save method not called before next update. " +
+                                                                      "Save mode is immediately, not deferred",
+                                                                      typeof(TEntity).Name,
+                                                                      entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
+                }
+
+                entityPlacementState = EntityPlacementState.CachedInContext;
+                return entry;
+            }
+            else
+            {
+                var entry = _dbContext.Entry(entity);
+                if (entry.State == EntityState.Detached)
+                {
+                    _dbContext.Set<TEntity>().Attach(entity);
+                }
+
+                entityPlacementState = EntityPlacementState.AttachedToContext;
+                return entry;
+            }
         }
     }
 }

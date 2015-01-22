@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             var clone = entities.ToList();
 
-            Set().AddRange(clone.Select(entity =>
+            DomainContext.AddRange(clone.Select(entity =>
                 {
                     ThrowIfEntityIsNull(entity, "entity");
                     ThrowIfEntityHasNoId(entity);
@@ -38,7 +38,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                     // NOTE: side effect
                     SetEntityAuditableInfo(entity, true);
 
-                    return ConvertEntity(entity);
+                    var persistentEntity = ConvertEntity(entity);
+
+                    return persistentEntity;
                 })
                 .ToList());
 
@@ -58,17 +60,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
             var persistentEntity = ConvertEntity(entity);
 
-            EntityPlacementState state;
-            var entry = EnsureEntityIsAttached(persistentEntity, out state);
-
-            if (state == EntityPlacementState.CachedInContext)
-            {
-                entry.SetCurrentValues(persistentEntity);
-            }
-            else
-            {
-                entry.SetAsModified();
-            }
+            DomainContext.Update(persistentEntity);
 
             var entityKey = entity as IEntityKey;
             if (entityKey != null)
@@ -86,30 +78,20 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             var clone = entities.ToList();
 
-            Set().RemoveRange(clone.Select(entity =>
+            DomainContext.RemoveRange(clone.Select(entity =>
             {
                 ThrowIfEntityIsNull(entity, "entity");
                 ThrowIfEntityHasNoId(entity);
 
                 // NOTE: side effect
                 SetEntityAuditableInfo(entity, false);
-                SetEntityDeleteableInfo(entity);
-
                 var persistentEntity = ConvertEntity(entity);
 
-                EntityPlacementState entityPlacementState;
-                var entry = EnsureEntityIsAttached(persistentEntity, out entityPlacementState);
-
-                if (entity is IDeletableEntity)
+                if (persistentEntity is IDeletableEntity)
                 {
-                    if (entityPlacementState == EntityPlacementState.CachedInContext)
-                    {
-                        entry.SetCurrentValues(entity);
-                    }
-                    else
-                    {
-                        entry.SetAsModified();
-                    }
+                    SetEntityDeleteableInfo(persistentEntity);
+
+                    DomainContext.Update(persistentEntity);
 
                     return null;
                 }

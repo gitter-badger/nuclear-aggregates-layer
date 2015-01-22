@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -33,7 +31,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _domainContextProvider = domainContextProvider;
         }
 
-        private EFDomainContext DomainContext
+        protected EFDomainContext DomainContext
         {
             get
             {
@@ -73,48 +71,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         protected int SaveChanges()
         {
-            return ((IModifiableDomainContext)DomainContext).SaveChanges();
+            return DomainContext.SaveChanges();
         }
 
-        protected DbSet<TPersistentEntity> Set()
-        {
-            return DomainContext.Set<TPersistentEntity>();
-        }
-
-        protected IDbEntityEntry EnsureEntityIsAttached(TPersistentEntity entity, out EntityPlacementState entityPlacementState)
-        {
-            var cachedEntity = DomainContext.Set<TPersistentEntity>().Local.SingleOrDefault(x => x.Equals(entity));
-            if (cachedEntity != null)
-            {
-                var entry = DomainContext.Entry(cachedEntity);
-                if (entry.State != EntityState.Unchanged)
-                {
-                    var entityKey = entity as IEntityKey;
-
-                    // используется НЕотложенное сохранение - т.е. объект изменили, не сохранили изменения и опять пытаемся менять экземпляр сущности с тем же identity
-                    throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
-                                                                        "with unsaved changes => trying to update not saved entity. " +
-                                                                        "Possible entity repository save method not called before next update. " +
-                                                                        "Save mode is immediately, not deferred",
-                                                                        typeof(TEntity).Name,
-                                                                        entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
-                }
-
-                entityPlacementState = EntityPlacementState.CachedInContext;
-                return new EFEntityEntry(entry);
-            }
-            else
-            {
-                var entry = DomainContext.Entry(entity);
-                if (entry.State == EntityState.Detached)
-                {
-                    DomainContext.Set<TPersistentEntity>().Attach(entity);
-                }
-
-                entityPlacementState = EntityPlacementState.AttachedToContext;
-                return new EFEntityEntry(entry);
-            }
-        }
 
         protected void SetEntityAuditableInfo(TEntity entity, bool isEntityCreated)
         {
@@ -136,7 +95,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             auditableEntity.ModifiedBy = _userContext.Identity.Code;
         }
 
-        protected void SetEntityDeleteableInfo(TEntity entity)
+        protected void SetEntityDeleteableInfo(TPersistentEntity entity)
         {
             // deactivate before deleting
             var deactivatableEntity = entity as IDeactivatableEntity;

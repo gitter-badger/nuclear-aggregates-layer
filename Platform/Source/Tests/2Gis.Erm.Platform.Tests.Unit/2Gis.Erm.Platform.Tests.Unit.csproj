@@ -145,7 +145,6 @@
     <Compile Include="DAL\Infrastructure\Fakes\Repositories\ConcreteAggregateRepository.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\Repositories\ConcreteAggregateRepository1.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\Repositories\ConcreteAggregateRepository2.cs" />
-    <Compile Include="DAL\Infrastructure\Fakes\Repositories\EFGenericRepositoryWrapper.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\Repositories\StubGenericRepository.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\Repositories\StubEntityRepository.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\Repositories\StubSimpleAggregateRepository.cs" />
@@ -172,7 +171,6 @@
     </Compile>
     <Compile Include="DAL\SpecFlow\UnitOfWorkSteps.cs" />
     <Compile Include="Core\Services\Operations\Metadata\Security\OperationSecurityRegistryTestFixture.cs" />
-    <Compile Include="StubEntityEntry.cs" />
     <Compile Include="DAL\WrappedQuerySpecs.cs" />
   </ItemGroup>
   <ItemGroup>
