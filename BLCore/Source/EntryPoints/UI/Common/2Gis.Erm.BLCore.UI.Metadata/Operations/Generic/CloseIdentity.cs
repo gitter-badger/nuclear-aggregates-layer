@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.UI.Metadata.Operations;
+﻿using DoubleGis.Erm.Platform.UI.Metadata.Operations;
+
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic
 {

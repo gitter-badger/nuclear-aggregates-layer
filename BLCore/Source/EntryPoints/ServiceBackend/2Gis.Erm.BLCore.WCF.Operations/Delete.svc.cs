@@ -9,7 +9,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Delete;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
@@ -29,10 +30,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public DeleteConfirmation Execute(string specifiedEntityName, string specifiedEntityId)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
@@ -53,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public DeleteConfirmation Execute(EntityName entityName, long entityId)
+        public DeleteConfirmation Execute(IEntityType entityName, long entityId)
         {
             try
             {
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        private DeleteConfirmation ExecuteInternal(EntityName entityName, long entityId)
+        private DeleteConfirmation ExecuteInternal(IEntityType entityName, long entityId)
         {
             var deleteEntityService = _operationServicesManager.GetDeleteEntityService(entityName);
             return deleteEntityService.Delete(entityId);

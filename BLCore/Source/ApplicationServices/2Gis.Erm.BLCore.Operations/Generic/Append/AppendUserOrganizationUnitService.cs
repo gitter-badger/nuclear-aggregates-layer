@@ -7,6 +7,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
 {
     public class AppendUserOrganizationUnitService : IAppendGenericEntityService<OrganizationUnit, User>
@@ -25,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
                 throw new ArgumentException(BLResources.UserIdOrOrgUnitIdIsNotSpecified);
             }
 
-            if (appendParams.ParentType != EntityName.User || appendParams.AppendedType != EntityName.OrganizationUnit)
+            if (!appendParams.ParentType.Equals(EntityType.Instance.User()) || !appendParams.AppendedType.Equals(EntityType.Instance.OrganizationUnit()))
             {
                 throw new ArgumentException(BLResources.EntityNamesShouldBeUserAndOrgUnit);
             }

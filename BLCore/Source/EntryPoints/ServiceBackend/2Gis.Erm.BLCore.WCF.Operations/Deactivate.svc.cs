@@ -9,7 +9,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Deactivate;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public DeactivateConfirmation Execute(string specifiedEntityName, string specifiedEntityId, string specifiedOwnerCode)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
             long ownerCode;
             if (!long.TryParse(specifiedOwnerCode, out ownerCode))
             {
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
@@ -60,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public DeactivateConfirmation Execute(EntityName entityName, long entityId, long? ownerCode)
+        public DeactivateConfirmation Execute(IEntityType entityName, long entityId, long? ownerCode)
         {
             var actualOwnerCode = ownerCode ?? _userContext.Identity.Code;
             try
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        private DeactivateConfirmation ExecuteInternal(EntityName entityName, long entityId, long ownerCode)
+        private DeactivateConfirmation ExecuteInternal(IEntityType entityName, long entityId, long ownerCode)
         {
             var deactivateEntityService = _operationServicesManager.GetDeactivateEntityService(entityName);
             return deactivateEntityService.Deactivate(entityId, ownerCode);

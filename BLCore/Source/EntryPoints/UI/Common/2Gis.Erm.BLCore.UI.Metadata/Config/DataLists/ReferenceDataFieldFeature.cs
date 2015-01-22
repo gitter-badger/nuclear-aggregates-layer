@@ -1,10 +1,10 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {
     public class ReferenceDataFieldFeature : IDataFieldFeature
     {
-        public ReferenceDataFieldFeature(string referencedPropertyName, EntityName entityName)
+        public ReferenceDataFieldFeature(string referencedPropertyName, IEntityType entityName)
         {
             ReferencedPropertyName = referencedPropertyName;
             ReferencedEntityName = entityName;
@@ -12,6 +12,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 
         public string ReferencedPropertyName { get; set; }
 
-        public EntityName ReferencedEntityName { get; set; }
+        public IEntityType ReferencedEntityName { get; set; }
     }
 }

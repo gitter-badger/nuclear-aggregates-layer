@@ -12,12 +12,14 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class ManageTextAdsApplicationService : IManageTextAdsApplicationService, IManageTextAdsApplicationRestService
     {
-        private const EntityName AdvertisementElement = EntityName.AdvertisementElement;
+        private static readonly IEntityType AdvertisementElement = EntityType.Instance.AdvertisementElement();
 
         private readonly ICommonLog _logger;
         private readonly IGetDomainEntityDtoService _getDomainEntityDtoService;
@@ -108,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
 
         private void UpdateText(long adsElementId, Action<AdvertisementElementDomainEntityDto> action)
         {
-            var dto = (AdvertisementElementDomainEntityDto)_getDomainEntityDtoService.GetDomainEntityDto(adsElementId, false, null, EntityName.None, string.Empty);
+            var dto = (AdvertisementElementDomainEntityDto)_getDomainEntityDtoService.GetDomainEntityDto(adsElementId, false, null, EntityType.Instance.None(), string.Empty);
             action(dto);
             _modifyBusinessModelEntityService.Modify(dto);
         }

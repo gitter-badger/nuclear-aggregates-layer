@@ -3,9 +3,10 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Aspects.Features.Operations;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {

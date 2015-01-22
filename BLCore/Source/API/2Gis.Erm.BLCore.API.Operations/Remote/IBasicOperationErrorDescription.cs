@@ -1,10 +1,10 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote
 {
     public interface IBasicOperationErrorDescription
     {
-        EntityName EntityName { get; }
+        IEntityType EntityName { get; }
         string Message { get; }
     }
 }

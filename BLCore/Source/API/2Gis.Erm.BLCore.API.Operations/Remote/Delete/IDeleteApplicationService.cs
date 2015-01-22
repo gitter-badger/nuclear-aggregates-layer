@@ -2,7 +2,8 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Delete
 {
@@ -11,6 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Delete
     {
         [OperationContract]
         [FaultContract(typeof(DeleteOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.Delete201303)]
-        DeleteConfirmation Execute(EntityName entityName, long entityId);
+        DeleteConfirmation Execute(IEntityType entityName, long entityId);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using NuClear.Metamodeling.Elements;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {

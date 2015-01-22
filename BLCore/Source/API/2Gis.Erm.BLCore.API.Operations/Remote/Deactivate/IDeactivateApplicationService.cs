@@ -2,7 +2,8 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Deactivate
 {
@@ -11,6 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Deactivate
     {
          [OperationContract]
          [FaultContract(typeof(DeactivateOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.Deactivate201303)]
-         DeactivateConfirmation Execute(EntityName entityName, long entityId, long? ownerCode);
+         DeactivateConfirmation Execute(IEntityType entityName, long entityId, long? ownerCode);
     }
 }

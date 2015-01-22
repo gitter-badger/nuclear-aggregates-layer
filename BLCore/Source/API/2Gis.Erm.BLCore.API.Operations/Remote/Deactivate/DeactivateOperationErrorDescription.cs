@@ -1,14 +1,15 @@
 ﻿using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Deactivate
 {
     [DataContract(Namespace =  ServiceNamespaces.BasicOperations.Deactivate201303)]
     public class DeactivateOperationErrorDescription : IBasicOperationErrorDescription
     {
-        public DeactivateOperationErrorDescription(EntityName entityName, string message, long ownerCode)
+        public DeactivateOperationErrorDescription(IEntityType entityName, string message, long ownerCode)
         {
             EntityName = entityName;
             Message = message;
@@ -16,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Deactivate
         }
 
         [DataMember]
-        public EntityName EntityName { get; private set; }
+        public IEntityType EntityName { get; private set; }
         [DataMember]
         public string Message { get; private set; }
         [DataMember]

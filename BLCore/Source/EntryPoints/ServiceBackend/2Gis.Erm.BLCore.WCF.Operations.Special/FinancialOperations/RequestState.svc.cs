@@ -9,10 +9,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.OrderProcessing;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
 {
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             try
             {
                 var states = requestIds
-                    .Select(x => (OrderProcessingRequestDomainEntityDto)_domainEntityDtoService.GetDomainEntityDto(x, true, null, EntityName.None, null))
+                    .Select(x => (OrderProcessingRequestDomainEntityDto)_domainEntityDtoService.GetDomainEntityDto(x, true, null, EntityType.Instance.None(), null))
                     .Select(x =>
                         {
                             IOrderRequestStateDescription currentStateDescription;

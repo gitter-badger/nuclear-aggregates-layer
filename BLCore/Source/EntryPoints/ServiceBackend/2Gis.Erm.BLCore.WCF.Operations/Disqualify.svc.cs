@@ -9,7 +9,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public DisqualifyResult Execute(string specifiedEntityName, string specifiedEntityId, string specifiedBypassValidation)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
 
             bool bypassValidation;
             if (!bool.TryParse(specifiedBypassValidation, out bypassValidation))
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
@@ -60,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public DisqualifyResult Execute(EntityName entityName, long entityId, bool? bypassValidation)
+        public DisqualifyResult Execute(IEntityType entityName, long entityId, bool? bypassValidation)
         {
             var actualBypassValidatione = bypassValidation ?? false;
             try
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        private DisqualifyResult ExecuteInternal(EntityName entityName, long entityId, bool bypassValidation)
+        private DisqualifyResult ExecuteInternal(IEntityType entityName, long entityId, bool bypassValidation)
         {
             var disqualifyEntityService = _operationServicesManager.GetDisqualifyEntityService(entityName);
             return disqualifyEntityService.Disqualify(entityId, bypassValidation);

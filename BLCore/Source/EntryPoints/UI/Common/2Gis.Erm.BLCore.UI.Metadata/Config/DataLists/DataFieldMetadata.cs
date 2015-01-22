@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {
@@ -92,12 +93,12 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
             }
         }
 
-        public EntityName ReferencedEntityName
+        public IEntityType ReferencedEntityName
         {
             get
             {
                 var feature = this.Features<ReferenceDataFieldFeature>().SingleOrDefault();
-                return feature != null ? feature.ReferencedEntityName : EntityName.None;
+                return feature != null ? feature.ReferencedEntityName : EntityType.Instance.None();
             }
         }
 

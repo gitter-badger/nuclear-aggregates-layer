@@ -1,7 +1,8 @@
 ﻿using System.ServiceModel;
 
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Append
 {
@@ -10,6 +11,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Append
     {
         [OperationContract]
         [FaultContract(typeof(AppendOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.Append201303)]
-        void Execute(EntityName entityName, long entityId, EntityName appendedEntityName, long appendedEntityId);
+        void Execute(IEntityType entityName, long entityId, IEntityType appendedEntityName, long appendedEntityId);
     }
 }

@@ -2,7 +2,8 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeClient;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.ChangeClient
 {
@@ -11,10 +12,10 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.ChangeClient
     {
         [OperationContract]
         [FaultContract(typeof(ChangeClientOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.ChangeClient201303)]
-        ChangeEntityClientValidationResult Validate(EntityName entityName, long entityId, long clientId);
+        ChangeEntityClientValidationResult Validate(IEntityType entityName, long entityId, long clientId);
 
         [OperationContract]
         [FaultContract(typeof(ChangeClientOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.ChangeClient201303)]
-        ChangeEntityClientResult Execute(EntityName entityName, long entityId, long clientId, bool? bypassValidation);
+        ChangeEntityClientResult Execute(IEntityType entityName, long entityId, long clientId, bool? bypassValidation);
     }
 }

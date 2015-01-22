@@ -9,7 +9,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.ActionsHistory;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
@@ -32,10 +33,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public ActionsHistoryDto GetActionsHistory(string specifiedEntityName, string specifiedEntityId)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
@@ -56,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public ActionsHistoryDto GetActionsHistory(EntityName entityName, long entityId)
+        public ActionsHistoryDto GetActionsHistory(IEntityType entityName, long entityId)
         {
             try
             {
@@ -69,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        private ActionsHistoryDto GetActionsHistoryInternal(EntityName entityName, long entityId)
+        private ActionsHistoryDto GetActionsHistoryInternal(IEntityType entityName, long entityId)
         {
             var actionsHistoryService = _operationServicesManager.GetActionHistoryService(entityName);
             return actionsHistoryService.GetActionHistory(entityName, entityId);

@@ -2,7 +2,8 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Assign
 {
@@ -11,6 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Assign
     {
         [OperationContract]
         [FaultContract(typeof(AssignOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.Assign201303)]
-        AssignResult Execute(EntityName entityName, long entityId, long? ownerCode, bool? isPartialAssign, bool? bypassValidation); 
+        AssignResult Execute(IEntityType entityName, long entityId, long? ownerCode, bool? isPartialAssign, bool? bypassValidation); 
     }
 }
