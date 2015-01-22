@@ -192,6 +192,7 @@
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\OrderActualizeAmountToWithdrawAggregateService.cs" />
+    <Compile Include="Orders\Operations\ChangeOrderLegalPersonProfileAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderChangeStateOrders2ArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderDeleteReleaseWithdrawalsAggregateService.cs" />
