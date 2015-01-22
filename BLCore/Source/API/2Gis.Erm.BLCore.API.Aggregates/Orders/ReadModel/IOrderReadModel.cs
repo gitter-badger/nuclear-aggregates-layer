@@ -25,6 +25,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId);
         IEnumerable<OrderWithDummyAdvertisementDto> GetOrdersWithDummyAdvertisement(long organizationUnitId, long ownerCode, bool includeOwnerDescendants);
         IDictionary<long, string> PickInactiveOrDeletedOrderPositionNames(IEnumerable<long> orderPositionIds);
+        IEnumerable<long> GetExistingOrderPositionIds(IEnumerable<long> orderPositionIds);
 
         Dictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
             IEnumerable<long> orderIds,

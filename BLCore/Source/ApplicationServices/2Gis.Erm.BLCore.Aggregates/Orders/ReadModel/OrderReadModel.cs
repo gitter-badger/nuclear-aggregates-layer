@@ -214,6 +214,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .ToDictionary(x => x.Id, y => y.Name);
         }
 
+        public IEnumerable<long> GetExistingOrderPositionIds(IEnumerable<long> orderPositionIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<OrderPosition>(orderPositionIds))
+                          .Select(x => x.Id)
+                          .ToArray();
+        }
+
         public Dictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
             IEnumerable<long> orderIds,
             DateTime startPeriodDate,

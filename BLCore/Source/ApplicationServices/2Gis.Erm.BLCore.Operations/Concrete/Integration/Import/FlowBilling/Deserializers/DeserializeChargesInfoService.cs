@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             return new ChargeDto
                 {
                     OrderPositionId = (long)element.Attribute("OrderPositionCode"),
-                    Amount = (long)element.Attribute("Amount"),
+                    Amount = (decimal)element.Attribute("Amount"),
                 };
         }
     }

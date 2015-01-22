@@ -112,6 +112,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                     }
                 }
 
+                var specifiedOrderPositionIds = chargesInfo.Charges.Select(x => x.OrderPositionId).ToArray();
+
+                var existingOrderPositions = _orderReadModel.GetExistingOrderPositionIds(specifiedOrderPositionIds);
+                var missingOrderPositions = specifiedOrderPositionIds.Except(existingOrderPositions);
+                if (missingOrderPositions.Any())
+                {
+                    throw new CannotCreateChargesException(
+                        string.Format("Can't create charges. Following OrderPositions not found: {0}",
+                                      string.Join(";", missingOrderPositions.Select(x => x.ToString()))));
+                }
+
                 var inactiveOrderPositions = _orderReadModel.PickInactiveOrDeletedOrderPositionNames(chargesInfo.Charges.Select(x => x.OrderPositionId).ToArray());
                 if (inactiveOrderPositions.Any())
                 {
