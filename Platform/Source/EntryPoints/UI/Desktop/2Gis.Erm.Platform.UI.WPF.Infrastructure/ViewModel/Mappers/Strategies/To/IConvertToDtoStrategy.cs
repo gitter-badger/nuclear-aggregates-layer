@@ -1,6 +1,7 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
+﻿using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Mappers.Strategies.To
 {

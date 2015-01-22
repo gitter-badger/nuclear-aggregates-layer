@@ -1,7 +1,8 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Common.Crosscutting;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink
 {

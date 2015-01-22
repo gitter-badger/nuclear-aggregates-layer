@@ -1,10 +1,11 @@
 using System;
 
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
 {
@@ -12,7 +13,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
         where TEntity : class, IEntityKey
     {
         private readonly Type _entityType;
-        private readonly EntityName _entityName;
+        private readonly IEntityType _entityName;
 
         protected SoapApiOperationEntitySpecificServiceBase(
             IDesktopClientProxyFactory clientProxyFactory,
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
             }
         }
 
-        protected EntityName EntityName
+        protected IEntityType EntityName
         {
             get
             {
