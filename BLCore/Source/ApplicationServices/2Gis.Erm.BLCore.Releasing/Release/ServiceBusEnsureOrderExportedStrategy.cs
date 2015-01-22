@@ -20,7 +20,8 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     {
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> _operationsProcessingsStoreService;
+        private readonly IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> _orderOperationsProcessingsStoreService;
+        private readonly IOperationsProcessingsStoreService<Order, ExportFlowOrdersInvoice> _invoiceOperationsProcessingsStoreService;
         private readonly IExportRepository<Order> _exportRepository;
         private readonly ICommonLog _logger;
 
@@ -28,13 +29,15 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                                      IOrderReadModel orderReadModel,
                                                      IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> operationsProcessingsStoreService,
                                                      IExportRepository<Order> exportRepository,
-                                                     ICommonLog logger)
+                                                     ICommonLog logger,
+                                                     IOperationsProcessingsStoreService<Order, ExportFlowOrdersInvoice> invoiceOperationsProcessingsStoreService)
         {
             _integrationSettings = integrationSettings;
             _orderReadModel = orderReadModel;
-            _operationsProcessingsStoreService = operationsProcessingsStoreService;
+            _orderOperationsProcessingsStoreService = operationsProcessingsStoreService;
             _exportRepository = exportRepository;
             _logger = logger;
+            _invoiceOperationsProcessingsStoreService = invoiceOperationsProcessingsStoreService;
         }
 
         public bool IsExported(long releaseId, long organizationUnitId, int organizationUnitDgppId, TimePeriod period, bool isBeta)
@@ -103,7 +106,9 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             bool isExported;
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                isExported = AllOrdersAreSuccessfullyExported(organizationUnitId, period) && AllOperationsAreProcessed(organizationUnitId, period);
+                isExported = AllOrdersAreSuccessfullyExported(organizationUnitId, period) &&
+                             AllOperationsAreProcessed(organizationUnitId, period, _orderOperationsProcessingsStoreService) &&
+                             AllOperationsAreProcessed(organizationUnitId, period, _invoiceOperationsProcessingsStoreService);
                 transaction.Complete();
             }
 
@@ -112,16 +117,18 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
         private bool AllOrdersAreSuccessfullyExported(long organizationUnitId, TimePeriod period)
         {
-            var failedOrders = _operationsProcessingsStoreService.GetFailedEntities().Select(entity => entity.EntityId);
-            var anyFailedOrder = _orderReadModel.GetOrdersForRelease(organizationUnitId, period).Any(order => failedOrders.Contains(order.Id));
+            var failedOrders = _orderOperationsProcessingsStoreService.GetFailedEntities().Select(entity => entity.EntityId);
+            var failedInvoices = _invoiceOperationsProcessingsStoreService.GetFailedEntities().Select(entity => entity.EntityId);
+            var anyFailedOrder = _orderReadModel.GetOrdersForRelease(organizationUnitId, period).Any(order => failedOrders.Contains(order.Id)
+                                                                                                              || failedInvoices.Contains(order.Id));
             return !anyFailedOrder;
         }
 
-        private bool AllOperationsAreProcessed(long organizationUnitId, TimePeriod period)
+        private bool AllOperationsAreProcessed(long organizationUnitId, TimePeriod period, IOperationsProcessingsStoreService operationsProcessingsStoreService)
         {
             var selectSpecification = new SelectSpecification<Order, long>(order => order.Id);
             var oneMonthOperationsInterval = DateTime.UtcNow.AddMonths(-1);
-            var operations = _operationsProcessingsStoreService.GetPendingOperations(oneMonthOperationsInterval);
+            var operations = operationsProcessingsStoreService.GetPendingOperations(oneMonthOperationsInterval);
             var query = _exportRepository.GetBuilderForOperations(operations);
             var orders = _exportRepository.GetEntityDtos(query,
                                                          selectSpecification,

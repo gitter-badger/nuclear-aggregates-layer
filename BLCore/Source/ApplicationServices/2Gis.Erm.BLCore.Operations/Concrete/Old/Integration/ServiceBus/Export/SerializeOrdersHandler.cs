@@ -69,6 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                         ProductCode = p.PositionCategory.ExportCode,
                         CategoryCode = p.ExportCode,
                         PlatformCode = p.Platform.DgppId,
+                        OrderPositionId = z.OrderPosition.Id,
 
                         ObjectLinkDtos = z.OrderPosition.OrderPositionAdvertisements.Where(q => q.PositionId == p.Id).Select(q => new ObjectLinkDto
                         {
@@ -147,7 +148,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 new XAttribute("EndDate", order.EndDistributionDateFact),
                 new XAttribute("PayablePlan", orderDto.PayablePlan),
                 new XAttribute("Status", order.WorkflowStepId),
-                new XAttribute("ModifiedOn", order.ModifiedOn.Value),
                 new XAttribute("Curator", curator));
 
             if (order.ApprovalDate != null)
@@ -199,9 +199,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             foreach (var orderPositionDto in orderDto.OrderPositionDtos)
             {
                 var positionElement = new XElement("Position",
-                    new XAttribute("ProductCode", orderPositionDto.ProductCode),
-                    new XAttribute("CategoryCode", orderPositionDto.CategoryCode),
-                    new XAttribute("PlatformCode", orderPositionDto.PlatformCode));
+                                                   new XAttribute("OrderPositionCode", orderPositionDto.OrderPositionId),
+                                                   new XAttribute("ProductCode", orderPositionDto.ProductCode),
+                                                   new XAttribute("CategoryCode", orderPositionDto.CategoryCode),
+                                                   new XAttribute("PlatformCode", orderPositionDto.PlatformCode));
 
                 var objectLinksElement = GetObjectLinksElement(orderPositionDto);
                 positionElement.Add(objectLinksElement);
@@ -272,6 +273,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         public sealed class OrderPositionDto
         {
+            public long OrderPositionId { get; set; }
             public int ProductCode { get; set; }
             public int CategoryCode { get; set; }
             public long PlatformCode { get; set; }

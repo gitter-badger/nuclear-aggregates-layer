@@ -52,7 +52,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 OwnerCode = x.OwnerCode,
                 IsActive = x.IsActive,
                 IsDeleted = x.IsDeleted,
-                ModifiedOn = x.ModifiedOn.Value,
                 InvoiceItems =
                     x.OrderPositions
                      .Where(z => z.IsActive && !z.IsDeleted)
@@ -154,7 +153,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                               new XAttribute("EndDatePlan", invoiceDto.EndDatePlan),
                                               new XAttribute("Status", invoiceDto.Status),
                                               new XAttribute("OrderType", invoiceDto.OrderType),
-                                              new XAttribute("ModifiedOn", invoiceDto.ModifiedOn),
                                               new XAttribute("UserCode", invoiceDto.UserCode));
 
             if (invoiceDto.ApprovedDate.HasValue)
@@ -296,7 +294,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public long OwnerCode { get; set; }
             public string UserCode { get; set; }
             public SalesModel SalesModel { get; set; }
-            public DateTime ModifiedOn { get; set; }
         }
 
         public sealed class InvoiceItemDto
