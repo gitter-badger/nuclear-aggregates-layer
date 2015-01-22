@@ -11,6 +11,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
         private readonly IApplicationLocksManager _applicationLocksManager;
         private readonly Random _rnd = new Random();
+        private readonly object _sync = new object();
 
         private byte? _id;
         private Guid? _lockId;
@@ -24,7 +25,11 @@ namespace DoubleGis.Erm.Platform.Core.Identities
         public byte GetUniqueId()
         {
             CheckNotDisposed();
-            EnsureIdReserved();
+
+            lock (_sync)
+            {
+                EnsureIdReserved();
+            }
 
             // ReSharper disable once PossibleInvalidOperationException
             return _id.Value;
