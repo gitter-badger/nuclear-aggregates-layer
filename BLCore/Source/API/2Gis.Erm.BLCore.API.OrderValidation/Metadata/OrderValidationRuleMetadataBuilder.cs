@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.OrderValidation.Metadata.Features;
 using DoubleGis.Erm.Platform.Model;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using NuClear.Metamodeling.Elements;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 {

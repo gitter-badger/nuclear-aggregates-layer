@@ -4,9 +4,11 @@ using System.Linq;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Advertisement;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {
@@ -14,34 +16,34 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
     {
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "Reviewed. Suppression is OK here.")]
         public static readonly QueryRuleContainer<Advertisement> Advertisement = QueryRuleContainer<Advertisement>.Create(
-            () => EntityOperationMapping<Advertisement>.ForEntity(EntityName.Advertisement)
+            () => EntityOperationMapping<Advertisement>.ForEntity(EntityType.Instance.Advertisement())
                                                        .Operation<CreateIdentity>()
                                                        .Operation<UpdateIdentity>()
                                                        .Operation<DeleteIdentity>()
                                                        .NonCoupledOperation<SelectAdvertisementToWhitelistIdentity>()
                                                        .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Advertisement>(ids))),
 
-            () => EntityOperationMapping<Advertisement>.ForEntity(EntityName.AdvertisementElement)
+            () => EntityOperationMapping<Advertisement>.ForEntity(EntityType.Instance.AdvertisementElement())
                                                        .Operation<CreateIdentity>()
                                                        .Operation<UpdateIdentity>()
                                                        .Operation<UploadIdentity>()
                                                        .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdvertisementElement>(ids))
                                                                                    .Select(element => element.Advertisement)),
 
-            () => EntityOperationMapping<Advertisement>.ForEntity(EntityName.AdvertisementTemplate)
+            () => EntityOperationMapping<Advertisement>.ForEntity(EntityType.Instance.AdvertisementTemplate())
                                                        .Operation<CreateIdentity>()
                                                        .Operation<DeleteIdentity>()
                                                        .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdvertisementTemplate>(ids))
                                                                                    .SelectMany(template => template.Advertisements)),
 
-            () => EntityOperationMapping<Advertisement>.ForEntity(EntityName.AdsTemplatesAdsElementTemplate)
+            () => EntityOperationMapping<Advertisement>.ForEntity(EntityType.Instance.AdsTemplatesAdsElementTemplate())
                                                        .Operation<DeleteIdentity>()
                                                        .Operation<CreateIdentity>()
                                                        .Operation<UpdateIdentity>()
                                                        .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdsTemplatesAdsElementTemplate>(ids))
                                                                                    .SelectMany(template => template.AdvertisementTemplate.Advertisements)),
 
-            () => EntityOperationMapping<Advertisement>.ForEntity(EntityName.AdvertisementElementStatus)
+            () => EntityOperationMapping<Advertisement>.ForEntity(EntityType.Instance.AdvertisementElementStatus())
                                                        .NonCoupledOperation<ChangeAdvertisementElementStatusIdentity>()
                                                        .NonCoupledOperation<ResetAdvertisementElementToDraftIdentity>()
                                                        .NonCoupledOperation<TransferAdvertisementElementToReadyForValidationIdentity>()

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.Elements.Identities;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 {

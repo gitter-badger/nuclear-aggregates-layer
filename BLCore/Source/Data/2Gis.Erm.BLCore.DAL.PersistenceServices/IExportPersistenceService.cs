@@ -1,10 +1,11 @@
 ﻿using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
 {
     public interface IExportPersistenceService : ISimplifiedPersistenceService
     {
-        bool TryCreateExportSession(EntityName entityType, bool exportInvalidObjects, out long sessionId);
+        bool TryCreateExportSession(IEntityType entityType, bool exportInvalidObjects, out long sessionId);
     }
 }

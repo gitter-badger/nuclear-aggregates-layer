@@ -5,7 +5,7 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {

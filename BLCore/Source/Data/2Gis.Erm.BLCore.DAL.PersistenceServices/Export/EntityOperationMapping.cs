@@ -4,9 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {
@@ -32,40 +33,40 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
             get { return _selectExpression; }
         }
 
-        public static ForEntityMapping<TEntity> ForEntity(EntityName entityName)
+        public static ForEntityMapping<TEntity> ForEntity(IEntityType entityType)
         {
-            return new ForEntityMapping<TEntity>(entityName);
+            return new ForEntityMapping<TEntity>(entityType);
         }
 
         public class ForEntityMapping<TEntity> where TEntity : class, IEntity, IEntityKey
         {
-            private readonly EntityName _entityName;
+            private readonly IEntityType _entityType;
             private readonly List<StrictOperationIdentity> _operationIdentities = new List<StrictOperationIdentity>();
 
-            public ForEntityMapping(EntityName entityName)
+            public ForEntityMapping(IEntityType entityType)
             {
-                _entityName = entityName;
+                _entityType = entityType;
             }
 
             public ForEntityMapping<TEntity> NonCoupledOperation<TOperationIdentity>()
                 where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, INonCoupledOperationIdentity, new()
             {
-                _operationIdentities.Add(new StrictOperationIdentity(OperationIdentityBase<TOperationIdentity>.Instance, new EntitySet(_entityName)));
+                _operationIdentities.Add(new StrictOperationIdentity(OperationIdentityBase<TOperationIdentity>.Instance, new EntitySet(_entityType)));
                 return this;
             }
 
             public ForEntityMapping<TEntity> Operation<TOperationIdentity>()
                 where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, IEntitySpecificOperationIdentity, new()
             {
-                var operationIdentity = new StrictOperationIdentity(OperationIdentityBase<TOperationIdentity>.Instance, new EntitySet(_entityName));
+                var operationIdentity = new StrictOperationIdentity(OperationIdentityBase<TOperationIdentity>.Instance, new EntitySet(_entityType));
                 _operationIdentities.Add(operationIdentity);
                 return this;
             }
 
-            public ForEntityMapping<TEntity> Operation<TOperationIdentity>(EntityName entityName1, EntityName entityName2)
+            public ForEntityMapping<TEntity> Operation<TOperationIdentity>(IEntityType entityType1, IEntityType entityType2)
                 where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, IEntitySpecificOperationIdentity, new()
             {
-                var operationIdentity = new StrictOperationIdentity(OperationIdentityBase<TOperationIdentity>.Instance, new EntitySet(entityName1, entityName2));
+                var operationIdentity = new StrictOperationIdentity(OperationIdentityBase<TOperationIdentity>.Instance, new EntitySet(entityType1, entityType2));
                 _operationIdentities.Add(operationIdentity);
                 return this;
             }
