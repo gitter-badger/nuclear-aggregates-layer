@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 using DoubleGis.Erm.Platform.Model.Simplified;
+
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export
 {

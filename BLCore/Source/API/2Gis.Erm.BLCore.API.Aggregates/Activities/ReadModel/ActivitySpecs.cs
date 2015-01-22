@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 {

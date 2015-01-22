@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.GetDomainEntityDto
 {
