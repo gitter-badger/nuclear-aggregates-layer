@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -17,19 +18,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
     public class DeleteLegalPersonProfileService : IDeleteGenericEntityService<LegalPersonProfile>
     {
         private readonly ILegalPersonReadModel _readModel;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IDeleteLegalPersonProfileAggregateService _deleteLegalPersonProfileAggregateService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
 
         public DeleteLegalPersonProfileService(ILegalPersonReadModel readModel,
-            ISecurityServiceEntityAccess entityAccessService,
-            IUserContext userContext,
-                                               IDeleteLegalPersonProfileAggregateService deleteLegalPersonProfileAggregateService)
+                                               ISecurityServiceEntityAccess entityAccessService,
+                                               IUserContext userContext,
+                                               IDeleteLegalPersonProfileAggregateService deleteLegalPersonProfileAggregateService,
+                                               IOrderReadModel orderReadModel)
         {
             _readModel = readModel;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
             _deleteLegalPersonProfileAggregateService = deleteLegalPersonProfileAggregateService;
+            _orderReadModel = orderReadModel;
         }
 
         public DeleteConfirmation Delete(long entityId)
@@ -50,6 +54,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
                                                                            legalPersonProfile.OwnerCode,
                                                                            null);
 
+                var orders = _orderReadModel.GetActiveOrdersForLegalPersonProfile(legalPersonProfile.Id);
+
                 if (!isDeleteAllowed)
                 {
                     throw new OperationAccessDeniedException(DeleteIdentity.Instance);
@@ -65,7 +71,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
                     throw new NotificationException(BLResources.CantDeleteMainLegalPersonProfile);
                 }
 
-                _deleteLegalPersonProfileAggregateService.Delete(legalPersonProfile);
+                _deleteLegalPersonProfileAggregateService.Delete(legalPersonProfile, orders);
             }
             catch (SecurityException ex)
             {

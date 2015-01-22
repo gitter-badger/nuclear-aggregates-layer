@@ -5151,6 +5151,18 @@
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value />
   </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value />
+  </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value />
   </data>

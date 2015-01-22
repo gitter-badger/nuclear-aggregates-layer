@@ -5171,6 +5171,18 @@ Periodo de la publicación: {3}.</value>
     <value>Están planificadas incorrectamente las fechas del inicio y término de la reunión.
 </value>
   </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Para trabajar con el perfil se necesita que estén indicadas las razones sociales</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Impresión</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Debe estar indicado el perfil de la razón social</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
+  </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>В заказе могут присутствовать позиции только одной модели продаж</value>
   </data>
