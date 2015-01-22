@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 {
@@ -10,11 +11,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
         Task GetTask(long taskId);
         IEnumerable<TaskRegardingObject> GetRegardingObjects(long taskId);
 
-        bool CheckIfTaskExistsRegarding(EntityName entityName, long entityId);
-        bool CheckIfOpenTaskExistsRegarding(EntityName entityName, long entityId);
+        bool CheckIfTaskExistsRegarding(IEntityType entityName, long entityId);
+        bool CheckIfOpenTaskExistsRegarding(IEntityType entityName, long entityId);
 
-        IEnumerable<Task> LookupTasksRegarding(EntityName entityName, long entityId);
-        IEnumerable<Task> LookupOpenTasksRegarding(EntityName entityName, long entityId);
+        IEnumerable<Task> LookupTasksRegarding(IEntityType entityName, long entityId);
+        IEnumerable<Task> LookupOpenTasksRegarding(IEntityType entityName, long entityId);
         IEnumerable<Task> LookupOpenTasksOwnedBy(long ownerCode);
     }
 }

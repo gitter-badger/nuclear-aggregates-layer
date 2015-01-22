@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPersonProfile;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LegalPersonProfiles
 {
     public sealed class MakeLegalPersonProfileMainHandler : RequestHandler<MakeLegalPersonProfileMainRequest, EmptyResponse>
@@ -39,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LegalPersonProfiles
             {
                 var legalPerson = _legalPersonRepository.FindLegalPersonByProfile(request.LegalPersonProfileId);
                 var hasAccess = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                             EntityName.LegalPerson,
+                                                                             EntityType.Instance.LegalPerson(),
                                                                              _userContext.Identity.Code,
                                                                              legalPerson.Id,
                                                                              legalPerson.OwnerCode,

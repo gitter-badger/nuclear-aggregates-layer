@@ -12,7 +12,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
@@ -84,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         /// </remarks>
         private void UpdateDealStage(PhonecallDomainEntityDto appointmentDto)
         {
-            var dealRef = appointmentDto.RegardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal);
+            var dealRef = appointmentDto.RegardingObjects.FirstOrDefault(x => x.EntityName.Equals(EntityType.Instance.Deal()));
             if (dealRef == null || !dealRef.Id.HasValue)
             {
                 return;

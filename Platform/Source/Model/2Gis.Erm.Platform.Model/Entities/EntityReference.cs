@@ -1,5 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Platform.Model.Entities
 {
     [DataContract]
@@ -27,6 +29,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 
         // might be redundant
         [DataMember]
-        public EntityName EntityName { get; set; }
+        public IEntityType EntityName { get; set; }
     }
 }

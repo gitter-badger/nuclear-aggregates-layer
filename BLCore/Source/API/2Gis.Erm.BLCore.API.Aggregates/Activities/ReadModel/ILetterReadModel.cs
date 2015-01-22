@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 {
@@ -13,11 +14,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
         LetterSender GetSender(long letterId);
         LetterRecipient GetRecipient(long letterId);
 
-        bool CheckIfLetterExistsRegarding(EntityName entityName, long entityId);
-        bool CheckIfOpenLetterExistsRegarding(EntityName entityName, long entityId);
+        bool CheckIfLetterExistsRegarding(IEntityType entityName, long entityId);
+        bool CheckIfOpenLetterExistsRegarding(IEntityType entityName, long entityId);
 
-        IEnumerable<Letter> LookupLettersRegarding(EntityName entityName, long entityId);
-        IEnumerable<Letter> LookupOpenLettersRegarding(EntityName entityName, long entityId);
+        IEnumerable<Letter> LookupLettersRegarding(IEntityType entityName, long entityId);
+        IEnumerable<Letter> LookupOpenLettersRegarding(IEntityType entityName, long entityId);
         IEnumerable<Letter> LookupOpenLettersOwnedBy(long ownerCode);
     }
 }

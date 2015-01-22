@@ -10,7 +10,9 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -67,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 };
         }
 
-        protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = new TaskDomainEntityDto
                 {
@@ -81,12 +83,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 regardingObject = ToEntityReference(parentEntityName, parentEntityId);
             }
-            else if (parentEntityName == EntityName.Contact && parentEntityId.HasValue)
+            else if (parentEntityName.Equals(EntityType.Instance.Contact()) && parentEntityId.HasValue)
             {
                 var client = _clientReadModel.GetClientByContact(parentEntityId.Value);
                 if (client != null)
                 {
-                    regardingObject = ToEntityReference(EntityName.Client, client.Id);
+                    regardingObject = ToEntityReference(EntityType.Instance.Client(), client.Id);
                 }
             }
             if (regardingObject != null)
@@ -102,26 +104,31 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return references.Select(x => ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
         }
 
-        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
+        private EntityReference ToEntityReference(IEntityType entityName, long? entityId)
         {
-            if (!entityId.HasValue) return null;
-
-            string name;
-            switch (entityName)
+            if (!entityId.HasValue)
             {
-                case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entityId.Value);
-                    break;
-                case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entityId.Value).Name;
-                    break;
-                case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entityId.Value);
-                    break;
-                default:
-                    return null;
+                return null;
             }
 
+            string name;
+            if (entityName.Equals(EntityType.Instance.Client()))
+            {
+                name = _clientReadModel.GetClientName(entityId.Value);
+            }
+            else if (entityName.Equals(EntityType.Instance.Deal()))
+            {
+                name = _dealReadModel.GetDeal(entityId.Value).Name;
+            }
+            else if (entityName.Equals(EntityType.Instance.Firm()))
+            {
+                name = _firmReadModel.GetFirmName(entityId.Value);
+            }
+            else
+            {
+                return null;
+            }
+            
             return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
         }
     }

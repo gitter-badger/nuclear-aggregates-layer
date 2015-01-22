@@ -16,7 +16,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
@@ -65,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                 _publicService.Handle(new ValidateOwnerIsNotReserveRequest<Account> { Id = accountDetailInfo.AccountId });
 
                 var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
-                                                                             EntityName.AccountDetail,
+                                                                             EntityType.Instance.AccountDetail(),
                                                                              _userContext.Identity.Code,
                                                                              entityId,
                                                                              ownerCode,

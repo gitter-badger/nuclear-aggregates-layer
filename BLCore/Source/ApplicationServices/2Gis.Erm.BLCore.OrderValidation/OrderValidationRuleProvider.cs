@@ -7,9 +7,10 @@ using DoubleGis.Erm.BLCore.API.OrderValidation.Metadata;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Metadata.Features;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
 {

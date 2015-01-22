@@ -12,7 +12,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 // COMMENT {d.ivanov, 03.06.2014}: По-хорошему - эта штука должна лежать в BLFlex, и еще много чего должно быть зафлексино касательно позиции заказа. 
 // C учетом компромисса, на который мы пошли, этот сервис будет лежать в Core и мы обойдемся только разными вариантами вьюх и тем, что Ндс в Dubai будет = 0.
@@ -90,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<OrderPosition> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<OrderPosition> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             if (!parentEntityId.HasValue)
             {
@@ -105,12 +107,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                        };
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<OrderPosition> domainEntityDto,
-                                                 long entityId,
-                                                 bool readOnly,
-                                                 long? parentEntityId,
-                                                 EntityName parentEntityName,
-                                                 string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<OrderPosition> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var modelDto = (OrderPositionDomainEntityDto)domainEntityDto;
 

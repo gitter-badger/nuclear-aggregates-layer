@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Create;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Create
 {

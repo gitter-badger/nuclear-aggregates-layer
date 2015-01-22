@@ -12,7 +12,9 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -75,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 };
         }
 
-        protected override IDomainEntityDto<Letter> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Letter> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var userInfo = UserContext.Identity as IUserInfo ?? UserInfo.Empty;
             var dto = new LetterDomainEntityDto
@@ -83,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     ScheduledOn = DateTime.Now,
                     Priority = ActivityPriority.Average,
                     Status = ActivityStatus.InProgress,
-                    SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityName.User }
+                    SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityType.Instance.User() }
                 };
 
             var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName, parentEntityId) : null;
@@ -111,30 +113,37 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return reference != null ? ToEntityReference(reference.TargetEntityName, reference.TargetEntityId) : null;
         }
 
-        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
+        private EntityReference ToEntityReference(IEntityType entityName, long? entityId)
         {
-            if (!entityId.HasValue) return null;
+            if (!entityId.HasValue)
+            {
+                return null;
+            }
 
             string name;
-            switch (entityName)
+            if (entityName.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entityId.Value);
-                    break;
-                case EntityName.Contact:
-                    name = _clientReadModel.GetContactName(entityId.Value);
-                    break;
-                case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entityId.Value).Name;
-                    break;
-                case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entityId.Value);
-                    break;
-                case EntityName.User:
-                    name = (_userIdentifier.GetUserInfo(entityId) ?? UserInfo.Empty).DisplayName;
-                    break;
-                default:
-                    return null;
+                name = _clientReadModel.GetClientName(entityId.Value);
+            }
+            else if (entityName.Equals(EntityType.Instance.Contact()))
+            {
+                name = _clientReadModel.GetContactName(entityId.Value);
+            }
+            else if (entityName.Equals(EntityType.Instance.Deal()))
+            {
+                name = _dealReadModel.GetDeal(entityId.Value).Name;
+            }
+            else if (entityName.Equals(EntityType.Instance.Firm()))
+            {
+                name = _firmReadModel.GetFirmName(entityId.Value);
+            }
+            else if (entityName.Equals(EntityType.Instance.User()))
+            {
+                name = (_userIdentifier.GetUserInfo(entityId) ?? UserInfo.Empty).DisplayName;
+            }
+            else
+            {
+                return null;
             }
 
             return new EntityReference { Id = entityId, Name = name, EntityName = entityName };

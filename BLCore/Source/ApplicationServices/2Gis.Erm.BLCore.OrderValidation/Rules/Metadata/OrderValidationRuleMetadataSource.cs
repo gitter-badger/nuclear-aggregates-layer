@@ -5,10 +5,11 @@ using System.Diagnostics.CodeAnalysis;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Metadata;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
 {

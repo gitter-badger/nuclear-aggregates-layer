@@ -15,6 +15,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
 {
     public class GetHotClientRequestOperationService : IGetHotClientRequestOperationService
@@ -118,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                     HotClientDto = hotClientDto,
                     Regarding = new RegardingObject
                         {
-                            EntityName = EntityName.Client,
+                            EntityName = EntityType.Instance.Client(),
                             EntityId = client.Id,
                         },
                     Strategies = isTelesaleTask
@@ -142,7 +144,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                     HotClientDto = hotClientDto,
                     Regarding = new RegardingObject
                         {
-                            EntityName = EntityName.Firm,
+                            EntityName = EntityType.Instance.Firm(),
                             EntityId = firm.Id,
                         },
                     Strategies = isTelesaleTask

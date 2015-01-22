@@ -1,7 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeClient;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeClient
 {

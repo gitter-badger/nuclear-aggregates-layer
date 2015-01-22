@@ -215,6 +215,7 @@
     <Compile Include="Entities\EntityName.cs" />
     <Compile Include="Entities\EntityNameUtils.cs" />
     <Compile Include="Entities\EntityReference.cs" />
+    <Compile Include="Entities\EntityReferenceExtensions.cs" />
     <Compile Include="Entities\EntityTypeExtensions.cs" />
     <Compile Include="Entities\EntityTypeMap.cs" />
     <Compile Include="Entities\EntityUtils.cs" />

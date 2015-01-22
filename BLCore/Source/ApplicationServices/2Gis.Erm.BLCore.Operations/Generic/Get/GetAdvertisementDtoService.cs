@@ -9,13 +9,14 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetAdvertisementDtoService : GetDomainEntityDtoServiceBase<Advertisement>
     {
-        private readonly IUserContext _userContext;
         private readonly IFinder _unsecureFinder;
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
@@ -26,7 +27,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                           ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
             : base(userContext)
         {
-            _userContext = userContext;
             _secureFinder = secureFinder;
             _unsecureFinder = unsecureFinder;
             _securityServiceEntityAccess = securityServiceEntityAccess;
@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 var firmInfo = GetFirm(dto.FirmRef.Id.Value);
 
                 dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                                   EntityName.Firm,
+                                                                                                   EntityType.Instance.Firm(),
                                                                                                    UserContext.Identity.Code,
                                                                                                    firmInfo.Id,
                                                                                                    firmInfo.OwnerCode,
@@ -77,98 +77,87 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<Advertisement> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Advertisement> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
-            var dto = new AdvertisementDomainEntityDto();
-            dto.UserDoesntHaveRightsToEditFirm = false;
+            var dto = new AdvertisementDomainEntityDto { UserDoesntHaveRightsToEditFirm = false };
 
-            switch (parentEntityName)
+            if (parentEntityName.Equals(EntityType.Instance.Firm()))
             {
-                case EntityName.Firm:
+                var firmInfo = GetFirm(parentEntityId.Value);
+                dto.FirmRef = new EntityReference
+                    {
+                        Id = parentEntityId.Value,
+                        Name = firmInfo.Name
+                    };
+
+                dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                                                   EntityType.Instance.Firm(),
+                                                                                                   UserContext.Identity.Code,
+                                                                                                   firmInfo.Id,
+                                                                                                   firmInfo.OwnerCode,
+                                                                                                   firmInfo.OwnerCode);
+            }
+
+            if (parentEntityName.Equals(EntityType.Instance.OrderPosition()))
+            {
+                long firmId;
+                if (!string.IsNullOrEmpty(extendedInfo) &&
+                    long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)").Groups[1].Value, out firmId))
                 {
-                    var firmInfo = GetFirm(parentEntityId.Value);
+                    var firmInfo = GetFirm(firmId);
                     dto.FirmRef = new EntityReference
                         {
-                            Id = parentEntityId.Value,
+                            Id = firmId,
                             Name = firmInfo.Name
                         };
 
                     dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                                   EntityName.Firm,
-                                                                                                   UserContext.Identity.Code,
-                                                                                                   firmInfo.Id,
-                                                                                                   firmInfo.OwnerCode,
-                                                                                                   firmInfo.OwnerCode);
-
-                    break;
+                                                                                                       EntityType.Instance.Firm(),
+                                                                                                       UserContext.Identity.Code,
+                                                                                                       firmInfo.Id,
+                                                                                                       firmInfo.OwnerCode,
+                                                                                                       firmInfo.OwnerCode);
                 }
 
-                case EntityName.OrderPosition:
+                long advertisementTemplateId;
+                if (!string.IsNullOrEmpty(extendedInfo) &&
+                    long.TryParse(Regex.Match(extendedInfo, @"AdvertisementTemplateId=(\d+)").Groups[1].Value, out advertisementTemplateId))
                 {
-                    long firmId;
-                    if (!string.IsNullOrEmpty(extendedInfo) &&
-                        long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)").Groups[1].Value, out firmId))
-                    {
-                        var firmInfo = GetFirm(firmId);
-                        dto.FirmRef = new EntityReference
-                            {
-                                Id = firmId,
-                                Name = firmInfo.Name
-                            };
-
-                        dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                                   EntityName.Firm,
-                                                                                                   UserContext.Identity.Code,
-                                                                                                   firmInfo.Id,
-                                                                                                   firmInfo.OwnerCode,
-                                                                                                   firmInfo.OwnerCode);
-                    }
-
-                    long advertisementTemplateId;
-                    if (!string.IsNullOrEmpty(extendedInfo) &&
-                        long.TryParse(Regex.Match(extendedInfo, @"AdvertisementTemplateId=(\d+)").Groups[1].Value, out advertisementTemplateId))
-                    {
-                        dto.AdvertisementTemplateRef = new EntityReference
-                            {
-                                Id = advertisementTemplateId,
-                                Name = _secureFinder.Find<AdvertisementTemplate>(x => x.Id == advertisementTemplateId).Select(x => x.Name).Single()
-                            };
-                    }
-
-                    break;
+                    dto.AdvertisementTemplateRef = new EntityReference
+                        {
+                            Id = advertisementTemplateId,
+                            Name = _secureFinder.Find<AdvertisementTemplate>(x => x.Id == advertisementTemplateId).Select(x => x.Name).Single()
+                        };
                 }
-                    
-                case EntityName.None:
-                {
-                    long firmId;
-                    if (!string.IsNullOrEmpty(extendedInfo) &&
-                        long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)", RegexOptions.IgnoreCase).Groups[1].Value, out firmId))
-                    {
-                        dto.FirmRef = new EntityReference
-                            {
-                                Id = firmId,
-                                Name = _secureFinder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
-                            };
-                    }
+            }
 
-                    break;
+            if (parentEntityName.Equals(EntityType.Instance.None()))
+            {
+                long firmId;
+                if (!string.IsNullOrEmpty(extendedInfo) &&
+                    long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)", RegexOptions.IgnoreCase).Groups[1].Value, out firmId))
+                {
+                    dto.FirmRef = new EntityReference
+                        {
+                            Id = firmId,
+                            Name = _secureFinder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
+                        };
                 }
             }
 
             return dto;
         }
 
-        protected override void SetDtoProperties(
-            IDomainEntityDto<Advertisement> domainEntityDto, 
-            long entityId, 
-            bool readOnly, 
-            long? parentEntityId, 
-            EntityName parentEntityName, 
-            string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<Advertisement> domainEntityDto,
+                                                 long entityId,
+                                                 bool readOnly,
+                                                 long? parentEntityId,
+                                                 IEntityType parentEntityName,
+                                                 string extendedInfo)
         {
             var dto = (AdvertisementDomainEntityDto)domainEntityDto;
 
-            if (parentEntityName == EntityName.OrderPosition && dto.AdvertisementTemplateRef.Id.HasValue)
+            if (parentEntityName.Equals(EntityType.Instance.OrderPosition()) && dto.AdvertisementTemplateRef.Id.HasValue)
             {
                 dto.IsReadOnlyTemplate = true;
             }

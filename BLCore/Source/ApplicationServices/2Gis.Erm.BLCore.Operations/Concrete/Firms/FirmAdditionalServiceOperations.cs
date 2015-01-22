@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Firms;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
@@ -23,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Firms
 
         public void SetFirmServices(long firmId, IEnumerable<AdditionalServicesDto> services)
         {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<SpecifyAdditionalServicesIdentity>(EntityName.Firm))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<SpecifyAdditionalServicesIdentity, Firm>())
             {
                 _firmRepository.SetFirmAdditionalServices(firmId, services);
 
@@ -34,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Firms
 
         public void SetFirmAddressServices(long firmAddressId, IEnumerable<AdditionalServicesDto> services)
         {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<SpecifyAdditionalServicesIdentity>(EntityName.FirmAddress))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<SpecifyAdditionalServicesIdentity, FirmAddress>())
             {
                 _firmRepository.SetFirmAddressAdditionalServices(firmAddressId, services);
 

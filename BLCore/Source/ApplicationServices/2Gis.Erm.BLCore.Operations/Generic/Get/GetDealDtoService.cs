@@ -7,7 +7,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -65,11 +67,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return modelDto;
         }
 
-        protected override IDomainEntityDto<Deal> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Deal> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var currencyId = _currencyService.GetBaseCurrency().Id;
 
-            var dto = parentEntityName == EntityName.Client
+            var dto = parentEntityName.Equals(EntityType.Instance.Client())
                           ? _finder.Find<Client>(x => x.Id == parentEntityId)
                                    .Select(x => new DealDomainEntityDto
                                        {

@@ -6,7 +6,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -41,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                           .Single();
         }
 
-        protected override IDomainEntityDto<CategoryGroup> CreateDto(long? parentId, EntityName parentEntityType, string extendedInfo)
+        protected override IDomainEntityDto<CategoryGroup> CreateDto(long? parentId, IEntityType parentEntityType, string extendedInfo)
         {
             return new CategoryGroupDomainEntityDto
                 {
