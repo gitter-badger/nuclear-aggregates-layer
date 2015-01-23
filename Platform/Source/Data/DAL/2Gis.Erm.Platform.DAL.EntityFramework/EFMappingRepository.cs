@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public int Save()
         {
-            return SaveChanges();
+            return DomainContext.SaveChanges();
         }
 
         private static TPersistentEntity ConvertEntity(TEntity entity)

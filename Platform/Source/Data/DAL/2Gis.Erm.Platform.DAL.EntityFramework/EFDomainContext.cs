@@ -18,8 +18,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly DbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
 
-        public EFDomainContext(IProcessingContext processingContext,
-                               DbContext dbContext,
+        public EFDomainContext(IProcessingContext processingContext, 
+                               DbContext dbContext, 
                                IPendingChangesHandlingStrategy pendingChangesHandlingStrategy)
         {
             _processingContext = processingContext;
@@ -57,10 +57,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public void Update<TEntity>(TEntity entity) where TEntity : class
         {
-            EntityPlacementState entityPlacementState;
-            var entry = EnsureEntityIsAttached(entity, out entityPlacementState);
-
-            if (entityPlacementState == EntityPlacementState.CachedInContext)
+            DbEntityEntry entry;
+            if (!AttachEntity(entity, out entry))
             {
                 entry.CurrentValues.SetValues(entity);
             }
@@ -71,16 +69,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public void Remove<TEntity>(TEntity entity) where TEntity : class
         {
             // physically delete from database
-            EntityPlacementState entityPlacementState;
-            var entry = EnsureEntityIsAttached(entity, out entityPlacementState);
-            var entityToRemove = (TEntity)entry.Entity;
-            _dbContext.Set<TEntity>().Remove(entityToRemove);
+            _dbContext.Set<TEntity>().Remove(GetAttachedEntity(entity));
         }
 
         public void RemoveRange<TEntity>(IEnumerable<TEntity> entitiesToDeletePhysically) where TEntity : class
         {
-            EntityPlacementState entityPlacementState;
-            _dbContext.Set<TEntity>().RemoveRange(entitiesToDeletePhysically.Select(x => (TEntity)EnsureEntityIsAttached(x, out entityPlacementState).Entity));
+            _dbContext.Set<TEntity>().RemoveRange(entitiesToDeletePhysically.Select(GetAttachedEntity).ToArray());
         }
 
         public int SaveChanges()
@@ -130,7 +124,14 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _dbContext.Database.CommandTimeout = Math.Max(timeout, currentValue);
         }
 
-        private DbEntityEntry EnsureEntityIsAttached<TEntity>(TEntity entity, out EntityPlacementState entityPlacementState) where TEntity : class
+        private TEntity GetAttachedEntity<TEntity>(TEntity entity) where TEntity : class
+        {
+            DbEntityEntry entry;
+            AttachEntity(entity, out entry);
+            return (TEntity)entry.Entity;
+        }
+
+        private bool AttachEntity<TEntity>(TEntity entity, out DbEntityEntry dbEntityEntry) where TEntity : class
         {
             var cachedEntity = _dbContext.Set<TEntity>().Local.SingleOrDefault(x => x.Equals(entity));
             if (cachedEntity != null)
@@ -144,13 +145,13 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                     throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
                                                                       "with unsaved changes => trying to update not saved entity. " +
                                                                       "Possible entity repository save method not called before next update. " +
-                                                                      "Save mode is immediately, not deferred",
-                                                                      typeof(TEntity).Name,
+                                                                      "Save mode is immediately, not deferred", 
+                                                                      typeof(TEntity).Name, 
                                                                       entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
                 }
 
-                entityPlacementState = EntityPlacementState.CachedInContext;
-                return entry;
+                dbEntityEntry = entry;
+                return false;
             }
             else
             {
@@ -160,8 +161,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                     _dbContext.Set<TEntity>().Attach(entity);
                 }
 
-                entityPlacementState = EntityPlacementState.AttachedToContext;
-                return entry;
+                dbEntityEntry = entry;
+                return true;
             }
         }
     }

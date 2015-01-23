@@ -69,12 +69,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
         }
 
-        protected int SaveChanges()
-        {
-            return DomainContext.SaveChanges();
-        }
-
-
         protected void SetEntityAuditableInfo(TEntity entity, bool isEntityCreated)
         {
             var auditableEntity = entity as IAuditableEntity;
