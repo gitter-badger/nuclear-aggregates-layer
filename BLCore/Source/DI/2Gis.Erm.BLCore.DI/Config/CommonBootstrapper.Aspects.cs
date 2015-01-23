@@ -9,7 +9,6 @@ using DoubleGis.Erm.BLCore.DI.Factories.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
-using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
@@ -28,7 +27,6 @@ using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Identities;
-using DoubleGis.Erm.Platform.Core.Locking;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
@@ -44,7 +42,6 @@ using DoubleGis.Erm.Platform.DAL.EAV;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
-using DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config;
 using DoubleGis.Erm.Platform.DI.EAV;
@@ -109,7 +106,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IReadDomainContext, ReadDomainContextCachingProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUnitOfWork, UnityUnitOfWork>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
-                        .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmInfrastructure, Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmInfrastructure)))
                         .RegisterType<IAggregatesLayerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IAggregatesLayerRuntimeFactory))
                         .RegisterType<ISimplifiedModelConsumerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as ISimplifiedModelConsumerRuntimeFactory))
                         .RegisterType<IPersistenceServiceRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IPersistenceServiceRuntimeFactory))
@@ -119,9 +115,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                         .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
-
-                        .RegisterType<IApplicationLocksManager, ApplicationLocksManager>(Mapping.ErmInfrastructure, Lifetime.Singleton)
-                        .RegisterTypeWithDependencies<IApplicationLocksService, ApplicationLocksService>(Lifetime.Singleton, Mapping.ErmInfrastructure)
+             
 
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя
                         // пока без них не смогут работать нарпимер handler в которые напрямую, инжектиться finder
