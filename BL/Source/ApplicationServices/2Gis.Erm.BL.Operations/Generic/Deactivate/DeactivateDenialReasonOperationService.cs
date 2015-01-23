@@ -3,7 +3,8 @@ using DoubleGis.Erm.BL.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BL.Operations.Generic.Deactivate
 {

@@ -54,7 +54,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
       <Project>{dd4d387b-5ed9-482d-a704-d664ee16e9ef}</Project>

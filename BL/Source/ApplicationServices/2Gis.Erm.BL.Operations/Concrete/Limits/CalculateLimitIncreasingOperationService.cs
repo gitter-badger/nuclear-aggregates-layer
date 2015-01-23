@@ -9,6 +9,8 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Limit;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
 {
     public sealed class CalculateLimitIncreasingOperationService : ICalculateLimitIncreasingOperationService
@@ -37,7 +39,12 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
             var limitOwnerCode = _accountReadModel.GetLimitOwnerCode(limitId);
 
             var hasFunctionalPrivelege = _securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LimitManagement, _userContext.Identity.Code);
-            var hasEntityAccess = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update, EntityName.Limit, _userContext.Identity.Code, limitId, limitOwnerCode, null);
+            var hasEntityAccess = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                               EntityType.Instance.Limit(),
+                                                                               _userContext.Identity.Code,
+                                                                               limitId,
+                                                                               limitOwnerCode,
+                                                                               null);
 
             if (!hasFunctionalPrivelege || !hasEntityAccess)
             {
