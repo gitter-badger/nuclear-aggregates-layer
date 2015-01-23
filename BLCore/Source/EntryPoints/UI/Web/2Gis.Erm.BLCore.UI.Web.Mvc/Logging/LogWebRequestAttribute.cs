@@ -23,9 +23,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         private string _elementsToIgnore;
         private IEnumerable<string> _elementsToIgnoreCollection = Enumerable.Empty<string>();
 
-        public LogWebRequestAttribute(IEntityType entityType)
+        public LogWebRequestAttribute(string entityType)
         {
-            _entityType = entityType;
+            EntityType.Instance.TryParse(entityType, out _entityType);
         }
 
         public string ElementsToIgnore
