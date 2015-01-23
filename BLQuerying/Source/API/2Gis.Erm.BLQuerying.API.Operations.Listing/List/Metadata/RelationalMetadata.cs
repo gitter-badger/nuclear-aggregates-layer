@@ -6,125 +6,129 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
     public static class RelationalMetadata
     {
-        private static readonly Dictionary<Tuple<Type, EntityName>, LambdaExpression> RelationalMap = new Dictionary<Tuple<Type, EntityName>, LambdaExpression>()
+        private static readonly Dictionary<Tuple<Type, IEntityType>, LambdaExpression> RelationalMap = new Dictionary<Tuple<Type, IEntityType>, LambdaExpression>()
 
-            .RegisterRelatedFilter<ListAccountDetailDto>(EntityName.Account, x => x.AccountId)
+            .RegisterRelatedFilter<ListAccountDetailDto>(EntityType.Instance.Account(), x => x.AccountId)
 
-            .RegisterRelatedFilter<ListAccountDto>(EntityName.LegalPerson, x => x.LegalPersonId)
+            .RegisterRelatedFilter<ListAccountDto>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId)
 
-            .RegisterRelatedFilter<ListLockDto>(EntityName.Account, x => x.AccountId)
-            .RegisterRelatedFilter<ListLockDto>(EntityName.Order, x => x.OrderId)
+            .RegisterRelatedFilter<ListLockDto>(EntityType.Instance.Account(), x => x.AccountId)
+            .RegisterRelatedFilter<ListLockDto>(EntityType.Instance.Order(), x => x.OrderId)
 
-            .RegisterRelatedFilter<ListLimitDto>(EntityName.Account, x => x.AccountId)
-            .RegisterRelatedFilter<ListLimitDto>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<ListLimitDto>(EntityName.LegalPerson, x => x.LegalPersonId)
+            .RegisterRelatedFilter<ListLimitDto>(EntityType.Instance.Account(), x => x.AccountId)
+            .RegisterRelatedFilter<ListLimitDto>(EntityType.Instance.Client(), x => x.ClientId)
+            .RegisterRelatedFilter<ListLimitDto>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId)
 
-            .RegisterRelatedFilter<ListOrderDto>(EntityName.Account, x => x.AccountId)
-            .RegisterRelatedFilter<ListOrderDto>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<ListOrderDto>(EntityName.Deal, x => x.DealId)
-            .RegisterRelatedFilter<ListOrderDto>(EntityName.Firm, x => x.FirmId)
-            .RegisterRelatedFilter<ListOrderDto>(EntityName.LegalPerson, x => x.LegalPersonId)
-            .RegisterRelatedFilter<ListOrderDto>(EntityName.Bargain, x => x.BargainId)
-            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Account, x => x.AccountId)
-            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Deal, x => x.DealId)
-            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Firm, x => x.FirmId)
-            .RegisterRelatedFilter<OrderGridDoc>(EntityName.LegalPerson, x => x.LegalPersonId)
-            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Bargain, x => x.BargainId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityType.Instance.Account(), x => x.AccountId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityType.Instance.Client(), x => x.ClientId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityType.Instance.Deal(), x => x.DealId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityType.Instance.Firm(), x => x.FirmId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityType.Instance.Bargain(), x => x.BargainId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityType.Instance.Account(), x => x.AccountId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityType.Instance.Client(), x => x.ClientId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityType.Instance.Deal(), x => x.DealId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityType.Instance.Firm(), x => x.FirmId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityType.Instance.Bargain(), x => x.BargainId)
 
-            .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementTemplate, x => x.AdsTemplateId)
-            .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementElementTemplate, x => x.AdsElementTemplateId)
+            .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityType.Instance.AdvertisementTemplate(), x => x.AdsTemplateId)
+            .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityType.Instance.AdvertisementElementTemplate(), x => x.AdsElementTemplateId)
 
-            .RegisterRelatedFilter<ListAdvertisementElementDenialReasonsDto>(EntityName.AdvertisementElement, x => x.AdvertisementElementId)
+            .RegisterRelatedFilter<ListAdvertisementElementDenialReasonsDto>(EntityType.Instance.AdvertisementElement(), x => x.AdvertisementElementId)
 
-            .RegisterRelatedFilter<ListAssociatedPositionDto>(EntityName.AssociatedPositionsGroup, x => x.AssociatedPositionsGroupId)
+            .RegisterRelatedFilter<ListAssociatedPositionDto>(EntityType.Instance.AssociatedPositionsGroup(), x => x.AssociatedPositionsGroupId)
 
-            .RegisterRelatedFilter<ListBargainFileDto>(EntityName.Bargain, x => x.BargainId)
+            .RegisterRelatedFilter<ListBargainFileDto>(EntityType.Instance.Bargain(), x => x.BargainId)
 
-            .RegisterRelatedFilter<ListBranchOfficeOrganizationUnitDto>(EntityName.BranchOffice, x => x.BranchOfficeId)
-            .RegisterRelatedFilter<ListBranchOfficeOrganizationUnitDto>(EntityName.OrganizationUnit, x => x.OrganizationUnitId)
+            .RegisterRelatedFilter<ListBranchOfficeOrganizationUnitDto>(EntityType.Instance.BranchOffice(), x => x.BranchOfficeId)
+            .RegisterRelatedFilter<ListBranchOfficeOrganizationUnitDto>(EntityType.Instance.OrganizationUnit(), x => x.OrganizationUnitId)
 
-            .RegisterRelatedFilter<ListPrintFormTemplateDto>(EntityName.BranchOfficeOrganizationUnit, x => x.BranchOfficeOrganizationUnitId)
+            .RegisterRelatedFilter<ListPrintFormTemplateDto>(EntityType.Instance.BranchOfficeOrganizationUnit(), x => x.BranchOfficeOrganizationUnitId)
 
-            .RegisterRelatedFilter<ListCategoryDto>(EntityName.Category, x => x.ParentId)
+            .RegisterRelatedFilter<ListCategoryDto>(EntityType.Instance.Category(), x => x.ParentId)
 
-            .RegisterRelatedFilter<ListCategoryOrganizationUnitDto>(EntityName.Category, x => x.CategoryId)
+            .RegisterRelatedFilter<ListCategoryOrganizationUnitDto>(EntityType.Instance.Category(), x => x.CategoryId)
 
-            .RegisterRelatedFilter<ListFirmDto>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<ListFirmDto>(EntityName.Territory, x => x.TerritoryId)
-            .RegisterRelatedFilter<FirmGridDoc>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<FirmGridDoc>(EntityName.Territory, x => x.TerritoryId)
-            .RegisterRelatedFilter<ListFirmDealDto>(EntityName.Deal, x => x.DealId)
+            .RegisterRelatedFilter<ListFirmDto>(EntityType.Instance.Client(), x => x.ClientId)
+            .RegisterRelatedFilter<ListFirmDto>(EntityType.Instance.Territory(), x => x.TerritoryId)
+            .RegisterRelatedFilter<FirmGridDoc>(EntityType.Instance.Client(), x => x.ClientId)
+            .RegisterRelatedFilter<FirmGridDoc>(EntityType.Instance.Territory(), x => x.TerritoryId)
+            .RegisterRelatedFilter<ListFirmDealDto>(EntityType.Instance.Deal(), x => x.DealId)
 
-            .RegisterRelatedFilter<ListLegalPersonDealDto>(EntityName.Deal, x => x.DealId)
+            .RegisterRelatedFilter<ListLegalPersonDealDto>(EntityType.Instance.Deal(), x => x.DealId)
 
-            .RegisterRelatedFilter<ListContactDto>(EntityName.Client, x => x.ClientId)
+            .RegisterRelatedFilter<ListContactDto>(EntityType.Instance.Client(), x => x.ClientId)
 
-            .RegisterRelatedFilter<ListDealDto>(EntityName.Client, x => x.ClientId)
+            .RegisterRelatedFilter<ListDealDto>(EntityType.Instance.Client(), x => x.ClientId)
 
-            .RegisterRelatedFilter<ListLegalPersonDto>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<LegalPersonGridDoc>(EntityName.Client, x => x.ClientId)
+            .RegisterRelatedFilter<ListLegalPersonDto>(EntityType.Instance.Client(), x => x.ClientId)
+            .RegisterRelatedFilter<LegalPersonGridDoc>(EntityType.Instance.Client(), x => x.ClientId)
 
-            .RegisterRelatedFilter<ListBargainDto>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<ListBargainDto>(EntityName.LegalPerson, x => x.LegalPersonId)
-            .RegisterRelatedFilter<BargainGridDoc>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<BargainGridDoc>(EntityName.LegalPerson, x => x.LegalPersonId)
+            .RegisterRelatedFilter<ListBargainDto>(EntityType.Instance.Client(), x => x.ClientId)
+            .RegisterRelatedFilter<ListBargainDto>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId)
+            .RegisterRelatedFilter<BargainGridDoc>(EntityType.Instance.Client(), x => x.ClientId)
+            .RegisterRelatedFilter<BargainGridDoc>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId)
 
-            .RegisterRelatedFilter<ListCurrencyRateDto>(EntityName.Currency, x => x.CurrencyId)
+            .RegisterRelatedFilter<ListCurrencyRateDto>(EntityType.Instance.Currency(), x => x.CurrencyId)
 
-            .RegisterRelatedFilter<ListCountryDto>(EntityName.Currency, x => x.CurrencyId)
-            .RegisterRelatedFilter<CountryGridDoc>(EntityName.Currency, x => x.CurrencyId)
+            .RegisterRelatedFilter<ListCountryDto>(EntityType.Instance.Currency(), x => x.CurrencyId)
+            .RegisterRelatedFilter<CountryGridDoc>(EntityType.Instance.Currency(), x => x.CurrencyId)
 
-            .RegisterRelatedFilter<ListFirmAddressDto>(EntityName.Firm, x => x.FirmId)
+            .RegisterRelatedFilter<ListFirmAddressDto>(EntityType.Instance.Firm(), x => x.FirmId)
 
-            .RegisterRelatedFilter<ListCategoryFirmAddressDto>(EntityName.Firm, x => x.FirmId)
-            .RegisterRelatedFilter<ListCategoryFirmAddressDto>(EntityName.FirmAddress, x => x.FirmAddressId)
+            .RegisterRelatedFilter<ListCategoryFirmAddressDto>(EntityType.Instance.Firm(), x => x.FirmId)
+            .RegisterRelatedFilter<ListCategoryFirmAddressDto>(EntityType.Instance.FirmAddress(), x => x.FirmAddressId)
 
-            .RegisterRelatedFilter<ListAdvertisementDto>(EntityName.Firm, x => x.FirmId)
+            .RegisterRelatedFilter<ListAdvertisementDto>(EntityType.Instance.Firm(), x => x.FirmId)
 
-            .RegisterRelatedFilter<ListFirmContactDto>(EntityName.FirmAddress, x => x.FirmAddressId)
+            .RegisterRelatedFilter<ListFirmContactDto>(EntityType.Instance.FirmAddress(), x => x.FirmAddressId)
 
-            .RegisterRelatedFilter<ListLockDetailDto>(EntityName.Lock, x => x.LockId)
+            .RegisterRelatedFilter<ListLockDetailDto>(EntityType.Instance.Lock(), x => x.LockId)
 
-            .RegisterRelatedFilter<ListBillDto>(EntityName.Order, x => x.OrderId)
+            .RegisterRelatedFilter<ListBillDto>(EntityType.Instance.Order(), x => x.OrderId)
 
-            .RegisterRelatedFilter<ListOrderFileDto>(EntityName.Order, x => x.OrderId)
+            .RegisterRelatedFilter<ListOrderFileDto>(EntityType.Instance.Order(), x => x.OrderId)
 
-            .RegisterRelatedFilter<ListOrderProcessingRequestDto>(EntityName.Order, x => x.RenewedOrderId)
+            .RegisterRelatedFilter<ListOrderProcessingRequestDto>(EntityType.Instance.Order(), x => x.RenewedOrderId)
 
-            .RegisterRelatedFilter<ListPriceDto>(EntityName.OrganizationUnit, x => x.OrganizationUnitId)
+            .RegisterRelatedFilter<ListPriceDto>(EntityType.Instance.OrganizationUnit(), x => x.OrganizationUnitId)
 
-            .RegisterRelatedFilter<ListProjectDto>(EntityName.OrganizationUnit, x => x.OrganizationUnitId)
+            .RegisterRelatedFilter<ListProjectDto>(EntityType.Instance.OrganizationUnit(), x => x.OrganizationUnitId)
 
-            .RegisterRelatedFilter<ListPositionChildrenDto>(EntityName.Position, x => x.MasterPositionId)
+            .RegisterRelatedFilter<ListPositionChildrenDto>(EntityType.Instance.Position(), x => x.MasterPositionId)
 
-            .RegisterRelatedFilter<ListAssociatedPositionsGroupDto>(EntityName.PricePosition, x => x.PricePositionId)
+            .RegisterRelatedFilter<ListAssociatedPositionsGroupDto>(EntityType.Instance.PricePosition(), x => x.PricePositionId)
 
-            .RegisterRelatedFilter<ListPricePositionDto>(EntityName.Price, x => x.PriceId)
+            .RegisterRelatedFilter<ListPricePositionDto>(EntityType.Instance.Price(), x => x.PriceId)
 
-            .RegisterRelatedFilter<ListThemeOrganizationUnitDto>(EntityName.Theme, x => x.ThemeId)
+            .RegisterRelatedFilter<ListThemeOrganizationUnitDto>(EntityType.Instance.Theme(), x => x.ThemeId)
 
-            .RegisterRelatedFilter<ListThemeCategoryDto>(EntityName.Theme, x => x.ThemeId)
+            .RegisterRelatedFilter<ListThemeCategoryDto>(EntityType.Instance.Theme(), x => x.ThemeId)
 
-            .RegisterRelatedFilter<ListUserRoleDto>(EntityName.User, x => x.UserId)
+            .RegisterRelatedFilter<ListUserRoleDto>(EntityType.Instance.User(), x => x.UserId)
 
-            .RegisterRelatedFilter<ListUserTerritoryDto>(EntityName.User, x => x.UserId)
+            .RegisterRelatedFilter<ListUserTerritoryDto>(EntityType.Instance.User(), x => x.UserId)
 
-            .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityName.User, x => x.UserId)
-            .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityName.OrganizationUnit, x => x.OrganizationUnitId)
+            .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityType.Instance.User(), x => x.UserId)
+            .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityType.Instance.OrganizationUnit(), x => x.OrganizationUnitId)
 
-            .RegisterRelatedFilter<ListAdvertisementElementDto>(EntityName.Advertisement, x => x.AdvertisementId)
+            .RegisterRelatedFilter<ListAdvertisementElementDto>(EntityType.Instance.Advertisement(), x => x.AdvertisementId)
 
-            .RegisterRelatedFilter<ListLegalPersonProfileDto>(EntityName.LegalPerson, x => x.LegalPersonId)
+            .RegisterRelatedFilter<ListLegalPersonProfileDto>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId)
 
-            .RegisterRelatedFilter<ListOrderPositionDto>(EntityName.Order, x => x.OrderId)
-            ;
+            .RegisterRelatedFilter<ListOrderPositionDto>(EntityType.Instance.Order(), x => x.OrderId);
 
-        private static Dictionary<Tuple<Type, EntityName>, LambdaExpression> RegisterRelatedFilter<TDocument>(this Dictionary<Tuple<Type, EntityName>, LambdaExpression> map, EntityName parentEntityName, Expression<Func<TDocument, object>> expression)
+        private static Dictionary<Tuple<Type, IEntityType>, LambdaExpression> RegisterRelatedFilter<TDocument>(
+            this Dictionary<Tuple<Type, IEntityType>, LambdaExpression> map,
+            IEntityType parentEntityName,
+            Expression<Func<TDocument, object>> expression)
         {
             var key = Tuple.Create(typeof(TDocument), parentEntityName);
             map.Add(key, expression);
@@ -132,7 +136,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
         }
 
         // может вызываться несколько раз, поэтому есть ContainsKey
-        public static void RegisterRelatedFilter<TDocument>(EntityName parentEntityName, Expression<Func<TDocument, object>> expression)
+        public static void RegisterRelatedFilter<TDocument>(IEntityType parentEntityName, Expression<Func<TDocument, object>> expression)
         {
             var key = Tuple.Create(typeof(TDocument), parentEntityName);
 
@@ -142,7 +146,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             }
         }
 
-        public static bool TryGetFilterExpressionFromRelationalMap<TDocument>(EntityName parentEntityName, out LambdaExpression lambdaExpression)
+        public static bool TryGetFilterExpressionFromRelationalMap<TDocument>(IEntityType parentEntityName, out LambdaExpression lambdaExpression)
             {
             var key = Tuple.Create(typeof(TDocument), parentEntityName);
             return RelationalMap.TryGetValue(key, out lambdaExpression);

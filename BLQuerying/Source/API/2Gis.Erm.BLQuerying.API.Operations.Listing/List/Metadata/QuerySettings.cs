@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
         public IReadOnlyDictionary<string, string> ExtendedInfoMap { get; set; }
 
-        public EntityName ParentEntityName { get; set; }
+        public IEntityType ParentEntityName { get; set; }
         public long? ParentEntityId { get; set; }
         public SearchListModel SearchListModel { get; set; }
     }

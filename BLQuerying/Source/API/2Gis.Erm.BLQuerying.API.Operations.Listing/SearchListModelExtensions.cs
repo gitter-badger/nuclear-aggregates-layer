@@ -12,21 +12,22 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
         public static QuerySettings ToQuerySettings(this SearchListModel searchListModel)
         {
             var querySettings = new QuerySettings
-            {
-                SkipCount = searchListModel.Start,
-                TakeCount = searchListModel.Limit,
-                ParentEntityName = searchListModel.ParentEntityName,
-                ParentEntityId = searchListModel.ParentEntityId,
-                UserInputFilter = searchListModel.FilterInput,
-                FilterName = searchListModel.NameLocaleResourceId,
-                SearchListModel = searchListModel,
-            };
-
-            querySettings.Sort = new[] { searchListModel.Sort }.Where(x => !string.IsNullOrEmpty(x)).Select(x => new QuerySettingsSort
-            {
-                PropertyName = x,
-                Direction = GetSortDirection(searchListModel.Dir),
-            }).ToArray();
+                {
+                    SkipCount = searchListModel.Start,
+                    TakeCount = searchListModel.Limit,
+                    ParentEntityName = searchListModel.ParentEntityName,
+                    ParentEntityId = searchListModel.ParentEntityId,
+                    UserInputFilter = searchListModel.FilterInput,
+                    FilterName = searchListModel.NameLocaleResourceId,
+                    SearchListModel = searchListModel,
+                    Sort = new[] { searchListModel.Sort }
+                        .Where(x => !string.IsNullOrEmpty(x)).Select(x => new QuerySettingsSort
+                            {
+                                PropertyName = x,
+                                Direction = GetSortDirection(searchListModel.Dir),
+                            })
+                        .ToArray()
+                };
 
             var extendedInfo = searchListModel.ExtendedInfo;
 

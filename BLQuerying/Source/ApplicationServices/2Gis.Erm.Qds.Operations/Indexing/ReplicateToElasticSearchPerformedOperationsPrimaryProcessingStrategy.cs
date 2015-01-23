@@ -5,9 +5,10 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Qds.API.Operations;
 using DoubleGis.Erm.Qds.Common;
+
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {

@@ -9,6 +9,8 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListAdvertisementElementDenialReasonService :
@@ -27,15 +29,17 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            switch (querySettings.ParentEntityName)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.AdvertisementElement()))
             {
-                case EntityName.AdvertisementElement:
-                    return ListCheckedReasons(querySettings);
-                case EntityName.AdvertisementElementStatus:
-                    return ListPossibleReasons(querySettings);
-                default:
-                    return new RemoteCollection<object>(new object[0], 0);
+                return ListCheckedReasons(querySettings);
             }
+
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.AdvertisementElementStatus()))
+            {
+                return ListPossibleReasons(querySettings);
+            }
+
+            return new RemoteCollection<object>(new object[0], 0);
         }
 
         private IRemoteCollection ListCheckedReasons(QuerySettings querySettings)

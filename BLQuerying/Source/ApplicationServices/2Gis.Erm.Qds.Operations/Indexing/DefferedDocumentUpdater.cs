@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Qds.API.Operations;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.API.Operations.Docs.Metadata;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.API.Operations.Indexing.Metadata.Features;
 using DoubleGis.Erm.Qds.Common;
+
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {

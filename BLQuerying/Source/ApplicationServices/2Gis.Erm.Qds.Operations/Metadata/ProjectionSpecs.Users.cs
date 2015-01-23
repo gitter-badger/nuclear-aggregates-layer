@@ -6,13 +6,14 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 
 using FastMember;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Qds.Operations.Metadata
 {
@@ -83,7 +84,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                                                 .Where(y => y.Privilege.Operation == ReadEntityOperationIdentity)
                                                 .Select(y => new UserPermissions
                                                                  {
-                                                                     EntityName = (EntityName)y.Privilege.EntityType.Value,
+                                                                     EntityName = EntityType.Instance.Parse(y.Privilege.EntityType.Value),
                                                                      Mask = (EntityPrivilegeDepthState)y.Mask,
                                                                  })
                                                 .Distinct()
@@ -210,7 +211,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
 
             public class UserPermissions
             {
-                public EntityName EntityName { get; set; }
+                public IEntityType EntityName { get; set; }
                 public EntityPrivilegeDepthState Mask { get; set; }
             }
 

@@ -5,12 +5,13 @@ using System.Linq;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Qds.API.Operations;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
 using DoubleGis.Erm.Qds.Operations.Metadata;
+
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
