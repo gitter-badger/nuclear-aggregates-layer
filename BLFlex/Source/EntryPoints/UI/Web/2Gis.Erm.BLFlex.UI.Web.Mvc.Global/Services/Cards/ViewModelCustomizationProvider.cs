@@ -8,22 +8,24 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 {
     // TODO {d.ivanov, 02.09.2014}: Реализовать на подсистеме метаданных, см IMetadataProvider, IMetadataElement, IMetadataProcessor
     public class ViewModelCustomizationProvider : IViewModelCustomizationProvider
     {
-        private static readonly Dictionary<EntityName, IEnumerable<Type>> CustomizationsByEntities =
-            new Dictionary<EntityName, IEnumerable<Type>>
+        private static readonly Dictionary<IEntityType, IEnumerable<Type>> CustomizationsByEntities =
+            new Dictionary<IEntityType, IEnumerable<Type>>
                 {
-                    { EntityName.Client, new[] {typeof(WarnLinkToAdvAgencyExistsVmCustomization) } }
+                    { EntityType.Instance.Client(), new[] {typeof(WarnLinkToAdvAgencyExistsVmCustomization) } }
                 };
 
-        private static readonly Dictionary<Tuple<EntityName, BusinessModel>, IEnumerable<Type>> BusinessModelSpecificCustomizations =
-            new Dictionary<Tuple<EntityName, BusinessModel>, IEnumerable<Type>>
+        private static readonly Dictionary<Tuple<IEntityType, BusinessModel>, IEnumerable<Type>> BusinessModelSpecificCustomizations =
+            new Dictionary<Tuple<IEntityType, BusinessModel>, IEnumerable<Type>>
                 {
                     {
-                        Tuple.Create(EntityName.Client, BusinessModel.Russia),
+                        Tuple.Create((IEntityType)EntityType.Instance.Client(), BusinessModel.Russia),
                         new[] { typeof(EditIsAdvertisingAgencyViewModelCustomization) }
                     }
                 };
@@ -35,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             _currentBusinessModel = businessModelSettings.BusinessModel;
         }
 
-        public IEnumerable<Type> GetCustomizations(EntityName entityName)
+        public IEnumerable<Type> GetCustomizations(IEntityType entityName)
         {
             IEnumerable<Type> genericCustomizations;
             if (!CustomizationsByEntities.TryGetValue(entityName, out genericCustomizations))
