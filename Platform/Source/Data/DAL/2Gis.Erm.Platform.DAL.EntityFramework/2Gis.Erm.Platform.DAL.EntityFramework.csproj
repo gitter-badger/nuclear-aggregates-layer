@@ -98,7 +98,6 @@
     <Compile Include="EFSecureGenericRepository.cs" />
     <Compile Include="EFDomainContext.cs" />
     <Compile Include="IEfDbModelConfigurationsProvider.cs" />
-    <Compile Include="EntityPlacementState.cs" />
     <Compile Include="IEfDbModelFactory.cs" />
     <Compile Include="CompositeEntityDecorator.cs" />
     <Compile Include="MappingRegistry.cs" />
