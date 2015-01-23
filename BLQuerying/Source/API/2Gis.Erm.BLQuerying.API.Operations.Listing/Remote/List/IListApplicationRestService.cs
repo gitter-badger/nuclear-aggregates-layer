@@ -2,7 +2,6 @@
 using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
 using DoubleGis.Erm.Platform.API.Core;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List

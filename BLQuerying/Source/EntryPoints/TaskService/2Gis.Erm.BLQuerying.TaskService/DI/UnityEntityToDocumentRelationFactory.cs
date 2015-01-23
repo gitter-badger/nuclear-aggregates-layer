@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Qds.API.Operations;
 using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.BLQuerying.TaskService.DI
 {
