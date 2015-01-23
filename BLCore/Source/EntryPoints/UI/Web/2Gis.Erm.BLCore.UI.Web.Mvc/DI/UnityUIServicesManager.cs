@@ -4,9 +4,10 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid;
-using DoubleGis.Erm.Platform.Model.Entities;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
 {
@@ -23,13 +24,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
             _viewModelCustomizationProvider = viewModelCustomizationProvider;
         }
 
-        public IEntityGridViewService GetEntityGridViewService(EntityName entityName)
+        public IEntityGridViewService GetEntityGridViewService(IEntityType entityName)
         {
             var gridViewServiceType = typeof(IGenericEntityGridViewService<>).MakeGenericType(entityName.AsEntityType());
             return (IEntityGridViewService)_container.Resolve(gridViewServiceType);
         }
 
-        public IViewModelCustomizationService GetModelCustomizationService(EntityName entityName)
+        public IViewModelCustomizationService GetModelCustomizationService(IEntityType entityName)
         {
             var viewModelCustomizationServiceType = typeof(IGenericViewModelCustomizationService<>).MakeGenericType(entityName.AsEntityType());
 

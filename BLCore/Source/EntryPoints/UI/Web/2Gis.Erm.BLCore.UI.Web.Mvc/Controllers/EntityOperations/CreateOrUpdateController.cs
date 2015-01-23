@@ -23,10 +23,12 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -76,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         }
 
         [HttpGet, SetEntityStateToken, UseDependencyFields]
-        public ActionResult Entity(long? entityId, bool? readOnly, long? pId, EntityName pType, string extendedInfo)
+        public ActionResult Entity(long? entityId, bool? readOnly, long? pId, IEntityType pType, string extendedInfo)
         {
             var actualEntityId = entityId ?? 0;
             var actualReadOnly = readOnly ?? false;
@@ -160,7 +162,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             return model;
         }
 
-        private TModel GetViewModel(long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        private TModel GetViewModel(long entityId, bool readOnly, long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var model = new TModel();
 
@@ -227,7 +229,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             return model;
         }
 
-        private void SetViewModelProperties(TModel model, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        private void SetViewModelProperties(TModel model, bool readOnly, long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             model.ViewConfig.Id = model.Id;
             model.ViewConfig.EntityName = typeof(TEntity).AsEntityName();

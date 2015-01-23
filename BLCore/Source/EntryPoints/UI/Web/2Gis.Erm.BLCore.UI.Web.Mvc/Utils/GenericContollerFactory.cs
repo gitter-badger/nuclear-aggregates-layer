@@ -9,9 +9,10 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
@@ -39,8 +40,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             if (controllerName == CreateOrUpdateControllerName)
             {
                 var entityTypeName = (string)requestContext.RouteData.Values[EntityTypeNameParameterName];
-                EntityName entityName;
-                if (Enum.TryParse(entityTypeName, out entityName))
+                IEntityType entityName;
+                if (EntityType.Instance.TryParse(entityTypeName, out entityName))
                 {
                     var entityType = entityName.AsEntityType();
                     var entityViewModelType = GetViewModelType(entityType);
@@ -61,8 +62,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             if (controllerName == CrmCreateOrUpdateControllerName)
             {
                 var entityTypeName = (string)requestContext.RouteData.Values[EntityTypeNameParameterName];
-                EntityName entityName;
-                if (Enum.TryParse(entityTypeName, out entityName))
+                IEntityType entityName;
+                if (EntityType.Instance.TryParse(entityTypeName, out entityName))
                 {
                     var entityType = entityName.AsEntityType();
                     Type controllerType;

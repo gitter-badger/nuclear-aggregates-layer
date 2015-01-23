@@ -1,6 +1,6 @@
-using DoubleGis.Erm.Platform.Model.Entities;
-
 using Newtonsoft.Json;
+
+using NuClear.Model.Common.Entities;
 
 // ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
     {
         [JsonIgnore]
         public string DependencyList { get; set; }
-        public EntityName EntityName { get; set; }
-        public EntityName PType { get; set; }
+        public IEntityType EntityName { get; set; }
+        public IEntityType PType { get; set; }
     }
 }

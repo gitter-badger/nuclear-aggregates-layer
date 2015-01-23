@@ -14,8 +14,9 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+
+using NuClear.Model.Common.Entities;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         }
 
         [HttpPost]
-        public JsonNetResult Upload(EntityName entityTypeName, long? fileId, long? entityId, HttpPostedFileBase file)
+        public JsonNetResult Upload(IEntityType entityTypeName, long? fileId, long? entityId, HttpPostedFileBase file)
         {
             IUploadFileService uploadFileService;
             try
