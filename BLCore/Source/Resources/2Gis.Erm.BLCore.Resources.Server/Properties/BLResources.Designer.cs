@@ -3619,6 +3619,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CategoriesSetForAllPositionsMustBeTheSame {
+            get {
+                return ResourceManager.GetString("CategoriesSetForAllPositionsMustBeTheSame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
