@@ -55,8 +55,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int AttachExternalReleaseProcessingMessagesIdentity = 1009;
         public const int ValidateOrdersForReleaseIdentity = 1010;
         public const int EnsureOrdersForReleaseCompletelyExportedIdentity = 1011;
-        public const int ReplicateDealStageIdentity = 1012;
-        public const int UpdateAfterSaleServiceIdentity = 1013;
+        public const int ChangeDealStageIdentity = 1012;
         public const int ActualizeAccountsDuringWithdrawalIdentity = 1014;
         public const int WithdrawFromAccountsIdentity = 1015;
         public const int ActualizeOrdersDuringWithdrawalIdentity = 1016;
@@ -70,13 +69,10 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int RegisterOrderStateChangesIdentity = 1024;
 
         // EntityName.ReleaseWithdrawal = 215
-        public const int CalculateReleaseWithdrawalsIdentity = 21501;
+        public const int ActualizeOrderReleaseWithdrawalsIdentity = 21501;
 
         // EntityName.OrderValidationResult = 232
         public const int ResetValidationGroupIdentity = 23201;
-
-		// EntityName.Activity = 500
-		public const int AssignRegardingObjectIdentity = 50001;
 
         // EntityName.Advertisement = 186
         public const int SelectAdvertisementToWhitelistIdentity = 18601;
@@ -127,12 +123,17 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int CalculateOrderCostIdentity = 15112;
         public const int CopyOrderIdentity = 15113;
         public const int ObtainDealForBizaccountOrderIdentity = 15114;
+        public const int CreateOrderBillsIdentity = 15115;
+        public const int DeleteOrderBillsIdentity = 15116;
+        public const int ActualizeOrderAmountToWithdrawIdentity = 15117;
 
         // EntityName.OrderPosition = 150
         public const int CalculateOrderPositionCostIdentity = 15001;
         public const int ValidateOrderPositionAdvertisementsIdentity = 15002;
         public const int CalculateCategoryRateIdentity = 15003;
         public const int ViewOrderPositionIdentity = 15004;
+        public const int ReplaceOrderPositionAdvertisementLinksIdentity = 15005;
+        public const int ChangeOrderPositionBindingObjectsIdentity = 15006;
 
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;
@@ -147,11 +148,16 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.Limit = 192
         public const int CloseLimitIdentity = 19201;
         public const int ReopenLimitIdentity = 19202;
+        public const int RecalculateLimitIdentity = 19203;
+        public const int SetLimitStatusIdentity = 19204;
+        public const int CalculateLimitIncreasingIdentity = 19205;
+        public const int IncreaseLimitIdentity = 19206;
 
         // EntityName.HotClientRequest = 257
         public const int ImportHotClientIdentity = 25701;
-        public const int GetHotClientTaskToReplicateIdentity = 25702;
-        public const int BindCrmTaskToHotClientRequestIdentity = 25703;
+        public const int GetHotClientRequestIdentity = 25702;
+        public const int ProcessHotClientRequestIdentity = 25704;
+        public const int BindTaskToHotClientRequestIdentity = 25703;
 
         // EntityName.AccountDetail = 141
         public const int ImportOperationsInfoIdentity = 14101;
@@ -233,6 +239,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.BranchOfficeOrganizationUnit = 139
         public const int SetBranchOfficeOrganizationUnitAsPrimaryIdentity = 13901;
         public const int SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity = 13902;
+
+        // EntityName.Activity = 500
+        public const int CheckRelatedActivitiesIdentity = 50001;
 
         // EntityName.ClientLink = 609
         public const int UpdateOrganizationStructureDenormalization = 60901;

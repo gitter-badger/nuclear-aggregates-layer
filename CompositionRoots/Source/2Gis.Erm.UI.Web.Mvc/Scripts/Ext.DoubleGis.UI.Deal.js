@@ -91,7 +91,7 @@ window.InitPage = function () {
             var isReasonSet = false;
 
             // Если по данному клиенту существует задача с признаком
-            // "Теплый клиент", то, не спрашивая, выставляем
+            // "Горячий клиент", то, не спрашивая, выставляем
             // соответствующую причину сделки.
             var clientLookup = Ext.getCmp('Client');
             if (clientLookup.item) {
@@ -113,7 +113,7 @@ window.InitPage = function () {
                         var dateFormatted = responseDecoded.TaskActualEnd ?
                             responseDecoded.TaskActualEnd.format(Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern) : "";
 
-                        //"Выставлена причина сделки \"Теплый клиент\", т.к. для данного клиента существует задача \"NNN\", закрытая \"\" с типом \"Теплый клиент\"";
+                        //"Выставлена причина сделки \"Горячий клиент\", т.к. для данного клиента существует задача \"NNN\", закрытая \"\" с типом \"Горячий клиент\"";
                         var alertText = String.format(Ext.LocalizedResources.IsWarmClientWarningFormat, responseDecoded.TaskDescription, dateFormatted);
                         alert(alertText);
                     }

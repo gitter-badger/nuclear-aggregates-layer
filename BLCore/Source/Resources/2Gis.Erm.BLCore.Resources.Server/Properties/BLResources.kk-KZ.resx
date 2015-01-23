@@ -690,9 +690,6 @@
   <data name="Number" xml:space="preserve">
     <value>Номер</value>
   </data>
-  <data name="AfterSalesServiceOperationDescriptionFormat" xml:space="preserve">
-    <value>Создание ППС для отделения организации по г. {0} за {1}</value>
-  </data>
   <data name="UnableToDeleteAssignedAdvertisementElementTemplate" xml:space="preserve">
     <value>Элемент шаблона рекламного материала используется в одном или нескольких шаблонах рекламного материала и не может быть удалён.</value>
   </data>
@@ -1048,9 +1045,6 @@
   </data>
   <data name="IncorrectBeginDistributionDateMax" xml:space="preserve">
     <value>Данная дата начала размещения заказа не может быть указана</value>
-  </data>
-  <data name="AfterSalesServiceOperationErrorsMessage" xml:space="preserve">
-    <value>Ошибок при создании звонков: {0}{1}{2}</value>
   </data>
   <data name="LockListByAccount" xml:space="preserve">
     <value>Просмотр списка всех блокировок по лицевому счету</value>
@@ -1802,9 +1796,6 @@
   <data name="DisqualifyOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Операция возврата в резерв не определена для указанного типа сущности</value>
   </data>
-  <data name="AfterSalesServiceCreationErrorFormat" xml:space="preserve">
-    <value>Ошибка при создании ППС, Id: {0}, {1}{2}</value>
-  </data>
   <data name="OrdersCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit" xml:space="preserve">
     <value>В заказе {0} имеется позиция заказа, привязанная к рубрике, которая не привязана к отделению организации города назначения заказа</value>
   </data>
@@ -2092,9 +2083,6 @@
   </data>
   <data name="OrderAmountFact" xml:space="preserve">
     <value>Фактическия сумма заказа</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesEmpty" xml:space="preserve">
-    <value>Не найдено заказов для формирования планов ППС.</value>
   </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>Списание</value>
@@ -2614,9 +2602,6 @@ Cумма по операции: {5}.
   </data>
   <data name="SystemID" xml:space="preserve">
     <value>Принадлежит системе</value>
-  </data>
-  <data name="AfterSaleServiceActivitiesCreate" xml:space="preserve">
-    <value>Формирование ППС</value>
   </data>
   <data name="OrderCheckWhiteListedAdvertismentIsRequired" xml:space="preserve">
     <value>Необходимо указать РМ для белого списка</value>
@@ -3182,9 +3167,6 @@ Cумма по операции: {5}.
   <data name="RegionalAdvertisingSharing" xml:space="preserve">
     <value>Обмен региональной рекламой</value>
   </data>
-  <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
-    <value>Обработано сделок : {0}, создано звонков: {1}</value>
-  </data>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Результаты проверки заказа</value>
   </data>
@@ -3340,9 +3322,6 @@ Cумма по операции: {5}.
   </data>
   <data name="CopyPriceCreateNewLegend" xml:space="preserve">
     <value>Скопировать существующий прайс-лист в новый</value>
-  </data>
-  <data name="CrmEntityCode" xml:space="preserve">
-    <value>Код сущности CRM</value>
   </data>
   <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
     <value>Территория продаж с кодом ДГПП [{0}] не найдена</value>
@@ -3533,9 +3512,6 @@ Cумма по операции: {5}.
   <data name="MergeLegalPersonsMainNotFoundError" xml:space="preserve">
     <value>Невозможно выполнить слияние, т.к. основное юридическое лицо не найдено.</value>
   </data>
-  <data name="ViewAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Недостаточно прав для просмотра журнала ППС</value>
-  </data>
   <data name="CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning" xml:space="preserve">
     <value>Запуск отмены невозможен, дождитесь окончания предыдущей операции</value>
   </data>
@@ -3562,9 +3538,6 @@ Cумма по операции: {5}.
   </data>
   <data name="AdsCheckInvalidImageDimension" xml:space="preserve">
     <value>Разрешение загружаемого изображения не соответствует ни одному из указанных ограничений</value>
-  </data>
-  <data name="CreateAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Недостаточно прав для формирования ППС</value>
   </data>
   <data name="UserControllerDefaultDeactivateError" xml:space="preserve">
     <value>Для объекта Пользователь недоступен стандартный функционал деактивации.</value>
@@ -3721,9 +3694,6 @@ Cумма по операции: {5}.
   </data>
   <data name="OrderFirmHiddenForAscertainmentTemplate" xml:space="preserve">
     <value>Фирма {0} скрыта до выяснения.</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesCompleted" xml:space="preserve">
-    <value>Планы ППС сформированы. Обработано сделок: {0}, создано звонков: {1}</value>
   </data>
   <data name="ProcessOrderRejected_TerminationReasonNeeds" xml:space="preserve">
     <value>Не указана причина расторжения в поле Комментарий</value>
@@ -3990,9 +3960,6 @@ Cумма по операции: {5}.
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Неверно заданы типы сущностей для добавления подразделения в тематику</value>
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>Нельзя добавить подразделение к тематике, установленной по умолчанию</value>
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>Нельзя удалить тематику, которая используется в заказах</value>
   </data>
@@ -4109,10 +4076,10 @@ Cумма по операции: {5}.
     <value>Произошла ошибка: {0}. Подробности см. в описании сообщения</value>
   </data>
   <data name="CannotApppendMoreThemesToOrganizationUnit" xml:space="preserve">
-    <value>Достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="CannotSaveThemeOrganizationUnitThemeLimitReached" xml:space="preserve">
-    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="PricePositionCannotBeChoosedSinceThereIsNoFirm" xml:space="preserve">
     <value>Данная позиция не может быть выбрана в заказ, т.к. не указана фирма</value>
@@ -4139,7 +4106,7 @@ Cумма по операции: {5}.
     <value>Дата должна быть в промежутке между 1 января 1753 г. и 31 декабря 9999 г.</value>
   </data>
   <data name="CannotSaveBranchOfficeInnExists" xml:space="preserve">
-    <value>Отделение огранизации с данным ИНН уже существует</value>
+    <value>Отделение организации с данным ИНН уже существует</value>
   </data>
   <data name="CannotReplaceTerritories" xml:space="preserve">
     <value>Выбранная территория должна принадлежать тому же подразделению, что и деактивируемая.</value>
@@ -5205,5 +5172,9 @@ Cумма по операции: {5}.
   </data>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value>{0} №{1} от {2}</value>
+  </data>
+  <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
+    <value>Неправильно запланированы даты начала и окончания встречи.
+</value>
   </data>
 </root>

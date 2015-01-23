@@ -16,9 +16,10 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -29,6 +30,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IUserRepository _userRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly ICompositeEntityDecorator _compositeEntityDecorator;
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
         private readonly IDebtProcessingSettings _debtProcessingSettings;
@@ -37,6 +39,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             IUserRepository userRepository,
             ISecurityServiceUserIdentifier userIdentifierService,
             ISecurityServiceFunctionalAccess functionalAccessService,
+            ICompositeEntityDecorator compositeEntityDecorator,
             IFinder finder,
             ISecureFinder secureFinder,
             IUserContext userContext,
@@ -49,6 +52,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userRepository = userRepository;
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
+            _compositeEntityDecorator = compositeEntityDecorator;
             _finder = finder;
             _secureFinder = secureFinder;
         }
@@ -122,44 +126,44 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return clients;
             }
 
-	        // FIXME {s.pomadin, 30.07.2014}: there is no relation between client and activities anymore
-			Expression<Func<Client, bool>> with1AppointmentFilter = null;
-			Expression<Func<Client, bool>> warmClientTaskFilter = null;
-			Expression<Func<Client, bool>> outdatedActivityFilter = null;
-//            var with1AppointmentFilter = querySettings.CreateForExtendedProperty<Client, bool>(
-//                "With1Appointment",
-//                with1Appointment =>
-//                {
-//                    if (!with1Appointment)
-//                    {
-//                        return null;
-//                    }
-//
-//
-//                    return x =>
-//                           x.ActivityInstances.Count(
-//                               y => y.Type == (int)ActivityType.Appointment && !y.IsDeleted && y.IsActive
-//                                    && y.ActivityPropertyInstances.Any(z => (z.PropertyId == StatusIdentity.Instance.Id && z.NumericValue == 2))) == 1;
-//                });
-//
-//            var warmClientTaskFilter = querySettings.CreateForExtendedProperty<Client, bool>(
-//                "WarmClientTask",
-//                warmClientTask => client =>
-//                    client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(property => property.PropertyId == TaskTypeIdentity.Instance.Id
-//                                                                                                  && property.NumericValue == (int)ActivityTaskType.WarmClient)));
-//
-//            var outdatedActivityFilter = querySettings.CreateForExtendedProperty<Client, bool>(
-//                "Outdated",
-//                outdated =>
-//                {
-//                    if (outdated)
-//                    {
-//                        return client => client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(
-//                            property => property.PropertyId == ScheduledEndIdentity.Instance.Id && property.DateTimeValue < DateTime.Today));
-//                    }
-//
-//                    return null;
-//                });
+            bool havingOnlyOneAppointment;
+            if (querySettings.TryGetExtendedProperty("With1Appointment", out havingOnlyOneAppointment) && havingOnlyOneAppointment)
+            {
+                var regardingObjects =
+                    from regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == EntityName.Client)) 
+                    join appointment in _compositeEntityDecorator.Find(Specs.Find.ActiveAndNotDeleted<Appointment>() && Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.Completed))
+                    on regardingObject.SourceEntityId equals appointment.Id
+                    select regardingObject;
+
+                query = from client in query
+                        where (
+                            from regardingObject in regardingObjects
+                            where regardingObject.TargetEntityId == client.Id
+                            select regardingObject).Count() == 1
+                        select client;
+            }
+
+            bool warmClientTask;
+            if (querySettings.TryGetExtendedProperty("WarmClientTask", out warmClientTask) && warmClientTask)
+            {
+                bool outdated;
+                outdated = querySettings.TryGetExtendedProperty("Outdated", out outdated) && outdated;
+
+                var clientIds =
+                    from task in _compositeEntityDecorator.Find(
+                        Specs.Find.ActiveAndNotDeleted<Task>() && 
+                        Specs.Find.Custom<Task>(x => x.TaskType == TaskType.WarmClient && x.Status == ActivityStatus.InProgress))
+                    join regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == EntityName.Client)) 
+                    on task.Id equals regardingObject.SourceEntityId
+                    let scheduleOn = task.ScheduledOn
+                    let now = DateTime.Now
+                    where !outdated || (scheduleOn.Year <= now.Year && scheduleOn.Month <= now.Month && scheduleOn.Day < now.Day) // неявно, задача планируется на один день
+                    select regardingObject.TargetEntityId;
+
+                query = from client in query
+                        where clientIds.Contains(client.Id)
+                        select client;
+            }
 
             var contactFilter = querySettings.CreateForExtendedProperty<Client, long>(
                 "ContactId",
@@ -175,9 +179,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 query
                     .Where(x => !x.IsDeleted)
                     .Filter(_filterHelper
-                    , with1AppointmentFilter
-                    , warmClientTaskFilter
-                    , outdatedActivityFilter
                     , contactFilter
                     , dealFilter
                     , firmFilter)

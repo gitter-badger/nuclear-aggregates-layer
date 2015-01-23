@@ -142,7 +142,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                     legalPersonProfile.BankName,
                     legalPersonProfile.SWIFT,
                     legalPersonProfile.IBAN,
-                    legalPersonProfile.AdditionalPaymentElements,
+                    legalPersonProfile.PaymentEssentialElements,
                     legalPersonProfile.ChiefNameInNominative,
                 }
             };
@@ -226,7 +226,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                     { "Profile.BankName", legalPersonProfile.BankName },
                     { "Profile.SWIFT", legalPersonProfile.SWIFT },
                     { "Profile.IBAN", legalPersonProfile.IBAN },
-                    { "Profile.AdditionalPaymentElements", legalPersonProfile.AdditionalPaymentElements },
+                    { "Profile.PaymentEssentialElements", legalPersonProfile.PaymentEssentialElements },
                     { "Profile.ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
                 };
         }

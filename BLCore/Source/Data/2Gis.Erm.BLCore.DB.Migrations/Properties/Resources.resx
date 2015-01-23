@@ -502,6 +502,27 @@
   <data name="_BusinessDirectory___ReplicateFirmAddresses_25335" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.10.19 rev. 25335\[businessdirectory].[replicatefirmaddresses].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="Migration_22766_AddIndexes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.08.26 rev. 22766\Add Indexes.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Migration_22766_AlterSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.08.26 rev. 22766\Alter Activity Schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Migration_24481_ReplicateAppointment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.26 rev. 24481\Create ReplicateAppointment.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration_24481_ReplicatePhonecall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.26 rev. 24481\Create ReplicatePhonecall.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration_24481_ReplicateTask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.26 rev. 24481\Create ReplicateTask.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration_24481_ReplicateLetter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.26 rev. 24481\Create ReplicateLetter.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration_22776_AlterSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="_Billing___ReplicateAccountDetails_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.09.19 rev. 24442\[billing].[replicateaccountdetails].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
@@ -529,6 +550,33 @@
   <data name="_Billing___ReplicateBargains_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.09.19 rev. 24442\[billing].[replicatebargains].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="Customizations_201411271239" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.11.27 rev. 201411271239\customizations.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Migration201412021150_Alter_ReplicateAppointment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.12.02 rev. 201412021150\Alter ReplicateAppointment.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration201412021150_Alter_ReplicateLetter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.12.02 rev. 201412021150\Alter ReplicateLetter.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration201412021150_Alter_ReplicatePhonecall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.12.02 rev. 201412021150\Alter ReplicatePhonecall.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration201412021150_Alter_ReplicateTask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.12.02 rev. 201412021150\Alter ReplicateTask.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration201412081011_Create_ReplicateAppointments" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.12.08 rev. 201412081011\Create ReplicateAppointments.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration201412081011_Create_ReplicateLetters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.12.08 rev. 201412081011\Create ReplicateLetters.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration201412081011_Create_ReplicatePhonecalls" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.12.08 rev. 201412081011\Create ReplicatePhonecalls.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Migration201412081011_Create_ReplicateTasks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.12.08 rev. 201412081011\Create ReplicateTasks.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="ReplicateDeals_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\201411261501\replicatedeals.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
@@ -540,5 +588,8 @@
   </data>
   <data name="ReplicateOrders_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\201411261501\replicateorders.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="Billing_ReplicateDeals_201501201646" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201501201646\billing.replicatedeals.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
 </root>

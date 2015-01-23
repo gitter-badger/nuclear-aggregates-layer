@@ -549,7 +549,7 @@
   <data name="TitlePlan" xml:space="preserve">
     <value />
   </data>
-  <data name="TitlePurpose" xml:space="preserve">
+  <data name="TitleResult" xml:space="preserve">
     <value />
   </data>
   <data name="TitleRegarding" xml:space="preserve">
@@ -688,9 +688,6 @@
     <value />
   </data>
   <data name="Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AfterSalesServiceOperationDescriptionFormat" xml:space="preserve">
     <value />
   </data>
   <data name="UnableToDeleteAssignedAdvertisementElementTemplate" xml:space="preserve">
@@ -1045,9 +1042,6 @@
     <value />
   </data>
   <data name="IncorrectBeginDistributionDateMax" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AfterSalesServiceOperationErrorsMessage" xml:space="preserve">
     <value />
   </data>
   <data name="LockListByAccount" xml:space="preserve">
@@ -1797,9 +1791,6 @@
   <data name="DisqualifyOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value />
   </data>
-  <data name="AfterSalesServiceCreationErrorFormat" xml:space="preserve">
-    <value />
-  </data>
   <data name="OrdersCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit" xml:space="preserve">
     <value />
   </data>
@@ -2086,9 +2077,6 @@
     <value />
   </data>
   <data name="OrderAmountFact" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesEmpty" xml:space="preserve">
     <value />
   </data>
   <data name="Withdrawal" xml:space="preserve">
@@ -2602,9 +2590,6 @@
     <value />
   </data>
   <data name="SystemID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AfterSaleServiceActivitiesCreate" xml:space="preserve">
     <value />
   </data>
   <data name="OrderCheckWhiteListedAdvertismentIsRequired" xml:space="preserve">
@@ -3168,7 +3153,7 @@
   <data name="CurrentUserHasNoReadEntityPermission" xml:space="preserve">
     <value />
   </data>
-  <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
+  <data name="RegionalAdvertisingSharing" xml:space="preserve">
     <value />
   </data>
   <data name="OrderCheckResults" xml:space="preserve">
@@ -3325,9 +3310,6 @@
     <value />
   </data>
   <data name="CopyPriceCreateNewLegend" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CrmEntityCode" xml:space="preserve">
     <value />
   </data>
   <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
@@ -3519,9 +3501,6 @@
   <data name="MergeLegalPersonsMainNotFoundError" xml:space="preserve">
     <value />
   </data>
-  <data name="ViewAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value />
-  </data>
   <data name="CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning" xml:space="preserve">
     <value />
   </data>
@@ -3547,9 +3526,6 @@
     <value />
   </data>
   <data name="AdsCheckInvalidImageDimension" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CreateAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
     <value />
   </data>
   <data name="UserControllerDefaultDeactivateError" xml:space="preserve">
@@ -3706,9 +3682,6 @@
     <value />
   </data>
   <data name="OrderFirmHiddenForAscertainmentTemplate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesCompleted" xml:space="preserve">
     <value />
   </data>
   <data name="ProcessOrderRejected_TerminationReasonNeeds" xml:space="preserve">
@@ -3973,9 +3946,6 @@
     <value />
   </data>
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
     <value />
   </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
@@ -5177,5 +5147,8 @@
   </data>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value />
+  </data>
+  <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
+    <value></value>
   </data>
 </root>

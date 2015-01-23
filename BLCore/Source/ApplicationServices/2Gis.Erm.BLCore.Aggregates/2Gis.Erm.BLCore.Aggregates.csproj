@@ -24,7 +24,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -86,14 +86,23 @@
     <Compile Include="Accounts\Operations\AccountWithdrawFromAccountsAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLocksAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
+    <Compile Include="Activities\AssignAppointmentAggregateService.cs" />
+    <Compile Include="Activities\AssignLetterAggregateService.cs" />
+    <Compile Include="Activities\AssignPhonecallAggregateService.cs" />
+    <Compile Include="Activities\AssignTaskAggregateService.cs" />
     <Compile Include="Activities\CreatePhonecallAggregateService.cs" />
     <Compile Include="Activities\CreateAppointmentAggregateService.cs" />
+    <Compile Include="Activities\CreateLetterAggregateService.cs" />
     <Compile Include="Activities\CreateTaskAggregateService.cs" />
     <Compile Include="Activities\EntityReferenceRepositoryExtensions.cs" />
+    <Compile Include="Activities\ReadModel\AppointmentReadModel.cs" />
+    <Compile Include="Activities\ReadModel\LetterReadModel.cs" />
+    <Compile Include="Activities\ReadModel\PhonecallReadModel.cs" />
     <Compile Include="Activities\UpdateAppointmentAggregationService.cs" />
     <Compile Include="Activities\UpdatePhonecallAggregationService.cs" />
+    <Compile Include="Activities\UpdateLetterAggregationService.cs" />
     <Compile Include="Activities\UpdateTaskAggregationService.cs" />
-    <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
+    <Compile Include="Activities\ReadModel\TaskReadModel.cs" />
     <Compile Include="Advertisements\Operations\CreateAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\DeleteAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\BulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
@@ -102,7 +111,7 @@
     <Compile Include="Clients\Operations\DeleteClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateHotClientRequestAggregateService.cs" />
-    <Compile Include="Clients\Operations\BindCrmTaskToHotClientRequestAggregateService.cs" />
+    <Compile Include="Clients\Operations\BindTaskToHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\DetachClientFromFirmAggregateService.cs" />
     <Compile Include="Clients\Operations\GraphDenormalizationExtensions.cs" />
     <Compile Include="Clients\Operations\UpdateClientAggregateService.cs" />
@@ -133,8 +142,6 @@
     <Compile Include="Common\Crosscutting\ConcurrentPeriodCounter.cs" />
     <Compile Include="Deals\DealRepository.cs" />
     <Compile Include="Deals\Operations\DealChangeStageAggregateService.cs" />
-    <Compile Include="Deals\Operations\DealCreateAfterSaleServiceAggregateService.cs" />
-    <Compile Include="Deals\Operations\DeleteAfterSaleServiceAggregateService.cs" />
     <Compile Include="Deals\ReadModel\DealReadModel.cs" />
     <Compile Include="Firms\FirmRepository.cs" />
     <Compile Include="Firms\Operations\BulkChangeClientTerritoryAggregateService.cs" />
@@ -176,12 +183,22 @@
     <Compile Include="Orders\Operations\Bargains\DeactivateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\Bargains\UpdateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\Bargains\CreateBargainAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\BulkCreateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\BulkDeleteBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\UpdateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderCreateReleaseTotalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderCreateReleaseWithdrawalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderDeleteReleaseTotalsAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBillNumberService.cs" />
+    <Compile Include="Orders\Operations\OrderActualizeAmountToWithdrawAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderChangeStateOrders2ArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderDeleteReleaseWithdrawalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderPositions\OrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
+    <Compile Include="Roles\ReadModel\RoleReadModel.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\GetPositionsByOrderService.cs" />
@@ -229,6 +246,7 @@
     <Compile Include="Themes\ThemeRepository.cs" />
     <Compile Include="Users\ActivateUserAggregateService.cs" />
     <Compile Include="Users\DeactivateUserAggregateService.cs" />
+    <Compile Include="Users\Operations\UserAppendRoleAggregateService.cs" />
     <Compile Include="Users\ReadModel\UserReadModel.cs" />
     <Compile Include="Users\UserRepository.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLockDetailsAggregateService.cs" />
@@ -237,7 +255,6 @@
     <Compile Include="Accounts\Operations\AccountBulkDeleteLockDetailsAggregateService.cs" />
     <Compile Include="Charges\Operations\ChargeCreateHistoryAggregateService.cs" />
     <Compile Include="Charges\ReadModel\ChargeReadModel.cs" />
-    <Compile Include="Withdrawals\WithdrawalInfoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
@@ -308,9 +325,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Orders\Operations\Validation\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

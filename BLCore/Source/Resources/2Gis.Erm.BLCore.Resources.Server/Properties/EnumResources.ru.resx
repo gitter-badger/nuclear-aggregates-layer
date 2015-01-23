@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -277,7 +277,7 @@
     <value>Инициатива Менеджера Визит</value>
   </data>
   <data name="InformationSourceWarmClient" xml:space="preserve">
-    <value>Тёплый клиент</value>
+    <value>Горячий клиент</value>
   </data>
   <data name="OrderStateApproved" xml:space="preserve">
     <value>Одобрен</value>
@@ -319,7 +319,7 @@
     <value>Отклонено</value>
   </data>
   <data name="ReasonForNewDealWarmClient" xml:space="preserve">
-    <value>Тёплый клиент</value>
+    <value>Горячий клиент</value>
   </data>
   <data name="AdvertisementElementRestrictionTypeArticle" xml:space="preserve">
     <value>Статья</value>
@@ -1182,19 +1182,7 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Территория</value>
   </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>ППС1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>ППС2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>ППС3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>ППС4</value>
-  </data>
-  <data name="BusinessOperationQualify" xml:space="preserve">
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Взятие из резерва</value>
   </data>
   <data name="BusinessOperationDisqualify" xml:space="preserve">
@@ -1205,9 +1193,6 @@
   </data>
   <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Смена клиента</value>
-  </data>
-  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
-    <value>Формирование ППС</value>
   </data>
   <data name="OperationStatusError" xml:space="preserve">
     <value>Завершено с ошибками</value>
@@ -1229,9 +1214,6 @@
   </data>
   <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Формирование региональной рекламы</value>
-  </data>
-  <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
-    <value>Формирование ППС</value>
   </data>
   <data name="EntityNameOperation" xml:space="preserve">
     <value>Операция</value>
@@ -1390,7 +1372,7 @@
     <value>Отменено</value>
   </data>
   <data name="TaskTypeWarmClient" xml:space="preserve">
-    <value>Теплый клиент</value>
+    <value>Горячий клиент</value>
   </data>
   <data name="TaskTypeBossTask" xml:space="preserve">
     <value>Поручение</value>
@@ -1552,9 +1534,6 @@
     <value />
   </data>
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
   <data name="BusinessOperationNone" xml:space="preserve">
@@ -1915,7 +1894,7 @@
   <data name="BargainKindClient" xml:space="preserve">
     <value>Клиентский</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Действие</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1974,6 +1953,9 @@
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Соглашение о продлении договора</value>
+  </data>
+  <data name="ActivityTypeLetter" xml:space="preserve">
+    <value>Письмо</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Отсрочка</value>

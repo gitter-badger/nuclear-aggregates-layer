@@ -1182,19 +1182,7 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Territory</value>
   </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>After-sale service1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>After-sale service2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>After-sale service3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>After-sale service4</value>
-  </data>
-  <data name="BusinessOperationQualify" xml:space="preserve">
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Taking from the reserve</value>
   </data>
   <data name="BusinessOperationDisqualify" xml:space="preserve">
@@ -1205,9 +1193,6 @@
   </data>
   <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Changing client</value>
-  </data>
-  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
-    <value>Formation of after-sale service</value>
   </data>
   <data name="OperationStatusError" xml:space="preserve">
     <value>Completed with errors</value>
@@ -1229,9 +1214,6 @@
   </data>
   <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Formation of regional advertisement</value>
-  </data>
-  <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
-    <value>Formation of after-sale service</value>
   </data>
   <data name="EntityNameOperation" xml:space="preserve">
     <value>Operation</value>
@@ -1575,9 +1557,6 @@
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
-    <value />
-  </data>
   <data name="BusinessOperationNone" xml:space="preserve">
     <value />
   </data>
@@ -1915,7 +1894,7 @@
   <data name="DenialReasonTypeOther" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Action</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1974,6 +1953,9 @@
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Contract Extension Agreement</value>
+  </data>
+  <data name="ActivityTypeLetter" xml:space="preserve">
+    <value>E-mail</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Postponement</value>

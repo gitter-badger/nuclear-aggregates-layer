@@ -471,9 +471,6 @@
   <data name="DListOperations" xml:space="preserve">
     <value>All operations</value>
   </data>
-  <data name="DListOperationsAfterSaleService" xml:space="preserve">
-    <value>Operations on after-sale service formation</value>
-  </data>
   <data name="DListThemeCategory" xml:space="preserve">
     <value>Categories</value>
   </data>
@@ -1833,6 +1830,12 @@
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Number of documents</value>
   </data>
+  <data name="EnLetter" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="ControlCreateLetter" xml:space="preserve">
+    <value>Write e-mail</value>
+  </data>
   <data name="CrdRelClientLinks" xml:space="preserve">
     <value>Links</value>
   </data>
@@ -1856,5 +1859,11 @@
   </data>
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Main</value>
+  </data>
+  <data name="ControlIncreaseLimit" xml:space="preserve">
+    <value>Increase</value>
+  </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Time zones</value>
   </data>
 </root>

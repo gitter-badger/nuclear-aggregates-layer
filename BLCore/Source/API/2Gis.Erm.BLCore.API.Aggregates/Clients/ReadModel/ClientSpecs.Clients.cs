@@ -27,6 +27,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
                     return new FindSpecification<Client>(x => x.Firms.Any(y => y.Id == firmId));
                 }
 
+                public static FindSpecification<Client> ByContact(long contactId)
+                {
+                    return new FindSpecification<Client>(x => x.Contacts.Any(y => y.Id == contactId));
+                }
+
                 public static FindSpecification<Client> ByTerritory(long territoryId)
                 {
                     return new FindSpecification<Client>(x => x.TerritoryId == territoryId);

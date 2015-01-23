@@ -1194,19 +1194,7 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Territorio</value>
   </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>Servicio postventa 1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>Servicio postventa 2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>Servicio postventa 3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>Servicio postventa 4</value>
-  </data>
-  <data name="BusinessOperationQualify" xml:space="preserve">
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Tomar de la reserva</value>
   </data>
   <data name="BusinessOperationDisqualify" xml:space="preserve">
@@ -1217,9 +1205,6 @@
   </data>
   <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Cambiar de cliente</value>
-  </data>
-  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
-    <value>Formación del servicio postventa</value>
   </data>
   <data name="OperationStatusError" xml:space="preserve">
     <value>Finalizado con errores</value>
@@ -1241,9 +1226,6 @@
   </data>
   <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Formar la publicidad regional</value>
-  </data>
-  <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
-    <value>Formación del servicio postventa</value>
   </data>
   <data name="EntityNameOperation" xml:space="preserve">
     <value>Operación</value>
@@ -1587,9 +1569,6 @@
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
-    <value />
-  </data>
   <data name="BusinessOperationNone" xml:space="preserve">
     <value />
   </data>
@@ -1927,7 +1906,7 @@
   <data name="DenialReasonTypeOther" xml:space="preserve">
     <value>Otro</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Acción</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1986,6 +1965,9 @@
   </data>
   <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
     <value>La información contenida en esta sección corresponde a productos farmacéuticos autorizados para venta bajo receta médica. Conforme a la actual legislación, su promoción está dirigida sólo a profesionales médicos y químicos farmacéuticos. Parus S.p.A. no se hace responsable por la indebida interpretación y consecuencias del mal uso de la información aquí contenida.</value>
+  </data>
+  <data name="ActivityTypeLetter" xml:space="preserve">
+    <value>Carta</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Prórroga</value>

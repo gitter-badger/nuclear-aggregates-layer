@@ -367,6 +367,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Письмо.
+        /// </summary>
+        public static string ActivityTypeLetter {
+            get {
+                return ResourceManager.GetString("ActivityTypeLetter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не задано.
         /// </summary>
         public static string ActivityTypeNotSet {
@@ -556,51 +565,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ППС1.
-        /// </summary>
-        public static string AfterSaleServiceTypeASS1 {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeASS1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ППС2.
-        /// </summary>
-        public static string AfterSaleServiceTypeASS2 {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeASS2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ППС3.
-        /// </summary>
-        public static string AfterSaleServiceTypeASS3 {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeASS3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ППС4.
-        /// </summary>
-        public static string AfterSaleServiceTypeASS4 {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeASS4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSaleServiceTypeNone {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeNone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Все.
         /// </summary>
         public static string AllOrdersReportTypeAll {
@@ -718,15 +682,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Формирование ППС.
-        /// </summary>
-        public static string BusinessOperationAfterSaleServiceActivitiesCreation {
-            get {
-                return ResourceManager.GetString("BusinessOperationAfterSaleServiceActivitiesCreation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Смена клиента.
         /// </summary>
         public static string BusinessOperationChangeClient {
@@ -801,9 +756,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Взятие из резерва.
         /// </summary>
-        public static string BusinessOperationQualify {
+        public static string BusinessOperationTypeQualify {
             get {
-                return ResourceManager.GetString("BusinessOperationQualify", resourceCulture);
+                return ResourceManager.GetString("BusinessOperationTypeQualify", resourceCulture);
             }
         }
         
@@ -1314,9 +1269,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Действие.
         /// </summary>
-        public static string EntityNameActivityBase {
+        public static string EntityNameActivity {
             get {
-                return ResourceManager.GetString("EntityNameActivityBase", resourceCulture);
+                return ResourceManager.GetString("EntityNameActivity", resourceCulture);
             }
         }
         
@@ -2779,15 +2734,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Формирование ППС.
-        /// </summary>
-        public static string FunctionalPrivilegeNameCreateAfterSalesServiceActivities {
-            get {
-                return ResourceManager.GetString("FunctionalPrivilegeNameCreateAfterSalesServiceActivities", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Удаление профиля юр. лица клиента.
         /// </summary>
         public static string FunctionalPrivilegeNameDeleteLegalPersonProfile {
@@ -3229,7 +3175,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тёплый клиент.
+        ///   Looks up a localized string similar to Горячий клиент.
         /// </summary>
         public static string InformationSourceWarmClient {
             get {
@@ -4840,7 +4786,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тёплый клиент.
+        ///   Looks up a localized string similar to Горячий клиент.
         /// </summary>
         public static string ReasonForNewDealWarmClient {
             get {
@@ -5128,7 +5074,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Теплый клиент.
+        ///   Looks up a localized string similar to Горячий клиент.
         /// </summary>
         public static string TaskTypeWarmClient {
             get {

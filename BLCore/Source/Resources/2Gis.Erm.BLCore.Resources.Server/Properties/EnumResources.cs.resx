@@ -1182,19 +1182,7 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Území</value>
   </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>PPS1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>PPS2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>PPS3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>PPS4</value>
-  </data>
-  <data name="BusinessOperationQualify" xml:space="preserve">
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Vzít z rezervy</value>
   </data>
   <data name="BusinessOperationDisqualify" xml:space="preserve">
@@ -1205,9 +1193,6 @@
   </data>
   <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Změna klienta</value>
-  </data>
-  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
-    <value>Vytvoření PPS</value>
   </data>
   <data name="OperationStatusError" xml:space="preserve">
     <value>Dokončeno s chybami</value>
@@ -1229,9 +1214,6 @@
   </data>
   <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Vytvoření regionální reklamy</value>
-  </data>
-  <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
-    <value>Vytvoření PPS</value>
   </data>
   <data name="EntityNameOperation" xml:space="preserve">
     <value>Operace</value>
@@ -1575,9 +1557,6 @@
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
-    <value />
-  </data>
   <data name="BusinessOperationNone" xml:space="preserve">
     <value />
   </data>
@@ -1915,7 +1894,7 @@
   <data name="DenialReasonTypeOther" xml:space="preserve">
     <value>Jiné</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Akce</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1974,6 +1953,9 @@
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Dohoda o prodloužení smlouvy</value>
+  </data>
+  <data name="ActivityTypeLetter" xml:space="preserve">
+    <value>Dopis</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Odklad</value>

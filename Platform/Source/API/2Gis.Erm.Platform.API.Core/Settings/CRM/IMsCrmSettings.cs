@@ -13,7 +13,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
         bool EnableReplication { get; }
         MsCrmIntegrationMode IntegrationMode { get; }
 
-        string CrmHost { get; }
         string CrmOrganizationName { get; }
         string CrmRuntimeConnectionString { get; }
     }
