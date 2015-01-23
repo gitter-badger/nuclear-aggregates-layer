@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Advertising materials</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Attempt to save the budget order Item with Quantity not equal to 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>End of period</value>
   </data>
@@ -5174,5 +5171,8 @@ Placement period: {3}.</value>
   </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>В заказе могут присутствовать позиции только одной модели продаж</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>Попытка сохранить позицию заказа с моделью продаж '{0}' с количеством, не равным 1</value>
   </data>
 </root>

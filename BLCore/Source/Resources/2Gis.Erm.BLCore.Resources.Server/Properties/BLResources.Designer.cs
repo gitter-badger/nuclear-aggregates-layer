@@ -1845,15 +1845,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne {
-            get {
-                return ResourceManager.GetString("AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AttemptToSaveBudgeteOrderPositionWithNegativePrice {
             get {
                 return ResourceManager.GetString("AttemptToSaveBudgeteOrderPositionWithNegativePrice", resourceCulture);
@@ -1875,6 +1866,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string AttemptToSaveOrderPositionsWithInvalidDiscountRate {
             get {
                 return ResourceManager.GetString("AttemptToSaveOrderPositionsWithInvalidDiscountRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AttemptToSaveOrderPositionWithAmountNotEqualToOne {
+            get {
+                return ResourceManager.GetString("AttemptToSaveOrderPositionWithAmountNotEqualToOne", resourceCulture);
             }
         }
         
