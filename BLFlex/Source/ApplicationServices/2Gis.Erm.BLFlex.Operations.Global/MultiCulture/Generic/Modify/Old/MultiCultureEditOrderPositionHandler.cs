@@ -16,6 +16,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -170,7 +171,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     orderPosition.DiscountPercent = calculateOrderPositionPricesResponse.DiscountPercent;
                     orderPosition.DiscountSum = calculateOrderPositionPricesResponse.DiscountSum;
 
-                    ValidateEntity(orderPosition, pricePositionInfo.SalesModel == SalesModel.PlannedProvision);
+                    ValidateEntity(orderPosition, pricePositionInfo.SalesModel);
 
                     // Сохраняем изменения OrderPosition в БД
                     _orderRepository.CreateOrUpdate(orderPosition);
@@ -209,7 +210,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
             return Response.Empty;
         }
 
-        private static void ValidateEntity(OrderPosition entity, bool isSinglePlannedProvisionSalesModel)
+        private static void ValidateEntity(OrderPosition entity, SalesModel salesModel)
         {
             if (entity == null)
             {
@@ -241,9 +242,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                 throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithNegativePrice);
             }
 
-            if (isSinglePlannedProvisionSalesModel && entity.Amount != 1)
+            if (salesModel == SalesModel.PlannedProvision && entity.Amount != 1)
             {
-                throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne);
+                throw new NotificationException(string.Format(BLResources.AttemptToSaveOrderPositionWithAmountNotEqualToOne,
+                                                              salesModel.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
             }
         }
     }

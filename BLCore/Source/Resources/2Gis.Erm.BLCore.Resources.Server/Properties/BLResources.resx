@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value />
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value />
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value />
   </data>
@@ -5149,7 +5146,7 @@
     <value />
   </data>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
     <value />
@@ -5164,6 +5161,9 @@
     <value />
   </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value />
   </data>
 </root>
