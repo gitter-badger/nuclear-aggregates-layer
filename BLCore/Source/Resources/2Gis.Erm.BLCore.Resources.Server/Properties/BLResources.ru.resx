@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Рекламные материалы</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Попытка сохранить бюджетную Позицию заказа с Количеством, не равным 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>Окончание периода</value>
   </data>
@@ -965,9 +962,6 @@
   <data name="PeriodClosing" xml:space="preserve">
     <value>Закрытие периода</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>В заказ с типом "Продажи" можно добавлять только позиции с моделью продаж "Гарантированное оказание"!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Признак скрытия</value>
   </data>
@@ -985,9 +979,6 @@
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Фильтр по умолчанию</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>В заказ с типом "Бюджет" можно добавлять только позиции с моделью продаж "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>У данных юридических лиц не совпадает ИНН, слияние невозможно.</value>
@@ -5157,7 +5148,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-  </data>
+</data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5188,5 +5179,8 @@ Cумма по операции: {5}.
   </data>
   <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
     <value>Набор рубрик для всех подпозиций должен совпадать</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>Попытка сохранить позицию заказа с моделью продаж '{0}' с количеством, не равным 1</value>
   </data>
 </root>

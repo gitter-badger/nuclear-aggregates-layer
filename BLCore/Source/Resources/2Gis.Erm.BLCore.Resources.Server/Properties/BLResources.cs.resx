@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Reklamní materiály</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Pokus o uložení rozpočtové položky objednávky s množstvím, které není rovné 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>Ukončení období</value>
   </data>
@@ -965,9 +962,6 @@ Blokujících chyb:{2}</value>
   <data name="PeriodClosing" xml:space="preserve">
     <value>Uzavření období</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>В заказ с типом "Продажи" можно добавлять только позиции с моделью продаж "Гарантированное оказание"!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Příznak skrytí</value>
   </data>
@@ -985,9 +979,6 @@ Blokujících chyb:{2}</value>
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Výchozí filtr</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>В заказ с типом "Бюджет" можно добавлять только позиции с моделью продаж "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>U těchto právnických osob nesouhlasí IČ, sloučení není možné.</value>
@@ -5187,5 +5178,8 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
     <value>Набор рубрик для всех подпозиций должен совпадать</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>Попытка сохранить позицию заказа с моделью продаж '{0}' с количеством, не равным 1</value>
   </data>
 </root>
