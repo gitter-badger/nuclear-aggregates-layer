@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderOrganizationUnitDerivedFieldsDto GetFieldValuesByOrganizationUnit(long organizationUnitId);
         OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId);
         long? GetBargainIdByOrder(long orderId);
-        long GetBargainLegalPersonId(long bargainId);
+        long GetLegalPersonIdByBargain(long bargainId);
 
         OrderAmountToWithdrawInfo GetOrderAmountToWithdrawInfo(long orderId);
         OrderRecalculateWithdrawalsDto GetOrderRecalculateWithdrawalsInfo(long orderId);

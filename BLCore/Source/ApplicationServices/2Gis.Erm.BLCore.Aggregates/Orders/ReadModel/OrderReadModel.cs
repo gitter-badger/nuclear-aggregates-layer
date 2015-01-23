@@ -1355,7 +1355,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.BargainId).Single();
         }
 
-        public long GetBargainLegalPersonId(long bargainId)
+        public long GetLegalPersonIdByBargain(long bargainId)
         {
             return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
         }

@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
 
         public ChooseProfileDialogState GetChooseProfileDialogStateForBargain(long bargainId)
         {
-            var legalPersonId = _orderReadModel.GetBargainLegalPersonId(bargainId);
+            var legalPersonId = _orderReadModel.GetLegalPersonIdByBargain(bargainId);
             return GetChooseProfileDialogState(null, legalPersonId);
         }
 
@@ -112,7 +112,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
 
         public ChooseProfileViewModel GetViewModelByBargain(long bargainId, long? profileId)
         {
-            var legalPersonId = _orderReadModel.GetBargainLegalPersonId(bargainId);
+            var legalPersonId = _orderReadModel.GetLegalPersonIdByBargain(bargainId);
             return CreateViewModel(legalPersonId, profileId, false);
         }
 
