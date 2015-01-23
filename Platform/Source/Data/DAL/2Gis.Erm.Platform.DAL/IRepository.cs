@@ -4,12 +4,12 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
-	/// <summary>
-	/// Represents the non-generic repository contract.
-	/// </summary>
-	public interface IRepository
-	{
-	}
+    /// <summary>
+    /// Represents the non-generic repository contract.
+    /// </summary>
+    public interface IRepository
+    {
+    }
 
     /// <summary>
     /// Generic Repository Pattern Interface

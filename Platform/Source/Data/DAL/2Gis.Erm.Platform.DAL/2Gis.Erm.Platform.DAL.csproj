@@ -84,7 +84,6 @@
     <Compile Include="NullPersistenceChangesRegistry.cs" />
     <Compile Include="NullPersistenceChangesRegistryProvider.cs" />
     <Compile Include="FinderBaseProvider.cs" />
-    <Compile Include="ICompositeRepository.cs" />
     <Compile Include="IFinderBaseProvider.cs" />
     <Compile Include="IReadDomainContextProviderForHost.cs" />
     <Compile Include="DomainContextProviderProxy.cs" />

@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel;
+using AutoMapper;
+
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Factories.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.DB;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -26,9 +25,9 @@ using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -50,7 +49,6 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
@@ -138,20 +136,21 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
                         .RegisterType(typeof(IRepository<>), typeof(EFGenericRepository<>), Lifetime.PerResolve)
                         .RegisterType(typeof(ISecureRepository<>), typeof(EFSecureGenericRepository<>), Lifetime.PerResolve)
-						
-						// TODO {s.pomadin, 11.08.2014}: перенести регистрацию в DAL
-						.RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
+
+                        // TODO {s.pomadin, 11.08.2014}: перенести регистрацию в DAL
+                        .RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<AppointmentRegardingObject>, EFMappingRepository<AppointmentRegardingObject, AppointmentReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<AppointmentAttendee>, EFMappingRepository<AppointmentAttendee, AppointmentReference>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<PhonecallRegardingObject>, EFMappingRepository<PhonecallRegardingObject, PhonecallReference>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<PhonecallRecipient>, EFMappingRepository<PhonecallRecipient, PhonecallReference>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<PhonecallRecipient>, EFMappingRepository<PhonecallRecipient, PhonecallReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<TaskRegardingObject>, EFMappingRepository<TaskRegardingObject, TaskReference>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<Letter>, EFMappingRepository<Letter, LetterBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Letter>, EFMappingRepository<Letter, LetterBase>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<LetterRegardingObject>, EFMappingRepository<LetterRegardingObject, LetterReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<LetterSender>, EFMappingRepository<LetterSender, LetterReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<LetterRecipient>, EFMappingRepository<LetterRecipient, LetterReference>>(Lifetime.PerResolve)
+                        .RegisterInstance(Mapper.Engine)
 
                         // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
