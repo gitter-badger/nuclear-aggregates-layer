@@ -963,9 +963,6 @@
   <data name="PeriodClosing" xml:space="preserve">
     <value />
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value />
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value />
   </data>
@@ -982,9 +979,6 @@
     <value />
   </data>
   <data name="DefaultFilter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
     <value />
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">

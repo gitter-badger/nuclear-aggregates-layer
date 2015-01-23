@@ -965,9 +965,6 @@ Locking errors:{2}</value>
   <data name="PeriodClosing" xml:space="preserve">
     <value>Closure of the period</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>В заказ с типом "Продажи" можно добавлять только позиции с моделью продаж "Гарантированное оказание"!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>'Hidden' attribute</value>
   </data>
@@ -985,9 +982,6 @@ Locking errors:{2}</value>
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Default filter</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>В заказ с типом "Бюджет" можно добавлять только позиции с моделью продаж "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>These legal entities have different T.I.C., merging cannot be performed.</value>

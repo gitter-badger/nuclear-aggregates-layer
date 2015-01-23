@@ -965,9 +965,6 @@
   <data name="PeriodClosing" xml:space="preserve">
     <value>Закрытие периода</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>В заказ с типом "Продажи" можно добавлять только позиции с моделью продаж "Гарантированное оказание"!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Признак скрытия</value>
   </data>
@@ -985,9 +982,6 @@
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Фильтр по умолчанию</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>В заказ с типом "Бюджет" можно добавлять только позиции с моделью продаж "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>У данных юридических лиц не совпадает ИНН, слияние невозможно.</value>

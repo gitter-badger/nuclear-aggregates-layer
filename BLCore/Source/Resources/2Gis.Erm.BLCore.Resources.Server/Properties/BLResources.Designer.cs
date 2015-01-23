@@ -9776,15 +9776,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string OrderBudgetCanAcceptOnlyBudgetPositions {
-            get {
-                return ResourceManager.GetString("OrderBudgetCanAcceptOnlyBudgetPositions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string OrderBudgetCanHaveOnlyOnePosition {
             get {
                 return ResourceManager.GetString("OrderBudgetCanHaveOnlyOnePosition", resourceCulture);
@@ -10958,15 +10949,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OrdersCheckThereIsDeniedPosition {
             get {
                 return ResourceManager.GetString("OrdersCheckThereIsDeniedPosition", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string OrderSellCanAcceptOnlySellPositions {
-            get {
-                return ResourceManager.GetString("OrderSellCanAcceptOnlySellPositions", resourceCulture);
             }
         }
         
