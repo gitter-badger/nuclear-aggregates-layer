@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+﻿using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify
 {
