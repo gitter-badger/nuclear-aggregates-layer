@@ -1,8 +1,8 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
+﻿using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
 {
-    public interface IAssociatedPositionViewModel : IEntityViewModelAbstract<AssociatedPosition>
+    public interface IAssociatedPositionViewModel : INewableAspect
     {
         bool PriceIsDeleted { get; set; }
         bool PriceIsPublished { get; set; }

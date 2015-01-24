@@ -1,8 +1,8 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata Account =
             CardMetadata.For<Account>()
                         .Icon.Path(Icons.Icons.Entity.Small(EntityName.Account))
-                        .WarningOn<Account, IAccountViewModel>(x => !x.IsActive, StringResourceDescriptor.Create(() => BLResources.AccountIsInactiveAlertText))
-                        .ErrorOn<Account, IAccountViewModel>(x => x.IsDeleted, StringResourceDescriptor.Create(() => BLResources.AccountIsDeletedAlertText))
+                        .WarningOn<Account, IDeactivatableAspect>(x => !x.IsActive, StringResourceDescriptor.Create(() => BLResources.AccountIsInactiveAlertText))
+                        .ErrorOn<Account, IDeletableAspect>(x => x.IsDeleted, StringResourceDescriptor.Create(() => BLResources.AccountIsDeletedAlertText))
                         .CommonCardToolbar()
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.AccountDetail, () => ErmConfigLocalization.CrdRelAccountDetails),

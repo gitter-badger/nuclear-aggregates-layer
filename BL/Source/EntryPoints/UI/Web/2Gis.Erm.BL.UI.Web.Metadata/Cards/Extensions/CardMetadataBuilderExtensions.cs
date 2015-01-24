@@ -3,12 +3,14 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.BLCore.UI.Web.Metadata;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
+using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
@@ -79,7 +81,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 
         public static CardMetadataBuilder<TEntity> WarningOn<TEntity, T>(this CardMetadataBuilder<TEntity> builder, Expression<Func<T, bool>> expression, IStringResourceDescriptor messageDescriptor)
             where TEntity : class, IEntityKey, IEntity
-            where T : IEntityViewModelAbstract<TEntity>
+            where T : IAspect
         {
             builder.WithFeatures(new MessageExpressionFeature<T>(expression, messageDescriptor, MessageType.Warning));
             return builder;
@@ -87,7 +89,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 
         public static CardMetadataBuilder<TEntity> ErrorOn<TEntity, T>(this CardMetadataBuilder<TEntity> builder, Expression<Func<T, bool>> expression, IStringResourceDescriptor messageDescriptor)
             where TEntity : class, IEntityKey, IEntity
-            where T : IEntityViewModelAbstract<TEntity>
+            where T : IAspect
         {
             builder.WithFeatures(new MessageExpressionFeature<T>(expression, messageDescriptor, MessageType.CriticalError));
             return builder;
@@ -95,7 +97,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 
         public static CardMetadataBuilder<TEntity> InfoOn<TEntity, T>(this CardMetadataBuilder<TEntity> builder, Expression<Func<T, bool>> expression, IStringResourceDescriptor messageDescriptor)
             where TEntity : class, IEntityKey, IEntity
-            where T : IEntityViewModelAbstract<TEntity>
+            where T : IViewModelAbstract
         {
             builder.WithFeatures(new MessageExpressionFeature<T>(expression, messageDescriptor, MessageType.Info));
             return builder;

@@ -625,7 +625,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Bill">
-    <Card EntityNameLocaleResourceId="EnBill" EntityMainAttribute="BillNumber" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
+    <Card EntityNameLocaleResourceId="EnBill" EntityMainAttribute="Number" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -640,7 +640,7 @@
       </ToolbarItems>
     </Card>
     <DataLists>
-      <DataList NameLocaleResourceId="DListBill" DefaultSortField="PaymentDatePlan" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="BillNumber" Icon="en_ico_16_Default.gif">
+      <DataList NameLocaleResourceId="DListBill" DefaultSortField="PaymentDatePlan" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="Number" Icon="en_ico_16_Default.gif">
         <Scripts>
           <Script FileName="DataList/Bill.DataList.js" />
         </Scripts>
@@ -652,7 +652,7 @@
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="FirmId" NameLocaleResourceId="DFieldFirmId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ClientId" NameLocaleResourceId="DFieldClientId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="BillNumber" Width="150" FieldType="String" ExtTypeName="String" />
+          <Field Name="Number" Width="150" FieldType="String" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="100" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="PaymentDatePlan" Width="100" FieldType="Period" ExtTypeName="Date" />
           <Field Name="PayablePlan" Width="100" FieldType="Money" ExtTypeName="Float" />
@@ -803,7 +803,7 @@
     </DataLists>
   </Entity>
   <Entity Name="CategoryGroup">
-    <Card EntityNameLocaleResourceId="EnCategoryGroups" EntityMainAttribute="CategoryGroupName" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Category.gif" LargeIcon="en_ico_lrg_Category.gif">
+    <Card EntityNameLocaleResourceId="EnCategoryGroups" EntityMainAttribute="Name" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Category.gif" LargeIcon="en_ico_lrg_Category.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -815,14 +815,14 @@
       </ToolbarItems>
     </Card>
     <DataLists>
-      <DataList NameLocaleResourceId="DListActiveCategoryGroups" DefaultSortField="CategoryGroupName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Default.gif">
+      <DataList NameLocaleResourceId="DListActiveCategoryGroups" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Default.gif">
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="532" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="CategoryGroupName" NameLocaleResourceId="DFieldCategoryGroupName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="Name" NameLocaleResourceId="DFieldCategoryGroupName" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="GroupRate" NameLocaleResourceId="CategoryGroupRate" Width="150" FieldType="Float" ExtTypeName="Float" />
         </Fields>
       </DataList>

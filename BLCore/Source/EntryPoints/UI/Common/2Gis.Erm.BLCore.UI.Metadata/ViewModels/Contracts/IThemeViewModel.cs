@@ -1,10 +1,10 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
 {
-    public interface IThemeViewModel : IEntityViewModelAbstract<Theme>
+    public interface IThemeViewModel : IViewModelAbstract
     {
-        string Name { get; set; }
         int OrganizationUnitCount { get; set; }
     }
 }

@@ -529,7 +529,7 @@ WriteLiteral("            ");
 
             
             #line 79 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.OrderNumber, FieldFlex.twins));
+       Write(Html.TemplateField(m => m.Number, FieldFlex.twins));
 
             
             #line default

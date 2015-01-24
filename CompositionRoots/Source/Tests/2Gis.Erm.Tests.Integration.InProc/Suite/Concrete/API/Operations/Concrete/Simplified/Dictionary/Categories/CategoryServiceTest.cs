@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
         public ITestResult Execute()
         {
-            var newCategoryGroup = new CategoryGroup { CategoryGroupName = "Test", GroupRate = 0.007m, Id = NewId };
+            var newCategoryGroup = new CategoryGroup { Name = "Test", GroupRate = 0.007m, Id = NewId };
             _categoryService.CreateOrUpdate(newCategoryGroup);
 
             _categoryService.Delete(newCategoryGroup);

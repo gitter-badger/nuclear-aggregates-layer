@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public long FileId { get; set; }
 
         [DataMember]
-        public String FileName { get; set; }
+        public string FileName { get; set; }
 
         [DataMember]
         public string Comment { get; set; }
@@ -59,6 +59,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public string FileContentType { get; set; }
 
         [DataMember]
-        public bool UserDoesntHaveRightsToEditOrder { get; set; }
+        public bool SetReadonly { get; set; }
     }
 }

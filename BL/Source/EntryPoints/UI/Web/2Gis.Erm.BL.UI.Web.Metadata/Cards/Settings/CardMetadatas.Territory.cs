@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -22,7 +23,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Refresh<Territory>(),
                                 ToolbarElements.Activate<Territory>()
-                                               .HideOn<ITerritoryViewModel>(x => x.IsActive),
+                                               .HideOn<IDeactivatableAspect>(x => x.IsActive),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),

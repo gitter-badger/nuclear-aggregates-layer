@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -96,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public abstract class EntityViewModelBase<T> : EntityViewModelBase, IEntityViewModelAbstract<T> where T : IEntityKey
+    public abstract class EntityViewModelBase<T> : EntityViewModelBase 
     {
         private LookupField _createdBy;
         private LookupField _modifiedBy;

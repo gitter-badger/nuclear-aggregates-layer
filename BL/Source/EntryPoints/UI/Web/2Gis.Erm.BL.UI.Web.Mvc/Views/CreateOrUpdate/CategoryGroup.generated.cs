@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/CategoryGroup.cshtml")]
-    public partial class CategoryGroup : System.Web.Mvc.WebViewPage<Models.CategoryGroupViewModel>
+    public partial class CategoryGroup : System.Web.Mvc.WebViewPage<CategoryGroupViewModel>
     {
         public CategoryGroup()
         {
@@ -91,14 +91,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 279), Tuple.Create("\"", 315)
+WriteAttribute("title", Tuple.Create(" title=\"", 272), Tuple.Create("\"", 308)
             
             #line 17 "..\..\Views\CreateOrUpdate\CategoryGroup.cshtml"
-, Tuple.Create(Tuple.Create("", 287), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 280), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 287), false)
+, 280), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -126,7 +126,7 @@ WriteLiteral("            ");
 
             
             #line 22 "..\..\Views\CreateOrUpdate\CategoryGroup.cshtml"
-       Write(Html.TemplateField(m => m.CategoryGroupName, FieldFlex.lone));
+       Write(Html.TemplateField(m => m.Name, FieldFlex.lone));
 
             
             #line default

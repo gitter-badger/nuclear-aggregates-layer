@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
@@ -8,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
 // ReSharper restore CheckNamespace
 {
-    public partial interface IEntityViewModelBase : IViewModel
+    public partial interface IEntityViewModelBase : IViewModel, IDeactivatableAspect, IDeletableAspect, INewableAspect
     {
         long Id { get; set; }
         LookupField CreatedBy { get; set; }
@@ -16,9 +17,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
         LookupField Owner { get; set; }
         DateTime CreatedOn { get; set; }
         DateTime? ModifiedOn { get; set; }
-        bool IsNew { get; }
-        bool IsActive { get; }
-        bool IsDeleted { get; }
+        //bool IsNew { get; }
+        //bool IsActive { get; }
+        //bool IsDeleted { get; }
 
         string EntityStatus { get; }
         List<ValidationMessage> ValidationMessages { get; set; }

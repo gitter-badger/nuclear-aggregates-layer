@@ -1,10 +1,10 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
 {
-    public interface IAssociatedPositionsGroupViewModel : IEntityViewModelAbstract<AssociatedPositionsGroup>
+    public interface IAssociatedPositionsGroupViewModel : IViewModelAbstract
     {
-        string Name { get; set; }
         bool PriceIsDeleted { get; set; }
         bool PriceIsPublished { get; set; }
     }

@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -14,22 +15,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .WithDefaultIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<AdvertisementElement>()
-                                               .HideOn<IAdvertisementElementViewModel>(x => x.NeedsValidation),
+                                               .HideOn<IAdvertisementElementRequiresVerificationAspect>(x => x.NeedsValidation),
                                 ToolbarElements.Update<AdvertisementElement>()
-                                               .HideOn<IAdvertisementElementViewModel>(x => x.NeedsValidation),
+                                               .HideOn<IAdvertisementElementRequiresVerificationAspect>(x => x.NeedsValidation),
                                 ToolbarElements.AdvertisementElements.ResetToDraft()
-                                               .DisableOn<IAdvertisementElementViewModel>(x => x.CanUserChangeStatus,
-                                                                                          x => x.DisableEdit,
-                                                                                          x => x.Status == AdvertisementElementStatusValue.Draft)
-                                               .HideOn<IAdvertisementElementViewModel>(x => !x.NeedsValidation),
+                                               .DisableOn<ISetReadOnlyAspect>(x => x.SetReadonly)
+                                               .DisableOn<IAdvertisementElementVerificationAspect>(x => x.CanUserChangeStatus,
+                                                                                                   x => x.Status == AdvertisementElementStatusValue.Draft)
+                                               .HideOn<IAdvertisementElementRequiresVerificationAspect>(x => !x.NeedsValidation),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.AdvertisementElements.SaveAndVerify()
-                                               .HideOn<IAdvertisementElementViewModel>(x => !x.NeedsValidation)
-                                               .DisableOn<IAdvertisementElementViewModel>(x => x.Status != AdvertisementElementStatusValue.Draft),
+                                               .HideOn<IAdvertisementElementRequiresVerificationAspect>(x => !x.NeedsValidation)
+                                               .DisableOn<IAdvertisementElementVerificationStateAspect>(x => x.Status != AdvertisementElementStatusValue.Draft),
                                 ToolbarElements.CreateAndClose<AdvertisementElement>()
-                                               .HideOn<IAdvertisementElementViewModel>(x => x.NeedsValidation),
+                                               .HideOn<IAdvertisementElementRequiresVerificationAspect>(x => x.NeedsValidation),
                                 ToolbarElements.UpdateAndClose<AdvertisementElement>()
-                                               .HideOn<IAdvertisementElementViewModel>(x => x.NeedsValidation),
+                                               .HideOn<IAdvertisementElementRequiresVerificationAspect>(x => x.NeedsValidation),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Refresh<AdvertisementElement>(),
                                 ToolbarElements.Splitter(),

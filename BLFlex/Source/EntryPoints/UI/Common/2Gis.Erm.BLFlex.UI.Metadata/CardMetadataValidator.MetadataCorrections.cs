@@ -20,6 +20,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                         EntityName.Order,
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
+                                 {
+                                    "Order",
+                                    new Dictionary<string, Tuple<object, object>>
+                                        {
+                                            {
+                                                "EntityMainAttribute",
+                                                new Tuple<object, object>("OrderNumber", "Number")
+                                            },
+                                        }
+                                },
                                 {
                                     "Save",
                                     new Dictionary<string, Tuple<object, object>>

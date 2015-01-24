@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .Select(x => new ListBillDto
                 {
                     Id = x.Id,
-                    BillNumber = x.BillNumber,
+                    Number = x.Number,
                     OrderNumber = x.Order.Number,
                     FirmId = x.Order.FirmId,
                     FirmName = x.Order.Firm.Name,

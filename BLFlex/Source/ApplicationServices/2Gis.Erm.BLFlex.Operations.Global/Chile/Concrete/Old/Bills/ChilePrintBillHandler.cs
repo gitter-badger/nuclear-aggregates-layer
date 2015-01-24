@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
 
                     Bill = new
                         {
-                            billInfo.Bill.BillNumber,
+                            BillNumber = billInfo.Bill.Number,
                             billInfo.Bill.PaymentDatePlan,
                             billInfo.Bill.BeginDistributionDate,
                             billInfo.Bill.EndDistributionDate,

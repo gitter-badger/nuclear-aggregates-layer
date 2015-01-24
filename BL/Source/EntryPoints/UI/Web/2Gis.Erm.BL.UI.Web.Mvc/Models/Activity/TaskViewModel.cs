@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -18,7 +19,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 {
-    public sealed class TaskViewModel : EntityViewModelBase<Task>, ITaskViewModel
+    public sealed class TaskViewModel : EntityViewModelBase<Task>, ITitleAspect, IActivityStateAspect
     {
         public override byte[] Timestamp { get; set; }
 

@@ -1,4 +1,3 @@
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -9,7 +8,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class AccountViewModel : EntityViewModelBase<Account>, IAccountViewModel, IRussiaAdapted
+    public sealed class AccountViewModel : EntityViewModelBase<Account>, IRussiaAdapted
     {
         // ёридическое лицо отделени€ организации
         [RequiredLocalized]

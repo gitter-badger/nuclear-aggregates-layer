@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class AdvertisementElementTemplateViewModel : EditableIdEntityViewModelBase<AdvertisementElementTemplate>, IAdvertisementElementTemplateViewModel
+    public sealed class AdvertisementElementTemplateViewModel : EditableIdEntityViewModelBase<AdvertisementElementTemplate>, INameAspect
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

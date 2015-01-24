@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -12,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class OrderProcessingRequestViewModel : EntityViewModelBase<OrderProcessingRequest>, IOrderProcessingRequestViewModel
+    public sealed class OrderProcessingRequestViewModel : EntityViewModelBase<OrderProcessingRequest>, ITitleAspect, IOrderProcessingRequestViewModel
     {
         public LookupField Firm { get; set; }
 

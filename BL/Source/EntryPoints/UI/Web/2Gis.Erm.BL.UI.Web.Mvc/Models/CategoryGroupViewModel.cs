@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+﻿using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -8,11 +8,12 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public class CategoryGroupViewModel : EditableIdEntityViewModelBase<CategoryGroup>, ICategoryGroupViewModel
+    public class CategoryGroupViewModel : EditableIdEntityViewModelBase<CategoryGroup>, INameAspect
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]
-        public string CategoryGroupName { get; set; }
+        [DisplayNameLocalized("CategoryGroupName")]
+        public string Name { get; set; }
 
         [RequiredLocalized]
         [DisplayNameLocalized("CategoryGroupRate")]
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             var modelDto = (CategoryGroupDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-            CategoryGroupName = modelDto.CategoryGroupName;
+            Name = modelDto.Name;
             GroupRate = modelDto.GroupRate;
             Timestamp = modelDto.Timestamp;
             IdentityServiceUrl = modelDto.IdentityServiceUrl;
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             return new CategoryGroupDomainEntityDto
                 {
                     Id = Id,
-                    CategoryGroupName = CategoryGroupName,
+                    Name = Name,
                     GroupRate = GroupRate,
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp

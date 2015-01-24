@@ -1,6 +1,5 @@
 using System;
 
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -10,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class LockViewModel : EntityViewModelBase<Lock>, ILockViewModel
+    public sealed class LockViewModel : EntityViewModelBase<Lock>
     {
         // ёр. лицо отделени€ организации
         public LookupField BranchOfficeOrganizationUnit { get; set; }

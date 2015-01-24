@@ -77,7 +77,7 @@
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <br />
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrderNumber, FieldFlex.twins)
+            @Html.TemplateField(m => m.Number, FieldFlex.twins)
             @Html.TemplateField(m => m.Platform, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } })
         </div>
         <div class="row-wrapper">

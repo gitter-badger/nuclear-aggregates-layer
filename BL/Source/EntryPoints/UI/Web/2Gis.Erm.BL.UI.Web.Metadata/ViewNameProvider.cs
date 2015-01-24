@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata
 {
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
         }
 
         public string GetView<TViewModel, TEntity>() 
-            where TViewModel : class, IEntityViewModelAbstract<TEntity> 
+            where TViewModel : class, IViewModel
             where TEntity : IEntityKey
         {
             string viewName;

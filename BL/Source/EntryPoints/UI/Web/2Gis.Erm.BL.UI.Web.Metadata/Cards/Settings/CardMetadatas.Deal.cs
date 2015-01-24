@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Additional(ToolbarElements.Deals.CloseDeal(),
                                                            ToolbarElements.Deals.Reopen()
-                                                                          .DisableOn<IDealViewModel>(x => x.IsActive),
+                                                                          .DisableOn<IDeactivatableAspect>(x => x.IsActive),
                                                            ToolbarElements.Deals.ChangeClient(),
                                                            ToolbarElements.ChangeOwner<Deal>()),
                                 ToolbarElements.Splitter(),

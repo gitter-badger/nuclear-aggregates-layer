@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture;
@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureClientViewModel : EntityViewModelBase<Client>, IClientViewModel, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
+    public sealed class MultiCultureClientViewModel : EntityViewModelBase<Client>, INameAspect, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         // Наименование
         [StringLengthLocalized(250)]

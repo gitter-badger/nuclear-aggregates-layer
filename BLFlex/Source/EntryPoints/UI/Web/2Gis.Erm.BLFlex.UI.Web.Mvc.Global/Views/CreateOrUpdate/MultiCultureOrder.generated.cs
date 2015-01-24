@@ -541,7 +541,7 @@ WriteLiteral("            ");
 
             
             #line 80 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-       Write(Html.TemplateField(m => m.OrderNumber, FieldFlex.twins));
+       Write(Html.TemplateField(m => m.Number, FieldFlex.twins));
 
             
             #line default
@@ -1162,14 +1162,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14764), Tuple.Create("\"", 14803)
+WriteAttribute("title", Tuple.Create(" title=\"", 14759), Tuple.Create("\"", 14798)
             
             #line 245 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 14772), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 14767), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14772), false)
+, 14767), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1349,14 +1349,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17199), Tuple.Create("\"", 17242)
+WriteAttribute("title", Tuple.Create(" title=\"", 17194), Tuple.Create("\"", 17237)
             
             #line 274 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 17207), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 17202), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17207), false)
+, 17202), false)
 );
 
 WriteLiteral(">\r\n");

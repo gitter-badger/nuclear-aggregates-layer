@@ -1,8 +1,8 @@
 using System;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
@@ -17,7 +17,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
-    public sealed class ChileLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ILegalPersonProfileViewModel, IChileAdapted
+    public sealed class ChileLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ILegalPersonProfileViewModel, INameAspect, IChileAdapted
     {
         private const string BankFieldsAreRequired =
             "this.value=='CreditCard' || this.value=='DebitCard' || this.value=='BankChequePayment' || this.value=='BankTransaction'";

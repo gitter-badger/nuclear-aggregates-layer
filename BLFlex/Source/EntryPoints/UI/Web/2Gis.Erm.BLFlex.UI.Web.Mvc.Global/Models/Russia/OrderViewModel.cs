@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -18,8 +20,13 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class OrderViewModel : EntityViewModelBase<Order>, IOrderViewModel, ICustomizableOrderViewModel, IRussiaAdapted
+    public sealed class OrderViewModel : EntityViewModelBase<Order>, INumberAspect, IOrderWorkflowAspect, IOrderViewModel, ICustomizableOrderViewModel, IRussiaAdapted
     {
+        OrderState IOrderWorkflowAspect.WorkflowStepId
+        {
+            get { return (OrderState)WorkflowStepId; }
+        }
+
         [Dependency(DependencyType.Hidden, "RegionalNumber", @"Ext.getDom('Id').value==0 ||
                                                              (!Ext.getCmp('SourceOrganizationUnit').getValue() || !Ext.getCmp('DestinationOrganizationUnit').getValue()) ||
                                                              (Ext.getDom('Id').value!==0 && Ext.getCmp('SourceOrganizationUnit').getValue().id==Ext.getCmp('DestinationOrganizationUnit').getValue().id)||
@@ -33,7 +40,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         }
 
         [StringLengthLocalized(200)]
-        public string OrderNumber { get; set; }
+        [DisplayNameLocalized("OrderNumber")]
+        public string Number { get; set; }
 
         [StringLengthLocalized(200)]
         public string RegionalNumber { get; set; }
@@ -226,7 +234,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             var modelDto = (OrderDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-            OrderNumber = modelDto.OrderNumber;
+            Number = modelDto.Number;
             RegionalNumber = modelDto.RegionalNumber;
             Firm = LookupField.FromReference(modelDto.FirmRef);
             ClientId = modelDto.ClientRef != null ? modelDto.ClientRef.Id : null;
@@ -285,7 +293,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             var dto = new OrderDomainEntityDto
                 {
                     Id = Id,
-                    OrderNumber = OrderNumber,
+                    Number = Number,
                     RegionalNumber = RegionalNumber,
                     FirmRef = Firm.ToReference(),
                     ClientRef = new EntityReference(ClientId),

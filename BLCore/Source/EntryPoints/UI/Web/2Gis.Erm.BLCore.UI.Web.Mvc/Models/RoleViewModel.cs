@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+﻿using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
 {
-    public sealed class RoleViewModel : EditableIdEntityViewModelBase<Role>, IRoleViewModel
+    public sealed class RoleViewModel : EditableIdEntityViewModelBase<Role>, INameAspect
     {
         [RequiredLocalized]
         public string Name { get; set; }

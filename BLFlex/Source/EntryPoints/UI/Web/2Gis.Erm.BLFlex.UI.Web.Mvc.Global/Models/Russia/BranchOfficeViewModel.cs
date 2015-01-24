@@ -1,4 +1,4 @@
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Russia;
@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class BranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, IBranchOfficeViewModel, IRussiaAdapted
+    public sealed class BranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, INameAspect, IRussiaAdapted
     {
         public long? DgppId { get; set; }
 

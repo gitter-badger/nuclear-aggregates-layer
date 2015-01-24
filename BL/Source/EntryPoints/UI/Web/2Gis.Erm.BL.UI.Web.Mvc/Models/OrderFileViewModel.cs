@@ -1,5 +1,5 @@
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class OrderFileViewModel : FileViewModel<OrderFile>, IOrderFileViewModel
+    public sealed class OrderFileViewModel : FileViewModel<OrderFile>, IFileNameAspect, ISetReadOnlyAspect
     {
         [PresentationLayerProperty]
         public long OrderId { get; set; }
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public override byte[] Timestamp { get; set; }
 
-        public bool UserDoesntHaveRightsToEditOrder { get; set; }
+        public bool SetReadonly { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             FileKind = modelDto.FileKind;
             Comment = modelDto.Comment;
             Timestamp = modelDto.Timestamp;
-            UserDoesntHaveRightsToEditOrder = modelDto.UserDoesntHaveRightsToEditOrder;
+            SetReadonly = modelDto.SetReadonly;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

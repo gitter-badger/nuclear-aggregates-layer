@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.Id)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.OrderNumber)
+                    EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.Number)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(200),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.OrderNumber)),

@@ -5,8 +5,8 @@ using System.Linq;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Russia
                                     .WithComments(),
 
                         CardMetadata.For<OrderProcessingRequest>()
-                                    .MainAttribute<OrderProcessingRequest, IOrderProcessingRequestViewModel>(x => x.Title)
+                                    .MainAttribute<ITitleAspect>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrderProcessingRequest)
                                     .WithComments()
                                     .WithAdminTab(),

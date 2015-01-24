@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Bills
         {
             public static FindSpecification<Bill> ByNumbers(IEnumerable<string> numbers)
             {
-                return new FindSpecification<Bill>(x => numbers.Contains(x.BillNumber));
+                return new FindSpecification<Bill>(x => numbers.Contains(x.Number));
             }
         }
     }

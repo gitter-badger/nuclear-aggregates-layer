@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
                                 LegalPersonProfileId = dto.LegalPersonProfileRef != null ? dto.LegalPersonProfileRef.Id : null,
                             };
 
-            order.Number = dto.OrderNumber;
+            order.Number = dto.Number;
             order.RegionalNumber = dto.RegionalNumber;
             order.FirmId = dto.FirmRef.Id.Value;
             order.SourceOrganizationUnitId = dto.SourceOrganizationUnitRef.Id.Value;

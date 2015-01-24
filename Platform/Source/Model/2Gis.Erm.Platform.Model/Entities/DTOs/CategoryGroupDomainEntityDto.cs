@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public long Id { get; set; }
 
         [DataMember]
-        public string CategoryGroupName { get; set; }
+        public string Name { get; set; }
 
         [DataMember]
         public decimal GroupRate { get; set; }

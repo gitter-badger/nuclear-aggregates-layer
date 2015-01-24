@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
                 throw new BusinessLogicException(string.Format(BLResources.CannotCreateObjectWithSpecifiedId, dto.Id));
             }
 
-            entity.CategoryGroupName = dto.CategoryGroupName;
+            entity.Name = dto.Name;
             entity.GroupRate = dto.GroupRate;
             entity.OwnerCode = dto.OwnerRef.Id.Value;
             entity.Timestamp = dto.Timestamp;

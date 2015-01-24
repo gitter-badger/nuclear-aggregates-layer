@@ -5,6 +5,8 @@ using System.Linq;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -54,7 +56,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<Advertisement>()
-                                    .MainAttribute<Advertisement, IAdvertisementViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisement)
                                     .ReadOnlyOn<IAdvertisementViewModel>(x => x.IsDummy)
                                     .WithAdminTab(),
@@ -62,28 +64,28 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<AdvertisementElement>()
                                     .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementElement)
-                                    .ReadOnlyOn<IAdvertisementElementViewModel>(x => x.DisableEdit,
-                                                                                x => x.CanUserChangeStatus,
-                                                                                x => (x.NeedsValidation && x.Status != AdvertisementElementStatusValue.Draft))
+                                    .ReadOnlyOn<ISetReadOnlyAspect>(x => x.SetReadonly)
+                                    .ReadOnlyOn<IAdvertisementElementVerificationAspect>(x => x.CanUserChangeStatus,
+                                                                                         x => (x.NeedsValidation && x.Status != AdvertisementElementStatusValue.Draft))
                                     .WithAdminTab()
                                     .WithComments(),
 
                         CardMetadata.For<AdvertisementElementTemplate>()
-                                    .MainAttribute<AdvertisementElementTemplate, IAdvertisementElementTemplateViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementElementTemplate)
                                     .WithAdminTab(),
 
                         CardMetadata.For<AdvertisementTemplate>()
-                                    .MainAttribute<AdvertisementTemplate, IAdvertisementTemplateViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementTemplate)
-                                    .ReadOnlyOn<IAdvertisementTemplateViewModel>(x => x.IsPublished)
+                                    .ReadOnlyOn<IPublishableAspect>(x => x.IsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Appointment>()
-                                    .MainAttribute<Appointment, IAppointmentViewModel>(x => x.Title)
+                                    .MainAttribute<ITitleAspect>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAppointment)
-                                    .ReadOnlyOn<IAppointmentViewModel>(x => x.Status == ActivityStatus.Canceled,
-                                                                       x => x.Status == ActivityStatus.Completed)
+                                    .ReadOnlyOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
+                                                                      x => x.Status == ActivityStatus.Completed)
                                     .WithAdminTab()
                                     .WithComments(),
 
@@ -95,77 +97,77 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<AssociatedPositionsGroup>()
-                                    .MainAttribute<AssociatedPositionsGroup, IAssociatedPositionsGroupViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPositionsGroup)
                                     .ReadOnlyOn<IAssociatedPositionsGroupViewModel>(x => x.PriceIsDeleted,
                                                                                     x => x.PriceIsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Bargain>()
-                                    .MainAttribute<Bargain, IBargainViewModel>(x => x.Number)
+                                    .MainAttribute<INumberAspect>(x => x.Number)
                                     .EntityLocalization(() => MetadataResources.Bargain)
                                     .WithComments()
                                     .WithAdminTab(),
 
                         CardMetadata.For<BargainFile>()
-                                    .MainAttribute<BargainFile, IBargainFileViewModel>(x => x.FileName)
+                                    .MainAttribute<IFileNameAspect>(x => x.FileName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnBargainFile)
                                     .WithAdminTab(),
 
                         CardMetadata.For<BargainType>()
-                                    .MainAttribute<BargainType, IBargainTypeViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnBargainType)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Bill>()
-                                    .MainAttribute<Bill, IBillViewModel>(x => x.BillNumber)
+                                    .MainAttribute<INumberAspect>(x => x.Number)
                                     .EntityLocalization(() => ErmConfigLocalization.EnBill)
                                     .WithAdminTab(),
 
                         CardMetadata.For<BranchOffice>()
-                                    .MainAttribute<BranchOffice, IBranchOfficeViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnBranchOffices)
                                     .WithAdminTab(),
 
                         CardMetadata.For<BranchOfficeOrganizationUnit>()
-                                    .MainAttribute<BranchOfficeOrganizationUnit, IBranchOfficeOrganizationUnitViewModel>(x => x.ShortLegalName)
+                                    .MainAttribute<IBranchOfficeOrganizationUnitViewModel>(x => x.ShortLegalName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnBranchOfficeOrganizationUnit)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Category>()
-                                    .MainAttribute<Category, ICategoryViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnCategories)
                                     .WithAdminTab(),
 
                         CardMetadata.For<CategoryGroup>()
-                                    .MainAttribute<CategoryGroup, ICategoryGroupViewModel>(x => x.CategoryGroupName)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnCategoryGroups)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Client>()
-                                    .MainAttribute<Client, IClientViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnClient)
                                     .WithComments(),
 
                         CardMetadata.For<Contact>()
-                                    .MainAttribute<Contact, IContactViewModel>(x => x.FullName)
+                                    .MainAttribute<IContactViewModel>(x => x.FullName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnContact)
                                     .WithComments()
                                     .WithAdminTab(),
 
                         CardMetadata.For<ContributionType>()
-                                    .MainAttribute<ContributionType, IContributionTypeViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => MetadataResources.ContributionType)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Country>()
-                                    .MainAttribute<Country, ICountryViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnCountries)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Currency>()
-                                    .MainAttribute<Currency, ICurrencyViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnCurrencies)
                                     .WithAdminTab(),
 
@@ -175,13 +177,13 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<Deal>()
-                                    .MainAttribute<Deal, IDealViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnDeal)
                                     .WithAdminTab()
                                     .WithComments(),
 
                         CardMetadata.For<DenialReason>()
-                                    .MainAttribute<DenialReason, IDenialReasonViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => MetadataResources.EnDenialReason)
                                     .WithAdminTab(),
 
@@ -192,42 +194,42 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<Department>()
-                                    .MainAttribute<Department, IDepartmentViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnDepartment)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Firm>()
-                                    .MainAttribute<Firm, IFirmViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnFirms)
                                     .WithComments(),
 
                         CardMetadata.For<FirmAddress>()
-                                    .MainAttribute<FirmAddress, IFirmAddressViewModel>(x => x.Address)
+                                    .MainAttribute<IFirmAddressViewModel>(x => x.Address)
                                     .EntityLocalization(() => ErmConfigLocalization.EnFirmAddresses)
                                     .WithAdminTab(),
 
                         CardMetadata.For<FirmContact>()
-                                    .MainAttribute<FirmContact, IFirmContactViewModel>(x => x.Contact)
+                                    .MainAttribute<IFirmContactViewModel>(x => x.Contact)
                                     .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnFirmContacts)
                                     .WithAdminTab(),
 
                         CardMetadata.For<LegalPerson>()
-                                    .MainAttribute<LegalPerson, ILegalPersonViewModel>(x => x.LegalName)
+                                    .MainAttribute<ILegalPersonViewModel>(x => x.LegalName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnLegalPersons)
                                     .WithAdminTab()
                                     .WithComments(),
 
                         CardMetadata.For<LegalPersonProfile>()
-                                    .MainAttribute<LegalPersonProfile, ILegalPersonProfileViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnLegalPersonProfile)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Letter>()
-                                    .MainAttribute<Letter, ILetterViewModel>(x => x.Title)
+                                    .MainAttribute<ITitleAspect>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnLetter)
-                                    .ReadOnlyOn<ILetterViewModel>(x => x.Status == ActivityStatus.Canceled,
-                                                                  x => x.Status == ActivityStatus.Completed)
+                                    .ReadOnlyOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
+                                                                      x => x.Status == ActivityStatus.Completed)
                                     .WithAdminTab()
                                     .WithComments(),
 
@@ -254,30 +256,30 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<Note>()
-                                    .MainAttribute<Note, INoteViewModel>(x => x.Title)
+                                    .MainAttribute<ITitleAspect>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnNote)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Operation>()
-                                    .MainAttribute<Operation, IOperationViewModel>(x => x.Type)
+                                    .MainAttribute<IOperationViewModel>(x => x.Type)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOperation)
                                     .WithAdminTab(),
 
                         CardMetadata.For<OperationType>()
-                                    .MainAttribute<OperationType, IOperationTypeViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOperationTypes)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Order>()
-                                    .MainAttribute<Order, IOrderViewModel>(x => x.OrderNumber)
+                                    .MainAttribute<INumberAspect>(x => x.Number)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrders)
-                                    .ReadOnlyOn<IOrderViewModel>(x => x.WorkflowStepId != (int)OrderState.OnRegistration)
+                                    .ReadOnlyOn<IOrderWorkflowAspect>(x => x.WorkflowStepId != OrderState.OnRegistration)
                                     .WithComments(),
 
                         CardMetadata.For<OrderFile>()
-                                    .MainAttribute<OrderFile, IOrderFileViewModel>(x => x.FileName)
+                                    .MainAttribute<IFileNameAspect>(x => x.FileName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrderFile)
-                                    .ReadOnlyOn<IOrderFileViewModel>(x => x.UserDoesntHaveRightsToEditOrder)
+                                    .ReadOnlyOn<ISetReadOnlyAspect>(x => x.SetReadonly)
                                     .WithAdminTab(),
 
                         CardMetadata.For<OrderPosition>()
@@ -286,30 +288,30 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<OrganizationUnit>()
-                                    .MainAttribute<OrganizationUnit, IOrganizationUnitViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrganizationUnits)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Phonecall>()
-                                    .MainAttribute<Phonecall, IPhonecallViewModel>(x => x.Title)
+                                    .MainAttribute<ITitleAspect>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPhonecall)
-                                    .ReadOnlyOn<IPhonecallViewModel>(x => x.Status == ActivityStatus.Canceled,
-                                                                     x => x.Status == ActivityStatus.Completed)
+                                    .ReadOnlyOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
+                                                                      x => x.Status == ActivityStatus.Completed)
                                     .WithComments()
                                     .WithAdminTab(),
 
                         CardMetadata.For<Platform.Model.Entities.Erm.Platform>()
-                                    .MainAttribute<Platform.Model.Entities.Erm.Platform, IPlatformViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPlatform)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Position>()
-                                    .MainAttribute<Position, IPositionViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPositions)
                                     .WithAdminTab(),
 
                         CardMetadata.For<PositionCategory>()
-                                    .MainAttribute<PositionCategory, IPositionCategoryViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPositionCategory)
                                     .WithAdminTab(),
 
@@ -319,23 +321,23 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<Price>()
-                                    .MainAttribute<Price, IPriceViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPrices)
-                                    .ReadOnlyOn<IPriceViewModel>(x => x.IsPublished)
+                                    .ReadOnlyOn<IPublishableAspect>(x => x.IsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<PricePosition>()
-                                    .MainAttribute<PricePosition, IPricePositionViewModel>(x => x.Position.Value)
+                                    .MainAttribute<IPricePositionViewModel>(x => x.Position.Value)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPricePositions)
                                     .WithAdminTab(),
 
                         CardMetadata.For<PrintFormTemplate>()
-                                    .MainAttribute<PrintFormTemplate, IPrintFormTemplateViewModel>(x => x.FileName)
+                                    .MainAttribute<IFileNameAspect>(x => x.FileName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPrintFormTemplate)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Project>()
-                                    .MainAttribute<Project, IProjectViewModel>(x => x.DisplayName)
+                                    .MainAttribute<IDisplayNameAspect>(x => x.DisplayName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnProjects)
                                     .WithAdminTab(),
 
@@ -346,7 +348,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<Role>()
-                                    .MainAttribute<Role, IRoleViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnRole)
                                     .WithAdminTab(),
 
@@ -356,30 +358,30 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<Task>()
-                                    .MainAttribute<Task, ITaskViewModel>(x => x.Title)
+                                    .MainAttribute<ITitleAspect>(x => x.Title)
                                     .EntityLocalization(() => ErmConfigLocalization.EnTask)
-                                    .ReadOnlyOn<ITaskViewModel>(x => x.Status == ActivityStatus.Canceled,
-                                                                x => x.Status == ActivityStatus.Completed)
+                                    .ReadOnlyOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
+                                                                      x => x.Status == ActivityStatus.Completed)
                                     .WithComments()
                                     .WithAdminTab(),
 
                         CardMetadata.For<Territory>()
-                                    .MainAttribute<Territory, ITerritoryViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnTerritory)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Theme>()
-                                    .MainAttribute<Theme, IThemeViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnTheme)
                                     .WithAdminTab(),
 
                         CardMetadata.For<ThemeTemplate>()
-                                    .MainAttribute<ThemeTemplate, IThemeTemplateViewModel>(x => x.TemplateCode)
+                                    .MainAttribute<IThemeTemplateCodeAspect>(x => x.TemplateCode)
                                     .EntityLocalization(() => ErmConfigLocalization.EnThemeTemplate)
                                     .WithAdminTab(),
 
                         CardMetadata.For<User>()
-                                    .MainAttribute<User, IUserViewModel>(x => x.DisplayName)
+                                    .MainAttribute<IDisplayNameAspect>(x => x.DisplayName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnUser)
                                     .WithAdminTab(),
 

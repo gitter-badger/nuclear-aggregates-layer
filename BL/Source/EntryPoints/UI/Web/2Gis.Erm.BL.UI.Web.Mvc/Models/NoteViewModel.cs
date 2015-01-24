@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+﻿using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public class NoteViewModel : FileViewModel<Note>, INoteViewModel
+    public class NoteViewModel : FileViewModel<Note>, ITitleAspect
     {
         [StringLengthLocalized(64)]
         [RequiredLocalized]

@@ -1,10 +1,10 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
 {
-    public interface ICurrencyViewModel : IEntityViewModelAbstract<Currency>
-    {
-        string Name { get; set; }
+    public interface ICurrencyViewModel : IViewModelAbstract
+    {        
         bool IsBase { get; set; }
     }
 }

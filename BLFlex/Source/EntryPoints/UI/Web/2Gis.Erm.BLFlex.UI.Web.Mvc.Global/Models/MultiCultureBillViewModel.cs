@@ -1,6 +1,6 @@
 using System;
 
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -13,10 +13,11 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureBillViewModel : EntityViewModelBase<Bill>, IBillViewModel, ICzechAdapted, ICyprusAdapted, IRussiaAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
+    public sealed class MultiCultureBillViewModel : EntityViewModelBase<Bill>, INumberAspect, ICzechAdapted, ICyprusAdapted, IRussiaAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         [RequiredLocalized]
-        public string BillNumber { get; set; }
+        [DisplayNameLocalized("BillNumber")]
+        public string Number { get; set; }
 
         public DateTime BillDate { get; set; }
 
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             var modelDto = (BillDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-            BillNumber = modelDto.BillNumber;
+            Number = modelDto.Number;
             BillDate = modelDto.BillDate;
             BeginDistributionDate = modelDto.BeginDistributionDate;
             EndDistributionDate = modelDto.EndDistributionDate;
@@ -56,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             return new BillDomainEntityDto
             {
                 Id = Id,
-                BillNumber = BillNumber,
+                Number = Number,
                 BillDate = BillDate,
                 BeginDistributionDate = BeginDistributionDate,
                 EndDistributionDate = EndDistributionDate,

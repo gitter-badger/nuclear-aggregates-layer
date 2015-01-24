@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(t => t.CategoryGroupName)
+            Property(t => t.Name)
                 .IsRequired()
                 .HasMaxLength(256);
 
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             // Table & Column Mappings
             ToTable("CategoryGroups", "BusinessDirectory");
             Property(t => t.Id).HasColumnName("Id");
-            Property(t => t.CategoryGroupName).HasColumnName("CategoryGroupName");
+            Property(t => t.Name).HasColumnName("Name");
             Property(t => t.GroupRate).HasColumnName("GroupRate");
             Property(t => t.IsActive).HasColumnName("IsActive");
             Property(t => t.IsDeleted).HasColumnName("IsDeleted");

@@ -814,6 +814,8 @@
     <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
     <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
+    <Compile Include="2.1\201501240204 - rename BillNumber column.cs" />
+    <Compile Include="2.1\201501240333 - rename CategoryGroupName.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />

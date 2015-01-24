@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.UI.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLFlex.UI.Metadata.ViewModels.Contracts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -34,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Chile
                 new CardMetadata[]
                     {
                         CardMetadata.For<Bank>()
-                                    .MainAttribute<Bank, IBankViewModel>(x => x.Name)
+                                    .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => EnumResources.EntityNameBank)
                                     .WithAdminTab(),
                     };

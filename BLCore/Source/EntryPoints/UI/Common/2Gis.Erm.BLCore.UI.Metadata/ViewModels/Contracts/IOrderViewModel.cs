@@ -1,11 +1,9 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
+﻿using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts
 {
-    public interface IOrderViewModel : IEntityViewModelAbstract<Order>
+    public interface IOrderViewModel : IViewModelAbstract
     {
-        string OrderNumber { get; set; }
-        int WorkflowStepId { get; set; }
         bool CanSwitchToAccount { get; set; }
     }
 }

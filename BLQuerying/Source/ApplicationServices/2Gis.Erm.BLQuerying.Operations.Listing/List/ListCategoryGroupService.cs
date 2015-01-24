@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .Select(x => new ListCategoryGroupDto
                     {
                         Id = x.Id,
-                        CategoryGroupName = x.CategoryGroupName,
+                        Name = x.Name,
                         GroupRate = x.GroupRate,
                         IsActive = x.IsActive,
                         IsDeleted = x.IsDeleted,

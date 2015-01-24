@@ -3,15 +3,16 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
+using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
@@ -46,6 +47,13 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             return this;
         }
 
+        public CardMetadataBuilder<TEntity> MainAttribute<TViewModel>(Expression<Func<TViewModel, object>> propertyNameExpression)
+            where TViewModel : IViewModelAbstract
+        {
+            AddFeatures(new MainAttributeFeature(new PropertyDescriptor<TViewModel>(propertyNameExpression)));
+            return this;
+        }
+
         public CardMetadataBuilder<TEntity> ReadOnly()
         {
             AddFeatures(new ReadOnlyFeature());
@@ -53,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         }
 
         public CardMetadataBuilder<TEntity> ReadOnlyOn<T>(params Expression<Func<T, bool>>[] expressions)
-            where T : IEntityViewModelAbstract<TEntity>
+            where T : IViewModelAbstract
         {
             AddFeatures(expressions.Select(expression => new DisableExpressionFeature<T>(expression)).ToArray());
             return this;

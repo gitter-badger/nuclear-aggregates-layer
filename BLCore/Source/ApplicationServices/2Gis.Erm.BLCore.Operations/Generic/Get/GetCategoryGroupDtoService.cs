@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                           .Select(entity => new CategoryGroupDomainEntityDto
                               {
                                   Id = entity.Id,
-                                  CategoryGroupName = entity.CategoryGroupName,
+                                  Name = entity.Name,
                                   GroupRate = entity.GroupRate,
                                   OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
                                   CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },

@@ -1,3 +1,4 @@
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -8,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class AssociatedPositionsGroupViewModel : EntityViewModelBase<AssociatedPositionsGroup>, IAssociatedPositionsGroupViewModel
+    public sealed class AssociatedPositionsGroupViewModel : EntityViewModelBase<AssociatedPositionsGroup>, IAssociatedPositionsGroupViewModel, INameAspect
     {
         [RequiredLocalized]
         public string Name { get; set; }

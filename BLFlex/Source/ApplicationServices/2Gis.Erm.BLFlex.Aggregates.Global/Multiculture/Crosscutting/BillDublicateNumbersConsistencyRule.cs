@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
         public bool Validate(IEnumerable<Bill> bills, Order order, out string report)
         {
             // дубликаты в пакете
-            var billNumbers = bills.Select(x => x.BillNumber).ToArray();
+            var billNumbers = bills.Select(x => x.Number).ToArray();
             var duplicateBillNumbers = billNumbers.GroupBy(x => x).Where(x => x.Count() > 1).Select(x => x.Key).ToArray();
             if (duplicateBillNumbers.Any())
             {
@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
             // пересечения в базе с пакетом
             var billIds = bills.Where(x => !x.IsNew()).Select(x => x.Id).ToArray();
             var existingNumbers = _finder.Find(Specs.Find.ActiveAndNotDeleted<Bill>() && BillSpecifications.Find.ByNumbers(billNumbers) && !Specs.Find.ByIds<Bill>(billIds))
-                                         .Select(x => x.BillNumber)
+                                         .Select(x => x.Number)
                                          .ToArray();
 
             if (existingNumbers.Any())

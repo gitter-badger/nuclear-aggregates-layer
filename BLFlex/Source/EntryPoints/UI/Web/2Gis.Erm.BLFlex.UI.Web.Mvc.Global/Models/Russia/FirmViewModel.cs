@@ -1,7 +1,7 @@
 using System;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class FirmViewModel : EntityViewModelBase<Firm>, IFirmViewModel, ICustomizableFirmViewModel, IRussiaAdapted
+    public sealed class FirmViewModel : EntityViewModelBase<Firm>, INameAspect, ICustomizableFirmViewModel, IRussiaAdapted
     {
         public Guid ReplicationCode { get; set; }
 

@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                        {
                                            Bill = new
                                                {
-                                                   BillNumber = bill.BillNumber,
+                                                   BillNumber = bill.Number,
                                                    OrderReleaseCountPlan = billInfo.OrderReleaseCountPlan,
                                                    BeginDistributionDate = bill.BeginDistributionDate,
                                                    EndDistributionDate = bill.EndDistributionDate,

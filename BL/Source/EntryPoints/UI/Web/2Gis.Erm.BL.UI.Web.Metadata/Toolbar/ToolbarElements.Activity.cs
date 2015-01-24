@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -26,9 +26,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .LockOnNew()
                                      .JSHandler("CompleteActivity")
                                      .Icon.Path(Icons.Icons.Toolbar.Check)
-                                     .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
-                                     .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.Canceled,
-                                                                    x => x.Status == ActivityStatus.Completed)
+                                     .DisableOn<IDeactivatableAspect>(x => !x.IsActive)
+                                     .DisableOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
+                                                                      x => x.Status == ActivityStatus.Completed)
 
                         // COMMENT {all, 26.11.2014}:  А зачем права на создание? 
                                      .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
@@ -47,9 +47,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .LockOnNew()
                                      .JSHandler("CancelActivity")
                                      .Icon.Path(Icons.Icons.Toolbar.Delete)
-                                     .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
-                                     .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.Canceled,
-                                                                    x => x.Status == ActivityStatus.Completed)
+                                     .DisableOn<IDeactivatableAspect>(x => !x.IsActive)
+                                     .DisableOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
+                                                                      x => x.Status == ActivityStatus.Completed)
 
                         // COMMENT {all, 26.11.2014}:  А зачем права на создание? 
                                      .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
@@ -68,8 +68,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .LockOnNew()
                                      .JSHandler("RevertActivity")
                                      .Icon.Path(Icons.Icons.Toolbar.Reschedule)
-                                     .DisableOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsActive)
-                                     .DisableOn<IActivityViewModel>(x => x.Status == ActivityStatus.InProgress)
+                                     .DisableOn<IDeactivatableAspect>(x => !x.IsActive)
+                                     .DisableOn<IActivityStateAspect>(x => x.Status == ActivityStatus.InProgress)
                                                          
                         // COMMENT {all, 26.11.2014}:  А зачем права на создание? 
                                      .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)

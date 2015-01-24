@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .LockOnInactive()
                                     .JSHandler("Save")
                                     .Icon.Path(Icons.Icons.Toolbar.Save)
-                                    .HideOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsNew)
+                                    .HideOn<INewableAspect>(x => !x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
                                     .Operation.SpecificFor<CreateIdentity, TEntity>();
         }
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .LockOnInactive()
                                     .JSHandler("Save")
                                     .Icon.Path(Icons.Icons.Toolbar.Save)
-                                    .HideOn<IEntityViewModelAbstract<TEntity>>(x => x.IsNew)
+                                    .HideOn<INewableAspect>(x => x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                     .Operation.SpecificFor<UpdateIdentity, TEntity>();
         }
@@ -62,7 +63,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .LockOnInactive()
                                     .JSHandler("SaveAndClose")
                                     .Icon.Path(Icons.Icons.Toolbar.SaveAndClose)
-                                    .HideOn<IEntityViewModelAbstract<TEntity>>(x => !x.IsNew)
+                                    .HideOn<INewableAspect>(x => !x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Create)
                                     .Operation.SpecificFor<CreateIdentity, TEntity>()
                                     .Operation.NonCoupled<CloseIdentity>();
@@ -78,7 +79,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .LockOnInactive()
                                     .JSHandler("SaveAndClose")
                                     .Icon.Path(Icons.Icons.Toolbar.SaveAndClose)
-                                    .HideOn<IEntityViewModelAbstract<TEntity>>(x => x.IsNew)
+                                    .HideOn<INewableAspect>(x => x.IsNew)
                                     .AccessWithPrivelege<TEntity>(EntityAccessTypes.Update)
                                     .Operation.SpecificFor<UpdateIdentity, TEntity>()
                                     .Operation.NonCoupled<CloseIdentity>();

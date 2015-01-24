@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
         public static readonly IEnumerable<EntityPropertyMetadata> BillProperties =
             new[]
                 {
-                    EntityPropertyMetadata.Create<BillDomainEntityDto>(dto => dto.BillNumber)
+                    EntityPropertyMetadata.Create<BillDomainEntityDto>(dto => dto.Number)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BillNumber)),
