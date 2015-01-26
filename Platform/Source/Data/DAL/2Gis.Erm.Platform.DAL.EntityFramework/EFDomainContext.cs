@@ -8,7 +8,6 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -50,9 +49,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _dbContext.Set<TEntity>().Add(entity);
         }
 
-        public void AddRange<TEntity>(IEnumerable<TEntity> castedEntities) where TEntity : class
+        public void AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
-            _dbContext.Set<TEntity>().AddRange(castedEntities);
+            _dbContext.Set<TEntity>().AddRange(entities);
         }
 
         public void Update<TEntity>(TEntity entity) where TEntity : class
@@ -79,15 +78,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public int SaveChanges()
         {
-            foreach (var entry in _dbContext.ChangeTracker.Entries())
-            {
-                var replicateableEntity = entry.Entity as IReplicableEntity;
-                if (replicateableEntity != null && entry.State == EntityState.Added)
-                {
-                    replicateableEntity.ReplicationCode = Guid.NewGuid();
-                }
-            }
-
             EnsureUseCaseDuration();
 
             return _dbContext.SaveChanges();

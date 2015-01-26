@@ -6,6 +6,7 @@ using AutoMapper;
 
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -47,6 +48,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             ThrowIfEntityIsNull(entity, "entity");
             ThrowIfEntityHasNoId(entity);
 
+            SetEntityReplicableInfo(entity);
             SetEntityAuditableInfo(entity, true);
 
             _domainContext.Value.Add(ConvertToPersistent(entity));
@@ -70,6 +72,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 ThrowIfEntityIsNull(entity, "entity");
                 ThrowIfEntityHasNoId(entity);
 
+                SetEntityReplicableInfo(entity);
                 SetEntityAuditableInfo(entity, true);
 
                 persistentEntities.Add(ConvertToPersistent(entity));
@@ -204,6 +207,17 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
             // logically delete from database
             deletableEntity.IsDeleted = true;
+        }
+
+        private static void SetEntityReplicableInfo(IEntity entity)
+        {
+            var replicableEntity = entity as IReplicableEntity;
+            if (replicableEntity == null || replicableEntity.ReplicationCode != Guid.Empty)
+            {
+                return;
+            }
+
+            replicableEntity.ReplicationCode = Guid.NewGuid();
         }
 
         private void SetEntityAuditableInfo(IEntity entity, bool isEntityCreated)
