@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

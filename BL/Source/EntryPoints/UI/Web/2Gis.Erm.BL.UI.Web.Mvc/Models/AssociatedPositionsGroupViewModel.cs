@@ -1,5 +1,3 @@
-using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
-using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities.Aggregations;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
