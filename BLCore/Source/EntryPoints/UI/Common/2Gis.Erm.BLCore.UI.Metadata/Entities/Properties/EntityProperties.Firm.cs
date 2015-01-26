@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 
 using NuClear.Metamodeling.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 {
@@ -96,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<FirmDomainEntityDto>(dto => dto.ClientRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Client),
+                                      LookupPropertyFeature.Create(EntityType.Instance.Client()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Client)),
 
                     EntityPropertyMetadata.Create<FirmDomainEntityDto>(dto => dto.ClientReplicationCode)
@@ -106,19 +107,19 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Territory),
+                                      LookupPropertyFeature.Create(EntityType.Instance.Territory()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Territory)),
 
 
                     EntityPropertyMetadata.Create<FirmDomainEntityDto>(dto => dto.OrganizationUnitRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.OrganizationUnit),
+                                      LookupPropertyFeature.Create(EntityType.Instance.OrganizationUnit()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.OrganizationUnit)),
 
                     EntityPropertyMetadata.Create<FirmDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
@@ -131,7 +132,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<FirmDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 

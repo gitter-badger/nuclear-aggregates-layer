@@ -8,13 +8,6 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid.Filter;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid.Pager;
@@ -29,6 +22,14 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Metamodeling.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.Utils.Resources;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 {
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             _titleProviderFactory = titleProviderFactory;
         }
 
-        public IGridViewModel Create(IUseCase useCase, EntityName entityName)
+        public IGridViewModel Create(IUseCase useCase, IEntityType entityName)
         {
             var factory = useCase.ResolveFactoryContext();
             var pager = factory.Resolve<PagerViewModel>();

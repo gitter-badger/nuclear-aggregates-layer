@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
@@ -13,6 +12,8 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Mappers;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
 {
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
             var mapper = _viewModelMapperFactory.GetMapper(message.EntityName);
             
             var service = _operationServicesManager.GetDomainEntityDtoService(message.EntityName);
-            var dto = service.GetDomainEntityDto(message.EntityId, false, null, EntityName.None, string.Empty);
+            var dto = service.GetDomainEntityDto(message.EntityId, false, null, EntityType.Instance.None(), string.Empty);
 
             var documentViewModel = 
                 _cardDocumentViewModelFactory.Create<ICompositeDocumentViewModel>(

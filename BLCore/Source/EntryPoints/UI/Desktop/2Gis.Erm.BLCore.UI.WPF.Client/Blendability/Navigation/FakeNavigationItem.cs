@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;

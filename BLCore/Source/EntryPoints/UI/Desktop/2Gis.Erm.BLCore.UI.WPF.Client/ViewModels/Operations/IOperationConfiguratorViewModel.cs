@@ -2,9 +2,10 @@
 using System.Windows.Controls;
 
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Dialogs;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
+
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations
 {

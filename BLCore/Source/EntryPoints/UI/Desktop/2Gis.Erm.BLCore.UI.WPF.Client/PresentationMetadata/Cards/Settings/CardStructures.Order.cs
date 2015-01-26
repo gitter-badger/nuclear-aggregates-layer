@@ -4,14 +4,14 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards;
-using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards.Generated;
-using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation;
+
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
 {
@@ -54,13 +54,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
                 .RelatedItems.Attach(
                     HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
-                        .Handler.ShowGrid(OrderAggregate.Bill.AsEntityName(), "OrderId={Id}", "Id == 0"),
+                        .Handler.ShowGrid(EntityType.Instance.Bill(), "OrderId={Id}", "Id == 0"),
                     HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
-                        .Handler.ShowGrid(AccountAggregate.Lock.AsEntityName(), "OrderId={Id}", "Id == 0"),
+                        .Handler.ShowGrid(EntityType.Instance.Lock(), "OrderId={Id}", "Id == 0"),
                     HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
-                        .Handler.ShowGrid(OrderAggregate.OrderFile.AsEntityName(), "OrderId={Id}", "Id == 0"))
+                        .Handler.ShowGrid(EntityType.Instance.OrderFile(), "OrderId={Id}", "Id == 0"))
                 .MVVM.Bind<DynamicCardViewModel, OrderView>()
                 .WithDynamicProperties()
                 .Validator.Dynamic<DynamicViewModelValidator<DynamicViewModel>, DynamicViewModel>()

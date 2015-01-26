@@ -1,8 +1,9 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
 {
@@ -15,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
 
         #region Implementation of IListNonGenericEntityService
 
-        public ListResult List(EntityName entityName, SearchListModel searchListModel)
+        public ListResult List(IEntityType entityName, SearchListModel searchListModel)
         {
             var apiTargetResource = GetOperationApiTargetResource("{0}", entityName);
             var request = new ApiRequest(apiTargetResource);

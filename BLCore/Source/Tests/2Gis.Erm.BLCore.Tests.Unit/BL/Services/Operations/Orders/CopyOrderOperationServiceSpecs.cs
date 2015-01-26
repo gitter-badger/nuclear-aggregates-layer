@@ -15,7 +15,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
@@ -25,6 +24,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities;
 
 using It = Machine.Specifications.It;
 
@@ -144,7 +145,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                 Mock.Get(securityServiceEntityAccess)
                     .Setup(x => x.HasEntityAccess(
                         Moq.It.IsAny<EntityAccessTypes>(),
-                        Moq.It.IsAny<EntityName>(),
+                        Moq.It.IsAny<IEntityType>(),
                         Moq.It.IsAny<long>(),
                         Moq.It.IsAny<long?>(),
                         Moq.It.IsAny<long>(),

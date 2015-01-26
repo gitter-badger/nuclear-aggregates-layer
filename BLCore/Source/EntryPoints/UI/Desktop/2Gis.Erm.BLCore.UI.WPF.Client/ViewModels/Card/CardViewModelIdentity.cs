@@ -1,7 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
 {
@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
         }
 
         public long EntityId { get; set; }
-        public EntityName EntityName { get; set; }
+        public IEntityType EntityName { get; set; }
         public IOperationIdentity OperationIdentity { get; set; }
 
         public override string ToString()

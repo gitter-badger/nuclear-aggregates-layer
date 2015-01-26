@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -17,6 +16,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities;
 
 using It = Machine.Specifications.It;
 
@@ -70,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
 
             private Because of =
                 () =>
-                ClientDto = (ClientDomainEntityDto)GetDtoService.GetDomainEntityDto(1, false, null, EntityName.None, string.Empty);
+                ClientDto = (ClientDomainEntityDto)GetDtoService.GetDomainEntityDto(1, false, null, EntityType.Instance.None(), string.Empty);
 
             private It should_be_an_advertising_agency_in_dto = () => ClientDto.IsAdvertisingAgency.Should().BeTrue();
         }
@@ -85,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
 
             private Because of =
                 () =>
-                ClientDto = (ClientDomainEntityDto)GetDtoService.GetDomainEntityDto(1, false, null, EntityName.None, string.Empty);
+                ClientDto = (ClientDomainEntityDto)GetDtoService.GetDomainEntityDto(1, false, null, EntityType.Instance.None(), string.Empty);
 
             private It should_be_not_an_advertising_agency_in_dto = () => ClientDto.IsAdvertisingAgency.Should().BeFalse();
         }

@@ -8,6 +8,8 @@ using System.Windows.Documents;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid.Behaviors
 {
     /// <summary>
@@ -146,16 +148,19 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
                 }
 
                 var entityId = -1L;
-                var entityName = EntityName.None;
+                IEntityType entityName = EntityType.Instance.None();
 
                 try
                 {
                     entityId = System.Convert.ToInt64(values[0]);
-                    entityName = (EntityName)Enum.Parse(typeof(EntityName), System.Convert.ToString(values[1]));
+                    EntityType.Instance.TryParse(System.Convert.ToString(values[1]), out entityName);
                 }
-                catch (FormatException) { }
-                catch (InvalidCastException) { }
-
+                catch (FormatException)
+                {
+                }
+                catch (InvalidCastException)
+                {
+                }
 
                 return new NavigationDescriptor
                     {

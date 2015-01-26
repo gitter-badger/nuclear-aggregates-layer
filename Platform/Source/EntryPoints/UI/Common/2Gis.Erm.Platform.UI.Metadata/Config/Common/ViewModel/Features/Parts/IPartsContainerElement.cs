@@ -1,6 +1,5 @@
-﻿using DoubleGis.Erm.Platform.Common.Utils.Resources;
-
-using NuClear.Metamodeling.Elements;
+﻿using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Utils.Resources;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts
 {

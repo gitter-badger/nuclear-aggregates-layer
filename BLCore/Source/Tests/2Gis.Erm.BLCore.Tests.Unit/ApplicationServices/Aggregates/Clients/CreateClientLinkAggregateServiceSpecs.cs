@@ -15,6 +15,8 @@ using Machine.Specifications;
 
 using Moq;
 
+using NuClear.Model.Common.Operations.Identity.Generic;
+
 using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Aggregates.Clients

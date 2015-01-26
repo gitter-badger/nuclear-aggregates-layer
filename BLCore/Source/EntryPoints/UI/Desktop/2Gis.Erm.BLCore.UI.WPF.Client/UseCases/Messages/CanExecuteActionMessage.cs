@@ -1,7 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
+
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages
 {

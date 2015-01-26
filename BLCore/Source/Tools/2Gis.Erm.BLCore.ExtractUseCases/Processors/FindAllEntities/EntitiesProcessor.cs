@@ -4,7 +4,8 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;

@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 
 using NuClear.Metamodeling.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 {
@@ -29,14 +30,14 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.BranchOffice),
+                                      LookupPropertyFeature.Create(EntityType.Instance.BranchOffice()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BranchOfficeOrganizationUnit)),
 
                     EntityPropertyMetadata.Create<LimitDomainEntityDto>(dto => dto.LegalPersonRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.LegalPerson),
+                                      LookupPropertyFeature.Create(EntityType.Instance.LegalPerson()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.LegalPerson)),
 
                     EntityPropertyMetadata.Create<LimitDomainEntityDto>(dto => dto.StartPeriodDate)
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<LimitDomainEntityDto>(dto => dto.InspectorRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.User)
+                                      LookupPropertyFeature.Create(EntityType.Instance.User())
                                                            .WithExtendedInfo("privilege=" + (int)FunctionalPrivilegeName.LimitManagement + "&(userIdForOrgUnit={OwnerRef.Id})"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Inspector)),
 
@@ -76,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<LimitDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
@@ -89,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<LimitDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 

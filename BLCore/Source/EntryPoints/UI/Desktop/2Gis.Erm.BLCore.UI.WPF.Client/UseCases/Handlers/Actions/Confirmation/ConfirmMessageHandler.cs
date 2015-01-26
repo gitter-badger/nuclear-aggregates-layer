@@ -4,7 +4,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
@@ -15,19 +14,21 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Confirmation
 {
     public sealed class ConfirmMessageHandler : UseCaseSyncMessageHandlerBase<ExecuteActionMessage>
     {
         private readonly IOperationConfiguratorViewModelFactory _operationConfiguratorViewModelFactory;
         private readonly IDocumentManager _documentManager;
-        private readonly List<Func<IViewModel, Tuple<EntityName, long[]>>> _resolvers;
+        private readonly List<Func<IViewModel, Tuple<IEntityType, long[]>>> _resolvers;
 
         public ConfirmMessageHandler(IOperationConfiguratorViewModelFactory operationConfiguratorViewModelFactory, IDocumentManager documentManager)
         {
             _operationConfiguratorViewModelFactory = operationConfiguratorViewModelFactory;
             _documentManager = documentManager;
-            _resolvers = new List<Func<IViewModel, Tuple<EntityName, long[]>>> { FromCard, FromGrid };
+            _resolvers = new List<Func<IViewModel, Tuple<IEntityType, long[]>>> { FromCard, FromGrid };
         }
 
         protected override bool ConcreteCanHandle(ExecuteActionMessage message, IUseCase useCase)
@@ -55,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Confirmat
                 return null;
             }
 
-            Tuple<EntityName, long[]> operationParameters = null;
+            Tuple<IEntityType, long[]> operationParameters = null;
             foreach (var resolver in _resolvers)
             {
                 operationParameters = resolver(viewModel);
@@ -66,7 +67,10 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Confirmat
                 return null;
             }
 
-            var operationManagerViewModel = _operationConfiguratorViewModelFactory.Create(useCase, targetOperation.OperationIdentity, operationParameters.Item1, operationParameters.Item2);
+            var operationManagerViewModel = _operationConfiguratorViewModelFactory.Create(useCase,
+                                                                                          targetOperation.OperationIdentity,
+                                                                                          operationParameters.Item1,
+                                                                                          operationParameters.Item2);
             if (operationManagerViewModel == null)
             {
                 return null;
@@ -86,15 +90,15 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Confirmat
             return EmptyResult;
         }
 
-        private Tuple<EntityName, long[]> FromCard(IViewModel viewModel)
+        private Tuple<IEntityType, long[]> FromCard(IViewModel viewModel)
         {
             var cardViewModel = viewModel as ICardViewModel<ICardViewModelIdentity>;
             return cardViewModel != null 
-                ? new Tuple<EntityName, long[]>(cardViewModel.ConcreteIdentity.EntityName, new[] { cardViewModel.ConcreteIdentity.EntityId }) 
+                ? new Tuple<IEntityType, long[]>(cardViewModel.ConcreteIdentity.EntityName, new[] { cardViewModel.ConcreteIdentity.EntityId }) 
                 : null;
         }
 
-        private Tuple<EntityName, long[]> FromGrid(IViewModel viewModel)
+        private Tuple<IEntityType, long[]> FromGrid(IViewModel viewModel)
         {
             var gridViewModel = viewModel as IGridViewModel<IGridViewModelIdentity>;
             if (gridViewModel == null)
@@ -107,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Confirmat
                             ? gridViewModel.SelectedItems.Select(item => ViewModelUtils.ExtractPropertyValue<long>(item, "Id")).ToArray()
                             : new long[0];
 
-            return new Tuple<EntityName, long[]>(gridViewModel.ConcreteIdentity.EntityName, items);
+            return new Tuple<IEntityType, long[]>(gridViewModel.ConcreteIdentity.EntityName, items);
         }
     }
 }

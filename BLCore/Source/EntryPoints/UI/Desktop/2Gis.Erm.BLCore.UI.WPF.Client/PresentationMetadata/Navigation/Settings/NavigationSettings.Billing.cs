@@ -1,9 +1,9 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Resources.Accessors;
+
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Settings
 {
@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Set
                     HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.NavGroupOrders)
                         .Icon.Resource(Images.Navigation.NavGroupOrders)
-                        .Handler.ShowGrid(OrderAggregate.Order.AsEntityName(), null, null),
+                        .Handler.ShowGrid(OrderAggregate.Root, null, null),
                     //HierarchyElement.Config
                     //    .Title.Resource(() => ErmConfigLocalization.NavGroupLegalPersons)
                     //    .Icon.Resource(Images.Navigation.NavGroupLegalPersons)
@@ -25,11 +25,11 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Set
                     HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.EnMDeal)
                         .Icon.Resource(Images.Navigation.NavGroupDeals)
-                        .Handler.ShowGrid(DealAggregate.Deal.AsEntityName(), null, null),
+                        .Handler.ShowGrid(DealAggregate.Root, null, null),
                     HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.NavGroupAccounts)
                         .Icon.Resource(Images.Navigation.NavGroupAccounts)
-                        .Handler.ShowGrid(AccountAggregate.Account.AsEntityName(), null, null));
+                        .Handler.ShowGrid(AccountAggregate.Root, null, null));
     }
 }
 

@@ -1,12 +1,14 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.Views.Contextual;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Hierarchy;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Resources.Accessors;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
+
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Settings
 {
@@ -39,15 +41,15 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Set
                             HierarchyMetadata.Config
                                 .Title.Resource(() => ErmConfigLocalization.NavGroupUsers)
                                 .Icon.Resource(Images.Navigation.NavGroupUsers)
-                                .Handler.ShowGrid(UserAggregate.User.AsEntityName(), null, null),
+                                .Handler.ShowGrid(UserAggregate.Root, null, null),
                             HierarchyMetadata.Config
                                 .Title.Resource(() => ErmConfigLocalization.NavGroupRoles)
                                 .Icon.Resource(Images.Navigation.NavGroupRoles)
-                                .Handler.ShowGrid(RoleAggregate.Role.AsEntityName(), null, null),
+                                .Handler.ShowGrid(RoleAggregate.Root, null, null),
                             HierarchyMetadata.Config
                                 .Title.Resource(() => ErmConfigLocalization.NavGroupDepartments)
                                 .Icon.Resource(Images.Navigation.NavGroupDepartments)
-                                .Handler.ShowGrid(UserAggregate.Department.AsEntityName(), null, null)));
+                                .Handler.ShowGrid(EntityType.Instance.Department(), null, null)));
         
     }
 }

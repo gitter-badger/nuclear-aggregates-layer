@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 
 using NuClear.Metamodeling.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 {
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.BargainType)
+                                      LookupPropertyFeature.Create(EntityType.Instance.BargainType())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BargainType)),
 
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.LegalPerson)
+                                      LookupPropertyFeature.Create(EntityType.Instance.LegalPerson())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BargainLegalPerson)),
 
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.BranchOfficeOrganizationUnit)
+                                      LookupPropertyFeature.Create(EntityType.Instance.BranchOfficeOrganizationUnit())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BranchOfficeOrganizationUnit)),
 
@@ -82,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<BargainDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
@@ -95,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<BargainDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 

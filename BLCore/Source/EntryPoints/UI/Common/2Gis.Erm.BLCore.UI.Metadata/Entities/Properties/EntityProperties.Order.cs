@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 
 using NuClear.Metamodeling.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 {
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.FirmRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.Firm)
+                                      LookupPropertyFeature.Create(EntityType.Instance.Firm())
                                                            .WithExtendedInfo("organizationUnitId={DestOrganizationUnitRef.Id}&clientId={ClientRef.Id}"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Firm)),
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.HasAnyOrderPosition)
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.SourceOrganizationUnitRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.OrganizationUnit)
+                                      LookupPropertyFeature.Create(EntityType.Instance.OrganizationUnit())
                                                            .WithShowReadOnlyCard()
                                                            .WithExtendedInfo("currencyId={DealCurrencyId}&userId={CurrenctUserCode}"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.SourceOrganizationUnit)),
@@ -50,20 +51,20 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.DestOrganizationUnitRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.OrganizationUnit)
+                                      LookupPropertyFeature.Create(EntityType.Instance.OrganizationUnit())
                                                            .WithShowReadOnlyCard()
                                                            .WithExtendedInfo("restrictByProjects=true"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.SourceOrganizationUnit)),
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.BranchOfficeOrganizationUnitRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.BranchOfficeOrganizationUnit)
+                                      LookupPropertyFeature.Create(EntityType.Instance.BranchOfficeOrganizationUnit())
                                                            .WithExtendedInfo("sourceOrganizationUnitId={SourceOrganizationUnitRef.Id}&restrictByFP=true&userId={CurrenctUserCode}"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BranchOfficeOrganizationUnitName)),
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.LegalPersonRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.LegalPerson)
+                                      LookupPropertyFeature.Create(EntityType.Instance.LegalPerson())
                                                            .WithExtendedInfo("ClientId={ClientRef.Id}")
                                                            .OverrideValueAttribute<LegalPersonDomainEntityDto>(x => x.LegalName),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.LegalPerson)),
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.DealRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Deal),
+                                      LookupPropertyFeature.Create(EntityType.Instance.Deal()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Deal)),
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.DealCurrencyId)
@@ -141,7 +142,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Currency)
+                                      LookupPropertyFeature.Create(EntityType.Instance.Currency())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Currency),
                                       GroupedPropertyFeature.Create(() => BLResources.TitleFinances)),
@@ -198,7 +199,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.BargainRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Bargain)
+                                      LookupPropertyFeature.Create(EntityType.Instance.Bargain())
                                                            .OverrideValueAttribute<BargainDomainEntityDto>(x => x.Number),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Bargain)),
 
@@ -255,7 +256,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.InspectorRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User)
+                                      LookupPropertyFeature.Create(EntityType.Instance.User())
                                                            .WithShowReadOnlyCard()
                                                            .WithExtendedInfo("&orgUnitId={SourceOrganizationUnitRef.Id}"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Inspector),
@@ -334,7 +335,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy),
@@ -342,7 +343,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.OwnerRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Owner),
@@ -357,7 +358,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy),
                                       GroupedPropertyFeature.Create(() => BLResources.AdministrationTabTitle)),

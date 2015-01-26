@@ -8,6 +8,8 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 
+using NuClear.Metamodeling.Utils.Resources;
+
 namespace DoubleGis.Erm.Platform.Common.Utils.Resources
 {
     public static class ResourceUtils

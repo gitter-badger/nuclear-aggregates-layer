@@ -2,6 +2,8 @@
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
@@ -37,13 +39,13 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<AdvertisementDomainEntityDto>(dto => dto.AdvertisementTemplateRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.AdvertisementTemplate),
+                                      LookupPropertyFeature.Create(EntityType.Instance.AdvertisementTemplate()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.AdvertisementTemplate)),
 
                     EntityPropertyMetadata.Create<AdvertisementDomainEntityDto>(dto => dto.FirmRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Firm),
+                                      LookupPropertyFeature.Create(EntityType.Instance.Firm()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Firm)),
 
                     EntityPropertyMetadata.Create<AdvertisementDomainEntityDto>(dto => dto.IsSelectedToWhiteList)
@@ -52,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<AdvertisementDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
@@ -65,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<AdvertisementDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 

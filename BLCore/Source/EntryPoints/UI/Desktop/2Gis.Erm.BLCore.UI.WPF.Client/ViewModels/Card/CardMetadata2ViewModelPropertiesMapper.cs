@@ -2,16 +2,17 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Lookup;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Properties;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
 {

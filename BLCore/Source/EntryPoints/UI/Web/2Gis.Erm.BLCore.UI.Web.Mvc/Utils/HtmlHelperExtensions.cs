@@ -21,6 +21,8 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
+using NuClear.Metamodeling.Utils.Resources;
+
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
     // ReSharper disable InconsistentNaming

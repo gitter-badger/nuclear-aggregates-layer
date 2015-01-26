@@ -1,10 +1,11 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
+﻿using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid
 {
     public interface IGridViewModelIdentity : IViewModelIdentity
     {
-        EntityName EntityName { get; }
+        IEntityType EntityName { get; }
     }
 }

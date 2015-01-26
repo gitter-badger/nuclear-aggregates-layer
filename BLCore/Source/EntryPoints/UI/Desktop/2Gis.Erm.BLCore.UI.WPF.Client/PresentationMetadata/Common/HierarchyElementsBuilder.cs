@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Metadata.Common;
+
+using NuClear.Metamodeling.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.Elements.Aspects.Features.Resources.Images;
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common
 {
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common
 
         public static HierarchyMetadataBuilder ShowGrid(
              this HandlerFeatureAspect<HierarchyMetadataBuilder, HierarchyMetadata> builderAspect,
-             EntityName entityName,
+             IEntityType entityName,
              string filterExpression,
              string disableExpression)
         {

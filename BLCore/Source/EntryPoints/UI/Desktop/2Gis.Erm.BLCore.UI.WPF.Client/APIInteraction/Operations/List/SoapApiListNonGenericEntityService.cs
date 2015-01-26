@@ -1,10 +1,10 @@
 ﻿using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
 {
@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
             _clientProxyFactory = clientProxyFactory;
         }
 
-        public ListResult List(EntityName entityName, SearchListModel searchListModel)
+        public ListResult List(IEntityType entityName, SearchListModel searchListModel)
         {
             var listAppServiceProxy = _clientProxyFactory.GetClientProxy<IListApplicationService, WSHttpBinding>();
             return listAppServiceProxy.Execute(x => x.Execute(entityName,
