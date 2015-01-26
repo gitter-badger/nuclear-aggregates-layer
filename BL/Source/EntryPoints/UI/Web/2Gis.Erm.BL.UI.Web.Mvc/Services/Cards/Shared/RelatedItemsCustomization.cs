@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
@@ -83,7 +84,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
         {
             relatedItemElement.Disabled |= _elementAvailabilityHelper.IsUIElementDisabled(relatedItemElementMetadata, model);
 
-            if (_elementAvailabilityHelper.IsUIElementInvisible(relatedItemElementMetadata, model))
+            if (_elementAvailabilityHelper.IsUIElementInvisible(relatedItemElementMetadata, (IAspect)model))
             {
                 model.ViewConfig.CardSettings.CardRelatedItems.SingleOrDefault().Items
                     = model.ViewConfig.CardSettings.CardRelatedItems.SingleOrDefault().Items.Except(new[] { relatedItemElement }).ToArray();

@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             {
                 bool expressionResult;
 
-                if (!feature.TryExecute(viewModel, out expressionResult))
+                if (!feature.TryExecute((IAspect)viewModel, out expressionResult))
                 {
                     throw new InvalidOperationException(string.Format("Unable to execute message expression for {0} card with {1} viewmodel", metadata.Entity, viewModel.GetType()));
                 }

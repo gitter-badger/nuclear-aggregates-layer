@@ -1,9 +1,9 @@
-﻿using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
+﻿using DoubleGis.Erm.Platform.Model.Aspects;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features
 {
     public interface IUIElementExpressionFeature : IUIElementFeature
     {
-        bool TryExecute(IViewModelAbstract viewModel, out bool result);
+        bool TryExecute(IAspect aspect, out bool result);
     }
 }

@@ -6,6 +6,7 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Metadata;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
@@ -96,7 +97,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 
         public static CardMetadataBuilder<TEntity> InfoOn<TEntity, T>(this CardMetadataBuilder<TEntity> builder, Expression<Func<T, bool>> expression, IStringResourceDescriptor messageDescriptor)
             where TEntity : class, IEntityKey, IEntity
-            where T : IViewModelAbstract
+            where T : IAspect
         {
             builder.WithFeatures(new MessageExpressionFeature<T>(expression, messageDescriptor, MessageType.Info));
             return builder;

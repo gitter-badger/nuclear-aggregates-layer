@@ -288,9 +288,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     // TODO: далее идет ряд признаков наличия привилегий. 
                     // Можно использовать сервис метаданных для получения информации о этих привелегиях 
-                    EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.CanSwitchToAccount)
-                                  .WithFeatures(new HiddenFeature()),
-
                     new EntityPropertyMetadata("HasOrderCreationExtended", typeof(bool))
                         .WithFeatures(
                             new ReadOnlyPropertyFeature(),

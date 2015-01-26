@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -101,14 +102,14 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements
         }
 
         public UIElementMetadataBuilder DisableOn<T>(params Expression<Func<T, bool>>[] expressions)
-            where T : IViewModelAbstract
+            where T : IAspect
         {
             AddFeatures(expressions.Select(expression => new DisableExpressionFeature<T>(expression)).ToArray());
             return this;
         }
 
         public UIElementMetadataBuilder HideOn<T>(params Expression<Func<T, bool>>[] expressions)
-            where T : IViewModelAbstract
+            where T : IAspect
         {
             AddFeatures(expressions.Select(expression => new HideExpressionFeature<T>(expression)).ToArray());
             return this;

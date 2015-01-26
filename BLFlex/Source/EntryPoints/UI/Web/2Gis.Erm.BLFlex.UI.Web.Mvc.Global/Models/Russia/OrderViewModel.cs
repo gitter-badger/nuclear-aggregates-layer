@@ -5,9 +5,10 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -20,7 +21,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class OrderViewModel : EntityViewModelBase<Order>, INumberAspect, IOrderWorkflowAspect, IOrderViewModel, ICustomizableOrderViewModel, IRussiaAdapted
+    public sealed class OrderViewModel : EntityViewModelBase<Order>, INumberAspect, IOrderWorkflowAspect, ICustomizableOrderViewModel, IRussiaAdapted
     {
         OrderState IOrderWorkflowAspect.WorkflowStepId
         {
@@ -64,7 +65,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         }
 
         public bool ShowRegionalAttributes { get; set; }
-        public bool CanSwitchToAccount { get; set; }
 
         public bool HasAnyOrderPosition { get; set; }
 
@@ -282,7 +282,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             DocumentsComment = modelDto.DocumentsComment;
             AccountId = modelDto.AccountRef != null ? modelDto.AccountRef.Id : null;
             ShowRegionalAttributes = modelDto.ShowRegionalAttributes;
-            CanSwitchToAccount = modelDto.CanSwitchToAccount;
             LegalPersonProfileId = modelDto.LegalPersonProfileRef != null ? modelDto.LegalPersonProfileRef.Id : null;
 
             Timestamp = modelDto.Timestamp;

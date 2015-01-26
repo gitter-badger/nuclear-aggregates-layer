@@ -88,6 +88,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .Use<NewLockDetailCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<Order, ICustomizableOrderViewModel>()
+                                                       .Use<CheckIfCanSwitchToAccountCustomization>()
                                                        .Use<OrderValidationCustomization>()
                                                        .Use<InspectorNameCustomization>()
                                                        .Use<PrivilegesCustomization>()

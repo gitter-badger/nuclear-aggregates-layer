@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -21,8 +20,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                            ToolbarElementsFlex.Orders.CheckOrder(),
                            ToolbarElements.ChangeOwner<Order>(),
                            ToolbarElementsFlex.Orders.CloseWithDenial(),
-                           ToolbarElementsFlex.Orders.SwitchToAccount()
-                                              .DisableOn<IOrderViewModel>(x => !x.CanSwitchToAccount),
+                           ToolbarElementsFlex.Orders.SwitchToAccount(),
                            ToolbarElementsFlex.Orders.CopyOrder()
                        };
         }

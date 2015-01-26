@@ -3,8 +3,8 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             foreach (var feature in element.Features<IDisableExpressionFeature>())
             {
                 bool expressionResult;
-                if (feature.TryExecute(model, out expressionResult) && expressionResult)
+                if (feature.TryExecute((IAspect)model, out expressionResult) && expressionResult)
                 {
                     return true;
                 }
@@ -74,13 +74,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             return false;
         }
 
-       public bool IsUIElementInvisible<TViewModel>(UIElementMetadata element, TViewModel model)
-            where TViewModel : IViewModelAbstract
+       public bool IsUIElementInvisible<TAspect>(UIElementMetadata element, TAspect aspect)
+            where TAspect : IAspect
         {
             foreach (var feature in element.Features<IHideExpressionFeature>())
             {
                 bool expressionResult;
-                if (feature.TryExecute(model, out expressionResult) && expressionResult)
+                if (feature.TryExecute(aspect, out expressionResult) && expressionResult)
                 {
                     return true;
                 }

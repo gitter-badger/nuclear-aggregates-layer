@@ -3,6 +3,8 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
@@ -48,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         }
 
         public CardMetadataBuilder<TEntity> MainAttribute<TViewModel>(Expression<Func<TViewModel, object>> propertyNameExpression)
-            where TViewModel : IViewModelAbstract
+            where TViewModel : IAspect
         {
             AddFeatures(new MainAttributeFeature(new PropertyDescriptor<TViewModel>(propertyNameExpression)));
             return this;
@@ -61,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         }
 
         public CardMetadataBuilder<TEntity> ReadOnlyOn<T>(params Expression<Func<T, bool>>[] expressions)
-            where T : IViewModelAbstract
+            where T : IAspect
         {
             AddFeatures(expressions.Select(expression => new DisableExpressionFeature<T>(expression)).ToArray());
             return this;
