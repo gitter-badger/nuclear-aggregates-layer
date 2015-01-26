@@ -223,8 +223,8 @@ WriteLiteral("        ");
             
             #line 36 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(
-            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, AdditionalSortField = "IsOwner", AdditionalSortFieldDirection = "DESC" }),
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", AdditionalSortField = "IsOwner", AdditionalSortFieldDirection = "DESC" })));
 
             
             #line default
@@ -235,7 +235,7 @@ WriteLiteral("        ");
 
             
             #line 39 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", AdditionalSortField = "IsOwner", AdditionalSortFieldDirection = "DESC" })));
 
             
             #line default
@@ -293,7 +293,7 @@ WriteLiteral("        ");
 
             
             #line 48 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", AdditionalSortField = "IsOwner", AdditionalSortFieldDirection = "DESC" })));
 
             
             #line default
