@@ -435,6 +435,12 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                 queryString += (queryString ? "&" : "?") + "extendedInfo=" + encodeURIComponent(filterExpr);
             }
         }
+        if (this.additionalSortField && this.additionalSortFieldDir)
+        {
+            queryString += (queryString ? "&" : "?") + "additionalSortField=" + "IsOwner";
+            queryString += (queryString ? "&" : "?") + "additionalSortFieldDir=" + "DESC";
+        }
+        
 
         var url = this.searchUrl + queryString;
 

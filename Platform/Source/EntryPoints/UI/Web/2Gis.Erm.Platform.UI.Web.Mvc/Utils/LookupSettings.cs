@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using SortDirection = System.Web.Helpers.SortDirection;
+
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 {
     public sealed class LookupSettings
@@ -16,5 +18,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
         public EntityName ParentEntityName { get; set; }
         public string ParentIdPattern { get; set; }
+        public string AdditionalSortField { get; set; }
+        public string AdditionalSortFieldDirection { get; set;}
     }
 }

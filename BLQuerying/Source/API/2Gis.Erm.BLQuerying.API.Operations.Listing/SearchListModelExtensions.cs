@@ -22,10 +22,14 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
                 SearchListModel = searchListModel,
             };
 
+            var dirs =
+                (searchListModel.Dir ?? "").Split(new [] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                           .Where(x => !string.IsNullOrEmpty(x));
+
             querySettings.Sort =
-                (searchListModel.Sort ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                (searchListModel.Sort ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)                                            
                                             .Where(x => !string.IsNullOrEmpty(x))
-                                            .Select(x => new QuerySettingsSort { PropertyName = x, Direction = GetSortDirection(searchListModel.Dir), })
+                                            .Zip(dirs, (x, y) => new QuerySettingsSort { PropertyName = x, Direction = GetSortDirection(y), })
                                             .ToArray();
 
             var extendedInfo = searchListModel.ExtendedInfo;
@@ -57,6 +61,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
 
         private static SortDirection GetSortDirection(string sortDirection)
         {
+            
             if (string.IsNullOrEmpty(sortDirection) || string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
             {
                 return SortDirection.Ascending;

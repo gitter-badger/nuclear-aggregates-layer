@@ -255,6 +255,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             sb.AppendFormat("supressMatchesErrors:{0}, ", lookupSettings.SupressMatchesErrors.ToString(CultureInfo.InvariantCulture).ToLower());
             sb.AppendFormat("id:\"{0}\", ", name);
             sb.AppendFormat("name:\"{0}\", ", name);
+            sb.AppendFormat("additionalSortField:\"{0}\",", lookupSettings.AdditionalSortField);
+            sb.AppendFormat("additionalSortFieldDir:\"{0}\",", lookupSettings.AdditionalSortFieldDirection);
             sb.AppendFormat("applyTo:\"{0}\", ", name);
             sb.AppendFormat("entityName:\"{0}\", ", lookupSettings.EntityName);
             sb.AppendFormat("extendedInfo:\"{0}\", ", lookupSettings.ExtendedInfo);
