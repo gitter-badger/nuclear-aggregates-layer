@@ -53,12 +53,11 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                   string dir,
                                   string sort,
                                   long? parentId,
-                                  bool isDefaultSort,
                                   EntityName parentType)
         {
             try
             {
-                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType, isDefaultSort);
+                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType);
             }
             catch (Exception ex)
             {
@@ -76,8 +75,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                   string dir,
                                   string sort,
                                   string parentIdArg,
-                                  string parentTypeArg,
-                                  bool isDefaultSort)
+                                  string parentTypeArg)
         {
             var entityName = EntityName.None;
 
@@ -111,7 +109,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                 }
                 
 
-                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType, isDefaultSort);
+                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType);
             }
             catch (Exception ex)
             {
@@ -129,8 +127,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                            string dir,
                                            string sort,
                                            long? parentId,
-                                           EntityName parentType,
-                                           bool isDefaultSort)
+                                           EntityName parentType)
         {
             // TODO {all, 18.09.2013}: обеспечить управление настройками usecase (duration и т.п.) на основе метаданных, неявно для operation services
             // Пока информации о длительности usecase, иногда, применяется в точке входа WCF (Web и т.д.)
@@ -158,8 +155,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                 Dir = !string.IsNullOrEmpty(dir) ? dir : dataListStructure.DefaultSortDirection == 1 ? "DESC" : "ASC",
                 Sort = !string.IsNullOrEmpty(sort) ? sort : dataListStructure.DefaultSortField,
                 ParentEntityId = parentId,
-                ParentEntityName = parentType,
-                IsDefaultSort = isDefaultSort
+                ParentEntityName = parentType
             };
 
             var listService = _operationServicesManager.GetListEntityService(entityName);

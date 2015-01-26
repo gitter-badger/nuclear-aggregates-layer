@@ -10,10 +10,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
     [ServiceContract(SessionMode = SessionMode.NotAllowed, Namespace = ServiceNamespaces.BasicOperations.List201303)]
     public interface IListApplicationRestService
     {
-
-
         [OperationContract(Name = "ExecuteRest")]
-        [WebInvoke(Method = "GET", UriTemplate = "/{entityName}?start={start}&filterInput={filterInput}&extendedInfo={extendedInfo}&nameLocaleResourceId={nameLocaleResourceId}&limit={limit}&dir={dir}&sort={sort}&pId={parentId}&pType={parentType}&isDefaultSort={isDefaultSort}", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        [WebInvoke(Method = "GET", UriTemplate = "/{entityName}?start={start}&filterInput={filterInput}&extendedInfo={extendedInfo}&nameLocaleResourceId={nameLocaleResourceId}&limit={limit}&dir={dir}&sort={sort}&pId={parentId}&pType={parentType}", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         [FaultContract(typeof(ListOperationErrorDescription))]
         ListResult Execute(string entityName,
                            int start,
@@ -24,7 +22,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
                            string dir,
                            string sort,
                            string parentId,
-                           string parentType,
-                           bool isDefaultSort);
+                           string parentType);
     }
 }
