@@ -257,16 +257,21 @@
     <Compile Include="Orders\IOrderRepository.cs" />
     <Compile Include="Orders\Operations\Bargains\ICloseClientBargainsAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeAmountToWithdrawAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\IBulkDeleteBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\IBulkCreateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\IUpdateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\BillsConsistencyException.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateOrderNumberService.cs" />
-    <Compile Include="Orders\Operations\Crosscutting\IValidateBillsService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IBillsConsistencyService.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderChangeStateOrders2ArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderCreateReleaseTotalsAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderCreateReleaseWithdrawalsAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderDeleteReleaseTotalsAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderDeleteReleaseWithdrawalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\IChangeOrderLegalPersonProfileAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderPositions\IOrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\Validation\IAttachValidResultToCacheAggregateService.cs" />
@@ -277,9 +282,11 @@
     <Compile Include="Orders\ReadModel\DTO\OrderReleaseWithdrawalDto.cs" />
     <Compile Include="Orders\ReadModel\IGetPositionsByOrderService.cs" />
     <Compile Include="Orders\ReadModel\IOrderReadModel.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.Bills.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositionAdvertisements.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.OrderReleaseTotals.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
@@ -381,12 +388,16 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
-      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">

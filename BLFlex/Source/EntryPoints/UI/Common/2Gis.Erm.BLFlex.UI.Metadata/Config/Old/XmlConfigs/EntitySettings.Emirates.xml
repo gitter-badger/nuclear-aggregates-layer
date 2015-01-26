@@ -115,10 +115,10 @@
         </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
-          <ToolbarItem ParentName="Create" Name="CreateTask" NameLocaleResourceId="ControlCreateTask" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateTask" SecurityPrivelegeFlag="32" />
-          <ToolbarItem ParentName="Create" Name="CreatePhonecall" NameLocaleResourceId="ControlCreatePhonecall" ControlType="TextButton" LockOnInactive="true" Action="scope.CreatePhonecall" SecurityPrivelegeFlag="32" />
-          <ToolbarItem ParentName="Create" Name="CreateAppointment" NameLocaleResourceId="ControlCreateAppointment" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateAppointment" SecurityPrivelegeFlag="32" />
-          <ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
+          <ToolbarItem ParentName="Create" Name="CreateTask" NameLocaleResourceId="ControlCreateTask" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateTask" SecurityPrivelegeFlag="32" />
+          <ToolbarItem ParentName="Create" Name="CreatePhonecall" NameLocaleResourceId="ControlCreatePhonecall" ControlType="TextButton" LockOnInactive="false" Action="scope.CreatePhonecall" SecurityPrivelegeFlag="32" />
+          <ToolbarItem ParentName="Create" Name="CreateAppointment" NameLocaleResourceId="ControlCreateAppointment" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateAppointment" SecurityPrivelegeFlag="32" />
+          <ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
         </ToolbarItems>
@@ -1656,7 +1656,8 @@
         <ToolbarItem ParentName="Actions" Name="ApproveLimit" NameLocaleResourceId="ControlApproveLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.ApproveLimit" />
         <ToolbarItem ParentName="Actions" Name="RejectLimit" NameLocaleResourceId="ControlRejectLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.RejectLimit" />
         <ToolbarItem ParentName="Actions" Name="OpenLimit" NameLocaleResourceId="ControlOpenLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.OpenLimit" />
-        <ToolbarItem ParentName="Actions" Name="RecalculateLimit" NameLocaleResourceId="ControlRecalculateLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.RecalculateLimit" SecurityPrivelegeFlag="638" />
+        <ToolbarItem ParentName="Actions" Name="RecalculateLimit" NameLocaleResourceId="ControlRecalculateLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="false" Action="scope.RecalculateLimit" SecurityPrivelegeFlag="638" />
+        <ToolbarItem ParentName="Actions" Name="IncreaseLimit" NameLocaleResourceId="ControlIncreaseLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="true" Action="scope.IncreaseLimit" SecurityPrivelegeFlag="189"/>
       </ToolbarItems>
     </Card>
     <DataLists>
@@ -1974,7 +1975,8 @@
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAction" NameLocaleResourceId="ControlPrintBargainAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBargain" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBillAction" NameLocaleResourceId="ControlPrintBillsAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBills" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintAdditionalAgreementAction" NameLocaleResourceId="ControlPrintAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintAdditionalAgreement" SecurityPrivelegeFlag="0" />
-        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAdditionalAgreementAction" NameLocaleResourceId="ControlPrintBargainAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBargainAdditionalAgreement" SecurityPrivelegeFlag="0" />
+        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAdditionalAgreementAction" NameLocaleResourceId="ControlPrintBargainAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintBargainAdditionalAgreement" SecurityPrivelegeFlag="0" />
+        <ToolbarItem ParentName="Actions" Name="ChangeProfiles" NameLocaleResourceId="ControlChangeProfiles" ControlType="TextButton" LockOnInactive="false" LockOnNew="true" Action="scope.ChangeLegalPersonProfile" SecurityPrivelegeFlag="2" />
         <ToolbarItem ParentName="Actions" Name="ChangeDeal" NameLocaleResourceId="ControlChangeDeal" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.ChangeDeal" SecurityPrivelegeFlag="34" />
         <ToolbarItem ParentName="Actions" Name="CheckOrder" NameLocaleResourceId="ControlCheckOrder" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.CheckOrder" />
         <ToolbarItem ParentName="Actions" Name="ChangeOwner" NameLocaleResourceId="ControlChangeOwner" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.ChangeOwner" SecurityPrivelegeFlag="524288" />
@@ -2715,6 +2717,16 @@
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="CategoryId" NameLocaleResourceId="DFieldCategoryId" Width="200" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="CategoryName" NameLocaleResourceId="Name" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Category" ReferenceFieldName="CategoryId" />
+        </Fields>
+      </DataList>
+    </DataLists>
+  </Entity>
+  <Entity Name="TimeZone">
+    <DataLists>
+      <DataList NameLocaleResourceId="DListTimeZones" DefaultSortField="TimeZoneId" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="TimeZoneId" Icon="en_ico_16_UserAccount.gif">
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="TimeZoneId" NameLocaleResourceId="TimeZoneId" Width="200" FieldType="String" ExtTypeName="String" />
         </Fields>
       </DataList>
     </DataLists>

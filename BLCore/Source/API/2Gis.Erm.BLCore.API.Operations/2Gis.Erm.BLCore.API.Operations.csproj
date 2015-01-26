@@ -180,12 +180,18 @@
     <Compile Include="Concrete\OrderPositions\ICalculateCategoryRateOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IViewOrderPositionOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\Dto\OrderPositionWithSchemaDto.cs" />
+    <Compile Include="Concrete\Orders\Bills\ICreateOrderBillsOperationService.cs" />
+    <Compile Include="Concrete\Orders\Bills\IDeleteOrderBillsOperationService.cs" />
     <Compile Include="Concrete\Orders\Copy\CopyOrderResult.cs" />
     <Compile Include="Concrete\Orders\Copy\DiscountType.cs" />
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
     <Compile Include="Concrete\Orders\IActualizeOrderAmountToWithdrawOperationService.cs" />
     <Compile Include="Concrete\Orders\IPriceCostsForSubPositionsProvider.cs" />
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
+    <Compile Include="Concrete\Orders\InvalidLegalPersonProfileForOrderException.cs" />
+    <Compile Include="Concrete\Orders\IChangeOrderLegalPersonProfileOperationService.cs" />
+    <Compile Include="Concrete\Orders\LegalPersonProfileMustBeSpecifiedException.cs" />
+    <Compile Include="Concrete\Orders\OrderLegalPersonProfileDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
@@ -249,8 +255,7 @@
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateRequest.cs" />
     <Compile Include="Concrete\Old\Bills\BillPaymentType.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplate.cs" />
-    <Compile Include="Concrete\Old\Bills\CreateBillsRequest.cs" />
-    <Compile Include="Concrete\Old\Bills\DeleteBillsRequest.cs" />
+    <Compile Include="Concrete\Old\Bills\CreateBillInfo.cs" />
     <Compile Include="Concrete\Old\Bills\DistributeBillPayments.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfo.cs" />
     <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfo.cs" />
@@ -300,8 +305,6 @@
     <Compile Include="Concrete\Old\LegalPersons\MergeLegalPersons.cs" />
     <Compile Include="Concrete\Old\LegalPersons\ValidatePaymentRequisitesIsUniqueRequest.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsRequest.cs" />
-    <Compile Include="Concrete\Old\Limits\RecalculateLimitRequest.cs" />
-    <Compile Include="Concrete\Old\Limits\SetLimitStatusRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\CreateLocalMessageRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ExportLocalMessageRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ProcessLocalMessagesRequest.cs" />
@@ -320,7 +323,6 @@
     <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderResponse.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\ChangeOrderLegalPersonProfileRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CheckOrderBeginDistributionDateRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CloseOrderRequest.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\RecalculateOrderDiscountRequest.cs" />
@@ -510,8 +512,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Integration\Import\FlowBilling\" />
+    <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\PricePositions\" />
     <Folder Include="Concrete\Simplified\MsCRM\Dto\" />
+    <Folder Include="Generic\Modify\Exceptions\Limits\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

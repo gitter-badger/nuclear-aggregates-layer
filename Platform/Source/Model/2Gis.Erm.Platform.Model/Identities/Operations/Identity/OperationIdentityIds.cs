@@ -123,7 +123,10 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int CalculateOrderCostIdentity = 15112;
         public const int CopyOrderIdentity = 15113;
         public const int ObtainDealForBizaccountOrderIdentity = 15114;
-        public const int ActualizeOrderAmountToWithdrawIdentity = 15115;
+        public const int CreateOrderBillsIdentity = 15115;
+        public const int DeleteOrderBillsIdentity = 15116;
+        public const int ActualizeOrderAmountToWithdrawIdentity = 15117;
+        public const int ChangeOrderLegalPersonProfileIdentity = 15120;
 
         // EntityName.OrderPosition = 150
         public const int CalculateOrderPositionCostIdentity = 15001;
@@ -146,6 +149,10 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.Limit = 192
         public const int CloseLimitIdentity = 19201;
         public const int ReopenLimitIdentity = 19202;
+        public const int RecalculateLimitIdentity = 19203;
+        public const int SetLimitStatusIdentity = 19204;
+        public const int CalculateLimitIncreasingIdentity = 19205;
+        public const int IncreaseLimitIdentity = 19206;
 
         // EntityName.HotClientRequest = 257
         public const int ImportHotClientIdentity = 25701;

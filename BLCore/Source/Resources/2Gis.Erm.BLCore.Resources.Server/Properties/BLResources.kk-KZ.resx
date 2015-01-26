@@ -3960,9 +3960,6 @@ Cумма по операции: {5}.
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Неверно заданы типы сущностей для добавления подразделения в тематику</value>
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>Нельзя добавить подразделение к тематике, установленной по умолчанию</value>
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>Нельзя удалить тематику, которая используется в заказах</value>
   </data>
@@ -4079,10 +4076,10 @@ Cумма по операции: {5}.
     <value>Произошла ошибка: {0}. Подробности см. в описании сообщения</value>
   </data>
   <data name="CannotApppendMoreThemesToOrganizationUnit" xml:space="preserve">
-    <value>Достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="CannotSaveThemeOrganizationUnitThemeLimitReached" xml:space="preserve">
-    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="PricePositionCannotBeChoosedSinceThereIsNoFirm" xml:space="preserve">
     <value>Данная позиция не может быть выбрана в заказ, т.к. не указана фирма</value>
@@ -4109,7 +4106,7 @@ Cумма по операции: {5}.
     <value>Дата должна быть в промежутке между 1 января 1753 г. и 31 декабря 9999 г.</value>
   </data>
   <data name="CannotSaveBranchOfficeInnExists" xml:space="preserve">
-    <value>Отделение огранизации с данным ИНН уже существует</value>
+    <value>Отделение организации с данным ИНН уже существует</value>
   </data>
   <data name="CannotReplaceTerritories" xml:space="preserve">
     <value>Выбранная территория должна принадлежать тому же подразделению, что и деактивируемая.</value>
@@ -5179,5 +5176,17 @@ Cумма по операции: {5}.
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value>Неправильно запланированы даты начала и окончания встречи.
 </value>
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Для работы с профилями требуется, чтобы были указаны юридические лица</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Печать</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Должен быть указан профиль юридического лица</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
   </data>
 </root>

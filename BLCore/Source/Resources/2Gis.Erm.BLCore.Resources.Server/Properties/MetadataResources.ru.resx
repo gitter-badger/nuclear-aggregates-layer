@@ -856,7 +856,7 @@
     <value>Классификация заказа</value>
   </data>
   <data name="LegalPersonProfile" xml:space="preserve">
-    <value>Профиль юр. лица клиента</value>
+    <value>Профиль юр. лица заказчика</value>
   </data>
   <data name="ShortName" xml:space="preserve">
     <value>Короткое название</value>

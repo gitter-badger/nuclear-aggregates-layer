@@ -183,12 +183,16 @@
     <Compile Include="Orders\Operations\Bargains\DeactivateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\Bargains\UpdateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\Bargains\CreateBargainAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\BulkCreateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\BulkDeleteBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\UpdateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderCreateReleaseTotalsAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderCreateReleaseWithdrawalsAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderDeleteReleaseTotalsAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\OrderActualizeAmountToWithdrawAggregateService.cs" />
+    <Compile Include="Orders\Operations\ChangeOrderLegalPersonProfileAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderChangeStateOrders2ArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderDeleteReleaseWithdrawalsAggregateService.cs" />

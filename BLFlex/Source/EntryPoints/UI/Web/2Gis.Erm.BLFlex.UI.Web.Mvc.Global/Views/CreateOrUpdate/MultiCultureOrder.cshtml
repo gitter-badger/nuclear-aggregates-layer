@@ -67,7 +67,6 @@
         @Html.HiddenFor(m => m.PlatformId)
         @Html.HiddenFor(m => m.VatPlan)
         @Html.HiddenFor(m => m.OrderValidationServiceUrl)
-        @Html.HiddenFor(m => m.LegalPersonProfileId)
         @Html.HiddenFor(m => m.RegionalNumber)
 
         @*Скрыты в международной версии*@
@@ -269,6 +268,10 @@
         @Html.SectionHead("control", BLResources.TitleControl)
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" })
+        </div>
+        @Html.SectionHead("print", BLResources.TitlePrinting)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.twins, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ReadOnly = true })
         </div>
     </div>
     <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">

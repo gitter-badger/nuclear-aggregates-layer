@@ -54,6 +54,8 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
             this.time.removeClass('x-form-text'); // Наличие этого класса заставляет контрол "прыгать"
         }
 
+        this.editor.setReadOnly(this.readOnly);
+
         if (this.mode.display == 'month') {
             this.editor.dom.readOnly = true;
             this.mon(this.editor, 'focus', this.onButtonClick, this);
@@ -67,17 +69,6 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         this.mon(this.button, 'click', this.onButtonClick, this);
         this.mon(this.menu, 'select', this.onDateSelect, this);
         if (this.time) this.mon(this.time, 'change', this.onEditorChange, this);
-
-        var calendarControl = this;
-        this.editor.dom.onpropertychange = function () {
-            if (calendarControl.readOnly == this.readOnly) {
-                return;
-            }
-
-            calendarControl.setReadOnly(this.readOnly);
-        };
-        
-        this.editor.setReadOnly(this.readOnly);
     },
 
     initTime: function (start, end, step) {

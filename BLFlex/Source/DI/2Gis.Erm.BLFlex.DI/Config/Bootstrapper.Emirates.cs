@@ -4,7 +4,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.Crosscutting;
-using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Concrete.Integration;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
@@ -55,8 +55,11 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, EmiratesLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IFormatterFactory, EmiratesFormatterFactory>(Lifetime.Singleton)
                 .RegisterType<ICheckInnService, EmiratesInnService>(Lifetime.Singleton)
-                .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
                 .RegisterType<IPriceCostsForSubPositionsProvider, NullPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
+                .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
+                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
+                                                                                                                                               typeof(BillSummConsistencyRule),
+                                                                                                                                               typeof(BillDatesConsistencyRule))))
                 .ConfigureEmiratesSpecificNumberServices();
         }
 

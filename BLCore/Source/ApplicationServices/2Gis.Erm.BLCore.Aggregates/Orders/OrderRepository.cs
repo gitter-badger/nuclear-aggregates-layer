@@ -293,20 +293,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             return _orderPositionGenericRepository.Save();
         }
 
-        public int Delete(Bill entity)
-        {
-            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Bill>())
-            {
-                _billGenericRepository.Delete(entity);
-                var cnt = _billGenericRepository.Save();
-
-                scope.Deleted<Bill>(entity.Id)
-                     .Complete();
-
-                return cnt;
-            }
-        }
-
         public int Delete(IEnumerable<OrderPositionAdvertisement> advertisements)
         {
             int cnt = 0;
@@ -392,52 +378,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 operationScope.Complete();
             }
         }
-
-        public int CreateOrUpdate(Bill bill)
-        {
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(bill.OrderId))
-                .Select(x => new
-                    {
-                        IsOrderActive = x.WorkflowStepId == OrderState.OnRegistration,
-                        SignupDate = x.SignupDate,
-                    })
-                .Single();
-
-            if (!orderInfo.IsOrderActive)
-            {
-                throw new NotificationException(BLResources.CantEditBillsWhenOrderIsNotOnRegistration);
-            }
-
-            var endOfPaymentDatePlan = new DateTime(bill.PaymentDatePlan.Year, bill.PaymentDatePlan.Month, bill.PaymentDatePlan.Day)
-                                .AddDays(1)
-                                .AddSeconds(-1);
-
-            var endOfCheckPeriod = bill.BeginDistributionDate.AddMonths(-1).GetEndPeriodOfThisMonth();
-            if (orderInfo.SignupDate > bill.PaymentDatePlan && endOfPaymentDatePlan <= endOfCheckPeriod)
-            {
-                throw new NotificationException(BLResources.BillPaymentDatePlanMustBeInCorrectPeriod);
-            }
-
-            using (var scope = _scopeFactory.CreateOrUpdateOperationFor(bill))
-            {
-                if (bill.IsNew())
-                {
-                    _identityProvider.SetFor(bill);
-                    _billGenericRepository.Add(bill);
-                    scope.Added<Bill>(bill.Id);
-                }
-                else
-                {
-                    _billGenericRepository.Update(bill);
-                    scope.Updated<Bill>(bill.Id);
-                }
-
-                var cnt = _billGenericRepository.Save();
-                scope.Complete();
-                return cnt;
-            }
-        }
-
         int IAssignAggregateRepository<Order>.Assign(long entityId, long ownerCode)
         {
             var entity = _finder.Find(Specs.Find.ById<Order>(entityId)).Single();
@@ -509,12 +449,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             }
         }
 
-        int IDeleteAggregateRepository<Bill>.Delete(long entityId)
-        {
-            var entity = _finder.Find(Specs.Find.ById<Bill>(entityId)).Single();
-            return Delete(entity);
-        }
-
         private static void CheckOrderApprovalDateSpecified(Order order)
         {
             var state = order.WorkflowStepId;
@@ -540,7 +474,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             {
                 throw new ArgumentException(BLResources.PlatformMustBeSpecified, "order");
             }
-        }
+                    }
 
         private void CheckOrderDistributionPeriodNotOverlapsThemeDistributionPeriod(Order order)
         {
