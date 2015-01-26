@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -11,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata LegalPersonProfile =
             CardMetadata.For<LegalPersonProfile>()
-                        .InfoOn<LegalPersonProfile, ILegalPersonProfileViewModel>(x => x.IsMainProfile, StringResourceDescriptor.Create(() => BLResources.LegalPersonProfileIsMain))
+                        .InfoOn<LegalPersonProfile, IMainLegalPersonProfileAspect>(x => x.IsMainProfile, StringResourceDescriptor.Create(() => BLResources.LegalPersonProfileIsMain))
                         .WithDefaultIcon()
                         .CommonCardToolbar();
     }

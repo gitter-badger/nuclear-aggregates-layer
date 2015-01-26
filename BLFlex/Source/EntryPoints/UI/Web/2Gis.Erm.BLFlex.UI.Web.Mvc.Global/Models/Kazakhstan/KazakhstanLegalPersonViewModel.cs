@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -15,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
 {
-    public sealed class KazakhstanLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalPersonViewModel, ICustomizableLegalPersonViewModel, IKazakhstanAdapted
+    public sealed class KazakhstanLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, ICustomizableLegalPersonViewModel, IKazakhstanAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
@@ -16,7 +17,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 {
-    public sealed class UkraineKazakhstanContactViewModel : EntityViewModelBase<Contact>, IContactViewModel, IUkraineAdapted, IKazakhstanAdapted
+    public sealed class UkraineKazakhstanContactViewModel : EntityViewModelBase<Contact>, IFullNameAspect, IUkraineAdapted, IKazakhstanAdapted
     {
         [StringLengthLocalized(160)]
         public string FullName { get; set; }

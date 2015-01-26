@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -24,15 +25,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Additional(ToolbarElements.Limits.Approve()
                                                                           .DisableOn<INewableAspect>(x => x.IsNew)
-                                                                          .DisableOn<ILimitViewModel>(x => x.Status == LimitStatus.Approved,
+                                                                          .DisableOn<ILimitStateAspect>(x => x.Status == LimitStatus.Approved,
                                                                                                       x => x.Status == LimitStatus.Rejected),
                                                            ToolbarElements.Limits.Reject()
                                                                           .DisableOn<INewableAspect>(x => x.IsNew)
-                                                                          .DisableOn<ILimitViewModel>(x => x.Status == LimitStatus.Approved,
+                                                                          .DisableOn<ILimitStateAspect>(x => x.Status == LimitStatus.Approved,
                                                                                                       x => x.Status == LimitStatus.Rejected),
                                                            ToolbarElements.Limits.Open()
                                                                           .DisableOn<INewableAspect>(x => x.IsNew)
-                                                                          .DisableOn<ILimitViewModel>(x => x.Status == LimitStatus.Opened),
+                                                                          .DisableOn<ILimitStateAspect>(x => x.Status == LimitStatus.Opened),
                                                            ToolbarElements.Limits.Recalculate()
                                                                           .DisableOn<INewableAspect>(x => x.IsNew),
                                                            ToolbarElements.Limits.Increase()),

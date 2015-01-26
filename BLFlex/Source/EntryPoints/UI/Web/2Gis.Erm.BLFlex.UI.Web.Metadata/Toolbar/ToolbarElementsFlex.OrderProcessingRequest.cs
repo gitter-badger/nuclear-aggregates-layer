@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Name.Static("CancelOrderProcessingRequest")
                                      .Title.Resource(() => ErmConfigLocalization.ControlCancelOrderProcessingRequest)
                                      .LockOnNew()
-                                     .DisableOn<IOrderProcessingRequestViewModel>(x => x.State == OrderProcessingRequestState.Cancelled,
+                                     .DisableOn<IOrderProcessingRequestStateAspect>(x => x.State == OrderProcessingRequestState.Cancelled,
                                                                                   x => x.State == OrderProcessingRequestState.Completed)
                                      .JSHandler("CancelOrderProcessingRequest")
                                      .ControlType(ControlType.TextButton)

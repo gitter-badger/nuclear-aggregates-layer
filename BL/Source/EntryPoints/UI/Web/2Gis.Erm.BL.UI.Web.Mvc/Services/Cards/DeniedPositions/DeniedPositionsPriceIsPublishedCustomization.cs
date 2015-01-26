@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.DeniedPositions
     {
         public void Customize(DeniedPositionViewModel viewModel, ModelStateDictionary modelState)
         {
-            if (viewModel.IsPricePublished)
+            if (viewModel.PriceIsPublished)
             {
                 viewModel.SetInfo(viewModel.IsNew
                                       ? BLResources.CantAddDeniedPositionWhenPriceIsPublished

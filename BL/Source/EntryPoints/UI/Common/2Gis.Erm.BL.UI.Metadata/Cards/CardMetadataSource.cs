@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Advertisement>()
                                     .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisement)
-                                    .ReadOnlyOn<IAdvertisementViewModel>(x => x.IsDummy)
+                                    .ReadOnlyOn<IDummyAdvertisementAspect>(x => x.IsDummy)
                                     .WithAdminTab(),
 
                         CardMetadata.For<AdvertisementElement>()
@@ -92,15 +92,15 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<AssociatedPosition>()
                                     .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPosition)
-                                    .ReadOnlyOn<IAssociatedPositionViewModel>(x => x.PriceIsDeleted,
-                                                                              x => x.PriceIsPublished)
+                                    .ReadOnlyOn<IDeletablePriceAspect>(x => x.PriceIsDeleted)
+                                    .ReadOnlyOn<IPublishablePriceAspect>(x => x.PriceIsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<AssociatedPositionsGroup>()
                                     .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPositionsGroup)
-                                    .ReadOnlyOn<IAssociatedPositionsGroupViewModel>(x => x.PriceIsDeleted,
-                                                                                    x => x.PriceIsPublished)
+                                    .ReadOnlyOn<IDeletablePriceAspect>(x => x.PriceIsDeleted)
+                                    .ReadOnlyOn<IPublishablePriceAspect>(x => x.PriceIsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Bargain>()
@@ -130,7 +130,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<BranchOfficeOrganizationUnit>()
-                                    .MainAttribute<IBranchOfficeOrganizationUnitViewModel>(x => x.ShortLegalName)
+                                    .MainAttribute<IShortLegalNameAspect>(x => x.ShortLegalName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnBranchOfficeOrganizationUnit)
                                     .WithAdminTab(),
 
@@ -151,7 +151,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithComments(),
 
                         CardMetadata.For<Contact>()
-                                    .MainAttribute<IContactViewModel>(x => x.FullName)
+                                    .MainAttribute<IFullNameAspect>(x => x.FullName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnContact)
                                     .WithComments()
                                     .WithAdminTab(),
@@ -190,7 +190,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<DeniedPosition>()
                                     .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnDeniedPosition)
-                                    .ReadOnlyOn<IDeniedPositionViewModel>(x => x.IsPricePublished)
+                                    .ReadOnlyOn<IPublishablePriceAspect>(x => x.PriceIsPublished)
                                     .WithAdminTab(),
 
                         CardMetadata.For<Department>()
@@ -204,18 +204,18 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithComments(),
 
                         CardMetadata.For<FirmAddress>()
-                                    .MainAttribute<IFirmAddressViewModel>(x => x.Address)
+                                    .MainAttribute<IAddressAspect>(x => x.Address)
                                     .EntityLocalization(() => ErmConfigLocalization.EnFirmAddresses)
                                     .WithAdminTab(),
 
                         CardMetadata.For<FirmContact>()
-                                    .MainAttribute<IFirmContactViewModel>(x => x.Contact)
+                                    .MainAttribute<IContactAspect>(x => x.Contact)
                                     .ReadOnly()
                                     .EntityLocalization(() => ErmConfigLocalization.EnFirmContacts)
                                     .WithAdminTab(),
 
                         CardMetadata.For<LegalPerson>()
-                                    .MainAttribute<ILegalPersonViewModel>(x => x.LegalName)
+                                    .MainAttribute<ILegalNameAspect>(x => x.LegalName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnLegalPersons)
                                     .WithAdminTab()
                                     .WithComments(),
@@ -236,7 +236,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Limit>()
                                     .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnLimit)
-                                    .ReadOnlyOn<ILimitViewModel>(x => x.Status != LimitStatus.Opened)
+                                    .ReadOnlyOn<ILimitStateAspect>(x => x.Status != LimitStatus.Opened)
                                     .WithComments(),
 
                         CardMetadata.For<LocalMessage>()
@@ -261,7 +261,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<Operation>()
-                                    .MainAttribute<IOperationViewModel>(x => x.Type)
+                                    .MainAttribute<IBusinessOperationTypeAspect>(x => x.Type)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOperation)
                                     .WithAdminTab(),
 
@@ -327,7 +327,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithAdminTab(),
 
                         CardMetadata.For<PricePosition>()
-                                    .MainAttribute<IPricePositionViewModel>(x => x.Position.Value)
+                                    .MainAttribute<IPositionAspect>(x => x.PositionName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnPricePositions)
                                     .WithAdminTab(),
 

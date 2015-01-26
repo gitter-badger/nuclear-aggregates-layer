@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -14,7 +15,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
-    public sealed class ChileLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalPersonViewModel, ICustomizableLegalPersonViewModel, IChileAdapted
+    public sealed class ChileLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, ICustomizableLegalPersonViewModel, IChileAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

@@ -1,5 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class AdvertisementViewModel : EntityViewModelBase<Advertisement>, IAdvertisementViewModel, INameAspect
+    public sealed class AdvertisementViewModel : EntityViewModelBase<Advertisement>, ISelectableToWhiteListAspect, INameAspect, IDummyAdvertisementAspect
     {
         [PresentationLayerProperty]
         [Dependency(DependencyType.Hidden, "AdsElemsContainer", "this.value=='0'")]

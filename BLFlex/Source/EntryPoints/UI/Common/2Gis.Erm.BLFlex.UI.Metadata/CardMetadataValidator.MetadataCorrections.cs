@@ -906,9 +906,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                         {
                                             {
                                                 "EntityMainAttribute",
-                                                
-                                                // Value - Position.Value
-                                                new Tuple<object, object>("PositionName", "Value")
+                                                new Tuple<object, object>("PositionName", "PositionName")
                                             },
                                         }
                                 },

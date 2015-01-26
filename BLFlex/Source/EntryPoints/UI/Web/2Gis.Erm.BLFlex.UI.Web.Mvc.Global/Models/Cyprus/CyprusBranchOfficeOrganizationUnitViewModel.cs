@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+﻿using DoubleGis.Erm.BLCore.UI.Metadata.Aspects;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Cyprus;
@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
-    public sealed class CyprusBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IBranchOfficeOrganizationUnitViewModel, ICyprusAdapted
+    public sealed class CyprusBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IShortLegalNameAspect, ICyprusAdapted
     {
         [DisplayNameLocalized("BranchOfficeName")]
         [RequiredLocalized]

@@ -6,6 +6,7 @@ using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar;
@@ -53,7 +54,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                     .Actions.Attach(ToolbarElements.Refresh<OrderProcessingRequest>(),
                                                     ToolbarElements.Additional(ToolbarElementsFlex.OrderProcessingRequests
                                                                                                   .CreateOrder()
-                                                                                                  .DisableOn<IOrderProcessingRequestViewModel>(x =>
+                                                                                                  .DisableOn<IOrderProcessingRequestStateAspect>(x =>
                                                                                                                                                x.State ==
                                                                                                                                                OrderProcessingRequestState.Cancelled,
                                                                                                                                                x =>
@@ -61,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                                                                                                                                OrderProcessingRequestState.Completed),
                                                                                ToolbarElementsFlex.OrderProcessingRequests
                                                                                                   .Cancel()
-                                                                                                  .DisableOn<IOrderProcessingRequestViewModel>(x =>
+                                                                                                  .DisableOn<IOrderProcessingRequestStateAspect>(x =>
                                                                                                                                                x.State ==
                                                                                                                                                OrderProcessingRequestState.Cancelled,
                                                                                                                                                x =>

@@ -49,15 +49,21 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Aspects\Entities\Aggregations\INewableAndPublishablePriceAspects.cs" />
+    <Compile Include="Aspects\Entities\IDummyAdvertisementAspect.cs" />
     <Compile Include="Aspects\Entities\IActivityStateAspect.cs" />
     <Compile Include="Aspects\Entities\IAdvertisementElementRequiresVerificationAspect.cs" />
     <Compile Include="Aspects\Entities\IAdvertisementElementVerificationStateAspect.cs" />
     <Compile Include="Aspects\Entities\IAdvertisementElementVerificationAspect.cs" />
+    <Compile Include="Aspects\Entities\IPositionAspect.cs" />
+    <Compile Include="Aspects\Entities\IPublishablePriceAspect.cs" />
+    <Compile Include="Aspects\Entities\IDeletablePriceAspect.cs" />
     <Compile Include="Aspects\Entities\IOrderWorkflowAspect.cs" />
     <Compile Include="Aspects\IAspect.cs" />
     <Compile Include="Aspects\IIdentityAspect.cs" />
     <Compile Include="Aspects\IDisplayNameAspect.cs" />
     <Compile Include="Aspects\IFileNameAspect.cs" />
+    <Compile Include="Aspects\IShortLegalNameAspect.cs" />
     <Compile Include="Aspects\ISetReadOnlyAspect.cs" />
     <Compile Include="Aspects\INumberAspect.cs" />
     <Compile Include="Aspects\ITitleAspect.cs" />
@@ -163,27 +169,23 @@
     <Compile Include="Entities\Properties\EntityProperties.WithdrawalInfo.cs" />
     <Compile Include="Operations\ClientOperationIdentityIds.cs" />
     <Compile Include="Operations\Generic\CloseIdentity.cs" />
-    <Compile Include="ViewModels\Contracts\IAdvertisementViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IAssociatedPositionViewModel.cs" />
+    <Compile Include="Aspects\Entities\ISelectableToWhiteListAspect.cs" />
     <Compile Include="ViewModels\Contracts\IDealViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IDeniedPositionViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\ILimitViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IAssociatedPositionsGroupViewModel.cs" />
+    <Compile Include="Aspects\Entities\ILimitStateAspect.cs" />
     <Compile Include="ViewModels\Contracts\IOrderPositionViewModel.cs" />
     <Compile Include="Aspects\Entities\IThemeTemplateCodeAspect.cs" />
-    <Compile Include="ViewModels\Contracts\IThemeViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IPricePositionViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IPositionViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IBranchOfficeOrganizationUnitViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IOrderProcessingRequestViewModel.cs" />
+    <Compile Include="Aspects\Entities\IOrganizationUnitCountAspect.cs" />
+    <Compile Include="Aspects\Entities\IPriceAspect.cs" />
+    <Compile Include="Aspects\Entities\ICompositePositionAspect.cs" />
+    <Compile Include="Aspects\Entities\IOrderProcessingRequestStateAspect.cs" />
     <Compile Include="ViewModels\Contracts\IOrderViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IContactViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\ICurrencyViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IFirmAddressViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IFirmContactViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\ILegalPersonProfileViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\ILegalPersonViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IOperationViewModel.cs" />
+    <Compile Include="Aspects\Entities\IFullNameAspect.cs" />
+    <Compile Include="Aspects\IBaseCurrencyAspect.cs" />
+    <Compile Include="Aspects\Entities\IAddressAspect.cs" />
+    <Compile Include="Aspects\Entities\IContactAspect.cs" />
+    <Compile Include="Aspects\Entities\IMainLegalPersonProfileAspect.cs" />
+    <Compile Include="Aspects\ILegalNameAspect.cs" />
+    <Compile Include="Aspects\IBusinessOperationTypeAspect.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
