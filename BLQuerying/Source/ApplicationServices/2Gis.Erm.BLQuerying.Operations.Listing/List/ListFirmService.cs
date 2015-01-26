@@ -38,13 +38,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<Firm>();
-
-            string sortedField;
-            if (querySettings.SearchListModel.IsDefaultSort && querySettings.TryGetExtendedProperty("SortedField", out sortedField))
-            {
-                querySettings.Sort = querySettings.Sort.InsertAndGetQuerySettingsSort(sortedField, SortDirection.Descending);
-            }
+            var query = _finder.FindAll<Firm>();         
 
             long appendToDealId;
             if (querySettings.TryGetExtendedProperty("appendToDealId", out appendToDealId))

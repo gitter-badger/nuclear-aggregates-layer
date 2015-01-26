@@ -30,13 +30,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<Deal>();
-
-            string sortedField;
-            if (querySettings.SearchListModel.IsDefaultSort && querySettings.TryGetExtendedProperty("SortedField", out sortedField))
-            {
-                querySettings.Sort = querySettings.Sort.InsertAndGetQuerySettingsSort(sortedField, SortDirection.Descending);
-            }
+            var query = _finder.FindAll<Deal>();           
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))

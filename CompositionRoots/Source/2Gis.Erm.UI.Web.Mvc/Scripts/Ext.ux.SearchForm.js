@@ -236,7 +236,6 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
                                     this.grid.store.removeAll(true);
                                 },
                                 //load: this.selectDefaultRow,
-                                beforeload:this.beforeLoad,
                                 load: this.selectSearchField,
                                 scope: this
                             }
@@ -277,9 +276,6 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
             }
             window.Ext.getCmp("btnSave").enable();
         }
-    },
-    beforeLoad: function(store, operation, eOpts) {
-        operation.params.isDefaultSort = this.getDefaultSort();
     },
     selectSearchField: function () {
         Ext.get('searchInput').focus();
@@ -416,12 +412,6 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
         var queryString = '?ReadOnly=' + this.currentSettings.ReadOnly + parentExp + "&extendedInfo=" + encodeURIComponent(this.extendedInfo);
         var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateCreateEntityUrl(this.entityModel.EntityName, queryString);
         window.open(sUrl, '_blank', params);
-    },
-    getDefaultSort: function() {
-        if (this.isDefaultSort !== undefined)
-            return false;
-        this.isDefaultSort = false;
-        return true;
     },
     refresh: function ()
     {
