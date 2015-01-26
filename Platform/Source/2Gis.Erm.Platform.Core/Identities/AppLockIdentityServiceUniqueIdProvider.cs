@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
             if (_lockId != null)
             {
-                _applicationLocksManager.ReleaseLock(_lockId.Value, true);
+                _applicationLocksManager.ReleaseLock(_lockId.Value);
             }
 
             _disposed = true;
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
                     return;
                 }
 
-                _applicationLocksManager.ReleaseLock(_lockId.Value, false);
+                _applicationLocksManager.ReleaseLock(_lockId.Value);
             }
 
             var startId = _id ?? (byte)_rnd.Next(255);
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
                 }
             }
 
-            throw new InvalidOperationException("Can't acquire id appliaction lock for identity service");
+            throw new InvalidOperationException("Can't acquire id application lock for identity service");
         }
 
         private void CheckNotDisposed()

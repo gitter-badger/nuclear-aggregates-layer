@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.Platform.Core.Locking
                 lockId = Guid.NewGuid();
                 lock (_sync)
                 {
-                    _acquiredLocks.Add(lockId, new ApplicationLockDescriptor(lockName, lockOwner, connection, transaction));
+                    _acquiredLocks.Add(lockId, new ApplicationLockDescriptor(lockOwner, connection, transaction));
                 }
 
                 return true;
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.Platform.Core.Locking
             return _databaseCaller.QueryRawSql<int>("SELECT @@TRANCOUNT", null, descriptor.Connection, descriptor.Transaction).Single() == 1;
         }
 
-        public bool ReleaseLock(Guid lockId, bool directReleasing)
+        public bool ReleaseLock(Guid lockId)
         {
             lock (_sync)
             {
@@ -100,7 +100,6 @@ namespace DoubleGis.Erm.Platform.Core.Locking
                 }
 
                 var connection = lockDescriptor.Connection;
-                var lockName = lockDescriptor.Name;
                 var transaction = lockDescriptor.Transaction;
 
                 try
@@ -110,37 +109,13 @@ namespace DoubleGis.Erm.Platform.Core.Locking
                         return false;
                     }
 
-                    LockReleasingResult? result = null;
-                    if (directReleasing)
+                    if (transaction != null)
                     {
-                        result = _databaseCaller.ExecuteProcedureWithReturnValue<LockReleasingResult>("sys.sp_releaseapplock",
-                                                                                                      new
-                                                                                                          {
-                                                                                                              Resource = lockName,
-                                                                                                              LockOwner = lockDescriptor.LockOwner.ToString()
-                                                                                                          },
-                                                                                                      connection,
-                                                                                                      transaction);
+                        transaction.Commit();
                     }
 
-                    if (result == LockReleasingResult.Released)
-                    {
-                        if (transaction != null)
-                        {
-                            transaction.Commit();
-                        }
-
-                        return true;
-                    }
-                    else
-                    {
-                        if (transaction != null)
-                        {
-                            transaction.Rollback();
-                        }
-
-                        return false;
-                    }
+                    connection.Close();
+                    return true;
                 }
                 finally
                 {
@@ -159,22 +134,15 @@ namespace DoubleGis.Erm.Platform.Core.Locking
 
         private class ApplicationLockDescriptor
         {
-            private readonly string _name;
             private readonly LockOwner _lockOwner;
             private readonly SqlConnection _connection;
             private readonly SqlTransaction _transaction;
 
-            public ApplicationLockDescriptor(string name, LockOwner lockOwner, SqlConnection connection, SqlTransaction transaction)
+            public ApplicationLockDescriptor(LockOwner lockOwner, SqlConnection connection, SqlTransaction transaction)
             {
-                _name = name;
                 _lockOwner = lockOwner;
                 _connection = connection;
                 _transaction = transaction;
-            }
-
-            public string Name
-            {
-                get { return _name; }
             }
 
             public SqlConnection Connection

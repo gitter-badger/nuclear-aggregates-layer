@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Locking
             {
                 return;
             }
-                
+
             _applicationLocksReleaser.Release(_id, _isCompleted);
 
             _isDisposed = true;

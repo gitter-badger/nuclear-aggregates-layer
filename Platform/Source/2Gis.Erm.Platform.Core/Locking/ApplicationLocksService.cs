@@ -1,16 +1,19 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.API.Core.Locking;
+using DoubleGis.Erm.Platform.Common.Logging;
 
 namespace DoubleGis.Erm.Platform.Core.Locking
 {
     public class ApplicationLocksService : IApplicationLocksService, IApplicationLocksReleaser
     {
         private readonly IApplicationLocksManager _applicationLocksManager;
+        private readonly ICommonLog _logger;
 
-        public ApplicationLocksService(IApplicationLocksManager applicationLocksManager)
+        public ApplicationLocksService(IApplicationLocksManager applicationLocksManager, ICommonLog logger)
         {
             _applicationLocksManager = applicationLocksManager;
+            _logger = logger;
         }
 
         public ILockingScope Acquire(string lockName, LockOwner lockOwner, LockScope lockScope, TimeSpan timeout)
@@ -23,9 +26,14 @@ namespace DoubleGis.Erm.Platform.Core.Locking
             return TryAcquireInternal(lockName, lockOwner, null, out lockingScope, lockScope);
         }
 
-        public void Release(Guid scopeId, bool directReleasing)
+        public void Release(Guid scopeId, bool isScopeCompleted)
         {
-            _applicationLocksManager.ReleaseLock(scopeId, directReleasing);
+            if (!isScopeCompleted)
+            {
+                _logger.WarnEx("Locking scope has not been explicitly completed");
+            }
+
+            _applicationLocksManager.ReleaseLock(scopeId);
         }
 
         private ILockingScope AcquireInternal(string lockName, LockOwner lockOwner, TimeSpan? timeout, LockScope lockScope)
