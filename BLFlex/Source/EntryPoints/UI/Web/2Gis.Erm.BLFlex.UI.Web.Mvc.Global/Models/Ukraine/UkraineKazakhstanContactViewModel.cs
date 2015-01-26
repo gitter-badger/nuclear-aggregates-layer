@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Aspects.Entities;

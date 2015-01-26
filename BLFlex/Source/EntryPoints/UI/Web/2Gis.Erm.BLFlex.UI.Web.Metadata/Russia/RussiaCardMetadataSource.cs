@@ -6,9 +6,9 @@ using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
-using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar;
 using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -42,10 +42,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                 new CardMetadata[]
                     {
                         CardMetadata.For<Deal>()
-                                    .MVVM.Bind<IDealViewModel>("~/Views/CreateOrUpdate/Russia/Deal.cshtml"),
+                                    .MVVM.Bind<DealViewModel>("~/Views/CreateOrUpdate/Russia/Deal.cshtml"),
 
                         CardMetadata.For<OrderPosition>()
-                                    .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Russia/OrderPosition.cshtml"),
+                                    .MVVM.Bind<OrderPositionViewModel>("~/Views/CreateOrUpdate/Russia/OrderPosition.cshtml"),
 
                         CardMetadata.For<AdvertisementElementStatus>()
                                     .WithDefaultIcon(),

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.BLCore.UI.Metadata.ViewModels.Contracts;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -35,10 +36,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Ukraine
                 new CardMetadata[]
                     {
                         CardMetadata.For<Deal>()
-                                    .MVVM.Bind<IDealViewModel>("~/Views/CreateOrUpdate/Ukraine/Deal.cshtml"),
+                                    .MVVM.Bind<DealViewModel>("~/Views/CreateOrUpdate/Ukraine/Deal.cshtml"),
 
                         CardMetadata.For<OrderPosition>()
-                                    .MVVM.Bind<IOrderPositionViewModel>("~/Views/CreateOrUpdate/Ukraine/OrderPosition.cshtml"),
+                                    .MVVM.Bind<OrderPositionViewModel>("~/Views/CreateOrUpdate/Ukraine/OrderPosition.cshtml"),
 
                         CardMetadata.For<Advertisement>()
                                     .CommonCardToolbar(),

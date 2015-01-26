@@ -147,8 +147,6 @@
     <Compile Include="Entities\Properties\EntityProperties.WithdrawalInfo.cs" />
     <Compile Include="Operations\ClientOperationIdentityIds.cs" />
     <Compile Include="Operations\Generic\CloseIdentity.cs" />
-    <Compile Include="ViewModels\Contracts\IDealViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IOrderPositionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
