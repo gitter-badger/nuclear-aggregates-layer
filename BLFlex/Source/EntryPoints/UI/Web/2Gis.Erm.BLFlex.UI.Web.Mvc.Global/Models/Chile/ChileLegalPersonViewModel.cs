@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
-    public sealed class ChileLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, IHasLegalPersonAnyProfilesAspect, IChileAdapted
+    public sealed class ChileLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, IDoesLegalPersonHaveAnyProfilesAspect, IChileAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

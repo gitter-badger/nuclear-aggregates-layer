@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata LegalPersonProfile =
             CardMetadata.For<LegalPersonProfile>()
-                        .InfoOn<LegalPersonProfile, IMainLegalPersonProfileAspect>(x => x.IsMainProfile, StringResourceDescriptor.Create(() => BLResources.LegalPersonProfileIsMain))
+                        .InfoOn<IMainLegalPersonProfileAspect>(x => x.IsMainProfile, StringResourceDescriptor.Create(() => BLResources.LegalPersonProfileIsMain))
                         .WithDefaultIcon()
                         .CommonCardToolbar();
     }

@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Price =
             CardMetadata.For<Price>()
-                        .InfoOn<Price, IDeletableAspect>(x => x.IsDeleted, StringResourceDescriptor.Create(() => BLResources.CantEditPriceWhenDeactivated))
-                        .InfoOn<Price, IPublishableAspect>(x => x.IsPublished, StringResourceDescriptor.Create(() => BLResources.CantEditPriceWhenPublished))
+                        .InfoOn<IDeletableAspect>(x => x.IsDeleted, StringResourceDescriptor.Create(() => BLResources.CantEditPriceWhenDeactivated))
+                        .InfoOn<IPublishableAspect>(x => x.IsPublished, StringResourceDescriptor.Create(() => BLResources.CantEditPriceWhenPublished))
                         .WithEntityIcon()
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Price)),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.PricePosition,

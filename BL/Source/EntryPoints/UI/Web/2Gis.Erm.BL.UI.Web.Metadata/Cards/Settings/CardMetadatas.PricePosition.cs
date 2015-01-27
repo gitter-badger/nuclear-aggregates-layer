@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata PricePosition =
             CardMetadata.For<PricePosition>()
-                        .InfoOn<PricePosition, IDeletableAspect>(x => x.IsDeleted, StringResourceDescriptor.Create(() => BLResources.CantEditDeactivatedPricePosition))
+                        .InfoOn<IDeletableAspect>(x => x.IsDeleted, StringResourceDescriptor.Create(() => BLResources.CantEditDeactivatedPricePosition))
                         .WithEntityIcon()
                         .Actions
                         .Attach(ToolbarElements.Create<PricePosition>(),

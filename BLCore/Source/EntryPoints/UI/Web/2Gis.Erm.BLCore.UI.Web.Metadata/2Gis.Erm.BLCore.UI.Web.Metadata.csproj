@@ -48,8 +48,6 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="MessageExpressionFeature.cs" />
-    <Compile Include="IMessageExpressionFeature.cs" />
     <Compile Include="IEntityViewNameProvider.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -128,9 +128,6 @@
     <Compile Include="Utils\SilverlightHtmlExtensions.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\IViewModelTypesRegistry.cs" />
-    <Compile Include="ViewModels\MessageType.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ViewModels\ValidationMessage.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\ViewModelTypesRegistry.cs" />
@@ -159,6 +156,10 @@
     <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

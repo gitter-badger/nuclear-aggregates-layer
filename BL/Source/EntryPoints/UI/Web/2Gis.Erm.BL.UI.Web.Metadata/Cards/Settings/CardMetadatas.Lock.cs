@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Lock =
             CardMetadata.For<Lock>()
-                        .ErrorOn<Lock, INewableAspect>(x => x.IsNew, StringResourceDescriptor.Create(() => BLResources.CreateOrEditLockFromUINotSupported))
+                        .ErrorOn<INewableAspect>(x => x.IsNew, StringResourceDescriptor.Create(() => BLResources.CreateOrEditLockFromUINotSupported))
                         .WithDefaultIcon()
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.LockDetail, () => ErmConfigLocalization.CrdRelLockDetails));

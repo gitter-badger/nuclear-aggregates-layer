@@ -1,3 +1,4 @@
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels

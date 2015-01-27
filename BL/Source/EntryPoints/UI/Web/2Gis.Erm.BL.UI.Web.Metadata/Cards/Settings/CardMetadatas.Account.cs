@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata Account =
             CardMetadata.For<Account>()
                         .Icon.Path(Icons.Icons.Entity.Small(EntityName.Account))
-                        .WarningOn<Account, IDeactivatableAspect>(x => !x.IsActive, StringResourceDescriptor.Create(() => BLResources.AccountIsInactiveAlertText))
-                        .ErrorOn<Account, IDeletableAspect>(x => x.IsDeleted, StringResourceDescriptor.Create(() => BLResources.AccountIsDeletedAlertText))
+                        .WarningOn<IDeactivatableAspect>(x => !x.IsActive, StringResourceDescriptor.Create(() => BLResources.AccountIsInactiveAlertText))
+                        .ErrorOn<IDeletableAspect>(x => x.IsDeleted, StringResourceDescriptor.Create(() => BLResources.AccountIsDeletedAlertText))
                         .CommonCardToolbar()
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.AccountDetail, () => ErmConfigLocalization.CrdRelAccountDetails),

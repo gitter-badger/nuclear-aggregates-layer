@@ -86,6 +86,8 @@
     <Compile Include="Config\Grids\GridMetadata.cs" />
     <Compile Include="Config\Grids\GridMetadataBuilder.cs" />
     <Compile Include="Config\Grids\MetadataGridsIdentity.cs" />
+    <Compile Include="Config\ViewModel\IMessageExpressionFeature.cs" />
+    <Compile Include="Config\ViewModel\MessageExpressionFeature.cs" />
     <Compile Include="Config\ViewModel\ViewModelParts.cs" />
     <Compile Include="Confirmations\ConfirmationManager.cs" />
     <Compile Include="DI\BlCoreUIMetadataAssembly.cs" />

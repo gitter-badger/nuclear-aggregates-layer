@@ -15,8 +15,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
         public static readonly CardMetadata AdvertisementTemplate =
             CardMetadata.For<AdvertisementTemplate>()
                         .WithDefaultIcon()
-                        .InfoOn<AdvertisementTemplate, IPublishableAspect>(x => x.IsPublished,
-                                                                                        StringResourceDescriptor.Create(() => BLResources.CanNotChangePublishedAdvertisementTemplate))
+                        .InfoOn<IPublishableAspect>(x => x.IsPublished, StringResourceDescriptor.Create(() => BLResources.CanNotChangePublishedAdvertisementTemplate))
                         .Actions
                         .Attach(ToolbarElements.Create<AdvertisementTemplate>(),
                                 ToolbarElements.Update<AdvertisementTemplate>(),

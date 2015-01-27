@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons
                 return;
             }
 
-            if (!((IHasLegalPersonAnyProfilesAspect)viewModel).HasProfiles)
+            if (!((IDoesLegalPersonHaveAnyProfilesAspect)viewModel).HasProfiles)
             {
                 viewModel.SetWarning(BLResources.MustMakeLegalPersonProfile);
             }

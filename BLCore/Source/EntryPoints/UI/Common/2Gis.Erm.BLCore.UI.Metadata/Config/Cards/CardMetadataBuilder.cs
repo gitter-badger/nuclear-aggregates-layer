@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel;
 using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -13,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
@@ -51,6 +53,27 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             where TViewModel : IAspect
         {
             AddFeatures(new MainAttributeFeature(new PropertyDescriptor<TViewModel>(propertyNameExpression)));
+            return this;
+        }
+
+        public CardMetadataBuilder<TEntity> WarningOn<T>(Expression<Func<T, bool>> expression, IStringResourceDescriptor messageDescriptor)
+            where T : IAspect
+        {
+            AddFeatures(new MessageExpressionFeature<T>(expression, messageDescriptor, MessageType.Warning));
+            return this;
+        }
+
+        public CardMetadataBuilder<TEntity> ErrorOn<T>(Expression<Func<T, bool>> expression, IStringResourceDescriptor messageDescriptor)
+            where T : IAspect
+        {
+            AddFeatures(new MessageExpressionFeature<T>(expression, messageDescriptor, MessageType.CriticalError));
+            return this;
+        }
+
+        public CardMetadataBuilder<TEntity> InfoOn<T>(Expression<Func<T, bool>> expression, IStringResourceDescriptor messageDescriptor)
+            where T : IAspect
+        {
+            AddFeatures(new MessageExpressionFeature<T>(expression, messageDescriptor, MessageType.Info));
             return this;
         }
 

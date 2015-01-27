@@ -15,7 +15,7 @@ using Machine.Specifications;
 using Moq;
 
 using It = Machine.Specifications.It;
-using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
+using MessageType = DoubleGis.Erm.Platform.UI.Metadata.UIElements.MessageType;
 
 namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Services
 {

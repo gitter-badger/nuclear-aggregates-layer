@@ -3,10 +3,10 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
-using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
-namespace DoubleGis.Erm.BLCore.UI.Web.Metadata
+namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel
 {
     public sealed class MessageExpressionFeature<T> : ExpressionFeatureAbstract<T>, IMessageExpressionFeature
         where T : IAspect

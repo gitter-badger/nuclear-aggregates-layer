@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class LegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, IHasLegalPersonAnyProfilesAspect, IRussiaAdapted
+    public sealed class LegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, IDoesLegalPersonHaveAnyProfilesAspect, IRussiaAdapted
     {
         public Guid? ReplicationCode { get; set; }
 

@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
-    public sealed class CyprusLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, IHasLegalPersonAnyProfilesAspect, ICyprusAdapted
+    public sealed class CyprusLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, IDoesLegalPersonHaveAnyProfilesAspect, ICyprusAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

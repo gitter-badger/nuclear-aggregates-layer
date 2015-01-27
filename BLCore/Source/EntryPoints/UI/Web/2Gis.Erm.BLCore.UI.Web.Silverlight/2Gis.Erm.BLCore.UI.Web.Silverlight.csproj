@@ -107,7 +107,7 @@
     <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\IViewModel.cs">
       <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\IViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\MessageType.cs">
+    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\UiElements\MessageType.cs">
       <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\MessageType.cs</Link>
     </Compile>
     <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\ValidationMessage.cs">

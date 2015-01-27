@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
-using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
+using MessageType = DoubleGis.Erm.Platform.UI.Metadata.UIElements.MessageType;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {

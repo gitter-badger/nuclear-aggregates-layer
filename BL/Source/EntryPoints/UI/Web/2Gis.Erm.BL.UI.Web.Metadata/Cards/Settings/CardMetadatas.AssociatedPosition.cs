@@ -11,14 +11,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata AssociatedPosition =
             CardMetadata.For<AssociatedPosition>()
-                        .InfoOn<AssociatedPosition, INewableAndPublishablePriceAspects>(x => x.PriceIsPublished && x.IsNew,
-                                                                                        StringResourceDescriptor.Create(() =>
-                                                                                                                        BLResources
-                                                                                                                            .CantAddAssociatedPositionToGroupWhenPriceIsPublished))
-                        .InfoOn<AssociatedPosition, INewableAndPublishablePriceAspects>(x => x.PriceIsPublished && !x.IsNew,
-                                                                                        StringResourceDescriptor.Create(() =>
-                                                                                                                        BLResources
-                                                                                                                            .CantEditAssociatedPositionInGroupWhenPriceIsPublished))
+                        .InfoOn<INewableAndPublishablePriceAspects>(x => x.PriceIsPublished && x.IsNew,
+                                                                    StringResourceDescriptor.Create(() =>
+                                                                                                    BLResources
+                                                                                                        .CantAddAssociatedPositionToGroupWhenPriceIsPublished))
+                        .InfoOn<INewableAndPublishablePriceAspects>(x => x.PriceIsPublished && !x.IsNew,
+                                                                    StringResourceDescriptor.Create(() =>
+                                                                                                    BLResources
+                                                                                                        .CantEditAssociatedPositionInGroupWhenPriceIsPublished))
                         .WithDefaultIcon()
                         .CommonCardToolbar();
     }

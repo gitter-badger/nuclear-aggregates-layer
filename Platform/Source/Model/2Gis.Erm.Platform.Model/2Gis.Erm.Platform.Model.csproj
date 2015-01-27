@@ -63,7 +63,7 @@
     <Compile Include="Aspects\Entities\IAdvertisementElementVerificationStateAspect.cs" />
     <Compile Include="Aspects\Entities\ICompositePositionAspect.cs" />
     <Compile Include="Aspects\Entities\IClosedForAscertainmentAspect.cs" />
-    <Compile Include="Aspects\Entities\IHasLegalPersonAnyProfilesAspect.cs" />
+    <Compile Include="Aspects\Entities\IDoesLegalPersonHaveAnyProfilesAspect.cs" />
     <Compile Include="Aspects\Entities\IContactSalutationsAspect.cs" />
     <Compile Include="Aspects\Entities\IContactAspect.cs" />
     <Compile Include="Aspects\Entities\IDeletablePriceAspect.cs" />

@@ -113,6 +113,7 @@
     <Compile Include="UIElements\Features\IUIElementFeature.cs" />
     <Compile Include="UIElements\Features\SecuredByEntityPrivelegeFeature.cs" />
     <Compile Include="UIElements\Features\SecuredByFunctionalPrivelegeFeature.cs" />
+    <Compile Include="UIElements\MessageType.cs" />
     <Compile Include="UIElements\UIElementMetadata.cs" />
     <Compile Include="UIElements\UIElementMetadataBuilder.cs" />
     <Compile Include="UIElements\Features\DisableExpressionFeature.cs" />
