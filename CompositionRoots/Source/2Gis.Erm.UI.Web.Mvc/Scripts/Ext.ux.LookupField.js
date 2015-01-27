@@ -402,9 +402,8 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         this.filter.dom.value = "";
 
         var queryString = "";
-        if (filter) {
-            queryString += (queryString ? "&" : "?") + "search=" + encodeURIComponent(filter);
-        }
+
+        queryString = this.createURIWithNewParameter(queryString, "search", filter);
 
         if (this.parentEntityName !== "None" || this.parentIdPattern !== "") {
 
@@ -418,28 +417,21 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             var ptype = window.Ext.getDom("ViewConfig_EntityName").value;
             if (pid && ptype)
             {
-                queryString += (queryString ? "&" : "?") + "pType=" + ptype;
-                queryString += (queryString ? "&" : "?") + "pId=" + pid;
+                queryString = this.createURIWithNewParameter(queryString, "pType", ptype);
+                queryString = this.createURIWithNewParameter(queryString, "pId", pid);
             }
         }
 
-        if (this.showReadOnlyCard) {
-            queryString += (queryString ? "&" : "?") + "ReadOnly=" + this.showReadOnlyCard;
-        }
+        queryString = this.createURIWithNewParameter(queryString, "ReadOnly", this.showReadOnlyCard);
         
         if (this.extendedInfo)
         {
             var filterExpr = this.prepareFilterExpression(this.extendedInfo);
-            if (filterExpr)
-            {
-                queryString += (queryString ? "&" : "?") + "extendedInfo=" + encodeURIComponent(filterExpr);
-            }
+            queryString = this.createURIWithNewParameter(queryString, "extendedInfo", filterExpr);
         }
-        if (this.additionalSortField && this.additionalSortFieldDir)
-        {
-            queryString += (queryString ? "&" : "?") + "additionalSortField=" + "IsOwner";
-            queryString += (queryString ? "&" : "?") + "additionalSortFieldDir=" + "DESC";
-        }
+
+        queryString = this.createURIWithNewParameter(queryString, "defaultSortFields", this.defaultSortFields);
+        queryString = this.createURIWithNewParameter(queryString, "defaultSortFieldsDirs", this.defaultSortFieldsDirs);
         
 
         var url = this.searchUrl + queryString;
@@ -460,6 +452,14 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
 
         this.fireEvent("afterquery", this);
         this.fireEvent("afterselect", this);
+    },
+    createURIWithNewParameter: function (queryString, name, value)
+    {
+        if (value)
+        {
+            queryString += (queryString ? "&" : "?") + name+ "=" + encodeURIComponent(value);
+        }
+        return queryString;
     },
     imageItemError: function ()
     {
