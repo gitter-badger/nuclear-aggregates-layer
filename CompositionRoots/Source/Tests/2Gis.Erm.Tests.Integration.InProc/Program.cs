@@ -8,7 +8,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
@@ -18,6 +17,8 @@ using log4net.Appender;
 using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc
 {
@@ -140,13 +141,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
         private static void PrintOperationEntitiesMap()
         {
             var operationEntitiesMap =
-                EntityName.All
+                EntityType.Instance.All()
                           .GetDecomposed()
                           .Where(x => !x.IsVirtual())
                           .Select(x => x.ToEntitySet())
                           .ToDictionary(entitySet => entitySet.Entities.EvaluateHash());
 
-            var openEntitiesSet2Placeholders = new EntitySet(EntityName.All, EntityName.All);
+            var openEntitiesSet2Placeholders = new EntitySet(EntityType.Instance.All(), EntityType.Instance.All());
             foreach (var entitySet in openEntitiesSet2Placeholders.ToConcreteSets())
             {
                 operationEntitiesMap.Add(entitySet.Entities.EvaluateHash(), entitySet);

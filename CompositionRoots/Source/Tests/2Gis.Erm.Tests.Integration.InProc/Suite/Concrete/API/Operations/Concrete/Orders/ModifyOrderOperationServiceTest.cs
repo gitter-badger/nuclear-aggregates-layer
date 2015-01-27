@@ -1,9 +1,7 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
@@ -11,6 +9,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Orders
 {
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
         protected override OrdinaryTestResult ExecuteWithModel(Order modelEntity)
         {
-            var domainEntityDto = (OrderDomainEntityDto)_getDomainEntityDtoService.GetDomainEntityDto(modelEntity.Id, false, null, EntityName.None, null);
+            var domainEntityDto = (OrderDomainEntityDto)_getDomainEntityDtoService.GetDomainEntityDto(modelEntity.Id, false, null, EntityType.Instance.None(), null);
 
             domainEntityDto.EndDistributionDatePlan = domainEntityDto.EndDistributionDatePlan.AddMonths(1);
 

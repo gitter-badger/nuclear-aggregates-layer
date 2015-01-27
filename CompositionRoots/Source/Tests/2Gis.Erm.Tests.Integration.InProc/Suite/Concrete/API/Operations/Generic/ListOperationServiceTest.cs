@@ -8,6 +8,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.BDD;
 
 using FluentAssertions;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {
     public sealed class ListOperationServiceTest : BDDIntegrationTestBase<ListOperationServiceTest.ListingContext, OrdinaryTestResult>
@@ -22,7 +24,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
 
         public ListOperationServiceTest(IOperationServicesManager operationServicesManager)
         {
-            _clientListingGenericEntityService = operationServicesManager.GetListEntityService(EntityName.AccountDetail);
+            _clientListingGenericEntityService = operationServicesManager.GetListEntityService(EntityType.Instance.AccountDetail());
         }
 
         protected override IEnumerable<BDDTestRunConfig<ListingContext, OrdinaryTestResult>> Given()

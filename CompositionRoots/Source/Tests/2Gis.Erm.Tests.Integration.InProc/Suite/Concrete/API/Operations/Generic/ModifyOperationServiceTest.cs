@@ -14,6 +14,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {
     public sealed class ModifyOperationServiceTest : UseModelEntityTestBase<LegalPerson>
@@ -48,7 +50,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
 
         protected override OrdinaryTestResult ExecuteWithModel(LegalPerson modelEntity)
         {
-            var domainEntityDto = (LegalPersonDomainEntityDto)_getDomainEntityDtoService.GetDomainEntityDto(modelEntity.Id, false, null, EntityName.None, null);
+            var domainEntityDto = (LegalPersonDomainEntityDto)_getDomainEntityDtoService.GetDomainEntityDto(modelEntity.Id, false, null, EntityType.Instance.None(), null);
 
             domainEntityDto.ShortName = "test";
 

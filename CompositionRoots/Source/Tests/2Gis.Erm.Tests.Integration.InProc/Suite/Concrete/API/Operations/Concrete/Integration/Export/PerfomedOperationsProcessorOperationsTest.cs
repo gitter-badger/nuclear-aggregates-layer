@@ -6,6 +6,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Integration.Export
 {
     public sealed class PerfomedOperationsProcessorOperationsTest : IIntegrationTest
@@ -21,10 +23,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         {
             var flowDescription = new FlowDescription
                 {
-                    EntityName = EntityName.Order,
+                    EntityName = EntityType.Instance.Order(),
                     FlowName = "flowOrders",
                     SchemaResourceName = "flowOrders_Invoice",
-                    IntegrationEntityName = EntityName.ExportFlowOrdersInvoice
+                    IntegrationEntityName = EntityType.Instance.ExportFlowOrdersInvoice()
                 };
 
             //TestExportOperations(flowDescription);

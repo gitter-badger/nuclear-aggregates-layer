@@ -10,6 +10,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {
     public sealed class AppendOperationServiceTest : IIntegrationTest
@@ -50,9 +52,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
             var appendParams = new AppendParams
                 {
                     AppendedId = appendInfo.NotAppended.First(),
-                    AppendedType = EntityName.OrganizationUnit,
+                    AppendedType = EntityType.Instance.OrganizationUnit(),
                     ParentId = appendInfo.User.Id,
-                    ParentType = EntityName.User
+                    ParentType = EntityType.Instance.User()
                 };
 
             return Result

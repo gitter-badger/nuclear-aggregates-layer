@@ -7,6 +7,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {
     public sealed class ActionHistoryOperationServiceTest : UseModelEntityTestBase<Client>
@@ -24,7 +26,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
         protected override OrdinaryTestResult ExecuteWithModel(Client modelEntity)
         {
             return Result
-                .When(_actionsHistoryOperationService.GetActionHistory(EntityName.Client, modelEntity.Id))
+                .When(_actionsHistoryOperationService.GetActionHistory(EntityType.Instance.Client(), modelEntity.Id))
                 .Then(history => history.Should().NotBeNull());
         }
     }
