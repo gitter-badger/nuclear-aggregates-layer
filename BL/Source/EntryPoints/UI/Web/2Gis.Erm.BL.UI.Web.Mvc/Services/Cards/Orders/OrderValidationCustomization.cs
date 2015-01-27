@@ -2,14 +2,16 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public sealed class OrderValidationCustomization : IViewModelCustomization<ICustomizableOrderViewModel>
+    public sealed class OrderValidationCustomization : IViewModelCustomization<EntityViewModelBase<Order>>
     {
         private readonly IAPIOrderValidationServiceSettings _orderValidationServiceSettings;
 
@@ -25,11 +27,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             _orderValidationServiceSettings = orderValidationServiceSettings;
         }
 
-        public void Customize(ICustomizableOrderViewModel viewModel, ModelStateDictionary modelState)
+        public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
-            viewModel.OrderValidationServiceUrl = _orderValidationServiceSettings.RestUrl;
+            ((IOrderValidationServiceAspect)viewModel).OrderValidationServiceUrl = _orderValidationServiceSettings.RestUrl;
 
-            var disableOrderValidation = !_stepsWithAvailableValidation.Contains((OrderState)viewModel.WorkflowStepId);
+            var disableOrderValidation = !_stepsWithAvailableValidation.Contains(((IOrderWorkflowAspect)viewModel).WorkflowStepId);
 
             if (disableOrderValidation)
             {

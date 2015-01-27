@@ -1,6 +1,5 @@
 using System;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -17,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class OrderPositionViewModel : EntityViewModelBase<OrderPosition>, ICustomizableOrderPositionViewModel
+    public sealed class OrderPositionViewModel : EntityViewModelBase<OrderPosition>
     {
         private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings() { Converters = { new Int64ToStringConverter() } };
 

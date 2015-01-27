@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Aspects
+﻿namespace DoubleGis.Erm.Platform.Model.Aspects.Entities
 {
     public interface IBaseCurrencyAspect : IAspect
     {        

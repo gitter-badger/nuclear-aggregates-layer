@@ -1,14 +1,15 @@
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms
 {
-    public sealed class FirmIsInactiveCustomization : IViewModelCustomization<ICustomizableFirmViewModel>
+    public sealed class FirmIsInactiveCustomization : IViewModelCustomization<IEntityViewModelBase>
     {
-        public void Customize(ICustomizableFirmViewModel entityViewModel, ModelStateDictionary modelState)
+        public void Customize(IEntityViewModelBase entityViewModel, ModelStateDictionary modelState)
         {
             if (entityViewModel.IsDeleted)
             {
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms
             {
                 entityViewModel.SetWarning(BLResources.FirmIsInactiveAlertText);
             }
-            else if (entityViewModel.ClosedForAscertainment)
+            else if (((IClosedForAscertainmentAspect)entityViewModel).ClosedForAscertainment)
             {
                 entityViewModel.SetWarning(BLResources.FirmIsClosedForAscertainmentAlertText);
             }

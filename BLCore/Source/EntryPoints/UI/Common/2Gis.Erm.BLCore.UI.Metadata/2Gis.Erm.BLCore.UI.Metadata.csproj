@@ -50,6 +50,9 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Aspects\Entities\Aggregations\INewableAndPublishablePriceAspects.cs" />
+    <Compile Include="Aspects\Entities\IOrderDatesAspect.cs" />
+    <Compile Include="Aspects\Entities\IOrderDirectionAspect.cs" />
+    <Compile Include="Aspects\Entities\IInspectorAspect.cs" />
     <Compile Include="Config\Cards\ICardSettingsProvider.cs" />
     <Compile Include="Config\Cards\ReadOnlyFeature.cs" />
     <Compile Include="Config\Cards\ShowAdminPartFeature.cs" />

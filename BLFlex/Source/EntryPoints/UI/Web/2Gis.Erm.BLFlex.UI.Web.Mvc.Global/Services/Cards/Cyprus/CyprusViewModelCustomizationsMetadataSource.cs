@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
                         ViewModelCustomizationsMetadata.For<LegalPersonProfile, CyprusLegalPersonProfileViewModel>()
                                                        .Use<CyprusLegalPersonProfileDisableDocumentsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<Order, ICustomizableOrderViewModel>()
+                        ViewModelCustomizationsMetadata.For<Order, EntityViewModelBase<Order>>()
                                                        .Use<MultiCulturePrintFormsCustomization>(),
                     };
 

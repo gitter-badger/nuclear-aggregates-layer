@@ -183,11 +183,6 @@
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
     <Compile Include="Models\AdvertisementElementModels\FasCommentViewModelHelper.cs" />
-    <Compile Include="Models\Contracts\ICustomizableContactViewModel.cs" />
-    <Compile Include="Models\Contracts\ICustomizableFirmViewModel.cs" />
-    <Compile Include="Models\Contracts\ICustomizableOrderPositionViewModel.cs" />
-    <Compile Include="Models\Contracts\ICustomizableLegalPersonViewModel.cs" />
-    <Compile Include="Models\Contracts\ICustomizableOrderViewModel.cs" />
     <Compile Include="Models\Contracts\OrderViewModelExtensions.cs" />
     <Compile Include="Models\ContributionTypeViewModel.cs" />
     <Compile Include="Models\CopyNewPriceViewModel.cs" />

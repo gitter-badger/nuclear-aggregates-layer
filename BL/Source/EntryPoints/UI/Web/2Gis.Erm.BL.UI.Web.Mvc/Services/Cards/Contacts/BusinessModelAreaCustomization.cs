@@ -1,12 +1,13 @@
 ﻿using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.Model.Aspects;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Contacts
 {
-    public sealed class BusinessModelAreaCustomization : IViewModelCustomization<ICustomizableContactViewModel>
+    public sealed class BusinessModelAreaCustomization : IViewModelCustomization<IEntityViewModelBase>
     {
         private readonly IBusinessModelSettings _businessModelSettings;
 
@@ -15,9 +16,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Contacts
             _businessModelSettings = businessModelSettings;
         }
 
-        public void Customize(ICustomizableContactViewModel viewModel, ModelStateDictionary modelState)
+        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            viewModel.BusinessModelArea = _businessModelSettings.BusinessModel.ToString();
+            ((IBusinessModelAreaAspect)viewModel).BusinessModelArea = _businessModelSettings.BusinessModel.ToString();
         }
     }
 }

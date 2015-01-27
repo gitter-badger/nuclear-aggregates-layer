@@ -1,13 +1,13 @@
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 {
-    public sealed class InitOrderPositionDiscountCustomization : IViewModelCustomization<ICustomizableOrderPositionViewModel>
+    public sealed class InitOrderPositionDiscountCustomization : IViewModelCustomization<OrderPositionViewModel>
     {
         private readonly IPublicService _publicService;
 
@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
             _publicService = publicService;
         }
 
-        public void Customize(ICustomizableOrderPositionViewModel viewModel, ModelStateDictionary modelState)
+        public void Customize(OrderPositionViewModel viewModel, ModelStateDictionary modelState)
         {
             if (viewModel.IsNew)
             {

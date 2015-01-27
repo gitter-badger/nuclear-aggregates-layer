@@ -1,15 +1,19 @@
 using System;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public sealed class PrivilegesCustomization : IViewModelCustomization<ICustomizableOrderViewModel>
+    public sealed class PrivilegesCustomization : IViewModelCustomization<EntityViewModelBase<Order>>
     {
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -20,20 +24,20 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             _userContext = userContext;
         }
 
-        public void Customize(ICustomizableOrderViewModel viewModel, ModelStateDictionary modelState)
+        public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
             var currentUserCode = _userContext.Identity.Code;
             Func<FunctionalPrivilegeName, bool> functionalPrivilegeValidator =
                 privilegeName => _functionalAccessService.HasFunctionalPrivilegeGranted(privilegeName, currentUserCode);
 
-            viewModel.CurrenctUserCode = currentUserCode;
+            ((IOrderSecurityAspect)viewModel).CurrenctUserCode = currentUserCode;
 
-            viewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
-            viewModel.HasOrderDocumentsDebtChecking =
-                _functionalAccessService.HasOrderChangeDocumentsDebtAccess(viewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);
+            ((IOrderSecurityAspect)viewModel).CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
+            ((IOrderSecurityAspect)viewModel).HasOrderDocumentsDebtChecking =
+                _functionalAccessService.HasOrderChangeDocumentsDebtAccess(((IOrderDirectionAspect)viewModel).SourceOrganizationUnit.Key ?? 0, currentUserCode);
 
             // Если есть права и нет сборки в настоящий момент 
-            viewModel.HasOrderDocumentsDebtChecking &= !viewModel.IsWorkflowLocked;
+            ((IOrderSecurityAspect)viewModel).HasOrderDocumentsDebtChecking &= !((IOrderWorkflowLockableAspect)viewModel).IsWorkflowLocked;
         }
     }
 }

@@ -1,11 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -18,7 +19,21 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureOrderViewModel : EntityViewModelBase<Order>, INumberAspect, ICustomizableOrderViewModel, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
+    public sealed class MultiCultureOrderViewModel : EntityViewModelBase<Order>, 
+                                                     INumberAspect, 
+                                                     IOrderWorkflowLockableAspect, 
+                                                     IOrderDirectionAspect,
+                                                     IInspectorAspect, 
+                                                     IOrderDatesAspect,
+                                                     IOrderValidationServiceAspect,
+                                                     IOrderSecurityAspect,
+                                                     ITerminatableAspect, 
+                                                     ICzechAdapted, 
+                                                     ICyprusAdapted,
+                                                     IChileAdapted,
+                                                     IUkraineAdapted, 
+                                                     IEmiratesAdapted, 
+                                                     IKazakhstanAdapted
     {
         [Dependency(DependencyType.Hidden, "RegionalNumber", @"Ext.getDom('Id').value==0 ||
                                                              (!Ext.getCmp('SourceOrganizationUnit').getValue() || !Ext.getCmp('DestinationOrganizationUnit').getValue()) ||

@@ -1,14 +1,15 @@
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 {
-    public sealed class OrderPositionRateCustomization : IViewModelCustomization<ICustomizableOrderPositionViewModel>
+    public sealed class OrderPositionRateCustomization : IViewModelCustomization<OrderPositionViewModel>
     {
-        public void Customize(ICustomizableOrderPositionViewModel viewModel, ModelStateDictionary modelState)
+        public void Customize(OrderPositionViewModel viewModel, ModelStateDictionary modelState)
         {
             if (viewModel.IsNew)
             {

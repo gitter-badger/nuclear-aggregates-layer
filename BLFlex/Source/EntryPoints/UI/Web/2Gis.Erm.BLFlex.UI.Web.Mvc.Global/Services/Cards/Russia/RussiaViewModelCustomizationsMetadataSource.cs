@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Clients;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.LegalPersonProfiles;
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                         ViewModelCustomizationsMetadata.For<LegalPersonProfile, LegalPersonProfileViewModel>()
                                                        .Use<LegalPersonProfileDisableDocumentsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<Order, ICustomizableOrderViewModel>()
+                        ViewModelCustomizationsMetadata.For<Order, EntityViewModelBase<Order>>()
                                                        .Use<PrintFormsCustomization>(),
                     };
 

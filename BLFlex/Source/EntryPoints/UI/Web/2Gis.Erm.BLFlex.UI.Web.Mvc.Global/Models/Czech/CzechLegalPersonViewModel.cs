@@ -1,7 +1,7 @@
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 {
-    public sealed class CzechLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, ICustomizableLegalPersonViewModel, ICzechAdapted
+    public sealed class CzechLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, IHasLegalPersonAnyProfilesAspect, ICzechAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetadata.For<Client, IEntityViewModelBase>()
                                                        .Use<WarnLinkToAdvAgencyExistsVmCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<Contact, ICustomizableContactViewModel>()
+                        ViewModelCustomizationsMetadata.For<Contact, IEntityViewModelBase>()
                                                        .Use<BusinessModelAreaCustomization>()
                                                        .Use<ContactSalutationsCustomization>(),
 
@@ -68,10 +68,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .UseOrdered<DeniedPositionsPriceIsPublishedCustomization>()
                                                        .UseOrdered<InactiveDeniedPositionsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<Firm, ICustomizableFirmViewModel>()
+                        ViewModelCustomizationsMetadata.For<Firm, IEntityViewModelBase>()
                                                        .Use<FirmIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<LegalPerson, ICustomizableLegalPersonViewModel>()
+                        ViewModelCustomizationsMetadata.For<LegalPerson, IEntityViewModelBase>()
                                                        .UseOrdered<LegalPersonDoesntHaveAnyProfilesCustomization>()
                                                        .UseOrdered<LegalPersonIsInactiveCustomization>(),
 
@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .Use<LocalizeLockDetailsPriceCustomization>()
                                                        .Use<NewLockDetailCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<Order, ICustomizableOrderViewModel>()
+                        ViewModelCustomizationsMetadata.For<Order, EntityViewModelBase<Order>>()
                                                        .Use<CheckIfCanSwitchToAccountCustomization>()
                                                        .Use<OrderValidationCustomization>()
                                                        .Use<InspectorNameCustomization>()
@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .Use<SignupDateCustomization>()
                                                        .UseOrdered<InactiveOrderCustomization>(),
 
-                        ViewModelCustomizationsMetadata.For<OrderPosition, ICustomizableOrderPositionViewModel>()
+                        ViewModelCustomizationsMetadata.For<OrderPosition, OrderPositionViewModel>()
                                                        .Use<MoneySignificantDigitsNumberCustomization>()
                                                        .Use<HideChangeBindingObjectsButtonCustomization>()
                                                        .Use<InitOrderPositionDiscountCustomization>()

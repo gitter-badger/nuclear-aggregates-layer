@@ -8,10 +8,11 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public sealed class CheckIfCanSwitchToAccountCustomization : IViewModelCustomization<IEntityViewModelBase>
+    public sealed class CheckIfCanSwitchToAccountCustomization : IViewModelCustomization<EntityViewModelBase<Order>>
     {
         private readonly IAccountReadModel _accountReadModel;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             _userContext = userContext;
         }
 
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
             if (CanSwitchToAccount(viewModel.Id))
             {
