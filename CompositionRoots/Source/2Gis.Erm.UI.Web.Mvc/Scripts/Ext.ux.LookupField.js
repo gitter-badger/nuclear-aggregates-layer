@@ -410,8 +410,8 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             // Вместо очистки флага 'filterToParent', которая тут была раньше, 
             // явно указываем null, если в лукапе ничего не выбрано (ERM-3576, ERM-3832)
             var parentId = window.Ext.getDom(this.parentIdPattern).value || "null";
-            queryString += (queryString ? "&" : "?") + "pType=" + this.parentEntityName;
-            queryString += (queryString ? "&" : "?") + "pId=" + parentId;
+            queryString = this.createURIWithNewParameter(queryString, "pType", this.parentEntityName);
+            queryString = this.createURIWithNewParameter(queryString, "pId", parentId);
         } else if (window.Ext.getDom("ViewConfig_Id") && window.Ext.getDom("ViewConfig_EntityName")) {
             var pid = window.Ext.getDom("ViewConfig_Id").value;
             var ptype = window.Ext.getDom("ViewConfig_EntityName").value;
