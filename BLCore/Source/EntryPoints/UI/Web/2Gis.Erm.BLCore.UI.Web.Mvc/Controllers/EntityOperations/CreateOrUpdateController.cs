@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
             var model = GetViewModel(actualEntityId, actualReadOnly, pId, pType, extendedInfo);
             SetViewModelProperties(model, actualReadOnly, pId, pType, extendedInfo);
-            CustomizeModelAfterMetadataReady(model);
+            _viewModelCustomizationService.CustomizeViewModel<TModel, TEntity>(model, ModelState);
             var viewName = _entityViewNameProvider.GetView<TModel, TEntity>();
             return View(viewName, model);
         }
@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             finally
             {
                 SetViewModelProperties(model, model.ViewConfig.ReadOnly, model.ViewConfig.PId, model.ViewConfig.PType, model.ViewConfig.ExtendedInfo);
-                CustomizeModelAfterMetadataReady(model);
+                _viewModelCustomizationService.CustomizeViewModel<TModel, TEntity>(model, ModelState);
             }
 
             UpdateValidationMessages(model);
@@ -129,6 +129,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             
             if (model.Id == 0)
             {   
+                // Здесь фактически нанооптимизация под конкретного клиента - имеющегося в данный момент (01.2015) extjs webclient. 
+                // Суть оптимизации - не тратим время на процессинг viewmodel, так как знаем, что в нашем конкретном клиенте все что нужно из этой view model - это факт её прихода от сервера, и значение id в нем,
+                // далее в любом случае view будет перезагружена через подмену window.location => пойдем по части GET update usecase и в любом случае будем процессить viewmodel. 
+                // Однако в случае разных клиентов, разделения на create и update, трансформации web приложения в restapi могут возникнуть вопросы.
                 model.Id = entityId;
             }
             else
@@ -258,11 +262,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             model.ViewConfig.ReadOnly = securityReadonlyMode || baseReadonlyMode || readOnly;
 
             model.ViewConfig.CardSettings = _cardSettingsProvider.GetCardSettings<TEntity>(UserContext.Profile.UserLocaleInfo.UserCultureInfo);
-        }
-
-        private void CustomizeModelAfterMetadataReady(TModel model)
-        {
-            _viewModelCustomizationService.CustomizeViewModel<TModel, TEntity>(model, ModelState);
         }
 
         private void UpdateValidationMessages(TModel model)
