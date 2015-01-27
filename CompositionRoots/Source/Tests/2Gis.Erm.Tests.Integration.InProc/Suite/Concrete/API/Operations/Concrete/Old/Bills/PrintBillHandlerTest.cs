@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         {
             request = new PrintBillRequest
                 {
-                    Id = modelEntity.Id
+                    BillId = modelEntity.Id
                 };
 
             return true;

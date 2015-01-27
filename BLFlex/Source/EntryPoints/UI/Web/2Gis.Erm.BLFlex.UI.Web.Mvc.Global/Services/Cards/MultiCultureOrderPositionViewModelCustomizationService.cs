@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -19,11 +21,19 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
     {
         private readonly IPublicService _publicService;
         private readonly IBusinessModelSettings _businessModelSettings;
+        private readonly IOrderReadModel _orderReadModel;
+        private readonly ICanChangeOrderPositionBindingObjectsDetector _canChangeOrderPositionBindingObjectsDetector;
 
-        public MultiCultureOrderPositionViewModelCustomizationService(IPublicService publicService, IBusinessModelSettings businessModelSettings)
+        public MultiCultureOrderPositionViewModelCustomizationService(
+            IBusinessModelSettings businessModelSettings,
+            IOrderReadModel orderReadModel,
+            ICanChangeOrderPositionBindingObjectsDetector canChangeOrderPositionBindingObjectsDetector,
+            IPublicService publicService)
         {
             _publicService = publicService;
             _businessModelSettings = businessModelSettings;
+            _orderReadModel = orderReadModel;
+            _canChangeOrderPositionBindingObjectsDetector = canChangeOrderPositionBindingObjectsDetector;
         }
 
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
@@ -31,14 +41,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             var entityViewModel = (MultiCultureOrderPositionViewModel)viewModel;
 
             entityViewModel.MoneySignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber;
-
-            // логика удаления кнопки не вписывается в стандартную схему.
-            var checkResponse = (CheckIsBindingObjectChangeAllowedResponse)
-                                _publicService.Handle(new CheckIsBindingObjectChangeAllowedRequest
-                                    {
-                                        SkipAdvertisementCountCheck = true,
-                                        OrderPositionId = entityViewModel.Id,
-                                    });
 
             if (entityViewModel.IsNew)
             {
@@ -49,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                     .DiscountPercent;
             }
 
-            if (!checkResponse.IsChangeAllowed)
+            if (entityViewModel.IsNew || !IsBindingObjectChangeAllowed(entityViewModel.Id))
             {
                 entityViewModel.ViewConfig.CardSettings.CardToolbar = entityViewModel.ViewConfig.CardSettings.CardToolbar
                                                                                      .Where(
@@ -69,6 +71,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             {
                 entityViewModel.SetWarning(BLResources.CannotEditOrderPositionSinceReleaseIsInProgress);
             }
+        }
+
+        private bool IsBindingObjectChangeAllowed(long orderPositionId)
+        {
+            var orderPositionAdvertisementLinksInfo = _orderReadModel.GetOrderPositionAdvertisementLinksInfo(orderPositionId);
+
+            string report;
+            return _canChangeOrderPositionBindingObjectsDetector.CanChange(
+                orderPositionAdvertisementLinksInfo.OrderWorkflowState,
+                orderPositionAdvertisementLinksInfo.BindingType,
+                true,
+                null,
+                null,
+                out report);
         }
     }
 }

@@ -10,10 +10,11 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
     static class Create
     {
         const long LegalPersonId = 1;
+        const long LegalPersonProfileId = 2;
 
         public static IFinder FinderForPrintForms()
         {
-            var legalPersonProfile = new LegalPersonProfile();
+            var legalPersonProfile = new LegalPersonProfile { Id = LegalPersonProfileId };
             var legalPerson = new LegalPerson { Id = LegalPersonId, LegalPersonProfiles = new[] { legalPersonProfile } };
             var branchOffice = new BranchOffice();
             var branchOfficeOrganizationUnit = new BranchOfficeOrganizationUnit { BranchOffice = branchOffice };
@@ -21,6 +22,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                 {
                     LegalPerson = legalPerson,
                     LegalPersonId = legalPerson.Id,
+                    LegalPersonProfileId = legalPersonProfile.Id,
                     BranchOfficeOrganizationUnit = branchOfficeOrganizationUnit,
                 };
 

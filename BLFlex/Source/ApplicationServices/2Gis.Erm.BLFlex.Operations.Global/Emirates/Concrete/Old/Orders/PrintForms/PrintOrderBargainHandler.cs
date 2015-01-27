@@ -6,6 +6,7 @@ using System.Net.Mime;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -42,16 +43,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
         protected override Response Handle(PrintOrderBargainRequest request)
         {
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetLegalPersonProfileIdByOrder(request.OrderId.Value);
 
             if (bargainId == null)
             {
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
             }
 
+            if (legalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             var bargainInfo =
                 _finder.Find(Specs.Find.ById<Bargain>(bargainId.Value))
                        .Select(x => new
-                           {
+            {
                                BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
                                BargainNumber = x.Number,
                            })
@@ -62,8 +69,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                 throw new EntityNotFoundException(typeof(Bargain), bargainId.Value);
             }
 
-            var legalPersonProfileId = request.LegalPersonProfileId;
-            var printdata = GetPrintData(bargainId.Value, legalPersonProfileId);
+            var printdata = GetPrintData(bargainId.Value, legalPersonProfileId.Value);
             var streamDictionary = DocumentVariants.Select(variant => PrintDocument(printdata,
                                                                                     bargainInfo.BranchOfficeOrganizationUnitId,
                                                                                     variant.Item2,
@@ -132,7 +138,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                     legalPersonProfile.BankName,
                     legalPersonProfile.SWIFT,
                     legalPersonProfile.IBAN,
-                    legalPersonProfile.AdditionalPaymentElements,
+                    legalPersonProfile.PaymentEssentialElements,
                     legalPersonProfile.Parts.OfType<EmiratesLegalPersonProfilePart>().Single().Phone,
                 }
             };

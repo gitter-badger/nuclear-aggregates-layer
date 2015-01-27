@@ -9,11 +9,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 {
     public class StubUnitOfWork : UnitOfWork
     {
-        private readonly IDictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IDomainContextSaveStrategy, IAggregateRepository>>
-            _factories;
+        private readonly IDictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IAggregateRepository>> _factories;
 
         public StubUnitOfWork(
-            IDictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IDomainContextSaveStrategy, IAggregateRepository>> factories,
+            IDictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IAggregateRepository>> factories,
             IReadDomainContext readDomainContext,
             IModifiableDomainContextFactory modifiableDomainContextFactory,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
@@ -23,27 +22,22 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             _factories = factories;
         }
 
-        #region Overrides of UnitOfWork
-
         protected override object CreateRepository(Type aggregateRepositoryType,
-                                                   bool createByConcreteType,
                                                    IReadDomainContextProvider readDomainContextProvider,
-                                                   IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                   IDomainContextSaveStrategy saveStrategy)
+                                                   IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
-            Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IDomainContextSaveStrategy, IAggregateRepository> factory;
+            Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IAggregateRepository> factory;
             if (!_factories.TryGetValue(aggregateRepositoryType, out factory))
             {
                 throw new NotSupportedException("Specified type of aggregate repository is not supported, because factory method is not defined");
             }
 
-            return factory(readDomainContextProvider, modifiableDomainContextProvider, saveStrategy);
+            return factory(readDomainContextProvider, modifiableDomainContextProvider);
         }
 
         protected override object CreateConsumer(Type consumerType,
                                                  IReadDomainContextProvider readDomainContextProvider,
-                                                 IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                 IDomainContextSaveStrategy saveStrategy)
+                                                 IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
             throw new NotSupportedException();
         }
@@ -60,14 +54,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 
         protected override object CreatePersistenceService(Type persistenceServiceType,
                                                            IReadDomainContextProvider readDomainContextProvider,
-                                                           IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                           IDomainContextSaveStrategy saveStrategy)
-        
+                                                           IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
             throw new NotSupportedException();
         }
-
-        #endregion
     }
 }
-
