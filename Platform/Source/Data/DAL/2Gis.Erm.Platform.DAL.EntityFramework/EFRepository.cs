@@ -59,6 +59,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             var entityKey = entity as IEntityKey;
             if (entityKey != null)
             {
+                // FIXME {all, 27.01.2015}: Скорее всего правильнее будет регистрировать изменения persistent entity. Здесь и ниже оставлен старый вариант, чтобы не вносить лишнюю регрессию
                 _changesRegistryProvider.ChangesRegistry.Added<TDomainEntity>(entityKey.Id);
             }
         }
@@ -113,13 +114,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             ThrowIfEntityIsNull(entity, "entity");
 
+            SetEntityAuditableInfo(entity, false);
+            SetEntityDeleteableInfo(entity);
             var persistentEntity = ConvertToPersistent(entity);
             if (persistentEntity is IDeletableEntity)
             {
-                SetEntityAuditableInfo(persistentEntity, false);
-
-                SetEntityDeleteableInfo(persistentEntity);
-
                 _domainContext.Value.Update(entity);
             }
             else
@@ -141,11 +140,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             var entityIds = new List<long>();
             foreach (var entity in entities)
             {
+                SetEntityAuditableInfo(entity, false);
+                SetEntityDeleteableInfo(entity);
                 var persistentEntity = ConvertToPersistent(entity);
                 if (persistentEntity is IDeletableEntity)
                 {
-                    SetEntityAuditableInfo(persistentEntity, false);
-                    SetEntityDeleteableInfo(persistentEntity);
                     _domainContext.Value.Update(persistentEntity);
                 }
                 else
