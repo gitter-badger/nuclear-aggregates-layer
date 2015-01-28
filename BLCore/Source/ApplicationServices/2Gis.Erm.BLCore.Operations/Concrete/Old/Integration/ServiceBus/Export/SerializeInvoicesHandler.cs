@@ -32,9 +32,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return new SelectSpecification<Order, IExportableEntityDto>(x => new InvoiceDto
             {
                 Id = x.Id,
-                SalesModel = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
-                                             .Select(y => y.PricePosition.Position.SalesModel)
-                                             .FirstOrDefault(),
+                SalesModels = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                             .Select(y => y.PricePosition.Position.SalesModel),
                 Number = x.Number,
                 FirmCode = x.FirmId,
                 FirmName = x.Firm.Name,
@@ -139,7 +138,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             var invoiceElement = new XElement("Invoice",
                                               new XAttribute("Code", invoiceDto.Id),
-                                              new XAttribute("SalesModel", ConvertToServiceBusSalesModel(invoiceDto.SalesModel)),
+                                              new XAttribute("SalesModel",
+                                                             ConvertToServiceBusSalesModel(invoiceDto.SalesModels.Any()
+
+                                                                                                // Используется First, а не Single потому что сейчас есть заказы, которые нарушают правило
+                                                                                                // о том, что все позиции заказа должны быть одной модели продаж. Мы дадим таким заказам доразмещаться.
+                                                                                                // После того, как все такие заказы доразмещаются First() можно и нужно будет заменить на Single()
+                                                                                               ? invoiceDto.SalesModels.First()
+                                                                                               : SalesModel.None)),
                                               new XAttribute("Number", invoiceDto.Number),
                                               new XAttribute("FirmCode", invoiceDto.FirmCode),
                                               new XAttribute("FirmName", invoiceDto.FirmName),
@@ -293,7 +299,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public IEnumerable<InvoiceItemDto> InvoiceItems { get; set; }
             public long OwnerCode { get; set; }
             public string UserCode { get; set; }
-            public SalesModel SalesModel { get; set; }
+            public IEnumerable<SalesModel> SalesModels { get; set; }
         }
 
         public sealed class InvoiceItemDto
