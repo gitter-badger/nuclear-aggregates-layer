@@ -17,7 +17,6 @@ using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
-
     public class EFDomainContextSpecs
     {
         const string DefaultContextName = "Erm";
@@ -55,7 +54,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             protected static DbContext DbContext { get; private set; }
         }
-
 
         [Tags("DAL")]
         [Subject(typeof(EFDomainContext))]

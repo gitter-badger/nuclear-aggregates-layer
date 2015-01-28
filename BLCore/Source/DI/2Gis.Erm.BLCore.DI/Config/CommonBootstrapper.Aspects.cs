@@ -312,6 +312,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
         private static IUnityContainer RegisterDalMappings(this IUnityContainer container)
         {
+            // FIXME {all, 28.01.2015}: Выпилить При дальнейшем рефакторинге DAL
             MappingRegistry.RegisterMappingFromDal();
             MappingRegistry.RegisterMappingToDal();
             return container.RegisterInstance(Mapper.Engine);

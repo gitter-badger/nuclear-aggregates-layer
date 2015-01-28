@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
+    // FIXME {all, 28.01.2015}: Выпилить При дальнейшем рефакторинге DAL
     public static class MappingRegistry
     {
         public static void RegisterMappingFromDal()
