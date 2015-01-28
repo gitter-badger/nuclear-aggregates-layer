@@ -61,6 +61,11 @@
         <xs:documentation>Id простой позиции, либо Id пакета</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="PricePerUnitWithVat" type="xs:decimal" use="required">
+      <xs:annotation>
+        <xs:documentation>Стоимость за единицу, включая НДС</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="Amount" type="xs:int" use="required">
       <xs:annotation>
         <xs:documentation>Кол-во в позиции БЗ</xs:documentation>
@@ -137,6 +142,11 @@
     <xs:attribute name="UserCode" type="string250" use="required">
       <xs:annotation>
         <xs:documentation>Код пользователя куратора БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="SignupDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата подписания БЗ</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="EndDatePlan" type="xs:dateTime" use="required">

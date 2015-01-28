@@ -44,6 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 StartDate = x.BeginDistributionDate,
                 EndDate = x.EndDistributionDateFact,
                 EndDatePlan = x.EndDistributionDatePlan,
+                SignupDate = x.SignupDate,
                 Status = x.WorkflowStepId,
                 OrderType = x.OrderType,
                 OwnerCode = x.OwnerCode,
@@ -68,6 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                      {
                          PriceListPositionCode = z.OrderPosition.PricePositionId,
                          NomenclatureElementCode = z.Position.Id,
+                         PricePerUnitWithVat = z.OrderPosition.PricePerUnitWithVat,
                          Amount = z.OrderPosition.Amount,
                          DiscountPercent = z.OrderPosition.DiscountPercent,
                          CategoryRate = z.OrderPosition.CategoryRate,
@@ -139,6 +141,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                               new XAttribute("StartDate", invoiceDto.StartDate),
                                               new XAttribute("EndDate", invoiceDto.EndDate),
                                               new XAttribute("EndDatePlan", invoiceDto.EndDatePlan),
+                                              new XAttribute("SignupDate", invoiceDto.SignupDate),
                                               new XAttribute("Status", invoiceDto.Status),
                                               new XAttribute("OrderType", invoiceDto.OrderType),
                                               new XAttribute("UserCode", invoiceDto.UserCode));
@@ -176,6 +179,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 var invoiceItemElement = new XElement("InvoiceItem",
                                                       new XAttribute("PriceListPositionCode", invoiceItem.PriceListPositionCode),
                                                       new XAttribute("NomenclatureElementCode", invoiceItem.NomenclatureElementCode),
+                                                      new XAttribute("PricePerUnitWithVat", invoiceItem.PricePerUnitWithVat),
                                                       new XAttribute("Amount", invoiceItem.Amount),
                                                       new XAttribute("DiscountPercent", invoiceItem.DiscountPercent),
                                                       new XAttribute("CategoryRate", invoiceItem.CategoryRate));
@@ -240,6 +244,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }
             public DateTime EndDatePlan { get; set; }
+            public DateTime SignupDate { get; set; }
             public OrderState Status { get; set; }
             public OrderType OrderType { get; set; }
             public bool IsActive { get; set; }
@@ -253,6 +258,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         {
             public long PriceListPositionCode { get; set; }
             public long NomenclatureElementCode { get; set; }
+            public decimal PricePerUnitWithVat { get; set; }
             public int Amount { get; set; }
             public decimal DiscountPercent { get; set; }
             public decimal CategoryRate { get; set; }
