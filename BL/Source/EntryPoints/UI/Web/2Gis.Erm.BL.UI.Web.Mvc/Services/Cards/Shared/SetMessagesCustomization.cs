@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Config;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             {
                 bool expressionResult;
 
-                if (!feature.TryExecute((IAspect)viewModel, out expressionResult))
+                if (!feature.Expression.TryExecuteAspectLambda((IAspect)viewModel, out expressionResult))
                 {
                     throw new InvalidOperationException(string.Format("Unable to execute message expression for {0} card with {1} viewmodel", metadata.Entity, viewModel.GetType()));
                 }

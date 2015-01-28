@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Config;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -10,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 {
-    public sealed class UIElementAvailabilityHelper 
+    public sealed class UIElementAvailabilityHelper
     {
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
@@ -35,7 +37,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
                 return true;
             }
 
-            if (element.Features<SecuredByFunctionalPrivelegeFeature>().Any(feature => !_functionalAccessService.HasFunctionalPrivilegeGranted(feature.Privilege, _userContext.Identity.Code)))
+            if (
+                element.Features<SecuredByFunctionalPrivelegeFeature>()
+                       .Any(feature => !_functionalAccessService.HasFunctionalPrivilegeGranted(feature.Privilege, _userContext.Identity.Code)))
             {
                 return true;
             }
@@ -65,7 +69,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             foreach (var feature in element.Features<IDisableExpressionFeature>())
             {
                 bool expressionResult;
-                if (feature.TryExecute((IAspect)model, out expressionResult) && expressionResult)
+
+                if (!feature.Expression.TryExecuteAspectLambda((IAspect)model, out expressionResult))
+                {
+                    throw new InvalidOperationException(string.Format("Unable to execute disable expression for {0} element with {1} viewmodel", element.Identity, model.GetType()));
+                }
+
+                if (expressionResult)
                 {
                     return true;
                 }
@@ -74,13 +84,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             return false;
         }
 
-       public bool IsUIElementInvisible<TAspect>(UIElementMetadata element, TAspect aspect)
+        public bool IsUIElementInvisible<TAspect>(UIElementMetadata element, TAspect aspect)
             where TAspect : IAspect
         {
             foreach (var feature in element.Features<IHideExpressionFeature>())
             {
                 bool expressionResult;
-                if (feature.TryExecute(aspect, out expressionResult) && expressionResult)
+                if (!feature.Expression.TryExecuteAspectLambda(aspect, out expressionResult))
+                {
+                    throw new InvalidOperationException(string.Format("Unable to execute disable expression for {0} element with {1} viewmodel", element.Identity, aspect.GetType()));
+                }
+
+                if (expressionResult)
                 {
                     return true;
                 }

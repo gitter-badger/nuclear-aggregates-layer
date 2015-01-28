@@ -52,9 +52,8 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewPathMapping.cs" />
-    <Compile Include="UIElements\Features\ExpressionFeatureAbstract.cs" />
     <Compile Include="UIElements\Features\HideExpressionFeature.cs" />
-    <Compile Include="UIElements\Features\IUIElementExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\IUIElementLambdaExpressionFeature.cs" />
     <Compile Include="UIElements\Features\IHideExpressionFeature.cs" />
     <Compile Include="UIElements\Features\LockOnInactiveCardFeature.cs" />
     <Compile Include="Config\Common\Card\Features\Parts\IPartsContainerElement.cs" />

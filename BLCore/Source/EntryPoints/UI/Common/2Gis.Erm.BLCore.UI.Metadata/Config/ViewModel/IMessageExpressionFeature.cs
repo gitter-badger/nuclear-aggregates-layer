@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel
 {
-    public interface IMessageExpressionFeature : IUIElementExpressionFeature
+    public interface IMessageExpressionFeature : IUIElementLambdaExpressionFeature
     {
         IStringResourceDescriptor MessageDescriptor { get; }
         MessageType MessageType { get; }
