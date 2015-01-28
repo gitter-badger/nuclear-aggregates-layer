@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports
                         AttemptCount = 0,
                         Context = string.Empty,
                         EntityId = failedProcessing.EntityId,
-                        EntityTypeId = failedProcessing.EntityName.AsInt32(),
+                        EntityTypeId = failedProcessing.EntityName.Id,
                         MessageFlowId = failedProcessing.Flow.Id
                     };
 

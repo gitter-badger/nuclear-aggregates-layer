@@ -127,7 +127,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
             var sb = new StringBuilder();
             for (int i = 0; i < entityNames.Length; i++)
             {
-                sb.AppendFormat("{0}={1}", entityNames[i].AsInt32(), entityIds[i]);
+                sb.AppendFormat("{0}={1}", entityNames[i].Id, entityIds[i]);
             }
 
             var cacheKey = string.Format(ContextOperationsCacheKeyTemplate, sb);

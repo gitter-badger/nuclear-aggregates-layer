@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.Platform.Core.ActionLogging
                 var actionsHistoryItem = new ActionsHistory
                     {
                         ActionType = (int)ActionType.Edit, // edit only for now
-                        EntityType = changesDescriptor.EntityType.AsInt32(),
+                        EntityType = changesDescriptor.EntityType.Id,
                         EntityId = changesDescriptor.EntityId
                     };
 

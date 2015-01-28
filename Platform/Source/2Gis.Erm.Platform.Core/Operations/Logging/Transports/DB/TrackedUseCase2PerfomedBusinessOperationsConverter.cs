@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
         {
             foreach (var change in changes)
             {
-                var changedEntityName = change.Key.AsEntityName().AsInt32();
+                var changedEntityName = change.Key.AsEntityName().Id;
                 foreach (var id in change.Value)
                 {
                     var entity = new XElement("entity",

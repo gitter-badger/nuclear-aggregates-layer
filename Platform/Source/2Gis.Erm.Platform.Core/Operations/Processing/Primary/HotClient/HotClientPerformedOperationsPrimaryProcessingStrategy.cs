@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient
                     {
                         MessageFlowId = MessageFlow.Id,
                         EntityId = changedEntityInfo.Key,
-                        EntityTypeId = HotClientRequestType.AsEntityName().AsInt32(),
+                        EntityTypeId = HotClientRequestType.AsEntityName().Id,
                         OperationId = useCaseId
                     };
 

@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
             unchecked
             {
                 var hashCode = SourceEntityId.GetHashCode();
-                hashCode = (hashCode * 397) ^ TargetEntityName.AsInt32();
+                hashCode = (hashCode * 397) ^ TargetEntityName.Id;
                 hashCode = (hashCode * 397) ^ TargetEntityId.GetHashCode();
                 return hashCode;
             }

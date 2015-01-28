@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
 
             var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
             var metadata = _metadataProvider.GetOperationMetadata<ActionHistoryMetadata, ActionHistoryIdentity>(entityName);
-            var entityTypeId = entityName.AsInt32();
+            var entityTypeId = entityName.Id;
             var actionsInfo = _finder.Find<ActionsHistory>(x => x.EntityType == entityTypeId && x.EntityId == entityId)
                                      .OrderByDescending(x => x.Id)
                                      .Select(item => new

@@ -89,9 +89,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             {
                 var entity = new ExportFailedEntity
                     {
-                        EntityName = _entityName.AsInt32(),
+                        EntityName = _entityName.Id,
                         EntityId = failedObjectId,
-                        ProcessorId = _integrationProcessorStateEntityName.AsInt32()
+                        ProcessorId = _integrationProcessorStateEntityName.Id
                     };
                 _identityProvider.SetFor(entity);
                 _exportFailedRepository.Add(entity);
@@ -105,8 +105,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         /// </summary>
         public void RemoveFromFailureQueue(IEnumerable<IExportableEntityDto> exportedObjects)
         {
-            var entityTypeId = _entityName.AsInt32();
-            var integrationProcessorStateEntityTypeId = _integrationProcessorStateEntityName.AsInt32();
+            var entityTypeId = _entityName.Id;
+            var integrationProcessorStateEntityTypeId = _integrationProcessorStateEntityName.Id;
             var exportedObjectIds = exportedObjects.Select(x => x.Id).ToArray();
             var records = _finder.Find<ExportFailedEntity>(entity => entity.EntityName == entityTypeId
                                                                         && entity.ProcessorId == integrationProcessorStateEntityTypeId
@@ -192,8 +192,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 
         private IQueryable<ExportFailedEntity> GetFailedEntitiesQuery()
         {
-            var entityTypeId = _entityName.AsInt32();
-            var integrationProcessorStateEntityTypeId = _integrationProcessorStateEntityName.AsInt32();
+            var entityTypeId = _entityName.Id;
+            var integrationProcessorStateEntityTypeId = _integrationProcessorStateEntityName.Id;
             return _finder.Find<ExportFailedEntity>(entity => entity.EntityName == entityTypeId
                                                                 && entity.ProcessorId == integrationProcessorStateEntityTypeId);
         }

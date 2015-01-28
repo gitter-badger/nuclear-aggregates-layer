@@ -132,14 +132,14 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 			Mapper.CreateMap<AppointmentRegardingObject, AppointmentReference>()
 			      .ForMember(dest => dest.AppointmentId, cfg => cfg.MapFrom(src => src.SourceEntityId))
 			      .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => AppointmentReferenceType.RegardingObject))
-			      .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.AsInt32()))
+			      .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.Id))
 			      .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
 				;
 
 			Mapper.CreateMap<AppointmentAttendee, AppointmentReference>()
 			      .ForMember(dest => dest.AppointmentId, cfg => cfg.MapFrom(src => src.SourceEntityId))
                   .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => AppointmentReferenceType.RequiredAttendees))
-                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.AsInt32()))
+                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.Id))
 			      .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
 				;
 
@@ -156,13 +156,13 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 			Mapper.CreateMap<PhonecallRegardingObject, PhonecallReference>()
 				  .ForMember(dest => dest.PhonecallId, cfg => cfg.MapFrom(src => src.SourceEntityId))
 				  .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => PhonecallReferenceType.RegardingObject))
-                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.AsInt32()))
+                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.Id))
 				  .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
 				;
 			Mapper.CreateMap<PhonecallRecipient, PhonecallReference>()
 				  .ForMember(dest => dest.PhonecallId, cfg => cfg.MapFrom(src => src.SourceEntityId))
                   .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => PhonecallReferenceType.Recipient))
-                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.AsInt32()))
+                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.Id))
 				  .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
 				;
 
@@ -179,7 +179,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 			Mapper.CreateMap<TaskRegardingObject, TaskReference>()
 				  .ForMember(dest => dest.TaskId, cfg => cfg.MapFrom(src => src.SourceEntityId))
 				  .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => TaskReferenceType.RegardingObject))
-                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.AsInt32()))
+                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.Id))
 				  .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
 				;
 
@@ -195,19 +195,19 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             Mapper.CreateMap<LetterRegardingObject, LetterReference>()
                   .ForMember(dest => dest.LetterId, cfg => cfg.MapFrom(src => src.SourceEntityId))
                   .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => LetterReferenceType.RegardingObject))
-                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.AsInt32()))
+                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.Id))
                   .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
                 ;
             Mapper.CreateMap<LetterSender, LetterReference>()
                   .ForMember(dest => dest.LetterId, cfg => cfg.MapFrom(src => src.SourceEntityId))
                   .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => LetterReferenceType.Sender))
-                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.AsInt32()))
+                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.Id))
                   .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
                 ;
             Mapper.CreateMap<LetterRecipient, LetterReference>()
                   .ForMember(dest => dest.LetterId, cfg => cfg.MapFrom(src => src.SourceEntityId))
                   .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => LetterReferenceType.Recipient))
-                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.AsInt32()))
+                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityName.Id))
                   .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
                 ;
 

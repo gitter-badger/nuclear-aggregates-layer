@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
                         {
                             MessageFlowId = MessageFlow.Id,
                             EntityId = changedEntityInfo.Key,
-                            EntityTypeId = targetEntityType.AsEntityName().AsInt32(),
+                            EntityTypeId = targetEntityType.AsEntityName().Id,
                             OperationId = useCaseId
                         });
                 }

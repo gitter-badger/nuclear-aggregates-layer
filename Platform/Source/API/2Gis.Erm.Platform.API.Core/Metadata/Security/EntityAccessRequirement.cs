@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Metadata.Security
         {
             unchecked
             {
-                return ((int)EntityAccessType * 397) ^ EntityName.AsInt32();
+                return ((int)EntityAccessType * 397) ^ EntityName.Id;
             }
         }
 
