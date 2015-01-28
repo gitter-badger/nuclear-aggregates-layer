@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm.EntityTypes
 
         public override string Description
         {
-            get { return " UserRole"; }
+            get { return "UserRole"; }
         }
     }
 }
