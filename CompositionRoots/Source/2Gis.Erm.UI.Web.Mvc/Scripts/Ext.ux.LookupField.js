@@ -173,8 +173,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             extendedInfo: null,
             nameLocaleResourceId: null,
             limit: 5,
-            dir: 'DESC',
-            sort: 'Id',
+            sort: 'Id DESC',
             pType: this.parentEntityName,
             pId: this.parentIdPattern
         };
@@ -429,10 +428,18 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             var filterExpr = this.prepareFilterExpression(this.extendedInfo);
             queryString = this.createURIWithNewParameter(queryString, "extendedInfo", filterExpr);
         }
+        if (this.defaultSortFields && this.defaultSortFieldsDirs) {
+            var index, len;
+            for (index = 0, len = this.defaultSortFields.length; index < len; ++index) 
+            {
+                queryString = this.createURIWithNewParameter(queryString, "defaultSortFields", this.defaultSortFields[index]);
+            }
 
-        queryString = this.createURIWithNewParameter(queryString, "defaultSortFields", this.defaultSortFields);
-        queryString = this.createURIWithNewParameter(queryString, "defaultSortFieldsDirs", this.defaultSortFieldsDirs);
-        
+            for (index = 0, len = this.defaultSortFieldsDirs.length; index < len; ++index) 
+            {
+                queryString = this.createURIWithNewParameter(queryString, "defaultSortFieldsDirs", this.defaultSortFieldsDirs[index]);
+            }
+        }                
 
         var url = this.searchUrl + queryString;
 

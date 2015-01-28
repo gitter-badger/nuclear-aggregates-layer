@@ -131,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
         {
             var service = //_container.Resolve<IListGenericEntityDtoService<AdvertisementElement, ListAdvertisementElementDto>>();
                 _container.Resolve<IListNonGenericEntityService>();
-            var searchModel = new SearchListModel { Start = 0, Limit = 40, Sort = "Id", Dir = "ASC" };
+            var searchModel = new SearchListModel { Start = 0, Limit = 40, Sort = "Id ASC" };
             //new SearchListModel { Start = 0, Limit = 0, Sort = "Id", Dir = "ASC", WhereExp = "AdvertisementId=1" };
             var result = service.List(EntityName.OrderPositionAdvertisement, searchModel);
         }
@@ -139,18 +139,18 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
         private void ListOrganizationUnits()
         {
             var service = _container.Resolve<IListGenericEntityDtoService<OrganizationUnit, ListOrganizationUnitDto>>();
-            var searchModel = new SearchListModel { Start = 0, Limit = 20, Sort = "Id", Dir = "DESC" };
+            var searchModel = new SearchListModel { Start = 0, Limit = 20, Sort = "Id DESC" };
             var result = service.List(searchModel);
-            var searchModel2 = new SearchListModel { Start = 20, Limit = 20, Sort = "Id", Dir = "DESC" };
+            var searchModel2 = new SearchListModel { Start = 20, Limit = 20, Sort = "Id DESC" };
             var result2 = service.List(searchModel2);
         }
 
         private void ListFirms()
         {
             var service = _container.Resolve<IListGenericEntityDtoService<Firm, FirmGridDoc>>();
-            var searchModel = new SearchListModel { Start = 0, Limit = 20, Sort = "Id", Dir = "DESC" };
+            var searchModel = new SearchListModel { Start = 0, Limit = 20, Sort = "Id DESC" };
             var result = service.List(searchModel);
-            var searchModel2 = new SearchListModel { Start = 20, Limit = 20, Sort = "Id", Dir = "DESC" };
+            var searchModel2 = new SearchListModel { Start = 20, Limit = 20, Sort = "Id DESC" };
             var result2 = service.List(searchModel2);
         }
 

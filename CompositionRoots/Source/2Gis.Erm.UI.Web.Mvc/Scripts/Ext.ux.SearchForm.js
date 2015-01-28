@@ -233,12 +233,14 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
                                     });
                                     this.grid.store.removeAll(true);
                                 },
+                                beforeload: this.beforeload,
                                 //load: this.selectDefaultRow,
                                 load: this.selectSearchField,
                                 scope: this
                             }
         });
     },
+  
     onCellClick: function (cmp, rowIndex, columnIndex, evt)
     {
         if (Ext.get(evt.target).hasClass('x-entity-link'))
@@ -275,6 +277,29 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
             window.Ext.getCmp("btnSave").enable();
         }
     },
+    beforeload: function (store, operation, eOpts)
+    {
+        function convertSortAndDirForSending (sort, dir)
+        {
+            return (sort + " " + dir);
+        }
+        if (operation.params.sort && operation.params.dir)
+        {
+            operation.params.sort = convertSortAndDirForSending(operation.params.sort, operation.params.dir);
+        } else if (store.baseParams.sort.constructor === Array && store.baseParams.dir.constructor === Array)
+        {
+            var sortArray = [];
+            for (var i = 0; i < store.baseParams.sort.length; i++)
+            {
+                sortArray.push(convertSortAndDirForSending(store.baseParams.sort[i], store.baseParams.dir[i]));
+            }
+            operation.params.sort = sortArray;
+        } else
+        {
+            operation.params.sort = convertSortAndDirForSending(store.baseParams.sort, store.baseParams.dir);
+        }
+
+    },   
     selectSearchField: function () {
         Ext.get('searchInput').focus();
     },

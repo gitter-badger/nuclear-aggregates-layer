@@ -344,13 +344,30 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
         }
         return this.fireEvent('rowdblclick', vw, index, node, e);
     },
-    beforeStoreLoad: function (scope, options) {
+    beforeStoreLoad: function (store, operation, eOpts) {
         if (!this.mask) {
             this.mask = new window.Ext.LoadMask(window.Ext.get("grid-left"));
         }
 
         this.mask.show();
-    },
+
+        function convertSortAndDirForSending  (sort, dir) {
+            return (sort + " " + dir);
+        }
+
+        if (operation.params.sort && operation.params.dir) {
+            operation.params.sort = convertSortAndDirForSending(operation.params.sort, operation.params.dir);
+        } else if (store.baseParams.sort.constructor === Array && store.baseParams.dir.constructor === Array) {
+            var sortArray = [];
+            for (var i = 0; i < store.baseParams.sort.length; i++) {
+                sortArray.push(convertSortAndDirForSending(store.baseParams.sort[i], store.baseParams.dir[i]));
+            }
+            operation.params.sort = sortArray;
+        } else {
+            operation.params.sort = convertSortAndDirForSending(store.baseParams.sort, store.baseParams.dir);
+        }
+
+    },    
     onStoreLoad: function(store, records, options) {
         this.mask.hide();
         if (records.length >= 100) {

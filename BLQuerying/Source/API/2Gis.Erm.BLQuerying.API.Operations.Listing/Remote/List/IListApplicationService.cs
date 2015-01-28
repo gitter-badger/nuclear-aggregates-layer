@@ -18,7 +18,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
                            string extendedInfo,
                            string nameLocaleResourceId,
                            int limit,
-                           string dir,
                            string sort,
                            long? parentId,
                            EntityName parentType);

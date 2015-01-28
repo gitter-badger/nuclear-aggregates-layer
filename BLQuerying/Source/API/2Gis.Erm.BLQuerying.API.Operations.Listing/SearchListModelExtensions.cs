@@ -12,25 +12,27 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
         public static QuerySettings ToQuerySettings(this SearchListModel searchListModel)
         {
             var querySettings = new QuerySettings
-            {
-                SkipCount = searchListModel.Start,
-                TakeCount = searchListModel.Limit,
-                ParentEntityName = searchListModel.ParentEntityName,
-                ParentEntityId = searchListModel.ParentEntityId,
-                UserInputFilter = searchListModel.FilterInput,
-                FilterName = searchListModel.NameLocaleResourceId,
-                SearchListModel = searchListModel,
-            };
-
-            var dirs =
-                (searchListModel.Dir ?? "").Split(new [] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                                           .Where(x => !string.IsNullOrEmpty(x));
-
-            querySettings.Sort =
-                (searchListModel.Sort ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)                                            
-                                            .Where(x => !string.IsNullOrEmpty(x))
-                                            .Zip(dirs, (x, y) => new QuerySettingsSort { PropertyName = x, Direction = GetSortDirection(y), })
-                                            .ToArray();
+                                    {
+                                        SkipCount = searchListModel.Start,
+                                        TakeCount = searchListModel.Limit,
+                                        ParentEntityName = searchListModel.ParentEntityName,
+                                        ParentEntityId = searchListModel.ParentEntityId,
+                                        UserInputFilter = searchListModel.FilterInput,
+                                        FilterName = searchListModel.NameLocaleResourceId,
+                                        SearchListModel = searchListModel,
+                                        Sort = (searchListModel.Sort ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                                                           .Where(x => !string.IsNullOrEmpty(x))
+                                                                           .Select(x =>
+                                                                                       {
+                                                                                           var splitArray = x.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                                                                           return new QuerySettingsSort
+                                                                                                      {
+                                                                                                          PropertyName = splitArray[0],
+                                                                                                          Direction = GetSortDirection(splitArray[1])
+                                                                                                      };
+                                                                                       })
+                                                                           .ToArray(),
+                                    };
 
             var extendedInfo = searchListModel.ExtendedInfo;
 
