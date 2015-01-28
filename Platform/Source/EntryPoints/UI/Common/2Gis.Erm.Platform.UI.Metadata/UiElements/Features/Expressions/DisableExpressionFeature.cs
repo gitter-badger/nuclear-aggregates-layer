@@ -3,12 +3,12 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Model.Aspects;
 
-namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features
+namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
 {
-    public sealed class HideExpressionFeature<T> : IHideExpressionFeature
+    public sealed class DisableExpressionFeature<T> : IDisableExpressionFeature
         where T : IAspect
     {
-        public HideExpressionFeature(Expression<Func<T, bool>> expression) 
+        public DisableExpressionFeature(Expression<Func<T, bool>> expression)
         {
             Expression = expression;
         }

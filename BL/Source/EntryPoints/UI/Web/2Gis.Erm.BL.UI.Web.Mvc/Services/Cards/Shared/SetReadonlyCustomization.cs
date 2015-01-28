@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 {

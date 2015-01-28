@@ -18,6 +18,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements
 {

@@ -52,9 +52,11 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewPathMapping.cs" />
-    <Compile Include="UIElements\Features\HideExpressionFeature.cs" />
-    <Compile Include="UIElements\Features\IUIElementLambdaExpressionFeature.cs" />
-    <Compile Include="UIElements\Features\IHideExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\HideExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\IUIElementLambdaExpressionsCombinationFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\IUIElementLambdaExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\IHideExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\ExpressionsFeatureAspect.cs" />
     <Compile Include="UIElements\Features\LockOnInactiveCardFeature.cs" />
     <Compile Include="Config\Common\Card\Features\Parts\IPartsContainerElement.cs" />
     <Compile Include="Config\Common\Card\Features\Parts\IPartFeature.cs" />
@@ -107,7 +109,7 @@
     <Compile Include="UIElements\ControlTypes\ControlType.cs" />
     <Compile Include="UIElements\ControlTypes\EnumControlTypeDescriptor.cs" />
     <Compile Include="UIElements\ControlTypes\ControlTypeFeature.cs" />
-    <Compile Include="UIElements\Features\IDisableExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\IDisableExpressionFeature.cs" />
     <Compile Include="UIElements\Features\ISecuredElementFeature.cs" />
     <Compile Include="UIElements\Features\IUIElementFeature.cs" />
     <Compile Include="UIElements\Features\SecuredByEntityPrivelegeFeature.cs" />
@@ -115,7 +117,7 @@
     <Compile Include="UIElements\MessageType.cs" />
     <Compile Include="UIElements\UIElementMetadata.cs" />
     <Compile Include="UIElements\UIElementMetadataBuilder.cs" />
-    <Compile Include="UIElements\Features\DisableExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\DisableExpressionFeature.cs" />
     <Compile Include="UIElements\Features\LockOnNewCardFeature.cs" />
   </ItemGroup>
   <ItemGroup>

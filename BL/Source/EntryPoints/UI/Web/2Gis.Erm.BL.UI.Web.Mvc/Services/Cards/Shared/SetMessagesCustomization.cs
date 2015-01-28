@@ -57,6 +57,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
                 }
             }
 
+            foreach (var feature in metadata.Features<IMessageExpressionsFeature>())
+            {
+                bool expressionResult;
+
+                if (!feature.Expressions.TryExecuteAspectBoolLambdas((IAspect)viewModel, feature.ExpressionsCombination, out expressionResult))
+                {
+                    throw new InvalidOperationException(string.Format("Unable to execute message expressions for {0} card with {1} viewmodel", metadata.Entity, viewModel.GetType()));
+                }
+
+                if (expressionResult)
+                {
+                    messages.Add(Tuple.Create(feature.MessageType, feature.MessageDescriptor));
+                }
+            }
+
             foreach (var message in messages.OrderByDescending(x => x.Item1))
             {
                 var messageText = message.Item2.GetValue(_userContext.Profile.UserLocaleInfo.UserCultureInfo);

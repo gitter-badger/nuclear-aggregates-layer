@@ -149,6 +149,7 @@
     <Compile Include="Compression\StreamExtensions.cs" />
     <Compile Include="Utils\LambdaExtensions.cs" />
     <Compile Include="Utils\PropertyChangeDescriptor.cs" />
+    <Compile Include="Utils\Resources\ExpressionsCombination.cs" />
     <Compile Include="Utils\Resources\IResourceGroupManager.cs" />
     <Compile Include="Utils\Resources\ResourceGroupManager.cs" />
     <Compile Include="Utils\Resources\ResourceEntriesRegistry.cs" />

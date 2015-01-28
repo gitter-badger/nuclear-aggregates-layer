@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel
 {
-    public interface IMessageExpressionFeature : IUIElementLambdaExpressionFeature, IMessageFeature
+    public interface IMessageExpressionsFeature : IUIElementLambdaExpressionsCombinationFeature, IMessageFeature
     {
     }
 }

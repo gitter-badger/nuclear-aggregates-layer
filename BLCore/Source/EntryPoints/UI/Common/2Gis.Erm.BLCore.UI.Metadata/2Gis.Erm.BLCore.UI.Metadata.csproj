@@ -49,7 +49,6 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Aspects\Entities\Aggregations\INewableAndPublishablePriceAspects.cs" />
     <Compile Include="Aspects\Entities\IOrderDatesAspect.cs" />
     <Compile Include="Aspects\Entities\IOrderDirectionAspect.cs" />
     <Compile Include="Aspects\Entities\IInspectorAspect.cs" />
@@ -86,8 +85,12 @@
     <Compile Include="Config\Grids\GridMetadata.cs" />
     <Compile Include="Config\Grids\GridMetadataBuilder.cs" />
     <Compile Include="Config\Grids\MetadataGridsIdentity.cs" />
+    <Compile Include="Config\ViewModel\IMessageExpressionsFeature.cs" />
+    <Compile Include="Config\ViewModel\IMessageFeature.cs" />
     <Compile Include="Config\ViewModel\IMessageExpressionFeature.cs" />
+    <Compile Include="Config\ViewModel\MessageExpressionsFeature.cs" />
     <Compile Include="Config\ViewModel\MessageExpressionFeature.cs" />
+    <Compile Include="Config\ViewModel\MessageExpressionsFeatureAspect.cs" />
     <Compile Include="Config\ViewModel\ViewModelParts.cs" />
     <Compile Include="Confirmations\ConfirmationManager.cs" />
     <Compile Include="DI\BlCoreUIMetadataAssembly.cs" />

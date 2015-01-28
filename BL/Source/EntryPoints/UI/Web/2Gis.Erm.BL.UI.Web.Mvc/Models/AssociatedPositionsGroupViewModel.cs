@@ -1,4 +1,3 @@
-using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities.Aggregations;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Aspects;
@@ -10,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class AssociatedPositionsGroupViewModel : EntityViewModelBase<AssociatedPositionsGroup>, INewableAndPublishablePriceAspects, INameAspect, IDeletablePriceAspect, IPublishablePriceAspect
+    public sealed class AssociatedPositionsGroupViewModel : EntityViewModelBase<AssociatedPositionsGroup>, INameAspect, IDeletablePriceAspect, IPublishablePriceAspect
     {
         [RequiredLocalized]
         public string Name { get; set; }

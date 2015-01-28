@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config
@@ -44,6 +45,41 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config
             {
                 return false;
             }
+        }
+
+        public static bool TryExecuteAspectBoolLambdas(this LambdaExpression[] expressions, IAspect aspectHost, ExpressionsCombination combination, out bool result)
+        {
+            bool? currentResultState = null;
+            result = false;
+
+            foreach (var expression in expressions)
+            {
+                bool expressionResult;
+                if (!TryExecuteAspectLambda(expression, aspectHost, out expressionResult))
+                {
+                    return false;
+                }
+
+                switch (combination)
+                {
+                    case ExpressionsCombination.And:
+                        currentResultState = currentResultState.HasValue ? currentResultState.Value && expressionResult : expressionResult;
+                        break;
+                    case ExpressionsCombination.Or:
+                        currentResultState = currentResultState.HasValue ? currentResultState.Value || expressionResult : expressionResult;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("combination");
+                }
+            }
+
+            if (!currentResultState.HasValue)
+            {
+                return false;
+            }
+
+            result = currentResultState.Value;
+            return true;
         }
     }
 }
