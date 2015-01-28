@@ -187,10 +187,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityType.Instance.DictionaryEntityPropertyInstance(), typeof(DictionaryEntityPropertyInstance) },
                 { EntityType.Instance.BusinessEntityInstance(), typeof(BusinessEntityInstance) },
                 { EntityType.Instance.BusinessEntityPropertyInstance(), typeof(BusinessEntityPropertyInstance) },
-               
             };
 
-        static EntityTypeMap()
+        public static void Initialize()
         {
             EntityTypeMappingRegistry.Initialize(EntityNameUtils.VirtualEntityNames, EntityNameUtils.PersistenceOnlyEntities);
             EntityTypeMappingRegistry.AddMappings(TypeMap);

@@ -29,6 +29,11 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 
         private readonly HashSet<Type> _modelEntityTypesIndex = new HashSet<Type>();
 
+        public CheckDomainModelEntitiesConsistencyMassProcessor()
+        {
+            DoubleGis.Erm.Platform.Model.Entities.EntityTypeMap.Initialize();
+        }
+
         #region Overrides of AbstractTypeRegistrationsMassProcessor
 
         public Type[] GetAssignableTypes()

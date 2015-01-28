@@ -26,7 +26,9 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
                                     EntityType.Instance.OrderFile(),
                                     EntityType.Instance.FileWithContent(),
                                     EntityType.Instance.OrderReleaseTotal(),
-                                    EntityType.Instance.Bargain()
+                                    EntityType.Instance.Bargain(),
+                                    EntityType.Instance.ReleaseWithdrawal(),
+                                    EntityType.Instance.ReleasesWithdrawalsPosition()
                                 })
                     .ToArray();
             }

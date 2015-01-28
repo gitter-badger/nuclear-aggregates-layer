@@ -8,14 +8,9 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
     public static class BargainAggregate
     {
-        /*
-        Bargain = EntityType.Bargain,
-        BargainFile = EntityType.BargainFile,
-        FileWithContent = EntityType.FileWithContent
-         */
         public static IEntityType Root
         {
-            get { return EntityType.Instance.Order(); }
+            get { return EntityType.Instance.Bargain(); }
         }
 
         public static IEntityType[] Entities
@@ -25,13 +20,8 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
                 return new[] { Root }
                     .Concat(new IEntityType[]
                                 {
-                                    EntityType.Instance.OrderPosition(),
-                                    EntityType.Instance.OrderPositionAdvertisement(),
-                                    EntityType.Instance.Bill(), //
-                                    EntityType.Instance.OrderFile(),
-                                    EntityType.Instance.FileWithContent(),
-                                    EntityType.Instance.OrderReleaseTotal(),
-                                    EntityType.Instance.Bargain()
+                                    EntityType.Instance.BargainFile(),
+                                    EntityType.Instance.FileWithContent()
                                 })
                     .ToArray();
             }
