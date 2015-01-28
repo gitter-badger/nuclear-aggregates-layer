@@ -89,9 +89,6 @@
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Month })
             </div>
-            <div class="row-wrapper">
-                @Html.TemplateField(m => m.CreateCsvFile, FieldFlex.lone)
-             </div>
         </div>
 
         <div style="display: none">

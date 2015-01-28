@@ -77,7 +77,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AccountingSystem.svc" />
     <Content Include="Reports.svc" />
     <Content Include="WithdrawalInfo.svc" />
   </ItemGroup>

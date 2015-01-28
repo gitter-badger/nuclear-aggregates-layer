@@ -54,6 +54,7 @@
     <Compile Include="Properties\ErmConfigLocalization.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>ErmConfigLocalization.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

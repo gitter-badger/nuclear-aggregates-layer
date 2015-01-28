@@ -284,8 +284,6 @@
     <Compile Include="Concrete\Old\Integration\ImportResponse.cs" />
     <Compile Include="Concrete\Old\Integration\MessageProcessingResponse.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForBranchRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForFranchiseesRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsToServiceBusForBranchRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsToServiceBusForFranchiseesRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportLegalPersonsRequest.cs" />

@@ -151,8 +151,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                     return ProcessAccountDetailsToServiceBus(localMessageDto);
                 }
 
-                case IntegrationTypeExport.LegalPersonsTo1C:
-                case IntegrationTypeExport.AccountDetailsTo1C:
+                case IntegrationTypeExport.LegalPersonsTo1C:                
                 case IntegrationTypeExport.None:
                     throw new NotificationException("Неподдерживаемый тип интеграционного запроса на экспорт");
                 default:

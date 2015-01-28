@@ -190,7 +190,7 @@
     <Compile Include="Models\DeleteAllBillsViewModel.cs" />
     <Compile Include="Models\DeniedPositionViewModel.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
-    <Compile Include="Models\ExportAccountTo1CViewModel.cs" />
+    <Compile Include="Models\ExportAccountToServiceBusViewModel.cs" />
     <Compile Include="Models\FirmContactViewModel.cs" />
     <Compile Include="Models\GetOrdersWithDummyAdvertisementDialogModel.cs" />
     <Compile Include="Models\LimitViewModel.cs" />
@@ -256,11 +256,6 @@
     <Compile Include="Services\Grid\LimitGridViewService.cs" />
     <Compile Include="Services\Grid\OrderFileViewService.cs" />
     <Compile Include="Utils\ModelBinderProvider.cs" />
-    <Compile Include="Views\Account\ExportTo1CDialog.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ExportTo1CDialog.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Account\ExportToServiceBusDialog.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -762,10 +757,6 @@
   <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Views\Account\ExportTo1CDialog.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ExportTo1CDialog.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Account\ExportToServiceBusDialog.cshtml">
       <Generator>RazorGenerator</Generator>
