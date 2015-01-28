@@ -150,7 +150,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IRepository<LetterRegardingObject>, EFMappingRepository<LetterRegardingObject, LetterReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<LetterSender>, EFMappingRepository<LetterSender, LetterReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<LetterRecipient>, EFMappingRepository<LetterRecipient, LetterReference>>(Lifetime.PerResolve)
-                        .RegisterInstance(Mapper.Engine)
+                        .RegisterDalMappings()
 
                         // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
@@ -308,6 +308,13 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                          : new Type[0];
 
             return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton, new InjectionConstructor(replicatedTypes));
+        }
+
+        private static IUnityContainer RegisterDalMappings(this IUnityContainer container)
+        {
+            MappingRegistry.RegisterMappingFromDal();
+            MappingRegistry.RegisterMappingToDal();
+            return container.RegisterInstance(Mapper.Engine);
         }
     }
 }
