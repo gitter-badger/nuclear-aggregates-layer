@@ -328,6 +328,21 @@ WriteLiteral("            ");
 
             
             #line 79 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+       Write(Html.TemplateField(m => m.ChiefFullNameInNominative, FieldFlex.twins));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 83 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.ChiefNameInGenitive, FieldFlex.twins));
 
             
@@ -338,7 +353,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 80 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 84 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.PositionInGenitive, FieldFlex.twins));
 
             
@@ -353,7 +368,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 84 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 88 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.Phone, FieldFlex.twins));
 
             
@@ -364,7 +379,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 85 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 89 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.OperatesOnTheBasisInGenitive, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -379,7 +394,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 89 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 93 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.CertificateNumber, FieldFlex.twins));
 
             
@@ -390,7 +405,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 90 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 94 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.CertificateDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -405,7 +420,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 94 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 98 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.WarrantyNumber, FieldFlex.twins));
 
             
@@ -420,7 +435,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 98 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 102 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.WarrantyBeginDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -431,7 +446,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 99 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 103 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.WarrantyEndDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -446,7 +461,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 103 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 107 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.BargainNumber, FieldFlex.lone));
 
             
@@ -461,7 +476,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 107 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 111 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.BargainBeginDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -472,7 +487,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 108 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
+            #line 112 "..\..\Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.BargainEndDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             

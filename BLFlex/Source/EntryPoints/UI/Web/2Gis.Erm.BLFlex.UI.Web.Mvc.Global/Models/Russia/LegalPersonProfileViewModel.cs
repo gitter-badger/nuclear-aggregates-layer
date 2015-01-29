@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Russia;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -41,6 +40,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [StringLengthLocalized(256)]
         public string ChiefNameInNominative { get; set; }
 
+        [SanitizedString]
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
+        public string ChiefFullNameInNominative { get; set; }
+        
         [SanitizedString]
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -148,6 +152,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             Email = modelDto.AdditionalEmail;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
+            ChiefFullNameInNominative = modelDto.ChiefFullNameInNominative;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
             DocumentsDeliveryMethod = modelDto.DocumentsDeliveryMethod;
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
@@ -183,6 +188,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     AdditionalEmail = Email.EnsureСleanness(),
                     ChiefNameInGenitive = ChiefNameInGenitive.EnsureСleanness(),
                     ChiefNameInNominative = ChiefNameInNominative.EnsureСleanness(),
+                    ChiefFullNameInNominative = ChiefFullNameInNominative.EnsureСleanness(),
                     DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
