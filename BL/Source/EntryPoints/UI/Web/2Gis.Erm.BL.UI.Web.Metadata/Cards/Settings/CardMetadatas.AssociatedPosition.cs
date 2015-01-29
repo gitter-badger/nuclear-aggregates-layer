@@ -13,14 +13,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata AssociatedPosition =
             CardMetadata.For<AssociatedPosition>()
-                        .InfoOn(Condition.On<INewableAspect>(x => x.IsNew)
-                                         .And(Condition.On<IPublishablePriceAspect>(x => x.PriceIsPublished))
-                                         .ToSequence(),
+                        .InfoOn(Condition.On<INewableAspect>(x => x.IsNew) &
+                                Condition.On<IPublishablePriceAspect>(x => x.PriceIsPublished),
                                 StringResourceDescriptor.Create(() => BLResources.CantAddAssociatedPositionToGroupWhenPriceIsPublished))
-                        .InfoOn(StringResourceDescriptor.Create(() => BLResources.CantEditAssociatedPositionInGroupWhenPriceIsPublished))
-                        .Func<INewableAspect>(x => !x.IsNew)
-                        .Func<IPublishablePriceAspect>(x => x.PriceIsPublished)
-                        .Combine(LogicalOperation.And)
+                        .InfoOn(Condition.On<INewableAspect>(x => !x.IsNew) &
+                                Condition.On<IPublishablePriceAspect>(x => x.PriceIsPublished),
+                                StringResourceDescriptor.Create(() => BLResources.CantEditAssociatedPositionInGroupWhenPriceIsPublished))
                         .WithDefaultIcon()
                         .CommonCardToolbar();
     }

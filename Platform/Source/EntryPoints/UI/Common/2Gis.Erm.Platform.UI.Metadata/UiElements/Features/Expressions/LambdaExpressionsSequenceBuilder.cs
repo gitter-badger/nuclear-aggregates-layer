@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
 {
-    public class LambdaExpressionsSequenceBuilder : ILambdaExpressionsSequenceWithAndOperationBuilder, ILambdaExpressionsSequenceWithOrOperationBuilder
+    public class LambdaExpressionsSequenceBuilder 
     {
         public LambdaExpressionsSequenceBuilder(params LambdaExpression[] expressions)
         {
@@ -13,11 +14,21 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
 
         public IEnumerable<LambdaExpression> Expressions { get; private set; }
 
-        public LogicalOperation SequenceOperation { get; private set; }
+        public LogicalOperation? SequenceOperation { get; private set; }
 
         public static implicit operator LambdaExpressionsSequence(LambdaExpressionsSequenceBuilder builder)
         {
             return builder.ToSequence();
+        }
+
+        public static LambdaExpressionsSequenceBuilder operator &(LambdaExpressionsSequenceBuilder builder1, LambdaExpressionsSequenceBuilder builder2)
+        {
+            return builder1.And(builder2);
+        }
+
+        public static LambdaExpressionsSequenceBuilder operator |(LambdaExpressionsSequenceBuilder builder1, LambdaExpressionsSequenceBuilder builder2)
+        {
+            return builder1.Or(builder2);
         }
 
         public LambdaExpressionsSequence ToSequence()
@@ -25,15 +36,25 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
             return new LambdaExpressionsSequence(null, LogicalOperation.And);
         }
 
-        public ILambdaExpressionsSequenceWithAndOperationBuilder And(ILambdaExpressionsSequenceWithAndOperationBuilder builder2)
+        public LambdaExpressionsSequenceBuilder And(LambdaExpressionsSequenceBuilder builder2)
         {
+            if (SequenceOperation.HasValue && SequenceOperation.Value != LogicalOperation.And)
+            {
+                throw new InvalidOperationException();
+            }
+
             SequenceOperation = LogicalOperation.And;
             Expressions = Expressions.Concat(builder2.Expressions);
             return this;
         }
 
-        public ILambdaExpressionsSequenceWithOrOperationBuilder Or(ILambdaExpressionsSequenceWithOrOperationBuilder builder2)
+        public LambdaExpressionsSequenceBuilder Or(LambdaExpressionsSequenceBuilder builder2)
         {
+            if (SequenceOperation.HasValue && SequenceOperation.Value != LogicalOperation.Or)
+            {
+                throw new InvalidOperationException();
+            }
+
             SequenceOperation = LogicalOperation.Or;
             Expressions = Expressions.Concat(builder2.Expressions);
             return this;
