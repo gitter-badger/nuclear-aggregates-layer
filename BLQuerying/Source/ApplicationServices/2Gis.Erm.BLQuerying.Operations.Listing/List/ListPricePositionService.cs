@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -15,11 +15,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public ListPricePositionService(IFinder finder, FilterHelper filterHelper)
+        public ListPricePositionService(IFinder finder, FilterHelper filterHelper, IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _filterHelper = filterHelper;
+            _orderReadModel = orderReadModel;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
@@ -30,11 +32,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 "orderId",
                 orderId =>
                     {
-                        var orderSalesModel = _finder.Find(Specs.Find.ById<Order>(orderId))
-                                                     .SelectMany(x =>
-                                                                 x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
-                                                                                 .Select(y => y.PricePosition.Position.SalesModel))
-                                                     .FirstOrDefault();
+                        var orderSalesModel = _orderReadModel.GetOrderSalesModel(orderId);
 
                         if (orderSalesModel == SalesModel.None)
                         {

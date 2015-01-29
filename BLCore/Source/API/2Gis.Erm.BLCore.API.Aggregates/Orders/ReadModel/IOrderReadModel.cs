@@ -117,5 +117,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take);
         OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId);
         IEnumerable<Bill> GetBillsForOrder(long orderId);
+        SalesModel GetOrderSalesModel(long orderId);
     }
 }

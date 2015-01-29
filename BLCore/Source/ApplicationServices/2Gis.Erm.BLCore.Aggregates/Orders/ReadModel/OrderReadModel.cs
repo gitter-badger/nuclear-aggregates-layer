@@ -851,7 +851,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                         BranchName = x.Value.BranchName,
                         ContactClientEmail = x.Value.Contact == null ? null : x.Value.Contact.WorkEmail,
                         ContactClientName = x.Value.Contact == null ? null : x.Value.Contact.FullName,
-                        ContactClientSex = x.Value.Contact == null ? null : ((Gender)x.Value.Contact.GenderCode).ToString(),
+                        ContactClientSex = x.Value.Contact == null ? null : x.Value.Contact.GenderCode.ToString(),
                         FirmCode = x.FirmCode,
                         FirmName = x.Value.FirmName,
                         IsClientActually = x.Value.IsClientActually,
@@ -1431,6 +1431,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder.FindMany(OrderSpecs.Bills.Find.ByOrder(orderId) & Specs.Find.ActiveAndNotDeleted<Bill>());
         }
 
+        public SalesModel GetOrderSalesModel(long orderId)
+        {
+            return
+                _finder.Find(Specs.Find.ById<Order>(orderId))
+                       .SelectMany(x => x.OrderPositions)
+                       .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                       .Select(x => x.PricePosition.Position.SalesModel)
+                       .Distinct()
+                       .SingleOrDefault();
+        }
+
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
         {
             var dto = _finder.Find(Specs.Find.ById<Deal>(dealId) & Specs.Find.NotDeleted<Deal>())
@@ -1702,7 +1713,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return list.ToDictionary(x => x.OrgUnitId, x => (ContributionTypeEnum?)x.ContributionType);
         }
     }
-
+    
     internal class OrderPositionBatchItem
     {
         public long OrderPositionId { get; set; }
