@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Russia;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -140,7 +141,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (LegalPersonProfileDomainEntityDto)domainEntityDto;
+            var modelDto = (RussiaLegalPersonProfileDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
             Name = modelDto.Name;
@@ -175,7 +176,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            return new LegalPersonProfileDomainEntityDto
+            return new RussiaLegalPersonProfileDomainEntityDto
                 {
                     Id = Id,
                     Name = Name.EnsureСleanness(),

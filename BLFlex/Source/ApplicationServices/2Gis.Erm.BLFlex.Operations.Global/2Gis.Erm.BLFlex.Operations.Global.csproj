@@ -169,6 +169,7 @@
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintNewSalesModelBargainHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintBargainProlongationAgreementHandler.cs" />
     <Compile Include="MultiCulture\Generic\BargainPrintFormDataExtractor.cs" />
+    <Compile Include="Russia\Generic\Get\RussiaGetLegalPersonProfileDtoService.cs" />
     <Compile Include="Russia\Generic\Get\GetAdvertisementElementStatusDtoService.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetBargainTypeDtoService.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetBranchOfficeDtoService.cs" />
@@ -178,11 +179,13 @@
     <Compile Include="Russia\Generic\Modify\BargainTypeFlexSpecs.cs" />
     <Compile Include="Russia\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\AdvertisementElementStatusObtainer.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaLegalPersonProfileObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBargainTypeObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBranchOfficeObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Russia\Generic\Get\GetClientDtoService.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\ClientObtainer.cs" />
+    <Compile Include="Russia\Generic\Modify\LegalPersonFlexSpecs.LegalPersonProfiles.cs" />
     <Compile Include="Shared\Consistency\EmiratesLegalPersonProfileConsistencyRuleContainer.cs" />
     <Compile Include="Shared\Consistency\KazakhstanLegalPersonProfileConsistencyRuleContainer.cs" />
     <Compile Include="Shared\PositionDetailedName.cs" />
