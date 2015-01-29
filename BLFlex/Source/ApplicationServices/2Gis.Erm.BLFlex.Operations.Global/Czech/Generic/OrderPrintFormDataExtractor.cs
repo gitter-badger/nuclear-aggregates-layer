@@ -138,7 +138,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
         {
             var categories = _printOrderHelper.GetCategories(query);
 
-            var stuff = query
+            var allTheFieldsThatHaveNoRelationToEverythingElse = query
                 .Select(order => new
                 {
                     order.DestOrganizationUnit.ElectronicMedia,
@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
                     })
                 .Single();
 
-            return PrintData.Concat(categories, stuff);
+            return PrintData.Concat(categories, allTheFieldsThatHaveNoRelationToEverythingElse);
         }
 
         public PrintData GetClient(LegalPerson legalPerson, LegalPersonProfile legalPersonProfile)
