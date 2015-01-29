@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel
             _messageType = messageType;
         }
 
-        public override TBuilder Combine(ExpressionsCombination combination)
+        public override TBuilder Combine(LogicalOperation combination)
         {
             AspectHostBuilder.WithFeatures(new MessageExpressionsFeature(combination, Expressions.ToArray(), _messageDescriptor, _messageType));
             return AspectHostBuilder;

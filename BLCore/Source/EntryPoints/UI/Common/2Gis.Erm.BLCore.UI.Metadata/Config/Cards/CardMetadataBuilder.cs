@@ -15,7 +15,6 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
@@ -75,6 +74,12 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             where T : IAspect
         {
             AddFeatures(new MessageExpressionFeature<T>(expression, messageDescriptor, MessageType.Info));
+            return this;
+        }
+
+        public CardMetadataBuilder<TEntity> InfoOn(LambdaExpressionsSequence expressionsSequence, IStringResourceDescriptor messageDescriptor)
+        {
+            AddFeatures(new MessageExpressionsFeature(expressionsSequence.ExpressionsCombination, expressionsSequence.Expressions, messageDescriptor, MessageType.Info));
             return this;
         }
 

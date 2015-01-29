@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 
@@ -28,6 +27,6 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
             return this;
         }
 
-        public abstract TBuilder Combine(ExpressionsCombination combination);
+        public abstract TBuilder Combine(LogicalOperation combination);
     }
 }

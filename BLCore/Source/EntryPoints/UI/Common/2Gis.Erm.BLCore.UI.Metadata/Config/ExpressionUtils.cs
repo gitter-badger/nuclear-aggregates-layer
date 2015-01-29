@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config
 {
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config
             }
         }
 
-        public static bool TryExecuteAspectBoolLambdas(this LambdaExpression[] expressions, IAspect aspectHost, ExpressionsCombination combination, out bool result)
+        public static bool TryExecuteAspectBoolLambdas(this LambdaExpression[] expressions, IAspect aspectHost, LogicalOperation combination, out bool result)
         {
             bool? currentResultState = null;
             result = false;
@@ -62,10 +63,10 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config
 
                 switch (combination)
                 {
-                    case ExpressionsCombination.And:
+                    case LogicalOperation.And:
                         currentResultState = currentResultState.HasValue ? currentResultState.Value && expressionResult : expressionResult;
                         break;
-                    case ExpressionsCombination.Or:
+                    case LogicalOperation.Or:
                         currentResultState = currentResultState.HasValue ? currentResultState.Value || expressionResult : expressionResult;
                         break;
                     default:
