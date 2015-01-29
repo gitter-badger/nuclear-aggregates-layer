@@ -43,5 +43,6 @@
         public const int DecreeNumberPropertyId = 40;
         public const int DecreeDatePropertyId = 41;
         public const int OtherAuthorityDocumentPropertyId = 42;
-	}
+        public const int ChiefFullNameInNominativeIdentityPropertyId = 43;
+    }
 }

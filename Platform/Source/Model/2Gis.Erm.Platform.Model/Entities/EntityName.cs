@@ -91,6 +91,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         MessageType = 218,
         LegalPersonProfile = 219,
         ChileLegalPersonProfilePart = 258,
+        RussiaLegalPersonProfilePart = 259,
         UkraineLegalPersonProfilePart = 263,
         EmiratesLegalPersonProfilePart = 606,
         KazakhstanLegalPersonProfilePart = 614,
