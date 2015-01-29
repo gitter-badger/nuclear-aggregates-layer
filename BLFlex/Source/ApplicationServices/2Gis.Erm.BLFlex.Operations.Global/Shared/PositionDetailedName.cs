@@ -158,29 +158,29 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         return string.Format(BLResources.PositionNameFormatAddressMultiple,
                                              values.SelectAddressQuoted());
                     case PositionBindingObjectType.CategorySingle:
-                        return string.Format(BLResources.PositionNameFormatCategorySingle,
+                        return string.Format(BLResources.PositionNameFormatContextCategorySingle,
                                              values.SelectCategoryQuoted());
                     case PositionBindingObjectType.AddressCategorySingle:
-                        return string.Format(BLResources.PositionNameFormatAddressCategorySingle,
+                        return string.Format(BLResources.PositionNameFormatAddressContextCategorySingle,
                                              values.SelectCategoryQuoted(),
                                              values.SelectAddressQuoted());
                     case PositionBindingObjectType.AddressCategoryMultiple:
-                        return string.Format(BLResources.PositionNameFormatAddressCategoryMultiple,
+                        return string.Format(BLResources.PositionNameFormatAddressContextCategoryMultiple,
                                              values.SelectCategoryQuoted(),
                                              values.SelectAddressQuoted());
                     case PositionBindingObjectType.CategoryMultiple:
-                        return string.Format(BLResources.PositionNameFormatCategoryMultiple,
+                        return string.Format(BLResources.PositionNameFormatContextCategoryMultiple,
                                              values.SelectCategoryQuoted());
                     case PositionBindingObjectType.AddressFirstLevelCategorySingle:
-                        return string.Format(BLResources.PositionNameFormatAddressFirstLevelCategorySingle,
+                        return string.Format(BLResources.PositionNameFormatAddressFirstLevelContextCategorySingle,
                                              values.SelectCategoryQuoted(),
                                              values.SelectAddressQuoted());
                     case PositionBindingObjectType.AddressFirstLevelCategoryMultiple:
-                        return string.Format(BLResources.PositionNameFormatAddressFirstLevelCategoryMultiple,
+                        return string.Format(BLResources.PositionNameFormatAddressFirstLevelContextCategoryMultiple,
                                              values.SelectCategoryQuoted(),
                                              values.SelectAddressQuoted());
                     case PositionBindingObjectType.CategoryMultipleAsterix:
-                        return string.Format(BLResources.PositionNameFormatCategoryMultipleAsterix,
+                        return string.Format(BLResources.PositionNameFormatContextCategoryMultipleAsterix,
                                              values.SelectCategoryQuoted());
                     case PositionBindingObjectType.ThemeMultiple:
                         return string.Format(BLResources.PositionNameFormatThemeMultiple,
