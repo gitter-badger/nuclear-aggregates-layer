@@ -23,18 +23,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 
         public RussianPercentToWordsFormatter(int significantDigitsNumber)
         {
+            if (significantDigitsNumber > Math.Log10(FractionalWords.Keys.Max()))
+            {
+                var message = string.Format("Невозможно вывести проценты с точностью до {0} знаков после запятой, нужно дополнить описание",
+                                            significantDigitsNumber);
+                throw new ArgumentException(message);
+            }
+
             _significantDigitsNumber = significantDigitsNumber;
         }
 
         public string Format(object data)
         {
-            if (_significantDigitsNumber > Math.Log10(FractionalWords.Keys.Max()))
-            {
-                var message = string.Format("Невозможно вывести проценты с точностью до {0} знаков после запятой, нужно дополнить описание",
-                                            _significantDigitsNumber);
-                throw new ArgumentException(message);
-            }
-
             var value = Convert.ToDecimal(data);
 
             var integerPart = (int)Math.Floor(value);
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 
             if (displayedFractionalPart == 0)
             {
-                // один процент
+                // например, "один процент"
                 var maleFormatter = new RussianNumberToWordsConverter(true);
                 return string.Format("{0} {1}", maleFormatter.Convert(integerPart), PercentWord.GetPluralFor(integerPart));
             }
@@ -54,14 +54,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 
             if (integerPart == 0)
             {
-                // одна десятая процента
+                // например, "одна десятая процента"
                 return string.Format("{0} {1} {2}",
                                      femaleFormatter.Convert(displayedFractionalPart),
                                      FractionalWords[fractionName].GetPluralFor(displayedFractionalPart),
                                      PercentWord.GetPluralFor(2));
             }
 
-            // одна целая одна десятая процента
+            // например, "одна целая одна десятая процента"
             return string.Format("{0} {1} {2} {3} {4}",
                                  femaleFormatter.Convert(integerPart),
                                  IntegerWord.GetPluralFor(integerPart),
