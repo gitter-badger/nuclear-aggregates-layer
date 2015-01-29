@@ -61,7 +61,6 @@
     <Compile Include="UIElements\Features\Expressions\IUIElementLambdaExpressionsSequenceFeature.cs" />
     <Compile Include="UIElements\Features\Expressions\IUIElementLambdaExpressionFeature.cs" />
     <Compile Include="UIElements\Features\Expressions\IHideExpressionFeature.cs" />
-    <Compile Include="UIElements\Features\Expressions\ExpressionsFeatureAspect.cs" />
     <Compile Include="UIElements\Features\LockOnInactiveCardFeature.cs" />
     <Compile Include="Config\Common\Card\Features\Parts\IPartsContainerElement.cs" />
     <Compile Include="Config\Common\Card\Features\Parts\IPartFeature.cs" />

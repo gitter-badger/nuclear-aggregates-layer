@@ -63,10 +63,22 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             return this;
         }
 
+        public CardMetadataBuilder<TEntity> WarningOn(LambdaExpressionsSequence expressionsSequence, IStringResourceDescriptor messageDescriptor)
+        {
+            AddFeatures(new MessageExpressionsFeature(expressionsSequence.ExpressionsCombination, expressionsSequence.Expressions, messageDescriptor, MessageType.Warning));
+            return this;
+        }
+
         public CardMetadataBuilder<TEntity> ErrorOn<T>(Expression<Func<T, bool>> expression, IStringResourceDescriptor messageDescriptor)
             where T : IAspect
         {
             AddFeatures(new MessageExpressionFeature<T>(expression, messageDescriptor, MessageType.CriticalError));
+            return this;
+        }
+
+        public CardMetadataBuilder<TEntity> ErrorOn(LambdaExpressionsSequence expressionsSequence, IStringResourceDescriptor messageDescriptor)
+        {
+            AddFeatures(new MessageExpressionsFeature(expressionsSequence.ExpressionsCombination, expressionsSequence.Expressions, messageDescriptor, MessageType.CriticalError));
             return this;
         }
 
@@ -81,11 +93,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         {
             AddFeatures(new MessageExpressionsFeature(expressionsSequence.ExpressionsCombination, expressionsSequence.Expressions, messageDescriptor, MessageType.Info));
             return this;
-        }
-
-        public MessageExpressionsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> InfoOn(IStringResourceDescriptor messageDescriptor)
-        {
-            return new MessageExpressionsFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata>(this, messageDescriptor, MessageType.Info);
         }
 
         public CardMetadataBuilder<TEntity> ReadOnly()
