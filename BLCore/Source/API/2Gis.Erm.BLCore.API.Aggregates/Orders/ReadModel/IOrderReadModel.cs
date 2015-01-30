@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel.DTO;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -117,6 +118,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take);
         OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId);
         IEnumerable<Bill> GetBillsForOrder(long orderId);
+        OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId);
+        OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId);
+        long? GetLegalPersonProfileIdByOrder(long orderId);
+        IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId);
         SalesModel GetOrderSalesModel(long orderId);
     }
 }

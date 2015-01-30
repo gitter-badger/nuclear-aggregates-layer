@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel.DTO;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -154,12 +155,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public IEnumerable<OrderPositionDto> OrderPositions { get; set; }
         
         public sealed class OrderPositionDto
-        {
-            public OrderPosition OrderPosition { get; set; }
-            public string PositionName { get; set; }
-            public PricePosition PricePosition { get; set; }
-            public IEnumerable<OrderPositionAdvertisement> Advertisements { get; set; }
-            public IEnumerable<AdvertisementDescriptor> ClonedAdvertisements { get; set; }
+    {
+        public OrderPosition OrderPosition { get; set; }
+        public string PositionName { get; set; }
+        public PricePosition PricePosition { get; set; }
+        public IEnumerable<OrderPositionAdvertisement> Advertisements { get; set; }
+        public IEnumerable<AdvertisementDescriptor> ClonedAdvertisements { get; set; }
             
             public IEnumerable<OrderReleaseWithdrawalDto> ReleaseWithdrawals { get; set; }
         }

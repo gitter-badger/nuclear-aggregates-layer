@@ -6,7 +6,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms
     {
         public long OrderId { get; set; }
         public long[] RelatedOrderIds { get; set; }
-        public long? LegalPersonProfile { get; set; }
     }
 }
 

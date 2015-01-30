@@ -1,4 +1,7 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+﻿using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -17,7 +20,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
     {
         private readonly IAccountRepository _accountRepository;
         private readonly IEvaluateOrderNumberService _numberService;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
+        // TODO {all, 19.01.2015}: Есть смысл в этих стратегиях не использовать ReadModel, а передавать уже считанные данные.
         public OrderCreationStrategy(IUserContext userContext,
                                      IOrderRepository orderRepository,
                                      IUseCaseResumeContext<EditOrderRequest> resumeContext,
@@ -26,11 +31,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                      IUserRepository userRepository,
                                      IOrderReadModel orderReadModel,
                                      IAccountRepository accountRepository,
-                                     IEvaluateOrderNumberService numberService)
+                                     IEvaluateOrderNumberService numberService,
+                                     ILegalPersonReadModel legalPersonReadModel)
             : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
             _accountRepository = accountRepository;
             _numberService = numberService;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         public override void FinishProcessing(Order order)
@@ -91,6 +98,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             var account = _accountRepository.CreateAccount(order.LegalPersonId.Value, order.BranchOfficeOrganizationUnitId.Value);
             order.AccountId = account.Id;
             OperationScope.Added<Account>(order.AccountId.Value);
+        }
+
+        protected override void UpdateDefaultProfile(Order order)
+        {
+            if (order.LegalPersonId.HasValue && order.LegalPersonProfileId == null)
+            {
+                var profiles = _legalPersonReadModel.GetLegalPersonProfileIds(order.LegalPersonId.Value).ToList();
+                if (profiles.Count() == 1)
+                {
+                    order.LegalPersonProfileId = profiles.Single();
+                }
+            }
         }
     }
 }
