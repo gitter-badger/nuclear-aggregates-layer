@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -19,11 +18,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
     public sealed class OrderPrintFormDataExtractor : IOrderPrintFormDataExtractor
     {
         private readonly PrintOrderHelper _printOrderHelper;
-        private readonly IFormatter _longDateFormatter;
 
         public OrderPrintFormDataExtractor(IFormatterFactory formatterFactory, ISecurityServiceUserIdentifier userIdentifierService)
         {
-            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
             _printOrderHelper = new PrintOrderHelper(formatterFactory, userIdentifierService);
         }
 
@@ -141,7 +138,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
         {
             var categories = _printOrderHelper.GetCategories(query);
 
-            var stuff = query
+            var allTheFieldsThatHaveNoRelationToEverythingElse = query
                 .Select(order => new
                 {
                     order.DestOrganizationUnit.ElectronicMedia,
@@ -156,11 +153,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
                         { "ElectronicMedia", x.ElectronicMedia },
                         { "SourceElectronicMedia", x.SourceElectronicMedia },
                         { "Firm.Name", x.FirmName },
-                        { "TechnicalTerminationParagraph", GetTechnicalTerminationParagraph(x.Order, x.TerminatedOrder) }
+                        { "TerminatedOrder", GetTerminatedOrder(x.TerminatedOrder) },
+                        { "UseTechnicalTermination", x.TerminatedOrder != null },
                     })
                 .Single();
 
-            return PrintData.Concat(categories, stuff);
+            return PrintData.Concat(categories, allTheFieldsThatHaveNoRelationToEverythingElse);
         }
 
         public PrintData GetClient(LegalPerson legalPerson, LegalPersonProfile legalPersonProfile)
@@ -204,32 +202,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
                 profile.WarrantyBeginDate.Value.ToShortDateString()); // FIXME {a.rechkalov, 12.03.2014}: неправильное форматирование даты
         }
 
-        private string GetTechnicalTerminationParagraph(Order order, Order terminatedOrder)
+        private PrintData GetTerminatedOrder(Order terminatedOrder)
         {
-            if (terminatedOrder == null)
-            {
-                return BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph1;
-            }
-
-            // order.BeginDistributionDate
-            var beginDistributionDate = _longDateFormatter.Format(order.BeginDistributionDate);
-
-            // terminatedOrder.Number
-            var terminatedOrderNumber = terminatedOrder.Number;
-
-            // terminatedOrder.SignupDate
-            var terminatedOrderSignupDate = _longDateFormatter.Format(terminatedOrder.SignupDate);
-
-            // terminatedOrder.EndDistributionDateFact
-            var terminatedOrderEndDistributionDateFact = _longDateFormatter.Format(terminatedOrder.EndDistributionDateFact);
-
-            return string.Format(
-                CultureInfo.CurrentCulture,
-                BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph2,
-                beginDistributionDate,
-                terminatedOrderNumber,
-                terminatedOrderSignupDate,
-                terminatedOrderEndDistributionDateFact);
+            return terminatedOrder == null
+                       ? null
+                       : new PrintData
+                             {
+                                 { "Number", terminatedOrder.Number },
+                                 { "SignupDate", terminatedOrder.SignupDate },
+                                 { "EndDistributionDateFact", terminatedOrder.EndDistributionDateFact },
+                             };
         }
     }
 }

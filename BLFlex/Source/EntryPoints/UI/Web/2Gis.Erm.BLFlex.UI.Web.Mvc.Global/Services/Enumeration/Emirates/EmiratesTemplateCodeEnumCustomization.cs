@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Emirates
         {
             return new[]
                 {
-                    TemplateCode.OrderWithoutVatWithDiscount,
+                    TemplateCode.Order,
                     TemplateCode.BillLegalPerson,
                     TemplateCode.ClientBargain,
                     TemplateCode.ClientBargainAlternativeLanguage,

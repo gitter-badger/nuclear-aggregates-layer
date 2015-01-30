@@ -169,13 +169,6 @@ Bank Name: {7}
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
     <value>Mass media: "{0}" (PC version). Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
-    <value>7.</value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>7. This Quotation comes into effect from {0}. The Quotation No.{1} as of {2} becomes inoperative from {3}.
-8.</value>
-  </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
     <value>Cannot create an Quotation for legal entity of the type '{0}' specified in the profile</value>
   </data>
@@ -202,18 +195,6 @@ Bank Name: {7}
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value>[Not defined for current business model and language]:</value>
-  </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
@@ -476,5 +457,26 @@ Bank Name: {7}
   </data>
   <data name="OrderFieldNotSpecified" xml:space="preserve">
     <value>The "{0}" field in the order is not filled in</value>
+  </data>
+  <data name="PositionNameFormatContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultipleAsterix" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
 </root>
