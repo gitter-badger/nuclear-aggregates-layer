@@ -1845,15 +1845,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne {
-            get {
-                return ResourceManager.GetString("AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AttemptToSaveBudgeteOrderPositionWithNegativePrice {
             get {
                 return ResourceManager.GetString("AttemptToSaveBudgeteOrderPositionWithNegativePrice", resourceCulture);
@@ -1875,6 +1866,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string AttemptToSaveOrderPositionsWithInvalidDiscountRate {
             get {
                 return ResourceManager.GetString("AttemptToSaveOrderPositionsWithInvalidDiscountRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AttemptToSaveOrderPositionWithAmountNotEqualToOne {
+            get {
+                return ResourceManager.GetString("AttemptToSaveOrderPositionWithAmountNotEqualToOne", resourceCulture);
             }
         }
         
@@ -3613,6 +3613,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CatalogueManagement_ThemeTemplates {
             get {
                 return ResourceManager.GetString("CatalogueManagement_ThemeTemplates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CategoriesSetForAllPositionsMustBeTheSame {
+            get {
+                return ResourceManager.GetString("CategoriesSetForAllPositionsMustBeTheSame", resourceCulture);
             }
         }
         
@@ -7606,6 +7615,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string InvalidLegalPersonProfileForOrder {
+            get {
+                return ResourceManager.GetString("InvalidLegalPersonProfileForOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string InvalidOrderPositionBindingType {
             get {
                 return ResourceManager.GetString("InvalidOrderPositionBindingType", resourceCulture);
@@ -7850,6 +7868,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string LegalPersonFieldsMustBeFilled {
+            get {
+                return ResourceManager.GetString("LegalPersonFieldsMustBeFilled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string LegalPersonHasSeveralMainProfiles {
             get {
                 return ResourceManager.GetString("LegalPersonHasSeveralMainProfiles", resourceCulture);
@@ -7952,6 +7979,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string LegalPersonProfileMissing {
             get {
                 return ResourceManager.GetString("LegalPersonProfileMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LegalPersonProfileMustBeSpecified {
+            get {
+                return ResourceManager.GetString("LegalPersonProfileMustBeSpecified", resourceCulture);
             }
         }
         
@@ -9731,15 +9767,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string OrderBudgetCanAcceptOnlyBudgetPositions {
-            get {
-                return ResourceManager.GetString("OrderBudgetCanAcceptOnlyBudgetPositions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string OrderBudgetCanHaveOnlyOnePosition {
             get {
                 return ResourceManager.GetString("OrderBudgetCanHaveOnlyOnePosition", resourceCulture);
@@ -10913,15 +10940,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OrdersCheckThereIsDeniedPosition {
             get {
                 return ResourceManager.GetString("OrdersCheckThereIsDeniedPosition", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string OrderSellCanAcceptOnlySellPositions {
-            get {
-                return ResourceManager.GetString("OrderSellCanAcceptOnlySellPositions", resourceCulture);
             }
         }
         
@@ -14315,6 +14333,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TitlePlan {
             get {
                 return ResourceManager.GetString("TitlePlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TitlePrinting {
+            get {
+                return ResourceManager.GetString("TitlePrinting", resourceCulture);
             }
         }
         

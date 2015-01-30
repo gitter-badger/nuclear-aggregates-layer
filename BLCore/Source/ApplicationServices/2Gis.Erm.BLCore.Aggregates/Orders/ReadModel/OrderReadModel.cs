@@ -7,13 +7,16 @@ using System.Text.RegularExpressions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel.DTO;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
@@ -958,13 +961,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
                           .Select(x => new OrderFinancialInfo
-                              {
-                                  DiscountSum = x.DiscountSum,
-                                  ReleaseCountFact = x.ReleaseCountFact,
-                                  DiscountInPercent = x.OrderPositions
-                                                       .Where(y => !y.IsDeleted && y.IsActive)
+                                           {
+                                               DiscountSum = x.DiscountSum,
+                                               ReleaseCountFact = x.ReleaseCountFact,
+                                               DiscountInPercent = x.OrderPositions
+                                                                    .Where(y => !y.IsDeleted && y.IsActive)
                                                                     .All(y => y.CalculateDiscountViaPercent)
-                              })
+                                           })
                           .Single();
         }
 
@@ -1380,6 +1383,181 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           }).Single();
         }
 
+        public long? GetLegalPersonProfileIdByOrder(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(order => order.LegalPersonProfileId)
+                          .SingleOrDefault();
+        }
+
+        public IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId)
+        {
+            return _finder.FindMany(OrderSpecs.Orders.Find.NotInArchive()
+                                    && Specs.Find.ActiveAndNotDeleted<Order>()
+                                    && OrderSpecs.Orders.Find.ByLegalPersonProfileId(legalPersonProfileId));
+        }
+
+        public OrderAmountToWithdrawInfo GetOrderAmountToWithdrawInfo(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                           .Select(o => new OrderAmountToWithdrawInfo
+                           {
+                               Order = o,
+                               AmountToWithdraw = o.OrderReleaseTotals
+                                                     .Where(
+                                                         orderReleaseTotal =>
+                                                         orderReleaseTotal.ReleaseNumber ==
+                                                         o.BeginReleaseNumber +
+                                                         o.Locks.Count(@lock => !@lock.IsDeleted && !@lock.IsActive))
+                                                     .Select(orderReleaseTotal => orderReleaseTotal.AmountToWithdraw)
+                                                     .FirstOrDefault()
+                           })
+                            .Single();
+        }
+
+        public OrderRecalculateWithdrawalsDto GetOrderRecalculateWithdrawalsInfo(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                        .Select(x => new OrderRecalculateWithdrawalsDto
+                        {
+                            LocksCount = x.Locks.Count(@lock => !@lock.IsDeleted && !@lock.IsActive),
+                            ReleaseTotals = x.OrderReleaseTotals,
+                            OrderPositions = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                                .Select(y => new OrderRecalculateWithdrawalsDto.OrderPositionDto
+                                                {
+                                                    Id = y.Id,
+                                                    PayablePlan = y.PayablePlan,
+                                                    PayablePlanWoVat = y.PayablePlanWoVat,
+                                                    PlatformId = y.PricePosition.Position.PlatformId,
+                                                    PriceId = y.PricePosition.PriceId,
+                                                    OrderId = y.OrderId,
+                                                    PositionId = y.PricePosition.PositionId,
+                                                    Amount = y.Amount,
+                                                    DiscountSum = y.DiscountSum,
+                                                    DiscountPercent = y.DiscountPercent,
+                                                    CalculateDiscountViaPercent = y.CalculateDiscountViaPercent,
+                                                    CategoryRate = y.CategoryRate,
+                                                    IsComposite = y.PricePosition.Position.IsComposite,
+                                                    ReleaseWithdrawals = y.ReleasesWithdrawals.Select(z => new OrderReleaseWithdrawalDto
+                                                    {
+                                                        WidrawalInfo = z,
+                                                        WithdrawalsPositions = z.ReleasesWithdrawalsPositions
+                                                    })
+                                                })
+                        })
+                        .Single();
+        }
+
+        public OrderDeleteOrderPositionDto GetOrderPositionDeleteInfo(long orderPositionId)
+        {
+            return _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId))
+                          .Select(position => new OrderDeleteOrderPositionDto
+                          {
+                              OrderPosition = position,
+                              Order = position.Order,
+                              IsDiscountViaPercentCalculation = position.Order.OrderPositions
+                                                                 .Where(y => !y.IsDeleted && y.IsActive)
+                                                                 .All(y => y.CalculateDiscountViaPercent),
+                          })
+                          .SingleOrDefault();
+        }
+
+        public OrderRepairOutdatedOrderPositionDto GetOrderInfoForRepairOutdatedPositions(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(o => new OrderRepairOutdatedOrderPositionDto
+                          {
+                              ReleaseTotals = o.OrderReleaseTotals,
+                              OrderPositions =
+                                   o.OrderPositions
+                                       .Where(op => op.IsActive && !op.IsDeleted)
+                                       .Select(op => new OrderRepairOutdatedOrderPositionDto.OrderPositionDto
+                                       {
+                                           OrderPosition = op,
+                                           PricePosition = op.PricePosition,
+                                           Advertisements = op.OrderPositionAdvertisements,
+                                           ClonedAdvertisements =
+                                               op.OrderPositionAdvertisements
+                                                       .Select(adv => new Platform.Model.Entities.DTOs.AdvertisementDescriptor
+                                                       {
+                                                           AdvertisementId = adv.AdvertisementId,
+                                                           CategoryId = adv.CategoryId,
+                                                           ThemeId = adv.ThemeId,
+                                                           FirmAddressId = adv.FirmAddressId,
+                                                           PositionId = adv.PositionId,
+                                                           IsAdvertisementRequired =
+                                                               adv.Position.AdvertisementTemplate != null &&
+                                                               adv.Position.AdvertisementTemplate.IsAdvertisementRequired
+                                                       }),
+                                           ReleaseWithdrawals =
+                                               op.ReleasesWithdrawals
+                                                       .Select(z => new OrderReleaseWithdrawalDto
+                                                       {
+                                                           WidrawalInfo = z,
+                                                           WithdrawalsPositions = z.ReleasesWithdrawalsPositions
+                                                       })
+                                       })
+                          })
+                          .Single();
+        }
+
+        public decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take)
+        {
+            return _finder.Find<OrderReleaseTotal>(x => x.OrderId == orderId)
+               .OrderBy(x => x.Id)
+               .Skip(skip)
+               .Take(take)
+               .Select(x => (decimal?)x.AmountToWithdraw)
+               .SingleOrDefault();
+        }
+
+        public OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId)
+        {
+            var dto = _secureFinder.Find(Specs.Find.ById<Order>(orderId))
+                                   .Select(order => new
+                                   {
+                                       LegalPersonId = order.LegalPersonId,
+                                       LegalPersonName = order.LegalPerson.LegalName,
+                                       LegalPersonProfileId = order.LegalPersonProfileId,
+                                       LegalPersonProfileName = order.LegalPersonProfile.Name,
+                                   })
+                                   .Single();
+
+            if (dto.LegalPersonId == null)
+            {
+                throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
+            }
+
+            return new OrderLegalPersonProfileDto
+            {
+                LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
+                LegalPersonProfile = new EntityReference(dto.LegalPersonProfileId, dto.LegalPersonProfileName)
+            };
+        }
+
+        public OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId)
+        {
+            var dto = _secureFinder.Find(Specs.Find.ById<Bargain>(bargainId))
+                                   .Select(x => new
+                                   {
+                                       LegalPersonId = x.CustomerLegalPersonId,
+                                       LegalPersonName = x.LegalPerson.LegalName
+                                   })
+                                   .Single();
+
+            var profiles = _secureFinder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(dto.LegalPersonId)
+                                              && Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>())
+                                        .Select(x => new { x.Id, x.Name })
+                                        .Take(2)
+                                        .ToArray();
+
+            return new OrderLegalPersonProfileDto
+            {
+                LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
+                LegalPersonProfile = profiles.Length == 1 ? new EntityReference(profiles[0].Id, profiles[0].Name) : new EntityReference(),
+            };
+        }
+
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
         {
             var dto = _finder.Find(Specs.Find.ById<Deal>(dealId) & Specs.Find.NotDeleted<Deal>())
@@ -1489,120 +1667,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
 
             return result;
-        }
-
-        public OrderAmountToWithdrawInfo GetOrderAmountToWithdrawInfo(long orderId)
-        {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
-                           .Select(o => new OrderAmountToWithdrawInfo
-                                                {
-                                                    Order = o,
-                                                    AmountToWithdraw = o.OrderReleaseTotals
-                                                                          .Where(
-                                                                              orderReleaseTotal =>
-                                                                              orderReleaseTotal.ReleaseNumber ==
-                                                                              o.BeginReleaseNumber +
-                                                                              o.Locks.Count(@lock => !@lock.IsDeleted && !@lock.IsActive))
-                                                                          .Select(orderReleaseTotal => orderReleaseTotal.AmountToWithdraw)
-                                                                          .FirstOrDefault()
-                                                })
-                            .Single();
-        }
-
-        public OrderRecalculateWithdrawalsDto GetOrderRecalculateWithdrawalsInfo(long orderId)
-        {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
-                        .Select(x => new OrderRecalculateWithdrawalsDto
-                        {
-                            LocksCount = x.Locks.Count(@lock => !@lock.IsDeleted && !@lock.IsActive),
-                            ReleaseTotals = x.OrderReleaseTotals,
-                            OrderPositions = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
-                                                .Select(y => new OrderRecalculateWithdrawalsDto.OrderPositionDto
-                                                {
-                                                    Id = y.Id,
-                                                    PayablePlan = y.PayablePlan,
-                                                    PayablePlanWoVat = y.PayablePlanWoVat,
-                                                    PlatformId = y.PricePosition.Position.PlatformId,
-                                                    PriceId = y.PricePosition.PriceId,
-                                                    OrderId = y.OrderId,
-                                                    PositionId = y.PricePosition.PositionId,
-                                                    Amount = y.Amount,
-                                                    DiscountSum = y.DiscountSum,
-                                                    DiscountPercent = y.DiscountPercent,
-                                                    CalculateDiscountViaPercent = y.CalculateDiscountViaPercent,
-                                                    CategoryRate = y.CategoryRate,
-                                                    IsComposite = y.PricePosition.Position.IsComposite,
-                                                    ReleaseWithdrawals = y.ReleasesWithdrawals.Select(z => new OrderReleaseWithdrawalDto
-                                                                                                            {
-                                                                                                                WidrawalInfo = z, 
-                                                                                                                WithdrawalsPositions = z.ReleasesWithdrawalsPositions
-                                                                                                            })
-                                                })
-                        })
-                        .Single();
-        }
-
-        public OrderDeleteOrderPositionDto GetOrderPositionDeleteInfo(long orderPositionId)
-        {
-            return _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId))
-                          .Select(position => new OrderDeleteOrderPositionDto
-                                                  {
-                                                      OrderPosition = position,
-                                                      Order = position.Order,
-                                                      IsDiscountViaPercentCalculation = position.Order.OrderPositions
-                                                                                         .Where(y => !y.IsDeleted && y.IsActive)
-                                                                                         .All(y => y.CalculateDiscountViaPercent),
-                                                  })
-                          .SingleOrDefault();
-        }
-
-        public OrderRepairOutdatedOrderPositionDto GetOrderInfoForRepairOutdatedPositions(long orderId)
-        {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(o => new OrderRepairOutdatedOrderPositionDto
-                                           {
-                                               ReleaseTotals = o.OrderReleaseTotals,
-                                               OrderPositions = 
-                                                    o.OrderPositions
-                                                        .Where(op => op.IsActive && !op.IsDeleted)
-                                                        .Select(op => new OrderRepairOutdatedOrderPositionDto.OrderPositionDto
-                                                                            {
-                                                                                OrderPosition = op,
-                                                                                PricePosition = op.PricePosition,
-                                                                                Advertisements = op.OrderPositionAdvertisements,
-                                                                                ClonedAdvertisements = 
-                                                                                    op.OrderPositionAdvertisements
-                                                                                            .Select(adv => new Platform.Model.Entities.DTOs.AdvertisementDescriptor
-                                                                                            {
-                                                                                                AdvertisementId = adv.AdvertisementId,
-                                                                                                CategoryId = adv.CategoryId,
-                                                                                                ThemeId = adv.ThemeId,
-                                                                                                FirmAddressId = adv.FirmAddressId,
-                                                                                                PositionId = adv.PositionId,
-                                                                                                IsAdvertisementRequired =
-                                                                                                    adv.Position.AdvertisementTemplate != null &&
-                                                                                                    adv.Position.AdvertisementTemplate.IsAdvertisementRequired
-                                                                                            }),
-                                                                                ReleaseWithdrawals = 
-                                                                                    op.ReleasesWithdrawals
-                                                                                            .Select(z => new OrderReleaseWithdrawalDto
-                                                                                            {
-                                                                                                WidrawalInfo = z, 
-                                                                                                WithdrawalsPositions = z.ReleasesWithdrawalsPositions
-                                                                                            })
-                                                                            })
-                                           })
-                          .Single();
-        }
-
-        public decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take)
-        {
-            return _finder.Find<OrderReleaseTotal>(x => x.OrderId == orderId)
-               .OrderBy(x => x.Id)
-               .Skip(skip)
-               .Take(take)
-               .Select(x => (decimal?)x.AmountToWithdraw)
-               .SingleOrDefault();
         }
 
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)

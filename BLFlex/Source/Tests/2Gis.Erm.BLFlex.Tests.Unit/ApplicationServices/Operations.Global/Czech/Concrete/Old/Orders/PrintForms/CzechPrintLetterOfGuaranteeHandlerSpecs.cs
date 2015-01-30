@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
 
             public PrintData GetPrintData()
             {
-                return GetPrintData(0, 0);
+                return GetPrintData(0);
             }
         }
 
