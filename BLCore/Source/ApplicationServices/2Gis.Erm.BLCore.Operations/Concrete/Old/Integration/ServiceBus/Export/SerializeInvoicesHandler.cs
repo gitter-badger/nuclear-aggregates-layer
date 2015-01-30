@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -32,8 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return new SelectSpecification<Order, IExportableEntityDto>(x => new InvoiceDto
             {
                 Id = x.Id,
-                SalesModels = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
-                                             .Select(y => y.PricePosition.Position.SalesModel),
+                SalesModels = OrderSpecs.Orders.Select.OrderSalesModels().Selector.Compile()(x),
                 Number = x.Number,
                 FirmCode = x.FirmId,
                 FirmName = x.Firm.Name,
