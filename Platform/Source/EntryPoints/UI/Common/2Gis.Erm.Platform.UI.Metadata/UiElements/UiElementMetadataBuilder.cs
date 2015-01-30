@@ -15,7 +15,6 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
@@ -109,10 +108,22 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements
             return this;
         }
 
+        public UIElementMetadataBuilder DisableOn(LambdaExpressionsSequence expressionsSequence)
+        {
+            AddFeatures(new DisableExpressionsFeature(expressionsSequence.LogicalOperation, expressionsSequence.Expressions));
+            return this;
+        }
+
         public UIElementMetadataBuilder HideOn<T>(params Expression<Func<T, bool>>[] expressions)
             where T : IAspect
         {
             AddFeatures(expressions.Select(expression => new HideExpressionFeature<T>(expression)).ToArray());
+            return this;
+        }
+
+        public UIElementMetadataBuilder HideOn(LambdaExpressionsSequence expressionsSequence)
+        {
+            AddFeatures(new HideExpressionsFeature(expressionsSequence.LogicalOperation, expressionsSequence.Expressions));
             return this;
         }
 

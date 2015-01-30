@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
 
 namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 {
@@ -63,9 +64,9 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<AdvertisementElement>()
                                     .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisementElement)
-                                    .ReadOnlyOn<ISetReadOnlyAspect>(x => x.SetReadonly)
-                                    .ReadOnlyOn<IAdvertisementElementVerificationAspect>(x => x.CanUserChangeStatus,
-                                                                                         x => (x.NeedsValidation && x.Status != AdvertisementElementStatusValue.Draft))
+                                    .ReadOnlyOn(Condition.On<ISetReadOnlyAspect>(x => x.SetReadonly) |
+                                                Condition.On<IAdvertisementElementVerificationAspect>(x => x.CanUserChangeStatus) |
+                                                Condition.On<IAdvertisementElementVerificationAspect>(x => x.NeedsValidation && x.Status != AdvertisementElementStatusValue.Draft))
                                     .WithAdminTab()
                                     .WithComments(),
 
@@ -91,15 +92,15 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<AssociatedPosition>()
                                     .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPosition)
-                                    .ReadOnlyOn<IDeletablePriceAspect>(x => x.PriceIsDeleted)
-                                    .ReadOnlyOn<IPublishablePriceAspect>(x => x.PriceIsPublished)
+                                    .ReadOnlyOn(Condition.On<IDeletablePriceAspect>(x => x.PriceIsDeleted) |
+                                                Condition.On<IPublishablePriceAspect>(x => x.PriceIsPublished))
                                     .WithAdminTab(),
 
                         CardMetadata.For<AssociatedPositionsGroup>()
                                     .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnAssociatedPositionsGroup)
-                                    .ReadOnlyOn<IDeletablePriceAspect>(x => x.PriceIsDeleted)
-                                    .ReadOnlyOn<IPublishablePriceAspect>(x => x.PriceIsPublished)
+                                    .ReadOnlyOn(Condition.On<IDeletablePriceAspect>(x => x.PriceIsDeleted) |
+                                                Condition.On<IPublishablePriceAspect>(x => x.PriceIsPublished))
                                     .WithAdminTab(),
 
                         CardMetadata.For<Bargain>()

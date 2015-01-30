@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel
                                          IStringResourceDescriptor messageDescriptor,
                                          MessageType messageType)
         {
-            ExpressionsCombination = expressionsCombination;
+            LogicalOperation = expressionsCombination;
             MessageType = messageType;
             MessageDescriptor = messageDescriptor;
             Expressions = expressions;
@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel
 
         public IStringResourceDescriptor MessageDescriptor { get; private set; }
         public MessageType MessageType { get; private set; }
-        public LogicalOperation ExpressionsCombination { get; private set; }
+        public LogicalOperation LogicalOperation { get; private set; }
         public LambdaExpression[] Expressions { get; private set; }
     }
 }

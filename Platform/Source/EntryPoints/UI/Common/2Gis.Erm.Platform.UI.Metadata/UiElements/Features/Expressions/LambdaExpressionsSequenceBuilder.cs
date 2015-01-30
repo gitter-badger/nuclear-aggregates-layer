@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
         {
             if (SequenceOperation.HasValue && SequenceOperation.Value != LogicalOperation.And)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("The sequence cannot contain different operators");
             }
 
             SequenceOperation = LogicalOperation.And;
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
         {
             if (SequenceOperation.HasValue && SequenceOperation.Value != LogicalOperation.Or)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("The sequence cannot contain different operators");
             }
 
             SequenceOperation = LogicalOperation.Or;

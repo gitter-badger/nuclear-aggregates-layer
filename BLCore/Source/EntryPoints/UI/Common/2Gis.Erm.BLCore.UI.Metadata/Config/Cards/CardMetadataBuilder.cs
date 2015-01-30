@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 
         public CardMetadataBuilder<TEntity> WarningOn(LambdaExpressionsSequence expressionsSequence, IStringResourceDescriptor messageDescriptor)
         {
-            AddFeatures(new MessageExpressionsFeature(expressionsSequence.ExpressionsCombination, expressionsSequence.Expressions, messageDescriptor, MessageType.Warning));
+            AddFeatures(new MessageExpressionsFeature(expressionsSequence.LogicalOperation, expressionsSequence.Expressions, messageDescriptor, MessageType.Warning));
             return this;
         }
 
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 
         public CardMetadataBuilder<TEntity> ErrorOn(LambdaExpressionsSequence expressionsSequence, IStringResourceDescriptor messageDescriptor)
         {
-            AddFeatures(new MessageExpressionsFeature(expressionsSequence.ExpressionsCombination, expressionsSequence.Expressions, messageDescriptor, MessageType.CriticalError));
+            AddFeatures(new MessageExpressionsFeature(expressionsSequence.LogicalOperation, expressionsSequence.Expressions, messageDescriptor, MessageType.CriticalError));
             return this;
         }
 
@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 
         public CardMetadataBuilder<TEntity> InfoOn(LambdaExpressionsSequence expressionsSequence, IStringResourceDescriptor messageDescriptor)
         {
-            AddFeatures(new MessageExpressionsFeature(expressionsSequence.ExpressionsCombination, expressionsSequence.Expressions, messageDescriptor, MessageType.Info));
+            AddFeatures(new MessageExpressionsFeature(expressionsSequence.LogicalOperation, expressionsSequence.Expressions, messageDescriptor, MessageType.Info));
             return this;
         }
 
@@ -105,6 +105,12 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             where T : IAspect
         {
             AddFeatures(expressions.Select(expression => new DisableExpressionFeature<T>(expression)).ToArray());
+            return this;
+        }
+
+        public CardMetadataBuilder<TEntity> ReadOnlyOn(LambdaExpressionsSequence expressionsSequence)
+        {
+            AddFeatures(new DisableExpressionsFeature(expressionsSequence.LogicalOperation, expressionsSequence.Expressions));
             return this;
         }
 

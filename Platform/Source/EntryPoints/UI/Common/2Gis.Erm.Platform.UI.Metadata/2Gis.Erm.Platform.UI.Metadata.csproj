@@ -53,6 +53,8 @@
     </Compile>
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewPathMapping.cs" />
     <Compile Include="UIElements\Features\Expressions\Condition.cs" />
+    <Compile Include="UIElements\Features\Expressions\HideExpressionsFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\DisableExpressionsFeature.cs" />
     <Compile Include="UIElements\Features\Expressions\LambdaExpressionsSequence.cs" />
     <Compile Include="UIElements\Features\Expressions\ILambdaExpressionsSequence.cs" />
     <Compile Include="UIElements\Features\Expressions\LambdaExpressionsSequenceBuilder.cs" />

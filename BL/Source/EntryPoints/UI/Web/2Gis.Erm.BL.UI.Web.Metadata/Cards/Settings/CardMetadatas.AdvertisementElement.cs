@@ -5,6 +5,7 @@ using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -19,9 +20,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Update<AdvertisementElement>()
                                                .HideOn<IAdvertisementElementRequiresVerificationAspect>(x => x.NeedsValidation),
                                 ToolbarElements.AdvertisementElements.ResetToDraft()
-                                               .DisableOn<ISetReadOnlyAspect>(x => x.SetReadonly)
-                                               .DisableOn<IAdvertisementElementVerificationAspect>(x => x.CanUserChangeStatus,
-                                                                                                   x => x.Status == AdvertisementElementStatusValue.Draft)
+                                               .DisableOn(Condition.On<ISetReadOnlyAspect>(x => x.SetReadonly) |
+                                                          Condition.On<IAdvertisementElementVerificationAspect>(x => x.CanUserChangeStatus) |
+                                                          Condition.On<IAdvertisementElementVerificationAspect>(x => x.Status == AdvertisementElementStatusValue.Draft))
                                                .HideOn<IAdvertisementElementRequiresVerificationAspect>(x => !x.NeedsValidation),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.AdvertisementElements.SaveAndVerify()

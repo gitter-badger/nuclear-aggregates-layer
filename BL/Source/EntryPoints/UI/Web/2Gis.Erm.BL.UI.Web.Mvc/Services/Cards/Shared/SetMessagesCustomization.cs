@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
             {
                 bool expressionResult;
 
-                if (!feature.Expressions.TryExecuteAspectBoolLambdas((IAspect)viewModel, feature.ExpressionsCombination, out expressionResult))
+                if (!feature.Expressions.TryExecuteAspectBoolLambdas((IAspect)viewModel, feature.LogicalOperation, out expressionResult))
                 {
                     throw new InvalidOperationException(string.Format("Unable to execute message expressions for {0} card with {1} viewmodel", metadata.Entity, viewModel.GetType()));
                 }

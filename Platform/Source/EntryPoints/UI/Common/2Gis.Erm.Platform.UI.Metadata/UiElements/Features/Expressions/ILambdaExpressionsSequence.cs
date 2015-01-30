@@ -4,7 +4,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
 {
     public interface ILambdaExpressionsSequence
     {
-        LogicalOperation ExpressionsCombination { get; }
+        LogicalOperation LogicalOperation { get; }
         LambdaExpression[] Expressions { get; }
     }
 }

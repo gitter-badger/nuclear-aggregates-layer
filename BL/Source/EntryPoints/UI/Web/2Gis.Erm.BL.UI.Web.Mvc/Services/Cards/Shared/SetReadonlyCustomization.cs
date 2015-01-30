@@ -11,7 +11,6 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
@@ -41,6 +40,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
                 if (!feature.Expression.TryExecuteAspectLambda((IAspect)viewModel, out expressionResult))
                 {
                     throw new InvalidOperationException(string.Format("Unable to execute disable expression for {0} card with {1} viewmodel", metadata.Entity, viewModel.GetType()));
+                }
+
+                viewModel.ViewConfig.ReadOnly |= expressionResult;
+            }
+
+            foreach (var feature in metadata.Features<DisableExpressionsFeature>())
+            {
+                bool expressionResult;
+
+                if (!feature.Expressions.TryExecuteAspectBoolLambdas((IAspect)viewModel, feature.LogicalOperation, out expressionResult))
+                {
+                    throw new InvalidOperationException(string.Format("Unable to execute disable expressions for {0} card with {1} viewmodel", metadata.Entity, viewModel.GetType()));
                 }
 
                 viewModel.ViewConfig.ReadOnly |= expressionResult;

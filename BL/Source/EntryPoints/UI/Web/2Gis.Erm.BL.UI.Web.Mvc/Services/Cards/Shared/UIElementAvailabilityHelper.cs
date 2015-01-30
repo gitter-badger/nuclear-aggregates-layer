@@ -82,6 +82,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
                 }
             }
 
+            foreach (var feature in element.Features<DisableExpressionsFeature>())
+            {
+                bool expressionResult;
+
+                if (!feature.Expressions.TryExecuteAspectBoolLambdas((IAspect)model, feature.LogicalOperation, out expressionResult))
+                {
+                    throw new InvalidOperationException(string.Format("Unable to execute disable expressions for {0} element with {1} viewmodel", element.Identity, model.GetType()));
+                }
+
+                if (expressionResult)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 
@@ -94,6 +109,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
                 if (!feature.Expression.TryExecuteAspectLambda(aspect, out expressionResult))
                 {
                     throw new InvalidOperationException(string.Format("Unable to execute disable expression for {0} element with {1} viewmodel", element.Identity, aspect.GetType()));
+                }
+
+                if (expressionResult)
+                {
+                    return true;
+                }
+            }
+
+            foreach (var feature in element.Features<HideExpressionsFeature>())
+            {
+                bool expressionResult;
+
+                if (!feature.Expressions.TryExecuteAspectBoolLambdas(aspect, feature.LogicalOperation, out expressionResult))
+                {
+                    throw new InvalidOperationException(string.Format("Unable to execute disable expressions for {0} element with {1} viewmodel", element.Identity, aspect.GetType()));
                 }
 
                 if (expressionResult)

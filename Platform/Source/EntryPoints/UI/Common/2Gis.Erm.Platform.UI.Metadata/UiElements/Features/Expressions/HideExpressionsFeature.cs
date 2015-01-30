@@ -2,12 +2,12 @@
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
 {
-    public sealed class LambdaExpressionsSequence : ILambdaExpressionsSequence
+    public sealed class HideExpressionsFeature : IUIElementLambdaExpressionsSequenceFeature
     {
-        public LambdaExpressionsSequence(LambdaExpression[] expressions, LogicalOperation expressionsCombination)
+        public HideExpressionsFeature(LogicalOperation logicalOperation, LambdaExpression[] expressions)
         {
-            LogicalOperation = expressionsCombination;
             Expressions = expressions;
+            LogicalOperation = logicalOperation;
         }
 
         public LogicalOperation LogicalOperation { get; private set; }
