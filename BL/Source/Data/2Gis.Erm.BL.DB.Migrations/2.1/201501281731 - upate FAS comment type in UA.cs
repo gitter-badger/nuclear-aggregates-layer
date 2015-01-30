@@ -7,11 +7,14 @@ namespace DoubleGis.Erm.BL.DB.Migrations
     public class Migration201501281731 : TransactedMigration
     {
         // Кроме как в украинских ЭРМ не должно быть украинских комментариях - поэтому не заморачиваемся
-        private const string UpdateStatement = "update Billing.AdvertisementElements set FasCommentType = 6 where FasCommentType in (401, 402, 403)";
+        private const string UpdateStatement = "update Billing.AdvertisementElements set FasCommentType = {0} where FasCommentType in ({1})"; 
+        private const int NewFasComment = 6;
+        private static readonly int[] ObsoleteUkraineFasComments = new[] { 401, 402, 403 };
 
         protected override void ApplyOverride(IMigrationContext context)
         {
-            context.Connection.ExecuteNonQuery(UpdateStatement);
+            var statement = string.Format(UpdateStatement, NewFasComment, string.Join(", ", ObsoleteUkraineFasComments));
+            context.Connection.ExecuteNonQuery(statement);
         }
     }
 }
