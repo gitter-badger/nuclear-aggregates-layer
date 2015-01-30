@@ -33,7 +33,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return new SelectSpecification<Order, IExportableEntityDto>(x => new InvoiceDto
             {
                 Id = x.Id,
-                SalesModels = OrderSpecs.Orders.Select.OrderSalesModels().Selector.Compile()(x),
+                SalesModels = OrderSpecs.Orders.Select
+                                               .OrderSalesModels()
+                                               .Selector
+                                               .Compile()(x),
                 Number = x.Number,
                 FirmCode = x.FirmId,
                 FirmName = x.Firm.Name,
@@ -142,8 +145,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                                              ConvertToServiceBusSalesModel(invoiceDto.SalesModels.Any()
 
                                                                                                 // Используется First, а не Single потому что сейчас есть заказы, которые нарушают правило
-                                                                                                // о том, что все позиции заказа должны быть одной модели продаж. Мы дадим таким заказам доразмещаться.
-                                                                                                // После того, как все такие заказы доразмещаются First() можно и нужно будет заменить на Single()
+                // о том, что все позиции заказа должны быть одной модели продаж. Мы дадим таким заказам доразмещаться.
+                // После того, как все такие заказы доразмещаются First() можно и нужно будет заменить на Single()
                                                                                                ? invoiceDto.SalesModels.First()
                                                                                                : SalesModel.None)),
                                               new XAttribute("Number", invoiceDto.Number),
@@ -341,7 +344,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             None = 0,
             CPS = 10,
             FH = 11,
-            MFH = 12 
+            MFH = 12
         }
     }
 }
