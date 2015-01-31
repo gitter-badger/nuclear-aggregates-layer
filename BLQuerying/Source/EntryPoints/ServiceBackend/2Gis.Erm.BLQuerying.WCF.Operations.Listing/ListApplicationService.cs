@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -16,8 +15,6 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities;
-
-using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
 {
@@ -151,7 +148,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                 ExtendedInfo = extendedInfo,
                 NameLocaleResourceId = dataListStructure.NameLocaleResourceId,
                 Limit = limit,
-                Sort = !string.IsNullOrEmpty(sort) ? sort : String.Format("{0} {1}",dataListStructure.DefaultSortField, dataListStructure.DefaultSortDirection == 1 ? "DESC" : "ASC"),
+                Sort = !string.IsNullOrEmpty(sort) ? sort : string.Format("{0} {1}",dataListStructure.DefaultSortField, dataListStructure.DefaultSortDirection == 1 ? "DESC" : "ASC"),
                 ParentEntityId = parentId,
                 ParentEntityName = parentType
             };

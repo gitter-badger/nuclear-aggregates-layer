@@ -1,4 +1,5 @@
-﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity.TaskViewModel
+﻿@using System.ComponentModel
+@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity.TaskViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -31,7 +32,7 @@
         @Html.HiddenFor(m => m.Status)
         
         @{
-            var isOwnerAndNameSortFields = new[] { new LookupSortInfo { Direction = "DESC", Field = "IsOwner" }, new LookupSortInfo { Direction = "ASC", Field = "Name" } };            
+            var isOwnerAndNameSortFields = new[] { new LookupSortInfo { Direction = ListSortDirection.Descending, Field = "IsOwner" }, new LookupSortInfo { Direction = ListSortDirection.Ascending, Field = "Name" } };            
         }
 
         @Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding)

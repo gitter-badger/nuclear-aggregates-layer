@@ -389,6 +389,8 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             return;
         }
 
+        var extraParameters = new Object();
+
         var filter = "";
         if (this.isValid)
         {
@@ -400,48 +402,37 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
         this.filter.dom.value = "";
 
-        var queryString = "";
-
-        queryString = this.createURIWithNewParameter(queryString, "search", filter);
+        extraParameters.search = filter;
 
         if (this.parentEntityName !== "None" || this.parentIdPattern !== "") {
 
             // Вместо очистки флага 'filterToParent', которая тут была раньше, 
             // явно указываем null, если в лукапе ничего не выбрано (ERM-3576, ERM-3832)
             var parentId = window.Ext.getDom(this.parentIdPattern).value || "null";
-            queryString = this.createURIWithNewParameter(queryString, "pType", this.parentEntityName);
-            queryString = this.createURIWithNewParameter(queryString, "pId", parentId);
+            extraParameters.pType = this.parentEntityName;
+            extraParameters.pId = parentId;
         } else if (window.Ext.getDom("ViewConfig_Id") && window.Ext.getDom("ViewConfig_EntityName")) {
             var pid = window.Ext.getDom("ViewConfig_Id").value;
             var ptype = window.Ext.getDom("ViewConfig_EntityName").value;
-            if (pid && ptype)
-            {
-                queryString = this.createURIWithNewParameter(queryString, "pType", ptype);
-                queryString = this.createURIWithNewParameter(queryString, "pId", pid);
+            if (pid && ptype) {
+                extraParameters.pType = ptype;
+                extraParameters.pId = pid;
             }
         }
 
-        queryString = this.createURIWithNewParameter(queryString, "ReadOnly", this.showReadOnlyCard);
+        extraParameters.ReadOnly = this.showReadOnlyCard;
         
         if (this.extendedInfo)
         {
             var filterExpr = this.prepareFilterExpression(this.extendedInfo);
-            queryString = this.createURIWithNewParameter(queryString, "extendedInfo", filterExpr);
+            extraParameters.extendedInfo = filterExpr;
         }
         if (this.defaultSortFields && this.defaultSortFieldsDirs) {
-            var index, len;
-            for (index = 0, len = this.defaultSortFields.length; index < len; ++index) 
-            {
-                queryString = this.createURIWithNewParameter(queryString, "defaultSortFields", this.defaultSortFields[index]);
-            }
-
-            for (index = 0, len = this.defaultSortFieldsDirs.length; index < len; ++index) 
-            {
-                queryString = this.createURIWithNewParameter(queryString, "defaultSortFieldsDirs", this.defaultSortFieldsDirs[index]);
-            }
+            extraParameters.defaultSortFields = this.defaultSortFields;
+            extraParameters.defaultSortFieldsDirs = this.defaultSortFieldsDirs;           
         }                
 
-        var url = this.searchUrl + queryString;
+        var url = this.searchUrl +  "?" + Ext.urlEncode(extraParameters);
 
         var result = window.showModalDialog(url, this.item ? { items: [this.item]} : null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
         this.filter.dom.style.display == "none" ? this.content.focus() : this.filter.focus();
@@ -459,14 +450,6 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
 
         this.fireEvent("afterquery", this);
         this.fireEvent("afterselect", this);
-    },
-    createURIWithNewParameter: function (queryString, name, value)
-    {
-        if (value)
-        {
-            queryString += (queryString ? "&" : "?") + name+ "=" + encodeURIComponent(value);
-        }
-        return queryString;
     },
     imageItemError: function ()
     {

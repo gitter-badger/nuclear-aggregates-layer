@@ -258,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             if (lookupSettings.DefaultSortFields != null)
             {
                 sb.AppendFormat("defaultSortFields:{0},", WriteJson(htmlHelper, lookupSettings.DefaultSortFields.Select(s => s.Field).ToArray()));
-                sb.AppendFormat("defaultSortFieldsDirs:{0},", WriteJson(htmlHelper, lookupSettings.DefaultSortFields.Select(s => s.Direction).ToArray()));
+                sb.AppendFormat("defaultSortFieldsDirs:{0},", WriteJson(htmlHelper, lookupSettings.DefaultSortFields.Select(s => s.GetDirectionString()).ToArray()));
             }
             sb.AppendFormat("applyTo:\"{0}\", ", name);
             sb.AppendFormat("entityName:\"{0}\", ", lookupSettings.EntityName);

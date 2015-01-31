@@ -391,7 +391,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
 
             var searchListModel = new SearchListModel
             {
-                Sort =String.Format("{0} {1}", targetSorting.Column, GetDirectionString(targetSorting.Direction)),
+                Sort = string.Format("{0} {1}", targetSorting.Column, GetDirectionString(targetSorting.Direction)),
                 Start = start,
                 Limit = limit,
                 FilterInput = filterInput
