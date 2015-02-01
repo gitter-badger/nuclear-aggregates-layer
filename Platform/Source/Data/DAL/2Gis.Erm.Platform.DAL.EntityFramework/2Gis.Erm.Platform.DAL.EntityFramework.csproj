@@ -90,7 +90,6 @@
     <Compile Include="Activity\LetterReferenceType.cs" />
     <Compile Include="Activity\PhonecallReferenceType.cs" />
     <Compile Include="Activity\TaskReferenceType.cs" />
-    <Compile Include="EFMappingRepository.cs" />
     <Compile Include="EFGenericRepository.cs" />
     <Compile Include="EFFileRepository.cs" />
     <Compile Include="EFRepository.cs" />

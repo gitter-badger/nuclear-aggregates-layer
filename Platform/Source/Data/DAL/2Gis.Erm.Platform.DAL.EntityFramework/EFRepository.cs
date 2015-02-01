@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
-    public abstract class EFRepository<TDomainEntity, TPersistentEntity> : IRepository<TDomainEntity>
+    public class EFRepository<TDomainEntity, TPersistentEntity> : IRepository<TDomainEntity>
         where TDomainEntity : class, IEntity
         where TPersistentEntity : class, IEntity
     {
