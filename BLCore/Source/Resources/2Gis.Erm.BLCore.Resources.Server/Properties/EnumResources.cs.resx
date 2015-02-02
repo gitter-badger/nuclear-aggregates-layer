@@ -226,7 +226,7 @@
     <value>Garantované poskytnutí</value>
   </data>
   <data name="SalesModelPlannedProvision" xml:space="preserve">
-    <value>Плановое оказание услуг по одной рубрике</value>
+    <value>Plánované poskytování služeb podle jedné rubriky</value>
   </data>
   <data name="PositionCalculationMethodPosition" xml:space="preserve">
     <value>Položka</value>
@@ -1985,6 +1985,6 @@
     <value>Jiné</value>
   </data>
   <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
-    <value>Плановое оказание услуг по нескольким рубрикам</value>
+    <value>Plánované poskytování služeb podle několika rubrik</value>
   </data>
 </root>
