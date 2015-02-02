@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core;
@@ -209,14 +208,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                         ModifiedOn = x.ModifiedOn,
                         Timestamp = x.Timestamp
                     });
-                }
-
-                public static ISelectSpecification<Order, IEnumerable<SalesModel>> OrderSalesModels()
-                {
-                    return new SelectSpecification<Order, IEnumerable<SalesModel>>(x => x.OrderPositions
-                                                                                         .Where(y => y.IsActive && !y.IsDeleted)
-                                                                                         .Select(y => y.PricePosition.Position.SalesModel)
-                                                                                         .Distinct());
                 }
             }
         }

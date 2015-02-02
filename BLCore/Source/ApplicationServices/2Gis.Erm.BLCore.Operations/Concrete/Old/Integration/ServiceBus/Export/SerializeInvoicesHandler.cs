@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -33,10 +32,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return new SelectSpecification<Order, IExportableEntityDto>(x => new InvoiceDto
             {
                 Id = x.Id,
-                SalesModels = OrderSpecs.Orders.Select
-                                               .OrderSalesModels()
-                                               .Selector
-                                               .Compile()(x),
+                SalesModels = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                              .Select(y => y.PricePosition.Position.SalesModel)
+                                              .Distinct(),
                 Number = x.Number,
                 FirmCode = x.FirmId,
                 FirmName = x.Firm.Name,
@@ -145,8 +143,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                                              ConvertToServiceBusSalesModel(invoiceDto.SalesModels.Any()
 
                                                                                                 // Используется First, а не Single потому что сейчас есть заказы, которые нарушают правило
-                // о том, что все позиции заказа должны быть одной модели продаж. Мы дадим таким заказам доразмещаться.
-                // После того, как все такие заказы доразмещаются First() можно и нужно будет заменить на Single()
+                                                                                                // о том, что все позиции заказа должны быть одной модели продаж. Мы дадим таким заказам доразмещаться.
+                                                                                                // После того, как все такие заказы доразмещаются First() можно и нужно будет заменить на Single()
                                                                                                ? invoiceDto.SalesModels.First()
                                                                                                : SalesModel.None)),
                                               new XAttribute("Number", invoiceDto.Number),
