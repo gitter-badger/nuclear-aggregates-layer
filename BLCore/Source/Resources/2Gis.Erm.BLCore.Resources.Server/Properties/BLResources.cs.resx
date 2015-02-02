@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Reklamní materiály</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Pokus o uložení rozpočtové položky objednávky s množstvím, které není rovné 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>Ukončení období</value>
   </data>
@@ -3165,7 +3162,7 @@ Operace se uskutečnila: {6}.</value>
     <value>Výsledky kontroly objednávky</value>
   </data>
   <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
-    <value>Нельзя добавить элемент с моделью продаж, отличающегося от моделей продаж остальных элементов</value>
+    <value>Nelze přidat prvek s modelem prodejů, který je odlišný od modelů prodejů jiných prvků</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Identifikátor 1C</value>
@@ -5174,10 +5171,16 @@ Doba zveřejnění: {3}.</value>
     <value>Musí být zadán profil právnické osoby</value>
   </data>
   <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
-    <value>Указанный профиль не может быть выбран для заказа</value>
+    <value>Tento profil nemůže být vybrán pro objednávku</value>
   </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
-    <value>В заказе могут присутствовать позиции только одной модели продаж</value>
+    <value>V objednávce mohou být pozice pouze z jednoho modelu prodejů</value>
+  </data>
+  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
+    <value>Sada rubrik musí být jednotná pro všechny podřízené pozice</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>Pokus o uložení pozice v objednávce s modelem prodejů '{0}' s počtem, který se nerovná 1</value>
   </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
     <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>

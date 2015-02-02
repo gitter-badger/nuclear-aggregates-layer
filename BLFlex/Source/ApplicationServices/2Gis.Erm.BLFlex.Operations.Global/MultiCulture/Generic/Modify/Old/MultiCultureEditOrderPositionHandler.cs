@@ -16,6 +16,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
     public sealed class MultiCultureEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly IFinder _finder;
-        private readonly IOrderReadModel _orderReadModel;        
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
 
         private readonly IPublicService _publicService;
@@ -71,17 +72,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderPosition.OrderId))
                                    .Select(x => new
-                                   {
-                                       x.Id,
-                                       x.FirmId,
-                                       x.WorkflowStepId,
-                                       x.ReleaseCountFact,
-                                       x.EndDistributionDateFact,
-                                       x.OwnerCode,
-                                       x.DestOrganizationUnitId,
-                                       x.PlatformId,
-                                       OrderType = x.OrderType
-                                   })
+                                                    {
+                                                        x.Id,
+                                                        x.FirmId,
+                                                        x.WorkflowStepId,
+                                                        x.ReleaseCountFact,
+                                                        x.EndDistributionDateFact,
+                                                        x.OwnerCode,
+                                                        x.DestOrganizationUnitId,
+                                                        x.PlatformId,
+                                                        OrderType = x.OrderType
+                                                    })
                                    .Single();
 
             string checkReport;
@@ -116,15 +117,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
                     var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(orderPosition.PricePositionId))
                                                    .Select(x => new
-                                                       {
-                                                           x.Cost,
-                                                           SalesModel = x.Position.SalesModel,
-                                                           x.Price.OrganizationUnitId,
-                                                           x.RateType,
-                                                           x.Position.IsComposite,
-                                                           x.PositionId,
-                                                           x.PriceId
-                                                       })
+                                                                    {
+                                                                        x.Cost,
+                                                                        SalesModel = x.Position.SalesModel,
+                                                                        x.Price.OrganizationUnitId,
+                                                                        x.RateType,
+                                                                        x.Position.IsComposite,
+                                                                        x.PositionId,
+                                                                        x.PriceId
+                                                                    })
                                                    .Single();
 
                     if (orderInfo.DestOrganizationUnitId != pricePositionInfo.OrganizationUnitId)
@@ -135,8 +136,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     if (request.CategoryIds.Any())
                     {
                         var unsupported = _categoryReadModel.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
-                                                                                                                   orderInfo.DestOrganizationUnitId,
-                                                                                                                   request.CategoryIds);
+                                                                                      orderInfo.DestOrganizationUnitId,
+                                                                                      request.CategoryIds);
                         if (unsupported.Any())
                         {
                             var organizationUnitName = _organizationUnitReadModel.GetName(orderInfo.DestOrganizationUnitId);
@@ -170,7 +171,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     orderPosition.DiscountPercent = calculateOrderPositionPricesResponse.DiscountPercent;
                     orderPosition.DiscountSum = calculateOrderPositionPricesResponse.DiscountSum;
 
-                    ValidateEntity(orderPosition, pricePositionInfo.SalesModel == SalesModel.PlannedProvision);
+                    ValidateEntity(orderPosition, pricePositionInfo.SalesModel);
 
                     // Сохраняем изменения OrderPosition в БД
                     _orderRepository.CreateOrUpdate(orderPosition);
@@ -209,7 +210,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
             return Response.Empty;
         }
 
-        private static void ValidateEntity(OrderPosition entity, bool isSinglePlannedProvisionSalesModel)
+        private static void ValidateEntity(OrderPosition entity, SalesModel salesModel)
         {
             if (entity == null)
             {
@@ -241,9 +242,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                 throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithNegativePrice);
             }
 
-            if (isSinglePlannedProvisionSalesModel && entity.Amount != 1)
+            if (salesModel == SalesModel.PlannedProvision && entity.Amount != 1)
             {
-                throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne);
+                throw new NotificationException(string.Format(BLResources.AttemptToSaveOrderPositionWithAmountNotEqualToOne,
+                                                              salesModel.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
             }
         }
     }
