@@ -71,18 +71,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.ThereIsNoSuitableThemes } };
                 }
 
-                var firmCategories = _categoryReadModel.GetFirmCategories(firmCategoryIds);
+                var firmCategories = _categoryReadModel.GetFirmCategories(firmCategoryIds, pricePositionInfo.SalesModel, orderDto.DestOrganizationUnitId);
                 var additionalCategories = orderPositionId.HasValue
-                                               ? _categoryReadModel.GetAdditionalCategories(firmCategoryIds, orderPositionId.Value)
+                                               ? _categoryReadModel.GetAdditionalCategories(firmCategoryIds, orderPositionId.Value, pricePositionInfo.SalesModel, orderDto.DestOrganizationUnitId)
                                                : Enumerable.Empty<LinkingObjectsSchemaDto.CategoryDto>();
-                var categoriesFilter = CreateCategoryFilter(pricePositionInfo.SalesModel,
-                                                            orderDto.DestOrganizationUnitId);
 
                 var result = new LinkingObjectsSchemaDto
                            {
                                Warnings = warnings,
-                               FirmCategories = firmCategories.Where(x => categoriesFilter(x.Id)),
-                               AdditionalCategories = additionalCategories.Where(x => categoriesFilter(x.Id)),
+                               FirmCategories = firmCategories,
+                               AdditionalCategories = additionalCategories,
                                Themes = themeDtos,
                                Positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId),
                                FirmAddresses = firmAddresses
@@ -123,18 +121,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             }
 
             return string.Format("{0} — {1}", address, referencePoint);
-        }
-
-        private Func<long, bool> CreateCategoryFilter(SalesModel salesModel, long destOrganizationUnitId)
-        {
-            if (!salesModel.IsPlannedProvisionSalesModel())
-            {
-                return categoryId => true;
-            }
-
-            var organizationUnitCategories = _categoryReadModel.GetCategoriesSupportedBySalesModelInOrganizationUnit(salesModel, destOrganizationUnitId);
-
-            return organizationUnitCategories.Contains;
         }
     }
 }

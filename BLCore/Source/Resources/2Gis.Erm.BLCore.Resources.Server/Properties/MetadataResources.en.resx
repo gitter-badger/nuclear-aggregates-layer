@@ -577,7 +577,7 @@
     <value>Operation status</value>
   </data>
   <data name="SalesModel" xml:space="preserve">
-    <value>Модель продаж</value>
+    <value>Sales model</value>
   </data>
   <data name="RReportType" xml:space="preserve">
     <value>Type of report</value>

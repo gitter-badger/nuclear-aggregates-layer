@@ -55,9 +55,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.BankAddress)
                 .HasMaxLength(512);
 
-            Property(t => t.AdditionalPaymentElements)
-                .HasMaxLength(512);
-
             Property(t => t.WarrantyNumber)
                 .HasMaxLength(50);
 
@@ -117,7 +114,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.SWIFT).HasColumnName("SWIFT");
             Property(t => t.BankName).HasColumnName("BankName");
             Property(t => t.BankAddress).HasColumnName("BankAddress");
-            Property(t => t.AdditionalPaymentElements).HasColumnName("AdditionalPaymentElements");
             Property(t => t.CertificateDate).HasColumnName("CertificateDate");
             Property(t => t.WarrantyNumber).HasColumnName("WarrantyNumber");
             Property(t => t.WarrantyBeginDate).HasColumnName("WarrantyBeginDate");

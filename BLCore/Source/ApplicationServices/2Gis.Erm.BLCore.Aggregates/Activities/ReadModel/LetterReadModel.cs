@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public IEnumerable<Letter> LookupOpenLettersOwnedBy(long ownerCode)
         {
-            return _finder.FindMany(Specs.Find.Owned<Letter>(ownerCode) & Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress));
+            return _finder.FindMany(Specs.Find.Owned<Letter>(ownerCode) & Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress)).ToArray();
         }
     }
 }
