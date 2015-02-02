@@ -5181,6 +5181,6 @@ Periodo de la publicación: {3}.</value>
     <value>En conjunto de categorías para todas las posiciones debe coincidir</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
-    <value>El intento de guardar la posición de la orden con el modelo de ventas '{0}' con la cantidad no igual a 1/value>
+    <value>El intento de guardar la posición de la orden con el modelo de ventas '{0}' con la cantidad no igual a 1</value>
   </data>
 </root>
