@@ -13,7 +13,7 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="SalesModel">
+  <xs:simpleType name="AdvModel">
     <xs:restriction base="xs:string">
       <xs:enumeration value="None"/>
       <xs:enumeration value="CPS"/>
@@ -177,7 +177,7 @@
         <xs:documentation>Тип заказа</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="SalesModel" type="SalesModel" use="required">
+    <xs:attribute name="AdvModel" type="AdvModel" use="required">
       <xs:annotation>
         <xs:documentation>
           Модель продаж:

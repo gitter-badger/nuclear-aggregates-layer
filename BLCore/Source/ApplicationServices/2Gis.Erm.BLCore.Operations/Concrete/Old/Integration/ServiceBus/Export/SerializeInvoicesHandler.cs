@@ -139,7 +139,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             var invoiceElement = new XElement("Invoice",
                                               new XAttribute("Code", invoiceDto.Id),
-                                              new XAttribute("SalesModel",
+                                              new XAttribute("AdvModel",
                                                              ConvertToServiceBusSalesModel(invoiceDto.SalesModels.Any()
 
                                                                                                 // Используется First, а не Single потому что сейчас есть заказы, которые нарушают правило
