@@ -17,11 +17,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
     {
         private readonly SubordinatesFilter _subordinatesFilter;
         private readonly ClientDescendantsFilter _clientDescendantsFilter;
+        private readonly ClientLinkedChildFilter _clientLinkedChildFilter;
         private readonly EnumLocalizationVisitor _enumLocalizationVisitor;
         private readonly IExtendedInfoFilterMetadata _extendedInfoFilterMetadata;
 
         public FilterHelper(SubordinatesFilter subordinatesFilter,
                             ClientDescendantsFilter clientDescendantsFilter,
+                            ClientLinkedChildFilter clientLinkedChildFilter,
                             EnumLocalizationVisitor enumLocalizationVisitor,
                             IExtendedInfoFilterMetadata extendedInfoFilterMetadata)
         {
@@ -29,6 +31,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             _enumLocalizationVisitor = enumLocalizationVisitor;
             _extendedInfoFilterMetadata = extendedInfoFilterMetadata;
             _clientDescendantsFilter = clientDescendantsFilter;
+            _clientLinkedChildFilter = clientLinkedChildFilter;
         }
 
         public IQueryable<TEntity> Filter<TEntity>(IQueryable<TEntity> query, params Expression<Func<TEntity, bool>>[] expressions)
@@ -44,6 +47,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
         public IQueryable<TEntity> ForClientAndItsDescendants<TEntity>(IQueryable<TEntity> queryable, long clientId)
         {
             return _clientDescendantsFilter.Apply(queryable, clientId);
+        }
+
+        public IQueryable<TEntity> ForClientAndLinkedChild<TEntity>(IQueryable<TEntity> queryable, long clientId)
+        {
+            return _clientLinkedChildFilter.Apply(queryable, clientId);
         }
 
         public RemoteCollection<TDocument> QuerySettings<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)

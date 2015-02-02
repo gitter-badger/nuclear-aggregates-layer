@@ -46,6 +46,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
+            bool forClientAndLinkedChild;
+            if (querySettings.TryGetExtendedProperty("ForClientAndLinkedChild",out forClientAndLinkedChild) && querySettings.ParentEntityId.HasValue)
+            {
+                query = _filterHelper.ForClientAndLinkedChild(query, querySettings.ParentEntityId.Value);
+            }
+
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
             {
