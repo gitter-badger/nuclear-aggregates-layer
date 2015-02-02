@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
 
         public IEnumerable<SalesModelCategoryRestriction> GetRestrictionsByProject(long projectId)
         {
-            return _finder.FindMany(CategorySpecs.SalesModelCategoryRestrictions.Find.ByProject(projectId));
+            return _finder.FindMany(CategorySpecs.SalesModelCategoryRestrictions.Find.ByProject(projectId)).ToArray();
         }
 
         public IReadOnlyCollection<long> GetDependedByRestrictionsInProjectOrderIds(long projectId)
