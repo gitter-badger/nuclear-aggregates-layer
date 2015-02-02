@@ -5189,7 +5189,4 @@ Cумма по операции: {5}.
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
     <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
   </data>
-  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
-    <value>Отделение организации {0} не связано с проектом.</value>
-  </data>
 </root>

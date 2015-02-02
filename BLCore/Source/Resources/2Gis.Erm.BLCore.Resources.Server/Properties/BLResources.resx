@@ -5163,7 +5163,4 @@
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
     <value />
   </data>
-  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
-    <value />
-  </data>
 </root>

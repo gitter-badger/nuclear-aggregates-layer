@@ -5374,15 +5374,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string DestOrganizationUnitHasNoProject {
-            get {
-                return ResourceManager.GetString("DestOrganizationUnitHasNoProject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string DestOrganizationUnitIsInactive {
             get {
                 return ResourceManager.GetString("DestOrganizationUnitIsInactive", resourceCulture);
