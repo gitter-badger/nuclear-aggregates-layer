@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -33,7 +34,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients
             if (!string.IsNullOrEmpty(clientNames))
             {
                 viewModel.MessageType = MessageType.Warning;
-                viewModel.Message = Resources.Server.Properties.Resources.ClientHasParentLinkToAdvAgency + "\n" + clientNames;
+                
+                // TODO {all, 03.02.2015}: Внести перенос строки и параметр для подстановки в ресурсы
+                viewModel.Message = Resources.Server.Properties.Resources.ClientHasParentLinkToAdvAgency + Environment.NewLine + clientNames;
             }
         }
 
