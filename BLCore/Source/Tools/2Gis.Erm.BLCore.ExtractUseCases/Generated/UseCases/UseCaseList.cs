@@ -1017,16 +1017,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\GetInitPaymentsInfo",
-                    MaxUseCaseDepth = 2,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(GetInitPaymentsInfoHandler),
-                        Request = typeof(GetInitPaymentsInfoRequest),
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.Olap.ImportFirmPromising\ExecuteInternal",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)

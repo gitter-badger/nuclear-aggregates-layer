@@ -2,6 +2,7 @@ using System;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
@@ -25,6 +26,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
         private readonly IDeleteOrderBillsOperationService _deleteBillsService;
         private readonly ICreateOrderBillsOperationService _createOrderBillsService;
+        private readonly ICalculateBillsOperationService _calculateBillsOperationService;
 
         public BillController(IMsCrmSettings msCrmSettings,
                               IUserContext userContext,
@@ -34,12 +36,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
                               IDeleteOrderBillsOperationService deleteBillsService,
-                              ICreateOrderBillsOperationService createOrderBillsService)
+                              ICreateOrderBillsOperationService createOrderBillsService,
+                              ICalculateBillsOperationService calculateBillsOperationService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _publicService = publicService;
             _deleteBillsService = deleteBillsService;
             _createOrderBillsService = createOrderBillsService;
+            _calculateBillsOperationService = calculateBillsOperationService;
         }
 
         public ActionResult DeleteAll()
@@ -72,14 +76,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         public JsonNetResult GetInitPaymentsInfo(long? orderId, BillPaymentType paymentType, int? paymentAmount)
         {
-            var response = (GetInitPaymentsInfoResponse)
-                           _publicService.Handle(new GetInitPaymentsInfoRequest
-                           {
-                               OrderId = orderId,
-                               PaymentType = paymentType,
-                               PaymentAmount = paymentAmount,
-                           });
-            return new JsonNetResult(response.PaymentsInfo);
+            var payments = _calculateBillsOperationService.GetPayments(orderId, paymentAmount, paymentType);
+            return new JsonNetResult(payments);
         }
 
         [HttpPost]

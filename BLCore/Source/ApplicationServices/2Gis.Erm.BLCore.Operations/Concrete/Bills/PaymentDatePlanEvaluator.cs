@@ -1,6 +1,6 @@
 using System;
 
-namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
+namespace DoubleGis.Erm.BLCore.Operations.Concrete.Bills
 {
     internal class PaymentDatePlanEvaluator
     {
