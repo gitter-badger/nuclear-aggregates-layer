@@ -256,7 +256,6 @@
     <Compile Include="Concrete\Old\Bills\BillPaymentType.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplate.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfo.cs" />
-    <Compile Include="Concrete\Old\Bills\DistributeBillPayments.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfo.cs" />
     <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfo.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBill.cs" />

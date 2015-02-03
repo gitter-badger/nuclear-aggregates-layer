@@ -1023,14 +1023,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(GetInitPaymentsInfoHandler),
                         Request = typeof(GetInitPaymentsInfoRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DistributeBillPaymentsHandler),
-            Request = typeof(DistributeBillPaymentsRequest),
-        }
-    }
                     }
                 },
                 new UseCase
