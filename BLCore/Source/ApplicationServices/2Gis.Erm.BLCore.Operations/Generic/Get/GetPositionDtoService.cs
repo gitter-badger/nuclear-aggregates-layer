@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                      Name = entity.Name,
                                      IsComposite = entity.IsComposite,
                                      BindingObjectTypeEnum = entity.BindingObjectTypeEnum,
-                                     AccountingMethodEnum = entity.AccountingMethodEnum,
+                                     SalesModel = entity.SalesModel,
                                      CalculationMethodEnum = entity.CalculationMethodEnum,
                                      IsControlledByAmount = entity.IsControlledByAmount,
                                      PlatformRef = new EntityReference { Id = entity.PlatformId, Name = entity.Platform.Name },
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     IdentityServiceUrl = _identityServiceSettings.RestUrl,
                     RestrictChildPositionPlatformsCanBeChanged =
                         _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PositionAdministrationCode, _userContext.Identity.Code),
-                    AccountingMethodEnum = PositionAccountingMethod.GuaranteedProvision
+                    SalesModel = SalesModel.GuaranteedProvision
                 };
         }
     }

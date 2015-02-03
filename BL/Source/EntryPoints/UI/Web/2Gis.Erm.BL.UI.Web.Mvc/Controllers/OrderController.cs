@@ -65,6 +65,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
         private readonly IChangeOrderLegalPersonProfileOperationService _changeOrderLegalPersonProfileOperationService;
+        private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -87,8 +88,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ICopyOrderOperationService copyOrderOperationService,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
                                IDetermineOrderBargainOperationService determineOrderBargainOperationService,
+                               ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
                                IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
+            : base(
+                msCrmSettings,
+                userContext,
+                logger,
+                operationsServiceSettings,
+                specialOperationsServiceSettings,
+                getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
@@ -105,6 +113,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _copyOrderOperationService = copyOrderOperationService;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
+            _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
             _changeOrderLegalPersonProfileOperationService = changeOrderLegalPersonProfileOperationService;
         }
 
@@ -218,22 +227,23 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public JsonNetResult CanCreateOrderPositionsForOrder(long orderId, string orderTypeValue)
         {
-            CanCreateOrderPositionForOrderResponse response;
             OrderType orderType;
+            string report;
             if (!Enum.TryParse(orderTypeValue, out orderType))
             {
-                response = new CanCreateOrderPositionForOrderResponse { Message = BLResources.WrongOrderType };
-            }
-            else
-            {
-                response = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(new CanCreateOrderPositionForOrderRequest
+                return new JsonNetResult(new
                     {
-                        OrderId = orderId,
-                        OrderType = orderType
+                                                 CanCreate = false,
+                                                 Message = BLResources.WrongOrderType
                     });
             }
 
-            return new JsonNetResult(response);
+
+            return new JsonNetResult(new
+                                         {
+                                             CanCreate = _checkIfOrderPositionCanBeCreatedForOrderOperationService.Check(orderId, orderType, out report),
+                                             Message = report
+                                         });
         }
 
         [HttpPost]
