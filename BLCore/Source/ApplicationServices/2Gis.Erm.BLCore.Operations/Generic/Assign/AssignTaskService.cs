@@ -42,12 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Task>())
             {
                 var entity = _taskReadModel.GetTask(entityId);
-
-                if (entity.Status != ActivityStatus.InProgress)
-                {
-                    throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
-                }
-
+                
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
                 {
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
