@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
 
-                if (!_entityAccessService.HasActivityAccess(_userContext, EntityName.Task, entityId, ownerCode))
+                if (!_entityAccessService.HasActivityUpdateAccess(_userContext, EntityName.Task, entityId, ownerCode))
                 {
                     throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
                 }
