@@ -9,7 +9,6 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
@@ -56,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
                 }
 
-                if (!_entityAccessService.HasActivityUpdateAccess(_userContext, EntityName.Phonecall, entityId, ownerCode))
+                if (!_entityAccessService.HasActivityUpdateAccess<Phonecall>(_userContext.Identity, entityId, entity.OwnerCode))
                 {
                     throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
                 }
