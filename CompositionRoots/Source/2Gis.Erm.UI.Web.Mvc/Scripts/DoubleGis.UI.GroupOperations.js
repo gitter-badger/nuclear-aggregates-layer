@@ -120,11 +120,11 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
             timeout: 1200000,
             url: this.EvaluateConvertIdsUrl(),
             method: 'POST',
-            params:
-                {
-                    entityTypeName: Ext.getDom("EntityTypeName").value,
-                    replicationCodes: this.Config.Entities
-                }
+            params:this.Config.Entities
+                //{
+                //    entityTypeName: Ext.getDom("EntityTypeName").value,
+                //    replicationCodes: this.Config.Entities
+                //}
         });
         if ((response.conn.status >= 200 && response.conn.status < 300) || (Ext.isIE && response.conn.status == 1223)) {
             this.Config.Entities = Ext.decode(response.conn.responseText);
