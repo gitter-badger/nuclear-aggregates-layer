@@ -227,7 +227,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure(false, false)
+                .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.None)
                 .ConfigureEAV()
                 .ConfigureLocalization(typeof(Resources),
                                        typeof(ResPlatform),

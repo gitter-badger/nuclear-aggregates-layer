@@ -312,11 +312,11 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                                                                                                new InjectionConstructor(asyncReplicatedTypes, syncReplicatedTypes));
         }
 
-        public static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container, bool useNullRequestStrategy, bool useNullChecker)
+        public static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container, IdentityRequestOverrideOptions identityRequestOverrideOptions)
         {
             container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton);
 
-            if (useNullRequestStrategy)
+            if (identityRequestOverrideOptions.HasFlag(IdentityRequestOverrideOptions.UseNullRequestStrategy))
             {
                 container.RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton);
             }
@@ -325,7 +325,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(Lifetime.Singleton);
             }
 
-            if (useNullChecker)
+            if (identityRequestOverrideOptions.HasFlag(IdentityRequestOverrideOptions.UseNullRequestChecker))
             {
                 container.RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
             }
