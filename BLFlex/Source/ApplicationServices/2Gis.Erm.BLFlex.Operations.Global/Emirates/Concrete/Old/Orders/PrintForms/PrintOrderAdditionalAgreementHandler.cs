@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -45,6 +46,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                                        })
                                    .Single();
 
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             if (!orderInfo.IsTerminated)
             {
                 throw new NotificationException(BLResources.OrderShouldBeTerminated);
@@ -63,18 +69,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
             TemplateCode templateCode;
             string template;
             object printData;
-            var legalPersonProfileId = request.LegalPersonProfileId.HasValue ? request.LegalPersonProfileId.Value : orderInfo.LegalPersonProfileId.Value;
             switch (request.PrintType)
             {
                 case PrintAdditionalAgreementTarget.Order:
                     templateCode = TemplateCode.AdditionalAgreementLegalPerson;
                     template = "{0} - Termination of the Quotation.docx";
-                    printData = GetOrderTerminationData(request.OrderId, legalPersonProfileId);
+                    printData = GetOrderTerminationData(request.OrderId, orderInfo.LegalPersonProfileId.Value);
                     break;
                 case PrintAdditionalAgreementTarget.Bargain:
                     templateCode = TemplateCode.BargainAdditionalAgreementLegalPerson;
                     template = "{0} - Termination of the Contract.docx";
-                    printData = GetBargainTerminationData(request.OrderId, legalPersonProfileId);
+                    printData = GetBargainTerminationData(request.OrderId, orderInfo.LegalPersonProfileId.Value);
                     break;
                 default:
                     throw new ArgumentException("request");
@@ -142,7 +147,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                     legalPersonProfile.BankName,
                     legalPersonProfile.SWIFT,
                     legalPersonProfile.IBAN,
-                    legalPersonProfile.AdditionalPaymentElements,
+                    legalPersonProfile.PaymentEssentialElements,
                     legalPersonProfile.ChiefNameInNominative,
                 }
             };
@@ -226,7 +231,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                     { "Profile.BankName", legalPersonProfile.BankName },
                     { "Profile.SWIFT", legalPersonProfile.SWIFT },
                     { "Profile.IBAN", legalPersonProfile.IBAN },
-                    { "Profile.AdditionalPaymentElements", legalPersonProfile.AdditionalPaymentElements },
+                    { "Profile.PaymentEssentialElements", legalPersonProfile.PaymentEssentialElements },
                     { "Profile.ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
                 };
         }

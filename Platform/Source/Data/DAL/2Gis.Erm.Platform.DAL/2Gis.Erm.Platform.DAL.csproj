@@ -88,7 +88,6 @@
     <Compile Include="IFinderBaseProvider.cs" />
     <Compile Include="IReadDomainContextProviderForHost.cs" />
     <Compile Include="DomainContextProviderProxy.cs" />
-    <Compile Include="DomainContextSaveStrategy.cs" />
     <Compile Include="ForcePendingChangesHandlingStrategy.cs" />
     <Compile Include="IFinderBase.cs" />
     <Compile Include="IPendingChangesHandlingStrategy.cs" />
@@ -103,7 +102,6 @@
     <Compile Include="IDomainContextFactory.cs" />
     <Compile Include="IModifiableDomainContextProviderForHost.cs" />
     <Compile Include="IDomainContextHost.cs" />
-    <Compile Include="IDomainContextSaveStrategy.cs" />
     <Compile Include="IFinder.cs" />
     <Compile Include="IDomainContextMetadataProvider.cs" />
     <Compile Include="IModifiableDomainContext.cs" />
@@ -127,8 +125,10 @@
     <Compile Include="Specifications\SpecificationExtensions.cs" />
     <Compile Include="Specifications\Specs.cs" />
     <Compile Include="Transactions\DefaultTransactionOptions.cs" />
+    <Compile Include="UnitOfWork.Dispose.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UnitOfWorkException.cs" />
+    <Compile Include="UnitOfWorkScope.Dispose.cs" />
     <Compile Include="UnitOfWorkScope.cs" />
     <Compile Include="EAV\WrappedQuery.cs" />
   </ItemGroup>

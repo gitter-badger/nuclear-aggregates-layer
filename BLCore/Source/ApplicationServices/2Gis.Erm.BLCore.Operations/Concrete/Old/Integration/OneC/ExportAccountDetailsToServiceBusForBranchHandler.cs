@@ -304,8 +304,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                              x.Lock.Order.OrderPositions.Any(op => op.IsActive
                                                                                    && !op.IsDeleted
                                                                                    &&
-                                                                                   op.PricePosition.Position.AccountingMethodEnum ==
-                                                                                   PositionAccountingMethod.PlannedProvision),
+                                                                                   op.PricePosition.Position.SalesModel ==
+                                                                                   SalesModel.PlannedProvision),
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
                                          AccountCode = x.Lock.Account.Id,
                                          ProfileCode = x.Lock.Order.LegalPersonProfileId != null

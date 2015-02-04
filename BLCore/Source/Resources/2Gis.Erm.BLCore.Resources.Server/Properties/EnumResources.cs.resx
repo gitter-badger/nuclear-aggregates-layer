@@ -222,11 +222,11 @@
   <data name="OrderTypeSelfAds" xml:space="preserve">
     <value>Sebepropagace</value>
   </data>
-  <data name="PositionAccountingMethodGuaranteedProvision" xml:space="preserve">
+  <data name="SalesModelGuaranteedProvision" xml:space="preserve">
     <value>Garantované poskytnutí</value>
   </data>
-  <data name="PositionAccountingMethodPlannedProvision" xml:space="preserve">
-    <value>Plánované poskytnutí</value>
+  <data name="SalesModelPlannedProvision" xml:space="preserve">
+    <value>Plánované poskytování služeb podle jedné rubriky</value>
   </data>
   <data name="PositionCalculationMethodPosition" xml:space="preserve">
     <value>Položka</value>
@@ -1506,7 +1506,7 @@
   <data name="OrderTerminationReasonNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionAccountingMethodNone" xml:space="preserve">
+  <data name="SalesModelNone" xml:space="preserve">
     <value />
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
@@ -1983,5 +1983,8 @@
   </data>
   <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
     <value>Jiné</value>
+  </data>
+  <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
+    <value>Plánované poskytování služeb podle několika rubrik</value>
   </data>
 </root>

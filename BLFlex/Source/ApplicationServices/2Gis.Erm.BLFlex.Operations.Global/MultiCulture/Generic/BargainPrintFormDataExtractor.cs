@@ -61,6 +61,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                 {
                     { "Inn", legalPerson.Inn },
                     { "Kpp", legalPerson.Kpp },
+                    { "VAT", legalPerson.VAT },
                     { "LegalAddress", legalPerson.LegalAddress },
                     { "LegalName", legalPerson.LegalName },
                     { "PassportIssuedBy", legalPerson.PassportIssuedBy },
@@ -98,7 +99,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                     { "SWIFT", legalPersonProfile.SWIFT },
                     { "AccountNumber", legalPersonProfile.AccountNumber },
                     { "BankName", legalPersonProfile.BankName },
-                    { "AdditionalPaymentElements", legalPersonProfile.AdditionalPaymentElements },
                     { "Phone", legalPersonProfile.Phone },
                     { "Email", legalPersonProfile.AdditionalEmail },
                 };
