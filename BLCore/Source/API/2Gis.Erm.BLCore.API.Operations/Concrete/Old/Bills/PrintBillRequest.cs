@@ -4,7 +4,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills
 {
     public sealed class PrintBillRequest: Request
     {
-        public long Id { get; set; }
-        public long? LegalPersonProfileId { get; set; }
+        public long BillId { get; set; }
     }
 }

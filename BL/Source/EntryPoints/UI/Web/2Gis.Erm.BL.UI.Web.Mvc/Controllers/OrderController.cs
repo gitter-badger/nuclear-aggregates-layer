@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
@@ -50,7 +49,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public class OrderController : ControllerBase
     {
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly ICopyOrderOperationService _copyOrderOperationService;
         private readonly IFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -67,6 +65,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
+        private readonly IChangeOrderLegalPersonProfileOperationService _changeOrderLegalPersonProfileOperationService;
+        private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IAPIOperationsServiceSettings operationsServiceSettings,
@@ -75,7 +75,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IUserContext userContext,
                                ICommonLog logger,
                                IGetBaseCurrencyService getBaseCurrencyService,
-                               IBranchOfficeRepository branchOfficeRepository,
                                ICopyOrderOperationService copyOrderOperationService,
                                IFinder finder,
                                ISecurityServiceFunctionalAccess functionalAccessService,
@@ -90,10 +89,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IReplicationCodeConverter replicationCodeConverter,
                                ISecureFinder secureFinder,
                                ISecurityServiceUserIdentifier userIdentifierService,
-                               IDetermineOrderBargainOperationService determineOrderBargainOperationService)
+                               IDetermineOrderBargainOperationService determineOrderBargainOperationService,
+                               ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
+                               IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
-            _branchOfficeRepository = branchOfficeRepository;
             _copyOrderOperationService = copyOrderOperationService;
             _finder = finder;
             _functionalAccessService = functionalAccessService;
@@ -109,6 +109,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _secureFinder = secureFinder;
             _userIdentifierService = userIdentifierService;
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
+            _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
+            _changeOrderLegalPersonProfileOperationService = changeOrderLegalPersonProfileOperationService;
         }
 
 
@@ -223,22 +225,23 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public JsonNetResult CanCreateOrderPositionsForOrder(long orderId, string orderTypeValue)
         {
-            CanCreateOrderPositionForOrderResponse response;
             OrderType orderType;
+            string report;
             if (!Enum.TryParse(orderTypeValue, out orderType))
             {
-                response = new CanCreateOrderPositionForOrderResponse { Message = BLResources.WrongOrderType };
-            }
-            else
+                return new JsonNetResult(new
             {
-                response = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(new CanCreateOrderPositionForOrderRequest
-                    {
-                        OrderId = orderId,
-                        OrderType = orderType
+                                                 CanCreate = false,
+                                                 Message = BLResources.WrongOrderType
                     });
             }
 
-            return new JsonNetResult(response);
+
+            return new JsonNetResult(new
+                                         {
+                                             CanCreate = _checkIfOrderPositionCanBeCreatedForOrderOperationService.Check(orderId, orderType, out report),
+                                             Message = report
+                                         });
         }
 
         [HttpPost]
@@ -284,6 +287,27 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         #endregion
 
+        [HttpGet]
+        public ViewResult SelectLegalPersonProfile(long orderId)
+        {
+            var dto = _orderReadModel.GetLegalPersonProfileByOrder(orderId);
+
+            var model = new SelectLegalPersonProfileViewModel
+            {
+                LegalPerson = dto.LegalPerson.ToLookupField(),
+                LegalPersonProfile = dto.LegalPersonProfile.ToLookupField(),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public EmptyResult ChangeOrderLegalPersonProfile(long orderId, long legalPersonProfileId)
+        {
+            _changeOrderLegalPersonProfileOperationService.ChangeLegalPersonProfile(orderId, legalPersonProfileId);
+            return new EmptyResult();
+        }
+
         public ActionResult CheckOrdersReadinessForReleaseDialog()
         {
             var currentUser = UserContext.Identity;
@@ -322,8 +346,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.OrganizationUnit));
                 }
 
-                if (
-                    !_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PrereleaseOrderValidationExecution,
+                if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PrereleaseOrderValidationExecution,
                                                                             UserContext.Identity.Code))
                 {
                     throw new NotificationException(BLResources.AccessDeniedPrereleaseOrderValidationExecution);

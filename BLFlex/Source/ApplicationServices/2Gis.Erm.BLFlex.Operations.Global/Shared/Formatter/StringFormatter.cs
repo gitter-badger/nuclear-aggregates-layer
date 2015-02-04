@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 
@@ -6,6 +7,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 {
     internal sealed class StringFormatter : IFormatter
     {
+        private static readonly Regex LineFeedWithoutCarriageReturn = new Regex("(?<!\r)\n", RegexOptions.Compiled | RegexOptions.Multiline);
         private readonly string _format;
 
         public StringFormatter()
@@ -20,7 +22,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 
         public string Format(object data)
         {
-            return string.Format(CultureInfo.CurrentCulture, _format, data);
+            var result = string.Format(CultureInfo.CurrentCulture, _format, data);
+            return LineFeedWithoutCarriageReturn.Replace(result, "\r\n"); // Environment.NewLine тут некорректно использовать, мы хотим получить именно два символа - только их корректно обработает MSWord
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bargains;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
@@ -14,6 +15,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -23,6 +25,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ICloseClientBargainsOperationService _closeClientBargainsOperationService;
+        private readonly IOrderReadModel _orderReadModel;
 
         public BargainController(IMsCrmSettings msCrmSettings,
                                  IAPIOperationsServiceSettings operationsServiceSettings,
@@ -32,11 +35,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                  ICommonLog logger,
                                  IGetBaseCurrencyService getBaseCurrencyService,
                                  ISecurityServiceFunctionalAccess functionalAccessService,
-                                 ICloseClientBargainsOperationService closeClientBargainsOperationService)
+                                 ICloseClientBargainsOperationService closeClientBargainsOperationService,
+                                 IOrderReadModel orderReadModel)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _closeClientBargainsOperationService = closeClientBargainsOperationService;
+            _orderReadModel = orderReadModel;
         }
 
         [HttpGet]
@@ -48,6 +53,20 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
 
             var model = new CloseBargainsViewModel { CloseDate = DateTime.UtcNow };
+            return View(model);
+        }
+
+        [HttpGet]
+        public ViewResult SelectLegalPersonProfile(long bargainId)
+        {
+            var dto = _orderReadModel.GetLegalPersonProfileByBargain(bargainId);
+
+            var model = new SelectLegalPersonProfileViewModel
+                            {
+                                LegalPerson = dto.LegalPerson.ToLookupField(),
+                                LegalPersonProfile = dto.LegalPersonProfile.ToLookupField()
+                            };
+
             return View(model);
         }
 

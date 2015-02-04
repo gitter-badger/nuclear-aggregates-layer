@@ -1,12 +1,11 @@
 ﻿using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Operations;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
-using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -21,7 +20,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
     public sealed class ChangeBindingObjectsController : ControllerBase
     {
         private readonly IOperationServicesManager _operationServicesManager;
-        private readonly IPublicService _publicService;
+        private readonly IChangeOrderPositionBindingObjectsOperationService _changeOrderPositionBindingObjectsOperationService;
 
         public ChangeBindingObjectsController(IMsCrmSettings msCrmSettings,
                                               IAPIOperationsServiceSettings operationsServiceSettings,
@@ -31,11 +30,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
                                               ICommonLog logger,
                                               IGetBaseCurrencyService getBaseCurrencyService,
                                               IOperationServicesManager operationServicesManager,
-                                              IPublicService publicService)
+                                              IChangeOrderPositionBindingObjectsOperationService changeOrderPositionBindingObjectsOperationServic)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
-            _publicService = publicService;
+            _changeOrderPositionBindingObjectsOperationService = changeOrderPositionBindingObjectsOperationService;
         }
 
         [HttpGet]
@@ -55,13 +54,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         [HttpPost]
         public ActionResult ChangeBindingObjects(long positionId, AdvertisementDescriptor[] advertisements)
         {
-            var request = new ChangeBindingObjectsRequest
-            {
-                OrderPositionId = positionId,
-                Advertisements = advertisements
-            };
-
-            _publicService.Handle(request);
+            _changeOrderPositionBindingObjectsOperationService.Change(positionId, advertisements);
             return new EmptyResult();
         }
     }

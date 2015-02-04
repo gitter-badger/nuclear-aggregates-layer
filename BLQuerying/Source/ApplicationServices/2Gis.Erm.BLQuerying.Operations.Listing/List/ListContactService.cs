@@ -31,6 +31,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Contact>();
 
+            bool forClientAndLinkedChild;
+            if (querySettings.TryGetExtendedProperty("ForClientAndLinkedChild", out forClientAndLinkedChild) && querySettings.ParentEntityId.HasValue)
+            {
+                query = _filterHelper.ForClientAndLinkedChild(query, querySettings.ParentEntityId.Value);
+            }
+
             return query
             .Select(x => new ListContactDto
             {

@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto
         public bool IsComposite { get; set; }
         public PricePositionRateType RateType { get; set; }
         public PositionBindingObjectType LinkingObjectType { get; set; }
-        public PositionAccountingMethod AccountingMethod { get; set; }
+        public SalesModel SalesModel { get; set; }
         public long PositionId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Core.Exceptions;
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
 
         protected override Response Handle(PrintBillRequest request)
         {
-            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.Id))
+            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                   .Select(bill => new
                                       {
                                           Bill = bill,
@@ -42,18 +43,26 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
                                           OrderReleaseCountPlan = bill.Order.ReleaseCountPlan,
                                           LegalPersonType = bill.Order.LegalPerson.LegalPersonTypeEnum,
                                           bill.Order.BranchOfficeOrganizationUnitId,
+                                          bill.Order.LegalPersonProfileId,
                                       })
                                   .SingleOrDefault();
 
             if (billInfo == null)
+            {
                 throw new NotificationException(BLResources.SpecifiedBillNotFound);
+            }
+
+            if (billInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             if (billInfo.BranchOfficeOrganizationUnitId == null)
             {
                 throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
             }
 
-            var printData = _finder.Find(Specs.Find.ById<Bill>(request.Id))
+            var printData = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                    .Select(bill => new
                                        {
                                            Bill = new
@@ -81,9 +90,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
                                            bill.Order.BranchOfficeOrganizationUnitId,
                                            bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                            bill.Order.LegalPersonId,
-                                           ProfileId = bill.Order.LegalPerson.LegalPersonProfiles
-                                                           .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId)
-                                                           .Id,
                                            CurrencyISOCode = bill.Order.Currency.ISOCode
                                        })
                                    .ToArray()
@@ -103,7 +109,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
                                                : null,
                                            BranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(x.BranchOfficeId)),
                                            LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)),
-                                           Profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(x.ProfileId)),
+                                           Profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(billInfo.LegalPersonProfileId.Value)),
                                            x.CurrencyISOCode
                                        })
                                    .Single();
