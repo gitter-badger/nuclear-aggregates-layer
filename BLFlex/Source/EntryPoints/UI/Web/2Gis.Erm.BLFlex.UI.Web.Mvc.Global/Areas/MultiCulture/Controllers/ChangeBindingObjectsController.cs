@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
                                               ICommonLog logger,
                                               IGetBaseCurrencyService getBaseCurrencyService,
                                               IOperationServicesManager operationServicesManager,
-                                              IChangeOrderPositionBindingObjectsOperationService changeOrderPositionBindingObjectsOperationServic)
+                                              IChangeOrderPositionBindingObjectsOperationService changeOrderPositionBindingObjectsOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
