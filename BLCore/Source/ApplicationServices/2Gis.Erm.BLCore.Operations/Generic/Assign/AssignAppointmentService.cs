@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -46,27 +45,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Appointment>())
             {
-                var entity = _appointmentReadModel.GetAppointment(entityId);
-
-                if (!_userContext.Identity.SkipEntityAccessCheck)
-                {
-                    var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                 EntityName.Appointment,
-                                                                                 _userContext.Identity.Code,
-                                                                                 entityId,
-                                                                                 entity.OwnerCode,
-                                                                                 null);
-                    if (!ownerCanBeChanged)
-                    {
-                        throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
-                    }
-                }
+                var entity = _appointmentReadModel.GetAppointment(entityId);         
 
                 if (entity.Status != ActivityStatus.InProgress)
                     throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
 
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
+
+                if (!_entityAccessService.HasActivityAccess(_userContext, EntityName.Appointment, entityId, ownerCode))
+                {
+                    throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
+                }
 
                 _assignAppointmentAggregateService.Assign(entity, ownerCode);
 

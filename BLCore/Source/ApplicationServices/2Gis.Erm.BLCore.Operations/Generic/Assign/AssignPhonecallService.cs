@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -47,26 +46,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             {
                 var entity = _phonecallReadModel.GetPhonecall(entityId);
 
-                if (!_userContext.Identity.SkipEntityAccessCheck)
-                {
-                    var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                 EntityName.Phonecall,
-                                                                                 _userContext.Identity.Code,
-                                                                                 entityId,
-                                                                                 entity.OwnerCode,
-                                                                                 null);
-                    if (!ownerCanBeChanged)
-                    {
-                        throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
-                    }
-                }
-
                 if (entity.Status != ActivityStatus.InProgress)
                     throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
 
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
-                   
+
+                if (!_entityAccessService.HasActivityAccess(_userContext, EntityName.Phonecall, entityId, ownerCode))
+                {
+                    throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
+                }
+  
                 _assignPhonecallAggregateService.Assign(entity,ownerCode);
 
                 operationScope

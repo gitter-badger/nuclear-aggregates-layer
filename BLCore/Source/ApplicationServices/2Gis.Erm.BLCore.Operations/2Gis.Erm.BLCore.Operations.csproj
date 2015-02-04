@@ -292,6 +292,7 @@
     <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
     <Compile Include="Generic\Append\AppendUserRoleOperationService.cs" />
     <Compile Include="Generic\Append\AppendUserTerritoryService.cs" />
+    <Compile Include="Generic\Assign\ActivitySecurityAccessExtenstion.cs" />
     <Compile Include="Generic\Assign\AssignAccountDetailService.cs" />
     <Compile Include="Generic\Assign\AssignAccountService.cs" />
     <Compile Include="Generic\Assign\AssignAppointmentService.cs" />

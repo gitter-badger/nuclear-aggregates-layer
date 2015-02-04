@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -46,26 +45,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Task>())
             {
                 var entity = _taskReadModel.GetTask(entityId);
-
-                if (!_userContext.Identity.SkipEntityAccessCheck)
-                {
-                    var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                 EntityName.Task,
-                                                                                 _userContext.Identity.Code,
-                                                                                 entityId,
-                                                                                 entity.OwnerCode,
-                                                                                 null);
-                    if (!ownerCanBeChanged)
-                    {
-                        throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
-                    }
-                }
+          
    
                 if(entity.Status != ActivityStatus.InProgress)
                     throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
 
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
+
+                if (!_entityAccessService.HasActivityAccess(_userContext, EntityName.Task, entityId, ownerCode))
+                {
+                    throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
+                }
 
                 _assignTaskAggregateService.Assign(entity,ownerCode);
 
