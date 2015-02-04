@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                 request.AccessSharings, 
                 _userContext.Identity.Code);
 
-            if (_msCrmSettings.EnableReplication)
+            if (_msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk))
             {
                 var oldSharings = _securityServiceSharings.GetAccessSharingsForEntity(request.EntityType, request.EntityId);
                 ReplicateAccessSharings(request, oldSharings, request.AccessSharings);
