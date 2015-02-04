@@ -12,10 +12,9 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
-    public class AssignTaskService:IAssignGenericEntityService<Task>
+    public class AssignTaskService : IAssignGenericEntityService<Task>
     {
         private readonly ITaskReadModel _taskReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -23,7 +22,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
         private readonly IAssignTaskAggregateService _assignTaskAggregateService;
-
         public AssignTaskService(
             ITaskReadModel taskReadModel,
             IOperationScopeFactory scopeFactory,     
@@ -45,20 +43,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Task>())
             {
                 var entity = _taskReadModel.GetTask(entityId);
-          
-   
-                if(entity.Status != ActivityStatus.InProgress)
+
+                if (entity.Status != ActivityStatus.InProgress)
+                {
                     throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
+                }
 
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
+                {
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
+                }
 
                 if (!_entityAccessService.HasActivityUpdateAccess(_userContext, EntityName.Task, entityId, ownerCode))
                 {
                     throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
                 }
 
-                _assignTaskAggregateService.Assign(entity,ownerCode);
+                _assignTaskAggregateService.Assign(entity, ownerCode);
 
                 operationScope
                     .Updated<Task>(entityId)

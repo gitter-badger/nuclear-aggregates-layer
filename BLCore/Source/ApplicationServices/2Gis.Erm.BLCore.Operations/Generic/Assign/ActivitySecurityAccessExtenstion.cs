@@ -11,17 +11,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         {
             if (!userContext.Identity.SkipEntityAccessCheck)
             {
-                var ownerCanBeChanged = entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
-                                                                             entityName,
-                                                                             userContext.Identity.Code,
-                                                                             entityId,
-                                                                             ownerCode,
-                                                                             null);
-                if (!ownerCanBeChanged)
-                {
-                    return false;
-                }
+                return entityAccessService.HasEntityAccess(EntityAccessTypes.Update, entityName, userContext.Identity.Code, entityId, ownerCode, null);
             }
+
             return true;
         }
     }

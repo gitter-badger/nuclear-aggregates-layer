@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
-    public class AssignLetterService:IAssignGenericEntityService<Letter>
+    public class AssignLetterService : IAssignGenericEntityService<Letter>
     {
         private readonly ILetterReadModel _letterReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -45,19 +45,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Letter>())
             {
                 var entity = _letterReadModel.GetLetter(entityId);
-                
+
                 if (entity.Status != ActivityStatus.InProgress)
+                {
                     throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
+                }
 
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
+                {
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
+                }
 
                 if (!_entityAccessService.HasActivityUpdateAccess(_userContext, EntityName.Letter, entityId, ownerCode))
                 {
                     throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
                 }
-  
-                _assignLetterAggregateService.Assign(entity,ownerCode);
+
+                _assignLetterAggregateService.Assign(entity, ownerCode);
 
                 operationScope
                     .Updated<Letter>(entityId)

@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
-    public class AssignPhonecallService:IAssignGenericEntityService<Phonecall>
+    public class AssignPhonecallService : IAssignGenericEntityService<Phonecall>
     {
         private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -47,17 +47,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                 var entity = _phonecallReadModel.GetPhonecall(entityId);
 
                 if (entity.Status != ActivityStatus.InProgress)
+                {
                     throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
+                }
 
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
+                {
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
+                }
 
                 if (!_entityAccessService.HasActivityUpdateAccess(_userContext, EntityName.Phonecall, entityId, ownerCode))
                 {
                     throw new SecurityException(string.Format(BLResources.AssignActivityAccessDenied, entity.Header));
                 }
-  
-                _assignPhonecallAggregateService.Assign(entity,ownerCode);
+
+                _assignPhonecallAggregateService.Assign(entity, ownerCode);
 
                 operationScope
                     .Updated<Phonecall>(entityId)

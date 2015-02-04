@@ -16,7 +16,7 @@ using EntityName = DoubleGis.Erm.Platform.Model.Entities.EntityName;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
-    public class AssignAppointmentService:IAssignGenericEntityService<Appointment>
+    public class AssignAppointmentService : IAssignGenericEntityService<Appointment>
     {
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -45,13 +45,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Appointment>())
             {
-                var entity = _appointmentReadModel.GetAppointment(entityId);         
+                var entity = _appointmentReadModel.GetAppointment(entityId);
 
                 if (entity.Status != ActivityStatus.InProgress)
+                {
                     throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
+                }
 
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
+                {
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);
+                }
 
                 if (!_entityAccessService.HasActivityUpdateAccess(_userContext, EntityName.Appointment, entityId, ownerCode))
                 {
