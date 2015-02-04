@@ -58,10 +58,10 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="ReleasesWithdrawals" minOccurs="1" maxOccurs="1">
+      <xs:element name="PlannedDebits" minOccurs="1" maxOccurs="1">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="ReleasesWithdrawal" type="ReleasesWithdrawal" minOccurs="1" maxOccurs="unbounded">
+            <xs:element name="PlannedDebit" type="PlannedDebit" minOccurs="1" maxOccurs="unbounded">
               <xs:annotation>
                 <xs:documentation>Информация о плановых списаниях по позиции заказа</xs:documentation>
               </xs:annotation>
@@ -135,18 +135,18 @@
     </xs:attribute>
   </xs:complexType>
 
-  <xs:complexType name="ReleasesWithdrawal">
-    <xs:attribute name="ReleaseBeginDate" type="xs:dateTime" use="required">
+  <xs:complexType name="PlannedDebit">
+    <xs:attribute name="StartDate" type="xs:dateTime" use="required">
       <xs:annotation>
         <xs:documentation>Дата начала периода планируемого списания по позиции заказа.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="ReleaseEndDate" type="xs:dateTime" use="required">
+    <xs:attribute name="EndDate" type="xs:dateTime" use="required">
       <xs:annotation>
         <xs:documentation>Дата окончания периода планируемого списания по позиции заказа.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="AmountToWithdraw" type="xs:float" use="required">
+    <xs:attribute name="Amount" type="xs:float" use="required">
       <xs:annotation>
         <xs:documentation>Сумма за период планируемого списания по позиции заказа.</xs:documentation>
       </xs:annotation>

@@ -232,13 +232,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         private static XElement GetReleasesWithdrawalsElement(InvoiceItemDto invoiceItemDto)
         {
-            var releasesWithdrawalsElement = new XElement("ReleasesWithdrawals");
+            var releasesWithdrawalsElement = new XElement("PlannedDebits");
             foreach (var releasesWithdrawalItem in invoiceItemDto.ReleasesWithdrawals)
             {
-                var releasesWithdrawalItemElement = new XElement("ReleasesWithdrawal",
-                                                                 new XAttribute("ReleaseBeginDate", releasesWithdrawalItem.ReleaseBeginDate),
-                                                                 new XAttribute("ReleaseEndDate", releasesWithdrawalItem.ReleaseEndDate),
-                                                                 new XAttribute("AmountToWithdraw", releasesWithdrawalItem.AmountToWithdraw));
+                var releasesWithdrawalItemElement = new XElement("PlannedDebit",
+                                                                 new XAttribute("StartDate", releasesWithdrawalItem.ReleaseBeginDate),
+                                                                 new XAttribute("EndDate", releasesWithdrawalItem.ReleaseEndDate),
+                                                                 new XAttribute("Amount", releasesWithdrawalItem.AmountToWithdraw));
 
                 releasesWithdrawalsElement.Add(releasesWithdrawalItemElement);
             }
