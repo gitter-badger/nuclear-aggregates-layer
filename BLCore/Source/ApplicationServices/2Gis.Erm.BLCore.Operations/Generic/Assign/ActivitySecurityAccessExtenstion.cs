@@ -10,12 +10,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
     {
         public static bool HasActivityUpdateAccess<T>(this ISecurityServiceEntityAccess entityAccessService, IUserIdentity identity, long entityId, long ownerCode)
         {
-            if (!identity.SkipEntityAccessCheck)
-            {
-                return entityAccessService.HasEntityAccess(EntityAccessTypes.Update, typeof(T).AsEntityName(), identity.Code, entityId, ownerCode, null);
-            }
-
-            return true;
+            return identity.SkipEntityAccessCheck || entityAccessService.HasEntityAccess(EntityAccessTypes.Update, typeof(T).AsEntityName(), identity.Code, entityId, ownerCode, null);
         }
     }
 }
