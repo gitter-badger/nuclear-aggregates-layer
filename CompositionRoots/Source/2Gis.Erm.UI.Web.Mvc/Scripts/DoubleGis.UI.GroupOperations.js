@@ -120,7 +120,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
             timeout: 1200000,
             url: this.EvaluateConvertIdsUrl(),
             method: 'POST',
-            params:this.Config.Entities
+            jsonData:this.Config.Entities
                 //{
                 //    entityTypeName: Ext.getDom("EntityTypeName").value,
                 //    replicationCodes: this.Config.Entities
