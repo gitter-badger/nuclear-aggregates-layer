@@ -116,15 +116,21 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
     IsUserSettingsValid: function () { /*переопределить в потомке*/ },
     PreProcessEntities: function () { /*реализация по-умолчанию*/ return true; },
     ConvertEntityIds: function () {
+        var entityNamesArray = new Array(this.Config.Entities.length);
+        var entityReplicationCodesArray = new Array(this.Config.Entities.length);
+        for (var i = 0; i < this.Config.Entities.length; i++) {
+            entityNamesArray[i] = this.Config.Entities[i].entityTypeName;
+            entityReplicationCodesArray[i] = this.Config.Entities[i].ReplicationCode;
+        }
         var response = window.Ext.Ajax.syncRequest({
             timeout: 1200000,
             url: this.EvaluateConvertIdsUrl(),
             method: 'POST',
-            params:Ext.encode(this.Config.Entities)
-                //{
-                //    entityTypeName: Ext.getDom("EntityTypeName").value,
-                //    replicationCodes: this.Config.Entities
-                //}
+            params:
+                {
+                    entityTypeName: entityNamesArray,
+                    replicationCodes: entityReplicationCodesArray
+                }
         });
         if ((response.conn.status >= 200 && response.conn.status < 300) || (Ext.isIE && response.conn.status == 1223)) {
             this.Config.Entities = Ext.decode(response.conn.responseText);

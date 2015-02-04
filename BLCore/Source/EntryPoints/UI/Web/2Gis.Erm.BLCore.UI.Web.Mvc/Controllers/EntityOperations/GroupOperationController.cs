@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
@@ -226,10 +227,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 }
             }
 
-        public JsonNetResult ConvertToEntityIds(EntityName entityTypeName, Guid[] replicationCodes)
+        public JsonNetResult ConvertToEntityIds(EntityName[] entityTypeNames, Guid[] replicationCodes)
         {
             try
             {
+                var entityTypeName = entityTypeNames.First();
                 return new JsonNetResult(_replicationCodeConverter.ConvertToEntityIds(entityTypeName, replicationCodes));
             }
             catch (ArgumentException ex)
