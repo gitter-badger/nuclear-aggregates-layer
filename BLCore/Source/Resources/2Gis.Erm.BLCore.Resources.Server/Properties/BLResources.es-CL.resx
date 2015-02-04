@@ -5183,13 +5183,4 @@ Periodo de la publicación: {3}.</value>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>El intento de guardar la posición de la orden con el modelo de ventas '{0}' con la cantidad no igual a 1</value>
   </data>
-  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
-    <value>Невозможно назначить действие в статусе "Выполнено"/"Отменено"</value>
-  </data>
-  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
-    <value>Невозможно назначить куратором служебного пользователя</value>
-  </data>
-  <data name="AssignActivityAccessDenied" xml:space="preserve">
-    <value>Недостаточно прав для смены куратора у действия {0}</value>
-  </data>
 </root>
