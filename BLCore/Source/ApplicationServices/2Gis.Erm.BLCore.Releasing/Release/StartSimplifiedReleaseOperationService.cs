@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             using (var scope = _scopeFactory.CreateNonCoupled<StartSimplifiedReleaseIdentity>())
             {
-                _logger.InfoFormatEx("Starting releasing (simplified mode) for organization unit with id {0} by period {1} is beta {2}. " +
+                _logger.InfoFormat("Starting releasing (simplified mode) for organization unit with id {0} by period {1} is beta {2}. " +
                                      "Release initiator user id {3}",
                                      organizationUnitId,
                                      period,
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 string report;
                 if (!CanStartRelease(organizationUnitId, period, isBeta, out countryCode, out report))
                 {
-                    _logger.ErrorFormatEx("Can't start simlified releasing for organization unit with id {0} by period {1} is beta {2}. " +
+                    _logger.ErrorFormat("Can't start simlified releasing for organization unit with id {0} by period {1} is beta {2}. " +
                                           "Release initiator user id {3}. Error: {4}",
                                           organizationUnitId,
                                           period,
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 releaseDescriptor.ReleaseId = startedRelease.Id;
                 releaseDescriptor.Succeed = true;
 
-                _logger.InfoFormatEx("Simplified release with id {0} successfully started for organization unit with id {1} by period {2} is beta {3}. " +
+                _logger.InfoFormat("Simplified release with id {0} successfully started for organization unit with id {1} by period {2} is beta {3}. " +
                                      "Release initiator user id {4}",
                                      startedRelease.Id,
                                      organizationUnitId,

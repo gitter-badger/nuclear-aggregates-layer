@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
 
         public void NotifyAboutProgress(Guid operationToken, IOperationResult[] results)
         {
-            _logger.DebugFormatEx("Callback received. Operation: {0}. Results count: {1}", operationToken, results != null ? results.Length : -1);
+            _logger.DebugFormat("Callback received. Operation: {0}. Results count: {1}", operationToken, results != null ? results.Length : -1);
             _messageSink.Post(new OperationProgressMessage(operationToken, results));
         }
     }

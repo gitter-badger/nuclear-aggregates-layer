@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't replicate to elastic message with id {0}", originalMessageId);
+                _logger.ErrorFormat(ex, "Can't replicate to elastic message with id {0}", originalMessageId);
                 return MessageProcessingStage.Handle.EmptyResult().AsFailed();
             }
         }

@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                                 "Can't start ensure process that all orders are exported.");
             }
 
-            _logger.InfoFormatEx("Starting ensure process that all orders are exported already to servicebus. " +
+            _logger.InfoFormat("Starting ensure process that all orders are exported already to servicebus. " +
                                  "Release detail: id {0}, organization unit id {1}, period {2}, {3} release",
                                  releaseId,
                                  organizationUnitId,
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                  isBeta ? "beta" : "final");
             if (isBeta)
             {
-                _logger.InfoFormatEx("Release type is beta, so check process is skipped. Release detail: id {0}, organization unit id {1}, period {2}",
+                _logger.InfoFormat("Release type is beta, so check process is skipped. Release detail: id {0}, organization unit id {1}, period {2}",
                                      releaseId,
                                      organizationUnitId,
                                      period);
@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 if (attempsCount == MaxAttempsCount)
                 {
-                    _logger.FatalFormatEx("Aborted ensure process that all orders are exported already to servicebus. " +
+                    _logger.FatalFormat("Aborted ensure process that all orders are exported already to servicebus. " +
                                           "Max attempts count achieved {0}. Release detail: id {1}, organization unit id {2}, period {3}, final release",
                                           MaxAttempsCount,
                                           releaseId,
@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     return false;
                 }
 
-                _logger.WarnFormatEx("Ensure process that all orders are exported already to servicebus. " +
+                _logger.WarnFormat("Ensure process that all orders are exported already to servicebus. " +
                                      "Waiting orders async export activity completed (Running by 2GIS ERM Asynchronous Processing Service). " +
                                      "Release id: {0}. Current attempt number: {1}. Periodic check interval in sec: {2}",
                                      releaseId,
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 ++attempsCount;
             }
 
-            _logger.InfoFormatEx("Finished ensure process. Ensured that all orders are exported already to servicebus. " +
+            _logger.InfoFormat("Finished ensure process. Ensured that all orders are exported already to servicebus. " +
                                  "Release detail: id {0}, organization unit id {1}, period {2}, final release",
                                  releaseId,
                                  organizationUnitId,

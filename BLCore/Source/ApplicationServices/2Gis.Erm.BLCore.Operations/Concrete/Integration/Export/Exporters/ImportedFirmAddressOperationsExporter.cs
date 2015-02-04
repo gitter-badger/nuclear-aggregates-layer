@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
             var firmAddresses = GetFirmAddressesToBeRefreshed(operations).ToArray();
             if (!firmAddresses.Any())
             {
-                _logger.WarnEx("No one firm addresses have to be syncronized");
+                _logger.Warn("No one firm addresses have to be syncronized");
                 return;
             }
 
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
             var operationIdentity = _operationResolver.ResolveOperation(operation);
             if (!operationIdentity.OperationIdentity.Equals(ImportCardIdentity.Instance))
             {
-                _logger.WarnFormatEx("Specified operation {0}, can't trigger firm addresses synchronization, ignore operation and do nothing", operationIdentity);
+                _logger.WarnFormat("Specified operation {0}, can't trigger firm addresses synchronization, ignore operation and do nothing", operationIdentity);
                 return Enumerable.Empty<long>();
             }
 

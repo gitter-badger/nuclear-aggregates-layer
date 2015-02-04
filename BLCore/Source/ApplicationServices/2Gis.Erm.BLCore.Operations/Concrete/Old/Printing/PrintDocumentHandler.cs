@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing
             var printFormTemplateId = _branchOfficeRepository.GetPrintFormTemplateId(request.BranchOfficeOrganizationUnitId.Value, request.TemplateCode);
             if (!printFormTemplateId.HasValue)
             {
-                _logger.WarnFormatEx("Для юр. лица отделения организации с id '{0}' не найден шаблон печатной формы '{1}'",
+                _logger.WarnFormat("Для юр. лица отделения организации с id '{0}' не найден шаблон печатной формы '{1}'",
                                      request.BranchOfficeOrganizationUnitId,
                                      request.TemplateCode);
                 throw new NotificationException(string.Format(BLResources.PrintFormTemplateNotFound, request.TemplateCode.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));

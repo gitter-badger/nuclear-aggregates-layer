@@ -37,9 +37,9 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     throw new NotificationException(string.Format("Can't save release external processing results. Release entry for specifed release id " + releaseId + " not found"));
                 }
 
-                _logger.InfoFormatEx("Attaching external release processing results. Release id: {0}. Messages count:{1}.", release.Id, messages.Length);
+                _logger.InfoFormat("Attaching external release processing results. Release id: {0}. Messages count:{1}.", release.Id, messages.Length);
                 _attachProcessingMessagesAggregateService.SaveExternalMessages(release, messages);
-                _logger.InfoFormatEx("External release processing results attached successfully.", release.Id, messages.Length);
+                _logger.InfoFormat("External release processing results attached successfully.", release.Id, messages.Length);
 
                 scope.Complete();
             }

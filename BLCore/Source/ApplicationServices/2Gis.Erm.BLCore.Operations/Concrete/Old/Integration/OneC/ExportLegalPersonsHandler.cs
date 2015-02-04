@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 throw new NotificationException(BLResources.ExportCouldnotFindLegalPersons);
             }
 
-            _logger.InfoFormatEx("Начало проверки юр.лиц");
+            _logger.InfoFormat("Начало проверки юр.лиц");
             var validateResponse = (ValidateLegalPersonsResponse)_subRequestProcessor.HandleSubRequest(new ValidateLegalPersonsFor1CRequest
             {
                 Entities = legalPersonFor1CExportDtos.Select(x => new ValidateLegalPersonRequestItem
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             logReportBuilder.AppendFormat("Неблокирующих ошибок - [{0}]:", validateResponse.NonBlockingErrors.Count).Append(Environment.NewLine);
             logReportBuilder.AppendFormat("Блокирующих ошибок - [{0}]:", validateResponse.BlockingErrors.Count).Append(Environment.NewLine);
             logReportBuilder.Append(notValidResponseLogBuilder);
-            _logger.InfoFormatEx(logReportBuilder.ToString());
+            _logger.InfoFormat(logReportBuilder.ToString());
 
             var legalPersons = legalPersonFor1CExportDtos.Select(x => x.LegalPerson);
 

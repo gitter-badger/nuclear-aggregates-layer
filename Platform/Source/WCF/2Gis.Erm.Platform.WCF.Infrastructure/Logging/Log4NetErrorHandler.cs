@@ -29,17 +29,17 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
                 if (fault.HasDetail)
                 {
                     var details = fault.GetReaderAtDetailContents().ReadContentAsString();
-                    _logger.WarnFormatEx("FaultException was thrown in ERM WCF service. Details: {0}",
+                    _logger.WarnFormat("FaultException was thrown in ERM WCF service. Details: {0}",
                         !string.IsNullOrEmpty(details) ? details : faultException.ToString());
                 }
                 else
                 {
-                    _logger.WarnFormatEx("FaultException was thrown in ERM WCF service. Details: {0}", faultException.ToString());
+                    _logger.WarnFormat("FaultException was thrown in ERM WCF service. Details: {0}", faultException.ToString());
                 }
             }
             else
             {
-                _logger.FatalEx(error, "Unhandled exception has occured in ERM WCF service");
+                _logger.Fatal(error, "Unhandled exception has occured in ERM WCF service");
             }
 
             return false;

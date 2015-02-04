@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 var message = string.Format("Невозможно распознать строку при импорте списаний по лицевым счетам. Строка [{0}].", index);
                 errors.Add(message);
 
-                _logger.ErrorEx(message);
+                _logger.Error(message);
                 return false;
             }
 
@@ -131,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                             index);
                 errors.Add(message);
 
-                _logger.ErrorEx(message);
+                _logger.Error(message);
                 return false;
             }
 
@@ -142,7 +142,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                             index);
                 errors.Add(message);
 
-                _logger.ErrorEx(message);
+                _logger.Error(message);
                 return false;
             }
 
@@ -152,7 +152,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 var message = string.Format("Активное юридическое лицо клиента с кодом [{0}] не найдено. Строка [{1}].", row.LegalPerson1CCode, index);
                 errors.Add(message);
 
-                _logger.ErrorEx(message);
+                _logger.Error(message);
                 return false;
             }
 
@@ -164,7 +164,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                             index);
                 errors.Add(message);
 
-                _logger.ErrorEx(message);
+                _logger.Error(message);
                 return false;
             }
 
@@ -178,7 +178,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                     index);
                 errors.Add(message);
 
-                _logger.ErrorEx(message);
+                _logger.Error(message);
                 return false;
             }
 
@@ -207,7 +207,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 var message = string.Format("Активный тип операции с кодом [{0}] не найден. Строка [{1}].", row.DocumentType, index);
                 errors.Add(message);
 
-                _logger.ErrorEx(message);
+                _logger.Error(message);
                 return false;
             }
 

@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
                             catch (Exception ex)
                             {
                                 var msg = string.Format("Handler \"CanHandle\" exception caught. Handler:{0}. UseCase:{1}. Message:{2}", handlerType, context.UseCase.Id, context.Message);
-                                _logger.ErrorEx(ex, msg);
+                                _logger.Error(ex, msg);
                                 context.PipelineUnhandledExceptions.Add(handlerType, new AggregateException(msg, ex));
                                 return context;
                             }
@@ -155,7 +155,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
                                 {
                                     var msg = string.Format(
                                         "Async handler \"Handle\" exception caught. Handler:{0}. UseCase:{1}. Message:{2}", handlerType, context.UseCase.Id, context.Message);
-                                    _logger.ErrorEx(ex, msg);
+                                    _logger.Error(ex, msg);
                                     context.PipelineUnhandledExceptions.Add(handler.GetType(), new AggregateException(msg, ex));
                                     return context;
                                 }
@@ -173,7 +173,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
                                 {
                                     var msg = string.Format(
                                         "Sync handler \"Handle\" exception caught. Handler:{0}. UseCase:{1}. Message:{2}", handlerType, context.UseCase.Id, context.Message);
-                                    _logger.ErrorEx(ex, msg);
+                                    _logger.Error(ex, msg);
                                     context.PipelineUnhandledExceptions.Add(handler.GetType(), new AggregateException(msg, ex));
                                     return context;
                                 }
@@ -186,7 +186,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
                                         handlerType,
                                         context.UseCase.Id,
                                         context.Message));
-                            _logger.ErrorEx(notSupportedException.Message);
+                            _logger.Error(notSupportedException.Message);
                             context.PipelineUnhandledExceptions.Add(handler.GetType(), notSupportedException);
                             return context;
                         });

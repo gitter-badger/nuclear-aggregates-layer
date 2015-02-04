@@ -4,12 +4,12 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
 {
     public sealed partial class Log4NetCommonLog
     {
-        void ICommonLog.InfoEx(string message)
+        void ICommonLog.Info(string message)
         {
-            ((ICommonLog)this).InfoEx(message, null);
+            ((ICommonLog)this).Info(message, null);
         }
 
-        void ICommonLog.InfoEx(string message, string methodName)
+        void ICommonLog.Info(string message, string methodName)
         {
             if (!_log.IsInfoEnabled)
             {
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             }
         }
 
-        void ICommonLog.InfoFormatEx(string message, object param1)
+        void ICommonLog.InfoFormat(string message, object param1)
         {
             if (!_log.IsInfoEnabled)
             {
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.InfoFormat(message, param1);
         }
 
-        void ICommonLog.InfoFormatEx(string message, object param1, object param2)
+        void ICommonLog.InfoFormat(string message, object param1, object param2)
         {
             if (!_log.IsInfoEnabled)
             {
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.InfoFormat(message, param1, param2);
         }
 
-        void ICommonLog.InfoFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.InfoFormat(string message, object param1, object param2, object param3)
         {
             if (!_log.IsInfoEnabled)
             {
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.InfoFormat(message, param1, param2, param3);
         }
 
-        void ICommonLog.InfoFormatEx(string message, params object[] args)
+        void ICommonLog.InfoFormat(string message, params object[] args)
         {
             if (!_log.IsInfoEnabled)
             {

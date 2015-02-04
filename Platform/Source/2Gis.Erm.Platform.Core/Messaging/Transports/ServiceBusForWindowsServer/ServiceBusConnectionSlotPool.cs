@@ -132,13 +132,13 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             }
             catch (Exception ex)
             {
-                _logger.WarnFormatEx("Error occured while closing Service Bus messaging objects. Exception: {0}", ex.ToString());
+                _logger.WarnFormat("Error occured while closing Service Bus messaging objects. Exception: {0}", ex.ToString());
             }
         }
 
         private void OnRetrying(object sender, RetryingEventArgs args)
         {
-            _logger.WarnFormatEx("Retrying to execute action within ServiceBus connection slot." +
+            _logger.WarnFormat("Retrying to execute action within ServiceBus connection slot." +
                                  "Current retry count = {0}, last exception: {1}",
                                  args.CurrentRetryCount,
                                  args.LastException.ToString());

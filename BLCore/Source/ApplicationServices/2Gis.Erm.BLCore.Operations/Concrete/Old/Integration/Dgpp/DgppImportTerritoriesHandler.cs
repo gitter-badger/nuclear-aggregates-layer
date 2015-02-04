@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
         {
             try
             {
-                _logger.InfoFormatEx("{0}: начало", HandlerName);
+                _logger.InfoFormat("{0}: начало", HandlerName);
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
                     ImportTerritoriesHeaderDto header;
@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
             }
             finally
             {
-                _logger.InfoFormatEx("{0}: окончание", HandlerName);
+                _logger.InfoFormat("{0}: окончание", HandlerName);
             }
         }
 

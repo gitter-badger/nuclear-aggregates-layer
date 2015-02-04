@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
         {
             var processedOrders = new Dictionary<long, Order>();
 
-            _logger.InfoFormatEx("Starting actualizing order amount info during withdrawal process. Is reverting: {0}", isWithdrawalReverting);
+            _logger.InfoFormat("Starting actualizing order amount info during withdrawal process. Is reverting: {0}", isWithdrawalReverting);
 
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Order>())
             {
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormatEx(
+            _logger.InfoFormat(
                 "Finished actualizing order amount info during withdrawal process. Is reverting: {0}. Orders processed: {1}", 
                 isWithdrawalReverting,
                 processedOrders.Count);

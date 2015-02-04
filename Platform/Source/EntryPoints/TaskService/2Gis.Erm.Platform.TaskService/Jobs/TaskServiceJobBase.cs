@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
 
             try
             {
-                Logger.InfoFormatEx("[{0}][{1}]{2} - старт задачи", group, description, jobDataMap);
+                Logger.InfoFormat("[{0}][{1}]{2} - старт задачи", group, description, jobDataMap);
 
                 // аутентифицируем текущего пользователя в системе и выполняем logon
                 _signInService.SignIn();
@@ -66,17 +66,17 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
                 // если указано, то подменяем пользователя указанным 
                 if (!string.IsNullOrEmpty(ErmUserImpersonateAs))
                 {
-                    Logger.InfoFormatEx("[{0}][{1}]{2} - используем учетную запись пользователя '{3}'", group, description, jobDataMap, ErmUserImpersonateAs);
+                    Logger.InfoFormat("[{0}][{1}]{2} - используем учетную запись пользователя '{3}'", group, description, jobDataMap, ErmUserImpersonateAs);
                     _userImpersonationService.ImpersonateAsUser(ErmUserImpersonateAs);
                 }
 
                 ExecuteInternal(context);
 
-                Logger.InfoFormatEx("[{0}][{1}]{2} - окончание задачи", group, description, jobDataMap);
+                Logger.InfoFormat("[{0}][{1}]{2} - окончание задачи", group, description, jobDataMap);
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormatEx(ex, "[{0}][{1}]{2} - ошибка при выполнении задачи", group, description, jobDataMap);
+                Logger.ErrorFormat(ex, "[{0}][{1}]{2} - ошибка при выполнении задачи", group, description, jobDataMap);
                 throw new JobExecutionException(ex);
             }
             finally

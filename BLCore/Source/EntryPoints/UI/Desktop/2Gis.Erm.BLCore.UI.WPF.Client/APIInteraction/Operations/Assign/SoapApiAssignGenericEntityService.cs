@@ -42,12 +42,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
             }
             catch (FaultException<AssignOperationErrorDescription> ex)
             {
-                Logger.ErrorEx(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
+                Logger.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
+                Logger.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
         }
@@ -62,12 +62,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
             }
             catch (FaultException<AssignOperationErrorDescription> ex)
             {
-                Logger.ErrorEx(ex, "Can't execute group assign entity " + EntityType.Name);
+                Logger.Error(ex, "Can't execute group assign entity " + EntityType.Name);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't execute group assign entity " + EntityType.Name);
+                Logger.Error(ex, "Can't execute group assign entity " + EntityType.Name);
                 throw;
             }
         }

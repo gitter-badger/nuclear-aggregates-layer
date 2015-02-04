@@ -48,17 +48,17 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (PositionIsNotRepresentedException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 return GetEmptyCalculationResults(orderId);
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }
@@ -90,12 +90,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }
@@ -128,12 +128,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }
@@ -178,12 +178,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }

@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
                 operationScope.Complete();
             }
 
-            _logger.InfoFormatEx("Фирма с id={0} взята из резерва, с назначением пользователю {1}", entityId, ownerCode);
+            _logger.InfoFormat("Фирма с id={0} взята из резерва, с назначением пользователю {1}", entityId, ownerCode);
 
             return new QualifyResult
                        {

@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
                 if (!actor.CanTransform(input.Value))
                 {
                     string msg = string.Format("Can't transform message from flow {0} by transformer {1}", context.MessageFlow, actor.GetType().Name);
-                    Logger.ErrorEx(msg);
+                    Logger.Error(msg);
 
                     results.Add(input.Key, 
                                 Stage.EmptyResult()

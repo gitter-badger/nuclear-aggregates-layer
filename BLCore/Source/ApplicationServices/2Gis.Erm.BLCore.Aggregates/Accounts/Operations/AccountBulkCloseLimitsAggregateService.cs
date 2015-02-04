@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoEx("Closed limits count: " + closedLimits);
+            _logger.Info("Closed limits count: " + closedLimits);
         }
     }
 }

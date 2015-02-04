@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _logger.ErrorFormat(ex,
                                       "Can't deserialize tracked use case from brokered message. Message desciption: {0}",
                                       targetMessage != null ? targetMessage.ToString() : "Message instance is null");
                 throw;

@@ -4,12 +4,12 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
 {
     public sealed partial class Log4NetCommonLog
     {
-        void ICommonLog.DebugEx(string message)
+        void ICommonLog.Debug(string message)
         {
-            ((ICommonLog)this).DebugEx(message, null);
+            ((ICommonLog)this).Debug(message, null);
         }
 
-        void ICommonLog.DebugEx(string message, string methodName)
+        void ICommonLog.Debug(string message, string methodName)
         {
             if (!_log.IsDebugEnabled)
             {
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             }
         }
 
-        void ICommonLog.DebugFormatEx(string message, object param1)
+        void ICommonLog.DebugFormat(string message, object param1)
         {
             if (!_log.IsDebugEnabled)
             {
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.DebugFormat(message, param1);
         }
 
-        void ICommonLog.DebugFormatEx(string message, object param1, object param2)
+        void ICommonLog.DebugFormat(string message, object param1, object param2)
         {
             if (!_log.IsDebugEnabled)
             {
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.DebugFormat(message, param1, param2);
         }
 
-        void ICommonLog.DebugFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.DebugFormat(string message, object param1, object param2, object param3)
         {
             if (!_log.IsDebugEnabled)
             {
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.DebugFormat(message, param1, param2, param3);
         }
 
-        void ICommonLog.DebugFormatEx(string message, params object[] args)
+        void ICommonLog.DebugFormat(string message, params object[] args)
         {
             if (!_log.IsDebugEnabled)
             {

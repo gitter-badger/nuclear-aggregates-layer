@@ -39,18 +39,18 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
         public void Interrupt()
         {
-            Logger.InfoEx("Consuming performed operations. Interrupt called for job, consuming performed operations is stopping");
+            Logger.Info("Consuming performed operations. Interrupt called for job, consuming performed operations is stopping");
             _consumersCancellationTokenSource.Cancel();
         }
 
         protected override void ExecuteInternal(IJobExecutionContext context)
         {
-            Logger.InfoEx("Consuming performed operations. Processing started");
+            Logger.Info("Consuming performed operations. Processing started");
 
             var workers = ResolveWorkersForPerformedOperationsSources();
             Task.WaitAll(workers);
 
-            Logger.InfoEx("Consuming performed operations. Processing stopped");
+            Logger.Info("Consuming performed operations. Processing stopped");
         }
 
         private Task[] ResolveWorkersForPerformedOperationsSources()

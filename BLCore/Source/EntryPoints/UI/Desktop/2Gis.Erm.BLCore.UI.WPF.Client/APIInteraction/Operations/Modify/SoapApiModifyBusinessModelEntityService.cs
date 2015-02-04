@@ -33,12 +33,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Modify
             }
             catch (FaultException<CreateOrUpdateOperationErrorDescription> ex)
             {
-                Logger.ErrorEx(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
+                Logger.Error(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
+                Logger.Error(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
                 throw;
             }
         }

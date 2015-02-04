@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<AssignOperationErrorDescription>(
                     new AssignOperationErrorDescription(entityName, ex.Message, ownerCode, bypassValidation, isPartialAssign),
                     HttpStatusCode.BadRequest);
@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<AssignOperationErrorDescription>(new AssignOperationErrorDescription(entityName, ex.Message, actualOwnerCode, actualIsPartialAssign, actualBypassValidation));
             }
         }

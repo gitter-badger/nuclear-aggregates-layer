@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
                                                 typeof(PerformedOperationsFinalProcessingJob),
                                                 IgnoreErrorsOnStages,
                                                 rawStage);
-                        Logger.ErrorEx(msg);
+                        Logger.Error(msg);
 
                         throw new InvalidOperationException(msg);
                     }
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
         {
             if (!_integrationSettings.EnableIntegration)
             {
-                Logger.InfoFormatEx("Integration disabled in settings. Job stops immediately");
+                Logger.InfoFormat("Integration disabled in settings. Job stops immediately");
                 return;
             }
 
@@ -106,13 +106,13 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             if (!_messageFlowRegistry.TryResolve(flowDescriptor, out messageFlow))
             {
                 var msg = "Unsupported flow specified for processing: " + flowDescriptor;
-                Logger.FatalEx(msg);
+                Logger.Fatal(msg);
                 throw new InvalidOperationException(msg);
             }
 
             ISyncMessageFlowProcessor messageFlowProcessor;
 
-            Logger.DebugEx("Launching message flow processing. Target message flow: " + messageFlow);
+            Logger.Debug("Launching message flow processing. Target message flow: " + messageFlow);
 
             try
             {
@@ -128,19 +128,19 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't create processor for  specified flow " + messageFlow);
+                Logger.Error(ex, "Can't create processor for  specified flow " + messageFlow);
                 throw;
             }
 
             try
             {
-                Logger.DebugEx("Message flow processor starting. Target message flow: " + messageFlow);
+                Logger.Debug("Message flow processor starting. Target message flow: " + messageFlow);
                 messageFlowProcessor.Process();
-                Logger.DebugEx("Message flow processor finished. Target message flow: " + messageFlow);
+                Logger.Debug("Message flow processor finished. Target message flow: " + messageFlow);
             }
             catch (Exception ex)
             {
-                Logger.FatalEx(ex, "Message flow processor unexpectedly interrupted. Target message flow: " + messageFlow);
+                Logger.Fatal(ex, "Message flow processor unexpectedly interrupted. Target message flow: " + messageFlow);
                 throw;
             }
             finally

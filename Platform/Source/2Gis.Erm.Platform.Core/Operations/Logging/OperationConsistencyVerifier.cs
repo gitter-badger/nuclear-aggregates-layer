@@ -82,12 +82,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             isConsistent = !(addedInconsistency || deletedInconsistency || updatedInconsistency);
             if (!isConsistent)
             {
-                _logger.ErrorFormatEx("Inconsistent operation context detected. Report: " + inconsistencyReport);
+                _logger.ErrorFormat("Inconsistent operation context detected. Report: " + inconsistencyReport);
             }
 
             if (severalModificationsReport.Length > 0)
             {
-                _logger.InfoEx(severalModificationsReport.ToString());
+                _logger.Info(severalModificationsReport.ToString());
             }
 
             return true;

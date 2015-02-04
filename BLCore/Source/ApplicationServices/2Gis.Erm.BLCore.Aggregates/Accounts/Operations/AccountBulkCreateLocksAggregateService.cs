@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormatEx("Bulk create locks for period {0}. Created locks count = {1}", period, createdLocks);
+            _logger.InfoFormat("Bulk create locks for period {0}. Created locks count = {1}", period, createdLocks);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 
         public void Activate(IEnumerable<ActivateLockDto> lockInfos)
         {
-            _logger.InfoFormatEx("Starting activation process for locks");
+            _logger.InfoFormat("Starting activation process for locks");
 
             int processedLocksCount = 0;
             int processedLockDetailsCount = 0;
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                         ++processedLockDetailsCount;
                     }
 
-                    _logger.DebugFormatEx(
+                    _logger.DebugFormat(
                         "Processed lock with id {0}. Current counters state: locks {1}, lockdetails {2}",
                         info.Lock.Id,
                         processedLocksCount,
@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormatEx(
+            _logger.InfoFormat(
                 "Finished activation process for locks. Counters: locks {0}, lockdetails {1}",
                 processedLocksCount,
                 processedLockDetailsCount);

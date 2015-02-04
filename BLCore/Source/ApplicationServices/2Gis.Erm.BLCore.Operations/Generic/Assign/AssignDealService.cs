@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     .Complete();
             }
             
-            _logger.InfoFormatEx("Куратором сделки с id={0} назначен пользователь {1}", entityId, ownerCode);
+            _logger.InfoFormat("Куратором сделки с id={0} назначен пользователь {1}", entityId, ownerCode);
 
             return null;
         }

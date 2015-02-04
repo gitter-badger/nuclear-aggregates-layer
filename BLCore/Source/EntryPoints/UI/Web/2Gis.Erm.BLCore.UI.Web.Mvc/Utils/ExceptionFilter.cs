@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
             var errorTitle = HandleException(exception, httpResponse);
 
-            _logger.FatalEx(exception, BLResources.CriticalError);
+            _logger.Fatal(exception, BLResources.CriticalError);
 
             // ajax request
             if (isAjaxRequest)

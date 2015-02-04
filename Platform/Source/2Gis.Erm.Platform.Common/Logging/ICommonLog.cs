@@ -6,51 +6,51 @@ namespace DoubleGis.Erm.Platform.Common.Logging
 {
     public interface ICommonLog : IInvariantSafeCrosscuttingService
     {
-        void DebugEx(string message);
-        void DebugEx(string message, string methodName);
-        void DebugFormatEx(string message, object param1);
-        void DebugFormatEx(string message, object param1, object param2);
-        void DebugFormatEx(string message, object param1, object param2, object param3);
-        void DebugFormatEx(string message, params object[] args);
+        void Debug(string message);
+        void Debug(string message, string methodName);
+        void DebugFormat(string message, object param1);
+        void DebugFormat(string message, object param1, object param2);
+        void DebugFormat(string message, object param1, object param2, object param3);
+        void DebugFormat(string message, params object[] args);
 
-        void InfoEx(string message);
-        void InfoEx(string message, string methodName);
-        void InfoFormatEx(string message, object param1);
-        void InfoFormatEx(string message, object param1, object param2);
-        void InfoFormatEx(string message, object param1, object param2, object param3);
-        void InfoFormatEx(string message, params object[] args);
+        void Info(string message);
+        void Info(string message, string methodName);
+        void InfoFormat(string message, object param1);
+        void InfoFormat(string message, object param1, object param2);
+        void InfoFormat(string message, object param1, object param2, object param3);
+        void InfoFormat(string message, params object[] args);
 
-        void WarnEx(string message);
-        void WarnEx(string message, string methodName);
-        void WarnFormatEx(string message, object param1);
-        void WarnFormatEx(string message, object param1, object param2);
-        void WarnFormatEx(string message, object param1, object param2, object param3);
-        void WarnFormatEx(string message, params object[] args);
+        void Warn(string message);
+        void Warn(string message, string methodName);
+        void WarnFormat(string message, object param1);
+        void WarnFormat(string message, object param1, object param2);
+        void WarnFormat(string message, object param1, object param2, object param3);
+        void WarnFormat(string message, params object[] args);
 
-        void ErrorEx(string message);
-        void ErrorEx(string message, string methodName);
-        void ErrorEx(Exception exception, string message);
-        void ErrorEx(Exception exception, string message, string methodName);
-        void ErrorFormatEx(Exception exception, string message, object param1);
-        void ErrorFormatEx(Exception exception, string message, object param1, object param2);
-        void ErrorFormatEx(Exception exception, string message, object param1, object param2, object param3);
-        void ErrorFormatEx(Exception exception, string message, params object[] args);
-        void ErrorFormatEx(string message, object param1);
-        void ErrorFormatEx(string message, object param1, object param2);
-        void ErrorFormatEx(string message, object param1, object param2, object param3);
-        void ErrorFormatEx(string message, params object[] args);
+        void Error(string message);
+        void Error(string message, string methodName);
+        void Error(Exception exception, string message);
+        void Error(Exception exception, string message, string methodName);
+        void ErrorFormat(Exception exception, string message, object param1);
+        void ErrorFormat(Exception exception, string message, object param1, object param2);
+        void ErrorFormat(Exception exception, string message, object param1, object param2, object param3);
+        void ErrorFormat(Exception exception, string message, params object[] args);
+        void ErrorFormat(string message, object param1);
+        void ErrorFormat(string message, object param1, object param2);
+        void ErrorFormat(string message, object param1, object param2, object param3);
+        void ErrorFormat(string message, params object[] args);
 
-        void FatalEx(string message);
-        void FatalEx(string message, string methodName);
-        void FatalEx(Exception exception, string message);
-        void FatalEx(Exception exception, string message, string methodName);
-        void FatalFormatEx(Exception exception, string message, object param1);
-        void FatalFormatEx(Exception exception, string message, object param1, object param2);
-        void FatalFormatEx(Exception exception, string message, object param1, object param2, object param3);
-        void FatalFormatEx(Exception exception, string message, params object[] args);
-        void FatalFormatEx(string message, object param1);
-        void FatalFormatEx(string message, object param1, object param2);
-        void FatalFormatEx(string message, object param1, object param2, object param3);
-        void FatalFormatEx(string message, params object[] args);
+        void Fatal(string message);
+        void Fatal(string message, string methodName);
+        void Fatal(Exception exception, string message);
+        void Fatal(Exception exception, string message, string methodName);
+        void FatalFormat(Exception exception, string message, object param1);
+        void FatalFormat(Exception exception, string message, object param1, object param2);
+        void FatalFormat(Exception exception, string message, object param1, object param2, object param3);
+        void FatalFormat(Exception exception, string message, params object[] args);
+        void FatalFormat(string message, object param1);
+        void FatalFormat(string message, object param1, object param2);
+        void FatalFormat(string message, object param1, object param2, object param3);
+        void FatalFormat(string message, params object[] args);
     }
 }

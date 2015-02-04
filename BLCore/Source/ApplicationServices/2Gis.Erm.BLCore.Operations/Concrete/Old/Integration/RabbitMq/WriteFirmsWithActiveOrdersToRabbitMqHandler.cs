@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
         private NotificationException CreateAndLogFatalError(string format, params object[] args)
         {
             var message = string.Format(format, args);
-            _logger.FatalEx(message);
+            _logger.Fatal(message);
             throw new NotificationException(message);
         }
     }

@@ -6,12 +6,12 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
 {
     public sealed partial class Log4NetCommonLog
     {
-        void ICommonLog.ErrorEx(string message)
+        void ICommonLog.Error(string message)
         {
-            ((ICommonLog)this).ErrorEx(message, null);
+            ((ICommonLog)this).Error(message, null);
         }
 
-        void ICommonLog.ErrorEx(string message, string methodName)
+        void ICommonLog.Error(string message, string methodName)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -31,12 +31,12 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             }
         }
 
-        void ICommonLog.ErrorEx(Exception exception, string message)
+        void ICommonLog.Error(Exception exception, string message)
         {
-            ((ICommonLog)this).ErrorEx(exception, message, null);
+            ((ICommonLog)this).Error(exception, message, null);
         }
 
-        void ICommonLog.ErrorEx(Exception exception, string message, string methodName)
+        void ICommonLog.Error(Exception exception, string message, string methodName)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             }
         }
 
-        void ICommonLog.ErrorFormatEx(Exception exception, string message, object param1)
+        void ICommonLog.ErrorFormat(Exception exception, string message, object param1)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.Error(string.Format(_loggingCulture, message, param1), exception);
         }
 
-        void ICommonLog.ErrorFormatEx(Exception exception, string message, object param1, object param2)
+        void ICommonLog.ErrorFormat(Exception exception, string message, object param1, object param2)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.Error(string.Format(_loggingCulture, message, param1, param2), exception);
         }
 
-        void ICommonLog.ErrorFormatEx(Exception exception, string message, object param1, object param2, object param3)
+        void ICommonLog.ErrorFormat(Exception exception, string message, object param1, object param2, object param3)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.Error(string.Format(_loggingCulture, message, param1, param2, param3), exception);
         }
 
-        void ICommonLog.ErrorFormatEx(Exception exception, string message, params object[] args)
+        void ICommonLog.ErrorFormat(Exception exception, string message, params object[] args)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.Error(string.Format(_loggingCulture, message, args), exception);
         }
 
-        void ICommonLog.ErrorFormatEx(string message, object param1)
+        void ICommonLog.ErrorFormat(string message, object param1)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.ErrorFormat(message, param1);
         }
 
-        void ICommonLog.ErrorFormatEx(string message, object param1, object param2)
+        void ICommonLog.ErrorFormat(string message, object param1, object param2)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.ErrorFormat(message, param1, param2);
         }
 
-        void ICommonLog.ErrorFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.ErrorFormat(string message, object param1, object param2, object param3)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.ErrorFormat(message, param1, param2, param3);
         }
 
-        void ICommonLog.ErrorFormatEx(string message, params object[] args)
+        void ICommonLog.ErrorFormat(string message, params object[] args)
         {
             if (!_log.IsErrorEnabled)
             {

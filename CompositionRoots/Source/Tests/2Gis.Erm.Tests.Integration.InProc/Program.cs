@@ -24,8 +24,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
                                              .File(environmentSettings.EnvironmentName + "_" + environmentSettings.EntryPointName)
                                              .Build;
 
-            logger.InfoEx("Configuring composition root " + Assembly.GetExecutingAssembly().GetName().Name);
-            logger.InfoEx(new StringBuilder()
+            logger.Info("Configuring composition root " + Assembly.GetExecutingAssembly().GetName().Name);
+            logger.Info(new StringBuilder()
                             .AppendLine("Runtime description:")
                             .AppendLine("TargetEnvironment: " + environmentSettings.Type)
                             .AppendLine("TargetEnvironmentName: " + environmentSettings.EnvironmentName)
@@ -35,9 +35,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
             ITestRunner testRunner;
             if (TestSuiteBuilder.TryBuildSuite(settings, logger, out testRunner))
             {
-                logger.InfoEx("Running test suite");
+                logger.Info("Running test suite");
                 testResults = testRunner.Run();
-                logger.InfoEx(testResults.ToReport());
+                logger.Info(testResults.ToReport());
             }
 
             if (!args.Any())

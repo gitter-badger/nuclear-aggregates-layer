@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
                 {
                     _testStatusObserver.Unresolved(integrationTestType, ex);
                     unresolved.Add(integrationTestType, ex);
-                    _logger.ErrorFormatEx(ex, "Can't create scope for test {0}", integrationTestType);
+                    _logger.ErrorFormat(ex, "Can't create scope for test {0}", integrationTestType);
                     continue;
                 }
 
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
                     try
                     {
-                        _logger.InfoFormatEx("Starting test {0}", testDescription);
+                        _logger.InfoFormat("Starting test {0}", testDescription);
 
                         transactionScope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default);
                         var result = testScope.Test.Execute();
@@ -67,19 +67,19 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
                             case TestResultStatus.Failed:
                                 _testStatusObserver.Asserted(integrationTestType, result);
                                 failed.Add(testScope.Test, result);
-                                _logger.InfoFormatEx("Failed {0} with result {1}", testDescription, result);
+                                _logger.InfoFormat("Failed {0} with result {1}", testDescription, result);
                                 break;
 
                             case TestResultStatus.Succeeded:
                                 _testStatusObserver.Succeeded(integrationTestType, result);
                                 succeeded.Add(testScope.Test, result);
-                                _logger.InfoFormatEx("Succeeded {0} with result {1}", testDescription, result);
+                                _logger.InfoFormat("Succeeded {0} with result {1}", testDescription, result);
                                 break;
 
                             case TestResultStatus.Ignored:
                                 _testStatusObserver.Ignored(integrationTestType, result);
                                 ignored.Add(testScope.Test, result);
-                                _logger.InfoFormatEx("Ignored {0} with result {1}", testDescription, result);
+                                _logger.InfoFormat("Ignored {0} with result {1}", testDescription, result);
                                 break;
 
                             default:
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
                     {
                         _testStatusObserver.Unhandled(integrationTestType, ex);
                         unhandled.Add(testScope.Test, ex);
-                        _logger.ErrorFormatEx(ex, "Exception in {0}", testDescription);
+                        _logger.ErrorFormat(ex, "Exception in {0}", testDescription);
                     }
                     finally
                     {

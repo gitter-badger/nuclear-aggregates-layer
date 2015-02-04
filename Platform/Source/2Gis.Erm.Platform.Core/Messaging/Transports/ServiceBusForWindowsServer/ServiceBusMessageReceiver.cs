@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             {
                 var topicPath = receiverSlot.GetClientPropertyValue(x => x.TopicPath);
                 var flowName = receiverSlot.GetClientPropertyValue(x => x.Name);
-                _logger.ErrorFormatEx(ex, "Can't receive messages from service bus for message flow {0}/{1}", topicPath, flowName);
+                _logger.ErrorFormat(ex, "Can't receive messages from service bus for message flow {0}/{1}", topicPath, flowName);
                 
                 throw;
             }
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             {
                 var topicPath = receiverSlot.GetClientPropertyValue(x => x.TopicPath);
                 var flowName = receiverSlot.GetClientPropertyValue(x => x.Name);
-                _logger.ErrorFormatEx(ex, "Can't complete messages receiving from service bus for message flow {0}/{1}", topicPath, flowName);
+                _logger.ErrorFormat(ex, "Can't complete messages receiving from service bus for message flow {0}/{1}", topicPath, flowName);
                 
                 throw;
             }

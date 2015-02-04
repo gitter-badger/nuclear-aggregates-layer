@@ -4,12 +4,12 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
 {
     public sealed partial class Log4NetCommonLog
     {
-        void ICommonLog.WarnEx(string message)
+        void ICommonLog.Warn(string message)
         {
-            ((ICommonLog)this).WarnEx(message, null);
+            ((ICommonLog)this).Warn(message, null);
         }
 
-        void ICommonLog.WarnEx(string message, string methodName)
+        void ICommonLog.Warn(string message, string methodName)
         {
             if (!_log.IsWarnEnabled)
             {
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             }
         }
 
-        void ICommonLog.WarnFormatEx(string message, object param1)
+        void ICommonLog.WarnFormat(string message, object param1)
         {
             if (!_log.IsWarnEnabled)
             {
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.WarnFormat(message, param1);
         }
 
-        void ICommonLog.WarnFormatEx(string message, object param1, object param2)
+        void ICommonLog.WarnFormat(string message, object param1, object param2)
         {
             if (!_log.IsWarnEnabled)
             {
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.WarnFormat(message, param1, param2);
         }
 
-        void ICommonLog.WarnFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.WarnFormat(string message, object param1, object param2, object param3)
         {
             if (!_log.IsWarnEnabled)
             {
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.WarnFormat(message, param1, param2, param3);
         }
 
-        void ICommonLog.WarnFormatEx(string message, params object[] args)
+        void ICommonLog.WarnFormat(string message, params object[] args)
         {
             if (!_log.IsWarnEnabled)
             {

@@ -43,12 +43,12 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                     _containerMap.Add(job, childContainer);
                 }
                 
-                _logger.DebugEx(string.Format("Создание задачи [{0}]", bundle.JobDetail.JobType));
+                _logger.Debug(string.Format("Создание задачи [{0}]", bundle.JobDetail.JobType));
                 return job;
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Произошла ошибка при выполнении задачи [{0}]", bundle.JobDetail.Description);
+                _logger.ErrorFormat(ex, "Произошла ошибка при выполнении задачи [{0}]", bundle.JobDetail.Description);
                 throw new SchedulerException(ex);
             }
         }

@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Security
             if (userContextAccessor == null)
             {
                 var msg = "Тип зарегистрированый в DI контейнере, как реализующий " + typeof(IUserContext).Name + ", не реализует обязательный интерфейс " + typeof(IUserContextModifyAccessor).Name;
-                _logger.FatalEx(msg);
+                _logger.Fatal(msg);
                 throw new InvalidOperationException(msg);
             }
 

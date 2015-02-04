@@ -62,10 +62,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             {
                 const string Message = "При подготовке к выгрузке записи типа {0} с идентификаторами {1} не прошли проверку";
                 var invalidIds = string.Join(", ", unsuccessfulExportObjects.Select(dto => dto.Id));
-                _logger.WarnFormatEx(Message, typeof(TEntity).Name, invalidIds);
+                _logger.WarnFormat(Message, typeof(TEntity).Name, invalidIds);
             }
 
-            _logger.InfoFormatEx("Подготовлено к экспорту {0} из {1} найденных записей.", serializedObjects.Length, processedObjectsDtos.Length);
+            _logger.InfoFormat("Подготовлено к экспорту {0} из {1} найденных записей.", serializedObjects.Length, processedObjectsDtos.Length);
 
             return new SerializeObjectsResponse
                 {
@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             if (!string.IsNullOrEmpty(error))
             {
                 unsuccessfulExportObjects.Add(exportableEntityDto);
-                _logger.ErrorFormatEx("Ошибка при экспорте в шину интеграции экземпляра сущности {0} [Id={1}]: {2}", typeof(TEntity).Name, exportableEntityDto.Id, error);
+                _logger.ErrorFormat("Ошибка при экспорте в шину интеграции экземпляра сущности {0} [Id={1}]: {2}", typeof(TEntity).Name, exportableEntityDto.Id, error);
                 return false;
             }
 
@@ -115,7 +115,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             if (!isValidXml)
             {
                 unsuccessfulExportObjects.Add(exportableEntityDto);
-                _logger.ErrorFormatEx("Ошибка при экспорте в шину интеграции экземпляра сущности {0} [Id={1}]: {2}", typeof(TEntity).Name, exportableEntityDto.Id, error);
+                _logger.ErrorFormat("Ошибка при экспорте в шину интеграции экземпляра сущности {0} [Id={1}]: {2}", typeof(TEntity).Name, exportableEntityDto.Id, error);
             }
 
             return isValidXml;

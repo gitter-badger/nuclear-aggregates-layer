@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
 
         public static void OnException(Controller controller, ICommonLog commonLog, ViewModel model, Exception exception)
         {
-            commonLog.ErrorEx(exception, BLResources.ErrorDuringOperation);
+            commonLog.Error(exception, BLResources.ErrorDuringOperation);
             var errorText = ExceptionFilter.HandleException(exception, controller.Response);
             model.SetCriticalError(errorText);
         }

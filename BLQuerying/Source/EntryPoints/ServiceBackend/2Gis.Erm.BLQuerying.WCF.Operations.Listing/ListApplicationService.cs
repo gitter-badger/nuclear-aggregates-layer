@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occurred in {0}. Entity type: {1}", GetType().Name, entityName);
+                _logger.ErrorFormat(ex, "Error has occurred in {0}. Entity type: {1}", GetType().Name, entityName);
                 throw new FaultException<ListOperationErrorDescription>(new ListOperationErrorDescription(entityName, ex.Message));
             }
         }
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}. Entity type: {1}", GetType().Name, entityName);
+                _logger.ErrorFormat(ex, "Error has occured in {0}. Entity type: {1}", GetType().Name, entityName);
                 throw new WebFaultException<ListOperationErrorDescription>(new ListOperationErrorDescription(entityName, ex.Message), HttpStatusCode.BadRequest);
             }
         }

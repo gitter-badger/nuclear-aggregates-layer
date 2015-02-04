@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
                     }
                     catch (Exception ex)
                     {
-                                _logger.ErrorFormatEx(ex, "Service Bus message with Id={0} cannot be abandoned", brokeredMessage.MessageId);
+                                _logger.ErrorFormat(ex, "Service Bus message with Id={0} cannot be abandoned", brokeredMessage.MessageId);
                         throw;
                     }
                 }

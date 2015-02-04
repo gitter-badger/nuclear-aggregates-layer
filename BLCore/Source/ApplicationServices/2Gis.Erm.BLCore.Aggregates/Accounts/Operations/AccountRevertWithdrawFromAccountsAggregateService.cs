@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 
         public void RevertWithdraw(IEnumerable<RevertWithdrawFromAccountsDto> withdrawInfos)
         {
-            _logger.InfoEx("Started reverting withdrawals process for accounts");
+            _logger.Info("Started reverting withdrawals process for accounts");
 
             using (var scope = _scopeFactory.CreateNonCoupled<RevertWithdrawFromAccountsIdentity>())
             {
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 
                 foreach (var info in withdrawInfos)
                 {
-                    _logger.DebugFormatEx("Deleting account details for withdrawal by account with id {0}", info.Account.Id);
+                    _logger.DebugFormat("Deleting account details for withdrawal by account with id {0}", info.Account.Id);
 
                     info.Account.Balance = info.BalanceBeforeRevertWithdrawal;
 
@@ -57,15 +57,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                     ++processedAccounts;
                 }
 
-                _logger.InfoFormatEx("During withdrawal reverting process {0} account details was deleted", processedAccountDetails);
-                _logger.InfoFormatEx("Actualize accounts balances during withdrawal process. Accounts count: {0}", processedAccounts);
+                _logger.InfoFormat("During withdrawal reverting process {0} account details was deleted", processedAccountDetails);
+                _logger.InfoFormat("Actualize accounts balances during withdrawal process. Accounts count: {0}", processedAccounts);
 
                 _accountDetailRepository.Save();
                 _accountRepository.Save();
                 scope.Complete();
             }
 
-            _logger.InfoEx("Finished reverting withdrawal process for accounts");
+            _logger.Info("Finished reverting withdrawal process for accounts");
         }
     }
 }

@@ -55,14 +55,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.InfoEx("Notifications disabled in config file");
+                _logger.Info("Notifications disabled in config file");
                 return;
             }
 
             string orderOwnerEmail;
             if (!_employeeEmailResolver.TryResolveEmail(order.OwnerCode, out orderOwnerEmail) || string.IsNullOrEmpty(orderOwnerEmail))
             {
-                _logger.ErrorEx("Can't send notification about - order rejection. Can't get to_address email. Order id: " + order.Id + ". Owner code: " + order.OwnerCode);
+                _logger.Error("Can't send notification about - order rejection. Can't get to_address email. Order id: " + order.Id + ". Owner code: " + order.OwnerCode);
                 return;
             }
 

@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
                 var userInfo = _securityService.GetUserInfo(employeeUserCode);
                 if (userInfo == null)
                 {
-                    _logger.ErrorEx("Can't find user info for specified user code: " + employeeUserCode);
+                    _logger.Error("Can't find user info for specified user code: " + employeeUserCode);
                     return false;
                 }
 
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Can't get email info from MSCRM for user code: " + employeeUserCode);
+                _logger.Error(ex, "Can't get email info from MSCRM for user code: " + employeeUserCode);
             }
 
             return false;

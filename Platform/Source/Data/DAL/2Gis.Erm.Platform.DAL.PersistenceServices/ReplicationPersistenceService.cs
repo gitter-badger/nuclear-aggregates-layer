@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
         {
             if (!_msCrmSettings.EnableReplication)
             {
-                _logger.WarnFormatEx("Replication to MsCRM disabled in config. Do nothing ...");
+                _logger.WarnFormat("Replication to MsCRM disabled in config. Do nothing ...");
                 notReplicated = new long[0];
                 return;
             }
@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorFormatEx(ex, "Can't replicate entity with id {0} using procedure {1}", id, procedureName);
+                    _logger.ErrorFormat(ex, "Can't replicate entity with id {0} using procedure {1}", id, procedureName);
                     failed.Add(id);
                 }
             }
@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't replicate entities batch using procedure {0}", procedureName);
+                _logger.ErrorFormat(ex, "Can't replicate entities batch using procedure {0}", procedureName);
                 notReplicated = new List<long>(ids);
             }
         }

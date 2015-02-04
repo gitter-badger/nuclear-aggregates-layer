@@ -20,9 +20,9 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
                                              .File("Erm.WPF.Client")
                                              .Build; 
 
-            logger.InfoEx("Application starting ...");
+            logger.Info("Application starting ...");
 
-            logger.InfoEx(
+            logger.Info(
                 new StringBuilder().AppendLine("Environment info:" + EnvironmentInfo.Description)
                                    .AppendLine("User info:" + SecurityInfo.UserSecuritySettingsDescription)
                                    .AppendLine("Network info:" + NetworkInfo.DomainMembership)
@@ -30,8 +30,8 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
 
             var app = new App(logger);
 
-            logger.InfoEx("Application started successfully");
-            logger.InfoEx("Application run ...");
+            logger.Info("Application started successfully");
+            logger.Info("Application run ...");
 
             try
             {
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
                 return;
             }
 
-            logger.InfoEx("Application finished");
+            logger.Info("Application finished");
         }
     }
 }

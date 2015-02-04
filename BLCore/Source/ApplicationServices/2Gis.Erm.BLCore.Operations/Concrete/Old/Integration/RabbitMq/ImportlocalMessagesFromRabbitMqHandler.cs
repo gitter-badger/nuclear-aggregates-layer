@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
                 {
                     foreach (var corporateMessage in reader.ReadAndRemove())
                     {
-                        _logger.InfoEx(string.Format("Принято новое сообщение из корпоративной очереди [{0}], [{1}]", request.QueueName, corporateMessage));
+                        _logger.Info(string.Format("Принято новое сообщение из корпоративной очереди [{0}], [{1}]", request.QueueName, corporateMessage));
 
                         _subRequestProcessor.HandleSubRequest(new CreateLocalMessageRequest
                         {
@@ -66,12 +66,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
                             }
                         }, Context);
 
-                        _logger.InfoEx(string.Format("Сообщение из корпоративной очереди [{0}], успешно перемещено в локальную очередь, [{1}]", request.QueueName, corporateMessage));
+                        _logger.Info(string.Format("Сообщение из корпоративной очереди [{0}], успешно перемещено в локальную очередь, [{1}]", request.QueueName, corporateMessage));
                     }
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorEx(ex, String.Format("Произошла ошибка при загрузке сообщения из очереди [{0}]", request.QueueName));
+                    _logger.Error(ex, String.Format("Произошла ошибка при загрузке сообщения из очереди [{0}]", request.QueueName));
                 }
             }
 

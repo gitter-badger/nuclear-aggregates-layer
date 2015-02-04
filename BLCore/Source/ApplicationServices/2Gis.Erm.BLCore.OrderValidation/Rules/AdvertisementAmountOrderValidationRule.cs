@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // Если не найдено прайс-листа для проверки, то и проверять нечего
                 if (prices.Length == 0)
                 {
-                    _logger.WarnFormatEx("Для единичной проверки по заказу {0} не было найдено прайс-листов.", ruleContext.ValidationParams.Single.OrderId);
+                    _logger.WarnFormat("Для единичной проверки по заказу {0} не было найдено прайс-листов.", ruleContext.ValidationParams.Single.OrderId);
                     return Enumerable.Empty<OrderValidationMessage>();
                 }
 
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                 if (prices.Length > 1)
                 {
-                    _logger.WarnFormatEx("Для единичной проверки по заказу {0} было {1} прайс-листов. Использован {2}",
+                    _logger.WarnFormat("Для единичной проверки по заказу {0} было {1} прайс-листов. Использован {2}",
                                          ruleContext.ValidationParams.Single.OrderId,
                                          prices.Length,
                                          actualPriceId);
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     throw new BusinessLogicException(string.Format(BLResources.ActualPriceNotFound, organizationUnitId, ruleContext.ValidationParams.Mass.Period.Start));
                 }
 
-                _logger.InfoFormatEx("Для массовой проверки по городу {0} за {1} выбран прайс-лист {2}", organizationUnitId, ruleContext.ValidationParams.Mass.Period.Start, actualPriceId);
+                _logger.InfoFormat("Для массовой проверки по городу {0} за {1} выбран прайс-лист {2}", organizationUnitId, ruleContext.ValidationParams.Mass.Period.Start, actualPriceId);
             }
 
             var pricePositions = _finder.Find(Specs.Find.ById<Price>(actualPriceId))

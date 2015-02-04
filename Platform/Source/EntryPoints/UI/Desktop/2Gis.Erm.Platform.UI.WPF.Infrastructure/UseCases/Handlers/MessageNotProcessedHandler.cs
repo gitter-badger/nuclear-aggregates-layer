@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers
         protected override IMessageProcessingResult ConcreteHandle(TMessage message, IUseCase useCase)
         {
             var msg = string.Format("Not processed message. UseCase:{0}.Message:{1}", useCase, message);
-            _logger.ErrorEx(msg);
+            _logger.Error(msg);
             useCase.Post(
                 new NotificationMessage(
                     new INotification[]

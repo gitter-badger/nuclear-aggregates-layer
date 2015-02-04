@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             var missingCount = requestedCount - availableCount;
             int coercedCount = Math.Min(Math.Max(_nextRequestedCount, missingCount), MaxRequestedCount);
 
-            _logger.DebugFormatEx("Requested identifiers coerced count: {0}. Concurrently requesting threads count: {1}.", requestedCount, _threadsCount);
+            _logger.DebugFormat("Requested identifiers coerced count: {0}. Concurrently requesting threads count: {1}.", requestedCount, _threadsCount);
 
             long[] ids;
             try
@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx("An error occurred while requesting identifiers", ex);
+                _logger.ErrorFormat("An error occurred while requesting identifiers", ex);
                 throw;
             }
 

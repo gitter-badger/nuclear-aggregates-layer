@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
         {
             var changes = new List<ChangesDescriptor>();
 
-            _logger.InfoEx("Starting restoring orders from Archive");
+            _logger.Info("Starting restoring orders from Archive");
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Order>())
             {
                 foreach (var order in orders)
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormatEx("Finished restoring orders from Archive. Processed order: {0}", changes.Count);
+            _logger.InfoFormat("Finished restoring orders from Archive. Processed order: {0}", changes.Count);
             return changes;
         }
     }

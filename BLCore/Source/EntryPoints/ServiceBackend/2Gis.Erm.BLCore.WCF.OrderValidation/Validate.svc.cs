@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Validate single order {0} failed. ERM WCF Rest OrderValidation", orderId);
+                _logger.ErrorFormat(ex, "Validate single order {0} failed. ERM WCF Rest OrderValidation", orderId);
                 throw;
             }
         }
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Validate single order {0} with new state {1} failed. ERM WCF Rest OrderValidation", orderId, newOrderState);
+                _logger.ErrorFormat(ex, "Validate single order {0} with new state {1} failed. ERM WCF Rest OrderValidation", orderId, newOrderState);
                 throw;
             }
         }
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Validate single order {0} failed. ERM WCF Soap OrderValidation", orderId);
+                _logger.ErrorFormat(ex, "Validate single order {0} failed. ERM WCF Soap OrderValidation", orderId);
                 throw;
             }
         }
@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(
+                _logger.ErrorFormat(
                     ex, 
                     "Mass orders validation failed. Validation type: {0}. Organization unit: {1}. {2}. Owner code: {3}. Include owner descendants: {4}. ERM WCF Soap OrderValidation",
                     validationType,

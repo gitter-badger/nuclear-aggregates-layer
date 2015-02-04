@@ -181,7 +181,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Can't send notification message");
+                _logger.Error(ex, "Can't send notification message");
                 var notificationProcessings = new NotificationProcessings
                 {
                     AttemptsCount = processingEmail.AttemptCount + 1,
@@ -226,7 +226,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Can't get encoding, using default");
+                _logger.Error(ex, "Can't get encoding, using default");
                 return false;
             }
         }
@@ -249,7 +249,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                     }
                     catch (Exception ex)
                     {
-                        _logger.ErrorEx(ex, "Can't get encoding, using default");
+                        _logger.Error(ex, "Can't get encoding, using default");
                         encoding = Encoding.Default;
                     }
 
@@ -286,7 +286,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                     }
                     catch (Exception ex)
                     {
-                        _logger.ErrorEx(ex, "Can't get encoding, using default");
+                        _logger.Error(ex, "Can't get encoding, using default");
                         encoding = Encoding.Default;
                     }
 

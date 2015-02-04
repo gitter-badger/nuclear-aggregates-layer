@@ -71,12 +71,12 @@ namespace DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers
             try
             {
                 var response = handlerDescriptor.Handler.Handle(request);
-                _logger.DebugFormatEx("Обработка запроса: '{0}' прошла успешно", requestName);
+                _logger.DebugFormat("Обработка запроса: '{0}' прошла успешно", requestName);
                 return response;
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "При обработке запроса: '{0}' произошла ошибка", requestName);
+                _logger.ErrorFormat(ex, "При обработке запроса: '{0}' произошла ошибка", requestName);
                 throw;
             }
         }

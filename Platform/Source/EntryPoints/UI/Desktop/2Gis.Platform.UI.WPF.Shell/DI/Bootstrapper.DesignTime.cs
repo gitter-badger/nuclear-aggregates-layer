@@ -46,7 +46,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                                              .File("Erm.WPF.Client.DesignTime")
                                              .Build;
 
-                logger.InfoEx("Design time configuring started ...");
+                logger.Info("Design time configuring started ...");
 
                 DesignTimeAssemblyLoader.Attach(logger);
 
@@ -74,7 +74,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 }
 
                 var shellViewModel = container.Resolve<IShellViewModel>();
-                logger.InfoEx("Design time shell view model successfully resolved");
+                logger.Info("Design time shell view model successfully resolved");
 
                 return shellViewModel;
 
@@ -83,8 +83,8 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             {
                 if (logger != null)
                 {
-                    logger.FatalEx(ex, "Can't load required file. " + ex.FileName + ". " + ex.FusionLog);
-                    logger.FatalEx(ex, "Can't resolve design time view model");
+                    logger.Fatal(ex, "Can't load required file. " + ex.FileName + ". " + ex.FusionLog);
+                    logger.Fatal(ex, "Can't resolve design time view model");
                 }
                 throw;
             }
@@ -92,7 +92,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             {
                 if (logger != null)
                 {
-                    logger.FatalEx(ex, "Can't resolve design time view model");
+                    logger.Fatal(ex, "Can't resolve design time view model");
                 }
                 throw;
             }

@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _logger.ErrorFormat(ex,
                                       "Can't start release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}",
                                       organizationUnitDgppId,
                                       period,
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _logger.ErrorFormat(ex,
                                       "Can't attach external release processing messages. Release id: {0}",
                                       releaseId);
 
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _logger.ErrorFormat(ex,
                                       "Can't finish release properly with succeeded result. Release id: {0}",
                                       releaseId);
 
@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _logger.ErrorFormat(ex,
                                       "Can't finish release properly with failed result. Release id: {0}",
                                       releaseId);
 

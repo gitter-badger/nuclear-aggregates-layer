@@ -63,7 +63,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
         {
             LocalPath = GetApplicationWorkingDirectory;
 
-            logger.InfoEx("Start configure. Startup directory: " + LocalPath);
+            logger.Info("Start configure. Startup directory: " + LocalPath);
 
             try
             {
@@ -83,11 +83,11 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             }
             catch (Exception ex)
             {
-                logger.FatalFormatEx(ex, "Can't configure application");
+                logger.FatalFormat(ex, "Can't configure application");
                 throw;
             }
 
-            logger.InfoEx("Configured successfully");
+            logger.Info("Configured successfully");
 
             return container;
         }
@@ -96,7 +96,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
         {
             try
             {
-                logger.InfoEx("Start running ...");
+                logger.Info("Start running ...");
                 var standaloneWorkerModules = container.ResolveAll<IStandaloneWorkerModule>();
                 foreach (var module in standaloneWorkerModules)
                 {
@@ -109,11 +109,11 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             }
             catch (Exception ex)
             {
-                logger.ErrorFormatEx(ex, "Can't run application");
+                logger.ErrorFormat(ex, "Can't run application");
                 throw;
             }
 
-            logger.InfoEx("Run successfully ...");
+            logger.Info("Run successfully ...");
 
             return container;
         }
@@ -163,7 +163,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 }
                 catch (Exception ex)
                 {
-                    logger.FatalFormatEx(ex, "Can't process settings for module container with path {0}", modulesDescriptor.ModulesContainerFullPath);
+                    logger.FatalFormat(ex, "Can't process settings for module container with path {0}", modulesDescriptor.ModulesContainerFullPath);
                     throw;
                 }
 
@@ -174,7 +174,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 }
                 catch (Exception ex)
                 {
-                    logger.FatalFormatEx(ex,
+                    logger.FatalFormat(ex,
                                             "Can't create module container of type {0} from file {1}",
                                             modulesDescriptor.ContainerType,
                                             modulesDescriptor.ModulesContainerFullPath);
@@ -186,7 +186,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                     var msg = string.Format("Module container of type {0} has duplicated Id: {1}",
                                             modulesDescriptor.ContainerType,
                                             moduleContainer.Id);
-                    logger.FatalEx(msg);
+                    logger.Fatal(msg);
                     throw new InvalidOperationException(msg);
                 }
 
@@ -200,14 +200,14 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                     }
                     catch (Exception ex)
                     {
-                        logger.FatalFormatEx(ex, "Can't create module of type {0} from file {1}", moduleType, modulesDescriptor.ModulesContainerFullPath);
+                        logger.FatalFormat(ex, "Can't create module of type {0} from file {1}", moduleType, modulesDescriptor.ModulesContainerFullPath);
                         throw;
                     }
 
                     if (!modulesUniqueMap.Add(module.Id))
                     {
                         var msg = string.Format("Module of type {0} has duplicated Id: {1}", moduleType, module.Id);
-                        logger.FatalEx(msg);
+                        logger.Fatal(msg);
                         throw new InvalidOperationException(msg);
                     }
 

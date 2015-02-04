@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             }
             catch (Exception e)
             {
-                _logger.ErrorEx(e, e.Message);
+                _logger.Error(e, e.Message);
                 using (var transaction = new TransactionScope(TransactionScopeOption.Suppress, DefaultTransactionOptions.Default))
                 {
                     LogImportStatus(chargesInfo, ChargesHistoryStatus.Error, e.Message);

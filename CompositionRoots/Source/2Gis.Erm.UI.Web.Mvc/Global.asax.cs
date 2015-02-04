@@ -138,7 +138,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
             }
 
             LoggerContextPrepareForRequestProcessing();
-            Logger.DebugFormatEx("Старт обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
+            Logger.DebugFormat("Старт обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
 
             // аутентифицируем и логиним пользователя
             var userInfo = SignInService.SignIn();
@@ -155,7 +155,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
 
         protected void Application_ReleaseRequestState(object sender, EventArgs e)
         {
-            Logger.DebugFormatEx("Окончание обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
+            Logger.DebugFormat("Окончание обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
         }
 
         // error handling for non-500 errors
@@ -177,7 +177,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
                     ExecuteErrorController("PageNotFound");
                     break;
                 default:
-                    Logger.ErrorEx(exception, "Unexpected error has occured");
+                    Logger.Error(exception, "Unexpected error has occured");
                     break;
             }
         }

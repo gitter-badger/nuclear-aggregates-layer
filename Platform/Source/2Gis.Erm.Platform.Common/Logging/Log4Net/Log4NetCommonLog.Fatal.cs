@@ -6,12 +6,12 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
 {
     public sealed partial class Log4NetCommonLog
     {
-        void ICommonLog.FatalEx(string message)
+        void ICommonLog.Fatal(string message)
         {
-            ((ICommonLog)this).FatalEx(message, null);
+            ((ICommonLog)this).Fatal(message, null);
         }
 
-        void ICommonLog.FatalEx(string message, string methodName)
+        void ICommonLog.Fatal(string message, string methodName)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -31,12 +31,12 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             }
         }
 
-        void ICommonLog.FatalEx(Exception exception, string message)
+        void ICommonLog.Fatal(Exception exception, string message)
         {
-            ((ICommonLog)this).FatalEx(exception, message, null);
+            ((ICommonLog)this).Fatal(exception, message, null);
         }
 
-        void ICommonLog.FatalEx(Exception exception, string message, string methodName)
+        void ICommonLog.Fatal(Exception exception, string message, string methodName)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             }
         }
 
-        void ICommonLog.FatalFormatEx(Exception exception, string message, object param1)
+        void ICommonLog.FatalFormat(Exception exception, string message, object param1)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.Fatal(string.Format(_loggingCulture, message, param1), exception);
         }
 
-        void ICommonLog.FatalFormatEx(Exception exception, string message, object param1, object param2)
+        void ICommonLog.FatalFormat(Exception exception, string message, object param1, object param2)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.Fatal(string.Format(_loggingCulture, message, param1, param2), exception);
         }
 
-        void ICommonLog.FatalFormatEx(Exception exception, string message, object param1, object param2, object param3)
+        void ICommonLog.FatalFormat(Exception exception, string message, object param1, object param2, object param3)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.Fatal(string.Format(_loggingCulture, message, param1, param2, param3), exception);
         }
 
-        void ICommonLog.FatalFormatEx(Exception exception, string message, params object[] args)
+        void ICommonLog.FatalFormat(Exception exception, string message, params object[] args)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.Fatal(string.Format(_loggingCulture, message, args), exception);
         }
 
-        void ICommonLog.FatalFormatEx(string message, object param1)
+        void ICommonLog.FatalFormat(string message, object param1)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.FatalFormat(message, param1);
         }
 
-        void ICommonLog.FatalFormatEx(string message, object param1, object param2)
+        void ICommonLog.FatalFormat(string message, object param1, object param2)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.FatalFormat(message, param1, param2);
         }
 
-        void ICommonLog.FatalFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.FatalFormat(string message, object param1, object param2, object param3)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
             _log.FatalFormat(message, param1, param2, param3);
         }
 
-        void ICommonLog.FatalFormatEx(string message, params object[] args)
+        void ICommonLog.FatalFormat(string message, params object[] args)
         {
             if (!_log.IsFatalEnabled)
             {

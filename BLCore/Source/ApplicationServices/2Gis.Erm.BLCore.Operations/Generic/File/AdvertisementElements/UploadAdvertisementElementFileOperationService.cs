@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
                 else
                 {
                     // Отредактирована заглушка РМ. Уведомление не отправляем
-                    _logger.InfoEx("Отредактирована заглушка РМ. Уведомление не отправляем");
+                    _logger.Info("Отредактирована заглушка РМ. Уведомление не отправляем");
                 }
 
                 scope.Updated<AdvertisementElement>(uploadFileParams.EntityId)

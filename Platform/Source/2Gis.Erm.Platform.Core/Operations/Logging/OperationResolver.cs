@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                     EntityName entityName;
                     if (!Enum.TryParse(rawOperationEntity, out entityName))
                     {
-                        _logger.ErrorFormatEx("Can't parse value {0} from operation entities {1} as {2}",
+                        _logger.ErrorFormat("Can't parse value {0} from operation entities {1} as {2}",
                                               rawOperationEntity,
                                               operation.OperationEntities,
                                               typeof(EntityName).Name);
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 
                 if (processedIndex != rawOperationEntities.Length)
                 {
-                    _logger.ErrorFormatEx("Can't parse some of the value with index {0} from operation entities {1} as {2}",
+                    _logger.ErrorFormat("Can't parse some of the value with index {0} from operation entities {1} as {2}",
                                           processedIndex,
                                           operation.OperationEntities,
                                           typeof(EntityName).Name);

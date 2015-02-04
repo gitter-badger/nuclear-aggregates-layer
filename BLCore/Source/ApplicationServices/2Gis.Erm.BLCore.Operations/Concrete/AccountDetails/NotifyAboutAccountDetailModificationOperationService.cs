@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.InfoEx("Notifications disabled in config file");
+                _logger.Info("Notifications disabled in config file");
                 return;
             }
 
@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
                     }
                     else
                     {
-                        _logger.ErrorEx(string.Format("Can't send notification about - payment received. Can't get to_address email. Account id: {0}. Owner code: {1}",
+                        _logger.Error(string.Format("Can't send notification about - payment received. Can't get to_address email. Account id: {0}. Owner code: {1}",
                                                       infoToSendNotificationDto.AccountId,
                                                       infoToSendNotificationDto.AccountOwnerCode));
                     }

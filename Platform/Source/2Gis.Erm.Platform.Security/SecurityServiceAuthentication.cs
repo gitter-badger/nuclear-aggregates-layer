@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Platform.Security
 
             try
             {
-                _logger.DebugFormatEx("Получаю учетную запись пользователя по аккаунту: [{0}]", userAccount);
+                _logger.DebugFormat("Получаю учетную запись пользователя по аккаунту: [{0}]", userAccount);
                 var userInfo = _finder.Find<User>(x => !x.IsDeleted && x.IsActive && x.Account == userAccount)
                     .Select(x => new
                     {
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Security
                         x.DisplayName
                     }).SingleOrDefault();
             
-                _logger.DebugFormatEx("Получил учетную запись пользователя по аккаунту: [{0}]. Полученная учетная запись: [{1}].", userAccount, (userInfo == null) ? "null" : userInfo.DisplayName);
+                _logger.DebugFormat("Получил учетную запись пользователя по аккаунту: [{0}]. Полученная учетная запись: [{1}].", userAccount, (userInfo == null) ? "null" : userInfo.DisplayName);
 
                 if (userInfo == null)
                 {

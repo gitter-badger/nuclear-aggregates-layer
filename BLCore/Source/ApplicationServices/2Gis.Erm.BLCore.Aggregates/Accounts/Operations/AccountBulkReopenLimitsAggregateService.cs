@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoEx("Reopened limits count: " + reopenedLimits);
+            _logger.Info("Reopened limits count: " + reopenedLimits);
         }
     }
 }

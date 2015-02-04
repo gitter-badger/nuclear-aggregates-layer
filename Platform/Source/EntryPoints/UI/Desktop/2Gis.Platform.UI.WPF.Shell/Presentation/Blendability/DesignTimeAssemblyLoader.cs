@@ -56,7 +56,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
                 }
             }
 
-            Logger.DebugEx("Loading to no load context. " + targetAssemblyFileFullPath);
+            Logger.Debug("Loading to no load context. " + targetAssemblyFileFullPath);
             return Assembly.LoadFile(targetAssemblyFileFullPath);
         }
         
@@ -89,7 +89,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
                 var publicKeyToken = targetAssemblyName.GetPublicKeyToken();
                 if (publicKeyToken == null || publicKeyToken.Length == 0)
                 {
-                    Logger.DebugEx("Custom override catel not signed dependencies. " + targetAssemblyName);
+                    Logger.Debug("Custom override catel not signed dependencies. " + targetAssemblyName);
                     if (!AssemblyCache.TryGetValue(targetAssemblyName.Name, out assembliesList))
                     {
                         return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => AssemblyName.ReferenceMatchesDefinition(a.GetName(), targetAssemblyName));
@@ -112,7 +112,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
 
             if (args.RequestingAssembly == null)
             {
-                Logger.DebugEx("Can't resolve assembly. Requesting assembly is not specified. " + targetAssemblyName);
+                Logger.Debug("Can't resolve assembly. Requesting assembly is not specified. " + targetAssemblyName);
                 return null;
             }
 

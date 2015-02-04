@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                     return;
                 }
 
-                _logger.WarnFormatEx(
+                _logger.WarnFormat(
                     "Попытка изменить флаг 'Работа с задолженностью по документам' в заказе [{0}] со значения [{1}] на [{2}]",
                     order.Id, 
                     orderStateValidationInfo.HasDocumentsDebt, 
@@ -177,7 +177,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         {
             #region Logging
 
-            _logger.InfoFormatEx("Обновление скидки заказа [{0}]", order.Id);
+            _logger.InfoFormat("Обновление скидки заказа [{0}]", order.Id);
 
             #endregion
 
@@ -185,13 +185,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
             #region Logging
 
-            _logger.DebugEx("Обновление скидки заказа - завершено");
+            _logger.Debug("Обновление скидки заказа - завершено");
 
             #endregion
 
             #region Logging
 
-            _logger.InfoFormatEx("Обновление остатков по заказу [{0}]", order.Id);
+            _logger.InfoFormat("Обновление остатков по заказу [{0}]", order.Id);
 
             #endregion
 
@@ -199,7 +199,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
             #region Logging
 
-            _logger.DebugEx("Обновление остатков по заказу - завершено");
+            _logger.Debug("Обновление остатков по заказу - завершено");
 
             #endregion
         }
