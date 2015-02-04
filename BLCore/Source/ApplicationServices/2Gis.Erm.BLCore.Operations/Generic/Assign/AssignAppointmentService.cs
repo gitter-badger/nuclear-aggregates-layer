@@ -1,6 +1,7 @@
 ﻿using System.Security;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -9,17 +10,16 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using EntityName = DoubleGis.Erm.Platform.Model.Entities.EntityName;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
     public class AssignAppointmentService:IAssignGenericEntityService<Appointment>
     {
-        private readonly IFinder _finder;
+        private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserReadModel _userReadModel;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
@@ -27,14 +27,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IAssignAppointmentAggregateService _assignAppointmentAggregateService;
 
         public AssignAppointmentService(
-            IFinder finder,
+            IAppointmentReadModel appointmentReadModel,
             IOperationScopeFactory scopeFactory,
             IUserReadModel userReadModel,
             ISecurityServiceEntityAccess entityAccessService,
             IUserContext userContext, 
             IAssignAppointmentAggregateService assignAppointmentAggregateService)
         {
-            _finder = finder;
+            _appointmentReadModel = appointmentReadModel;
             _scopeFactory = scopeFactory;
             _userReadModel = userReadModel;
             _entityAccessService = entityAccessService;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Appointment>())
             {
-                var entity = _finder.FindOne(Specs.Find.ById<Appointment>(entityId));
+                var entity = _appointmentReadModel.GetAppointment(entityId);
 
                 if (!_userContext.Identity.SkipEntityAccessCheck)
                 {
