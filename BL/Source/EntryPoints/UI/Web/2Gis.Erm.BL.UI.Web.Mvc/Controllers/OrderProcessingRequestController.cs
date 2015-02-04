@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -20,20 +21,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IGetOrderRequestMessagesOperationService _getOrderRequestMessagesOperationService;
 
         public OrderProcessingRequestController(IMsCrmSettings msCrmSettings,
-                                                IUserContext userContext,
-                                                ICommonLog logger,
                                                 IAPIOperationsServiceSettings operationsServiceSettings,
                                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                                IAPIIdentityServiceSettings identityServiceSettings,
+                                                IUserContext userContext,
+                                                ICommonLog logger,
                                                 IGetBaseCurrencyService getBaseCurrencyService,
                                                 ICancelOrderProcessingRequestOperationService cancelOrderProcessingRequestOperationService,
                                                 IGetOrderRequestMessagesOperationService getOrderRequestMessagesOperationService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _cancelOrderProcessingRequestOperationService = cancelOrderProcessingRequestOperationService;
             _getOrderRequestMessagesOperationService = getOrderRequestMessagesOperationService;

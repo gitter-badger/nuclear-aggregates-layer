@@ -85,7 +85,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             NeedsValidation = advertisementElementTemplateDto.NeedsValidation;
             DummyAdvertisement = LookupField.FromReference(advertisementElementTemplateDto.DummyAdvertisementElementRef);
             Timestamp = advertisementElementTemplateDto.Timestamp;
-            IdentityServiceUrl = advertisementElementTemplateDto.IdentityServiceUrl;
             IsPngSupported = advertisementElementTemplateDto.IsPngSupported;
             IsGifSupported = advertisementElementTemplateDto.IsGifSupported;
             IsBmpSupported = advertisementElementTemplateDto.IsBmpSupported;
