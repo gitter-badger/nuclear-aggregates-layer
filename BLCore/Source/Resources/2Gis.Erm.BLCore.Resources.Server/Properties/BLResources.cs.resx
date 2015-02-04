@@ -5182,4 +5182,13 @@ Doba zveřejnění: {3}.</value>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Pokus o uložení pozice v objednávce s modelem prodejů '{0}' s počtem, který se nerovná 1</value>
   </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Невозможно назначить действие в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Невозможно назначить куратором служебного пользователя</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Недостаточно прав для смены куратора у действия {0}</value>
+  </data>
 </root>
