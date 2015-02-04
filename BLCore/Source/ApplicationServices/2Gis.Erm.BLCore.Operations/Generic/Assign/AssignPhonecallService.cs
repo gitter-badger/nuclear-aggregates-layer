@@ -44,12 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Phonecall>())
             {
                 var entity = _phonecallReadModel.GetPhonecall(entityId);
-
-                if (entity.Status != ActivityStatus.InProgress)
-                {
-                    throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
-                }
-
+              
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
                 {
                     throw new BusinessLogicException(BLResources.CannotAssignActivitySystemUser);

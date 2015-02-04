@@ -8,6 +8,9 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
+    using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.Platform.API.Core.Exceptions;
+
     public sealed class AssignAppointmentAggregateService : IAssignAppointmentAggregateService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
@@ -26,6 +29,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             if (appointment == null)
             {
                 throw new ArgumentNullException("appointment");
+            }
+
+            if (appointment.Status != ActivityStatus.InProgress)
+            {
+                throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
             }
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Appointment>())

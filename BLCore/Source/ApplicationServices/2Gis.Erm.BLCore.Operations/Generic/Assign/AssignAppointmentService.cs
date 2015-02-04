@@ -43,12 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Appointment>())
             {
-                var entity = _appointmentReadModel.GetAppointment(entityId);
-
-                if (entity.Status != ActivityStatus.InProgress)
-                {
-                    throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
-                }
+                var entity = _appointmentReadModel.GetAppointment(entityId);               
 
                 if (_userReadModel.GetUser(ownerCode).IsServiceUser)
                 {
