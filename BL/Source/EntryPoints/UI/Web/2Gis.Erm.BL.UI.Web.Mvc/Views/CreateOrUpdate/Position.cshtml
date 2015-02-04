@@ -1,5 +1,5 @@
 ﻿
-@model Models.PositionViewModel
+@model PositionViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -48,7 +48,7 @@
             @Html.TemplateField(m => m.BindingObjectType, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.SalesModel, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Platform, ReadOnly = Model.IsPublished })

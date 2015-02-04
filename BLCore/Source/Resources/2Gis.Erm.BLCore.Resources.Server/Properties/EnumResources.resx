@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -222,11 +222,11 @@
   <data name="OrderTypeSelfAds" xml:space="preserve">
     <value>Самореклама</value>
   </data>
-  <data name="PositionAccountingMethodGuaranteedProvision" xml:space="preserve">
+  <data name="SalesModelGuaranteedProvision" xml:space="preserve">
     <value>Гарантированное оказание</value>
   </data>
-  <data name="PositionAccountingMethodPlannedProvision" xml:space="preserve">
-    <value>Планируемое оказание</value>
+  <data name="SalesModelPlannedProvision" xml:space="preserve">
+    <value>Плановое оказание услуг по одной рубрике</value>
   </data>
   <data name="PositionCalculationMethodPosition" xml:space="preserve">
     <value>Позиция</value>
@@ -1512,7 +1512,7 @@
   <data name="OrderTerminationReasonNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionAccountingMethodNone" xml:space="preserve">
+  <data name="SalesModelNone" xml:space="preserve">
     <value />
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
@@ -1909,7 +1909,7 @@
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Соглашение о продлении договора</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Действие</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1983,5 +1983,8 @@
   </data>
   <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
     <value>Другое</value>
+  </data>
+  <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
+    <value>Плановое оказание услуг по нескольким рубрикам</value>
   </data>
 </root>

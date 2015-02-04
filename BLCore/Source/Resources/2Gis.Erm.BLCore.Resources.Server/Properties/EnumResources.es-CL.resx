@@ -222,11 +222,11 @@
   <data name="OrderTypeSelfAds" xml:space="preserve">
     <value>Autopromoción</value>
   </data>
-  <data name="PositionAccountingMethodGuaranteedProvision" xml:space="preserve">
+  <data name="SalesModelGuaranteedProvision" xml:space="preserve">
     <value>Prestación garantizada</value>
   </data>
-  <data name="PositionAccountingMethodPlannedProvision" xml:space="preserve">
-    <value>Prestación planificada</value>
+  <data name="SalesModelPlannedProvision" xml:space="preserve">
+    <value>Prestación de servicios del plan que abarca una categoría</value>
   </data>
   <data name="PositionCalculationMethodPosition" xml:space="preserve">
     <value>Posición</value>
@@ -1518,7 +1518,7 @@
   <data name="OrderTerminationReasonNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionAccountingMethodNone" xml:space="preserve">
+  <data name="SalesModelNone" xml:space="preserve">
     <value />
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
@@ -1906,7 +1906,7 @@
   <data name="DenialReasonTypeOther" xml:space="preserve">
     <value>Otro</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Acción</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1995,5 +1995,8 @@
   </data>
   <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
     <value>Otro</value>
+  </data>
+  <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
+    <value>Prestación de servicios del plan que abarcan varias categorías</value>
   </data>
 </root>

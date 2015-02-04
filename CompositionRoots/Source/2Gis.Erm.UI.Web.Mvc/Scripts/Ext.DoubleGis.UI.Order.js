@@ -59,6 +59,23 @@ window.InitPage = function () {
     
     Ext.apply(this,
             {
+                ChangeLegalPersonProfile: function() {
+                    var url = Ext.urlAppend('/Order/SelectLegalPersonProfile', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
+                    var params = "dialogWidth:600px; dialogHeight:300px; status:yes; scroll:no;resizable:no;";
+                    var result = window.showModalDialog(url, null, params);
+                    if (!result) {
+                        return;
+                    }
+                    Card.Mask.show();
+                    Ext.Ajax.request({
+                        method: 'post',
+                        url: '/Order/ChangeOrderLegalPersonProfile',
+                        params: { orderId: Ext.getDom('Id').value, legalPersonProfileId: result.legalPersonProfile },
+                        scope: this,
+                        success: function () { this.refresh(); },
+                        failure: function (response) { Card.Mask.hide(); this.AddNotification(response.responseText, 'CriticalError', 'ServerError'); }
+                    });
+                },
                 checkDirty: function () {
                     if (this.form.Id.value == 0) {
                         Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
@@ -197,25 +214,13 @@ window.InitPage = function () {
                         return;
                     }
 
-                    var callback = function (profileId) {
-                        this.PrintWithoutProfileChoosing(methodName, entityId, profileId);
-                    };
-
-                    this.ChooseProfile({ orderId: entityId }, callback);
+                    this.PrintWithoutProfileChoosing(methodName, entityId);
                 },
                 PrepareJointBill: function () {
-                    var entityId = {
-                        orderId: Ext.getDom('Id').value
-                    };
-
-                    var callback = function (profileId) {
-                        var url = "/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value + '&profileId=' + profileId;
+                    var url = "/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value;
                         var params = "dialogWidth:780px; dialogHeight:350px; status:yes; scroll:no;resizable:no;";
                         window.showModalDialog(url, null, params);
                         this.refresh();
-                    };
-
-                    this.ChooseProfile(entityId, callback);
                 },
                 PrintOrder: function () {
                     this.Print('PrintOrder');
@@ -533,7 +538,7 @@ window.InitPage = function () {
 
                 },
                 resetLegalPersonProfile: function () {
-                    Ext.get("LegalPersonProfileId").dom.value = "";
+                    Ext.getCmp('LegalPersonProfile').clearValue();
                 },
                 toFixedWithoutRounding: function (figure, decimals) {
                     if (!decimals) decimals = 2;
@@ -632,9 +637,12 @@ window.InitPage = function () {
             Ext.getCmp("Firm").on("change", this.onFirmChanged, this);
             Ext.getCmp('SourceOrganizationUnit').on("change", this.onSourceOrganizationUnitChanged, this);
             Ext.getCmp('LegalPerson').on("change", this.onLegalPersonChanged, this);
-            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.clearBargain(); this.tryDetermineBargain(); }, this);
+            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () {
+                this.clearBargain();
+                this.tryDetermineBargain();
+            }, this);
             Ext.getCmp("BeginDistributionDate").on("change", function () { this.refreshReleaseDistributionInfo(); }, this);
-            Ext.getCmp("LegalPerson").on("change", function () { this.resetLegalPersonProfile(); }, this);
+            Ext.getCmp("LegalPerson").on("change", this.resetLegalPersonProfile, this);
 
             // Обновление фирмы/юр.лица клиента/договора
             Ext.getCmp('DestinationOrganizationUnit').on("beforechange", function (cmp) {

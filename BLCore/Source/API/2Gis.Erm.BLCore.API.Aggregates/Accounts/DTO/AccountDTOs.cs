@@ -20,7 +20,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO
         public long BranchOfficeId { get; set; }
         public string BranchOfficeName { get; set; }
         public long LegalPersonOwnerId { get; set; }
-        public decimal Amount { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]

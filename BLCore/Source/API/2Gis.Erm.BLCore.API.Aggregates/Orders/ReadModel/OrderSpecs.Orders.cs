@@ -63,11 +63,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                                                              !x.IsDeleted && x.Locks.Count(l => !l.IsDeleted && !l.IsActive) == x.ReleaseCountFact);
                 }
 
-                public static FindSpecification<Order> ByAccount(long accountId)
+                public static FindSpecification<Order> ByAccountWithLegalPersonCorrectnessCheck(long accountId)
                 {
                     return
                         new FindSpecification<Order>(
                             o => o.BranchOfficeOrganizationUnit.Accounts.Any(a => a.Id == accountId && a.LegalPersonId == o.LegalPersonId));
+                }
+
+                public static FindSpecification<Order> ByAccount(long accountId)
+                {
+                    return new FindSpecification<Order>(o => o.AccountId == accountId);
                 }
 
                 public static FindSpecification<Order> ByPeriod(TimePeriod period)
@@ -127,6 +132,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                 {
                     return new FindSpecification<Order>(x => x.SourceOrganizationUnitId == sourceOrganizationUnitId &&
                                                              x.DestOrganizationUnitId == destOrganizationUnitId);
+                }
+
+                public static FindSpecification<Order> ByLegalPersonProfileId(long legalPersonProfileId)
+                {
+                    return new FindSpecification<Order>(x => x.LegalPersonProfileId == legalPersonProfileId);
                 }
             }
 
@@ -190,7 +200,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                         BargainRef = new EntityReference { Id = x.BargainId, Name = x.Bargain.Number },
                         Platform = x.Platform == null ? string.Empty : x.Platform.Name,
                         PlatformRef = new EntityReference { Id = x.PlatformId, Name = x.Platform == null ? string.Empty : x.Platform.Name },
-                        HasDocumentsDebt = (DocumentsDebt)x.HasDocumentsDebt,
+                        HasDocumentsDebt = x.HasDocumentsDebt,
                         DocumentsComment = x.DocumentsComment,
                         AccountRef = new EntityReference { Id = x.AccountId, Name = null },
                         OwnerRef = new EntityReference { Id = x.OwnerCode, Name = null },

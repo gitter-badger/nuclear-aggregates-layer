@@ -14,7 +14,5 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Cat
         void SetCategoryGroupMembership(long organizationUnitId, IEnumerable<CategoryGroupMembershipDto> membership);
         void Delete(CategoryGroup categoryGroup);
         void CreateOrUpdate(CategoryGroup entity);
-        string GetCategoryName(long categoryId);
-        IReadOnlyDictionary<long, int> GetCategoryLevels(IEnumerable<long> categoryIds);
     }
 }

@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Position.cshtml")]
-    public partial class Position : System.Web.Mvc.WebViewPage<Models.PositionViewModel>
+    public partial class Position : System.Web.Mvc.WebViewPage<PositionViewModel>
     {
         public Position()
         {
@@ -138,14 +138,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 621), Tuple.Create("\"", 661)
+WriteAttribute("title", Tuple.Create(" title=\"", 614), Tuple.Create("\"", 654)
             
             #line 25 "..\..\Views\CreateOrUpdate\Position.cshtml"
-, Tuple.Create(Tuple.Create("", 629), Tuple.Create<System.Object, System.Int32>(BLResources.TabTitleInformation
+, Tuple.Create(Tuple.Create("", 622), Tuple.Create<System.Object, System.Int32>(BLResources.TabTitleInformation
             
             #line default
             #line hidden
-, 629), false)
+, 622), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -278,7 +278,7 @@ WriteLiteral("            ");
 
             
             #line 51 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, elementStyle, EnumResources.ResourceManager));
+       Write(Html.TemplateField(m => m.SalesModel, FieldFlex.lone, elementStyle, EnumResources.ResourceManager));
 
             
             #line default

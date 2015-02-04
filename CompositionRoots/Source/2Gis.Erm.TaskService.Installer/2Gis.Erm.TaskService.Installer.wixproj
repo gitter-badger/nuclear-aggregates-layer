@@ -21,13 +21,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-    <CompilerAdditionalOptions>
-    </CompilerAdditionalOptions>
-    <LinkerAdditionalOptions>-b PackagesDir=..\packages -b LibsDir=..\Libs -b LibsDir=..\..\..\..\Platform\Source\Libs</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-b PackagesDir=..\packages</LinkerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <LinkerAdditionalOptions>-b PackagesDir=..\packages</LinkerAdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="InstallXml.wxs" />

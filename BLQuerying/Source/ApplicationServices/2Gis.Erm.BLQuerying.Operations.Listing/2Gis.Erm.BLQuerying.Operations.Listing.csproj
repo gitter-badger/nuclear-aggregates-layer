@@ -48,6 +48,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="DI\BlQueryingOperationsListingAssembly.cs" />
+    <Compile Include="List\Infrastructure\ClientLinkedChildFilter.cs" />
     <Compile Include="List\Infrastructure\ErmEntityFunctions.cs" />
     <Compile Include="List\Infrastructure\QueryableExtension.cs" />
     <Compile Include="List\Infrastructure\FilterHelper.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="List\ListTerritoryService.cs" />
     <Compile Include="List\ListThemeService.cs" />
     <Compile Include="List\ListThemeTemplateService.cs" />
+    <Compile Include="List\ListTimeZoneService.cs" />
     <Compile Include="List\ListUserOrganizationUnitService.cs" />
     <Compile Include="List\ListUserTerritoryService.cs" />
     <Compile Include="List\ListUserRoleService.cs" />
