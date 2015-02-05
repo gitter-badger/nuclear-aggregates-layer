@@ -17,6 +17,20 @@ backCompatArray[i] = a[i][0];
 }
 return backCompatArray;
 }
+
+function getSelectedGridEntities(sGridName)
+{
+    var a = document.all[sGridName].InnerGrid.SelectedRecords;
+    var backCompatArray = new Array(a.length);
+    for (var i = 0; i < a.length; i++) {
+        backCompatArray[i] = {
+            ReplicationCode: a[i][0],
+            EntityTypeName: GetErmEntityName(a[i][1])
+        };
+    }
+    return backCompatArray;
+}
+
 function getParentEntityIdParams()
 {
 
