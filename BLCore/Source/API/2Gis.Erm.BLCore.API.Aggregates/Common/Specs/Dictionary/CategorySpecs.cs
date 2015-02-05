@@ -15,11 +15,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
             {
                 public static FindSpecification<Category> ActiveCategoryForSalesModelInOrganizationUnit(SalesModel salesModel, long organizationUnitId)
                 {
-                    return Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>()
-                           && ForOrganizationUnit(organizationUnitId)
+                    return Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>() &&
+                           ForOrganizationUnit(organizationUnitId) &&
 
                            // Ограничение по моделям продаж действует только для рубрик 3-го уровня
-                           && (RestrictedBySalesModelAndOrganizationUnit(salesModel, organizationUnitId) || !ByLevel(3));
+                           (!ByLevel(3) || RestrictedBySalesModelAndOrganizationUnit(salesModel, organizationUnitId));
                 }
 
                 private static FindSpecification<Category> ForOrganizationUnit(long organizationUnitId)
