@@ -226,7 +226,7 @@
     <value>Prestación garantizada</value>
   </data>
   <data name="SalesModelPlannedProvision" xml:space="preserve">
-    <value>Плановое оказание услуг по одной рубрике</value>
+    <value>Prestación de servicios del plan que abarca una categoría</value>
   </data>
   <data name="PositionCalculationMethodPosition" xml:space="preserve">
     <value>Posición</value>
@@ -1997,6 +1997,6 @@
     <value>Otro</value>
   </data>
   <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
-    <value>Плановое оказание услуг по нескольким рубрикам</value>
+    <value>Prestación de servicios del plan que abarcan varias categorías</value>
   </data>
 </root>

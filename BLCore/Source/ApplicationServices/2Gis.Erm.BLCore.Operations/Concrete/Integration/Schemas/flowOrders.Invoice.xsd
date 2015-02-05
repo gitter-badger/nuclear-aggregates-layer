@@ -13,6 +13,15 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="AdvModel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="CPS"/>
+      <xs:enumeration value="FH"/>
+      <xs:enumeration value="MFH"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="OrderStatus">
     <xs:restriction base="xs:string">
       <xs:enumeration value="OnRegistration"/>
@@ -49,8 +58,24 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+      <xs:element name="PlannedDebits" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="PlannedDebit" type="PlannedDebit" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>Информация о плановых списаниях по позиции заказа</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
     </xs:all>
 
+    <xs:attribute name="OrderPositionCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Id позиции заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="PriceListPositionCode" type="xs:long" use="required">
       <xs:annotation>
         <xs:documentation>Позиция прайса на которую ссылается позиция БЗ</xs:documentation>
@@ -59,6 +84,11 @@
     <xs:attribute name="NomenclatureElementCode" type="xs:long" use="required">
       <xs:annotation>
         <xs:documentation>Id простой позиции, либо Id пакета</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PricePerUnitWithVat" type="xs:decimal" use="required">
+      <xs:annotation>
+        <xs:documentation>Стоимость за единицу, включая НДС</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="Amount" type="xs:int" use="required">
@@ -105,6 +135,24 @@
     </xs:attribute>
   </xs:complexType>
 
+  <xs:complexType name="PlannedDebit">
+    <xs:attribute name="StartDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата начала периода планируемого списания по позиции заказа.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="EndDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата окончания периода планируемого списания по позиции заказа.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Amount" type="xs:float" use="required">
+      <xs:annotation>
+        <xs:documentation>Сумма за период планируемого списания по позиции заказа.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
   <xs:complexType name="Invoice">
     <xs:all>
       <xs:element name="InvoiceItems" minOccurs="1" maxOccurs="1">
@@ -134,9 +182,24 @@
         <xs:documentation>Тип заказа</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="AdvModel" type="AdvModel" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          Модель продаж:
+          GuaranteedProvision - Гарантированное оказание услуги - модель продаж предполагающая, что конечная цена услуги известна в момент её продажи;
+          PlannedProvision - Планируемое оказание услуги по одной рубрике - модель продаж предполагающая, что конечная цена услуги известна только после её оказания (продажи по кликам);
+          MultiPlannedProvision - Планируемое оказание услуги по мультирубрикам - модель продаж предполагающая, что конечная цена услуги известна только после её оказания (продажи по кликам);
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="UserCode" type="string250" use="required">
       <xs:annotation>
         <xs:documentation>Код пользователя куратора БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="SignupDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата подписания БЗ</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="EndDatePlan" type="xs:dateTime" use="required">

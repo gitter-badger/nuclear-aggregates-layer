@@ -76,6 +76,11 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
+    <xs:attribute name="OrderPositionCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="ProductCode" type="xs:int" use="required">
       <xs:annotation>
         <xs:documentation>Стабильный код элемента номенклатурного справочника</xs:documentation>
