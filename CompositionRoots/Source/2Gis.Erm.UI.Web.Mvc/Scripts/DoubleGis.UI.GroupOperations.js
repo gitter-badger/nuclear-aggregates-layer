@@ -128,7 +128,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
             method: 'POST',
             params:
                 {
-                    entityTypeName: entityNamesArray,
+                    entityTypeNames: entityNamesArray,
                     replicationCodes: entityReplicationCodesArray
                 }
         });
@@ -156,11 +156,16 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
     },
     ProcessNextEntityInQueue: function () {
         if (this.ProcessingQueue.length != 0) {
-            var entityId = this.ProcessingQueue.shift();
-            var entityName = this.ResolveEntityName(entityId);
-            if (this.IsCallFromCrm) {
-                entityName = entityId.TypeName;
-                entityId = entityId.Id;
+            var nextEntity = this.ProcessingQueue.shift();
+            var entityName, entityId;
+            if (this.IsCallFromCrm)
+            {
+                entityName = nextEntity.TypeName;
+                entityId = nextEntity.Id;
+            } else 
+            {
+                entityId = nextEntity;
+                entityName = this.ResolveEntityName(nextEntity);
             }
             var operationUrl = String.format(this.EvaluateOperationUrlTemplate(), entityName);
             var params = this.CreateParamsForControllerCall(entityId);

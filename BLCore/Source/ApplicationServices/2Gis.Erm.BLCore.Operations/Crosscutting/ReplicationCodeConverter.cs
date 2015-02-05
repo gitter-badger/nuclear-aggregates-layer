@@ -49,7 +49,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
                 if (entityIds.Count != entityType.replicationCodes.Count)
                 {
                     throw new ArgumentException("Some replication codes cannot be converted to entity identifiers", "replicationCodes");
-                }                
+                } 
+               
                 resultList.AddRange(entityIds);
             }
 
