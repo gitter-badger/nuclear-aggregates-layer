@@ -157,8 +157,12 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
     ProcessNextEntityInQueue: function () {
         if (this.ProcessingQueue.length != 0) {
             var entityId = this.ProcessingQueue.shift();
-        	var entityName = this.ResolveEntityName(entityId);
-        	var operationUrl = String.format(this.EvaluateOperationUrlTemplate(), entityName);
+            var entityName = this.ResolveEntityName(entityId);
+            if (this.IsCallFromCrm) {
+                entityName = entityId.TypeName;
+                entityId = entityId.Id;
+            }
+            var operationUrl = String.format(this.EvaluateOperationUrlTemplate(), entityName);
             var params = this.CreateParamsForControllerCall(entityId);
 
             this.ProcessSingleEntity(operationUrl, params);

@@ -35,16 +35,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             throw new NotImplementedException();
         }
 
-        public IEnumerable<long> ConvertToEntityIds(EntityName entityName, IEnumerable<Guid> replicationCodes)
-        {
-            var codes = replicationCodes.ToList();
-            var entityIds = LookupEntities(_finder, entityName, codes).Select(x => x.Id).ToList();
-            if (entityIds.Count != codes.Count)
+        public IEnumerable<EntityInfo> ConvertToEntityIds(IEnumerable<EntityName> entityName, IEnumerable<Guid> replicationCodes)
+        {            
+            var list = entityName.Zip(replicationCodes, (k, v) => new Tuple<EntityName, Guid>(k, v))
+                                 .GroupBy(p => p.Item1, p => p.Item2, (key, value) => new { EntityName = key, replicationCodes = value.ToList() });
+
+            var resultList = new List<EntityInfo>();
+            foreach (var entityType in list)
             {
-                throw new ArgumentException("Some replication codes cannot be converted to entity identifiers", "replicationCodes");
+                var entityIds = LookupEntities(_finder, entityType.EntityName, entityType.replicationCodes)
+                    .Select(x => new EntityInfo { TypeName = entityType.EntityName, Id = x.Id })
+                    .ToList();
+                if (entityIds.Count != entityType.replicationCodes.Count)
+                {
+                    throw new ArgumentException("Some replication codes cannot be converted to entity identifiers", "replicationCodes");
+                }                
+                resultList.AddRange(entityIds);
             }
 
-            return entityIds;
+            return resultList;
         }
 
         public IEnumerable<Guid> ConvertToReplicationCodes(EntityName entityName, IEnumerable<long> entityIds)
