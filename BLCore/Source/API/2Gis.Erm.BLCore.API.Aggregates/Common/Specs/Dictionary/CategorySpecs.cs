@@ -14,20 +14,27 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
             public static class Find
             {
                 public static FindSpecification<Category> ActiveCategoryForSalesModelInOrganizationUnit(SalesModel salesModel, long organizationUnitId)
-                        {
+                {
                     return Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>()
                            && ForOrganizationUnit(organizationUnitId)
-                           && RestrictedBySalesModelAndOrganizationUnit(salesModel, organizationUnitId);
-                                    }
+
+                           // Ограничение по моделям продаж действует только для рубрик 3-го уровня
+                           && (RestrictedBySalesModelAndOrganizationUnit(salesModel, organizationUnitId) || !ByLevel(3));
+                }
 
                 private static FindSpecification<Category> ForOrganizationUnit(long organizationUnitId)
                 {
                     return new FindSpecification<Category>(x => x.CategoryOrganizationUnits.Any(y => y.IsActive && !y.IsDeleted && y.OrganizationUnitId == organizationUnitId));
-                    }
+                }
 
                 private static FindSpecification<Category> RestrictedBySalesModelAndOrganizationUnit(SalesModel model, long organizationUnitId)
                 {
                     return new FindSpecification<Category>(x => x.SalesModelRestrictions.Any(y => y.SalesModel == model && y.Project.OrganizationUnitId == organizationUnitId));
+                }
+
+                private static FindSpecification<Category> ByLevel(int level)
+                {
+                    return new FindSpecification<Category>(x => x.Level == level);
                 }
             }
         }
