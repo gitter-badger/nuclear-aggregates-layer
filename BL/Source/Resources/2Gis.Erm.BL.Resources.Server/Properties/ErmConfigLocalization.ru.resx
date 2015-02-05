@@ -1869,4 +1869,7 @@
   <data name="DListTimeZones" xml:space="preserve">
     <value>Часовые пояса</value>
   </data>
+  <data name="ControlChangeProfiles" xml:space="preserve">
+    <value>Сменить профиль</value>
+  </data>
 </root>

@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 
@@ -22,21 +23,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly IPublicService _publicService;
 
-        public BranchOfficeOrganizationUnitController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IPublicService publicService,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+        public BranchOfficeOrganizationUnitController(IMsCrmSettings msCrmSettings,
+                                                      IAPIOperationsServiceSettings operationsServiceSettings,
+                                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                                      IAPIIdentityServiceSettings identityServiceSettings,
+                                                      IUserContext userContext,
+                                                      ICommonLog logger,
+                                                      IGetBaseCurrencyService getBaseCurrencyService,
+                                                      IPublicService publicService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _publicService = publicService;
         }

@@ -55,8 +55,6 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine
         [DataMember]
         public string Phone { get; set; }
         [DataMember]
-        public string PaymentEssentialElements { get; set; }
-        [DataMember]
         public bool IsDeleted { get; set; }
         [DataMember]
         public bool IsActive { get; set; }
@@ -81,7 +79,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine
         [DataMember]
         public string BankName { get; set; }
         [DataMember]
-        public string AdditionalPaymentElements { get; set; }
+        public string PaymentEssentialElements { get; set; }
         [DataMember]
         public LegalPersonType LegalPersonType { get; set; }
         [DataMember]

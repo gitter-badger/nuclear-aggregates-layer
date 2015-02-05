@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
 
             var order = _finder.FindOne(Specs.Find.ById<Order>(request.OrderId));
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(order.LegalPersonId));
-            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(request.LegalPersonProfileId));
+            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(orderInfo.LegalPersonProfileId));
             var bargain = _finder.FindOne(Specs.Find.ById<Bargain>(order.BargainId));
             var branchOfficeOrganiationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(order.BranchOfficeOrganizationUnitId));
 

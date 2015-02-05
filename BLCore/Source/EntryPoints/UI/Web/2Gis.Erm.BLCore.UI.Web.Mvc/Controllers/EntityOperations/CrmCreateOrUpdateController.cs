@@ -14,6 +14,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -42,23 +43,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         private readonly ISecurityServiceSharings _securityServiceSharings;
 
         public CrmCreateOrUpdateController(IMsCrmSettings msCrmSettings,
+                                           IAPIOperationsServiceSettings operationsServiceSettings,
+                                           IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                           IAPIIdentityServiceSettings identityServiceSettings,
                                            IUserContext userContext,
                                            ICommonLog logger,
+                                           IGetBaseCurrencyService getBaseCurrencyService,
                                            IReplicationCodeConverter replicationCodeConverter,
                                            ISecurityServiceEntityAccess entityAccessService,
                                            IPublicService publicService,
                                            ISecureFinder secureFinder,
-                                           ISecurityServiceSharings securityServiceSharings,
-                                           IAPIOperationsServiceSettings operationsServiceSettings,
-                                           IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                           IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+                                           ISecurityServiceSharings securityServiceSharings)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _replicationCodeConverter = replicationCodeConverter;
             _entityAccessService = entityAccessService;

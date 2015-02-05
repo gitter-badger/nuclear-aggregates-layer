@@ -17,9 +17,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
 
         public KazakhstanGetBranchOfficeOrganizationUnitDtoService(IUserContext userContext,
                                                                    IOrganizationUnitReadModel organizationUnitReadModel,
-                                                                   IBranchOfficeReadModel branchOfficeReadModel,
-                                                                   IAPIIdentityServiceSettings identityServiceSettings)
-            : base(userContext, branchOfficeReadModel, organizationUnitReadModel, identityServiceSettings)
+                                                                   IBranchOfficeReadModel branchOfficeReadModel)
+            : base(userContext, branchOfficeReadModel, organizationUnitReadModel)
         {
             _branchOfficeReadModel = branchOfficeReadModel;
         }

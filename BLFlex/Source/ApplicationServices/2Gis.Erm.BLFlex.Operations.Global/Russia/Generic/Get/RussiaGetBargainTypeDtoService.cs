@@ -1,6 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -15,21 +14,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
     public class RussiaGetBargainTypeDtoService : GetDomainEntityDtoServiceBase<BargainType>, IRussiaAdapted
     {
         private readonly ISecureFinder _finder;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
 
-        public RussiaGetBargainTypeDtoService(IUserContext userContext, ISecureFinder finder, IAPIIdentityServiceSettings identityServiceSettings)
+        public RussiaGetBargainTypeDtoService(IUserContext userContext, ISecureFinder finder)
             : base(userContext)
         {
             _finder = finder;
-            _identityServiceSettings = identityServiceSettings;
         }
 
         protected override IDomainEntityDto<BargainType> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new BargainTypeDomainEntityDto
-                {
-                    IdentityServiceUrl = _identityServiceSettings.RestUrl
-                };
+            return new BargainTypeDomainEntityDto();
         }
 
         protected override IDomainEntityDto<BargainType> GetDto(long entityId)

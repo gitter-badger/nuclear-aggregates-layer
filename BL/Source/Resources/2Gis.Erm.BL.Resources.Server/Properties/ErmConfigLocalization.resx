@@ -1065,6 +1065,9 @@
   <data name="ControlCheckOrder" xml:space="preserve">
     <value />
   </data>
+  <data name="ControlChangeProfiles" xml:space="preserve">
+    <value />
+  </data>
   <data name="ControlPrintBillAction" xml:space="preserve">
     <value />
   </data>
