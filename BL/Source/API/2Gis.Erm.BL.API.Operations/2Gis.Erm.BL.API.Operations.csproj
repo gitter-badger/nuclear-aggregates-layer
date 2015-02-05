@@ -58,6 +58,8 @@
     <Compile Include="Concrete\AdvertisementElements\IDenyAdvertisementElementOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IResetAdvertisementElementToDraftOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\ITransferAdvertisementElementToReadyForValidationOpeationService.cs" />
+    <Compile Include="Concrete\Shared\Consistency\IConsistencyRule.cs" />
+    <Compile Include="Concrete\Shared\Consistency\ILegalPersonProfileConsistencyRuleContainer.cs" />
     <Compile Include="Concrete\Limits\IIncreaseLimitOperationService.cs" />
     <Compile Include="Concrete\Limits\ICalculateLimitIncreasingOperationService.cs" />
     <Compile Include="Concrete\Limits\IRecalculateLimitOperationService.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -15,11 +16,15 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
         LegalPersonType GetLegalPersonType(long legalPersonId);
 
         LegalPerson GetLegalPerson(long legalPersonId);
+        IEnumerable<LegalPerson> GetLegalPersons(IEnumerable<long> legalPersonIds);
         LegalPersonProfile GetLegalPersonProfile(long legalPersonProfileId);
         IEnumerable<LegalPersonProfile> GetProfilesByLegalPerson(long legalPersonId);
         IEnumerable<long> GetLegalPersonProfileIds(long legalPersonId);
         long? GetMainLegalPersonProfileId(long legalPersonId);
         int? GetLegalPersonOrganizationDgppid(long legalPersonId);
         bool DoesLegalPersonHaveActiveNotArchivedAndNotRejectedOrders(long legalPersonId);
+        string[] SelectNotUnique1CSyncCodes(IEnumerable<string> codes);
+        LegalPersonAndProfilesExistanceDto GetLegalPersonWithProfiles(long legalPersonId);
+        bool IsThereLegalPersonProfileDuplicate(long legalPersonProfileId, long legalPersonId, string name);
     }
 }

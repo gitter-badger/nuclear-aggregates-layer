@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 

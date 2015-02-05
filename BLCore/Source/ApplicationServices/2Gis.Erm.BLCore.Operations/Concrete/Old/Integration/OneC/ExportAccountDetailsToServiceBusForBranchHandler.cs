@@ -16,7 +16,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Compression;
@@ -86,11 +85,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                     .Where(x => x.IsPrimary && x.BranchOffice.ContributionTypeId == (int)ContributionTypeEnum.Branch)
                                                     .Select(x => x.OrganizationUnit.SyncCode1C)
                                                     .FirstOrDefault();
-
-            if (organizationUnitSyncCode1C == null)
-            {
-                throw new NotificationException(BLResources.SelectedOrganizationUnitIsNotBranchOrNotMovedToERM);
-            }
 
             var accountDetailDtos = GetAccountDetailDtos(request.OrganizationUnitId, period);
 

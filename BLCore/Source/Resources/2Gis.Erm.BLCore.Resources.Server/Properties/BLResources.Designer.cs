@@ -6283,15 +6283,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ErrorWhileSavingLegalPersonProfile {
-            get {
-                return ResourceManager.GetString("ErrorWhileSavingLegalPersonProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string EventsCount {
             get {
                 return ResourceManager.GetString("EventsCount", resourceCulture);
@@ -13433,15 +13424,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string SelectedObjectsForRemoval {
             get {
                 return ResourceManager.GetString("SelectedObjectsForRemoval", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string SelectedOrganizationUnitIsNotBranchOrNotMovedToERM {
-            get {
-                return ResourceManager.GetString("SelectedOrganizationUnitIsNotBranchOrNotMovedToERM", resourceCulture);
             }
         }
         

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -26,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         public PaymentMethod? GetPaymentMethod(long legalPersonId)
         {
             return _finder.Find(LegalPersonSpecs.Profiles.Find.MainByLegalPersonId(legalPersonId))
-                          .Select(x => (PaymentMethod?)x.PaymentMethod)
+                          .Select(x => x.PaymentMethod)
                           .SingleOrDefault();
         }
 
@@ -49,6 +51,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         public LegalPerson GetLegalPerson(long legalPersonId)
         {
             return _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId));
+        }
+
+        public IEnumerable<LegalPerson> GetLegalPersons(IEnumerable<long> legalPersonIds)
+        {
+            return _finder.FindMany(Specs.Find.ByIds<LegalPerson>(legalPersonIds));
         }
 
         public LegalPersonProfile GetLegalPersonProfile(long legalPersonProfileId)
@@ -97,6 +104,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
                                                   y.WorkflowStepId != OrderState.Archive &&
                                                   y.WorkflowStepId != OrderState.Rejected))
                           .Single();
+        }
+
+        public string[] SelectNotUnique1CSyncCodes(IEnumerable<string> codes)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Account>() && AccountSpecs.Accounts.Find.ByLegalPersonSyncCodes1C(codes))
+                          .GroupBy(x => x.LegalPesonSyncCode1C)
+                          .Where(x => x.Distinct().Count() > 1)
+                          .Select(x => x.Key)
+                          .ToArray();
+        }
+
+        public LegalPersonAndProfilesExistanceDto GetLegalPersonWithProfiles(long legalPersonId)
+        {
+            return new LegalPersonAndProfilesExistanceDto
+            {
+                LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId)),
+                LegalPersonHasProfiles =
+                    _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) && Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>()).Any()
+            };
+        }
+
+        public bool IsThereLegalPersonProfileDuplicate(long legalPersonProfileId, long legalPersonId, string name)
+        {
+            return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) && LegalPersonSpecs.Profiles.Find.DuplicateByName(legalPersonProfileId, name)).Any();
         }
     }
 }

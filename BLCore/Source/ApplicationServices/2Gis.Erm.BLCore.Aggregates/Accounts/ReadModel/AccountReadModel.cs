@@ -149,15 +149,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public bool HasActiveLocksForSourceOrganizationUnitByPeriod(long organizationUnitId, TimePeriod period)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>()
-                                    && AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId, period))
-                   .Select(l =>
-                       new LockDto
-                       {
-                           Lock = l,
-                           Details = l.LockDetails
-                       })
-                   .Any();
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
+                                AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId, period))
+                          .Select(l =>
+                                  new LockDto
+                                      {
+                                          Lock = l,
+                                          Details = l.LockDetails
+                                      })
+                          .Any();
         }
 
         public bool HasInactiveLocksForDestinationOrganizationUnit(long organizationUnitId, TimePeriod period)
@@ -171,11 +171,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         {
             const string OperationTypeDebitForOrderPaymentSyncCode1C = "11";
 
-            return _finder
-                        .Find<OperationType, long>(
-                            Specs.Select.Id<OperationType>(), 
-                            AccountSpecs.OperationTypes.Find.BySyncCode1C(OperationTypeDebitForOrderPaymentSyncCode1C))
-                        .Single();
+            return _finder.Find(Specs.Select.Id<OperationType>(),
+                                AccountSpecs.OperationTypes.Find.BySyncCode1C(OperationTypeDebitForOrderPaymentSyncCode1C))
+                          .Single();
         }
 
         public IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period)
@@ -296,12 +294,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public BranchOfficeOrganizationUnit FindPrimaryBranchOfficeOrganizationUnit(long organizationUnitId)
         {
             return _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit() &&
-                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToOrganizationUnit(organizationUnitId));
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId));
         }
 
         public Account FindAccount(long legalPersonId, long branchOfficeOrganizationUnitId)
         {
-            return _finder.Find(AccountSpecs.Accounts.Find.ForLegalPersons(legalPersonId, branchOfficeOrganizationUnitId))
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Account>() &&
+                                AccountSpecs.Accounts.Find.ForLegalPersons(legalPersonId, branchOfficeOrganizationUnitId))
                           .FirstOrDefault();
         }
 
@@ -471,6 +470,44 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public long GetLimitOwnerCode(long limitId)
         {
             return _finder.Find(Specs.Find.ById<Limit>(limitId)).Select(x => x.OwnerCode).Single();
+        }
+
+        public IDictionary<long, IEnumerable<AccountDetailForExportDto>> GetAccountDetailsForExportTo1C(IEnumerable<long> organizationUnitIds,
+                                                                                                        DateTime periodStartDate,
+                                                                                                        DateTime periodEndDate)
+        {
+            return
+                _finder.Find(AccountSpecs.Locks.Find.BySourceOrganizationUnits(organizationUnitIds) &&
+                             AccountSpecs.Locks.Find.ForPeriod(periodStartDate, periodEndDate) &&
+                             Specs.Find.InactiveEntities<Lock>())
+                       .Select(x => new AccountDetailForExportDto
+                                        {
+                                            OrganizationUnitSyncCode1C = x.Order.SourceOrganizationUnit.SyncCode1C,
+                                            BranchOfficeOrganizationUnitSyncCode1C = x.Order.BranchOfficeOrganizationUnit.SyncCode1C,
+                                            AccountCode = x.AccountId,
+                                            SourceOrganizationUnitId = x.Order.SourceOrganizationUnitId,
+                                            OrderNumber = x.Order.Number,
+                                            OrderType = x.Order.OrderType,
+                                            OrderSignupDateUtc = x.Order.SignupDate,
+                                            DebitAccountDetailAmount = x.AccountDetail.Amount,
+                                            ElectronicMedia = x.Order.DestOrganizationUnit.ElectronicMedia,
+                                            OrderId = x.OrderId,
+                                            LegalPersonId = x.Order.LegalPersonId.Value,
+                                            LegalPersonSyncCode1C = x.Account.LegalPesonSyncCode1C,
+                                            ProfileCode = x.Order.LegalPersonProfileId != null
+                                                              ? x.Order.LegalPersonProfile.Id
+                                                              : x.Account.LegalPerson.LegalPersonProfiles
+                                                                 .Where(p => !p.IsDeleted && p.IsMainProfile)
+                                                                 .Select(p => p.Id)
+                                                                 .FirstOrDefault(),
+                                            OrderHasPositionsWithPlannedProvision =
+                                                x.Order.OrderPositions.Any(y => y.IsActive && !y.IsDeleted
+                                                                                && y.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod
+                                                                                                                                        .PlannedProvision),
+                                        })
+                       .Where(x => x.DebitAccountDetailAmount > 0)
+                       .GroupBy(x => x.SourceOrganizationUnitId)
+                       .ToDictionary(x => x.Key, y => y.AsEnumerable());
         }
     }
 }
