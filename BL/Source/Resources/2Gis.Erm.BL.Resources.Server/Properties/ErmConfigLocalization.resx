@@ -1864,6 +1864,9 @@
   <data name="ControlIncreaseLimit" xml:space="preserve">
     <value />
   </data>
+  <data name="DListMyOpenedActivities" xml:space="preserve">
+    <value />
+  </data>
   <data name="DListTimeZones" xml:space="preserve">
     <value />
   </data>
