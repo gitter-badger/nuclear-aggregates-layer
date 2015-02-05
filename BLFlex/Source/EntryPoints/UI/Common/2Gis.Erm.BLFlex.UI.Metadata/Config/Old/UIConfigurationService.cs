@@ -151,7 +151,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
         private static EntityDataListsContainer ParseEntityViewSet(XElement entityEl, IEntityType entityName)
         {
-            var entityViewSet = new EntityDataListsContainer { EntityName = entityName.ToString() };
+            var entityViewSet = new EntityDataListsContainer { EntityName = entityName.Description };
 
             var dataListsEl = entityEl.Element("DataLists");
             if (dataListsEl == null)
@@ -730,7 +730,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 return null;
             }
 
-            var cardJson = new CardStructure { EntityName = entityName.ToString() };
+            var cardJson = new CardStructure { EntityName = entityName.Description };
 
             var cardNameLocaleResourceId = cardEl.Attribute("CardNameLocaleResourceId");
             if (cardNameLocaleResourceId != null)

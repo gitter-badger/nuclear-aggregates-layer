@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.UI
 
         public ActionResult View(IEntityType entityTypeName, IEntityType parentEntityType, string parentEntityId, string parentEntityState)
         {
-            var entityId = !string.IsNullOrEmpty(parentEntityId) ? long.Parse(parentEntityId) : (long?) null;
+            var entityId = !string.IsNullOrEmpty(parentEntityId) ? long.Parse(parentEntityId) : (long?)null;
 
             var uiService = _uiServicesManager.GetEntityGridViewService(entityTypeName);
             var gridViewSettings = uiService.GetGridViewSettings(UserContext.Profile);
