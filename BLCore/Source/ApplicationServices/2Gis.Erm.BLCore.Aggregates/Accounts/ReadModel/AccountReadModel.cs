@@ -368,8 +368,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                                        (ld, op) => new
                                                            {
                                                                LockDetail = ld,
-                                                               IsPlannedProvision = op.PricePosition.Position.AccountingMethodEnum ==
-                                                                                    PositionAccountingMethod.PlannedProvision
+                                                               IsPlannedProvision = op.PricePosition.Position.SalesModel ==
+                                                                                    SalesModel.PlannedProvision
                                                            })
                                                  .Where(x => x.IsPlannedProvision)
                                                  .Select(x => x.LockDetail)

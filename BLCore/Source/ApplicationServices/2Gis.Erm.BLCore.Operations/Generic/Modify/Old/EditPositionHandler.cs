@@ -18,7 +18,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
         private static readonly PositionBindingObjectType[] AllowedBindingObjectTypes =
             {
                 PositionBindingObjectType.Firm,
-                PositionBindingObjectType.CategorySingle
+                PositionBindingObjectType.CategorySingle,
+                PositionBindingObjectType.CategoryMultiple,
             };
 
         private readonly IPositionRepository _positionRepository;

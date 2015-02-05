@@ -62,8 +62,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string Ic { get; set; }
-
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
     }
 }

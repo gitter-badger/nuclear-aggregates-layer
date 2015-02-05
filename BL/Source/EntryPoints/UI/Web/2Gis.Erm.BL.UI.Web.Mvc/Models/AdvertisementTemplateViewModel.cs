@@ -40,7 +40,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             Name = advertisementTemplateDto.Name;
             IsAdvertisementRequired = advertisementTemplateDto.IsAdvertisementRequired;
             Timestamp = advertisementTemplateDto.Timestamp;
-            IdentityServiceUrl = advertisementTemplateDto.IdentityServiceUrl;
             DummyAdvertisement = LookupField.FromReference(advertisementTemplateDto.DummyAdvertisementRef);
         }
 

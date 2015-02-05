@@ -117,6 +117,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderDeleteOrderPositionDto GetOrderPositionDeleteInfo(long orderPositionId);
         OrderRepairOutdatedOrderPositionDto GetOrderInfoForRepairOutdatedPositions(long orderId);
         decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take);
+        OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId);
         IEnumerable<Bill> GetBillsForOrder(long orderId);
         OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId);
         OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId);

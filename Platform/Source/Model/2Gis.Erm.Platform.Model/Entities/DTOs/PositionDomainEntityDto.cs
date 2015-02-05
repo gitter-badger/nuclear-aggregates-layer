@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public PositionBindingObjectType BindingObjectTypeEnum { get; set; }
 
         [DataMember]
-        public PositionAccountingMethod AccountingMethodEnum { get; set; }
+        public SalesModel SalesModel { get; set; }
 
         [DataMember]
         public EntityReference PlatformRef { get; set; }
@@ -75,9 +75,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool IsPublished { get; set; }
-
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
 
         [DataMember]
         public bool RestrictChildPositionPlatformsCanBeChanged { get; set; }

@@ -81,6 +81,7 @@
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IChangeOrderPositionBindingObjectsOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IReplaceOrderPositionAdvertisementLinksOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\IGetAvailableBindingObjectsOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\IDetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\ICloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
     <Compile Include="Concrete\Orders\IActualizeOrderAmountToWithdrawOperationService.cs" />
     <Compile Include="Concrete\Orders\IPriceCostsForSubPositionsProvider.cs" />
+    <Compile Include="Concrete\Orders\ICheckIfOrderPositionCanBeModifiedOperationService.cs" />
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\InvalidLegalPersonProfileForOrderException.cs" />
     <Compile Include="Concrete\Orders\IChangeOrderLegalPersonProfileOperationService.cs" />
@@ -324,8 +326,7 @@
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsRequest.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsResponse.cs" />
     <Compile Include="Concrete\Old\Orders\ActualizeOrderReleaseWithdrawalsRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderResponse.cs" />
+    <Compile Include="Concrete\Orders\ICheckIfOrderPositionCanBeCreatedForOrderOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CheckOrderBeginDistributionDateRequest.cs" />
     <Compile Include="Concrete\Old\Orders\CloseOrderRequest.cs" />

@@ -64,7 +64,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             ElectronicMedia = modelDto.ElectronicMedia;
             CanEditFirstEmitDate = !InfoRussiaLaunchDate.HasValue && !ErmLaunchDate.HasValue;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
             ViewConfig.ReadOnly = modelDto.Id != 0 && !modelDto.IsActive;
         }
 

@@ -109,7 +109,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             SyncCode1C = modelDto.SyncCode1C;
             RegistrationCertificate = modelDto.RegistrationCertificate;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

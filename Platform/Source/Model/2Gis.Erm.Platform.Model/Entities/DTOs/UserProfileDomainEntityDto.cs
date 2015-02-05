@@ -74,8 +74,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string DomainAccountName { get; set; }
-
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
     }
 }

@@ -50,8 +50,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public Guid ReplicationCode { get; set; }
-
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
     }
 }

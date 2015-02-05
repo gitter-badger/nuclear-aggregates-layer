@@ -17,6 +17,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         bool HasFirmClient(long firmId);
         bool TryGetFirmAndClientByFirmAddress(long firmAddressCode, out FirmAndClientDto dto);
         IEnumerable<FirmAddress> GetFirmAddressesByFirm(long firmId);
+        IEnumerable<FirmAddress> GetActiveOrWithSalesByFirm(long firmId);
         IEnumerable<FirmContact> GetContacts(long firmAddressId);
         IDictionary<long, IEnumerable<FirmContact>> GetFirmContactsByAddresses(long firmId);
         string GetFirmName(long firmId);
@@ -41,11 +42,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         Dictionary<int, string> GetPhoneFormats(IEnumerable<int> phoneFormatCodes);
         Dictionary<int, string> GetPaymentMethods(IEnumerable<int> paymentMethodCodes);
 
-
         HotClientRequest GetHotClientRequest(long hotClientRequestId);
         bool IsTelesaleFirmAddress(long firmAddressId);
         IReadOnlyDictionary<long, long> GetFirmTerritories(IEnumerable<long> firmIds, string regionalTerritoryWord);
         IReadOnlyDictionary<long, CardRelation> GetCardRelationsByIds(IEnumerable<long> cardRelationIds);
         bool IsFirmInReserve(long firmId);
+        IEnumerable<string> GetAddressesNamesWhichNotBelongToFirm(long firmId, IEnumerable<long> firmAddressIds);
     }
 }

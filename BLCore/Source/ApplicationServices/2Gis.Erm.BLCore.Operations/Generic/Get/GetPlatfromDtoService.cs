@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -12,20 +11,18 @@ using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
-    public class GetPlatfromDtoService : GetDomainEntityDtoServiceBase<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform>
+    public class GetPlatfromDtoService : GetDomainEntityDtoServiceBase<Platform.Model.Entities.Erm.Platform>
     {
         private readonly ISecureFinder _finder;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
 
-        public GetPlatfromDtoService(IUserContext userContext, ISecureFinder finder, IAPIIdentityServiceSettings identityServiceSettings) : base(userContext)
+        public GetPlatfromDtoService(IUserContext userContext, ISecureFinder finder) : base(userContext)
         {
             _finder = finder;
-            _identityServiceSettings = identityServiceSettings;
         }
 
-        protected override IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform> GetDto(long entityId)
+        protected override IDomainEntityDto<Platform.Model.Entities.Erm.Platform> GetDto(long entityId)
         {
-            return _finder.Find<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform>(x => x.Id == entityId)
+            return _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.Id == entityId)
                           .Select(entity => new PlatformDomainEntityDto
                               {
                                   Id = entity.Id,
@@ -45,10 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Platform.Model.Entities.Erm.Platform> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
-            return new PlatformDomainEntityDto
-                {
-                    IdentityServiceUrl = _identityServiceSettings.RestUrl
-                };
+            return new PlatformDomainEntityDto();
         }
     }
 }

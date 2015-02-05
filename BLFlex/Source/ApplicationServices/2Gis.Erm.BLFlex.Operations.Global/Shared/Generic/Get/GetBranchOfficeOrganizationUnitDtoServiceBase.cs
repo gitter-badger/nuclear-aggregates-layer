@@ -22,18 +22,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
     {
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
 
         protected GetBranchOfficeOrganizationUnitDtoServiceBase(
             IUserContext userContext,
             IBranchOfficeReadModel branchOfficeReadModel,
-            IOrganizationUnitReadModel organizationUnitReadModel,
-            IAPIIdentityServiceSettings identityServiceSettings)
+            IOrganizationUnitReadModel organizationUnitReadModel)
             : base(userContext)
         {
             _branchOfficeReadModel = branchOfficeReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
-            _identityServiceSettings = identityServiceSettings;
         }
 
         protected override IDomainEntityDto<BranchOfficeOrganizationUnit> GetDto(long entityId)
@@ -69,20 +66,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
         {
             var dto = new TDto();
 
-            dto.SetPropertyValue("IdentityServiceUrl", _identityServiceSettings.RestUrl);
-
             if (parentEntityName.Equals(EntityType.Instance.BranchOffice()))
-            {
-                var branchOfficeName = _branchOfficeReadModel.GetBranchOfficeName(parentEntityId.Value);
+                {
+                    var branchOfficeName = _branchOfficeReadModel.GetBranchOfficeName(parentEntityId.Value);
 
-                dto.SetPropertyValue("BranchOfficeRef", new EntityReference { Id = parentEntityId.Value, Name = branchOfficeName });
-                dto.SetPropertyValue("ShortLegalName", branchOfficeName); 
-            }
+                    dto.SetPropertyValue("BranchOfficeRef", new EntityReference { Id = parentEntityId.Value, Name = branchOfficeName });
+                    dto.SetPropertyValue("ShortLegalName", branchOfficeName); 
+                }
 
             if (parentEntityName.Equals(EntityType.Instance.OrganizationUnit()))
-            {
-                dto.SetPropertyValue("OrganizationUnitRef",
-                                            new EntityReference { Id = parentEntityId.Value, Name = _organizationUnitReadModel.GetName(parentEntityId.Value) });
+                {
+                    dto.SetPropertyValue("OrganizationUnitRef",
+                                         new EntityReference { Id = parentEntityId.Value, Name = _organizationUnitReadModel.GetName(parentEntityId.Value) });
             }
 
             return dto;

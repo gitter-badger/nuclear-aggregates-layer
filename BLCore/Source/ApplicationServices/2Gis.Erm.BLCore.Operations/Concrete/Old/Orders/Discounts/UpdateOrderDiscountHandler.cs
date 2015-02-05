@@ -31,32 +31,28 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
                 return Response.Empty;
             }
 
-            // при бюджетном заказе скидка нулевая
-            if (!originalOrderInfo.IsBudget)
-            {
-                // пересчитаем скидку, если на карточке подхимичили с ней в postback (режим паранойи)
-                var recalculateResponse = (RecalculateOrderDiscountResponse)_publicService.Handle(new RecalculateOrderDiscountRequest
-                {
-                    OrderId = order.Id,
-                    ReleaseCountFact = order.ReleaseCountFact,
+            // пересчитаем скидку, если на карточке подхимичили с ней в postback (режим паранойи)
+            var recalculateResponse = (RecalculateOrderDiscountResponse)_publicService.Handle(new RecalculateOrderDiscountRequest
+                                                                                                  {
+                                                                                                      OrderId = order.Id,
+                                                                                                      ReleaseCountFact = order.ReleaseCountFact,
 
-                    InPercents = request.DiscountInPercents,
-                    DiscountSum = order.DiscountSum ?? 0m,
-                    DiscountPercent = order.DiscountPercent ?? 0m,
-                });
+                                                                                                      InPercents = request.DiscountInPercents,
+                                                                                                      DiscountSum = order.DiscountSum ?? 0m,
+                                                                                                      DiscountPercent = order.DiscountPercent ?? 0m,
+                                                                                                  });
 
-                order.DiscountSum = recalculateResponse.CorrectedDiscountSum;
-                order.DiscountPercent = recalculateResponse.CorrectedDiscountPercent;
-            }
+            order.DiscountSum = recalculateResponse.CorrectedDiscountSum;
+            order.DiscountPercent = recalculateResponse.CorrectedDiscountPercent;
 
             _publicService.Handle(new UpdateOrderFinancialPerformanceRequest
-            {
-                Order = order,
-                ReleaseCountFact = order.ReleaseCountFact,
+                                      {
+                                          Order = order,
+                                          ReleaseCountFact = order.ReleaseCountFact,
 
-                RecalculateFromOrder = true,
-                OrderDiscountInPercents = request.DiscountInPercents,
-            });
+                                          RecalculateFromOrder = true,
+                                          OrderDiscountInPercents = request.DiscountInPercents,
+                                      });
 
             return Response.Empty;
         }

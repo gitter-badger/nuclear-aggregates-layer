@@ -88,15 +88,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Способ учета.
-        /// </summary>
-        public static string AccountingMethod {
-            get {
-                return ResourceManager.GetString("AccountingMethod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Номер счета.
         /// </summary>
         public static string AccountNumber {
@@ -3630,6 +3621,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Rut {
             get {
                 return ResourceManager.GetString("Rut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Модель продаж.
+        /// </summary>
+        public static string SalesModel {
+            get {
+                return ResourceManager.GetString("SalesModel", resourceCulture);
             }
         }
         

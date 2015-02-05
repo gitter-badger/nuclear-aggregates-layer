@@ -19,7 +19,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
             Id = modelDto.Id;
             Name = modelDto.Name;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

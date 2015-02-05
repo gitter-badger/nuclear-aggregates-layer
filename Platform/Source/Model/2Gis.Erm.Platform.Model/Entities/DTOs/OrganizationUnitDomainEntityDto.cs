@@ -65,8 +65,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public DateTime? InfoRussiaLaunchDate { get; set; }
-
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
     }
 }

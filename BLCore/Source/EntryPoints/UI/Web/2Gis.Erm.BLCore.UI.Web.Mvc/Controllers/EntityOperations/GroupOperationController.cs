@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -30,19 +31,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         private readonly IOperationsMetadataProvider _operationMetadataProvider;
 
         public GroupOperationController(IMsCrmSettings msCrmSettings,
-                                        IUserContext userContext,
-                                        ICommonLog logger,
-                                        IReplicationCodeConverter replicationCodeConverter,
-                                        IOperationsMetadataProvider operationMetadataProvider,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                        IAPIIdentityServiceSettings identityServiceSettings,
+                                        IUserContext userContext,
+                                        ICommonLog logger,
+                                        IGetBaseCurrencyService getBaseCurrencyService,
+                                        IReplicationCodeConverter replicationCodeConverter,
+                                        IOperationsMetadataProvider operationMetadataProvider)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _replicationCodeConverter = replicationCodeConverter;
             _operationMetadataProvider = operationMetadataProvider;

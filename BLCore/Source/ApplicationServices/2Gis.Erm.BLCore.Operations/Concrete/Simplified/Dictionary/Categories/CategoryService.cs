@@ -142,16 +142,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             _categoryOrganizationUnitRepository.Save();
         }
 
-        public string GetCategoryName(long categoryId)
-        {
-            return _finder.Find(Specs.Find.ById<Category>(categoryId)).Select(x => x.Name).Single();
-        }
-
-        public IReadOnlyDictionary<long, int> GetCategoryLevels(IEnumerable<long> categoryIds)
-        {
-            return _finder.Find(Specs.Find.ByIds<Category>(categoryIds)).ToDictionary(x => x.Id, x => x.Level);
-        }
-
         private IEnumerable<long> ResolveParentIds(IEnumerable<long> categoryIds)
         {
             return _finder.Find<Category>(category => categoryIds.Contains(category.Id))

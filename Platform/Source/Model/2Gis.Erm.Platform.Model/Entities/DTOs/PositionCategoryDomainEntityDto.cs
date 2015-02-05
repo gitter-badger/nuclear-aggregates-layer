@@ -44,8 +44,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool IsSupportedByExport { get; set; }
-
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
     }
 }

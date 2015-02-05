@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                                  .Select(rw => rw.AmountToWithdraw)
                                                                                  .FirstOrDefault(),
                                                             IsPlannedProvision =
-                                                                op.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision
+                                                                op.PricePosition.Position.SalesModel == SalesModel.PlannedProvision
                                                         })
                               })
                           .ToArray();
@@ -239,7 +239,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .Select(item => item.PricePosition.Position.PlatformId)
                           .Distinct()
                           .ToArray(); 
-
+            
             var platformId = platformIds.Count() > 1
                                  ? _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (long)PlatformEnum.Independent).Single().Id
                                  : platformIds.FirstOrDefault();
@@ -933,6 +933,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             order.EndDistributionDateFact = distributionDatesDto.EndDistributionDateFact;
         }
 
+        // COMMENT {all, 18.12.2014}: это PayablePriceWithVat
         public decimal GetPayablePlanSum(long orderId, int releaseCount)
         {
             return _finder.Find<OrderPosition>(x => x.OrderId == orderId)
@@ -949,10 +950,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                   ReleaseCountFact = x.ReleaseCountFact,
                                   DiscountInPercent = x.OrderPositions
                                                        .Where(y => !y.IsDeleted && y.IsActive)
-                                                       .All(y => y.CalculateDiscountViaPercent),
-                                  IsBudget = x.OrderPositions
-                                              .Any(y => !y.IsDeleted && y.IsActive &&
-                                                        y.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision)
+                                                                    .All(y => y.CalculateDiscountViaPercent)
                               })
                           .Single();
         }
@@ -1740,6 +1738,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
                 LegalPersonProfile = profiles.Length == 1 ? new EntityReference(profiles[0].Id, profiles[0].Name) : new EntityReference(),
             };
+        }
+
+        public OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(x => new OrderDtoToCheckPossibilityOfOrderPositionCreation
+                                           {
+                                               OrderId = x.Id,
+                                               FirmId = x.FirmId,
+                                               OrderPositions =
+                                                   x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                                    .Select(y => new OrderPositionSalesModelDto
+                                                                     {
+                                                                         OrderPositionId = y.Id,
+                                                                         SalesModel =
+                                                                             y.PricePosition
+                                                                              .Position
+                                                                              .SalesModel
+                                                                     })
+                                           }).Single();
         }
 
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)

@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -48,18 +49,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly IOperationServicesManager _operationServicesManager;
 
         public UploadController(IMsCrmSettings msCrmSettings,
-                                IUserContext userContext,
                                 IAPIOperationsServiceSettings operationsServiceSettings,
                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                IAPIIdentityServiceSettings identityServiceSettings,
+                                IUserContext userContext,
                                 ICommonLog logger,
                                 IGetBaseCurrencyService getBaseCurrencyService,
                                 IOperationServicesManager operationServicesManager)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
         }
