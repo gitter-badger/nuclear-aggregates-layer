@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             Getters[typeof(Guid)] = x => new Guid(x.TextValue);
             Getters[typeof(DateTime)] = x => x.DateTimeValue;
             Getters[typeof(DateTime?)] = x => x != null ? x.DateTimeValue : null;
-            Getters[typeof(EntityName)] = x => x.NumericValue.HasValue ? (EntityName)x.NumericValue : EntityName.None;
+            Getters[typeof(IEntityType)] = x => x.NumericValue.HasValue ? EntityType.Instance.Parse((int)x.NumericValue) : EntityType.Instance.None();
             Getters[typeof(AccountType)] = x => x.NumericValue.HasValue ? (AccountType)x.NumericValue : AccountType.NotSet;
             Getters[typeof(TaxationType)] = x => x.NumericValue.HasValue ? (TaxationType)x.NumericValue : TaxationType.NotSet;
             
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             Setters[typeof(Guid)] = (x, y) => x.TextValue = ((Guid)y).ToString();
             Setters[typeof(DateTime)] = (x, y) => x.DateTimeValue = (DateTime)y;
             Setters[typeof(DateTime?)] = (x, y) => x.DateTimeValue = (DateTime?)y;
-            Setters[typeof(EntityName)] = (x, y) => x.NumericValue = (int)y;
+            Setters[typeof(IEntityType)] = (x, y) => x.NumericValue = (int)y;
             Setters[typeof(AccountType)] = (x, y) => x.NumericValue = (int)y;
             Setters[typeof(TaxationType)] = (x, y) => x.NumericValue = (int)y;
         }

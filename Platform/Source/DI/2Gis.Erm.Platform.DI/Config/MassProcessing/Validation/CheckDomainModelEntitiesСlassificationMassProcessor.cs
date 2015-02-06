@@ -109,24 +109,27 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 
         private static void EntityNameUniqueness(StringBuilder report)
         {
-            var entityNameType = typeof(EntityName);
-            var entityNameMap = new Dictionary<EntityName, List<string>>();
-            var allEntityNameEntries = Enum.GetNames(entityNameType);
+            var entityNameMap = new Dictionary<IEntityType, List<string>>();
+            var allEntityNameEntries = EntityType.Instance.GetTypes();
 
             foreach (var entry in allEntityNameEntries)
             {
-                var entryValue = (EntityName)Enum.Parse(entityNameType, entry);
                 List<string> entriesList;
-                if (!entityNameMap.TryGetValue(entryValue, out entriesList))
+                if (!entityNameMap.TryGetValue(entry, out entriesList))
                 {
                     entriesList = new List<string>();
-                    entityNameMap.Add(entryValue, entriesList);
+                    entityNameMap.Add(entry, entriesList);
                 }
 
-                entriesList.Add(entry);
+                entriesList.Add(entry.Description);
             }
 
-            entityNameMap.Where(x => x.Value.Count > 1).Aggregate(report, (builder, pair) => builder.AppendFormat("Enum type {0} has entries {1} with the same value {2}{3}", entityNameType.Name, string.Join(", ", pair.Value), (int)pair.Key, Environment.NewLine));
+            entityNameMap.Where(x => x.Value.Count > 1)
+                         .Aggregate(report,
+                                    (builder, pair) => builder.AppendFormat("EntityType storege has entries {0} with the same value {1}{2}",
+                                                                            string.Join(", ", pair.Value),
+                                                                            pair.Key.Id,
+                                                                            Environment.NewLine));
 
             if (report.Length > 0)
             {
@@ -144,7 +147,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                     report.AppendFormat(
                         "Type {0} declared as persistance only and can't have mapping to {1}{2}",
                         type,
-                        typeof(EntityName).Name,
+                        typeof(EntityType).Name,
                         Environment.NewLine);
                 }
             }
@@ -264,7 +267,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                     report.AppendFormat(
                         "Type {0} is element of domain model, not persistance only, must have mapping {1}<->Entity Type {2}",
                         type,
-                        typeof(EntityName).Name,
+                        typeof(EntityType).Name,
                         Environment.NewLine);
                 }
             }
@@ -320,7 +323,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                     var messageExtension = _modelEntityTypesIndex.Contains(entityType) ? ". Target mapped type is element of domain model." : string.Empty;
                     report.AppendFormat(
                         "{0} {1} is declared as virtual and can't have mapping to entity type {2}{3}{4}",
-                        typeof(EntityName).Name,
+                        typeof(EntityType).Name,
                         entityName,
                         entityType,
                         messageExtension,

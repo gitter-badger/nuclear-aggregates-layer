@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
         private readonly HierarchyMetadata _autonomousMetadataMetadata =
                HierarchyMetadata
                    .Config
-                   .Id.Is(IdBuilder.For<MetadataEntitiesIdentity>(EntityName.PerformedBusinessOperation.ToString()))
+                   .Id.Is(IdBuilder.For<MetadataEntitiesIdentity>(EntityType.Instance.PerformedBusinessOperation().Description))
                    .WithFeatures(new RelatedEntityFeature(EntityType.Instance.PerformedBusinessOperation()))
                    .Childs(
                         EntityPropertyMetadata.Create<PerformedBusinessOperationDomainEntityDto>(dto => dto.Id).WithFeatures(new HiddenFeature()),

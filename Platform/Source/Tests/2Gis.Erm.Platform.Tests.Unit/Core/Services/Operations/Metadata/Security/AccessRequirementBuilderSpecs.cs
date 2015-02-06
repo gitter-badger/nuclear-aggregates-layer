@@ -1,7 +1,6 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Limit;
 
@@ -73,7 +72,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Services.Operations.Metadata.Se
             where TIdentity : IdentityBase<TIdentity>, new()
         {
             protected static OperationAccessRequirement<TIdentity> _actionPassedParameter;
-            protected static EntityName[] _expectedEntityNames;
+            protected static IEntityType[] _expectedEntityNames;
             protected static IOperationAccessRequirement _result;
 
             It should_have_same_result_and_action_passed_parameter = () => _result.Should().BeSameAs(_actionPassedParameter);

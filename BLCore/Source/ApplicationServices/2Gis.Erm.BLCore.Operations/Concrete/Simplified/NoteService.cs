@@ -15,6 +15,8 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 {
     public class NoteService : INoteService
@@ -47,14 +49,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
             _fileContentFinder = fileContentFinder;
         }
 
-        public void CreateOrUpdate(Note note, EntityName parentEntityName, long ownerCode)
+        public void CreateOrUpdate(Note note, IEntityType parentEntityName, long ownerCode)
         {
-            if (parentEntityName == EntityName.None)
+            if (parentEntityName.Equals(EntityType.Instance.None()))
             {
                 throw new BusinessLogicException(BLResources.EntityNameNotSpecified);
             }
 
-            note.ParentType = (int)parentEntityName;
+            note.ParentType = parentEntityName.Id;
 
             if (ownerCode == 0)
             {
