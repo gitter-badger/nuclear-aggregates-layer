@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
 
         private string ResolveOperationEntitiesDescription(StrictOperationIdentity operationIdentity)
         {
-            return operationIdentity.Entities.Contains(EntitySet.EmptySetIndicator) ? null : string.Join(";", operationIdentity.Entities.Cast<int>());
+            return operationIdentity.Entities.Contains(EntitySet.EmptySetIndicator) ? null : string.Join(";", operationIdentity.Entities.Select(x => x.Id));
         }
 
         private string SerializeOperationChanges(OperationScopeNode declaredChanges)

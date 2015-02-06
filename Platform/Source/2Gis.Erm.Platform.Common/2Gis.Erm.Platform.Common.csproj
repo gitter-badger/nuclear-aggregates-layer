@@ -108,6 +108,7 @@
     <Compile Include="Prerequisites\СonsideringPrerequisitesComparer.cs" />
     <Compile Include="PrintFormEngine\PrintData.cs" />
     <Compile Include="Serialization\DotNet2JavaScriptDateTimeConverter.cs" />
+    <Compile Include="Serialization\EntityTypeToStringConverter.cs" />
     <Compile Include="Serialization\Int64ToStringConverter.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\ISettingsAspect.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Web.Mvc;
 
@@ -11,12 +12,11 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
     public sealed class JsonNetStrictResult : ActionResult
     {
         private static readonly DotNet2JavaScriptDateTimeConverter CustomDateTimeConverter = new DotNet2JavaScriptDateTimeConverter();
+        private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings();
 
         public JsonNetStrictResult()
         {
-            SerializerSettings = new JsonSerializerSettings();
-            SerializerSettings.Converters.Add(CustomDateTimeConverter);
-
+            _serializerSettings.Converters.Add(CustomDateTimeConverter);
             Formatting = Formatting.None;
         }
 
@@ -25,12 +25,15 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
             Data = data;
         }
 
-        public Encoding ContentEncoding { get; set; }
         public string ContentType { get; set; }
-        public object Data { get; set; }
+        public Encoding ContentEncoding { private get; set; }
+        public Formatting Formatting { get; private set; }
+        public object Data { get; private set; }
 
-        public JsonSerializerSettings SerializerSettings { get; set; }
-        public Formatting Formatting { get; set; }
+        public IList<JsonConverter> Converters
+        {
+            get { return _serializerSettings.Converters; }
+        } 
 
         public override void ExecuteResult(ControllerContext context)
         {
@@ -54,7 +57,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
             var writer = new JsonTextWriter(response.Output) { Formatting = Formatting };
 
-            var serializer = JsonSerializer.Create(SerializerSettings);
+            var serializer = JsonSerializer.Create(_serializerSettings);
             serializer.Serialize(writer, Data);
             writer.Flush();
         } 
