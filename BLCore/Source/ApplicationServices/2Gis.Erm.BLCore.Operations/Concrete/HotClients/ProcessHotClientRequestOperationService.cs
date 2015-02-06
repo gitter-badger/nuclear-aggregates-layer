@@ -2,7 +2,6 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.HotClients;
@@ -17,21 +16,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
     {
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IFirmReadModel _firmReadModel;
-        private readonly ITaskReadModel _taskReadModel;
+
         private readonly ICreateTaskAggregateService _createTaskAggregateService;
         private readonly IUpdateTaskAggregateService _updateTaskAggregateService;
         private readonly IBindTaskToHotClientRequestAggregateService _bindTaskToHotClientRequestAggregateService;
 
         public ProcessHotClientRequestOperationService(
             IFirmReadModel firmReadModel,
-            ITaskReadModel taskReadModel,
             ICreateTaskAggregateService createTaskAggregateService,
             IUpdateTaskAggregateService updateUpdateTaskAggregateService,
             IBindTaskToHotClientRequestAggregateService bindTaskToHotClientRequestAggregateService,
             IOperationScopeFactory scopeFactory)
         {
             _firmReadModel = firmReadModel;
-            _taskReadModel = taskReadModel;
             _createTaskAggregateService = createTaskAggregateService;
             _updateTaskAggregateService = updateUpdateTaskAggregateService;
             _bindTaskToHotClientRequestAggregateService = bindTaskToHotClientRequestAggregateService;
@@ -45,13 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                 var task = CreateTask(hotClientRequest, ownerId);
                 AttachRegardingObject(task, regardingObject);
 
-                // TODO {all, 24.09.2014}: по-прежнему работаем с Guid'ами, т.к. HotClientRequest.TaskId того же типа, это надо будет менять синхронно после выхода ERM действий
-                // только из-за этого мы должны заново прочитать задачу, так как ReplicationCode назначен при сохранении без синхронизации
-                // как будет связь по task.Id - чтение надо убрать
-                task = _taskReadModel.GetTask(task.Id);
-                var replicationCode = task.ReplicationCode;
-
-                BindTask(hotClientRequest.Id, replicationCode);
+                BindTask(hotClientRequest.Id, task.Id);
 
                 scope.Complete();
             }
@@ -98,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                                                                    });
         }
 
-        private void BindTask(long requestId, Guid taskId)
+        private void BindTask(long requestId, long taskId)
         {
             var hotClientRequest = _firmReadModel.GetHotClientRequest(requestId);
             _bindTaskToHotClientRequestAggregateService.BindTask(hotClientRequest, taskId);
