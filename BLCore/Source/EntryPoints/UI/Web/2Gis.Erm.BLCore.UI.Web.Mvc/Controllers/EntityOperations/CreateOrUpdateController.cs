@@ -16,6 +16,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -32,7 +33,6 @@ using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.Controll
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
-    // FIXME {all, 22.02.2014}: добавить в данные передавемые на карточку в create usecase (возможно одновреммено с разделением на update и create) url до IdentityService - при этом удалить протаксивание этого URL, через многие DomainEntityDto (удалив при этом и соответсвующие partial части этих DTO), то же касается и MVC ViewModel
     public sealed class CreateOrUpdateController<TEntity, TModel, TAdapted> : ControllerBase
         where TEntity : class, IEntityKey
         where TModel : EntityViewModelBase<TEntity>, new()
@@ -46,30 +46,26 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
 
-        public CreateOrUpdateController(IBusinessModelSettings businessModelSettings,
-                                        IMsCrmSettings msCrmSettings,
+        public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
+                                        IAPIOperationsServiceSettings operationsServiceSettings,
+                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                        IAPIIdentityServiceSettings identityServiceSettings,
                                         IUserContext userContext,
                                         ICommonLog logger,
+                                        IGetBaseCurrencyService getBaseCurrencyService,
                                         IUIConfigurationService uiConfigurationService,
                                         IUIServicesManager uiServicesManager,
+                                        IBusinessModelSettings businessModelSettings,
                                         IOperationServicesManager operationServicesManager,
                                         ISecurityServiceUserIdentifier userIdentifierService,
                                         ISecurityServiceFunctionalAccess functionalAccessService,
-                                        ISecurityServiceEntityAccess entityAccessService,
-                                        IAPIOperationsServiceSettings operationsServiceSettings,
-                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                        ISecurityServiceEntityAccess entityAccessService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
-            _businessModelSettings = businessModelSettings;
-            _operationServicesManager = operationServicesManager;
             _uiConfigurationService = uiConfigurationService;
             _uiServicesManager = uiServicesManager;
+            _businessModelSettings = businessModelSettings;
+            _operationServicesManager = operationServicesManager;
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
             _entityAccessService = entityAccessService;

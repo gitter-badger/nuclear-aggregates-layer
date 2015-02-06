@@ -12,14 +12,19 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         {
             public static class Find
             {
-                public static FindSpecification<FirmAddress> ActiveByFirmId(long firmId)
+                public static FindSpecification<FirmAddress> NotBelongToFirm(long firmId)
                 {
-                    return new FindSpecification<FirmAddress>(address => address.FirmId == firmId && (address.IsActive && !address.IsDeleted));
+                    return new FindSpecification<FirmAddress>(address => address.FirmId != firmId);
                 }
 
-                public static FindSpecification<FirmAddress> ActiveOrWithSalesByFirmId(long firmId)
+                public static FindSpecification<FirmAddress> ByFirmId(long firmId)
                 {
-                    return new FindSpecification<FirmAddress>(address => address.FirmId == firmId && (address.IsActive && !address.IsDeleted || address.OrderPositionAdvertisements.Any()));
+                    return new FindSpecification<FirmAddress>(address => address.FirmId == firmId);
+                }
+
+                public static FindSpecification<FirmAddress> WithSales()
+                {
+                    return new FindSpecification<FirmAddress>(address => address.OrderPositionAdvertisements.Any());
                 }
 
                 public static FindSpecification<FirmAddress> ByFirmIds(IEnumerable<long> firmIds)
