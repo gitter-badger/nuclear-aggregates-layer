@@ -17,6 +17,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -122,15 +123,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
                     var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(orderPosition.PricePositionId))
                                                    .Select(x => new
-                                                               {
-                                                                   x.Cost,
-                                                                   SalesModel = x.Position.SalesModel,
-                                                                   x.Price.OrganizationUnitId,
-                                                                   x.RateType,
-                                                                   x.Position.IsComposite,
-                                                                   x.PositionId,
-                                                                   x.PriceId
-                                                               })
+                                                                    {
+                                                                        x.Cost,
+                                                                        SalesModel = x.Position.SalesModel,
+                                                                        x.Price.OrganizationUnitId,
+                                                                        x.RateType,
+                                                                        x.Position.IsComposite,
+                                                                        x.PositionId,
+                                                                        x.PriceId
+                                                                    })
                                                    .Single();
 
                     if (orderInfo.DestOrganizationUnitId != pricePositionInfo.OrganizationUnitId)
@@ -141,8 +142,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     if (request.CategoryIds.Any())
                     {
                         var unsupported = _categoryReadModel.PickCategoriesUnsupportedBySalesModelInOrganizationUnit(pricePositionInfo.SalesModel,
-                                                                                                                   orderInfo.DestOrganizationUnitId,
-                                                                                                                   request.CategoryIds);
+                                                                                      orderInfo.DestOrganizationUnitId,
+                                                                                      request.CategoryIds);
                         if (unsupported.Any())
                         {
                             var organizationUnitName = _organizationUnitReadModel.GetName(orderInfo.DestOrganizationUnitId);
@@ -155,19 +156,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     if (pricePositionInfo.IsComposite)
                     {
                         var positionInfo = new CalcPositionWithDiscountInfo
-                                               {
-                                                   PositionInfo = new CalcPositionInfo
-                                                                      {
-                                                                          Amount = orderPosition.Amount,
-                                                                          PositionId = pricePositionInfo.PositionId,
-                                                                      },
-                                                   DiscountInfo = new DiscountInfo
-                                                                      {
-                                                                          Percent = orderPosition.DiscountPercent,
-                                                                          Sum = orderPosition.DiscountSum,
-                                                                          CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent
-                                                                      }
-                                               };
+                        {
+                            PositionInfo = new CalcPositionInfo
+                            {
+                                Amount = orderPosition.Amount,
+                                PositionId = pricePositionInfo.PositionId,
+                            },
+                            DiscountInfo = new DiscountInfo
+                            {
+                                Percent = orderPosition.DiscountPercent,
+                                Sum = orderPosition.DiscountSum,
+                                CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent
+                            }
+                        };
 
                         var calcResult = _calculateOrderPositionCostService.CalculateOrderPositionCost(orderInfo.OrderType,
                                                                                                        orderInfo.ReleaseCountFact,
@@ -191,20 +192,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     else
                     {
                         var categoryRate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculated(request.Entity.OrderId,
-                                                                                                                    request.Entity.PricePositionId,
-                                                                                                                    request.CategoryIds);
+                                                                       request.Entity.PricePositionId,
+                                                                       request.CategoryIds);
 
                         var calculateOrderPositionPricesResponse =
                             (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
-                                                                                            {
-                                                                                                Cost = pricePositionInfo.Cost,
-                                                                                                DiscountPercent = orderPosition.DiscountPercent,
-                                                                                                DiscountSum = orderPosition.DiscountSum,
-                                                                                                CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
-                                                                                                OrderId = orderPosition.OrderId,
-                                                                                                CategoryRate = categoryRate,
-                                                                                                Amount = orderPosition.Amount
-                                                                                            });
+                            {
+                                Cost = pricePositionInfo.Cost,
+                                DiscountPercent = orderPosition.DiscountPercent,
+                                DiscountSum = orderPosition.DiscountSum,
+                                CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
+                                OrderId = orderPosition.OrderId,
+                                CategoryRate = categoryRate,
+                                Amount = orderPosition.Amount
+                            });
 
                         orderPosition.CategoryRate = calculateOrderPositionPricesResponse.CategoryRate;
                         orderPosition.ShipmentPlan = calculateOrderPositionPricesResponse.ShipmentPlan;
@@ -217,7 +218,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                         orderPosition.DiscountSum = calculateOrderPositionPricesResponse.DiscountSum;
                     }
 
-                    ValidateEntity(orderPosition, pricePositionInfo.SalesModel == SalesModel.PlannedProvision);
+                    ValidateEntity(orderPosition, pricePositionInfo.SalesModel);
 
                     // Сохраняем изменения OrderPosition в БД
                     _orderRepository.CreateOrUpdate(orderPosition);
@@ -258,7 +259,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             return Response.Empty;
         }
 
-        private static void ValidateEntity(OrderPosition entity, bool isSinglePlannedProvisionSalesModel)
+        private static void ValidateEntity(OrderPosition entity, SalesModel salesModel)
         {
             if (entity == null)
             {
@@ -290,9 +291,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                 throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithNegativePrice);
             }
 
-            if (isSinglePlannedProvisionSalesModel && entity.Amount != 1)
+            if (salesModel == SalesModel.PlannedProvision && entity.Amount != 1)
             {
-                throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne);
+                throw new NotificationException(string.Format(BLResources.AttemptToSaveOrderPositionWithAmountNotEqualToOne,
+                                                              salesModel.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
             }
         }
     }

@@ -2,7 +2,6 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
@@ -17,13 +16,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetThemeDtoService : GetDomainEntityDtoServiceBase<Theme>
     {
         private readonly IFinder _finder;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
         private readonly IThemeRepository _themeRepository;
 
-        public GetThemeDtoService(IUserContext userContext, IFinder finder, IAPIIdentityServiceSettings identityServiceSettings, IThemeRepository themeRepository) : base(userContext)
+        public GetThemeDtoService(IUserContext userContext, IFinder finder, IThemeRepository themeRepository) : base(userContext)
         {
             _finder = finder;
-            _identityServiceSettings = identityServiceSettings;
             _themeRepository = themeRepository;
         }
 
@@ -66,7 +63,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 {
                     BeginDistribution = DateTime.Now.GetNextMonthFirstDate(),
                     EndDistribution = DateTime.Now.GetNextMonthLastDate(),
-                    IdentityServiceUrl = _identityServiceSettings.RestUrl,
                     OrganizationUnitCount = 0,
                 };
 

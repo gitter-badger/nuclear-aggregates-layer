@@ -43,7 +43,5 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Russia
         public DateTime? ModifiedOn { get; set; }
         [DataMember]
         public byte[] Timestamp { get; set; }
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
     }
 }

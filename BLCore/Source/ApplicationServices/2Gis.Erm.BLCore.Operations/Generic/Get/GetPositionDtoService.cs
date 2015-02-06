@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -18,19 +17,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
         private readonly ISecureFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
         private readonly IPositionRepository _positionRepository;
         private readonly IUserContext _userContext;
 
         public GetPositionDtoService(IUserContext userContext,
                                      ISecureFinder finder,
                                      IPositionRepository positionRepository,
-                                     IAPIIdentityServiceSettings identityServiceSettings,
                                      ISecurityServiceFunctionalAccess functionalAccessService) : base(userContext)
         {
             _finder = finder;
             _positionRepository = positionRepository;
-            _identityServiceSettings = identityServiceSettings;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
         }
@@ -75,7 +71,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             return new PositionDomainEntityDto
                 {
-                    IdentityServiceUrl = _identityServiceSettings.RestUrl,
                     RestrictChildPositionPlatformsCanBeChanged =
                         _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PositionAdministrationCode, _userContext.Identity.Code),
                     SalesModel = SalesModel.GuaranteedProvision
