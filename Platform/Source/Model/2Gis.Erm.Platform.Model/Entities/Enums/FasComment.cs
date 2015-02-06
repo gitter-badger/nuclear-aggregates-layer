@@ -24,8 +24,13 @@
         ChileDrugsAndService = 302,
         ChileMedicalReceiptDrugs = 303,
 
-        UkraineDrugsAndService = 401,
-        UkraineAlcohol = 402,
-        UkraineTobaccoGoods = 403,
+        // Были 401, 402, 403 - но теперь полностью выпилены. Использовать повторно не стоит.
+        UkraineAutotherapy = 404,
+        UkraineDrugs = 405,
+        UkraineMedicalDevice = 406,
+        UkraineAlcohol = 407,
+        UkraineSoundPhonogram = 408,
+        UkraineSoundLive = 409,
+        UkraineEmploymentAssistance = 410,
     }
 }
