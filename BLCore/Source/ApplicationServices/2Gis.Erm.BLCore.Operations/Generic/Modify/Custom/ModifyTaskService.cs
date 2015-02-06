@@ -38,9 +38,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var taskDto = (TaskDomainEntityDto)domainEntityDto;
-            if (taskDto.RegardingObjects==null || !taskDto.RegardingObjects.Any())
+            if (taskDto.RegardingObjects == null || !taskDto.RegardingObjects.Any())
             {
-                throw new NotificationException(BLResources.NoRegardingObjectValidationError);
+                throw new BusinessLogicException(BLResources.NoRegardingObjectValidationError);
             }
 
             var task = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);

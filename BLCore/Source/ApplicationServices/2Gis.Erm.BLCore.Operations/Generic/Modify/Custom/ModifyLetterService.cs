@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             var letterDto = (LetterDomainEntityDto)domainEntityDto;
             if (letterDto.RegardingObjects == null || !letterDto.RegardingObjects.Any())
             {
-                throw new NotificationException(BLResources.NoRegardingObjectValidationError);
+                throw new BusinessLogicException(BLResources.NoRegardingObjectValidationError);
             }
 
             var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
