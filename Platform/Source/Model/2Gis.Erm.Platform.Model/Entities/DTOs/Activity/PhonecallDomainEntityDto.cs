@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         [DataMember]
         public ActivityStatus Status { get; set; }
         [DataMember]
-		public ActivityPurpose Purpose { get; set; }
+		public PhonecallPurpose Purpose { get; set; }
         [DataMember]
         public IEnumerable<EntityReference> RegardingObjects { get; set; }
         [DataMember]
