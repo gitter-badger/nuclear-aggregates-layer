@@ -44,7 +44,6 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
             {
                 new CheckApplicationServicesConventionsMassProcessor(), 
                 new CheckDomainModelEntitiesConsistencyMassProcessor(),
-                new MetadataSourcesMassProcessor(container),
                 new AggregatesLayerMassProcessor(container),
                 new SimplifiedModelConsumersProcessor(container), 
                 new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 

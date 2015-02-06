@@ -61,7 +61,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Boundaries\IPrintingBoundedContext.cs" />
-    <Compile Include="DI\PlatformModelMetadataAssembly.cs" />
     <Compile Include="DI\MetadataZone.cs" />
     <Compile Include="Entities\Configuration\LookupAttributeProvider.cs" />
     <Compile Include="Entities\EAV\DynamicEntityPropertyAccessor.cs" />
