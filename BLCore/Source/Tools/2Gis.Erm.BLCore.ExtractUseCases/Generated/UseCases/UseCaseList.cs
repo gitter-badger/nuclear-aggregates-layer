@@ -224,26 +224,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Handlers.OrderPositions.EditOrderPositionHandler\Handle",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CanCreateOrderPositionForOrderHandler),
-                        Request = typeof(CanCreateOrderPositionForOrderRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\CanCreateOrderPositionsForOrder",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CanCreateOrderPositionForOrderHandler),
-                        Request = typeof(CanCreateOrderPositionForOrderRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintOrder",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)

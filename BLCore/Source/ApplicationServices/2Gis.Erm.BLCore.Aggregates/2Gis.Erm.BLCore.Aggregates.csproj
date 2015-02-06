@@ -199,6 +199,8 @@
     <Compile Include="Orders\Operations\OrderPositions\OrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
+    <Compile Include="Positions\SalesModelUtil.cs" />
+    <Compile Include="SimplifiedModel\Categories\ReadModel\CategoryReadModel.cs" />
     <Compile Include="Roles\ReadModel\RoleReadModel.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationResultAggregateService.cs" />
@@ -226,9 +228,8 @@
     <Compile Include="Prices\Operations\UpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\UpdatePricePositionAggregateService.cs" />
     <Compile Include="Prices\PositionRepository.cs" />
-    <Compile Include="Prices\PositionSpecifications.cs" />
+    <Compile Include="Prices\PositionSpecs.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
-    <Compile Include="Positions\ReadModel\PositionReadModel.NewSalesModel.cs" />
     <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
     <Compile Include="Common\Generics\ActivateAggregateRepository.cs" />
     <Compile Include="Common\Generics\AssignAggregateRepository.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Settings\DebtProcessingSettingsAspect.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\BargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\ContributionTypeReadModel.cs" />
+    <Compile Include="Themes\ReadModel\ThemeReadModel.cs" />
     <Compile Include="Themes\ThemeRepository.cs" />
     <Compile Include="Users\ActivateUserAggregateService.cs" />
     <Compile Include="Users\DeactivateUserAggregateService.cs" />

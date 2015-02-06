@@ -158,8 +158,7 @@
     <Compile Include="Common\Generics\IQualifyAggregateRepository.cs" />
     <Compile Include="Common\Generics\IUpdateAggregateRepository.cs" />
     <Compile Include="Common\Generics\IUploadFileAggregateRepository.cs" />
-    <Compile Include="Common\Specs\Dictionary\CategorySpecifications.cs" />
-    <Compile Include="Common\Specs\Dictionary\NewSalesModelRestrictions.cs" />
+    <Compile Include="Common\Specs\Dictionary\CategorySpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\OrganizationUnitSpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\TerritoryDtoSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
@@ -285,7 +284,6 @@
     <Compile Include="Orders\ReadModel\OrderSpecs.Bills.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositionAdvertisements.cs" />
-    <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderReleaseTotals.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
@@ -331,6 +329,7 @@
     <Compile Include="Roles\IRoleRepository.cs" />
     <Compile Include="Roles\ReadModel\RoleSpecs.Relations.cs" />
     <Compile Include="Settings\IDebtProcessingSettings.cs" />
+    <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />
@@ -338,6 +337,7 @@
     <Compile Include="Themes\DTO\ThemeTemplateUsageDto.cs" />
     <Compile Include="Themes\DTO\ThemeUsageDto.cs" />
     <Compile Include="Themes\IThemeRepository.cs" />
+    <Compile Include="Themes\ReadModel\IThemeReadModel.cs" />
     <Compile Include="Themes\ThemeSpecifications.cs" />
     <Compile Include="Users\Dto\OrdanizationUnitDto.cs" />
     <Compile Include="Users\Dto\OrganizationUnitWithUsersDto.cs" />

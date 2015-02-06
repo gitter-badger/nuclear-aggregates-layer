@@ -1,5 +1,5 @@
 ﻿
-@model Models.PositionViewModel
+@model PositionViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -17,7 +17,6 @@
                                 : new Dictionary<string, object>();
     }
     
-    @Html.HiddenFor(m => m.IdentityServiceUrl)
     @Html.HiddenFor(m => m.IsPublished)
     @Html.HiddenFor(m => m.IsReadonlyTemplate)
     @Html.HiddenFor(m => m.RestrictChildPositionPlatformsCanBeChanged)
@@ -48,7 +47,7 @@
             @Html.TemplateField(m => m.BindingObjectType, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.SalesModel, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Platform, ReadOnly = Model.IsPublished })

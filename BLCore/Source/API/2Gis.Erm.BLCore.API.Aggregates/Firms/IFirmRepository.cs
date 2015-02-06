@@ -26,7 +26,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         int SetFirmClient(Firm firm, long clientId);
         int ChangeTerritory(Firm firm, long territoryId);
         int ChangeTerritory(IEnumerable<Firm> firm, long territoryId);
-        IEnumerable<long> GetFirmAddressesIds(long firmId);
         IEnumerable<Firm> GetFirmsByTerritory(long territoryId);
 
         IEnumerable<OrganizationUnitDto> ExportFirmWithActiveOrders();
@@ -59,11 +58,5 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         void SetFirmAddressAdditionalServices(long firmAddressId, IEnumerable<AdditionalServicesDto> additionalServices);
 
         bool IsTerritoryReplaceable(long oldTerritoryId, long newTerritoryId);
-
-        // TODO {d.ivanov, 19.12.2013}: IReadModel
-        IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds);
-
-        // todo {d.ivanov, 2013-11-21}: IReadModel
-        long GetFirmAddressOrganizationUnitId(long cardCode);
     }
 }
