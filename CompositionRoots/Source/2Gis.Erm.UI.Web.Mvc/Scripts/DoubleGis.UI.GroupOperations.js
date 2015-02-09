@@ -119,7 +119,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         var entityNamesArray = new Array(this.Config.Entities.length);
         var entityReplicationCodesArray = new Array(this.Config.Entities.length);
         for (var i = 0; i < this.Config.Entities.length; i++) {
-            entityNamesArray[i] = GetErmEntityName(this.Config.Entities[i].EntityTypeCode);
+            entityNamesArray[i] = this.Config.Entities[i].EntityTypeName;
             entityReplicationCodesArray[i] = this.Config.Entities[i].EntityId;
         }
         var response = window.Ext.Ajax.syncRequest({
