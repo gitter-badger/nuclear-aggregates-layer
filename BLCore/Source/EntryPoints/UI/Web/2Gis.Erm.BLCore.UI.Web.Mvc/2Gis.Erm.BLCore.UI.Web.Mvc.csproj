@@ -367,6 +367,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Assign.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GroupOperation\ChangeActivityStatus.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeActivityStatus.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GroupOperation\ChangeClientTerritory.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -607,6 +612,10 @@
     <None Include="Views\GroupOperation\Assign.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Assign.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\ChangeActivityStatus.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeActivityStatus.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\GroupOperation\ChangeClientTerritory.cshtml">
       <Generator>RazorGenerator</Generator>
