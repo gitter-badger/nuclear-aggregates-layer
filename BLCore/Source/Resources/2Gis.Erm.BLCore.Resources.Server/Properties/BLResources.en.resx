@@ -4987,7 +4987,7 @@ Placement period: {3}.</value>
     <value>Errors</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>File</value>
+     <value>File</value>
   </data>
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value>Cannot activate an item from a published price-list</value>
@@ -5184,5 +5184,8 @@ Placement period: {3}.</value>
   </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
     <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
   </data>
 </root>

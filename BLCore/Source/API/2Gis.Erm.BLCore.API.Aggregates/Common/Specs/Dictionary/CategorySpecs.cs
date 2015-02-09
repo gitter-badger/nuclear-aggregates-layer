@@ -20,10 +20,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
 
                            // Ограничение по моделям продаж действует только для рубрик 3-го уровня
                            (!ByLevel(3) || RestrictedBySalesModelAndOrganizationUnit(salesModel, organizationUnitId));
-                }
+                    }
 
                 private static FindSpecification<Category> ForOrganizationUnit(long organizationUnitId)
-                {
+                    {
                     return new FindSpecification<Category>(x => x.CategoryOrganizationUnits.Any(y => y.IsActive && !y.IsDeleted && y.OrganizationUnitId == organizationUnitId));
                 }
 
