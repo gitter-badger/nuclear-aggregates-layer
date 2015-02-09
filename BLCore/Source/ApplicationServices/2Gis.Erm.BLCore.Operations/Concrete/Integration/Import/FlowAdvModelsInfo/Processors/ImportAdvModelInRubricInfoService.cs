@@ -10,12 +10,14 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Charge;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvModelsInfo.Processors
 {
+    [UseCase(Duration = UseCaseDuration.VeryLong)]
     public class ImportAdvModelInRubricInfoService : IImportAdvModelInRubricInfoService
     {
         private readonly ISalesModelCategoryRestrictionReadModel _restrictionReadModel;
@@ -23,22 +25,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvMod
         private readonly IBulkCreateSalesModelCategoryRestrictionsService _bulkCreateSalesModelCategoryRestrictionsService;
         private readonly IBulkDeleteSalesModelCategoryRestrictionsService _bulkDeleteSalesModelCategoryRestrictionsService;
         private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
+        private readonly IUseCaseTuner _useCaseTuner;
 
         public ImportAdvModelInRubricInfoService(ISalesModelCategoryRestrictionReadModel restrictionReadModel,
                                                  IOperationScopeFactory operationScopeFactory,
                                                  IBulkCreateSalesModelCategoryRestrictionsService bulkCreateSalesModelCategoryRestrictionsService,
                                                  IBulkDeleteSalesModelCategoryRestrictionsService bulkDeleteSalesModelCategoryRestrictionsService,
-                                                 IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService)
+                                                 IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
+                                                 IUseCaseTuner useCaseTuner)
         {
             _restrictionReadModel = restrictionReadModel;
             _operationScopeFactory = operationScopeFactory;
             _bulkCreateSalesModelCategoryRestrictionsService = bulkCreateSalesModelCategoryRestrictionsService;
             _bulkDeleteSalesModelCategoryRestrictionsService = bulkDeleteSalesModelCategoryRestrictionsService;
             _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
+            _useCaseTuner = useCaseTuner;
         }
 
         public void Import(IEnumerable<IServiceBusDto> dtos)
         {
+            _useCaseTuner.AlterDuration<ImportAdvModelInRubricInfoService>();
             using (var scope = _operationScopeFactory.CreateNonCoupled<ImportAdvModelInRubricInfoIdentity>())
             {
                 foreach (var dto in dtos)
