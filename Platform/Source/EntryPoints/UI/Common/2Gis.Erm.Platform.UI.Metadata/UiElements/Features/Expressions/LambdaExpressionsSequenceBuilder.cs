@@ -33,14 +33,14 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
 
         public LambdaExpressionsSequence ToSequence()
         {
-            return new LambdaExpressionsSequence(null, LogicalOperation.And);
+            return new LambdaExpressionsSequence(Expressions.ToArray(), LogicalOperation.And);
         }
 
         public LambdaExpressionsSequenceBuilder And(LambdaExpressionsSequenceBuilder builder2)
         {
             if (SequenceOperation.HasValue && SequenceOperation.Value != LogicalOperation.And)
             {
-                throw new InvalidOperationException("The sequence cannot contain different operators");
+                throw new InvalidOperationException("The sequence can't contain different operators");
             }
 
             SequenceOperation = LogicalOperation.And;
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
         {
             if (SequenceOperation.HasValue && SequenceOperation.Value != LogicalOperation.Or)
             {
-                throw new InvalidOperationException("The sequence cannot contain different operators");
+                throw new InvalidOperationException("The sequence can't contain different operators");
             }
 
             SequenceOperation = LogicalOperation.Or;
