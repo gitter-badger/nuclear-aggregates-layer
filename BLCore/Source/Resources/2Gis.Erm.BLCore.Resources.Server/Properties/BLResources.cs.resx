@@ -5173,4 +5173,7 @@ Doba zveřejnění: {3}.</value>
     <value>Data začátku a konce schůzky nejsou správně naplánovány.
 </value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Pole Klient, Obchod, Firma jsou prazdne. Je treba vyplnit alespon jedno z techto poli</value>
+  </data>
 </root>

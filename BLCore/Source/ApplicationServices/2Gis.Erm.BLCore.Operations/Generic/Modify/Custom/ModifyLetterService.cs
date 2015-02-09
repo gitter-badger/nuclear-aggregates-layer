@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -35,8 +38,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var letterDto = (LetterDomainEntityDto)domainEntityDto;
-            var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
+            if (letterDto.RegardingObjects == null || !letterDto.RegardingObjects.Any())
+            {
+                throw new BusinessLogicException(BLResources.NoRegardingObjectValidationError);
+            }
 
+            var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
+           
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 IEnumerable<LetterRegardingObject> oldRegardingObjects = null;

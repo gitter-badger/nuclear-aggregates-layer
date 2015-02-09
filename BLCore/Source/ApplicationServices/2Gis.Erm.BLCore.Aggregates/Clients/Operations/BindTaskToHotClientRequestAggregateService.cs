@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.Operations
             _scopeFactory = scopeFactory;
         }
 
-        public void BindTask(HotClientRequest hotClientRequest, Guid taskId)
+        public void BindTask(HotClientRequest hotClientRequest, long taskId)
         {
             if (hotClientRequest == null)
             {

@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string Description { get; set; }
         public long? CardCode { get; set; }
         public long? BranchCode { get; set; }
-        public Guid? TaskId { get; set; }
+        public long? TaskId { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }
