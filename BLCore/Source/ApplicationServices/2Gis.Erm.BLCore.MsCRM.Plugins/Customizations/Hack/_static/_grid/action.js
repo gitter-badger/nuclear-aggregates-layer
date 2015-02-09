@@ -14,7 +14,7 @@ function getSelected(sGridName, details) {
         if (details) {
             backCompatArray[i] = {
                 EntityId: a[i][0],
-                EntityTypeName: GetErmEntityName(a[i][1])
+                EntityName: GetErmEntityName(a[i][1])
             };
         } else {
             backCompatArray[i] = a[i][0];

@@ -4,7 +4,7 @@ namespace DoubleGis.Erm.BLCore.API.Common.Crosscutting
 {
     public class ErmEntityInfo
     {
-        public EntityName TypeName { get; set; }
+        public EntityName EntityName { get; set; }
         public long Id { get; set; }
     }
 }

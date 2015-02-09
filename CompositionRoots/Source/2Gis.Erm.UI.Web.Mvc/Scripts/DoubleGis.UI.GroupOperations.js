@@ -119,7 +119,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         var entityNamesArray = new Array(this.Config.Entities.length);
         var entityReplicationCodesArray = new Array(this.Config.Entities.length);
         for (var i = 0; i < this.Config.Entities.length; i++) {
-            entityNamesArray[i] = this.Config.Entities[i].EntityTypeName;
+            entityNamesArray[i] = this.Config.Entities[i].EntityName;
             entityReplicationCodesArray[i] = this.Config.Entities[i].EntityId;
         }
         var response = window.Ext.Ajax.syncRequest({
@@ -160,7 +160,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
             var entityName, entityId;
             if (!Ext.isNumber(parseFloat(+nextEntity)))
             {
-                entityName = nextEntity.TypeName;
+                entityName = nextEntity.EntityName;
                 entityId = nextEntity.Id;
             } else 
             {

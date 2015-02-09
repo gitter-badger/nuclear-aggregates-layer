@@ -45,24 +45,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             }
 
             return entityIds;
-        }
-
-        public IEnumerable<ErmEntityInfo> ConvertToEntityIds(IEnumerable<EntityName> entityName, IEnumerable<Guid> replicationCodes)
-        {           
-            var list = entityName.Zip(replicationCodes, (k, v) => new CrmEntityInfo { Id = v, TypeName = k }).ToList();
-            return this.ConvertToEntityIds(list);
-        }
+        }      
 
         public IEnumerable<ErmEntityInfo> ConvertToEntityIds(IEnumerable<CrmEntityInfo> crmEntities)
         {
             var crmEntityInfos = crmEntities as IList<CrmEntityInfo> ?? crmEntities.ToList();
-            var list = crmEntityInfos.GroupBy(p => p.TypeName, p => p.Id, (key, value) => new { EntityName = key, replicationCodes = value.ToList() });
+            var list = crmEntityInfos.GroupBy(p => p.EntityName, p => p.Id, (key, value) => new { EntityName = key, replicationCodes = value.ToList() });
 
             var resultList = new List<ErmEntityInfo>();
             foreach (var entityType in list)
             {
                 var entityIds = LookupEntities(_finder, entityType.EntityName, entityType.replicationCodes)
-                    .Select(x => new ErmEntityInfo { TypeName = entityType.EntityName, Id = x.Id })
+                    .Select(x => new ErmEntityInfo { EntityName = entityType.EntityName, Id = x.Id })
                     .ToList();                              
                 resultList.AddRange(entityIds);
             }
