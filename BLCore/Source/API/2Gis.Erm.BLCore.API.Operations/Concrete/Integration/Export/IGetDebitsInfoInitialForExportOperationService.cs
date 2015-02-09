@@ -9,8 +9,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export
 {
     public interface IGetDebitsInfoInitialForExportOperationService : IOperation<GetDebitsInfoInitialForExportIdentity>
     {
-        IEnumerable<DebitsInfoInitialDto> Get(DateTime startPeriodDate,
-                                              DateTime endPeriodDate,
-                                              IEnumerable<long> organizationUnitIds);
+        IDictionary<long, DebitsInfoInitialDto> Get(DateTime startPeriodDate, DateTime endPeriodDate, IEnumerable<long> organizationUnitIds);
     }
 }

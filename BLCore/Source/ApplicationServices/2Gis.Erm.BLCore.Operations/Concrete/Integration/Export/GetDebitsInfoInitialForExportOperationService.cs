@@ -7,54 +7,57 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AccountDetail;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 {
     public sealed class GetDebitsInfoInitialForExportOperationService : IGetDebitsInfoInitialForExportOperationService
     {
-        private const decimal Accuracy = 1M;
-
         private readonly IOrderReadModel _orderReadModel;
         private readonly IAccountReadModel _accountReadModel;
-        private readonly IValidateLegalPersonsForExportOperationService _validateLegalPersonsForExportOperationService;
+        private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public GetDebitsInfoInitialForExportOperationService(
-            IOrderReadModel orderReadModel,
-            IAccountReadModel accountReadModel,
-            IValidateLegalPersonsForExportOperationService validateLegalPersonsForExportOperationService)
+        public GetDebitsInfoInitialForExportOperationService(IOrderReadModel orderReadModel, IAccountReadModel accountReadModel, IOperationScopeFactory operationScopeFactory)
         {
             _orderReadModel = orderReadModel;
             _accountReadModel = accountReadModel;
-            _validateLegalPersonsForExportOperationService = validateLegalPersonsForExportOperationService;
+            _operationScopeFactory = operationScopeFactory;
         }
 
-        public IEnumerable<DebitsInfoInitialDto> Get(DateTime startPeriodDate, DateTime endPeriodDate, IEnumerable<long> organizationUnitIds)
+        public IDictionary<long, DebitsInfoInitialDto> Get(DateTime startPeriodDate, DateTime endPeriodDate, IEnumerable<long> organizationUnitIds)
         {
-            var accountDetailDtosByOrganizationUnit = _accountReadModel.GetAccountDetailsForExportTo1C(organizationUnitIds, startPeriodDate, endPeriodDate);
-            var allAccountDetailDtos = accountDetailDtosByOrganizationUnit.SelectMany(x => x.Value).ToArray();
-
-            var dtosToValidate = allAccountDetailDtos.DistinctBy(x => x.LegalPersonId).ToArray();
-            var legalPersonsErrors = _validateLegalPersonsForExportOperationService
-                .Validate(dtosToValidate.Select(x => new ValidateLegalPersonRequestItem
-                                                         {
-                                                             LegalPersonId = x.LegalPersonId,
-                                                             SyncCode1C = x.LegalPersonSyncCode1C
-                                                         }));
-
-            var orderIds = allAccountDetailDtos.Select(x => x.OrderId).Distinct().ToArray();
-            var distributions = _orderReadModel.GetOrderPlatformDistributions(orderIds, startPeriodDate, endPeriodDate);
-            foreach (var accountDetailDto in allAccountDetailDtos)
+            using (var scope = _operationScopeFactory.CreateNonCoupled<GetDebitsInfoInitialForExportIdentity>())
             {
-                accountDetailDto.PlatformDistributions = distributions[accountDetailDto.OrderId];
-            }
+                var accountDetailDtosByOrganizationUnit = _accountReadModel.GetAccountDetailsForExportTo1C(organizationUnitIds, startPeriodDate, endPeriodDate);
+                var allAccountDetailDtos = accountDetailDtosByOrganizationUnit.SelectMany(x => x.Value).ToArray();
 
-            var platformDistibutionErrors = ValidatePlatformDistibutionsAccuracy(allAccountDetailDtos);
-            return accountDetailDtosByOrganizationUnit.Select(x => ConvertToDebitsInfoInitialDto(startPeriodDate, endPeriodDate, x.Value)).ToArray();
+                var distributions = new Dictionary<long, Dictionary<PlatformEnum, decimal>>();
+                const int OrdersChunkSize = 300;
+                var processedOrdersCount = 0;
+                var orderIds = allAccountDetailDtos.Select(x => x.OrderId).Distinct().ToArray();
+                var ordersCount = orderIds.Count();
+                while (processedOrdersCount < ordersCount)
+                {
+                    var distributionsBunch = _orderReadModel.GetOrderPlatformDistributions(orderIds.Skip(processedOrdersCount).Take(OrdersChunkSize), startPeriodDate, endPeriodDate);
+                    foreach (var item in distributionsBunch)
+                    {
+                        distributions.Add(item.Key, item.Value);
+                    }
+
+                    processedOrdersCount += OrdersChunkSize;
+                }
+
+                foreach (var accountDetailDto in allAccountDetailDtos)
+                {
+                    accountDetailDto.PlatformDistributions = distributions[accountDetailDto.OrderId];
+                }
+
+                scope.Complete();
+
+                return accountDetailDtosByOrganizationUnit.ToDictionary(x => x.Key, y => ConvertToDebitsInfoInitialDto(startPeriodDate, endPeriodDate, y.Value));
+            }
         }
 
         private DebitsInfoInitialDto ConvertToDebitsInfoInitialDto(DateTime startPeriodDate,
@@ -69,7 +72,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                                                       ProfileCode = x.ProfileCode,
                                                       Amount = x.DebitAccountDetailAmount,
                                                       SignupDate = x.OrderSignupDateUtc,
-                                                      ClientOrderNumber = x.ClientOrderNumber,
                                                       OrderType = (int)x.OrderType,
                                                       OrderNumber = x.OrderNumber,
                                                       MediaInfo = x.ElectronicMedia,
@@ -116,19 +118,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                 ClientDebitTotalAmount = debits.Sum(x => x.Amount),
                 Debits = debits
             };
-        }
-
-        private IEnumerable<ErrorDto> ValidatePlatformDistibutionsAccuracy(IEnumerable<AccountDetailForExportDto> accountDetailDtos)
-        {
-            // для операций списания по заказам, в которых есть позиции с негарантированным размещением проверку не выполняем (см. https://jira.2gis.ru/browse/ERM-4102)
-            return (from accountDetailDto in accountDetailDtos.Where(x => !x.OrderHasPositionsWithPlannedProvision)
-                    where Math.Abs(accountDetailDto.DebitAccountDetailAmount - accountDetailDto.PlatformDistributions.Sum(y => y.Value)) >= Accuracy
-                    select new ErrorDto
-                    {
-                        ErrorMessage = string.Format(BLResources.DifferenceBetweenAccountDetailAndPlatformDistibutionsIsTooBig, accountDetailDto.OrderNumber),
-                        LegalPersonId = accountDetailDto.LegalPersonId,
-                        IsBlockingError = true
-                    }).ToArray();
         }
     }
 }

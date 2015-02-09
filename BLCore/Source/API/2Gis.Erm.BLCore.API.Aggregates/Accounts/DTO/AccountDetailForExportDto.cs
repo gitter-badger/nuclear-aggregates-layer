@@ -8,13 +8,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO
 {
     public sealed class AccountDetailForExportDto
     {
-        public bool OrderHasPositionsWithPlannedProvision { get; set; }
         public long SourceOrganizationUnitId { get; set; }
         public long OrderId { get; set; }
-        public long LegalPersonId { get; set; }
         public string OrganizationUnitSyncCode1C { get; set; }
         public string BranchOfficeOrganizationUnitSyncCode1C { get; set; }
-        public string LegalPersonSyncCode1C { get; set; }
         public OrderType OrderType { get; set; }
         public string OrderNumber { get; set; }
         public DateTime OrderSignupDateUtc { get; set; }
@@ -23,7 +20,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO
         public Dictionary<PlatformEnum, decimal> PlatformDistributions { get; set; }
 
         public long AccountCode { get; set; }
-        public string ClientOrderNumber { get; set; }
         public long ProfileCode { get; set; }
     }
 }

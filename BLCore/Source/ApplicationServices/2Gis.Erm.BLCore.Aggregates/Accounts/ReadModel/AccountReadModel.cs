@@ -492,18 +492,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                             DebitAccountDetailAmount = x.AccountDetail.Amount,
                                             ElectronicMedia = x.Order.DestOrganizationUnit.ElectronicMedia,
                                             OrderId = x.OrderId,
-                                            LegalPersonId = x.Order.LegalPersonId.Value,
-                                            LegalPersonSyncCode1C = x.Account.LegalPesonSyncCode1C,
                                             ProfileCode = x.Order.LegalPersonProfileId != null
                                                               ? x.Order.LegalPersonProfile.Id
                                                               : x.Account.LegalPerson.LegalPersonProfiles
                                                                  .Where(p => !p.IsDeleted && p.IsMainProfile)
                                                                  .Select(p => p.Id)
                                                                  .FirstOrDefault(),
-                                            OrderHasPositionsWithPlannedProvision =
-                                                x.Order.OrderPositions.Any(y => y.IsActive && !y.IsDeleted
-                                                                                && y.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod
-                                                                                                                                        .PlannedProvision),
                                         })
                        .Where(x => x.DebitAccountDetailAmount > 0)
                        .GroupBy(x => x.SourceOrganizationUnitId)

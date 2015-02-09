@@ -828,14 +828,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(ExportLegalPersonsHandler),
             Request = typeof(ExportLegalPersonsRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
         },
     }
                     }
@@ -872,14 +864,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(ExportLegalPersonsHandler),
             Request = typeof(ExportLegalPersonsRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
         },
     }
                     }

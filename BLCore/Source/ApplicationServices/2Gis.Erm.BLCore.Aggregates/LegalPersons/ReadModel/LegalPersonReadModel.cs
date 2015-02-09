@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.LegalPersons;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -106,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
                           .Single();
         }
 
-        public string[] SelectNotUnique1CSyncCodes(IEnumerable<string> codes)
+        public IEnumerable<string> SelectNotUnique1CSyncCodes(IEnumerable<string> codes)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Account>() && AccountSpecs.Accounts.Find.ByLegalPersonSyncCodes1C(codes))
                           .GroupBy(x => x.LegalPesonSyncCode1C)
@@ -115,7 +117,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
                           .ToArray();
         }
 
-        public LegalPersonAndProfilesExistanceDto GetLegalPersonWithProfiles(long legalPersonId)
+        public LegalPersonAndProfilesExistanceDto GetLegalPersonWithProfileExistanceInfo(long legalPersonId)
         {
             return new LegalPersonAndProfilesExistanceDto
             {
@@ -125,9 +127,49 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
             };
         }
 
+        public IEnumerable<LegalPersonAndProfilesExistanceDto> GetLegalPersonsWithProfileExistanceInfo(IEnumerable<long> legalPersonIds)
+        {
+            var legalPersons = GetLegalPersons(legalPersonIds);
+            var profileExistance = _finder.Find(Specs.Find.ByIds<LegalPerson>(legalPersonIds))
+                                          .Select(x => new
+                                                           {
+                                                               Id = x.Id,
+                                                               HasProfiles = x.LegalPersonProfiles.Any(y => y.IsActive && !y.IsDeleted)
+                                                           })
+                                          .ToDictionary(x => x.Id, y => y.HasProfiles);
+
+            return profileExistance.Select(x => new LegalPersonAndProfilesExistanceDto
+                                                    {
+                                                        LegalPersonHasProfiles = x.Value,
+                                                        LegalPerson = legalPersons.Single(y => y.Id == x.Key)
+                                                    })
+                                   .ToArray();
+        }
+
         public bool IsThereLegalPersonProfileDuplicate(long legalPersonProfileId, long legalPersonId, string name)
         {
             return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) && LegalPersonSpecs.Profiles.Find.DuplicateByName(legalPersonProfileId, name)).Any();
+        }
+
+        public IDictionary<long, IEnumerable<ValidateLegalPersonDto>> GetLegalPersonDtosToValidate(IEnumerable<long> organizationUnitIds,
+                                                                                                   DateTime periodStartDate,
+                                                                                                   DateTime periodEndDate)
+        {
+            return
+                _finder.Find(AccountSpecs.Locks.Find.BySourceOrganizationUnits(organizationUnitIds) &&
+                             AccountSpecs.Locks.Find.ForPeriod(periodStartDate, periodEndDate) &&
+                             Specs.Find.InactiveEntities<Lock>())
+                       .Select(x => new
+                                        {
+                                            x.Order.SourceOrganizationUnitId,
+                                            LegalPersonDto = new ValidateLegalPersonDto
+                                                                 {
+                                                                     LegalPersonId = x.Order.LegalPersonId.Value,
+                                                                     SyncCode1C = x.Account.LegalPesonSyncCode1C
+                                                                 }
+                                        })
+                       .GroupBy(x => x.SourceOrganizationUnitId)
+                       .ToDictionary(x => x.Key, y => y.Select(z => z.LegalPersonDto));
         }
     }
 }
