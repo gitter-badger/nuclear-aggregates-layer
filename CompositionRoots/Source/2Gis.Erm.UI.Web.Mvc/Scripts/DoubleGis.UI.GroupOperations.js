@@ -42,7 +42,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         this.QuantProgress = 1 / this.EntitiesCount;
         this.IsSingleEntityProcessing = this.EntitiesCount === 1;
 
-        this.IsCallFromCrm = !(this.IsNumber(this.Config.Entities[0]));
+        this.IsCallFromCrm = !(isNumber(this.Config.Entities[0]));
 
         if (this.Config.listeners) {
             var p, l = this.Config.listeners;
@@ -112,10 +112,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         }
 
         this.ProcessEntities();
-    },
-    IsNumber: function (value) {
-        return parseFloat(value) == value;
-    },
+    },    
     IsUserSettingsValid: function () { /*переопределить в потомке*/ },
     PreProcessEntities: function () { /*реализация по-умолчанию*/ return true; },
     ConvertEntityIds: function () {
@@ -161,7 +158,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         if (this.ProcessingQueue.length != 0) {
             var nextEntity = this.ProcessingQueue.shift();
             var entityName, entityId;
-            if (!this.IsNumber(nextEntity))
+            if (!isNumber(nextEntity))
             {
                 entityName = nextEntity.EntityName;
                 entityId = nextEntity.Id;
