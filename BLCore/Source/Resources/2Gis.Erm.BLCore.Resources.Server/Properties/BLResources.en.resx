@@ -5183,12 +5183,12 @@ Placement period: {3}.</value>
     <value>Attempt to save an order item with sales model '{0}' where quantity is not 1</value>
   </data>
   <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
-    <value>Невозможно назначить действие в статусе "Выполнено"/"Отменено"</value>
+    <value>Cannot assign an action if the status is Completed/Canceled.</value>
   </data>
   <data name="CannotAssignActivitySystemUser" xml:space="preserve">
-    <value>Невозможно назначить куратором служебного пользователя</value>
+    <value>Cannot appoint this user as an owner</value>
   </data>
   <data name="AssignActivityAccessDenied" xml:space="preserve">
-    <value>Недостаточно прав для смены куратора у действия {0}</value>
+    <value>Not enough rights to change the owner for the action {0}</value>
   </data>
 </root>
