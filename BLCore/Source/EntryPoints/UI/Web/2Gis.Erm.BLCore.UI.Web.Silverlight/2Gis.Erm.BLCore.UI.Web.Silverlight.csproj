@@ -119,9 +119,6 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\Entities\EntityName.cs">
-      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\EntityName.cs</Link>
-    </Compile>
     <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Models\UserProfileViewModel.cs">
       <Link>UserProfileViewModel.cs</Link>
     </Compile>
