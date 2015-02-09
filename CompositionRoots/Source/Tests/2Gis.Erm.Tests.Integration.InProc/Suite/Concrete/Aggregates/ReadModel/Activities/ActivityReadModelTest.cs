@@ -39,7 +39,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
             var appropriateLetter = _finder.FindMany(Specs.Find.Active<Letter>()).FirstOrDefault();
             var appropriatePhonecall = _finder.FindMany(Specs.Find.Active<Phonecall>()).FirstOrDefault();
             var appropriateTask = _finder.FindMany(Specs.Find.Active<Task>()).FirstOrDefault();
-            var reference = _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == EntityType.Instance.Client())).FirstOrDefault();
+            var clientTypeId = EntityType.Instance.Client().Id;
+            var reference = _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityTypeId == clientTypeId)).FirstOrDefault();
             var activityWithClient = reference != null ? _finder.FindMany(Specs.Find.ById<Appointment>(reference.SourceEntityId)) : null;
 
             if (appropriateAppointment == null || appropriateLetter == null || appropriatePhonecall == null || appropriateTask == null || activityWithClient == null)

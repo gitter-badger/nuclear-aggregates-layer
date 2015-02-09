@@ -80,11 +80,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Location = modelDto.Location;
 
             var regardingObjects = (modelDto.RegardingObjects ?? Enumerable.Empty<EntityReference>()).ToList();
-            Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName.Equals(EntityType.Instance.Client())));
-            Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName.Equals(EntityType.Instance.Deal())));
-            Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName.Equals(EntityType.Instance.Firm())));
+            Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Client().Id));
+            Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Deal().Id));
+            Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Firm().Id));
 
-            Attendee = LookupField.FromReference((modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityName.Equals(EntityType.Instance.Contact())));
+            Attendee = LookupField.FromReference((modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityTypeId.Equals(EntityType.Instance.Contact())));
 
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be only there?
@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                 {
                     if (field.Key.HasValue)
                     {
-                        references.Add(new EntityReference(field.Key, field.Value) { EntityName = entityName });
+                        references.Add(new EntityReference(field.Key, field.Value) { EntityTypeId = entityName.Id });
                     }
                 };
 

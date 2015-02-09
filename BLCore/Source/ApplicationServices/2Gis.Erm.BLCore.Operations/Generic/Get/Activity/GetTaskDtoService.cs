@@ -81,14 +81,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             EntityReference regardingObject = null;
             if (parentEntityName.CanBeRegardingObject())
             {
-                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+                regardingObject = ToEntityReference(parentEntityName.Id, parentEntityId);
             }
             else if (parentEntityName.Equals(EntityType.Instance.Contact()) && parentEntityId.HasValue)
             {
                 var client = _clientReadModel.GetClientByContact(parentEntityId.Value);
                 if (client != null)
                 {
-                    regardingObject = ToEntityReference(EntityType.Instance.Client(), client.Id);
+                    regardingObject = ToEntityReference(EntityType.Instance.Client().Id, client.Id);
                 }
             }
             if (regardingObject != null)
@@ -101,10 +101,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Task>> references)
         {
-            return references.Select(x => ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
+            return references.Select(x => ToEntityReference(x.TargetEntityTypeId, x.TargetEntityId)).Where(x => x != null).ToList();
         }
 
-        private EntityReference ToEntityReference(IEntityType entityName, long? entityId)
+        private EntityReference ToEntityReference(int entityName, long? entityId)
         {
             if (!entityId.HasValue)
             {
@@ -112,15 +112,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             }
 
             string name;
-            if (entityName.Equals(EntityType.Instance.Client()))
+            if (entityName == EntityType.Instance.Client().Id)
             {
                 name = _clientReadModel.GetClientName(entityId.Value);
             }
-            else if (entityName.Equals(EntityType.Instance.Deal()))
+            else if (entityName == EntityType.Instance.Deal().Id)
             {
                 name = _dealReadModel.GetDeal(entityId.Value).Name;
             }
-            else if (entityName.Equals(EntityType.Instance.Firm()))
+            else if (entityName == EntityType.Instance.Firm().Id)
             {
                 name = _firmReadModel.GetFirmName(entityId.Value);
             }
@@ -129,7 +129,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 return null;
             }
             
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
+            return new EntityReference { Id = entityId, Name = name, EntityTypeId = entityName };
         }
     }
 }

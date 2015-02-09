@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         /// </remarks>
         private void UpdateDealStage(AppointmentDomainEntityDto appointmentDto)
         {
-            var dealRef = appointmentDto.RegardingObjects.FirstOrDefault(x => x.EntityName.Equals(EntityType.Instance.Deal()));
+            var dealRef = appointmentDto.RegardingObjects.FirstOrDefault(x => x.EntityTypeId.Equals(EntityType.Instance.Deal()));
             if (dealRef == null || !dealRef.Id.HasValue)
             {
                 return;

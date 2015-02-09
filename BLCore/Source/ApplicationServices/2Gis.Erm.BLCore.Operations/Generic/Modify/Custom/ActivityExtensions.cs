@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
             return reference == null || !reference.Id.HasValue
                    ? null
-                   : new TEntityReference { SourceEntityId = entity.Id, TargetEntityName = reference.EntityName, TargetEntityId = reference.Id.Value };
+                   : new TEntityReference { SourceEntityId = entity.Id, TargetEntityTypeId = reference.EntityTypeId, TargetEntityId = reference.Id.Value };
         }
     }
 }

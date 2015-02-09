@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
             where T : IEntity
         {
             return (references ?? Enumerable.Empty<EntityReference<T>>())
-                .Where(x => x.TargetEntityName.Equals(entityName))
+                .Where(x => x.TargetEntityTypeId.Equals(entityName))
                 .Select(x => new EntityReference { Id = x.TargetEntityId, Name = getName(x.TargetEntityId) })
                 .SingleOrDefault();
         }

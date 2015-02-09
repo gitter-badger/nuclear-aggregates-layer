@@ -1,4 +1,3 @@
-using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Activity
@@ -8,7 +7,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
         where TEntity : IEntity
     {
         public long SourceEntityId { get; set; }
-        public IEntityType TargetEntityName { get; set; }
+        public int TargetEntityTypeId { get; set; }
         public long TargetEntityId { get; set; }
 
         public override bool Equals(object obj)
@@ -36,7 +35,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
             unchecked
             {
                 var hashCode = SourceEntityId.GetHashCode();
-                hashCode = (hashCode * 397) ^ TargetEntityName.Id;
+                hashCode = (hashCode * 397) ^ TargetEntityTypeId;
                 hashCode = (hashCode * 397) ^ TargetEntityId.GetHashCode();
                 return hashCode;
             }
@@ -45,7 +44,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
         protected bool Equals(EntityReference<TEntity> other)
         {
             return SourceEntityId == other.SourceEntityId
-                && TargetEntityName == other.TargetEntityName
+                && TargetEntityTypeId == other.TargetEntityTypeId
                 && TargetEntityId == other.TargetEntityId;
         }
     }

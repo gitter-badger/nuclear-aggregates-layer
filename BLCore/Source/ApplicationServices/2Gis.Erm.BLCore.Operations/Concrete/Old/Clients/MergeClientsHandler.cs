@@ -143,12 +143,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
         {
             foreach (var regardingObject in regardingObjects)
             {
-                if (regardingObject.TargetEntityName.Equals(EntityType.Instance.Client()))
+                if (regardingObject.TargetEntityTypeId.Equals(EntityType.Instance.Client()))
                 {
                     yield return new TEntityReference
                                      {
                                          SourceEntityId = regardingObject.SourceEntityId,
-                                         TargetEntityName = regardingObject.TargetEntityName, 
+                                         TargetEntityTypeId = regardingObject.TargetEntityTypeId, 
                                          TargetEntityId = newClientId
                                      };
                 }

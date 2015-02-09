@@ -132,7 +132,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             if (querySettings.TryGetExtendedProperty("With1Appointment", out havingOnlyOneAppointment) && havingOnlyOneAppointment)
             {
                 var regardingObjects =
-                    from regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName.Equals(EntityType.Instance.Client()))) 
+                    from regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityTypeId.Equals(EntityType.Instance.Client()))) 
                     join appointment in _compositeEntityDecorator.Find(Specs.Find.ActiveAndNotDeleted<Appointment>() && Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.Completed))
                     on regardingObject.SourceEntityId equals appointment.Id
                     select regardingObject;
@@ -155,7 +155,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     from task in _compositeEntityDecorator.Find(
                         Specs.Find.ActiveAndNotDeleted<Task>() && 
                         Specs.Find.Custom<Task>(x => x.TaskType == TaskType.WarmClient && x.Status == ActivityStatus.InProgress))
-                    join regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName.Equals(EntityType.Instance.Client()))) 
+                    join regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityTypeId.Equals(EntityType.Instance.Client()))) 
                     on task.Id equals regardingObject.SourceEntityId
                     let scheduleOn = task.ScheduledOn
                     let now = DateTime.Now

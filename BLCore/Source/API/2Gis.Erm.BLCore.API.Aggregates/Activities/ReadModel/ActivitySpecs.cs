@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
                 where TEntity : IEntity
                 where TReferencedObject : EntityReference<TEntity>, IEntity
             {
-                return new FindSpecification<TReferencedObject>(x => x.TargetEntityName.Equals(entityName) && x.TargetEntityId == entityId);
+                return new FindSpecification<TReferencedObject>(x => x.TargetEntityTypeId.Equals(entityName) && x.TargetEntityId == entityId);
             }
         }
     }

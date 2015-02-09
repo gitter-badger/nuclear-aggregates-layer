@@ -240,9 +240,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             if (entityName.Equals(EntityType.Instance.Client()))
             {
-                var regardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityName.Equals(EntityType.Instance.Client())));
-                var regardingFirms = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityName.Equals(EntityType.Instance.Firm())));
-                var regardingDeals = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityName.Equals(EntityType.Instance.Deal())));
+                var regardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityTypeId.Equals(EntityType.Instance.Client())));
+                var regardingFirms = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityTypeId.Equals(EntityType.Instance.Firm())));
+                var regardingDeals = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityTypeId.Equals(EntityType.Instance.Deal())));
                 var firms = _finder.Find(Specs.Find.Active<Firm>());
                 var deals = _finder.Find(Specs.Find.Active<Deal>());
 

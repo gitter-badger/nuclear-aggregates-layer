@@ -74,9 +74,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Status = modelDto.Status;
 
             var regardingObjects = (modelDto.RegardingObjects ?? Enumerable.Empty<EntityReference>()).ToList();
-            Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName.Equals(EntityType.Instance.Client())));
-            Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName.Equals(EntityType.Instance.Deal())));
-            Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName.Equals(EntityType.Instance.Firm())));
+            Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Client().Id));
+            Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Deal().Id));
+            Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Firm().Id));
 
             Sender = LookupField.FromReference(modelDto.SenderRef);
             Recipient = LookupField.FromReference(modelDto.RecipientRef);
@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                 {
                     if (field.Key.HasValue)
                     {
-                        references.Add(new EntityReference(field.Key, field.Value) { EntityName = entityName });
+                        references.Add(new EntityReference(field.Key, field.Value) { EntityTypeId = entityName.Id });
                     }
                 };
 
