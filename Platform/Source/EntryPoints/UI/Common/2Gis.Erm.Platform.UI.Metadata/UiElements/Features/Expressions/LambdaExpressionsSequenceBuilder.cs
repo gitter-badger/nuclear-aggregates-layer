@@ -33,7 +33,12 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions
 
         public LambdaExpressionsSequence ToSequence()
         {
-            return new LambdaExpressionsSequence(Expressions.ToArray(), LogicalOperation.And);
+            if (!SequenceOperation.HasValue)
+            {
+                throw new InvalidOperationException("The sequence must have specified logical operator");
+            }
+
+            return new LambdaExpressionsSequence(Expressions.ToArray(), SequenceOperation.Value);
         }
 
         public LambdaExpressionsSequenceBuilder And(LambdaExpressionsSequenceBuilder builder2)
