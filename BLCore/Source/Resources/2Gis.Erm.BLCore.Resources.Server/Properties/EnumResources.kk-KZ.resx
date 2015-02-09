@@ -1905,15 +1905,6 @@
   <data name="EntityNameBank" xml:space="preserve">
     <value>Банк</value>
   </data>
-  <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
-    <value>Реклама лекарственных средств, медтехники, методов профилактики, диагностики, лечения и реабилитации</value>
-  </data>
-  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
-    <value>Реклама алкогольных напитков, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются алкогольные напитки</value>
-  </data>
-  <data name="FasCommentUkraineTobaccoGoods" xml:space="preserve">
-    <value>Реклама табачных изделий, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются табачные изделия</value>
-  </data>
   <data name="FasCommentChileAlcohol" xml:space="preserve">
     <value>Продажа алкогольных напитков</value>
   </data>
@@ -1922,15 +1913,6 @@
   </data>
   <data name="FasCommentChileMedicalReceiptDrugs" xml:space="preserve">
     <value>Продажа лекарств, которые требуют рецепта</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
-    <value>Самолечение может быть вредным для вашего здоровья.</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
-    <value>Чрезмерное потребление алкоголя вредно для вашего здоровья.</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
-    <value>Курение может вызывать заболевание на рак.</value>
   </data>
   <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
@@ -1982,5 +1964,47 @@
   </data>
   <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
     <value>Плановое оказание услуг по нескольким рубрикам</value>
+  </data>
+  <data name="FasCommentUkraineAutotherapy" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineMedicalDevice" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineSoundPhonogram" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineSoundLive" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineEmploymentAssistance" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAutotherapy" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineMedicalDevice" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineSoundPhonogram" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineSoundLive" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
 </root>
