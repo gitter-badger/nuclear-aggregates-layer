@@ -25,6 +25,7 @@ $UpgradeCodes = @{
    
 	'Load.Russia' = '7563b08b-ea51-4115-b894-43a136af8801' 
     'Load.Cyprus' = '56CB90B1-66DF-4BFF-B074-EE04C84673BE' 
+	'Load.Czech' = 'F24ED3A7-65FF-4099-B350-F62093C21829' 
     'Load.Ukraine' = '61B7783B-A8C2-4F7F-9772-D269F89B1B5C'
 	
 	'Production.Chile' =  'BB622DAF-9686-4428-9061-42B1F9B643D0'
