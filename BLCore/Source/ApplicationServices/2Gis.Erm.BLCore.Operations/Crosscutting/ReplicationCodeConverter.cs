@@ -35,24 +35,42 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             throw new NotImplementedException();
         }
 
-        public IEnumerable<EntityInfo> ConvertToEntityIds(IEnumerable<EntityName> entityName, IEnumerable<Guid> replicationCodes)
-        {            
-            var list = entityName.Zip(replicationCodes, (k, v) => new Tuple<EntityName, Guid>(k, v))
-                                 .GroupBy(p => p.Item1, p => p.Item2, (key, value) => new { EntityName = key, replicationCodes = value.ToList() });
+        public IEnumerable<long> ConvertToEntityIds(EntityName entityName, IEnumerable<Guid> replicationCodes)
+        {
+            var codes = replicationCodes.ToList();
+            var entityIds = LookupEntities(_finder, entityName, codes).Select(x => x.Id).ToList();
+            if (entityIds.Count != codes.Count)
+            {
+                throw new ArgumentException("Some replication codes cannot be converted to entity identifiers", "replicationCodes");
+            }
 
-            var resultList = new List<EntityInfo>();
+            return entityIds;
+        }
+
+        public IEnumerable<ErmEntityInfo> ConvertToEntityIds(IEnumerable<EntityName> entityName, IEnumerable<Guid> replicationCodes)
+        {           
+            var list = entityName.Zip(replicationCodes, (k, v) => new CrmEntityInfo { Id = v, TypeName = k }).ToList();
+            return this.ConvertToEntityIds(list);
+        }
+
+        public IEnumerable<ErmEntityInfo> ConvertToEntityIds(IEnumerable<CrmEntityInfo> crmEntities)
+        {
+            var crmEntityInfos = crmEntities as IList<CrmEntityInfo> ?? crmEntities.ToList();
+            var list = crmEntityInfos.GroupBy(p => p.TypeName, p => p.Id, (key, value) => new { EntityName = key, replicationCodes = value.ToList() });
+
+            var resultList = new List<ErmEntityInfo>();
             foreach (var entityType in list)
             {
                 var entityIds = LookupEntities(_finder, entityType.EntityName, entityType.replicationCodes)
-                    .Select(x => new EntityInfo { TypeName = entityType.EntityName, Id = x.Id })
-                    .ToList();
-                if (entityIds.Count != entityType.replicationCodes.Count)
-                {
-                    throw new ArgumentException("Some replication codes cannot be converted to entity identifiers", "replicationCodes");
-                } 
-               
+                    .Select(x => new ErmEntityInfo { TypeName = entityType.EntityName, Id = x.Id })
+                    .ToList();                              
                 resultList.AddRange(entityIds);
             }
+
+            if (resultList.Count != crmEntityInfos.Count())
+            {
+                throw new ArgumentException("Some replication codes cannot be converted to entity identifiers", "replicationCodes");
+            } 
 
             return resultList;
         }

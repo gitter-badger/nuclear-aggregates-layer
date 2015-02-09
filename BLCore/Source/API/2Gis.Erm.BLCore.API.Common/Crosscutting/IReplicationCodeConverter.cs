@@ -10,13 +10,10 @@ namespace DoubleGis.Erm.BLCore.API.Common.Crosscutting
     {
         long ConvertToEntityId(EntityName entityName, Guid replicationCode);
         Guid ConvertToReplicationCode(EntityName entityName, long entityId);
-        IEnumerable<EntityInfo> ConvertToEntityIds(IEnumerable<EntityName> entityName, IEnumerable<Guid> replicationCodes);
+        [Obsolete("Поведение изменилось и теперь мы используем другой метод")]
+        IEnumerable<long> ConvertToEntityIds(EntityName entityName, IEnumerable<Guid> replicationCodes);
+        IEnumerable<ErmEntityInfo> ConvertToEntityIds(IEnumerable<EntityName> entityName, IEnumerable<Guid> replicationCodes);
+        IEnumerable<ErmEntityInfo> ConvertToEntityIds(IEnumerable<CrmEntityInfo> crmEntities);
         IEnumerable<Guid> ConvertToReplicationCodes(EntityName entityName, IEnumerable<long> entityIds);
-    }
-
-    public class EntityInfo
-    {
-        public EntityName TypeName { get; set; }
-        public long Id { get; set; }
     }
 }
