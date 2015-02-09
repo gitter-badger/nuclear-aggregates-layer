@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -19,19 +20,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.UI
         private readonly IUIServicesManager _uiServicesManager;
 
         public GridController(IMsCrmSettings msCrmSettings,
-                              IUserContext userContext,
-                              ICommonLog logger,
-                              IUIServicesManager uiServicesManager,
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                              IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+                              IAPIIdentityServiceSettings identityServiceSettings,
+                              IUserContext userContext,
+                              ICommonLog logger,
+                              IGetBaseCurrencyService getBaseCurrencyService,
+                              IUIServicesManager uiServicesManager)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _uiServicesManager = uiServicesManager;
         }

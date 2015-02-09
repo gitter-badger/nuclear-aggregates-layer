@@ -34,7 +34,7 @@ Ext.ux.IdField = Ext.extend(Ext.Component, {
         this.button.on("mouseover", this.onButtonMouseOver, this);
         this.button.on("click", this.onButtonClick, this);
         this.mask = new Ext.LoadMask(x);
-        this.serviceUrl = window.Ext.get("IdentityServiceUrl").dom.value;
+        this.serviceUrl = Ext.IdentityServiceRestUrl;
     },
     onButtonMouseOut: function(event) {
         if (event.target) {
@@ -56,8 +56,6 @@ Ext.ux.IdField = Ext.extend(Ext.Component, {
     setValue: function (value) {
         this.el.dom.value = value;
     },
-    // TODO {a.rechkalov 10.04.2013}: закомментить консолелоги
-    // DONE {a.tukaev 03.05.2013}
     onButtonClick: function () {
         window.Card.Mask.show();
         window.Ext.Ajax.request({
