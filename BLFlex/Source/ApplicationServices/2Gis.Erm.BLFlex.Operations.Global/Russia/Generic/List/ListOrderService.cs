@@ -111,14 +111,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                             return null;
                         }
 
-                        var onApprovalState = (OrderState.OnApproval).ToString();
-                        var rejectedState = (OrderState.Rejected).ToString();
+                        var onApprovalState = OrderState.OnApproval.ToString();
+                        var rejectedState = OrderState.Rejected.ToString();
 
-                        var loqQuery = _finder.Find<ActionsHistoryDetail>(
-                            x =>
-                            x.ActionsHistory.EntityType == (int)EntityName.Order && x.PropertyName == "WorkflowStepId" &&
-                            x.OriginalValue == onApprovalState && x.ModifiedValue == rejectedState)
-                               .Select(x => x.ActionsHistory.EntityId);
+                        var orderTypeId = EntityType.Instance.Order().Id;
+                        var loqQuery = _finder.Find<ActionsHistoryDetail>(x => x.ActionsHistory.EntityType == orderTypeId &&
+                                                                               x.PropertyName == "WorkflowStepId" &&
+                                                                               x.OriginalValue == onApprovalState &&
+                                                                               x.ModifiedValue == rejectedState)
+                                              .Select(x => x.ActionsHistory.EntityId);
 
                         return x => loqQuery.Contains(x.Id);
                     });

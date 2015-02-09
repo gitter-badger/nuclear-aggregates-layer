@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -67,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                          .Select(unit => unit.Name)
                          .SingleOrDefault();
 
-            return GenerateDescription(true, EntityName.OrganizationUnit, name, organizationUnitId);
+            return GenerateDescription(true, EntityType.Instance.OrganizationUnit(), name, organizationUnitId);
         }
 
         // TODO {all, 02.10.2014}: разобраться почему не используется organizationUnitId 

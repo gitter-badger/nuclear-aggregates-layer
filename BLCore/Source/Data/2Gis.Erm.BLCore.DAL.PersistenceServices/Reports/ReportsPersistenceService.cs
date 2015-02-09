@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
 {
     public class ReportPersistenceService : IReportPersistenceService
@@ -142,10 +144,10 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
                 .ToDictionary(arg => arg.Key, arg => arg.Name);
         }
 
-        private static EntityName ParseEntityName(string value)
+        private static IEntityType ParseEntityName(string value)
         {
-            EntityName result;
-            return Enum.TryParse(value, true, out result) ? result : EntityName.None;
+            IEntityType result;
+            return EntityType.Instance.TryParse(value, out result) ? result : EntityType.Instance.None();
         }
 
         private static ReportFieldType ParseFieldType(string value)
@@ -265,7 +267,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
             public ReportFieldType Type { get; set; }
             public string ExtendedInfo { get; set; }
             public IDictionary<long, string> ListValues { get; set; }
-            public EntityName LookupEntityName { get; set; }
+            public IEntityType LookupEntityName { get; set; }
         }
     }
 }

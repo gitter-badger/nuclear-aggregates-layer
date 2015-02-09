@@ -13,6 +13,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -66,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                  MessageText =
                                                      string.Format(BLResources.ThemeSalesExceedsLimit,
                                                                    GenerateDescription(ruleContext.ValidationParams.IsMassValidation,
-                                                                                       EntityName.Theme,
+                                                                                       EntityType.Instance.Theme(),
                                                                                        themeNames[x.ThemeId],
                                                                                        x.ThemeId),
                                                                    x.SaleCount,

@@ -22,6 +22,8 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
+
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
@@ -53,14 +55,21 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             var permissions = _roleRepository.GetEntityPrivileges(roleId);
 
             // long PrivilegeId парсятся в js с потерей точности, заменяем их на строки.
-            var jsonPermissions = permissions.Select(
-                    x =>
-                    new
-                        {
-                            x.EntityName,
-                            x.EntityNameLocalized,
-                            PrivilegeInfoList = x.PrivilegeInfoList.Select(y => new { y.NameLocalized, y.Operation, y.PrivilegeDepthMask, PrivilegeId = y.PrivilegeId.ToString() }).ToArray()
-                        });
+            var jsonPermissions = permissions
+                .Select(x => new
+                    {
+                        x.EntityName.Description,
+                        x.EntityNameLocalized,
+                        PrivilegeInfoList = x.PrivilegeInfoList
+                                             .Select(y => new
+                                                 {
+                                                     y.NameLocalized,
+                                                     y.Operation,
+                                                     y.PrivilegeDepthMask,
+                                                     PrivilegeId = y.PrivilegeId.ToString()
+                                                 })
+                                             .ToArray()
+                    });
 
             return new JsonNetResult(new { Data = jsonPermissions });
         }
@@ -80,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         }
 
         [HttpPost]
-        public JsonNetResult SaveEntityPrivileges(long roleId, EntityName entityName, string data)
+        public JsonNetResult SaveEntityPrivileges(long roleId, IEntityType entityName, string data)
         {
             var entityPrivileges = JsonConvert.DeserializeObject<PrivilegeDto[]>(data);
 

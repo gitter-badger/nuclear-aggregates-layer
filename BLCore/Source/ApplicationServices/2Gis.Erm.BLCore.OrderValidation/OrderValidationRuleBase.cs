@@ -7,9 +7,10 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
 {
@@ -51,9 +52,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
         protected abstract IEnumerable<OrderValidationMessage> Validate(TValidationRuleContext ruleContext);
 
-        protected string GenerateDescription(bool isMassValidation, EntityName entityName, string description, long entityId)
+        protected string GenerateDescription(bool isMassValidation, IEntityType entityName, string description, long entityId)
         {
-            return isMassValidation ? description : string.Format("<{0}:{1}:{2}>", entityName, description, entityId);
+            return isMassValidation ? description : string.Format("<{0}:{1}:{2}>", entityName.Description, description, entityId);
         }
 
         protected Expression<Func<Order, bool>> GetFilterPredicateToGetLinkedOrders(IFinder finder, long orderId, out long organizationUnitId, out long? firmId)

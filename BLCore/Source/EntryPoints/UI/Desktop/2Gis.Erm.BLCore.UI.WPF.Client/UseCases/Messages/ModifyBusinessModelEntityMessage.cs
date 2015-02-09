@@ -1,21 +1,22 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
+﻿using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages
 {
     public class ModifyBusinessModelEntityMessage : MessageBase<SequentialProcessingModel>
     {
-        private readonly EntityName _entityName;
+        private readonly IEntityType _entityName;
         private readonly long _entityId;
 
-        public ModifyBusinessModelEntityMessage(EntityName entityName, long entityId)
+        public ModifyBusinessModelEntityMessage(IEntityType entityName, long entityId)
             :base(null)
         {
             _entityName = entityName;
             _entityId = entityId;
         }
 
-        public EntityName EntityName
+        public IEntityType EntityName
         {
             get { return _entityName; }
         }

@@ -42,6 +42,8 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
+
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 using ReportModel = DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report.ReportModel;
 
@@ -459,45 +461,45 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         private ReportModel.ReportFieldDefinition BuildLookup(ReportFieldDto reportField)
         {
-            switch (reportField.LookupEntityName)
+            if (reportField.LookupEntityName.Equals(EntityType.Instance.User()))
             {
-                case EntityName.User:
-                    var userExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
+                var userExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
                                                ? null
                                                : "subordinatesOf=" + UserContext.Identity.Code;
-                    return new ReportModel.ReportFieldDefinition
-                        {
-                            Type = typeof(LookupField),
-                            Name = reportField.Name,
-                            Config = new LookupSettings { EntityName = EntityName.User, ExtendedInfo = userExtendedInfo },
-                            DefaultValue = GetDefaultUserLookup(),
-                        };
-
-                case EntityName.OrganizationUnit:
-                    var organizationUnitExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
+                return new ReportModel.ReportFieldDefinition
+                {
+                    Type = typeof(LookupField),
+                    Name = reportField.Name,
+                    Config = new LookupSettings { EntityName = EntityName.User, ExtendedInfo = userExtendedInfo },
+                    DefaultValue = GetDefaultUserLookup(),
+                };
+            }
+            
+            if (reportField.LookupEntityName.Equals(EntityType.Instance.OrganizationUnit()))
+            {
+                var organizationUnitExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
                                                            ? new[] { reportField.LookupExtendedInfo }
                                                            : new[] { "userId=" + UserContext.Identity.Code, reportField.LookupExtendedInfo };
-                    return new ReportModel.ReportFieldDefinition
-                        {
-                            Type = typeof(LookupField),
-                            Name = reportField.Name,
-                            Config = new LookupSettings
-                                {
-                                    EntityName = EntityName.OrganizationUnit,
-                                    ExtendedInfo = string.Join("&", organizationUnitExtendedInfo.Where(s => !string.IsNullOrWhiteSpace(s)))
-                                },
-                            DefaultValue = GetDefaultOrganizationUnitLookup(),
-                        };
-
-                default:
-                    return new ReportModel.ReportFieldDefinition
+                return new ReportModel.ReportFieldDefinition
+                {
+                    Type = typeof(LookupField),
+                    Name = reportField.Name,
+                    Config = new LookupSettings
                     {
-                        Type = typeof(LookupField),
-                        Name = reportField.Name,
-                        Config = new LookupSettings { EntityName = reportField.LookupEntityName, ExtendedInfo = reportField.LookupExtendedInfo },
-                        DefaultValue = null,
-                    };
+                        EntityName = EntityName.OrganizationUnit,
+                        ExtendedInfo = string.Join("&", organizationUnitExtendedInfo.Where(s => !string.IsNullOrWhiteSpace(s)))
+                    },
+                    DefaultValue = GetDefaultOrganizationUnitLookup(),
+                };
             }
+
+            return new ReportModel.ReportFieldDefinition
+            {
+                Type = typeof(LookupField),
+                Name = reportField.Name,
+                Config = new LookupSettings { EntityName = reportField.LookupEntityName, ExtendedInfo = reportField.LookupExtendedInfo },
+                DefaultValue = null,
+            };
         }
 
         private PeriodType GetDateTimePeriodType(ReportFieldDefault field)

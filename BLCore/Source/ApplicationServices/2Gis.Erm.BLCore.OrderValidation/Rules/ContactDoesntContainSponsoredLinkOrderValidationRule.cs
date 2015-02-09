@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -64,10 +66,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                     MessageText =
                                                         string.Format(
                                                                         BLResources.FirmContactContainsSponsoredLinkError,
-                                                                        GenerateDescription(ruleContext.IsMassValidation, EntityName.Firm, a.FirmName, a.FirmId),
+                                                                        GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.Firm(), a.FirmName, a.FirmId),
                                                                         a.AdvertisementLink,
-                                                                        GenerateDescription(ruleContext.IsMassValidation, EntityName.OrderPosition, a.OrderPositionName, a.OrderPositionId),
-                                                                        GenerateDescription(ruleContext.IsMassValidation, EntityName.Order, a.OrderNumber, a.OrderId))
+                                                                        GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.OrderPosition(), a.OrderPositionName, a.OrderPositionId),
+                                                                        GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.Order(), a.OrderNumber, a.OrderId))
                                                 });
         }
     }

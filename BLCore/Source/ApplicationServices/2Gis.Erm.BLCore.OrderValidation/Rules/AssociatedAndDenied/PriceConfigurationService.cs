@@ -8,6 +8,8 @@ using DoubleGis.Erm.BLCore.OrderValidation.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
 {
     public class PriceConfigurationService : IPriceConfigurationService
@@ -58,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
                 {
                     if (principalPositions.Count > 0)
                     {
-                        var pricePositionDescriptionTemplate = string.Format("<{0}:{1}:{2}>", EntityName.PricePosition, pricePosition.PositionName, pricePosition.Id);
+                        var pricePositionDescriptionTemplate = string.Format("<{0}:{1}:{2}>", EntityType.Instance.PricePosition().Description, pricePosition.PositionName, pricePosition.Id);
                         messages.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Warning,

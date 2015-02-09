@@ -11,7 +11,8 @@ using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         }
 
         [HttpGet]
-        public ActionResult EntityPrivileges(EntityName entityTypeName, long? entityId, string entityState)
+        public ActionResult EntityPrivileges(IEntityType entityTypeName, long? entityId, string entityState)
         {
             if (!entityId.HasValue)
             {
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         }
 
         [HttpGet]
-        public ActionResult FunctionalPrivileges(EntityName entityTypeName, long? entityId, string entityState)
+        public ActionResult FunctionalPrivileges(IEntityType entityTypeName, long? entityId, string entityState)
         {
             if (!entityId.HasValue)
             {
@@ -56,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         }
 
         [HttpGet]
-        public ActionResult AdditionalFirmServices(EntityName entityTypeName, long? entityId, string entityState)
+        public ActionResult AdditionalFirmServices(IEntityType entityTypeName, long? entityId, string entityState)
         {
             if (!entityId.HasValue)
             {
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         }
 
         [HttpGet]
-        public ActionResult AdditionalFirmAddressServices(EntityName entityTypeName, long? entityId, string entityState)
+        public ActionResult AdditionalFirmAddressServices(IEntityType entityTypeName, long? entityId, string entityState)
         {
             if (!entityId.HasValue)
             {

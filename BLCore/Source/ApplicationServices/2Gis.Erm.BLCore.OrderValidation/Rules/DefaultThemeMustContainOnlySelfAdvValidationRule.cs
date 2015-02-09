@@ -13,6 +13,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -78,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                          .Select(theme => theme.Name)
                          .SingleOrDefault();
 
-            return GenerateDescription(isMassValidation, EntityName.Theme, name, themeId.Value);
+            return GenerateDescription(isMassValidation, EntityType.Instance.Theme(), name, themeId.Value);
         }
 
         private Expression<Func<Order, bool>> GetFilterByThemeUsagePredicate(long? themeId)

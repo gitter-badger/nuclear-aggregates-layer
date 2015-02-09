@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Roles;
 using DoubleGis.Erm.BLCore.API.Aggregates.Roles.Dto;
@@ -16,6 +15,8 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 {
@@ -83,11 +84,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
             var entityPrivilegeInfos = _finder.FindAll<Privilege>()
                                               .Where(x => x.EntityType != null)
                                               .GroupBy(x => x.EntityType)
-                                              .Select(x => new EntityPrivilegeInfo
+                                              .Select(x => new
                                                   {
-                                                      EntityName = (EntityName)x.Key,
+                                                      EntityName = x.Key,
                                                       PrivilegeInfoList = x.Select(p => new PrivilegeDto
-                                                                                           {
+                                                          {
                                                               PrivilegeId = p.Id,
                                                               Operation = (EntityAccessTypes)p.Operation,
                                                               PrivilegeDepthMask = (EntityPrivilegeDepthState)p.RolePrivileges
@@ -95,6 +96,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
                                                                                                                .Select(rp => rp.Mask)
                                                                                                                .FirstOrDefault(),
                                                           })
+                                                  })
+                                              .AsEnumerable()
+                                              .Select(x => new EntityPrivilegeInfo
+                                                  {
+                                                      EntityName = EntityType.Instance.Parse(x.EntityName.Value),
+                                                      PrivilegeInfoList = x.PrivilegeInfoList
                                                   })
                                               .ToArray();
 

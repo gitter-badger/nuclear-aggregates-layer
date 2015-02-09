@@ -9,6 +9,8 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -45,8 +47,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                          Type = MessageType.Error,
                                                          MessageText =
                                                              string.Format(BLResources.ThemeUsesInactiveCategory,
-                                                                           GenerateDescription(true, EntityName.Theme, x.Theme.Name, x.Theme.Id),
-                                                                           GenerateDescription(true, EntityName.Category, x.Category.Name, x.Category.Id))
+                                                                           GenerateDescription(true, EntityType.Instance.Theme(), x.Theme.Name, x.Theme.Id),
+                                                                           GenerateDescription(true, EntityType.Instance.Category(), x.Category.Name, x.Category.Id))
                                                      });
         }
     }

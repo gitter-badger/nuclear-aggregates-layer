@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -69,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                 MessageText =
                                     string.Format(
                                         BLResources.TooManyCategorieForFirm,
-                                        GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Firm, x.FirmName, x.FirmId),
+                                        GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityType.Instance.Firm(), x.FirmName, x.FirmId),
                                         x.Categories.Select(y => y.CategoryId).Distinct().Count(),
                                         MaxCategoriesAlowedForFirm)
                             });

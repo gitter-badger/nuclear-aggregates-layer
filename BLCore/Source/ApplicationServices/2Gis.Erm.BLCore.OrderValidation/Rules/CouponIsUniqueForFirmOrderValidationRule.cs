@@ -7,6 +7,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -67,8 +69,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     MessageText = 
                         string.Format(
                             BLResources.CouponIsBoundToMultiplePositionTemplate,
-                            GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Advertisement, x.Key.AdvertisementName, x.Key.AdvertisementId),
-                            string.Join(", ", x.Select(p => GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.OrderPosition, p.OrderPositionName, p.OrderPositionId)))),
+                            GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityType.Instance.Advertisement(), x.Key.AdvertisementName, x.Key.AdvertisementId),
+                            string.Join(", ", x.Select(p => GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityType.Instance.OrderPosition(), p.OrderPositionName, p.OrderPositionId)))),
                 });
         }
     }

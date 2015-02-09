@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 using NuClear.Model.Common;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel.Banks
 {
@@ -19,8 +20,11 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel
             {
                 get
                 {
-                    return new FindSpecification<DictionaryEntityInstance>(entity => entity.DictionaryEntityPropertyInstances.Any(property =>
-                                                                                                                              property.PropertyId == IdentityBase<EntityTypeNameIdentity>.Instance.Id && property.NumericValue == (int)EntityName.Bank));
+                    var bankTypeId = EntityType.Instance.Bank().Id;
+                    return new FindSpecification<DictionaryEntityInstance>(
+                        entity => entity.DictionaryEntityPropertyInstances.Any(property =>
+                                                                               property.PropertyId == IdentityBase<EntityTypeNameIdentity>.Instance.Id &&
+                                                                               property.NumericValue == bankTypeId));
                 }   
             }
         }

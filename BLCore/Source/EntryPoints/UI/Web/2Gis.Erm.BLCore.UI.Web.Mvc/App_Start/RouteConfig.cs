@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-using DoubleGis.Erm.Platform.Model.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
 {
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
                                 {
                                     controller = "Note",
                                     action = "GetEntityNotes",
-                                    entityType = EntityName.None,
+                                    entityType = EntityType.Instance.None(),
                                 });
 
             routes.MapRoute(ViewAndSearchRoute,
@@ -46,10 +46,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
                             new
                                 {
                                     controller = "Grid",
-                                    parentEntityType = EntityName.None,
+                                    parentEntityType = EntityType.Instance.None(),
                                     parentEntityId = UrlParameter.Optional,
                                     parentEntityState = UrlParameter.Optional,
-                                    appendedEntityType = EntityName.None
+                                    appendedEntityType = EntityType.Instance.None()
                                 });
 
             routes.MapRoute(EditRoute,
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
                             new
                                 {
                                     controller = "Edit",
-                                    parentEntityType = EntityName.None,
+                                    parentEntityType = EntityType.Instance.None(),
                                     entityId = UrlParameter.Optional,
                                     entityState = UrlParameter.Optional
                                 });
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
                                 {
                                     controller = "CrmRedirectToAction",
                                     action = "Execute",
-                                    entityTypeName = EntityName.None,
+                                    entityTypeName = EntityType.Instance.None(),
                                     replicationCode = UrlParameter.Optional
                                 });
 
@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
                                 {
                                     controller = "GroupOperation",
                                     action = "Execute",
-                                    entityTypeName = EntityName.None,
+                                    entityTypeName = EntityType.Instance.None(),
                                 });
 
             routes.MapRoute(UploadFileRoute,

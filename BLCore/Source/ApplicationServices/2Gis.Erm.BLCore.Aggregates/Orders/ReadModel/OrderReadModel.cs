@@ -448,7 +448,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public Note GetLastNoteForOrder(long orderId, DateTime sinceDate)
         {
-            return _finder.Find<Note>(n => n.ParentId == orderId && n.ParentType == (int)EntityName.Order && n.ModifiedOn > sinceDate)
+            var orderTypeId = EntityType.Instance.Order().Id;
+            return _finder.Find<Note>(x => x.ParentId == orderId && x.ParentType == orderTypeId && x.ModifiedOn > sinceDate)
                           .OrderByDescending(x => x.ModifiedOn)
                           .FirstOrDefault();
         }

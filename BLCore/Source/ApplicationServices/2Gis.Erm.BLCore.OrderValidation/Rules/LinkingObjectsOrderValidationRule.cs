@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -70,8 +72,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // address fails
                 foreach (var addressFail in orderInfo.AddressFails)
                 {
-                    var orderPositionDescription = GenerateDescription(isMassValidation, EntityName.OrderPosition, addressFail.PositionName, addressFail.OrderPositionId);
-                    var addressDescription = GenerateDescription(isMassValidation, EntityName.FirmAddress, addressFail.AddressName, addressFail.AddressId);
+                    var orderPositionDescription = GenerateDescription(isMassValidation, EntityType.Instance.OrderPosition(), addressFail.PositionName, addressFail.OrderPositionId);
+                    var addressDescription = GenerateDescription(isMassValidation, EntityType.Instance.FirmAddress(), addressFail.AddressName, addressFail.AddressId);
 
                     if (addressFail.AddressDeleted)
                     {
@@ -159,8 +161,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // category fails
                 foreach (var categoryFail in orderInfo.CategoryFails)
                 {
-                    var orderPositionDescription = GenerateDescription(isMassValidation, EntityName.OrderPosition, categoryFail.PositionName, categoryFail.OrderPositionId);
-                    var categoryDescription = GenerateDescription(isMassValidation, EntityName.Category, categoryFail.CategoryName, categoryFail.CategoryId);
+                    var orderPositionDescription = GenerateDescription(isMassValidation, EntityType.Instance.OrderPosition(), categoryFail.PositionName, categoryFail.OrderPositionId);
+                    var categoryDescription = GenerateDescription(isMassValidation, EntityType.Instance.Category(), categoryFail.CategoryName, categoryFail.CategoryId);
 
                     if (categoryFail.CategoryNotActive)
                     {
@@ -235,9 +237,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // address and category fails
                 foreach (var addressesAndCategoryFail in orderInfo.AddressesAndCategoryFails)
                 {
-                    var orderPositionDescription = GenerateDescription(isMassValidation, EntityName.OrderPosition, addressesAndCategoryFail.PositionName, addressesAndCategoryFail.OrderPositionId);
-                    var addressDescription = GenerateDescription(isMassValidation, EntityName.FirmAddress, addressesAndCategoryFail.AddressName, addressesAndCategoryFail.AddressId);
-                    var categoryDescription = GenerateDescription(isMassValidation, EntityName.Category, addressesAndCategoryFail.CategoryName, addressesAndCategoryFail.CategoryId);
+                    var orderPositionDescription = GenerateDescription(isMassValidation, EntityType.Instance.OrderPosition(), addressesAndCategoryFail.PositionName, addressesAndCategoryFail.OrderPositionId);
+                    var addressDescription = GenerateDescription(isMassValidation, EntityType.Instance.FirmAddress(), addressesAndCategoryFail.AddressName, addressesAndCategoryFail.AddressId);
+                    var categoryDescription = GenerateDescription(isMassValidation, EntityType.Instance.Category(), addressesAndCategoryFail.CategoryName, addressesAndCategoryFail.CategoryId);
 
                     if (addressesAndCategoryFail.CategoryNotBelongsToAddress)
                     {

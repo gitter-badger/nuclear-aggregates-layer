@@ -8,6 +8,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -58,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 var was = false;
                 foreach (var item in orderPosition.BadCategories.OrderBy(item => item.Name))
                 {
-                    var orderPositionDescription = GenerateDescription(ruleContext.IsMassValidation, EntityName.OrderPosition, item.PositionName, orderPosition.OrderPositionId);
+                    var orderPositionDescription = GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.OrderPosition(), item.PositionName, orderPosition.OrderPositionId);
                     stringBuilder.AppendFormat(BLResources.OrderCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit, orderPositionDescription);
                     if (was)
                     {
@@ -67,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     was = true;
 
-                    stringBuilder.Append(GenerateDescription(ruleContext.IsMassValidation, EntityName.Category, item.Name, item.Id));
+                    stringBuilder.Append(GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.Category(), item.Name, item.Id));
                     results.Add(new OrderValidationMessage
                         {
                             Type = MessageType.Error,

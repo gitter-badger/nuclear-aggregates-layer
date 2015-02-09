@@ -2,11 +2,13 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 {
     public sealed class LookupSettings
     {
-        public EntityName EntityName { get; set; }
+        public IEntityType EntityName { get; set; }
         public bool ShowReadOnlyCard { get; set; }
         public bool Disabled { get; set; }
         public bool ReadOnly { get; set; }
