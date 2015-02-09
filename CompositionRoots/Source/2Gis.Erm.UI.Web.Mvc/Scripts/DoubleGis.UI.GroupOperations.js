@@ -158,7 +158,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         if (this.ProcessingQueue.length != 0) {
             var nextEntity = this.ProcessingQueue.shift();
             var entityName, entityId;
-            if (this.IsCallFromCrm)
+            if (!Ext.isNumber(parseFloat(+nextEntity)))
             {
                 entityName = nextEntity.TypeName;
                 entityId = nextEntity.Id;

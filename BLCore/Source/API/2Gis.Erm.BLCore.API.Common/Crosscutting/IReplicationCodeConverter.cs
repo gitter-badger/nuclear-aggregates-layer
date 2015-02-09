@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.API.Common.Crosscutting
     {
         long ConvertToEntityId(EntityName entityName, Guid replicationCode);
         Guid ConvertToReplicationCode(EntityName entityName, long entityId);
-        [Obsolete("Поведение изменилось и теперь мы используем другой метод")]
+        [Obsolete("Логика теперь требует, чтобы каждому replicationCode соответствовал свой entityName, это позволит нам в одном запросе запрашивать объекты разных EntityName")]
         IEnumerable<long> ConvertToEntityIds(EntityName entityName, IEnumerable<Guid> replicationCodes);
         IEnumerable<ErmEntityInfo> ConvertToEntityIds(IEnumerable<EntityName> entityName, IEnumerable<Guid> replicationCodes);
         IEnumerable<ErmEntityInfo> ConvertToEntityIds(IEnumerable<CrmEntityInfo> crmEntities);
