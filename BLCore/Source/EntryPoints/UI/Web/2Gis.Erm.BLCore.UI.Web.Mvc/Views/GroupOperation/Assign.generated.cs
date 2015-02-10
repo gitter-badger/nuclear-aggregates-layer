@@ -643,14 +643,14 @@ WriteLiteral(">\r\n                            </div>\r\n                       
             #line hidden
             
             #line 280 "..\..\Views\GroupOperation\Assign.cshtml"
-   Write(Html.HiddenFor(m => m.EntityTypeName));
+   Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
             #line hidden
             
             #line 280 "..\..\Views\GroupOperation\Assign.cshtml"
-                                              
+                                                                    
         
             
             #line default

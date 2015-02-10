@@ -466,7 +466,7 @@ WriteLiteral("                    ");
 
             
             #line 220 "..\..\Views\GroupOperation\QualifyClient.cshtml"
-               Write(Html.HiddenFor(m => m.EntityTypeName));
+               Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default

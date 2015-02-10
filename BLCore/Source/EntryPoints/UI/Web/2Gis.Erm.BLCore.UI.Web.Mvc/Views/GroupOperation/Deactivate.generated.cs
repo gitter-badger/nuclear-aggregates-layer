@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -304,7 +305,7 @@ WriteLiteral("    ");
 
             
             #line 96 "..\..\Views\GroupOperation\Deactivate.cshtml"
-Write(Html.HiddenFor(x => x.EntityTypeName));
+Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default

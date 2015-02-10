@@ -390,14 +390,14 @@ WriteLiteral(">\r\n                            </div>\r\n                       
             #line hidden
             
             #line 130 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-   Write(Html.HiddenFor(x => x.EntityTypeName));
+   Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
             #line hidden
             
             #line 130 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-                                              
+                                                                    
     }
 
             

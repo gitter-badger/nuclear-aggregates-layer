@@ -180,7 +180,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         });
     },
 	ResolveEntityName: function(entityId) {
-		return Ext.getDom("EntityTypeName").value;
+		return Ext.getDom("EntityType").value;
 	},
     OnSuccessProcessed: function (response) {
         var validatedProcessingStatus = this.ValidateEntryProcessingSuccessStatus(response.responseText);

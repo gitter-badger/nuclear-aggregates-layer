@@ -121,7 +121,7 @@
                         <div id="pbInner">
                         </div>
                     </div>
-                    @Html.HiddenFor(m => m.EntityTypeName)
+                    @Html.Hidden("EntityType", Model.EntityTypeName.Description)
                 </td>
             </tr>
         </tbody>

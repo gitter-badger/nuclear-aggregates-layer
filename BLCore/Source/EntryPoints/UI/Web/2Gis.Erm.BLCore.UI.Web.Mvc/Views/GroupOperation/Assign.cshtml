@@ -277,7 +277,7 @@
                 </tr>
             </tbody>
         </table>
-        @Html.HiddenFor(m => m.EntityTypeName)
+        @Html.Hidden("EntityType", Model.EntityTypeName.Description)
         @Html.HiddenFor(m => m.PartialAssignSupported)
     }
 }

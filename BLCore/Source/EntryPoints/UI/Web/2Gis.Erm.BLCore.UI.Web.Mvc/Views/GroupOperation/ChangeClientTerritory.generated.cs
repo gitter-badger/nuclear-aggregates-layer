@@ -344,7 +344,7 @@ WriteLiteral("                    ");
 
             
             #line 127 "..\..\Views\GroupOperation\ChangeClientTerritory.cshtml"
-               Write(Html.HiddenFor(m => m.EntityTypeName));
+               Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default

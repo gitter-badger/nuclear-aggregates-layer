@@ -148,7 +148,7 @@
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
     <div class="Tab">
-        @Html.HiddenFor(m => m.EntityTypeName)
+        @Html.Hidden("EntityType", Model.EntityTypeName.Description)
         
         @* NOTE: Dependency убраны для уменьшения иерархии наследования ViewModel'ей *@
         @* @Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList) *@

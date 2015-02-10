@@ -75,5 +75,5 @@
             </td>
         </tr>
     </table>
-    @Html.HiddenFor(x => x.EntityTypeName)
+    @Html.Hidden("EntityType", Model.EntityTypeName.Description)
 }

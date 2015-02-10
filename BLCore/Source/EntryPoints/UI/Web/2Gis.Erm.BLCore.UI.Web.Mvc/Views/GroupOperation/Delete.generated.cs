@@ -302,7 +302,7 @@ WriteLiteral("    ");
 
             
             #line 98 "..\..\Views\GroupOperation\Delete.cshtml"
-Write(Html.HiddenFor(x => x.EntityTypeName));
+Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default

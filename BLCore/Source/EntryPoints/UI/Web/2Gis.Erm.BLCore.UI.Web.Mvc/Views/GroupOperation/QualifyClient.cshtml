@@ -217,7 +217,7 @@
             </tr>
             <tr style="display:none;">
                 <td colspan="2">
-                    @Html.HiddenFor(m => m.EntityTypeName)
+                    @Html.Hidden("EntityType", Model.EntityTypeName.Description)
                 </td>
             </tr>
         </tbody>
