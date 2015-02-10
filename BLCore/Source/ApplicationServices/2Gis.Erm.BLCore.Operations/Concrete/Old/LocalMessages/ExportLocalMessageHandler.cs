@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
@@ -68,30 +67,30 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             {
                 _subRequestProcessor
                     .HandleSubRequest(new CreateLocalMessageRequest
-                        {
-                            Content = sucсessFlag && integrationResponse != null ? integrationResponse.Stream : new MemoryStream(),
-                            IntegrationType = (int)request.IntegrationType,
-                            FileName = sucсessFlag && integrationResponse != null ? integrationResponse.FileName : string.Empty,
-                            ContentType = sucсessFlag && integrationResponse != null ? integrationResponse.ContentType : string.Empty,
-                            Entity =
-                                new LocalMessage
-                                    {
-                                        EventDate = DateTime.UtcNow,
-                                        Status = !haveErrors ? statusOnSuccess : LocalMessageStatus.Failed,
-                                        OrganizationUnitId = request.OrganizationUnitId,
-                                        ProcessResult = sucсessFlag && integrationResponse != null
-                                                ? (integrationResponse.BlockingErrorsAmount > 0
-                                                   || integrationResponse.NonBlockingErrorsAmount > 0
-                                                       ? BLResources.ErrorsAreInTheFile
-                                                       : string.Empty)
-                                                : errorMsg
-                                    }
+                                          {
+                                              Content = sucсessFlag && integrationResponse != null ? integrationResponse.Stream : new MemoryStream(), 
+                                              IntegrationType = (int)request.IntegrationType, 
+                                              FileName = sucсessFlag && integrationResponse != null ? integrationResponse.FileName : string.Empty, 
+                                              ContentType = sucсessFlag && integrationResponse != null ? integrationResponse.ContentType : string.Empty, 
+                                              Entity =
+                                                  new LocalMessage
+                                                      {
+                                                          EventDate = DateTime.UtcNow, 
+                                                          Status = !haveErrors ? statusOnSuccess : LocalMessageStatus.Failed, 
+                                                          OrganizationUnitId = request.OrganizationUnitId, 
+                                                          ProcessResult = sucсessFlag && integrationResponse != null
+                                                                              ? (integrationResponse.BlockingErrorsAmount > 0
+                                                                                 || integrationResponse.NonBlockingErrorsAmount > 0
+                                                                                     ? BLResources.ErrorsAreInTheFile
+                                                                                     : string.Empty)
+                                                                              : errorMsg
+                                                      }
 
-                            // Если не sucсessFlag, то предыдущая транзакция была закрыта при выкидывании 
-                            // BusinessLogicException. Поэтому открываем новую.
-                        },
-                    Context,
-                    sucсessFlag);
+                                              // Если не sucсessFlag, то предыдущая транзакция была закрыта при выкидывании 
+                                              // BusinessLogicException. Поэтому открываем новую.
+                                          }, 
+                                      Context, 
+                                      sucсessFlag);
             }
 
             if (!sucсessFlag)
@@ -106,38 +105,33 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
         {
             switch (request.IntegrationType)
             {
-                case IntegrationTypeExport.FirmsWithActiveOrdersToDgpp:
-                    {
-                        return _subRequestProcessor.HandleSubRequest(new ExportFirmsWithActiveOrdersRequest(), Context);
-                    }
-
                 case IntegrationTypeExport.LegalPersonsTo1C:
-                    {
-                        return _subRequestProcessor.HandleSubRequest(
-                            new ExportLegalPersonsRequest
-                                {
-                                    OrganizationUnitId = request.OrganizationUnitId,
-                                    PeriodStart = request.PeriodStart
-                                },
-                            Context);
-                    }
+                {
+                    return _subRequestProcessor.HandleSubRequest(
+                                                                 new ExportLegalPersonsRequest
+                                                                     {
+                                                                         OrganizationUnitId = request.OrganizationUnitId, 
+                                                                         PeriodStart = request.PeriodStart
+                                                                     }, 
+                                                                 Context);
+                }
 
                 case IntegrationTypeExport.DataForAutoMailer:
-                    {
-                        return _subRequestProcessor.HandleSubRequest(
-                            new ExportDataForAutoMailerRequest
-                                {
-                                    SendingType = request.SendingType,
-                                    PeriodStart = request.PeriodStart,
-                                    IncludeRegionalAdvertisement = request.IncludeRegionalAdvertisement
-                                },
-                            Context);
-                    }
+                {
+                    return _subRequestProcessor.HandleSubRequest(
+                                                                 new ExportDataForAutoMailerRequest
+                                                                     {
+                                                                         SendingType = request.SendingType, 
+                                                                         PeriodStart = request.PeriodStart, 
+                                                                         IncludeRegionalAdvertisement = request.IncludeRegionalAdvertisement
+                                                                     }, 
+                                                                 Context);
+                }
 
                 case IntegrationTypeExport.AccountDetailsTo1C:
-                    {
-                        return ExportAccountDetailsTo1C(request);
-                    }
+                {
+                    return ExportAccountDetailsTo1C(request);
+                }
 
                 case IntegrationTypeExport.AccountDetailsToServiceBus:
                 {
@@ -178,23 +172,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 case ContributionTypeEnum.Branch:
                 {
                     exportRequest = new ExportAccountDetailsToServiceBusForBranchRequest
-                        {
-                            OrganizationUnitId = request.OrganizationUnitId.Value,
-                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
-                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth()
-                        };
+                                        {
+                                            OrganizationUnitId = request.OrganizationUnitId.Value, 
+                                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(), 
+                                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth()
+                                        };
                     break;
                 }
+
                 case ContributionTypeEnum.Franchisees:
                 {
                     exportRequest = new ExportAccountDetailsToServiceBusForFranchiseesRequest
-                        {
-                            OrganizationUnitId = request.OrganizationUnitId.Value,
-                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
-                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth()
-                        };
+                                        {
+                                            OrganizationUnitId = request.OrganizationUnitId.Value, 
+                                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(), 
+                                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth()
+                                        };
                     break;
                 }
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -217,23 +213,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 case ContributionTypeEnum.Branch:
                 {
                     exportRequest = new ExportAccountDetailsTo1CForBranchRequest
-                        {
-                            OrganizationUnitId = request.OrganizationUnitId.Value,
-                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
-                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth(),
-                        };
+                                        {
+                                            OrganizationUnitId = request.OrganizationUnitId.Value, 
+                                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(), 
+                                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth(), 
+                                        };
                     break;
                 }
+
                 case ContributionTypeEnum.Franchisees:
                 {
                     exportRequest = new ExportAccountDetailsTo1CForFranchiseesRequest
-                        {
-                            OrganizationUnitId = request.OrganizationUnitId.Value,
-                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
-                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth(),
-                        };
+                                        {
+                                            OrganizationUnitId = request.OrganizationUnitId.Value, 
+                                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(), 
+                                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth(), 
+                                        };
                     break;
                 }
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

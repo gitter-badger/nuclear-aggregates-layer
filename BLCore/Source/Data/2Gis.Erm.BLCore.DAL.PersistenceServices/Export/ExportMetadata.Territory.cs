@@ -18,7 +18,6 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                      .Operation<UpdateIdentity>()
                                                      .Operation<DeactivateIdentity>()
                                                      .Operation<SpecifyAdditionalServicesIdentity>()
-                                                     .NonCoupledOperation<ImportTerritoriesIdentity>()
                                                      .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Territory>(ids))));
     }
 }

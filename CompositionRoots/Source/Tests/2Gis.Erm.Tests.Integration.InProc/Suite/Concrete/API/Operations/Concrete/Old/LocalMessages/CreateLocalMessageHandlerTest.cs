@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                     OrganizationUnitId = modelEntity.Id,
                 },
                 FileName = "Test",
-                IntegrationType = (int)IntegrationTypeExport.FirmsWithActiveOrdersToDgpp,
+                IntegrationType = (int)IntegrationTypeExport.LegalPersonsTo1C,
                 Content = new MemoryStream(),
                 ContentType = MediaTypeNames.Text.Xml,
             };

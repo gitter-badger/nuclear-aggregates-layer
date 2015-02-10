@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Firms;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -28,23 +27,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         int ChangeTerritory(IEnumerable<Firm> firm, long territoryId);
         IEnumerable<Firm> GetFirmsByTerritory(long territoryId);
 
-        IEnumerable<OrganizationUnitDto> ExportFirmWithActiveOrders();
-        CompactFirmDto GetFirmInBrief(long firmId);
-
         int? GetOrganizationUnitDgppId(long organizationUnitId);
-        OrganizationUnit GetOrganizationUnit(int organizationUnitDgppId);
-        Territory ImportTerritory(ImportTerritoriesHeaderDto header, ImportTerritoryDto territoryDto);
-
-        IEnumerable<long> GetTerritoriesOfOrganizationUnit(long organizationUnitId);
-        IDictionary<int, long> GetOrganizationUnits();
-        IEnumerable<long> GetCategoriesOfOrganizationUnit(long organizationUnitId);
-        Firm ImportFirmFromDgpp(ImportFirmDto firm, FirmImportContext context);
-        [Obsolete("usecase оставлен просто для подстраховки - пока все города не откажутся от ДГПП, на практике он уже не используется")]
-        IEnumerable<FirmAddress> ImportFirmAddresses(Firm firm, ImportFirmDto dto, FirmImportContext context);
-        void ImportAddressContacts(FirmAddress firmAddress, DTO.ImportFirmAddressDto dto);
-        void ImportAddressCategories(FirmAddress firmAddress, DTO.ImportFirmAddressDto dto, FirmImportContext context);
-        [Obsolete("usecase оставлен просто для подстраховки - пока все города не откажутся от ДГПП, на практике он уже не используется")]
-        void DeleteFirmRelatedObjects(Firm firm);
 
         void ImportFirmPromisingValues(long userId);
         void UpdateFirmAddresses(IEnumerable<FirmAddress> syncFirmAddressesDtos);

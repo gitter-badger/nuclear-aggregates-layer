@@ -8,11 +8,9 @@ using System.Xml;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages.DTO;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.RabbitMq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -32,9 +30,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
         private readonly ICommonLog _logger;
         private readonly ISubRequestProcessor _subRequestProcessor;
 
-        public ProcessLocalMessagesHandler(ILocalMessageRepository localMessageRepository,
-                                           IFileService fileService,
-                                           ISubRequestProcessor subRequestProcessor,
+        public ProcessLocalMessagesHandler(ILocalMessageRepository localMessageRepository, 
+                                           IFileService fileService, 
+                                           ISubRequestProcessor subRequestProcessor, 
                                            ICommonLog logger)
         {
             _localMessageRepository = localMessageRepository;
@@ -104,10 +102,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
                 var resultMessage =
                     string.Format(
-                        "Cообщение загружено успешно [{0}]: было обработано [{1}] элементов из [{2}]",
-                        localMessageDto.LocalMessage.Id,
-                        response.Processed,
-                        response.Total);
+                                  "Cообщение загружено успешно [{0}]: было обработано [{1}] элементов из [{2}]", 
+                                  localMessageDto.LocalMessage.Id, 
+                                  response.Processed, 
+                                  response.Total);
                 _logger.InfoEx(resultMessage);
 
                 messages.Add(resultMessage);
@@ -115,6 +113,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 {
                     messages.AddRange(response.Messages);
                 }
+
                 return;
             }
 
@@ -125,6 +124,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 {
                     messages.AddRange(response.Messages);
                 }
+
                 return;
             }
 
@@ -136,15 +136,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             var integrationType = (IntegrationTypeExport)localMessageDto.IntegrationType;
             switch (integrationType)
             {
-                case IntegrationTypeExport.FirmsWithActiveOrdersToDgpp:
-                    {
-                        return ProcessFirmsWithActiveOrdersToDgpp(localMessageDto);
-                    }
-
                 case IntegrationTypeExport.DataForAutoMailer:
-                    {
-                        return ProcessDataForAutoMailer(localMessageDto);
-                    }
+                {
+                    return ProcessDataForAutoMailer(localMessageDto);
+                }
 
                 case IntegrationTypeExport.AccountDetailsToServiceBus:
                 {
@@ -166,37 +161,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
             var stream = file.Content.UnzipStream(x => Path.GetExtension(x) == ".xml").Single().Value;
             return (ExportResponse)_subRequestProcessor.HandleSubRequest(new WriteMessageToServiceBusRequest
-                {
-                    MessageStream = stream,
-                    FlowName = "flowFinancialData",
-                    XsdSchemaResourceExpression = () => Properties.Resources.flowFinancialData_DebitsInfoInitial
-                },
-                                                                         Context,
+                                                                             {
+                                                                                 MessageStream = stream, 
+                                                                                 FlowName = "flowFinancialData", 
+                                                                                 XsdSchemaResourceExpression = () => Properties.Resources.flowFinancialData_DebitsInfoInitial
+                                                                             }, 
+                                                                         Context, 
                                                                          false);
-        }
-
-        private ExportResponse ProcessFirmsWithActiveOrdersToDgpp(LocalMessageDto localMessageDto)
-        {
-            if (localMessageDto.LocalMessage.OrganizationUnitId == null)
-            {
-                throw new NotificationException(
-                    string.Format("Для обработки сообщения типа '{0}' должен быть указан город", IntegrationTypeExport.FirmsWithActiveOrdersToDgpp));
-            }
-
-            var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
-            var stream = file.Content;
-
-            var response = (ExportResponse)_subRequestProcessor.HandleSubRequest(
-                new WriteFirmsWithActiveOrdersToRabbitMqRequest
-                {
-                    MessageStream = stream,
-                                                                                         OrganizationUnitId =
-                                                                                             localMessageDto.LocalMessage.OrganizationUnitId.Value,
-                },
-                Context,
-                false);
-
-            return response;
         }
 
         private ExportResponse ProcessDataForAutoMailer(LocalMessageDto localMessageDto)
@@ -205,13 +176,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             var stream = file.Content;
 
             return (ExportResponse)_subRequestProcessor.HandleSubRequest(new WriteMessageToServiceBusRequest
-            {
-                MessageStream = stream,
-                FlowName = "flowDeliveryData",
-                    XsdSchemaResourceExpression = () => Properties.Resources.flowDeliveryData_SendingGroup
-            },
-                                                             Context,
-                                                             false);
+                                                                             {
+                                                                                 MessageStream = stream, 
+                                                                                 FlowName = "flowDeliveryData", 
+                                                                                 XsdSchemaResourceExpression = () => Properties.Resources.flowDeliveryData_SendingGroup
+                                                                             }, 
+                                                                         Context, 
+                                                                         false);
         }
 
         private ImportResponse ProcessImportRequest(LocalMessageDto localMessageDto)
@@ -224,36 +195,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             var integrationType = (IntegrationTypeImport)localMessageDto.IntegrationType;
             switch (integrationType)
             {
-                case IntegrationTypeImport.FirmsFromDgpp:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                            new DgppImportFirmsRequest { MessageStream = stream },
-                            Context,
-                            false);
-                        break;
-                    }
-
-                case IntegrationTypeImport.TerritoriesFromDgpp:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                            new DgppImportTerritoriesRequest { MessageStream = stream },
-                            Context,
-                            false);
-                        break;
-                    }
-
                 case IntegrationTypeImport.AccountDetailsFrom1C:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
+                {
+                    response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
                                                                                      new ImportAccountDetailsFrom1CRequest
                                                                                          {
-                                                                                             InputStream = stream,
+                                                                                             InputStream = stream, 
                                                                                              FileName = localMessageDto.FileName
-                                                                                         },
-                            Context,
-                            false);
-                        break;
-                    }
+                                                                                         }, 
+                                                                                     Context, 
+                                                                                     false);
+                    break;
+                }
 
                 default:
                     throw new NotificationException("Неподдерживаемый тип интеграционного запроса на импорт");
