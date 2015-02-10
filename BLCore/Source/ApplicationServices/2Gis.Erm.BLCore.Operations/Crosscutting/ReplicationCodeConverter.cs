@@ -55,9 +55,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             var resultList = new List<ErmEntityInfo>();
             foreach (var entityType in list)
             {
+                var type = entityType;
                 var entityIds = LookupEntities(_finder, entityType.EntityName, entityType.replicationCodes)
-                    .Select(x => new ErmEntityInfo { EntityName = entityType.EntityName, Id = x.Id })
-                    .ToList();                              
+                    .Select(x => new ErmEntityInfo { EntityName = type.EntityName, Id = x.Id });                    
                 resultList.AddRange(entityIds);
             }
 
