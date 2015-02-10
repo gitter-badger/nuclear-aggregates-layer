@@ -1,0 +1,34 @@
+﻿@using DoubleGis.Erm.BL.Resources.Server.Properties
+@model SelectLegalPersonProfileViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @Resources.ChangeProfilesOperationTitle }
+@section TopBarTitle { @Resources.ChangeProfilesOperationTitle }
+@section TopBarMessage { @Resources.ChangeProfilesOperationMessage }
+
+@section PageScript
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.SelectOrderProfile.js?@ThisAssembly.Build" type="text/javascript"></script>
+}
+
+@section PageContent
+{
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "DialogForm" } }))
+    {
+        <div style="height: 1%">
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.LegalPerson,
+                    FieldFlex.lone,
+                    new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true })
+                </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.LegalPersonProfile, 
+                    FieldFlex.lone, 
+                    new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId" })
+            </div>
+        </div>
+    }
+}

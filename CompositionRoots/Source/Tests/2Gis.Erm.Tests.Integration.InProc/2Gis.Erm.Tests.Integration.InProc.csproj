@@ -156,7 +156,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Advertisements\SelectAdvertisementToWhiteListHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Bills\DeleteBillsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Bills\PrintBillHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Bills\PrintJointBillHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesTest.cs" />
@@ -168,7 +167,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\CloseDealHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\ReopenDealHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersonProfiles\SetLegalPersonProfileForOrderHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\ChangeLegalPersonRequisitesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\ExportLegalPersonsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\MergeLegalPersonsHandlerTest.cs" />

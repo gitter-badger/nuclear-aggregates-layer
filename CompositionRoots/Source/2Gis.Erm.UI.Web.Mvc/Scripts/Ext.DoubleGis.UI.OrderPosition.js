@@ -75,7 +75,7 @@ window.InitPage = function ()
         // 4. Обновить окно редактирования позиции заказа.
 
         var parametrs = 'dialogWidth:800px; dialogHeight:600px; status:yes; scroll:yes; resizable:yes; ';
-        var url = '/OrderPosition/ChangeBindingObjects';
+        var url = '/MultiCulture/ChangeBindingObjects/ChangeBindingObjects';
         url = window.Ext.urlAppend(url, window.Ext.urlEncode({ positionId: this.form.Id.value }));
         var dialogResult = window.showModalDialog(url, null, parametrs);
         dialogResult = window.Ext.decode(dialogResult); // тип результата не должен быть ссылочным, иначе после закрытия диалога с ним нельзя будет работать.
@@ -132,9 +132,9 @@ window.InitPage = function ()
             organizationUnitId: window.Ext.getDom('OrganizationUnitId').value
         });
 
-        this.BusinessLogic.on("pricePositionChanged", function (linkingObjectsShema, isPositionNewSalesModel)
-        {
-            this.Advertisements.localData.useSingleCategoryForPackage = isPositionNewSalesModel;
+        this.BusinessLogic.on("pricePositionChanged", function (linkingObjectsShema, isPositionOfPlannedProvisionSalesModel, salesModel) {
+            this.Advertisements.localData.useSingleCategoryForPackage = isPositionOfPlannedProvisionSalesModel;
+            this.Advertisements.localData.salesModel = salesModel;
             this.Advertisements.setSchema(linkingObjectsShema);
         }, this);
 

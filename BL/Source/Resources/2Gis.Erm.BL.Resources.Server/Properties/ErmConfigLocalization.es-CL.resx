@@ -1866,4 +1866,7 @@
   <data name="DListTimeZones" xml:space="preserve">
     <value>Husos horarios</value>
   </data>
+  <data name="ControlChangeProfiles" xml:space="preserve">
+    <value>Cambiar el perfil</value>
+  </data>
 </root>

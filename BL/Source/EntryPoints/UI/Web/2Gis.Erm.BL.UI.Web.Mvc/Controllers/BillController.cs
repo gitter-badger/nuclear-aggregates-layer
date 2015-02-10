@@ -3,15 +3,16 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
@@ -37,20 +38,24 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 };
 
         private readonly IPublicService _publicService;
-        private readonly ISecureFinder _finder;
+        private readonly IDeleteOrderBillsOperationService _deleteBillsService;
+        private readonly ICreateOrderBillsOperationService _createOrderBillsService;
 
         public BillController(IMsCrmSettings msCrmSettings,
-                              IUserContext userContext,
-                              ICommonLog logger,
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                              IAPIIdentityServiceSettings identityServiceSettings,
+                              IUserContext userContext,
+                              ICommonLog logger,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
-                              ISecureFinder finder)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
+                              IDeleteOrderBillsOperationService deleteBillsService,
+                              ICreateOrderBillsOperationService createOrderBillsService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _publicService = publicService;
-            _finder = finder;
+            _deleteBillsService = deleteBillsService;
+            _createOrderBillsService = createOrderBillsService;
         }
 
         public ActionResult DeleteAll()
@@ -63,7 +68,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             try
             {
-                _publicService.Handle(new DeleteBillsRequest { OrderId = viewModel.OrderId });
+                _deleteBillsService.Delete(viewModel.OrderId);
                 viewModel.Message = BLResources.OK;
                 return View(viewModel);
             }
@@ -115,11 +120,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var createBillInfos = JsonConvert.DeserializeObject<CreateBillInfo[]>(paymentsInfo);
             var orders = JsonConvert.DeserializeObject<long[]>(relatedOrders);
 
-            _publicService.Handle(new CreateBillsRequest
-            {
-                OrderId = orderId,
-                CreateBillInfos = createBillInfos,
-            });
+            _createOrderBillsService.Create(orderId, createBillInfos);
 
             if (orders != null && orders.Length > 0)
             {
@@ -131,11 +132,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                });
                 foreach (var orderInfo in response.OrdersCreateBillInfos)
                 {
-                    _publicService.Handle(new CreateBillsRequest
-                    {
-                        OrderId = orderInfo.Item1,
-                        CreateBillInfos = orderInfo.Item2,
-                    });
+                    _createOrderBillsService.Create(orderInfo.Item1, orderInfo.Item2);
                 }
             }
         }

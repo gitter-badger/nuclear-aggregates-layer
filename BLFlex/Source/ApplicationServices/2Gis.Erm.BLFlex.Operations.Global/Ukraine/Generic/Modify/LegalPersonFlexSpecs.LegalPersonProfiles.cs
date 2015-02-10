@@ -52,7 +52,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                             PostAddress = x.PostAddress,
                                             EmailForAccountingDocuments = x.EmailForAccountingDocuments,
                                             PaymentEssentialElements = x.PaymentEssentialElements,
-                                            AdditionalPaymentElements = x.AdditionalPaymentElements,
                                             PaymentMethod = x.PaymentMethod == null
                                                                 ? PaymentMethod.Undefined
                                                                 : (PaymentMethod)x.PaymentMethod,
@@ -103,7 +102,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                     legalPersonProfile.PaymentEssentialElements = dto.PaymentEssentialElements;
                                     legalPersonProfile.AccountNumber = dto.AccountNumber;
                                     legalPersonProfile.BankName = dto.BankName;
-                                    legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
                                     legalPersonProfile.PaymentMethod = dto.PaymentMethod;
                                     legalPersonProfile.LegalPersonId = dto.LegalPersonRef.Id.Value;
                                     legalPersonProfile.CertificateDate = dto.CertificateDate;

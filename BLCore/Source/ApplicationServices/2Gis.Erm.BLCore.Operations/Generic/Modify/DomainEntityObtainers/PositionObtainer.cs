@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             position.CategoryId = dto.CategoryRef.Id.Value;
             position.BindingObjectTypeEnum = dto.BindingObjectTypeEnum;
             position.CalculationMethodEnum = dto.CalculationMethodEnum;
-            position.AccountingMethodEnum = dto.AccountingMethodEnum;
+            position.SalesModel = dto.SalesModel;
             position.AdvertisementTemplateId = dto.AdvertisementTemplateRef != null ? dto.AdvertisementTemplateRef.Id : null;
             position.ExportCode = dto.ExportCode;
             position.DgppId = dto.DgppId;
