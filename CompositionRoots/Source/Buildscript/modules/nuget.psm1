@@ -56,7 +56,7 @@ function Download-Nuget {
 	$zipArchive.Dispose()
 }
 
-function Get-PackageInfo ($PackageId, $ThrowErrors = $true){
+function Get-PackageInfo ($PackageId){
 
 	$packagesConfigFileName = Join-Path $SolutionDir 'Buildscript\packages.config'
 
@@ -69,9 +69,7 @@ function Get-PackageInfo ($PackageId, $ThrowErrors = $true){
 	$versionedDir = Join-Path $solutionDir "packages\$PackageId.$($packageNode.version)" 
 	
 	if (!(Test-Path $versionedDir)){
-		if ($ThrowErrors){
-			throw "Can't find package dir $versionedDir"
-		}
+		throw "Can't find package dir $versionedDir"
 	}
 	
 	return @{
