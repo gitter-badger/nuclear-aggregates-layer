@@ -2,11 +2,11 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\transform.psm1 -DisableNameChecking
-Import-Module .\modules\msbuild.psm1 -DisableNameChecking
-Import-Module .\modules\msdeploy.psm1 -DisableNameChecking
-Import-Module .\modules\metadata.psm1 -DisableNameChecking
-Import-Module .\modules\versioning.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\transform.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\msbuild.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\msdeploy.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\metadata.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\versioning.psm1" -DisableNameChecking
 
 Properties{ $OptionTaskService=$false }
 Task Build-TaskService -Precondition { return $OptionTaskService } -Depends Update-AssemblyInfo {

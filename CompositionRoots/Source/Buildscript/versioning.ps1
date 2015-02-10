@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\versioning.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\versioning.psm1" -DisableNameChecking
 
 Task Set-BuildNumber {
 	$version = Get-Version

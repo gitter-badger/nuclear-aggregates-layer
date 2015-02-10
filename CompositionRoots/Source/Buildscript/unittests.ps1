@@ -2,8 +2,8 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\nuget.psm1 -DisableNameChecking
-Import-Module .\modules\msbuild.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\nuget.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\msbuild.psm1" -DisableNameChecking
 
 $PackageInfo = Get-PackageInfo 'Machine.Specifications-Signed'
 $MSpecPath = Join-Path $PackageInfo.VersionedDir "tools\mspec-clr4.exe"

@@ -2,10 +2,10 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\transform.psm1 -DisableNameChecking
-Import-Module .\modules\msbuild.psm1 -DisableNameChecking
-Import-Module .\modules\msdeploy.psm1 -DisableNameChecking
-Import-Module .\modules\versioning.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\transform.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\msbuild.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\msdeploy.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\versioning.psm1" -DisableNameChecking
 
 function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatform = 'x64'){
 

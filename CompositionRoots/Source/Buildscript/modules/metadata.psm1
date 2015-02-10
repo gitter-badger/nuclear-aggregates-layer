@@ -2,10 +2,10 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\metadata.dynamics.psm1 -DisableNameChecking
-Import-Module .\modules\metadata.web.psm1 -DisableNameChecking
-Import-Module .\modules\metadata.taskservice.psm1 -DisableNameChecking
-Import-Module .\modules\metadata.transform.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.dynamics.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.web.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.taskservice.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.transform.psm1" -DisableNameChecking
 
 function Get-MigrationsMetadata ($Country){
 	switch ($Country){

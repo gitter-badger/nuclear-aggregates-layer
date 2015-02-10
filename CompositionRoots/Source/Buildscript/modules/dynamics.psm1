@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\nuget.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\nuget.psm1" -DisableNameChecking
 
 $PackageInfo = Get-PackageInfo 'Microsoft.CrmSdk'
 Add-Type -Path (Join-Path $PackageInfo.VersionedDir 'lib\net35\microsoft.crm.sdk.dll')

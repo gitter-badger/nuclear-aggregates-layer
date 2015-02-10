@@ -2,13 +2,13 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\msbuild.psm1 -DisableNameChecking
-Import-Module .\modules\msdeploy.psm1 -DisableNameChecking
-Import-Module .\modules\dynamics.psm1 -DisableNameChecking
-Import-Module .\modules\metadata.psm1 -DisableNameChecking
-Import-Module .\modules\sqlserver.psm1 -DisableNameChecking
-Import-Module .\modules\web.psm1 -DisableNameChecking
-Import-Module .\modules\transform.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\msbuild.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\msdeploy.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\dynamics.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\metadata.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\sqlserver.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\web.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\transform.psm1" -DisableNameChecking
 
 Properties{ $OptionDynamics=$false }
 Task Build-Dynamics -Precondition { return $OptionDynamics } -Depends `

@@ -2,9 +2,9 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\msbuild.psm1 -DisableNameChecking
-Import-Module .\modules\web.psm1 -DisableNameChecking
-Import-Module .\modules\metadata.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\msbuild.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\web.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\metadata.psm1" -DisableNameChecking
 
 Properties{ $OptionWebApp=$false }
 Task Build-WebApp -Precondition { return $OptionWebApp } -Depends Update-AssemblyInfo {

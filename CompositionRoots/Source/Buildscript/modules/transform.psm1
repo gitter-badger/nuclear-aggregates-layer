@@ -2,9 +2,9 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\nuget.psm1 -DisableNameChecking
-Import-Module .\modules\metadata.psm1 -DisableNameChecking
-Import-Module .\modules\msbuild.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\nuget.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\msbuild.psm1" -DisableNameChecking
 
 $PackageInfo = Get-PackageInfo 'Microsoft.Web.Xdt'
 Add-Type -Path (Join-Path $PackageInfo.VersionedDir 'lib\net40\Microsoft.Web.XmlTransform.dll')

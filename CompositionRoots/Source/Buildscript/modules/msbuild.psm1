@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\versioning.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\versioning.psm1" -DisableNameChecking
 
 $MSBuildVersion = '12.0'
 $MSBuildDir = "${Env:ProgramFiles(x86)}\MSBuild\$MSBuildVersion\Bin"

@@ -9,7 +9,7 @@ $GlobalVersion = @{
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-Import-Module .\modules\metadata.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.psm1" -DisableNameChecking
 
 function Get-Version {
 

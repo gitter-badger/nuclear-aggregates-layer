@@ -2,10 +2,9 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\msbuild.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\msbuild.psm1" -DisableNameChecking
 
-$ThisDir = Split-Path $MyInvocation.MyCommand.Path
-$RulesetPath = Join-Path $ThisDir 'fxcop.ruleset'
+$RulesetPath = Join-Path $PSScriptRoot 'fxcop.ruleset'
 
 $ExcludeProjects = @('*Resources*', '*Tests*', '*Migrations*')
 

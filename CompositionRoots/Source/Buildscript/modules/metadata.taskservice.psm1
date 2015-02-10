@@ -2,8 +2,8 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\metadata.dynamics.psm1 -DisableNameChecking
-Import-Module .\modules\metadata.web.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.dynamics.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.web.psm1" -DisableNameChecking
 
 $UpgradeCodes = @{
 	'Edu.Chile' = 'CF135E98-2D85-4BC2-8FDE-011BB7F6CF6A'

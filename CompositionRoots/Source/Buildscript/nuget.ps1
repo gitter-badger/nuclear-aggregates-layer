@@ -13,7 +13,7 @@ $Servers = @{
 	}
 }
 
-Import-Module .\modules\nuget.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\modules\nuget.psm1" -DisableNameChecking
 
 Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 

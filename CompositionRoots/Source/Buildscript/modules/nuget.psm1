@@ -2,8 +2,7 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-$ThisDir = Split-Path $MyInvocation.MyCommand.Path
-$SolutionDir = Join-Path $ThisDir '..\..'
+$SolutionDir = Join-Path $PSScriptRoot '..\..'
 
 function Invoke-NuGet ($Arguments) {
 

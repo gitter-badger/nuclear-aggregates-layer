@@ -2,8 +2,8 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module .\modules\metadata.dynamics.psm1 -DisableNameChecking
-Import-Module .\modules\metadata.servicebus.psm1 -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.dynamics.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\metadata.servicebus.psm1" -DisableNameChecking
 
 function Get-XdtTransformMetadata($EnvType, $Country, $Index){
 	$xdt = @(
