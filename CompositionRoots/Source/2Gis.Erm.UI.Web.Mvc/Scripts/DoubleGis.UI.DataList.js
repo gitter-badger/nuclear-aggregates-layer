@@ -238,7 +238,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
     },
     //Создание хранилища для данных (инициализиция колонок, конфигуряние адреса для запроса данных и т.д.)
     BuildStore: function (rdrFields) {
-        this.Items.Store = new window.Ext.data.Store({
+        this.Items.Store = new Ext.DoubleGis.Store({
             remoteSort: true,
             autoLoad: false,
             reader: new window.Ext.data.JsonReader({
@@ -276,8 +276,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                         icon: Ext.MessageBox.ERROR
                     });
                     this.removeAll(true);
-                },
-                beforeload:this.beforeload
+                }
             }
         });
 
@@ -287,24 +286,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             dataList.fireEvent("afterrefresh", this);
         });
     },
-    beforeload: function (store, operation, eOpts) {
-        function convertSortAndDirForSending(sort, dir) {
-            return (sort + " " + dir);
-        }
-        if (operation.params.sort && operation.params.dir) {
-            operation.params.sort = convertSortAndDirForSending(operation.params.sort, operation.params.dir);
-        } else if (store.baseParams.sort.constructor === Array && store.baseParams.dir.constructor === Array) {
-            var sortArray = [];
-            for (var i = 0; i < store.baseParams.sort.length; i++) {
-                sortArray.push(convertSortAndDirForSending(store.baseParams.sort[i], store.baseParams.dir[i]));
-            }
-            operation.params.sort = sortArray;
-        } else {
-            operation.params.sort = convertSortAndDirForSending(store.baseParams.sort, store.baseParams.dir);
-        }
-
-    },
-    
+   
     //отрисовка самого грида
     BuildGrid: function (columns) {
         if (this.Items.Grid) {
