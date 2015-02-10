@@ -3,7 +3,7 @@ param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 # COMMENT FOR LOCAL DEBUG
 
 # UNCOMMENT FOR LOCAL DEBUG
-#$TaskList = @('Build-BasicOperations')
+#$TaskList = @('Hello')
 #$Properties = @{
 #	'OptionWebApp' = $true
 #	'OptionBasicOperations' = $true
@@ -33,8 +33,6 @@ cls
 
 $ThisDir = Split-Path $MyInvocation.MyCommand.Path
 Push-Location $ThisDir
-
-Import-Module .\modules\nuget.psm1 -DisableNameChecking
 
 function Create-GlobalContext ($Properties) {
 
@@ -83,14 +81,26 @@ function Create-GlobalContext ($Properties) {
 
 function Restore-SolutionPackages {
 
+	$NuGetPath = Join-Path $global:Context.Dir.Solution '.nuget\NuGet.exe'
+
 	if (Test-Path 'Env:\TEAMCITY_VERSION') {
 		Write-Host "##teamcity[progressMessage 'Restore-SolutionPackages']"
+	} else {
+		Write-Host "Restore-SolutionPackages"
 	}
-
-	Invoke-NuGet @(
+	
+	& $NuGetPath @(
 		'restore'
 		$global:Context.Dir.Solution
+		
+		'-NonInteractive'
+		'-Verbosity'
+		'quiet'
 	)
+	
+	if ($LastExitCode -ne 0) {
+		throw "Command failed with exit code $LastExitCode"
+	}
 }
 
 function Run-Build ($TaskList, $Properties) {

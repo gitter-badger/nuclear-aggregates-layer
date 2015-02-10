@@ -12,9 +12,9 @@ function Invoke-NuGet ($Arguments) {
 	}
 
 	$allArguments = $Arguments + @(
-		"-NonInteractive"
-		"-Verbosity"
-		"quiet"
+		'-NonInteractive'
+		'-Verbosity'
+		'quiet'
 	)
 
 	& $NugetPath $allArguments
