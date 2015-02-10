@@ -1,4 +1,4 @@
-﻿@model Models.AssociatedPositionsGroupViewModel
+﻿@model AssociatedPositionsGroupViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -17,7 +17,7 @@
     }
     <div class="row-wrapper">
         @Html.TemplateField(m => m.Name, FieldFlex.twins)
-        @Html.TemplateField(m => m.PricePosition, FieldFlex.twins, new LookupSettings { EntityName = EntityName.PricePosition, ReadOnly = true })
+        @Html.TemplateField(m => m.PricePosition, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.PricePosition(), ReadOnly = true })
     </div>
 </div>
 }

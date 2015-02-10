@@ -213,7 +213,6 @@
     <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicPropertiesConverterFactory.cs" />
     <Compile Include="Entities\EntityContainerBase.cs" />
-    <Compile Include="Entities\EntityName.cs" />
     <Compile Include="Entities\EntityNameUtils.cs" />
     <Compile Include="Entities\EntityReference.cs" />
     <Compile Include="Entities\EntityReferenceExtensions.cs" />

@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -323,7 +324,7 @@ WriteLiteral("                                    ");
 
             
             #line 120 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
-                               Write(Html.LookupFor(m => m.Territory, new LookupSettings { EntityName = EntityName.Territory, ExtendedInfo = "restrictToCurrentUser=true" }));
+                               Write(Html.LookupFor(m => m.Territory, new LookupSettings { EntityName = EntityType.Instance.Territory(), ExtendedInfo = "restrictToCurrentUser=true" }));
 
             
             #line default

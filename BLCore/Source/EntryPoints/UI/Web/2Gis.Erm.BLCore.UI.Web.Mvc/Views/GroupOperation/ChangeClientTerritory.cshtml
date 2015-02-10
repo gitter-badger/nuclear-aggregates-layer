@@ -115,7 +115,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    @Html.LookupFor(m => m.Territory, new LookupSettings { EntityName = EntityName.Territory})
+                                    @Html.LookupFor(m => m.Territory, new LookupSettings { EntityName = EntityType.Instance.Territory()})
                                 </td>
                             </tr>
                         </tbody>

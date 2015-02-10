@@ -74,9 +74,7 @@
     <table cellspacing="5" cellpadding="5" width="100%" height="100px">
         <tr>
             <td colspan="2">
-                <div style="height: 30px;" id="Notifications" 
-				     onmouseover=" AddTooltip(@Model.Message); " 
-				     onmouseout=" RemoveTooltip(); ">
+                <div style="height: 30px;" id="Notifications" onmouseover="AddTooltip(@Model.Message);" onmouseout="RemoveTooltip();">
                     @Model.Message
                 </div>
             </td>

@@ -38,6 +38,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/ChangeOrderDeal.cshtml")]
@@ -224,7 +227,7 @@ WriteLiteral("                        ");
 
             
             #line 74 "..\..\Views\Order\ChangeOrderDeal.cshtml"
-                   Write(Html.LookupFor(k => k.Deal, new LookupSettings {EntityName = EntityName.Deal, ExtendedInfo = "OrderId={OrderId}"}));
+                   Write(Html.LookupFor(k => k.Deal, new LookupSettings {EntityName = EntityType.Instance.Deal(), ExtendedInfo = "OrderId={OrderId}"}));
 
             
             #line default

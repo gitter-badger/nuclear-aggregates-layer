@@ -38,6 +38,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Views.ClientsMergi
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Russia/Views/ClientsMerging/Merge.cshtml")]
@@ -331,7 +334,7 @@ WriteLiteral("                                            ");
 
             
             #line 98 "..\..\Areas\Russia\Views\ClientsMerging\Merge.cshtml"
-                                       Write(Html.LookupFor(m => m.Client1, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "restrictForMergeId={Client2Id}", ReadOnly = Model.DisableMasterClient }));
+                                       Write(Html.LookupFor(m => m.Client1, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "restrictForMergeId={Client2Id}", ReadOnly = Model.DisableMasterClient }));
 
             
             #line default
@@ -369,7 +372,7 @@ WriteLiteral("                                            ");
 
             
             #line 106 "..\..\Areas\Russia\Views\ClientsMerging\Merge.cshtml"
-                                       Write(Html.LookupFor(m => m.Client2, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "restrictForMergeId={Client1Id}" }));
+                                       Write(Html.LookupFor(m => m.Client2, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "restrictForMergeId={Client1Id}" }));
 
             
             #line default

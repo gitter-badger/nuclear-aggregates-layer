@@ -38,6 +38,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/AccountDetail.cshtml")]
@@ -154,7 +157,7 @@ WriteLiteral("        ");
 
             
             #line 39 "..\..\Views\CreateOrUpdate\AccountDetail.cshtml"
-   Write(Html.TemplateField(m => m.OperationType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OperationType, ShowReadOnlyCard = true, ReadOnly = !Model.IsNew, ExtendedInfo = "excludeSyncCode=11" }));
+   Write(Html.TemplateField(m => m.OperationType, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OperationType(), ShowReadOnlyCard = true, ReadOnly = !Model.IsNew, ExtendedInfo = "excludeSyncCode=11" }));
 
             
             #line default
@@ -195,14 +198,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1805), Tuple.Create("\"", 1848)
+WriteAttribute("title", Tuple.Create(" title=\"", 1816), Tuple.Create("\"", 1859)
             
             #line 48 "..\..\Views\CreateOrUpdate\AccountDetail.cshtml"
-, Tuple.Create(Tuple.Create("", 1813), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 1824), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 1813), false)
+, 1824), false)
 );
 
 WriteLiteral(">\r\n");
@@ -226,7 +229,7 @@ WriteLiteral("        ");
 
             
             #line 51 "..\..\Views\CreateOrUpdate\AccountDetail.cshtml"
-   Write(Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
+   Write(Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
             #line default
@@ -241,7 +244,7 @@ WriteLiteral("        ");
 
             
             #line 54 "..\..\Views\CreateOrUpdate\AccountDetail.cshtml"
-   Write(Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+   Write(Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default
@@ -267,7 +270,7 @@ WriteLiteral("        ");
 
             
             #line 58 "..\..\Views\CreateOrUpdate\AccountDetail.cshtml"
-   Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+   Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default

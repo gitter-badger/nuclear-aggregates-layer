@@ -1,5 +1,5 @@
 ﻿
-@model Models.OrderProcessingRequestViewModel
+@model OrderProcessingRequestViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -36,15 +36,15 @@
             @Html.TemplateField(m => m.ReleaseCountPlan, FieldFlex.lone, readonlyTextbox)
         </div> 
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = true })
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ReadOnly = true })
+            @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ReadOnly = true })
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ReadOnly = true })
         </div> 
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true })
+            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ReadOnly = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BaseOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Order, ReadOnly = true })
-            @Html.TemplateField(m => m.RenewedOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Order, ReadOnly = true })
+            @Html.TemplateField(m => m.BaseOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Order(), ReadOnly = true })
+            @Html.TemplateField(m => m.RenewedOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Order(), ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.DueDateString, FieldFlex.twins, readonlyTextbox)

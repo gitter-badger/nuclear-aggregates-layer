@@ -37,6 +37,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Russia/Client.cshtml")]
@@ -357,7 +360,7 @@ WriteLiteral("            ");
 
             
             #line 52 "..\..\Views\CreateOrUpdate\Russia\Client.cshtml"
-       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id" }));
+       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "Id" }));
 
             
             #line default
@@ -368,14 +371,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2717), Tuple.Create("\"", 2760)
+WriteAttribute("title", Tuple.Create(" title=\"", 2739), Tuple.Create("\"", 2782)
             
             #line 55 "..\..\Views\CreateOrUpdate\Russia\Client.cshtml"
-, Tuple.Create(Tuple.Create("", 2725), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 2747), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 2725), false)
+, 2747), false)
 );
 
 WriteLiteral(">\r\n");
@@ -415,7 +418,7 @@ WriteLiteral("                ");
 
             
             #line 60 "..\..\Views\CreateOrUpdate\Russia\Client.cshtml"
-           Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
+           Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
             #line default
@@ -426,7 +429,7 @@ WriteLiteral("                ");
 
             
             #line 61 "..\..\Views\CreateOrUpdate\Russia\Client.cshtml"
-           Write(Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Territory, ReadOnly = Model != null && Model.Territory != null && !string.IsNullOrEmpty(Model.Territory.Value) }));
+           Write(Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Territory(), ReadOnly = Model != null && Model.Territory != null && !string.IsNullOrEmpty(Model.Territory.Value) }));
 
             
             #line default
@@ -450,7 +453,7 @@ WriteLiteral("            ");
 
             
             #line 65 "..\..\Views\CreateOrUpdate\Russia\Client.cshtml"
-       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default
@@ -476,7 +479,7 @@ WriteLiteral("            ");
 
             
             #line 69 "..\..\Views\CreateOrUpdate\Russia\Client.cshtml"
-       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default

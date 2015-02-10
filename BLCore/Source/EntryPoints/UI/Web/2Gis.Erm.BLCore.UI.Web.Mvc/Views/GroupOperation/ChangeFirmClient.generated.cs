@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -371,7 +372,7 @@ WriteLiteral("            ");
 
             
             #line 160 "..\..\Views\GroupOperation\ChangeFirmClient.cshtml"
-       Write(Html.TemplateField(x => x.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" }));
+       Write(Html.TemplateField(x => x.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ForReserve=false" }));
 
             
             #line default

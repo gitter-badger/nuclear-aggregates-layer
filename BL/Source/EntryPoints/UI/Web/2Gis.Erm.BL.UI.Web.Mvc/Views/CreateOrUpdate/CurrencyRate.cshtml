@@ -1,5 +1,5 @@
 ﻿
-@model Models.CurrencyRateViewModel
+@model CurrencyRateViewModel
 @{
     Layout = "../Shared/_CardLayout.cshtml";
 }
@@ -16,8 +16,8 @@
             @Html.HiddenFor(m => m.Id)
         }
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = !Model.IsNew })
-            @Html.TemplateField(m => m.BaseCurrency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true })
+            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = !Model.IsNew })
+            @Html.TemplateField(m => m.BaseCurrency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Rate, FieldFlex.twins)

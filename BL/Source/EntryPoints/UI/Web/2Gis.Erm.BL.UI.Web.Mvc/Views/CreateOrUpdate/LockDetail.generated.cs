@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/LockDetail.cshtml")]
-    public partial class LockDetail : System.Web.Mvc.WebViewPage<Models.LockDetailViewModel>
+    public partial class LockDetail : System.Web.Mvc.WebViewPage<LockDetailViewModel>
     {
         public LockDetail()
         {
@@ -98,14 +101,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 247), Tuple.Create("\"", 283)
+WriteAttribute("title", Tuple.Create(" title=\"", 240), Tuple.Create("\"", 276)
             
             #line 16 "..\..\Views\CreateOrUpdate\LockDetail.cshtml"
-, Tuple.Create(Tuple.Create("", 255), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 248), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 255), false)
+, 248), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -155,7 +158,7 @@ WriteLiteral("            ");
 
             
             #line 23 "..\..\Views\CreateOrUpdate\LockDetail.cshtml"
-       Write(Html.TemplateField(m => m.Price, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Price, ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.Price.Value), }));
+       Write(Html.TemplateField(m => m.Price, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Price(), ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.Price.Value), }));
 
             
             #line default
@@ -170,7 +173,7 @@ WriteLiteral("            ");
 
             
             #line 26 "..\..\Views\CreateOrUpdate\LockDetail.cshtml"
-       Write(Html.TemplateField(m => m.OrderPosition, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrderPosition, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.OrderPosition, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrderPosition(), ReadOnly = true }));
 
             
             #line default

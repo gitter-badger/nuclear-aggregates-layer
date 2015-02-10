@@ -1,20 +1,19 @@
-﻿
-@model  ViewModels.IEntityViewModelBase
+﻿@model  IEntityViewModelBase
 
 <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
     @Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle)
     @if (Model.IsCurated && Model.IsSecurityRoot)
     {
     <div class="row-wrapper">
-        @Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+        @Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
     </div>
     }
     <div class="row-wrapper">
-        @Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true})
+        @Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = true})
         @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+        @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })
         @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
     </div>
 </div>

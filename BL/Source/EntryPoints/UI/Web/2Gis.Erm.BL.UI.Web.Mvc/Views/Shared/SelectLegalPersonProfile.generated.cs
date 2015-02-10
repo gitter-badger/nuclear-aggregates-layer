@@ -44,6 +44,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Shared
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/SelectLegalPersonProfile.cshtml")]
@@ -168,7 +171,7 @@ WriteLiteral("                ");
             #line 23 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
            Write(Html.TemplateField(m => m.LegalPerson,
                     FieldFlex.lone,
-                    new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true }));
+                    new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ReadOnly = true }));
 
             
             #line default
@@ -185,7 +188,7 @@ WriteLiteral("                ");
             #line 28 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
            Write(Html.TemplateField(m => m.LegalPersonProfile, 
                     FieldFlex.lone, 
-                    new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId" }));
+                    new LookupSettings { EntityName = EntityType.Instance.LegalPersonProfile(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.LegalPerson(), ParentIdPattern = "LegalPersonId" }));
 
             
             #line default

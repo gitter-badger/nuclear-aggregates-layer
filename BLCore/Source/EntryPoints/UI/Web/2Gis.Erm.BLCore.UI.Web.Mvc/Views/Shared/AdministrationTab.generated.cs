@@ -28,9 +28,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.Shared
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -41,32 +44,33 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.Shared
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/AdministrationTab.cshtml")]
-    public partial class AdministrationTab : System.Web.Mvc.WebViewPage<ViewModels.IEntityViewModelBase>
+    public partial class AdministrationTab : System.Web.Mvc.WebViewPage<IEntityViewModelBase>
     {
         public AdministrationTab()
         {
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
 WriteLiteral("<div");
 
 WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 84), Tuple.Create("\"", 127)
+WriteAttribute("title", Tuple.Create(" title=\"", 71), Tuple.Create("\"", 114)
             
-            #line 4 "..\..\Views\Shared\AdministrationTab.cshtml"
-, Tuple.Create(Tuple.Create("", 92), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+            #line 3 "..\..\Views\Shared\AdministrationTab.cshtml"
+, Tuple.Create(Tuple.Create("", 79), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 92), false)
+, 79), false)
 );
 
 WriteLiteral(">\r\n");
@@ -74,7 +78,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("    ");
 
             
-            #line 5 "..\..\Views\Shared\AdministrationTab.cshtml"
+            #line 4 "..\..\Views\Shared\AdministrationTab.cshtml"
 Write(Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle));
 
             
@@ -83,13 +87,13 @@ Write(Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle));
 WriteLiteral("\r\n");
 
             
-            #line 6 "..\..\Views\Shared\AdministrationTab.cshtml"
+            #line 5 "..\..\Views\Shared\AdministrationTab.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 6 "..\..\Views\Shared\AdministrationTab.cshtml"
+            #line 5 "..\..\Views\Shared\AdministrationTab.cshtml"
      if (Model.IsCurated && Model.IsSecurityRoot)
     {
 
@@ -105,8 +109,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 9 "..\..\Views\Shared\AdministrationTab.cshtml"
-   Write(Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
+            #line 8 "..\..\Views\Shared\AdministrationTab.cshtml"
+   Write(Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
             #line default
@@ -114,7 +118,7 @@ WriteLiteral("        ");
 WriteLiteral("\r\n    </div>\r\n");
 
             
-            #line 11 "..\..\Views\Shared\AdministrationTab.cshtml"
+            #line 10 "..\..\Views\Shared\AdministrationTab.cshtml"
     }
 
             
@@ -129,8 +133,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 13 "..\..\Views\Shared\AdministrationTab.cshtml"
-   Write(Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true}));
+            #line 12 "..\..\Views\Shared\AdministrationTab.cshtml"
+   Write(Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = true}));
 
             
             #line default
@@ -140,7 +144,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 14 "..\..\Views\Shared\AdministrationTab.cshtml"
+            #line 13 "..\..\Views\Shared\AdministrationTab.cshtml"
    Write(Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             
@@ -155,8 +159,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 17 "..\..\Views\Shared\AdministrationTab.cshtml"
-   Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+            #line 16 "..\..\Views\Shared\AdministrationTab.cshtml"
+   Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default
@@ -166,7 +170,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 18 "..\..\Views\Shared\AdministrationTab.cshtml"
+            #line 17 "..\..\Views\Shared\AdministrationTab.cshtml"
    Write(Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             

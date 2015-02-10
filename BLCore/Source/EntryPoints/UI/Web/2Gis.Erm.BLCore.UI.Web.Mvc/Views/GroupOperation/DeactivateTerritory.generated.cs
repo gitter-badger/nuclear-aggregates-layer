@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -355,7 +356,7 @@ WriteLiteral("                                        ");
 
             
             #line 113 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-                                   Write(Html.LookupFor(k => k.NewTerritoryId, new LookupSettings {EntityName = EntityName.Territory}));
+                                   Write(Html.LookupFor(k => k.NewTerritoryId, new LookupSettings {EntityName = EntityType.Instance.Territory()}));
 
             
             #line default

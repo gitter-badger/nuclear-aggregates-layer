@@ -37,6 +37,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/MultiCultureDeal.cshtml")]
@@ -259,7 +262,7 @@ WriteLiteral("            ");
 
             
             #line 36 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew }));
+       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = !Model.IsNew }));
 
             
             #line default
@@ -300,7 +303,7 @@ WriteLiteral("            ");
 
             
             #line 43 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-       Write(Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true }));
 
             
             #line default
@@ -326,7 +329,7 @@ WriteLiteral("            ");
 
             
             #line 47 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
+       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Bargain(), ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
 
             
             #line default
@@ -337,14 +340,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdditionalTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2120), Tuple.Create("\"", 2159)
+WriteAttribute("title", Tuple.Create(" title=\"", 2153), Tuple.Create("\"", 2192)
             
             #line 50 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 2128), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 2161), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 2128), false)
+, 2161), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -357,7 +360,7 @@ WriteLiteral("            ");
 
             
             #line 52 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
+       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -439,14 +442,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdvertisementCampaignTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3369), Tuple.Create("\"", 3409)
+WriteAttribute("title", Tuple.Create(" title=\"", 3424), Tuple.Create("\"", 3464)
             
             #line 68 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 3377), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
+, Tuple.Create(Tuple.Create("", 3432), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
             
             #line default
             #line hidden
-, 3377), false)
+, 3432), false)
 );
 
 WriteLiteral(">\r\n");

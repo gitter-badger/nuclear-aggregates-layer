@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Category.cshtml")]
-    public partial class Category : System.Web.Mvc.WebViewPage<Models.CategoryViewModel>
+    public partial class Category : System.Web.Mvc.WebViewPage<CategoryViewModel>
     {
         public Category()
         {
@@ -107,14 +110,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 252), Tuple.Create("\"", 288)
+WriteAttribute("title", Tuple.Create(" title=\"", 245), Tuple.Create("\"", 281)
             
             #line 18 "..\..\Views\CreateOrUpdate\Category.cshtml"
-, Tuple.Create(Tuple.Create("", 260), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 253), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 260), false)
+, 253), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -142,7 +145,7 @@ WriteLiteral("            ");
 
             
             #line 23 "..\..\Views\CreateOrUpdate\Category.cshtml"
-       Write(Html.TemplateField(m => m.ParentCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Category, ShowReadOnlyCard = true, ReadOnly = true, ExtendedInfo = "minLevel={Level}" }));
+       Write(Html.TemplateField(m => m.ParentCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Category(), ShowReadOnlyCard = true, ReadOnly = true, ExtendedInfo = "minLevel={Level}" }));
 
             
             #line default

@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/AssociatedPosition.cshtml")]
-    public partial class AssociatedPosition : System.Web.Mvc.WebViewPage<Models.AssociatedPositionViewModel>
+    public partial class AssociatedPosition : System.Web.Mvc.WebViewPage<AssociatedPositionViewModel>
     {
         public AssociatedPosition()
         {
@@ -76,14 +79,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 194), Tuple.Create("\"", 230)
+WriteAttribute("title", Tuple.Create(" title=\"", 187), Tuple.Create("\"", 223)
             
             #line 14 "..\..\Views\CreateOrUpdate\AssociatedPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 202), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 195), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 202), false)
+, 195), false)
 );
 
 WriteLiteral(">\r\n");
@@ -127,7 +130,7 @@ WriteLiteral("        ");
 
             
             #line 20 "..\..\Views\CreateOrUpdate\AssociatedPosition.cshtml"
-   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.twins, new LookupSettings { EntityName = EntityName.PricePosition, ReadOnly = true }));
+   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.PricePosition(), ReadOnly = true }));
 
             
             #line default
@@ -138,7 +141,7 @@ WriteLiteral("        ");
 
             
             #line 21 "..\..\Views\CreateOrUpdate\AssociatedPosition.cshtml"
-   Write(Html.TemplateField(m => m.AssociatedPositionsGroup, FieldFlex.twins, new LookupSettings { EntityName = EntityName.AssociatedPositionsGroup, ReadOnly = true }));
+   Write(Html.TemplateField(m => m.AssociatedPositionsGroup, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.AssociatedPositionsGroup(), ReadOnly = true }));
 
             
             #line default
@@ -153,7 +156,7 @@ WriteLiteral("        ");
 
             
             #line 24 "..\..\Views\CreateOrUpdate\AssociatedPosition.cshtml"
-   Write(Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Position }));
+   Write(Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Position() }));
 
             
             #line default

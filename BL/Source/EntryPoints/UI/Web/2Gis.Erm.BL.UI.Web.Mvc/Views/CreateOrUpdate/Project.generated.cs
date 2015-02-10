@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Project.cshtml")]
-    public partial class Project : System.Web.Mvc.WebViewPage<Models.ProjectViewModel>
+    public partial class Project : System.Web.Mvc.WebViewPage<ProjectViewModel>
     {
         public Project()
         {
@@ -87,14 +90,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 216), Tuple.Create("\"", 252)
+WriteAttribute("title", Tuple.Create(" title=\"", 209), Tuple.Create("\"", 245)
             
             #line 16 "..\..\Views\CreateOrUpdate\Project.cshtml"
-, Tuple.Create(Tuple.Create("", 224), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 217), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 224), false)
+, 217), false)
 );
 
 WriteLiteral(">    \r\n        <div");
@@ -137,7 +140,7 @@ WriteLiteral("            ");
 
             
             #line 26 "..\..\Views\CreateOrUpdate\Project.cshtml"
-       Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit }));
+       Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit() }));
 
             
             #line default

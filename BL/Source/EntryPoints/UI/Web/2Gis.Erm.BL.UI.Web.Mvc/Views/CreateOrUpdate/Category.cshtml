@@ -1,5 +1,5 @@
 ﻿
-@model Models.CategoryViewModel
+@model CategoryViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -20,7 +20,7 @@
             @Html.TemplateField(m => m.Name, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.ParentCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Category, ShowReadOnlyCard = true, ReadOnly = true, ExtendedInfo = "minLevel={Level}" })
+            @Html.TemplateField(m => m.ParentCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Category(), ShowReadOnlyCard = true, ReadOnly = true, ExtendedInfo = "minLevel={Level}" })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Level, FieldFlex.twins)

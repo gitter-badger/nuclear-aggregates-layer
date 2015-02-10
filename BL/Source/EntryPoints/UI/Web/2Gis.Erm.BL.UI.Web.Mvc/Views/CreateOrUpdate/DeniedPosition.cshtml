@@ -1,5 +1,5 @@
 ﻿
-@model Models.DeniedPositionViewModel
+@model DeniedPositionViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -18,8 +18,8 @@
             @Html.HiddenFor(m => m.PriceId)
         }
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Position, ReadOnly = true })
-            @Html.TemplateField(m => m.PositionDenied, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Position })
+            @Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Position(), ReadOnly = true })
+            @Html.TemplateField(m => m.PositionDenied, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Position() })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.ObjectBindingType, FieldFlex.lone, null, EnumResources.ResourceManager)

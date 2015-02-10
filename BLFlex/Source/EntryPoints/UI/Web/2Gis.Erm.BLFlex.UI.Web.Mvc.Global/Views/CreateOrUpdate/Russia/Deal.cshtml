@@ -32,7 +32,7 @@
             @Html.TemplateField(m => m.Name, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew })
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = !Model.IsNew })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.DealStage, FieldFlex.lone, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager)
@@ -42,16 +42,16 @@
         </div>
         @Html.SectionHead("section", BLResources.DealFinancialIndicatorsHead)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true })
+            @Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true })
         </div>
         @Html.SectionHead("detailsForOrders", BLResources.DetailsForOrders)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew })
+            @Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Bargain(), ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew })
         </div>
     </div>
     <div class="Tab" id="AdditionalTab" title="@BLResources.AdditionalTabTitle">
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })
+            @Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.StartReason, FieldFlex.lone, new Dictionary<string, object>{{"disabled", "disabled"}}, EnumResources.ResourceManager)

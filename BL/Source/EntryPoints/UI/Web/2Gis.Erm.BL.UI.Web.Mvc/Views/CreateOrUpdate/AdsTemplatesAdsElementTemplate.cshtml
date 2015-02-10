@@ -16,10 +16,10 @@
 </div>
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementTemplate })
+            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.AdvertisementTemplate() })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.AdvertisementElementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementElementTemplate })
+            @Html.TemplateField(m => m.AdvertisementElementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.AdvertisementElementTemplate() })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.ExportCode, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}})

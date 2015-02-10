@@ -28,19 +28,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 1 "..\..\Views\GroupOperation\Assign.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -53,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/Assign.cshtml")]
-    public partial class Assign : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.AssignViewModel>
+    public partial class Assign : System.Web.Mvc.WebViewPage<AssignViewModel>
     {
         public Assign()
         {
@@ -61,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 3 "..\..\Views\GroupOperation\Assign.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -75,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 7 "..\..\Views\GroupOperation\Assign.cshtml"
             Write(BLResources.GroupOperationConfirm);
 
             
@@ -90,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 8 "..\..\Views\GroupOperation\Assign.cshtml"
                   Write(string.Format(BLResources.AssignAssignMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -105,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 9 "..\..\Views\GroupOperation\Assign.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -125,58 +122,58 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 651), Tuple.Create("\"", 699)
-, Tuple.Create(Tuple.Create("", 658), Tuple.Create("/Content/Progress.css?", 658), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 553), Tuple.Create("\"", 601)
+, Tuple.Create(Tuple.Create("", 560), Tuple.Create("/Content/Progress.css?", 560), true)
             
-            #line 14 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 680), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Views\GroupOperation\Assign.cshtml"
+, Tuple.Create(Tuple.Create("", 582), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 680), false)
+, 582), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 718), Tuple.Create("\"", 776)
-, Tuple.Create(Tuple.Create("", 724), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 724), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 620), Tuple.Create("\"", 678)
+, Tuple.Create(Tuple.Create("", 626), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 626), true)
+            
+            #line 15 "..\..\Views\GroupOperation\Assign.cshtml"
+, Tuple.Create(Tuple.Create("", 659), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 659), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 725), Tuple.Create("\"", 791)
+, Tuple.Create(Tuple.Create("", 731), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 731), true)
             
             #line 16 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 757), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 772), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 757), false)
+, 772), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 823), Tuple.Create("\"", 889)
-, Tuple.Create(Tuple.Create("", 829), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 829), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 838), Tuple.Create("\"", 883)
+, Tuple.Create(Tuple.Create("", 844), Tuple.Create("/Scripts/Tooltip.js?", 844), true)
             
             #line 17 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 870), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 864), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 870), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 936), Tuple.Create("\"", 981)
-, Tuple.Create(Tuple.Create("", 942), Tuple.Create("/Scripts/Tooltip.js?", 942), true)
-            
-            #line 18 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 962), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 962), false)
+, 864), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -288,7 +285,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Assign\');\r\n      
 "      Entities: ids, // массив id сущностей\r\n                OperationName: \'");
 
             
-            #line 178 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 177 "..\..\Views\GroupOperation\Assign.cshtml"
                            Write(Model.OperationName);
 
             
@@ -318,13 +315,13 @@ WriteLiteral(" id=\"DivErrors\"");
 WriteLiteral(">\r\n");
 
             
-            #line 194 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 193 "..\..\Views\GroupOperation\Assign.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 194 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 193 "..\..\Views\GroupOperation\Assign.cshtml"
      using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
     {
 
@@ -337,20 +334,20 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteLiteral(" name=\"operationId\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 10418), Tuple.Create("\"", 10441)
+WriteAttribute("value", Tuple.Create(" value=\"", 10320), Tuple.Create("\"", 10343)
             
-            #line 196 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 10426), Tuple.Create<System.Object, System.Int32>(Guid.NewGuid()
+            #line 195 "..\..\Views\GroupOperation\Assign.cshtml"
+, Tuple.Create(Tuple.Create("", 10328), Tuple.Create<System.Object, System.Int32>(Guid.NewGuid()
             
             #line default
             #line hidden
-, 10426), false)
+, 10328), false)
 );
 
 WriteLiteral(" />\r\n");
 
             
-            #line 197 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 196 "..\..\Views\GroupOperation\Assign.cshtml"
     }
 
             
@@ -359,13 +356,13 @@ WriteLiteral(" />\r\n");
 WriteLiteral("        \r\n   </div>\r\n\r\n");
 
             
-            #line 201 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 200 "..\..\Views\GroupOperation\Assign.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 201 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 200 "..\..\Views\GroupOperation\Assign.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -408,7 +405,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 214 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 213 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(Model.Message);
 
             
@@ -446,7 +443,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 224 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 223 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(BLResources.AssignAssignToMe);
 
             
@@ -461,7 +458,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 227 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 226 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(String.Format(BLResources.AssignAssignToMeLegend, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -502,7 +499,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 241 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 240 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(BLResources.AssignAssignToOther);
 
             
@@ -521,7 +518,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 245 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 244 "..\..\Views\GroupOperation\Assign.cshtml"
                            Write(String.Format(BLResources.AssignAssignToOtherLegend, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -543,8 +540,8 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 250 "..\..\Views\GroupOperation\Assign.cshtml"
-                                   Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'" }));
+            #line 249 "..\..\Views\GroupOperation\Assign.cshtml"
+                                   Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.User(), ExtendedInfo = "'hideReserveUser=true'" }));
 
             
             #line default
@@ -554,13 +551,13 @@ WriteLiteral("\r\n                                    </td>\r\n                 
 "               </td>\r\n                </tr>\r\n");
 
             
-            #line 257 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 256 "..\..\Views\GroupOperation\Assign.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 257 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 256 "..\..\Views\GroupOperation\Assign.cshtml"
                  if (Model.PartialAssignSupported)
                 {
 
@@ -581,14 +578,14 @@ WriteLiteral(" type=\"checkbox\"");
 
 WriteLiteral(" name=\"IsPartialAssign\"");
 
-WriteAttribute("disabled", Tuple.Create(" disabled=\"", 13799), Tuple.Create("\"", 13841)
+WriteAttribute("disabled", Tuple.Create(" disabled=\"", 13712), Tuple.Create("\"", 13754)
             
-            #line 261 "..\..\Views\GroupOperation\Assign.cshtml"
-                                          , Tuple.Create(Tuple.Create("", 13810), Tuple.Create<System.Object, System.Int32>(Model.IsCascadeAssignForbidden
+            #line 260 "..\..\Views\GroupOperation\Assign.cshtml"
+                                          , Tuple.Create(Tuple.Create("", 13723), Tuple.Create<System.Object, System.Int32>(Model.IsCascadeAssignForbidden
             
             #line default
             #line hidden
-, 13810), false)
+, 13723), false)
 );
 
 WriteLiteral(" />\r\n                        </td>\r\n                        <td >\r\n              " +
@@ -603,7 +600,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 265 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 264 "..\..\Views\GroupOperation\Assign.cshtml"
                            Write(BLResources.AssignInAllHierarchy);
 
             
@@ -613,7 +610,7 @@ WriteLiteral("\r\n                            </label>\r\n                      
 "          </tr>\r\n");
 
             
-            #line 269 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 268 "..\..\Views\GroupOperation\Assign.cshtml"
 
                 }
 
@@ -639,34 +636,34 @@ WriteLiteral(">\r\n                            </div>\r\n                       
 "");
 
             
-            #line 281 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 280 "..\..\Views\GroupOperation\Assign.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 281 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 280 "..\..\Views\GroupOperation\Assign.cshtml"
    Write(Html.HiddenFor(m => m.EntityTypeName));
 
             
             #line default
             #line hidden
             
-            #line 281 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 280 "..\..\Views\GroupOperation\Assign.cshtml"
                                               
         
             
             #line default
             #line hidden
             
-            #line 282 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 281 "..\..\Views\GroupOperation\Assign.cshtml"
    Write(Html.HiddenFor(m => m.PartialAssignSupported));
 
             
             #line default
             #line hidden
             
-            #line 282 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 281 "..\..\Views\GroupOperation\Assign.cshtml"
                                                       
     }
 

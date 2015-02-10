@@ -37,6 +37,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/MultiCultureFirm.cshtml")]
@@ -147,7 +150,7 @@ WriteLiteral("            ");
 
             
             #line 23 "..\..\Views\CreateOrUpdate\MultiCultureFirm.cshtml"
-       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = true }));
 
             
             #line default
@@ -188,7 +191,7 @@ WriteLiteral("            ");
 
             
             #line 30 "..\..\Views\CreateOrUpdate\MultiCultureFirm.cshtml"
-       Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, Disabled = true }));
+       Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), Disabled = true }));
 
             
             #line default
@@ -240,14 +243,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1836), Tuple.Create("\"", 1879)
+WriteAttribute("title", Tuple.Create(" title=\"", 1858), Tuple.Create("\"", 1901)
             
             #line 40 "..\..\Views\CreateOrUpdate\MultiCultureFirm.cshtml"
-, Tuple.Create(Tuple.Create("", 1844), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 1866), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 1844), false)
+, 1866), false)
 );
 
 WriteLiteral(">\r\n");
@@ -287,7 +290,7 @@ WriteLiteral("            ");
 
             
             #line 45 "..\..\Views\CreateOrUpdate\MultiCultureFirm.cshtml"
-       Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
+       Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
             #line default
@@ -298,7 +301,7 @@ WriteLiteral("            ");
 
             
             #line 46 "..\..\Views\CreateOrUpdate\MultiCultureFirm.cshtml"
-       Write(Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Territory, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Territory(), ReadOnly = true }));
 
             
             #line default
@@ -322,7 +325,7 @@ WriteLiteral("            ");
 
             
             #line 50 "..\..\Views\CreateOrUpdate\MultiCultureFirm.cshtml"
-       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Disabled = true }));
+       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Disabled = true }));
 
             
             #line default
@@ -348,7 +351,7 @@ WriteLiteral("            ");
 
             
             #line 54 "..\..\Views\CreateOrUpdate\MultiCultureFirm.cshtml"
-       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Disabled = true }));
+       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Disabled = true }));
 
             
             #line default

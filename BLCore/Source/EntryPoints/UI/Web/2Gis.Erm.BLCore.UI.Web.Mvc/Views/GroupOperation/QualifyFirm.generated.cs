@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -463,7 +464,7 @@ WriteLiteral("                                        ");
 
             
             #line 234 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-                                   Write(Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityName.Client, ExtendedInfo = "filterToCurrentUser=true" }));
+                                   Write(Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.Client(), ExtendedInfo = "filterToCurrentUser=true" }));
 
             
             #line default
@@ -600,7 +601,7 @@ WriteLiteral("                                        ");
 
             
             #line 273 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-                                   Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'" }));
+                                   Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.User(), ExtendedInfo = "'hideReserveUser=true'" }));
 
             
             #line default

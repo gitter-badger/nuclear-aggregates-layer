@@ -50,13 +50,13 @@
             @Html.TemplateField(m => m.SalesModel, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Platform, ReadOnly = Model.IsPublished })
+            @Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Platform(), ReadOnly = Model.IsPublished })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.PositionCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityName.PositionCategory, ReadOnly = Model.IsPublished })
+            @Html.TemplateField(m => m.PositionCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.PositionCategory(), ReadOnly = Model.IsPublished })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementTemplate, ReadOnly = Model.IsPublished })
+            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.AdvertisementTemplate(), ReadOnly = Model.IsPublished })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.IsControledByAmount, FieldFlex.lone)

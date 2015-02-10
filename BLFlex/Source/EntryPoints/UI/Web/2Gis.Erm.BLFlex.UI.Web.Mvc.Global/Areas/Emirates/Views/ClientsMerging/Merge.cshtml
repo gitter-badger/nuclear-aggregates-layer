@@ -95,7 +95,7 @@
                                             <input type="radio" name="client" id="client_1" class="rad left" checked="checked" />
                                         </td>
                                         <td>
-                                            @Html.LookupFor(m => m.Client1, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "restrictForMergeId={Client2Id}", ReadOnly = Model.DisableMasterClient })
+                                            @Html.LookupFor(m => m.Client1, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "restrictForMergeId={Client2Id}", ReadOnly = Model.DisableMasterClient })
                                             @Html.ValidationMessageFor(m => m.Client1)
                                         </td>
                                         <td />
@@ -103,7 +103,7 @@
                                             <input type="radio" name="client" id="client_2" class="rad right" />
                                         </td>
                                         <td>
-                                            @Html.LookupFor(m => m.Client2, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "restrictForMergeId={Client1Id}" })
+                                            @Html.LookupFor(m => m.Client2, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "restrictForMergeId={Client1Id}" })
                                             @Html.ValidationMessageFor(m => m.Client2)
                                         </td>
                                     </tr>

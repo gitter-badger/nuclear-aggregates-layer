@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -244,27 +245,26 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create(" \r\n\t\t\t\t     onmouseover=\"", 3731), Tuple.Create("\"", 3785)
-, Tuple.Create(Tuple.Create(" ", 3756), Tuple.Create("AddTooltip(", 3757), true)
+WriteAttribute("onmouseover", Tuple.Create(" onmouseover=\"", 3731), Tuple.Create("\"", 3772)
+, Tuple.Create(Tuple.Create("", 3745), Tuple.Create("AddTooltip(", 3745), true)
             
-            #line 78 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 3768), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 77 "..\..\Views\GroupOperation\Delete.cshtml"
+      , Tuple.Create(Tuple.Create("", 3756), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 3768), false)
-, Tuple.Create(Tuple.Create("", 3782), Tuple.Create(");", 3782), true)
-, Tuple.Create(Tuple.Create(" ", 3784), Tuple.Create("", 3784), true)
+, 3756), false)
+, Tuple.Create(Tuple.Create("", 3770), Tuple.Create(");", 3770), true)
 );
 
-WriteLiteral(" \r\n\t\t\t\t     onmouseout=\" RemoveTooltip(); \"");
+WriteLiteral(" onmouseout=\"RemoveTooltip();\"");
 
 WriteLiteral(">\r\n");
 
 WriteLiteral("                    ");
 
             
-            #line 80 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 78 "..\..\Views\GroupOperation\Delete.cshtml"
                Write(Model.Message);
 
             
@@ -280,7 +280,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 87 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 85 "..\..\Views\GroupOperation\Delete.cshtml"
                Write(ConfirmationManager.GetConfirmation(new StrictOperationIdentity(DeleteIdentity.Instance, new EntitySet(Model.EntityTypeName))));
 
             
@@ -301,7 +301,7 @@ WriteLiteral(">\r\n                    </div>\r\n                </div>\r\n     
 WriteLiteral("    ");
 
             
-            #line 100 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 98 "..\..\Views\GroupOperation\Delete.cshtml"
 Write(Html.HiddenFor(x => x.EntityTypeName));
 
             

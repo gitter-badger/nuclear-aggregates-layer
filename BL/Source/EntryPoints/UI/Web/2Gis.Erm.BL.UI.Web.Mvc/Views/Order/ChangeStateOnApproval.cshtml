@@ -57,7 +57,7 @@
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Inspector, FieldFlex.lone, new LookupSettings
                 { 
-                    EntityName = EntityName.User, 
+                    EntityName = EntityType.Instance.User(), 
                     ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId=" + Model.SourceOrganizationUnitId 
                 })
         </div>

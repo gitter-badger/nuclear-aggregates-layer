@@ -45,10 +45,10 @@
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
     <div class="row-wrapper">
-        @Html.TemplateField(m=>m.Owner, FieldFlex.lone, new LookupSettings{EntityName = EntityName.User})
+        @Html.TemplateField(m=>m.Owner, FieldFlex.lone, new LookupSettings{EntityName = EntityType.Instance.User()})
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+        @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit() })
     </div>
     @Html.SectionHead("debtType", BLResources.DebtTypes)
     <div class="row-wrapper">

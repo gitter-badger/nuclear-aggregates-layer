@@ -117,7 +117,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    @Html.LookupFor(m => m.Territory, new LookupSettings { EntityName = EntityName.Territory, ExtendedInfo = "restrictToCurrentUser=true" })
+                                    @Html.LookupFor(m => m.Territory, new LookupSettings { EntityName = EntityType.Instance.Territory(), ExtendedInfo = "restrictToCurrentUser=true" })
                                 </td>
                             </tr>
                         </tbody>

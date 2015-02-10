@@ -37,10 +37,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Russia/Account.cshtml")]
-    public partial class Account : System.Web.Mvc.WebViewPage<Models.Russia.AccountViewModel>
+    public partial class Account : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.AccountViewModel>
     {
         public Account()
         {
@@ -102,14 +105,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1137), Tuple.Create("\"", 1173)
+WriteAttribute("title", Tuple.Create(" title=\"", 1176), Tuple.Create("\"", 1212)
             
             #line 41 "..\..\Views\CreateOrUpdate\Russia\Account.cshtml"
-, Tuple.Create(Tuple.Create("", 1145), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 1184), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1145), false)
+, 1184), false)
 );
 
 WriteLiteral(">\r\n");
@@ -149,7 +152,7 @@ WriteLiteral("        ");
 
             
             #line 49 "..\..\Views\CreateOrUpdate\Russia\Account.cshtml"
-   Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.LegalPerson.Value) }));
+   Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.LegalPerson.Value) }));
 
             
             #line default
@@ -164,7 +167,7 @@ WriteLiteral("        ");
 
             
             #line 52 "..\..\Views\CreateOrUpdate\Russia\Account.cshtml"
-   Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.BranchOfficeOrganizationUnit.Value) }));
+   Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit(), ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.BranchOfficeOrganizationUnit.Value) }));
 
             
             #line default
@@ -190,7 +193,7 @@ WriteLiteral("        ");
 
             
             #line 56 "..\..\Views\CreateOrUpdate\Russia\Account.cshtml"
-   Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true }));
+   Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true }));
 
             
             #line default
@@ -227,14 +230,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2494), Tuple.Create("\"", 2537)
+WriteAttribute("title", Tuple.Create(" title=\"", 2566), Tuple.Create("\"", 2609)
             
             #line 63 "..\..\Views\CreateOrUpdate\Russia\Account.cshtml"
-, Tuple.Create(Tuple.Create("", 2502), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 2574), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 2502), false)
+, 2574), false)
 );
 
 WriteLiteral(">\r\n");
@@ -274,7 +277,7 @@ WriteLiteral("        ");
 
             
             #line 68 "..\..\Views\CreateOrUpdate\Russia\Account.cshtml"
-   Write(Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, Disabled = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
+   Write(Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), Disabled = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
             #line default
@@ -298,7 +301,7 @@ WriteLiteral("        ");
 
             
             #line 73 "..\..\Views\CreateOrUpdate\Russia\Account.cshtml"
-   Write(Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true}));
+   Write(Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = true}));
 
             
             #line default
@@ -324,7 +327,7 @@ WriteLiteral("        ");
 
             
             #line 77 "..\..\Views\CreateOrUpdate\Russia\Account.cshtml"
-   Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+   Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default

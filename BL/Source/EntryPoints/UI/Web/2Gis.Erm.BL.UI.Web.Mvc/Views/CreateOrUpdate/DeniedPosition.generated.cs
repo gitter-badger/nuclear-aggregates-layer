@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/DeniedPosition.cshtml")]
-    public partial class DeniedPosition : System.Web.Mvc.WebViewPage<Models.DeniedPositionViewModel>
+    public partial class DeniedPosition : System.Web.Mvc.WebViewPage<DeniedPositionViewModel>
     {
         public DeniedPosition()
         {
@@ -76,14 +79,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 183), Tuple.Create("\"", 219)
+WriteAttribute("title", Tuple.Create(" title=\"", 176), Tuple.Create("\"", 212)
             
             #line 14 "..\..\Views\CreateOrUpdate\DeniedPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 191), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 184), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 191), false)
+, 184), false)
 );
 
 WriteLiteral(">\r\n");
@@ -141,7 +144,7 @@ WriteLiteral("            ");
 
             
             #line 21 "..\..\Views\CreateOrUpdate\DeniedPosition.cshtml"
-       Write(Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Position, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Position(), ReadOnly = true }));
 
             
             #line default
@@ -152,7 +155,7 @@ WriteLiteral("            ");
 
             
             #line 22 "..\..\Views\CreateOrUpdate\DeniedPosition.cshtml"
-       Write(Html.TemplateField(m => m.PositionDenied, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Position }));
+       Write(Html.TemplateField(m => m.PositionDenied, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Position() }));
 
             
             #line default

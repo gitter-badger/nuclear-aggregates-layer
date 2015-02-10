@@ -470,7 +470,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 {
                     Type = typeof(LookupField),
                     Name = reportField.Name,
-                    Config = new LookupSettings { EntityName = EntityName.User, ExtendedInfo = userExtendedInfo },
+                    Config = new LookupSettings { EntityName = EntityType.Instance.User(), ExtendedInfo = userExtendedInfo },
                     DefaultValue = GetDefaultUserLookup(),
                 };
             }
@@ -486,7 +486,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     Name = reportField.Name,
                     Config = new LookupSettings
                     {
-                        EntityName = EntityName.OrganizationUnit,
+                        EntityName = EntityType.Instance.OrganizationUnit(),
                         ExtendedInfo = string.Join("&", organizationUnitExtendedInfo.Where(s => !string.IsNullOrWhiteSpace(s)))
                     },
                     DefaultValue = GetDefaultOrganizationUnitLookup(),

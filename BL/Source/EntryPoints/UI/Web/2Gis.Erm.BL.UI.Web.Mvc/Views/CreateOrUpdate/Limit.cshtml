@@ -1,6 +1,6 @@
 ﻿@using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
 
-@model Models.LimitViewModel
+@model LimitViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -17,10 +17,10 @@
     @Html.HiddenFor(m => m.AccountId)
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName =  EntityName.LegalPerson, ReadOnly = true })
+            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName =  EntityType.Instance.LegalPerson(), ReadOnly = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOffice, ReadOnly = true})
+            @Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOffice(), ReadOnly = true})
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.StartPeriodDate, FieldFlex.lone, new DateTimeSettings { ReadOnly = !Model.HasEditPeriodPrivelege, ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber })
@@ -30,7 +30,7 @@
             @Html.TemplateField(m => m.Status, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.LimitManagement + ("&userIdForOrgUnit=" + Model.Owner.Key) })
+            @Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.LimitManagement + ("&userIdForOrgUnit=" + Model.Owner.Key) })
             @Html.TemplateField(m => m.CloseDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
         </div>
         <div class="row-wrapper">
@@ -40,14 +40,14 @@
     <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
         @Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true})
+            @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = true})
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true})
+            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = true})
             @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })
             @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
         </div>
 </div>

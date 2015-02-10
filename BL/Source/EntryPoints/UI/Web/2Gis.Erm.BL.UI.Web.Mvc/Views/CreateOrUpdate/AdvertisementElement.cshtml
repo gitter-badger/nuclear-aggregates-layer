@@ -62,7 +62,7 @@
             @Html.HiddenFor(m => m.ActualType)
         }
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.AdvertisementElementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementElementTemplate, ReadOnly = true })
+            @Html.TemplateField(m => m.AdvertisementElementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.AdvertisementElementTemplate(), ReadOnly = true })
         </div>
     
         @if (Model.NeedsValidation)

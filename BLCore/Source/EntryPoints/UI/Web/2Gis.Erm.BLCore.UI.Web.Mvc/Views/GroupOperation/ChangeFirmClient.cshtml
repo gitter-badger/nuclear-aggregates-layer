@@ -157,7 +157,7 @@
             @Model.Message
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(x => x.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" })
+            @Html.TemplateField(x => x.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ForReserve=false" })
         </div>
         <div id="pbDiv">
             <div id="pbInner">

@@ -72,10 +72,10 @@
             </div>
        
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit, ExtendedInfo = "userId=" + Model.UserId })
+                @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ExtendedInfo = "userId=" + Model.UserId })
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.Owner, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User, ExtendedInfo = "subordinatesOf=" + Model.UserId })
+                @Html.TemplateField(m => m.Owner, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.User(), ExtendedInfo = "subordinatesOf=" + Model.UserId })
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.IncludeOwnerDescendants, FieldFlex.lone)

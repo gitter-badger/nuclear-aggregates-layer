@@ -43,7 +43,7 @@
             @Html.TemplateField(m => m.Im, FieldFlex.twins)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ReadOnly = Model != null && Model.Client != null && !string.IsNullOrEmpty(Model.Client.Value) })
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = Model != null && Model.Client != null && !string.IsNullOrEmpty(Model.Client.Value) })
         </div>
         @Html.SectionHead("SectionHead1", @BLResources.TitleServiceInformation)
         <div class="row-wrapper">

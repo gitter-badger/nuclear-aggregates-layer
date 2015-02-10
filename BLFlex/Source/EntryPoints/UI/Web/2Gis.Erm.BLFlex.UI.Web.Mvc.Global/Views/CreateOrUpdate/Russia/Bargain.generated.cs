@@ -37,6 +37,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Russia/Bargain.cshtml")]
@@ -195,7 +198,7 @@ WriteLiteral("            ");
 
             
             #line 26 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
-       Write(Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BargainType, ShowReadOnlyCard = true, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.BargainType(), ShowReadOnlyCard = true, ReadOnly = true }));
 
             
             #line default
@@ -276,10 +279,10 @@ WriteLiteral(">\r\n");
             #line 39 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
            Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
                     {
-                        EntityName = EntityName.LegalPerson,
+                        EntityName = EntityType.Instance.LegalPerson(),
                         ShowReadOnlyCard = true,
                         ExtendedInfo = "filterToParent=true",
-                        ParentEntityName = EntityName.Client,
+                        ParentEntityName = EntityType.Instance.Client(),
                         ParentIdPattern = "ClientId"
                     }));
 
@@ -300,7 +303,7 @@ WriteLiteral(">\r\n");
             #line 50 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
            Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
                     {
-                        EntityName = EntityName.LegalPerson,
+                        EntityName = EntityType.Instance.LegalPerson(),
                         ShowReadOnlyCard = true
                     }));
 
@@ -325,7 +328,7 @@ WriteLiteral("            ");
 
             
             #line 58 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
-       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ShowReadOnlyCard = true }));
+       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit(), ShowReadOnlyCard = true }));
 
             
             #line default

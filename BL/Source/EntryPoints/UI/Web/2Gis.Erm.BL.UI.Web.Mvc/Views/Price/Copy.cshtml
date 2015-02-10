@@ -146,7 +146,7 @@
                         <label>
                             @BLResources.CopyPricetReplaceExistingLegend</label>
                     </div>
-                    @Html.LookupFor(k => k.TargetPrice, new LookupSettings { EntityName = EntityName.Price, ExtendedInfo = "excludeId={SourcePriceId}" })
+                    @Html.LookupFor(k => k.TargetPrice, new LookupSettings { EntityName = EntityType.Instance.Price(), ExtendedInfo = "excludeId={SourcePriceId}" })
                 </td>
             </tr>
         </tbody>

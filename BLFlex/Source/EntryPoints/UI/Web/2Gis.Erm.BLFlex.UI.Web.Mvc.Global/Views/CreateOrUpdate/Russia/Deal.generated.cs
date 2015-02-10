@@ -37,6 +37,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Russia/Deal.cshtml")]
@@ -245,7 +248,7 @@ WriteLiteral("            ");
 
             
             #line 35 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew }));
+       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = !Model.IsNew }));
 
             
             #line default
@@ -301,7 +304,7 @@ WriteLiteral("            ");
 
             
             #line 45 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-       Write(Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true }));
 
             
             #line default
@@ -327,7 +330,7 @@ WriteLiteral("            ");
 
             
             #line 49 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
+       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Bargain(), ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
 
             
             #line default
@@ -338,14 +341,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdditionalTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2292), Tuple.Create("\"", 2331)
+WriteAttribute("title", Tuple.Create(" title=\"", 2325), Tuple.Create("\"", 2364)
             
             #line 52 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 2300), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 2333), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 2300), false)
+, 2333), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -358,7 +361,7 @@ WriteLiteral("            ");
 
             
             #line 54 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
+       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -440,14 +443,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdvertisementCampaignTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3541), Tuple.Create("\"", 3581)
+WriteAttribute("title", Tuple.Create(" title=\"", 3596), Tuple.Create("\"", 3636)
             
             #line 70 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 3549), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
+, Tuple.Create(Tuple.Create("", 3604), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
             
             #line default
             #line hidden
-, 3549), false)
+, 3604), false)
 );
 
 WriteLiteral(">\r\n");

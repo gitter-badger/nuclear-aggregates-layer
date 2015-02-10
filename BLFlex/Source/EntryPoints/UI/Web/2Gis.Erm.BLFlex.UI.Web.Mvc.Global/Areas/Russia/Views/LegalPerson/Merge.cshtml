@@ -95,7 +95,7 @@
                                         <input type="radio" name="legalPerson" id="legalPerson_1" class="rad left" checked="checked" />
                                     </td>
                                     <td>
-                                        @Html.LookupFor(m => m.LegalPerson1, new LookupSettings { EntityName = EntityName.LegalPerson, ExtendedInfo = "restrictForMergeId={LegalPerson2Id}" })
+                                        @Html.LookupFor(m => m.LegalPerson1, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ExtendedInfo = "restrictForMergeId={LegalPerson2Id}" })
                                         @Html.ValidationMessageFor(m => m.LegalPerson1)
                                     </td>
                                     <td />
@@ -103,7 +103,7 @@
                                         <input type="radio" name="legalPerson" id="legalPerson_2" class="rad right" />
                                     </td>
                                     <td>
-                                        @Html.LookupFor(m => m.LegalPerson2, new LookupSettings { EntityName = EntityName.LegalPerson, ExtendedInfo = "restrictForMergeId={LegalPerson1Id}" })
+                                        @Html.LookupFor(m => m.LegalPerson2, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ExtendedInfo = "restrictForMergeId={LegalPerson1Id}" })
                                         @Html.ValidationMessageFor(m => m.LegalPerson2)
                                     </td>
                                 </tr>

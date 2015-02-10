@@ -38,6 +38,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Views.LegalPerson
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Russia/Views/LegalPerson/Merge.cshtml")]
@@ -315,7 +318,7 @@ WriteLiteral("                                        ");
 
             
             #line 98 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
-                                   Write(Html.LookupFor(m => m.LegalPerson1, new LookupSettings { EntityName = EntityName.LegalPerson, ExtendedInfo = "restrictForMergeId={LegalPerson2Id}" }));
+                                   Write(Html.LookupFor(m => m.LegalPerson1, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ExtendedInfo = "restrictForMergeId={LegalPerson2Id}" }));
 
             
             #line default
@@ -353,7 +356,7 @@ WriteLiteral("                                        ");
 
             
             #line 106 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
-                                   Write(Html.LookupFor(m => m.LegalPerson2, new LookupSettings { EntityName = EntityName.LegalPerson, ExtendedInfo = "restrictForMergeId={LegalPerson1Id}" }));
+                                   Write(Html.LookupFor(m => m.LegalPerson2, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ExtendedInfo = "restrictForMergeId={LegalPerson1Id}" }));
 
             
             #line default

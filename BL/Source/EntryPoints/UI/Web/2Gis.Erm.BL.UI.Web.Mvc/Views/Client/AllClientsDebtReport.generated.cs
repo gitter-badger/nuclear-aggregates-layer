@@ -38,6 +38,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Client
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Client/AllClientsDebtReport.cshtml")]
@@ -170,7 +173,7 @@ WriteLiteral("        ");
 
             
             #line 48 "..\..\Views\Client\AllClientsDebtReport.cshtml"
-   Write(Html.TemplateField(m=>m.Owner, FieldFlex.lone, new LookupSettings{EntityName = EntityName.User}));
+   Write(Html.TemplateField(m=>m.Owner, FieldFlex.lone, new LookupSettings{EntityName = EntityType.Instance.User()}));
 
             
             #line default
@@ -187,7 +190,7 @@ WriteLiteral("        ");
 
             
             #line 51 "..\..\Views\Client\AllClientsDebtReport.cshtml"
-   Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit }));
+   Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit() }));
 
             
             #line default

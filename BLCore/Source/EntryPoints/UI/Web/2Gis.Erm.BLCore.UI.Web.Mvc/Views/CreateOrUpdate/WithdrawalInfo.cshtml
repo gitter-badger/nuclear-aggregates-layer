@@ -18,7 +18,7 @@
             @Html.TemplateField(m => m.PeriodEndDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, Disabled = true })
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), Disabled = true })
             @Html.TemplateField(m => m.Status, FieldFlex.twins, null, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">

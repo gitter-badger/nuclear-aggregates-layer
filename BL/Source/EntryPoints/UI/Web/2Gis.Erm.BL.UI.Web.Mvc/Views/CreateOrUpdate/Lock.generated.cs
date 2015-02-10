@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Lock.cshtml")]
-    public partial class Lock : System.Web.Mvc.WebViewPage<Models.LockViewModel>
+    public partial class Lock : System.Web.Mvc.WebViewPage<LockViewModel>
     {
         public Lock()
         {
@@ -74,14 +77,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 171), Tuple.Create("\"", 207)
+WriteAttribute("title", Tuple.Create(" title=\"", 164), Tuple.Create("\"", 200)
             
             #line 13 "..\..\Views\CreateOrUpdate\Lock.cshtml"
-, Tuple.Create(Tuple.Create("", 179), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 172), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 179), false)
+, 172), false)
 );
 
 WriteLiteral(">\r\n");
@@ -116,7 +119,7 @@ WriteLiteral("            ");
 
             
             #line 17 "..\..\Views\CreateOrUpdate\Lock.cshtml"
-       Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ShowReadOnlyCard = true }));
+       Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ShowReadOnlyCard = true }));
 
             
             #line default
@@ -131,7 +134,7 @@ WriteLiteral("            ");
 
             
             #line 20 "..\..\Views\CreateOrUpdate\Lock.cshtml"
-       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ShowReadOnlyCard = true }));
+       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit(), ShowReadOnlyCard = true }));
 
             
             #line default
@@ -146,7 +149,7 @@ WriteLiteral("            ");
 
             
             #line 23 "..\..\Views\CreateOrUpdate\Lock.cshtml"
-       Write(Html.TemplateField(m => m.Order, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Order, ShowReadOnlyCard = true }));
+       Write(Html.TemplateField(m => m.Order, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Order(), ShowReadOnlyCard = true }));
 
             
             #line default
@@ -239,7 +242,7 @@ WriteLiteral("            ");
 
             
             #line 38 "..\..\Views\CreateOrUpdate\Lock.cshtml"
-       Write(Html.TemplateField(m => m.AccountDetail, FieldFlex.twins, new LookupSettings { EntityName = EntityName.AccountDetail, ShowReadOnlyCard = true}));
+       Write(Html.TemplateField(m => m.AccountDetail, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.AccountDetail(), ShowReadOnlyCard = true}));
 
             
             #line default
