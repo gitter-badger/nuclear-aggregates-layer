@@ -175,6 +175,7 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
                     });
                     this.fromList.store.removeAll(true);
                 },
+                beforeload: this.beforeStoreLoad,
                 load: this.onStoreLoad,
                 scope: this
             }
@@ -342,7 +343,14 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
             this.appendSelection();
         }
         return this.fireEvent('rowdblclick', vw, index, node, e);
-    },   
+    },
+    beforeStoreLoad: function(store, operation, eOpts) {
+        if (!this.mask) {
+            this.mask = new window.Ext.LoadMask(window.Ext.get("grid-left"));
+        }
+
+        this.mask.show();
+    },
     onStoreLoad: function(store, records, options) {
         this.mask.hide();
         if (records.length >= 100) {

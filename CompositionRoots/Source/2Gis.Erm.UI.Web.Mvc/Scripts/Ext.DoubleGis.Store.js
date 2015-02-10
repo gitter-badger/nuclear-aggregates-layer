@@ -7,6 +7,8 @@ Ext.DoubleGis.Store = Ext.extend(Ext.data.Store, {
         options = Ext.apply({}, options);
         this.storeOptions(options);
         if (this.remoteSort) {
+            options.params = Ext.apply({}, options.params);
+
             function convertSortAndDirForSending(sort, dir) {
                 return (sort + " " + dir);
             }
