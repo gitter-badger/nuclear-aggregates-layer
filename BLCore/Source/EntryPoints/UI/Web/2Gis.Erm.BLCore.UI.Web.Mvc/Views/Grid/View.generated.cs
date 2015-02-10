@@ -412,57 +412,57 @@ WriteLiteral("\';\r\n        Ext.SpecialOperationsServiceRestUrl = \'");
             
             #line default
             #line hidden
-WriteLiteral("\';\r\n    </script>\r\n    \r\n    <script");
+WriteLiteral("\';\r\n    </script>\r\n    \r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2407), Tuple.Create("\"", 2470)
-, Tuple.Create(Tuple.Create("", 2413), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2413), true)
-            
-            #line 43 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 2451), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 2451), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 2517), Tuple.Create("\"", 2575)
-, Tuple.Create(Tuple.Create("", 2523), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 2523), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2409), Tuple.Create("\"", 2472)
+, Tuple.Create(Tuple.Create("", 2415), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2415), true)
             
             #line 44 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 2556), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2453), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2556), false)
+, 2453), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2622), Tuple.Create("\"", 2679)
-, Tuple.Create(Tuple.Create("", 2628), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 2628), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2519), Tuple.Create("\"", 2577)
+, Tuple.Create(Tuple.Create("", 2525), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 2525), true)
             
             #line 45 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 2660), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2558), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2660), false)
+, 2558), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2726), Tuple.Create("\"", 2785)
-, Tuple.Create(Tuple.Create("", 2732), Tuple.Create("/Scripts/DoubleGis.UI.DataList.js?", 2732), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2624), Tuple.Create("\"", 2681)
+, Tuple.Create(Tuple.Create("", 2630), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 2630), true)
             
             #line 46 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 2662), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 2662), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2728), Tuple.Create("\"", 2785)
+, Tuple.Create(Tuple.Create("", 2734), Tuple.Create("/Scripts/Ext.DoubleGis.Store.js?", 2734), true)
+            
+            #line 47 "..\..\Views\Grid\View.cshtml"
 , Tuple.Create(Tuple.Create("", 2766), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
@@ -472,7 +472,22 @@ WriteAttribute("src", Tuple.Create(" src=\"", 2726), Tuple.Create("\"", 2785)
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral("></script>\r\n\r\n    <script");
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2832), Tuple.Create("\"", 2891)
+, Tuple.Create(Tuple.Create("", 2838), Tuple.Create("/Scripts/DoubleGis.UI.DataList.js?", 2838), true)
+            
+            #line 48 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 2872), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 2872), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n   \r\n\r\n    <script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
@@ -488,7 +503,7 @@ WriteLiteral(@">
             var settings = ");
 
             
-            #line 57 "..\..\Views\Grid\View.cshtml"
+            #line 60 "..\..\Views\Grid\View.cshtml"
                       Write(Html.WriteJson(Model));
 
             
@@ -519,13 +534,13 @@ WriteLiteral(@";
 ");
 
             
-            #line 79 "..\..\Views\Grid\View.cshtml"
+            #line 82 "..\..\Views\Grid\View.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 79 "..\..\Views\Grid\View.cshtml"
+            #line 82 "..\..\Views\Grid\View.cshtml"
      foreach (var script in Model.DataViews.First().Scripts)
     {
 
@@ -534,23 +549,23 @@ WriteLiteral(@";
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4323), Tuple.Create("\"", 4374)
-, Tuple.Create(Tuple.Create("", 4329), Tuple.Create("/Scripts/", 4329), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4434), Tuple.Create("\"", 4485)
+, Tuple.Create(Tuple.Create("", 4440), Tuple.Create("/Scripts/", 4440), true)
             
-            #line 81 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 4338), Tuple.Create<System.Object, System.Int32>(script.FileName
-            
-            #line default
-            #line hidden
-, 4338), false)
-, Tuple.Create(Tuple.Create("", 4354), Tuple.Create("?", 4354), true)
-            
-            #line 81 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 4355), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 84 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 4449), Tuple.Create<System.Object, System.Int32>(script.FileName
             
             #line default
             #line hidden
-, 4355), false)
+, 4449), false)
+, Tuple.Create(Tuple.Create("", 4465), Tuple.Create("?", 4465), true)
+            
+            #line 84 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 4466), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 4466), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -558,7 +573,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral("></script>\r\n");
 
             
-            #line 82 "..\..\Views\Grid\View.cshtml"
+            #line 85 "..\..\Views\Grid\View.cshtml"
     }
 
             
@@ -615,13 +630,13 @@ WriteLiteral(" />\r\n                            </colgroup>\r\n                
 "                               <td>\r\n");
 
             
-            #line 100 "..\..\Views\Grid\View.cshtml"
+            #line 103 "..\..\Views\Grid\View.cshtml"
                                     
             
             #line default
             #line hidden
             
-            #line 100 "..\..\Views\Grid\View.cshtml"
+            #line 103 "..\..\Views\Grid\View.cshtml"
                                       
                                         Html.RenderPartial("QuickFindControl", new QuickFindSettings
                                         {
@@ -646,7 +661,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 112 "..\..\Views\Grid\View.cshtml"
+            #line 115 "..\..\Views\Grid\View.cshtml"
                                Write(BLResources.View);
 
             
@@ -668,14 +683,14 @@ WriteLiteral(">\r\n                                        <optgroup");
 
 WriteLiteral(" id=\"AppSystemViews\"");
 
-WriteAttribute("label", Tuple.Create(" label=\"", 6170), Tuple.Create("\"", 6202)
+WriteAttribute("label", Tuple.Create(" label=\"", 6281), Tuple.Create("\"", 6313)
             
-            #line 116 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 6178), Tuple.Create<System.Object, System.Int32>(BLResources.SystemViews
+            #line 119 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 6289), Tuple.Create<System.Object, System.Int32>(BLResources.SystemViews
             
             #line default
             #line hidden
-, 6178), false)
+, 6289), false)
 );
 
 WriteLiteral(@" />

@@ -430,15 +430,30 @@ WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2584), Tuple.Create("\"", 2639)
-, Tuple.Create(Tuple.Create("", 2590), Tuple.Create("/Scripts/Ext.ux.SearchForm.js?", 2590), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2584), Tuple.Create("\"", 2641)
+, Tuple.Create(Tuple.Create("", 2590), Tuple.Create("/Scripts/Ext.DoubleGis.Store.js?", 2590), true)
             
             #line 42 "..\..\Views\Shared\SearchList.cshtml"
-, Tuple.Create(Tuple.Create("", 2620), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 2622), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 2620), false)
+, 2622), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2688), Tuple.Create("\"", 2743)
+, Tuple.Create(Tuple.Create("", 2694), Tuple.Create("/Scripts/Ext.ux.SearchForm.js?", 2694), true)
+            
+            #line 43 "..\..\Views\Shared\SearchList.cshtml"
+, Tuple.Create(Tuple.Create("", 2724), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 2724), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -446,13 +461,13 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral("></script>\r\n\r\n");
 
             
-            #line 44 "..\..\Views\Shared\SearchList.cshtml"
+            #line 45 "..\..\Views\Shared\SearchList.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 44 "..\..\Views\Shared\SearchList.cshtml"
+            #line 45 "..\..\Views\Shared\SearchList.cshtml"
      foreach (var script in Model.DataViews.First().Scripts)
     {
 
@@ -461,23 +476,23 @@ WriteLiteral("></script>\r\n\r\n");
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2761), Tuple.Create("\"", 2812)
-, Tuple.Create(Tuple.Create("", 2767), Tuple.Create("/Scripts/", 2767), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2865), Tuple.Create("\"", 2916)
+, Tuple.Create(Tuple.Create("", 2871), Tuple.Create("/Scripts/", 2871), true)
             
-            #line 46 "..\..\Views\Shared\SearchList.cshtml"
-, Tuple.Create(Tuple.Create("", 2776), Tuple.Create<System.Object, System.Int32>(script.FileName
-            
-            #line default
-            #line hidden
-, 2776), false)
-, Tuple.Create(Tuple.Create("", 2792), Tuple.Create("?", 2792), true)
-            
-            #line 46 "..\..\Views\Shared\SearchList.cshtml"
-, Tuple.Create(Tuple.Create("", 2793), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 47 "..\..\Views\Shared\SearchList.cshtml"
+, Tuple.Create(Tuple.Create("", 2880), Tuple.Create<System.Object, System.Int32>(script.FileName
             
             #line default
             #line hidden
-, 2793), false)
+, 2880), false)
+, Tuple.Create(Tuple.Create("", 2896), Tuple.Create("?", 2896), true)
+            
+            #line 47 "..\..\Views\Shared\SearchList.cshtml"
+, Tuple.Create(Tuple.Create("", 2897), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 2897), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -485,7 +500,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral("></script>\r\n");
 
             
-            #line 47 "..\..\Views\Shared\SearchList.cshtml"
+            #line 48 "..\..\Views\Shared\SearchList.cshtml"
     }
 
             
@@ -498,7 +513,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n        Ext.onReady(function ()\r\n            {\r\n            var settings = ");
 
             
-            #line 52 "..\..\Views\Shared\SearchList.cshtml"
+            #line 53 "..\..\Views\Shared\SearchList.cshtml"
                       Write(Html.WriteJson(Model));
 
             
