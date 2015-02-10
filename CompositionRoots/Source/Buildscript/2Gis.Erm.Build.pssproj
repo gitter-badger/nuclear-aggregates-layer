@@ -42,6 +42,7 @@
     <Content Include="fxcop.ruleset" />
     <Compile Include="integrationtests.ps1" />
     <Compile Include="migrations.ps1" />
+    <Compile Include="modules\buildtools.psm1" />
     <Compile Include="modules\dynamics.psm1" />
     <Compile Include="modules\metadata.dynamics.psm1" />
     <Compile Include="modules\metadata.psm1" />
