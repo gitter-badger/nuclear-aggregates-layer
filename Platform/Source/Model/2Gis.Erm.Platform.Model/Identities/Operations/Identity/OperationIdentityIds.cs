@@ -46,6 +46,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int BulkDeleteIdentity = 40;
         public const int BulkUpdateIdentity = 41;
 
+        public const int ChangeActivityStatusIdentity = 42;
+
         // concrete operations
         public const int PrintOrderIdentity = 1000;
         public const int StartReleaseIdentity = 1005;

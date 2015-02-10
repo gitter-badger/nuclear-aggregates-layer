@@ -203,27 +203,30 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(@">
         Ext.namespace('Ext.DoubleGis.UI.Activate');
         Ext.DoubleGis.UI.Activate.ActivateProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
-            constructor: function (config) {
+            constructor: function(config) {
                 Ext.DoubleGis.UI.Activate.ActivateProcessor.superclass.constructor.call(this, config);
             },
-            IsUserSettingsValid: function () {
+            IsUserSettingsValid: function() {
                 return true;
             },
-            CreateParamsForControllerCall: function (entityId) {
-                return { entityId: entityId, status: this.OperationName };
+            CreateParamsForControllerCall: function(entityId) {
+                return { entityId: entityId, status: ""Canceled"" };
             },
+            ResolveEntityName: function (entityId) {
+                return ""Appointment"";
+            }
         });
-        Ext.onReady(function () {
+        Ext.onReady(function() {
             Ext.getDom('PageContentCell').style[""vertical-align""] = ""top"";
 
-            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+           // var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
 
             var config = {
-                Entities: ids, // массив id сущностей
+                Entities: [557459840088147713, 557459564052611073, 555571950798243585], // массив id сущностей
                 OperationName: '");
 
             
-            #line 43 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
+            #line 46 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
                            Write(Model.OperationName);
 
             
@@ -236,7 +239,7 @@ WriteLiteral(@"', // тип операции - Qualify, Assign, ChangeTerritory
                 ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
             };
             var activateProcessor = new Ext.DoubleGis.UI.Activate.ActivateProcessor(config);
-            if (!activateProcessor.CheckProcessingPossibility()){
+            if (!activateProcessor.CheckProcessingPossibility()) {
                 return;
             }
             activateProcessor.Process();
@@ -262,26 +265,27 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create("\r\n                     onmouseover=\"", 3250), Tuple.Create("\"", 3313)
-, Tuple.Create(Tuple.Create("", 3286), Tuple.Create("AddTooltip(", 3286), true)
+WriteAttribute("onmouseover", Tuple.Create("\r\n                     onmouseover=\"", 3406), Tuple.Create("\"", 3471)
+, Tuple.Create(Tuple.Create(" ", 3442), Tuple.Create("AddTooltip(", 3443), true)
             
-            #line 60 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
-, Tuple.Create(Tuple.Create("", 3297), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 63 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
+, Tuple.Create(Tuple.Create("", 3454), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 3297), false)
-, Tuple.Create(Tuple.Create("", 3311), Tuple.Create(");", 3311), true)
+, 3454), false)
+, Tuple.Create(Tuple.Create("", 3468), Tuple.Create(");", 3468), true)
+, Tuple.Create(Tuple.Create(" ", 3470), Tuple.Create("", 3470), true)
 );
 
-WriteLiteral("\r\n                     onmouseout=\"RemoveTooltip();\"");
+WriteLiteral("\r\n                     onmouseout=\" RemoveTooltip(); \"");
 
 WriteLiteral(">\r\n");
 
 WriteLiteral("                    ");
 
             
-            #line 62 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
+            #line 65 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
                Write(Model.Message);
 
             
@@ -296,17 +300,18 @@ WriteLiteral(" style=\"display: none\"");
 
 WriteLiteral("></span><span>\r\n");
 
-WriteLiteral("                    ");
+WriteLiteral("                                                                        ");
 
             
-            #line 69 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
-               Write(ConfirmationManager.GetConfirmation(new StrictOperationIdentity(ActivateIdentity.Instance, new EntitySet(Model.EntityTypeName))));
+            #line 72 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
+                                                                   Write(ConfirmationManager.GetConfirmation(new StrictOperationIdentity(ActivateIdentity.Instance, new EntitySet(Model.EntityTypeName))));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                </span>\r\n            </td>\r\n        </tr>\r\n        <tr>\r\n      " +
-"      <td>\r\n                <div");
+WriteLiteral("\r\n                                                                    </span>\r\n  " +
+"          </td>\r\n        </tr>\r\n        <tr>\r\n            <td>\r\n                " +
+"<div");
 
 WriteLiteral(" id=\"pbDiv\"");
 
@@ -320,7 +325,7 @@ WriteLiteral(">\r\n                    </div>\r\n                </div>\r\n     
 WriteLiteral("    ");
 
             
-            #line 82 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
+            #line 85 "..\..\Views\GroupOperation\ChangeActivityStatus.cshtml"
 Write(Html.HiddenFor(x => x.EntityTypeName));
 
             

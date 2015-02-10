@@ -469,6 +469,7 @@
     <Compile Include="Entities\Security\UserRole.cs" />
     <Compile Include="Entities\Security\UserTerritory.cs" />
     <Compile Include="IBoundedContext.cs" />
+    <Compile Include="Identities\Operations\Identity\Generic\ChangeActivityStatusIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\NotifyAboutAccountDetailModificationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\BulkUpdateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Activity\CheckRelatedActivitiesIdentity.cs" />

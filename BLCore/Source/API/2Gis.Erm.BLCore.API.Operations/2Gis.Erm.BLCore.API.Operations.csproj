@@ -222,6 +222,7 @@
     <Compile Include="Crosscutting\ICanChangeOrderPositionBindingObjectsDetector.cs" />
     <Compile Include="Crosscutting\IPaymentsDistributor.cs" />
     <Compile Include="DI\OperationsZone.cs" />
+    <Compile Include="Generic\ChangeActivityStatus\IChangeActvityStatusEntityService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeClientOfLinkedDealException.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\Deactivate\LegalPersonWithOrdersDeactivationException.cs" />
@@ -437,6 +438,9 @@
     <Compile Include="Remote\Assign\IAssignApplicationRestService.cs" />
     <Compile Include="Remote\Assign\IAssignApplicationService.cs" />
     <Compile Include="Remote\Assign\IGroupAssignApplicationService.cs" />
+    <Compile Include="Remote\ChangeActivityStatus\IChangeActivityStatusApplicationService.cs" />
+    <Compile Include="Remote\ChangeActivityStatus\ChangeActivityStatusOperationErrorDescription.cs" />
+    <Compile Include="Remote\ChangeActivityStatus\IChangeActivityStatusApplicationRestService.cs" />
     <Compile Include="Remote\ChangeClient\ChangeClientOperationErrorDescription.cs" />
     <Compile Include="Remote\ChangeClient\IChangeClientApplicationRestService.cs" />
     <Compile Include="Remote\ChangeClient\IChangeClientApplicationService.cs" />

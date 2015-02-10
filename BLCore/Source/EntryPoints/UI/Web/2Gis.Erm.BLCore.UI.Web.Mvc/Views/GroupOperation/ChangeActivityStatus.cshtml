@@ -23,23 +23,26 @@
     <script type="text/javascript">
         Ext.namespace('Ext.DoubleGis.UI.Activate');
         Ext.DoubleGis.UI.Activate.ActivateProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
-            constructor: function (config) {
+            constructor: function(config) {
                 Ext.DoubleGis.UI.Activate.ActivateProcessor.superclass.constructor.call(this, config);
             },
-            IsUserSettingsValid: function () {
+            IsUserSettingsValid: function() {
                 return true;
             },
-            CreateParamsForControllerCall: function (entityId) {
-                return { entityId: entityId, status: this.OperationName };
+            CreateParamsForControllerCall: function(entityId) {
+                return { entityId: entityId, status: "Canceled" };
             },
+            ResolveEntityName: function (entityId) {
+                return "Appointment";
+            }
         });
-        Ext.onReady(function () {
+        Ext.onReady(function() {
             Ext.getDom('PageContentCell').style["vertical-align"] = "top";
 
-            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+           // var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
 
             var config = {
-                Entities: ids, // массив id сущностей
+                Entities: [557459840088147713, 557459564052611073, 555571950798243585], // массив id сущностей
                 OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
                 CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
                 NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
@@ -47,7 +50,7 @@
                 ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
             };
             var activateProcessor = new Ext.DoubleGis.UI.Activate.ActivateProcessor(config);
-            if (!activateProcessor.CheckProcessingPossibility()){
+            if (!activateProcessor.CheckProcessingPossibility()) {
                 return;
             }
             activateProcessor.Process();
@@ -57,8 +60,8 @@
         <tr>
             <td colspan="2">
                 <div style="height: 30px;" id="Notifications"
-                     onmouseover="AddTooltip(@Model.Message);"
-                     onmouseout="RemoveTooltip();">
+                     onmouseover=" AddTooltip(@Model.Message); "
+                     onmouseout=" RemoveTooltip(); ">
                     @Model.Message
                 </div>
             </td>
@@ -66,8 +69,8 @@
         <tr>
             <td>
                 <span id="bodyMessage" style="display: none"></span><span>
-                    @ConfirmationManager.GetConfirmation(new StrictOperationIdentity(ActivateIdentity.Instance, new EntitySet(Model.EntityTypeName)))
-                </span>
+                                                                        @ConfirmationManager.GetConfirmation(new StrictOperationIdentity(ActivateIdentity.Instance, new EntitySet(Model.EntityTypeName)))
+                                                                    </span>
             </td>
         </tr>
         <tr>
