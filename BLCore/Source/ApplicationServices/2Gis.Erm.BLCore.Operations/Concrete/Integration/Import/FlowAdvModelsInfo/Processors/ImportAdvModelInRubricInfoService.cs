@@ -44,11 +44,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvMod
                 foreach (var dto in dtos)
                 {
                     var serviceBusDto = (AdvModelInRubricInfoServiceBusDto)dto;
-                    
                     var oldRestrictions = _restrictionReadModel.GetRestrictionsByProject(serviceBusDto.BranchCode);
                     _bulkDeleteSalesModelCategoryRestrictionsService.Delete(oldRestrictions);
                     scope.Deleted(oldRestrictions);
+                }
 
+                foreach (var dto in dtos)
+                {
+                    var serviceBusDto = (AdvModelInRubricInfoServiceBusDto)dto;
                     var newRestrictions = serviceBusDto.AdvModelInRubrics
                                                        .Select(advModelInRubricDto => new SalesModelCategoryRestriction
                                                                                           {
@@ -60,7 +63,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvMod
 
                     _bulkCreateSalesModelCategoryRestrictionsService.Create(newRestrictions);
                     scope.Added(newRestrictions.AsEnumerable());
+                }
 
+                foreach (var dto in dtos)
+                {
+                    var serviceBusDto = (AdvModelInRubricInfoServiceBusDto)dto;
                     var orderIds = _restrictionReadModel.GetDependedByRestrictionsInProjectOrderIds(serviceBusDto.BranchCode);
                     _registerOrderStateChangesOperationService.Changed(orderIds.Select(x => new OrderChangesDescriptor
                                                                                                 {
