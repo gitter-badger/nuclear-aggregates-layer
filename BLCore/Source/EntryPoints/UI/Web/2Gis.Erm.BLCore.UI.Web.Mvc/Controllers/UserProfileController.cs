@@ -13,6 +13,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -32,24 +33,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly IGetUserInfoService _userInfoService;
         private readonly IFinder _finder;
 
-        public UserProfileController(
-            ILocalizationSettings localizationSettings,
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IUserProfileService userProfileService,
-            IGetUserInfoService userInfoService,
-            IFinder finder,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+        public UserProfileController(IMsCrmSettings msCrmSettings,
+                                     IAPIOperationsServiceSettings operationsServiceSettings,
+                                     IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                     IAPIIdentityServiceSettings identityServiceSettings,
+                                     IUserContext userContext,
+                                     ICommonLog logger,
+                                     IGetBaseCurrencyService getBaseCurrencyService,
+                                     ILocalizationSettings localizationSettings,
+                                     IUserProfileService userProfileService,
+                                     IGetUserInfoService userInfoService,
+                                     IFinder finder)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _localizationSettings = localizationSettings;
             _userProfileService = userProfileService;

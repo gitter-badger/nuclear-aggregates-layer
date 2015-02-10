@@ -15,6 +15,7 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -36,10 +37,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
         private readonly IBusinessModelEntityObtainer<Client> _clientObtainer;
 
         public ClientsMergingController(IMsCrmSettings msCrmSettings,
-                                        IUserContext userContext,
-                                        ICommonLog logger,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                        IAPIIdentityServiceSettings identityServiceSettings,
+                                        IUserContext userContext,
+                                        ICommonLog logger,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IOperationServicesManager operationServicesManager,
                                         ISecurityServiceUserIdentifier userIdentifierService,
@@ -47,12 +49,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
                                         IPublicService publicService,
                                         IFinder finder,
                                         IBusinessModelEntityObtainer<Client> clientObtainer)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _userIdentifierService = userIdentifierService;
