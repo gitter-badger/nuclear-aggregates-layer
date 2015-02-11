@@ -58,26 +58,12 @@ function Create-GlobalContext ($Properties) {
 	}
 }
 
-function Restore-SolutionPackages {
-
-	if (Test-Path 'Env:\TEAMCITY_VERSION') {
-		Write-Host "##teamcity[progressMessage '{0}']"
-	}
-
-	$solution = Get-ChildItem $global:Context.Dir.Solution -Filter '*.sln'
-	
-	Invoke-NuGet @(
-		'restore'
-		$solution.FullName
-	)
-}
-
 function Run-Build ($TaskList, $Properties) {
 
 	Create-GlobalContext $Properties
 	
 	Import-Module "$PSScriptRoot\nuget.psm1" -DisableNameChecking -Force
-	Restore-SolutionPackages
+	Restore-Packages
 
 	$PackageInfo = Get-PackageInfo 'psake'
 	Import-Module "$($PackageInfo.VersionedDir)\tools\psake.psm1" -DisableNameChecking -Force

@@ -55,16 +55,13 @@ function Download-Nuget {
 
 function Get-PackageInfo ($PackageId, $ThrowError = $true){
 
-	$solutionDir = $global:Context.Dir.Solution
-	$packagesConfigFileName = Join-Path $solutionDir '.nuget\packages.config'
-
-	[xml]$xml = Get-Content $packagesConfigFileName -Encoding UTF8
+	[xml]$xml = Get-Content $LocalPackagesConfig -Encoding UTF8
 	$packageNode = $xml.SelectNodes('//package') | Where-Object { $_.id -eq $PackageId}
 	if ($packageNode -eq $null){
 		throw "Can't find solution package $PackageId"
 	}
 
-	$versionedDir = Join-Path $solutionDir "packages\$PackageId.$($packageNode.version)" 
+	$versionedDir = Join-Path $global:Context.Dir.Solution "packages\$PackageId.$($packageNode.version)" 
 	
 	if (!(Test-Path $versionedDir)){
 		if ($ThrowError){
@@ -79,7 +76,29 @@ function Get-PackageInfo ($PackageId, $ThrowError = $true){
 	}
 }
 
+function Restore-Packages {
+
+	if (Test-Path 'Env:\TEAMCITY_VERSION') {
+		Write-Host "##teamcity[progressMessage '{0}']"
+	}
+
+	$solution = Get-ChildItem $global:Context.Dir.Solution -Filter '*.sln'
+
+	Invoke-NuGet @(
+		'restore'
+		$solution.FullName
+	)
+
+	Invoke-NuGet @(
+		'restore'
+		$LocalPackagesConfig
+		'-SolutionDirectory'
+		$global:Context.Dir.Solution
+	)
+}
+
+$LocalPackagesConfig = "$PSScriptRoot\packages.config"
 $PackageInfo = Get-PackageInfo 'NuGet.CommandLine' -ThrowError $false
 $NugetPath = Join-Path $PackageInfo.VersionedDir 'tools\NuGet.exe'
 
-Export-ModuleMember -Function Invoke-NuGet, Get-PackageInfo
+Export-ModuleMember -Function Invoke-NuGet, Get-PackageInfo, Restore-Packages
