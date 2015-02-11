@@ -15,12 +15,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(t => t.Timestamp)
-                .IsRequired()
-                .IsFixedLength()
-                .HasMaxLength(8)
-                .IsRowVersion();
-
             // Table & Column Mappings
             ToTable("SalesModelCategoryRestrictions", "BusinessDirectory");
             Property(t => t.Id).HasColumnName("Id");
@@ -31,7 +25,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.ModifiedBy).HasColumnName("ModifiedBy");
             Property(t => t.CreatedOn).HasColumnName("CreatedOn");
             Property(t => t.ModifiedOn).HasColumnName("ModifiedOn");
-            Property(t => t.Timestamp).HasColumnName("Timestamp");
 
             // Relationships
             HasRequired(t => t.Category)

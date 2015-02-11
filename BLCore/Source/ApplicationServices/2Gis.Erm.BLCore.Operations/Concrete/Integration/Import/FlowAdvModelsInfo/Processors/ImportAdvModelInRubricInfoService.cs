@@ -46,7 +46,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvMod
                 {
                     var oldRestrictions = _restrictionReadModel.GetRestrictionsByProject(serviceBusDto.BranchCode);
                     _bulkDeleteSalesModelCategoryRestrictionsService.Delete(oldRestrictions);
-                    scope.Deleted(oldRestrictions);
                 }
 
                 foreach (var serviceBusDto in serviceBusDtos)
