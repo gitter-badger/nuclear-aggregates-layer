@@ -59,7 +59,6 @@
     <Compile Include="modules\versioning.psm1" />
     <Compile Include="modules\web.psm1" />
     <Compile Include="nuget.ps1" />
-    <Compile Include="packages.config" />
     <Compile Include="reports.ps1" />
     <Compile Include="run-build.ps1" />
     <Compile Include="searchmigrations.ps1" />
