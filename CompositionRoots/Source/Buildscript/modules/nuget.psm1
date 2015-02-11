@@ -79,7 +79,7 @@ function Get-PackageInfo ($PackageId, $ThrowError = $true){
 function Restore-Packages {
 
 	if (Test-Path 'Env:\TEAMCITY_VERSION') {
-		Write-Host "##teamcity[progressMessage '{0}']"
+		Write-Host "##teamcity[progressMessage 'Restore-Packages']"
 	}
 
 	$solution = Get-ChildItem $global:Context.Dir.Solution -Filter '*.sln'

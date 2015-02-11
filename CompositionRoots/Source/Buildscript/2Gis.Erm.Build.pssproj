@@ -60,6 +60,7 @@
     <Compile Include="modules\msbuild.psm1" />
     <Compile Include="modules\msdeploy.psm1" />
     <Compile Include="modules\nuget.psm1" />
+    <Compile Include="modules\packages.config" />
     <Compile Include="modules\reports.psm1" />
     <Compile Include="modules\sqlserver.psm1" />
     <Compile Include="modules\transform.psm1" />
