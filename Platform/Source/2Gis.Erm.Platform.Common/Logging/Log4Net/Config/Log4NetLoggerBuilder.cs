@@ -26,12 +26,12 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
 
         private readonly PatternLayout _localPatternLayout = new PatternLayout
         {
-            ConversionPattern = "%date [%thread] %-5level %message %newline %exception"
+            ConversionPattern = "%utcdate [%thread] %-5level %message %newline %exception"
         };
 
         private readonly PatternLayout _eventLogPatternLayout = new PatternLayout
         {
-            ConversionPattern = new StringBuilder("%date %-5level %message")
+            ConversionPattern = new StringBuilder("%utcdate %-5level %message")
                                         .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.Environment))
                                         .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.EntryPoint))
                                         .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.EntryPointHost))
@@ -278,7 +278,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
             adoNetAppender.ReconnectOnError = true;
             adoNetAppender.UseTransactions = false;
             adoNetAppender.ConnectionString = loggingDbConnectionString;
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Date", DbType = DbType.DateTime2, Size = 36, Precision = 7, Layout = new RawTimeStampLayout() });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Date", DbType = DbType.DateTime2, Size = 36, Precision = 7, Layout = new RawUtcTimeStampLayout() });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Level", DbType = DbType.String, Size = 5, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%level")) });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Message", DbType = DbType.String, Size = 8000, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%message")) });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@ExceptionData", DbType = DbType.String, Size = 8000, Layout = new Layout2RawLayoutAdapter(new ExceptionLayout()) });
