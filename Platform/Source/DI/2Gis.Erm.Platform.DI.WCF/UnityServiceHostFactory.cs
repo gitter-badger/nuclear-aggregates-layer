@@ -44,6 +44,7 @@ namespace DoubleGis.Erm.Platform.DI.WCF
 
             LoggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
             var logger = Log4NetLoggerBuilder.Use
+                                             .DefaultXmlConfig
                                              .EventLog
                                              .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
                                              .Build;
