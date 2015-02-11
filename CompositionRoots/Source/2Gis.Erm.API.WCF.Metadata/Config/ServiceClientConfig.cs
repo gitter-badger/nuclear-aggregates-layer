@@ -51,6 +51,8 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Config
 
                                       .AddEndpoint("Calculate", binding, specialOperationsSvcSettings.BaseUrl, "Calculate.svc");
 
+                                      .AddEndpoint("ChangeActivityStatus", binding, operationsSvcSettings.BaseUrl, "ChangeActivityStatus.svc");
+
             return container.RegisterInstance<IDiscoveryEndpointContainer>(discoveryEndpointContainer);
         }
     }

@@ -223,6 +223,7 @@
     <Compile Include="Crosscutting\IPaymentsDistributor.cs" />
     <Compile Include="DI\OperationsZone.cs" />
     <Compile Include="Generic\ChangeActivityStatus\IChangeActvityStatusEntityService.cs" />
+    <Compile Include="Generic\ChangeActivityStatus\IChangeGenericEntityActivityStatusService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeClientOfLinkedDealException.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\Deactivate\LegalPersonWithOrdersDeactivationException.cs" />

@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.ChangeActivityStatus
 {
-    [DataContract(Namespace = ServiceNamespaces.BasicOperations.ChangeActivityStatus201502)]
+    [DataContract(Namespace = ServiceNamespaces.BasicOperations.ChangeActivityStatus201302)]
     public class ChangeActivityStatusOperationErrorDescription : IBasicOperationErrorDescription
     {
         public ChangeActivityStatusOperationErrorDescription(EntityName entityName, string message)

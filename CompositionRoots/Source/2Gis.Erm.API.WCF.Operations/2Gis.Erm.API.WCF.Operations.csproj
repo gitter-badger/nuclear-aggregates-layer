@@ -85,6 +85,7 @@
   <ItemGroup>
     <Content Include="Activate.svc" />
     <Content Include="Assign.svc" />
+    <Content Include="ChangeActivityStatus.svc" />
     <Content Include="CheckForDebts.svc" />
     <Content Include="ChangeClient.svc" />
     <Content Include="ChangeTerritory.svc" />

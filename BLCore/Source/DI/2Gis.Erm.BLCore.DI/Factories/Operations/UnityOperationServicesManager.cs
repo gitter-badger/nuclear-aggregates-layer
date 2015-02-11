@@ -54,6 +54,7 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
 
         public IChangeActvityStatusEntityService GetChangeActivityStatusService(EntityName entityName)
         {
+            //CheckOperationAvailability<ChangeActivityStatusIdentity>(entityName);
             return GetEntitySpecificOperation<IChangeActvityStatusEntityService, ChangeActivityStatusIdentity>(entityName.ToEntitySet(), null);
         }
 

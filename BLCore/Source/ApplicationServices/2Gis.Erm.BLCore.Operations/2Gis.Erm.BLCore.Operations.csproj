@@ -301,6 +301,7 @@
     <Compile Include="Generic\Assign\AssignGenericEntityService.cs" />
     <Compile Include="Generic\Assign\AssignLegalPersonService.cs" />
     <Compile Include="Generic\Assign\AssignOrderService.cs" />
+    <Compile Include="Generic\ChangeActivityStatus\ChangeActivityStatusAppointmentService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeDealClientService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeFirmClientService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeGenericEntityClientService.cs" />

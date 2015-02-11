@@ -4,7 +4,6 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations;
-using DoubleGis.Erm.BLCore.API.Operations.Remote.Activate;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.ChangeActivityStatus;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -15,12 +14,12 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
-    public class ChangeActivityStatus : IChangeActivityStatusApplicationService, IChangeActivityStatusApplicationRestService
+    public class ChangeActivityStatusApplicationService : IChangeActivityStatusApplicationService, IChangeActivityStatusApplicationRestService
     {
         private readonly ICommonLog _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public ChangeActivityStatus(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
+        public ChangeActivityStatusApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;
@@ -42,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public void Execute(string specifiedEntityName, string entityId, string status)
+        public void Execute(string specifiedEntityName, string specifiedEntityId, string status)
         {
             var entityName = EntityName.None;
             try
@@ -52,11 +51,18 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
 
+                long entityId = 0L;
+                if (!long.TryParse(specifiedEntityId, out entityId))
+                {
+                    throw new ArgumentException("Entity Id cannot be parsed");
+                }
+
                 ActivityStatus activityStatus;
                 if (!Enum.TryParse(status, out activityStatus))
                 {
                     throw new ArgumentException("ActivityStatus cannot be parsed");
                 }
+                this.ExecuteInternal(entityName, entityId, activityStatus);
             }
             catch (Exception ex)
             {

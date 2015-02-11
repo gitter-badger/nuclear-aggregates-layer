@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using DoubleGis.Erm.Platform.API.Core.Operations;
+﻿using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
