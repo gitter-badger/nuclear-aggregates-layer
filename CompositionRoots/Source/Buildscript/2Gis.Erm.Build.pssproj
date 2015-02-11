@@ -74,6 +74,7 @@
     <Compile Include="versioning.ps1" />
     <Compile Include="web.ps1" />
     <Compile Include="wpf.ps1" />
+    <Content Include="modules\unittests.psm1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="metadata\" />
