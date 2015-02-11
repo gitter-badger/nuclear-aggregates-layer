@@ -8,8 +8,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     public sealed class SalesModelCategoryRestriction :
         IEntity,
         IEntityKey,
-        IAuditableEntity,
-        IStateTrackingEntity
+        IAuditableEntity
     {
         public long Id { get; set; }
         public long CategoryId { get; set; }
@@ -20,7 +19,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long? ModifiedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public byte[] Timestamp { get; set; }
 
         public Category Category { get; set; }
         public Project Project { get; set; }
