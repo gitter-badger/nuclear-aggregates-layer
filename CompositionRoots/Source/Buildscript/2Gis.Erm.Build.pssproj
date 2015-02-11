@@ -41,15 +41,22 @@
     <Compile Include="fxcop.ps1" />
     <Content Include="fxcop.ruleset" />
     <Compile Include="integrationtests.ps1" />
+    <Compile Include="metadata\metadata.dynamics.psm1" />
+    <Compile Include="metadata\metadata.dynamics.psm1" />
+    <Compile Include="metadata\metadata.psm1" />
+    <Compile Include="metadata\metadata.psm1" />
+    <Compile Include="metadata\metadata.servicebus.psm1" />
+    <Compile Include="metadata\metadata.servicebus.psm1" />
+    <Compile Include="metadata\metadata.taskservice.psm1" />
+    <Compile Include="metadata\metadata.taskservice.psm1" />
+    <Compile Include="metadata\metadata.transform.psm1" />
+    <Compile Include="metadata\metadata.transform.psm1" />
+    <Compile Include="metadata\metadata.web.psm1" />
+    <Compile Include="metadata\metadata.web.psm1" />
     <Compile Include="migrations.ps1" />
     <Compile Include="modules\buildtools.psm1" />
     <Compile Include="modules\dynamics.psm1" />
-    <Compile Include="modules\metadata.dynamics.psm1" />
     <Compile Include="modules\metadata.psm1" />
-    <Compile Include="modules\metadata.servicebus.psm1" />
-    <Compile Include="modules\metadata.taskservice.psm1" />
-    <Compile Include="modules\metadata.transform.psm1" />
-    <Compile Include="modules\metadata.web.psm1" />
     <Compile Include="modules\msbuild.psm1" />
     <Compile Include="modules\msdeploy.psm1" />
     <Compile Include="modules\nuget.psm1" />
@@ -69,6 +76,8 @@
     <Compile Include="wpf.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="metadata\" />
+    <Folder Include="metadata\" />
     <Folder Include="modules\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

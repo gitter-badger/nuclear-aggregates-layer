@@ -42,9 +42,14 @@ function Create-GlobalContext ($Properties) {
 		$global:Context.Add('Branch', $Properties['Branch'])
 		$Properties.Remove('Branch')
 	}
+
 	if ($Properties.ContainsKey('EnvironmentName')){
 		$global:Context.Add('EnvironmentName', $Properties['EnvironmentName'])
 		$Properties.Remove('EnvironmentName')
+	}
+	if ($Properties.ContainsKey('EnvironmentMetadata')){
+		$global:Context.Add('EnvironmentMetadata', $Properties['EnvironmentMetadata'])
+		$Properties.Remove('EnvironmentMetadata')
 	}
 }
 
