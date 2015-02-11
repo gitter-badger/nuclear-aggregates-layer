@@ -87,6 +87,11 @@ function Get-Revision {
 
 function Get-Branch {
 	$branch = [string]$global:Context.Branch
+
+	# TeamCity workaround
+	if ($branch -eq '<default>'){
+		return 'master'
+	}
 	
 	# trim branch prefix
 	$slashIndex = $branch.LastIndexOf('/')
