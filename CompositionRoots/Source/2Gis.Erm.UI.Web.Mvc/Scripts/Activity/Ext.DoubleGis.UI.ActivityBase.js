@@ -96,7 +96,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             this.refresh(true);
         }
     },
-    Build : function() {
+    Build: function () {     
         Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
 
         Ext.getCmp("Client").on("change", this.autocompleteHeader, this);

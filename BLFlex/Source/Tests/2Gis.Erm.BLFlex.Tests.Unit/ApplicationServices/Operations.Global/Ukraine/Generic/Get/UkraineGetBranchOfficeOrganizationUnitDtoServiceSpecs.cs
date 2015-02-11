@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
                     IdentityServiceSettings = Mock.Of<IAPIIdentityServiceSettings>();
 
-                    UkraineGetBranchOfficeOrganizationUnitDtoService = new UkraineGetBranchOfficeOrganizationUnitDtoService(UserContext, OrganizationUnitReadModel, BranchOfficeReadModel, IdentityServiceSettings);
+                    UkraineGetBranchOfficeOrganizationUnitDtoService = new UkraineGetBranchOfficeOrganizationUnitDtoService(UserContext, OrganizationUnitReadModel, BranchOfficeReadModel);
                 };
 
             Because of = () =>
@@ -102,8 +102,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             };
 
             It should_be_UkraineBranchOfficeDomainEntityDto = () => Result.Should().BeOfType<UkraineBranchOfficeOrganizationUnitDomainEntityDto>();
-
-            It should_has_expected_rest_url = () => Result.IdentityServiceUrl.Should().Be(RestUrl);
         }
 
         [Tags("GetDtoServie")]

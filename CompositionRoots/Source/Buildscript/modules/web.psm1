@@ -9,35 +9,17 @@ Import-Module .\modules\versioning.psm1 -DisableNameChecking
 
 function Build-WebPackage($ProjectFileName, $EntryPointMetadata, $MsBuildPlatform = 'x64'){
 
-	$projectDir = Split-Path $ProjectFileName
-
-	$configFileName1 = Join-Path $projectDir 'log4net.config'
-	$content1 = Transform-Config $configFileName1
-	Backup-Config $configFileName1 $content1
-	$configFileName2 = Join-Path $projectDir 'web.config'
-	$content2 = Transform-Config $configFileName2
-	Backup-Config $configFileName2 $content2
-	try {
-		$versionFileName = Get-VersionFileName
-		$branchFileName = Get-BranchFileName
-		
-		$packageLocation = "DeployPackages\$($global:Context.EnvironmentName)\Package.zip"
-		
-		Invoke-MSBuild -MsBuildPlatform $MsBuildPlatform -Arguments @(
-		"""$ProjectFileName"""
-		"/t:WebPackagePublish"
-		"/p:PackageLocation=$packageLocation"
-		"/p:DeployIisAppPath=$($EntryPointMetadata.IisAppPath)"
-		"/p:ProjectConfigTransformFileName=web.$($global:Context.EnvironmentName).config"
-		"/p:GenerateSampleDeployScript=False"
-		"/p:VersionFilePath=""$versionFileName"""
-		"/p:BranchFilePath=""$branchFileName"""
-		)
-	}
-	finally {
-		Restore-Config $configFileName1
-		Restore-Config $configFileName2
-	}
+	$configXmls = (Get-ConfigXmls $ProjectFileName) + (Get-VersionFileXml)
+	$packageLocation = "Packages\$($global:Context.EnvironmentName)\Package.zip"
+	$buildFileName = Create-BuildFile $ProjectFileName -Targets 'Package' -Properties @{
+		'PackageLocation' = $packageLocation
+		'DeployIisAppPath' = $EntryPointMetadata.IisAppPath
+		'GenerateSampleDeployScript' = $false
+		# у нас свои трансформации конфигов, параметризации не нужны
+		'AutoParameterizationWebConfigConnectionStrings' = $false
+	} -CustomXmls $configXmls
+	
+	Invoke-MSBuild $buildFileName -MsBuildPlatform $MsBuildPlatform
 	
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) $packageLocation
 	$artifactFileName = Join-Path $global:Context.Dir.Temp ([System.IO.Path]::GetFileNameWithoutExtension($ProjectFileName) + '.zip')
@@ -118,13 +100,50 @@ function Create-RemoteWebsite($TargetHost, $WebsiteName){
 	}
 }
 
+function Get-ConfigXmls ($ProjectFileName){
+	$projectDir = Split-Path $ProjectFileName
+	
+	$configFileName1 = Join-Path $projectDir 'log4net.config'
+	$customXml1 = Transform-Config $configFileName1
+
+	$configFileName2 = Join-Path $projectDir 'web.config'
+	$customXml2 = Transform-Config $configFileName2
+	
+	return @($customXml1, $customXml2)
+}
+
+function Get-VersionFileXml {
+
+	$versionFileName = Get-VersionFileName
+	$branchFileName = Get-BranchFileName
+
+	[xml]$xml = @"
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- Добавление version-файлов -->
+    <ItemGroup>
+      <Content Include="$versionFileName">
+        <Link>$([System.IO.Path]::GetFileName($versionFileName))</Link>
+      </Content>
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="$branchFileName">
+        <Link>$([System.IO.Path]::GetFileName($branchFileName))</Link>
+      </Content>
+    </ItemGroup>
+</Project>
+"@
+	return $xml
+}
+
 function Get-VersionFileName {
  	$version = Get-Version
 	
 	$fileName = '.version_' + $version.SemanticVersion
 	$filePath = Join-Path $global:Context.Dir.Temp $fileName
 	
+	if (!(Test-Path $filePath)){
 	Set-Content -Path $filePath -Value $version.SemanticVersion -Encoding UTF8
+	}
 	
 	return $filePath
 }
@@ -134,12 +153,14 @@ function Get-BranchFileName {
 	$fileName = '.branch_' + $branch
 	$filePath = Join-Path $global:Context.Dir.Temp $fileName
 	
+	if (!(Test-Path $filePath)){
 	Set-Content -Path $filePath -Value $branch -Encoding UTF8
+	}
 	
 	return $filePath
 }
 
-function Validate-WebSite($EntryPointMetadata, $UriPath){
+function Validate-WebSite($EntryPointMetadata, $UriPath, $WaitAttempts = 5){
 
 	if (!$EntryPointMetadata.ValidateWebsite){
 		return
@@ -147,12 +168,20 @@ function Validate-WebSite($EntryPointMetadata, $UriPath){
 
 	$uriBuilder = New-Object System.UriBuilder('https', $EntryPointMetadata.IisAppPath, -1, $UriPath)
 	
-	try{
-		Invoke-WebRequest $uriBuilder.Uri -UseDefaultCredentials -UseBasicParsing -TimeoutSec 300 | Out-Null
+	for ($i = 0; $i -lt $WaitAttempts; $i++){
+
+		try{
+			Invoke-WebRequest $uriBuilder.Uri -UseDefaultCredentials -UseBasicParsing -TimeoutSec 300 | Out-Null
+			break
+		}
+		catch [System.Net.WebException] {
+			Write-Host "Error then calling '$($uriBuilder.Uri)' (attempt $($i + 1))"
+			Start-Sleep -Second 10
+		}
 	}
-	catch{
-		Write-Host "Error then calling '$($uriBuilder.Uri)'"
-		throw
+	
+	if ($i -eq $WaitAttempts){
+		throw "Failed to get '$($uriBuilder.Uri)' after $WaitAttempts attempts"
 	}
 }
 
@@ -205,7 +234,7 @@ function Take-WebsiteOnline ($TargetHosts, $IisAppPath) {
 				
 				$filePath = Join-Path $website.PhysicalPath 'App_offline.htm'
 				if (Test-Path $filePath){
-					Remove-Item $filePath				
+					Remove-Item $filePath -ErrorAction SilentlyContinue
 				}
 			}
 

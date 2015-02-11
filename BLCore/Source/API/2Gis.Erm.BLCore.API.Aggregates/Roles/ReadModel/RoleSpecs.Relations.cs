@@ -1,0 +1,19 @@
+﻿using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+namespace DoubleGis.Erm.BLCore.API.Aggregates.Roles.ReadModel
+{
+    public static class RoleSpecs
+    {
+        public static class Relations
+        {
+            public static class Find
+            {
+                public static FindSpecification<UserRole> UserRoles(long roleId)
+                {
+                    return new FindSpecification<UserRole>(x => x.RoleId == roleId);
+                }
+            }
+        }
+    }
+}

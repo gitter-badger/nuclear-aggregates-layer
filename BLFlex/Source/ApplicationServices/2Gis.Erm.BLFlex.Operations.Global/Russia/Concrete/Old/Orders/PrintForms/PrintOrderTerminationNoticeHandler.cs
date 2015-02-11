@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -55,9 +56,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                         order.Bargain,
                         order.EndDistributionDateFact,
                         order.LegalPersonId,
-                        ProfileId = order.LegalPerson.LegalPersonProfiles
-                                         .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId)
-                                         .Id,
+                        ProfileId = order.LegalPersonProfileId,
                         CurrencyISOCode = order.Currency.ISOCode,
                         LegalPersonType = order.LegalPerson.LegalPersonTypeEnum,
                         order.BranchOfficeOrganizationUnitId,
@@ -65,11 +64,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                     })
                 .Single();
 
+            if (data.ProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             var branchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
                 ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))
                 : null;
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
-            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value));
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId));
 
             var printData = new

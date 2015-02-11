@@ -1030,7 +1030,7 @@
     <value>Договоры</value>
   </data>
   <data name="CrdRelErmActions" xml:space="preserve">
-    <value>Действия</value>
+    <value>История/планы</value>
   </data>
   <data name="EnCategoryOrganizationUnit" xml:space="preserve">
     <value>Рубрика отделения организации</value>
@@ -1665,6 +1665,9 @@
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
     <value>Мои запланированные планы на сегодня</value>
   </data>
+  <data name ="DListMyOpenedActivities" xml:space="preserve">
+    <value>Мои открытые планы</value>
+  </data>
   <data name="DListMyCompletedActivities" xml:space="preserve">
     <value>Мои завершенные планы</value>
   </data>
@@ -1859,5 +1862,14 @@
   </data>
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Основное</value>
+  </data>
+  <data name="ControlIncreaseLimit" xml:space="preserve">
+    <value>Увеличить</value>
+  </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Часовые пояса</value>
+  </data>
+  <data name="ControlChangeProfiles" xml:space="preserve">
+    <value>Сменить профиль</value>
   </data>
 </root>
