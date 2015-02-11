@@ -3727,6 +3727,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CategoryIsRestrictedForSpecifiedSalesModelError {
+            get {
+                return ResourceManager.GetString("CategoryIsRestrictedForSpecifiedSalesModelError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CategoryShouldBeSpecifiedForAllSubpositions {
             get {
                 return ResourceManager.GetString("CategoryShouldBeSpecifiedForAllSubpositions", resourceCulture);
@@ -5395,6 +5404,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string DestinationOrganizationUnitHasNotFirstReleaseDate {
             get {
                 return ResourceManager.GetString("DestinationOrganizationUnitHasNotFirstReleaseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DestOrganizationUnitHasNoProject {
+            get {
+                return ResourceManager.GetString("DestOrganizationUnitHasNoProject", resourceCulture);
             }
         }
         

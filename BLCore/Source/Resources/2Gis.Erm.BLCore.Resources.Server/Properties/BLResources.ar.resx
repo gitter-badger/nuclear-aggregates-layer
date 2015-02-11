@@ -5187,4 +5187,10 @@ Placement period: {3}.</value>
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>Not enough rights to change the owner for the action {0}</value>
   </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
 </root>

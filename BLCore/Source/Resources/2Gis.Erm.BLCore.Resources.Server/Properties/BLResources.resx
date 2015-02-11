@@ -5172,4 +5172,10 @@
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>Недостаточно прав для смены куратора у действия {0}</value>
   </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value />
+  </data>
 </root>

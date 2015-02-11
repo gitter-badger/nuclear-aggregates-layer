@@ -58,7 +58,7 @@
             <tr style="height: 250px">
                 <td style="padding-right: 10px">
                     <div class="row-wrapper">
-                        @Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityName.PricePosition, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Price, ParentIdPattern = "PriceId" })
+                        @Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityName.PricePosition, ExtendedInfo = "filterToParent=true&orderId={OrderId}", ParentEntityName = EntityName.Price, ParentIdPattern = "PriceId" })
                     </div>
                     <div class="row-wrapper">
                         @Html.TemplateField(m => m.PricePerUnit, FieldFlex.lone, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "true" }, { "maxlength", "18" } })

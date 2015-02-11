@@ -58,6 +58,8 @@
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviour.cs" />
     <Compile Include="Concrete\AdvertisementElements\UpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
     <Compile Include="Concrete\HotClients\ProcessHotClientRequestOperationService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowAdvModelsInfo\Deserializers\DeserializeAdvModelInRubricInfoService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowAdvModelsInfo\Processors\ImportAdvModelInRubricInfoService.cs" />
     <Compile Include="Concrete\Integration\Olap\CalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Deals\SetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientRequestOperationService.cs" />

@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -13,21 +15,38 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public ListPricePositionService(IFinder finder, FilterHelper filterHelper)
+        public ListPricePositionService(IFinder finder, FilterHelper filterHelper, IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _filterHelper = filterHelper;
+            _orderReadModel = orderReadModel;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<PricePosition>();
 
+            var restrictByOrderSalesModelFilter = querySettings.CreateForExtendedProperty<PricePosition, long>(
+                "orderId",
+                orderId =>
+                    {
+                        var orderSalesModel = _orderReadModel.GetOrderSalesModel(orderId);
+
+                        if (orderSalesModel == SalesModel.None)
+                        {
+                            return x => true;
+                        }
+
+                    return x => x.Position.SalesModel == orderSalesModel;
+                });
+
             return query
+                .Filter(_filterHelper, restrictByOrderSalesModelFilter)
                 .Select(x => new ListPricePositionDto
                 {
-                    Id=  x.Id,
+                    Id = x.Id,
                     PriceId = x.PriceId,
                     PositionName = x.Position.Name,
                     Cost = x.Cost,
