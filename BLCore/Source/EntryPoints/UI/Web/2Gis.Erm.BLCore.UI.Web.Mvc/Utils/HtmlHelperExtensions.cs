@@ -22,6 +22,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using Newtonsoft.Json;
 
 using NuClear.Metamodeling.Utils.Resources;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
@@ -258,9 +259,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             sb.AppendFormat("id:\"{0}\", ", name);
             sb.AppendFormat("name:\"{0}\", ", name);
             sb.AppendFormat("applyTo:\"{0}\", ", name);
-            sb.AppendFormat("entityName:\"{0}\", ", lookupSettings.EntityName);
+            sb.AppendFormat("entityName:\"{0}\", ", lookupSettings.EntityName.Description);
             sb.AppendFormat("extendedInfo:\"{0}\", ", lookupSettings.ExtendedInfo);
-            sb.AppendFormat("parentEntityName:\"{0}\", ", lookupSettings.ParentEntityName);
+            sb.AppendFormat("parentEntityName:\"{0}\", ", lookupSettings.ParentEntityName != null ? lookupSettings.ParentEntityName.Description : EntityType.Instance.None().Description);
             sb.AppendFormat("parentIdPattern:\"{0}\"", lookupSettings.ParentIdPattern);
             if (lookupSettings.Plugins != null && lookupSettings.Plugins.Any())
                 sb.AppendFormat(",plugins:[{0}] ", String.Join(",", lookupSettings.Plugins));

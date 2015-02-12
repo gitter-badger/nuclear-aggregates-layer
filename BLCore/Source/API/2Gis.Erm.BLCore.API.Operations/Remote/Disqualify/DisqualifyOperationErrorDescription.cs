@@ -11,13 +11,13 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify
     {
         public DisqualifyOperationErrorDescription(IEntityType entityName, string message, bool bypassValidation)
         {
-            EntityName = entityName;
+            EntityName = entityName.Description;
             Message = message;
             BypassValidation = bypassValidation;
         }
 
         [DataMember]
-        public IEntityType EntityName { get; private set; }
+        public string EntityName { get; private set; }
         [DataMember]
         public string Message { get; private set; }
         [DataMember]

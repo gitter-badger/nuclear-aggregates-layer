@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Assign
     {
         public AssignOperationErrorDescription(IEntityType entityName, string message, long ownerCode, bool bypassValidation, bool isPartialAssign)
         {
-            EntityName = entityName;
+            EntityName = entityName.Description;
             Message = message;
             OwnerCode = ownerCode;
             BypassValidation = bypassValidation;
@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Assign
         }
 
         [DataMember]
-        public IEntityType EntityName { get; private set; }
+        public string EntityName { get; private set; }
         [DataMember]
         public string Message { get; private set; }
         [DataMember]

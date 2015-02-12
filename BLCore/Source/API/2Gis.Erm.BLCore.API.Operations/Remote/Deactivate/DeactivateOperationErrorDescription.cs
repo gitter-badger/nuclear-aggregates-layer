@@ -11,13 +11,13 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Deactivate
     {
         public DeactivateOperationErrorDescription(IEntityType entityName, string message, long ownerCode)
         {
-            EntityName = entityName;
+            EntityName = entityName.Description;
             Message = message;
             OwnerCode = ownerCode;
         }
 
         [DataMember]
-        public IEntityType EntityName { get; private set; }
+        public string EntityName { get; private set; }
         [DataMember]
         public string Message { get; private set; }
         [DataMember]

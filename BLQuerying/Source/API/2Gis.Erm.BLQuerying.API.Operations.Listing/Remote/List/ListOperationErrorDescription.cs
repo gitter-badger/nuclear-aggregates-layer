@@ -11,12 +11,12 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
     {
         public ListOperationErrorDescription(IEntityType entityName, string message)
         {
-            EntityName = entityName;
+            EntityName = entityName.Description;
             Message = message;
         }
 
         [DataMember]
-        public IEntityType EntityName { get; private set; }
+        public string EntityName { get; private set; }
         [DataMember]
         public string Message { get; private set; }
 

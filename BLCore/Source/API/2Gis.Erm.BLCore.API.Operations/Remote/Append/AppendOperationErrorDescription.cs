@@ -11,19 +11,19 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Append
     {
         public AppendOperationErrorDescription(IEntityType entityName, long entityId, IEntityType appendedEntityName, long appendedEntityId, string message)
         {
-            EntityName = entityName;
+            EntityName = entityName.Description;
             EntityId = entityId;
-            AppendedEntityName = appendedEntityName;
+            AppendedEntityName = appendedEntityName.Description;
             AppendedEntityId = appendedEntityId;
             Message = message;
         }
 
         [DataMember]
-        public IEntityType EntityName { get; private set; }
+        public string EntityName { get; private set; }
         [DataMember]
         public long EntityId { get; set; }
         [DataMember]
-        public IEntityType AppendedEntityName { get; set; }
+        public string AppendedEntityName { get; set; }
         [DataMember]
         public long AppendedEntityId { get; set; }
         [DataMember]

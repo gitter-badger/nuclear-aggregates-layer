@@ -11,14 +11,14 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.ChangeTerritory
     {
         public ChangeTerritoryOperationErrorDescription(IEntityType entityName, string message, long entityId, long territoryId)
         {
-            EntityName = entityName;
+            EntityName = entityName.Description;
             Message = message;
             EntityId = entityId;
             TerritoryId = territoryId;
         }
 
         [DataMember]
-        public IEntityType EntityName { get; private set; }
+        public string EntityName { get; private set; }
         [DataMember]
         public string Message { get; private set; }
         [DataMember]

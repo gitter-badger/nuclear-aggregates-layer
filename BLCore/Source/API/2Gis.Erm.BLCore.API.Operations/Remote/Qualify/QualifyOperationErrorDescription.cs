@@ -11,14 +11,14 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Qualify
     {
         public QualifyOperationErrorDescription(IEntityType entityName, string message, long ownerCode, long? relatedEntityId)
         {
-            EntityName = entityName;
+            EntityName = entityName.Description;
             Message = message;
             OwnerCode = ownerCode;
             RelatedEntityId = relatedEntityId;
         }
 
         [DataMember]
-        public IEntityType EntityName { get; private set; }
+        public string EntityName { get; private set; }
         [DataMember]
         public string Message { get; private set; }
         [DataMember]
