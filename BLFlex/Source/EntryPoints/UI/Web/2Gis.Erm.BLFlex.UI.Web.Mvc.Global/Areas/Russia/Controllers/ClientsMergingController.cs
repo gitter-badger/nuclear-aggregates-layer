@@ -14,6 +14,7 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -35,24 +36,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
         private readonly IFinder _finder;
         private readonly IBusinessModelEntityObtainer<Client> _clientObtainer;
 
-        public ClientsMergingController(IMsCrmSettings msCrmSettings,
-                                        IUserContext userContext,
-                                        ICommonLog logger,
-                                        IAPIOperationsServiceSettings operationsServiceSettings,
-                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IGetBaseCurrencyService getBaseCurrencyService,
-                                        IOperationServicesManager operationServicesManager,
-                                        ISecurityServiceUserIdentifier userIdentifierService,
-                                        ISecurityServiceFunctionalAccess functionalAccessService,
-                                        IPublicService publicService,
-                                        IFinder finder,
-                                        IBusinessModelEntityObtainer<Client> clientObtainer)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+        public ClientsMergingController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IAPIIdentityServiceSettings identityServiceSettings, IUserContext userContext, ICommonLog logger, IGetBaseCurrencyService getBaseCurrencyService, IOperationServicesManager operationServicesManager, ISecurityServiceUserIdentifier userIdentifierService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, IBusinessModelEntityObtainer<Client> clientObtainer) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _userIdentifierService = userIdentifierService;

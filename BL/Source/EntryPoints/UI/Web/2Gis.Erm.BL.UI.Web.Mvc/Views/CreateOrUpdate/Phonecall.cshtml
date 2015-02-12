@@ -32,9 +32,18 @@
         @Html.HiddenFor(m => m.Status)
 
         @Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding)
+        @{
+            var firmDataFields = new[]
+                                     {
+                                         new LookupDataField { Name = "id", Mapping = "Id" }, 
+                                         new LookupDataField { Name = "name", Mapping = "Name" }, 
+                                         new LookupDataField { Name = "city", Mapping = "OrganizationUnitName" }
+                                     };
+            const string HeaderTextTemplate = "'<span class=\"x-lookup-thumb\">{name}</span>&nbsp;<span class=\"x-lookup-thumb\" style=\"color:gray\">{city}</span>&nbsp;'";
+        }
         @Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }))
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate }))
         @Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }))
 
         @Html.SectionHead("planHeader", BLResources.TitlePlan)

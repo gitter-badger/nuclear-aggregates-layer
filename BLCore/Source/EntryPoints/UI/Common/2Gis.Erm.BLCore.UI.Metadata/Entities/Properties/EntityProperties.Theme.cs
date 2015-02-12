@@ -82,10 +82,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                   new HiddenFeature(),
                                       new PresentationLayerPropertyFeature()),
 
-
-                    EntityPropertyMetadata.Create<ThemeDomainEntityDto>(dto => dto.IdentityServiceUrl)
-                                  .WithFeatures(new HiddenFeature()),
-
                     EntityPropertyMetadata.Create<ThemeDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),

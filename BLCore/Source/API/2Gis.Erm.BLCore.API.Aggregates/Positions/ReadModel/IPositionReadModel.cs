@@ -17,5 +17,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel
         string GetPositionName(long positionId);
         Position GetPositionByPricePositionId(long pricePositionId);
         IEnumerable<LinkingObjectsSchemaDto.PositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId);
+        IReadOnlyCollection<long> GetDependedByPositionOrderIds(long positionId);
     }
 }

@@ -1600,6 +1600,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Недостаточно прав для смены куратора у действия {0}.
+        /// </summary>
+        public static string AssignActivityAccessDenied {
+            get {
+                return ResourceManager.GetString("AssignActivityAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string AssignApproveAssign {
@@ -2343,6 +2352,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotApppendMoreThemesToOrganizationUnit {
             get {
                 return ResourceManager.GetString("CannotApppendMoreThemesToOrganizationUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно назначить действие в статусе &quot;Выполнено&quot;/&quot;Отменено&quot;.
+        /// </summary>
+        public static string CannotAssignActivityNotInProgress {
+            get {
+                return ResourceManager.GetString("CannotAssignActivityNotInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно назначить куратором служебного пользователя.
+        /// </summary>
+        public static string CannotAssignActivitySystemUser {
+            get {
+                return ResourceManager.GetString("CannotAssignActivitySystemUser", resourceCulture);
             }
         }
         
@@ -3694,6 +3721,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit {
             get {
                 return ResourceManager.GetString("CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CategoryIsRestrictedForSpecifiedSalesModelError {
+            get {
+                return ResourceManager.GetString("CategoryIsRestrictedForSpecifiedSalesModelError", resourceCulture);
             }
         }
         
@@ -5368,6 +5404,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string DestinationOrganizationUnitHasNotFirstReleaseDate {
             get {
                 return ResourceManager.GetString("DestinationOrganizationUnitHasNotFirstReleaseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DestOrganizationUnitHasNoProject {
+            get {
+                return ResourceManager.GetString("DestOrganizationUnitHasNoProject", resourceCulture);
             }
         }
         

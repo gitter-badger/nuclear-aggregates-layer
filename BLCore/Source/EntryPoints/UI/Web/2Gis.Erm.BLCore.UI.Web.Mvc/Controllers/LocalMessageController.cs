@@ -20,6 +20,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -43,21 +44,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly ILocalMessageRepository _localMessageRepository;
 
         public LocalMessageController(IMsCrmSettings msCrmSettings,
-                                      IUserContext userContext,
-                                      ICommonLog logger,
-                                      ISecurityServiceFunctionalAccess functionalAccessService,
-                                      IPublicService publicService,
-                                      ILocalMessageRepository localMessageRepository,
                                       IAPIOperationsServiceSettings operationsServiceSettings,
                                       IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                      IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+                                      IAPIIdentityServiceSettings identityServiceSettings,
+                                      IUserContext userContext,
+                                      ICommonLog logger,
+                                      IGetBaseCurrencyService getBaseCurrencyService,
+                                      ISecurityServiceFunctionalAccess functionalAccessService,
+                                      IPublicService publicService,
+                                      ILocalMessageRepository localMessageRepository)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
@@ -65,6 +61,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         }
 
         #region import from file
+
 
         [HttpGet, UseDependencyFields]
         public ActionResult ImportFromFile()

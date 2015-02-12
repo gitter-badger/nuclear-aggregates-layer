@@ -62,9 +62,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public ThemeTemplateCode ThemeTemplateCode { get; set; }
 
         [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
-
-        [DataMember]
         public string FileContentType { get; set; }
 
         [DataMember]
