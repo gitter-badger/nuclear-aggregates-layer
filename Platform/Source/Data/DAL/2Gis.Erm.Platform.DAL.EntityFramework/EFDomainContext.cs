@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public void Update<TEntity>(TEntity entity) where TEntity : class
         {
-            DbEntityEntry entry;
+            DbEntityEntry<TEntity> entry;
             if (!AttachEntity(entity, out entry))
             {
                 entry.CurrentValues.SetValues(entity);
@@ -116,18 +116,17 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         private TEntity GetAttachedEntity<TEntity>(TEntity entity) where TEntity : class
         {
-            DbEntityEntry entry;
+            DbEntityEntry<TEntity> entry;
             AttachEntity(entity, out entry);
-            return (TEntity)entry.Entity;
+            return entry.Entity;
         }
 
-        private bool AttachEntity<TEntity>(TEntity entity, out DbEntityEntry dbEntityEntry) where TEntity : class
+        private bool AttachEntity<TEntity>(TEntity entity, out DbEntityEntry<TEntity> dbEntityEntry) where TEntity : class
         {
-            var cachedEntity = _dbContext.Set<TEntity>().Local.SingleOrDefault(x => x.Equals(entity));
-            if (cachedEntity != null)
+            var existingEntry = _dbContext.ChangeTracker.Entries<TEntity>().SingleOrDefault(x => x.Entity.Equals(entity));
+            if (existingEntry != null)
             {
-                var entry = _dbContext.Entry(cachedEntity);
-                if (entry.State != EntityState.Unchanged)
+                if (existingEntry.State != EntityState.Unchanged)
                 {
                     var entityKey = entity as IEntityKey;
 
@@ -140,20 +139,18 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                                                                       entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
                 }
 
-                dbEntityEntry = entry;
+                dbEntityEntry = existingEntry;
                 return false;
             }
-            else
-            {
-                var entry = _dbContext.Entry(entity);
-                if (entry.State == EntityState.Detached)
-                {
-                    _dbContext.Set<TEntity>().Attach(entity);
-                }
 
-                dbEntityEntry = entry;
-                return true;
+            var entry = _dbContext.Entry(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                _dbContext.Set<TEntity>().Attach(entity);
             }
+
+            dbEntityEntry = entry;
+            return true;
         }
     }
 }
