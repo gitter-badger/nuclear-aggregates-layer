@@ -3037,7 +3037,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	            , [tasks].[ReplicationCode] as [ActivityId]
         ///
         ///	            , [tasks].[Subject]
-        ///	            , [tasks].[Description [rest of string was truncated]&quot;;.
+        ///	            , [tasks].[Description]
+        ///	            , CA [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration_24481_ReplicateTask {
             get {

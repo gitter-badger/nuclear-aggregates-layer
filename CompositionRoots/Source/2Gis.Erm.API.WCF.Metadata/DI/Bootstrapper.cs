@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
@@ -19,7 +20,9 @@ using DoubleGis.Erm.Platform.Common.Identities;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
+using DoubleGis.Erm.Platform.Core.Locking;
 using DoubleGis.Erm.Platform.Core.Metadata;
+using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
@@ -89,7 +92,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureMetadata()
-                .ConfigureIdentityInfrastructure()
+                .ConfigureIdentityInfrastructure(connectionStringSettings)
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
@@ -100,15 +103,20 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                 .RegisterType<IClientCompatibilityProvider, ClientCompatibilityProvider>(Lifetime.PerResolve);
         }
 
-        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
+        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
         {
             return container.RegisterType<IIdentityProviderService, IdentityProviderService>(Lifetime.Singleton)
                 // TODO {all, 29.08.2013}: Удалить регистрацию acessor, после рефакторинга потребителей IIdentityProvider в соответствии с SRP не будет потребителей не будет нужен и accessor
                 // Пока приходится регистрировать не только генератор Id но и accessor для него, чтобы проходил resolve типов, несмотря на то что сервис генерации ID (как и весь сервис metadata) работает только в readonly режиме и создает никакие сущности
                 // Примеры таких не используемых потребителей - Security service facade и т.п.
-                     .RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
-                     .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton)
-                     .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
+                            .RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
+                            .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton)
+                            .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton)
+                            .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmInfrastructure, Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmInfrastructure)))
+                            .RegisterType<IApplicationLocksManager, ApplicationLocksManager>(Mapping.ErmInfrastructure, Lifetime.Singleton)
+                            .RegisterTypeWithDependencies<IApplicationLocksService, ApplicationLocksService>(Lifetime.Singleton, Mapping.ErmInfrastructure)
+                            .RegisterTypeWithDependencies<IIdentityServiceUniqueIdProvider, AppLockIdentityServiceUniqueIdProvider>(Lifetime.Singleton,
+                                                                                                                                    Mapping.ErmInfrastructure);
         }
 
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)

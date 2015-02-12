@@ -86,7 +86,7 @@
     <Compile Include="Crosscutting\IInvariantSafeCrosscuttingService.cs" />
     <Compile Include="Identities\IdentityProviderService.cs" />
     <Compile Include="Identities\IIdentityProviderService.cs" />
-    <Compile Include="Identities\IIdentityProviderSettings.cs" />
+    <Compile Include="Identities\IIdentityServiceUniqueIdProvider.cs" />
     <Compile Include="Logging\ILoggerContextManager.cs" />
     <Compile Include="Logging\LogUtils.cs" />
     <Compile Include="Logging\SystemInfo\AssemblyVersionInfo.cs" />

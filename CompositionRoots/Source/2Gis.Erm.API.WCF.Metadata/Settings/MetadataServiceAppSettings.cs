@@ -12,7 +12,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.Common.Identities;
 using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.API.WCF.Metadata.Settings
@@ -20,10 +19,8 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Settings
     /// <summary>
     /// Требования/соглашения см. в объявлении ISettingsContainer
     /// </summary>
-    public sealed class MetadataServiceAppSettings : SettingsContainerBase, IIdentityProviderSettings
+    public sealed class MetadataServiceAppSettings : SettingsContainerBase
     {
-        private readonly IntSetting _identityServiceUniqueId = ConfigFileSetting.Int.Required("IdentityServiceUniqueId");
-
         public MetadataServiceAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
             Aspects
@@ -39,14 +36,6 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Settings
                         .Is<APIMoDiServiceSettingsAspect>()
                         .Is<APIReleasingServiceSettingsAspect>()
                         .Is<APISpecialOperationsServiceSettingsAspect>());
-        }
-
-        int IIdentityProviderSettings.IdentityServiceUniqueId
-        {
-            get
-            {
-                return _identityServiceUniqueId.Value;
-            }
         }
     }
 }
