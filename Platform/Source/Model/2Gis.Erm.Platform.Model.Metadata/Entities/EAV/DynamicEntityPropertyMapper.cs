@@ -47,12 +47,18 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
 
         public static Func<TPropertyInstance, object> GetGetter(Type propertyType)
         {
-            return Getters[propertyType];
+            return Getters[ConvertToContact(propertyType)];
         }
 
         public static Action<TPropertyInstance, object> GetSetter(Type propertyType)
         {
-            return Setters[propertyType];
+            return Setters[ConvertToContact(propertyType)];
+        }
+
+        private static Type ConvertToContact(Type type)
+        {
+            var entityType = typeof(IEntityType);
+            return entityType.IsAssignableFrom(type) ? entityType : type;
         }
     }
 }
