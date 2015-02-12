@@ -820,3 +820,7 @@ if (!Array.prototype.forEach) {
         }
     };
 }
+
+function isNumber (value) {
+    return parseFloat(value) == value;
+}
