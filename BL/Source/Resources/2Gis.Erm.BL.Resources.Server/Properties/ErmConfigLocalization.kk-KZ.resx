@@ -1866,4 +1866,7 @@
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Сменить профиль</value>
   </data>
+  <data name="ControlAddPositions" xml:space="preserve">
+    <value />
+  </data>
 </root>

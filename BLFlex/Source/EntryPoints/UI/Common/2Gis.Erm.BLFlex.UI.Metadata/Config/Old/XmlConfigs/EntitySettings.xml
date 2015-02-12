@@ -2470,6 +2470,20 @@
 			</DataList>
 		</DataLists>
 	</Entity>
+  <Entity Name="PositionSortingOrder">
+    <Card EntityNameLocaleResourceId="EnPositionSortingOrder" EntityMainAttribute="" HasComments="false" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Category.gif" LargeIcon="en_ico_lrg_Category.gif">
+			<ToolbarItems>
+				<ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
+				<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+				<ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
+				<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+				<ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+				<ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="AddPositions" NameLocaleResourceId="ControlAddPositions" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.AddPositions" />
+			</ToolbarItems>
+		</Card>
+	</Entity>
 	<Entity Name="PricePosition">
 		<Card EntityNameLocaleResourceId="EnPricePositions" EntityMainAttribute="PositionName" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_PricePosition.gif" LargeIcon="en_ico_lrg_PricePosition.gif">
 			<ToolbarItems>

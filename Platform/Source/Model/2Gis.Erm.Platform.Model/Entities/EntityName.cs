@@ -195,5 +195,8 @@
         DictionaryEntityPropertyInstance = 561,
         BusinessEntityInstance = 570,
         BusinessEntityPropertyInstance = 571,
+
+        // Не имеет смысла как сущность, сделано, чтобы обдурить механизм карточки
+        PositionSortingOrder = 10000,
     }
 }

@@ -1872,4 +1872,7 @@
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Změnit profil</value>
   </data>
+  <data name="ControlAddPositions" xml:space="preserve">
+    <value />
+  </data>
 </root>
