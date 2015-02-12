@@ -3,6 +3,7 @@ $ErrorActionPreference = 'Stop'
 #------------------------------
 
 Import-Module "$PSScriptRoot\msbuild.psm1" -DisableNameChecking
+Import-Module "$PSScriptRoot\versioning.psm1" -DisableNameChecking
 
 function Invoke-NuGet ($Arguments) {
 
@@ -177,6 +178,21 @@ function Build-PackagesFromProjects ($Projects, $OutputDirectory){
 	}
 }
 
+function Build-PackagesFromNuSpecs ($NuSpecs, $OutputDirectory) {
+
+	foreach($NuSpec in $NuSpecs){
+		
+		Invoke-NuGet @(
+			'pack'
+			$NuSpec.FullName
+			'-Version'
+			(Get-Version).SemanticVersion
+			'-OutputDirectory'
+			$OutputDirectory
+		)
+	}
+}
+
 function Deploy-Packages ($Packages, $ServerUrl, $ApiKey){
 	
 	foreach($package in $Packages){
@@ -195,4 +211,4 @@ $LocalPackagesConfig = "$PSScriptRoot\packages.config"
 $PackageInfo = Get-PackageInfo 'NuGet.CommandLine' -ThrowError $false
 $NugetPath = Join-Path $PackageInfo.VersionedDir 'tools\NuGet.exe'
 
-Export-ModuleMember -Function Invoke-NuGet, Get-PackageInfo, Restore-Packages, Deploy-Packages, Create-NuspecFiles, Build-PackagesFromProjects
+Export-ModuleMember -Function Invoke-NuGet, Get-PackageInfo, Restore-Packages, Deploy-Packages, Create-NuspecFiles, Build-PackagesFromProjects, Build-PackagesFromNuSpecs
