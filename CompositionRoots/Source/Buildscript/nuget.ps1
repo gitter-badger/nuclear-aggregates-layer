@@ -2,17 +2,6 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-$Servers = @{
-	'PublishPackages' = @{
-		'Url' = 'http://nuget.2gis.local'
-		'ApiKey' = ':enrbq rjl'
-	}
-	'PublishSymbols' = @{
-		'Url' = 'http://nuget.2gis.local/SymbolServer/NuGet'
-		'ApiKey' = ':enrbq rjl'
-	}
-}
-
 Import-Module "$PSScriptRoot\modules\nuget.psm1" -DisableNameChecking
 
 Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
@@ -53,27 +42,12 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 
 Task Deploy-NuGet {
 	$artifactName = Get-Artifacts 'NuGet'
-	
-	$packages = Get-ChildItem $artifactName -Filter '*.nupkg' -Recurse
-	foreach($package in $packages){
-		
-		if ($package.Name.EndsWith('.symbols.nupkg')){
-			$source = $Servers.PublishSymbols.Url
-			$apiKey = $Servers.PublishSymbols.ApiKey
-		} else{
-			$source = $Servers.PublishPackages.Url
-			$apiKey = $Servers.PublishPackages.ApiKey
-		}
-		
-		Invoke-NuGet @(
-			'push'
-			"$($package.FullName)"
-			'-Source'
-			$source
-			'-ApiKey'
-			$apiKey
-		)
-	}
+
+	$packges = Get-ChildItem $artifactName -Include '*.nupkg' -Exclude '*.symbols.nupkg' -Recurse
+	Deploy-Packages $packges 'http://nuget.2gis.local' ':enrbq rjl'
+
+	$symbolPackges = Get-ChildItem $artifactName -Include '*.symbols.nupkg' -Recurse
+	Deploy-Packages $symbolPackges 'http://nuget.2gis.local/SymbolServer/NuGet' ':enrbq rjl'
 }
 
 function Build-Packages ($Projects, $OutputDirectory){

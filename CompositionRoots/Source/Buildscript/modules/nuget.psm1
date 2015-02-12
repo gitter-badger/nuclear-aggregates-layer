@@ -97,8 +97,22 @@ function Restore-Packages {
 	)
 }
 
+function Deploy-Packages ($Packages, $ServerUrl, $ApiKey) {
+	
+	foreach($package in $Packages){
+		Invoke-NuGet @(
+			'push'
+			"$($package.FullName)"
+			'-Source'
+			$ServerUrl
+			'-ApiKey'
+			$ApiKey
+		)
+	}
+}
+
 $LocalPackagesConfig = "$PSScriptRoot\packages.config"
 $PackageInfo = Get-PackageInfo 'NuGet.CommandLine' -ThrowError $false
 $NugetPath = Join-Path $PackageInfo.VersionedDir 'tools\NuGet.exe'
 
-Export-ModuleMember -Function Invoke-NuGet, Get-PackageInfo, Restore-Packages
+Export-ModuleMember -Function Invoke-NuGet, Get-PackageInfo, Restore-Packages, Deploy-Packages
