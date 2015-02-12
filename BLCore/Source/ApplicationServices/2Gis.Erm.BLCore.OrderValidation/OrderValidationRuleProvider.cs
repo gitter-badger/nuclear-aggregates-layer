@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private readonly IReadOnlyCollection<OrderValidationRuleGroup> _orderedValidationRuleGroupsSequence = new[]
             {
                 OrderValidationRuleGroup.Generic,
+                OrderValidationRuleGroup.SalesModelValidation,
                 OrderValidationRuleGroup.AdvertisementMaterialsValidation,
                 OrderValidationRuleGroup.ADPositionsValidation,
                 OrderValidationRuleGroup.AdvertisementAmountValidation

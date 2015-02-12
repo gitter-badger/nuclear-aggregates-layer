@@ -5183,4 +5183,19 @@ Periodo de la publicación: {3}.</value>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>El intento de guardar la posición de la orden con el modelo de ventas '{0}' con la cantidad no igual a 1</value>
   </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Imposible asignar una acción en el estado "Cumplido"/"Cancelado"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Imposible asignar como supervisor al usuario de servicio</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>No hay permisos suficientes para cambiar de supervisor de la acción {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
 </root>

@@ -74,6 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                                                                    ChangedAspects = new[]
                                                                                                         {
                                                                                                             OrderValidationRuleGroup.Generic,
+                                                                                                            OrderValidationRuleGroup.SalesModelValidation,
                                                                                                             OrderValidationRuleGroup.AdvertisementMaterialsValidation,
                                                                                                             OrderValidationRuleGroup.ADPositionsValidation
                                                                                                         }

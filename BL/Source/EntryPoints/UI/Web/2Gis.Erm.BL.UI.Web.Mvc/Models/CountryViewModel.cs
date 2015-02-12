@@ -31,7 +31,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             IsoCode = modelDto.IsoCode;
             Currency = LookupField.FromReference(modelDto.CurrencyRef);
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

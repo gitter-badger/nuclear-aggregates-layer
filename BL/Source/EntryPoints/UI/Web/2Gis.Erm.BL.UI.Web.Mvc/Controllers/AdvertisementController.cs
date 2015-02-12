@@ -13,6 +13,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -31,20 +32,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IFinder _finder;
 
         public AdvertisementController(IMsCrmSettings msCrmSettings,
-                                       IUserContext userContext,
-                                       ICommonLog logger,
-                                       IPublicService publicService,
-                                       IAdvertisementRepository advertisementRepository,
-                                       IFinder finder,
                                        IAPIOperationsServiceSettings operationsServiceSettings,
                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                       IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                       IAPIIdentityServiceSettings identityServiceSettings,
+                                       IUserContext userContext,
+                                       ICommonLog logger,
+                                       IGetBaseCurrencyService getBaseCurrencyService,
+                                       IPublicService publicService,
+                                       IAdvertisementRepository advertisementRepository,
+                                       IFinder finder)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _publicService = publicService;
             _advertisementRepository = advertisementRepository;

@@ -5182,4 +5182,19 @@ Doba zveřejnění: {3}.</value>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Pokus o uložení pozice v objednávce s modelem prodejů '{0}' s počtem, který se nerovná 1</value>
   </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Nelze přidělit akci ve statusu "Splněno"/"Zrušeno"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Nelze stanovit kurátorem služebního uživatele</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Nemáte oprávnění pro změnu kurátora u této akce {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
 </root>

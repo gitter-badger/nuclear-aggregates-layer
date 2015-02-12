@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -28,19 +29,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         private readonly IOperationsMetadataProvider _operationMetadataProvider;
 
         public GroupOperationController(IMsCrmSettings msCrmSettings,
-                                        IUserContext userContext,
-                                        ICommonLog logger,
-                                        IReplicationCodeConverter replicationCodeConverter,
-                                        IOperationsMetadataProvider operationMetadataProvider,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                        IAPIIdentityServiceSettings identityServiceSettings,
+                                        IUserContext userContext,
+                                        ICommonLog logger,
+                                        IGetBaseCurrencyService getBaseCurrencyService,
+                                        IReplicationCodeConverter replicationCodeConverter,
+                                        IOperationsMetadataProvider operationMetadataProvider)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _replicationCodeConverter = replicationCodeConverter;
             _operationMetadataProvider = operationMetadataProvider;
@@ -52,16 +49,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
             // TODO {all, 23.07.2013}: реализовать проверку доступности операций не через switch, а через operationMetadataProvider
             // т.е. обобщенным образом + генерацию View можно устроить через конвейер resolvers, без километрового switch
-            
+
             switch (operation)
-                {
+            {
                 case BusinessOperation.Delete:
-                        return View("Delete", 
-                            new GroupOperationViewModel
-                            {
-                                OperationName = operationName,
-                                EntityTypeName = entityTypeName,
-                            });
+                    return View("Delete",
+                                new GroupOperationViewModel
+                                    {
+                                        OperationName = operationName,
+                                        EntityTypeName = entityTypeName,
+                                    });
 
                 case BusinessOperation.Assign:
                     if (!_operationMetadataProvider.IsSupported<AssignIdentity>(entityTypeName))
@@ -70,161 +67,161 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                     }
 
                     var assignMetadata = _operationMetadataProvider.GetOperationMetadata<AssignMetadata, AssignIdentity>(entityTypeName);
-                        return View("Assign", 
-                            new AssignViewModel
-                            {
-                                OperationName = operationName,
-                                EntityTypeName = entityTypeName,
-                                PartialAssignSupported = assignMetadata.PartialAssignSupported,
-                                IsCascadeAssignForbidden = assignMetadata.IsCascadeAssignForbidden
-                            });
+                    return View("Assign",
+                                new AssignViewModel
+                                    {
+                                        OperationName = operationName,
+                                        EntityTypeName = entityTypeName,
+                                        PartialAssignSupported = assignMetadata.PartialAssignSupported,
+                                        IsCascadeAssignForbidden = assignMetadata.IsCascadeAssignForbidden
+                                    });
 
                 case BusinessOperation.Activate:
-                        return View("Activate", 
-                            new GroupOperationViewModel
-                            {
-                                OperationName = operationName,
-                                EntityTypeName = entityTypeName,
-                            });
+                    return View("Activate",
+                                new GroupOperationViewModel
+                                    {
+                                        OperationName = operationName,
+                                        EntityTypeName = entityTypeName,
+                                    });
 
                 case BusinessOperation.Deactivate:
+                {
+                    if (entityTypeName == EntityName.User)
                     {
-                        if (entityTypeName == EntityName.User)
-                        {
-                            return View("DeactivateUser",
-                                new OwnerGroupOperationViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-                        if (entityTypeName == EntityName.Territory)
-                        {
-                            return View("DeactivateTerritory",
-                                new DeactivateTerritoryViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-                        return View("Deactivate",
-                            new GroupOperationViewModel
-                            {
-                                OperationName = operationName,
-                                EntityTypeName = entityTypeName,
-                            });
+                        return View("DeactivateUser",
+                                    new OwnerGroupOperationViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
                     }
-                case BusinessOperation.Qualify:
-            {
-                        if (entityTypeName == EntityName.Firm)
-                        {
-                            return View("QualifyFirm",
-                                new QualifyFirmViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-
-                        if (entityTypeName == EntityName.Client)
-                        {
-                            return View("QualifyClient",
-                                new OwnerGroupOperationViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-
-                        throw new NotificationException(BLResources.QualifyOperationIsNotSpecifiedForThisEntity);
-                    }
-                case BusinessOperation.Disqualify:
+                    if (entityTypeName == EntityName.Territory)
                     {
-                        if (entityTypeName == EntityName.Firm)
-                        {
-                            return View("DisqualifyFirm",
+                        return View("DeactivateTerritory",
+                                    new DeactivateTerritoryViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+                    return View("Deactivate",
                                 new GroupOperationViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-
-                        if (entityTypeName == EntityName.Client)
-                        {
-                            return View("DisqualifyClient",
-                                new GroupOperationViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-
-                        throw new NotificationException(BLResources.DisqualifyOperationIsNotSpecifiedForThisEntity);
-                    }
-                case BusinessOperation.ChangeTerritory:
-                    {
-                        if (entityTypeName == EntityName.Firm)
-                        {
-                            return View("ChangeFirmTerritory",
-                                new ChangeTerritoryViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-
-                        if (entityTypeName == EntityName.Client)
-                        {
-                            return View("ChangeClientTerritory",
-                                new ChangeTerritoryViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-
-                        throw new NotificationException(BLResources.DisqualifyOperationIsNotSpecifiedForThisEntity);
-                    }
-                case BusinessOperation.ChangeClient:
-                    {
-                        if (entityTypeName == EntityName.Firm)
-                        {
-                            return View("ChangeFirmClient",
-                                new ChangeClientViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-
-                        if (entityTypeName == EntityName.LegalPerson)
-                        {
-                            return View("ChangeLegalPersonClient",
-                                new ChangeClientViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-
-                        if (entityTypeName == EntityName.Deal)
-                        {
-                            return View("ChangeDealClient",
-                                new ChangeClientViewModel
-                                {
-                                    OperationName = operationName,
-                                    EntityTypeName = entityTypeName,
-                                });
-                        }
-
-                        throw new NotificationException(BLResources.ChangeClientOperationIsNotSpecifiedForThisEntity);
-                    }
-
-                    default:
-                    throw new NotificationException(BLResources.OperationIsNotSpecified);
+                                    {
+                                        OperationName = operationName,
+                                        EntityTypeName = entityTypeName,
+                                    });
                 }
+                case BusinessOperation.Qualify:
+                {
+                    if (entityTypeName == EntityName.Firm)
+                    {
+                        return View("QualifyFirm",
+                                    new QualifyFirmViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+
+                    if (entityTypeName == EntityName.Client)
+                    {
+                        return View("QualifyClient",
+                                    new OwnerGroupOperationViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+
+                    throw new NotificationException(BLResources.QualifyOperationIsNotSpecifiedForThisEntity);
+                }
+                case BusinessOperation.Disqualify:
+                {
+                    if (entityTypeName == EntityName.Firm)
+                    {
+                        return View("DisqualifyFirm",
+                                    new GroupOperationViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+
+                    if (entityTypeName == EntityName.Client)
+                    {
+                        return View("DisqualifyClient",
+                                    new GroupOperationViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+
+                    throw new NotificationException(BLResources.DisqualifyOperationIsNotSpecifiedForThisEntity);
+                }
+                case BusinessOperation.ChangeTerritory:
+                {
+                    if (entityTypeName == EntityName.Firm)
+                    {
+                        return View("ChangeFirmTerritory",
+                                    new ChangeTerritoryViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+
+                    if (entityTypeName == EntityName.Client)
+                    {
+                        return View("ChangeClientTerritory",
+                                    new ChangeTerritoryViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+
+                    throw new NotificationException(BLResources.DisqualifyOperationIsNotSpecifiedForThisEntity);
+                }
+                case BusinessOperation.ChangeClient:
+                {
+                    if (entityTypeName == EntityName.Firm)
+                    {
+                        return View("ChangeFirmClient",
+                                    new ChangeClientViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+
+                    if (entityTypeName == EntityName.LegalPerson)
+                    {
+                        return View("ChangeLegalPersonClient",
+                                    new ChangeClientViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+
+                    if (entityTypeName == EntityName.Deal)
+                    {
+                        return View("ChangeDealClient",
+                                    new ChangeClientViewModel
+                                        {
+                                            OperationName = operationName,
+                                            EntityTypeName = entityTypeName,
+                                        });
+                    }
+
+                    throw new NotificationException(BLResources.ChangeClientOperationIsNotSpecifiedForThisEntity);
+                }
+
+                default:
+                    throw new NotificationException(BLResources.OperationIsNotSpecified);
             }
+        }
 
         public JsonNetResult ConvertToEntityIds(EntityName entityTypeName, Guid[] replicationCodes)
         {

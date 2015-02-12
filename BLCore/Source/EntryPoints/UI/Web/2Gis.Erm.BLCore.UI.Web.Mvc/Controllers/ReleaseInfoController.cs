@@ -18,6 +18,7 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -37,22 +38,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
 
         public ReleaseInfoController(IMsCrmSettings msCrmSettings,
+                                     IAPIOperationsServiceSettings operationsServiceSettings,
+                                     IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                     IAPIIdentityServiceSettings identityServiceSettings,
                                      IUserContext userContext,
                                      ICommonLog logger,
+                                     IGetBaseCurrencyService getBaseCurrencyService,
                                      IStartSimplifiedReleaseOperationService startSimplifiedReleaseOperationService,
                                      IFinishReleaseOperationService finishReleaseOperationService,
                                      IRevertReleaseOperationService revertReleaseOperationService,
                                      ISecurityServiceFunctionalAccess functionalAccessService,
-                                     IPublicService publicService,
-                                     IAPIOperationsServiceSettings operationsServiceSettings,
-                                     IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                     IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                     IPublicService publicService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _startSimplifiedReleaseOperationService = startSimplifiedReleaseOperationService;
             _finishReleaseOperationService = finishReleaseOperationService;
