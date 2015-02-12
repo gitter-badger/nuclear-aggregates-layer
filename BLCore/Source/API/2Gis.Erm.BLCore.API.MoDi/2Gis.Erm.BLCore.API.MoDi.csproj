@@ -49,13 +49,10 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Accounting\ExportAccountDetailsTo1CResponse.cs" />
-    <Compile Include="Accounting\IAccountingSystemService.cs" />
     <Compile Include="DI\BlCoreApiModiAssembly.cs" />
     <Compile Include="DI\MoDiZone.cs" />
     <Compile Include="FileDescription.cs" />
     <Compile Include="PrintRegional\FirmWithOrders.cs" />
-    <Compile Include="Remote\AccountingSystem\IAccountingSystemApplicationService.cs" />
     <Compile Include="Remote\Reports\IReportsApplicationService.cs" />
     <Compile Include="Remote\Settings\APIMoDiServiceSettingsAspect.cs" />
     <Compile Include="Remote\Settings\IAPIMoDiServiceSettings.cs" />

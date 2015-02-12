@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
 using DoubleGis.Erm.Platform.Aggregates.EAV;

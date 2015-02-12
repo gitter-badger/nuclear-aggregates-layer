@@ -1173,12 +1173,6 @@
   <data name="ControlExport" xml:space="preserve">
     <value>Выгрузить</value>
   </data>
-  <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Выгрузка списаний</value>
-  </data>
-  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Выгрузка списаний в шину</value>
-  </data>
   <data name="ControlImportFromFile" xml:space="preserve">
     <value>Загрузить</value>
   </data>

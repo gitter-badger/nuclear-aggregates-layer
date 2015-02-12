@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -12,11 +14,17 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
         {
             public static class Find
             {
+                // TODO {all, 04.02.2015}: Разделить
                 public static FindSpecification<Lock> BySourceOrganizationUnit(long organizationUnitId, TimePeriod period)
                 {
                     return new FindSpecification<Lock>(x => x.PeriodStartDate == period.Start &&
                                                             x.PeriodEndDate == period.End &&
                                                             x.Order.SourceOrganizationUnitId == organizationUnitId);
+                }
+
+                public static FindSpecification<Lock> BySourceOrganizationUnits(IEnumerable<long> organizationUnitIds)
+                {
+                    return new FindSpecification<Lock>(x => organizationUnitIds.Contains(x.Order.SourceOrganizationUnitId));
                 }
 
                 public static FindSpecification<Lock> ForOrder(long orderId)
@@ -34,6 +42,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                     return new FindSpecification<Lock>(x => x.PeriodStartDate < periodStart && x.PeriodEndDate < periodEnd);
                 }
 
+                public static FindSpecification<Lock> ForPeriod(DateTime periodStart, DateTime periodEnd)
+                {
+                    return new FindSpecification<Lock>(x => x.PeriodStartDate == periodStart && x.PeriodEndDate == periodEnd);
+                }
+
+                // TODO {all, 04.02.2015}: Разделить
                 public static FindSpecification<Lock> ByDestinationOrganizationUnit(long destinationOrganizationUnitId, TimePeriod period)
                 {
                     return new FindSpecification<Lock>(x => x.PeriodStartDate == period.Start &&

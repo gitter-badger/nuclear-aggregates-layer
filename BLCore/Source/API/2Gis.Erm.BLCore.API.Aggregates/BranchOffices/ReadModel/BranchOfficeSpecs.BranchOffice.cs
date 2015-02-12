@@ -25,11 +25,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
                                                                                     x.BranchOffice.IsActive && !x.BranchOffice.IsDeleted);
                 }
 
-                public static IFindSpecification<BranchOfficeOrganizationUnit> PrimaryOfOrganizationUnit(long organizationUnitId)
+                public static FindSpecification<BranchOfficeOrganizationUnit> Primary()
                 {
-                    return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.IsPrimary &&
-                                                                                    x.IsActive && !x.IsDeleted &&
-                                                                                    x.OrganizationUnitId == organizationUnitId);
+                    return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.IsPrimary);
                 }
 
                 public static IFindSpecification<BranchOfficeOrganizationUnit> PrimaryForRegionalSalesOfOrganizationUnit(long organizationUnitId)
@@ -39,12 +37,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
                                                                                     x.OrganizationUnitId == organizationUnitId);
                 }
 
-                public static FindSpecification<BranchOfficeOrganizationUnit> BelongsToOrganizationUnit(long organizationUnitId)
+                public static FindSpecification<BranchOfficeOrganizationUnit> ByOrganizationUnit(long organizationUnitId)
                 {
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId);
                 }
 
-                public static IFindSpecification<BranchOfficeOrganizationUnit> BelongsToBranchOffice(long branchOfficeId)
+                public static IFindSpecification<BranchOfficeOrganizationUnit> ByBranchOffice(long branchOfficeId)
                 {
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.BranchOfficeId == branchOfficeId);
                 }

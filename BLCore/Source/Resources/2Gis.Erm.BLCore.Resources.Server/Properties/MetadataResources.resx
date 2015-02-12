@@ -1273,9 +1273,6 @@
     <value>Зарегистрировано</value>
     <comment>поле профиля юр. лица</comment>
   </data>
-  <data name="CreateCsvFile" xml:space="preserve">
-    <value>Выгрузить дополнительно файл в формате csv</value>
-  </data>
   <data name="OrderProcessingRequest" xml:space="preserve">
     <value>Заявка из ЛК</value>
   </data>

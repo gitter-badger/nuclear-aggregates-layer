@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -22,26 +21,26 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
     public sealed class EditLegalPersonHandler : RequestHandler<EditRequest<LegalPerson>, EmptyResponse>, IRussiaAdapted
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
-        private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IUpdateAggregateRepository<LegalPerson> _updateLegalPersonRepository;
         private readonly ICreateAggregateRepository<LegalPerson> _createLegalPersonRepository;
         private readonly ICheckInnService _checkInnService;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public EditLegalPersonHandler(
-            ISubRequestProcessor subRequestProcessor, 
-            ILegalPersonRepository legalPersonRepository,
+            ISubRequestProcessor subRequestProcessor,
             ICheckInnService checkInnService,
             IOperationScopeFactory scopeFactory,
             IUpdateAggregateRepository<LegalPerson> updateLegalPersonRepository,
-            ICreateAggregateRepository<LegalPerson> createLegalPersonRepository)
+            ICreateAggregateRepository<LegalPerson> createLegalPersonRepository,
+            ILegalPersonReadModel legalPersonReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
-            _legalPersonRepository = legalPersonRepository;
             _checkInnService = checkInnService;
             _scopeFactory = scopeFactory;
             _updateLegalPersonRepository = updateLegalPersonRepository;
             _createLegalPersonRepository = createLegalPersonRepository;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         protected override EmptyResponse Handle(EditRequest<LegalPerson> request)
@@ -63,8 +62,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
             if (!request.Entity.IsNew())
             {
-                var personWithProfiles = _legalPersonRepository.GetLegalPersonWithProfiles(request.Entity.Id);
-                if (!personWithProfiles.Profiles.Any())
+                var personWithProfiles = _legalPersonReadModel.GetLegalPersonWithProfileExistanceInfo(request.Entity.Id);
+                if (!personWithProfiles.LegalPersonHasProfiles)
                 {
                     throw new NotificationException(BLResources.MustMakeLegalPersonProfile);
                 }
