@@ -4,7 +4,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
-using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -13,29 +12,23 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Integration.Export
 {
-    [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public class GetDebitsInfoInitialForExportTest : IIntegrationTest
     {
         private readonly IGetDebitsInfoInitialForExportOperationService _debitsInfoInitialForExportOperationService;
         private readonly ICommonLog _commonLog;
         private readonly IAppropriateEntityProvider<OrganizationUnit> _organizationUnitProvider;
-        private readonly IUseCaseTuner _useCaseTuner;
 
         public GetDebitsInfoInitialForExportTest(IGetDebitsInfoInitialForExportOperationService debitsInfoInitialForExportOperationService,
                                                  ICommonLog commonLog,
-                                                 IAppropriateEntityProvider<OrganizationUnit> organizationUnitProvider,
-                                                 IUseCaseTuner useCaseTuner)
+                                                 IAppropriateEntityProvider<OrganizationUnit> organizationUnitProvider)
         {
             _debitsInfoInitialForExportOperationService = debitsInfoInitialForExportOperationService;
             _commonLog = commonLog;
             _organizationUnitProvider = organizationUnitProvider;
-            _useCaseTuner = useCaseTuner;
         }
 
         public ITestResult Execute()
         {
-            _useCaseTuner.AlterDuration<GetDebitsInfoInitialForExportTest>();
-
             var startDate = new DateTime(2014, 11, 01);
             var endDate = startDate.AddMonths(1).AddSeconds(-1);
             _debitsInfoInitialForExportOperationService.Get(startDate, endDate, new long[] { 1 });
