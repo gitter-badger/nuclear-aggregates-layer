@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.Exceptions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
@@ -88,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             var projects = _projectService.GetProjectsByOrganizationUnit(order.DestOrganizationUnitId);
             if (!projects.Any())
             {
-                throw new ArgumentException(BLResources.OrderValidateDestOrganizationUnitHasNoProject);
+                throw new OrganizationUnitHasNoProjectsException(BLResources.OrderValidateDestOrganizationUnitHasNoProject);
             }
 
             var sourceOrganizationUnit = _userRepository.GetOrganizationUnit(order.SourceOrganizationUnitId);
@@ -129,12 +130,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             OrderReadModel.UpdateOrderDistributionDates(order);
             OrderReadModel.UpdateOrderReleaseNumbers(order);
 
+            UpdateDefaultProfile(order);
             UpdateFinancialInformation(order);
             var reservedNumberDigit = ResumeContext.Request.ReservedNumberDigit;
             ActualizeOrderNumber(order, reservedNumberDigit);
             UpdateDeal(order);
             DetermineOrderPlatform(order);
             CreateAccount(order);
+        }
+
+        protected virtual void UpdateDefaultProfile(Order order)
+        {
         }
 
         protected virtual void ActualizeOrderNumber(Order order, long? reservedNumberDigit)

@@ -20,7 +20,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     supressMatchesErrors: false,
     parentEntityName: "None",
     parentIdPattern: "",
-
+    
     initComponent: function ()
     {
         window.Ext.ux.LookupField.superclass.initComponent.call(this);
@@ -306,7 +306,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             this.thumbEl.fadeOut({ useDisplay: true, duration: 0.3 });
             this.thumbPanel.destroy();
             this.thumbPanel = null;
-        }
+        }       
 
         var store = new window.Ext.data.Store({
             xtype: 'jsonstore',
@@ -316,12 +316,13 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                 idProperty: 'Id',
                 root: 'Data',
                 totalProperty: 'RowCount',
-                fields: [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute}]
+                fields: this.tplFields || [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute }]
             })
         });
 
+        var headerText =this.tplHeaderTextTemplate || '<span class="x-lookup-thumb">{name}</span>&nbsp;';        
         var tpl = new window.Ext.XTemplate(
-                    '<tpl for=".">', '<div class="x-lookup-thumb" id="{id}">', '<img alt="" src="' + this.entityIcon + '" class="x-lookup-item"/>', '<span class="x-lookup-thumb">{name}</span>&nbsp;', '</div>', '</tpl>', '<div class="x-clear"></div>');
+                    '<tpl for=".">', '<div class="x-lookup-thumb" id="{id}">', '<img alt="" src="' + this.entityIcon + '" class="x-lookup-item"/>', headerText, '</div>', '</tpl>', '<div class="x-clear"></div>');
 
         var dataView = new window.Ext.DataView({
             tpl: tpl,

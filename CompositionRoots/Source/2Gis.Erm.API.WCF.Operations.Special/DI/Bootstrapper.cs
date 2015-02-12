@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IdentityModel.Policy;
+﻿using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.Operations.Special.Config;
@@ -22,6 +21,7 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
@@ -36,14 +36,12 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
-using DoubleGis.Erm.Platform.Model.EntityFramework;
 using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
@@ -81,7 +79,8 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                                                     settingsContainer,
                                                     massProcessors,
                                                     // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                                                    c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                                    c => c.ConfigureUnity(settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                          settingsContainer.AsSettings<IEnvironmentSettings>(),
                                                                           settingsContainer.AsSettings<IConnectionStringSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
@@ -97,6 +96,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
 
         private static IUnityContainer ConfigureUnity(
             this IUnityContainer container,
+            IGlobalizationSettings globalizationSettings,
             IEnvironmentSettings environmentSettings,
             IConnectionStringSettings connectionStringSettings,
             IMsCrmSettings msCrmSettings,
@@ -105,6 +105,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             ILoggerContextManager loggerContextManager)
         {
             return container
+                .ConfigureGlobal(globalizationSettings)
                 .ConfigureLogging(loggerContextManager)
                 .CreateErmSpecific(msCrmSettings)
                 .CreateSecuritySpecific()
@@ -160,7 +161,8 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
         {
             const string MappingScope = Mapping.Erm;
 
-            container.RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
+            container.RegisterType<ICanChangeOrderPositionBindingObjectsDetector, CanChangeOrderPositionBindingObjectsDetector>(Lifetime.Singleton)
+                     .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                      .RegisterTypeWithDependencies<IGetPositionsByOrderService, GetPositionsByOrderService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(
                          CustomLifetime.PerOperationContext,

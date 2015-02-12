@@ -167,7 +167,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\CloseDealHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\ReopenDealHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersonProfiles\SetLegalPersonProfileForOrderHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\ChangeLegalPersonRequisitesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\ExportLegalPersonsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\MergeLegalPersonsHandlerTest.cs" />

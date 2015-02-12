@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -14,75 +13,28 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
         {
             public static class Find
             {
-                private static readonly IReadOnlyDictionary<long, IReadOnlyCollection<long>> PlannedProvisionCategories =
-                    new Dictionary<long, IReadOnlyCollection<long>>
-                        {
-                            {
-                                6, // Новосибирск:
-                                new long[]
-                                    {
-                                        192, // Кинотеатры
-                                        356, // Магазины обувные
-                                        390, // Часы
-                                        15502, // Товары для творчества и рукоделия
-                                        207, // Аптеки
-                                        526, // Сумки / кожгалантерея
-                                        405, // Автомойки
-                                        508, // Ткани
-                                        384, // Охотничьи принадлежности / Аксессуары
-                                        347, // Книги
-                                        205 // Ветеринарные клиники
-                                    }
-                            },
-                            {
-                                1, // Самара:
-                                new long[]
-                                    {
-                                        13100, // Детская обувь 
-                                        609, // Детская одежда
-                                        346, // Игрушки 
-                                        345, // Товары для новорожденных 
-                                        533, // Заказ пассажирского легкового транспорта
-                                        207, // Аптеки 
-                                        1203, // Доставка готовых блюд
-                                        161, // Кафе
-                                        164, // Рестораны
-                                        15791, // Суши-бары / рестораны
-                                    }
-                            },
-                            {
-                                2, // Екатеринбург:
-                                new long[]
-                                    {
-                                        14426, // Верхняя одежда 
-                                        354, // Головные уборы
-                                        606, // Женская одежда
-                                        355, // Меха/Дублёнки/Кожа
-                                        612, // Мужская одежда 
-                                        383, // Свадебные товары 
-                                        207, // Аптеки
-                                    }
-                            }
-                        };
-
                 public static FindSpecification<Category> ActiveCategoryForSalesModelInOrganizationUnit(SalesModel salesModel, long organizationUnitId)
                 {
-                    var resultSpec = ForOrganizationUnit(organizationUnitId) && Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>();
+                    return Platform.DAL.Specifications.Specs.Find.ActiveAndNotDeleted<Category>() &&
+                           ForOrganizationUnit(organizationUnitId) &&
 
-                    // TODO {y.baranihin, 15.01.2015}: Использовать IsPlannedProvisionSalesModel() после появления справочника ограничений
-                    if (salesModel == SalesModel.PlannedProvision)
-                    {
-                        resultSpec &= PlannedProvisionCategories.ContainsKey(organizationUnitId)
-                                          ? new FindSpecification<Category>(category => PlannedProvisionCategories[organizationUnitId].Contains(category.Id))
-                                          : new FindSpecification<Category>(category => false);
+                           // Ограничение по моделям продаж действует только для рубрик 3-го уровня
+                           (!ByLevel(3) || RestrictedBySalesModelAndOrganizationUnit(salesModel, organizationUnitId));
                     }
 
-                    return resultSpec;
+                private static FindSpecification<Category> ForOrganizationUnit(long organizationUnitId)
+                    {
+                    return new FindSpecification<Category>(x => x.CategoryOrganizationUnits.Any(y => y.IsActive && !y.IsDeleted && y.OrganizationUnitId == organizationUnitId));
                 }
 
-                public static FindSpecification<Category> ForOrganizationUnit(long organizationUnitId)
+                private static FindSpecification<Category> RestrictedBySalesModelAndOrganizationUnit(SalesModel model, long organizationUnitId)
                 {
-                    return new FindSpecification<Category>(x => x.CategoryOrganizationUnits.Any(y => y.IsActive && !y.IsDeleted && y.OrganizationUnitId == organizationUnitId));
+                    return new FindSpecification<Category>(x => x.SalesModelRestrictions.Any(y => y.SalesModel == model && y.Project.OrganizationUnitId == organizationUnitId));
+                }
+
+                private static FindSpecification<Category> ByLevel(int level)
+                {
+                    return new FindSpecification<Category>(x => x.Level == level);
                 }
             }
         }
@@ -95,11 +47,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                 {
                     return new FindSpecification<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId);
                 }
-
-                public static FindSpecification<CategoryOrganizationUnit> ForCategories(IEnumerable<long> categoryIds)
-                {
-                    return new FindSpecification<CategoryOrganizationUnit>(x => categoryIds.Contains(x.CategoryId));
-                }
             }
         }
 
@@ -110,6 +57,17 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                 public static FindSpecification<CategoryFirmAddress> ByFirmAddresses(IEnumerable<long> addressIds)
                 {
                     return new FindSpecification<CategoryFirmAddress>(x => addressIds.Contains(x.FirmAddressId));
+                }
+            }
+        }
+
+        public static class SalesModelCategoryRestrictions
+        {
+            public static class Find
+            {
+                public static FindSpecification<SalesModelCategoryRestriction> ByProject(long projectId)
+                {
+                    return new FindSpecification<SalesModelCategoryRestriction>(x => x.ProjectId == projectId);
                 }
             }
         }

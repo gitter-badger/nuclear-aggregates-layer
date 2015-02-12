@@ -226,7 +226,7 @@
     <value>Prestación garantizada</value>
   </data>
   <data name="SalesModelPlannedProvision" xml:space="preserve">
-    <value>Плановое оказание услуг по одной рубрике</value>
+    <value>Prestación de servicios del plan que abarca una categoría</value>
   </data>
   <data name="PositionCalculationMethodPosition" xml:space="preserve">
     <value>Posición</value>
@@ -1924,15 +1924,6 @@
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Acuerdo de prolongar el contrato</value>
   </data>
-  <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentUkraineTobaccoGoods" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
   <data name="FasCommentChileAlcohol" xml:space="preserve">
     <value>Publicidad de Bebidas Alcohólicas</value>
   </data>
@@ -1941,15 +1932,6 @@
   </data>
   <data name="FasCommentChileMedicalReceiptDrugs" xml:space="preserve">
     <value>Publicidad de medicamentos que se venden bajo la receta médica</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
     <value>Beber en exceso daña su salud y puede dañar a terceros. El consumo de alcohol disminuye su capacidad para conducir.</value>
@@ -1991,6 +1973,48 @@
     <value>Otro</value>
   </data>
   <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
-    <value>Плановое оказание услуг по нескольким рубрикам</value>
+    <value>Prestación de servicios del plan que abarcan varias categorías</value>
+  </data>
+  <data name="FasCommentUkraineAutotherapy" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineMedicalDevice" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineSoundPhonogram" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineSoundLive" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineEmploymentAssistance" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAutotherapy" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineMedicalDevice" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineSoundPhonogram" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineSoundLive" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
 </root>

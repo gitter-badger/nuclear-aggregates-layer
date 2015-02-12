@@ -7,39 +7,38 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
         public const string MsCrmSettingsKey = "MsCrmSettingsKey";
         public const string BasicOperationsServiceRestUrlKey = "BasicOperationsServiceRestUrlKey";
         public const string SpecialOperationsServiceRestUrlKey = "SpecialOperationsServiceRestUrlKey";
+        public const string IdentityServiceRestUrlKey = "IdentityServiceRestUrlKey";
         public const string ErmBaseCurrencyKey = "ErmBaseCurrencyKey";
 
         public static string GetBasicOperationsServiceRestUrl(this ViewDataDictionary viewData)
         {
-            object url;
-            if (!viewData.TryGetValue(BasicOperationsServiceRestUrlKey, out url))
-            {
-                return null;
-            }
-
-            return (string)url;
+            return GetSetting(viewData, BasicOperationsServiceRestUrlKey);
         }
 
         public static string GetSpecialOperationsServiceRestUrl(this ViewDataDictionary viewData)
         {
-            object url;
-            if (!viewData.TryGetValue(SpecialOperationsServiceRestUrlKey, out url))
-            {
-                return null;
-            }
+            return GetSetting(viewData, SpecialOperationsServiceRestUrlKey);
+        }
 
-            return (string)url;
+        public static string GetIdentityServiceRestUrl(this ViewDataDictionary viewData)
+        {
+            return GetSetting(viewData, IdentityServiceRestUrlKey);
         }
 
         public static string GetErmBaseCurrencySymbol(this ViewDataDictionary viewData)
         {
-            object baseCurrencySymbol;
-            if (!viewData.TryGetValue(ErmBaseCurrencyKey, out baseCurrencySymbol))
+            return GetSetting(viewData, ErmBaseCurrencyKey);
+        }
+
+        private static string GetSetting(ViewDataDictionary viewData, string settingName)
+        {
+            object setting;
+            if (!viewData.TryGetValue(settingName, out setting))
             {
                 return null;
             }
 
-            return (string)baseCurrencySymbol;
+            return (string)setting;
         }
     }
 }

@@ -1863,7 +1863,13 @@
   <data name="ControlIncreaseLimit" xml:space="preserve">
     <value>Zvýšit</value>
   </data>
+  <data name="DListMyOpenedActivities" xml:space="preserve">
+    <value>Moje otevřené plány</value>
+  </data>
   <data name="DListTimeZones" xml:space="preserve">
     <value>Časová pásma</value>
+  </data>
+  <data name="ControlChangeProfiles" xml:space="preserve">
+    <value>Změnit profil</value>
   </data>
 </root>

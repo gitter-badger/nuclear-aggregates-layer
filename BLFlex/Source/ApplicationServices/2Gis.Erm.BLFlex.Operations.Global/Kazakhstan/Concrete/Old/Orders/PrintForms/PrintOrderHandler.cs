@@ -2,6 +2,7 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic;
@@ -46,6 +47,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
                 throw new NotificationException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             var printDocumentRequest = new PrintDocumentRequest
                                            {
                                                CurrencyIsoCode = orderInfo.CurrencyIsoCode,
@@ -61,9 +67,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
 
         private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order)
         {
-            var profileId = request.LegalPersonProfileId.HasValue ? request.LegalPersonProfileId.Value : order.MainLegalPersonProfileId;
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(order.LegalPersonProfileId.Value);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId.Value);
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(order.BranchOfficeId);
             var bargain = _orderPrintFormReadModel.GetOrderBargain(request.OrderId);

@@ -302,7 +302,6 @@
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Cyprus\Generic\Activate\CyprusActivateLegalPersonService.cs" />
     <Compile Include="Czech\Concrete\Old\Bills\CzechPrintBillHandler.cs" />
-    <Compile Include="MultiCulture\Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechValidatePaymentRequisitesIsUniqueHandler.cs" />

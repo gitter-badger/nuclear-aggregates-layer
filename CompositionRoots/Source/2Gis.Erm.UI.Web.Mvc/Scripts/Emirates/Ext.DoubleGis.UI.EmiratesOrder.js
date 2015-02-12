@@ -2,7 +2,7 @@
     // FIXME {a.rechkalov, 16.06.2014}: Стоит придерживаться единого стиля - функции с меленькой буквы
     // COMMENT {d.ivanov, 18.06.2014}: Я так понимаю, сейчас принятый нами стиль предполагает, что функции-обработчики события click пишутся с большой буквы.
     //                                 См. EntitySettings.xml и функции типа Assign, Save, SaveAndClose... Надо наносить массовые улучшения, чтобы везде стало одинаково.
-    PrintOrderBargainAdditionalAgreement: function () {
+    PrintBargainAdditionalAgreement: function () {
         this.Print('PrintBargainAdditionalAgreement');
     },
     PrintOrderBills: function () {

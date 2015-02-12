@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
         public long SourceOrganizationUnitId { get; set; }
         public long DestOrganizationUnitId { get; set; }
         public long FirmId { get; set; }
-        public long MainLegalPersonProfileId { get; set; }
+        public long? LegalPersonProfileId { get; set; }
         public long BranchOfficeId { get; set; }
         public SalesModel? SalesModel { get; set; }
     }
