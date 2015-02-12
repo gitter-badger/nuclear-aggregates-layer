@@ -268,6 +268,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName FirmContacts = new SchemaQualifiedObjectName(ErmSchemas.BusinessDirectory, "FirmContacts");
 
+        public static readonly SchemaQualifiedObjectName SalesModelCategoryRestrictions = new SchemaQualifiedObjectName(ErmSchemas.BusinessDirectory, "SalesModelCategoryRestrictions");
+
         public static readonly SchemaQualifiedObjectName Reference = new SchemaQualifiedObjectName(ErmSchemas.Integration, "Reference");
 
         public static readonly SchemaQualifiedObjectName ReferenceItems = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ReferenceItems");

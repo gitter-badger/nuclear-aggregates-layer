@@ -99,7 +99,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public decimal? DiscountSum { get; set; }
         public short ReleaseCountFact { get; set; }
         public bool DiscountInPercent { get; set; }
-        public bool IsBudget { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
@@ -193,6 +192,21 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public bool IsDeactivationAllowed { get; set; }
         public string DeactivationConfirmation { get; set; }
         public string DeactivationDisallowedReason { get; set; }
+    }
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class OrderPositionSalesModelDto
+    {
+        public long OrderPositionId { get; set; }
+        public SalesModel SalesModel { get; set; }
+    }
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class OrderDtoToCheckPossibilityOfOrderPositionCreation
+    {
+        public long OrderId { get; set; }
+        public long FirmId { get; set; }
+        public IEnumerable<OrderPositionSalesModelDto> OrderPositions { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]

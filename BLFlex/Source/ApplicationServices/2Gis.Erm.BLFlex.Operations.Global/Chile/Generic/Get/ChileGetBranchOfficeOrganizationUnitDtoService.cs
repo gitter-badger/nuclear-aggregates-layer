@@ -17,9 +17,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
 
         public ChileGetBranchOfficeOrganizationUnitDtoService(IUserContext userContext,
                                                               IBranchOfficeReadModel branchOfficeReadModel,
-                                                              IOrganizationUnitReadModel organizationUnitReadModel,
-                                                              IAPIIdentityServiceSettings identityServiceSettings)
-            : base(userContext, branchOfficeReadModel, organizationUnitReadModel, identityServiceSettings)
+                                                              IOrganizationUnitReadModel organizationUnitReadModel)
+            : base(userContext, branchOfficeReadModel, organizationUnitReadModel)
         {
             _branchOfficeReadModel = branchOfficeReadModel;
         }

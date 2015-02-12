@@ -33,7 +33,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             protected static IBranchOfficeReadModel ReadModel;
             protected static IBargainTypeReadModel BargainTypeReadModel;
             protected static IContributionTypeReadModel ContributionTypeReadModel;
-            protected static IAPIIdentityServiceSettings IdentityServiceSettings;
             protected static IDomainEntityDto Result;
 
             protected static long EntityId;
@@ -48,9 +47,8 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     BargainTypeReadModel = Mock.Of<IBargainTypeReadModel>();
                     ContributionTypeReadModel = Mock.Of<IContributionTypeReadModel>();
                     UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
-                    IdentityServiceSettings = Mock.Of<IAPIIdentityServiceSettings>();
 
-                    UkraineGetBranchOfficeDtoService = new UkraineGetBranchOfficeDtoService(UserContext, ReadModel, BargainTypeReadModel, ContributionTypeReadModel, IdentityServiceSettings);
+                    UkraineGetBranchOfficeDtoService = new UkraineGetBranchOfficeDtoService(UserContext, ReadModel, BargainTypeReadModel, ContributionTypeReadModel);
                 };
 
             Because of = () =>
@@ -93,13 +91,9 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             Establish context = () =>
             {
                 EntityId = 0;
-
-                Mock.Get(IdentityServiceSettings).Setup(x => x.RestUrl).Returns(RestUrl);
             };
 
             It should_be_UkraineBranchOfficeDomainEntityDto = () => Result.Should().BeOfType<UkraineBranchOfficeDomainEntityDto>();
-
-            It should_has_expected_rest_url = () => ((UkraineBranchOfficeDomainEntityDto)Result).IdentityServiceUrl.Should().Be(RestUrl);
         }
     }
 }

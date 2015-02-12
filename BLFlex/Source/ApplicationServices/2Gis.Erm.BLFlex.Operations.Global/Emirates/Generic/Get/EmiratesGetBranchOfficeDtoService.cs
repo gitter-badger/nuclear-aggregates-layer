@@ -18,9 +18,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
             IUserContext userContext,
             IBranchOfficeReadModel readModel,
             IBargainTypeReadModel bargainTypeReadModel,
-            IContributionTypeReadModel contributionTypeReadModel,
-            IAPIIdentityServiceSettings identityServiceSettings)
-            : base(userContext, readModel, bargainTypeReadModel, contributionTypeReadModel, identityServiceSettings)
+            IContributionTypeReadModel contributionTypeReadModel)
+            : base(userContext, readModel, bargainTypeReadModel, contributionTypeReadModel)
         {
         }
 
