@@ -292,6 +292,7 @@
     <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
     <Compile Include="Generic\Append\AppendUserRoleOperationService.cs" />
     <Compile Include="Generic\Append\AppendUserTerritoryService.cs" />
+    <Compile Include="Generic\Assign\ActivitySecurityAccessExtension.cs" />
     <Compile Include="Generic\Assign\AssignAccountDetailService.cs" />
     <Compile Include="Generic\Assign\AssignAccountService.cs" />
     <Compile Include="Generic\Assign\AssignClientService.cs" />
@@ -301,7 +302,10 @@
     <Compile Include="Generic\Assign\AssignGenericEntityService.cs" />
     <Compile Include="Generic\Assign\AssignLegalPersonService.cs" />
     <Compile Include="Generic\Assign\AssignOrderService.cs" />
-    <Compile Include="Generic\ChangeActivityStatus\ChangeActivityStatusAppointmentService.cs" />
+    <Compile Include="Generic\CancelActivity\CancelAppointmentService.cs" />
+    <Compile Include="Generic\CancelActivity\CancelLetterService.cs" />
+    <Compile Include="Generic\CancelActivity\CancelPhonecallService.cs" />
+    <Compile Include="Generic\CancelActivity\CancelTaskService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeDealClientService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeFirmClientService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeGenericEntityClientService.cs" />

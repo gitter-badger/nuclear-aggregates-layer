@@ -1,4 +1,4 @@
 ﻿<%@ ServiceHost Language="C#" 
                 Debug="true" 
-                Service="DoubleGis.Erm.BLCore.WCF.Operations.ChangeActivityStatusApplicationService" 
+                Service="DoubleGis.Erm.BLCore.WCF.Operations.CancelActivityApplicationService" 
                 Factory="DoubleGis.Erm.WCF.BasicOperations.UnityServiceHostFactory" %>

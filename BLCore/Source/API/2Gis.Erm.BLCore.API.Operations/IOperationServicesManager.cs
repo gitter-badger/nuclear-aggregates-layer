@@ -3,7 +3,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.ActionHistory;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeActivityStatus;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.CancelActivity;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeClient;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeTerritory;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
@@ -38,6 +38,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations
         IDownloadFileService GetDownloadFileService(EntityName entityName);
         IUploadFileService GetUploadFileService(EntityName entityName);
         IIntegrationProcessorOperationService GetOperationsExportService(EntityName entityName, EntityName integrationEntityName);
-        IChangeActvityStatusEntityService GetChangeActivityStatusService(EntityName entityName);
+        ICancelActivityService GetCancelActivityService(EntityName entityName);
     }
 }

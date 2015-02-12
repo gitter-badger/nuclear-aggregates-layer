@@ -8,7 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.ActionHistory;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeActivityStatus;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.CancelActivity;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeClient;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeTerritory;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
@@ -27,6 +27,7 @@ using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.CancelActivity;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 using Microsoft.Practices.Unity;
@@ -52,10 +53,9 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
             return GetEntitySpecificOperation<IIntegrationProcessorOperationService, ExportIdentity>(new EntitySet(entities), null);
         }
 
-        public IChangeActvityStatusEntityService GetChangeActivityStatusService(EntityName entityName)
-        {
-            //CheckOperationAvailability<ChangeActivityStatusIdentity>(entityName);
-            return GetEntitySpecificOperation<IChangeActvityStatusEntityService, ChangeActivityStatusIdentity>(entityName.ToEntitySet(), null);
+        public ICancelActivityService GetCancelActivityService(EntityName entityName)
+        {            
+            return GetEntitySpecificOperation<ICancelActivityService, CancelActivityIdentity>(entityName.ToEntitySet(), null);
         }
 
         public IListEntityService GetListEntityService(EntityName entityName)

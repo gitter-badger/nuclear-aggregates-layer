@@ -2322,6 +2322,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CancelActivityConfirmation {
+            get {
+                return ResourceManager.GetString("CancelActivityConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotActivateBranchOfficeSinceThereIsADuplicate {
             get {
                 return ResourceManager.GetString("CannotActivateBranchOfficeSinceThereIsADuplicate", resourceCulture);
@@ -2370,6 +2379,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotCancelCompletedOrderRequest {
             get {
                 return ResourceManager.GetString("CannotCancelCompletedOrderRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно отменить действие {0} в статусе &quot;Выполнено&quot;/&quot;Отменено&quot;.
+        /// </summary>
+        public static string CannotCancelFinishedOrClosedActivity {
+            get {
+                return ResourceManager.GetString("CannotCancelFinishedOrClosedActivity", resourceCulture);
             }
         }
         

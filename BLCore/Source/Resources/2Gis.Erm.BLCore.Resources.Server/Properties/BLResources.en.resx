@@ -5182,4 +5182,10 @@ Placement period: {3}.</value>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Attempt to save an order item with sales model '{0}' where quantity is not 1</value>
   </data>
+  <data name="CancelActivityConfirmation" xml:space="preserve">
+    <value >Подтвердите отмену действий</value>
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value>Невозможно отменить действие {0} в статусе "Выполнено"/"Отменено"</value>
+  </data>
 </root>

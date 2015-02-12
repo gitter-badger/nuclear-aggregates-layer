@@ -87,6 +87,10 @@
     <Compile Include="Activities\IAssignLetterAggregateService.cs" />
     <Compile Include="Activities\IAssignPhonecallAggregateService.cs" />
     <Compile Include="Activities\IAssignTaskAggregateService.cs" />
+    <Compile Include="Activities\IChangeAppointmentStatusAggregateService.cs" />
+    <Compile Include="Activities\IChangeLetterStatusAggregateService.cs" />
+    <Compile Include="Activities\IChangePhonecallStatusAggregateService.cs" />
+    <Compile Include="Activities\IChangeTaskStatusAggregateService.cs" />
     <Compile Include="Activities\ICreateLetterAggregateService.cs" />
     <Compile Include="Activities\ICreatePhonecallAggregateService.cs" />
     <Compile Include="Activities\ICreateTaskAggregateService.cs" />

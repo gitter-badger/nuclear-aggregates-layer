@@ -60,7 +60,7 @@
     <Compile Include="Append.svc.cs" />
     <Compile Include="Assign.svc.cs" />
     <Compile Include="BasicOperationsSharedTypesBehaviorFactory.cs" />
-    <Compile Include="ChangeActivityStatus.svc.cs" />
+    <Compile Include="CancelActivity.svc.cs" />
     <Compile Include="ChangeClient.svc.cs" />
     <Compile Include="ChangeTerritory.svc.cs" />
     <Compile Include="CheckForDebts.svc.cs" />

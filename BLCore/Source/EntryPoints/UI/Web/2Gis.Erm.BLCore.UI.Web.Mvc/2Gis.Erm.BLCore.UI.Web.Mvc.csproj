@@ -367,10 +367,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Assign.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GroupOperation\ChangeActivityStatus.generated.cs">
+    <Compile Include="Views\GroupOperation\CancelActivity.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ChangeActivityStatus.cshtml</DependentUpon>
+      <DependentUpon>CancelActivity.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\GroupOperation\ChangeClientTerritory.generated.cs">
       <AutoGen>True</AutoGen>
@@ -613,9 +613,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Assign.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\GroupOperation\ChangeActivityStatus.cshtml">
+    <None Include="Views\GroupOperation\CancelActivity.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ChangeActivityStatus.generated.cs</LastGenOutput>
+      <LastGenOutput>CancelActivity.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\GroupOperation\ChangeClientTerritory.cshtml">
       <Generator>RazorGenerator</Generator>

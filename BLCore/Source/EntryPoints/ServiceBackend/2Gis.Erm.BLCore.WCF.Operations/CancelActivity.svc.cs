@@ -4,22 +4,22 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations;
-using DoubleGis.Erm.BLCore.API.Operations.Remote.ChangeActivityStatus;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.CancelActivity;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.CancelActivity;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
-    public class ChangeActivityStatusApplicationService : IChangeActivityStatusApplicationService, IChangeActivityStatusApplicationRestService
+    public class CancelActivityApplicationService : ICancelActivityApplicationService, ICancelActivityApplicationRestService
     {
         private readonly ICommonLog _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public ChangeActivityStatusApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
+        public CancelActivityApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;
@@ -27,21 +27,21 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
-        public void Execute(EntityName entityName, long entityId, ActivityStatus status)
+        public CancelActivityResult Execute(EntityName entityName, long entityId)
         {
             try
             {
-                this.ExecuteInternal(entityName, entityId, status);
+                return ExecuteInternal(entityName, entityId);
             }
             catch (Exception ex)
             {
                 _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
-                throw new WebFaultException<ChangeActivityStatusOperationErrorDescription>(new ChangeActivityStatusOperationErrorDescription(entityName, ex.Message),
+                throw new WebFaultException<CancelActivityOperationErrorDescription>(new CancelActivityOperationErrorDescription(entityName, ex.Message),
                                                                                HttpStatusCode.BadRequest);
             }
         }
 
-        public void Execute(string specifiedEntityName, string specifiedEntityId, string status)
+        public CancelActivityResult Execute(string specifiedEntityName, string specifiedEntityId)
         {
             var entityName = EntityName.None;
             try
@@ -51,31 +51,26 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
 
-                long entityId = 0L;
+                long entityId;
                 if (!long.TryParse(specifiedEntityId, out entityId))
                 {
                     throw new ArgumentException("Entity Id cannot be parsed");
                 }
-
-                ActivityStatus activityStatus;
-                if (!Enum.TryParse(status, out activityStatus))
-                {
-                    throw new ArgumentException("ActivityStatus cannot be parsed");
-                }
-                this.ExecuteInternal(entityName, entityId, activityStatus);
+              
+                return ExecuteInternal(entityName, entityId);
             }
             catch (Exception ex)
             {
                 _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
-                throw new WebFaultException<ChangeActivityStatusOperationErrorDescription>(new ChangeActivityStatusOperationErrorDescription(entityName, ex.Message),
+                throw new WebFaultException<CancelActivityOperationErrorDescription>(new CancelActivityOperationErrorDescription(entityName, ex.Message),
                                                                                HttpStatusCode.BadRequest);
             }
         }
 
-        private void ExecuteInternal(EntityName entityName, long entityId, ActivityStatus status)
+        private CancelActivityResult ExecuteInternal(EntityName entityName, long entityId)
         {
-            var changeActivityService = _operationServicesManager.GetChangeActivityStatusService(entityName);
-            changeActivityService.ChangeStatus(entityId, status);
+            var cancelActivityService = _operationServicesManager.GetCancelActivityService(entityName);
+            return cancelActivityService.Cancel(entityId);
         }
     }
 }
