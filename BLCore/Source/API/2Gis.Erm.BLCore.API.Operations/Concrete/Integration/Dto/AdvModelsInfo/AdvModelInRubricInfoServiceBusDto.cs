@@ -2,16 +2,10 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Flows;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Shared;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.AdvModelsInfo
 {
-    public enum AdvModel
-    {
-        Cps = 10,
-        Fh = 11,
-        Mfh = 12
-    }
-
     [ServiceBusObjectDescription("AdvModelInRubricInfo")]
     public sealed class AdvModelInRubricInfoServiceBusDto : IServiceBusDto<FlowAdvModelsInfo>
     {
@@ -22,6 +16,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.AdvModels
     public sealed class AdvModelInRubricDto 
     {
         public long RubricCode { get; set; }
-        public AdvModel AdvModel { get; set; }
+        public ServiceBusSalesModel AdvModel { get; set; }
     }
 }

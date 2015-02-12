@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Shared;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
@@ -142,13 +143,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             var invoiceElement = new XElement("Invoice",
                                               new XAttribute("Code", invoiceDto.Id),
                                               new XAttribute("AdvModel",
-                                                             ConvertToServiceBusSalesModel(invoiceDto.SalesModels.Any()
+                                                             (invoiceDto.SalesModels.Any()
 
-                                                                                                // Используется First, а не Single потому что сейчас есть заказы, которые нарушают правило
-                                                                                                // о том, что все позиции заказа должны быть одной модели продаж. Мы дадим таким заказам доразмещаться.
-                                                                                                // После того, как все такие заказы доразмещаются First() можно и нужно будет заменить на Single()
-                                                                                               ? invoiceDto.SalesModels.First()
-                                                                                               : SalesModel.None)),
+                                                                  // Используется First, а не Single потому что сейчас есть заказы, которые нарушают правило
+                                                                  // о том, что все позиции заказа должны быть одной модели продаж. Мы дадим таким заказам доразмещаться.
+                                                                  // После того, как все такие заказы доразмещаются First() можно и нужно будет заменить на Single()
+                                                                  ? invoiceDto.SalesModels.First()
+                                                                  : SalesModel.None).ConvertToServiceBusSalesModel()),
                                               new XAttribute("Number", invoiceDto.Number),
                                               new XAttribute("FirmCode", invoiceDto.FirmCode),
                                               new XAttribute("FirmName", invoiceDto.FirmName),
@@ -263,23 +264,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return objectLinkElement;
         }
 
-        private ServiceBusSalesModel ConvertToServiceBusSalesModel(SalesModel model)
-        {
-            switch (model)
-            {
-                case SalesModel.None:
-                    return ServiceBusSalesModel.None;
-                case SalesModel.GuaranteedProvision:
-                    return ServiceBusSalesModel.CPS;
-                case SalesModel.PlannedProvision:
-                    return ServiceBusSalesModel.FH;
-                case SalesModel.MultiPlannedProvision:
-                    return ServiceBusSalesModel.MFH;
-                default:
-                    throw new ArgumentOutOfRangeException("model");
-            }
-        }
-
         #region nested types
 
         public sealed class InvoiceDto : IExportableEntityDto
@@ -342,13 +326,5 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         }
 
         #endregion
-
-        private enum ServiceBusSalesModel
-        {
-            None = 0,
-            CPS = 10,
-            FH = 11,
-            MFH = 12
-        }
     }
 }
