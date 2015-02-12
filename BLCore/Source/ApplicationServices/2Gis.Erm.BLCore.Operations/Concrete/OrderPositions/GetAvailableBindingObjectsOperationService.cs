@@ -94,8 +94,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
         private LinkingObjectsSchemaDto.FirmAddressDto[] GetFirmAddresses(long firmId, bool includeHiddenAddresses)
         {
             var firmAddresses = includeHiddenAddresses
-                                    ? _firmReadModel.GetFirmAddressesByFirm(firmId)
-                                    : _firmReadModel.GetActiveOrWithSalesByFirm(firmId);
+                                    ? _firmReadModel.GetActiveOrWithSalesByFirm(firmId)
+                                    : _firmReadModel.GetFirmAddressesByFirm(firmId);
 
             return firmAddresses.Select(fa => new LinkingObjectsSchemaDto.FirmAddressDto
                                                   {
