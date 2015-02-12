@@ -32,12 +32,12 @@
                     <ToolTip LCID="1049" Text="Сменить Куратора" />
                   </ToolTips>
                 </Button>
-                <Button Icon="/_imgs/ico_16_assign.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/CancelActivity/Activity', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                <Button Icon="/_imgs/Delete.png" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/CancelActivity/Activity', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
                   <Titles>
-                    <Title LCID="1049" Text="Назначение" />
+                    <Title LCID="1049" Text="Отменить" />
                   </Titles>
                   <ToolTips>
-                    <ToolTip LCID="1049" Text="Сменить Куратора" />
+                    <ToolTip LCID="1049" Text="Отменить действие" />
                   </ToolTips>
                 </Button>
               </Buttons>
