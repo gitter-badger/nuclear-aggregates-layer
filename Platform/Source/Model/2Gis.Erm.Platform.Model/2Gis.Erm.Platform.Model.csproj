@@ -336,6 +336,7 @@
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetterRecipient.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetterRegardingObject.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetterSender.cs" />
+    <Compile Include="Entities\Erm\EntityTypes\EntityTypeSalesModelCategoryRestriction.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeTaskRegardingObject.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeAcceptanceReportsJournalRecord.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeAccount.cs" />
@@ -570,6 +571,7 @@
     <Compile Include="Entities\Erm\PerformedOperationPrimaryProcessing.cs" />
     <Compile Include="Entities\Erm\PhonecallBase.cs" />
     <Compile Include="Entities\Erm\PhonecallReference.cs" />
+    <Compile Include="Entities\Erm\SalesModelCategoryRestriction.cs" />
     <Compile Include="Entities\Erm\Platform.cs" />
     <Compile Include="Entities\Erm\Position.cs" />
     <Compile Include="Entities\Erm\PositionCategory.cs" />
@@ -629,6 +631,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\DeleteChargesForPeriodAndProjectIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportAdvModelInRubricInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportChargesInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Building\ImportBuildingIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Category\ImportRubricIdentity.cs" />

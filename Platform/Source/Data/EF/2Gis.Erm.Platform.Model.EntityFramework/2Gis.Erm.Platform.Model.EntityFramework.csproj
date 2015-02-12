@@ -55,6 +55,7 @@
     <Compile Include="Config\Erm\OrderValidationCacheEntryMap.cs" />
     <Compile Include="Config\Erm\LetterBaseMap.cs" />
     <Compile Include="Config\Erm\LetterReferenceMap.cs" />
+    <Compile Include="Config\Erm\SalesModelCategoryRestrictionMap.cs" />
     <Compile Include="DI\PlatformModelEntityFrameworkAssembly.cs" />
     <Compile Include="EntityConfig.cs" />
     <Compile Include="EntityConvention.cs" />

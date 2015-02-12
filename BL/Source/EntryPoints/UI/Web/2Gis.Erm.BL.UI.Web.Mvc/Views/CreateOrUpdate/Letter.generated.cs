@@ -221,13 +221,35 @@ WriteLiteral("        ");
             #line hidden
 WriteLiteral("\r\n");
 
+            
+            #line 36 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 36 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+          
+            var firmDataFields = new[]
+                                     {
+                                         new LookupDataField { Name = "id", Mapping = "Id" }, 
+                                         new LookupDataField { Name = "name", Mapping = "Name" }, 
+                                         new LookupDataField { Name = "city", Mapping = "OrganizationUnitName" }
+                                     };
+            const string HeaderTextTemplate = "'<span class=\"x-lookup-thumb\">{name}</span>&nbsp;<span class=\"x-lookup-thumb\" style=\"color:gray\">{city}</span>&nbsp;'";
+        
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
 WriteLiteral("        ");
 
             
-            #line 36 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 45 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client() }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" })));
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
 
             
             #line default
@@ -237,7 +259,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 39 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 48 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Deal(), ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" })));
 
             
@@ -248,7 +270,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 41 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 50 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -259,7 +281,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 42 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -270,7 +292,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 43 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 52 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
@@ -284,7 +306,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 47 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 56 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Sender, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.User() })));
 
             
@@ -295,7 +317,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 48 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 57 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Contact(), ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" })));
 
             
@@ -306,7 +328,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 50 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 59 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -317,7 +339,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 51 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 60 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             

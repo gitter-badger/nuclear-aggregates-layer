@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
                 EntityType.Instance.Category(),
                 EntityType.Instance.CategoryGroup(),
                 EntityType.Instance.CategoryOrganizationUnit(),
+                EntityType.Instance.SalesModelCategoryRestriction(),
                 EntityType.Instance.NotificationProcessing(),
                 EntityType.Instance.NotificationEmail(),
                 EntityType.Instance.NotificationAddress(),

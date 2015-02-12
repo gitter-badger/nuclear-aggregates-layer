@@ -70,6 +70,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityType.Instance.CategoryOrganizationUnit(), typeof(CategoryOrganizationUnit) },
                 { EntityType.Instance.CategoryGroup(), typeof(CategoryGroup) },
                 { EntityType.Instance.CategoryFirmAddress(), typeof(CategoryFirmAddress) },
+                { EntityType.Instance.SalesModelCategoryRestriction(), typeof(SalesModelCategoryRestriction) },
                 { EntityType.Instance.Country(), typeof(Country) },
                 { EntityType.Instance.Advertisement(), typeof(Advertisement) },
                 { EntityType.Instance.AdvertisementTemplate(), typeof(AdvertisementTemplate) },

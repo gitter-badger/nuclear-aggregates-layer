@@ -435,7 +435,7 @@ WriteLiteral("                        ");
 
             
             #line 61 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-                   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityType.Instance.PricePosition(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.Price(), ParentIdPattern = "PriceId" }));
+                   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityType.Instance.PricePosition(), ExtendedInfo = "filterToParent=true&orderId={OrderId}", ParentEntityName = EntityType.Instance.Price(), ParentIdPattern = "PriceId" }));
 
             
             #line default

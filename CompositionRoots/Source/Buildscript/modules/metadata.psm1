@@ -58,6 +58,7 @@ $EnvironmentMetadatas = @{
 	
 	'Load.Russia' = Get-EnvironmentMetadata 'Load.Russia' 'Load' 'Russia'
 	'Load.Cyprus' = Get-EnvironmentMetadata 'Load.Cyprus' 'Load' 'Cyprus'
+	'Load.Czech' = Get-EnvironmentMetadata 'Load.Czech' 'Load' 'Czech'
 	'Load.Ukraine' = Get-EnvironmentMetadata 'Load.Ukraine' 'Load' 'Ukraine'
 
 	'Production.Chile' = Get-EnvironmentMetadata 'Production.Chile' 'Production' 'Chile'

@@ -204,13 +204,35 @@ WriteLiteral("        ");
             #line hidden
 WriteLiteral("\r\n");
 
+            
+            #line 34 "..\..\Views\CreateOrUpdate\Task.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 34 "..\..\Views\CreateOrUpdate\Task.cshtml"
+          
+            var firmDataFields = new[]
+                                     {
+                                         new LookupDataField { Name = "id", Mapping = "Id" },
+                                         new LookupDataField { Name = "name", Mapping = "Name" },
+                                         new LookupDataField { Name = "city", Mapping = "OrganizationUnitName" }
+                                     };
+            const string HeaderTextTemplate = "'<span class=\"x-lookup-thumb\">{name}</span>&nbsp;<span class=\"x-lookup-thumb\" style=\"color:gray\">{city}</span>&nbsp;'";
+        
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
 WriteLiteral("        ");
 
             
-            #line 34 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 43 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(
-            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client() }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" })));
+                     @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client() }),
+                     @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
 
             
             #line default
@@ -220,7 +242,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 37 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 46 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Deal(), ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" })));
 
             
@@ -231,7 +253,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 39 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 48 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -242,7 +264,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 40 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 49 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.TaskType, FieldFlex.lone, null, EnumResources.ResourceManager)));
 
             
@@ -253,7 +275,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 41 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 50 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -264,7 +286,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 42 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
@@ -278,7 +300,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 47 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 56 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -289,7 +311,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 48 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 57 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             

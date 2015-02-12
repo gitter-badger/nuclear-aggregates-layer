@@ -55,6 +55,7 @@
         public const int CategoryGroup = 162;
         public const int CategoryGroupMembership = 163;
         public const int CategoryFirmAddress = 166;
+        public const int SalesModelCategoryRestriction = 272;
         public const int Country = 143;
         public const int Advertisement = 186;
         public const int AdvertisementElement = 187;

@@ -81,6 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                                                                OrderId = orderPositionAdvertisementLinksInfo.OrderId,
                                                                                ChangedAspects = new[]
                                                                                                     {
+                                                                                                        OrderValidationRuleGroup.SalesModelValidation,
                                                                                                         OrderValidationRuleGroup.AdvertisementMaterialsValidation
                                                                                                     }
                                                                            }

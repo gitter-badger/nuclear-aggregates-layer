@@ -246,6 +246,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             return EntityTypeCategoryOrganizationUnit.Instance;
         }
 
+        public static EntityTypeSalesModelCategoryRestriction SalesModelCategoryRestriction(this EntityType entityType)
+        {
+            return EntityTypeSalesModelCategoryRestriction.Instance;
+        }
+
         public static EntityTypeCategoryGroup CategoryGroup(this EntityType entityType)
         {
             return EntityTypeCategoryGroup.Instance;

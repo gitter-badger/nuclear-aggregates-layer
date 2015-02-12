@@ -22,6 +22,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             CategoryOrganizationUnits = new HashSet<CategoryOrganizationUnit>();
             OrderPositionAdvertisements = new HashSet<OrderPositionAdvertisement>();
             ThemeCategories = new HashSet<ThemeCategory>();
+            SalesModelRestrictions = new HashSet<SalesModelCategoryRestriction>();
         }
 
         public long Id { get; set; }
@@ -44,6 +45,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public ICollection<CategoryOrganizationUnit> CategoryOrganizationUnits { get; set; }
         public ICollection<OrderPositionAdvertisement> OrderPositionAdvertisements { get; set; }
         public ICollection<ThemeCategory> ThemeCategories { get; set; }
+        public ICollection<SalesModelCategoryRestriction> SalesModelRestrictions { get; set; }
 
         public override bool Equals(object obj)
         {
