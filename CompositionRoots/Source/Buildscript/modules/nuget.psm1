@@ -2,6 +2,8 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
+Import-Module "$PSScriptRoot\msbuild.psm1" -DisableNameChecking
+
 function Invoke-NuGet ($Arguments) {
 
 	if (!(Test-Path $NugetPath)){
@@ -97,7 +99,85 @@ function Restore-Packages {
 	)
 }
 
-function Deploy-Packages ($Packages, $ServerUrl, $ApiKey) {
+# костыль чтобы указать repositoryPath
+function Copy-NugetConfig ($SolutionRelatedAllProjectsDir) {
+	$content = @"
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <config>
+    <add key="repositoryPath" value="$($global:Context.Dir.Solution)\packages" />
+  </config>
+</configuration>
+"@
+	$allProjectsDir = Join-Path $global:Context.Dir.Solution $SolutionRelatedAllProjectsDir
+	$fileName = Join-Path $allProjectsDir 'NuGet.Config'
+	
+	if (!(Test-Path $fileName)){
+		Set-Content $fileName $content -Encoding UTF8 -Force
+	}
+}
+
+# нужно создать nuspec файлы для вообще всех проектов, чтобы правильно работал флаг IncludeReferencedProjects
+# создаём типовые nuspec-файлы для всех проектов в solution
+function Create-NuspecFiles ($SolutionRelatedAllProjectsDir = '.') {
+
+	Copy-NugetConfig $SolutionRelatedAllProjectsDir
+
+	$projects = Find-Projects $SolutionRelatedAllProjectsDir
+
+	$content = @'
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <description>$description$</description>
+	
+	<tags>ERM</tags>
+  </metadata>
+  <files>
+  	<file src="bin\$configuration$\**\$id$.resources.dll" />
+  </files>
+</package>
+'@
+
+	foreach($project in $projects){
+	
+		$nuspecFileName = [System.IO.Path]::ChangeExtension($project.FullName, '.nuspec')
+		if ((Test-Path $nuspecFileName)){
+			continue
+		}
+		
+		Set-Content $nuspecFileName $content -Encoding UTF8 -Force
+	}
+}
+
+function Build-PackagesFromProjects ($Projects, $OutputDirectory){
+
+	foreach($project in $Projects){
+		
+		$buildFileName = Create-BuildFile $project.FullName
+		Invoke-MSBuild $buildFileName
+		
+		Invoke-NuGet @(
+			'pack'
+			$buildFileName
+			'-Properties'
+			# TODO отрефакторить
+			'Configuration=Release;VisualStudioVersion=12.0'
+			'-IncludeReferencedProjects'
+			'-ExcludeEmptyDirectories'
+			'-NoPackageAnalysis'
+			'-OutputDirectory'
+			$OutputDirectory
+			# create '.symbols.nupkg'
+			'-Symbols'
+		)
+	}
+}
+
+function Deploy-Packages ($Packages, $ServerUrl, $ApiKey){
 	
 	foreach($package in $Packages){
 		Invoke-NuGet @(
@@ -115,4 +195,4 @@ $LocalPackagesConfig = "$PSScriptRoot\packages.config"
 $PackageInfo = Get-PackageInfo 'NuGet.CommandLine' -ThrowError $false
 $NugetPath = Join-Path $PackageInfo.VersionedDir 'tools\NuGet.exe'
 
-Export-ModuleMember -Function Invoke-NuGet, Get-PackageInfo, Restore-Packages, Deploy-Packages
+Export-ModuleMember -Function Invoke-NuGet, Get-PackageInfo, Restore-Packages, Deploy-Packages, Create-NuspecFiles, Build-PackagesFromProjects
