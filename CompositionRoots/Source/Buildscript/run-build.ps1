@@ -3,21 +3,14 @@ param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 # COMMENT FOR LOCAL DEBUG
 
 # UNCOMMENT FOR LOCAL DEBUG
-#$TaskList = @('Build-Dynamics')
+#$TaskList = @('Build-Modi')
 #$Properties = @{
-#	'OptionWebApp' = $true
-#	'OptionBasicOperations' = $true
-#	'OptionModi' = $true
-#	'OptionMetadata' = $true
-#	'OptionOrderValidation' = $true
-#	'OptionFinancialOperations' = $true
-#	'OptionReleasing' = $true
-
+#
 #	'Revision' = '1'
 #	'Build' = 2
 #	'Branch' = 'local'
-	
-#	'EnvironmentName' = 'Production.Ukraine'
+#	
+#	'EnvironmentName' = 'Production.Russia'
 #}
 # UNCOMMENT FOR LOCAL DEBUG
 

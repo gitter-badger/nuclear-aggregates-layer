@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-function Get-WithCrmMetadata ($EnvType, $Country, $Index){
+function Get-OptionDynamicsMetadata ($EnvType, $Country, $Index) {
 
 	switch ($Country){
 		'Russia' {
@@ -22,7 +22,7 @@ function Get-WithCrmMetadata ($EnvType, $Country, $Index){
 	}
 }
 
-function Get-CrmHostsMetadata ($EnvType, $Index){
+function Get-CrmHostsMetadata ($EnvType, $Index) {
 
 	switch ($EnvType) {
 		'Production'{
@@ -52,7 +52,7 @@ function Get-CrmHostsMetadata ($EnvType, $Index){
 function Get-DynamicsMetadata ($EnvType, $Country, $Index) {
 
 	$metadata = @{}
-	$metadata += Get-WithCrmMetadata $EnvType $Country $Index
+	$metadata += Get-OptionDynamicsMetadata $EnvType $Country $Index
 	
 	if ($metadata.OptionDynamics){
 		$metadata += Get-CrmHostsMetadata $EnvType $Index

@@ -9,7 +9,7 @@ Import-Module "$BuildToolsRoot\modules\reports.psm1" -DisableNameChecking
 
 Properties { $OptionReports = $true }
 
-Task Deploy-Reports -precondition { return $OptionReports } -Depends `
+Task Deploy-Reports -Precondition { $OptionReports } -Depends `
 Deploy-ReportsDir, `
 Replace-ReportsStoredProcs
 

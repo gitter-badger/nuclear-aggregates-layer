@@ -12,7 +12,7 @@ $DomainNames = @{
 	'Kazakhstan' = 'kz'
 }
 
-function Get-TargetHostsMetadata ($EnvType, $Country, $EntryPoint){
+function Get-TargetHostsMetadata ($EnvType, $Country, $EntryPoint) {
 
 	switch ($EnvType) {
 		'Test' {
@@ -53,7 +53,7 @@ function Get-TargetHostsMetadata ($EnvType, $Country, $EntryPoint){
 	}
 }
 
-function Get-ValidateWebsiteMetadata ($EnvType){
+function Get-ValidateWebsiteMetadata ($EnvType) {
 	switch($EnvType){
 		{ @('Production', 'Load') -contains $_ } {
 			return @{ 'ValidateWebsite' = $false }
@@ -104,6 +104,24 @@ function Get-TakeOfflineMetadata ($EnvType) {
 	}
 }
 
+function Get-OptionsMetadata ($Country) {
+
+	switch ($Country){
+		'Russia' {
+			return @{
+				'OptionModi' = $true
+				'OptionFinancialOperations' = $true
+			}
+		}
+		default {
+			return @{
+				'OptionModi' = $false
+				'OptionFinancialOperations' = $false
+			}
+		}
+	}
+}
+
 function Get-WebMetadata ($EnvType, $Country, $EntryPoint, $Index) {
 
 	$metadata = @{}
@@ -111,6 +129,7 @@ function Get-WebMetadata ($EnvType, $Country, $EntryPoint, $Index) {
 	$metadata += Get-TargetHostsMetadata $EnvType $Country $EntryPoint
 	$metadata += Get-IisAppPathMetadata $EnvType $Country $EntryPoint $Index
 	$metadata += Get-TakeOfflineMetadata $EnvType
+	$metadata += Get-OptionsMetadata $Country
 	
 	return $metadata
 }
