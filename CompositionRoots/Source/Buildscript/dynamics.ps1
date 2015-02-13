@@ -10,12 +10,12 @@ Import-Module "$BuildToolsRoot\modules\sqlserver.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\web.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\transform.psm1" -DisableNameChecking
 
-Properties{ $OptionDynamics=$false }
-Task Build-Dynamics -Precondition { return $OptionDynamics } -Depends `
+Properties { $OptionDynamics = $true }
+Task Build-Dynamics -Precondition { $OptionDynamics -and (Get-EntryPointMetadata 'Dynamics').OptionDynamics } -Depends `
 Build-HackFiles, `
 Build-Plugins
 
-Task Deploy-Dynamics -Precondition { return $OptionDynamics } -Depends `
+Task Deploy-Dynamics -Precondition { $OptionDynamics -and (Get-EntryPointMetadata 'Dynamics').OptionDynamics } -Depends `
 Deploy-HackFiles, `
 Deploy-Plugins, `
 Update-CustomizationsXml, `

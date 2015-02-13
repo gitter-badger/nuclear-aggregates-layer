@@ -107,7 +107,7 @@ function Get-QuartzConfigMetadata ($EnvType, $Country, $Index){
 					$quartzConfigs = @('Templates\quartz.Test.Russia.config')
 					
 					$dynamicsMetadata = Get-DynamicsMetadata $EnvType $Country $Index
-					if ($dynamicsMetadata.WithCrm){
+					if ($dynamicsMetadata.OptionDynamics){
 						$quartzConfigs += @('Templates\quartz.Test.Russia.CRM.config')
 					}
 					$alterQuartzConfigs = @()
@@ -145,7 +145,7 @@ function Get-QuartzConfigMetadata ($EnvType, $Country, $Index){
 					$alterQuartzConfigs = @('Templates\quartz.Test.Russia.config')
 					
 					$dynamicsMetadata = Get-DynamicsMetadata $EnvType $Country $Index
-					if ($dynamicsMetadata.WithCrm){
+					if ($dynamicsMetadata.OptionDynamics){
 						$alterQuartzConfigs += @('Templates\quartz.Test.Russia.CRM.config')
 					}
 				}

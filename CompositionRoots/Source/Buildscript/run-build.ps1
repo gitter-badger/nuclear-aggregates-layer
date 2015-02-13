@@ -3,7 +3,7 @@ param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 # COMMENT FOR LOCAL DEBUG
 
 # UNCOMMENT FOR LOCAL DEBUG
-#$TaskList = @('Hello')
+#$TaskList = @('Build-Dynamics')
 #$Properties = @{
 #	'OptionWebApp' = $true
 #	'OptionBasicOperations' = $true
@@ -12,17 +12,17 @@ param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 #	'OptionOrderValidation' = $true
 #	'OptionFinancialOperations' = $true
 #	'OptionReleasing' = $true
-#
+
 #	'OptionTaskService' = $true
 #	'OptionWpfClient' = $false
 #	'OptionDynamics' = $true
 #	'OptionReports' = $true
-#	
+	
 #	'Revision' = '1'
 #	'Build' = 2
 #	'Branch' = 'local'
-#	
-#	'EnvironmentName' = 'Production.Russia'
+	
+#	'EnvironmentName' = 'Production.Ukraine'
 #}
 # UNCOMMENT FOR LOCAL DEBUG
 
@@ -56,5 +56,5 @@ $Properties.EnvironmentMetadata = $EnvironmentMetadata
 	& $NugetPath @('restore', $solution.FullName, '-NonInteractive', '-Verbosity', 'quiet')
 }
 
-Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.3\tools\buildtools.psm1" -DisableNameChecking
+Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.4\tools\buildtools.psm1" -DisableNameChecking
 Run-Build $TaskList $Properties

@@ -8,16 +8,16 @@ function Get-WithCrmMetadata ($EnvType, $Country, $Index){
 		'Russia' {
 			switch ($EnvType) {
 				'Test' {
-					$withCrm = [int]$Index -le 6
-					return @{ 'WithCrm' = $withCrm }
+					$optionDynamics = [int]$Index -le 6
+					return @{ 'OptionDynamics' = $optionDynamics }
 				}
 				default {
-					return @{ 'WithCrm' = $true }
+					return @{ 'OptionDynamics' = $true }
 				}
 			}
 		}
 		default {
-			return @{ 'WithCrm' = $false }
+			return @{ 'OptionDynamics' = $false }
 		}
 	}
 }
@@ -54,7 +54,7 @@ function Get-DynamicsMetadata ($EnvType, $Country, $Index) {
 	$metadata = @{}
 	$metadata += Get-WithCrmMetadata $EnvType $Country $Index
 	
-	if ($metadata.WithCrm){
+	if ($metadata.OptionDynamics){
 		$metadata += Get-CrmHostsMetadata $EnvType $Index
 	}
 	

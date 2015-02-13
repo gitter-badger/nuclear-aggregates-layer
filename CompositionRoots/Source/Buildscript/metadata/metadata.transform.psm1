@@ -17,7 +17,7 @@ function Get-XdtTransformMetadata($EnvType, $Country, $Index){
 				'Russia' {
 					
 					$dynamicsMetadata = Get-DynamicsMetadata $EnvType $Country $Index
-					if ($dynamicsMetadata.WithCrm){
+					if ($dynamicsMetadata.OptionDynamics){
 						$xdt += @('Templates\Erm.Test.Russia.CRM.config')
 					} else {
 						$xdt += @("Templates\Erm.Test.$Country.config")
