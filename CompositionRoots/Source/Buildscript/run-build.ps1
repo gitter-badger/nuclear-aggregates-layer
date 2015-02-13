@@ -47,7 +47,7 @@ $Properties.EnvironmentMetadata = $EnvironmentMetadata
 & {
 	$NugetPath = Join-Path $Properties.Dir.Solution '.nuget\NuGet.exe'
 	if (!(Test-Path $NugetPath)){
-		Invoke-WebRequest 'https://www.nuget.org/nuget.exe' -OutFile $NugetPath -UseDefaultCredentials -ProxyUseDefaultCredentials
+		Invoke-WebRequest 'https://www.nuget.org/nuget.exe' -OutFile $NugetPath -UseDefaultCredentials
 	}
 	$solution = Get-ChildItem $Properties.Dir.Solution -Filter '*.sln'
 	& $NugetPath @('restore', $solution.FullName, '-NonInteractive', '-Verbosity', 'quiet')
