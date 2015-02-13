@@ -2,8 +2,8 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module "$PSScriptRoot\modules\msbuild.psm1" -DisableNameChecking
-Import-Module "$PSScriptRoot\modules\transform.psm1" -DisableNameChecking
+Import-Module "$BuildToolsRoot\modules\msbuild.psm1" -DisableNameChecking
+Import-Module "$BuildToolsRoot\modules\transform.psm1" -DisableNameChecking
 
 Task Build-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations').RunElasticsearchMigrations } -Depends Update-AssemblyInfo {
 

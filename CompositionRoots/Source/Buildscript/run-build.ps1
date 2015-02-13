@@ -43,5 +43,5 @@ $Properties.Dir = @{
 Import-Module "$PSScriptRoot\metadata\metadata.psm1" -DisableNameChecking
 $Properties.EnvironmentMetadata = $EnvironmentMetadata
 
-Import-Module "$PSScriptRoot\modules\buildtools.psm1" -DisableNameChecking
+Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.3\tools\buildtools.psm1" -DisableNameChecking
 Run-Build $TaskList $Properties

@@ -2,8 +2,8 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module "$PSScriptRoot\modules\unittests.psm1" -DisableNameChecking
-Import-Module "$PSScriptRoot\modules\msbuild.psm1" -DisableNameChecking
+Import-Module "$BuildToolsRoot\modules\unittests.psm1" -DisableNameChecking
+Import-Module "$BuildToolsRoot\modules\msbuild.psm1" -DisableNameChecking
 
 $IncludeProjects = @('*Tests.Unit*')
 

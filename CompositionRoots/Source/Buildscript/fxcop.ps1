@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module "$PSScriptRoot\modules\msbuild.psm1" -DisableNameChecking
+Import-Module "$BuildToolsRoot\modules\msbuild.psm1" -DisableNameChecking
 
 $RulesetPath = Join-Path $PSScriptRoot 'fxcop.ruleset'
 

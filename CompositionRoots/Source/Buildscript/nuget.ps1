@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
-Import-Module "$PSScriptRoot\modules\nuget.psm1" -DisableNameChecking
+Import-Module "$BuildToolsRoot\modules\nuget.psm1" -DisableNameChecking
 
 Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 

@@ -54,18 +54,6 @@
     <Compile Include="metadata\metadata.web.psm1" />
     <Compile Include="metadata\metadata.web.psm1" />
     <Compile Include="migrations.ps1" />
-    <Compile Include="modules\buildtools.psm1" />
-    <Compile Include="modules\dynamics.psm1" />
-    <Compile Include="modules\metadata.psm1" />
-    <Compile Include="modules\msbuild.psm1" />
-    <Compile Include="modules\msdeploy.psm1" />
-    <Compile Include="modules\nuget.psm1" />
-    <Compile Include="modules\packages.config" />
-    <Compile Include="modules\reports.psm1" />
-    <Compile Include="modules\sqlserver.psm1" />
-    <Compile Include="modules\transform.psm1" />
-    <Compile Include="modules\versioning.psm1" />
-    <Compile Include="modules\web.psm1" />
     <Compile Include="nuget.ps1" />
     <Compile Include="reports.ps1" />
     <Compile Include="run-build.ps1" />
@@ -75,12 +63,10 @@
     <Compile Include="versioning.ps1" />
     <Compile Include="web.ps1" />
     <Compile Include="wpf.ps1" />
-    <Content Include="modules\unittests.psm1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="metadata\" />
     <Folder Include="metadata\" />
-    <Folder Include="modules\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
