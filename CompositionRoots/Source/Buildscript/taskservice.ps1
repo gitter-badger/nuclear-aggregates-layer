@@ -8,8 +8,9 @@ Import-Module "$BuildToolsRoot\modules\msdeploy.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\versioning.psm1" -DisableNameChecking
 
-Properties{ $OptionTaskService=$false }
-Task Build-TaskService -Precondition { return $OptionTaskService } -Depends Update-AssemblyInfo {
+Properties { $OptionTaskService = $true }
+
+Task Build-TaskService -Precondition { $OptionTaskService } -Depends Update-AssemblyInfo {
 
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService'
 	$buildFileName = Create-TaskServiceBuildFile $projectFileName
@@ -181,7 +182,7 @@ function Get-InstallerConfigXmls ($projectFileName, $buildFileName) {
 	return $xml
 }
 
-Task Deploy-TaskService -Precondition { return $OptionTaskService } {
+Task Deploy-TaskService -Precondition { $OptionTaskService } {
 	
 	$remoteScriptBlock = {
 		param($artifactFileName)
@@ -233,7 +234,7 @@ Task Deploy-TaskService -Precondition { return $OptionTaskService } {
 	}
 }
 
-Task Take-TaskServiceOffline -Precondition { return $OptionTaskService } {
+Task Take-TaskServiceOffline -Precondition { $OptionTaskService } {
 
 	$remoteScriptBlock = {
 		param($EnvironmentName)
@@ -272,7 +273,7 @@ Task Take-TaskServiceOffline -Precondition { return $OptionTaskService } {
         }
 }
 
-Task Take-TaskServiceOnline -Precondition { return $OptionTaskService -and (Get-EntryPointMetadata '2Gis.Erm.TaskService.Installer').AutoStart } {
+Task Take-TaskServiceOnline -Precondition { $OptionTaskService -and (Get-EntryPointMetadata '2Gis.Erm.TaskService.Installer').AutoStart } {
 
 	$remoteScriptBlock = {
 		param($EnvironmentName)

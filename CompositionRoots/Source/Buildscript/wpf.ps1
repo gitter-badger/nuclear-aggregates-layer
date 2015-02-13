@@ -9,7 +9,9 @@ Import-Module "$BuildToolsRoot\modules\web.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\versioning.psm1" -DisableNameChecking
 
+# WPF client disabled
 Properties { $OptionWpfClient = $false }
+
 Task Build-WpfClient -Precondition { $OptionWpfClient } -Depends Update-AssemblyInfo {
 
 	Build-WpfClientModule

@@ -13,7 +13,6 @@ param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 #	'OptionFinancialOperations' = $true
 #	'OptionReleasing' = $true
 
-#	'OptionTaskService' = $true
 #	'OptionReports' = $true
 	
 #	'Revision' = '1'
