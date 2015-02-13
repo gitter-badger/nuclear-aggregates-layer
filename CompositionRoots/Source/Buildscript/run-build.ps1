@@ -14,8 +14,6 @@ param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 #	'OptionReleasing' = $true
 
 #	'OptionTaskService' = $true
-#	'OptionWpfClient' = $false
-#	'OptionDynamics' = $true
 #	'OptionReports' = $true
 	
 #	'Revision' = '1'

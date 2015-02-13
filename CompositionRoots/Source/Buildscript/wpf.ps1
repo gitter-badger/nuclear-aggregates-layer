@@ -9,14 +9,14 @@ Import-Module "$BuildToolsRoot\modules\web.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\versioning.psm1" -DisableNameChecking
 
-Properties{ $OptionWpfClient=$false }
-Task Build-WpfClient -Precondition { return $OptionWpfClient } -Depends Update-AssemblyInfo {
+Properties { $OptionWpfClient = $false }
+Task Build-WpfClient -Precondition { $OptionWpfClient } -Depends Update-AssemblyInfo {
 
 	Build-WpfClientModule
 	Build-WpfShell
 }
 
-Task Deploy-WpfClient -Precondition { return $OptionWpfClient } {
+Task Deploy-WpfClient -Precondition { $OptionWpfClient } {
 	$artifactName = Get-Artifacts '' '2Gis.Erm.UI.Desktop.WPF.zip'
 	
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Desktop.WPF'
