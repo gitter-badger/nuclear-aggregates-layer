@@ -47,9 +47,10 @@ $Properties.EnvironmentMetadata = $EnvironmentMetadata
 & {
 	$NugetPath = Join-Path $Properties.Dir.Solution '.nuget\NuGet.exe'
 	if (!(Test-Path $NugetPath)){
-		$url = 'https://www.nuget.org/nuget.exe';
-		$proxy = [System.Net.WebRequest]::DefaultWebProxy.GetProxy($url)
-		Invoke-WebRequest $url -OutFile $NugetPath -UseDefaultCredentials -Proxy $proxy -ProxyUseDefaultCredentials
+		$webClient = New-Object System.Net.WebClient
+		$webClient.UseDefaultCredentials = $true
+		$webClient.Proxy.Credentials = $webClient.Credentials
+		$webClient.DownloadFile('https://www.nuget.org/nuget.exe', $NugetPath)
 	}
 	$solution = Get-ChildItem $Properties.Dir.Solution -Filter '*.sln'
 	& $NugetPath @('restore', $solution.FullName, '-NonInteractive', '-Verbosity', 'quiet')
