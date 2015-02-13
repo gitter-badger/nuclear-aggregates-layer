@@ -3,7 +3,7 @@ param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 # COMMENT FOR LOCAL DEBUG
 
 # UNCOMMENT FOR LOCAL DEBUG
-#$TaskList = @('Build-BasicOperations')
+#$TaskList = @('Hello')
 #$Properties = @{
 #	'OptionWebApp' = $true
 #	'OptionBasicOperations' = $true
@@ -42,6 +42,16 @@ $Properties.Dir = @{
 
 Import-Module "$PSScriptRoot\metadata\metadata.psm1" -DisableNameChecking
 $Properties.EnvironmentMetadata = $EnvironmentMetadata
+
+# Restore-Packages
+& {
+	$NugetPath = Join-Path $Properties.Dir.Solution '.nuget\NuGet.exe'
+	if (!(Test-Path $NugetPath)){
+		Invoke-WebRequest 'https://www.nuget.org/nuget.exe' -OutFile $NugetPath
+	}
+	$solution = Get-ChildItem $Properties.Dir.Solution -Filter '*.sln'
+	& $NugetPath @('restore', $solution.FullName, '-NonInteractive', '-Verbosity', 'quiet')
+}
 
 Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.3\tools\buildtools.psm1" -DisableNameChecking
 Run-Build $TaskList $Properties
