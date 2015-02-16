@@ -254,7 +254,7 @@
         Ext.get('Approve').disable();
         Ext.get('Reject').disable();
         var mask = new Ext.LoadMask(document.body);
-        mask.show();
+        mask.show();        
         var params = {
             start: '0',
             limit: '65535',

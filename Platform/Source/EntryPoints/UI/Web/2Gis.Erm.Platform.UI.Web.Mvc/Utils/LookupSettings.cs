@@ -16,5 +16,6 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
         public EntityName ParentEntityName { get; set; }
         public string ParentIdPattern { get; set; }
+        public IEnumerable<LookupSortInfo> DefaultSortFields { get; set;} 
     }
 }

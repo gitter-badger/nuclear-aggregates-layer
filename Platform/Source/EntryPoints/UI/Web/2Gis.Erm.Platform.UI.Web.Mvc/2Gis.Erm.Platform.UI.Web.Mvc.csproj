@@ -124,6 +124,7 @@
     <Compile Include="Utils\LookupField.cs" />
     <Compile Include="Utils\LookupField.Server.cs" />
     <Compile Include="Utils\LookupSettings.cs" />
+    <Compile Include="Utils\LookupSortInfo.cs" />
     <Compile Include="Utils\SilverlightControlSettings.cs" />
     <Compile Include="Utils\SilverlightHtmlExtensions.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />

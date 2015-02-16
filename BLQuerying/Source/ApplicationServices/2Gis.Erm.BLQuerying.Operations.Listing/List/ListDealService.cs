@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<Deal>();
+            var query = _finder.FindAll<Deal>();           
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
@@ -95,6 +95,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                     OwnerCode = x.OwnerCode,
+                    IsOwner = x.OwnerCode == _userContext.Identity.Code
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

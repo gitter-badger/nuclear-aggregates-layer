@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<Firm>();
+            var query = _finder.FindAll<Firm>();         
 
             long appendToDealId;
             if (querySettings.TryGetExtendedProperty("appendToDealId", out appendToDealId))
@@ -124,6 +124,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         IsDeleted = x.IsDeleted,
                         ClosedForAscertainment = x.ClosedForAscertainment,
                         OwnerName = null,
+                        IsOwner = x.OwnerCode == _userContext.Identity.Code
                     })
                 .QuerySettings(_filterHelper, querySettings);
         }
