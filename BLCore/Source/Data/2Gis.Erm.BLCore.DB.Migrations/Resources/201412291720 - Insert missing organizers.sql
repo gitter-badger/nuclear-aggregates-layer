@@ -23,4 +23,5 @@
 		JOIN [Security].[Users] [owners] ON [owners].[Id] = [a].[OwnerCode]
 		LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
 		LEFT OUTER JOIN [{0}].[dbo].[ActivityPartyBase] r ON ( [r].[ActivityId] = [a].[ReplicationCode] and [ParticipationTypeMask] = 7)
+		INNER JOIN  [{0}].[dbo].[ActivityPointerBase] apointer ON ([apointer].[ActivityId] = [a].[ReplicationCode])
 		WHERE [r].[ActivityId] is NULL
