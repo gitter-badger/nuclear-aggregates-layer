@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
                                         UserInputFilter = searchListModel.FilterInput,
                                         FilterName = searchListModel.NameLocaleResourceId,
                                         SearchListModel = searchListModel,
-                                        Sort = (searchListModel.Sort ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                        Sort = (searchListModel.Sort ?? string.Empty).Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                                                                            .Where(x => !string.IsNullOrEmpty(x))
                                                                            .Select(x =>
                                                                                        {
@@ -62,8 +62,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
         }
 
         private static SortDirection GetSortDirection(string sortDirection)
-        {
-            
+        {            
             if (string.IsNullOrEmpty(sortDirection) || string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
             {
                 return SortDirection.Ascending;

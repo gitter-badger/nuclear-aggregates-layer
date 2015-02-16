@@ -388,7 +388,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 CreatedOn = x.CreatedOn,
                 IsAdvertisingAgency = x.IsAdvertisingAgency,
                 InformationSourceEnum = x.InformationSource,
-                IsOwner = (_userContext.Identity.Code == x.OwnerCode),
+                IsOwner = _userContext.Identity.Code == x.OwnerCode,
                 OwnerName = null,
             })
             .QuerySettings(_filterHelper, querySettings);
