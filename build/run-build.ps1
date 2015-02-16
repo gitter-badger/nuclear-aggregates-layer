@@ -7,7 +7,7 @@ if ($TaskList.Count -eq 0 -and $Properties.Count -eq 0){
 		'Revision' = '000000'
 		'Build' = 0
 		'Branch' = 'local'
-		
+
 		'EnvironmentName' = 'Production.Russia'
 	}
 }
@@ -42,5 +42,5 @@ $Properties.EnvironmentMetadata = $EnvironmentMetadata
 	& $NugetPath @('restore', $solution.FullName, '-NonInteractive', '-Verbosity', 'quiet')
 }
 
-Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.4\tools\buildtools.psm1" -DisableNameChecking
+Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.5\tools\buildtools.psm1" -DisableNameChecking
 Run-Build $TaskList $Properties

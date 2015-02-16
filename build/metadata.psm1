@@ -21,7 +21,6 @@ function Get-MigrationsMetadata ($Country){
 function Get-EnvironmentMetadata ($EnvName, [ValidateSet('Test', 'Int', 'Load', 'Production', 'Edu', 'Business')]$EnvType, $Country, $Index) {
 
 	return @{
-		'Common' = @{ 'EnvType' = $EnvType }
 		'Transform' = Get-TransformMetadata $EnvName $EnvType $Country $Index
 		'2Gis.Erm.UI.Web.Mvc' = Get-WebMetadata $EnvType $Country '2Gis.Erm.UI.Web.Mvc' $Index
 		'2Gis.Erm.API.WCF.Operations' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Operations' $Index
