@@ -9,12 +9,6 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 	# все проекты лежат на две папки выше solution
 	$SolutionRelatedAllProjectsDir = '..\..'
 
-	$projectDirs = @(
-		Join-Path $SolutionRelatedAllProjectsDir 'Platform'
-		Join-Path $SolutionRelatedAllProjectsDir 'BLCore'
-		Join-Path $SolutionRelatedAllProjectsDir 'BLQuerying'
-	)
-
 	$include = @(
 		'2Gis.Erm.Platform.Model.csproj'
 		'2Gis.Erm.Platform.Common.csproj'
@@ -33,7 +27,7 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 
 	Create-NuspecFiles $SolutionRelatedAllProjectsDir
 
-	$projects = Find-Projects $projectDirs $include
+	$projects = Find-Projects $SolutionRelatedAllProjectsDir $include
 	Build-PackagesFromProjects $projects $tempDir
 
 	Publish-Artifacts $tempDir 'NuGet'
