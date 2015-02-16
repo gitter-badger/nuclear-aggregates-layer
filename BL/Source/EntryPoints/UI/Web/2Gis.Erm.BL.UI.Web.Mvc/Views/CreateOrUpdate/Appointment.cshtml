@@ -63,7 +63,7 @@
             @Html.TemplateField(m => m.ScheduledEnd, FieldFlex.twins, 
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() })
             )
-        @Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", , DefaultSortFields = isOwnerAndFullNameSortFields }))
+        @Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields }))
         @Html.SectionRow(@Html.TemplateField(m => m.Location, FieldFlex.lone))
 
         @Html.SectionHead("resultHeader", BLResources.TitleResult)
