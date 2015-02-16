@@ -101,7 +101,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             catch (Exception ex)
             {
                 // todo: не работает на клиенте
-                Logger.ErrorEx(ex, BLResources.ErrorDuringOperation);
+                Logger.Error(ex, BLResources.ErrorDuringOperation);
                 var errorText = ExceptionFilter.HandleException(ex, Response);
                 Response.StatusCode = 200;
                 var result = new { Message = errorText };

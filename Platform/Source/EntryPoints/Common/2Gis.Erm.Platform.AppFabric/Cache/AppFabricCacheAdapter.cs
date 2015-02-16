@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.Platform.AppFabric.Cache
 
         private void OnRetrying(object sender, RetryingEventArgs args)
         {
-            _logger.WarnFormatEx("Retrying to execute action within AppFabric Cache adapter. " +
+            _logger.WarnFormat("Retrying to execute action within AppFabric Cache adapter. " +
                                  "Current retry count = {0}, last exception: {1}",
                                  args.CurrentRetryCount,
                                  args.LastException.ToString());

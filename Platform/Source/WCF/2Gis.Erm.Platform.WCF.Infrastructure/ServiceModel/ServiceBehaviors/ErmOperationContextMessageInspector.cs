@@ -57,21 +57,21 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehavior
 
         private void SetOperationContextProperties(OperationContext currentOperationContext)
         {
-            _loggerContextManager[LoggerContextKeys.Required.SessionId] = currentOperationContext.SessionId ?? "Not available";
-
             var securityServiceContext = currentOperationContext.ServiceSecurityContext;
-            _loggerContextManager[LoggerContextKeys.Required.UserName] = securityServiceContext != null && !securityServiceContext.IsAnonymous
+            _loggerContextManager[LoggerContextKeys.Required.UserAccount] = securityServiceContext != null && !securityServiceContext.IsAnonymous
                                                             ? securityServiceContext.PrimaryIdentity.Name
                                                             : "Not available";
+            
+            _loggerContextManager[LoggerContextKeys.Optional.UserSession] = currentOperationContext.SessionId ?? "Not available";
 
             object remoteEndpointProperty;
             currentOperationContext.IncomingMessageProperties.TryGetValue(RemoteEndpointMessageProperty.Name, out remoteEndpointProperty);
-            _loggerContextManager[LoggerContextKeys.Required.UserIP] = remoteEndpointProperty != null
+            _loggerContextManager[LoggerContextKeys.Optional.UserAddress] = remoteEndpointProperty != null
                                                           ? ((RemoteEndpointMessageProperty)remoteEndpointProperty).Address
                                                           : "Not available";
 
             var currentwebOperationContext = WebOperationContext.Current;
-            _loggerContextManager[LoggerContextKeys.Required.UserBrowser] = currentwebOperationContext != null && currentwebOperationContext.IncomingRequest.UserAgent != null
+            _loggerContextManager[LoggerContextKeys.Optional.UserAgent] = currentwebOperationContext != null && currentwebOperationContext.IncomingRequest.UserAgent != null
                                                                ? currentwebOperationContext.IncomingRequest.UserAgent
                                                                : "Not available";
         }

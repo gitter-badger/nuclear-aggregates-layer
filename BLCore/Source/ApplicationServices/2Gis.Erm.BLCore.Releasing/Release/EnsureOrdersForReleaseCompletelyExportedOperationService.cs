@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         {
             using (var scope = _scopeFactory.CreateNonCoupled<EnsureOrdersForReleaseCompletelyExportedIdentity>())
             {
-                _logger.InfoFormatEx("Starting ensure process that all orders for release are exported. " +
+                _logger.InfoFormat("Starting ensure process that all orders for release are exported. " +
                                      "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                      releaseId,
                                      organizationUnitId,
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                                                                                                        isBeta));
                 if (!allRequiredOrdersExported)
                 {
-                    _logger.InfoFormatEx("Ensure process that all orders for release are exported finished. Not all required orders are exported. " +
+                    _logger.InfoFormat("Ensure process that all orders for release are exported finished. Not all required orders are exported. " +
                                          "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                          releaseId,
                                          organizationUnitId,
@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     return false;
                 }
 
-                _logger.InfoFormatEx("Ensured that all orders for release are exported. Trying notify external listeners about that fact. " +
+                _logger.InfoFormat("Ensured that all orders for release are exported. Trying notify external listeners about that fact. " +
                                      "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                      releaseId,
                                      organizationUnitId,
@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 NotifyListenersThatAllOrdersForReleaseAreExported(releaseId, organizationUnitDgppId, period);
 
-                _logger.InfoFormatEx("Ensured that all orders for release are exported. Notification for external listeners was sended. " +
+                _logger.InfoFormat("Ensured that all orders for release are exported. Notification for external listeners was sended. " +
                                      "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                      releaseId,
                                      organizationUnitId,
