@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -96,7 +95,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                     OwnerCode = x.OwnerCode,
-                    IsOwner = (x.OwnerCode == _userContext.Identity.Code)
+                    IsOwner = x.OwnerCode == _userContext.Identity.Code
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -57,7 +53,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 IsActive = x.IsActive,
                 IsDeleted = x.IsDeleted,
                 IsFired = x.IsFired,
-                IsOwner = (_userContext.Identity.Code == x.OwnerCode),
+                IsOwner = _userContext.Identity.Code == x.OwnerCode,
                 AccountRole = x.AccountRole.ToStringLocalizedExpression(),
                 Owner = null,
             })
