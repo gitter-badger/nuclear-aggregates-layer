@@ -3,12 +3,12 @@
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Entities;
 
-namespace DoubleGis.Erm.BLCore.API.Operations.Remote.CancelActivity
+namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Cancel
 {
-    [DataContract(Namespace = ServiceNamespaces.BasicOperations.CancelActivity201502)]
-    public class CancelActivityOperationErrorDescription : IBasicOperationErrorDescription
+    [DataContract(Namespace = ServiceNamespaces.BasicOperations.Cancel201502)]
+    public class CancelOperationErrorDescription : IBasicOperationErrorDescription
     {
-        public CancelActivityOperationErrorDescription(EntityName entityName, string message)
+        public CancelOperationErrorDescription(EntityName entityName, string message)
         {
             EntityName = entityName;
             Message = message;

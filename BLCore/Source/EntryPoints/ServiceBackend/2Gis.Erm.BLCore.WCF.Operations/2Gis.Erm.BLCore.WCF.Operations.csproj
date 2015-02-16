@@ -64,6 +64,7 @@
     <Compile Include="ChangeClient.svc.cs" />
     <Compile Include="ChangeTerritory.svc.cs" />
     <Compile Include="CheckForDebts.svc.cs" />
+    <Compile Include="CompleteActivity.svc.cs" />
     <Compile Include="CreateOrUpdate.svc.cs" />
     <Compile Include="Deactivate.svc.cs" />
     <Compile Include="Delete.svc.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="GetDomainEntityDto.svc.cs" />
     <Compile Include="GroupAssign.svc.cs" />
     <Compile Include="Qualify.svc.cs" />
+    <Compile Include="RevertActivity.svc.cs" />
     <Compile Include="SharedTypesMessageInspectorEndpointBehaviorExtensionElement.cs" />
     <Compile Include="SharedTypesProvider.cs" />
     <Compile Include="UploadBinary.svc.cs" />

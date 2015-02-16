@@ -56,7 +56,7 @@ window.InitPage = function () {
                         Values: vals
                     };
 
-                    var result = window.showModalDialog("/GroupOperation/CancelActivity/" + this.EntityName, parameters, "dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no;");
+                    var result = window.showModalDialog("/GroupOperation/Cancel/" + this.EntityName, parameters, "dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no;");
                     if (result == true) {
                         this.refresh();
                     }

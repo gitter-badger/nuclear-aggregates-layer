@@ -1,10 +1,10 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.CancelActivity;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
 
-namespace DoubleGis.Erm.BLCore.API.Operations.Generic.CancelActivity
+namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Cancel
 {
-    public interface ICancelActivityService : IOperation<CancelActivityIdentity>
+    public interface ICancelService : IOperation<CancelIdentity>
     {
-        CancelActivityResult Cancel(long entityId);
+        void Cancel(long entityId);
     }
 }

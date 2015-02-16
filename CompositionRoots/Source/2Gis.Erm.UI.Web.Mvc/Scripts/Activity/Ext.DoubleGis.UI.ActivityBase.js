@@ -57,36 +57,57 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             return false;
         }
         return true;
-    },
-    changeStatus: function (newStatus) {
-        var statusEl = Ext.get("Status");
-
-        var currentStatus = statusEl.getValue();
-        if (currentStatus === newStatus) return;
-
+    },    
+    ChangeStatus: function (operation)
+    {
         var currentIsDirty = this.isDirty;
-        statusEl.setValue(newStatus);
-
+        if (currentIsDirty)
+        {
+            this.Items.Toolbar.disable();
+            this.submitMode = this.submitModes.SAVE;
+            if (this.fireEvent('beforepost', this) && this.normalizeForm()) {
+                this.postForm();                
+                this.on('postformsuccess', function () { this.postOperation(operation) });
+            }
+            else {
+                this.recalcDisabling();
+                statusEl.setValue(currentStatus);
+                this.isDirty = currentIsDirty;
+            }
+        }
+        else
+        {
+            this.postOperation(operation);
+        }
+    },
+    EvaluateOperationUrlTemplate: function (operationName) {
+        return String.format("{0}{1}.svc/Rest/", Ext.BasicOperationsServiceRestUrl, operationName) + "{0}";
+    },
+    EvaluateOperationUrl: function (operationName) {
+        return String.format(this.EvaluateOperationUrlTemplate(operationName), this.EntityName);
+    },
+    postOperation: function (operationName)
+    {
         this.Items.Toolbar.disable();
         this.submitMode = this.submitModes.SAVE;
-        if (this.fireEvent('beforepost', this) && this.normalizeForm()) {
-            this.postForm();
-            this.on('afterpost', this.refresh, this, { single: true });
-        }
-        else {
-            this.recalcDisabling();
-            statusEl.setValue(currentStatus);
-            this.isDirty = currentIsDirty;
-        }
+        var operationUrl = this.EvaluateOperationUrl(operationName) + "/" + this.form.Id.value;
+        window.Ext.Ajax.syncRequest({
+            timeout: 1200000,
+            url: operationUrl,
+            method: 'POST',            
+            scope: this,           
+            success: this.refresh,
+            failure: this.postFormFailure            
+        });
     },
-    CompleteActivity: function () {
-        this.changeStatus("Completed");
+    Complete: function () {        
+        this.ChangeStatus("Complete");
     },
-    CancelActivity: function () {
-        this.changeStatus("Canceled");
+    CancelActivity: function () {        
+        this.ChangeStatus("Cancel");
     },
-    RevertActivity: function() {
-        this.changeStatus("InProgress");
+    Revert: function() {        
+        this.ChangeStatus("Revert");
     },
     Assign: function () {
         if (!this.checkDirty()) return;

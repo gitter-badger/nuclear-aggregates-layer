@@ -5182,10 +5182,13 @@ Doba zveřejnění: {3}.</value>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Pokus o uložení pozice v objednávce s modelem prodejů '{0}' s počtem, který se nerovná 1</value>
   </data>
-  <data name="CancelActivityConfirmation" xml:space="preserve">
+  <data name="CancelConfirmation" xml:space="preserve">
     <value >Подтвердите отмену действий</value>
   </data>
   <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
     <value>Невозможно отменить действие {0} в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value>Невозможно завершить действие {0} в статусе "Выполнено"/"Отменено"</value>
   </data>
 </root>

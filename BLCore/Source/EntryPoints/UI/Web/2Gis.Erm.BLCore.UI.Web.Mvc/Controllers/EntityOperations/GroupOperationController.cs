@@ -224,8 +224,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                     throw new NotificationException(BLResources.ChangeClientOperationIsNotSpecifiedForThisEntity);
                 }
 
-                case BusinessOperation.CancelActivity:
-                    return View("CancelActivity",
+                case BusinessOperation.Cancel:
+                    return View("Cancel",
                                new GroupOperationViewModel
                                {
                                    OperationName = operationName,

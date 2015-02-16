@@ -1,15 +1,15 @@
 ﻿@using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations
 @using DoubleGis.Erm.Platform.Common.Utils
 @using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
-@using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.CancelActivity
+@using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel
 @model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
 }
 
-@section Title { @BLResources.CancelActivityConfirmation }
-@section TopBarTitle { @BLResources.CancelActivityConfirmation }
+@section Title { @BLResources.CancelConfirmation }
+@section TopBarTitle { @BLResources.CancelConfirmation }
 @section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
 
 @section PageContent
@@ -86,7 +86,7 @@
                 var finishOperationResponse = window.Ext.Ajax.syncRequest({
                     method: 'POST',
                     url: '/Operation/CreateOperationWithErrorLog',
-                    params: { operationId: Ext.getDom("operationId").value, log: msg, contentType: 'text/csv', logFileName: 'CancelActivity_errors.csv' }
+                    params: { operationId: Ext.getDom("operationId").value, log: msg, contentType: 'text/csv', logFileName: 'Cancel_errors.csv' }
                 });
                 if ((finishOperationResponse.conn.status >= 200 && finishOperationResponse.conn.status < 300) || (Ext.isIE && finishOperationResponse.conn.status == 1223)) {
                 }
@@ -144,7 +144,7 @@
         <tr>
             <td>
                 <span id="bodyMessage" style="display: none"></span><span>
-                                                                        @ConfirmationManager.GetConfirmation(new StrictOperationIdentity(CancelActivityIdentity.Instance, new EntitySet(Model.EntityTypeName)))
+                                                                        @ConfirmationManager.GetConfirmation(new StrictOperationIdentity(CancelIdentity.Instance, new EntitySet(Model.EntityTypeName)))
                                                                     </span>
             </td>
         </tr>

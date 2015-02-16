@@ -2322,9 +2322,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CancelActivityConfirmation {
+        public static string CancelConfirmation {
             get {
-                return ResourceManager.GetString("CancelActivityConfirmation", resourceCulture);
+                return ResourceManager.GetString("CancelConfirmation", resourceCulture);
             }
         }
         
@@ -2383,7 +2383,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Невозможно отменить действие {0} в статусе &quot;Выполнено&quot;/&quot;Отменено&quot;.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string CannotCancelFinishedOrClosedActivity {
             get {
@@ -2487,6 +2487,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified {
             get {
                 return ResourceManager.GetString("CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotCompleteFinishedOrClosedActivity {
+            get {
+                return ResourceManager.GetString("CannotCompleteFinishedOrClosedActivity", resourceCulture);
             }
         }
         

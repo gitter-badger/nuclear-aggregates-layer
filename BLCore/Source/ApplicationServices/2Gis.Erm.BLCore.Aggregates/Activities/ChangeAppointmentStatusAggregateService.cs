@@ -4,7 +4,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.CancelActivity;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Activity;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
                 throw new ArgumentNullException("appointment");
             }
 
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CancelActivityIdentity, Appointment>())
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<ChangeActivityStatusIdentity, Appointment>())
             {
                 appointment.Status = status;
 

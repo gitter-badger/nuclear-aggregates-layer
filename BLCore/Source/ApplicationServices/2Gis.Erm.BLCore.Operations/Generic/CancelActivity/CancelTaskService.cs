@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.CancelActivity;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Cancel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -10,9 +10,9 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.CancelActivity;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
 
-namespace DoubleGis.Erm.BLCore.Operations.Generic.CancelActivity
+namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
 {
     public class CancelTaskService : ICancelGenericActivityService<Task>
     {
@@ -36,9 +36,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.CancelActivity
             _changeTaskStatusAggregateService = changeTaskStatusAggregateService;
         }
 
-        public CancelActivityResult Cancel(long entityId)
+        public void Cancel(long entityId)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<CancelActivityIdentity, Task>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<CancelIdentity, Task>())
             {
                 var task = _taskReadModel.GetTask(entityId);
 
@@ -56,7 +56,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.CancelActivity
 
                 scope.Updated<Task>(entityId);
                 scope.Complete();
-                return null;
             }
         }
     }

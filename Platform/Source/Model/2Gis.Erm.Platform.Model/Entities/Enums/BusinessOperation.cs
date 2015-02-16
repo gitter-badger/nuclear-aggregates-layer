@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         Disqualify = 101,
         ChangeTerritory = 102,
         ChangeClient = 103,
-        CancelActivity = 104,
+        Cancel = 104,
 
         [Obsolete] AfterSaleServiceActivitiesCreation = 150,
         ExportAccountDetailsTo1CForFranchisees = 151,

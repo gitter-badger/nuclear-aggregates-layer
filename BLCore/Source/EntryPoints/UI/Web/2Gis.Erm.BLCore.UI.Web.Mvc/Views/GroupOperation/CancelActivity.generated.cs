@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     
-    #line 1 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+    #line 1 "..\..\Views\GroupOperation\Cancel.cshtml"
     using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     
     #line default
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
     
-    #line 2 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+    #line 2 "..\..\Views\GroupOperation\Cancel.cshtml"
     using DoubleGis.Erm.Platform.Common.Utils;
     
     #line default
@@ -50,14 +50,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     
-    #line 3 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+    #line 3 "..\..\Views\GroupOperation\Cancel.cshtml"
     using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
     
     #line default
     #line hidden
     
-    #line 4 "..\..\Views\GroupOperation\CancelActivity.cshtml"
-    using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.CancelActivity;
+    #line 4 "..\..\Views\GroupOperation\Cancel.cshtml"
+    using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
     
     #line default
     #line hidden
@@ -67,16 +67,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/CancelActivity.cshtml")]
-    public partial class CancelActivity : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/Cancel.cshtml")]
+    public partial class Cancel : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel>
     {
-        public CancelActivity()
+        public Cancel()
         {
         }
         public override void Execute()
         {
             
-            #line 7 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 7 "..\..\Views\GroupOperation\Cancel.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -90,8 +90,8 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 11 "..\..\Views\GroupOperation\CancelActivity.cshtml"
-            Write(BLResources.CancelActivityConfirmation);
+            #line 11 "..\..\Views\GroupOperation\Cancel.cshtml"
+            Write(BLResources.CancelConfirmation);
 
             
             #line default
@@ -105,8 +105,8 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 12 "..\..\Views\GroupOperation\CancelActivity.cshtml"
-                  Write(BLResources.CancelActivityConfirmation);
+            #line 12 "..\..\Views\GroupOperation\Cancel.cshtml"
+                  Write(BLResources.CancelConfirmation);
 
             
             #line default
@@ -120,7 +120,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 13 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 13 "..\..\Views\GroupOperation\Cancel.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -143,7 +143,7 @@ WriteLiteral(" type=\"text/css\"");
 WriteAttribute("href", Tuple.Create(" href=\"", 777), Tuple.Create("\"", 825)
 , Tuple.Create(Tuple.Create("", 784), Tuple.Create("/Content/Progress.css?", 784), true)
             
-            #line 17 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 17 "..\..\Views\GroupOperation\Cancel.cshtml"
 , Tuple.Create(Tuple.Create("", 806), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
@@ -156,7 +156,7 @@ WriteLiteral(" />\r\n\r\n    <script");
 WriteAttribute("src", Tuple.Create(" src=\"", 844), Tuple.Create("\"", 902)
 , Tuple.Create(Tuple.Create("", 850), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 850), true)
             
-            #line 19 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 19 "..\..\Views\GroupOperation\Cancel.cshtml"
 , Tuple.Create(Tuple.Create("", 883), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
@@ -171,7 +171,7 @@ WriteLiteral("></script>\r\n    <script");
 WriteAttribute("src", Tuple.Create(" src=\"", 949), Tuple.Create("\"", 1015)
 , Tuple.Create(Tuple.Create("", 955), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 955), true)
             
-            #line 20 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 20 "..\..\Views\GroupOperation\Cancel.cshtml"
 , Tuple.Create(Tuple.Create("", 996), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
@@ -186,7 +186,7 @@ WriteLiteral("></script>\r\n    <script");
 WriteAttribute("src", Tuple.Create(" src=\"", 1062), Tuple.Create("\"", 1107)
 , Tuple.Create(Tuple.Create("", 1068), Tuple.Create("/Scripts/Tooltip.js?", 1068), true)
             
-            #line 21 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 21 "..\..\Views\GroupOperation\Cancel.cshtml"
 , Tuple.Create(Tuple.Create("", 1088), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
@@ -242,7 +242,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Activate\');\r\n    
 ".syncRequest({\r\n                    method: \'POST\',\r\n                    url: \'/" +
 "Operation/CreateOperationWithErrorLog\',\r\n                    params: { operation" +
 "Id: Ext.getDom(\"operationId\").value, log: msg, contentType: \'text/csv\', logFileN" +
-"ame: \'CancelActivity_errors.csv\' }\r\n                });\r\n                if ((fi" +
+"ame: \'Cancel_errors.csv\' }\r\n                });\r\n                if ((fi" +
 "nishOperationResponse.conn.status >= 200 && finishOperationResponse.conn.status " +
 "< 300) || (Ext.isIE && finishOperationResponse.conn.status == 1223)) {\r\n        " +
 "        }\r\n                else {\r\n                    alert(finishOperationResp" +
@@ -260,7 +260,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Activate\');\r\n    
 "ities: ids, // массив id сущностей\r\n                OperationName: \'");
 
             
-            #line 114 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 114 "..\..\Views\GroupOperation\Cancel.cshtml"
                            Write(Model.OperationName);
 
             
@@ -288,13 +288,13 @@ WriteLiteral(" id=\"DivErrors\"");
 WriteLiteral(">\r\n");
 
             
-            #line 128 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 128 "..\..\Views\GroupOperation\Cancel.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 128 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 128 "..\..\Views\GroupOperation\Cancel.cshtml"
          using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
         {
 
@@ -309,7 +309,7 @@ WriteLiteral(" name=\"operationId\"");
 
 WriteAttribute("value", Tuple.Create(" value=\"", 7094), Tuple.Create("\"", 7117)
             
-            #line 130 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 130 "..\..\Views\GroupOperation\Cancel.cshtml"
 , Tuple.Create(Tuple.Create("", 7102), Tuple.Create<System.Object, System.Int32>(Guid.NewGuid()
             
             #line default
@@ -320,7 +320,7 @@ WriteAttribute("value", Tuple.Create(" value=\"", 7094), Tuple.Create("\"", 7117
 WriteLiteral(" />\r\n");
 
             
-            #line 131 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 131 "..\..\Views\GroupOperation\Cancel.cshtml"
         }
 
             
@@ -356,7 +356,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 140 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 140 "..\..\Views\GroupOperation\Cancel.cshtml"
                Write(Model.Message);
 
             
@@ -374,8 +374,8 @@ WriteLiteral("></span><span>\r\n");
 WriteLiteral("                                                                        ");
 
             
-            #line 147 "..\..\Views\GroupOperation\CancelActivity.cshtml"
-                                                                   Write(ConfirmationManager.GetConfirmation(new StrictOperationIdentity(CancelActivityIdentity.Instance, new EntitySet(Model.EntityTypeName))));
+            #line 147 "..\..\Views\GroupOperation\Cancel.cshtml"
+                                                                   Write(ConfirmationManager.GetConfirmation(new StrictOperationIdentity(CancelIdentity.Instance, new EntitySet(Model.EntityTypeName))));
 
             
             #line default
@@ -396,7 +396,7 @@ WriteLiteral(">\r\n                    </div>\r\n                </div>\r\n     
 WriteLiteral("    ");
 
             
-            #line 160 "..\..\Views\GroupOperation\CancelActivity.cshtml"
+            #line 160 "..\..\Views\GroupOperation\Cancel.cshtml"
 Write(Html.HiddenFor(x => x.EntityTypeName));
 
             
