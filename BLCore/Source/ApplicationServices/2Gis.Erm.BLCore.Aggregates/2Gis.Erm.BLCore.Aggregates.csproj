@@ -200,6 +200,7 @@
     <Compile Include="Orders\Operations\OrderPositions\OrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
+    <Compile Include="Positions\Operations\ChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\SalesModelUtil.cs" />
     <Compile Include="SimplifiedModel\Categories\BulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Price;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
@@ -16,7 +14,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.Grid;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -24,8 +21,6 @@ using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -40,8 +35,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
         private readonly ICopyPriceOperationService _copyPriceOperationService;
         private readonly IReplacePriceOperationService _replacePriceOperationService;
-        private readonly IFinder _finder;
         private readonly IUIConfigurationService _configurationService;
+        private readonly IPositionReadModel _positionReadModel;
+        private readonly IChangePositionSortingOrderOperationService _changePositionSortingOrderOperationService;
 
         public PriceController(IMsCrmSettings msCrmSettings,
                                IAPIOperationsServiceSettings operationsServiceSettings,
@@ -52,14 +48,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IGetBaseCurrencyService getBaseCurrencyService,
                                IPublicService publicService,
                                ICopyPriceOperationService copyPriceOperationService,
-                               IReplacePriceOperationService replacePriceOperationService, IFinder finder, IUIConfigurationService configurationService)
+                               IReplacePriceOperationService replacePriceOperationService,
+                               IUIConfigurationService configurationService,
+                               IPositionReadModel positionReadModel,
+                               IChangePositionSortingOrderOperationService changePositionSortingOrderOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _publicService = publicService;
             _copyPriceOperationService = copyPriceOperationService;
             _replacePriceOperationService = replacePriceOperationService;
-            _finder = finder;
             _configurationService = configurationService;
+            _positionReadModel = positionReadModel;
+            _changePositionSortingOrderOperationService = changePositionSortingOrderOperationService;
         }
 
         [HttpGet]
@@ -212,32 +212,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public JsonNetResult PositionSortingOrderData()
         {
-            var data = _finder.Find(Specs.Find.ActiveAndNotDeleted<DoubleGis.Erm.Platform.Model.Entities.Erm.Position>())
-                              .OrderByDescending(position => position.Id)
-                              .Select(position => new { Name = position.Name, Id = position.Id })
-                              .Take(20)
-                              .ToArray()
-                              .Select((x, i) => new { Name = x.Name, Id = x.Id, Index = i > 50 ? null : (int?)i });
+            var data = _positionReadModel.GetPositionsSortingOrder();
             return new JsonNetResult(new { Records = data, Success = true });
         }
 
         [HttpPost]
         public ActionResult PositionSortingOrderData(string records)
         {
-            var data = JsonConvert.DeserializeObject<Dto[]>(records);
+            var data = JsonConvert.DeserializeObject<PositionSortingOrderDto[]>(records);
+            _changePositionSortingOrderOperationService.ApplyChanges(data);
             return new JsonNetResult(new { Records = data, Success = true });
-        }
-
-        public class Dto
-        {
-            public long Id { get; set; }
-            public int Index { get; set; }
-            public string Name { get; set; }
-        }
-
-        public class Pack
-        {
-            public IEnumerable<Dto> Records { get; set; }
         }
     }
 }

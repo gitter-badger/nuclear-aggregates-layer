@@ -236,6 +236,7 @@
     <Compile Include="Concrete\Orders\RegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\ChangeOrderLegalPersonProfileOperationService.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
+    <Compile Include="Concrete\Positions\ChangePositionSortingOrderOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
