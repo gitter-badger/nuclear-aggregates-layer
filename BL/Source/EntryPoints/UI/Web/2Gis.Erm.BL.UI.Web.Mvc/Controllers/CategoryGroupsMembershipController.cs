@@ -15,6 +15,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -37,26 +38,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ICategoryService _categoryService;
 
         public CategoryGroupsMembershipController(IMsCrmSettings msCrmSettings,
+                                                  IAPIOperationsServiceSettings operationsServiceSettings,
+                                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                                  IAPIIdentityServiceSettings identityServiceSettings,
                                                   IUserContext userContext,
                                                   ICommonLog logger,
-                                                  ICategoryService categoryService,
+                                                  IGetBaseCurrencyService getBaseCurrencyService,
                                                   ISecurityServiceEntityAccess securityServiceEntityAccess,
                                                   IUserRepository userRepository,
                                                   IUIConfigurationService configurationService,
-                                                  IAPIOperationsServiceSettings operationsServiceSettings,
-                                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                                  IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                                  ICategoryService categoryService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
-            _categoryService = categoryService;
             _securityServiceEntityAccess = securityServiceEntityAccess;
             _userRepository = userRepository;
             _configurationService = configurationService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]

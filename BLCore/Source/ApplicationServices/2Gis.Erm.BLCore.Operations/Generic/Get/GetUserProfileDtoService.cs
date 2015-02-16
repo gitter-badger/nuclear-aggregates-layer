@@ -4,7 +4,6 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -17,13 +16,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetUserProfileDtoService : IGetDomainEntityDtoService<UserProfile>
     {
         private readonly IFinder _finder;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
         private readonly IUserContext _userContext;
 
-        public GetUserProfileDtoService(IFinder finder, IAPIIdentityServiceSettings identityServiceSettings, IUserContext userContext)
+        public GetUserProfileDtoService(IFinder finder, IUserContext userContext)
         {
             _finder = finder;
-            _identityServiceSettings = identityServiceSettings;
             _userContext = userContext;
         }
 
@@ -61,7 +58,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             if (dto != null)
             {
-                dto.IdentityServiceUrl = _identityServiceSettings.RestUrl;
                 return dto;
             }
 
@@ -74,7 +70,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 Id = 0,
                 UserRef = new EntityReference { Id = parentEntityId.Value },
-                IdentityServiceUrl = _identityServiceSettings.RestUrl,
                 CreatedByRef = new EntityReference { Id = _userContext.Identity.Code, Name = _userContext.Identity.DisplayName },
                 ModifiedByRef = new EntityReference { Id = _userContext.Identity.Code, Name = _userContext.Identity.DisplayName },
                 CreatedOn = DateTime.Now,

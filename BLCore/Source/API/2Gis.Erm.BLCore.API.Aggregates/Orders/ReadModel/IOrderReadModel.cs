@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel.DTO;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -29,8 +31,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
             DateTime startPeriodDate,
             DateTime endPeriodDate);
 
-        IEnumerable<long> DetermineOrderPlatforms(long orderId);
-        void UpdateOrderPlatform(Order order);
+        long? EvaluateOrderPlatformId(long orderId);
+        OrderNumberDto EvaluateOrderNumbers(string orderNumber, string orderRegionalNumber, long? orderPlatformId);
         IEnumerable<Order> GetActiveOrdersForLegalPerson(long legalPersonId);
         Order GetOrderByBill(long billId);
         OrderWithBillsDto GetOrderWithBills(long orderId);
@@ -83,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         bool IsOrderForOrganizationUnitsPairExist(long orderId, long sourceOrganizationUnitId, long destOrganizationUnitId);
         OrderPositionPriceDto CalculatePricePerUnit(long orderId, decimal categoryRate, decimal pricePositionCost);
         IEnumerable<Order> GetOrdersForDeal(long dealId);
-        OrderPositionRebindingDto GetOrderPositionInfo(long orderPositionId);
+        OrderPositionAdvertisementLinksDto GetOrderPositionAdvertisementLinksInfo(long orderPositionId);
         OrderUsageDto GetOrderUsage(long orderId);
         OrderDiscountsDto GetOrderDiscounts(long orderId);
         Order GetOrderUnsecure(long orderId);
@@ -108,7 +110,18 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId);
         long? GetBargainIdByOrder(long orderId);
         long GetBargainLegalPersonId(long bargainId);
+
+        OrderAmountToWithdrawInfo GetOrderAmountToWithdrawInfo(long orderId);
+        OrderRecalculateWithdrawalsDto GetOrderRecalculateWithdrawalsInfo(long orderId);
+        OrderDeleteOrderPositionDto GetOrderPositionDeleteInfo(long orderPositionId);
+        OrderRepairOutdatedOrderPositionDto GetOrderInfoForRepairOutdatedPositions(long orderId);
+        decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take);
         OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId);
         IEnumerable<Bill> GetBillsForOrder(long orderId);
+        OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId);
+        OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId);
+        long? GetLegalPersonProfileIdByOrder(long orderId);
+        IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId);
+        SalesModel GetOrderSalesModel(long orderId);
     }
 }

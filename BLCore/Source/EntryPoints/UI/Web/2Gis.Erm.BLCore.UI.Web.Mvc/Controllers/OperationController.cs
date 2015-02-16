@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -24,18 +25,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly IOperationService _operationService;
 
         public OperationController(IMsCrmSettings msCrmSettings,
-                                   IUserContext userContext,
-                                   ICommonLog logger,
-                                   IOperationService operationService,
                                    IAPIOperationsServiceSettings operationsServiceSettings,
                                    IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                   IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                   IAPIIdentityServiceSettings identityServiceSettings,
+                                   IUserContext userContext,
+                                   ICommonLog logger,
+                                   IGetBaseCurrencyService getBaseCurrencyService,
+                                   IOperationService operationService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _operationService = operationService;
         }

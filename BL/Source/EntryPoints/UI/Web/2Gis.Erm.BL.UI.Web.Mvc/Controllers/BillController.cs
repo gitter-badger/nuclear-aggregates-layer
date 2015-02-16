@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -41,15 +42,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ICreateOrderBillsOperationService _createOrderBillsService;
 
         public BillController(IMsCrmSettings msCrmSettings,
-                              IUserContext userContext,
-                              ICommonLog logger,
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                              IAPIIdentityServiceSettings identityServiceSettings,
+                              IUserContext userContext,
+                              ICommonLog logger,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
                               IDeleteOrderBillsOperationService deleteBillsService,
                               ICreateOrderBillsOperationService createOrderBillsService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _publicService = publicService;
             _deleteBillsService = deleteBillsService;

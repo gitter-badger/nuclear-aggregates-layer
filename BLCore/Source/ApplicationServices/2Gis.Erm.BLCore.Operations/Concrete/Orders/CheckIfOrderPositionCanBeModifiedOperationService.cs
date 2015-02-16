@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
@@ -43,6 +44,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             }
 
             if (!AllPositionsOfTheSameSalesModel(orderPositionId, position.SalesModel, orderInfo.OrderPositions.ToDictionary(x => x.OrderPositionId, x => x.SalesModel), out report))
+            {
+                return false;
+            }
+
+            if (!CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(position.SalesModel, orderPositionAdvertisements, out report))
             {
                 return false;
             }
@@ -103,6 +109,34 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             if (orderPositionsWithAnotherSalesModel.Any() && (orderPositionsWithAnotherSalesModel.Count() > 1 || orderPositionsWithAnotherSalesModel.Single().Key != orderPositionId))
             {
                 report = BLResources.CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel;
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(SalesModel salesModelOfEditingOrderPosition,
+                                                                             IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                                             out string report)
+        {
+            report = null;
+            if (!salesModelOfEditingOrderPosition.IsPlannedProvisionSalesModel())
+            {
+                return true;
+            }
+
+            var positionsWithCategories =
+                orderPositionAdvertisements.GroupBy(x => x.PositionId)
+                                           .ToDictionary(x => x.Key, y => y.Where(z => z.CategoryId.HasValue).Select(z => z.CategoryId.Value))
+                                           .Where(x => x.Value.Any());
+
+            if (positionsWithCategories.Any(positionWithCategories =>
+                                            positionWithCategories.Value
+                                                                  .Any(category =>
+                                                                       positionsWithCategories
+                                                                           .Any(x => x.Key != positionWithCategories.Key && !x.Value.Contains(category)))))
+            {
+                report = BLResources.CategoriesSetForAllPositionsMustBeTheSame;
                 return false;
             }
 

@@ -577,7 +577,7 @@
     <value>Stav provedení operace</value>
   </data>
   <data name="SalesModel" xml:space="preserve">
-    <value>Модель продаж</value>
+    <value>Model prodejů</value>
   </data>
   <data name="RReportType" xml:space="preserve">
     <value>Typ evidence</value>

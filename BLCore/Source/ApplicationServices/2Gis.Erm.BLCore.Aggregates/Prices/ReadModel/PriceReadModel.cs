@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
 {
-    public class PriceReadModel : IPriceReadModel
+    public sealed class PriceReadModel : IPriceReadModel
     {
         private const decimal DefaultCategoryRate = 1;
         private readonly IFinder _finder;
@@ -63,9 +63,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId)).Select(x => x.Cost).Single();
         }
 
-        public long GetPricePositionId(long priceId, long positionId)
+        public PricePosition GetPricePosition(long priceId, long positionId)
         {
-            return _finder.Find<PricePosition>(x => x.PriceId == priceId && x.PositionId == positionId).Select(x => x.Id).Single();
+            return _finder.FindOne(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId));
         }
 
         public bool IsDifferentPriceExistsForDate(long priceId, long organizationUnitId, DateTime beginDate)

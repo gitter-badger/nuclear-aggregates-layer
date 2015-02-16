@@ -32,7 +32,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
         {
             request = new PrintOrderTerminationNoticeRequest
                 {
-                    LegalPersonProfileId = modelEntity.LegalPersonProfileId,
                     OrderId = modelEntity.Id,
                 };
 

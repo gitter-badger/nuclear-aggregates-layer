@@ -13,7 +13,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
     {
         private readonly IReadDomainContextProvider _readDomainContextProvider;
         private readonly IModifiableDomainContextProvider _modifiableDomainContextProvider;
-        private readonly IDomainContextSaveStrategy _saveStrategy;
 
         private readonly StubDomainContext _usedModifiableDomainContext;
         private readonly StubDomainContext _usedReadDomainContext;
@@ -21,12 +20,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
         private bool _isSaved;
 
         public StubEntityRepository(IReadDomainContextProvider readDomainContextProvider,
-                                    IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                    IDomainContextSaveStrategy saveStrategy)
+                                    IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
             _readDomainContextProvider = readDomainContextProvider;
             _modifiableDomainContextProvider = modifiableDomainContextProvider;
-            _saveStrategy = saveStrategy;
 
             _usedModifiableDomainContext = ModifiableDomainContextProvider.Get<TEntity>() as StubDomainContext;
             if (_usedModifiableDomainContext == null)
@@ -42,14 +39,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
                 throw new InvalidOperationException(
                     "Unsupported type of domain context was resolved through context provider. Domain context must be assignable to type: " +
                     typeof(StubDomainContext).Name);
-            }
-        }
-
-        public IDomainContextSaveStrategy SaveStrategy
-        {
-            get
-            {
-                return _saveStrategy;
             }
         }
 
@@ -114,7 +103,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
         {
             _isSaved = true;
 
-            return _saveStrategy.IsSaveDeferred ? 0 : ((IModifiableDomainContext)_usedModifiableDomainContext).SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
+            return ((IModifiableDomainContext)_usedModifiableDomainContext).SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
         }
 
         public void Update(TEntity entity)

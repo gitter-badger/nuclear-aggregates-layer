@@ -18,9 +18,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Russia
                     ActivityPurpose.OpportunitiesPresentation,
                     ActivityPurpose.OfferApproval,
                     ActivityPurpose.DecisionApproval,
-                    ActivityPurpose.Prolongation,
                     ActivityPurpose.Service,
-                    ActivityPurpose.Upsale
+                    ActivityPurpose.Upsale,
+                    ActivityPurpose.Prolongation,                                        
                 };
         }
     }

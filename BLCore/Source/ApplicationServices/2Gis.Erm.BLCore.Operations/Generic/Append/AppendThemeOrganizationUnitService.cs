@@ -36,10 +36,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
             var themeId = appendParams.ParentId.Value;
             var organizationUnitId = appendParams.AppendedId.Value;
             var theme = _themeRepository.FindTheme(themeId);
-            if (theme.IsDefault)
-            {
-                throw new ArgumentException(BLResources.CannotAttachOrganizationUnitToDeafaultTheme);
-            }
 
             var isLimitReached = _themeRepository.IsThemeLimitReachedInOrganizationUnit(theme, organizationUnitId);
             if (isLimitReached)
@@ -55,8 +51,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
                 return;
             }
 
-            // FIXME {all, 05.08.2013}: реализация append, а декларируется операция createorupdate - исправить
-            // DONE {i.maslennikov, 2013-08-07}: Исправил в рамках разбиения на атомарные операции.
             using (var scope = _scopeFactory.CreateSpecificFor<AppendIdentity, Theme, OrganizationUnit>())
             {
                 _themeRepository.AppendThemeToOrganizationUnit(themeId, organizationUnitId);

@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                                                                                                                new[]
                                                                                                                    {
                                                                                                                        OrderValidationRuleGroup
-                                                                                                                           .AdvertisementMaterialsValidation
+                                                                                                                           .ADPositionsValidation
                                                                                                                    }
                                                                                                        }));
 

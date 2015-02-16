@@ -18,7 +18,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
         {
             request = new PrintLetterOfGuaranteeRequest
                 {
-                    LegalPersonProfileId = modelEntity.LegalPersonProfileId,
                     OrderId = modelEntity.Id
                 };
 

@@ -363,6 +363,7 @@
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicatePhonecalls.sql" />
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateTasks.sql" />
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateAppointments.sql" />
+    <Content Include="Resources\201501201646\Billing.ReplicateDeals.sql" />
     <None Include="packages.config" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />
     <None Include="Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql" />
@@ -809,6 +810,9 @@
     <Compile Include="2.1\2014.10.20 rev. 25393 - Alter OrderValidationResults.cs" />
     <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
+    <Compile Include="2.1\201501201646 - Deal replication fix.cs" />
+    <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
+    <Compile Include="2.1\Migration201502111010.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />
@@ -849,6 +853,7 @@
     <Compile Include="ActivityMigration\TaskMigration.cs" />
     <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
     <Compile Include="2.1\201412040408 - Drop column PaymentEssentialElements.cs" />
+    <Compile Include="2.1\Migration201412301100 - add SalesModelCategoryRestrictions.cs" />
     <Compile Include="2.1\Migration201412240529 - rename AccountingMethodEnum to SalesModelEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />

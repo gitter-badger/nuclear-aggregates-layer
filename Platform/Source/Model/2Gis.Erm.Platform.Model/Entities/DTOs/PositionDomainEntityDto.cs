@@ -77,9 +77,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public bool IsPublished { get; set; }
 
         [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
-
-        [DataMember]
         public bool RestrictChildPositionPlatformsCanBeChanged { get; set; }
 
         [DataMember]

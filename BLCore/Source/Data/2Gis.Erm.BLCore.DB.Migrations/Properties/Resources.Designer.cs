@@ -2503,6 +2503,37 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  StoredProcedure [Billing].[ReplicateDeals]    Script Date: 20.01.2015 16:15:02 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///ALTER PROCEDURE [Billing].[ReplicateDeals]
+        ///    @Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///
+        ///    IF NOT EXISTS ( SELECT  1
+        ///                    FROM    @Ids )
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///
+        ///        BEGIN TRAN;
+        ///
+        ///        MERGE [DoubleGis_MSCRM].[dbo].[Opportuni [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Billing_ReplicateDeals_201501201646 {
+            get {
+                return ResourceManager.GetString("Billing_ReplicateDeals_201501201646", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///  &lt;/Entities&gt;
@@ -3037,7 +3068,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	            , [tasks].[ReplicationCode] as [ActivityId]
         ///
         ///	            , [tasks].[Subject]
-        ///	            , [tasks].[Description [rest of string was truncated]&quot;;.
+        ///	            , [tasks].[Description]
+        ///	            , CA [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration_24481_ReplicateTask {
             get {

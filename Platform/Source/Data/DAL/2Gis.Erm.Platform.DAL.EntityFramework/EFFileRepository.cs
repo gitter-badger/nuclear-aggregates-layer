@@ -46,7 +46,6 @@ SELECT Id, Data.PathName(), GET_FILESTREAM_TRANSACTION_CONTEXT() FROM Shared.Fil
 DELETE FROM Shared.Files WHERE Id = @fileId";
 
         private readonly IUserContext _userContext;
-        private readonly IDomainContextSaveStrategy _domainContextSaveStrategy;
         private readonly IPersistenceChangesRegistryProvider _changesRegistryProvider;
         private readonly string _connectionString;
         private readonly IReadDomainContextProvider _readDomainContextProvider;
@@ -54,11 +53,9 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
         public EFFileRepository(IUserContext userContext,
                                 IReadDomainContextProvider readDomainContextProvider,
                                 IConnectionStringSettings connectionStringSettings,
-                                IDomainContextSaveStrategy domainContextSaveStrategy,
                                 IPersistenceChangesRegistryProvider changesRegistryProvider)
         {
             _userContext = userContext;
-            _domainContextSaveStrategy = domainContextSaveStrategy;
             _changesRegistryProvider = changesRegistryProvider;
             _readDomainContextProvider = readDomainContextProvider;
 
@@ -80,7 +77,6 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
 
         public void Add(FileWithContent entity)
         {
-            CheckSaveIsNotDeferred();
             AddOrUpdateInternal(CommandType.Insert, entity);
             _changesRegistryProvider.ChangesRegistry.Added<FileWithContent>(entity.Id);
         }
@@ -103,7 +99,6 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
 
         public void Update(FileWithContent entity)
         {
-            CheckSaveIsNotDeferred();
             AddOrUpdateInternal(CommandType.Update, entity);
             _changesRegistryProvider.ChangesRegistry.Updated<FileWithContent>(entity.Id);
         }
@@ -322,14 +317,6 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
 
             auditableEntity.ModifiedOn = now;
             auditableEntity.ModifiedBy = _userContext.Identity.Code;
-        }
-
-        private void CheckSaveIsNotDeferred()
-        {
-            if (_domainContextSaveStrategy.IsSaveDeferred)
-            {
-                throw new InvalidOperationException("File repository does not support deferred saving!");
-            }
         }
     }
 }

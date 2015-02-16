@@ -107,6 +107,7 @@
     <Compile Include="Advertisements\Operations\DeleteAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\BulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
     <Compile Include="Advertisements\Operations\UpdateAdvertisementElementStatusAggregateService.cs" />
+    <Compile Include="Charges\Operations\ChargeBulkDeleteAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\DeleteClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientLinkAggregateService.cs" />
@@ -186,14 +187,24 @@
     <Compile Include="Orders\Operations\Bills\BulkCreateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\BulkDeleteBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\UpdateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderCreateReleaseTotalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderCreateReleaseWithdrawalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderDeleteReleaseTotalsAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBillNumberService.cs" />
+    <Compile Include="Orders\Operations\OrderActualizeAmountToWithdrawAggregateService.cs" />
+    <Compile Include="Orders\Operations\ChangeOrderLegalPersonProfileAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderChangeStateOrders2ArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderDeleteReleaseWithdrawalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderPositions\OrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
     <Compile Include="Positions\SalesModelUtil.cs" />
+    <Compile Include="SimplifiedModel\Categories\BulkCreateSalesModelCategoryRestrictionsService.cs" />
+    <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\CategoryReadModel.cs" />
+    <Compile Include="Roles\ReadModel\RoleReadModel.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\GetPositionsByOrderService.cs" />
@@ -241,15 +252,15 @@
     <Compile Include="Themes\ThemeRepository.cs" />
     <Compile Include="Users\ActivateUserAggregateService.cs" />
     <Compile Include="Users\DeactivateUserAggregateService.cs" />
+    <Compile Include="Users\Operations\UserAppendRoleAggregateService.cs" />
     <Compile Include="Users\ReadModel\UserReadModel.cs" />
     <Compile Include="Users\UserRepository.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLockDetailsAggregateService.cs" />
-    <Compile Include="Charges\Operations\ChargeBulkDeleteAggregateService.cs" />
+    <Compile Include="SimplifiedModel\Categories\BulkDeleteSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="Charges\Operations\ChargeBulkCreateAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountBulkDeleteLockDetailsAggregateService.cs" />
     <Compile Include="Charges\Operations\ChargeCreateHistoryAggregateService.cs" />
     <Compile Include="Charges\ReadModel\ChargeReadModel.cs" />
-    <Compile Include="Withdrawals\WithdrawalInfoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
@@ -320,9 +331,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Orders\Operations\Validation\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

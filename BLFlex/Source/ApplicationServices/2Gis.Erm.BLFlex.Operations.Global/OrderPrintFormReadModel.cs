@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
                                                    SourceOrganizationUnitId = order.SourceOrganizationUnitId,
                                                    DestOrganizationUnitId = order.DestOrganizationUnitId,
                                                    FirmId = order.FirmId,
-                                                   MainLegalPersonProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.IsMainProfile).Id,
+                                  LegalPersonProfileId = order.LegalPersonProfileId,
                                                    BranchOfficeId = order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                                    SalesModel = (SalesModel?)order.OrderPositions.FirstOrDefault(op => op.IsActive && !op.IsDeleted).PricePosition.Position.SalesModel,
                                                })

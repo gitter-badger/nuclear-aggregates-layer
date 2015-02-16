@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -51,14 +52,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                 throw new NotificationException(BLResources.LegalPersonNotFound);
             }
 
-            var legalPersonProfileId = request.LegalPersonProfileId ?? order.LegalPersonProfileId;
-            if (!legalPersonProfileId.HasValue)
+            if (order.LegalPersonProfileId == null)
             {
-                throw new NotificationException(BLResources.LegalPersonProfileMissing);
+                throw new LegalPersonProfileMustBeSpecifiedException();
             }
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(order.LegalPersonProfileId.Value);
             var legalPersonProfilePart = legalPersonProfile.Parts.OfType<ChileLegalPersonProfilePart>().Single();
 
             var printData = new 

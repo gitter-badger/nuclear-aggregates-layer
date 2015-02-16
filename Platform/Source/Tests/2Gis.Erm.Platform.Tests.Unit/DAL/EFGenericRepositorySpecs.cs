@@ -65,7 +65,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
                 GenericRepository = new EFGenericRepositoryWrapper<TEntity>(new EFGenericRepository<TEntity>(new StubUserContext(),
                                                                                                              modifiableDomainContextProviderMock.Object,
-                                                                                                             Mock.Of<IDomainContextSaveStrategy>(),
                                                                                                              new NullPersistenceChangesRegistryProvider()));
             };
 

@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
+using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -86,6 +89,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                             .ToArray();
         }
 
+        public IReadOnlyCollection<long> GetDependedByPositionOrderIds(long positionId)
+        {
+            var childPositionIds = _finder.Find(Specs.Find.ById<Position>(positionId))
+                                          .SelectMany(x => x.ChildPositions)
+                                          .Select(x => x.ChildPositionId)
+                                          .ToArray();
+
+            return _finder.Find(Specs.Find.ByIds<Position>(childPositionIds.With(positionId)))
+                          .SelectMany(x => x.OrderPositionAdvertisements)
+                          .Select(x => x.OrderPosition)
+                          .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                          .Select(x => x.Order)
+                          .Where(Specs.Find.ActiveAndNotDeleted<Order>() &&
+                                 OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved,
+                                                                     OrderState.OnApproval,
+                                                                     OrderState.OnRegistration,
+                                                                     OrderState.OnTermination))
+                          .Select(x => x.Id)
+                          .ToArray();
+        }
+
         private static bool IsPositionBindingOfSingleType(PositionBindingObjectType type)
         {
             switch (type)
@@ -106,6 +130,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                 default:
                     throw new ArgumentOutOfRangeException("type");
             }
+        }
+
+        public IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds)
+        {
+            return _finder.Find<Platform.Model.Entities.Erm.Platform>(x => platformDgppIds.Contains(x.DgppId))
+                                .ToDictionary(x => (PlatformEnum)x.DgppId, x => x.Id);
+        }
+
+        public string GetPositionName(long positionId)
+        {
+            return _finder.Find(Specs.Find.ById<Position>(positionId))
+                          .Select(item => item.Name)
+                          .Single();
         }
     }
 }

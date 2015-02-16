@@ -180,7 +180,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                     {
                         deactivateOperation, new IOperationServiceInterceptionDescriptor<IOperation>[]
                             {
-                                new OperationServiceInterceptionDescriptor<DeactivateUserService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
+                                new OperationServiceInterceptionDescriptor<DeactivateUserOperationService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
                             }
                     },
                     {
@@ -281,7 +281,9 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(CustomLifetime.PerOperationContext)
+                     
                      // crosscutting
+                     .RegisterType<ICanChangeOrderPositionBindingObjectsDetector, CanChangeOrderPositionBindingObjectsDetector>(Lifetime.Singleton)
                      .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                      .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>(Lifetime.Singleton)
                      .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
@@ -294,6 +296,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IChangeAdvertisementElementStatusStrategiesFactory, UnityChangeAdvertisementElementStatusStrategiesFactory>(CustomLifetime.PerOperationContext, MappingScope)
+                     
                      // notification sender
                      .ConfigureNotificationsSender(msCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
 

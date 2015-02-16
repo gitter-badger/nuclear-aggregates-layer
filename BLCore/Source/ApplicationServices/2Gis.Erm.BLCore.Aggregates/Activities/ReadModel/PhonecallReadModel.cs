@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
         public IEnumerable<Phonecall> LookupOpenPhonecallsOwnedBy(long ownerCode)
         {
             return _finder.FindMany(Specs.Find.Owned<Phonecall>(ownerCode) &
-                                    Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress));
+                                    Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress)).ToArray();
         }
     }
 }

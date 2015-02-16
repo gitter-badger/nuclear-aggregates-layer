@@ -203,4 +203,10 @@
   <data name="OnlyApprovedLimitCanBeIncreased" xml:space="preserve">
     <value>Увеличить можно только одобренный лимит</value>
   </data>
+  <data name="ChangeProfilesOperationMessage" xml:space="preserve">
+    <value>Выберите профиль юридического лица клиента</value>
+  </data>
+  <data name="ChangeProfilesOperationTitle" xml:space="preserve">
+    <value>Выберите профиль</value>
+  </data>
 </root>

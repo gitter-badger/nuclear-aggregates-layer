@@ -26,6 +26,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
                 {
                     return new FindSpecification<User>(x => !x.IsServiceUser);
                 }
+
+                public static FindSpecification<User> ByRole(long roleId)
+                {
+                    return new FindSpecification<User>(x => x.UserRoles.Any(ur => ur.RoleId == roleId));
+                }
             }
         }
     }
