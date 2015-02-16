@@ -1,13 +1,13 @@
 ﻿param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 
-if ($TaskList.Count -eq 0 -and $Properties.Count -eq 0){
+if ($TaskList.Count -eq 0){
 	$TaskList = @('Build-Modi')
+}
+if ($Properties.Count -eq 0){
 	$Properties = @{
-
 		'Revision' = '000000'
 		'Build' = 0
 		'Branch' = 'local'
-
 		'EnvironmentName' = 'Production.Russia'
 	}
 }
