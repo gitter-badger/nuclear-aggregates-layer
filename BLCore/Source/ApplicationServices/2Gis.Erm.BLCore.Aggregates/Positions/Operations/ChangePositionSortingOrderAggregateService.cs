@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.Operations
             var hasUpdateAccess = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update, EntityName.Position, _userContext.Identity.Code, 0, 0, 0);
             if (!hasUpdateAccess)
             {
-                throw new ErmSecurityException("Редактирование позиций текущему пользоватею запрещено"); // FIXME {a.rechkalov, 16.02.2015}: Ресурс
+                throw new ErmSecurityException(BLResources.PositionAccessDenied);
             }
 
             var dataDictionary = sorting.ToDictionary(dto => dto.Id, dto => dto.Index);

@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public Position GetPositionByPricePositionId(long pricePositionId)
         {
-            return _finder.FindOne(PositionSpecs.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>());
+            return _finder.FindOne(PriceSpecs.Positions.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>());
         }
 
         public IEnumerable<LinkingObjectsSchemaDto.PositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId)

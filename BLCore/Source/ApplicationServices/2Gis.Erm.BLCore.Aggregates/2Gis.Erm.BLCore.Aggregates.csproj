@@ -232,7 +232,6 @@
     <Compile Include="Prices\Operations\UpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\UpdatePricePositionAggregateService.cs" />
     <Compile Include="Prices\PositionRepository.cs" />
-    <Compile Include="Prices\PositionSpecs.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
     <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
     <Compile Include="Common\Generics\ActivateAggregateRepository.cs" />

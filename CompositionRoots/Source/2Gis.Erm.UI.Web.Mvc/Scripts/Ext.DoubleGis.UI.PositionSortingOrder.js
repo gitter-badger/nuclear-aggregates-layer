@@ -13,7 +13,9 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
         this.proxy = new Ext.data.HttpProxy({
             api: {
                 read: { url: '/Price/PositionSortingOrderData', method: 'GET' },
-                update: { url: '/Price/PositionSortingOrderData', method: 'POST' }
+                create: { url: 'NOT IMPLEMENTED', method: 'POST' },
+                update: { url: '/Price/PositionSortingOrderData', method: 'POST' },
+                destroy: { url: 'NOT IMPLEMENTED', method: 'POST' }
             }
         });
 
@@ -89,9 +91,9 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             var store = self.store;
             Ext.each(result.items, function (item) {
                 if (!store.getById(item.id)) {
-                    var data = {  name: item.name, index: store.data.items.length };
+                    var data = { id: item.id, name: item.name, index: store.data.items.length };
                     var record = new store.recordType(data, data.id);
-                    this.markDirty(true);
+                    self.markDirty(true);
                     record.markDirty();
                     store.add(record);
                 }

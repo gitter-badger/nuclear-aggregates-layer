@@ -1,11 +1,12 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
+﻿using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
 {
-    // FIXME {a.rechkalov, 16.02.2015}: Объединить с BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\Prices\PositionSpecs.cs
     public static partial class PriceSpecs
     {
         public static class Positions
@@ -15,6 +16,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
                 public static FindSpecification<Position> WithSortingSpecified()
                 {
                     return new FindSpecification<Position>(x => x.SortingIndex.HasValue);
+                }
+
+                public static FindSpecification<PositionChildren> UsedAsChildElement(long positionId)
+                {
+                    return new FindSpecification<PositionChildren>(x => !x.IsDeleted && x.ChildPositionId == positionId);
+                }
+
+                public static FindSpecification<Position> ByPricePosition(long pricePositionId)
+                {
+                    return new FindSpecification<Position>(x => x.PricePositions.Any(y => y.Id == pricePositionId));
                 }
             }
 

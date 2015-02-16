@@ -5197,4 +5197,7 @@ Doba zveřejnění: {3}.</value>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
   </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
 </root>
