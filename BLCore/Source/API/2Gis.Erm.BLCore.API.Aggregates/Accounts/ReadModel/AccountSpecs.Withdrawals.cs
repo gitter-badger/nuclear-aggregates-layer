@@ -29,6 +29,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                     return new FindSpecification<WithdrawalInfo>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
                 }
 
+                public static FindSpecification<WithdrawalInfo> Succeed()
+                {
+                    return InStates(WithdrawalStatus.Success);
+                }
+
                 public static FindSpecification<WithdrawalInfo> InStates(params WithdrawalStatus[] states)
                 {
                     return new FindSpecification<WithdrawalInfo>(x => states.Contains(x.Status));

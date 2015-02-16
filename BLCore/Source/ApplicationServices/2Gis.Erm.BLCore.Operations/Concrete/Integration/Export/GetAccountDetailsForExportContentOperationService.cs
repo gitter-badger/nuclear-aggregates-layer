@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                 if (organizationUnitsWithoutWithdrawalOperation.Any())
                 {
                     // TODO {all, 16.02.2015}: перенести в ресурсник для нелокализуемых строк
-                    throw new ExportAccountDetailsBeforeWithdrawalOperationException(string.Format("Для ({0}) за период {1} - {2} не было проведено успешной операции списания",
+                    throw new ExportAccountDetailsBeforeWithdrawalOperationException(string.Format("Для ({0}) за период {1} - {2} нет успешной операции списания",
                                                                                                    string.Join(",", organizationUnitsWithoutWithdrawalOperation),
                                                                                                    startPeriodDate.ToShortDateString(),
                                                                                                    endPeriodDate.ToShortDateString()));
