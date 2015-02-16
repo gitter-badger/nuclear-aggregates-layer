@@ -8,12 +8,14 @@ using System.Net.Mime;
 using System.Text;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Compression;
@@ -31,25 +33,41 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         private readonly IValidateLegalPersonsForExportOperationService _validateLegalPersonsForExportOperationService;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IAccountReadModel _accountReadModel;
 
         public GetAccountDetailsForExportContentOperationService(
             IGlobalizationSettings globalizationSettings,
             IGetDebitsInfoInitialForExportOperationService getDebitsInfoInitialForExportOperationService,
             IValidateLegalPersonsForExportOperationService validateLegalPersonsForExportOperationService,
             ILegalPersonReadModel legalPersonReadModel,
-            IOperationScopeFactory operationScopeFactory)
+            IOperationScopeFactory operationScopeFactory,
+            IAccountReadModel accountReadModel)
         {
             _globalizationSettings = globalizationSettings;
             _getDebitsInfoInitialForExportOperationService = getDebitsInfoInitialForExportOperationService;
             _validateLegalPersonsForExportOperationService = validateLegalPersonsForExportOperationService;
             _legalPersonReadModel = legalPersonReadModel;
             _operationScopeFactory = operationScopeFactory;
+            _accountReadModel = accountReadModel;
         }
 
         public IEnumerable<IntegrationResponse> Get(DateTime startPeriodDate, DateTime endPeriodDate, IEnumerable<long> organizationUnitIds)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetAccountDetailsForExportContentIdentity>())
             {
+                var organizationUnitsWithoutWithdrawalOperation =
+                    _accountReadModel.GetOrganizationUnitsWithNoSuccessfulLastWithdrawal(organizationUnitIds,
+                                                                                         new TimePeriod(startPeriodDate, endPeriodDate));
+
+                if (organizationUnitsWithoutWithdrawalOperation.Any())
+                {
+                    // TODO {all, 16.02.2015}: перенести в ресурсник для нелокализуемых строк
+                    throw new ExportAccountDetailsBeforeWithdrawalOperationException(string.Format("Для ({0}) за период {1} - {2} не было проведено успешной операции списания",
+                                                                                                   string.Join(",", organizationUnitsWithoutWithdrawalOperation),
+                                                                                                   startPeriodDate.ToShortDateString(),
+                                                                                                   endPeriodDate.ToShortDateString()));
+                }
+
                 var legalPersonsToValidateByOrganizationUnit = _legalPersonReadModel.GetLegalPersonDtosToValidate(organizationUnitIds, startPeriodDate, endPeriodDate);
                 var errorsByOrganizationUnit = legalPersonsToValidateByOrganizationUnit
                     .ToDictionary(legalPersonsToValidate => legalPersonsToValidate.Key,

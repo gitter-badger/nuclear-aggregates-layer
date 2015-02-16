@@ -72,6 +72,7 @@
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\ExportAccountDetailsBeforeWithdrawalOperationException.cs" />
     <Compile Include="Concrete\Integration\Export\IGetAccountDetailsForExportContentOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\IGetDebitsInfoInitialForExportOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
