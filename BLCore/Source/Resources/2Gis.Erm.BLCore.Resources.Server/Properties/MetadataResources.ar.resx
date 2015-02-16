@@ -576,8 +576,8 @@
   <data name="OperationStatus" xml:space="preserve">
     <value>Operation status</value>
   </data>
-  <data name="AccountingMethod" xml:space="preserve">
-    <value>Accounting method</value>
+  <data name="SalesModel" xml:space="preserve">
+    <value>Sales model</value>
   </data>
   <data name="RReportType" xml:space="preserve">
     <value>Type of report</value>

@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public IEnumerable<Task> LookupOpenTasksOwnedBy(long ownerCode)
         {
-            return _finder.FindMany(Specs.Find.Owned<Task>(ownerCode) & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress));
+            return _finder.FindMany(Specs.Find.Owned<Task>(ownerCode) & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress)).ToArray();
         }
     }
 }

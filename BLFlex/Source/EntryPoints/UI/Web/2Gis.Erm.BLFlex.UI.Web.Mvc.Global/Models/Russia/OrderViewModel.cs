@@ -82,22 +82,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public LookupField BranchOfficeOrganizationUnit { get; set; }
 
         public LookupField LegalPerson { get; set; }
+        public LookupField LegalPersonProfile { get; set; }
 
         public LookupField Deal { get; set; }
 
         public long? DealCurrencyId { get; set; }
 
-        [CheckDayOfMonth(CheckDayOfMonthType.FirstDay, ErrorMessageResourceType = typeof(BLResources),
-            ErrorMessageResourceName = "RequiredFirstDayOfMonthMessage")]
+        [CheckDayOfMonth(CheckDayOfMonthType.FirstDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredFirstDayOfMonthMessage")]
         [DisplayNameLocalized("BeginReleaseDate")]
-        [CustomClientValidation("validateBeginDistributionDate", ErrorMessageResourceType = typeof(BLResources),
-            ErrorMessageResourceName = "IncorrectBeginDistributionDate")]
+        [CustomClientValidation("validateBeginDistributionDate", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "IncorrectBeginDistributionDate")]
         public DateTime BeginDistributionDate { get; set; }
 
         [CheckDayOfMonth(CheckDayOfMonthType.LastDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredLastDayOfMonthMessage")]
         [DisplayNameLocalized("EndPlanReleaseDate")]
-        [GreaterOrEqualThan("BeginDistributionDate", ErrorMessageResourceType = typeof(BLResources),
-            ErrorMessageResourceName = "EndDateMustBeGreaterThenBeginDate")]
+        [GreaterOrEqualThan("BeginDistributionDate", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "EndDateMustBeGreaterThenBeginDate")]
         public DateTime EndDistributionDatePlan { get; set; }
 
         [DisplayNameLocalized("EndFactReleaseDate")]
@@ -149,9 +147,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         // Скрытое поле, заведено в контекте бага 1735
         public decimal VatPlan { get; set; }
-
-        // Скрытое поле, заведено в контекте бага ERM-3725
-        public long? LegalPersonProfileId { get; set; }
 
         public decimal AmountToWithdraw { get; set; }
 
@@ -235,6 +230,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             DestinationOrganizationUnit = LookupField.FromReference(modelDto.DestOrganizationUnitRef);
             BranchOfficeOrganizationUnit = LookupField.FromReference(modelDto.BranchOfficeOrganizationUnitRef);
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
+            LegalPersonProfile = LookupField.FromReference(modelDto.LegalPersonProfileRef);
             Deal = LookupField.FromReference(modelDto.DealRef);
             DealCurrencyId = modelDto.DealCurrencyId;
             Currency = LookupField.FromReference(modelDto.CurrencyRef);
@@ -273,7 +269,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             AccountId = modelDto.AccountRef != null ? modelDto.AccountRef.Id : null;
             ShowRegionalAttributes = modelDto.ShowRegionalAttributes;
             CanSwitchToAccount = modelDto.CanSwitchToAccount;
-            LegalPersonProfileId = modelDto.LegalPersonProfileRef != null ? modelDto.LegalPersonProfileRef.Id : null;
 
             Timestamp = modelDto.Timestamp;
         }
@@ -292,6 +287,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     HasDestOrganizationUnitPublishedPrice = HasDestOrganizationUnitPublishedPrice,
                     BranchOfficeOrganizationUnitRef = BranchOfficeOrganizationUnit.ToReference(),
                     LegalPersonRef = LegalPerson.ToReference(),
+                    LegalPersonProfileRef = LegalPersonProfile.ToReference(),
                     DealRef = Deal.ToReference(),
                     DealCurrencyId = DealCurrencyId,
                     CurrencyRef = Currency.ToReference(),
@@ -328,7 +324,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     HasDocumentsDebt = HasDocumentsDebt,
                     DocumentsComment = DocumentsComment,
                     AccountRef = new EntityReference(AccountId),
-                    LegalPersonProfileRef = new EntityReference(LegalPersonProfileId),
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp,
                 };

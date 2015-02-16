@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
@@ -28,6 +27,7 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -49,7 +49,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public class OrderController : ControllerBase
     {
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly ICopyOrderOperationService _copyOrderOperationService;
         private readonly IFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -66,48 +65,55 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
+        private readonly IChangeOrderLegalPersonProfileOperationService _changeOrderLegalPersonProfileOperationService;
+        private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
-                               IUserContext userContext,
-                               ICommonLog logger,
                                IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                               IAPIIdentityServiceSettings identityServiceSettings,
+                               IUserContext userContext,
+                               ICommonLog logger,
                                IGetBaseCurrencyService getBaseCurrencyService,
-                               ISecurityServiceUserIdentifier userIdentifierService,
-                               ISecurityServiceFunctionalAccess functionalAccessService,
-                               IReplicationCodeConverter replicationCodeConverter,
-                               IPublicService publicService,
-                               ISecureFinder secureFinder,
+                               ICopyOrderOperationService copyOrderOperationService,
                                IFinder finder,
-                               IReleaseReadModel releaseReadModel,
-                               IBranchOfficeRepository branchOfficeRepository,
+                               ISecurityServiceFunctionalAccess functionalAccessService,
+                               IOperationService operationService,
+                               IProcessOrderCreationRequestSingleOperation orderCreationOperation,
+                               IProcessOrderProlongationRequestSingleOperation orderProlongationOperation,
                                IOrderReadModel orderReadModel,
                                IOrderRepository orderRepository,
-                               IOperationService operationService,
-                               IProcessOrderProlongationRequestSingleOperation orderProlongationOperation,
-                               IProcessOrderCreationRequestSingleOperation orderCreationOperation,
-                               ICopyOrderOperationService copyOrderOperationService,
+                               IPublicService publicService,
+                               IReleaseReadModel releaseReadModel,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
-                               IDetermineOrderBargainOperationService determineOrderBargainOperationService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
+                               IReplicationCodeConverter replicationCodeConverter,
+                               ISecureFinder secureFinder,
+                               ISecurityServiceUserIdentifier userIdentifierService,
+                               IDetermineOrderBargainOperationService determineOrderBargainOperationService,
+                               ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
+                               IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
-            _userIdentifierService = userIdentifierService;
-            _functionalAccessService = functionalAccessService;
-            _replicationCodeConverter = replicationCodeConverter;
-            _publicService = publicService;
-            _secureFinder = secureFinder;
+            _copyOrderOperationService = copyOrderOperationService;
             _finder = finder;
-            _releaseReadModel = releaseReadModel;
-            _branchOfficeRepository = branchOfficeRepository;
+            _functionalAccessService = functionalAccessService;
+            _operationService = operationService;
+            _orderCreationOperation = orderCreationOperation;
+            _orderProlongationOperation = orderProlongationOperation;
             _orderReadModel = orderReadModel;
             _orderRepository = orderRepository;
-            _operationService = operationService;
-            _orderProlongationOperation = orderProlongationOperation;
-            _orderCreationOperation = orderCreationOperation;
-            _copyOrderOperationService = copyOrderOperationService;
+            _publicService = publicService;
+            _releaseReadModel = releaseReadModel;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
+            _replicationCodeConverter = replicationCodeConverter;
+            _secureFinder = secureFinder;
+            _userIdentifierService = userIdentifierService;
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
+            _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
+            _changeOrderLegalPersonProfileOperationService = changeOrderLegalPersonProfileOperationService;
         }
+
+
 
         #region Ajax methods
 
@@ -219,22 +225,23 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public JsonNetResult CanCreateOrderPositionsForOrder(long orderId, string orderTypeValue)
         {
-            CanCreateOrderPositionForOrderResponse response;
             OrderType orderType;
+            string report;
             if (!Enum.TryParse(orderTypeValue, out orderType))
             {
-                response = new CanCreateOrderPositionForOrderResponse { Message = BLResources.WrongOrderType };
-            }
-            else
+                return new JsonNetResult(new
             {
-                response = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(new CanCreateOrderPositionForOrderRequest
-                    {
-                        OrderId = orderId,
-                        OrderType = orderType
+                                                 CanCreate = false,
+                                                 Message = BLResources.WrongOrderType
                     });
             }
 
-            return new JsonNetResult(response);
+
+            return new JsonNetResult(new
+                                         {
+                                             CanCreate = _checkIfOrderPositionCanBeCreatedForOrderOperationService.Check(orderId, orderType, out report),
+                                             Message = report
+                                         });
         }
 
         [HttpPost]
@@ -280,6 +287,27 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         #endregion
 
+        [HttpGet]
+        public ViewResult SelectLegalPersonProfile(long orderId)
+        {
+            var dto = _orderReadModel.GetLegalPersonProfileByOrder(orderId);
+
+            var model = new SelectLegalPersonProfileViewModel
+            {
+                LegalPerson = dto.LegalPerson.ToLookupField(),
+                LegalPersonProfile = dto.LegalPersonProfile.ToLookupField(),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public EmptyResult ChangeOrderLegalPersonProfile(long orderId, long legalPersonProfileId)
+        {
+            _changeOrderLegalPersonProfileOperationService.ChangeLegalPersonProfile(orderId, legalPersonProfileId);
+            return new EmptyResult();
+        }
+
         public ActionResult CheckOrdersReadinessForReleaseDialog()
         {
             var currentUser = UserContext.Identity;
@@ -318,8 +346,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.OrganizationUnit));
                 }
 
-                if (
-                    !_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PrereleaseOrderValidationExecution,
+                if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PrereleaseOrderValidationExecution,
                                                                             UserContext.Identity.Code))
                 {
                     throw new NotificationException(BLResources.AccessDeniedPrereleaseOrderValidationExecution);

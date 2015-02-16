@@ -90,7 +90,6 @@
     <Content Include="ChangeTerritory.svc" />
     <Content Include="ActionsHistory.svc" />
     <Content Include="Append.svc" />
-    <Content Include="MsCrm.svc" />
     <Content Include="UploadBinary.svc" />
     <Content Include="DownloadBinary.svc" />
     <Content Include="CreateOrUpdate.svc" />

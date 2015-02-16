@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -39,21 +40,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IFinder _finder;
 
         public AccountController(IMsCrmSettings msCrmSettings,
-                                 IUserContext userContext,
-                                 ICommonLog logger,
-                                 ISecurityServiceFunctionalAccess functionalAccessService,
-                                 IPublicService publicService,
-                                 IFinder finder,
-                                 IOperationService operationService,
                                  IAPIOperationsServiceSettings operationsServiceSettings,
                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                 IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                 IAPIIdentityServiceSettings identityServiceSettings,
+                                 IUserContext userContext,
+                                 ICommonLog logger,
+                                 IGetBaseCurrencyService getBaseCurrencyService,
+                                 ISecurityServiceFunctionalAccess functionalAccessService,
+                                 IPublicService publicService,
+                                 IOperationService operationService,
+                                 IFinder finder)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;

@@ -267,6 +267,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             sb.AppendFormat("parentIdPattern:\"{0}\"", lookupSettings.ParentIdPattern);
             if (lookupSettings.Plugins != null && lookupSettings.Plugins.Any())
                 sb.AppendFormat(",plugins:[{0}] ", String.Join(",", lookupSettings.Plugins));
+            if (lookupSettings.DataFields != null && lookupSettings.DataFields.Any())
+                sb.AppendFormat(",tplFields:{0}", WriteJson(htmlHelper, lookupSettings.DataFields));
+            if(!string.IsNullOrEmpty(lookupSettings.HeaderTextTemplate))
+                sb.AppendFormat(",tplHeaderTextTemplate:{0}", lookupSettings.HeaderTextTemplate);
             sb.Append("});</script>");
             sb.Append(htmlHelper.TextBoxFor(field).ToString());
 

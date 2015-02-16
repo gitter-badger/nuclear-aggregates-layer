@@ -1863,7 +1863,13 @@
   <data name="ControlIncreaseLimit" xml:space="preserve">
     <value>Aumentar</value>
   </data>
+  <data name="DListMyOpenedActivities" xml:space="preserve">
+    <value>Mis planes abiertos</value>
+  </data>
   <data name="DListTimeZones" xml:space="preserve">
     <value>Husos horarios</value>
+  </data>
+  <data name="ControlChangeProfiles" xml:space="preserve">
+    <value>Cambiar el perfil</value>
   </data>
 </root>

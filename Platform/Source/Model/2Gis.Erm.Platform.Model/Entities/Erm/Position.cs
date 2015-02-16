@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public bool IsComposite { get; set; }
         public PositionCalculationMethod CalculationMethodEnum { get; set; }
         public PositionBindingObjectType BindingObjectTypeEnum { get; set; }
-        public PositionAccountingMethod AccountingMethodEnum { get; set; }
+        public SalesModel SalesModel { get; set; }
         public long PlatformId { get; set; }
         public long CategoryId { get; set; }
         public long? AdvertisementTemplateId { get; set; }

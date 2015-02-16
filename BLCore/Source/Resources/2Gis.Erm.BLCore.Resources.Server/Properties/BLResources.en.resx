@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Advertising materials</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Attempt to save the budget order Item with Quantity not equal to 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>End of period</value>
   </data>
@@ -965,9 +962,6 @@ Locking errors:{2}</value>
   <data name="PeriodClosing" xml:space="preserve">
     <value>Closure of the period</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>Only items with accounting method "Guaranteed rendering" can be added to an order with type "Sales"!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>'Hidden' attribute</value>
   </data>
@@ -985,9 +979,6 @@ Locking errors:{2}</value>
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Default filter</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>Only items with accounting method "Planned rendering" can be added to an order with type "Budget"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>These legal entities have different T.I.C., merging cannot be performed.</value>
@@ -3169,8 +3160,8 @@ The operation has been executed: {6}.</value>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Results of the order check</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>Cannot add an element with accounting method different from accounting method of other elements</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>Cannot add an element. Its sales model is different from other elements</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>1C identifier</value>
@@ -3958,9 +3949,6 @@ The operation has been executed: {6}.</value>
   </data>
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Cannot add subdivision to a topic due to incorrect entity types.</value>
-  </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>You cannot add a company division to the topic set by default</value>
   </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>You cannot delete the topic which is used in orders</value>
@@ -5172,5 +5160,41 @@ Placement period: {3}.</value>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value>The start and end dates of the meeting are set incorrectly.
 </value>
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Specify legal entities to enable profiles</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Please specify legal entity profile</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>The specified profile cannot be selected for order</value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>Only items of the same sales model can be presented in an order</value>
+  </data>
+  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
+    <value>Set of categories should be the same for all subitems</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>Attempt to save an order item with sales model '{0}' where quantity is not 1</value>
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Cannot assign an action if the status is Completed/Canceled.</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Cannot appoint this user as an owner</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Not enough rights to change the owner for the action {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
   </data>
 </root>

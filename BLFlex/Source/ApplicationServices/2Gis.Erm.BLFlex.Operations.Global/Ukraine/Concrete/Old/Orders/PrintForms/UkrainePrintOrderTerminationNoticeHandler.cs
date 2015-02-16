@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -43,7 +44,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                            LegalPersonId = order.LegalPersonId.Value,
                                            order.BranchOfficeOrganizationUnitId,
                                            CurrencyISOCode = order.Currency.ISOCode,
-                                           LegalPersonType = order.LegalPerson.LegalPersonTypeEnum
+                                           LegalPersonType = order.LegalPerson.LegalPersonTypeEnum,
+                                           order.LegalPersonProfileId,
                                        })
                                    .AsEnumerable()
                                    .Select(x => new
@@ -55,9 +57,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                            x.LegalPersonId,
                                            x.BranchOfficeOrganizationUnitId,
                                            x.CurrencyISOCode,
-                                           x.LegalPersonType
+                                           x.LegalPersonType,
+                                           x.LegalPersonProfileId,
                                        })
                                    .Single();
+
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             if (!orderInfo.IsTerminated)
             {
@@ -70,7 +78,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             }
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);
             var branchOfficeOrganizationUnit = orderInfo.BranchOfficeOrganizationUnitId.HasValue
                 ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(orderInfo.BranchOfficeOrganizationUnitId.Value))
                 : null;

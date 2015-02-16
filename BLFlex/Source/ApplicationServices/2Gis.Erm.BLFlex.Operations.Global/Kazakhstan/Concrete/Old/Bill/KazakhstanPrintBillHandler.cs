@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
 
         protected override Response Handle(PrintBillRequest request)
         {
-            var billInfo = _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Bill>(request.Id))
+            var billInfo = _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Bill>(request.BillId))
                                   .Select(bill => new
                                       {
                                           Bill = bill,
@@ -52,6 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
                                           CurrencyISOCode = bill.Order.Currency.ISOCode,
                                           BranchOfficeId = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                           LegalPersonId = bill.Order.LegalPersonId.Value,
+                                          LegalPersonProfileId = bill.Order.LegalPersonProfileId,
                                           OrderVatRate = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                           bill.Order.Bargain,
                                           bill.Order.LegalPerson.LegalPersonTypeEnum
@@ -70,7 +71,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
 
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(billInfo.BranchOfficeId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(billInfo.LegalPersonProfileId.Value);
             var orderVatRate = (billInfo.OrderVatRate.Value == default(decimal)) ? BLResources.NoVatText : billInfo.OrderVatRate.ToString();
             var branchOfficeOrganizationUnit = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(billInfo.BranchOfficeOrganizationUnitId.Value);
 

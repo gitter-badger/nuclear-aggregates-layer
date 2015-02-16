@@ -129,7 +129,6 @@
     <Compile Include="Controllers\CategoryGroupsMembershipController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\DealController.cs" />
-    <Compile Include="Controllers\Helpers\ProfileChooseHelper.cs" />
     <Compile Include="Controllers\LegalPersonProfileController.cs" />
     <Compile Include="Controllers\LimitController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
@@ -167,6 +166,7 @@
     <Compile Include="Models\ChangeOrderStateDefaultViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnApprovalViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnTerminationRejectionModel.cs" />
+    <Compile Include="Models\SelectLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\CheckOrdersReadinessForReleaseDialogViewModel.cs" />
     <Compile Include="Models\CloseBargainsViewModel.cs" />
     <Compile Include="Models\CloseDealViewModel.cs" />
@@ -210,8 +210,6 @@
     <Compile Include="Models\PriceViewModel.cs" />
     <Compile Include="Models\PrintFormTemplateViewModel.cs" />
     <Compile Include="Models\PrintLimitsViewModel.cs" />
-    <Compile Include="Models\PrintOrderType.cs" />
-    <Compile Include="Models\ChooseProfileViewModel.cs" />
     <Compile Include="Models\DenialReasonViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\PublishAdvertisementTemplateModel.cs" />
@@ -267,6 +265,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExportToServiceBusDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\SelectLegalPersonProfile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SelectLegalPersonProfile.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\EditorTemplates\DateTimeViewModel.generated.cs">
       <DependentUpon>DateTimeViewModel.cshtml</DependentUpon>
@@ -628,11 +631,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GetOrdersWithDummyAdvertisementDialog.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Print\ChooseProfile.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ChooseProfile.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Print\PrepareJointBill.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -719,6 +717,10 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
@@ -772,6 +774,10 @@
     <None Include="Views\Account\ExportToServiceBusDialog.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ExportToServiceBusDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\SelectLegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SelectLegalPersonProfile.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\EditorTemplates\DateTimeViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1064,10 +1070,6 @@
     <None Include="Views\Print\PrepareJointBill.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PrepareJointBill.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Print\ChooseProfile.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ChooseProfile.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\PricePosition\Copy.cshtml">
       <Generator>RazorGenerator</Generator>

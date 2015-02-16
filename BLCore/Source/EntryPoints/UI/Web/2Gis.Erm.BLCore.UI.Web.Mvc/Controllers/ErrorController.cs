@@ -6,9 +6,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -21,17 +21,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
     public sealed class ErrorController : ControllerBase
     {
         public ErrorController(IMsCrmSettings msCrmSettings,
-                               IUserContext userContext,
-                               ICommonLog logger,
                                IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                               IAPIIdentityServiceSettings identityServiceSettings,
+                               IUserContext userContext,
+                               ICommonLog logger,
                                IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
         }
 
@@ -41,10 +37,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             Response.StatusCode = (int)HttpStatusCode.NotFound;
 
             var model = new ErrorHandlerModel
-            {
-                Title = BLResources.Error404,
-                Text = BLResources.UrlDoesNotExists,
-            };
+                            {
+                                Title = BLResources.Error404,
+                                Text = BLResources.UrlDoesNotExists,
+                            };
 
             return View("Error", model);
         }
@@ -55,10 +51,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             Response.StatusCode = (int)HttpStatusCode.OK;
 
             var model = new ErrorHandlerModel
-            {
-                Title = BLResources.NonAuthenticated,
-                Text = string.Format(BLResources.UnrecognizedUser, User.Identity.Name),
-            };
+                            {
+                                Title = BLResources.NonAuthenticated,
+                                Text = string.Format(BLResources.UnrecognizedUser, User.Identity.Name),
+                            };
 
             return View("Error", model);
         }
@@ -69,10 +65,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             var model = new ErrorHandlerModel
-            {
-                Title = BLResources.Error,
-                Text = BLResources.IncorrectDBVersion,
-            };
+                            {
+                                Title = BLResources.Error,
+                                Text = BLResources.IncorrectDBVersion,
+                            };
 
             return View("Error", model);
         }
@@ -82,10 +78,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             Response.StatusCode = (int)HttpStatusCode.OK;
 
             var model = new ErrorHandlerModel
-            {
-                Title = BLResources.Error,
-                Text = BLResources.UnderConstruction,
-            };
+                            {
+                                Title = BLResources.Error,
+                                Text = BLResources.UnderConstruction,
+                            };
 
             return View("Error", model);
         }

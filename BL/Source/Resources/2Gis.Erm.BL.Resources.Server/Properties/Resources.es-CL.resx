@@ -193,4 +193,10 @@
   <data name="OnlyApprovedLimitCanBeIncreased" xml:space="preserve">
     <value>Solo se puede aumentar la línea de crédito aprobada</value>
   </data>
+  <data name="ChangeProfilesOperationMessage" xml:space="preserve">
+    <value>Elija el perfil de la razón social de cliente</value>
+  </data>
+  <data name="ChangeProfilesOperationTitle" xml:space="preserve">
+    <value>Elija el perfil</value>
+  </data>
 </root>

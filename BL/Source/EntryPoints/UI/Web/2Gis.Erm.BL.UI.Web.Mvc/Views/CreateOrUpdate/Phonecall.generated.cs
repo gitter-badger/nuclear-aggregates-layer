@@ -241,13 +241,42 @@ WriteLiteral("        ");
             #line hidden
 WriteLiteral("\r\n");
 
+            
+            #line 35 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 35 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+          
+            var firmDataFields = new[]
+                                     {
+                                         new LookupDataField { Name = "id", Mapping = "Id" }, 
+                                         new LookupDataField { Name = "name", Mapping = "Name" }, 
+                                         new LookupDataField { Name = "city", Mapping = "OrganizationUnitName" }
+                                     };
+            const string HeaderTextTemplate = "'<span class=\"x-lookup-thumb\">{name}</span>&nbsp;<span class=\"x-lookup-thumb\" style=\"color:gray\">{city}</span>&nbsp;'";
+        
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
 WriteLiteral("        ");
 
             
+<<<<<<< HEAD
             #line 41 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, DefaultSortFields = isOwnerAndNameSortFields }),
             @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields })));
+=======
+            #line 44 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+   Write(Html.SectionRow(
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
+>>>>>>> origin/master
 
             
             #line default
@@ -257,8 +286,13 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
+<<<<<<< HEAD
             #line 44 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields })));
+=======
+            #line 47 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+>>>>>>> origin/master
 
             
             #line default
@@ -268,7 +302,11 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
+<<<<<<< HEAD
             #line 46 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+=======
+            #line 49 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+>>>>>>> origin/master
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -279,7 +317,11 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
+<<<<<<< HEAD
             #line 47 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+=======
+            #line 50 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+>>>>>>> origin/master
    Write(Html.SectionRow(@Html.TemplateField(m => m.Purpose, FieldFlex.lone, null, EnumResources.ResourceManager)));
 
             
@@ -290,7 +332,11 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
+<<<<<<< HEAD
             #line 48 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+=======
+            #line 51 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+>>>>>>> origin/master
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -301,7 +347,11 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
+<<<<<<< HEAD
             #line 49 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+=======
+            #line 52 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+>>>>>>> origin/master
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
@@ -316,8 +366,13 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
+<<<<<<< HEAD
             #line 54 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Contact, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields })));
+=======
+            #line 57 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Contact, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+>>>>>>> origin/master
 
             
             #line default
@@ -327,7 +382,11 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
+<<<<<<< HEAD
             #line 56 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+=======
+            #line 59 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+>>>>>>> origin/master
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -338,7 +397,11 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
+<<<<<<< HEAD
             #line 57 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+=======
+            #line 60 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+>>>>>>> origin/master
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             

@@ -46,7 +46,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
             Parent = LookupField.FromReference(modelDto.ParentRef);
             IsServiceUser = modelDto.IsServiceUser;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

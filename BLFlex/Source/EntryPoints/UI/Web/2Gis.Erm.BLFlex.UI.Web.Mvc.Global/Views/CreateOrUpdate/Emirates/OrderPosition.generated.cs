@@ -427,7 +427,7 @@ WriteLiteral("                        ");
 
             
             #line 58 "..\..\Views\CreateOrUpdate\Emirates\OrderPosition.cshtml"
-                   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityName.PricePosition, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Price, ParentIdPattern = "PriceId" }));
+                   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityName.PricePosition, ExtendedInfo = "filterToParent=true&orderId={OrderId}", ParentEntityName = EntityName.Price, ParentIdPattern = "PriceId" }));
 
             
             #line default

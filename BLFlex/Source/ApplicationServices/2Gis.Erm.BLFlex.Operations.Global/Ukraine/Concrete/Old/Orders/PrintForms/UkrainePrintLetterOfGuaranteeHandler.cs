@@ -1,7 +1,9 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DAL;
@@ -39,25 +41,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                     TemplateCode = TemplateCode.LetterOfGuarantee,
                     FileName = string.Format("{0}-Гарантийное письмо", orderInfo.OrderNumber),
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
-                    PrintData = GetPrintData(request.OrderId, request.LegalPersonProfileId)
+                    PrintData = GetPrintData(request.OrderId)
                 };
 
             return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
 
-        protected PrintData GetPrintData(long orderId, long? legalPersonProfileId)
+        protected PrintData GetPrintData(long orderId)
         {
             var data = _finder.Find(Specs.Find.ById<Order>(orderId))
                               .Select(order => new
                                   {
                                       Order = order,
-                                      ProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.Id == legalPersonProfileId).Id,
+                                      ProfileId = order.LegalPersonProfileId,
                                       LegalPersonName = order.LegalPerson.LegalName,
                                       BranchOfficeOrganizationUnitName = order.BranchOfficeOrganizationUnit.ShortLegalName,
                                   })
                               .Single();
 
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+            if (data.ProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value));
 
             return new PrintData
                 {

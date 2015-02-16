@@ -58,6 +58,8 @@
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviour.cs" />
     <Compile Include="Concrete\AdvertisementElements\UpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
     <Compile Include="Concrete\HotClients\ProcessHotClientRequestOperationService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowAdvModelsInfo\Deserializers\DeserializeAdvModelInRubricInfoService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowAdvModelsInfo\Processors\ImportAdvModelInRubricInfoService.cs" />
     <Compile Include="Concrete\Integration\Olap\CalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Deals\SetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientRequestOperationService.cs" />
@@ -178,13 +180,15 @@
     <Compile Include="Concrete\Old\LocalMessages\ReprocessLocalMessagesHandler.cs" />
     <Compile Include="Concrete\Old\LocalMessages\SaveLocalMessageHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CalculateOrderPositionPricesHandler.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\ChangeBindingObjectsHandler.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\CheckIsBindingObjectChangeAllowedHandler.cs" />
+    <Compile Include="Concrete\OrderPositions\ChangeOrderPositionBindingObjectsOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\ReplaceOrderPositionAdvertisementLinksOperationService.cs" />
     <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\ActualizeOrderReleaseWithdrawalsHandler.cs" />
+    <Compile Include="Concrete\OrderPositions\GetAvailableBindingObjectsOperationService.cs" />
+    <Compile Include="Concrete\Orders\CheckIfOrderPositionCanBeModifiedOperationService.cs" />
+    <Compile Include="Concrete\Orders\CheckIfOrderPositionCanBeCreatedForOrderOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CloseOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\RecalculateOrderDiscountHandler.cs" />
@@ -194,13 +198,11 @@
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\SetLegalPersonProfileForOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToRejectedHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnRegistrationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnTerminationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnArchiveToApprovedHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToArchiveHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToOnApprovedHandler.cs" />
     <Compile Include="Concrete\Old\Prices\PublishPriceHandler.cs" />
     <Compile Include="Concrete\Old\Prices\UnpublishPriceHandler.cs" />
@@ -214,7 +216,10 @@
     <Compile Include="Concrete\OrderPositions\ViewOrderPositionOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\DetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\CloseClientBargainsOperationService.cs" />
+    <Compile Include="Concrete\Orders\ActualizeOrderAmountToWithdrawOperationService.cs" />
+    <Compile Include="Concrete\Orders\NullPriceCostsForSubPositionsProvider.cs" />
     <Compile Include="Concrete\Orders\CopyOrderOperationService.cs" />
+    <Compile Include="Concrete\Orders\MoDiPriceCostsForSubPositionsProvider.cs" />
     <Compile Include="Concrete\Orders\Processing\OrderCreationStrategy.cs" />
     <Compile Include="Concrete\Orders\Processing\OrderEditingStrategy.cs" />
     <Compile Include="Concrete\Orders\Processing\OrderProcessingService.cs" />
@@ -229,6 +234,7 @@
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviour.cs" />
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviourFactory.cs" />
     <Compile Include="Concrete\Orders\RegisterOrderStateChangesOperationService.cs" />
+    <Compile Include="Concrete\Orders\ChangeOrderLegalPersonProfileOperationService.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
@@ -266,6 +272,7 @@
     <Compile Include="Concrete\Withdrawals\WithdrawalOperationService.cs" />
     <Compile Include="Crosscutting\AdvertisementElements\AdvertisementElementPlainTextHarmonizer.cs" />
     <Compile Include="Crosscutting\AdvertisementElements\IAdvertisementElementPlainTextHarmonizer.cs" />
+    <Compile Include="Crosscutting\CanChangeOrderPositionBindingObjectsDetector.cs" />
     <Compile Include="Crosscutting\FirmWorkingTimeLocalizer.cs" />
     <Compile Include="Crosscutting\CardLink\WebClientLinkToEntityCardFactory.cs" />
     <Compile Include="Generic\ActionHistory\ActionsHistoryService.cs" />
@@ -285,17 +292,22 @@
     <Compile Include="Generic\Append\AppendThemeCategoryService.cs" />
     <Compile Include="Generic\Append\AppendThemeOrganizationUnitService.cs" />
     <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
-    <Compile Include="Generic\Append\AppendUserRoleService.cs" />
+    <Compile Include="Generic\Append\AppendUserRoleOperationService.cs" />
     <Compile Include="Generic\Append\AppendUserTerritoryService.cs" />
+    <Compile Include="Generic\Assign\ActivitySecurityAccessExtenstion.cs" />
     <Compile Include="Generic\Assign\AssignAccountDetailService.cs" />
     <Compile Include="Generic\Assign\AssignAccountService.cs" />
+    <Compile Include="Generic\Assign\AssignAppointmentService.cs" />
     <Compile Include="Generic\Assign\AssignClientService.cs" />
     <Compile Include="Generic\Assign\AssignContactService.cs" />
     <Compile Include="Generic\Assign\AssignDealService.cs" />
     <Compile Include="Generic\Assign\AssignFirmService.cs" />
     <Compile Include="Generic\Assign\AssignGenericEntityService.cs" />
     <Compile Include="Generic\Assign\AssignLegalPersonService.cs" />
+    <Compile Include="Generic\Assign\AssignLetterService.cs" />
     <Compile Include="Generic\Assign\AssignOrderService.cs" />
+    <Compile Include="Generic\Assign\AssignPhonecallService.cs" />
+    <Compile Include="Generic\Assign\AssignTaskService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeDealClientService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeFirmClientService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeGenericEntityClientService.cs" />
@@ -322,7 +334,7 @@
     <Compile Include="Generic\Deactivate\DeactivatePricePositionService.cs" />
     <Compile Include="Generic\Deactivate\DeactivatePriceService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateTerritoryService.cs" />
-    <Compile Include="Generic\Deactivate\DeactivateUserService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateUserOperationService.cs" />
     <Compile Include="Generic\Delete\DeleteAccountDetailService.cs" />
     <Compile Include="Generic\Delete\DeleteLegalPersonDealService.cs" />
     <Compile Include="Generic\Delete\DeleteClientLinkService.cs" />
@@ -337,7 +349,7 @@
     <Compile Include="Generic\Delete\DeleteGenericEntityService.cs" />
     <Compile Include="Generic\Delete\DeleteLockDetailService.cs" />
     <Compile Include="Generic\Delete\DeleteOperationTypeService.cs" />
-    <Compile Include="Generic\Delete\DeleteOrderPositionService.cs" />
+    <Compile Include="Generic\Delete\DeleteOrderPositionOperationService.cs" />
     <Compile Include="Generic\Delete\DeleteOrganizationUnitService.cs" />
     <Compile Include="Generic\Delete\DeletePlatformService.cs" />
     <Compile Include="Generic\Delete\DeletePositionCategoryService.cs" />
@@ -385,12 +397,12 @@
     <Compile Include="Generic\Get\GetCategoryOrganizationUnitDtoService.cs" />
     <Compile Include="Generic\Get\GetContactDtoService.cs" />
     <Compile Include="Generic\Get\GetContributionTypeDtoService.cs" />
-    <Compile Include="Generic\Get\GetCoutryDtoService.cs" />
+    <Compile Include="Generic\Get\GetCountryDtoService.cs" />
     <Compile Include="Generic\Get\GetCurrencyDtoService.cs" />
     <Compile Include="Generic\Get\GetCurrencyRateDtoService.cs" />
     <Compile Include="Generic\Get\GetDealDtoService.cs" />
     <Compile Include="Generic\Get\GetDeniedPositionDtoService.cs" />
-    <Compile Include="Generic\Get\GetDepartmentDtoSerivce.cs" />
+    <Compile Include="Generic\Get\GetDepartmentDtoService.cs" />
     <Compile Include="Generic\Get\GetDomainEntityDtoServiceBase.cs" />
     <Compile Include="Generic\Get\GetFirmContactDtoService.cs" />
     <Compile Include="Generic\Get\GetFirmDtoService.cs" />
@@ -558,7 +570,7 @@
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\CorrectAddressOrderPositionAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\IsTemplatePublishedOrderPositionAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\RequiredAdvertisementOrderPositionAdvertisementValidationRule.cs" />
-    <Compile Include="Concrete\OrderPositionAdvertisementValidation\ValidateOrderPositionAdvertisementsService.cs" />
+    <Compile Include="Concrete\OrderPositionAdvertisementValidation\ValidateOrderPositionAdvertisementsOperationService.cs" />
     <Compile Include="Concrete\Orders\ObtainDealForBizzacountOrderOperationService.cs" />
     <Compile Include="Concrete\Deals\ClientDealSelectionService.cs" />
     <Compile Include="DI\BlCoreOperationsAssembly.cs" />
@@ -708,6 +720,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
       <Project>{133c0a52-2556-4b09-a046-1beda9aa3ae4}</Project>

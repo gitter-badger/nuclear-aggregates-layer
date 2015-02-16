@@ -13,6 +13,11 @@ namespace DoubleGis.Erm.Core.Exceptions
         {
         }
 
+        public EntityNotLinkedException(string message) :
+            base(message)
+        {
+        }
+
         protected EntityNotLinkedException(SerializationInfo serializationInfo, StreamingContext streamingContext)
             : base(serializationInfo, streamingContext)
         {

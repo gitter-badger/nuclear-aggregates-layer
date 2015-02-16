@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
-namespace DoubleGis.Erm.Platform.Common.Utils
+namespace DoubleGis.Erm.Platform.Tests.Unit.Common.Utils
 {
     public class CompareObjectsHelperSpecs
     {

@@ -129,7 +129,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          OrderHasPositionsWithPlannedProvision =
                                                 x.Lock.Order.OrderPositions.Any(op => op.IsActive
                                                     && !op.IsDeleted
-                                                    && op.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision),
+                                                    && op.PricePosition.Position.SalesModel == SalesModel.PlannedProvision),
 
                                          BargainTypeSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.BranchOffice.BargainType.SyncCode1C,
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,

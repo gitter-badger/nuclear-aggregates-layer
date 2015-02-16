@@ -193,4 +193,10 @@
   <data name="OnlyApprovedLimitCanBeIncreased" xml:space="preserve">
     <value>Zvýšit můžete pouze schválený limit</value>
   </data>
+  <data name="ChangeProfilesOperationMessage" xml:space="preserve">
+    <value>Vyberte profil právnické osoby klienta</value>
+  </data>
+  <data name="ChangeProfilesOperationTitle" xml:space="preserve">
+    <value>ВVyberte profil</value>
+  </data>
 </root>

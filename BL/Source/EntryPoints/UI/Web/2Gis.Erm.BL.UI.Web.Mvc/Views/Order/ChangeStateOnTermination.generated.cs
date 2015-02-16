@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/ChangeStateOnTermination.cshtml")]
-    public partial class ChangeStateOnTermination : System.Web.Mvc.WebViewPage<Models.ChangeOrderStateOnTerminationViewModel>
+    public partial class ChangeStateOnTermination : System.Web.Mvc.WebViewPage<ChangeOrderStateOnTerminationViewModel>
     {
         public ChangeStateOnTermination()
         {

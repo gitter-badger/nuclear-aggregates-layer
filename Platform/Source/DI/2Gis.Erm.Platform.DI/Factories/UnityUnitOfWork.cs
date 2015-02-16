@@ -27,10 +27,8 @@ namespace DoubleGis.Erm.Platform.DI.Factories
 
         protected override object CreateRepository(
             Type aggregateRepositoryType,
-            bool createByConcreteType,
             IReadDomainContextProvider readDomainContextProvider, 
-            IModifiableDomainContextProvider modifiableDomainContextProvider, 
-            IDomainContextSaveStrategy saveStrategy)
+            IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
             var dependencyOverrides = new DependencyOverrides
                         {
@@ -38,15 +36,10 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                             // данные типы зависимостей даже не должны регистророваться в DI-контейнере, т.е. resolve
                             // работает ТОЛЬКО из-за того, что мы явно указываем какие экземпляры для каких типов зависимостей нужно использовать
                             { typeof(IReadDomainContextProvider), readDomainContextProvider },
-                            { typeof(IModifiableDomainContextProvider), modifiableDomainContextProvider },
-                            { typeof(IDomainContextSaveStrategy), saveStrategy }
+                            { typeof(IModifiableDomainContextProvider), modifiableDomainContextProvider }
                         };
 
-            // FIXME {all, 23.04.2014}: legacy, теперь нет разницы запрашиваем создание через абстракцию или конкретный тип - нужно выкосить createByConcreteType + не поломать unit tests 
-
-            return createByConcreteType
-                       ? _unityContainer.Resolve(aggregateRepositoryType, Mapping.ExplicitlyCreatedAggregateRepositoriesScope, dependencyOverrides) // запросили создание конкретного типа - никакие scope не используем, 
-                       : _unityContainer.Resolve(aggregateRepositoryType, Mapping.ExplicitlyCreatedAggregateRepositoriesScope, dependencyOverrides); // запросили создание, указав интерфейс, направляем resolve в специальный scope
+            return _unityContainer.Resolve(aggregateRepositoryType, Mapping.ExplicitlyCreatedAggregateRepositoriesScope, dependencyOverrides);
         }
 
         protected override object CreateAggregateReadModel(Type aggregateReadModelType, IReadDomainContextProvider readDomainContextProvider)
@@ -62,7 +55,10 @@ namespace DoubleGis.Erm.Platform.DI.Factories
             return _unityContainer.Resolve(aggregateReadModelType, dependencyOverrides);
         }
 
-        protected override object CreateConsumer(Type consumerType, IReadDomainContextProvider readDomainContextProvider, IModifiableDomainContextProvider modifiableDomainContextProvider, IDomainContextSaveStrategy saveStrategy)
+        protected override object CreateConsumer(
+            Type consumerType, 
+            IReadDomainContextProvider readDomainContextProvider, 
+            IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
             if (consumerType.IsInterface)
             {
@@ -75,8 +71,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                             // данные типы зависимостей даже не должны регистророваться в DI-контейнере, т.е. resolve
                             // работает ТОЛЬКО из-за того, что мы явно указываем какие экземпляры для каких типов зависимостей нужно использовать
                             { typeof(IReadDomainContextProvider), readDomainContextProvider },
-                            { typeof(IModifiableDomainContextProvider), modifiableDomainContextProvider },
-                            { typeof(IDomainContextSaveStrategy), saveStrategy }
+                            { typeof(IModifiableDomainContextProvider), modifiableDomainContextProvider }
                         };
 
             return _unityContainer.Resolve(consumerType, dependencyOverrides);
@@ -97,8 +92,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
 
         protected override object CreatePersistenceService(Type persistenceServiceType,
                                                            IReadDomainContextProvider readDomainContextProvider,
-                                                           IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                                           IDomainContextSaveStrategy saveStrategy)
+                                                           IModifiableDomainContextProvider modifiableDomainContextProvider)
         {
             if (persistenceServiceType.IsInterface)
             {
@@ -111,8 +105,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                             // данные типы зависимостей даже не должны регистророваться в DI-контейнере, т.е. resolve
                             // работает ТОЛЬКО из-за того, что мы явно указываем какие экземпляры для каких типов зависимостей нужно использовать
                             { typeof(IReadDomainContextProvider), readDomainContextProvider },
-                            { typeof(IModifiableDomainContextProvider), modifiableDomainContextProvider },
-                            { typeof(IDomainContextSaveStrategy), saveStrategy }
+                            { typeof(IModifiableDomainContextProvider), modifiableDomainContextProvider }
                         };
 
             return _unityContainer.Resolve(persistenceServiceType, dependencyOverrides);

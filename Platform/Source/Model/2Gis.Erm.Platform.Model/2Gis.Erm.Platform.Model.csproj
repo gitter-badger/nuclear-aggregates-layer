@@ -250,7 +250,6 @@
     <Compile Include="Entities\Enums\ObjectBindingType.cs" />
     <Compile Include="Entities\Enums\OperatesOnTheBasisType.cs" />
     <Compile Include="Entities\Enums\OperationStatus.cs" />
-    <Compile Include="Entities\Enums\OrderBudgetType.cs" />
     <Compile Include="Entities\Enums\OrderDiscountReason.cs" />
     <Compile Include="Entities\Enums\OrderFileKind.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
@@ -261,7 +260,6 @@
     <Compile Include="Entities\Enums\OutCityBranchesAmount.cs" />
     <Compile Include="Entities\Enums\PaymentFormat.cs" />
     <Compile Include="Entities\Enums\PaymentMethod.cs" />
-    <Compile Include="Entities\Enums\PositionAccountingMethod.cs" />
     <Compile Include="Entities\Enums\PositionBindingObjectType.cs" />
     <Compile Include="Entities\Enums\PositionCalculationMethod.cs" />
     <Compile Include="Entities\Enums\PositionPlatformMinPlacementPeriod.cs" />
@@ -272,6 +270,7 @@
     <Compile Include="Entities\Enums\ReasonForNewDeal.cs" />
     <Compile Include="Entities\Enums\ReleaseStatus.cs" />
     <Compile Include="Entities\Enums\RequestMessageType.cs" />
+    <Compile Include="Entities\Enums\SalesModel.cs" />
     <Compile Include="Entities\Enums\StaffAmount.cs" />
     <Compile Include="Entities\Enums\TaxationType.cs" />
     <Compile Include="Entities\Enums\TemplateCode.cs" />
@@ -406,6 +405,7 @@
     <Compile Include="Entities\Erm\PerformedOperationPrimaryProcessing.cs" />
     <Compile Include="Entities\Erm\PhonecallBase.cs" />
     <Compile Include="Entities\Erm\PhonecallReference.cs" />
+    <Compile Include="Entities\Erm\SalesModelCategoryRestriction.cs" />
     <Compile Include="Entities\Erm\Platform.cs" />
     <Compile Include="Entities\Erm\Position.cs" />
     <Compile Include="Entities\Erm\PositionCategory.cs" />
@@ -487,6 +487,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\DeleteChargesForPeriodAndProjectIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportAdvModelInRubricInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportChargesInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Building\ImportBuildingIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Category\ImportRubricIdentity.cs" />
@@ -521,6 +522,9 @@
     <Compile Include="Identities\Operations\Identity\Specific\Limit\SetLimitStatusIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ChangeOrderPositionBindingObjectsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ReplaceOrderPositionAdvertisementLinksIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\GetAvailableBinfingObjectsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ViewOrderPositionIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\CancelOrderProcessingRequestIdentity .cs" />
@@ -533,11 +537,15 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\SelectOrderProcessingOwnerIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\RegisterOrderStateChangesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ValidateOrdersIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\ActualizeOrderAmountToWithdrawIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\CheckIfOrderPositionCanBeModifiedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CreateOrderBillsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\DeleteOrderBillsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CopyOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ObtainDealForBizaccountOrderIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\ChangeOrderLegalPersonProfileIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\CheckIfOrderPositionCanBeCreatedForOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPriceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPricePositionIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\PublishPriceIdentity.cs" />
@@ -581,7 +589,6 @@
     <Compile Include="Aggregates\Aliases\RoleAggregate.cs" />
     <Compile Include="Aggregates\Aliases\ThemeAggregate.cs" />
     <Compile Include="Aggregates\Aliases\UserAggregate.cs" />
-    <Compile Include="Aggregates\Aliases\WithdrawalAggregate.cs" />
     <Compile Include="Aggregates\IAggregateSpecificOperation.cs" />
     <Compile Include="Aggregates\IUnknownAggregateSpecificOperation.cs" />
     <Compile Include="Ambivalent\AmbivalentEntities.cs" />
@@ -615,7 +622,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\LegalPerson\ChangeRequisitesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Limit\CloseLimitIdenitity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Limit\ReopenLimitIdenitity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateReleaseWithdrawalsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\ActualizeOrderReleaseWithdrawalsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Release\AttachExternalReleaseProcessingMessagesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Release\ValidateOrdersForReleaseIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Release\EnsureOrdersForReleaseCompletelyExportedIdentity.cs" />
@@ -668,7 +675,6 @@
     <Compile Include="Identities\Operations\Identity\Specific\Order\SetInspectorIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\RemoveBargainIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ExportAccountDetailsTo1CIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintRegionalOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\IOperationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ReportsServiceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\RevertWithdrawalIdentity.cs" />

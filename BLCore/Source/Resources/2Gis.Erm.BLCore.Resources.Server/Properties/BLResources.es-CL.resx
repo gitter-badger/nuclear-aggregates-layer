@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Materiales publicitarios</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Intentando guardar una Posición presupuestaria de la orden con la Cantidad distinta a 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>Finalización del período</value>
   </data>
@@ -965,9 +962,6 @@ Errores de bloqueo:{2}</value>
   <data name="PeriodClosing" xml:space="preserve">
     <value>Cierre del periodo</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>¡A la orden del tipo Ventas sólo se pueden agregar las posiciones en modo de registro "Cumplimento garantizado"!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Propiedad de oculto</value>
   </data>
@@ -985,9 +979,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Filtro predeterminado</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>¡A la orden del tipo Presupuesto sólo se le pueden agregar las posiciones en modo de registro Prestación planificada!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>Los datos  de las personas jurídicas del RUT espisificado no coinciden y  la fusión no es posible.</value>
@@ -3170,8 +3161,8 @@ Operación realizada con éxito: {6}.</value>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Resultados de verificación de la orden</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>No se puede agregar un elemento con el método de registro diferente de los métodos de registro del resto de elementos</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>No se puede agregar un elemento con el modelo de ventas que se diferencia de los modelos de ventas de los demás elementos</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Identificador 1C</value>
@@ -3959,9 +3950,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Se han establecido incorrectamente los tipos de esencia para agregar sucursales al tema</value>
-  </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>No se puede agregar una sucursal al tema establecido por defecto</value>
   </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>No se puede eliminar el tema que se usa en las órdenes</value>
@@ -5173,5 +5161,41 @@ Periodo de la publicación: {3}.</value>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value>Están planificadas incorrectamente las fechas del inicio y término de la reunión.
 </value>
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Para trabajar con el perfil se necesita que estén indicadas las razones sociales</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Impresión</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Debe estar indicado el perfil de la razón social</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>El perfil indicado no puede estar seleccionado para la orden</value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>En la orden pueden estar las posiciones de un modelo de ventas solamente</value>
+  </data>
+  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
+    <value>En conjunto de categorías para todas las posiciones debe coincidir</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>El intento de guardar la posición de la orden con el modelo de ventas '{0}' con la cantidad no igual a 1</value>
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Imposible asignar una acción en el estado "Cumplido"/"Cancelado"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Imposible asignar como supervisor al usuario de servicio</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>No hay permisos suficientes para cambiar de supervisor de la acción {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
   </data>
 </root>
