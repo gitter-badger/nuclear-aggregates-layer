@@ -487,8 +487,8 @@
     <Compile Include="Identities\Operations\Identity\Specific\Bargain\BulkCloseClientBargainsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Cancel\CompleteIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Cancel\RevertIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Complete\CompleteIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Revert\RevertIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\DeleteChargesForPeriodAndProjectIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportChargesInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Building\ImportBuildingIdentity.cs" />

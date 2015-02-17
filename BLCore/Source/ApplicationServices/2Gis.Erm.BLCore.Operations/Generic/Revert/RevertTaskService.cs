@@ -2,19 +2,18 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Revert;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Revert;
 
-namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
+namespace DoubleGis.Erm.BLCore.Operations.Generic.Revert
 {
-    public class CompleteTaskService : ICompleteGenericActivityService<Task>
+    public class RevertTaskService : IRevertGenericService<Task>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ITaskReadModel _taskReadModel;
@@ -22,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         private readonly IUserContext _userContext;
         private readonly IChangeTaskStatusAggregateService _changeTaskStatusAggregateService;
 
-        public CompleteTaskService(
+        public RevertTaskService(
             IOperationScopeFactory operationScopeFactory,
             ITaskReadModel taskReadModel,
             ISecurityServiceEntityAccess entityAccessService,
@@ -36,23 +35,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             _changeTaskStatusAggregateService = changeTaskStatusAggregateService;
         }
 
-        public void Complete(long entityId)
+        public void Revert(long entityId)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Task>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<RevertIdentity, Task>())
             {
                 var task = _taskReadModel.GetTask(entityId);
-
-                if (task.Status != ActivityStatus.InProgress)
-                {
-                    throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, task.Header));
-                }
-
+              
                 if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, task.OwnerCode))
                 {
                     throw new SecurityException(string.Format("{0}: {1}", task.Header, BLResources.SecurityAccessDenied));
                 }   
 
-                _changeTaskStatusAggregateService.Change(task, ActivityStatus.Completed);
+                _changeTaskStatusAggregateService.Change(task, ActivityStatus.InProgress);
 
                 scope.Updated<Task>(entityId);
                 scope.Complete();

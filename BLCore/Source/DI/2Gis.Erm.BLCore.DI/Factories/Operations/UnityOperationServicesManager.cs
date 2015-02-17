@@ -30,6 +30,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Revert;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 using Microsoft.Practices.Unity;

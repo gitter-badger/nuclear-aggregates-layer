@@ -9,11 +9,11 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Revert;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Revert
 {
-    public class RevertLetterService : IRevertGenericActivityService<Letter>
+    public class RevertLetterService : IRevertGenericService<Letter>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ILetterReadModel _letterReadModel;

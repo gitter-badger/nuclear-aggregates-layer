@@ -10,8 +10,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Revert
     {
         public RevertOperationErrorDescription(EntityName entityName, string message)
         {
-            this.EntityName = entityName;
-            this.Message = message;
+            EntityName = entityName;
+            Message = message;
         }
 
         [DataMember]

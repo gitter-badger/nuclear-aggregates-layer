@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Revert
 {  
     [DataContract]
     public class RevertIdentity : OperationIdentityBase<RevertIdentity>, IEntitySpecificOperationIdentity

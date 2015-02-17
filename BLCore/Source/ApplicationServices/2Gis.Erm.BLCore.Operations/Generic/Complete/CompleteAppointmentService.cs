@@ -15,11 +15,11 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 {
-    public class CompleteAppointmentService : ICompleteGenericActivityService<Appointment>
+    public class CompleteAppointmentService : ICompleteGenericService<Appointment>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IAppointmentReadModel _appointmentReadModel;
@@ -50,7 +50,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             {
                 var appointment = _appointmentReadModel.GetAppointment(entityId);
                 
-
                 if (appointment.Status != ActivityStatus.InProgress)
                 {
                     throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, appointment.Header));

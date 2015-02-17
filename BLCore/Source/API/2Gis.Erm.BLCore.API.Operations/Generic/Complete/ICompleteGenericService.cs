@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Complete
 {
-    public interface ICompleteGenericActivityService<TEntity> : IEntityOperation<TEntity>, ICompleteService
+    public interface ICompleteGenericService<TEntity> : IEntityOperation<TEntity>, ICompleteService
         where TEntity : class, IEntityKey
     {
     }

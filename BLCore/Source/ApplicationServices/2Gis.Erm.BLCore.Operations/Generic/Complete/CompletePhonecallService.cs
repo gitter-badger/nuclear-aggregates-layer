@@ -15,11 +15,11 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 {
-    public class CompletePhonecallService : ICompleteGenericActivityService<Phonecall>
+    public class CompletePhonecallService : ICompleteGenericService<Phonecall>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IPhonecallReadModel _phonecallReadModel;

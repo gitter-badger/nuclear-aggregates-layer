@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cance
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
 {
-    public class CancelAppointmentService : ICancelGenericActivityService<Appointment>
+    public class CancelAppointmentService : ICancelGenericService<Appointment>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IAppointmentReadModel _appointmentReadModel;

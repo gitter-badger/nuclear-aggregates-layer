@@ -1,9 +1,9 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Revert
+namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Cancel
 {
-    public interface IRevertGenericActivityService<TEntity> : IEntityOperation<TEntity>, IRevertService
+    public interface ICancelGenericService<TEntity> : IEntityOperation<TEntity>, ICancelService
         where TEntity : class, IEntityKey
     {
     }    

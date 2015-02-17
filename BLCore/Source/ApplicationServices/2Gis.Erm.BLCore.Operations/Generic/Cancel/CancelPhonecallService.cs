@@ -14,47 +14,47 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cance
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
 {
-    public class CancelTaskService : ICancelGenericActivityService<Task>
+    public class CancelPhonecallService : ICancelGenericService<Phonecall>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
-        private readonly ITaskReadModel _taskReadModel;
+        private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
-        private readonly IChangeTaskStatusAggregateService _changeTaskStatusAggregateService;
+        private readonly IChangePhonecallStatusAggregateService _changePhonecallStatusAggregateService;
 
-        public CancelTaskService(
+        public CancelPhonecallService(
             IOperationScopeFactory operationScopeFactory,
-            ITaskReadModel taskReadModel,
+            IPhonecallReadModel phonecallReadModel,
             ISecurityServiceEntityAccess entityAccessService,
             IUserContext userContext,
-            IChangeTaskStatusAggregateService changeTaskStatusAggregateService)
+            IChangePhonecallStatusAggregateService changePhonecallStatusAggregateService)
         {
             _operationScopeFactory = operationScopeFactory;
-            _taskReadModel = taskReadModel;
+            _phonecallReadModel = phonecallReadModel;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
-            _changeTaskStatusAggregateService = changeTaskStatusAggregateService;
+            _changePhonecallStatusAggregateService = changePhonecallStatusAggregateService;
         }
 
         public void Cancel(long entityId)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<CancelIdentity, Task>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<CancelIdentity, Phonecall>())
             {
-                var task = _taskReadModel.GetTask(entityId);
+                var phonecall = _phonecallReadModel.GetPhonecall(entityId);
 
-                if (task.Status != ActivityStatus.InProgress)
+                if (phonecall.Status != ActivityStatus.InProgress)
                 {
-                    throw new BusinessLogicException(string.Format(BLResources.CannotCancelFinishedOrClosedActivity, task.Header));
+                    throw new BusinessLogicException(string.Format(BLResources.CannotCancelFinishedOrClosedActivity, phonecall.Header));
                 }
 
-                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, task.OwnerCode))
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
                 {
-                    throw new SecurityException(string.Format("{0}: {1}", task.Header, BLResources.SecurityAccessDenied));
-                }   
+                    throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
+                } 
 
-                _changeTaskStatusAggregateService.Change(task, ActivityStatus.Canceled);
+                _changePhonecallStatusAggregateService.Change(phonecall, ActivityStatus.Canceled);
 
-                scope.Updated<Task>(entityId);
+                scope.Updated<Phonecall>(entityId);
                 scope.Complete();
             }
         }

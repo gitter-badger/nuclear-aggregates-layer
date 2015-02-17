@@ -67,11 +67,10 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             this.submitMode = this.submitModes.SAVE;
             if (this.fireEvent('beforepost', this) && this.normalizeForm()) {
                 this.postForm();                
-                this.on('postformsuccess', function () { this.postOperation(operation) });
+                this.on('postformsuccess', function () { this.postOperation(operation); });
             }
             else {
-                this.recalcDisabling();
-                statusEl.setValue(currentStatus);
+                this.recalcDisabling();                
                 this.isDirty = currentIsDirty;
             }
         }
