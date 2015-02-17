@@ -678,6 +678,7 @@
     <Content Include="Scripts\Cyprus\Ext.DoubleGis.UI.LegalPerson.Cyprus.js" />
     <Content Include="Scripts\Czech\Ext.DoubleGis.UI.LegalPerson.Czech.js" />
     <Content Include="Scripts\DataList\AdvertisementElementDenialReason.DataList.js" />
+    <Content Include="Scripts\DataList\Position.DataList.js" />
     <Content Include="Scripts\DataList\ClientLink.DataList.js" />
     <Content Include="Scripts\DataList\FirmDeal.DataList.js" />
     <Content Include="Scripts\DataList\LegalPersonDeal.DataList.js" />
