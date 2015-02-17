@@ -214,52 +214,47 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
         private ImportResponse ProcessImportRequest(LocalMessageDto localMessageDto)
         {
-            ImportResponse response;
-
             var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
-            var stream = file.Content;
-
             var integrationType = (IntegrationTypeImport)localMessageDto.IntegrationType;
+            var response = GetResponse(integrationType, file.Content, localMessageDto.FileName);
+            localMessageDto.LocalMessage.OrganizationUnitId = response.OrganizationUnitId;
+            return response;
+        }
+
+        private ImportResponse GetResponse(IntegrationTypeImport integrationType, Stream stream, string fileName)
+        {
+            return (ImportResponse)_subRequestProcessor.HandleSubRequest(
+                CreateRequest(integrationType, stream, fileName),
+                Context,
+                false);
+        }
+
+        private Request CreateRequest(IntegrationTypeImport integrationType, Stream stream, string fileName)
+        {
             switch (integrationType)
             {
                 case IntegrationTypeImport.FirmsFromDgpp:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                            new DgppImportFirmsRequest { MessageStream = stream },
-                            Context,
-                            false);
-                        break;
-                    }
+                    return new DgppImportFirmsRequest
+                               {
+                                   MessageStream = stream
+                               };
 
                 case IntegrationTypeImport.TerritoriesFromDgpp:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                            new DgppImportTerritoriesRequest { MessageStream = stream },
-                            Context,
-                            false);
-                        break;
-                    }
+                    return new DgppImportTerritoriesRequest
+                               {
+                                   MessageStream = stream
+                               };
 
                 case IntegrationTypeImport.AccountDetailsFrom1C:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                                                                                     new ImportAccountDetailsFrom1CRequest
-                                                                                         {
-                                                                                             InputStream = stream,
-                                                                                             FileName = localMessageDto.FileName
-                                                                                         },
-                            Context,
-                            false);
-                        break;
-                    }
+                    return new ImportAccountDetailsFrom1CRequest
+                               {
+                                   InputStream = stream,
+                                   FileName = fileName
+                               };
 
                 default:
                     throw new NotificationException("Неподдерживаемый тип интеграционного запроса на импорт");
             }
-
-            localMessageDto.LocalMessage.OrganizationUnitId = response.OrganizationUnitId;
-
-            return response;
         }
     }
 }
