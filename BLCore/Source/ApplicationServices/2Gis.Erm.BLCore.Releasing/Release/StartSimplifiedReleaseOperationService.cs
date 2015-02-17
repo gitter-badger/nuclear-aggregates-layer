@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 return false;
             }
 
-            if (!_orderReadModel.GetOrdersForRelease(organizationUnitId, period).Any())
+            if (!_orderReadModel.GetOrderIdsForRelease(organizationUnitId, period).Any())
             {
                 report = BLResources.CannotStartReleaseBecauseNoOrdersIsFoundForRelease;
                 return false;
