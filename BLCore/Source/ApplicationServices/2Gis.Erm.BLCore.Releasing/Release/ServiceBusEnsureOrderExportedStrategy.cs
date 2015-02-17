@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Transactions;
@@ -18,6 +19,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 {
     public sealed class ServiceBusEnsureOrderExportedStrategy : IEnsureOrderExportedStrategy
     {
+        private const int EntitiesAmountLogLimiter = 100;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> _orderOperationsProcessingsStoreService;
@@ -106,35 +108,69 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             bool isExported;
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                isExported = AllOrdersAreSuccessfullyExported(organizationUnitId, period) &&
-                             AllOperationsAreProcessed(organizationUnitId, period, _orderOperationsProcessingsStoreService) &&
-                             AllOperationsAreProcessed(organizationUnitId, period, _invoiceOperationsProcessingsStoreService);
+                isExported = FailedToExportOrdersQueueIsEmpty(organizationUnitId, period);
+                if (isExported)
+                {
+                    var ordersToProcess = EntitiesToProcess(organizationUnitId, period, _orderOperationsProcessingsStoreService);
+                    if (ordersToProcess.Any())
+                    {
+                        _logger.WarnFormatEx("Not all required orders are exported. The queue to process contains following orders: {0}",
+                                             string.Join(",", ordersToProcess.Take(EntitiesAmountLogLimiter).Select(x => x.ToString())));
+                    }
+
+                    isExported &= !ordersToProcess.Any();
+                }
+
+                if (isExported)
+                {
+                    var invoicesToProcess = EntitiesToProcess(organizationUnitId, period, _invoiceOperationsProcessingsStoreService);
+                    if (invoicesToProcess.Any())
+                    {
+                        _logger.WarnFormatEx("Not all required invoices are exported. The queue to process contains following invoices: {0}",
+                                             string.Join(",", invoicesToProcess.Take(EntitiesAmountLogLimiter).Select(x => x.ToString())));
+                    }
+
+                    isExported &= !invoicesToProcess.Any();
+                }
+
                 transaction.Complete();
             }
 
             return isExported;
         }
 
-        private bool AllOrdersAreSuccessfullyExported(long organizationUnitId, TimePeriod period)
+        private bool FailedToExportOrdersQueueIsEmpty(long organizationUnitId, TimePeriod period)
         {
             var failedOrders = _orderOperationsProcessingsStoreService.GetFailedEntities().Select(entity => entity.EntityId);
             var failedInvoices = _invoiceOperationsProcessingsStoreService.GetFailedEntities().Select(entity => entity.EntityId);
-            var anyFailedOrder = _orderReadModel.GetOrdersForRelease(organizationUnitId, period).Any(order => failedOrders.Contains(order.Id)
-                                                                                                              || failedInvoices.Contains(order.Id));
-            return !anyFailedOrder;
+            var ordersForRelease = _orderReadModel.GetOrderIdsForRelease(organizationUnitId, period);
+
+            var failedOrdersForRelease = ordersForRelease.Where(failedOrders.Contains).ToArray();
+            var failedInvoicesForRelease = ordersForRelease.Where(failedInvoices.Contains).ToArray();
+            if (failedOrdersForRelease.Any())
+            {
+                _logger.WarnFormatEx("Not all required orders are exported. The failed entities queue contains following orders: {0}",
+                                     string.Join(",", failedOrdersForRelease.Take(EntitiesAmountLogLimiter).Select(x => x.ToString())));
+            }
+
+            if (failedInvoicesForRelease.Any())
+            {
+                _logger.WarnFormatEx("Not all required invoices are exported. The failed entities queue contains following invoices: {0}",
+                                     string.Join(",", failedInvoicesForRelease.Take(EntitiesAmountLogLimiter).Select(x => x.ToString())));
+            }
+
+            return !failedOrdersForRelease.Any() && !failedInvoicesForRelease.Any();
         }
 
-        private bool AllOperationsAreProcessed(long organizationUnitId, TimePeriod period, IOperationsProcessingsStoreService operationsProcessingsStoreService)
+        private IEnumerable<long> EntitiesToProcess(long organizationUnitId, TimePeriod period, IOperationsProcessingsStoreService operationsProcessingsStoreService)
         {
             var selectSpecification = new SelectSpecification<Order, long>(order => order.Id);
             var oneMonthOperationsInterval = DateTime.UtcNow.AddMonths(-1);
             var operations = operationsProcessingsStoreService.GetPendingOperations(oneMonthOperationsInterval);
             var query = _exportRepository.GetBuilderForOperations(operations);
-            var orders = _exportRepository.GetEntityDtos(query,
-                                                         selectSpecification,
-                                                         OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period));
-
-            return !orders.Any();
+            return _exportRepository.GetEntityDtos(query,
+                                                   selectSpecification,
+                                                   OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period));
         }
     }
 }
