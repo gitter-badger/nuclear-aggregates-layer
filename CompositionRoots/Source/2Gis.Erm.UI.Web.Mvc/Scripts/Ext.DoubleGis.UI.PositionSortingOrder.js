@@ -43,19 +43,11 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             batch: true,
             listeners: {
                 write: {
-                    fn: function() { this.markDirty(false); },
+                    fn: this.saveSuccess,
                     scope: this
                 },
                 exception: {
-                    fn: function(proxy, type, action, options, response, arg) {
-                        Ext.MessageBox.show({
-                            title: '',
-                            msg: response.responseText,
-                            buttons: Ext.MessageBox.OK,
-                            width: 300,
-                            icon: Ext.MessageBox.ERROR
-                        });
-                    },
+                    fn: this.saveFailure,
                     scope: this
                 }
             },
@@ -100,8 +92,29 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             });
         }
     },
-    Save: function() {
-        this.store.save();
+    Save: function () {
+        window.Card.Items.Toolbar.disable();
+        var pending = this.store.save();
+
+        if (pending == -1) {
+            this.saveSuccess();
+        }
+    },
+    saveSuccess: function() {
+        this.markDirty(false);
+        window.Card.Items.Toolbar.enable();
+        window.Card.recalcToolbarButtonsAvailability();
+    },
+    saveFailure: function(proxy, type, action, options, response, arg) {
+        Ext.MessageBox.show({
+            title: Ext.LocalizedResources.ApplicationError,
+            msg: response.responseText,
+            buttons: Ext.MessageBox.OK,
+            width: 300,
+            icon: Ext.MessageBox.ERROR
+            });
+        window.Card.Items.Toolbar.enable();
+        window.Card.recalcToolbarButtonsAvailability();
     },
     RegisterDragAndDrop: function () {
         var self = this;
