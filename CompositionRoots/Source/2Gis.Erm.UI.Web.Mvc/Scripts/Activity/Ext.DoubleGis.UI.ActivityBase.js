@@ -99,13 +99,13 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             failure: this.postFormFailure            
         });
     },
-    Complete: function () {        
+    CompleteActivity: function () {        
         this.ChangeStatus("Complete");
     },
     CancelActivity: function () {        
         this.ChangeStatus("Cancel");
     },
-    Revert: function() {        
+    RevertActivity: function() {        
         this.ChangeStatus("Revert");
     },
     Assign: function () {
