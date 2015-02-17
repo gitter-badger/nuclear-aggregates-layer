@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
         public void Actualize(IEnumerable<ActualizeOrdersDto> orderInfos)
         {
-            _logger.InfoEx("Starting actualize orders during reverting withdrawal process");
+            _logger.Info("Starting actualize orders during reverting withdrawal process");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeOrdersDuringRevertingWithdrawalIdentity>())
             {
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoEx("Finished actualize orders during reverting withdrawal process");
+            _logger.Info("Finished actualize orders during reverting withdrawal process");
         }
     }
 }

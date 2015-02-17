@@ -410,7 +410,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 stringBuilder.AppendLine();
             }
 
-            _logger.InfoEx(stringBuilder.ToString());
+            _logger.Info(stringBuilder.ToString());
 
             return dataTable;
         }

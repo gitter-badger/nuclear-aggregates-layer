@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                 var pricePosition = _priceReadModel.GetPricePosition(sourcePricePositionId);
                 if (pricePosition == null)
                 {
-                    _logger.FatalEx(BLResources.UnableToGetExisitingPricePosition);
+                    _logger.Fatal(BLResources.UnableToGetExisitingPricePosition);
                     throw new NotificationException(BLResources.UnableToGetExisitingPricePosition);
                 }
 
@@ -79,21 +79,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             var isPriceExist = _priceReadModel.IsPriceExist(priceId);
             if (!isPriceExist)
             {
-                _logger.FatalEx(BLResources.UnableToGetExisitingPrice);
+                _logger.Fatal(BLResources.UnableToGetExisitingPrice);
                 throw new NotificationException(BLResources.UnableToGetExisitingPrice);
             }
 
             var isPriceContainsPosition = _priceReadModel.IsPriceContainsPosition(priceId, positionId);
             if (isPriceContainsPosition)
             {
-                _logger.FatalEx(BLResources.PricePositionForPositionAlreadyCreated);
+                _logger.Fatal(BLResources.PricePositionForPositionAlreadyCreated);
                 throw new NotificationException(BLResources.PricePositionForPositionAlreadyCreated);
             }
 
             var isPriceContainsPositionWithinNonDeleted = _priceReadModel.IsPriceContainsPositionWithinNonDeleted(priceId, positionId);
             if (isPriceContainsPositionWithinNonDeleted)
             {
-                _logger.FatalEx(BLResources.HiddenPricePositionForPositionAlreadyCreated);
+                _logger.Fatal(BLResources.HiddenPricePositionForPositionAlreadyCreated);
                 throw new NotificationException(BLResources.HiddenPricePositionForPositionAlreadyCreated);
             }
         }

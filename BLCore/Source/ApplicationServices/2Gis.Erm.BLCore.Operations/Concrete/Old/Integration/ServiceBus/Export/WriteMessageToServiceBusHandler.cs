@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             var isValidXml = data.ValidateXml(xsd, out error);
             if (!isValidXml)
             {
-                _logger.FatalEx(error);
+                _logger.Fatal(error);
                 throw new BusinessLogicException(string.Format(BLResources.XSDValidationError, error));
             }
 
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     }
                     catch (Exception e)
                     {
-                        _logger.ErrorFormatEx(e, "Ошибка при записи объекта в шину интеграции (поток {0})", flowName);
+                        _logger.ErrorFormat(e, "Ошибка при записи объекта в шину интеграции (поток {0})", flowName);
                         throw;
                     }
                 }

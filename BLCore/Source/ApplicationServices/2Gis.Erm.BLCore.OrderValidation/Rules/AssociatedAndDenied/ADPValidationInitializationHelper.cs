@@ -246,10 +246,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
             #region Profiling
             stopwatch.Stop();
             createTime += stopwatch.ElapsedMilliseconds;
-            logger.DebugFormatEx("Проверка СЗП. Загружено Заказов: {0}", orderStates.Count);
-            logger.DebugFormatEx("Проверка СЗП. Загружено Фирм: {0}", validators.Count);
-            logger.DebugFormatEx("Проверка СЗП. Загрузка данных: {0:F3}", fetchTime / 1000D);
-            logger.DebugFormatEx("Проверка СЗП. Создание структур: {0:F3}", createTime / 1000D);
+            logger.DebugFormat("Проверка СЗП. Загружено Заказов: {0}", orderStates.Count);
+            logger.DebugFormat("Проверка СЗП. Загружено Фирм: {0}", validators.Count);
+            logger.DebugFormat("Проверка СЗП. Загрузка данных: {0:F3}", fetchTime / 1000D);
+            logger.DebugFormat("Проверка СЗП. Создание структур: {0:F3}", createTime / 1000D);
             #endregion
 
             return validators;

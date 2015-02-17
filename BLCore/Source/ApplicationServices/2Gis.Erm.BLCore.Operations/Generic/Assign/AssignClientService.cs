@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 
                 AssignRelatedActivities(entityId, prevOwnerCode, ownerCode, isPartialAssign);
 
-                _logger.InfoFormatEx("[ERM] Куратором клиента с id={0} назначен пользователь {1}, isPartialAssign = {2}", entityId, ownerCode, isPartialAssign);
+                _logger.InfoFormat("[ERM] Куратором клиента с id={0} назначен пользователь {1}, isPartialAssign = {2}", entityId, ownerCode, isPartialAssign);
 
                 return null;
             }
