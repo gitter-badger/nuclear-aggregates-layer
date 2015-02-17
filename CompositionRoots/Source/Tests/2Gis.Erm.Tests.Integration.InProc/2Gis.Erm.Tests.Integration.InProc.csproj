@@ -123,6 +123,7 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowPhoneZonesTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowRubricsTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowStickersTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Withdrawals\WithdrawalsByAccountingMethodOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CancelOrderProcessingRequestOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CreateOrderCreationRequestOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CreateOrderProlongationRequestOperationServiceTest.cs" />

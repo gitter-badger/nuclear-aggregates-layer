@@ -63,13 +63,13 @@
                 @Model.Message
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"})
+                @Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, null, EnumResources.ResourceManager)
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings
                                                                             {
                                                                                 Store = CalendarSettings.StoreMode.Relative,
-                                                                                Display = CalendarSettings.DisplayMode.Day,
+                                                                                Display = CalendarSettings.DisplayMode.Month,
                                                                             })
             </div>
         </div>

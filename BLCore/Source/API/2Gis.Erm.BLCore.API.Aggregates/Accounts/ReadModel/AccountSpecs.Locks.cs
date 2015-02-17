@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
@@ -14,12 +15,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
         {
             public static class Find
             {
-                // TODO {all, 04.02.2015}: Разделить
-                public static FindSpecification<Lock> BySourceOrganizationUnit(long organizationUnitId, TimePeriod period)
+                public static FindSpecification<Lock> BySourceOrganizationUnit(long organizationUnitId)
                 {
-                    return new FindSpecification<Lock>(x => x.PeriodStartDate == period.Start &&
-                                                            x.PeriodEndDate == period.End &&
-                                                            x.Order.SourceOrganizationUnitId == organizationUnitId);
+                    return new FindSpecification<Lock>(x => x.Order.SourceOrganizationUnitId == organizationUnitId);
                 }
 
                 public static FindSpecification<Lock> BySourceOrganizationUnits(IEnumerable<long> organizationUnitIds)
@@ -35,6 +33,15 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                 public static FindSpecification<Lock> ByAccount(long accountId)
                 {
                     return new FindSpecification<Lock>(x => x.AccountId == accountId);
+                }
+
+                public static FindSpecification<Lock> ByAccountingMethod(AccountingMethod accountingMethod)
+                {
+                    var salesModels = accountingMethod == AccountingMethod.GuaranteedProvision
+                                          ? new[] { SalesModel.GuaranteedProvision }
+                                          : new[] { SalesModel.PlannedProvision, SalesModel.MultiPlannedProvision };
+
+                    return new FindSpecification<Lock>(x => x.Order.OrderPositions.Any(y => salesModels.Contains(y.PricePosition.Position.SalesModel)));
                 }
 
                 public static FindSpecification<Lock> ForPreviousPeriods(DateTime periodStart, DateTime periodEnd)

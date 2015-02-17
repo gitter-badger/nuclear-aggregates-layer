@@ -223,7 +223,11 @@
     <Compile Include="Concrete\Withdrawals\ICreateLockDetailsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IDeleteChargesForPeriodAndProjectOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IDeleteLockDetailsDuringRevertingWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\InvalidPeriodException.cs" />
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRule.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRulesProvider.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawalsByAccountingMethodOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
     <Compile Include="Crosscutting\ICanChangeOrderPositionBindingObjectsDetector.cs" />

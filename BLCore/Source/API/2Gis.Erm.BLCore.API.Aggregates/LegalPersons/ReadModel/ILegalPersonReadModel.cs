@@ -26,9 +26,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
         int? GetLegalPersonOrganizationDgppid(long legalPersonId);
         bool DoesLegalPersonHaveActiveNotArchivedAndNotRejectedOrders(long legalPersonId);
         IEnumerable<string> SelectNotUnique1CSyncCodes(IEnumerable<string> codes);
-        LegalPersonAndProfilesExistanceDto GetLegalPersonWithProfileExistanceInfo(long legalPersonId);
-        IEnumerable<LegalPersonAndProfilesExistanceDto> GetLegalPersonsWithProfileExistanceInfo(IEnumerable<long> legalPersonIds);
+        LegalPersonAndProfilesExistenceDto GetLegalPersonWithProfileExistenceInfo(long legalPersonId);
+        IEnumerable<LegalPersonAndProfilesExistenceDto> GetLegalPersonsWithProfileExistenceInfo(IEnumerable<long> legalPersonIds);
         bool IsThereLegalPersonProfileDuplicate(long legalPersonProfileId, long legalPersonId, string name);
-        IDictionary<long, IEnumerable<ValidateLegalPersonDto>> GetLegalPersonDtosToValidate(IEnumerable<long> organizationUnitIds, DateTime periodStartDate, DateTime periodEndDate);
+
+        IEnumerable<ValidateLegalPersonDto> GetLegalPersonDtosToValidateForWithdrawalOperation(long organizationUnitId,
+                                                                                               DateTime periodStartDate,
+                                                                                               DateTime periodEndDate);
     }
 }

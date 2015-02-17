@@ -1481,4 +1481,7 @@
   <data name="OtherAuthorityDocument" xml:space="preserve">
     <value>Jiné</value>
   </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Способ учета оказания услуг</value>
+  </data>
 </root>

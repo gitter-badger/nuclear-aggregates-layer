@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.LegalPersons
 
                 var entitiesSyncCodes = legalPersonsToValidate.Select(x => x.SyncCode1C);
                 var nonUniqueCode1C = _legalPersonReadModel.SelectNotUnique1CSyncCodes(entitiesSyncCodes);
-                var legalPersons = _legalPersonReadModel.GetLegalPersonsWithProfileExistanceInfo(legalPersonsToValidate.Select(x => x.LegalPersonId).ToArray());
+                var legalPersons = _legalPersonReadModel.GetLegalPersonsWithProfileExistenceInfo(legalPersonsToValidate.Select(x => x.LegalPersonId).ToArray());
 
                 errors.AddRange(legalPersonsToValidate.Where(x => string.IsNullOrWhiteSpace(x.SyncCode1C))
                                                               .Select(x => new LegalPersonValidationForExportErrorDto

@@ -2008,4 +2008,13 @@
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Гарантируемое оказание</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Планируемое оказание</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
 </root>

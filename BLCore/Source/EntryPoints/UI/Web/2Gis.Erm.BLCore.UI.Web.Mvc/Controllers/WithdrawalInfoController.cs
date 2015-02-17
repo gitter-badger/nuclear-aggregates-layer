@@ -27,9 +27,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 {
     public sealed class WithdrawalInfoController : ControllerBase
     {
-        private readonly IWithdrawalOperationService _withdrawalOperationService;
         private readonly IRevertWithdrawalOperationService _revertWithdrawalOperationService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IWithdrawalsByAccountingMethodOperationService _withdrawalByAccountingMethodOperationService;
+
 
         public WithdrawalInfoController(IMsCrmSettings msCrmSettings,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
@@ -38,14 +39,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                         IUserContext userContext,
                                         ICommonLog logger,
                                         IGetBaseCurrencyService getBaseCurrencyService,
-                                        IWithdrawalOperationService withdrawalOperationService,
                                         IRevertWithdrawalOperationService revertWithdrawalOperationService,
-                                        ISecurityServiceFunctionalAccess functionalAccessService)
+                                        ISecurityServiceFunctionalAccess functionalAccessService,
+                                        IWithdrawalsByAccountingMethodOperationService withdrawalByAccountingMethodOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
-            _withdrawalOperationService = withdrawalOperationService;
+
             _revertWithdrawalOperationService = revertWithdrawalOperationService;
             _functionalAccessService = functionalAccessService;
+            _withdrawalByAccountingMethodOperationService = withdrawalByAccountingMethodOperationService;
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -79,14 +81,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
             try
             {
-                var processingResult =
-                    _withdrawalOperationService.Withdraw(viewModel.OrganizationUnit.Key.Value,
-                                                         new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()));
+                var processingResultsByOrganizationUnit =
+                    _withdrawalByAccountingMethodOperationService.Withdraw(new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(),
+                                                                                          viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
+                                                                           viewModel.AccountingMethod);
+                var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
 
-                viewModel.Message = processingResult.Succeded
+                viewModel.Message = allWithwrawalsSucceded
                                         ? "Withdrawal successfully finished"
-                                        : processingResult.ProcessingMessages.Aggregate(new StringBuilder(), (builder, message) => builder.AppendLine(message.Text)).ToString();
-                viewModel.IsSuccess = processingResult.Succeded;
+
+                                        // TODO {y.baranihin, 16.02.2015}: Сделать удобный вывод сообщений по каждому городу
+                                        : "Аларма";// processingResult.ProcessingMessages.Aggregate(new StringBuilder(), (builder, message) => builder.AppendLine(message.Text)).ToString();
+                viewModel.IsSuccess = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
             }
             catch (Exception ex)
             {
@@ -122,6 +128,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                     _revertWithdrawalOperationService.Revert(
                             viewModel.OrganizationUnit.Key.Value,
                             new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
+                            viewModel.AccountingMethod,
                             viewModel.Comment);
 
                 viewModel.Message = processingResult.Succeded

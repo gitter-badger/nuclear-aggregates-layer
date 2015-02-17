@@ -171,6 +171,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int GetDebitsInfoInitialForExportIdentity = 14103;
         public const int GetAccountDetailsForExportContentIdentity = 14104;
 
+        // EntityName.Account = 142
+        public const int WithdrawalsByAccountingMethodIdentity = 14201;
+
         // EntityName.OrderProcessingRequest = 550
         public const int RequestOrderProlongationIdentity = 55001;
         public const int RequestOrderCreationIdentity = 55002;

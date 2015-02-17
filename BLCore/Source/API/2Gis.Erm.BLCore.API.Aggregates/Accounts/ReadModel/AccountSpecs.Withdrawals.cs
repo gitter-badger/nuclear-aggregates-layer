@@ -19,6 +19,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                     return new FindSpecification<WithdrawalInfo>(x => x.OrganizationUnitId == organizationUnitId);
                 }
 
+                public static FindSpecification<WithdrawalInfo> ByAccoutingMethod(AccountingMethod accountingMethod)
+                {
+                    return new FindSpecification<WithdrawalInfo>(x => x.AccountingMethod == accountingMethod);
+                }
+
+                public static FindSpecification<WithdrawalInfo> WithNoAccountingMethodSpecified()
+                {
+                    return ByAccoutingMethod(AccountingMethod.Undefined);
+                }
+
                 public static FindSpecification<WithdrawalInfo> ForPeriod(TimePeriod period)
                 {
                     return new FindSpecification<WithdrawalInfo>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);

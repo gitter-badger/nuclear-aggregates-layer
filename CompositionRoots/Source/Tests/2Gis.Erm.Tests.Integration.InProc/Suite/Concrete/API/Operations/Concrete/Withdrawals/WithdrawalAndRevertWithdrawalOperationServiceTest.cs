@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
@@ -28,9 +29,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             var date = DateTime.UtcNow;
             var timePeriod = new TimePeriod(date.GetPrevMonthFirstDate(), date.GetPrevMonthLastDate());
 
-            _revertWithdrawalOperationService.Revert(modelEntity.Id, timePeriod, "test");
+            _revertWithdrawalOperationService.Revert(modelEntity.Id, timePeriod, AccountingMethod.GuaranteedProvision, "test");
 
-            _withdrawalOperationService.Withdraw(modelEntity.Id, timePeriod);
+            _withdrawalOperationService.Withdraw(modelEntity.Id, timePeriod, AccountingMethod.GuaranteedProvision);
 
             return OrdinaryTestResult.As.Succeeded;
         }

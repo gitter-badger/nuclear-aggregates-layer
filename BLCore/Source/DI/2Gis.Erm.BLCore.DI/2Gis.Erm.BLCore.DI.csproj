@@ -71,6 +71,7 @@
     <Compile Include="Config\MassProcessing\RequestHandlersMassProcessor.cs" />
     <Compile Include="Factories\Integration\UnityDeserializeServiceBusDtoServiceFactory.cs" />
     <Compile Include="Factories\Integration\UnityImportServiceBusDtoServiceFactory.cs" />
+    <Compile Include="Factories\Operations\Withdrawals\UnityWithdrawalOperationValidationRulesProvider.cs" />
     <Compile Include="Factories\OrderValidation\UnityOrderValidationRuleFactory.cs" />
     <Compile Include="Factories\RequestHandling\UnityHandlerFactory.cs" />
     <Compile Include="Factories\Operations\UnityOperationServicesManager.cs" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
