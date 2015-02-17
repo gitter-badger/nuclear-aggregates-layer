@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
             }
             catch (Exception e)
             {
-                _logger.FatalFormatEx(e, "Ошибка при экспорте сущности {0}", typeof(TEntity).Name);
+                _logger.FatalFormat(e, "Ошибка при экспорте сущности {0}", typeof(TEntity).Name);
                 throw;
             }
         }

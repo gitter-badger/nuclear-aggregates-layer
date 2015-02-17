@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         [HttpPost]
         public JsonNetResult LogError()
         {
-            Logger.WarnFormatEx("Javascript exception occured: {0}", HttpUtility.UrlDecode(Request.Params.ToString()));
+            Logger.WarnFormat("Javascript exception occured: {0}", HttpUtility.UrlDecode(Request.Params.ToString()));
             return new JsonNetResult();
         }
     }

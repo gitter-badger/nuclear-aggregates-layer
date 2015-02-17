@@ -84,11 +84,11 @@ namespace DoubleGis.Platform.UI.WPF.Shell
                 var ex = e.ExceptionObject as Exception;
                 if (ex != null)
                 {
-                    logger.FatalFormatEx(ex, "UnhandledException. IsTerminating={0}.", e.IsTerminating);
+                    logger.FatalFormat(ex, "UnhandledException. IsTerminating={0}.", e.IsTerminating);
                 }
                 else
                 {
-                    logger.FatalFormatEx("UnhandledException. IsTerminating={0}. Description: {1}", e.IsTerminating, e.ExceptionObject);
+                    logger.FatalFormat("UnhandledException. IsTerminating={0}. Description: {1}", e.IsTerminating, e.ExceptionObject);
                 }
             }
         }
@@ -98,7 +98,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell
             var logger = _logger;
             if (logger != null)
             {
-                logger.ErrorFormatEx("Dispatcher unhanlded exception catched. Is handled: {0}. Exception: {1}", e.Handled, e.Exception);
+                logger.ErrorFormat("Dispatcher unhanlded exception catched. Is handled: {0}. Exception: {1}", e.Handled, e.Exception);
             }
         }
     }

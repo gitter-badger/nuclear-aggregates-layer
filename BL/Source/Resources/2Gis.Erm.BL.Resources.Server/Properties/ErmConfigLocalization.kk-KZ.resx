@@ -1860,6 +1860,9 @@
   <data name="ControlIncreaseLimit" xml:space="preserve">
     <value>Увеличить</value>
   </data>
+  <data name="DListMyOpenedActivities" xml:space="preserve">
+    <value>Мои открытые планы</value>
+  </data>
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Сменить профиль</value>
   </data>

@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Deals
 
         public void Change(long dealId, DealStage dealStage)
         {
-            _logger.DebugFormatEx("Deal replication. DealId: {0}, DealStage: {1}", dealId, dealStage);
+            _logger.DebugFormat("Deal replication. DealId: {0}, DealStage: {1}", dealId, dealStage);
 
             var deal = _dealReadModel.GetDeal(dealId);
             if (deal.DealStage == dealStage) return;
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Deals
                 // сделка не может вернуться на подготовительный этап, если по ней уже начата деятельность или у нее есть активные заказы
                 if (IsInProcessStage(dealStage) || _dealReadModel.HasOrders(dealId))
                 {
-                    _logger.DebugFormatEx("Deal stage cannot be changed from {0} to {1}.", dealStage, deal.DealStage);
+                    _logger.DebugFormat("Deal stage cannot be changed from {0} to {1}.", dealStage, deal.DealStage);
                     return;
                 }
             }

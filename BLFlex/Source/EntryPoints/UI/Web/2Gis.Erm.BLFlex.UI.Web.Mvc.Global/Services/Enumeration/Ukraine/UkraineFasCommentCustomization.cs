@@ -11,12 +11,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Czech
         protected override IEnumerable<FasComment> GetRequiredEnumValues()
         {
             return new[]
-                {
-                    FasComment.UkraineDrugsAndService,
-                    FasComment.UkraineAlcohol,
-                    FasComment.UkraineTobaccoGoods,
-                    FasComment.NewFasComment,
-                };
+                       {
+                           FasComment.UkraineAutotherapy,
+                           FasComment.UkraineDrugs,
+                           FasComment.UkraineMedicalDevice,
+                           FasComment.UkraineAlcohol,
+                           FasComment.UkraineSoundPhonogram,
+                           FasComment.UkraineSoundLive,
+                           FasComment.UkraineEmploymentAssistance,
+                           FasComment.NewFasComment,
+                       };
         }
     }
 }

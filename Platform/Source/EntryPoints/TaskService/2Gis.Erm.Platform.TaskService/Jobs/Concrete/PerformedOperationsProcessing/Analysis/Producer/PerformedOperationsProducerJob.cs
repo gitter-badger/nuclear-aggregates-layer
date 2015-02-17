@@ -57,13 +57,13 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
         public void Interrupt()
         {
-            Logger.InfoEx("Producing performed operations. Interrupt called for job, producing performed operations is stopping");
+            Logger.Info("Producing performed operations. Interrupt called for job, producing performed operations is stopping");
             _cancellationTokenSource.Cancel();
         }
 
         protected override void ExecuteInternal(IJobExecutionContext context)
         {
-            Logger.InfoEx("Producing performed operations. Processing started. Processors used: " + MaxParallelism);
+            Logger.Info("Producing performed operations. Processing started. Processors used: " + MaxParallelism);
 
             var workItemsProcessors = new Task[MaxParallelism];
             for (int i = 0; i < workItemsProcessors.Length; i++)
@@ -75,12 +75,12 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
             _workItemsGenerator.Start();
             Task.WaitAll(workItemsProcessors);
             
-            Logger.InfoEx("Producing performed operations. Processing stopped");
+            Logger.Info("Producing performed operations. Processing stopped");
         }
 
         private void WorkItemsGeneratorFunc()
         {
-            Logger.InfoEx("Producing performed operations. Work items generator started");
+            Logger.Info("Producing performed operations. Work items generator started");
 
             var cancellationToken = _cancellationTokenSource.Token;
             while (!cancellationToken.IsCancellationRequested)
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
             _workItemsSource.CompleteAdding();
 
-            Logger.InfoEx("Producing performed operations. Work items generator stopped");
+            Logger.Info("Producing performed operations. Work items generator stopped");
         }
     }
 }

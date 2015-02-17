@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.PostIntegrati
 
             foreach (var addresNotFound in addresses.Where(x => string.IsNullOrEmpty(x.Value)))
             {
-                _logger.ErrorFormatEx(string.Format("Адрес фирмы с AddressCode=[{0}] не найден в системе GeoMaster", addresNotFound.Key));
+                _logger.ErrorFormat(string.Format("Адрес фирмы с AddressCode=[{0}] не найден в системе GeoMaster", addresNotFound.Key));
             }
 
             ProcessGeoMasterResponse(request.FirmAddresses, addresses);
