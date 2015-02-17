@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.WCF.MoDi
         {
             _reportsService = reportsService;
 
-            logger.InfoFormatEx("Печатается отчёт от имени пользователя {0} ({1})", userContext.Identity.DisplayName, userContext.Identity.Account);
+            logger.InfoFormat("Печатается отчёт от имени пользователя {0} ({1})", userContext.Identity.DisplayName, userContext.Identity.Account);
             EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
         }
 

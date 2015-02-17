@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
             // log controller action
             var controllerName = RouteData.GetRequiredString("controller");
             var actionName = RouteData.GetRequiredString("action");
-            Logger.DebugFormatEx("Вызов контроллера [{0}]. Метод [{1}]", controllerName, actionName);
+            Logger.DebugFormat("Вызов контроллера [{0}]. Метод [{1}]", controllerName, actionName);
 
             base.ExecuteCore();
         }

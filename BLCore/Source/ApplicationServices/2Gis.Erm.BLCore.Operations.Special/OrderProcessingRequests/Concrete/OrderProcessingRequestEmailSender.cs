@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.InfoEx("Notifications disabled in config file");
+                _logger.Info("Notifications disabled in config file");
                 return false;
             }
 

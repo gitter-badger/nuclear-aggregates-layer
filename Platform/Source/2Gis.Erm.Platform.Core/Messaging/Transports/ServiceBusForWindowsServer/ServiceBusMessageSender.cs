@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             SenderSlot senderSlot;
             if (!_serviceBusConnectionPool.TryResolveTargetSlot(out senderSlot))
             {
-                _logger.DebugEx("Can't resolve target sender slot");
+                _logger.Debug("Can't resolve target sender slot");
                 return false;
             }
 
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             catch (Exception ex)
             {
                 var entityPath = senderSlot.GetClientPropertyValue(client => client.Path);
-                _logger.ErrorFormatEx(ex, "Can't send data to service bus with entitypath {0}", entityPath);
+                _logger.ErrorFormat(ex, "Can't send data to service bus with entitypath {0}", entityPath);
                 return false;
             }
 
