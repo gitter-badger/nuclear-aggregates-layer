@@ -203,14 +203,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
             var stream = file.Content;
 
-            return (ExportResponse)_subRequestProcessor.HandleSubRequest(new WriteMessageToServiceBusRequest
-            {
-                MessageStream = stream,
-                FlowName = "flowDeliveryData",
+            var subrequest = new WriteMessageToServiceBusRequest
+                {
+                    MessageStream = stream,
+                    FlowName = "flowDeliveryData",
                     XsdSchemaResourceExpression = () => Properties.Resources.flowDeliveryData_SendingGroup
-            },
-                                                             Context,
-                                                             false);
+                };
+            return (ExportResponse)_subRequestProcessor.HandleSubRequest(subrequest, Context, false);
         }
 
         private ImportResponse ProcessImportRequest(LocalMessageDto localMessageDto)
