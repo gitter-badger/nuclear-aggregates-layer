@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastruc
                     {
                         if (logger != null)
                         {
-                            logger.ErrorFormatEx(ex, "Can't deserialize api exception detail");
+                            logger.ErrorFormat(ex, "Can't deserialize api exception detail");
                         }
                     }
                 }
@@ -101,7 +101,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastruc
                 
                 if (logger != null)
                 {
-                    logger.ErrorEx(exception, topLevelErrorDescription);
+                    logger.Error(exception, topLevelErrorDescription);
                 }
 
                 throw exception;

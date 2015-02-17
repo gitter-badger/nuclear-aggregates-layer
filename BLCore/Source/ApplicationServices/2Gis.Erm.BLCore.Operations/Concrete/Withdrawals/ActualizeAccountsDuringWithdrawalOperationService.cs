@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             _useCaseTuner.AlterDuration<ActualizeAccountsDuringWithdrawalOperationService>();
 
-            _logger.InfoFormatEx("Starting accounts state actualization process during withdrawal");
+            _logger.InfoFormat("Starting accounts state actualization process during withdrawal");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeAccountsDuringWithdrawalIdentity>())
             {
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoFormatEx("Finished accounts state actualization process during withdrawal");
+            _logger.InfoFormat("Finished accounts state actualization process during withdrawal");
         }
     }
 }

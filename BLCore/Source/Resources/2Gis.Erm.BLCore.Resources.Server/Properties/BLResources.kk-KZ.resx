@@ -5189,4 +5189,19 @@ Cумма по операции: {5}.
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Попытка сохранить позицию заказа с моделью продаж '{0}' с количеством, не равным 1</value>
   </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Невозможно назначить действие в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Невозможно назначить куратором служебного пользователя</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Недостаточно прав для смены куратора у действия {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
 </root>

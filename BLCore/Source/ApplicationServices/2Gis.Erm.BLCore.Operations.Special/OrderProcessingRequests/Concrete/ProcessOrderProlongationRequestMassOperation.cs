@@ -32,11 +32,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 }
                 catch (BusinessLogicException ex)
                 {
-                    _logger.ErrorEx(ex, "Cant'n prolongate order by request Id = " + request.Id);
+                    _logger.Error(ex, "Cant'n prolongate order by request Id = " + request.Id);
                 }
                 catch (Exception ex)
                 {
-                    _logger.FatalEx(ex, "Cant'n prolongate order by request Id = " + request.Id);
+                    _logger.Fatal(ex, "Cant'n prolongate order by request Id = " + request.Id);
                 }
             }
         }

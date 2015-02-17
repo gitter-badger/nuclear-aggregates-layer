@@ -237,7 +237,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .Select(item => item.PricePosition.Position.PlatformId)
                           .Distinct()
                           .ToArray(); 
-            
+
             var platformId = platformIds.Count() > 1
                                  ? _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (long)PlatformEnum.Independent).Single().Id
                                  : platformIds.FirstOrDefault();
@@ -854,7 +854,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                         BranchName = x.Value.BranchName,
                         ContactClientEmail = x.Value.Contact == null ? null : x.Value.Contact.WorkEmail,
                         ContactClientName = x.Value.Contact == null ? null : x.Value.Contact.FullName,
-                        ContactClientSex = x.Value.Contact == null ? null : ((Gender)x.Value.Contact.GenderCode).ToString(),
+                        ContactClientSex = x.Value.Contact == null ? null : x.Value.Contact.GenderCode.ToString(),
                         FirmCode = x.FirmCode,
                         FirmName = x.Value.FirmName,
                         IsClientActually = x.Value.IsClientActually,
@@ -943,13 +943,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
                           .Select(x => new OrderFinancialInfo
-                              {
-                                  DiscountSum = x.DiscountSum,
-                                  ReleaseCountFact = x.ReleaseCountFact,
-                                  DiscountInPercent = x.OrderPositions
-                                                       .Where(y => !y.IsDeleted && y.IsActive)
+                                           {
+                                               DiscountSum = x.DiscountSum,
+                                               ReleaseCountFact = x.ReleaseCountFact,
+                                               DiscountInPercent = x.OrderPositions
+                                                                    .Where(y => !y.IsDeleted && y.IsActive)
                                                                     .All(y => y.CalculateDiscountViaPercent)
-                              })
+                                           })
                           .Single();
         }
 
@@ -1432,6 +1432,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IEnumerable<Bill> GetBillsForOrder(long orderId)
         {
             return _finder.FindMany(OrderSpecs.Bills.Find.ByOrder(orderId) & Specs.Find.ActiveAndNotDeleted<Bill>());
+        }
+
+        public SalesModel GetOrderSalesModel(long orderId)
+        {
+            return
+                _finder.Find(Specs.Find.ById<Order>(orderId))
+                       .SelectMany(x => x.OrderPositions)
+                       .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                       .Select(x => x.PricePosition.Position.SalesModel)
+                       .Distinct()
+                       .SingleOrDefault();
         }
 
         public long? GetLegalPersonProfileIdByOrder(long orderId)

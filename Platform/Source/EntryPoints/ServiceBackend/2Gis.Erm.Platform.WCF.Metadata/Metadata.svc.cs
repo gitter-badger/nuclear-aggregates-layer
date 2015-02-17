@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get all applicable operations description";
-                _logger.ErrorEx(ex, Message);
+                _logger.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get applicable operations for calling user description";
-                _logger.ErrorEx(ex, Message);
+                _logger.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get applicable operations for context description";
-                _logger.ErrorEx(ex, Message);
+                _logger.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get applicable operations for context description";
-                _logger.ErrorEx(ex, Message);
+                _logger.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get applicable operations for context description";
-                _logger.ErrorEx(ex, Message);
+                _logger.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -122,7 +122,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Ошибка обработки запроса");
+                _logger.Error(ex, "Ошибка обработки запроса");
                 throw new WebFaultException(HttpStatusCode.InternalServerError);
             }
         }
@@ -135,7 +135,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Ошибка обработки запроса");
+                _logger.Error(ex, "Ошибка обработки запроса");
                 throw new WebFaultException(HttpStatusCode.InternalServerError);
             }
         }

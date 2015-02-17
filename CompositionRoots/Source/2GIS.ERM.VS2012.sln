@@ -408,6 +408,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Int.Czech.config = Environments\Erm.Int.Czech.config
 		Environments\Erm.Int.Russia.config = Environments\Erm.Int.Russia.config
 		Environments\Erm.Load.Cyprus.config = Environments\Erm.Load.Cyprus.config
+		Environments\Erm.Load.Czech.config = Environments\Erm.Load.Czech.config
 		Environments\Erm.Load.Russia.config = Environments\Erm.Load.Russia.config
 		Environments\Erm.Load.Ukraine.config = Environments\Erm.Load.Ukraine.config
 		Environments\Erm.Production.Chile.config = Environments\Erm.Production.Chile.config
