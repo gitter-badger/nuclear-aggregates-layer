@@ -41,6 +41,10 @@
     <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.3\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.0.10\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
@@ -782,18 +786,6 @@
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\RevertWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawalIdentity.cs" />
     <Compile Include="UndefinedEnumValueAttribute.cs" />
-    <Compile Include="Zones\CompositionRoot.cs" />
-    <Compile Include="Zones\IContainsType.cs" />
-    <Compile Include="Zones\Infrastructure\AssemblyZonePartScope.cs" />
-    <Compile Include="Zones\Infrastructure\IZonePart.cs" />
-    <Compile Include="Zones\Infrastructure\IZonePartScope.cs" />
-    <Compile Include="Zones\Infrastructure\MemberZonePartScope.cs" />
-    <Compile Include="Zones\Infrastructure\NamespaceZonePartScope.cs" />
-    <Compile Include="Zones\IZone.cs" />
-    <Compile Include="Zones\IZoneAnchor.cs" />
-    <Compile Include="Zones\IZoneAssembly.cs" />
-    <Compile Include="Zones\IZoneMember.cs" />
-    <Compile Include="Zones\IZoneNamespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

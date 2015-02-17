@@ -1,5 +1,5 @@
 ﻿using NuClear.Model.Common.Entities.Aspects;
-using DoubleGis.Erm.Platform.Model.Zones;
+using NuClear.Assembling.Zones;
 
 using NuClear.Model.Common.Operations.Identity;
 

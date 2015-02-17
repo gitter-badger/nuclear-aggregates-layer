@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Ambivalent;

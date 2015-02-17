@@ -3,10 +3,11 @@
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
-using DoubleGis.Erm.Platform.Model.Zones;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
@@ -31,12 +32,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             // первый проход
             unityContainer.ConfigureSettingsAspects(settingsContainer);
             configurator(unityContainer);
-            PerformTypesMassProcessing(root, massProcessors, true, businessModelSettings);
+            root.PerformTypesMassProcessing(massProcessors, true, businessModelSettings.BusinessModelIndicator);
 
             // второй проход
             unityContainer.ConfigureSettingsAspects(settingsContainer);
             configurator(unityContainer);
-            PerformTypesMassProcessing(root, massProcessors, false, businessModelSettings);
+            root.PerformTypesMassProcessing(massProcessors, false, businessModelSettings.BusinessModelIndicator);
 
             return unityContainer;
         }

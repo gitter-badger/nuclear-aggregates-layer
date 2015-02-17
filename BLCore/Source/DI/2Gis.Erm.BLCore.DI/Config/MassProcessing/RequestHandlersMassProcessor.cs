@@ -5,7 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Factories.RequestHandling;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using NuClear.Assembling.TypeProcessing;
 
 using Microsoft.Practices.Unity;
 

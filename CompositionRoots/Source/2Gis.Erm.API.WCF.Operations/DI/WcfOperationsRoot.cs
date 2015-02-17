@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
+using NuClear.Assembling.Zones;
 using DoubleGis.Erm.Qds.Operations.DI;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.DI

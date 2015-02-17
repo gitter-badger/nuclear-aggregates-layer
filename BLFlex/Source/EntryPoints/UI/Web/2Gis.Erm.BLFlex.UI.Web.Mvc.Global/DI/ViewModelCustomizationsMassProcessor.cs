@@ -4,7 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 
 using Microsoft.Practices.Unity;

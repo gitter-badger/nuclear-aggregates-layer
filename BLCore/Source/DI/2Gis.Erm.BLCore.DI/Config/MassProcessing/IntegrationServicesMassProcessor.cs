@@ -9,7 +9,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using NuClear.Assembling.TypeProcessing;
 
 using Microsoft.Practices.Unity;
 

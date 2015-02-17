@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Core.Metadata;
 using DoubleGis.Erm.Platform.Core.Operations;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using NuClear.Assembling.TypeProcessing;
 
 using Microsoft.Practices.Unity;
 

@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.3\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Metamodeling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.1.0.12\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.dll</HintPath>
@@ -93,9 +97,6 @@
     <Compile Include="Proxies\UnityContainerScopeProxy.Dispose.cs" />
     <Compile Include="Proxies\UnityContainerScopeProxy.cs" />
     <Compile Include="Proxies\Messaging\UnityMessageValidatorProxy.cs" />
-    <Compile Include="Zones\ZonePartInfo.cs" />
-    <Compile Include="Zones\ZonePartTypesExtractor.cs" />
-    <Compile Include="Zones\ZoneUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

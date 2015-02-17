@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.UI.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI
 {

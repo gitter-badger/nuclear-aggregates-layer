@@ -23,8 +23,9 @@ using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
+
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {

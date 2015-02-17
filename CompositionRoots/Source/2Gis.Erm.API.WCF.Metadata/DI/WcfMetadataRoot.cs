@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.API.WCF.Metadata.DI
 {
