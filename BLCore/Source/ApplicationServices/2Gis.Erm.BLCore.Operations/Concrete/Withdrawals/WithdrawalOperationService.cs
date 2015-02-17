@@ -39,12 +39,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         public WithdrawalOperationService(
             IAccountReadModel accountReadModel,
             ICreateLockDetailsDuringWithdrawalOperationService createLockDetailsDuringWithdrawalOperationService,
-            IActualizeAccountsDuringWithdrawalOperationService actualizeAccountsDuringWithdrawalOperationService,
+            IActualizeAccountsDuringWithdrawalOperationService actualizeAccountsDuringWithdrawalOperationService, 
             IActualizeOrdersDuringWithdrawalOperationService actualizeOrdersDuringWithdrawalOperationService,
             IActualizeDealsDuringWithdrawalOperationService actualizeDealsDuringWithdrawalOperationService,
             IAccountWithdrawalStartAggregateService withdrawalStartAggregateService,
             IAccountWithdrawalChangeStatusAggregateService withdrawalChangeStatusAggregateService,
-            IAggregateServiceIsolator aggregateServiceIsolator,            
+            IAggregateServiceIsolator aggregateServiceIsolator,
             IUseCaseTuner useCaseTuner,
             IOperationScopeFactory scopeFactory,
             ICommonLog logger,
@@ -80,8 +80,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                             period,
                                             string.Join(Environment.NewLine, report));
 
-                    _logger.ErrorEx(msg);
-                    return WithdrawalProcessingResult.Errors(report.ToArray());
+                    _logger.Error(msg);
+                    return WithdrawalProcessingResult.Error(msg);
                 }
 
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
@@ -94,7 +94,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                           acquiredWithdrawal.OrganizationUnitId,
                                           period);
 
-                        _logger.ErrorEx(msg);
+                        _logger.Error(msg);
 
                         transaction.Complete();
                         return WithdrawalProcessingResult.Errors(msg);
@@ -112,7 +112,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                         organizationUnitId,
                                         period,
                                         ex.Message);
-                _logger.ErrorEx(ex, msg);
+                _logger.Error(ex, msg);
 
                 return Abort(acquiredWithdrawal, msg);
             }
@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 var msg = string.Format("Withdrawing aborted. Unexpected exception was caught. Organization unit id {0}. Period: {1}",
                                         organizationUnitId,
                                         period);
-                _logger.ErrorEx(ex, msg);
+                _logger.Error(ex, msg);
 
                 return Abort(acquiredWithdrawal, msg);
             }
@@ -155,56 +155,60 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             using (var scope = _scopeFactory.CreateNonCoupled<WithdrawalIdentity>())
             {
-                _logger.InfoFormatEx("Withdrawing. Organization unit {0}. {1}. Starting lock details creation process",
+                _logger.InfoFormat("Withdrawing. Organization unit {0}. {1}. Starting lock details creation process",
                                      organizationUnitId,
                                      period);
 
                 if (accountingMethod == AccountingMethod.PlannedProvision)
                 {
-                    _createLockDetailsDuringWithdrawalOperationService.CreateLockDetails(organizationUnitId, period);
+                _createLockDetailsDuringWithdrawalOperationService.CreateLockDetails(organizationUnitId, period);
                 }
 
                 var withdrawalInfos = _accountReadModel.GetInfoForWithdrawal(organizationUnitId, period, accountingMethod);
 
-                _logger.InfoFormatEx("Withdrawing. Organization unit {0}. {1}. Starting accounts actualization process. Target withdrawal infos count: {2}",
-                                     organizationUnitId,
-                                     period,
-                                     withdrawalInfos.Length);
+                _logger.InfoFormat(
+                    "Withdrawing. Organization unit {0}. {1}. Starting accounts actualization process. Target withdrawal infos count: {2}",
+                    organizationUnitId,
+                    period,
+                    withdrawalInfos.Length);
                 _actualizeAccountsDuringWithdrawalOperationService.Actualize(period,
-                                                                             withdrawalInfos.Select(i => new AccountStateForWithdrawalDto
-                                                                                                             {
-                                                                                                                 Lock = i.Lock,
-                                                                                                                 Details = i.LockDetails,
-                                                                                                                 LockBalance = i.CalculatedLockBalance,
-                                                                                                                 Account = i.Account,
-                                                                                                                 AccountBalanceBeforeWithdrawal = i.AccountBalanceBeforeWithdrawal,
-                                                                                                                 OrderNumber = i.Order.Number
-                                                                                                             }));
+                    withdrawalInfos.Select(i => new AccountStateForWithdrawalDto
+                        {
+                            Lock = i.Lock,
+                            Details = i.LockDetails,
+                            LockBalance = i.CalculatedLockBalance,
+                            Account = i.Account,
+                            AccountBalanceBeforeWithdrawal = i.AccountBalanceBeforeWithdrawal,
+                            OrderNumber = i.Order.Number
+                        }));
 
-                _logger.InfoFormatEx("Withdrawing. Organization unit {0}. {1}. Starting orders actualization process",
-                                     organizationUnitId,
-                                     period);
+                _logger.InfoFormat(
+                    "Withdrawing. Organization unit {0}. {1}. Starting orders actualization process",
+                    organizationUnitId,
+                    period);
                 _actualizeOrdersDuringWithdrawalOperationService.Actualize(organizationUnitId,
                                                                            withdrawalInfos.GroupBy(dto => dto.Order.Id, (l, dtos) => dtos.Single())
                                                                                           .Select(dto => new ActualizeOrdersDto
-                                                                                                             {
-                                                                                                                 Order = dto.Order,
-                                                                                                                 AmountAlreadyWithdrawn = dto.AmountAlreadyWithdrawnAfterWithdrawal,
-                                                                                                                 AmountToWithdrawNext = dto.AmountToWithdrawNextAfterWithdrawal
-                                                                                                             }));
+                        {
+                            Order = dto.Order,
+                            AmountAlreadyWithdrawn = dto.AmountAlreadyWithdrawnAfterWithdrawal,
+                            AmountToWithdrawNext = dto.AmountToWithdrawNextAfterWithdrawal
+                        }));
 
-                _logger.InfoFormatEx("Withdrawing. Organization unit {0}. {1}. Starting deals actualization process",
-                                     organizationUnitId,
-                                     period);
+                _logger.InfoFormat(
+                    "Withdrawing. Organization unit {0}. {1}. Starting deals actualization process",
+                    organizationUnitId,
+                    period);
                 _actualizeDealsDuringWithdrawalOperationService.Actualize(withdrawalInfos
-                                                                              .Where(dto => dto.Order.DealId.HasValue)
-                                                                              .Select(dto => dto.Order.DealId.Value)
-                                                                              .Distinct());
+                        .Where(dto => dto.Order.DealId.HasValue)
+                        .Select(dto => dto.Order.DealId.Value)
+                        .Distinct());
 
                 _withdrawalChangeStatusAggregateService.Finish(acquiredWithdrawal, WithdrawalStatus.Success, null);
-                _logger.InfoFormatEx("Withdrawing process successfully finished. Organization unit {0}. {1}.",
-                                     organizationUnitId,
-                                     period);
+                _logger.InfoFormat(
+                    "Withdrawing process successfully finished. Organization unit {0}. {1}.",
+                    organizationUnitId,
+                    period);
 
                 scope.Complete();
             }
@@ -213,35 +217,36 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         }
 
         private bool TryAcquireTargetWithdrawal(long organizationUnitId,
-                                                TimePeriod period,
+            TimePeriod period,
                                                 AccountingMethod accountingMethod,
-                                                out WithdrawalInfo acquiredWithdrawal,
+            out WithdrawalInfo acquiredWithdrawal,
                                                 out IEnumerable<string> report)
         {
             acquiredWithdrawal = null;
 
-            _logger.InfoFormatEx("Starting withdrawal process for organization unit with id {0} and time period {1}", organizationUnitId, period);
+            _logger.InfoFormat("Starting withdrawal process for organization unit with id {0} and time period {1}", organizationUnitId, period);
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 var validationRules = _withdrawalOperationValidationRulesProvider.GetValidationRules();
-             
+
                 foreach (var validationRule in validationRules)
-                {
+            {
                     if (!validationRule.Validate(organizationUnitId, period, accountingMethod, out report))
-                    {
-                        return false;
-                    }
+                {
+                    return false;
+                }
                 }
 
                 acquiredWithdrawal = _withdrawalStartAggregateService.Start(organizationUnitId, period, accountingMethod);
                 transaction.Complete();
             }
-
-            _logger.InfoFormatEx("Withdrawal process for organization unit {0} and period {1} and accounting method {2} is granted. Acquired withdrawal entry id {3}",
-                                 organizationUnitId,
-                                 period,
-                                 acquiredWithdrawal.Id);
+            
+            _logger.InfoFormat(
+                    "Withdrawal process for organization unit {0} and period {1} is granted. Acquired withdrawal entry id {2}",
+                    organizationUnitId,
+                    period,
+                    acquiredWithdrawal.Id);
 
             report = Enumerable.Empty<string>();
             return true;

@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}. Entity details: type [{1}], id [{2}]", GetType().Name, entityName, dto != null ? dto.Id.ToString() : "not defined");
+                _logger.ErrorFormat(ex, "Error has occured in {0}. Entity details: type [{1}], id [{2}]", GetType().Name, entityName, dto != null ? dto.Id.ToString() : "not defined");
                 throw new FaultException<CreateOrUpdateOperationErrorDescription>(new CreateOrUpdateOperationErrorDescription(entityName, ex.Message),
                                                                                   ex.Message);
             }

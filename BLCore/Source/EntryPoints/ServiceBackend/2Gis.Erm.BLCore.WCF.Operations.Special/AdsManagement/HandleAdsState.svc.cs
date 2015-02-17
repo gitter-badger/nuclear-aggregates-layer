@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<HandleAdsStateErrorDescription>(new HandleAdsStateErrorDescription(adsElementId, statusValue, ex.Message));
             }
         }
@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<HandleAdsStateErrorDescription>(new HandleAdsStateErrorDescription(adsElementId, statusValue, ex.Message),
                                                                             HttpStatusCode.BadRequest);
             }

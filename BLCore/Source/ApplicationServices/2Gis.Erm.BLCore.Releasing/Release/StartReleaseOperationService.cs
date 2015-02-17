@@ -104,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             out previousReleaseId,
                                             out report))
                 {
-                    _logger.ErrorFormatEx("Releasing. Can't acquire release for organization unit with stable (DGPP) id {0} by period {1} is beta = {2}. " +
+                    _logger.ErrorFormat("Releasing. Can't acquire release for organization unit with stable (DGPP) id {0} by period {1} is beta = {2}. " +
                                           "Can ignore blocking errors: {3}. Error: {4}",
                                           organizationUnitDgppId,
                                           period,
@@ -131,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                         period,
                                         isBeta,
                                         canIgnoreBlockingErrors);
-                _logger.ErrorEx(ex, msg);
+                _logger.Error(ex, msg);
 
                 if (acquiredRelease != null)
                 {
@@ -199,7 +199,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             using (var scope = _scopeFactory.CreateNonCoupled<StartReleaseIdentity>())
             {
-                _logger.InfoFormatEx("Starting releasing for organization unit with stable (DGPP) id {0} by period {1} is beta = {2}. " +
+                _logger.InfoFormat("Starting releasing for organization unit with stable (DGPP) id {0} by period {1} is beta = {2}. " +
                                      "Can ignore blocking errors: {3}",
                                      organizationUnitDgppId,
                                      period,
@@ -215,7 +215,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                            period,
                                            isBeta,
                                            canIgnoreBlockingErrors);
-                    _logger.ErrorEx(report);
+                    _logger.Error(report);
                     return false;
                 }
 
@@ -228,7 +228,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                            period,
                                            isBeta,
                                            canIgnoreBlockingErrors);
-                    _logger.ErrorEx(report);
+                    _logger.Error(report);
                     return false;
                 }
 
@@ -242,7 +242,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                            canIgnoreBlockingErrors,
                                            report);
 
-                    _logger.ErrorEx(report);
+                    _logger.Error(report);
                     return false;
                 }
 
@@ -257,13 +257,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                            canIgnoreBlockingErrors,
                                            report);
 
-                    _logger.ErrorEx(report);
+                    _logger.Error(report);
                     return false;
                 }
 
                 if (!usingPreviouslyNotFinishedReleasing)
                 {
-                    _logger.InfoFormatEx("Starting release for for organization unit with id {0} by period {1} is beta = {2}. Can ignore blocking errors: {3}",
+                    _logger.InfoFormat("Starting release for for organization unit with id {0} by period {1} is beta = {2}. Can ignore blocking errors: {3}",
                                          organizationUnitId,
                                          period,
                                          isBeta,
@@ -284,7 +284,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             period,
                                             isBeta);
 
-                    _logger.InfoEx(msg);
+                    _logger.Info(msg);
 
                     // ReSharper disable once PossibleInvalidOperationException
                     acquiredRelease = _releaseReadModel.GetReleaseInfo(previuosReleaseId.Value);
@@ -408,7 +408,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             releasingPeriod);
                     _releaseChangeStatusAggregateService.Finished(acquiredRelease, ReleaseStatus.Error, msg);
 
-                    _logger.ErrorEx(msg);
+                    _logger.Error(msg);
                     releasingResult.ProcessingMessages = new[] { new ReleaseProcessingMessage { IsBlocking = true, Message = msg } };
 
                     transaction.Complete();
@@ -419,7 +419,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 releasingResult.ProcessingMessages = validationMessages;
 
                 bool hasBlockingErrors = validationMessages.Any(item => item.IsBlocking);
-                _logger.InfoFormatEx("Release with id {0} for organization unit with id {1} by period {2}. " +
+                _logger.InfoFormat("Release with id {0} for organization unit with id {1} by period {2}. " +
                                      "After orders validation has blocking errors: {3} and can ingnore blocking errors: {4}",
                                      acquiredRelease.Id,
                                      acquiredRelease.OrganizationUnitId,
@@ -435,7 +435,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             acquiredRelease.OrganizationUnitId,
                                             releasingPeriod);
 
-                    _logger.ErrorEx(msg);
+                    _logger.Error(msg);
                     releasingResult.ProcessingMessages = AddNewBlockingMessage(releasingResult.ProcessingMessages, msg);
 
                     _releaseAttachProcessingMessagesAggregateService.SaveInternalMessages(acquiredRelease, validationMessages);
@@ -456,7 +456,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             acquiredRelease.Id,
                                             acquiredRelease.OrganizationUnitId,
                                             releasingPeriod);
-                    _logger.ErrorEx(msg);
+                    _logger.Error(msg);
                     releasingResult.ProcessingMessages = AddNewBlockingMessage(releasingResult.ProcessingMessages, msg);
 
                     _releaseChangeStatusAggregateService.Finished(acquiredRelease, ReleaseStatus.Error, msg);
@@ -468,7 +468,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 releasingResult.Succeed = true;
                 _releaseChangeStatusAggregateService.InProgressWaitingExternalProcessing(acquiredRelease);
 
-                _logger.InfoFormatEx("Release with id {0} successfully started for organization unit with id {1} by period {2} is beta = {3}. " +
+                _logger.InfoFormat("Release with id {0} successfully started for organization unit with id {1} by period {2} is beta = {3}. " +
                                      "Waiting for external release processing",
                                      acquiredRelease.Id,
                                      acquiredRelease.OrganizationUnitId,

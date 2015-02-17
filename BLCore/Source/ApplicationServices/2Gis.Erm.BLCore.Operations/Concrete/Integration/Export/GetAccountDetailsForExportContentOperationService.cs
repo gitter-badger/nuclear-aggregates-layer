@@ -20,6 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         private readonly IGetDebitsInfoInitialForExportOperationService _getDebitsInfoInitialForExportOperationService;
        
         private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IAccountReadModel _accountReadModel;
 
         public GetAccountDetailsForExportContentOperationService(
             IGetDebitsInfoInitialForExportOperationService getDebitsInfoInitialForExportOperationService,
@@ -27,12 +28,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         {
             _getDebitsInfoInitialForExportOperationService = getDebitsInfoInitialForExportOperationService;
             _operationScopeFactory = operationScopeFactory;
+            _accountReadModel = accountReadModel;
         }
 
         public IEnumerable<IntegrationResponse> Get(DateTime startPeriodDate, DateTime endPeriodDate, IEnumerable<long> organizationUnitIds)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetAccountDetailsForExportContentIdentity>())
             {
+                var organizationUnitsWithoutWithdrawalOperation =
+                    _accountReadModel.GetOrganizationUnitsWithNoSuccessfulLastWithdrawal(organizationUnitIds,
+                                                                                         new TimePeriod(startPeriodDate, endPeriodDate));
+
+                if (organizationUnitsWithoutWithdrawalOperation.Any())
+                {
+                    // TODO {all, 16.02.2015}: перенести в ресурсник для нелокализуемых строк
+                    throw new ExportAccountDetailsBeforeWithdrawalOperationException(string.Format("Для ({0}) за период {1} - {2} нет успешной операции списания",
+                                                                                                   string.Join(",", organizationUnitsWithoutWithdrawalOperation),
+                                                                                                   startPeriodDate.ToShortDateString(),
+                                                                                                   endPeriodDate.ToShortDateString()));
+                }
+
+
                 var debitsInfoInitialsByOrganizationUnit = _getDebitsInfoInitialForExportOperationService.Get(startPeriodDate,
                                                                                                               endPeriodDate,
                                                                                                               organizationUnitIds);
@@ -44,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         }
 
         private IntegrationResponse ConstructResponse(DebitsInfoInitialDto debitsInfoInitial)
-        {
+            {
             var streamDictionary = new Dictionary<string, Stream>();
             var debitsStream = new MemoryStream(Encoding.UTF8.GetBytes(debitsInfoInitial.ToXElement().ToString(SaveOptions.None)));
             streamDictionary.Add("DebitsInfoInitial_" + DateTime.Today.ToShortDateString() + ".xml", debitsStream);

@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
             _debitsInfoInitialForExportOperationService.Get(startDate, endDate, allIds);
             stopwatch.Stop();
-            _commonLog.InfoFormatEx("Выборка списаний завершена за {0:F2}", stopwatch.Elapsed.TotalSeconds);
+            _commonLog.InfoFormat("Выборка списаний завершена за {0:F2}", stopwatch.Elapsed.TotalSeconds);
 
             return OrdinaryTestResult.As.Succeeded;
         }

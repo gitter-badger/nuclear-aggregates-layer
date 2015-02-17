@@ -151,8 +151,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         }
 
         public IEnumerable<ValidateLegalPersonDto> GetLegalPersonDtosToValidateForWithdrawalOperation(long organizationUnitId,
-                                                                                                      DateTime periodStartDate,
-                                                                                                      DateTime periodEndDate)
+                                                                                                   DateTime periodStartDate,
+                                                                                                   DateTime periodEndDate)
         {
             return
                 _finder.Find(AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
@@ -160,10 +160,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
                              Specs.Find.ActiveAndNotDeleted<Lock>())
                        .Select(x =>
                                new ValidateLegalPersonDto
-                                   {
-                                       LegalPersonId = x.Order.LegalPersonId.Value,
-                                       SyncCode1C = x.Account.LegalPesonSyncCode1C
-                                   })
+                                                                 {
+                                                                     LegalPersonId = x.Order.LegalPersonId.Value,
+                                                                     SyncCode1C = x.Account.LegalPesonSyncCode1C
+                                        })
                        .ToArray();
         }
     }

@@ -235,7 +235,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             if (actualPricePosition == null)
             {
                 var message = string.Format(BLResources.OrderPositionWasRemoved, positionName);
-                _logger.InfoFormatEx(message);
+                _logger.InfoFormat(message);
                 AddWarningMessage(message, resultMessages);
                 return resultMessages;
             }
@@ -258,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 }
             }
 
-            _logger.InfoFormatEx(BLResources.OrderPositionWasReplaced, positionName, orderPosition.OrderId, actualPricePosition.PriceId);
+            _logger.InfoFormat(BLResources.OrderPositionWasReplaced, positionName, orderPosition.OrderId, actualPricePosition.PriceId);
             RestoreClonedOrderPosition(orderPosition, advertisements, actualPricePosition, saveDiscount);
             return resultMessages;
         }

@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
         {
             if (!_importMetadataProvider.IsSupported(flowName))
             {
-                _logger.InfoFormatEx("Импорт объектов из потока {0} - поток не поддерживается", flowName);
+                _logger.InfoFormat("Импорт объектов из потока {0} - поток не поддерживается", flowName);
                 return;
             }
 
@@ -62,11 +62,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
                             var package = brokerApiReceiver.ReceivePackage();
                             if (package == null)
                             {
-                                _logger.InfoFormatEx("Импорт объектов из потока {0} - шина пустая", flowName);
+                                _logger.InfoFormat("Импорт объектов из потока {0} - шина пустая", flowName);
                                 break;
                             }
 
-                            _logger.InfoFormatEx("Импорт объектов из потока {0} - загружено {1} объектов из шины", flowName, package.Length);
+                            _logger.InfoFormat("Импорт объектов из потока {0} - загружено {1} объектов из шины", flowName, package.Length);
 
                             if (package.Length == 0)
                             {
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
                             }
                             catch (NonBlockingImportErrorException e)
                             {
-                                _logger.ErrorFormatEx(e, "Неблокирующая ошибка при импорте объектов из потока {0} - {1}", flowName, e.Message);
+                                _logger.ErrorFormat(e, "Неблокирующая ошибка при импорте объектов из потока {0} - {1}", flowName, e.Message);
                             }
 
                             brokerApiReceiver.Acknowledge();
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
                     }
                     catch (Exception e)
                     {
-                        _logger.ErrorFormatEx(e, "Ошибка при импорте объектов из потока {0} - {1}", flowName, e.Message);
+                        _logger.ErrorFormat(e, "Ошибка при импорте объектов из потока {0} - {1}", flowName, e.Message);
                         throw;
                     }
                     finally

@@ -4,16 +4,17 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 {
     public static class WebLoggerContextManagerExtension
     {
-        public static void SetUserInfo(this ILoggerContextManager loggerContextManager,
-                                       string sessionId,
-                                       string userName,
-                                       string userIp,
-                                       string userBrowser)
+        public static void SetUserInfo(
+            this ILoggerContextManager loggerContextManager,
+            string userAccount,
+            string userSession,
+            string userAddress,
+            string userAgent)
         {
-            loggerContextManager[LoggerContextKeys.Required.SessionId] = sessionId;
-            loggerContextManager[LoggerContextKeys.Required.UserName] = userName;
-            loggerContextManager[LoggerContextKeys.Required.UserIP] = userIp;
-            loggerContextManager[LoggerContextKeys.Required.UserBrowser] = userBrowser;
+            loggerContextManager[LoggerContextKeys.Required.UserAccount] = userAccount;
+            loggerContextManager[LoggerContextKeys.Optional.UserSession] = userSession;
+            loggerContextManager[LoggerContextKeys.Optional.UserAddress] = userAddress;
+            loggerContextManager[LoggerContextKeys.Optional.UserAgent] = userAgent;
         }
     }
 }
