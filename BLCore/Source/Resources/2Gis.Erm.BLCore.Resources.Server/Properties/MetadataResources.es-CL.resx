@@ -576,8 +576,8 @@
   <data name="OperationStatus" xml:space="preserve">
     <value>Estado del cumplimento de la operación</value>
   </data>
-  <data name="AccountingMethod" xml:space="preserve">
-    <value>Método de registro</value>
+  <data name="SalesModel" xml:space="preserve">
+    <value>Modelo de ventas</value>
   </data>
   <data name="RReportType" xml:space="preserve">
     <value>Tipo de informe</value>

@@ -2376,18 +2376,54 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to [Not defined for current business model and language].
         /// </summary>
-        public static string FasCommentDisplayTextUkraineDrugsAndService {
+        public static string FasCommentDisplayTextUkraineAutotherapy {
             get {
-                return ResourceManager.GetString("FasCommentDisplayTextUkraineDrugsAndService", resourceCulture);
+                return ResourceManager.GetString("FasCommentDisplayTextUkraineAutotherapy", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to [Not defined for current business model and language].
         /// </summary>
-        public static string FasCommentDisplayTextUkraineTobaccoGoods {
+        public static string FasCommentDisplayTextUkraineDrugs {
             get {
-                return ResourceManager.GetString("FasCommentDisplayTextUkraineTobaccoGoods", resourceCulture);
+                return ResourceManager.GetString("FasCommentDisplayTextUkraineDrugs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextUkraineEmploymentAssistance {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextUkraineEmploymentAssistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextUkraineMedicalDevice {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextUkraineMedicalDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextUkraineSoundLive {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextUkraineSoundLive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextUkraineSoundPhonogram {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextUkraineSoundPhonogram", resourceCulture);
             }
         }
         
@@ -2482,7 +2518,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Реклама алкогольных напитков, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются алкогольные напитки.
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
         /// </summary>
         public static string FasCommentUkraineAlcohol {
             get {
@@ -2491,20 +2527,56 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Реклама лекарственных средств, медтехники, методов профилактики, диагностики, лечения и реабилитации.
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
         /// </summary>
-        public static string FasCommentUkraineDrugsAndService {
+        public static string FasCommentUkraineAutotherapy {
             get {
-                return ResourceManager.GetString("FasCommentUkraineDrugsAndService", resourceCulture);
+                return ResourceManager.GetString("FasCommentUkraineAutotherapy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Реклама табачных изделий, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются табачные изделия.
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
         /// </summary>
-        public static string FasCommentUkraineTobaccoGoods {
+        public static string FasCommentUkraineDrugs {
             get {
-                return ResourceManager.GetString("FasCommentUkraineTobaccoGoods", resourceCulture);
+                return ResourceManager.GetString("FasCommentUkraineDrugs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentUkraineEmploymentAssistance {
+            get {
+                return ResourceManager.GetString("FasCommentUkraineEmploymentAssistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentUkraineMedicalDevice {
+            get {
+                return ResourceManager.GetString("FasCommentUkraineMedicalDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentUkraineSoundLive {
+            get {
+                return ResourceManager.GetString("FasCommentUkraineSoundLive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentUkraineSoundPhonogram {
+            get {
+                return ResourceManager.GetString("FasCommentUkraineSoundPhonogram", resourceCulture);
             }
         }
         
@@ -4417,33 +4489,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Гарантированное оказание.
-        /// </summary>
-        public static string PositionAccountingMethodGuaranteedProvision {
-            get {
-                return ResourceManager.GetString("PositionAccountingMethodGuaranteedProvision", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PositionAccountingMethodNone {
-            get {
-                return ResourceManager.GetString("PositionAccountingMethodNone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Планируемое оказание.
-        /// </summary>
-        public static string PositionAccountingMethodPlannedProvision {
-            get {
-                return ResourceManager.GetString("PositionAccountingMethodPlannedProvision", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Рубрика адреса (мн).
         /// </summary>
         public static string PositionBindingObjectTypeAddressCategoryMultiple {
@@ -4944,6 +4989,42 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string RequestMessageTypeWarning {
             get {
                 return ResourceManager.GetString("RequestMessageTypeWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Гарантированное оказание.
+        /// </summary>
+        public static string SalesModelGuaranteedProvision {
+            get {
+                return ResourceManager.GetString("SalesModelGuaranteedProvision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Плановое оказание услуг по нескольким рубрикам.
+        /// </summary>
+        public static string SalesModelMultiPlannedProvision {
+            get {
+                return ResourceManager.GetString("SalesModelMultiPlannedProvision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SalesModelNone {
+            get {
+                return ResourceManager.GetString("SalesModelNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Плановое оказание услуг по одной рубрике.
+        /// </summary>
+        public static string SalesModelPlannedProvision {
+            get {
+                return ResourceManager.GetString("SalesModelPlannedProvision", resourceCulture);
             }
         }
         

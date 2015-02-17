@@ -22,6 +22,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                     { typeof(PerformedOperationFinalProcessing), "Shared.PerformedOperationFinalProcessings" },
                     { typeof(PerformedOperationPrimaryProcessing), "Shared.PerformedOperationPrimaryProcessings" },
                     { typeof(OrderValidationCacheEntry), "Shared.OrderValidationCacheEntries" },
+                    { typeof(SalesModelCategoryRestriction), "BusinessDirectory.SalesModelCategoryRestrictions" },
                 };
 
         public BatchDeletePersistenceService(IDatabaseCaller databaseCaller, ICommonLog logger)
@@ -103,7 +104,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             }
 
             var msg = string.Format("Specified entity type {0} doesn't supported batch delete behavior", entityType);
-            _logger.ErrorEx(msg);
+            _logger.Error(msg);
             throw new InvalidOperationException(msg);
         }
 
@@ -111,7 +112,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
         {
             if (entitiesCount == 0)
             {
-                _logger.WarnFormatEx("Batch delete of entity {0} was skipped, because target entities list was empty", entityType);
+                _logger.WarnFormat("Batch delete of entity {0} was skipped, because target entities list was empty", entityType);
                 return;
             }
 
@@ -123,7 +124,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorFormatEx(ex, "Can't execute batch delete of entities with type {0}, specified entities count {1}", entityType, entitiesCount);
+                    _logger.ErrorFormat(ex, "Can't execute batch delete of entities with type {0}, specified entities count {1}", entityType, entitiesCount);
                     throw;
                 }
 

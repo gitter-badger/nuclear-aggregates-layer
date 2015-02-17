@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Isolated aggregate service execution failed");
+                _logger.ErrorFormat(ex, "Isolated aggregate service execution failed");
                 throw;
             }
         }

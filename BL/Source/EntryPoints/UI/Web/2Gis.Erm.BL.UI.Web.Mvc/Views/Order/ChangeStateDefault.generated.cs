@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/ChangeStateDefault.cshtml")]
-    public partial class ChangeStateDefault : System.Web.Mvc.WebViewPage<Models.ChangeOrderStateDefaultViewModel>
+    public partial class ChangeStateDefault : System.Web.Mvc.WebViewPage<ChangeOrderStateDefaultViewModel>
     {
         public ChangeStateDefault()
         {

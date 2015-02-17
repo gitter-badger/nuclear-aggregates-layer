@@ -576,8 +576,8 @@
   <data name="OperationStatus" xml:space="preserve">
     <value>Статус выполнения операции</value>
   </data>
-  <data name="AccountingMethod" xml:space="preserve">
-    <value>Способ учета</value>
+  <data name="SalesModel" xml:space="preserve">
+    <value>Модель продаж</value>
   </data>
   <data name="RReportType" xml:space="preserve">
     <value>Тип отчета</value>

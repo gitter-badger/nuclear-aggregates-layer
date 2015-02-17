@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -33,6 +34,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<ActivateIdentity, Price>())
             {
                 var price = _priceReadModel.GetPrice(entityId);
+                if (price == null)
+                {
+                    throw new EntityNotFoundException(typeof(Price), entityId);
+                }
+
                 var allPriceDescendantsDto = _priceReadModel.GetAllPriceDescendantsDto(entityId);
 
                 var count = _bulkActivatePricePositionsAggregateService.Activate(allPriceDescendantsDto.PricePositions,

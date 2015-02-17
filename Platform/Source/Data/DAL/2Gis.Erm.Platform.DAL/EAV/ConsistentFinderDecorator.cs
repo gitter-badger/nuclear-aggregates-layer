@@ -103,16 +103,16 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             if (typeof(TEntity).AsEntityName().IsDynamic())
             {
                 var ids = findSpecification.ExtractEntityIds();
-                return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, ids).AsEnumerable();
+                return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, ids).ToArray();
             }
 
             IQueryable<TEntity> mappedQueryable;
             if (TryFindMapped(findSpecification, out mappedQueryable))
             {
-                return mappedQueryable.AsEnumerable();
+                return mappedQueryable.ToArray();
             }
 
-            return Find(findSpecification).AsEnumerable();
+            return Find(findSpecification).ToArray();
         }
 
         private bool TryFindMapped<TEntity>(IFindSpecification<TEntity> findSpecification, out IQueryable<TEntity> queryable)

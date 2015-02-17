@@ -51,19 +51,19 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                     string report;
                     if (!strategy.TryLogUseCase(useCase, out report))
                     {
-                        _logger.ErrorFormatEx("Can't log use case {0} through strategy {1}. Details: {2}", useCase, strategy.GetType(), report);
+                        _logger.ErrorFormat("Can't log use case {0} through strategy {1}. Details: {2}", useCase, strategy.GetType(), report);
                         isUseCaseLoggedSuccessfully = false;
                     }
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorFormatEx(ex, "Can't log use case {0} through strategy {1}", useCase, strategy.GetType());
+                    _logger.ErrorFormat(ex, "Can't log use case {0} through strategy {1}", useCase, strategy.GetType());
                     isUseCaseLoggedSuccessfully = false;
                 }
                 finally
                 {
                     strategyStopwatch.Stop();
-                    _logger.DebugFormatEx("Logging strategy {0} executed. It takes {1} sec. Usecase details: {2}",
+                    _logger.DebugFormat("Logging strategy {0} executed. It takes {1} sec. Usecase details: {2}",
                                           strategy.GetType().Name,
                                           strategyStopwatch.Elapsed.TotalSeconds,
                                           useCase);
@@ -82,12 +82,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             }
 
             stopwatch.Stop();
-            _logger.DebugFormatEx("Sequential logging of use case {0} takes {1} sec", useCase, stopwatch.Elapsed.TotalSeconds);
+            _logger.DebugFormat("Sequential logging of use case {0} takes {1} sec", useCase, stopwatch.Elapsed.TotalSeconds);
 
             if (!isUseCaseLoggedSuccessfully)
             {
                 var msg = "Can't log use case " + useCase + " logging aborted";
-                _logger.ErrorEx(msg);
+                _logger.Error(msg);
                 throw new InvalidOperationException(msg);
             }
         }
@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             {
                 if (!result.Succeeded)
                 {
-                    _logger.ErrorEx("One of the workers failed: " + result.Report);
+                    _logger.Error("One of the workers failed: " + result.Report);
                     logWorkerFinishMode.CompleteLogging = false;
                 }
             }
@@ -129,7 +129,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't log usecase {0}. One of the logging workers failed", useCase);
+                _logger.ErrorFormat(ex, "Can't log usecase {0}. One of the logging workers failed", useCase);
                 logWorkerFinishMode.CompleteLogging = false;
             }
 
@@ -140,12 +140,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             }
 
             stopwatch.Stop();
-            _logger.DebugFormatEx("Parallel logging of use case {0} takes {1} sec", useCase, stopwatch.Elapsed.TotalSeconds);
+            _logger.DebugFormat("Parallel logging of use case {0} takes {1} sec", useCase, stopwatch.Elapsed.TotalSeconds);
 
             if (!logWorkerFinishMode.CompleteLogging)
             {
                 var msg = "Can't log use case " + useCase + " logging aborted";
-                _logger.ErrorEx(msg);
+                _logger.Error(msg);
                 throw new InvalidOperationException(msg);
             }
         }
@@ -208,7 +208,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                     var msg = string.Format("Can't log use case {0} properly through logging strategy {1}",
                                             concreteContext.UseCase,
                                             concreteContext.LoggingStrategy.GetType());
-                    _logger.ErrorEx(ex, msg);
+                    _logger.Error(ex, msg);
 
                     concreteContext.Result.Report = msg;
                     concreteContext.Result.Succeeded = false;
@@ -216,7 +216,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 finally
                 {
                     stopwatch.Stop();
-                    _logger.DebugFormatEx("Logging strategy {0} executed. It takes {1} sec. Usecase details: {2}",
+                    _logger.DebugFormat("Logging strategy {0} executed. It takes {1} sec. Usecase details: {2}",
                                           concreteContext.LoggingStrategy.GetType().Name,
                                           stopwatch.Elapsed.TotalSeconds,
                                           concreteContext.UseCase);

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -17,9 +15,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel
         bool PositionsExist(IReadOnlyCollection<long> positionIds, out string message);
         IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds);
         string GetPositionName(long positionId);
-
-        LinkingObjectsSchemaDto GetLinkingObjectsSchema(OrderLinkingObjectsDto dto, PricePositionDetailedInfo pricePositionInfo, bool includeHiddenAddresses, long? orderPositionId);
-        bool IsNewSalesModel(PositionAccountingMethod accountingMethod);
-        IDictionary<long, string> GetNewSalesModelDeniedCategories(PositionAccountingMethod accountingMethod, long destOrganizationUnitId, IEnumerable<long> categoryIds);
+        Position GetPositionByPricePositionId(long pricePositionId);
+        IEnumerable<LinkingObjectsSchemaDto.PositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId);
+        IReadOnlyCollection<long> GetDependedByPositionOrderIds(long positionId);
     }
 }

@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 var price = _priceReadModel.GetPrice(entityId);
                 if (price == null)
                 {
-                    throw new ArgumentException(BLResources.EntityNotFound);
+                    throw new EntityNotFoundException(typeof(Price), entityId);
                 }
 
                 var isPricePublished = _priceReadModel.IsPricePublished(entityId);

@@ -36,9 +36,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                 { FasComment.MedsTraditional, () => EnumResources.FasCommentDisplayTextMedsTraditional },
                 { FasComment.Biocides, () => EnumResources.FasCommentDisplayTextBiocides },
 
+                { FasComment.UkraineAutotherapy, () => EnumResources.FasCommentDisplayTextUkraineAutotherapy },
+                { FasComment.UkraineDrugs, () => EnumResources.FasCommentDisplayTextUkraineDrugs },
+                { FasComment.UkraineMedicalDevice, () => EnumResources.FasCommentDisplayTextUkraineMedicalDevice },
                 { FasComment.UkraineAlcohol, () => EnumResources.FasCommentDisplayTextUkraineAlcohol },
-                { FasComment.UkraineDrugsAndService, () => EnumResources.FasCommentDisplayTextUkraineDrugsAndService },
-                { FasComment.UkraineTobaccoGoods, () => EnumResources.FasCommentDisplayTextUkraineTobaccoGoods },
+                { FasComment.UkraineSoundPhonogram, () => EnumResources.FasCommentDisplayTextUkraineSoundPhonogram },
+                { FasComment.UkraineSoundLive, () => EnumResources.FasCommentDisplayTextUkraineSoundLive },
+                { FasComment.UkraineEmploymentAssistance, () => EnumResources.FasCommentDisplayTextUkraineEmploymentAssistance },
 
                 { FasComment.ChileAlcohol, () => EnumResources.FasCommentDisplayTextChileAlcohol },
                 { FasComment.ChileDrugsAndService, () => EnumResources.FasCommentDisplayTextChileDrugsAndService },

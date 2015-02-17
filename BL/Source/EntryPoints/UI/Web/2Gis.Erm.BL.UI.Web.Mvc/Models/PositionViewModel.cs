@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         public PositionBindingObjectType BindingObjectType { get; set; }
 
         [RequiredLocalized]
-        public PositionAccountingMethod AccountingMethod { get; set; }
+        public SalesModel SalesModel { get; set; }
 
         [RequiredLocalized]
         public LookupField Platform { get; set; }
@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             IsControledByAmount = modelDto.IsControlledByAmount;
 
             BindingObjectType = modelDto.BindingObjectTypeEnum;
-            AccountingMethod = modelDto.AccountingMethodEnum;
+            SalesModel = modelDto.SalesModel;
             CalculationMethod = modelDto.CalculationMethodEnum;
 
             RestrictChildPositionPlatforms = modelDto.RestrictChildPositionPlatforms;
@@ -85,7 +85,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             AdvertisementTemplate = LookupField.FromReference(modelDto.AdvertisementTemplateRef);
             IsReadonlyTemplate = modelDto.IsReadOnlyTemplate;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
@@ -99,7 +98,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
                 IsComposite = IsComposite,
                 IsControlledByAmount = IsControledByAmount,
                 BindingObjectTypeEnum = BindingObjectType,
-                AccountingMethodEnum = AccountingMethod,
+                SalesModel = SalesModel,
                 CalculationMethodEnum = CalculationMethod,
                 AdvertisementTemplateRef = AdvertisementTemplate != null ? AdvertisementTemplate.ToReference() : null,
                 PlatformRef = Platform.ToReference(),

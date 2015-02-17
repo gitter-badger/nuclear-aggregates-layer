@@ -17,9 +17,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
 
         public CyprusGetBranchOfficeOrganizationUnitDtoService(IUserContext userContext,
                                                               IBranchOfficeReadModel branchOfficeReadModel,
-                                                              IOrganizationUnitReadModel organizationUnitReadModel,
-                                                              IAPIIdentityServiceSettings identityServiceSettings)
-            : base(userContext, branchOfficeReadModel, organizationUnitReadModel, identityServiceSettings)
+                                                              IOrganizationUnitReadModel organizationUnitReadModel)
+            : base(userContext, branchOfficeReadModel, organizationUnitReadModel)
         {
             _branchOfficeReadModel = branchOfficeReadModel;
         }

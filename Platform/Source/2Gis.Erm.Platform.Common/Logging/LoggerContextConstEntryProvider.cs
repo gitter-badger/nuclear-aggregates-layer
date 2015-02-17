@@ -1,6 +1,6 @@
 namespace DoubleGis.Erm.Platform.Common.Logging
 {
-    public class LoggerContextConstEntryProvider : LoggerContextEntryProvider
+    public sealed class LoggerContextConstEntryProvider : LoggerContextEntryProvider
     {
         private readonly string _loggerContextValue;
 
@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging
         public override string Value
         {
             get { return _loggerContextValue; }
-            set {}
+            set { }
         }
     }
 }

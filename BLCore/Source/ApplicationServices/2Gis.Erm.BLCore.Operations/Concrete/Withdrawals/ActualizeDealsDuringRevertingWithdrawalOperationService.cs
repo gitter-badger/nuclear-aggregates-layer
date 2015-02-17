@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
         public void Actualize(IEnumerable<long> dealIds)
         {
-            _logger.InfoEx("Starting actualizing deals during reverting withdrawal process");
+            _logger.Info("Starting actualizing deals during reverting withdrawal process");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeDealsDuringRevertingWithdrawalIdentity>())
             {
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoEx("Finished actualizing deals during reverting withdrawal process");
+            _logger.Info("Finished actualizing deals during reverting withdrawal process");
         }
     }
 }

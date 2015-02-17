@@ -40,8 +40,5 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture
 
         [DataMember]
         public byte[] Timestamp { get; set; }
-
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
     }
 }

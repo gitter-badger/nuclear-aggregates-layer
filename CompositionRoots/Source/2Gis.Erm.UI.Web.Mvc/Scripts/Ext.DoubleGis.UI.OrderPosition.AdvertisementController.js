@@ -27,6 +27,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         organizationUnitId: null,
         areLinkingObjectParametersLocked: null,
         useSingleCategoryForPackage: null,
+        salesModel: null,
         linkingObjectsByKey: [],
         linkingObjects: [],
         positions: [],
@@ -240,14 +241,12 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 object.type == Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.AddressFirstLevelCategorySingle;
         };
 
-        if (this.localData.useSingleCategoryForPackage && source && isSingleCategoryType(source)) {
+        if (this.localData.useSingleCategoryForPackage && source) {
             this.localData.linkingObjects.forEach(function(object) {
-                if (isSingleCategoryType(object)) {
-                    if (object.categoryId == source.categoryId) {
-                        object.checkbox.checked = source.checkbox.checked;
-                    } else {
-                        object.checkbox.checked = false;
-                    }
+                if (object.categoryId == source.categoryId) {
+                    object.checkbox.checked = source.checkbox.checked;
+                } else if (isSingleCategoryType(object)) {
+                    object.checkbox.checked = false;
                 }
             });
         }
@@ -876,20 +875,6 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 results.push({ Level: 'CriticalError', Message: message });
             }
         }
-        //var badPositions = [];
-
-        //for (i = 0; i < this.serverData.linkingObjectsSchema.Positions.length; i++) {
-        //    var position = this.serverData.linkingObjectsSchema.Positions[i];
-        //    var found = false;
-        //    for (var j = 0; j < position.LinkingObjects.length && !found; j++) {
-        //        if (position.LinkingObjects[j].isSelected() && position.LinkingObjects[j].getAdvertisement() == null) {
-        //            found = true;
-        //        }
-        //    }
-        //    if (found) {
-        //        badPositions.push(position);
-        //    }
-        //}
 
         return results;
     },
@@ -960,13 +945,13 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         else
             categoryLevel = 3;
 
-        var extendedInfo = "OrganizationUnitId=" + this.localData.organizationUnitId.toString() + "&" + ("Level=" + categoryLevel);
-
-        if (this.localData.useSingleCategoryForPackage) {
-            extendedInfo += "&forNewSalesModel=true";
+        var extendedInfo = {
+            OrganizationUnitId: this.localData.organizationUnitId.toString(),
+            Level: categoryLevel,
+            SalesModel: this.localData.salesModel
         }
 
-        var url = "/Grid/Search/Category?" + "extendedInfo=" + encodeURIComponent(extendedInfo);
+        var url = "/Grid/Search/Category?" + "extendedInfo=" + encodeURIComponent(Ext.urlEncode(extendedInfo));
 
         var result = window.showModalDialog(url, null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
         return result ? result.items[0].data : null;

@@ -95,6 +95,7 @@
     <Compile Include="2.1\Migration201501160218 - Fill Order.LegalPersonProfileId Field.cs" />
     <Compile Include="2.1\Migration201411240536 - Remove some PF templates.cs" />
     <Compile Include="2.1\Migration201411240501 - Remove MakeRegionalAdsDocs FP.cs" />
+    <Compile Include="2.1\201501281731 - upate FAS comment type in UA.cs" />
     <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />
     <Compile Include="bb-s2\2014.02.11 rev. 16315 - Add Bank permissions.cs" />
     <Compile Include="bb-s2\2014.01.27 rev. 15501 - ERM-3117.cs" />
