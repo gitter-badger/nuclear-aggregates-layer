@@ -594,6 +594,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlOpenSortingPage {
+            get {
+                return ResourceManager.GetString("ControlOpenSortingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlPrepareJointBillsAction {
             get {
                 return ResourceManager.GetString("ControlPrepareJointBillsAction", resourceCulture);
@@ -4908,6 +4917,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string EnPositions {
             get {
                 return ResourceManager.GetString("EnPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string EnPositionSortingOrder {
+            get {
+                return ResourceManager.GetString("EnPositionSortingOrder", resourceCulture);
             }
         }
         

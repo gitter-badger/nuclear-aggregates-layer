@@ -1875,4 +1875,10 @@
   <data name="ControlAddPositions" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="ControlOpenSortingPage" xml:space="preserve">
+    <value>Задать сортировку...</value>
+  </data>
+  <data name="EnPositionSortingOrder" xml:space="preserve">
+    <value>Сортировка позиций номенклатуры</value>
+  </data>
 </root>

@@ -202,8 +202,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             };
 
             var cardSettings = _configurationService.GetCardSettings(EntityName.PositionSortingOrder, UserContext.Profile.UserLocaleInfo.UserCultureInfo);
-            cardSettings.CardLocalizedName = string.Empty;
-
             model.ViewConfig.CardSettings = cardSettings.ToCardJson();
 
             return View(model);

@@ -2476,7 +2476,7 @@
 		</DataLists>
 	</Entity>
   <Entity Name="PositionSortingOrder">
-    <Card EntityNameLocaleResourceId="EnPositionSortingOrder" EntityMainAttribute="" HasComments="false" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Category.gif" LargeIcon="en_ico_lrg_Category.gif">
+    <Card CardNameLocaleResourceId="EnPositionSortingOrder" EntityMainAttribute="" HasComments="false" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Category.gif" LargeIcon="en_ico_lrg_Category.gif">
 			<ToolbarItems>
 				<ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="2" />
 				<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
