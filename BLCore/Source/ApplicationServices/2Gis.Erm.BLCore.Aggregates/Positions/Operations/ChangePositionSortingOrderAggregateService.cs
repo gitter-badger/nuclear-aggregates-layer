@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Position;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Positions.Operations
 {
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.Operations
             }
 
             var dataDictionary = sorting.ToDictionary(dto => dto.Id, dto => dto.Index);
-            using (var scope = _scopeFactory.CreateNonCoupled<ChangePositionSortingOrderIdentity>())
+            using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Position>())
             {
                 foreach (var position in positions)
                 {
