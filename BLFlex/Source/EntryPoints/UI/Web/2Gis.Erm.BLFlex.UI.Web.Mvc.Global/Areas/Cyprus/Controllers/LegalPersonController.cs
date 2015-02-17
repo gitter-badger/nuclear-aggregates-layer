@@ -15,6 +15,7 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -35,22 +36,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Cyprus.Controllers
         private readonly IFinder _finder;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
 
-        public LegalPersonController(IMsCrmSettings msCrmSettings,
-                                     IUserContext userContext,
-                                     ICommonLog logger,
-                                     IAPIOperationsServiceSettings operationsServiceSettings,
-                                     IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                     IGetBaseCurrencyService getBaseCurrencyService,
-                                     ISecurityServiceFunctionalAccess functionalAccessService,
-                                     IPublicService publicService,
-                                     IFinder finder,
-                                     ILegalPersonReadModel legalPersonReadModel)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+        // TODO {all, 31.07.2013}: Избавиться от этого костыля
+        public LegalPersonController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IAPIIdentityServiceSettings identityServiceSettings, IUserContext userContext, ICommonLog logger, IGetBaseCurrencyService getBaseCurrencyService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, ILegalPersonReadModel legalPersonReadModel) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
@@ -58,7 +45,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Cyprus.Controllers
             _legalPersonReadModel = legalPersonReadModel;
         }
 
-        // TODO {all, 31.07.2013}: Избавиться от этого костыля
         [HttpGet, UseDependencyFields, SetEntityStateToken]
         public ActionResult ChangeLegalPersonRequisites(long id)
         {

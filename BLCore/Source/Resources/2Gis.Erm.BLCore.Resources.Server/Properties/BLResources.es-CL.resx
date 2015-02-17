@@ -3162,7 +3162,7 @@ Operación realizada con éxito: {6}.</value>
     <value>Resultados de verificación de la orden</value>
   </data>
   <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
-    <value>Нельзя добавить элемент с моделью продаж, отличающегося от моделей продаж остальных элементов</value>
+    <value>No se puede agregar un elemento con el modelo de ventas que se diferencia de los modelos de ventas de los demás elementos</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Identificador 1C</value>
@@ -5172,15 +5172,30 @@ Periodo de la publicación: {3}.</value>
     <value>Debe estar indicado el perfil de la razón social</value>
   </data>
   <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
-    <value>Указанный профиль не может быть выбран для заказа</value>
+    <value>El perfil indicado no puede estar seleccionado para la orden</value>
   </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
-    <value>В заказе могут присутствовать позиции только одной модели продаж</value>
+    <value>En la orden pueden estar las posiciones de un modelo de ventas solamente</value>
   </data>
   <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
-    <value>Набор рубрик для всех подпозиций должен совпадать</value>
+    <value>En conjunto de categorías para todas las posiciones debe coincidir</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
-    <value>Попытка сохранить позицию заказа с моделью продаж '{0}' с количеством, не равным 1</value>
+    <value>El intento de guardar la posición de la orden con el modelo de ventas '{0}' con la cantidad no igual a 1</value>
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Imposible asignar una acción en el estado "Cumplido"/"Cancelado"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Imposible asignar como supervisor al usuario de servicio</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>No hay permisos suficientes para cambiar de supervisor de la acción {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
   </data>
 </root>

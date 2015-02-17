@@ -109,9 +109,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public string BranchOfficeAddlName { get; set; }
 
         [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
-
-        [DataMember]
         public string BranchOfficeAddlIc { get; set; }
     }
 }

@@ -1665,6 +1665,9 @@
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
     <value>Мои запланированные планы на сегодня</value>
   </data>
+  <data name ="DListMyOpenedActivities" xml:space="preserve">
+    <value>Мои открытые планы</value>
+  </data>
   <data name="DListMyCompletedActivities" xml:space="preserve">
     <value>Мои завершенные планы</value>
   </data>

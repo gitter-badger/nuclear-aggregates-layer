@@ -13,6 +13,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -39,12 +40,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                IGetBaseCurrencyService getBaseCurrencyService,
                                IPublicService publicService,
-                               ISecureFinder secureFinder)
+                               ISecureFinder secureFinder,
+                               IAPIIdentityServiceSettings identityServiceSettings)
             : base(msCrmSettings,
-                   userContext,
-                   logger,
                    operationsServiceSettings,
                    specialOperationsServiceSettings,
+                   identityServiceSettings,
+                   userContext,
+                   logger,
                    getBaseCurrencyService)
         {
             _publicService = publicService;

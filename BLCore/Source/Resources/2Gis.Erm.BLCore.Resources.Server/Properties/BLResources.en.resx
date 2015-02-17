@@ -3161,7 +3161,7 @@ The operation has been executed: {6}.</value>
     <value>Results of the order check</value>
   </data>
   <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
-    <value>Нельзя добавить элемент с моделью продаж, отличающегося от моделей продаж остальных элементов</value>
+    <value>Cannot add an element. Its sales model is different from other elements</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>1C identifier</value>
@@ -5171,15 +5171,30 @@ Placement period: {3}.</value>
     <value>Please specify legal entity profile</value>
   </data>
   <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
-    <value>Указанный профиль не может быть выбран для заказа</value>
+    <value>The specified profile cannot be selected for order</value>
   </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
-    <value>В заказе могут присутствовать позиции только одной модели продаж</value>
+    <value>Only items of the same sales model can be presented in an order</value>
   </data>
   <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
-    <value>Набор рубрик для всех подпозиций должен совпадать</value>
+    <value>Set of categories should be the same for all subitems</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
-    <value>Попытка сохранить позицию заказа с моделью продаж '{0}' с количеством, не равным 1</value>
+    <value>Attempt to save an order item with sales model '{0}' where quantity is not 1</value>
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Cannot assign an action if the status is Completed/Canceled.</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Cannot appoint this user as an owner</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Not enough rights to change the owner for the action {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
   </data>
 </root>

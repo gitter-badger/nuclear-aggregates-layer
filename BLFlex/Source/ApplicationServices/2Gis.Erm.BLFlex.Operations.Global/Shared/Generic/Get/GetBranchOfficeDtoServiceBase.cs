@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.BargainTypes.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ContributionTypes.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
@@ -22,20 +21,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
         private readonly IBranchOfficeReadModel _readModel;
         private readonly IBargainTypeReadModel _bargainTypeReadModel;
         private readonly IContributionTypeReadModel _contributionTypeReadModel;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
 
         protected GetBranchOfficeDtoServiceBase(
             IUserContext userContext,
             IBranchOfficeReadModel readModel,
             IBargainTypeReadModel bargainTypeReadModel,
-            IContributionTypeReadModel contributionTypeReadModel,
-            IAPIIdentityServiceSettings identityServiceSettings)
+            IContributionTypeReadModel contributionTypeReadModel)
             : base(userContext)
         {
             _readModel = readModel;
             _bargainTypeReadModel = bargainTypeReadModel;
             _contributionTypeReadModel = contributionTypeReadModel;
-            _identityServiceSettings = identityServiceSettings;
         }
 
         protected override IDomainEntityDto<BranchOffice> GetDto(long entityId)
@@ -64,8 +60,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
         protected override IDomainEntityDto<BranchOffice> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             var dto = new TDto();
-
-            dto.SetPropertyValue("IdentityServiceUrl", _identityServiceSettings.RestUrl);
 
             return dto;
         }

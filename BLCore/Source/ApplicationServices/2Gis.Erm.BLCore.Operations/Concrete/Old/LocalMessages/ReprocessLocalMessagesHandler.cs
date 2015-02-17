@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 var reprocessResult = string.Format("Сообщение [{0}] было отправлено на повторную обработку", localMessage.Id);
                 _localMessageRepository.SetResult(localMessage, LocalMessageStatus.WaitForProcess, new[] { reprocessResult }, 0);
 
-                _logger.InfoEx(reprocessResult);
+                _logger.Info(reprocessResult);
             }
 
             return Response.Empty;

@@ -577,7 +577,7 @@
     <value>Estado del cumplimento de la operación</value>
   </data>
   <data name="SalesModel" xml:space="preserve">
-    <value>Модель продаж</value>
+    <value>Modelo de ventas</value>
   </data>
   <data name="RReportType" xml:space="preserve">
     <value>Tipo de informe</value>

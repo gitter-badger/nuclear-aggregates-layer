@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
@@ -17,22 +18,25 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IAPIOperationsServiceSettings _operationsServiceSettings;
         private readonly IAPISpecialOperationsServiceSettings _specialOperationsServiceSettings;
+        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
         private readonly IUserContext _userContext;
         private readonly ICommonLog _logger;
         private readonly IGetBaseCurrencyService _getBaseCurrencyService;
 
         protected ControllerBase(IMsCrmSettings msCrmSettings,
-                                 IUserContext userContext,
-                                 ICommonLog logger,
                                  IAPIOperationsServiceSettings operationsServiceSettings,
                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                 IAPIIdentityServiceSettings identityServiceSettings,
+                                 IUserContext userContext,
+                                 ICommonLog logger,
                                  IGetBaseCurrencyService getBaseCurrencyService)
         {
             _msCrmSettings = msCrmSettings;
-            _userContext = userContext;
-            _logger = logger;
             _operationsServiceSettings = operationsServiceSettings;
             _specialOperationsServiceSettings = specialOperationsServiceSettings;
+            _identityServiceSettings = identityServiceSettings;
+            _userContext = userContext;
+            _logger = logger;
             _getBaseCurrencyService = getBaseCurrencyService;
         }
 
@@ -41,20 +45,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
             get { return _userContext; }
         }
 
-        protected IMsCrmSettings MsCrmSettings
-        {
-            get
-            {
-                return _msCrmSettings;
-            }
-        }
-
         protected ICommonLog Logger
         {
-            get
-            {
-                return _logger;
-            }
+            get { return _logger; }
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -70,6 +63,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
                 ViewData[WebAppSettingsExtension.MsCrmSettingsKey] = _msCrmSettings;
                 ViewData[WebAppSettingsExtension.BasicOperationsServiceRestUrlKey] = _operationsServiceSettings.RestUrl.ToString();
                 ViewData[WebAppSettingsExtension.SpecialOperationsServiceRestUrlKey] = _specialOperationsServiceSettings.RestUrl.ToString();
+                ViewData[WebAppSettingsExtension.IdentityServiceRestUrlKey] = _identityServiceSettings.RestUrl.ToString();
                 ViewData[WebAppSettingsExtension.ErmBaseCurrencyKey] = _getBaseCurrencyService.GetBaseCurrency().Symbol;
             }
         }
@@ -79,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
             // log controller action
             var controllerName = RouteData.GetRequiredString("controller");
             var actionName = RouteData.GetRequiredString("action");
-            Logger.DebugFormatEx("Вызов контроллера [{0}]. Метод [{1}]", controllerName, actionName);
+            Logger.DebugFormat("Вызов контроллера [{0}]. Метод [{1}]", controllerName, actionName);
 
             base.ExecuteCore();
         }

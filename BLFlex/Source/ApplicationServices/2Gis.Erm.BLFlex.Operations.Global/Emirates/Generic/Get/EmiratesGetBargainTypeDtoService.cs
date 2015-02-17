@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
 using DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -15,21 +14,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
     public class EmiratesGetBargainTypeDtoService : GetDomainEntityDtoServiceBase<BargainType>, IEmiratesAdapted
     {
         private readonly ISecureFinder _finder;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
 
-        public EmiratesGetBargainTypeDtoService(IUserContext userContext, ISecureFinder finder, IAPIIdentityServiceSettings identityServiceSettings)
+        public EmiratesGetBargainTypeDtoService(IUserContext userContext, ISecureFinder finder)
             : base(userContext)
         {
             _finder = finder;
-            _identityServiceSettings = identityServiceSettings;
         }
 
         protected override IDomainEntityDto<BargainType> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new EmiratesBargainTypeDomainEntityDto
-                {
-                    IdentityServiceUrl = _identityServiceSettings.RestUrl
-                };
+            return new EmiratesBargainTypeDomainEntityDto();
         }
 
         protected override IDomainEntityDto<BargainType> GetDto(long entityId)
