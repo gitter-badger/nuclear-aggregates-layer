@@ -2507,7 +2507,7 @@
 			</RelatedItems>
 		</Card>
 		<DataLists>
-			<DataList NameLocaleResourceId="DListPricePositions" DefaultSortField="PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
+			<DataList NameLocaleResourceId="DListPricePositions" DefaultSortField="SortingIndex,PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
 				<ToolbarItems>
 					<ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
 					<ToolbarItem Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="65536" />
@@ -2523,7 +2523,7 @@
           <Field Name="PositionId" NameLocaleResourceId="DFieldPositionId" Width="250" Hidden="true" FieldType="String" ExtTypeName="String" />
 				</Fields>
 			</DataList>
-			<DataList NameLocaleResourceId="DListPricePositionsInactive" DefaultSortField="PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
+			<DataList NameLocaleResourceId="DListPricePositionsInactive" DefaultSortField="SortingIndex,PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
 				<ToolbarItems>
 					<ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
 				</ToolbarItems>
