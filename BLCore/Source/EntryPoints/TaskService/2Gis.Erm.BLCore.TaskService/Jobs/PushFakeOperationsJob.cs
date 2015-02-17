@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
 
         public void Interrupt()
         {
-            LogInfo("Stopping ... ");
+            Logger.Info("Stopping ... ");
             _isStopped = true;
         }
 
@@ -41,14 +41,14 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         {
             while (!_isStopped)
             {
-                LogInfo("Processing ... ");
+                Logger.Info("Processing ... ");
 
                 Process();
 
                 Thread.Sleep(10);
             }
 
-            LogInfo("Stopped ... ");
+            Logger.Info("Stopped ... ");
         }
 
         private void Process()

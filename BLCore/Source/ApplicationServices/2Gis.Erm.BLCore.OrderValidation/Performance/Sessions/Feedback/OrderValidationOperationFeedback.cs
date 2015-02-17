@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
 
         void IOrderValidationOperationFeedback.OperationStarted(ValidationParams validationParams)
         {
-            _logger.InfoEx("Starting orders validation. " + validationParams);
+            _logger.Info("Starting orders validation. " + validationParams);
 
             _operationIndicators = new OperationIndicators(validationParams);
 
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
         {
             _operationTime.Stop();
             _operationIndicators.OperationExecutionTimeSec = _operationTime.Elapsed.TotalSeconds;
-            _logger.ErrorFormatEx(exception, 
+            _logger.ErrorFormat(exception, 
                                  "Orders validation failed and it takes {0:F2} sec. {1}",
                                  _operationIndicators.OperationExecutionTimeSec,
                                  _operationIndicators.ValidationParams);
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
         {
             _operationTime.Stop();
             _operationIndicators.OperationExecutionTimeSec = _operationTime.Elapsed.TotalSeconds;
-            _logger.InfoFormatEx("Orders validation successfully finished and it takes {0:F2} sec. {1}",
+            _logger.InfoFormat("Orders validation successfully finished and it takes {0:F2} sec. {1}",
                                  _operationIndicators.OperationExecutionTimeSec,
                                  _operationIndicators.ValidationParams);
 
@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
 
         void IOrderValidationOperationFeedback.ValidationStarted()
         {
-            _logger.InfoEx("Orders validation. Starting validation stage" + _operationIndicators.ValidationParams);
+            _logger.Info("Orders validation. Starting validation stage" + _operationIndicators.ValidationParams);
             _validationTime.Restart();
         }
 
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
         {
             _validationTime.Stop();
             _operationIndicators.ValidationExecutionTimeSec = _validationTime.Elapsed.TotalSeconds;
-            _logger.ErrorFormatEx(exception,
+            _logger.ErrorFormat(exception,
                                   "Orders validation. Validation stage failed in {0:F2} sec. {1}",
                                   _operationIndicators.ValidationExecutionTimeSec,
                                   _operationIndicators.ValidationParams);
@@ -84,14 +84,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
             _validationTime.Stop();
             _operationIndicators.ValidationExecutionTimeSec = _validationTime.Elapsed.TotalSeconds;
             _operationIndicators.AppropriateOrdersCount = appropriateOrdersCount;
-            _logger.InfoFormatEx("Orders validation. Validation stage successfully finished in {0:F2} sec. {1}",
+            _logger.InfoFormat("Orders validation. Validation stage successfully finished in {0:F2} sec. {1}",
                                   _operationIndicators.ValidationExecutionTimeSec,
                                   _operationIndicators.ValidationParams);
         }
 
         void IOrderValidationOperationFeedback.CachingStarted()
         {
-            _logger.InfoEx("Orders validation. Starting caching stage" + _operationIndicators.ValidationParams);
+            _logger.Info("Orders validation. Starting caching stage" + _operationIndicators.ValidationParams);
             _cachingTime.Restart();
         }
 
@@ -99,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
         {
             _cachingTime.Stop();
             _operationIndicators.CachingExecutionTimeSec = _cachingTime.Elapsed.TotalSeconds;
-            _logger.ErrorFormatEx(exception,
+            _logger.ErrorFormat(exception,
                                   "Orders validation. Caching stage failed in {0:F2} sec. {1}",
                                   _operationIndicators.CachingExecutionTimeSec,
                                   _operationIndicators.ValidationParams);
@@ -109,14 +109,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
         {
             _cachingTime.Stop();
             _operationIndicators.CachingExecutionTimeSec = _cachingTime.Elapsed.TotalSeconds;
-            _logger.InfoFormatEx("Orders validation. Caching stage successfully finished in {0:F2} sec. {1}",
+            _logger.InfoFormat("Orders validation. Caching stage successfully finished in {0:F2} sec. {1}",
                                   _operationIndicators.CachingExecutionTimeSec,
                                   _operationIndicators.ValidationParams);
         }
 
         void IOrderValidationOperationFeedback.GroupStarted(OrderValidationRuleGroup ruleGroup)
         {
-            _logger.InfoFormatEx("Orders validation. Group {0} started. {1}", ruleGroup, _operationIndicators.ValidationParams);
+            _logger.InfoFormat("Orders validation. Group {0} started. {1}", ruleGroup, _operationIndicators.ValidationParams);
             _groupTime.Restart();
         }
 
@@ -125,7 +125,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
             _groupTime.Stop();
             var groupIndicators = new RuleGroupIndicators { ExecutionTimeSec = _groupTime.Elapsed.TotalSeconds };
             _operationIndicators.GroupIndicatorsRegistrar[ruleGroup] = groupIndicators;
-            _logger.ErrorFormatEx(exception,
+            _logger.ErrorFormat(exception,
                                   "Orders validation. Group {0} failed in {1:F2} sec. {2}",
                                   ruleGroup,
                                   groupIndicators.ExecutionTimeSec,
@@ -137,7 +137,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
             _groupTime.Stop();
             var groupIndicators = new RuleGroupIndicators { ExecutionTimeSec = _groupTime.Elapsed.TotalSeconds, ValidatedOrdersCount = validatedOrdersCount };
             _operationIndicators.GroupIndicatorsRegistrar[ruleGroup] = groupIndicators;
-            _logger.InfoFormatEx("Orders validation. Group {0} successfully finished in {1:F2} sec. {2}",
+            _logger.InfoFormat("Orders validation. Group {0} successfully finished in {1:F2} sec. {2}",
                                   ruleGroup,
                                   groupIndicators.ExecutionTimeSec,
                                   _operationIndicators.ValidationParams);
@@ -145,7 +145,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
 
         void IOrderValidationOperationFeedback.RuleStarted(Type ruleType)
         {
-            _logger.InfoFormatEx("Orders validation. Rule {0} started. {1}", ruleType.Name, _operationIndicators.ValidationParams);
+            _logger.InfoFormat("Orders validation. Rule {0} started. {1}", ruleType.Name, _operationIndicators.ValidationParams);
             _ruleTime.Restart();
         }
 
@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
             _ruleTime.Stop();
             var ruleIndicators = new RuleIndicators { ExecutionTimeSec = _ruleTime.Elapsed.TotalSeconds };
             _operationIndicators.RuleIndicatorsRegistrar[ruleType] = ruleIndicators;
-            _logger.ErrorFormatEx(exception,
+            _logger.ErrorFormat(exception,
                                   "Orders validation. Rule {0} failed in {1:F2} sec. {2}",
                                   ruleType.Name,
                                   ruleIndicators.ExecutionTimeSec,
@@ -166,7 +166,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
             _ruleTime.Stop();
             var ruleIndicators = new RuleIndicators { ExecutionTimeSec = _ruleTime.Elapsed.TotalSeconds, ValidatedOrdersCount = validatedOrdersCount };
             _operationIndicators.RuleIndicatorsRegistrar[ruleType] = ruleIndicators;
-            _logger.InfoFormatEx("Orders validation. Rule {0} successfully finished in {1:F2} sec. {2}",
+            _logger.InfoFormat("Orders validation. Rule {0} successfully finished in {1:F2} sec. {2}",
                                   ruleType.Name,
                                   ruleIndicators.ExecutionTimeSec,
                                   _operationIndicators.ValidationParams);

@@ -23,6 +23,7 @@ using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Caching;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -355,7 +356,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
                     LevelMin = Level.Error,
                     LevelMax = Level.Fatal
                 });
-            AddAppender(LoggerConstants.Erm, loggerApiAppender);
+            AddAppender(Log4NetLoggerBuilder.LoggingHierarchyName, loggerApiAppender);
         }
 
         // Add an appender to a logger

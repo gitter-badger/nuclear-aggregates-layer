@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.ChangeCli
             var response = ApiClient.Post(request);
             if (!response.IsSuccessfull)
             {
-                Logger.ErrorEx(response.ErrorException, "Api operation execution failed. " + apiTargetResource);
+                Logger.Error(response.ErrorException, "Api operation execution failed. " + apiTargetResource);
                 return null;
             }
 

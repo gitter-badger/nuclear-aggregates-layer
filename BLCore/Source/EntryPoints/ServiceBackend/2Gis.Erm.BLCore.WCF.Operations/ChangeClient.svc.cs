@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ChangeClientOperationErrorDescription>(
                     new ChangeClientOperationErrorDescription(entityName, ex.Message, entityId, clientId, null),
                     HttpStatusCode.BadRequest);
@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ChangeClientOperationErrorDescription>(
                     new ChangeClientOperationErrorDescription(entityName, ex.Message, entityId, clientId, bypassValidation),
                     HttpStatusCode.BadRequest);
@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ChangeClientOperationErrorDescription>(
                     new ChangeClientOperationErrorDescription(entityName, ex.Message, entityId, clientId, null));
             }
@@ -125,7 +125,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ChangeClientOperationErrorDescription>(
                     new ChangeClientOperationErrorDescription(entityName, ex.Message, entityId, clientId, actualBypassValidation));
             }

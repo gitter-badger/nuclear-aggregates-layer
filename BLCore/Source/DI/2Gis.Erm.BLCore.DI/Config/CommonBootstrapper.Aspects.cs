@@ -24,6 +24,8 @@ using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
+using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -76,6 +78,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             }
         }
 
+        public static IUnityContainer ConfigureLogging(this IUnityContainer container, ICommonLog logger, ILoggerContextManager loggerContextManager)
+        {
+            return container.RegisterInstance(logger)
+                            .RegisterInstance(loggerContextManager);
+        }
+
         public static IUnityContainer ConfigureDAL(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings)
         {
             if (environmentSettings.Type == EnvironmentType.Production)
@@ -111,7 +119,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IProcessingContext, ProcessingContext>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUseCaseTuner, UseCaseTuner>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IConcurrentPeriodCounter, ConcurrentPeriodCounter>()
-                        .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                         .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
                         

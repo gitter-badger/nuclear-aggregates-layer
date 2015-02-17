@@ -184,7 +184,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
                     if (_logger != null)
                     {
-                        _logger.ErrorEx(ex, string.Format("Произошла ошибка при репликации сущности EntityType=[{0}], Id=[{1}]", entity.GetType().Name, entity.Id));
+                        _logger.Error(ex, string.Format("Произошла ошибка при репликации сущности EntityType=[{0}], Id=[{1}]", entity.GetType().Name, entity.Id));
                     }
 
                     throw;

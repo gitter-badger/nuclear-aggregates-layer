@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
                     using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
                     {
                         var entity = method.Invoke(this, null);
-                        _logger.InfoFormatEx("Query for entity type {0, -60} succeeded with {1} value", entityType.Name, entity == null ? "null" : "not null");
+                        _logger.InfoFormat("Query for entity type {0, -60} succeeded with {1} value", entityType.Name, entity == null ? "null" : "not null");
 
                         transaction.Complete();
                     }
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
                 catch (Exception e)
                 {
                     succeeded = false;
-                    _logger.ErrorFormatEx(e, "Query for entity type {0, -60} failed", entityType);
+                    _logger.ErrorFormat(e, "Query for entity type {0, -60} failed", entityType);
                 }
             }
 

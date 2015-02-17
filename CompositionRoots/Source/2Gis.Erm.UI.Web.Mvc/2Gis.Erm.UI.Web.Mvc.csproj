@@ -1190,9 +1190,6 @@
     <Content Include="Content\images\default\window\right-corners.psd" />
     <Content Include="Content\images\default\window\top-bottom.psd" />
     <Content Include="Content\Web.config" />
-    <None Include="log4net.Release.config">
-      <DependentUpon>log4net.config</DependentUpon>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

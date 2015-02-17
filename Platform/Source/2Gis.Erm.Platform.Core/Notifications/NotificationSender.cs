@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Can't send notifications");
+                _logger.Error(ex, "Can't send notifications");
                 throw;
             }
         }

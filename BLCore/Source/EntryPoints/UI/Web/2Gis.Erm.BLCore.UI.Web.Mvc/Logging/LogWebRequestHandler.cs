@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 
             if (entity == null)
             {
-                Logger.FatalEx("Критичная ошибка журналирования объекта. Не удалось получить экземпляр объекта до изменения");
+                Logger.Fatal("Критичная ошибка журналирования объекта. Не удалось получить экземпляр объекта до изменения");
             }
             else
             {
@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.FatalEx(ex, "Критичная ошибка создания копии объекта до изменения");
+                    Logger.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
                 }
             }
 
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.FatalEx(ex, "Критичная ошибка журналирования операций");
+                    Logger.Fatal(ex, "Критичная ошибка журналирования операций");
                 }
             }
 
@@ -89,25 +89,25 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
             // Текущая реализация вызывает вопросы "почему для Order используется Find, а для LegalPerson - FindOne"
             if (_entityType.Equals(EntityType.Instance.Order()))
             {
-                return _finder.Find(Specs.Find.ById<Order>(viewModel.Id)).Single();
+                    return _finder.Find(Specs.Find.ById<Order>(viewModel.Id)).Single();
             }
 
             if (_entityType.Equals(EntityType.Instance.Client()))
             {
-                return _finder.Find(Specs.Find.ById<Client>(viewModel.Id)).Single();
+                    return _finder.Find(Specs.Find.ById<Client>(viewModel.Id)).Single();
             }
 
             if (_entityType.Equals(EntityType.Instance.LegalPerson()))
             {
-                return _finder.FindOne(Specs.Find.ById<LegalPerson>(viewModel.Id));
+                    return _finder.FindOne(Specs.Find.ById<LegalPerson>(viewModel.Id));
             }
 
             if (_entityType.Equals(EntityType.Instance.Deal()))
             {
-                return _finder.Find(Specs.Find.ById<Deal>(viewModel.Id)).Single();
+                    return _finder.Find(Specs.Find.ById<Deal>(viewModel.Id)).Single();
             }
 
-            throw new ArgumentOutOfRangeException("Не работает журналирование для сущности " + _entityType);
+                    throw new ArgumentOutOfRangeException("Не работает журналирование для сущности " + _entityType);
+            }
         }
     }
-}

@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         {
             var accountDetailsMap = new Dictionary<long, long>();
 
-            _logger.InfoEx("Started withdrawal process for accounts");
+            _logger.Info("Started withdrawal process for accounts");
 
             using (var scope = _scopeFactory.CreateNonCoupled<WithdrawFromAccountsIdentity>())
             {
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 foreach (var info in withdrawInfos)
                 {
                     var nowDate = DateTime.UtcNow;
-                    _logger.DebugFormatEx("Creating account detail for withdrawal by account with id {0}", info.Account.Id);
+                    _logger.DebugFormat("Creating account detail for withdrawal by account with id {0}", info.Account.Id);
                     var accountDetail = new AccountDetail
                     {
                         AccountId = info.Account.Id,
@@ -79,8 +79,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                     targetAccount.Balance = targetAccount.Balance - accountDetail.Amount;
                 }
 
-                _logger.InfoFormatEx("During withdrawal process {0} account details was created", accountDetailsMap.Count);
-                _logger.InfoFormatEx("Actualize accounts balances during withdrawal process. Accounts count: {0}", accounts.Count);
+                _logger.InfoFormat("During withdrawal process {0} account details was created", accountDetailsMap.Count);
+                _logger.InfoFormat("Actualize accounts balances during withdrawal process. Accounts count: {0}", accounts.Count);
 
                 foreach (var account in accounts.Values)
                 {
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoEx("Finished withdrawal process for accounts");
+            _logger.Info("Finished withdrawal process for accounts");
 
             return accountDetailsMap;
         }

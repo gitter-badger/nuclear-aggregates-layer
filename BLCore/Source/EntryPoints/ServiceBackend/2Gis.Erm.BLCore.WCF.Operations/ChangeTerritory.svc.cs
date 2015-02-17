@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ChangeTerritoryOperationErrorDescription>(
                     new ChangeTerritoryOperationErrorDescription(entityName, ex.Message, entityId, territoryId),
                     HttpStatusCode.BadRequest);
@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ChangeTerritoryOperationErrorDescription>(
                     new ChangeTerritoryOperationErrorDescription(entityName, ex.Message, entityId, territoryId));
             }

@@ -427,7 +427,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Can't get listing for entity " + _identity.EntityName);
+                _logger.Error(ex, "Can't get listing for entity " + _identity.EntityName);
                 var msg = string.Format(_cantGetListingMessageFormat.Title, EntityNameString);
                 _messageSink.Post(new NotificationMessage(new INotification[] { new SystemNotification(Guid.NewGuid(), NotificationLevel.Error, msg) }));
             }

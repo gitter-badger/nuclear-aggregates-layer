@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                         .Complete();
                 }
                 
-                _logger.InfoFormatEx("Куратором ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
+                _logger.InfoFormat("Куратором ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
             }
             catch (ProcessAccountsWithDebtsException ex)
             {

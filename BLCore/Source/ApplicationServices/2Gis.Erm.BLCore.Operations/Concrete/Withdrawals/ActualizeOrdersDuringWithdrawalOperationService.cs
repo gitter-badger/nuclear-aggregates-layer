@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
         public void Actualize(long withdrawalOrganizationUnitId, IEnumerable<ActualizeOrdersDto> orderInfos)
         {
-            _logger.InfoEx("Starting actialize orders during withdrawal process");
+            _logger.Info("Starting actialize orders during withdrawal process");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeOrdersDuringWithdrawalIdentity>())
             {
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoEx("Finished actialize orders during withdrawal process");
+            _logger.Info("Finished actialize orders during withdrawal process");
         }
     }
 }

@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't execute operation " + OperationIdentity);
+                Logger.Error(ex, "Can't execute operation " + OperationIdentity);
             }
             finally
             {

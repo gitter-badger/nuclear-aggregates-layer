@@ -178,7 +178,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
         {
             var desciption = (MetadataOperationErrorDescription)faultDescription;
             var errorDescription = "Api operation execution failed. " + desciption;
-            Logger.ErrorEx(errorDescription);
+            Logger.Error(errorDescription);
             throw new ApiException(errorDescription) { ApiExceptionDescription = new ApiExceptionDescriptor { Title = desciption.Message, Description = desciption.Description } };
         }
     }

@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 
             AssignRelatedActivities(entityId, ownerCode);
 
-            _logger.InfoFormatEx("[ERM] Клиент с id={0} взят из резерва, с назначением пользователю с id={1}", entityId, ownerCode);
+            _logger.InfoFormat("[ERM] Клиент с id={0} взят из резерва, с назначением пользователю с id={1}", entityId, ownerCode);
 
             return new QualifyResult
                 {

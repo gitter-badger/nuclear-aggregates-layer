@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ManageTextAdsErrorDescription>(new ManageTextAdsErrorDescription(adsElementId, ex.Message),
                                                                            HttpStatusCode.BadRequest);
             }
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ManageTextAdsErrorDescription>(new ManageTextAdsErrorDescription(adsElementId, ex.Message),
                                                                            HttpStatusCode.BadRequest);
             }
@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ManageTextAdsErrorDescription>(new ManageTextAdsErrorDescription(adsElementId, ex.Message));
             }
         }
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ManageTextAdsErrorDescription>(new ManageTextAdsErrorDescription(adsElementId, ex.Message));
             }
         }

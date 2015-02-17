@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
     internal static partial class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ICommonLog logger)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -141,7 +141,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                 settingsContainer.AsSettings<IGlobalizationSettings>(),
                                 settingsContainer.AsSettings<IMsCrmSettings>(),
                                 settingsContainer.AsSettings<ICachingSettings>(),
-                                settingsContainer.AsSettings<IOperationLoggingSettings>()))
+                                settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                logger))
                      .ConfigureServiceClient()
                      .OverrideDependencies();
 
@@ -160,26 +161,27 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IGlobalizationSettings globalizationSettings,
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
-            IOperationLoggingSettings operationLoggingSettings)
+            IOperationLoggingSettings operationLoggingSettings,
+            ICommonLog logger)
         {
             return container
-                .ConfigureGlobal(globalizationSettings)
-                .CreateErmSpecific(msCrmSettings)
-                .CreateSecuritySpecific()
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                    .ConfigureLogging(logger, null)
+                    .ConfigureGlobal(globalizationSettings)
+                    .CreateErmSpecific(msCrmSettings)
+                    .CreateSecuritySpecific()
+                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
-                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureReplicationMetadata(msCrmSettings)
-                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
-                .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
-                .ConfigureIdentityInfrastructure()
-                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .ConfigureExportMetadata()
-                .ConfigureMetadata()
-                .ConfigureTestInfrastructure(environmentSettings)
-                .ConfigureTestsDependenciesExplicitly();
+                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                    .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
+                    .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
+                    .ConfigureIdentityInfrastructure()
+                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                    .ConfigureExportMetadata()
+                    .ConfigureMetadata()
+                    .ConfigureTestInfrastructure(environmentSettings)
+                    .ConfigureTestsDependenciesExplicitly();
         }
 
         private static void CheckConventionsComplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -255,6 +257,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterTypeWithDependencies<ISecurityServiceSharings, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(Lifetime.PerScope, MappingScope)
                 .RegisterType<IUserContext, UserContext>(Lifetime.PerScope, new InjectionFactory(c => new UserContext(null, null)))
+                .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISignInService, WindowsIdentitySignInService>(Lifetime.PerScope, MappingScope)
                             .RegisterTypeWithDependencies<IUserImpersonationService, UserImpersonationService>(Lifetime.PerScope, MappingScope)

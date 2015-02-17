@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                         .Complete();
                 }
                 
-                _logger.InfoFormatEx("Куратором юр.лица с id={0} назначен пользователь {1}, isPartialAssign={2}", entityId, ownerCode, isPartialAssign);
+                _logger.InfoFormat("Куратором юр.лица с id={0} назначен пользователь {1}, isPartialAssign={2}", entityId, ownerCode, isPartialAssign);
             }
             catch (ProcessAccountsWithDebtsException ex)
             {

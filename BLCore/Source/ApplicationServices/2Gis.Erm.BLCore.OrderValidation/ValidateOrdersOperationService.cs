@@ -174,7 +174,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             appropriateOrdersCount = _orderReadModel.GetOrdersCurrentVersions(filterPredicate.GetCombinedPredicate()).Count;
             if (appropriateOrdersCount == 0)
             {
-                _logger.InfoEx("Orders validation. Skip validation. No orders to validate. " + validationParams);
+                _logger.Info("Orders validation. Skip validation. No orders to validate. " + validationParams);
                 return;
             }
 
@@ -182,7 +182,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             {
                 if (!ruleGroupContainer.RuleDescriptors.Any())
                 {
-                    _logger.InfoFormatEx("Orders validation. Group {0} skipped. Appropriate rules count: 0. {1}", ruleGroupContainer.Group, validationParams);
+                    _logger.InfoFormat("Orders validation. Group {0} skipped. Appropriate rules count: 0. {1}", ruleGroupContainer.Group, validationParams);
                     continue;
                 }
             
@@ -213,11 +213,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             ordersCount = ordersForValidationWitVersions.Count;
             if (ordersCount == 0)
             {
-                _logger.InfoFormatEx("Orders validation. Group {0} skipped. No orders to validate. {1}", ruleGroupContainer.Group, validationParams);
+                _logger.InfoFormat("Orders validation. Group {0} skipped. No orders to validate. {1}", ruleGroupContainer.Group, validationParams);
                 return;
             }
 
-            _logger.InfoFormatEx("Orders validation. Group {0}. Rules in group actual count: {1}. {2}",
+            _logger.InfoFormat("Orders validation. Group {0}. Rules in group actual count: {1}. {2}",
                                  ruleGroupContainer.Group,
                                  ruleGroupContainer.RuleDescriptors.Count,
                                  validationParams);

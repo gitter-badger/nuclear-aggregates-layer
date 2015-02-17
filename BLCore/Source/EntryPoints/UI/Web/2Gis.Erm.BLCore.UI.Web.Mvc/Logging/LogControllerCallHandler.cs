@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
             }
             catch (Exception ex)
             {
-                Logger.FatalEx(ex, "Критичная ошибка создания копии объекта до изменения");
+                Logger.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
             }
 
             var result = getNext()(input, getNext);
@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.FatalEx(ex, "Критичная ошибка журналирования операций");
+                    Logger.Fatal(ex, "Критичная ошибка журналирования операций");
                 }
             }
 

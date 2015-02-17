@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
             {
                 profiler.Stop();
                 decimal elapsedSeconds = profiler.ElapsedMilliseconds / 1000M;
-                _logger.InfoFormatEx("Execution count: {0}, it takes {1} sec, result processing rate exec/sec: {2}", 
+                _logger.InfoFormat("Execution count: {0}, it takes {1} sec, result processing rate exec/sec: {2}", 
                     TargetExecutionCount,
                     elapsedSeconds,
                     TargetExecutionCount / elapsedSeconds);

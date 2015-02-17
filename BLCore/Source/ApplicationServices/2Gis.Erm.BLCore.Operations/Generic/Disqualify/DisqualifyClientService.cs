@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
 
                 AssignRelatedActivities(client.Id, reserveUser.Code);
 
-                _logger.InfoFormatEx("Клиент с id={0} возвращен в резерв", entityId);
+                _logger.InfoFormat("Клиент с id={0} возвращен в резерв", entityId);
 
                 return null;
             }

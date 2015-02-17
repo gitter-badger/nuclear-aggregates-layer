@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
                 operationScope.Complete();
             }
 
-            _logger.InfoFormatEx("Фирма с id={0} возвращена в резерв", entityId);
+            _logger.InfoFormat("Фирма с id={0} возвращена в резерв", entityId);
 
             return null;
         }

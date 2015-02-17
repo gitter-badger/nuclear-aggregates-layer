@@ -35,12 +35,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Get
             }
             catch (FaultException<GetDomainEntityDtoOperationErrorDescription> ex)
             {
-                Logger.ErrorEx(ex, "Can't get dto for entity " + EntityType.Name + ". Entity id: " + entityId);
+                Logger.Error(ex, "Can't get dto for entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't get dto for entity " + EntityType.Name + ". Entity id: " + entityId);
+                Logger.Error(ex, "Can't get dto for entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
         }

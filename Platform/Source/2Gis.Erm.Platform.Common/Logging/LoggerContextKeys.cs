@@ -4,17 +4,18 @@ namespace DoubleGis.Erm.Platform.Common.Logging
     {
         public static class Required
         {
-            public const string SessionId = "sessionId";
-            public const string UserName = "userName";
-            public const string UserIP = "userIP";
-            public const string UserBrowser = "userBrowser";
-            public const string SeanceCode = "seanceCode";
-            public const string Module = "moduleName";
+            public const string Environment = "environment";
+            public const string EntryPoint = "entryPoint";
+            public const string EntryPointHost = "entryPointHost";
+            public const string EntryPointInstanceId = "entryPointInstanceId";
+            public const string UserAccount = "userAccount";
         }
 
         public static class Optional
         {
-            public const string MethodName = "methodName";
+            public const string UserSession = "userSession";
+            public const string UserAddress = "userAddress";
+            public const string UserAgent = "userAgent";
         }
     }
 }
