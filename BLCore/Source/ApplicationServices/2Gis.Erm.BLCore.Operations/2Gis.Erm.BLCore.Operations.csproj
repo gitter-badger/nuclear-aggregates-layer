@@ -104,11 +104,11 @@
     <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplateHandler.cs" />
-    <Compile Include="Concrete\Old\Bills\DistributeBillPaymentsHandler.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfoHandler.cs" />
-    <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfoHandler.cs" />
+    <Compile Include="Concrete\Bills\CalculateBillsOperationService.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBillHandler.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForPrintJointBillHandler.cs" />
+    <Compile Include="Concrete\Bills\PaymentDatePlanEvaluator.cs" />
     <Compile Include="Concrete\Old\Bills\PrintJointBillHandler.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimary.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSales.cs" />

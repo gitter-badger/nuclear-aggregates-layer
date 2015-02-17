@@ -71,6 +71,7 @@
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
+    <Compile Include="Concrete\Bills\ICalculateBillsOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
@@ -256,9 +257,7 @@
     <Compile Include="Concrete\Old\Bills\BillPaymentType.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplate.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfo.cs" />
-    <Compile Include="Concrete\Old\Bills\DistributeBillPayments.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfo.cs" />
-    <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfo.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBill.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForPrintJointBill.cs" />
     <Compile Include="Concrete\Old\Bills\PrintBillRequest.cs" />
