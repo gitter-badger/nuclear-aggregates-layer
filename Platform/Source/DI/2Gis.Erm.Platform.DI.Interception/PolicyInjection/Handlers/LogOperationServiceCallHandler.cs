@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
             }
             catch (Exception ex)
             {
-                Logger.FatalEx(ex, "Критичная ошибка создания копии объекта до изменения");
+                Logger.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
             }
 
             var result = getNext()(input, getNext);
@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
                 }
                 catch (Exception ex)
                 {
-                    Logger.FatalEx(ex, "Критичная ошибка журналирования операций");
+                    Logger.Fatal(ex, "Критичная ошибка журналирования операций");
                 }
             }
 

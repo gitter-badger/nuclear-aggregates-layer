@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             if (!_operationConsistencyVerifier.IsOperationContextConsistent(verifierContexts))
             {
                 var msg = string.Format("Operation verifier. Operation context is not consistent. Use case root operation identity: {0}", useCase.RootNode.OperationIdentity);
-                _logger.ErrorEx(msg);
+                _logger.Error(msg);
 
                 // TODO {all, 07.08.2013}: подумать в каких условиях бросать exception, в каких нет (например, development и test environment - бросаем exception, production - просто логируем)
                 if (_environmentSettings.Type == EnvironmentType.Development

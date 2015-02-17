@@ -158,6 +158,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
             return
                 _finder.Find(AccountSpecs.Locks.Find.BySourceOrganizationUnits(organizationUnitIds) &&
                              AccountSpecs.Locks.Find.ForPeriod(periodStartDate, periodEndDate) &&
+                             Specs.Find.NotDeleted<Lock>() &&
                              Specs.Find.InactiveEntities<Lock>())
                        .Select(x => new
                                         {

@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         public ExportLegalPersonsHandler(
             ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-            ICommonLog logger,            
+            ICommonLog logger,
             ILegalPersonRepository legalPersonRepository,
             IUserRepository userRepository,
             IAccountRepository accountRepository,
@@ -90,18 +90,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 throw new NotificationException(BLResources.ExportCouldnotFindLegalPersons);
             }
 
-            _logger.InfoFormatEx("Начало проверки юр.лиц");
+            _logger.InfoFormat("Начало проверки юр.лиц");
             var validationErrors =
                 _validateLegalPersonsForExportOperationService.Validate(legalPersonFor1CExportDtos.Select(x =>
                                                                                                           new ValidateLegalPersonDto
-                                                                                                              {
+            {
                                                                                                                   LegalPersonId = x.LegalPerson.Id,
-                                                                                                                  SyncCode1C = x.LegalPersonSyncCode1C,
+                    SyncCode1C = x.LegalPersonSyncCode1C,
                                                                                                               }).ToArray());
 
             var notValidResponseLogBuilder = new StringBuilder();
             foreach (var item in validationErrors)
-            {
+                                        {
                 notValidResponseLogBuilder.AppendFormat("[{0}] [{1}] - {2}", item.LegalPersonId, item.SyncCode1C, item.ErrorMessage);
             }
 
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             logReportBuilder.AppendFormat("Неблокирующих ошибок - [{0}]:", validationErrors.Count(x => !x.IsBlockingError)).Append(Environment.NewLine);
             logReportBuilder.AppendFormat("Блокирующих ошибок - [{0}]:", validationErrors.Count(x => x.IsBlockingError)).Append(Environment.NewLine);
             logReportBuilder.Append(notValidResponseLogBuilder);
-            _logger.InfoFormatEx(logReportBuilder.ToString());
+            _logger.InfoFormat(logReportBuilder.ToString());
 
             var legalPersons = legalPersonFor1CExportDtos.Select(x => x.LegalPerson);
 
@@ -226,7 +226,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         }
 
         private static DataTable GetErrorsDataTable(IEnumerable<LegalPersonValidationForExportErrorDto> errors)
-        {
+            {
             const int attributesCount = 4;
             var dataTable = new DataTable { Locale = CultureInfo.InvariantCulture };
             for (var i = 0; i < attributesCount; i++)
@@ -242,7 +242,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             foreach (var error in errors.Where(x => !x.IsBlockingError))
             {
                 dataTable.Rows.Add(error.LegalPersonId, error.SyncCode1C, BLResources.NonBlockingError, error.ErrorMessage);
-            }
+        }
 
             return dataTable;
         }
