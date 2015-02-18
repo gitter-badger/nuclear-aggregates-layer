@@ -1481,4 +1481,7 @@
   <data name="OtherAuthorityDocument" xml:space="preserve">
     <value>Jiné</value>
   </data>
+  <data name="ChiefFullNameInNominative" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
 </root>
