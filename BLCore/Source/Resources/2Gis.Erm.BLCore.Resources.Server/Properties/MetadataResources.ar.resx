@@ -1475,6 +1475,9 @@
   <data name="OtherAuthorityDocument" xml:space="preserve">
     <value>Other</value>
   </data>
+  <data name="ChiefFullNameInNominative" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="AccountingMethod" xml:space="preserve">
     <value>Способ учета оказания услуг</value>
   </data>

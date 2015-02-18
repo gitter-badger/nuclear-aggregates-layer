@@ -816,7 +816,6 @@
     <Compile Include="2.1\201501201646 - Deal replication fix.cs" />
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
     <Compile Include="2.1\201502111010 - remove Timestamp from SalesModelCategoryRestrictions.cs" />
-    <Compile Include="2.1\Migration201502111010.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
     <Compile Include="2.1\201502090244 - remove account details export buttons from MS CRM.cs" />
     <Compile Include="2.1\201502130238 - add AccountingMethod column to WithdrawalInfos table.cs" />

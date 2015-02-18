@@ -6,9 +6,11 @@ using System.Net.Mime;
 using System.Text;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
+using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AccountDetail;
@@ -18,13 +20,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
     public sealed class GetAccountDetailsForExportContentOperationService : IGetAccountDetailsForExportContentOperationService
     {
         private readonly IGetDebitsInfoInitialForExportOperationService _getDebitsInfoInitialForExportOperationService;
-       
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IAccountReadModel _accountReadModel;
 
         public GetAccountDetailsForExportContentOperationService(
             IGetDebitsInfoInitialForExportOperationService getDebitsInfoInitialForExportOperationService,
-            IOperationScopeFactory operationScopeFactory)
+            IOperationScopeFactory operationScopeFactory,
+            IAccountReadModel accountReadModel)
         {
             _getDebitsInfoInitialForExportOperationService = getDebitsInfoInitialForExportOperationService;
             _operationScopeFactory = operationScopeFactory;
@@ -60,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         }
 
         private IntegrationResponse ConstructResponse(DebitsInfoInitialDto debitsInfoInitial)
-            {
+        {
             var streamDictionary = new Dictionary<string, Stream>();
             var debitsStream = new MemoryStream(Encoding.UTF8.GetBytes(debitsInfoInitial.ToXElement().ToString(SaveOptions.None)));
             streamDictionary.Add("DebitsInfoInitial_" + DateTime.Today.ToShortDateString() + ".xml", debitsStream);
@@ -69,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             response.FileName = "Acts.zip";
             response.ContentType = MediaTypeNames.Application.Zip;
             response.Stream = streamDictionary.ZipStreamDictionary();
-            
+
             response.ProcessedWithoutErrors = debitsInfoInitial.Debits.Count();
 
             return response;

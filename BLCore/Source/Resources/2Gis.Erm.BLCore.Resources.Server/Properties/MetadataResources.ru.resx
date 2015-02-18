@@ -1481,6 +1481,9 @@
   <data name="OtherAuthorityDocument" xml:space="preserve">
     <value>Другое</value>
   </data>
+  <data name="ChiefFullNameInNominative" xml:space="preserve">
+    <value>Полное ФИО руководителя (им.падеж)</value>
+  </data>
   <data name="AccountingMethod" xml:space="preserve">
     <value>Способ учета оказания услуг</value>
   </data>

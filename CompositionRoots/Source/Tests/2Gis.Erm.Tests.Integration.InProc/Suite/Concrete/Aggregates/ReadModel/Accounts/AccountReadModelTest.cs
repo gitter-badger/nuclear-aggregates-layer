@@ -65,7 +65,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
                     .Should().NotBeEmpty();
 
                 _accountReadModel
-                    .GetInfoForRevertWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod)
+                    .GetInfoForRevertWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod, AccountingMethod.GuaranteedProvision)
+                    .Should().NotBeEmpty();
+
+                _accountReadModel
+                    .GetInfoForRevertWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod, AccountingMethod.PlannedProvision)
                     .Should().NotBeEmpty();
 
                 _accountReadModel

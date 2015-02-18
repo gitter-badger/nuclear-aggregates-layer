@@ -709,6 +709,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Полное ФИО руководителя (им.падеж).
+        /// </summary>
+        public static string ChiefFullNameInNominative {
+            get {
+                return ResourceManager.GetString("ChiefFullNameInNominative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ФИО руководителя (род.падеж).
         /// </summary>
         public static string ChiefNameInGenitive {
