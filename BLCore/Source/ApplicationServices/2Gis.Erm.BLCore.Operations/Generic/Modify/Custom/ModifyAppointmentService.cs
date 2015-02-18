@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Read;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Transactions;
@@ -22,6 +23,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
     {
         private readonly IAppointmentReadModel _readModel;
         private readonly IBusinessModelEntityObtainer<Appointment> _activityObtainer;
+
+        private readonly IActivityReadService _activityReadService;
+
         private readonly ICreateAppointmentAggregateService _createOperationService;
         private readonly IUpdateAppointmentAggregateService _updateOperationService;
         private readonly IChangeDealStageOperationService _changeDealStageOperationService;
@@ -29,12 +33,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public ModifyAppointmentService(
             IAppointmentReadModel readModel,
             IBusinessModelEntityObtainer<Appointment> obtainer,
+            IActivityReadService activityReadService,
             ICreateAppointmentAggregateService createOperationService,
             IUpdateAppointmentAggregateService updateOperationService,
             IChangeDealStageOperationService changeDealStageOperationService)
         {
             _readModel = readModel;
             _activityObtainer = obtainer;
+            _activityReadService = activityReadService;
             _createOperationService = createOperationService;
             _updateOperationService = updateOperationService;
             _changeDealStageOperationService = changeDealStageOperationService;
@@ -49,6 +55,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             {
                 throw new NotificationException(BLResources.ModifyAppointmentService_ScheduleRangeIsIncorrect);
             }
+
+            _activityReadService.CheckIfAnyEntityReferencesContainsReserve(appointmentDto.RegardingObjects);
+            _activityReadService.CheckIfAnyEntityReferencesContainsReserve(appointmentDto.Attendees);            
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {

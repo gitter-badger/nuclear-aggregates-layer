@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Read;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -20,6 +21,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
     {
         private readonly IPhonecallReadModel _readModel;
         private readonly IBusinessModelEntityObtainer<Phonecall> _activityObtainer;
+
+        private readonly IActivityReadService _activityReadService;
+
         private readonly ICreatePhonecallAggregateService _createOperationService;
         private readonly IUpdatePhonecallAggregateService _updateOperationService;
         private readonly IChangeDealStageOperationService _changeDealStageOperationService;
@@ -27,12 +31,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public ModifyPhonecallService(
             IPhonecallReadModel readModel,
             IBusinessModelEntityObtainer<Phonecall> obtainer,
+            IActivityReadService activityReadService,
             ICreatePhonecallAggregateService createOperationService,
             IUpdatePhonecallAggregateService updateOperationService,
             IChangeDealStageOperationService changeDealStageOperationService)
         {
             _readModel = readModel;
             _activityObtainer = obtainer;
+            _activityReadService = activityReadService;
             _createOperationService = createOperationService;
             _updateOperationService = updateOperationService;
             _changeDealStageOperationService = changeDealStageOperationService;
@@ -42,6 +48,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         {
             var phonecallDto = (PhonecallDomainEntityDto)domainEntityDto;
             var phonecall = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
+
+            _activityReadService.CheckIfAnyEntityReferencesContainsReserve(phonecallDto.RegardingObjects);            
+            _activityReadService.CheckIfEntityReferencesContainsReserve(phonecallDto.RecipientRef);
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {

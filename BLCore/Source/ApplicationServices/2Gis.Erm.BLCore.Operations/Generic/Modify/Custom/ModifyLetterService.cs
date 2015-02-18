@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Read;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -17,17 +18,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
     {
         private readonly ILetterReadModel _readModel;
         private readonly IBusinessModelEntityObtainer<Letter> _activityObtainer;
+
+        private readonly IActivityReadService _activityReadService;
+
         private readonly ICreateLetterAggregateService _createOperationService;
         private readonly IUpdateLetterAggregateService _updateOperationService;
 
         public ModifyLetterService(
             ILetterReadModel readModel,
             IBusinessModelEntityObtainer<Letter> obtainer,
+            IActivityReadService activityReadService,
             ICreateLetterAggregateService createOperationService,
             IUpdateLetterAggregateService updateOperationService)
         {
             _readModel = readModel;
             _activityObtainer = obtainer;
+            _activityReadService = activityReadService;
             _createOperationService = createOperationService;
             _updateOperationService = updateOperationService;
         }
@@ -36,6 +42,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         {
             var letterDto = (LetterDomainEntityDto)domainEntityDto;
             var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
+
+            _activityReadService.CheckIfAnyEntityReferencesContainsReserve(letterDto.RegardingObjects);
+            _activityReadService.CheckIfEntityReferencesContainsReserve(letterDto.RecipientRef);            
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
