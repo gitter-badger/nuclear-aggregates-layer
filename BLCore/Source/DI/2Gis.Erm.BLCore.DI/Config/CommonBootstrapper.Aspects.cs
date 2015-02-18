@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Factories.Operations;
+using DoubleGis.Erm.BLCore.DI.Factories.Operations.Withdrawals;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.DB;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -26,10 +27,9 @@ using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
-using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -51,7 +51,6 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
@@ -188,7 +187,13 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
         public static IUnityContainer ConfigureOperationServices(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory)
         {
-            return container.RegisterType<IOperationServicesManager, UnityOperationServicesManager>(entryPointSpecificLifetimeManagerFactory());
+            return container.RegisterType<IOperationServicesManager, UnityOperationServicesManager>(entryPointSpecificLifetimeManagerFactory())
+                            .RegisterTypeWithDependencies(typeof(WithdrawalOperationAccessValidationRule), Lifetime.PerScope, null)
+                            .RegisterTypeWithDependencies(typeof(PeriodValidationRule), Lifetime.PerScope, null)
+                            .RegisterTypeWithDependencies(typeof(WithdrawalOperationWorkflowValidationRule), Lifetime.PerScope, null)
+                            .RegisterTypeWithDependencies(typeof(LocksExistenceValidationRule), Lifetime.PerScope, null)
+                            .RegisterTypeWithDependencies(typeof(LegalPersonsValidationRule), Lifetime.PerScope, null)
+                            .RegisterType<IWithdrawalOperationValidationRulesProvider, UnityWithdrawalOperationValidationRulesProvider>(entryPointSpecificLifetimeManagerFactory());
         }
 
         public static IUnityContainer ConfigureMetadata(this IUnityContainer container)
