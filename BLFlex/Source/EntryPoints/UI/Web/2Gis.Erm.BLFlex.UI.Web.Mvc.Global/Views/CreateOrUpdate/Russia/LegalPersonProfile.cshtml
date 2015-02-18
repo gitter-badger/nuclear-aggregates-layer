@@ -76,6 +76,10 @@
         </div>
     
         <div class="row-wrapper">
+            @Html.TemplateField(m => m.ChiefFullNameInNominative, FieldFlex.twins)
+        </div>
+
+        <div class="row-wrapper">
             @Html.TemplateField(m => m.ChiefNameInGenitive, FieldFlex.twins)
             @Html.TemplateField(m => m.PositionInGenitive, FieldFlex.twins)
         </div>
