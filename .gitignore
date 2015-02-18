@@ -193,28 +193,3 @@ ModelManifest.xml
 
 #ERM Specific files
 DesignTimePaths.cs
-CompositionRoots/Source/2Gis.Erm.Migrator/App.config
-CompositionRoots/Source/2Gis.Erm.UI.Web.Mvc/Web.config
-.gitignore
-CompositionRoots/Source/2Gis.Erm.API.WCF.Metadata/Web.config
-CompositionRoots/Source/2Gis.Erm.API.WCF.Operations/Web.config
-CompositionRoots/Source/2Gis.Erm.Migrator/App.config
-CompositionRoots/Source/2Gis.Erm.UI.Web.Mvc/Web.config
-Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Shell/Presentation/Blendability/DesignTimePaths.cs
-CompositionRoots/Source/2Gis.Erm.API.WCF.Metadata/Web.config
-CompositionRoots/Source/2Gis.Erm.API.WCF.Operations/Web.config
-CompositionRoots/Source/2Gis.Erm.Migrator/App.config
-CompositionRoots/Source/2Gis.Erm.UI.Web.Mvc/Web.config
-Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Shell/Presentation/Blendability/DesignTimePaths.cs
-Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Shell/Presentation/Blendability/DesignTimePaths.cs
-Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Shell/Presentation/Blendability/DesignTimePaths.cs
-BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.Operations/Settings.StyleCop
-CompositionRoots/Source/2Gis.Erm.API.WCF.Metadata/Web.config
-CompositionRoots/Source/2Gis.Erm.API.WCF.Operations/Web.config
-CompositionRoots/Source/2Gis.Erm.Migrator/App.config
-CompositionRoots/Source/2Gis.Erm.UI.Web.Mvc/Web.config
-CompositionRoots/Source/2Gis.Erm.TaskService/quartz.config
-CompositionRoots/Source/2Gis.Erm.TaskService/App.config
-CompositionRoots/Source/2Gis.Erm.Migrator/App.config
-CompositionRoots/Source/2Gis.Erm.TaskService/App.config
-CompositionRoots/Source/2Gis.Erm.TaskService/quartz.config
