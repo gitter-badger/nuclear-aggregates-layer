@@ -5193,4 +5193,7 @@ Placement period: {3}.</value>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
   </data>
+  <data name ="CannotSaveActivityForObjectInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие. {0} в резерве</value>
+  </data>
 </root>

@@ -5178,4 +5178,7 @@
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value />
   </data>
+  <data name ="CannotSaveActivityForObjectInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие. {0} в резерве</value>
+  </data>
 </root>
