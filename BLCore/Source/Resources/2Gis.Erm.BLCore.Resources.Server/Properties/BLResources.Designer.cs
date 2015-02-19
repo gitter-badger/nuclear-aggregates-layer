@@ -2861,11 +2861,20 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Невозможно сохранить действие. {0} в резерве.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CannotSaveActivityForObjectInReserve {
+        public static string CannotSaveActivityForClientInReserve {
             get {
-                return ResourceManager.GetString("CannotSaveActivityForObjectInReserve", resourceCulture);
+                return ResourceManager.GetString("CannotSaveActivityForClientInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotSaveActivityForFirmInReserve {
+            get {
+                return ResourceManager.GetString("CannotSaveActivityForFirmInReserve", resourceCulture);
             }
         }
         
