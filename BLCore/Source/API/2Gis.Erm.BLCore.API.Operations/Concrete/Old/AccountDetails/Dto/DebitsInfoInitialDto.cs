@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Utils.Xml;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
@@ -41,6 +42,11 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
 
         public XElement ToXElement()
         {
+            if (string.IsNullOrWhiteSpace(OrganizationUnitCode))
+            {
+                throw new RequiredFieldIsEmptyException(string.Format("Не заполнен обязательный атрибут {0}", "OrganizationUnitCode"));
+            }
+
             var innerXml = new object[]
                 {
                     this.ToXAttribute(() => OrganizationUnitCode, OrganizationUnitCode),
