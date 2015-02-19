@@ -1872,4 +1872,7 @@
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Změnit profil</value>
   </data>
+  <data name ="ControlCreateOnBasis" xml:space="preserve">
+    <value>Создать на основании</value>
+  </data>
 </root>
