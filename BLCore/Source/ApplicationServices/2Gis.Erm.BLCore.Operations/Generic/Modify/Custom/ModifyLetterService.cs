@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
@@ -10,7 +9,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -49,16 +47,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             var letterDto = (LetterDomainEntityDto)domainEntityDto;
             var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            var firm = letterDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Firm);
-            if (firm != null && firm.Id.HasValue && _firmReadModel.IsFirmInReserve(firm.Id.Value))
+            if (_firmReadModel.IsAnyReferencedFirmInReserve(letterDto.RegardingObjects))
             {
-                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForObjectInReserve, EntityName.Firm.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+                throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
 
-            var client = letterDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Client);
-            if (client != null && client.Id.HasValue && _clientReadModel.IsClientInReserve(client.Id.Value))
+            if (_clientReadModel.IsAnyReferencedClientInReserve(letterDto.RegardingObjects))
             {
-                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForObjectInReserve, EntityName.Client.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+                throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))

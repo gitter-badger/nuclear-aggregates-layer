@@ -65,13 +65,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             var firm = appointmentDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Firm);
             if (firm != null && firm.Id.HasValue && _firmReadModel.IsFirmInReserve(firm.Id.Value))
             {
-                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForObjectInReserve, EntityName.Firm.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForFirmInReserve, EntityName.Firm.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
             }
 
             var client = appointmentDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Client);
             if (client != null && client.Id.HasValue && _clientReadModel.IsClientInReserve(client.Id.Value))
             {
-                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForObjectInReserve, EntityName.Client.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForFirmInReserve, EntityName.Client.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
             }
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
