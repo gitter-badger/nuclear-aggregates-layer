@@ -4,12 +4,14 @@ using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Read;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -24,7 +26,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         private readonly IAppointmentReadModel _readModel;
         private readonly IBusinessModelEntityObtainer<Appointment> _activityObtainer;
 
-        private readonly IActivityReadService _activityReadService;
+        private readonly IClientReadModel _clientReadModel;
+
+        private readonly IFirmReadModel _firmReadModel;
 
         private readonly ICreateAppointmentAggregateService _createOperationService;
         private readonly IUpdateAppointmentAggregateService _updateOperationService;
@@ -33,14 +37,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public ModifyAppointmentService(
             IAppointmentReadModel readModel,
             IBusinessModelEntityObtainer<Appointment> obtainer,
-            IActivityReadService activityReadService,
+            IClientReadModel clientReadModel,
+            IFirmReadModel firmReadModel,
             ICreateAppointmentAggregateService createOperationService,
             IUpdateAppointmentAggregateService updateOperationService,
             IChangeDealStageOperationService changeDealStageOperationService)
         {
             _readModel = readModel;
             _activityObtainer = obtainer;
-            _activityReadService = activityReadService;
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
             _createOperationService = createOperationService;
             _updateOperationService = updateOperationService;
             _changeDealStageOperationService = changeDealStageOperationService;
@@ -56,8 +62,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 throw new NotificationException(BLResources.ModifyAppointmentService_ScheduleRangeIsIncorrect);
             }
 
-            _activityReadService.CheckIfAnyEntityReferencesContainsReserve(appointmentDto.RegardingObjects);
-            _activityReadService.CheckIfAnyEntityReferencesContainsReserve(appointmentDto.Attendees);            
+            var firm = appointmentDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Firm);
+            if (firm != null && firm.Id.HasValue && _firmReadModel.IsFirmInReserve(firm.Id.Value))
+            {
+                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForObjectInReserve, EntityName.Firm.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+            }
+
+            var client = appointmentDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Client);
+            if (client != null && client.Id.HasValue && _clientReadModel.IsClientInReserve(client.Id.Value))
+            {
+                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForObjectInReserve, EntityName.Client.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+            }
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {

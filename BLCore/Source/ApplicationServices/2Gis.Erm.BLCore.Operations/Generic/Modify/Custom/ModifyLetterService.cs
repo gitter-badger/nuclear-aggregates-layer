@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Read;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -17,23 +22,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
     public sealed class ModifyLetterService : IModifyBusinessModelEntityService<Letter>
     {
         private readonly ILetterReadModel _readModel;
-        private readonly IBusinessModelEntityObtainer<Letter> _activityObtainer;
-
-        private readonly IActivityReadService _activityReadService;
-
+        private readonly IBusinessModelEntityObtainer<Letter> _activityObtainer;        
+        private readonly IClientReadModel _clientReadModel;
+        private readonly IFirmReadModel _firmReadModel;
         private readonly ICreateLetterAggregateService _createOperationService;
         private readonly IUpdateLetterAggregateService _updateOperationService;
 
         public ModifyLetterService(
             ILetterReadModel readModel,
             IBusinessModelEntityObtainer<Letter> obtainer,
-            IActivityReadService activityReadService,
+            IClientReadModel clientReadModel,
+            IFirmReadModel firmReadModel,
             ICreateLetterAggregateService createOperationService,
             IUpdateLetterAggregateService updateOperationService)
         {
             _readModel = readModel;
-            _activityObtainer = obtainer;
-            _activityReadService = activityReadService;
+            _activityObtainer = obtainer;            
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
             _createOperationService = createOperationService;
             _updateOperationService = updateOperationService;
         }
@@ -43,8 +49,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             var letterDto = (LetterDomainEntityDto)domainEntityDto;
             var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            _activityReadService.CheckIfAnyEntityReferencesContainsReserve(letterDto.RegardingObjects);
-            _activityReadService.CheckIfEntityReferencesContainsReserve(letterDto.RecipientRef);            
+            var firm = letterDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Firm);
+            if (firm != null && firm.Id.HasValue && _firmReadModel.IsFirmInReserve(firm.Id.Value))
+            {
+                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForObjectInReserve, EntityName.Firm.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+            }
+
+            var client = letterDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Client);
+            if (client != null && client.Id.HasValue && _clientReadModel.IsClientInReserve(client.Id.Value))
+            {
+                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForObjectInReserve, EntityName.Client.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+            }
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
