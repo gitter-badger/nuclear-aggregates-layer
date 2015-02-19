@@ -84,6 +84,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                     Id = hit.Id,
                     Document = hit.Document,
                     Version = hit.Version,
+                    UpdateType = UpdateType.UpdateMerge
                 };
 
                 foreach (var metadata in _accessors)

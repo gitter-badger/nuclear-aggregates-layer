@@ -9,11 +9,12 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         where TDocument : class
     {
         private static readonly Type DocumentTypePrivate = typeof(TDocument);
-        
         public Type DocumentType
         {
             get { return DocumentTypePrivate; }
         }
+
+        public UpdateType UpdateType { get; set; }
 
         public Func<ElasticApi.ErmBulkDescriptor, ElasticApi.ErmBulkDescriptor> IndexFunc
         {
@@ -28,10 +29,10 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 }
 
                 return bulkDescriptor => bulkDescriptor
-                    .UpdateWithMerge<TDocument>(bulkUpdateDescriptor => bulkUpdateDescriptor
-                        .Id(Id)
-                        .Doc(Document)
-                        .Version(Version.Value.ToString()));
+                    .Update<TDocument>(bulkUpdateDescriptor => bulkUpdateDescriptor
+                    .Id(Id)
+                    .Doc(Document)
+                    .Version(Version.Value.ToString()), UpdateType);
             }
         }
     }
