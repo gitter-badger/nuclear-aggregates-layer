@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus.Import;
@@ -34,6 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IChargeReadModel _chargeReadModel;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IProjectService _projectService;
 
         public ImportChargesInfoService(IAccountReadModel accountReadModel,
                                         IChargeBulkCreateAggregateService chargeBulkCreateAggregateService,
@@ -42,7 +44,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                                         ICommonLog logger,
                                         IOperationScopeFactory scopeFactory,
                                         IChargeReadModel chargeReadModel,
-                                        IOrderReadModel orderReadModel)
+                                        IOrderReadModel orderReadModel,
+                                        IProjectService projectService)
         {
             _accountReadModel = accountReadModel;
             _chargeBulkCreateAggregateService = chargeBulkCreateAggregateService;
@@ -52,6 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             _scopeFactory = scopeFactory;
             _chargeReadModel = chargeReadModel;
             _orderReadModel = orderReadModel;
+            _projectService = projectService;
         }
 
         public void Import(IEnumerable<IServiceBusDto> dtos)
@@ -110,6 +114,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                         throw new CannotCreateChargesException(
                             string.Format("Can't create charges. Charges with sessionId = {0} have been used for lock details creation.", lastSucceededId));
                     }
+                }
+
+                if (!_projectService.DoesProjectExist(chargesInfo.BranchCode))
+                {
+                    throw new CannotCreateChargesException(string.Format("Can't create charges. Project with code {0} not found",
+                                                                         chargesInfo.BranchCode));
                 }
 
                 var specifiedOrderPositionIds = chargesInfo.Charges.Select(x => x.OrderPositionId).ToArray();
