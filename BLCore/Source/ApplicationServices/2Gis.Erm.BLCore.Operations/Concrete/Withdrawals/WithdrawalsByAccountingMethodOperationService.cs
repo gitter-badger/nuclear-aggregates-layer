@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
@@ -59,13 +59,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 throw new InvalidPeriodException(report);
             }
 
-            //using (var scope = _operationScopeFactory.CreateNonCoupled<WithdrawalsByAccountingMethodIdentity>())
+            using (var scope = _operationScopeFactory.CreateNonCoupled<WithdrawalsByAccountingMethodIdentity>())
             {
                 var organizationUnits = _accountReadModel.GetOrganizationUnitsToProccessWithdrawals(period.Start, period.End, accountingMethod);
-                var result = organizationUnits.ToDictionary(organizationUnit => organizationUnit,
-                                                            organizationUnit => _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
+                var result = new Dictionary<long, WithdrawalProcessingResult>();
+                foreach (var organizationUnit in organizationUnits)
+                {
+                    using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, 0))
+                    {
+                        result.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
+                        transactionScope.Complete();
+                    }
+                }
 
-               // scope.Complete();
+                scope.Complete();
 
                 return result;
             }
