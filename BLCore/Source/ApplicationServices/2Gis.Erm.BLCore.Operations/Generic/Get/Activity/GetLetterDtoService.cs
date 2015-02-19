@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
@@ -21,6 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
         private readonly ILetterReadModel _letterReadModel;
         private readonly IClientReadModel _clientReadModel;
+        private readonly IActivityReferenceReader _activityReferenceReader;
         private readonly IDealReadModel _dealReadModel;
         private readonly IFirmReadModel _firmReadModel;
         private readonly ISecurityServiceUserIdentifier _userIdentifier;
@@ -28,6 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         public GetLetterDtoService(IUserContext userContext,
                                  ILetterReadModel letterReadModel,
                                  IClientReadModel clientReadModel,
+                                 IActivityReferenceReader activityReferenceReader,
                                  IDealReadModel dealReadModel,
                                  IFirmReadModel firmReadModel,
                                  ISecurityServiceUserIdentifier userIdentifier)
@@ -35,6 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             _letterReadModel = letterReadModel;
             _clientReadModel = clientReadModel;
+            _activityReferenceReader = activityReferenceReader;
             _dealReadModel = dealReadModel;
             _firmReadModel = firmReadModel;
             _userIdentifier = userIdentifier;
@@ -86,7 +90,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityName.User }
                 };
 
-            var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName, parentEntityId) : null;
+            EntityReference regardingObject = null;
+            if (parentEntityName.CanBeRegardingObject())
+            {
+                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+            }
+            else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
+            {
+                dto.RegardingObjects = _activityReferenceReader.GetRegardingObjects(parentEntityName, parentEntityId.Value);
+            }
+
             if (regardingObject != null)
             {
                 dto.RegardingObjects = new[] { regardingObject };
@@ -113,7 +126,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private EntityReference ToEntityReference(EntityName entityName, long? entityId)
         {
-            if (!entityId.HasValue) return null;
+            if (!entityId.HasValue)
+            {
+                return null;
+            }
 
             string name;
             switch (entityName)

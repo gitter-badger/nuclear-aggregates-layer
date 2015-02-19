@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -18,18 +19,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetAppointmentDtoService : GetDomainEntityDtoServiceBase<Appointment>
     {
         private readonly IAppointmentReadModel _appointmentReadModel;
+
+        private readonly IActivityReferenceReader _activityReferenceReader;
+
         private readonly IClientReadModel _clientReadModel;
         private readonly IDealReadModel _dealReadModel;
         private readonly IFirmReadModel _firmReadModel;
 
         public GetAppointmentDtoService(IUserContext userContext,
                                         IAppointmentReadModel appointmentReadModel,
+                                        IActivityReferenceReader activityReferenceReader,
                                         IClientReadModel clientReadModel,
                                         IDealReadModel dealReadModel,
                                         IFirmReadModel firmReadModel)
             : base(userContext)
         {
             _appointmentReadModel = appointmentReadModel;
+            _activityReferenceReader = activityReferenceReader;
             _clientReadModel = clientReadModel;
             _dealReadModel = dealReadModel;
             _firmReadModel = firmReadModel;
@@ -70,7 +76,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Timestamp = appointment.Timestamp,
                 };
         }
-
         protected override IDomainEntityDto<Appointment> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             var now = DateTime.Now;
@@ -81,11 +86,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 ScheduledEnd = now.Add(TimeSpan.FromMinutes(15)),
                 Status = ActivityStatus.InProgress,
             };
+            EntityReference regardingObject = null;
+            if (parentEntityName.CanBeRegardingObject())
+            {
+                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+            }            
+            else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
+            {
+                dto.RegardingObjects = _activityReferenceReader.GetRegardingObjects(parentEntityName, parentEntityId.Value);
+                var attandees = _activityReferenceReader.GetAttendees(parentEntityName, parentEntityId.Value);
+                var entityReferences = attandees as EntityReference[] ?? attandees.ToArray();
+                if (entityReferences.Any() && entityReferences.Count() == 1)
+                {
+                    dto.Attendees = entityReferences;
+                }
+            }
 
-            var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName, parentEntityId) : null;
             if (regardingObject != null)
             {
-                dto.RegardingObjects = new [] {regardingObject};
+                dto.RegardingObjects = new[] { regardingObject };
             }
 
             var attendee = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;

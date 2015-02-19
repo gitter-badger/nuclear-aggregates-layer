@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -18,18 +19,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetPhonecallDtoService : GetDomainEntityDtoServiceBase<Phonecall>
     {
         private readonly IPhonecallReadModel _activityReadModel;
+
+        private readonly IActivityReferenceReader _activityReferenceReader;
+
         private readonly IClientReadModel _clientReadModel;
         private readonly IDealReadModel _dealReadModel;
         private readonly IFirmReadModel _firmReadModel;
 
         public GetPhonecallDtoService(IUserContext userContext,
                                       IPhonecallReadModel activityReadModel,
+                                      IActivityReferenceReader activityReferenceReader,
                                       IClientReadModel clientReadModel,
                                       IDealReadModel dealReadModel,
                                       IFirmReadModel firmReadModel)
             : base(userContext)
         {
             _activityReadModel = activityReadModel;
+            _activityReferenceReader = activityReferenceReader;
             _clientReadModel = clientReadModel;
             _dealReadModel = dealReadModel;
             _firmReadModel = firmReadModel;
@@ -78,7 +84,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Status = ActivityStatus.InProgress,
                 };
 
-            var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName, parentEntityId) : null;
+            EntityReference regardingObject = null;
+            if (parentEntityName.CanBeRegardingObject())
+            {
+                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+            }
+            else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
+            {
+                dto.RegardingObjects = _activityReferenceReader.GetRegardingObjects(parentEntityName, parentEntityId.Value);
+                var attandees = _activityReferenceReader.GetAttendees(parentEntityName, parentEntityId.Value);
+                var entityReferences = attandees as EntityReference[] ?? attandees.ToArray();
+                if (entityReferences.Any() && entityReferences.Count() == 1)
+                {
+                    dto.RecipientRef = entityReferences.First();
+                }
+            }
+
             if (regardingObject != null)
             {
                 dto.RegardingObjects = new[] { regardingObject };
@@ -100,7 +121,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private EntityReference ToEntityReference(EntityName entityName, long? entityId)
         {
-            if (!entityId.HasValue) return null;
+            if (!entityId.HasValue)
+            {
+                return null;
+            }
 
             string name;
             switch (entityName)

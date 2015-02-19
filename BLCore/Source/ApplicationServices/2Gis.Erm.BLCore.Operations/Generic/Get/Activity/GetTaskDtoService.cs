@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -18,18 +19,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetTaskDtoService : GetDomainEntityDtoServiceBase<Task>
     {
         private readonly ITaskReadModel _taskReadModel;
+        private readonly IActivityReferenceReader _activityReadModel;        
         private readonly IClientReadModel _clientReadModel;
         private readonly IDealReadModel _dealReadModel;
         private readonly IFirmReadModel _firmReadModel;
 
         public GetTaskDtoService(IUserContext userContext,
                                  ITaskReadModel taskReadModel,
+                                 IActivityReferenceReader activityReadModel,
                                  IClientReadModel clientReadModel,
                                  IDealReadModel dealReadModel,
                                  IFirmReadModel firmReadModel)
             : base(userContext)
         {
             _taskReadModel = taskReadModel;
+            _activityReadModel = activityReadModel;            
             _clientReadModel = clientReadModel;
             _dealReadModel = dealReadModel;
             _firmReadModel = firmReadModel;
@@ -89,6 +93,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     regardingObject = ToEntityReference(EntityName.Client, client.Id);
                 }
             }
+            else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
+            {
+                dto.RegardingObjects = _activityReadModel.GetRegardingObjects(parentEntityName, parentEntityId.Value);
+            }
+
             if (regardingObject != null)
             {
                 dto.RegardingObjects = new[] { regardingObject };
