@@ -39,9 +39,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Project
             return _finder.FindOne(Specs.Find.ById<Project>(projectCode));
         }
 
-        public bool DoesProjectExist(long projectCode)
+        public bool DoesActiveProjectExist(long projectCode)
         {
-            return _finder.Find(Specs.Find.ById<Project>(projectCode)).Any();
+            return _finder.Find(Specs.Find.ById<Project>(projectCode) && Specs.Find.Active<Project>()).Any();
         }
 
         public void Update(Project project)

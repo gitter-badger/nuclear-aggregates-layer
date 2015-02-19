@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                     }
                 }
 
-                if (!_projectService.DoesProjectExist(chargesInfo.BranchCode))
+                if (!_projectService.DoesActiveProjectExist(chargesInfo.BranchCode))
                 {
                     throw new CannotCreateChargesException(string.Format("Can't create charges. Project with code {0} not found",
                                                                          chargesInfo.BranchCode));
