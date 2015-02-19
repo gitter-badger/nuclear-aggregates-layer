@@ -59,13 +59,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 throw new InvalidPeriodException(report);
             }
 
-            using (var scope = _operationScopeFactory.CreateNonCoupled<WithdrawalsByAccountingMethodIdentity>())
+            //using (var scope = _operationScopeFactory.CreateNonCoupled<WithdrawalsByAccountingMethodIdentity>())
             {
                 var organizationUnits = _accountReadModel.GetOrganizationUnitsToProccessWithdrawals(period.Start, period.End, accountingMethod);
                 var result = organizationUnits.ToDictionary(organizationUnit => organizationUnit,
                                                             organizationUnit => _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
 
-                scope.Complete();
+               // scope.Complete();
 
                 return result;
             }
