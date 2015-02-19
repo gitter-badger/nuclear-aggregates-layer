@@ -97,7 +97,7 @@ WriteLiteral(" ");
 
             
             #line 9 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-                    Write(BLResources.SpecifyPeriodAndOrganizationUnit);
+                    Write(BLResources.SpecifyPeriodAndAccountingMethod);
 
             
             #line default
@@ -120,10 +120,10 @@ WriteLiteral(">\r\n        td.itemCaption\r\n        {\r\n            vertical-a
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n        Ext.onReady(function ()\r\n        {   \r\n            var isSuccess = \'");
+WriteLiteral(">\r\n        Ext.onReady(function() {\r\n            var isSuccess = \'");
 
             
-            #line 27 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 26 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
                         Write(Model.IsSuccess);
 
             
@@ -134,26 +134,20 @@ WriteLiteral(@"';
                 alert(Ext.getDom(""Notifications"").innerHTML.trim());
                 window.close();
                 return;
-            } else if (Ext.getDom(""Notifications"").innerHTML.trim() != """")
-            {
+            } else if (Ext.getDom(""Notifications"").innerHTML.trim() != """") {
                 Ext.getDom(""Notifications"").style.display = ""block"";
             }
 
             // show error messages
-            if (Ext.getDom(""Notifications"").innerHTML.trim() != """")
-            {
+            if (Ext.getDom(""Notifications"").innerHTML.trim() != """") {
                 Ext.get(""Notifications"").addClass(""Notifications"");
-            }
-            else
-            {
+            } else {
                 Ext.get(""Notifications"").removeClass(""Notifications"");
             }
 
-            Ext.get(""Cancel"").on(""click"", function () { window.close(); });
-            Ext.get(""OK"").on(""click"", function ()
-            {
-                if (Ext.DoubleGis.FormValidator.validate(EntityForm))
-                {
+            Ext.get(""Cancel"").on(""click"", function() { window.close(); });
+            Ext.get(""OK"").on(""click"", function() {
+                if (Ext.DoubleGis.FormValidator.validate(EntityForm)) {
                     Ext.getDom(""OK"").disabled = ""disabled"";
                     Ext.getDom(""Cancel"").disabled = ""disabled"";
                     EntityForm.submit();
@@ -164,15 +158,15 @@ WriteLiteral(@"';
 ");
 
             
-            #line 59 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 52 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 59 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 52 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
-{
+    {
 
             
             #line default
@@ -194,7 +188,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 63 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 56 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Model.Message);
 
             
@@ -209,7 +203,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 66 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 59 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
@@ -224,7 +218,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 69 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 62 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings
                                                                             {
                                                                                 Store = CalendarSettings.StoreMode.Relative,
@@ -237,7 +231,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 76 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 69 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     }
 
             

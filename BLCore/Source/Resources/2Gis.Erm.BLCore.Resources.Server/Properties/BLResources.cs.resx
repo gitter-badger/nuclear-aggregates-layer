@@ -2744,9 +2744,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>Pokračovat?</value>
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Uveďte oddělení organizace a období odpisu</value>
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>U firmy {0} nebyla ke dni {1} nalezena aktivní blokace</value>
   </data>
@@ -5190,5 +5187,11 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Укажите период, способ учета оказания услуг и отделение организации</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Укажите период и способ учета оказания услуг</value>
   </data>
 </root>

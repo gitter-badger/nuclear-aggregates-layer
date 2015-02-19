@@ -97,7 +97,7 @@ WriteLiteral(" ");
 
             
             #line 9 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
-                    Write(BLResources.SpecifyPeriodAndOrganizationUnit);
+                    Write(BLResources.SpecifyPeriodAccountingMethodAndOrganizationUnit);
 
             
             #line default

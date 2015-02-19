@@ -2743,9 +2743,6 @@ The operation has been executed: {6}.</value>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>Continue operation?</value>
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Specify a company division and period for writing-off</value>
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>No active holds are found for the company {0} as of {1}</value>
   </data>
@@ -5186,5 +5183,11 @@ Placement period: {3}.</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Укажите период, способ учета оказания услуг и отделение организации</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Укажите период и способ учета оказания услуг</value>
   </data>
 </root>

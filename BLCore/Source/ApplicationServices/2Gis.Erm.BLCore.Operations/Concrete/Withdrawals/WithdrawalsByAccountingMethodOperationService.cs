@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -15,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withd
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
+    [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class WithdrawalsByAccountingMethodOperationService : IWithdrawalsByAccountingMethodOperationService
     {
         private readonly IAccountReadModel _accountReadModel;
@@ -23,13 +25,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ICheckOperationPeriodService _checkOperationPeriodService;
         private readonly IUserContext _userContext;
+        private readonly IUseCaseTuner _useCaseTuner;
 
         public WithdrawalsByAccountingMethodOperationService(IAccountReadModel accountReadModel,
                                                              IWithdrawalOperationService withdrawalOperationService,
                                                              IOperationScopeFactory operationScopeFactory,
                                                              ISecurityServiceFunctionalAccess functionalAccessService,
                                                              ICheckOperationPeriodService checkOperationPeriodService,
-                                                             IUserContext userContext)
+                                                             IUserContext userContext,
+                                                             IUseCaseTuner useCaseTuner)
         {
             _accountReadModel = accountReadModel;
             _withdrawalOperationService = withdrawalOperationService;
@@ -37,10 +41,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _functionalAccessService = functionalAccessService;
             _checkOperationPeriodService = checkOperationPeriodService;
             _userContext = userContext;
+            _useCaseTuner = useCaseTuner;
         }
 
         public IDictionary<long, WithdrawalProcessingResult> Withdraw(TimePeriod period, AccountingMethod accountingMethod)
         {
+            _useCaseTuner.AlterDuration<WithdrawalsByAccountingMethodOperationService>();
+
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.WithdrawalAccess, _userContext.Identity.Code))
             {
                 throw new OperationAccessDeniedException("User doesn't have sufficient privileges for managing withdrawal");

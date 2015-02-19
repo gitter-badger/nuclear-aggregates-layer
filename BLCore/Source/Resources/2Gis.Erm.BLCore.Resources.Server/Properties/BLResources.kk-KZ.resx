@@ -2744,9 +2744,6 @@ Cумма по операции: {5}.
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>Продолжить операцию?</value>
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Укажите Отделение организации и период списания</value>
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>Не найдено активных блокировок для фирмы {0} на дату {1}</value>
   </data>
@@ -5148,7 +5145,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-</data>
+  </data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5197,5 +5194,11 @@ Cумма по операции: {5}.
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Укажите период, способ учета оказания услуг и отделение организации</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Укажите период и способ учета оказания услуг</value>
   </data>
 </root>
