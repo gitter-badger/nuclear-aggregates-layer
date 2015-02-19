@@ -9,7 +9,7 @@ Ext.DoubleGis.UI.RegardingObjectController = Ext.extend(Ext.util.Observable, {
         Ext.getCmp("Firm").on("afterselect", this.onFirmChanged, this);
         Ext.getCmp("Deal").on("afterselect", this.onDealChanged, this);
 
-        if (!Ext.fly("Id").getValue(true)) {
+        if (!Ext.fly("Id").getValue(true) && !Ext.fly("DealId").getValue() && !Ext.fly("FirmId").getValue()) {
             // Логика для заполнения незаполненных полей "В отношении" для новой сущности.
             if (Ext.fly("ClientId").getValue()) {
                 this.onClientChanged();
