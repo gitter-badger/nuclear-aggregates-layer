@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
-
-namespace DoubleGis.Erm.Core.Exceptions
+namespace DoubleGis.Erm.Platform.API.Core.Exceptions
 {
     [Serializable]
     public class RequiredFieldIsEmptyException : BusinessLogicException
