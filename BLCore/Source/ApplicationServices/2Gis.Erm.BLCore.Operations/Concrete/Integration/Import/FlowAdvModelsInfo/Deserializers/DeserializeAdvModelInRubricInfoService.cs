@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.AdvModelsInfo;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Shared;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvModelsInfo.Deserializers
 {
@@ -24,8 +25,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvMod
                                                               {
                                                                   RubricCode = (long)x.Attribute("Code"),
                                                                   AdvModel =
-                                                                      (AdvModel)
-                                                                      Enum.Parse(typeof(AdvModel), x.Attribute("AdvModel").Value, true)
+                                                                      (ServiceBusSalesModel)
+                                                                      Enum.Parse(typeof(ServiceBusSalesModel), x.Attribute("AdvModel").Value, true)
                                                               }).ToArray(),
                        };
         }
