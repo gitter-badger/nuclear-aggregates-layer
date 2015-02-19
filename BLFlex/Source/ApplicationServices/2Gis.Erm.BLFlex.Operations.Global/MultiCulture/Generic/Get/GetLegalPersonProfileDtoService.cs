@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class GetLegalPersonProfileDtoService : GetLegalPersonProfileDtoServiceBase<LegalPersonProfileDomainEntityDto>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted
+    public class GetLegalPersonProfileDtoService : GetLegalPersonProfileDtoServiceBase<LegalPersonProfileDomainEntityDto>, ICyprusAdapted, ICzechAdapted
     {
         public GetLegalPersonProfileDtoService(IUserContext userContext, ILegalPersonReadModel legalPersonReadModel)
             : base(userContext, legalPersonReadModel)
