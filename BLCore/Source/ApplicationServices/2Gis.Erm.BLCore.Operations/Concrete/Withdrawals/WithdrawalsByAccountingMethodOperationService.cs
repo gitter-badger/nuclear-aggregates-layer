@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
@@ -11,6 +12,7 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
@@ -27,6 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly ICheckOperationPeriodService _checkOperationPeriodService;
         private readonly IUserContext _userContext;
         private readonly IUseCaseTuner _useCaseTuner;
+        private readonly ICommonLog _commonLog;
 
         public WithdrawalsByAccountingMethodOperationService(IAccountReadModel accountReadModel,
                                                              IWithdrawalOperationService withdrawalOperationService,
@@ -34,7 +37,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                              ISecurityServiceFunctionalAccess functionalAccessService,
                                                              ICheckOperationPeriodService checkOperationPeriodService,
                                                              IUserContext userContext,
-                                                             IUseCaseTuner useCaseTuner)
+                                                             IUseCaseTuner useCaseTuner,
+                                                             ICommonLog commonLog)
         {
             _accountReadModel = accountReadModel;
             _withdrawalOperationService = withdrawalOperationService;
@@ -43,6 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _checkOperationPeriodService = checkOperationPeriodService;
             _userContext = userContext;
             _useCaseTuner = useCaseTuner;
+            _commonLog = commonLog;
         }
 
         public IDictionary<long, WithdrawalProcessingResult> Withdraw(TimePeriod period, AccountingMethod accountingMethod)
@@ -66,10 +71,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 var result = new Dictionary<long, WithdrawalProcessingResult>();
                 foreach (var organizationUnit in organizationUnits)
                 {
-                    using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+                    try
                     {
-                        result.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
-                        transactionScope.Complete();
+                        using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+                        {
+                            result.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
+                            transactionScope.Complete();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _commonLog.ErrorFormat(ex, "Не удалось провести списание по отделению организации {0}", organizationUnit);
                     }
                 }
 
