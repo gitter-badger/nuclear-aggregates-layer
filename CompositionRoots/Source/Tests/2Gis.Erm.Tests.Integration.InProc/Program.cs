@@ -4,7 +4,9 @@ using System.Reflection;
 using System.Text;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
+using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Tests.Integration.InProc.Settings;
@@ -19,6 +21,19 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
         {
             var settings = new TestAPIInProcOperationsSettings(BusinessModels.Supported);
             var environmentSettings = settings.AsSettings<IEnvironmentSettings>();
+
+            var loggerContextEntryProviders =
+                new ILoggerContextEntryProvider[]
+                    {
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new LoggerContextSelfHostedEntryProvider(LoggerContextKeys.Required.UserAccount)
+                    };
+
+            var loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
+
             var logger = Log4NetLoggerBuilder.Use
                                              .Console
                                              .File(environmentSettings.EnvironmentName + "_" + environmentSettings.EntryPointName)
@@ -33,7 +48,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
 
             TestResultsSet testResults = null;
             ITestRunner testRunner;
-            if (TestSuiteBuilder.TryBuildSuite(settings, logger, out testRunner))
+            if (TestSuiteBuilder.TryBuildSuite(settings, logger, loggerContextManager, out testRunner))
             {
                 logger.Info("Running test suite");
                 testResults = testRunner.Run();

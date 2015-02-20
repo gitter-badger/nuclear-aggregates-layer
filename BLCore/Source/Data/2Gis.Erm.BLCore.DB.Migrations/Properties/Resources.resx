@@ -598,4 +598,7 @@
   <data name="_201502110416_Log_Events_DateLocalTimeZone" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\201502110416\Log.Events_DateLocalTimeZone.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="customizations_201502090244" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\201502090244\customizations_201502090244.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

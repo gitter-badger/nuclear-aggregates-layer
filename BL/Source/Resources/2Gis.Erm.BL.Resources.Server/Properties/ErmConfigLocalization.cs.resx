@@ -1173,12 +1173,6 @@
   <data name="ControlExport" xml:space="preserve">
     <value>Odeslat</value>
   </data>
-  <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Odeslání odpisů</value>
-  </data>
-  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Odesílání odpisů do sběrnice</value>
-  </data>
   <data name="ControlImportFromFile" xml:space="preserve">
     <value>Nahrát</value>
   </data>
