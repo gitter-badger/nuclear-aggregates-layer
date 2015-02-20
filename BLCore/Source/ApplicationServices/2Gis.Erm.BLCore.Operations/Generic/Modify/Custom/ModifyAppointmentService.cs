@@ -11,7 +11,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -62,16 +61,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 throw new NotificationException(BLResources.ModifyAppointmentService_ScheduleRangeIsIncorrect);
             }
 
-            var firm = appointmentDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Firm);
-            if (firm != null && firm.Id.HasValue && _firmReadModel.IsFirmInReserve(firm.Id.Value))
+            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
             {
-                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForFirmInReserve, EntityName.Firm.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+                throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            var client = appointmentDto.RegardingObjects.FirstOrDefault(s => s.EntityName == EntityName.Client);
-            if (client != null && client.Id.HasValue && _clientReadModel.IsClientInReserve(client.Id.Value))
+            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
             {
-                throw new BusinessLogicException(string.Format(BLResources.CannotSaveActivityForFirmInReserve, EntityName.Client.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+                throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))

@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -33,16 +31,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             return reference == null || !reference.Id.HasValue
                    ? null
                    : new TEntityReference { SourceEntityId = entity.Id, TargetEntityName = reference.EntityName, TargetEntityId = reference.Id.Value };
-        }
+        }   
 
-        public static bool IsAnyReferencedFirmInReserve(this IFirmReadModel firmReadModel, IEnumerable<EntityReference> references)
+        public static bool HasReferenceInReserve(this IEnumerable<EntityReference> references, EntityName entityName, Predicate<long> validator)
         {
-            return references.Any(s => s.EntityName == EntityName.Firm && s.Id.HasValue && firmReadModel.IsFirmInReserve(s.Id.Value));
-        }
-
-        public static bool IsAnyReferencedClientInReserve(this IClientReadModel firmReadModel, IEnumerable<EntityReference> references)
-        {
-            return references.Any(s => s.EntityName == EntityName.Client && s.Id.HasValue && firmReadModel.IsClientInReserve(s.Id.Value));
+            return references.Any(s => s.EntityName == entityName && s.Id.HasValue && validator(s.Id.Value));
         }
     }
 }

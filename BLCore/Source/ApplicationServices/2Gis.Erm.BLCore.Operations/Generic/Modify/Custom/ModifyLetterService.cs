@@ -47,14 +47,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             var letterDto = (LetterDomainEntityDto)domainEntityDto;
             var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            if (_firmReadModel.IsAnyReferencedFirmInReserve(letterDto.RegardingObjects))
-            {
-                throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
-            }
-
-            if (_clientReadModel.IsAnyReferencedClientInReserve(letterDto.RegardingObjects))
+            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
+            }
+
+            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
+            {
+                throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))

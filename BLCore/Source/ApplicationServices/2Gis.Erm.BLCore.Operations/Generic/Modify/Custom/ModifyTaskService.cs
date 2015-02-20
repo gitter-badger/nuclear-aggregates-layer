@@ -47,14 +47,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             var taskDto = (TaskDomainEntityDto)domainEntityDto;
             var task = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            if (_firmReadModel.IsAnyReferencedFirmInReserve(taskDto.RegardingObjects))
+            if (taskDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
             {
-                throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
+                throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            if (_clientReadModel.IsAnyReferencedClientInReserve(taskDto.RegardingObjects))
+            if (taskDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
             {
-                throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);    
+                throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
