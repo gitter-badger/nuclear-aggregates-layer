@@ -37,7 +37,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             Name = modelDto.Name;
             GroupRate = modelDto.GroupRate;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

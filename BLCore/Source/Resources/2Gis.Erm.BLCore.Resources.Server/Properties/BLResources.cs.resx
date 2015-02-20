@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Reklamní materiály</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Pokus o uložení rozpočtové položky objednávky s množstvím, které není rovné 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>Ukončení období</value>
   </data>
@@ -965,9 +962,6 @@ Blokujících chyb:{2}</value>
   <data name="PeriodClosing" xml:space="preserve">
     <value>Uzavření období</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>K objednávce typu „Prodeje“ je možné přidávat pouze položky, které budou účtovány jako „Garantované zobrazování“!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Příznak skrytí</value>
   </data>
@@ -985,9 +979,6 @@ Blokujících chyb:{2}</value>
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Výchozí filtr</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>V objednávce typu „Rozpočet“ je možné přidávat pouze položky, které budou účtovány jako „Plánované zobrazování“!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>U těchto právnických osob nesouhlasí IČ, sloučení není možné.</value>
@@ -3167,8 +3158,8 @@ Operace se uskutečnila: {6}.</value>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Výsledky kontroly objednávky</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>Není možné přidat prvek, který je evidován jinak než ostatní prvky</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>Nelze přidat prvek s modelem prodejů, který je odlišný od modelů prodejů jiných prvků</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Identifikátor 1C</value>
@@ -3955,9 +3946,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Chybně zadané typy entit pro přidání pododdílu k tématu</value>
-  </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>Nelze přidat pododdíl k výchozímu tématu</value>
   </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>Není možné odstranit téma, které je použito v objednávkách</value>
@@ -5169,5 +5157,41 @@ Doba zveřejnění: {3}.</value>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value>Data začátku a konce schůzky nejsou správně naplánovány.
 </value>
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Pro práci s profily je třeba, aby byly zadány právnické osoby</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Tisknout</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Musí být zadán profil právnické osoby</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Tento profil nemůže být vybrán pro objednávku</value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>V objednávce mohou být pozice pouze z jednoho modelu prodejů</value>
+  </data>
+  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
+    <value>Sada rubrik musí být jednotná pro všechny podřízené pozice</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>Pokus o uložení pozice v objednávce s modelem prodejů '{0}' s počtem, který se nerovná 1</value>
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Nelze přidělit akci ve statusu "Splněno"/"Zrušeno"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Nelze stanovit kurátorem služebního uživatele</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Nemáte oprávnění pro změnu kurátora u této akce {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
   </data>
 </root>

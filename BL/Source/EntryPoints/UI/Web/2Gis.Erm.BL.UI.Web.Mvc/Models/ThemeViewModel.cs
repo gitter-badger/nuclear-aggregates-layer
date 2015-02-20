@@ -48,8 +48,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [RequiredLocalized]
         public long? FileId { get; set; }
 
-        public Uri IdentityServiceUrl { get; set; }
-
         public override byte[] Timestamp { get; set; }
 
         public int OrganizationUnitCount { get; set; }
@@ -83,8 +81,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             FileContentLength = modelDto.FileContentLength;
             FileContentType = modelDto.FileContentType;
             Timestamp = modelDto.Timestamp;
-
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

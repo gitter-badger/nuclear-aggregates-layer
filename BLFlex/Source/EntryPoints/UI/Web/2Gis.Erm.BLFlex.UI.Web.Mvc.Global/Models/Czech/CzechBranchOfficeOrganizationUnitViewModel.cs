@@ -120,7 +120,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
             RegistrationCertificate = modelDto.RegistrationCertificate;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

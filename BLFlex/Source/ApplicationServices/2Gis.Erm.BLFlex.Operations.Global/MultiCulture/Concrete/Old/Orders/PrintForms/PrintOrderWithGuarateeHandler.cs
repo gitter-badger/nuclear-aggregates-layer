@@ -29,7 +29,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
             var orderRequest = new PrintOrderRequest
                 {
                     OrderId = request.OrderId,
-                    LegalPersonProfileId = request.LegalPersonProfileId,
                 };
 
             var order = _orderReadModel.GetOrderSecure(request.OrderId);

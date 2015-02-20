@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.InfoEx("Notifications disabled in config file");
+                _logger.Info("Notifications disabled in config file");
                 return;
             }
 
@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             }
             else
             {
-                _logger.ErrorEx("Can't send notification about - advertisment element changed. Can't get to_address email. Firm name: " + mailInfo.FirmRef.Name +
+                _logger.Error("Can't send notification about - advertisment element changed. Can't get to_address email. Firm name: " + mailInfo.FirmRef.Name +
                                 ". Owner code: " + mailInfo.FirmOwnerCode);
             }
         }

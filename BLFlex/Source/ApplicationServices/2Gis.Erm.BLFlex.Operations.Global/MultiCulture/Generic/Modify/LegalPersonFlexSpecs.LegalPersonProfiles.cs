@@ -54,7 +54,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
                                             PostAddress = x.PostAddress,
                                             EmailForAccountingDocuments = x.EmailForAccountingDocuments,
                                             PaymentEssentialElements = x.PaymentEssentialElements,
-                                            AdditionalPaymentElements = x.AdditionalPaymentElements,
                                             PaymentMethod = x.PaymentMethod == null
                                                                                       ? PaymentMethod.Undefined
                                                                                       : (PaymentMethod)x.PaymentMethod,

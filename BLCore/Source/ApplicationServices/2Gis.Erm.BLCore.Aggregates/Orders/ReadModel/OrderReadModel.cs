@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel.DTO;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
@@ -86,15 +90,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                                  .Select(rw => rw.AmountToWithdraw)
                                                                                  .FirstOrDefault(),
                                                             IsPlannedProvision =
-                                                                op.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision
+                                                                op.PricePosition.Position.SalesModel == SalesModel.PlannedProvision
                                                         })
                               })
                           .ToArray();
         }
 
-        public IEnumerable<Order> GetOrdersForRelease(long organizationUnitId, TimePeriod period)
+        public IEnumerable<long> GetOrderIdsForRelease(long organizationUnitId, TimePeriod period)
         {
-            return _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>());
+            return _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) &&
+                                Specs.Find.ActiveAndNotDeleted<Order>())
+                          .Select(x => x.Id)
+                          .ToArray();
         }
 
         public OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds)
@@ -225,24 +232,147 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 }).ToDictionary(x => x.Id, x => x.distributions.ToDictionary(y => y.Platform, y => y.AmountToWithdraw));
         }
 
-        public IEnumerable<long> DetermineOrderPlatforms(long orderId)
+        public long? EvaluateOrderPlatformId(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            var platformIds = _finder.Find(Specs.Find.ById<Order>(orderId))
                           .SelectMany(o => o.OrderPositions)
                           .Where(item => item.IsActive && !item.IsDeleted)
                           .Select(item => item.PricePosition.Position.PlatformId)
                           .Distinct()
-                          .ToList();
-        }
+                          .ToArray(); 
 
-        public void UpdateOrderPlatform(Order order)
-        {
-            var platformIds = DetermineOrderPlatforms(order.Id).ToArray();
             var platformId = platformIds.Count() > 1
                                  ? _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (long)PlatformEnum.Independent).Single().Id
                                  : platformIds.FirstOrDefault();
 
-            order.PlatformId = platformId == 0 ? null : platformId as long?;
+           return platformId == 0 ? null : platformId as long?;
+        }
+
+        public OrderNumberDto EvaluateOrderNumbers(string orderNumber, string orderRegionalNumber, long? orderPlatformId)
+        {
+            const string MobilePostfix = "-Mobile";
+            const string APIPostfix = "-API";
+            const string OnlinePostfix = "-Online";
+
+            var orderNumberRegex = new Regex(@"-[a-zA-Z]+", RegexOptions.Singleline | RegexOptions.Compiled);
+            var numberMatch = orderNumberRegex.Match(orderNumber);
+            if (!string.IsNullOrEmpty(orderRegionalNumber))
+            {
+                // Если один из номеров удовлетворяет формату, а второй задан и не удовлетворяет - это ошибка
+                var regionalNumberMatch = orderNumberRegex.Match(orderRegionalNumber);
+                var isNumbersFormatMatch = (numberMatch.Success && regionalNumberMatch.Success) || (!numberMatch.Success && !regionalNumberMatch.Success);
+                if (!isNumbersFormatMatch)
+                {
+                    throw new ArgumentException(BLResources.OrderNumberAndRegionalNumberFormatsDoesNotMatch);
+                }
+            }
+
+            // todo {all, 2013-07-24}: Если в рамках задачи ERM-104 свершится отказ от колонки DgppId, здесь не потребуется выборка
+            //                         Кроме того, этот метод перестанет контактировать с хранилищем данных и его можно будет убрать из репозитория
+            var orderPlatformType = orderPlatformId.HasValue
+                                        ? (PlatformEnum?)_finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(orderPlatformId.Value)).Single().DgppId
+                                        : null;
+
+            // Имеем схему вариантов (есть/нет суффикс платформы, есть/нет платформа):
+            OrderNumberStates orderState = 0;
+            orderState |= orderPlatformId.HasValue ? OrderNumberStates.HasPlatform : (OrderNumberStates)0;
+            orderState |= numberMatch.Success ? OrderNumberStates.HasSuffix : (OrderNumberStates)0;
+
+            switch (orderState)
+            {
+                case OrderNumberStates.HasSuffixHasPlatform:
+                    // Если постфикс для платформы задан - обновляем
+                    switch (orderPlatformType)
+                    {
+                        case PlatformEnum.Mobile:
+                            return new OrderNumberDto
+                            {
+                                Number = orderNumberRegex.Replace(orderNumber, MobilePostfix),
+                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
+                                                     ? null
+                                                     : orderNumberRegex.Replace(orderRegionalNumber, MobilePostfix)
+                            };
+
+                        case PlatformEnum.Api:
+                            return new OrderNumberDto
+                            {
+                                Number = orderNumberRegex.Replace(orderNumber, APIPostfix),
+                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
+                                                     ? null
+                                                     : orderNumberRegex.Replace(orderRegionalNumber, APIPostfix)
+                            };
+                        case PlatformEnum.Online:
+                            return new OrderNumberDto
+                            {
+                                Number = orderNumberRegex.Replace(orderNumber, OnlinePostfix),
+                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
+                                                     ? null
+                                                     : orderNumberRegex.Replace(orderRegionalNumber, OnlinePostfix)
+                            };
+                        default:
+                            return new OrderNumberDto
+                            {
+                                Number = orderNumberRegex.Replace(orderNumber, string.Empty),
+                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
+                                                     ? null
+                                                     : orderNumberRegex.Replace(orderRegionalNumber, string.Empty)
+                            };
+                    }
+
+                case OrderNumberStates.NoSuffixHasPlatform:
+                    // Если постфикс для платформы не задан - добавляем
+                    switch (orderPlatformType)
+                    {
+                        case PlatformEnum.Mobile:
+                            return new OrderNumberDto
+                            {
+                                Number = orderNumber + MobilePostfix,
+                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
+                                                     ? null
+                                                     : orderRegionalNumber + MobilePostfix
+                            };
+                        case PlatformEnum.Api:
+                            return new OrderNumberDto
+                            {
+                                Number = orderNumber + APIPostfix,
+                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
+                                                     ? null
+                                                     : orderRegionalNumber + APIPostfix
+                            };
+                        case PlatformEnum.Online:
+                            return new OrderNumberDto
+                            {
+                                Number = orderNumber + OnlinePostfix,
+                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
+                                                     ? null
+                                                     : orderRegionalNumber + OnlinePostfix
+                            };
+                        default:
+                            return new OrderNumberDto
+                            {
+                                Number = orderNumber,
+                                RegionalNumber = orderRegionalNumber
+                            };
+                    }
+
+                case OrderNumberStates.HasSuffixNoPlatform:
+                    // Если постфикс для платформы задан - убираем его
+                    return new OrderNumberDto
+                    {
+                        Number = orderNumberRegex.Replace(orderNumber, string.Empty),
+                        RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
+                                             ? null
+                                             : orderNumberRegex.Replace(orderRegionalNumber, string.Empty)
+                    };
+
+                case OrderNumberStates.NoSuffixNoPlatform:
+                default:
+                    return new OrderNumberDto
+                    {
+                        Number = orderNumber,
+                        RegionalNumber = orderRegionalNumber
+                    };
+            }
         }
 
         public IEnumerable<Order> GetActiveOrdersForLegalPerson(long legalPersonId)
@@ -727,7 +857,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                         BranchName = x.Value.BranchName,
                         ContactClientEmail = x.Value.Contact == null ? null : x.Value.Contact.WorkEmail,
                         ContactClientName = x.Value.Contact == null ? null : x.Value.Contact.FullName,
-                        ContactClientSex = x.Value.Contact == null ? null : ((Gender)x.Value.Contact.GenderCode).ToString(),
+                        ContactClientSex = x.Value.Contact == null ? null : x.Value.Contact.GenderCode.ToString(),
                         FirmCode = x.FirmCode,
                         FirmName = x.Value.FirmName,
                         IsClientActually = x.Value.IsClientActually,
@@ -804,6 +934,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             order.EndDistributionDateFact = distributionDatesDto.EndDistributionDateFact;
         }
 
+        // COMMENT {all, 18.12.2014}: это PayablePriceWithVat
         public decimal GetPayablePlanSum(long orderId, int releaseCount)
         {
             return _finder.Find<OrderPosition>(x => x.OrderId == orderId)
@@ -815,16 +946,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
                           .Select(x => new OrderFinancialInfo
-                              {
-                                  DiscountSum = x.DiscountSum,
-                                  ReleaseCountFact = x.ReleaseCountFact,
-                                  DiscountInPercent = x.OrderPositions
-                                                       .Where(y => !y.IsDeleted && y.IsActive)
-                                                       .All(y => y.CalculateDiscountViaPercent),
-                                  IsBudget = x.OrderPositions
-                                              .Any(y => !y.IsDeleted && y.IsActive &&
-                                                        y.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision)
-                              })
+                                           {
+                                               DiscountSum = x.DiscountSum,
+                                               ReleaseCountFact = x.ReleaseCountFact,
+                                               DiscountInPercent = x.OrderPositions
+                                                                    .Where(y => !y.IsDeleted && y.IsActive)
+                                                                    .All(y => y.CalculateDiscountViaPercent)
+                                           })
                           .Single();
         }
 
@@ -1025,17 +1153,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder.Find<Order>(x => x.DealId == dealId && x.IsActive && !x.IsDeleted).ToArray();
         }
 
-        public OrderPositionRebindingDto GetOrderPositionInfo(long orderPositionId)
+        public OrderPositionAdvertisementLinksDto GetOrderPositionAdvertisementLinksInfo(long orderPositionId)
         {
             return _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId))
-                          .Select(position => new OrderPositionRebindingDto
+                          .Select(position => new OrderPositionAdvertisementLinksDto
                               {
-                                  AdverisementCount = position.OrderPositionAdvertisements.Count,
+                                  AdvertisementLinks = position.OrderPositionAdvertisements,
                                   BindingType = position.PricePosition.Position.BindingObjectTypeEnum,
-                                  OrderWorkflowSate = position.Order.WorkflowStepId,
+                                  OrderWorkflowState = position.Order.WorkflowStepId,
                                   OrderId = position.Order.Id
                               })
-                          .SingleOrDefault();
+                          .Single();
         }
 
         public OrderUsageDto GetOrderUsage(long orderId)
@@ -1309,6 +1437,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder.FindMany(OrderSpecs.Bills.Find.ByOrder(orderId) & Specs.Find.ActiveAndNotDeleted<Bill>());
         }
 
+        public SalesModel GetOrderSalesModel(long orderId)
+        {
+            return
+                _finder.Find(Specs.Find.ById<Order>(orderId))
+                       .SelectMany(x => x.OrderPositions)
+                       .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                       .Select(x => x.PricePosition.Position.SalesModel)
+                       .Distinct()
+                       .SingleOrDefault();
+        }
+
+        public long? GetLegalPersonProfileIdByOrder(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(order => order.LegalPersonProfileId)
+                          .SingleOrDefault();
+        }
+
+        public IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId)
+        {
+            return _finder.FindMany(OrderSpecs.Orders.Find.NotInArchive()
+                                    && Specs.Find.ActiveAndNotDeleted<Order>()
+                                    && OrderSpecs.Orders.Find.ByLegalPersonProfileId(legalPersonProfileId));
+        }
+
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
         {
             var dto = _finder.Find(Specs.Find.ById<Deal>(dealId) & Specs.Find.NotDeleted<Deal>())
@@ -1428,6 +1581,187 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public long GetBargainLegalPersonId(long bargainId)
         {
             return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
+        }
+
+        public OrderAmountToWithdrawInfo GetOrderAmountToWithdrawInfo(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                           .Select(o => new OrderAmountToWithdrawInfo
+                                                {
+                                                    Order = o,
+                                                    AmountToWithdraw = o.OrderReleaseTotals
+                                                                          .Where(
+                                                                              orderReleaseTotal =>
+                                                                              orderReleaseTotal.ReleaseNumber ==
+                                                                              o.BeginReleaseNumber +
+                                                                              o.Locks.Count(@lock => !@lock.IsDeleted && !@lock.IsActive))
+                                                                          .Select(orderReleaseTotal => orderReleaseTotal.AmountToWithdraw)
+                                                                          .FirstOrDefault()
+                                                })
+                            .Single();
+        }
+
+        public OrderRecalculateWithdrawalsDto GetOrderRecalculateWithdrawalsInfo(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                        .Select(x => new OrderRecalculateWithdrawalsDto
+                        {
+                            LocksCount = x.Locks.Count(@lock => !@lock.IsDeleted && !@lock.IsActive),
+                            ReleaseTotals = x.OrderReleaseTotals,
+                            OrderPositions = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                                .Select(y => new OrderRecalculateWithdrawalsDto.OrderPositionDto
+                                                {
+                                                    Id = y.Id,
+                                                    PayablePlan = y.PayablePlan,
+                                                    PayablePlanWoVat = y.PayablePlanWoVat,
+                                                    PlatformId = y.PricePosition.Position.PlatformId,
+                                                    PriceId = y.PricePosition.PriceId,
+                                                    OrderId = y.OrderId,
+                                                    PositionId = y.PricePosition.PositionId,
+                                                    Amount = y.Amount,
+                                                    DiscountSum = y.DiscountSum,
+                                                    DiscountPercent = y.DiscountPercent,
+                                                    CalculateDiscountViaPercent = y.CalculateDiscountViaPercent,
+                                                    CategoryRate = y.CategoryRate,
+                                                    IsComposite = y.PricePosition.Position.IsComposite,
+                                                    ReleaseWithdrawals = y.ReleasesWithdrawals.Select(z => new OrderReleaseWithdrawalDto
+                                                                                                            {
+                                                                                                                WidrawalInfo = z, 
+                                                                                                                WithdrawalsPositions = z.ReleasesWithdrawalsPositions
+                                                                                                            })
+                                                })
+                        })
+                        .Single();
+        }
+
+        public OrderDeleteOrderPositionDto GetOrderPositionDeleteInfo(long orderPositionId)
+        {
+            return _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId))
+                          .Select(position => new OrderDeleteOrderPositionDto
+                                                  {
+                                                      OrderPosition = position,
+                                                      Order = position.Order,
+                                                      IsDiscountViaPercentCalculation = position.Order.OrderPositions
+                                                                                         .Where(y => !y.IsDeleted && y.IsActive)
+                                                                                         .All(y => y.CalculateDiscountViaPercent),
+                                                  })
+                          .SingleOrDefault();
+        }
+
+        public OrderRepairOutdatedOrderPositionDto GetOrderInfoForRepairOutdatedPositions(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(o => new OrderRepairOutdatedOrderPositionDto
+                                           {
+                                               ReleaseTotals = o.OrderReleaseTotals,
+                                               OrderPositions = 
+                                                    o.OrderPositions
+                                                        .Where(op => op.IsActive && !op.IsDeleted)
+                                                        .Select(op => new OrderRepairOutdatedOrderPositionDto.OrderPositionDto
+                                                                            {
+                                                                                OrderPosition = op,
+                                                                                PricePosition = op.PricePosition,
+                                                                                Advertisements = op.OrderPositionAdvertisements,
+                                                                                ClonedAdvertisements = 
+                                                                                    op.OrderPositionAdvertisements
+                                                                                            .Select(adv => new Platform.Model.Entities.DTOs.AdvertisementDescriptor
+                                                                                            {
+                                                                                                AdvertisementId = adv.AdvertisementId,
+                                                                                                CategoryId = adv.CategoryId,
+                                                                                                ThemeId = adv.ThemeId,
+                                                                                                FirmAddressId = adv.FirmAddressId,
+                                                                                                PositionId = adv.PositionId,
+                                                                                                IsAdvertisementRequired =
+                                                                                                    adv.Position.AdvertisementTemplate != null &&
+                                                                                                    adv.Position.AdvertisementTemplate.IsAdvertisementRequired
+                                                                                            }),
+                                                                                ReleaseWithdrawals = 
+                                                                                    op.ReleasesWithdrawals
+                                                                                            .Select(z => new OrderReleaseWithdrawalDto
+                                                                                            {
+                                                                                                WidrawalInfo = z, 
+                                                                                                WithdrawalsPositions = z.ReleasesWithdrawalsPositions
+                                                                                            })
+                                                                            })
+                                           })
+                          .Single();
+        }
+
+        public decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take)
+        {
+            return _finder.Find<OrderReleaseTotal>(x => x.OrderId == orderId)
+               .OrderBy(x => x.Id)
+               .Skip(skip)
+               .Take(take)
+               .Select(x => (decimal?)x.AmountToWithdraw)
+               .SingleOrDefault();
+        }
+
+        public OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId)
+        {
+            var dto = _secureFinder.Find(Specs.Find.ById<Order>(orderId))
+                                   .Select(order => new 
+                                       {
+                                           LegalPersonId = order.LegalPersonId,
+                                           LegalPersonName = order.LegalPerson.LegalName,
+                                           LegalPersonProfileId = order.LegalPersonProfileId,
+                                           LegalPersonProfileName = order.LegalPersonProfile.Name,
+                                       })
+                                   .Single();
+
+            if (dto.LegalPersonId == null)
+            {
+                throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
+            }
+
+            return new OrderLegalPersonProfileDto
+                       {
+                           LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
+                           LegalPersonProfile = new EntityReference(dto.LegalPersonProfileId, dto.LegalPersonProfileName)
+                       };
+        }
+
+        public OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId)
+        {
+            var dto = _secureFinder.Find(Specs.Find.ById<Bargain>(bargainId))
+                                   .Select(x => new
+                                   {
+                                       LegalPersonId = x.CustomerLegalPersonId,
+                                       LegalPersonName = x.LegalPerson.LegalName
+                                   })
+                                   .Single();
+
+            var profiles = _secureFinder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(dto.LegalPersonId)
+                                              && Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>())
+                                        .Select(x => new { x.Id, x.Name })
+                                        .Take(2)
+                                        .ToArray();
+
+            return new OrderLegalPersonProfileDto
+            {
+                LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
+                LegalPersonProfile = profiles.Length == 1 ? new EntityReference(profiles[0].Id, profiles[0].Name) : new EntityReference(),
+            };
+        }
+
+        public OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(x => new OrderDtoToCheckPossibilityOfOrderPositionCreation
+                                           {
+                                               OrderId = x.Id,
+                                               FirmId = x.FirmId,
+                                               OrderPositions =
+                                                   x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                                    .Select(y => new OrderPositionSalesModelDto
+                                                                     {
+                                                                         OrderPositionId = y.Id,
+                                                                         SalesModel =
+                                                                             y.PricePosition
+                                                                              .Position
+                                                                              .SalesModel
+                                                                     })
+                                           }).Single();
         }
 
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)

@@ -73,7 +73,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         public LookupField Bank { get; set; }
 
         [StringLengthLocalized(512, MinimumLength = 0)]
-        public string AdditionalPaymentElements { get; set; }
+        [DisplayNameLocalized("AdditionalPaymentElements")]
+        public string PaymentEssentialElements { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -130,7 +131,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             DocumentsDeliveryMethod = modelDto.DocumentsDeliveryMethod;
             PaymentMethod = modelDto.PaymentMethod;
             AccountNumber = modelDto.AccountNumber;
-            AdditionalPaymentElements = modelDto.AdditionalPaymentElements;
+            PaymentEssentialElements = modelDto.PaymentEssentialElements;
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
             PostAddress = modelDto.PostAddress;
             Owner = LookupField.FromReference(modelDto.OwnerRef);
@@ -161,7 +162,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                     DocumentsDeliveryAddress = DocumentsDeliveryAddress.Ensure—leanness(),
                     PaymentMethod = PaymentMethod,
                     AccountNumber = AccountNumber.Ensure—leanness(),
-                    AdditionalPaymentElements = AdditionalPaymentElements.Ensure—leanness(),
+                    PaymentEssentialElements = PaymentEssentialElements.Ensure—leanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
                     PostAddress = PostAddress.Ensure—leanness(),

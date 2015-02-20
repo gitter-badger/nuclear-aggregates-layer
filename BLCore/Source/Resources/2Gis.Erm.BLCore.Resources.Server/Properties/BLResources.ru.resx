@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Рекламные материалы</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Попытка сохранить бюджетную Позицию заказа с Количеством, не равным 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>Окончание периода</value>
   </data>
@@ -965,9 +962,6 @@
   <data name="PeriodClosing" xml:space="preserve">
     <value>Закрытие периода</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>В заказ с типом "Продажи" можно добавлять только позиции со способом учёта "Гарантированное оказание"!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Признак скрытия</value>
   </data>
@@ -985,9 +979,6 @@
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Фильтр по умолчанию</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>В заказ с типом "Бюджет" можно добавлять только позиции со способом учёта "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>У данных юридических лиц не совпадает ИНН, слияние невозможно.</value>
@@ -3167,8 +3158,8 @@ Cумма по операции: {5}.
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Результаты проверки заказа</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>Нельзя добавить элемент со способом учета, отличающегося от способов учета остальных элементов</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>Нельзя добавить элемент с моделью продаж, отличающегося от моделей продаж остальных элементов</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Идентификатор 1С</value>
@@ -3957,9 +3948,6 @@ Cумма по операции: {5}.
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Неверно заданы типы сущностей для добавления подразделения в тематику</value>
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>Нельзя добавить подразделение к тематике, установленной по умолчанию</value>
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>Нельзя удалить тематику, которая используется в заказах</value>
   </data>
@@ -4076,10 +4064,10 @@ Cумма по операции: {5}.
     <value>Произошла ошибка: {0}. Подробности см. в описании сообщения</value>
   </data>
   <data name="CannotApppendMoreThemesToOrganizationUnit" xml:space="preserve">
-    <value>Достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="CannotSaveThemeOrganizationUnitThemeLimitReached" xml:space="preserve">
-    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="PricePositionCannotBeChoosedSinceThereIsNoFirm" xml:space="preserve">
     <value>Данная позиция не может быть выбрана в заказ, т.к. не указана фирма</value>
@@ -4106,7 +4094,7 @@ Cумма по операции: {5}.
     <value>Дата должна быть в промежутке между 1 января 1753 г. и 31 декабря 9999 г.</value>
   </data>
   <data name="CannotSaveBranchOfficeInnExists" xml:space="preserve">
-    <value>Отделение огранизации с данным ИНН уже существует</value>
+    <value>Отделение организации с данным ИНН уже существует</value>
   </data>
   <data name="CannotReplaceTerritories" xml:space="preserve">
     <value>Выбранная территория должна принадлежать тому же подразделению, что и деактивируемая.</value>
@@ -5170,5 +5158,41 @@ Cумма по операции: {5}.
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value>Неправильно запланированы даты начала и окончания встречи.
 </value>
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Для работы с профилями требуется, чтобы были указаны юридические лица</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Печать</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Должен быть указан профиль юридического лица</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>В заказе могут присутствовать позиции только одной модели продаж</value>
+  </data>
+  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
+    <value>Набор рубрик для всех подпозиций должен совпадать</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>Попытка сохранить позицию заказа с моделью продаж '{0}' с количеством, не равным 1</value>
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Невозможно назначить действие в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Невозможно назначить куратором служебного пользователя</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Недостаточно прав для смены куратора у действия {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
   </data>
 </root>

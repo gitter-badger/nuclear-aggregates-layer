@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.LocalMessages
         {
             if (PeriodInMinutes == 0)
             {
-                LogError(null, "Задача [{0}] не имеет заданного числа минут для определения зависших сообщений", context.JobDetail.Key.Name);
+                Logger.ErrorFormat(null, "Задача [{0}] не имеет заданного числа минут для определения зависших сообщений", context.JobDetail.Key.Name);
                 return;
             }
 

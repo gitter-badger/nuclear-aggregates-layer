@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Acceptanc
                     { "BankName", profile.BankName },
                     { "Swift", profile.SWIFT },
                     { "Iban", profile.IBAN },
-                    { "AdditionalPaymentElements", profile.AdditionalPaymentElements },
+                    { "PaymentEssentialElements", profile.PaymentEssentialElements },
                     { "ChiefNameInNominative", profile.ChiefNameInNominative },
                 };
         }

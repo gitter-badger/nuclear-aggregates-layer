@@ -121,6 +121,7 @@
     <Compile Include="Utils\DateTimeSettings.cs" />
     <Compile Include="Utils\JsonNetResult.cs" />
     <Compile Include="Utils\JsonNetStrictResult.cs" />
+    <Compile Include="Utils\LookupDataField.cs" />
     <Compile Include="Utils\LookupField.cs" />
     <Compile Include="Utils\LookupField.Server.cs" />
     <Compile Include="Utils\LookupSettings.cs" />

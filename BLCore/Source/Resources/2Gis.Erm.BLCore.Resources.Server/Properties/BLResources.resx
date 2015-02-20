@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value />
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value />
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value />
   </data>
@@ -963,9 +960,6 @@
   <data name="PeriodClosing" xml:space="preserve">
     <value />
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value />
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value />
   </data>
@@ -982,9 +976,6 @@
     <value />
   </data>
   <data name="DefaultFilter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
     <value />
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
@@ -3156,7 +3147,7 @@
   <data name="OrderCheckResults" xml:space="preserve">
     <value />
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
     <value />
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
@@ -3943,9 +3934,6 @@
     <value />
   </data>
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
     <value />
   </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
@@ -5149,6 +5137,42 @@
     <value />
   </data>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
-    <value></value>
+    <value />
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Невозможно назначить действие в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Невозможно назначить куратором служебного пользователя</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Недостаточно прав для смены куратора у действия {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value />
   </data>
 </root>

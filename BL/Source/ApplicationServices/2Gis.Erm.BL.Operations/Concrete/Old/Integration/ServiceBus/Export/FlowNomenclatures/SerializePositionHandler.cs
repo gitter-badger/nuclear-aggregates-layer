@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                                 new XAttribute("Code", dto.Id),
                                 new XAttribute("Name", dto.Name),
                                 new XAttribute("PlatformCode", dto.PlatformCode),
-                                new XAttribute("AccountingMethod", dto.AccountingMethod),
+                                new XAttribute("AccountingMethod", dto.SalesModel),
                                 new XAttribute("IsHidden", dto.IsHidden),
                                 new XAttribute("IsDeleted", dto.IsDeleted),
                                 new XAttribute("ProductCode", dto.ProductCode),
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                 Id = x.Id,
                 Name = x.Name,
                 PlatformCode = x.Platform.DgppId,
-                AccountingMethod = x.AccountingMethodEnum,
+                SalesModel = x.SalesModel,
                 IsHidden = !x.IsActive,
                 IsDeleted = x.IsDeleted,
                 ProductCode = x.ExportCode,
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             public long Id { get; set; }
             public string Name { get; set; }
             public long PlatformCode { get; set; }
-            public PositionAccountingMethod AccountingMethod { get; set; }
+            public SalesModel SalesModel { get; set; }
             public bool IsHidden { get; set; }
             public bool IsDeleted { get; set; }
             public long ProductCode { get; set; }

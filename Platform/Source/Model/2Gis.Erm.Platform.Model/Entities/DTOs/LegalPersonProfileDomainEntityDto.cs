@@ -131,9 +131,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public string Registered { get; set; }
 
         [DataMember]
-        public string AdditionalPaymentElements { get; set; }
-
-        [DataMember]
         public string SWIFT { get; set; }
 
         [DataMember]

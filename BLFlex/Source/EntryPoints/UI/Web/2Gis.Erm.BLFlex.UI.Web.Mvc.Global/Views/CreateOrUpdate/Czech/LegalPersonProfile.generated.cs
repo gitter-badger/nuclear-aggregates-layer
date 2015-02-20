@@ -323,7 +323,7 @@ WriteLiteral("            ");
 
             
             #line 70 "..\..\Views\CreateOrUpdate\Czech\LegalPersonProfile.cshtml"
-       Write(Html.TemplateField(m => m.AdditionalPaymentElements, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } }));
+       Write(Html.TemplateField(m => m.PaymentEssentialElements, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } }));
 
             
             #line default

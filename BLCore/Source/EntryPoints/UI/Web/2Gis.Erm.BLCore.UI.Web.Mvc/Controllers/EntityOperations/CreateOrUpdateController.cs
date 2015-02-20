@@ -15,6 +15,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -29,9 +30,8 @@ using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.Controll
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
-    // FIXME {all, 22.02.2014}: добавить в данные передавемые на карточку в create usecase (возможно одновреммено с разделением на update и create) url до IdentityService - при этом удалить протаксивание этого URL, через многие DomainEntityDto (удалив при этом и соответсвующие partial части этих DTO), то же касается и MVC ViewModel
     public sealed class CreateOrUpdateController<TEntity, TModel> : ControllerBase
-        where TEntity : class, IEntity, IEntityKey
+        where TEntity : class, IEntityKey, IEntity
         where TModel : EntityViewModelBase<TEntity>, new()
     {
         private readonly IEntityViewNameProvider _entityViewNameProvider;
@@ -52,12 +52,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IEntityViewNameProvider entityViewNameProvider,
                                         ICardSettingsProvider cardSettingsProvider,
-                                        IViewModelCustomizationService viewModelCustomizationService)
+                                        IViewModelCustomizationService viewModelCustomizationService,
+                                        IAPIIdentityServiceSettings identityServiceSettings)
             : base(msCrmSettings,
-                   userContext,
-                   logger,
                    operationsServiceSettings,
                    specialOperationsServiceSettings,
+                   identityServiceSettings,
+                   userContext,
+                   logger,
                    getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;

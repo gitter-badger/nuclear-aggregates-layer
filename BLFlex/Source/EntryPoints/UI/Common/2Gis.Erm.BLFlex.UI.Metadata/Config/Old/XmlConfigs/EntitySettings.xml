@@ -109,10 +109,10 @@
 				</Scripts>
 				<ToolbarItems>
 					<ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
-					<ToolbarItem ParentName="Create" Name="CreateTask" NameLocaleResourceId="ControlCreateTask" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateTask" SecurityPrivelegeFlag="32" />
-					<ToolbarItem ParentName="Create" Name="CreatePhonecall" NameLocaleResourceId="ControlCreatePhonecall" ControlType="TextButton" LockOnInactive="true" Action="scope.CreatePhonecall" SecurityPrivelegeFlag="32" />
-					<ToolbarItem ParentName="Create" Name="CreateAppointment" NameLocaleResourceId="ControlCreateAppointment" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateAppointment" SecurityPrivelegeFlag="32" />
-					<ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="true" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
+					<ToolbarItem ParentName="Create" Name="CreateTask" NameLocaleResourceId="ControlCreateTask" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateTask" SecurityPrivelegeFlag="32" />
+					<ToolbarItem ParentName="Create" Name="CreatePhonecall" NameLocaleResourceId="ControlCreatePhonecall" ControlType="TextButton" LockOnInactive="false" Action="scope.CreatePhonecall" SecurityPrivelegeFlag="32" />
+					<ToolbarItem ParentName="Create" Name="CreateAppointment" NameLocaleResourceId="ControlCreateAppointment" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateAppointment" SecurityPrivelegeFlag="32" />
+					<ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
 					<ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
 					<ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
 				</ToolbarItems>
@@ -136,10 +136,12 @@
 			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListInactiveActivities" HideInCardRelatedGrid="" />
 			<!--Мои действия-->
 			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyActivities" HideInCardRelatedGrid="*" />
+      <!--Мои открытые планы-->
+      <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyOpenedActivities" HideInCardRelatedGrid="" />
 			<!--Действия по моим подчиненным-->
 			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListActivitiesForSubordinates" HideInCardRelatedGrid="*" />
 			<!--Мои завершенные действия-->
-			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyCompletedActivities" HideInCardRelatedGrid="*"/>
+			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyCompletedActivities" HideInCardRelatedGrid=""/>
 			<!--Завершенные действия по моим подчиненным-->
 			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListCompletedActivitiesForSubordinates" HideInCardRelatedGrid="*" />
 			<!--Мои запланированные действия -->
@@ -2002,6 +2004,7 @@
 				<ToolbarItem ParentName="PrintActionsAdditional" Name="PrintAdditionalAgreementAction" NameLocaleResourceId="ControlPrintAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintAdditionalAgreement" SecurityPrivelegeFlag="0" />
 				<ToolbarItem ParentName="PrintActionsAdditional" Name="PrintLetterOfGuarantee" NameLocaleResourceId="ControlPrintLetterOfGuaranteeAction" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintLetterOfGuarantee" SecurityPrivelegeFlag="0" />
 				<ToolbarItem ParentName="Actions" Name="ChangeDeal" NameLocaleResourceId="ControlChangeDeal" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.ChangeDeal" SecurityPrivelegeFlag="34" />
+        <ToolbarItem ParentName="Actions" Name="ChangeProfiles" NameLocaleResourceId="ControlChangeProfiles" ControlType="TextButton" LockOnInactive="false" LockOnNew="true" Action="scope.ChangeLegalPersonProfile" SecurityPrivelegeFlag="2" />
 				<ToolbarItem ParentName="Actions" Name="CheckOrder" NameLocaleResourceId="ControlCheckOrder" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.CheckOrder" />
 				<ToolbarItem ParentName="Actions" Name="ChangeOwner" NameLocaleResourceId="ControlChangeOwner" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.ChangeOwner" SecurityPrivelegeFlag="524288" />
 				<ToolbarItem ParentName="Actions" Name="CloseWithDenial" NameLocaleResourceId="ControlCloseWithDenial" ControlType="ImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CloseWithDenial" SecurityPrivelegeFlag="34" />

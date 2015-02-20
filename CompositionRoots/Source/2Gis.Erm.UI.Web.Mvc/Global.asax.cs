@@ -18,6 +18,8 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
+using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -67,27 +69,31 @@ namespace DoubleGis.Erm.UI.Web.Mvc
 
         protected void Application_Start()
         {
-            var settings = new WebAppSettings(BusinessModels.Supported);
+            var settingsContainer = new WebAppSettings(BusinessModels.Supported);
+            var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
 
             var loggerContextEntryProviders =
-                new ILoggerContextEntryProvider[] 
-                {
-                    new LoggerContextEntryWebProvider(LoggerContextKeys.Required.SessionId),
-                    new LoggerContextEntryWebProvider(LoggerContextKeys.Required.UserName),
-                    new LoggerContextEntryWebProvider(LoggerContextKeys.Required.UserIP),
-                    new LoggerContextEntryWebProvider(LoggerContextKeys.Required.UserBrowser),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SeanceCode, Guid.NewGuid().ToString()),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settings.AsSettings<IEnvironmentSettings>().EntryPointName)
-                };
+                    new ILoggerContextEntryProvider[] 
+                    {
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new LoggerContextEntryWebProvider(LoggerContextKeys.Required.UserAccount),
+                        new LoggerContextEntryWebProvider(LoggerContextKeys.Optional.UserSession),
+                        new LoggerContextEntryWebProvider(LoggerContextKeys.Optional.UserAddress),
+                        new LoggerContextEntryWebProvider(LoggerContextKeys.Optional.UserAgent)
+                    };
 
-            _loggerContextManager = 
-                LogUtils.InitializeLoggingInfrastructure(
-                    settings.AsSettings<IConnectionStringSettings>().LoggingConnectionString(),
-                    LogUtils.DefaultLogConfigFileFullPath,
-                    loggerContextEntryProviders);
+            _loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
+            var logger = Log4NetLoggerBuilder.Use
+                                             .DefaultXmlConfig
+                                             .EventLog
+                                             .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
+                                             .Build;
 
             // initialize unity
-            _container = Bootstrapper.ConfigureUnity(settings);
+            _container = Bootstrapper.ConfigureUnity(settingsContainer, logger, _loggerContextManager);
 
             // set global dependency resolver
             DependencyResolver.SetResolver(_container.Resolve<UnityDependencyResolver>());
@@ -132,7 +138,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
             }
 
             LoggerContextPrepareForRequestProcessing();
-            Logger.DebugFormatEx("Старт обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
+            Logger.DebugFormat("Старт обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
 
             // аутентифицируем и логиним пользователя
             var userInfo = SignInService.SignIn();
@@ -149,7 +155,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
 
         protected void Application_ReleaseRequestState(object sender, EventArgs e)
         {
-            Logger.DebugFormatEx("Окончание обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
+            Logger.DebugFormat("Окончание обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
         }
 
         // error handling for non-500 errors
@@ -171,7 +177,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
                     ExecuteErrorController("PageNotFound");
                     break;
                 default:
-                    Logger.ErrorEx(exception, "Unexpected error has occured");
+                    Logger.Error(exception, "Unexpected error has occured");
                     break;
             }
         }
@@ -244,11 +250,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc
         private void LoggerContextPrepareForRequestProcessing()
         {
             // log user data
-            var userName = (User == null) ? "Не определено" : HttpContext.Current.User.Identity.Name;
-            var userIp = Request.UserHostAddress ?? "Не определено";
-            var userBrowser = (Request.Browser == null) ? "Не определено" : Request.Browser.Browser;
+            var userAccount = (User == null) ? "Не определено" : HttpContext.Current.User.Identity.Name;
+            var userAddress = Request.UserHostAddress ?? "Не определено";
+            var userAgent = (Request.Browser == null) ? "Не определено" : Request.Browser.Browser;
 
-            _loggerContextManager.SetUserInfo(Session.SessionID, userName, userIp, userBrowser);
+            _loggerContextManager.SetUserInfo(userAccount, Session.SessionID, userAddress, userAgent);
         }
     }
 }

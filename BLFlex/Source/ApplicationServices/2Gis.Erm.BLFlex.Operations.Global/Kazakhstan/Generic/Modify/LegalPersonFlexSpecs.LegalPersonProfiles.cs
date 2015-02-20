@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify
                                                       ModifiedByRef = new EntityReference { Id = x.ModifiedBy, Name = null },
                                                       ModifiedOn = x.ModifiedOn,
                                                       Timestamp = x.Timestamp,
-                                                      AdditionalPaymentElements = x.AdditionalPaymentElements,
+                                                      PaymentEssentialElements = x.PaymentEssentialElements,
                                                       BankName = x.BankName,
                                                       IBAN = x.IBAN,
                                                       SWIFT = x.SWIFT,
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify
                                     legalPersonProfile.Timestamp = dto.Timestamp;
 
                                     legalPersonProfile.BankName = dto.BankName;
-                                    legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
+                                    legalPersonProfile.PaymentEssentialElements = dto.PaymentEssentialElements;
                                     legalPersonProfile.IBAN = dto.IBAN;
                                     legalPersonProfile.SWIFT = dto.SWIFT;
 

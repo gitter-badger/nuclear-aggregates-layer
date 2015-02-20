@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Rubrics;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
@@ -15,11 +16,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowRubric
     {
         private readonly ICategoryService _categoryService;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ICategoryReadModel _categoryReadModel;
 
-        public ImportRubricService(ICategoryService categoryService, IOperationScopeFactory scopeFactory)
+        public ImportRubricService(ICategoryService categoryService, IOperationScopeFactory scopeFactory, ICategoryReadModel categoryReadModel)
         {
             _categoryService = categoryService;
             _scopeFactory = scopeFactory;
+            _categoryReadModel = categoryReadModel;
         }
 
         public void Import(IEnumerable<IServiceBusDto> dtos)
@@ -28,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowRubric
 
             // для удаленных рубрик тащим уровень из базы
             var deletedDtos = rubricServiceBusDtos.Where(x => x.IsDeleted).ToArray();
-            var categoryIdToLevelMap = _categoryService.GetCategoryLevels(deletedDtos.Select(x => x.Id)); 
+            var categoryIdToLevelMap = _categoryReadModel.GetCategoryLevels(deletedDtos.Select(x => x.Id)); 
             foreach (var dto in deletedDtos)
             {
                 int level;
@@ -58,6 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowRubric
             // рубрики импортируются слоями, начиная с самого верхнего, 
             // так как дочерние рубрики могут ссылаться на те, которые ранее не существовали и пришли только в этом пакете.
             var categoriesByLevel = categories.GroupBy(dto => dto.Level).OrderBy(group => group.Key);
+            
             // todo: продумать кейс с удалением рубрики второго уровня (что должно происходить, если есть подчинённые рубрики третьего уровня?)
             foreach (var level in categoriesByLevel)
             {
@@ -87,8 +91,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowRubric
 
             if (category.Level < 1 || category.Level > 3)
             {
-                throw CreateBusinessException(
-                                              "Ошибка при импорте рубрики с Id={0}: уровень рубрики {1} находится за пределами допустимого диапазона (1, 2, 3).",
+                throw CreateBusinessException("Ошибка при импорте рубрики с Id={0}: уровень рубрики {1} находится за пределами допустимого диапазона (1, 2, 3).",
                                               category.Id,
                                               category.Level);
             }
@@ -105,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowRubric
             }
         }
 
-        private static BusinessLogicException CreateBusinessException(string message, params object[] parameters)
+        private BusinessLogicException CreateBusinessException(string message, params object[] parameters)
         {
             return new BusinessLogicException(string.Format(message, parameters));
         }

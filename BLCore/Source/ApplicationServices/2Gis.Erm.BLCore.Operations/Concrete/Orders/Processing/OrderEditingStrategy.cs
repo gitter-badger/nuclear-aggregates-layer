@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Security;
 using System.Text;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -45,7 +47,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly IAccountRepository _accountRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IEvaluateOrderNumberService _numberService;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
+        // TODO {all, 19.01.2015}: Есть смысл в этих стратегиях не использовать ReadModel, а передавать уже считанные данные.
         public OrderEditingStrategy(IUserContext userContext,
                                     IOrderRepository orderRepository,
                                     IUseCaseResumeContext<EditOrderRequest> resumeContext,
@@ -57,7 +61,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                     IReleaseReadModel releaseRepository,
                                     IAccountRepository accountRepository,
                                     ISecurityServiceFunctionalAccess functionalAccessService,
-                                    IEvaluateOrderNumberService numberService)
+                                    IEvaluateOrderNumberService numberService,
+                                    ILegalPersonReadModel legalPersonReadModel)
             : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
             _logger = logger;
@@ -65,6 +70,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             _accountRepository = accountRepository;
             _functionalAccessService = functionalAccessService;
             _numberService = numberService;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         public override void FinishProcessing(Order order)
@@ -103,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                     return;
                 }
 
-                _logger.WarnFormatEx(
+                _logger.WarnFormat(
                     "Попытка изменить флаг 'Работа с задолженностью по документам' в заказе [{0}] со значения [{1}] на [{2}]",
                     order.Id, 
                     orderStateValidationInfo.HasDocumentsDebt, 
@@ -171,7 +177,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         {
             #region Logging
 
-            _logger.InfoFormatEx("Обновление скидки заказа [{0}]", order.Id);
+            _logger.InfoFormat("Обновление скидки заказа [{0}]", order.Id);
 
             #endregion
 
@@ -179,21 +185,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
             #region Logging
 
-            _logger.DebugEx("Обновление скидки заказа - завершено");
+            _logger.Debug("Обновление скидки заказа - завершено");
 
             #endregion
 
             #region Logging
 
-            _logger.InfoFormatEx("Обновление остатков по заказу [{0}]", order.Id);
+            _logger.InfoFormat("Обновление остатков по заказу [{0}]", order.Id);
 
             #endregion
 
-            ResumeContext.UseCaseResume(new CalculateReleaseWithdrawalsRequest { Order = order });
+            ResumeContext.UseCaseResume(new ActualizeOrderReleaseWithdrawalsRequest { Order = order });
 
             #region Logging
 
-            _logger.DebugEx("Обновление остатков по заказу - завершено");
+            _logger.Debug("Обновление остатков по заказу - завершено");
 
             #endregion
         }
@@ -211,7 +217,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         protected override void DetermineOrderPlatform(Order order)
         {
-            OrderReadModel.UpdateOrderPlatform(order);
+            order.PlatformId = OrderReadModel.EvaluateOrderPlatformId(order.Id);
         }
 
         protected override void CreateAccount(Order order)
@@ -224,6 +230,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             var account = _accountRepository.CreateAccount(order.LegalPersonId.Value, order.BranchOfficeOrganizationUnitId.Value);
             order.AccountId = account.Id;
             OperationScope.Added<Account>(order.AccountId.Value);
+        }
+
+        protected override void UpdateDefaultProfile(Order order)
+        {
+            if (order.LegalPersonId.HasValue && order.LegalPersonProfileId == null)
+            {
+                var profiles = _legalPersonReadModel.GetLegalPersonProfileIds(order.LegalPersonId.Value).ToList();
+                if (profiles.Count() == 1)
+                {
+                    order.LegalPersonProfileId = profiles.Single();
+                }
+            }
         }
     }
 }

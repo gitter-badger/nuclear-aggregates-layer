@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -41,8 +42,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                        (IReleaseReadModel)null,
                        (IAccountRepository)null,
                        (ISecurityServiceFunctionalAccess)null,
-                       MockEvaluateOrderNumberService())
+                       MockEvaluateOrderNumberService(),
+                       MockLegalPersonReadModel())
             {
+            }
+
+            private static ILegalPersonReadModel MockLegalPersonReadModel()
+            {
+                var mock = Mock.Of<ILegalPersonReadModel>();
+                Mock.Get(mock)
+                    .Setup(x => x.GetLegalPersonProfileIds(Moq.It.IsAny<long>()))
+                    .Returns(new long[0]);
+
+                return mock;
             }
 
             private static IEvaluateOrderNumberService MockEvaluateOrderNumberService()

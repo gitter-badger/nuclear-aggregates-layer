@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositionAdvertisementValidation;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -22,9 +17,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -44,12 +37,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
         private readonly IRepository<OrderPositionAdvertisement> _orderPositionAdvertisementGenericRepository;
         private readonly IRepository<Bill> _billGenericRepository;
         private readonly IRepository<OrderFile> _orderFileGenericRepository;
-        private readonly IRepository<OrderReleaseTotal> _orderReleaseTotalGenericRepository;
         private readonly IRepository<FileWithContent> _fileRepository;
         private readonly IUserContext _userContext;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IValidateOrderPositionAdvertisementsService _validateOrderPositionAdvertisementsService;
 
         public OrderRepository(IFinder finder,
                                ISecureFinder secureFinder,
@@ -59,14 +50,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                                IRepository<OrderPositionAdvertisement> orderPositionAdvertisementEntityRepository,
                                IRepository<Bill> billGenericRepository,
                                IRepository<OrderFile> orderFileGenericRepository,
-                               IRepository<OrderReleaseTotal> orderReleaseTotalGenericRepository,
                                IRepository<FileWithContent> fileRepository,
                                IUserContext userContext,
                                IOrderPersistenceService orderPersistenceService,
                                ISecureRepository<Order> orderSecureGenericRepository,
                                IIdentityProvider identityProvider,
-                               IOperationScopeFactory scopeFactory,
-                               IValidateOrderPositionAdvertisementsService validateOrderPositionAdvertisementsService)
+                               IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
             _secureFinder = secureFinder;
@@ -75,12 +64,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             _orderPositionAdvertisementGenericRepository = orderPositionAdvertisementEntityRepository;
             _billGenericRepository = billGenericRepository;
             _orderFileGenericRepository = orderFileGenericRepository;
-            _orderReleaseTotalGenericRepository = orderReleaseTotalGenericRepository;
             _userContext = userContext;
             _orderPersistenceService = orderPersistenceService;
             _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
-            _validateOrderPositionAdvertisementsService = validateOrderPositionAdvertisementsService;
             _fileContentFinder = fileContentFinder;
             _orderSecureGenericRepository = orderSecureGenericRepository;
             _fileRepository = fileRepository;
@@ -253,7 +240,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             CheckOrderDistributionPeriodNotOverlapsThemeDistributionPeriod(order);
             CheckOrderLegalPersonProfileBelongsToOrderLegalPerson(order);
 
-
             using (var scope = _scopeFactory.CreateOrUpdateOperationFor(order))
             {
                 _orderGenericRepository.Update(order);
@@ -325,38 +311,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             return cnt;
         }
 
-        public long[] DeleteOrderReleaseTotalsForOrder(long orderId)
-        {
-            var orderReleaseTotals = _finder.Find(Specs.Find.ById<Order>(orderId))
-                                            .SelectMany(order => order.OrderReleaseTotals)
-                                            .ToArray();
-
-            foreach (var orderReleaseTotal in orderReleaseTotals)
-            {
-                using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, OrderReleaseTotal>())
-                {
-                    _orderReleaseTotalGenericRepository.Delete(orderReleaseTotal);
-                    _orderReleaseTotalGenericRepository.Save();
-
-                    scope.Deleted<OrderReleaseTotal>(orderReleaseTotal.Id)
-                         .Complete();
-                }
-            }
-
-            return orderReleaseTotals.Select(total => total.Id).ToArray();
-        }
-
-        /// <summary>
-        /// Обновляет в объекте заказа поля Number, RegionalNumber. После обновления нужно отдельно вызвать <see><cref>Update</cref></see>.
-        /// </summary>
-        public void UpdateOrderNumber(Order order)
-        {
-            var numbers = UpdateOrderNumber(order.Number, order.RegionalNumber, order.PlatformId);
-            order.Number = numbers.Number;
-            order.RegionalNumber = numbers.RegionalNumber;
-        }
-
-
         public int SetOrderState(Order order, OrderState orderState)
         {
             order.WorkflowStepId = orderState;
@@ -424,104 +378,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 operationScope.Complete();
             }
         }
-
-        public void ChangeOrderPositionBindingObjects(long orderPositionId, IEnumerable<AdvertisementDescriptor> advertisements)
-        {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-            {
-                var orderPositionAdvertisements = _finder.Find<OrderPositionAdvertisement>(x => x.OrderPositionId == orderPositionId).ToArray();
-                Delete(orderPositionAdvertisements);
-
-                var advertisementsToCreate = advertisements
-                    .Select(dto => new OrderPositionAdvertisement
-                        {
-                            OrderPositionId = orderPositionId,
-                            AdvertisementId = dto.AdvertisementId,
-                            CategoryId = dto.CategoryId,
-                            FirmAddressId = dto.FirmAddressId,
-                            PositionId = dto.PositionId
-                        });
-
-                foreach (var advertisement in advertisementsToCreate)
-                {
-                    using (var scope = _scopeFactory.CreateOrUpdateOperationFor(advertisement))
-                    {
-                        _orderPositionAdvertisementGenericRepository.Add(advertisement);
-                        _orderPositionAdvertisementGenericRepository.Save();
-                        scope.Added<OrderPositionAdvertisement>(advertisement.Id)
-                             .Complete();
-                    }
-                }
-
-                transaction.Complete();
-            }
-        }
-
-        public void CreateOrUpdateOrderPositionAdvertisements(long orderPositionId, AdvertisementDescriptor[] newAdvertisementsLinks, bool orderIsLocked)
-        {
-            var oldAdvertisementsLinks = _finder.Find<OrderPosition>(x => x.Id == orderPositionId).SelectMany(x => x.OrderPositionAdvertisements).ToArray();
-            ValidateOrderPositionAdvertisementsInLockedOrder(oldAdvertisementsLinks, newAdvertisementsLinks, orderIsLocked);
-
-            // повторяю прежнюю логику. По-хорошему все ошибки можно показать в окошечке. Сейчас этого не делаем, т.к.надо тестировать и релизить.
-            var firstError = _validateOrderPositionAdvertisementsService.Validate(orderPositionId, newAdvertisementsLinks).FirstOrDefault();
-            if (firstError != null)
-            {
-                throw new BusinessLogicException(firstError.ErrorMessage);
-            }
-
-            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, OrderPositionAdvertisement>())
-            {
-                var deletedOrderPositionAdvertisements = new List<OrderPositionAdvertisement>();
-                var insertedOrderPositionAdvertisements = new List<OrderPositionAdvertisement>();
-                foreach (var oldAdvertisementsLink in oldAdvertisementsLinks)
-                {
-                    _orderPositionAdvertisementGenericRepository.Delete(oldAdvertisementsLink);
-                    deletedOrderPositionAdvertisements.Add(oldAdvertisementsLink);
-                }
-
-                var orderPositionAdvertisements = newAdvertisementsLinks.Select(x => new OrderPositionAdvertisement
-                    {
-                        OrderPositionId = orderPositionId,
-                        PositionId = x.PositionId,
-                        AdvertisementId = x.AdvertisementId,
-                        FirmAddressId = x.FirmAddressId,
-                        CategoryId = x.CategoryId,
-                        ThemeId = x.ThemeId,
-                    }).ToArray();
-
-                _identityProvider.SetFor(orderPositionAdvertisements);
-
-                foreach (var orderPositionAdvertisement in orderPositionAdvertisements)
-                {
-                    _orderPositionAdvertisementGenericRepository.Add(orderPositionAdvertisement);
-                    insertedOrderPositionAdvertisements.Add(orderPositionAdvertisement);
-                }
-
-                _orderPositionAdvertisementGenericRepository.Save();
-                operationScope
-                    .Deleted<OrderPositionAdvertisement>(deletedOrderPositionAdvertisements.Select(x => x.Id).ToArray())
-                    .Added<OrderPositionAdvertisement>(insertedOrderPositionAdvertisements.Select(x => x.Id).ToArray())
-                    .Complete();
-            }
-        }
-
-        public void CreateOrderReleaseTotals(IEnumerable<OrderReleaseTotal> orderReleaseTotals)
-        {
-            // OrderReleaseTotal в числе тех сущностей, что не имеют Timestamp и не предназначены для редактирования: поддерживают только операции создания, чтения и удаления
-            foreach (var orderReleaseTotal in orderReleaseTotals)
-            {
-                using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, OrderReleaseTotal>())
-                {
-                    _identityProvider.SetFor(orderReleaseTotal);
-                    _orderReleaseTotalGenericRepository.Add(orderReleaseTotal);
-                    _orderReleaseTotalGenericRepository.Save();
-
-                    scope.Added<OrderReleaseTotal>(orderReleaseTotal.Id)
-                         .Complete();
-                }
-            }
-        }
-
         int IAssignAggregateRepository<Order>.Assign(long entityId, long ownerCode)
         {
             var entity = _finder.Find(Specs.Find.ById<Order>(entityId)).Single();
@@ -618,61 +474,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             {
                 throw new ArgumentException(BLResources.PlatformMustBeSpecified, "order");
             }
-        }
-
-        // ошибка если как-то смогли изменить позиции у заблокированного заказа
-        private static void ValidateOrderPositionAdvertisementsInLockedOrder(OrderPositionAdvertisement[] oldAdvertisementsLinks,
-                                                                             AdvertisementDescriptor[] newAdvertisementsLinks,
-                                                                             bool orderIsLocked)
-        {
-            if (!orderIsLocked)
-            {
-                return;
-            }
-
-            bool throwError;
-
-            if (newAdvertisementsLinks.Length != oldAdvertisementsLinks.Length)
-            {
-                throwError = true;
-            }
-            else
-            {
-                // поэлементная сортировка 
-                oldAdvertisementsLinks = oldAdvertisementsLinks
-                    .OrderBy(x => x.PositionId)
-                    .ThenBy(x => x.FirmAddressId)
-                    .ThenBy(x => x.CategoryId)
-                    .ToArray();
-
-                newAdvertisementsLinks = newAdvertisementsLinks
-                    .OrderBy(x => x.PositionId)
-                    .ThenBy(x => x.FirmAddressId)
-                    .ThenBy(x => x.CategoryId)
-                    .ToArray();
-
-                throwError = false;
-
-                for (var i = 0; i < newAdvertisementsLinks.Length; i++)
-                {
-                    var newAdvertisementsLink = newAdvertisementsLinks[i];
-                    var oldAdvertisementsLink = oldAdvertisementsLinks[i];
-
-                    if (newAdvertisementsLink.PositionId != oldAdvertisementsLink.PositionId ||
-                        newAdvertisementsLink.FirmAddressId != oldAdvertisementsLink.FirmAddressId ||
-                        newAdvertisementsLink.CategoryId != oldAdvertisementsLink.CategoryId)
-                    {
-                        throwError = true;
-                        break;
                     }
-                }
-            }
-
-            if (throwError)
-            {
-                throw new NotificationException(BLResources.ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked);
-            }
-        }
 
         private void CheckOrderDistributionPeriodNotOverlapsThemeDistributionPeriod(Order order)
         {
@@ -715,133 +517,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             if (order.LegalPersonId != legalPersonId)
             {
                 throw new BusinessLogicException(BLResources.OrderLegalPersonProfileShouldBelongToOrderLegalPerson);
-            }
-        }
-
-        private OrderNumberDto UpdateOrderNumber(string orderNumber, string orderRegionalNumber, long? orderPlatformId)
-        {
-            const string mobilePostfix = "-Mobile";
-            const string apiPostfix = "-API";
-            const string onlinePostfix = "-Online";
-
-            var orderNumberRegex = new Regex(@"-[a-zA-Z]+", RegexOptions.Singleline | RegexOptions.Compiled);
-            var numberMatch = orderNumberRegex.Match(orderNumber);
-            if (!string.IsNullOrEmpty(orderRegionalNumber))
-            {
-                // Если один из номеров удовлетворяет формату, а второй задан и не удовлетворяет - это ошибка
-                var regionalNumberMatch = orderNumberRegex.Match(orderRegionalNumber);
-                var isNumbersFormatMatch = (numberMatch.Success && regionalNumberMatch.Success) || (!numberMatch.Success && !regionalNumberMatch.Success);
-                if (!isNumbersFormatMatch)
-                {
-                    throw new ArgumentException(BLResources.OrderNumberAndRegionalNumberFormatsDoesNotMatch);
-                }
-            }
-
-            // todo {all, 2013-07-24}: Если в рамках задачи ERM-104 свершится отказ от колонки DgppId, здесь не потребуется выборка
-            //                         Кроме того, этот метод перестанет контактировать с хранилищем данных и его можно будет убрать из репозитория
-            var orderPlatformType = orderPlatformId.HasValue
-                                        ? (PlatformEnum?)_finder.Find(Specs.Find.ById<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform>(orderPlatformId.Value)).Single().DgppId
-                                        : null;
-
-            // Имеем схему вариантов (есть/нет суффикс платформы, есть/нет платформа):
-            OrderNumberStates orderState = 0;
-            orderState |= orderPlatformId.HasValue ? OrderNumberStates.HasPlatform : (OrderNumberStates)0;
-            orderState |= numberMatch.Success ? OrderNumberStates.HasSuffix : (OrderNumberStates)0;
-
-            switch (orderState)
-            {
-                case OrderNumberStates.HasSuffixHasPlatform:
-                    // Если постфикс для платформы задан - обновляем
-                    switch (orderPlatformType)
-                    {
-                        case PlatformEnum.Mobile:
-                            return new OrderNumberDto
-                            {
-                                Number = orderNumberRegex.Replace(orderNumber, mobilePostfix),
-                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
-                                                     ? null
-                                                     : orderNumberRegex.Replace(orderRegionalNumber, mobilePostfix)
-                            };
-
-                        case PlatformEnum.Api:
-                            return new OrderNumberDto
-                            {
-                                Number = orderNumberRegex.Replace(orderNumber, apiPostfix),
-                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
-                                                     ? null
-                                                     : orderNumberRegex.Replace(orderRegionalNumber, apiPostfix)
-                            };
-                        case PlatformEnum.Online:
-                            return new OrderNumberDto
-                            {
-                                Number = orderNumberRegex.Replace(orderNumber, onlinePostfix),
-                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
-                                                     ? null
-                                                     : orderNumberRegex.Replace(orderRegionalNumber, onlinePostfix)
-                            };
-                        default:
-                            return new OrderNumberDto
-                            {
-                                Number = orderNumberRegex.Replace(orderNumber, string.Empty),
-                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
-                                                     ? null
-                                                     : orderNumberRegex.Replace(orderRegionalNumber, string.Empty)
-                            };
-                    }
-
-                case OrderNumberStates.NoSuffixHasPlatform:
-                    // Если постфикс для платформы не задан - добавляем
-                    switch (orderPlatformType)
-                    {
-                        case PlatformEnum.Mobile:
-                            return new OrderNumberDto
-                            {
-                                Number = orderNumber + mobilePostfix,
-                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
-                                                     ? null
-                                                     : orderRegionalNumber + mobilePostfix
-                            };
-                        case PlatformEnum.Api:
-                            return new OrderNumberDto
-                            {
-                                Number = orderNumber + apiPostfix,
-                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
-                                                     ? null
-                                                     : orderRegionalNumber + apiPostfix
-                            };
-                        case PlatformEnum.Online:
-                            return new OrderNumberDto
-                            {
-                                Number = orderNumber + onlinePostfix,
-                                RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
-                                                     ? null
-                                                     : orderRegionalNumber + onlinePostfix
-                            };
-                        default:
-                            return new OrderNumberDto
-                            {
-                                Number = orderNumber,
-                                RegionalNumber = orderRegionalNumber
-                            };
-                    }
-
-                case OrderNumberStates.HasSuffixNoPlatform:
-                    // Если постфикс для платформы задан - убираем его
-                    return new OrderNumberDto
-                    {
-                        Number = orderNumberRegex.Replace(orderNumber, string.Empty),
-                        RegionalNumber = string.IsNullOrEmpty(orderRegionalNumber)
-                                             ? null
-                                             : orderNumberRegex.Replace(orderRegionalNumber, string.Empty)
-                    };
-
-                case OrderNumberStates.NoSuffixNoPlatform:
-                default:
-                    return new OrderNumberDto
-                    {
-                        Number = orderNumber,
-                        RegionalNumber = orderRegionalNumber
-                    };
             }
         }
     }

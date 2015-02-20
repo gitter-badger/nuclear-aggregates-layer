@@ -34,7 +34,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             ExportCode = modelDto.ExportCode;
             IsSupportedByExport = modelDto.IsSupportedByExport;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

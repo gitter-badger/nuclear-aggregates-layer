@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Kazakhstan
         [DataMember]
         public string SWIFT { get; set; }
         [DataMember]
-        public string AdditionalPaymentElements { get; set; } 
+        public string PaymentEssentialElements { get; set; } 
         #endregion
     }
 }

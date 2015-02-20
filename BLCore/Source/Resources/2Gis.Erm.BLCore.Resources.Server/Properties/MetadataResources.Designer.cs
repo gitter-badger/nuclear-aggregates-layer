@@ -88,15 +88,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Способ учета.
-        /// </summary>
-        public static string AccountingMethod {
-            get {
-                return ResourceManager.GetString("AccountingMethod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Номер счета.
         /// </summary>
         public static string AccountNumber {
@@ -705,6 +696,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CheckAccountBalance {
             get {
                 return ResourceManager.GetString("CheckAccountBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Полное ФИО руководителя (им.падеж).
+        /// </summary>
+        public static string ChiefFullNameInNominative {
+            get {
+                return ResourceManager.GetString("ChiefFullNameInNominative", resourceCulture);
             }
         }
         
@@ -2302,7 +2302,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Профиль юр. лица клиента.
+        ///   Looks up a localized string similar to Профиль юр. лица заказчика.
         /// </summary>
         public static string LegalPersonProfile {
             get {
@@ -3630,6 +3630,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Rut {
             get {
                 return ResourceManager.GetString("Rut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Модель продаж.
+        /// </summary>
+        public static string SalesModel {
+            get {
+                return ResourceManager.GetString("SalesModel", resourceCulture);
             }
         }
         

@@ -14,6 +14,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -30,21 +31,17 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly IRevertWithdrawalOperationService _revertWithdrawalOperationService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
 
-        public WithdrawalInfoController(IWithdrawalOperationService withdrawalOperationService,
-                                        IRevertWithdrawalOperationService revertWithdrawalOperationService,
-                                        IMsCrmSettings msCrmSettings,
-                                        IUserContext userContext,
-                                        ICommonLog logger,
-                                        ISecurityServiceFunctionalAccess functionalAccessService,
+        public WithdrawalInfoController(IMsCrmSettings msCrmSettings,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                        IAPIIdentityServiceSettings identityServiceSettings,
+                                        IUserContext userContext,
+                                        ICommonLog logger,
+                                        IGetBaseCurrencyService getBaseCurrencyService,
+                                        IWithdrawalOperationService withdrawalOperationService,
+                                        IRevertWithdrawalOperationService revertWithdrawalOperationService,
+                                        ISecurityServiceFunctionalAccess functionalAccessService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _withdrawalOperationService = withdrawalOperationService;
             _revertWithdrawalOperationService = revertWithdrawalOperationService;

@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -43,17 +44,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                                             CurrencyISOCode = x.Order.Currency.ISOCode,
                                             LegalPersonType = x.Order.LegalPerson.LegalPersonTypeEnum,
                                             x.Order.BranchOfficeOrganizationUnitId,
-                                            ProfileId = x.Order.LegalPerson.LegalPersonProfiles
-                                                         .FirstOrDefault(y => request.ProfileId.HasValue && y.Id == request.ProfileId.Value)
-                                                         .Id,
+                                            ProfileId = x.Order.LegalPersonProfileId
                                         })
                                     .FirstOrDefault();
 
             if (commonInfo == null || commonInfo.BranchOfficeOrganizationUnitId == null)
                 throw new NotificationException(BLResources.CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified);
 
+            if (commonInfo.ProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(commonInfo.BranchOfficeId));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(commonInfo.ProfileId));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(commonInfo.ProfileId.Value));
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(commonInfo.LegalPersonId.Value));
 
             var billsInfo = _finder.Find<Bill>(bill => bill.IsActive && !bill.IsDeleted &&

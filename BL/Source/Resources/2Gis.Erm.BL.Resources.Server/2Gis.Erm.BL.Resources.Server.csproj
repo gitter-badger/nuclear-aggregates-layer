@@ -52,7 +52,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Properties\ErmConfigLocalization.Designer.cs">
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ErmConfigLocalization.resx</DependentUpon>
     </Compile>

@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic
             var profile = new PrintData
                 {
                     { "AccountNumber", legalPersonProfile.AccountNumber },
-                    { "AdditionalPaymentElements", legalPersonProfile.AdditionalPaymentElements },
+                    { "PaymentEssentialElements", legalPersonProfile.PaymentEssentialElements },
                     { "ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
                     { "EmailForAccountingDocuments", legalPersonProfile.EmailForAccountingDocuments },
                     { "PositionInNominative", legalPersonProfile.PositionInNominative },

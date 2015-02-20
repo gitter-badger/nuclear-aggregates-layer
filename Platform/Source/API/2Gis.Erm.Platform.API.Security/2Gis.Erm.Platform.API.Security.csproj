@@ -57,6 +57,9 @@
     <Compile Include="FunctionalAccess\FunctionalPrivilegeDepths.cs" />
     <Compile Include="FunctionalAccess\FunctionalPrivilegeName.cs" />
     <Compile Include="IUserProfileService.cs" />
+    <Compile Include="UserContext\Identity\IUserLogonAuditor.cs" />
+    <Compile Include="UserContext\Identity\LoggerContextUserLogonAuditor.cs" />
+    <Compile Include="UserContext\Identity\NullUserLogonAuditor.cs" />
     <Compile Include="UserContext\IUserContextProvider.cs" />
     <Compile Include="IUserImpersonationService.cs" />
     <Compile Include="ISignInByIdentityService.cs" />

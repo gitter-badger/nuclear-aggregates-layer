@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
         {
             return new UIElementMetadata[]
                        {
+                           ToolbarElementsFlex.Orders.ChangeProfiles(),
                            ToolbarElementsFlex.Orders.ChangeDeal(),
                            ToolbarElementsFlex.Orders.CheckOrder(),
                            ToolbarElements.ChangeOwner<Order>(),

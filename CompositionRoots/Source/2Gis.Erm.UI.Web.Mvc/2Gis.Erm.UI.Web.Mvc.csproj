@@ -686,6 +686,7 @@
     <Content Include="Scripts\Ext.DoubleGis.UI.Deal.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Bargain.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementTemplate.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.SelectOrderProfile.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Price.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.LegalPerson.js" />
     <Content Include="Scripts\Ext.LocalizedResources.ar.js">
@@ -1183,9 +1184,6 @@
     <Content Include="Content\images\default\window\right-corners.psd" />
     <Content Include="Content\images\default\window\top-bottom.psd" />
     <Content Include="Content\Web.config" />
-    <None Include="log4net.Release.config">
-      <DependentUpon>log4net.config</DependentUpon>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

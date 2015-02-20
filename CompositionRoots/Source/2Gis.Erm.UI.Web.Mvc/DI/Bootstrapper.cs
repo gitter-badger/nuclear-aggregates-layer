@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ICommonLog logger, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -141,7 +141,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                                    settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                   settingsContainer.AsSettings<IWebAppProcesingSettings>()))
+                                                                   settingsContainer.AsSettings<IWebAppProcesingSettings>(),
+                                                                   logger,
+                                                                   loggerContextManager))
                      .ConfigureInterception(settingsContainer.AsSettings<IGlobalizationSettings>())
                      .ConfigureServiceClient()
                      .EnsureMetadataCorrectness();
@@ -197,16 +199,20 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             return interception.Container;
         }
 
-        private static IUnityContainer ConfigureUnity(this IUnityContainer container,
+        private static IUnityContainer ConfigureUnity(
+            this IUnityContainer container,
             IEnvironmentSettings environmentSettings,
             IConnectionStringSettings connectionStringSettings,
             IGlobalizationSettings globalizationSettings,
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            IWebAppProcesingSettings webAppProcessingSettings)
+            IWebAppProcesingSettings webAppProcessingSettings,
+            ICommonLog logger,
+            ILoggerContextManager loggerContextManager)
         {
             return container
+                     .ConfigureLogging(logger, loggerContextManager)
                      .ConfigureGlobal(globalizationSettings)
                      .CreateErmSpecific(connectionStringSettings, msCrmSettings)
                      .CreateErmReportsSpecific(connectionStringSettings)
@@ -303,7 +309,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(CustomLifetime.PerRequest, mappingScope)
+                
                 // crosscutting
+                .RegisterType<ICanChangeOrderPositionBindingObjectsDetector, CanChangeOrderPositionBindingObjectsDetector>(Lifetime.Singleton)
                 .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                 .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
                 .RegisterType<IUploadingAdvertisementElementValidator, UploadingAdvertisementElementValidator>(Lifetime.Singleton)
@@ -356,11 +364,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                  typeof(ICommonLog)))
                 .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<IUserContext, UserContext>(CustomLifetime.PerRequest, new InjectionFactory(c => new UserContext(null, null)))
-
-
-
-
-
+                .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<ISignInService, WebCookieSignInService>(CustomLifetime.PerRequest,
                                     new InjectionConstructor(typeof(ISecurityServiceAuthentication), 

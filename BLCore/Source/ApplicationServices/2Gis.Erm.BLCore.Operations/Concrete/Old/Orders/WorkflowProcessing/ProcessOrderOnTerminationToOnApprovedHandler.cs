@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             order.TerminationReason = OrderTerminationReason.None;
             order.Comment = null;
 
-            _subRequestProcessor.HandleSubRequest(new CalculateReleaseWithdrawalsRequest { Order = request.Order }, Context);
+            _subRequestProcessor.HandleSubRequest(new ActualizeOrderReleaseWithdrawalsRequest { Order = request.Order }, Context);
 
             _orderRepository.Update(order);
 

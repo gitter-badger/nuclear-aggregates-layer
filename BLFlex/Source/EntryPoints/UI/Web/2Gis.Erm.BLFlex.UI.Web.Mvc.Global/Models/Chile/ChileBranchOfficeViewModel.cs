@@ -43,7 +43,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             ContributionType = LookupField.FromReference(modelDto.ContributionTypeRef);
             LegalAddress = modelDto.LegalAddress;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
         {
             stageResults = Enumerable.Empty<KeyValuePair<Guid, MessageProcessingStageResult>>();
 
-            Logger.DebugFormatEx("Starting stage. Flow: {0}. Stage: {1}", messageFlow, Stage);
+            Logger.DebugFormat("Starting stage. Flow: {0}. Stage: {1}", messageFlow, Stage);
 
             MessageProcessingStageActorContext<TInput> actorContext;
 
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormatEx(ex, "Can't create actor context for processing flow {0} executing stage {1}", messageFlow, Stage);
+                Logger.ErrorFormat(ex, "Can't create actor context for processing flow {0} executing stage {1}", messageFlow, Stage);
                 return false;
             }
 
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormatEx(ex, "Can't create actor for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
+                Logger.ErrorFormat(ex, "Can't create actor for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
                 return false;
             }
 
@@ -61,11 +61,11 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormatEx(ex, "Actors execution failed for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
+                Logger.ErrorFormat(ex, "Actors execution failed for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
                 return false;
             }
 
-            Logger.DebugFormatEx("Finished stage. Flow: {0}. Stage: {1}", messageFlow, Stage);
+            Logger.DebugFormat("Finished stage. Flow: {0}. Stage: {1}", messageFlow, Stage);
             return true;
         }
 
@@ -117,7 +117,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
                 catch (Exception ex)
                 {
                     var msg = string.Format("Can't execute actor flow {0} executing stage {1}", context.MessageFlow, Stage);
-                    Logger.ErrorEx(ex, msg);
+                    Logger.Error(ex, msg);
 
                     foreach (var messageProcessing in context.TargetMessageProcessings)
                     {

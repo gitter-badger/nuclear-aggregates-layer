@@ -15,6 +15,19 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
     {
         public static class Orders
         {
+            public static UIElementMetadataBuilder ChangeProfiles()
+            {
+                return
+                    UIElementMetadata.Config
+                                     .Name.Static("ChangeProfiles")
+                                     .Title.Resource(() => ErmConfigLocalization.ControlChangeProfiles)
+                                     .ControlType(ControlType.TextButton)
+                                     .LockOnNew()
+                                     .JSHandler("ChangeLegalPersonProfile")
+                                     .AccessWithPrivelege<Order>(EntityAccessTypes.Update)
+                                     .Operation.NonCoupled<ChangeOrderLegalPersonProfileIdentity>();
+            }
+
             public static UIElementMetadataBuilder ChangeDeal()
             {
                 return

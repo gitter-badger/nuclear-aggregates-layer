@@ -65,7 +65,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         public string BankAddress { get; set; }
 
         [StringLengthLocalized(512, MinimumLength = 0)]
-        public string AdditionalPaymentElements { get; set; }
+        [DisplayNameLocalized("AdditionalPaymentElements")]
+        public string PaymentEssentialElements { get; set; }
 
         [StringLengthLocalized(512, MinimumLength = 0)]
         public string DocumentsDeliveryAddress { get; set; }
@@ -137,7 +138,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             BankCode = modelDto.BankCode;
             BankName = modelDto.BankName;
             BankAddress = modelDto.BankAddress;
-            AdditionalPaymentElements = modelDto.AdditionalPaymentElements;
+            PaymentEssentialElements = modelDto.PaymentEssentialElements;
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
             PositionInNominative = modelDto.PositionInNominative;
             PositionInGenitive = modelDto.PositionInGenitive;
@@ -170,7 +171,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
                     BankCode = BankCode.Ensure—leanness(),
                     BankName = BankName.Ensure—leanness(),
                     BankAddress = BankAddress.Ensure—leanness(),
-                    AdditionalPaymentElements = AdditionalPaymentElements.Ensure—leanness(),
+                    PaymentEssentialElements = PaymentEssentialElements.Ensure—leanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
                     PositionInNominative = PositionInNominative.Ensure—leanness(),

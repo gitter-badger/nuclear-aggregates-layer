@@ -39,7 +39,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             PlacementPeriod = modelDto.PlacementPeriodEnum;
             IsSupportedByExport = modelDto.IsSupportedByExport;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

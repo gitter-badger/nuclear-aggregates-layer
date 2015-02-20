@@ -26,7 +26,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             Name = modelDto.Name;
             OrganizationUnit = LookupField.FromReference(modelDto.OrganizationUnitRef);
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

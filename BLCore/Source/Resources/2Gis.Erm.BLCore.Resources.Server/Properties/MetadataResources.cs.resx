@@ -576,8 +576,8 @@
   <data name="OperationStatus" xml:space="preserve">
     <value>Stav provedení operace</value>
   </data>
-  <data name="AccountingMethod" xml:space="preserve">
-    <value>Způsob evidence</value>
+  <data name="SalesModel" xml:space="preserve">
+    <value>Model prodejů</value>
   </data>
   <data name="RReportType" xml:space="preserve">
     <value>Typ evidence</value>
@@ -1483,5 +1483,8 @@
   </data>
   <data name="OtherAuthorityDocument" xml:space="preserve">
     <value>Jiné</value>
+  </data>
+  <data name="ChiefFullNameInNominative" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
 </root>

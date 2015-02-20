@@ -37,7 +37,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             Symbol = modelDto.Symbol;
             IsBase = modelDto.IsBase;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

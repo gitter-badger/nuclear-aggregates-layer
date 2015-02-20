@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                                      string.Join(";" + Environment.NewLine, errors));
 
                     errorsBuilder.AppendLine(errorMessage);
-                    _commonLog.ErrorEx(errorMessage);
+                    _commonLog.Error(errorMessage);
                 }
 
                 // TODO {all, 19.01.2015}: Убрать эту проверку, когда найдется случай, что MainAttribute явно не нужен.
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                                      cardMetadata.Entity);
 
                     errorsBuilder.AppendLine(errorMessage);
-                    _commonLog.ErrorEx(errorMessage);
+                    _commonLog.Error(errorMessage);
                 }
             }
 

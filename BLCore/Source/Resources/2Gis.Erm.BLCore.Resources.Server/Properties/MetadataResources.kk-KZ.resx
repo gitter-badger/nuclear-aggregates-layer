@@ -576,8 +576,8 @@
   <data name="OperationStatus" xml:space="preserve">
     <value>Статус выполнения операции</value>
   </data>
-  <data name="AccountingMethod" xml:space="preserve">
-    <value>Способ учета</value>
+  <data name="SalesModel" xml:space="preserve">
+    <value>Модель продаж</value>
   </data>
   <data name="RReportType" xml:space="preserve">
     <value>Тип отчета</value>
@@ -856,7 +856,7 @@
     <value>Классификация заказа</value>
   </data>
   <data name="LegalPersonProfile" xml:space="preserve">
-    <value>Профиль юр. лица клиента</value>
+    <value>Профиль юр. лица заказчика</value>
   </data>
   <data name="ShortName" xml:space="preserve">
     <value>Короткое название</value>
@@ -1475,5 +1475,8 @@
   </data>
   <data name="OtherAuthorityDocument" xml:space="preserve">
     <value>Другое</value>
+  </data>
+  <data name="ChiefFullNameInNominative" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
 </root>

@@ -23,9 +23,6 @@
     PrintAdditionalAgreement: function () {
         this.Print('PrintAdditionalAgreement');
     },
-    PrintOrderBargainAdditionalAgreement: function () {
-        this.Print('PrintOrderBargainAdditionalAgreement');
-    },
     PrintLetterOfGuarantee: function () {
         this.Print('PrintLetterOfGuarantee');
     },

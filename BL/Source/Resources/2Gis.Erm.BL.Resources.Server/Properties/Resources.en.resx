@@ -153,4 +153,10 @@
   <data name="OnlyApprovedLimitCanBeIncreased" xml:space="preserve">
     <value>Only approved limits can be increased</value>
   </data>
+  <data name="ChangeProfilesOperationMessage" xml:space="preserve">
+    <value>Please specify legal entity profile</value>
+  </data>
+  <data name="ChangeProfilesOperationTitle" xml:space="preserve">
+    <value>Select profile</value>
+  </data>
 </root>

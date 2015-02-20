@@ -150,6 +150,12 @@
   <data name="OnlyApprovedLimitCanBeIncreased" xml:space="preserve">
     <value>Only approved limits can be increased</value>
   </data>
+  <data name="ChangeProfilesOperationMessage" xml:space="preserve">
+    <value>Select profile of client's legal entity</value>
+  </data>
+  <data name="ChangeProfilesOperationTitle" xml:space="preserve">
+    <value>Select profile</value>
+  </data>
   <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
     <value>The following advertising agency works with this client:</value>
   </data>

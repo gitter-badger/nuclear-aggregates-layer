@@ -121,7 +121,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
             RegistrationCertificate = modelDto.RegistrationCertificate;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

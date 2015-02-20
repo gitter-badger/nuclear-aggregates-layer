@@ -2,9 +2,11 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices
@@ -28,6 +30,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices
             using (var operationScope = _operationScopeFactory.CreateNonCoupled<UnpublishPriceIdentity>())
             {
                 var price = _priceReadModel.GetPrice(request.PriceId);
+                if (price == null)
+                {
+                    throw new EntityNotFoundException(typeof(Price), request.PriceId);
+                }
 
                 ValidatePrice(price.Id, price.OrganizationUnitId);
                 

@@ -3,9 +3,10 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositionAdvertisementValidation;
@@ -16,8 +17,6 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -30,33 +29,37 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         private readonly ICommonLog _logger;
         private readonly IPublicService _publicService;
 
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IPositionReadModel _positionReadModel;
+        private readonly IPriceReadModel _priceReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IFinder _finder;
-        private readonly IValidateOrderPositionAdvertisementsService _validateOrderPositionAdvertisementsService;
+        private readonly IValidateOrderPositionAdvertisementsOperationService _validateOrderPositionAdvertisementsOperationService;
+        private readonly IOrderDeleteReleaseWithdrawalsAggregateService _deleteReleaseWithdrawalsAggregateService;
+        private readonly IOrderDeleteReleaseTotalsAggregateService _deleteReleaseTotalsAggregateService;
 
         public RepairOutdatedPositionsOperationService(
-            ICommonLog logger,
+            IOrderReadModel orderReadModel,
+            IPositionReadModel positionReadModel,
+            IPriceReadModel priceReadModel,
             IPublicService publicService,
-            IUnitOfWork unitOfWork,
             IOrderRepository orderRepository,
-
-            // TODO {d.ivanov, 11.11.2013}: адаптировать под read-model
+            IValidateOrderPositionAdvertisementsOperationService validateOrderPositionAdvertisementsOperationService,
+            IOrderDeleteReleaseWithdrawalsAggregateService deleteReleaseWithdrawalsAggregateService,
+            IOrderDeleteReleaseTotalsAggregateService deleteReleaseTotalsAggregateService,
             IOperationScopeFactory scopeFactory,
-            IFinder finder,
-            IValidateOrderPositionAdvertisementsService validateOrderPositionAdvertisementsService,
-            IOrderReadModel orderReadModel)
+            ICommonLog logger)
         {
             _logger = logger;
             _publicService = publicService;
-            _unitOfWork = unitOfWork;
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
-            _finder = finder;
-            _validateOrderPositionAdvertisementsService = validateOrderPositionAdvertisementsService;
+            _validateOrderPositionAdvertisementsOperationService = validateOrderPositionAdvertisementsOperationService;
+            _deleteReleaseWithdrawalsAggregateService = deleteReleaseWithdrawalsAggregateService;
+            _deleteReleaseTotalsAggregateService = deleteReleaseTotalsAggregateService;
             _orderReadModel = orderReadModel;
+            _positionReadModel = positionReadModel;
+            _priceReadModel = priceReadModel;
         }
 
         public IEnumerable<RepairOutdatedPositionsOperationMessage> RepairOutdatedPositions(long orderId)
@@ -66,25 +69,29 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         public IEnumerable<RepairOutdatedPositionsOperationMessage> RepairOutdatedPositions(long orderId, bool saveDiscounts)
         {
-            // Сначала вне scope проверяем, требуется ли заказу обновление.
-            // поскольку эта операция только на чтение, внутри scope её делать не стоит, так как
-            // иначе придется его закрывать, не сделав изменений в базе.     
-            List<RepairOutdatedPositionsOperationMessage> resultMessages;
-            IEnumerable<RepairOutdatedOrderPositionDto> currentOrderPositions;
-            if (!EnsureActualization(orderId, out resultMessages, out currentOrderPositions))
+            var resultMessages = new List<RepairOutdatedPositionsOperationMessage>();
+
+            using (var scope = _scopeFactory.CreateNonCoupled<RepairOutdatedIdentity>())
             {
+                long actualPriceId;
+                if (!_orderReadModel.TryGetActualPriceIdForOrder(orderId, out actualPriceId))
+                {
+                    throw new BusinessLogicException(BLResources.OrderCheckOrderPositionsDoesntCorrespontToActualPrice);
+                }
+
+                var currentOrderInfo = _orderReadModel.GetOrderInfoForRepairOutdatedPositions(orderId);
+                if (currentOrderInfo.OrderPositions.All(orderPosition => orderPosition.PricePosition.PriceId == actualPriceId))
+                {   // все позиции заказа актуальны => актуализация не требуется
+                    scope.Complete();
                 return resultMessages;
             }
 
-            using (var operationScope = _scopeFactory.CreateNonCoupled<RepairOutdatedIdentity>())
-            {
-                // Теперь стало ясно, что изменений не избежать и присиупаем к первой части: удаление всего.
-                RemoveOutdatedData(orderId, currentOrderPositions);
+                // 1: удаление всего.
+                RemoveOutdated(currentOrderInfo);
 
-                // Вторая часть: сохранение актуализорованных данных.
-                long actualPriceId;
-                _orderReadModel.TryGetActualPriceIdForOrder(orderId, out actualPriceId);
-                ActualizeOrderPositions(currentOrderPositions, actualPriceId, resultMessages, saveDiscounts);
+                // 2: сохранение актуализированных данных.
+                ActualizeOrderPositions(currentOrderInfo.OrderPositions, actualPriceId, resultMessages, saveDiscounts);
+                
                 var order = _orderReadModel.GetOrderSecure(orderId);
                 _publicService.Handle(new UpdateOrderFinancialPerformanceRequest
                     {
@@ -96,12 +103,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
                 _orderRepository.Update(order);
 
-                operationScope
-                    .Updated<Order>(orderId)
+                scope.Updated<Order>(orderId)
                     .Complete();
             }
 
-            return resultMessages.ToArray();
+            return resultMessages;
         }
 
         private static bool AmountSpecificationModeChangedToFixedValue(PricePosition outdatedPricePosition, PricePosition actualPricePosition)
@@ -135,16 +141,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         private static void AddWarningMessage(string message, IList<RepairOutdatedPositionsOperationMessage> messages)
         {
-            messages.Add(new RepairOutdatedPositionsOperationMessage { MessageText = message, Type = DoubleGis.Erm.BLCore.API.Operations.Metadata.MessageType.Warning });
+            messages.Add(new RepairOutdatedPositionsOperationMessage { MessageText = message, Type = API.Operations.Metadata.MessageType.Warning });
         }
 
-        private bool
-            CheckOrderPositionAdvertisementCorrectness(long orderPositionId,
+        private bool CheckOrderPositionAdvertisementCorrectness(
+            long orderPositionId,
                                                        string positionName,
                                                        IEnumerable<AdvertisementDescriptor> advertisements,
                                                        IList<RepairOutdatedPositionsOperationMessage> resultMessages)
         {
-            var validationErrors = _validateOrderPositionAdvertisementsService.Validate(orderPositionId, advertisements);
+            var validationErrors = _validateOrderPositionAdvertisementsOperationService.Validate(orderPositionId, advertisements);
 
             if (validationErrors.Any(x =>
                                       x.Rule != OrderPositionAdvertisementValidationRule.RequiredAdvertisement &&
@@ -174,13 +180,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             return true;
         }
 
-        private void ActualizeOrderPositions(IEnumerable<RepairOutdatedOrderPositionDto> currentOrderPositions,
+        private void ActualizeOrderPositions(IEnumerable<OrderRepairOutdatedOrderPositionDto.OrderPositionDto> currentOrderPositions,
                                              long actualPriceId,
                                              List<RepairOutdatedPositionsOperationMessage> resultMessages,
                                              bool saveDiscounts)
         {
-            using (var scope = _unitOfWork.CreateScope())
-            {
                 foreach (var orderPosition in currentOrderPositions)
                 {
                     var advertisements = orderPosition.ClonedAdvertisements.ToList();
@@ -193,9 +197,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                                        orderPosition.ClonedAdvertisements.ToList(),
                                                        orderPosition.PricePosition,
                                                        saveDiscounts);
+                        continue;
                         }
-                        else
-                        {
+                    
                             resultMessages.AddRange(UpgradeAndRestoreOrderPosition(orderPosition.OrderPosition,
                                                                                    advertisements,
                                                                                    orderPosition.PricePosition,
@@ -203,57 +207,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                                                                    saveDiscounts));
                         }
                     }
-                }
-
-                scope.Complete();
-            }
-        }
-
-        private void RemoveOutdatedData(long orderId, IEnumerable<RepairOutdatedOrderPositionDto> currenOrderPositionDtos)
-        {
-            using (var scope = _unitOfWork.CreateScope())
-            {
-                var releaseWithdrawalRepository = scope.CreateRepository<IWithdrawalInfoRepository>();
-                releaseWithdrawalRepository.DeleteReleaseWithdrawalPositionsForOrder(orderId);
-
-                scope.Complete();
             }
 
-            using (var scope = _unitOfWork.CreateScope())
-            {
-                var orderRepository = scope.CreateRepository<IOrderRepository>();
-                var releaseWithdrawalRepository = scope.CreateRepository<IWithdrawalInfoRepository>();
-
-                foreach (var orderPosition in currenOrderPositionDtos)
+        private void RemoveOutdated(OrderRepairOutdatedOrderPositionDto currenOrderInfo)
                 {
-                    releaseWithdrawalRepository.Delete(orderPosition.Withdrawals);
-
-                    // ReleaseWithdrawalRepository напрашивается на объединение с OrderRepository
-                    orderRepository.Delete(orderPosition.Advertisements);
-                    orderRepository.Delete(orderPosition.OrderPosition);
-                }
-
-                orderRepository.DeleteOrderReleaseTotalsForOrder(orderId);
-
-                scope.Complete();
-            }
-        }
-
-        private bool EnsureActualization(long orderId,
-                                         out List<RepairOutdatedPositionsOperationMessage> resultMessages,
-                                         out IEnumerable<RepairOutdatedOrderPositionDto> currentOrderPositions)
+            foreach (var orderPosition in currenOrderInfo.OrderPositions)
         {
-            long actualPriceId;
-            resultMessages = new List<RepairOutdatedPositionsOperationMessage>();
+                _deleteReleaseWithdrawalsAggregateService.Delete(orderPosition.ReleaseWithdrawals);
 
-            currentOrderPositions = GetOrderPositionsExtended(orderId);
-            if (!_orderReadModel.TryGetActualPriceIdForOrder(orderId, out actualPriceId))
-            {
-                throw new NotificationException(BLResources.OrderCheckOrderPositionsDoesntCorrespontToActualPrice);
+                _orderRepository.Delete(orderPosition.Advertisements);
+                _orderRepository.Delete(orderPosition.OrderPosition);
             }
 
-            var allPositionsAreUpToDate = currentOrderPositions.All(orderPosition => orderPosition.PricePosition.PriceId == actualPriceId);
-            return !allPositionsAreUpToDate;
+            _deleteReleaseTotalsAggregateService.Delete(currenOrderInfo.ReleaseTotals);
         }
 
         private IEnumerable<RepairOutdatedPositionsOperationMessage> UpgradeAndRestoreOrderPosition(OrderPosition orderPosition,
@@ -264,13 +230,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         {
             var resultMessages = new List<RepairOutdatedPositionsOperationMessage>();
 
-            var actualPricePosition = GetPricePosition(pricePosition.PositionId, actualPriceId);
-            var positionName = GetPositionName(pricePosition.PositionId);
-
+            var positionName = _positionReadModel.GetPositionName(pricePosition.PositionId);
+            var actualPricePosition = _priceReadModel.GetPricePosition(actualPriceId, pricePosition.PositionId);
             if (actualPricePosition == null)
             {
                 var message = string.Format(BLResources.OrderPositionWasRemoved, positionName);
-                _logger.InfoFormatEx(message);
+                _logger.InfoFormat(message);
                 AddWarningMessage(message, resultMessages);
                 return resultMessages;
             }
@@ -293,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 }
             }
 
-            _logger.InfoFormatEx(BLResources.OrderPositionWasReplaced, positionName, orderPosition.OrderId, actualPricePosition.PriceId);
+            _logger.InfoFormat(BLResources.OrderPositionWasReplaced, positionName, orderPosition.OrderId, actualPricePosition.PriceId);
             RestoreClonedOrderPosition(orderPosition, advertisements, actualPricePosition, saveDiscount);
             return resultMessages;
         }
@@ -326,31 +291,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                     AdvertisementsLinks = orderPositionAdvertisements.ToArray(),
                 };
             _publicService.Handle(createRequest);
-        }
-
-        // TODO {d.ivanov, 11.11.2013}: перенести в read-model
-        private PricePosition GetPricePosition(long positionId, long priceId)
-        {
-            return _finder.Find(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId))
-                          .Where(Specs.Find.ActiveAndNotDeleted<PricePosition>())
-                          .SingleOrDefault();
-        }
-
-        // TODO {d.ivanov, 11.11.2013}: перенести в read-model
-        private string GetPositionName(long positionId)
-        {
-            return _finder.Find((Specs.Find.ById<Position>(positionId)))
-                          .Select(item => item.Name)
-                          .SingleOrDefault();
-        }
-
-        // TODO {d.ivanov, 11.11.2013}: перенести в read-model
-        private IEnumerable<RepairOutdatedOrderPositionDto> GetOrderPositionsExtended(long orderId)
-        {
-            return _finder.Find<OrderPosition, RepairOutdatedOrderPositionDto>(OrderSpecs.OrderPositions.Select.RepairOutdatedOrderPositions(),
-                                                                               OrderSpecs.OrderPositions.Find.ByOrder(orderId) &&
-                                                                               Specs.Find.ActiveAndNotDeleted<OrderPosition>())
-                          .ToArray();
         }
     }
 }

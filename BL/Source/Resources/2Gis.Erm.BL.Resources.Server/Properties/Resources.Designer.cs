@@ -88,6 +88,24 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберите профиль юридического лица клиента.
+        /// </summary>
+        public static string ChangeProfilesOperationMessage {
+            get {
+                return ResourceManager.GetString("ChangeProfilesOperationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберите профиль.
+        /// </summary>
+        public static string ChangeProfilesOperationTitle {
+            get {
+                return ResourceManager.GetString("ChangeProfilesOperationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string ClientHasParentLinkToAdvAgency {
