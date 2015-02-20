@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                         if (unsupported.Any())
                         {
                             var organizationUnitName = _organizationUnitReadModel.GetName(orderInfo.DestOrganizationUnitId);
-                            throw new NewSalesModelNotEnabledForCategoryOrOrganizationUnitException(unsupported.Select(pair => pair.Value), organizationUnitName);
+                            throw new CategoryIsRestrictedBySalesModelException(unsupported.Select(pair => pair.Value), organizationUnitName, pricePositionInfo.SalesModel);
                         }
                     }
 

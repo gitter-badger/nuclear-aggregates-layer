@@ -175,7 +175,7 @@
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\NewSalesModelNotEnabledForCategoryOrOrganizationUnitException.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\CategoryIsRestrictedBySalesModelException.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainRequest.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IValidateOrderPositionAdvertisementsOperationService.cs" />

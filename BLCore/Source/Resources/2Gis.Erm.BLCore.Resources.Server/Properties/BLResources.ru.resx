@@ -4975,8 +4975,8 @@ Cумма по операции: {5}.
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>Новая модель продаж пока не поддерживается в городе "{0}" и/или в рубрике "{1}"</value>
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
+    <value>Рубрики ({0}) не поддерживаются для модели продаж "{1}" в городе "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Для всех подпозиций позиции заказа, оформленной на позицию прайс-листа с типом расчета коэффициента [{0}], должна быть указана рубрика</value>
