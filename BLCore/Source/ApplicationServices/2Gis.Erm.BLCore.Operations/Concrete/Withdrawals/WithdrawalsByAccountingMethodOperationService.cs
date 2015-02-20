@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
 
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 var result = new Dictionary<long, WithdrawalProcessingResult>();
                 foreach (var organizationUnit in organizationUnits)
                 {
-                    using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, 0))
+                    using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
                     {
                         result.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
                         transactionScope.Complete();
