@@ -387,9 +387,9 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ControlCreateOnBasis {
+        public static string ControlSaveAndCreateOnBasis {
             get {
-                return ResourceManager.GetString("ControlCreateOnBasis", resourceCulture);
+                return ResourceManager.GetString("ControlSaveAndCreateOnBasis", resourceCulture);
             }
         }
         

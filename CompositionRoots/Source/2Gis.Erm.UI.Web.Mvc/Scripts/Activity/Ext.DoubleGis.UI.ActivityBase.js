@@ -97,42 +97,33 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         }
     },
     CreateTask: function () {
-        this.Create({ overridenEntityName: "Task" });
+        this.SaveAndCreate("Task");
     },
     CreatePhonecall: function () {
-        this.Create({ overridenEntityName: "Phonecall" });
+        this.SaveAndCreate("Phonecall");
     },
     CreateAppointment: function () {
-        this.Create({ overridenEntityName: "Appointment" });
+        this.SaveAndCreate("Appointment");
     },
     CreateLetter: function () {
-        this.Create({ overridenEntityName: "Letter" });
+        this.SaveAndCreate("Letter");
     },
-    Create: function (settings) {
-        var sUrl;
-        //var queryString = "";
-        var params;
-        if (this.form.Id.value == 0) {
-            Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
-            return false;
-        }
-       
-        var overridenEntityName = settings ? settings.overridenEntityName : null;
+    SaveAndCreate: function (entityName) {
+        if (this.isDirty) {
+            this.on('postformsuccess', function (sender, form) { this.CreateActivityWindow(entityName, form.Id); });
+            this.Save();
+        } else {
+            this.CreateActivityWindow(entityName,this.form.Id.value);
+        }        
+    },
+    CreateActivityWindow: function(entityName, entityId) {   
+        var params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}", window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight, window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
 
-      
+        var queryString = '?pId=' + entityId + '&pType=' + this.EntityName;
 
-        if (this.fireEvent("beforecreate", this) === false) {
-            return;
-        }       
-
-        params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}", window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight, window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
-       
-        var queryString = '?pId=' + this.form.Id.value + '&pType=' + this.EntityName;
-       
-
-        sUrl = Ext.DoubleGis.Global.Helpers.EvaluateCreateEntityUrl(overridenEntityName ? overridenEntityName : this.EntityName, queryString);
-         window.open(sUrl, "_blank", params);    
-    }, 
+        var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateCreateEntityUrl(entityName, queryString);
+        window.open(sUrl, "_blank", params);
+    },
     Build: function () {     
         Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
 

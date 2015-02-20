@@ -279,7 +279,7 @@
   <data name="ControlCreateLetter" xml:space="preserve">
     <value />
   </data>
-  <data name ="ControlCreateOnBasis" xml:space="preserve">
+  <data name ="ControlSaveAndCreateOnBasis" xml:space="preserve">
     <value/>
   </data>
   <data name="EnNavigationArea" xml:space="preserve">
