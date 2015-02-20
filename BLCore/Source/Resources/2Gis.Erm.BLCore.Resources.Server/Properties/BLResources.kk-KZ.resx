@@ -5204,4 +5204,10 @@ Cумма по операции: {5}.
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
   </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие на фирму в резерве</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие на клиента в резерве</value>
+  </data>
 </root>

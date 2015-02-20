@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
@@ -6,7 +8,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -31,6 +32,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Contact>();
 
+            bool excludeReserve;
+            Expression<Func<Contact, bool>> excludeReserveFilter = null;
+            if (querySettings.TryGetExtendedProperty("ExcludeReserve", out excludeReserve))
+            {
+                var reserveCode = _userIdentifierService.GetReserveUserIdentity().Code;
+                excludeReserveFilter = x => x.OwnerCode != reserveCode;
+            }
+
             bool forClientAndLinkedChild;
             if (querySettings.TryGetExtendedProperty("ForClientAndLinkedChild", out forClientAndLinkedChild) && querySettings.ParentEntityId.HasValue)
             {
@@ -38,6 +47,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             }
 
             return query
+            .Filter(_filterHelper, excludeReserveFilter)
             .Select(x => new ListContactDto
             {
                 Id = x.Id,
