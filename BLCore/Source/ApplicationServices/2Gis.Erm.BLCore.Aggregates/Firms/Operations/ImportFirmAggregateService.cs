@@ -67,8 +67,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
                 if (diffParsedDtoAndAggregateService.Any())
                 {
                     importFirmChanges.Updated<Firm>(diffParsedDtoAndAggregateService);
-                    _logger.WarnEx("There are different firm changes detected from parsed dto and reported by aggregate service. Divergent firm ids count: " + diffParsedDtoAndAggregateService.Length);
-                    _logger.DebugEx("Divergent firm ids (DiffParsedDtoAndAggregateService): " + string.Join(",", diffParsedDtoAndAggregateService));
+                    _logger.Warn("There are different firm changes detected from parsed dto and reported by aggregate service. Divergent firm ids count: " + diffParsedDtoAndAggregateService.Length);
+                    _logger.Debug("Divergent firm ids (DiffParsedDtoAndAggregateService): " + string.Join(",", diffParsedDtoAndAggregateService));
                 }
 
                 return importFirmChanges;

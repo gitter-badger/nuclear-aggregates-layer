@@ -126,10 +126,12 @@
       <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListInactiveActivities" HideInCardRelatedGrid="" />
       <!--Мои действия-->
       <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyActivities" HideInCardRelatedGrid="*" />
+      <!--Мои открытые планы-->
+      <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyOpenedActivities" HideInCardRelatedGrid="" />
       <!--Действия по моим подчиненным-->
       <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListActivitiesForSubordinates" HideInCardRelatedGrid="*" />
       <!--Мои завершенные действия-->
-      <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyCompletedActivities" HideInCardRelatedGrid="*"/>
+      <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyCompletedActivities" HideInCardRelatedGrid=""/>
       <!--Завершенные действия по моим подчиненным-->
       <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListCompletedActivitiesForSubordinates" HideInCardRelatedGrid="*" />
       <!--Мои запланированные действия -->

@@ -11,6 +11,11 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Data
             return source as T[] ?? source.ToArray();
         }
 
+        public static IEnumerable<T> With<T>(this IEnumerable<T> source, params T[] additionalElements)
+        {
+            return source.Concat(additionalElements);
+        }
+
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             return source.DistinctBy(keySelector, null);

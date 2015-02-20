@@ -251,5 +251,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int UpdateOrganizationStructureDenormalization = 60901;
 
         public const int PerformedOperationProcessingAnalysisIdentity = 19500;
+
+        // EntityName.SalesModelCategoryRestriction = 272
+        public const int ImportAdvModelInRubricInfoIdentity = 27201;
     }
 }

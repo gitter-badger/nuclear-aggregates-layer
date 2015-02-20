@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _logger.ErrorFormat(ex,
                                       "Can't serialize tracked use case to brokered message. Use case description: {0}",
                                       useCase);
                 stream.Dispose();

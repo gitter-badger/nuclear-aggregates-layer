@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 
             if (entity == null)
             {
-                Logger.FatalEx("Критичная ошибка журналирования объекта. Не удалось получить экземпляр объекта до изменения");
+                Logger.Fatal("Критичная ошибка журналирования объекта. Не удалось получить экземпляр объекта до изменения");
             }
             else
             {
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.FatalEx(ex, "Критичная ошибка создания копии объекта до изменения");
+                    Logger.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
                 }
             }
 
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.FatalEx(ex, "Критичная ошибка журналирования операций");
+                    Logger.Fatal(ex, "Критичная ошибка журналирования операций");
                 }
             }
 

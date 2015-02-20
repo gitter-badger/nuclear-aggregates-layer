@@ -364,6 +364,7 @@
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateTasks.sql" />
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateAppointments.sql" />
     <Content Include="Resources\201501201646\Billing.ReplicateDeals.sql" />
+    <Content Include="Resources\201502110416\Log.Events_DateLocalTimeZone.sql" />
     <None Include="packages.config" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />
     <None Include="Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql" />
@@ -381,6 +382,7 @@
     <Content Include="Resources\201411261501\ReplicateLegalPersons.sql" />
     <Content Include="Resources\201411261501\ReplicateLimits.sql" />
     <Content Include="Resources\201411261501\ReplicateOrders.sql" />
+    <Content Include="Resources\2014.11.24 rev. 201411241430\UpgradeLoggingStorage.sql" />
     <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create CleanupERM SP.sql">
       <LogicalName>Migration6766CreateCleanupERM</LogicalName>
       <DependentUpon>2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs</DependentUpon>
@@ -812,6 +814,11 @@
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
     <Compile Include="2.1\201501201646 - Deal replication fix.cs" />
     <Compile Include="2.1\201412291720 - Insert missing Organizers.cs" />
+    <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
+    <Compile Include="2.1\Migration201502111010.cs" />
+    <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
+    <Compile Include="2.1\Migration201502111010.cs" />
+    <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />
@@ -852,6 +859,7 @@
     <Compile Include="ActivityMigration\TaskMigration.cs" />
     <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
     <Compile Include="2.1\201412040408 - Drop column PaymentEssentialElements.cs" />
+    <Compile Include="2.1\Migration201412301100 - add SalesModelCategoryRestrictions.cs" />
     <Compile Include="2.1\Migration201412240529 - rename AccountingMethodEnum to SalesModelEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
@@ -918,6 +926,7 @@
     <Compile Include="0.15 - HangzhouBay\2012.11.30 rev. 5419 alter impotFim and updateBuilding SPs.cs" />
     <Compile Include="0.18\2013.06.14 rev. 9337 - Alter AdvertisementElements.cs" />
     <Compile Include="2.1\2014.07.24 rev. 22717 - Create ClientLinks table.cs" />
+    <Compile Include="2.1\2014.11.24 rev. 201411241430 - Upgrade logging storage.cs" />
     <None Include="Resources\DoubleGis.Erm.SqlClr.dll" />
   </ItemGroup>
   <ItemGroup>

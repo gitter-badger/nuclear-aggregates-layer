@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't push aggregated results of primary processing to final processing queue");
+                _logger.ErrorFormat(ex, "Can't push aggregated results of primary processing to final processing queue");
                 foreach (var aggregatedResultsEntry in originalMessageIds)
                 {
                     handlingResults.Add(aggregatedResultsEntry, MessageProcessingStage.Handle.EmptyResult().WithExceptions(ex).AsFailed());

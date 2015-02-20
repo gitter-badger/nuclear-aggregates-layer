@@ -377,6 +377,61 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (
+        ///SELECT  schema_name
+        ///FROM    information_schema.schemata
+        ///WHERE   schema_name = N&apos;Log&apos; ) 
+        ///BEGIN
+        ///EXEC sp_executesql N&apos;CREATE SCHEMA Log&apos;
+        ///END
+        ///ELSE 
+        ///BEGIN 
+        ///	print &apos;Target schema for log events is already exists, so do nothing&apos;
+        ///END
+        ///
+        ///IF (NOT EXISTS (SELECT * 
+        ///                 FROM INFORMATION_SCHEMA.TABLES 
+        ///                 WHERE TABLE_SCHEMA = N&apos;Log&apos; 
+        ///                 AND  TABLE_NAME = N&apos;Events&apos;))
+        ///BEGIN
+        ///    EXEC sp_executesql N&apos;CREATE TABLE [Log].[Events](
+        ///						[Id] [bigint] IDE [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _201411241430_UpgradeLoggingStorage_ {
+            get {
+                return ResourceManager.GetString("_201411241430_UpgradeLoggingStorage_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SET ANSI_NULLS ON
+        ///GO
+        ///
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///CREATE View [Log].[Events_LocalTimeZone] as
+        ///SELECT [Id]
+        ///      ,DATEADD(mi, DATEDIFF(mi, GETUTCDATE(), GETDATE()), [Date]) as DateLocalTimeZone
+        ///      ,[Level]
+        ///      ,[Message]
+        ///      ,[ExceptionData]
+        ///      ,[Environment]
+        ///      ,[EntryPoint]
+        ///      ,[EntryPointHost]
+        ///      ,[EntryPointInstanceId]
+        ///      ,[UserAccount]
+        ///      ,[UserSession]
+        ///      ,[UserAddress]
+        ///      ,[UserAgent]
+        ///FROM [Log].[Events].
+        /// </summary>
+        internal static string _201502110416_Log_Events_DateLocalTimeZone {
+            get {
+                return ResourceManager.GetString("_201502110416_Log_Events_DateLocalTimeZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///-- 05.06.2013, a.rechkalov: добавил параметр RegionalTerritoryLocalName
         ///-- 05.06.2013, a.rechkalov: добавил условие, чтобы в Integration.Builings не пытался вставиться NULL
@@ -2573,7 +2628,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///        &lt;ToolBar&gt;
         ///          &lt;Button Icon=&quot;/_imgs/AdvFind/new.GIF&quot; JavaScript=&quot;openStdWin(&apos;https://web-app05.test.erm.2gis.ru/Grid/View/Order?singleDataView=DListOrdersFast&apos;, &apos;FastSearch&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
         ///            &lt;Titles&gt;
-        ///              &lt;Title LCID=&quot;1049&quot; Text=&quot; [rest of string was truncated]&quot;;.
+        ///              &lt;Title LCID=&quot;1049&quot; Text=&quot;Быстрый поиск [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Customizations_201411271239 {
             get {
@@ -3495,7 +3550,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	            , [tasks].[ReplicationCode] as [ActivityId]
         ///
         ///	            , [tasks].[Subject]
-        ///	            , [tasks].[Description] [rest of string was truncated]&quot;;.
+        ///	            , [tasks].[Description]
+        ///	            , CAS [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration201412021150_Alter_ReplicateTask {
             get {
@@ -3607,7 +3663,9 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///        USING (
         ///            SELECT 
         ///                4212 as [ActivityTypeCode]
-        ///	            , [tasks].[ReplicationCode]  [rest of string was truncated]&quot;;.
+        ///	            , [tasks].[ReplicationCode] as [ActivityId]
+        ///
+        ///	  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration201412081011_Create_ReplicateTasks {
             get {

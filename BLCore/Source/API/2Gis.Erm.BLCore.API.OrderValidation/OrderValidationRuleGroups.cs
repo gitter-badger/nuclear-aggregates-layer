@@ -23,6 +23,11 @@
         /// <summary>
         /// Группа для проверки на количество рекламы
         /// </summary>
-        AdvertisementAmountValidation = 4
+        AdvertisementAmountValidation = 4,
+
+        /// <summary>
+        /// Группа для проверок по моделям продаж
+        /// </summary>
+        SalesModelValidation = 5
     }
 }

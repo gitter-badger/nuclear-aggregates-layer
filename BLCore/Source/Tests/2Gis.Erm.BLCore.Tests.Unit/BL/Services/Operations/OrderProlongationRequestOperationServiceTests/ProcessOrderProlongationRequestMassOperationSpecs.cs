@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
             private It should_log_exception = () =>
                                               Mock.Get(logger)
-                                                  .Verify(x => x.FatalEx(exception, Moq.It.IsAny<string>()));
+                                                  .Verify(x => x.Fatal(exception, Moq.It.IsAny<string>()));
         }
     }
 }

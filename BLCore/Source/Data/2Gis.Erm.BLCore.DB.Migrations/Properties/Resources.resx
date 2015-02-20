@@ -595,4 +595,10 @@
   <data name="InsertMissingOrganizers_201412291720" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\201412291720 - Insert missing organizers.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="_201411241430_UpgradeLoggingStorage_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.11.24 rev. 201411241430\UpgradeLoggingStorage.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_201502110416_Log_Events_DateLocalTimeZone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\201502110416\Log.Events_DateLocalTimeZone.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>
