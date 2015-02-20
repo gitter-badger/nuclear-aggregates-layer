@@ -817,8 +817,6 @@
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
     <Compile Include="2.1\Migration201502111010.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
-    <Compile Include="2.1\Migration201502111010.cs" />
-    <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />
