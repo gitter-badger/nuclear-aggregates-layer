@@ -17,7 +17,7 @@ Ext.DoubleGis.UI.ContactRelationController = Ext.extend(Ext.util.Observable, {
         Ext.getCmp(this.contactComp).on("afterselect", this.onContactChanged, this);
 
         // иницируем заполнение для новой сущности
-        if (!Ext.fly("Id").getValue(true) && !Ext.fly("DealId").getValue() && !Ext.fly("FirmId").getValue()) {
+        if (Ext.fly("IsNeedLookupInitialization").getValue().toLowerCase() === "true") {
             if (Ext.fly(this.clientField).getValue()) {
                 this.onClientChanged();
             }
