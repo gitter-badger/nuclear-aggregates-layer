@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                 if (!allWithwrawalsSucceded)
                 {
                     var operationId = Guid.NewGuid();
-                    var operationDescription = string.Format("Списание за {0} - {1} со способом оказания услуг: '{2}' завершено с ошибками",
+                    var operationDescription = string.Format(BLResources.WithdrawalFailed,
                                                              period.Start,
                                                              period.End,
                                                              viewModel.AccountingMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
@@ -213,7 +213,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             return new ErrorsReport
                        {
                            ReportContent = reportContent,
-                           ReportFileName = string.Format("WithdrawalReport{0}_{1}_{2}.csv", period.Start.ToShortDateString(), period.End.ToShortDateString(), accountingMethod),
+                           ReportFileName = string.Format("WithdrawalReport{0:dd-MM-yy}_{1:dd-MM-yy}_{2}.csv", period.Start, period.End, accountingMethod),
                            ContentType = "text/csv",
                        };
         }

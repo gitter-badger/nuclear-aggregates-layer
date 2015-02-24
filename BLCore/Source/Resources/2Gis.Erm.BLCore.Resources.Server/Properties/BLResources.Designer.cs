@@ -15041,6 +15041,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string WithdrawalFailed {
+            get {
+                return ResourceManager.GetString("WithdrawalFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Workflow {
             get {
                 return ResourceManager.GetString("Workflow", resourceCulture);

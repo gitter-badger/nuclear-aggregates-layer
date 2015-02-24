@@ -5194,4 +5194,7 @@ Doba zveřejnění: {3}.</value>
   <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
     <value>Укажите период и способ учета оказания услуг</value>
   </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Списание за {0} - {1} со способом оказания услуг: '{2}' завершено с ошибками</value>
+  </data>
 </root>

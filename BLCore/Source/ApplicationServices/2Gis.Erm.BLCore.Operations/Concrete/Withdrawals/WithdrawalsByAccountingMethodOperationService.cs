@@ -77,33 +77,30 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 //        string.Format("Can't create lock details before withdrawing. The following projects have no charges: {0}.",
                 //                      string.Join(", ", projectsWithoutCharges)));
                 //}
-            }            
+            }
 
+            var organizationUnits = _accountReadModel.GetOrganizationUnitsToProccessWithdrawals(period.Start, period.End, accountingMethod);
+            var result = new Dictionary<long, WithdrawalProcessingResult>();
+            foreach (var organizationUnit in organizationUnits)
+            {
+                try
+                {
+                    result.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
+                }
+                catch (Exception ex)
+                {
+                    result.Add(organizationUnit, WithdrawalProcessingResult.Errors(ex.ToString()));
+                    _commonLog.ErrorFormat(ex, "Не удалось провести списание по отделению организации {0}", organizationUnit);
+                }
+            }
+
+            // Регистрируем факт проведения операции. Вложенных записей нет, т.к. списание по каждому городу проходит в своей транзакции
             using (var scope = _operationScopeFactory.CreateNonCoupled<WithdrawalsByAccountingMethodIdentity>())
             {
-                var organizationUnits = _accountReadModel.GetOrganizationUnitsToProccessWithdrawals(period.Start, period.End, accountingMethod);
-                var result = new Dictionary<long, WithdrawalProcessingResult>();
-                foreach (var organizationUnit in organizationUnits)
-                {
-                    try
-                    {
-                        using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
-                        {
-                            result.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
-                            transactionScope.Complete();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        result.Add(organizationUnit, WithdrawalProcessingResult.Errors(ex.ToString()));
-                        _commonLog.ErrorFormat(ex, "Не удалось провести списание по отделению организации {0}", organizationUnit);
-                    }
-                }
-
                 scope.Complete();
-
-                return result;
             }
+
+            return result;
         }
     }
 }
