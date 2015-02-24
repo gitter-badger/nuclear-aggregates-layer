@@ -27,7 +27,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Positions
             {
                 var positions = _readModel.GetPositions(data.Select(dto => dto.Id));
                 _aggregateService.ChangeSorting(positions, data);
-                scope.Updated(positions);
                 scope.Complete();
             }
         }
