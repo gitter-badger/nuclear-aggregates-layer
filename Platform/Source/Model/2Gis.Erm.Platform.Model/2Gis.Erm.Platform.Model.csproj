@@ -336,6 +336,7 @@
     <Compile Include="Entities\Erm\ExportFailedEntity.cs" />
     <Compile Include="Entities\Erm\ExportFlowCardExtensionsCardCommercial.cs" />
     <Compile Include="Entities\Erm\ExportFlowDeliveryData_LetterSendRequest.cs" />
+    <Compile Include="Entities\Erm\ExportFlowFinancialDataDebitsInfoInitial.cs" />
     <Compile Include="Entities\Erm\ExportFlowFinancialDataClient.cs" />
     <Compile Include="Entities\Erm\ExportFlowFinancialDataLegalEntity.cs" />
     <Compile Include="Entities\Erm\ExportFlowNomenclatures_NomenclatureElement.cs" />

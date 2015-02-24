@@ -167,6 +167,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.ExportFlowOrdersTheme, typeof(ExportFlowOrdersTheme) },
                 { EntityName.ExportFlowOrdersThemeBranch, typeof(ExportFlowOrdersThemeBranch) },
                 { EntityName.ExportFlowFinancialDataClient, typeof(ExportFlowFinancialDataClient) },
+                { EntityName.ExportFlowFinancialDataDebitsInfoInitial, typeof(ExportFlowFinancialDataDebitsInfoInitial) },
                 { EntityName.ExportFlowPriceListsPriceList, typeof(ExportFlowPriceListsPriceList) },
                 { EntityName.ExportFlowPriceListsPriceListPosition, typeof(ExportFlowPriceListsPriceListPosition) },
                 { EntityName.ExportFlowOrdersInvoice, typeof(ExportFlowOrdersInvoice) },

@@ -132,6 +132,7 @@
         ExportFailedEntity = 254,
         HotClientRequest = 257,
         ExportFlowFinancialDataClient = 255,
+        ExportFlowFinancialDataDebitsInfoInitial = 273,
         ExportFlowPriceListsPriceList = 261,
         ExportFlowPriceListsPriceListPosition = 262,
         ExportFlowOrdersInvoice = 264,
