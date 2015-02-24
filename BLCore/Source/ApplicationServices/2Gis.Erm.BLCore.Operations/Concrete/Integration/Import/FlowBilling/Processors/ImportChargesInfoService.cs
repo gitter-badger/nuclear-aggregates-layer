@@ -82,6 +82,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                                                                                            x.WithdrawalStatus)))));
             }
 
+            var chargesWithNegativeAmount = chargesInfo.Charges.Where(x => x.Amount < 0).ToArray();
+            if (chargesWithNegativeAmount.Any())
+            {
+                throw new CannotCreateChargesException(string.Format("Can't import charges. Amount for following OrderPositions is negative: {0}",
+                                                                     string.Join(",", chargesWithNegativeAmount.Select(x => x.OrderPositionId.ToString()))));
+            }
+
             try
             {
                 ProcessInScope(chargesInfo, timePeriod);
