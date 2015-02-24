@@ -100,6 +100,7 @@
     <Compile Include="Generic\Delete\DeleteLimitService.cs" />
     <Compile Include="Generic\Get\GetDenialReasonDtoOperationService.cs" />
     <Compile Include="Generic\Get\GetLimitDtoService.cs" />
+    <Compile Include="Generic\Modify\ModifyLegalPersonProfileService.cs" />
     <Compile Include="Generic\Modify\ModifyLimitService.cs" />
     <Compile Include="Generic\Modify\SimplifiedModel\ModifyDenialReasonOperationService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

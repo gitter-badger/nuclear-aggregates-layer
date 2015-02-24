@@ -299,25 +299,10 @@ WriteLiteral("                ");
             
             #line default
             #line hidden
-WriteLiteral("\r\n            </div>\r\n            <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                ");
-
-            
-            #line 103 "..\..\Views\LocalMessage\Export.cshtml"
-           Write(Html.TemplateField(m => m.CreateCsvFile, FieldFlex.lone));
-
-            
-            #line default
-            #line hidden
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
-            
-            #line 106 "..\..\Views\LocalMessage\Export.cshtml"
+
+            #line 103 "..\..\Views\LocalMessage\Export.cshtml"
     }
 
             

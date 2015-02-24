@@ -126,7 +126,6 @@
     <Compile Include="Attributes\RutValidationAttribute.cs" />
     <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="DI\BlUiWebMvcAssembly.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdditionalFirmServiceController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
@@ -198,7 +197,6 @@
     <Compile Include="Models\DeleteAllBillsViewModel.cs" />
     <Compile Include="Models\DeniedPositionViewModel.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
-    <Compile Include="Models\ExportAccountTo1CViewModel.cs" />
     <Compile Include="Models\FirmContactViewModel.cs" />
     <Compile Include="Models\GetOrdersWithDummyAdvertisementDialogModel.cs" />
     <Compile Include="Models\LimitViewModel.cs" />
@@ -264,16 +262,6 @@
     <Compile Include="Services\Grid\LimitGridViewService.cs" />
     <Compile Include="Services\Grid\OrderFileViewService.cs" />
     <Compile Include="Utils\ModelBinderProvider.cs" />
-    <Compile Include="Views\Account\ExportTo1CDialog.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ExportTo1CDialog.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Account\ExportToServiceBusDialog.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ExportToServiceBusDialog.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shared\SelectLegalPersonProfile.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -775,14 +763,6 @@
     <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Views\Account\ExportTo1CDialog.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ExportTo1CDialog.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Account\ExportToServiceBusDialog.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ExportToServiceBusDialog.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\SelectLegalPersonProfile.cshtml">
       <Generator>RazorGenerator</Generator>

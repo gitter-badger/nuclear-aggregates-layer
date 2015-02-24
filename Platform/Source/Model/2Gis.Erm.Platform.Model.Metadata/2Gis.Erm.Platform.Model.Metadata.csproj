@@ -96,6 +96,7 @@
     <Compile Include="Entities\EAV\PropertyIdentities\IpnIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\MfoIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\PropertyIdentityIds.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\ChiefFullNameInNominativeIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeAuthorityDocumentIssuedByIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeAuthorityDocumentIssuedOnIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\NameIdentity.cs" />

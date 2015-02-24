@@ -222,15 +222,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             return result;
         }
 
-        public string[] SelectNotUnique1CSyncCodes(IEnumerable<string> codes)
-        {
-            return _finder.Find<Account>(x => x.IsActive && !x.IsDeleted && codes.Contains(x.LegalPesonSyncCode1C))
-                .GroupBy(x => x.LegalPesonSyncCode1C)
-                          .Where(x => x.Distinct().Count() > 1)
-                          .Select(x => x.Key)
-                          .ToArray();
-        }
-
         public LegalPerson FindLegalPerson(long entityId)
         {
             return _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
@@ -254,16 +245,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                 _legalPersonProfileGenericRepository.Save();
                 operationScope.Complete();
             }
-        }
-
-        [Obsolete("Перенести в ILegalPersonReadModel + учесть разные бизнес-модели")]
-        public LegalPersonWithProfiles GetLegalPersonWithProfiles(long legalPersonId)
-        {
-            return new LegalPersonWithProfiles
-                {
-                    LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId)),
-                    Profiles = _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) & Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>())
-                };
         }
 
         public LegalPerson FindLegalPersonByProfile(long profileId)

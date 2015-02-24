@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Russia;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 
 using NuClear.Model.Common.Entities.Aspects;
@@ -18,6 +19,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Globalization
                 { typeof(ChileLegalPersonPart), typeof(IChileAdapted) },
                 { typeof(UkraineLegalPersonPart), typeof(IUkraineAdapted) },
                 { typeof(ChileLegalPersonProfilePart), typeof(IChileAdapted) },
+                { typeof(RussiaLegalPersonProfilePart), typeof(IRussiaAdapted) },
                 { typeof(UkraineLegalPersonProfilePart), typeof(IUkraineAdapted) },
                 { typeof(ChileBranchOfficeOrganizationUnitPart), typeof(IChileAdapted) },
                 { typeof(UkraineBranchOfficePart), typeof(IUkraineAdapted) },

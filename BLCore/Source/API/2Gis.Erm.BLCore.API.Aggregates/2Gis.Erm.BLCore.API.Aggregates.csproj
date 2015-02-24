@@ -58,6 +58,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Accounts\DTO\AccountDetailForExportDto.cs" />
     <Compile Include="Accounts\DTO\AccountDTOs.cs" />
     <Compile Include="Accounts\DTO\AccountIdAndOwnerCodeDto.cs" />
     <Compile Include="Accounts\DTO\AccountInfoForImportFrom1C.cs" />

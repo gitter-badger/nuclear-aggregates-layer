@@ -72,6 +72,7 @@
     <Compile Include="Entities\DTOs\Emirates\EmiratesLegalPersonProfileDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Emirates\EmiratesClientDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Emirates\EmiratesLegalPersonDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Russia\RussiaLegalPersonProfileDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Ukraine\UkraineBranchOfficeOrganizationUnitDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Ukraine\UkraineBranchOfficeDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Ukraine\UkraineLegalPersonProfileDomainEntityDto.cs" />

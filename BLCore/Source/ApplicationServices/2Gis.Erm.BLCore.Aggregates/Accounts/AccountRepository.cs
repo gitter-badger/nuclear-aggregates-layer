@@ -515,7 +515,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public IEnumerable<Account> GetAccountsByLegalPerson(string legalPersonSyncCode1C)
         {
-            return _finder.Find(AccountSpecs.Accounts.Find.ByLegalPersonSyncCode1C(legalPersonSyncCode1C)).ToArray();
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Account>() &&
+                                AccountSpecs.Accounts.Find.ByLegalPersonSyncCode1C(legalPersonSyncCode1C)).ToArray();
         }
 
         public void RecalculateLockValue(Lock lockEntity)

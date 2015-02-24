@@ -98,9 +98,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .ToArray();
         }
 
-        public IEnumerable<Order> GetOrdersForRelease(long organizationUnitId, TimePeriod period)
+        public IEnumerable<long> GetOrderIdsForRelease(long organizationUnitId, TimePeriod period)
         {
-            return _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>());
+            return _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) &&
+                                Specs.Find.ActiveAndNotDeleted<Order>())
+                          .Select(x => x.Id)
+                          .ToArray();
         }
 
         public OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds)

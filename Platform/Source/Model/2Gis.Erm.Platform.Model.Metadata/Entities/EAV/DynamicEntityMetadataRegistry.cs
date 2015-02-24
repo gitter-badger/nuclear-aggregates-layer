@@ -5,6 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Kazakhstan;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Russia;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Identities.Properties;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
@@ -66,6 +67,12 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                                 RepresentativeRutIdentity.Instance,
                                 RepresentativeAuthorityDocumentIssuedOnIdentity.Instance,
                                 RepresentativeAuthorityDocumentIssuedByIdentity.Instance
+                            }
+                    },
+                    {
+                        typeof(RussiaLegalPersonProfilePart), new IEntityPropertyIdentity[]
+                            {
+                                ChiefFullNameInNominativeIdentity.Instance,
                             }
                     },
                     {

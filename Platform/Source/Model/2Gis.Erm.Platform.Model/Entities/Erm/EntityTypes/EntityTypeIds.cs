@@ -8,6 +8,7 @@
         public const int UkraineLegalPersonPart = 602;
         public const int EmiratesLegalPersonPart = 604;
         public const int KazakhstanLegalPersonPart = 613;
+        public const int RussiaLegalPersonProfilePart = 259;
 
         public const int Order = 151;
         public const int OrderPosition = 150;

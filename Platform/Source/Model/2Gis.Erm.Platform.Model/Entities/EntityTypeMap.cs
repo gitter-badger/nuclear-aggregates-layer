@@ -6,6 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Kazakhstan;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Russia;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -98,6 +99,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityType.Instance.MessageType(), typeof(MessageType) },
                 { EntityType.Instance.LegalPersonProfile(), typeof(LegalPersonProfile) },
                 { EntityType.Instance.ChileLegalPersonProfilePart(), typeof(ChileLegalPersonProfilePart) },
+                { EntityType.Instance.RussiaLegalPersonProfilePart(), typeof(RussiaLegalPersonProfilePart) },
                 { EntityType.Instance.UkraineLegalPersonProfilePart(), typeof(UkraineLegalPersonProfilePart) },
                 { EntityType.Instance.EmiratesLegalPersonProfilePart(), typeof(EmiratesLegalPersonProfilePart) },
                 { EntityType.Instance.AdditionalFirmService(), typeof(AdditionalFirmService) },

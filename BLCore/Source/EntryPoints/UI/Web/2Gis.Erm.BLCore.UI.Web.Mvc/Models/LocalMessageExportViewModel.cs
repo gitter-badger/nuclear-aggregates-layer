@@ -24,7 +24,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
         [Dependency(DependencyType.NotRequiredDisableHide, "OrganizationUnit", "this.value=='FirmsWithActiveOrdersToDgpp' || this.value=='DataForAutoMailer'")]
         [Dependency(DependencyType.NotRequiredDisableHide, "MailSendingType", "this.value!='DataForAutoMailer'")]
         [Dependency(DependencyType.NotRequiredDisableHide, "IncludeRegionalAdvertisement", "this.value!='DataForAutoMailer'")]
-        [Dependency(DependencyType.DisableAndHide, "CreateCsvFile", "this.value!='AccountDetailsToServiceBus'")]
         public IntegrationTypeExport IntegrationType { get; set; }
 
         [RequiredLocalized]
@@ -53,8 +52,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
 
         [RequiredLocalized]
         public bool IncludeRegionalAdvertisement { get; set; }
-
-        public bool CreateCsvFile { get; set; }
 
         public override bool IsNew
         {

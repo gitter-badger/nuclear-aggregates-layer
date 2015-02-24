@@ -14,6 +14,5 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages
         public long? OrganizationUnitId { get; set; }
         public DateTime PeriodStart { get; set; }
         public bool IncludeRegionalAdvertisement { get; set; }
-        public bool CreateCsvFile { get; set; }
     }
 }

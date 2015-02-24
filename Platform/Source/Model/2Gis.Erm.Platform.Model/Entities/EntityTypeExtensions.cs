@@ -381,6 +381,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             return EntityTypeChileLegalPersonProfilePart.Instance;
         }
 
+        public static EntityTypeRussiaLegalPersonProfilePart RussiaLegalPersonProfilePart(this EntityType entityType)
+        {
+            return EntityTypeRussiaLegalPersonProfilePart.Instance;
+        }
+
         public static EntityTypeUkraineLegalPersonProfilePart UkraineLegalPersonProfilePart(this EntityType entityType)
         {
             return EntityTypeUkraineLegalPersonProfilePart.Instance;
