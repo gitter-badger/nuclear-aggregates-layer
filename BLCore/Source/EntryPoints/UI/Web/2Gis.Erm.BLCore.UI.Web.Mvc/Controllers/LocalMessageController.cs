@@ -182,8 +182,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                           ? viewModel.PeriodStartFor1C
                                           : viewModel.PeriodStart,
                         SendingType = viewModel.MailSendingType,
-                        IncludeRegionalAdvertisement = viewModel.IncludeRegionalAdvertisement,
-                        CreateCsvFile = viewModel.CreateCsvFile
+                        IncludeRegionalAdvertisement = viewModel.IncludeRegionalAdvertisement
                     };
 
                 if(viewModel.OrganizationUnit != null && viewModel.OrganizationUnit.Key != null)

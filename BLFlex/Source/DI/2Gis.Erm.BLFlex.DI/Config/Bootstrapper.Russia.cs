@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
@@ -40,20 +41,20 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             return container
                     .RegisterType<IDynamicEntityPropertiesConverter<RussiaLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<RussiaLegalPersonProfilePart>>(Lifetime.Singleton)
 
-                .RegisterType<IFormatterFactory, RussiaFormatterFactory>(Lifetime.Singleton)
-                .RegisterType<ICheckInnService, RussiaCheckInnService>(Lifetime.Singleton)
-                .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
-                .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
-                .RegisterType<ILegalPersonProfileConsistencyRuleContainer, RussiaLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
-                .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
+                    .RegisterType<IFormatterFactory, RussiaFormatterFactory>(Lifetime.Singleton)
+                    .RegisterType<ICheckInnService, RussiaCheckInnService>(Lifetime.Singleton)
+                    .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
+                    .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
+                    .RegisterType<ILegalPersonProfileConsistencyRuleContainer, RussiaLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
+                    .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                     .RegisterType<IContactSalutationsProvider, RussiaContactSalutationsProvider>(Lifetime.Singleton)
-                .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
+                    .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
                                                                            new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
                                                                                                                                                typeof(BillSummConsistencyRule),
                                                                                                                                                typeof(BillDatesConsistencyRule))))
-                .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
+                    .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
                     .RegisterType<IPriceCostsForSubPositionsProvider, MoDiPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
-                .ConfigureRussiaSpecificNumberServices();
+                    .ConfigureRussiaSpecificNumberServices();
         }
 
         public static IUnityContainer ConfigureRussiaSpecificNumberServices(this IUnityContainer container)

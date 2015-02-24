@@ -145,6 +145,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
                     PositionInNominative = PositionInNominative.EnsureСleanness(),
                     PostAddress = PostAddress.EnsureСleanness(),
                     OwnerRef = Owner.ToReference(),
+                    Email = Email.EnsureСleanness(),
                     EmailForAccountingDocuments = EmailForAccountingDocuments.EnsureСleanness(),
                     PersonResponsibleForDocuments = PersonResponsibleForDocuments.EnsureСleanness(),
                     Phone = PhoneNumber.EnsureСleanness(),

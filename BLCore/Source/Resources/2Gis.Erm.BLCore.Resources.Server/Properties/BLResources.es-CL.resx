@@ -1440,9 +1440,6 @@ Errores de bloqueo:{2}</value>
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Se incluirán usuarios: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>La sucursal de la entidad seleccionada no resulta ser su sucursal o no se ha transferido a ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>En los grupos de posiciones principales hay objetos enlazados a unas posiciones inactivas</value>
   </data>
@@ -1454,9 +1451,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>La factura especificada no se ha encontrado</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Error al guardar el perfil de persona jurídica del cliente</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>La sucursal de la entidad no se ha especificado</value>

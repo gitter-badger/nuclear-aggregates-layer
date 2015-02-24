@@ -77,7 +77,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AccountingSystem.svc" />
     <Content Include="Reports.svc" />
     <Content Include="WithdrawalInfo.svc" />
   </ItemGroup>
@@ -103,7 +102,9 @@
     </Content>
     <Content Include="packagePositions.config" />
     <None Include="packages.config" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="salesSchemas.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
@@ -33,21 +34,21 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         internal static IUnityContainer ConfigureCzechSpecific(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             return container
-                .RegisterType<IFormatterFactory, CzechFormatterFactory>(Lifetime.Singleton)
-                .RegisterType<ICheckInnService, CzechTicService>(Lifetime.Singleton)
-                .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
-                .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
-                .RegisterType<ILegalPersonProfileConsistencyRuleContainer, CzechLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
+                        .RegisterType<IFormatterFactory, CzechFormatterFactory>(Lifetime.Singleton)
+                        .RegisterType<ICheckInnService, CzechTicService>(Lifetime.Singleton)
+                        .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
+                        .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
+                        .RegisterType<ILegalPersonProfileConsistencyRuleContainer, CzechLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IContactSalutationsProvider, CzechContactSalutationsProvider>(Lifetime.Singleton)
-                .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
+                        .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                 .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
                                                                                  new InjectionConstructor(
                                                                                      new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
-                                                                                                                                      typeof(BillSummConsistencyRule),
-                                                                                                                                      typeof(BillDatesConsistencyRule))))
-                .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
-                .RegisterType<IPriceCostsForSubPositionsProvider, NullPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
-                .ConfigureCzechSpecificNumberServices();
+                                                                                                                                               typeof(BillSummConsistencyRule),
+                                                                                                                                               typeof(BillDatesConsistencyRule))))
+                        .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
+                        .RegisterType<IPriceCostsForSubPositionsProvider, NullPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
+                        .ConfigureCzechSpecificNumberServices();
         }
 
         public static IUnityContainer ConfigureCzechSpecificNumberServices(this IUnityContainer container)

@@ -1,4 +1,7 @@
-﻿using DoubleGis.Erm.Platform.DAL.Specifications;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
@@ -16,7 +19,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
 
                 public static FindSpecification<Account> ByLegalPersonSyncCode1C(string legalPersonSyncCode1C)
                 {
-                    return new FindSpecification<Account>(x => x.IsActive && !x.IsDeleted && x.LegalPesonSyncCode1C == legalPersonSyncCode1C);
+                    return new FindSpecification<Account>(x => x.LegalPesonSyncCode1C == legalPersonSyncCode1C);
+                }
+
+                public static FindSpecification<Account> ByLegalPersonSyncCodes1C(IEnumerable<string> legalPersonSyncCodes1C)
+                {
+                    return new FindSpecification<Account>(x => legalPersonSyncCodes1C.Contains(x.LegalPesonSyncCode1C));
                 }
 
                 public static FindSpecification<Account> Existing(long legalPersonId, long branchOfficeOrganizationUnitId)
@@ -28,10 +36,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
 
                 public static FindSpecification<Account> ForLegalPersons(long legalPersonId, long branchOfficeOrganizationUnitId)
                 {
-                    return new FindSpecification<Account>(x => x.IsActive
-                                                               && !x.IsDeleted
-                                                               && x.LegalPersonId == legalPersonId
-                                                               && x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId);
+                    return new FindSpecification<Account>(x => x.LegalPersonId == legalPersonId && x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId);
                 }
             }
         }

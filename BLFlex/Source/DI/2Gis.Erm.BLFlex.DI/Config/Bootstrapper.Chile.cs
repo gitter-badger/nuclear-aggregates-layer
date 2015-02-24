@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
@@ -52,21 +53,21 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                                                                                                                                                                              Lifetime
                                                                                                                                                                                  .Singleton)
 
-                .RegisterType<IFormatterFactory, ChileFormatterFactory>(Lifetime.Singleton)
-                .RegisterType<ICheckInnService, ChileRutService>(Lifetime.Singleton)
+                        .RegisterType<IFormatterFactory, ChileFormatterFactory>(Lifetime.Singleton)
+                        .RegisterType<ICheckInnService, ChileRutService>(Lifetime.Singleton)
                 .RegisterType<IContactSalutationsProvider, ChileContactSalutationsProvider>(Lifetime.Singleton)
-                .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, ChileBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
-                .RegisterType<IPartableEntityValidator<BranchOffice>, ChileBranchOfficeValidator>(Lifetime.Singleton)
-                .RegisterType<ILegalPersonProfileConsistencyRuleContainer, ChileLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
-                .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
+                        .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, ChileBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
+                        .RegisterType<IPartableEntityValidator<BranchOffice>, ChileBranchOfficeValidator>(Lifetime.Singleton)
+                        .RegisterType<ILegalPersonProfileConsistencyRuleContainer, ChileLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
+                        .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
+                        .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
                                                                                  new InjectionConstructor(
                                                                                      new ResolvedArrayParameter<IBillConsistencyRule>(typeof(ChileBillNumberFormatConsistencyRule),
-                                                                                                                                      typeof(BillSummConsistencyRule),
-                                                                                                                                      typeof(BillDublicateNumbersConsistencyRule),
-                                                                                                                                      typeof(BillDatesConsistencyRule))))
-                .RegisterType<IPriceCostsForSubPositionsProvider, NullPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
-                .ConfigureChileSpecificNumberServices();
+                                                                                                                                               typeof(BillSummConsistencyRule),
+                                                                                                                                               typeof(BillDublicateNumbersConsistencyRule),
+                                                                                                                                               typeof(BillDatesConsistencyRule))))
+                        .RegisterType<IPriceCostsForSubPositionsProvider, NullPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
+                        .ConfigureChileSpecificNumberServices();
         }
 
         public static IUnityContainer ConfigureChileSpecificNumberServices(this IUnityContainer container)

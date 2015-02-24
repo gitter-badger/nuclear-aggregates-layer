@@ -1440,9 +1440,6 @@
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Будет включеныо пользователей: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>Выбранное отделение организации не является филиалом, либо не переведено на ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>В группах основных позиций присутствуют объекты, ссылающиеся на неактивные позиции</value>
   </data>
@@ -1454,9 +1451,6 @@
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>Указанный счёт не найден</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Ошибка при сохранении профиля юр. лица клиента</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>Отделение организации не указано</value>

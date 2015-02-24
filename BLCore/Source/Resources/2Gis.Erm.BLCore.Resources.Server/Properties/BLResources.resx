@@ -1437,9 +1437,6 @@
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value />
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value />
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value />
   </data>
@@ -1450,9 +1447,6 @@
     <value />
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
     <value />
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
