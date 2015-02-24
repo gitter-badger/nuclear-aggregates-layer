@@ -46,16 +46,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             using (var scope = _scopeFactory.CreateNonCoupled<CreateLockDetailsDuringWithdrawalIdentity>())
             {
                 var actualCharges = _withdrawalReadModel.GetActualChargesByProject(period);
-
-                // TODO {all, 23.05.2014}: Проверка отключена - https://jira.2gis.ru/browse/ERM-4092
-                //var projectsWithoutCharges = actualCharges.Where(x => x.Value == null).Select(x => x.Key).ToArray();
-                //if (projectsWithoutCharges.Any())
-                //{
-                //    throw new MissingChargesForProjectException(
-                //        string.Format("Can't create lock details before withdrawing. The following projects have no charges: {0}.",
-                //                      string.Join(", ", projectsWithoutCharges)));
-                //}
-
                 var plannedOrderPositionsWithCharges = _withdrawalReadModel.GetPlannedOrderPositionsWithChargesInfo(organizationUnitId, period);
 
                 var orderPositionsWithoutCharges = plannedOrderPositionsWithCharges.Where(x => x.ChargeInfo == null).ToArray();

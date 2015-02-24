@@ -2013,4 +2013,7 @@
   <data name="AccountingMethodUndefined" xml:space="preserve">
     <value />
   </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Списание</value>
+  </data>
 </root>

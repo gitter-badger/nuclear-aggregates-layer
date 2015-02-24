@@ -242,6 +242,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 {
                     if (!validationRule.Validate(organizationUnitId, period, accountingMethod, out report))
                     {
+                        transaction.Complete();
                         return false;
                     }
                 }

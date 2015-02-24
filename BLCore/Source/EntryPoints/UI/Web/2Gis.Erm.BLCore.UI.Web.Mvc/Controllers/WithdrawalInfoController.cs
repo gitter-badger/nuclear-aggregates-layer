@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
@@ -14,12 +19,15 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -30,7 +38,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly IRevertWithdrawalOperationService _revertWithdrawalOperationService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IWithdrawalsByAccountingMethodOperationService _withdrawalByAccountingMethodOperationService;
-
+        private readonly IOperationService _operationService;
+        private readonly IGlobalizationSettings _globalizationSettings;
+        private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
 
         public WithdrawalInfoController(IMsCrmSettings msCrmSettings,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
@@ -41,13 +51,19 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IRevertWithdrawalOperationService revertWithdrawalOperationService,
                                         ISecurityServiceFunctionalAccess functionalAccessService,
-                                        IWithdrawalsByAccountingMethodOperationService withdrawalByAccountingMethodOperationService)
+                                        IWithdrawalsByAccountingMethodOperationService withdrawalByAccountingMethodOperationService,
+                                        IOperationService operationService,
+                                        IGlobalizationSettings globalizationSettings,
+                                        IOrganizationUnitReadModel organizationUnitReadModel)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
 
             _revertWithdrawalOperationService = revertWithdrawalOperationService;
             _functionalAccessService = functionalAccessService;
             _withdrawalByAccountingMethodOperationService = withdrawalByAccountingMethodOperationService;
+            _operationService = operationService;
+            _globalizationSettings = globalizationSettings;
+            _organizationUnitReadModel = organizationUnitReadModel;
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -81,18 +97,48 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
             try
             {
+                var period = new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(),
+                                            viewModel.PeriodStart.GetEndPeriodOfThisMonth());
                 var processingResultsByOrganizationUnit =
-                    _withdrawalByAccountingMethodOperationService.Withdraw(new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(),
-                                                                                          viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
-                                                                           viewModel.AccountingMethod);
+                    _withdrawalByAccountingMethodOperationService.Withdraw(period, viewModel.AccountingMethod);
+
                 var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
+                viewModel.IsSuccess = allWithwrawalsSucceded;
 
-                viewModel.Message = allWithwrawalsSucceded
-                                        ? "Withdrawal successfully finished"
+                if (!allWithwrawalsSucceded)
+                {
+                    var operationId = Guid.NewGuid();
+                    var operationDescription = string.Format("Списание за {0} - {1} со способом оказания услуг: '{2}' завершено с ошибками",
+                                                             period.Start,
+                                                             period.End,
+                                                             viewModel.AccountingMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
 
-                                        // TODO {y.baranihin, 16.02.2015}: Сделать удобный вывод сообщений по каждому городу
-                                        : "Аларма";// processingResult.ProcessingMessages.Aggregate(new StringBuilder(), (builder, message) => builder.AppendLine(message.Text)).ToString();
-                viewModel.IsSuccess = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
+                    var operation = new Operation
+                                        {
+                                            Guid = operationId,
+                                            StartTime = DateTime.UtcNow,
+                                            FinishTime = DateTime.UtcNow,
+                                            OwnerCode = UserContext.Identity.Code,
+                                            Status = OperationStatus.Error,
+                                            Type = BusinessOperation.Withdrawal,
+                                            Description = operationDescription,
+                                        };
+
+                    var report = GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded).ToDictionary(x => x.Key, y => y.Value),
+                                                 period,
+                                                 viewModel.AccountingMethod);
+
+                    _operationService.FinishOperation(operation,
+                                                      report.ReportContent,
+                                                      HttpUtility.UrlPathEncode(report.ReportFileName),
+                                                      report.ContentType);
+                    viewModel.HasErrors = true;
+                    viewModel.ErrorLogFileId = operationId;
+                }
+                else
+                {
+                    viewModel.Message = "Withdrawal successfully finished";
+                } 
             }
             catch (Exception ex)
             {
@@ -145,5 +191,38 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         }
 
         #endregion
+
+        private ErrorsReport GetErrorsReport(IDictionary<long, WithdrawalProcessingResult> resultsWithErrors, TimePeriod period, AccountingMethod accountingMethod)
+        {
+            var organizationUnitNames = _organizationUnitReadModel.GetNames(resultsWithErrors.Select(x => x.Key));
+            var dataTable = new DataTable();
+            dataTable.Columns.Add(MetadataResources.OrganizationUnit);
+            dataTable.Columns.Add(BLResources.Error);
+
+            foreach (var withdrawalProcessingResult in resultsWithErrors)
+            {
+                foreach (var message in withdrawalProcessingResult.Value.ProcessingMessages)
+                {
+                    dataTable.Rows.Add(organizationUnitNames[withdrawalProcessingResult.Key], message);
+                }
+            }
+
+            var csvReportContent = dataTable.ToCsvEscaped(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator, true);
+            var reportContent = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(csvReportContent)).ToArray();
+
+            return new ErrorsReport
+                       {
+                           ReportContent = reportContent,
+                           ReportFileName = string.Format("WithdrawalReport{0}_{1}_{2}.csv", period.Start.ToShortDateString(), period.End.ToShortDateString(), accountingMethod),
+                           ContentType = "text/csv",
+                       };
+        }
+
+        private class ErrorsReport
+        {
+            public byte[] ReportContent { get; set; }
+            public string ReportFileName { get; set; }
+            public string ContentType { get; set; }
+        }
     }
 }

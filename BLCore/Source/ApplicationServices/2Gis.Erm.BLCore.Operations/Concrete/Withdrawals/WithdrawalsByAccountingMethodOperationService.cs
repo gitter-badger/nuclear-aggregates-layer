@@ -65,6 +65,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 throw new InvalidPeriodException(report);
             }
 
+            if (accountingMethod == AccountingMethod.PlannedProvision)
+            {
+                // TODO {all, 23.05.2014}: Проверка отключена - https://jira.2gis.ru/browse/ERM-4092
+                //var actualCharges = _withdrawalReadModel.GetActualChargesByProject(period);
+
+                //var projectsWithoutCharges = actualCharges.Where(x => x.Value == null).Select(x => x.Key).ToArray();
+                //if (projectsWithoutCharges.Any())
+                //{
+                //    throw new MissingChargesForProjectException(
+                //        string.Format("Can't create lock details before withdrawing. The following projects have no charges: {0}.",
+                //                      string.Join(", ", projectsWithoutCharges)));
+                //}
+            }            
+
             using (var scope = _operationScopeFactory.CreateNonCoupled<WithdrawalsByAccountingMethodIdentity>())
             {
                 var organizationUnits = _accountReadModel.GetOrganizationUnitsToProccessWithdrawals(period.Start, period.End, accountingMethod);
@@ -81,6 +95,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                     }
                     catch (Exception ex)
                     {
+                        result.Add(organizationUnit, WithdrawalProcessingResult.Errors(ex.ToString()));
                         _commonLog.ErrorFormat(ex, "Не удалось провести списание по отделению организации {0}", organizationUnit);
                     }
                 }

@@ -120,10 +120,18 @@ WriteLiteral(">\r\n        td.itemCaption\r\n        {\r\n            vertical-a
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n        Ext.onReady(function() {\r\n            var isSuccess = \'");
+WriteLiteral(@">
+        Ext.onReady(function() {
+            if (Ext.getDom('ErrorsLink')) {
+                Ext.getDom('ErrorsLink').onclick = function() {
+                    Ext.getDom('ErrorsForm').submit();
+                };
+            }
+
+            var isSuccess = '");
 
             
-            #line 26 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 32 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
                         Write(Model.IsSuccess);
 
             
@@ -131,7 +139,7 @@ WriteLiteral(">\r\n        Ext.onReady(function() {\r\n            var isSuccess
             #line hidden
 WriteLiteral(@"';
             if (isSuccess == 'True') {
-                alert(Ext.getDom(""Notifications"").innerHTML.trim());
+                Ext.alert('', Ext.getDom(""Notifications"").innerHTML.trim());
                 window.close();
                 return;
             } else if (Ext.getDom(""Notifications"").innerHTML.trim() != """") {
@@ -158,13 +166,85 @@ WriteLiteral(@"';
 ");
 
             
-            #line 52 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 58 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 52 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 58 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+     if (Model.HasErrors == true)
+    {
+
+            
+            #line default
+            #line hidden
+WriteLiteral("        <div");
+
+WriteLiteral(" style=\"height: 8px; padding-left: 5px; padding-top: 4px; position: fixed;\"");
+
+WriteLiteral(" id=\"DivErrors\"");
+
+WriteLiteral(">\r\n");
+
+            
+            #line 61 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 61 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+             using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
+            {
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                <input");
+
+WriteLiteral(" type=\"hidden\"");
+
+WriteLiteral(" name=\"operationId\"");
+
+WriteAttribute("value", Tuple.Create(" value=\"", 2290), Tuple.Create("\"", 2319)
+            
+            #line 63 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+, Tuple.Create(Tuple.Create("", 2298), Tuple.Create<System.Object, System.Int32>(Model.ErrorLogFileId
+            
+            #line default
+            #line hidden
+, 2298), false)
+);
+
+WriteLiteral(" />\r\n");
+
+            
+            #line 64 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            }
+
+            
+            #line default
+            #line hidden
+WriteLiteral("        </div>\r\n");
+
+            
+            #line 66 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+    }
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+            
+            #line 68 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 68 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -188,7 +268,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 56 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 72 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Model.Message);
 
             
@@ -203,7 +283,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 59 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 75 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
@@ -218,7 +298,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 62 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 78 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings
                                                                             {
                                                                                 Store = CalendarSettings.StoreMode.Relative,
@@ -231,7 +311,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 69 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 85 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     }
 
             

@@ -790,6 +790,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Списание.
+        /// </summary>
+        public static string BusinessOperationWithdrawal {
+            get {
+                return ResourceManager.GetString("BusinessOperationWithdrawal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Запуск операции восстановления невозможен, предыдущее списание завершилось с ошибкой.
         /// </summary>
         public static string CannotRevertWithdrawalBecausePreviousWithdrawalIsFailed {
