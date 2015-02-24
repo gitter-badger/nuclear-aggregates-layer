@@ -7,10 +7,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.AdvModelsInfo;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Shared;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Charge;
 
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvMod
                                                                                           {
                                                                                               CategoryId = advModelInRubricDto.RubricCode,
                                                                                               ProjectId = serviceBusDto.BranchCode,
-                                                                                              SalesModel = ConvertAdvModelToSalesModel(advModelInRubricDto.AdvModel)
+                                                                                              SalesModel = advModelInRubricDto.AdvModel.ConvertToSalesModel()
                                                                                           })
                                                        .ToArray();
 
@@ -78,21 +78,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowAdvMod
                 }
 
                 scope.Complete();
-            }
-        }
-
-        private SalesModel ConvertAdvModelToSalesModel(AdvModel advModel)
-        {
-            switch (advModel)
-            {
-                case AdvModel.Cps:
-                    return SalesModel.GuaranteedProvision;                    
-                case AdvModel.Fh:
-                    return SalesModel.PlannedProvision;
-                case AdvModel.Mfh:
-                    return SalesModel.MultiPlannedProvision;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
     }

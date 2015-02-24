@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.ServiceProcess;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -33,25 +33,27 @@ namespace DoubleGis.Erm.TaskService
             var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
 
             var loggerContextEntryProviders =
-                new ILoggerContextEntryProvider[] 
-                {
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SessionId, Guid.Empty.ToString()),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserName, environmentSettings.EnvironmentName + "\\" + environmentSettings.EntryPointName),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserIP, NetworkInfo.ComputerFQDN),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserBrowser, null),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SeanceCode, Guid.NewGuid().ToString()),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, environmentSettings.EntryPointName)
-                };
+                    new ILoggerContextEntryProvider[] 
+                    {
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new LoggerContextSelfHostedEntryProvider(LoggerContextKeys.Required.UserAccount)
+                    };
 
-            LogUtils.InitializeLoggingInfrastructure(
-                    settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString(),
-                    LogUtils.DefaultLogConfigFileFullPath,
-                    loggerContextEntryProviders);
+            var loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
+            var logger = Log4NetLoggerBuilder.Use
+                                             .DefaultXmlConfig
+                                             .Console
+                                             .EventLog
+                                             .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
+                                             .Build;
 
             IUnityContainer container = null;
             try
             {
-                container = Bootstrapper.ConfigureUnity(settingsContainer);
+                container = Bootstrapper.ConfigureUnity(settingsContainer, logger, loggerContextManager);
                 var schedulerManager = container.Resolve<ISchedulerManager>();
 
                 if (IsConsoleMode(args))

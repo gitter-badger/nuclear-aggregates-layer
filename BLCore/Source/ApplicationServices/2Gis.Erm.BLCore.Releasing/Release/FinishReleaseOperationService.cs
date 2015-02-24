@@ -73,31 +73,31 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 var releaseInfo = ResolveRelease(releaseId);
 
-                _logger.InfoFormatEx("Finishing release with id {0} ou:{1} period: {2} and success state",
+                _logger.InfoFormat("Finishing release with id {0} ou:{1} period: {2} and success state",
                                      releaseId,
                                      releaseInfo.OrganizationUnitName,
                                      releaseInfo.Period);
                 if (releaseInfo.Release.IsBeta)
                 {
-                    _logger.InfoEx("Release type is beta, so no actions required in ERM accounts (locks, limits and etc.) state");
+                    _logger.Info("Release type is beta, so no actions required in ERM accounts (locks, limits and etc.) state");
                 }
                 else
                 {
-                    _logger.InfoEx("Creating locks");
+                    _logger.Info("Creating locks");
                     var orderInfos = _orderReadModel.GetOrderReleaseInfos(releaseInfo.Release.OrganizationUnitId, releaseInfo.Period);
                     _accountBulkCreateLocksAggregateService.Create(releaseInfo.Period, orderInfos);
-                    _logger.InfoEx("Locks created");
+                    _logger.Info("Locks created");
 
-                    _logger.InfoEx("Closing limits");
+                    _logger.Info("Closing limits");
                     var limitsForRelease = _accountReadModel.GetLimitsForRelease(releaseInfo.Release.OrganizationUnitId, releaseInfo.Period);
                     var hungLimitsBeforeReleasePeriod = _accountReadModel.GetHungLimitsByOrganizationUnitForDate(releaseInfo.Release.OrganizationUnitId,
                                                                                                                  releaseInfo.Period.Start.GetPrevMonthFirstDate());
                     _accountBulkCloseLimitsAggregateService.Close(limitsForRelease.Union(hungLimitsBeforeReleasePeriod));
-                    _logger.InfoEx("Limits closed");
+                    _logger.Info("Limits closed");
                 }
 
                 _releaseChangeStatusAggregateService.Finished(releaseInfo.Release, ReleaseStatus.Success, string.Empty);
-                _logger.InfoFormatEx("Finished release with id {0} and success state", releaseId);
+                _logger.InfoFormat("Finished release with id {0} and success state", releaseId);
 
                 scope.Complete();
             }
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 var releaseInfo = ResolveRelease(releaseId);
 
-                _logger.InfoFormatEx("Finishing release with id {0} ou:{1} period: {2} and failed state, " +
+                _logger.InfoFormat("Finishing release with id {0} ou:{1} period: {2} and failed state, " +
                                      "because errors detected in the release process on the external side",
                                      releaseId,
                                      releaseInfo.OrganizationUnitName,
@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 _releaseChangeStatusAggregateService.Finished(releaseInfo.Release,
                                                               ReleaseStatus.Error,
                                                               "Can't completly finish release. Errors detected in the release process on the external side");
-                _logger.InfoFormatEx("Finished release with id {0} ou:{1} period: {2} and failed state, " +
+                _logger.InfoFormat("Finished release with id {0} ou:{1} period: {2} and failed state, " +
                                      "because errors detected in the release process on the external side",
                                      releaseId,
                                      releaseInfo.OrganizationUnitName,
@@ -143,7 +143,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             if (release == null)
             {
                 var msg = "Can't find release entry for specified release id " + releaseId;
-                _logger.ErrorEx(msg);
+                _logger.Error(msg);
                 throw new ArgumentException(msg);
             }
 
@@ -164,7 +164,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             releaseInfo.OrganizationUnitName,
                                             releaseInfo.Period,
                                             ReleaseStatus.InProgressWaitingExternalProcessing);
-                _logger.ErrorEx(message);
+                _logger.Error(message);
                 throw new InvalidOperationException(message);
             }
 

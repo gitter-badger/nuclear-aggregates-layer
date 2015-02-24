@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<DownloadBinaryOperationErrorDescription>(new DownloadBinaryOperationErrorDescription(entityName, ex.Message),
                                                                                      HttpStatusCode.BadRequest);
             }

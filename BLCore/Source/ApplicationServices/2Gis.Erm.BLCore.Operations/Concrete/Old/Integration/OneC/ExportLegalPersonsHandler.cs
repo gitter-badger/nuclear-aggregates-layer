@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -33,29 +34,30 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
     {
         private static readonly Encoding CyrillicEncoding = Encoding.GetEncoding(1251);
 
-        private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly ICommonLog _logger;
         private readonly IUserRepository _userRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly IGlobalizationSettings _globalizationSettings;
+        private readonly IValidateLegalPersonsForExportOperationService _validateLegalPersonsForExportOperationService;
 
         public ExportLegalPersonsHandler(
             ISecurityServiceUserIdentifier securityServiceUserIdentifier,
             ICommonLog logger,
-            ISubRequestProcessor subRequestProcessor,
             ILegalPersonRepository legalPersonRepository,
             IUserRepository userRepository,
-            IAccountRepository accountRepository, IGlobalizationSettings globalizationSettings)
+            IAccountRepository accountRepository,
+            IGlobalizationSettings globalizationSettings,
+            IValidateLegalPersonsForExportOperationService validateLegalPersonsForExportOperationService)
         {
-            _subRequestProcessor = subRequestProcessor;
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
             _logger = logger;
             _legalPersonRepository = legalPersonRepository;
             _userRepository = userRepository;
             _accountRepository = accountRepository;
             _globalizationSettings = globalizationSettings;
+            _validateLegalPersonsForExportOperationService = validateLegalPersonsForExportOperationService;
         }
 
         public static string ClearText(string input)
@@ -88,32 +90,30 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 throw new NotificationException(BLResources.ExportCouldnotFindLegalPersons);
             }
 
-            _logger.InfoFormatEx("Начало проверки юр.лиц");
-            var validateResponse = (ValidateLegalPersonsResponse)_subRequestProcessor.HandleSubRequest(new ValidateLegalPersonsFor1CRequest
+            _logger.InfoFormat("Начало проверки юр.лиц");
+            var validationErrors =
+                _validateLegalPersonsForExportOperationService.Validate(legalPersonFor1CExportDtos.Select(x =>
+                                                                                                          new ValidateLegalPersonDto
             {
-                Entities = legalPersonFor1CExportDtos.Select(x => new ValidateLegalPersonRequestItem
-                {
-                    Entity = x.LegalPerson,
+                                                                                                                  LegalPersonId = x.LegalPerson.Id,
                     SyncCode1C = x.LegalPersonSyncCode1C,
-                })
-            },
-            Context);
+                                                                                                              }).ToArray());
 
             var notValidResponseLogBuilder = new StringBuilder();
-            foreach (var item in validateResponse.BlockingErrors.Concat(validateResponse.NonBlockingErrors))
+            foreach (var item in validationErrors)
                                         {
                 notValidResponseLogBuilder.AppendFormat("[{0}] [{1}] - {2}", item.LegalPersonId, item.SyncCode1C, item.ErrorMessage);
             }
 
             // write logs
             var logReportBuilder = new StringBuilder();
-            var processedWithoutErrorsCount = legalPersonFor1CExportDtos.Count() - (validateResponse.BlockingErrors.Count + validateResponse.NonBlockingErrors.Count);
+            var processedWithoutErrorsCount = legalPersonFor1CExportDtos.Count() - validationErrors.Count();
 
             logReportBuilder.AppendFormat("Обработано успешно юридических лиц - [{0}]", processedWithoutErrorsCount).Append(Environment.NewLine);
-            logReportBuilder.AppendFormat("Неблокирующих ошибок - [{0}]:", validateResponse.NonBlockingErrors.Count).Append(Environment.NewLine);
-            logReportBuilder.AppendFormat("Блокирующих ошибок - [{0}]:", validateResponse.BlockingErrors.Count).Append(Environment.NewLine);
+            logReportBuilder.AppendFormat("Неблокирующих ошибок - [{0}]:", validationErrors.Count(x => !x.IsBlockingError)).Append(Environment.NewLine);
+            logReportBuilder.AppendFormat("Блокирующих ошибок - [{0}]:", validationErrors.Count(x => x.IsBlockingError)).Append(Environment.NewLine);
             logReportBuilder.Append(notValidResponseLogBuilder);
-            _logger.InfoFormatEx(logReportBuilder.ToString());
+            _logger.InfoFormat(logReportBuilder.ToString());
 
             var legalPersons = legalPersonFor1CExportDtos.Select(x => x.LegalPerson);
 
@@ -121,11 +121,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var accounts = _accountRepository.GetAccountsForExortTo1C(request.OrganizationUnitId.Value);
 
-            var blockingErrors = validateResponse.BlockingErrors.Select(x => x.LegalPersonId).Distinct().ToArray();
+            var blockingErrors = validationErrors.Where(x => x.IsBlockingError).Select(x => x.LegalPersonId).Distinct().ToArray();
             var legalPersonDtosToExport = legalPersonFor1CExportDtos.Where(x => !blockingErrors.Contains(x.LegalPerson.Id));
             var accountsDataTable = GetAccountsDataTable(accounts);
             var legalPersonsDataTable = GetLegalPersonsDataTable(legalPersonDtosToExport);
-            var errorsDataTable = GetErrorsDataTable(validateResponse);
+            var errorsDataTable = GetErrorsDataTable(validationErrors);
 
             return new IntegrationResponse
             {
@@ -134,8 +134,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 FileName = "Customers.zip",
 
                 ProcessedWithoutErrors = processedWithoutErrorsCount,
-                BlockingErrorsAmount = validateResponse.BlockingErrors.Count,
-                NonBlockingErrorsAmount = validateResponse.NonBlockingErrors.Count,
+                BlockingErrorsAmount = validationErrors.Count(x => x.IsBlockingError),
+                NonBlockingErrorsAmount = validationErrors.Count(x => !x.IsBlockingError),
             };
         }
 
@@ -225,7 +225,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return dataTable;
         }
 
-        private static DataTable GetErrorsDataTable(ValidateLegalPersonsResponse response)
+        private static DataTable GetErrorsDataTable(IEnumerable<LegalPersonValidationForExportErrorDto> errors)
             {
             const int attributesCount = 4;
             var dataTable = new DataTable { Locale = CultureInfo.InvariantCulture };
@@ -234,12 +234,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 dataTable.Columns.Add(string.Empty);
             }
 
-            foreach (var error in response.BlockingErrors)
+            foreach (var error in errors.Where(x => x.IsBlockingError))
             {
                 dataTable.Rows.Add(error.LegalPersonId, error.SyncCode1C, BLResources.BlockingError, error.ErrorMessage);
             }
 
-            foreach (var error in response.NonBlockingErrors)
+            foreach (var error in errors.Where(x => !x.IsBlockingError))
             {
                 dataTable.Rows.Add(error.LegalPersonId, error.SyncCode1C, BLResources.NonBlockingError, error.ErrorMessage);
         }

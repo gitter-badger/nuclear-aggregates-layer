@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Utils.Xml;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
@@ -87,19 +88,35 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
 
         public XElement ToXElement()
         {
+            const string RequiredAttributeIsMissingTemplate = "Не заполнен обязательный атрибут {0} для списания по заказу {1}";
+            if (string.IsNullOrWhiteSpace(OrderNumber))
+            {
+                throw new RequiredFieldIsEmptyException(string.Format(RequiredAttributeIsMissingTemplate, "OrderNumber", OrderCode));
+            }
+
+            if (string.IsNullOrWhiteSpace(MediaInfo))
+            {
+                throw new RequiredFieldIsEmptyException(string.Format(RequiredAttributeIsMissingTemplate, "MediaInfo", OrderCode));
+            }
+
+            if (string.IsNullOrWhiteSpace(LegalEntityBranchCode1C))
+            {
+                throw new RequiredFieldIsEmptyException(string.Format(RequiredAttributeIsMissingTemplate, "LegalEntityBranchCode1C", OrderCode));
+            }
+
             var elements = new object[]
-                {
-                    this.ToXAttribute(() => OrderCode, OrderCode),
-                    this.ToXAttribute(() => AccountCode, AccountCode),
-                    this.ToXAttribute(() => LegalEntityBranchCode1C, LegalEntityBranchCode1C),
-                    this.ToXAttribute(() => ProfileCode, ProfileCode),
-                    this.ToXAttribute(() => OrderType, OrderType),
-                    this.ToXAttribute(() => OrderNumber, OrderNumber),
-                    this.ToXAttribute(() => SignupDate, SignupDate),
-                    this.ToXAttribute(() => Amount, Amount),
-                    this.ToXAttribute(() => MediaInfo, MediaInfo),
-                    !string.IsNullOrEmpty(ClientOrderNumber) ? this.ToXAttribute(() => ClientOrderNumber, ClientOrderNumber) : null
-                }
+                               {
+                                   this.ToXAttribute(() => OrderCode, OrderCode),
+                                   this.ToXAttribute(() => AccountCode, AccountCode),
+                                   this.ToXAttribute(() => LegalEntityBranchCode1C, LegalEntityBranchCode1C),
+                                   this.ToXAttribute(() => ProfileCode, ProfileCode),
+                                   this.ToXAttribute(() => OrderType, OrderType),
+                                   this.ToXAttribute(() => OrderNumber, OrderNumber),
+                                   this.ToXAttribute(() => SignupDate, SignupDate),
+                                   this.ToXAttribute(() => Amount, Amount),
+                                   this.ToXAttribute(() => MediaInfo, MediaInfo),
+                                   !string.IsNullOrEmpty(ClientOrderNumber) ? this.ToXAttribute(() => ClientOrderNumber, ClientOrderNumber) : null
+                               }
                 .Concat(PlatformDistributions.Select(x => x.ToXElement()))
                 .ToArray();
 

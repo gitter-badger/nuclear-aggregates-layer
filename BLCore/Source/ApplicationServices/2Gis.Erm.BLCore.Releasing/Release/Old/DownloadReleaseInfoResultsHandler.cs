@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release.Old
             var results = validationResults as ReleaseProcessingMessage[] ?? validationResults.ToArray();
             if (!results.Any())
             {
-                _logger.WarnFormatEx(BLResources.ReleaseValidationResultsNotFound, request.ReleaseInfoId);
+                _logger.WarnFormat(BLResources.ReleaseValidationResultsNotFound, request.ReleaseInfoId);
                 return new StreamResponse();
             }
 
