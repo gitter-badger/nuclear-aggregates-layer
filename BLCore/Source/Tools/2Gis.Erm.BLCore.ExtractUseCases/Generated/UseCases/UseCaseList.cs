@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.BranchOfficeOrganizationUnits;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Olap;
@@ -24,10 +23,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.UserProfiles;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
-using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.Operations.Concrete.LegalPersons;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.BranchOfficeOrganizationUnits;
@@ -809,28 +808,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(ExportLegalPersonsHandler),
             Request = typeof(ExportLegalPersonsRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
         },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ExportAccountDetailsTo1CForBranchHandler),
-            Request = typeof(ExportAccountDetailsTo1CForBranchRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
-        }
     }
                     }
                 },
@@ -866,28 +844,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(ExportLegalPersonsHandler),
             Request = typeof(ExportLegalPersonsRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
         },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ExportAccountDetailsTo1CForBranchHandler),
-            Request = typeof(ExportAccountDetailsTo1CForBranchRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
-        }
     }
                     }
                 },
@@ -1267,29 +1224,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(RecalculateOrderPositionDiscountHandler),
                         Request = typeof(RecalculateOrderPositionDiscountRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.AccountController\ExportTo1CDialog",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ExportAccountDetailsTo1CForFranchiseesHandler),
-                        Request = typeof(ExportAccountDetailsTo1CForFranchiseesRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(CreateLocalMessageHandler),
-            Request = typeof(CreateLocalMessageRequest)
-        },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-            Request = typeof(ValidateLegalPersonsFor1CRequest)
-        }
-    }
                     }
                 },
                 new UseCase
