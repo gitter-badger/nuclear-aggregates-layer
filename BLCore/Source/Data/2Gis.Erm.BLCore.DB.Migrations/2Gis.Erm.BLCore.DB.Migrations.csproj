@@ -365,6 +365,7 @@
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateAppointments.sql" />
     <Content Include="Resources\201501201646\Billing.ReplicateDeals.sql" />
     <Content Include="Resources\201502110416\Log.Events_DateLocalTimeZone.sql" />
+    <None Include="Resources\201502090244\customizations_201502090244.xml" />
     <None Include="packages.config" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />
     <None Include="Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql" />
@@ -816,6 +817,7 @@
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
     <Compile Include="2.1\Migration201502111010.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
+    <Compile Include="2.1\201502090244 - remove account details export buttons from MS CRM.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />
