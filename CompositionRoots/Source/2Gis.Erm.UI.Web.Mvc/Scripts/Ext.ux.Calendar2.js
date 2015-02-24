@@ -42,7 +42,7 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         if (this.mode.time)
         {
             var times = this.initTime(this.mode.time.min, this.mode.time.max, this.mode.time.step);
-            this.time = new Ext.form.ComboBox({
+            this.time = new Ext.ux.TimeComboBox({
                 triggerAction: 'all',
                 mode: 'local',
                 renderTo: this.timeId,
