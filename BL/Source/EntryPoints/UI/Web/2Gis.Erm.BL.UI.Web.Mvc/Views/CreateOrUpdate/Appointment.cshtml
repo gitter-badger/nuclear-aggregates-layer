@@ -31,7 +31,8 @@
         @Html.HiddenFor(m => m.Id)
         @Html.HiddenFor(m => m.Status)
         @Html.HiddenFor(m => m.Priority)
-        
+        @Html.HiddenFor(m => m.IsNeedLookupInitialization)
+
         @Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding)
         @{
             var firmDataFields = new[]
