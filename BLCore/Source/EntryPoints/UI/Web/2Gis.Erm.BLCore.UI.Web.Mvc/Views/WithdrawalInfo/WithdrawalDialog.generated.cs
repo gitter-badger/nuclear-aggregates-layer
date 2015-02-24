@@ -139,11 +139,9 @@ WriteLiteral(@">
             #line hidden
 WriteLiteral(@"';
             if (isSuccess == 'True') {
-                Ext.alert('', Ext.getDom(""Notifications"").innerHTML.trim());
+                alert(Ext.getDom(""Notifications"").innerHTML.trim());
                 window.close();
                 return;
-            } else if (Ext.getDom(""Notifications"").innerHTML.trim() != """") {
-                Ext.getDom(""Notifications"").style.display = ""block"";
             }
 
             // show error messages
@@ -166,13 +164,13 @@ WriteLiteral(@"';
 ");
 
             
-            #line 58 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 56 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 58 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 56 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
      if (Model.HasErrors == true)
     {
 
@@ -188,13 +186,13 @@ WriteLiteral(" id=\"DivErrors\"");
 WriteLiteral(">\r\n");
 
             
-            #line 61 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 59 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 61 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 59 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
              using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
             {
 
@@ -207,20 +205,20 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteLiteral(" name=\"operationId\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 2290), Tuple.Create("\"", 2319)
+WriteAttribute("value", Tuple.Create(" value=\"", 2134), Tuple.Create("\"", 2163)
             
-            #line 63 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-, Tuple.Create(Tuple.Create("", 2298), Tuple.Create<System.Object, System.Int32>(Model.ErrorLogFileId
+            #line 61 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+, Tuple.Create(Tuple.Create("", 2142), Tuple.Create<System.Object, System.Int32>(Model.ErrorLogFileId
             
             #line default
             #line hidden
-, 2298), false)
+, 2142), false)
 );
 
 WriteLiteral(" />\r\n");
 
             
-            #line 64 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 62 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
             }
 
             
@@ -229,7 +227,7 @@ WriteLiteral(" />\r\n");
 WriteLiteral("        </div>\r\n");
 
             
-            #line 66 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 64 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     }
 
             
@@ -238,13 +236,13 @@ WriteLiteral("        </div>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 68 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 66 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 68 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 66 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -257,7 +255,7 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(">\r\n            <div");
 
-WriteLiteral(" style=\"display: none; height: 30px;\"");
+WriteLiteral(" style=\"height: 18px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
@@ -268,13 +266,44 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 72 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 70 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Model.Message);
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n            </div>\r\n            <div");
+WriteLiteral("\r\n");
+
+            
+            #line 71 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+                
+            
+            #line default
+            #line hidden
+            
+            #line 71 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+                 if (Model.HasErrors == true)
+                {
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                    <a");
+
+WriteLiteral(" href=\"#\"");
+
+WriteLiteral(" id=\"ErrorsLink\"");
+
+WriteLiteral("> Просмотреть ошибки...</a>\r\n");
+
+            
+            #line 74 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+                }
+
+            
+            #line default
+            #line hidden
+WriteLiteral("            </div>\r\n            <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -283,7 +312,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 75 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 77 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
@@ -298,7 +327,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 78 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 80 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings
                                                                             {
                                                                                 Store = CalendarSettings.StoreMode.Relative,
@@ -311,7 +340,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 85 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 87 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     }
 
             

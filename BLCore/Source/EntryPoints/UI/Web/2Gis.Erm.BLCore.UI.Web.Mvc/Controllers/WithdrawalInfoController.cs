@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                 if (!allWithwrawalsSucceded)
                 {
                     var operationId = Guid.NewGuid();
-                    var operationDescription = string.Format(BLResources.WithdrawalFailed,
+                    var resultMessage = string.Format(BLResources.WithdrawalFailed,
                                                              period.Start,
                                                              period.End,
                                                              viewModel.AccountingMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                             OwnerCode = UserContext.Identity.Code,
                                             Status = OperationStatus.Error,
                                             Type = BusinessOperation.Withdrawal,
-                                            Description = operationDescription,
+                                            Description = resultMessage,
                                         };
 
                     var report = GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded).ToDictionary(x => x.Key, y => y.Value),
@@ -134,6 +134,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                                       report.ContentType);
                     viewModel.HasErrors = true;
                     viewModel.ErrorLogFileId = operationId;
+                    viewModel.Message = resultMessage;
                 }
                 else
                 {
@@ -203,7 +204,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             {
                 foreach (var message in withdrawalProcessingResult.Value.ProcessingMessages)
                 {
-                    dataTable.Rows.Add(organizationUnitNames[withdrawalProcessingResult.Key], message);
+                    dataTable.Rows.Add(organizationUnitNames[withdrawalProcessingResult.Key], message.Text);
                 }
             }
 

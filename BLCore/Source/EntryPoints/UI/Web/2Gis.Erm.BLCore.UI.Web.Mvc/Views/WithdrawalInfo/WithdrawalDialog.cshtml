@@ -31,11 +31,9 @@
 
             var isSuccess = '@Model.IsSuccess';
             if (isSuccess == 'True') {
-                Ext.alert('', Ext.getDom("Notifications").innerHTML.trim());
+                alert(Ext.getDom("Notifications").innerHTML.trim());
                 window.close();
                 return;
-            } else if (Ext.getDom("Notifications").innerHTML.trim() != "") {
-                Ext.getDom("Notifications").style.display = "block";
             }
 
             // show error messages
@@ -68,8 +66,12 @@
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
         <div class="Tab">
-            <div style="display: none; height: 30px;" id="Notifications" class="Notifications">
+            <div style="height: 18px;" id="Notifications" class="Notifications">
                 @Model.Message
+                @if (Model.HasErrors == true)
+                {
+                    <a href="#" id="ErrorsLink"> Просмотреть ошибки...</a>
+                }
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, null, EnumResources.ResourceManager)
