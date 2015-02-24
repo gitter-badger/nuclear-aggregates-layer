@@ -1436,9 +1436,6 @@ Blokujících chyb:{2}</value>
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Bude zapnuto uživatelů: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>Vybrané oddělení organizace není pobočkou nebo není převedeno do ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>Ve skupinách hlavních položek jsou objekty, které odkazují na neaktivní položky</value>
   </data>
@@ -1450,9 +1447,6 @@ Blokujících chyb:{2}</value>
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>Uvedená faktura nebyla nalezena</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Při ukládání profilu pr. osoby klienta došlo k chybě</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>Není uvedeno oddělení organizace</value>

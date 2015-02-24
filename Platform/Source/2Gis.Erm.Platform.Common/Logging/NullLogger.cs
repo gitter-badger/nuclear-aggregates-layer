@@ -4,212 +4,212 @@ namespace DoubleGis.Erm.Platform.Common.Logging
 {
     public sealed class NullLogger : ICommonLog
     {
-        public void DebugEx(string message)
+        void ICommonLog.Debug(string message)
         {
             // do nothing
         }
 
-        public void DebugEx(string message, string methodName)
+        void ICommonLog.Debug(string message, string methodName)
         {
             // do nothing
         }
 
-        public void DebugFormatEx(string message, object param1)
+        void ICommonLog.DebugFormat(string message, object param1)
         {
             // do nothing
         }
 
-        public void DebugFormatEx(string message, object param1, object param2)
+        void ICommonLog.DebugFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        public void DebugFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.DebugFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        public void DebugFormatEx(string message, params object[] args)
+        void ICommonLog.DebugFormat(string message, params object[] args)
         {
             // do nothing
         }
 
-        public void InfoEx(string message)
+        void ICommonLog.Info(string message)
         {
             // do nothing
         }
 
-        public void InfoEx(string message, string methodName)
+        void ICommonLog.Info(string message, string methodName)
         {
             // do nothing
         }
 
-        public void InfoFormatEx(string message, object param1)
+        void ICommonLog.InfoFormat(string message, object param1)
         {
             // do nothing
         }
 
-        public void InfoFormatEx(string message, object param1, object param2)
+        void ICommonLog.InfoFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        public void InfoFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.InfoFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        public void InfoFormatEx(string message, params object[] args)
+        void ICommonLog.InfoFormat(string message, params object[] args)
         {
             // do nothing
         }
 
-        public void WarnEx(string message)
+        void ICommonLog.Warn(string message)
         {
             // do nothing
         }
 
-        public void WarnEx(string message, string methodName)
+        void ICommonLog.Warn(string message, string methodName)
         {
             // do nothing
         }
 
-        public void WarnFormatEx(string message, object param1)
+        void ICommonLog.WarnFormat(string message, object param1)
         {
             // do nothing
         }
 
-        public void WarnFormatEx(string message, object param1, object param2)
+        void ICommonLog.WarnFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        public void WarnFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.WarnFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        public void WarnFormatEx(string message, params object[] args)
+        void ICommonLog.WarnFormat(string message, params object[] args)
         {
             // do nothing
         }
 
-        public void ErrorEx(string message)
+        void ICommonLog.Error(string message)
         {
             // do nothing
         }
 
-        public void ErrorEx(string message, string methodName)
+        void ICommonLog.Error(string message, string methodName)
         {
             // do nothing
         }
 
-        public void ErrorEx(Exception exception, string message)
+        void ICommonLog.Error(Exception exception, string message)
         {
             // do nothing
         }
 
-        public void ErrorEx(Exception exception, string message, string methodName)
+        void ICommonLog.Error(Exception exception, string message, string methodName)
         {
             // do nothing
         }
 
-        public void ErrorFormatEx(Exception exception, string message, object param1)
+        void ICommonLog.ErrorFormat(Exception exception, string message, object param1)
         {
             // do nothing
         }
 
-        public void ErrorFormatEx(Exception exception, string message, object param1, object param2)
+        void ICommonLog.ErrorFormat(Exception exception, string message, object param1, object param2)
         {
             // do nothing
         }
 
-        public void ErrorFormatEx(Exception exception, string message, object param1, object param2, object param3)
+        void ICommonLog.ErrorFormat(Exception exception, string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        public void ErrorFormatEx(Exception exception, string message, params object[] args)
+        void ICommonLog.ErrorFormat(Exception exception, string message, params object[] args)
         {
             // do nothing
         }
 
-        public void ErrorFormatEx(string message, object param1)
+        void ICommonLog.ErrorFormat(string message, object param1)
         {
             // do nothing
         }
 
-        public void ErrorFormatEx(string message, object param1, object param2)
+        void ICommonLog.ErrorFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        public void ErrorFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.ErrorFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        public void ErrorFormatEx(string message, params object[] args)
+        void ICommonLog.ErrorFormat(string message, params object[] args)
         {
             // do nothing
         }
 
-        public void FatalEx(string message)
+        void ICommonLog.Fatal(string message)
         {
             // do nothing
         }
 
-        public void FatalEx(string message, string methodName)
+        void ICommonLog.Fatal(string message, string methodName)
         {
             // do nothing
         }
 
-        public void FatalEx(Exception exception, string message)
+        void ICommonLog.Fatal(Exception exception, string message)
         {
             // do nothing
         }
 
-        public void FatalEx(Exception exception, string message, string methodName)
+        void ICommonLog.Fatal(Exception exception, string message, string methodName)
         {
             // do nothing
         }
 
-        public void FatalFormatEx(Exception exception, string message, object param1)
+        void ICommonLog.FatalFormat(Exception exception, string message, object param1)
         {
             // do nothing
         }
 
-        public void FatalFormatEx(Exception exception, string message, object param1, object param2)
+        void ICommonLog.FatalFormat(Exception exception, string message, object param1, object param2)
         {
             // do nothing
         }
 
-        public void FatalFormatEx(Exception exception, string message, object param1, object param2, object param3)
+        void ICommonLog.FatalFormat(Exception exception, string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        public void FatalFormatEx(Exception exception, string message, params object[] args)
+        void ICommonLog.FatalFormat(Exception exception, string message, params object[] args)
         {
             // do nothing
         }
 
-        public void FatalFormatEx(string message, object param1)
+        void ICommonLog.FatalFormat(string message, object param1)
         {
             // do nothing
         }
 
-        public void FatalFormatEx(string message, object param1, object param2)
+        void ICommonLog.FatalFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        public void FatalFormatEx(string message, object param1, object param2, object param3)
+        void ICommonLog.FatalFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        public void FatalFormatEx(string message, params object[] args)
+        void ICommonLog.FatalFormat(string message, params object[] args)
         {
             // do nothing
         }

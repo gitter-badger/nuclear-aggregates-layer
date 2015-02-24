@@ -16,24 +16,25 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
         public static bool TryBuildSuite(
             ISettingsContainer settingsContainer, 
             ICommonLog logger, 
+            ILoggerContextManager loggerContextManager,
             out ITestRunner testRunner)
         {
             testRunner = null;
 
-            logger.InfoFormatEx("Building test suite {0} started", Assembly.GetExecutingAssembly().GetName().Name);
+            logger.InfoFormat("Building test suite {0} started", Assembly.GetExecutingAssembly().GetName().Name);
             
             try
             {
-                var diContainer = Bootstrapper.ConfigureUnity(settingsContainer);
-                logger.InfoEx("SignIn current user");
+                var diContainer = Bootstrapper.ConfigureUnity(settingsContainer, logger, loggerContextManager);
+                logger.Info("SignIn current user");
                 SignIn(diContainer);
-                logger.InfoEx("Resolving tests runner");
+                logger.Info("Resolving tests runner");
                 testRunner = diContainer.Resolve<ITestRunner>();
-                logger.InfoEx("Test suite build was successfully finished");
+                logger.Info("Test suite build was successfully finished");
             }
             catch (Exception ex)
             {
-                logger.FatalFormatEx(ex, "Can't build test suite");
+                logger.FatalFormat(ex, "Can't build test suite");
                 return false;
             }
 

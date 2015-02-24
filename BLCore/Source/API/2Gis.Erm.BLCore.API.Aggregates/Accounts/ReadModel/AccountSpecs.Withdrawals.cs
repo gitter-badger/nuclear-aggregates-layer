@@ -19,19 +19,24 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                     return new FindSpecification<WithdrawalInfo>(x => x.OrganizationUnitId == organizationUnitId);
                 }
 
+                public static FindSpecification<WithdrawalInfo> ByOrganizations(IEnumerable<long> organizationUnitIds)
+                {
+                    return new FindSpecification<WithdrawalInfo>(x => organizationUnitIds.Contains(x.OrganizationUnitId));
+                }
+
                 public static FindSpecification<WithdrawalInfo> ForPeriod(TimePeriod period)
                 {
                     return new FindSpecification<WithdrawalInfo>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
                 }
 
+                public static FindSpecification<WithdrawalInfo> Succeed()
+                {
+                    return InStates(WithdrawalStatus.Success);
+                }
+
                 public static FindSpecification<WithdrawalInfo> InStates(params WithdrawalStatus[] states)
                 {
                     return new FindSpecification<WithdrawalInfo>(x => states.Contains(x.Status));
-                }
-                
-                public static FindSpecification<WithdrawalInfo> ForOrganizationUnit(IEnumerable<long> orgUnits)
-                {
-                    return new FindSpecification<WithdrawalInfo>(x => orgUnits.Contains(x.OrganizationUnitId));
                 }
             }
         }

@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Processings
         {
             if (_registry.TryAdd(processingDescriptor.Id, processingDescriptor))
             {
-                _logger.DebugFormatEx("Processing entry created. Processing: " + processingDescriptor);
+                _logger.DebugFormat("Processing entry created. Processing: " + processingDescriptor);
             }
 
             return processingDescriptor;
@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Processings
             IProcessingDescriptor descriptor;
             if (_registry.TryRemove(processingId, out descriptor) && descriptor != null)
             {
-                _logger.DebugFormatEx("Processing entry removed. Processing: " + descriptor);
+                _logger.DebugFormat("Processing entry removed. Processing: " + descriptor);
             }
 
             return descriptor;

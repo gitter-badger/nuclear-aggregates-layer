@@ -477,9 +477,6 @@
   <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
     <value>Unloading of personal accounts</value>
   </data>
-  <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Unloading account writing-offs</value>
-  </data>
   <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
     <value>Unloading reconciliation reports</value>
   </data>

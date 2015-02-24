@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
                 var sourceFlowState = _performedOperationsProcessingReadModel.GetPrimaryProcessingFlowState(SourceMessageFlow);
                 if (sourceFlowState == null)
                 {
-                    _logger.DebugFormatEx("Primary processing flow {0} is empty, flow processing not required", SourceMessageFlow);
+                    _logger.DebugFormat("Primary processing flow {0} is empty, flow processing not required", SourceMessageFlow);
 
                     transaction.Complete();
                     return new List<DBPerformedOperationsMessage>();
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
 
                 if (timeOffset > Threshold)
                 {
-                    _logger.WarnFormatEx("Oldest operation boundary date {0} after time safety offset {1} is older than " +
+                    _logger.WarnFormat("Oldest operation boundary date {0} after time safety offset {1} is older than " +
                                          "current date more than threshold value {2}, operation may be performance critical. " +
                                          "Processing flow: {3}",
                                          oldestOperationBoundaryDate,

@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
             var context = HttpContext.Current;
             if (context.User == null || !(context.User.Identity is WindowsIdentity))
             {
-                _logger.WarnEx(BLResources.WindowsIdentityNotFoundInContext);
+                _logger.Warn(BLResources.WindowsIdentityNotFoundInContext);
                 throw new UnauthorizedAccessException(BLResources.WindowsIdentityNotFoundInContext);
             }
 
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
             }
             catch (Exception ex)
             {
-                _logger.FatalFormatEx(ex, BLResources.ErorrWhileUserAuthentication, currentIdentity.Name);
+                _logger.FatalFormat(ex, BLResources.ErorrWhileUserAuthentication, currentIdentity.Name);
                 throw new UnauthorizedAccessException(string.Format(BLResources.ErorrWhileUserAuthentication, currentIdentity.Name), ex);
             }
         }

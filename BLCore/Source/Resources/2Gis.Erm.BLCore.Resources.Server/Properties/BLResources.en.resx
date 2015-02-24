@@ -1436,9 +1436,6 @@ Locking errors:{2}</value>
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Number of users to be enabled: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>The selected company division is not a branch, or it was not transferred to ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>The groups of main items have objects linked to inactive items</value>
   </data>
@@ -1450,9 +1447,6 @@ Locking errors:{2}</value>
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>The specified payment is not found</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Error while saving a profile of the client's legal entity</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>The company division is not specified</value>

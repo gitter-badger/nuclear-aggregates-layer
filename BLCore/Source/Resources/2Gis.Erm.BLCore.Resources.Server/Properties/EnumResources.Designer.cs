@@ -3328,15 +3328,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Выгрузка списаний по лицевым счетам.
-        /// </summary>
-        public static string IntegrationTypeExportAccountDetailsTo1C {
-            get {
-                return ResourceManager.GetString("IntegrationTypeExportAccountDetailsTo1C", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Выгрузка в шину списаний по лицевым счетам.
         /// </summary>
         public static string IntegrationTypeExportAccountDetailsToServiceBus {

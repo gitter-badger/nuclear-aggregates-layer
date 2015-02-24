@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="BeforeBuild" Label="Копируем модуль 2Gis.Erm.BLCore.UI.WPF.Client в папку Modules и добавляем в ClickOnce manifest">
+    
+    <Exec Command="(robocopy &quot;..\..\..\BLCore\Source\EntryPoints\UI\Desktop\2Gis.Erm.BLCore.UI.WPF.Client\bin\$(Configuration)&quot; &quot;bin\$(Configuration)\Modules\2Gis.Erm.BLCore.UI.WPF.Client&quot; /MIR) ^&amp; IF %ERRORLEVEL% LEQ 4 EXIT 0" />
+
+    <ItemGroup>
+      <ErmWpfClientModuleFiles Include="bin\$(Configuration)\Modules\2Gis.Erm.BLCore.UI.WPF.Client\**\*" />
+      <_DeploymentManifestFiles Include="@(ErmWpfClientModuleFiles)">
+        <TargetPath>Modules\2Gis.Erm.BLCore.UI.WPF.Client\%(ErmWpfClientModuleFiles.RecursiveDir)%(ErmWpfClientModuleFiles.Filename)%(ErmWpfClientModuleFiles.Extension)</TargetPath>
+        <DependencyType>Install</DependencyType>
+      </_DeploymentManifestFiles>
+    </ItemGroup>
+
+  </Target>
+
+</Project>

@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
         public IEnumerable<ReleaseProcessingMessage> Validate(long organizationUnitId, TimePeriod period, bool isBeta)
         {
-            _logger.InfoFormatEx("Starting orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
+            _logger.InfoFormat("Starting orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
             
             var orderValidationServiceProxy = _clientProxyFactory.GetClientProxy<IOrderValidationApplicationService, WSHttpBinding>();
             var validationResults = orderValidationServiceProxy.Execute(
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             var convertedResults = ConvertValidationMessages(validationResults.Messages);
 
-            _logger.InfoFormatEx("Finished orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
+            _logger.InfoFormat("Finished orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
 
             return convertedResults;
         }
