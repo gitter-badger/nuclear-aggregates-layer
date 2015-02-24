@@ -43,5 +43,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public bool IsDeleted { get; set; }
         [DataMember]
         public byte[] Timestamp { get; set; }
+        [DataMember]
+        public bool IsNeedLookupInitialization { get; set; }
     }
 }

@@ -76,6 +76,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Timestamp = appointment.Timestamp,
                 };
         }
+
         protected override IDomainEntityDto<Appointment> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             var now = DateTime.Now;
@@ -89,6 +90,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             EntityReference regardingObject = null;
             if (parentEntityName.CanBeRegardingObject())
             {
+                dto.IsNeedLookupInitialization = true;
                 regardingObject = ToEntityReference(parentEntityName, parentEntityId);
             }            
             else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
@@ -110,6 +112,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var attendee = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
             if (attendee != null)
             {
+                dto.IsNeedLookupInitialization = true;
                 dto.Attendees = new[] { attendee };
             }
 
@@ -123,7 +126,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private EntityReference ToEntityReference(EntityName entityName, long? entityId)
         {
-            if (!entityId.HasValue) return null;
+            if (!entityId.HasValue)
+            {
+                return null;
+            }
 
             string name;
             switch (entityName)
@@ -144,7 +150,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     return null;
             }
 
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName};
+            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
         }
-   }
+    }
 }
