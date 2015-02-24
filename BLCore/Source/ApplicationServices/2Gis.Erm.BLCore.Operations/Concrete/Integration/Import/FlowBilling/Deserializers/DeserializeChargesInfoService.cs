@@ -59,6 +59,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                 errors.AppendLine(string.Format(AttributeIsMissingTemplate, requiredAttribute));
             }
 
+            var chargesElement = xml.Element("Charges");
+            if (chargesElement != null)
+            {
+                var chargesWithNegativeAmount = chargesElement.Elements("Charge").Select(CreateChargeDto).Where(x => x.Amount < 0).ToArray();
+                if (chargesWithNegativeAmount.Any())
+                {
+                    errors.AppendLine(string.Format("Can't import charges. Amount for following OrderPositions is negative: {0}",
+                                                    string.Join(",", chargesWithNegativeAmount.Select(x => x.OrderPositionId.ToString()))));
+                }
+            }
+
             error = errors.ToString();
             return string.IsNullOrWhiteSpace(error);
         }
