@@ -62,6 +62,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         public LookupField Deal { get; set; }
         public LookupField Firm { get; set; }
 
+        public bool IsNeedLookupInitialization { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (TaskDomainEntityDto)domainEntityDto;
@@ -73,6 +75,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Title = modelDto.Header;
             Description = modelDto.Description;
             ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset();
+
+            IsNeedLookupInitialization = modelDto.IsNeedLookupInitialization;
 
             var regardingObjects = (modelDto.RegardingObjects ?? Enumerable.Empty<EntityReference>()).ToList();
             Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Client));

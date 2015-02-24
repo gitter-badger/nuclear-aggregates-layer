@@ -5,5 +5,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
     public interface IActivityViewModel
     {
         ActivityStatus Status { get; }
+        bool IsNeedLookupInitialization { get; set; }
     }
 }
