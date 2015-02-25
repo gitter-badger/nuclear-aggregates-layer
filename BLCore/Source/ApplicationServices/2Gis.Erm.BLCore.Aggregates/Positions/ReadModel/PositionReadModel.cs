@@ -5,8 +5,10 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -54,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public Position GetPositionByPricePositionId(long pricePositionId)
         {
-            return _finder.FindOne(PositionSpecs.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>());
+            return _finder.FindOne(PriceSpecs.Positions.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>());
         }
 
         public IEnumerable<LinkingObjectsSchemaDto.PositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId)
@@ -108,6 +110,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                                                                      OrderState.OnTermination))
                           .Select(x => x.Id)
                           .ToArray();
+        }
+
+        public IEnumerable<PositionSortingOrderDto> GetPositionsSortingOrder()
+        {
+            return _finder.Find(PriceSpecs.Positions.Select.PositionSortingOrderDto(),
+                                Specs.Find.ActiveAndNotDeleted<Position>() && PriceSpecs.Positions.Find.WithSortingSpecified())
+                          .ToArray();
+        }
+
+        public IEnumerable<Position> GetPositions(IEnumerable<long> ids)
+        {
+            return _finder.FindMany(Specs.Find.ByIds<Position>(ids));
         }
 
         private static bool IsPositionBindingOfSingleType(PositionBindingObjectType type)

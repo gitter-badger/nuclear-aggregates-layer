@@ -5172,4 +5172,7 @@
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value />
   </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value />
+  </data>
 </root>

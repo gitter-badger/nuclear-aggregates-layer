@@ -141,6 +141,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ChangeOrderPositionBindingObjectsIdentity = 15006;
         public const int GetAvailableBinfingObjectsIdentity = 15007;
 
+        // EntityName.Position = 153
+        public const int ChangeSortingOrderIdentity = 15301;
+
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;
         public const int GetRatedPricesForCategoryIdentity = 15502;

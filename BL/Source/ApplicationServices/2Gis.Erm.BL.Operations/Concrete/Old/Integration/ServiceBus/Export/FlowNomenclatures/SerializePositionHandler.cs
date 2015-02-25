@@ -31,6 +31,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             return new XElement("NomenclatureElement",
                                 new XAttribute("Code", dto.Id),
                                 new XAttribute("Name", dto.Name),
+                                dto.SortingPosition.HasValue ? new XAttribute("SortingPosition", dto.SortingPosition) : null,
                                 new XAttribute("PlatformCode", dto.PlatformCode),
                                 new XAttribute("AdvModel", dto.SalesModel.ConvertToServiceBusSalesModel()),
                                 new XAttribute("IsHidden", dto.IsHidden),
@@ -45,6 +46,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             {
                 Id = x.Id,
                 Name = x.Name,
+                SortingPosition = x.SortingIndex,
                 PlatformCode = x.Platform.DgppId,
                 SalesModel = x.SalesModel,
                 IsHidden = !x.IsActive,
@@ -60,6 +62,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
         {
             public long Id { get; set; }
             public string Name { get; set; }
+            public int? SortingPosition { get; set; }
             public long PlatformCode { get; set; }
             public SalesModel SalesModel { get; set; }
             public bool IsHidden { get; set; }

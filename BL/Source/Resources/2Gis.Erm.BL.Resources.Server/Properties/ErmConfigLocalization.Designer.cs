@@ -117,6 +117,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlAddPositions {
+            get {
+                return ResourceManager.GetString("ControlAddPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlAppend {
             get {
                 return ResourceManager.GetString("ControlAppend", resourceCulture);
@@ -561,6 +570,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string ControlOpenLimit {
             get {
                 return ResourceManager.GetString("ControlOpenLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ControlOpenSortingPage {
+            get {
+                return ResourceManager.GetString("ControlOpenSortingPage", resourceCulture);
             }
         }
         
@@ -4881,6 +4899,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string EnPositions {
             get {
                 return ResourceManager.GetString("EnPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string EnPositionSortingOrder {
+            get {
+                return ResourceManager.GetString("EnPositionSortingOrder", resourceCulture);
             }
         }
         

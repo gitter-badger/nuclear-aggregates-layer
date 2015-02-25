@@ -290,6 +290,7 @@
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="OrganizationUnits\Exceptions\OrganizationUnitHasNoProjectsException.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
+    <Compile Include="Positions\Operations\IChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeletePriceAggregateService.cs" />
     <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
+    <Compile Include="Prices\ReadModel\PriceSpecs.Positions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />
     <Compile Include="ProcessAccountsWithDebtsException.cs" />

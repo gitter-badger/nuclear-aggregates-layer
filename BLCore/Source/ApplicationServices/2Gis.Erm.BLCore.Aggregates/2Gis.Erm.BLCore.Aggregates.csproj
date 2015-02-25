@@ -200,6 +200,7 @@
     <Compile Include="Orders\Operations\OrderPositions\OrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
+    <Compile Include="Positions\Operations\ChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\SalesModelUtil.cs" />
     <Compile Include="SimplifiedModel\Categories\BulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />
@@ -231,7 +232,6 @@
     <Compile Include="Prices\Operations\UpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\UpdatePricePositionAggregateService.cs" />
     <Compile Include="Prices\PositionRepository.cs" />
-    <Compile Include="Prices\PositionSpecs.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
     <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
     <Compile Include="Common\Generics\ActivateAggregateRepository.cs" />
