@@ -4961,7 +4961,7 @@ Periodo de la publicación: {3}.</value>
     <value>Cerrar por ser rechazado</value>
   </data>
   <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
-    <value>Рубрики ({0}) не поддерживаются для модели продаж "{1}" в городе "{2}"</value>
+    <value>Categorías ({0}) no están compatibles con el modelo de ventas "{1}" en la ciudad "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Para todas las subposiciones de la posición de la orden formalizada para la posición de la lista de precios con el cálculo del coeficiente [{0}], debe indicarse una categoría</value>

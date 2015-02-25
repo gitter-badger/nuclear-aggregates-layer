@@ -4960,7 +4960,7 @@ Doba zveřejnění: {3}.</value>
     <value>Uzavřít jako zamítnuto</value>
   </data>
   <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
-    <value>Рубрики ({0}) не поддерживаются для модели продаж "{1}" в городе "{2}"</value>
+    <value>Rubriky ({0}) nejsou podporovány pro model prodejů "{1}" ve městě "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>U všech podpoložek položky v objednávce zpracované jako ceníková položka s typem výpočtu koeficientu [{0}] musí být uvedena rubrika</value>
