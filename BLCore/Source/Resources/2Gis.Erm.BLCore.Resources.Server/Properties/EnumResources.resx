@@ -450,36 +450,13 @@
   <data name="IntegrationTypeNone" xml:space="preserve">
     <value>Не указан</value>
   </data>
-  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
-    <value>Загрузка фирм</value>
-  </data>
-  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
-    <value>Загрузка рубрик</value>
-  </data>
-  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
-    <value>Загрузка территорий</value>
-  </data>
-  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
-    <value>Выгрузка фирм с активными заказами</value>
-  </data>
-  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
-    <value>Загрузка списаний</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Выгрузка заказов</value>
-  </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Загрузка поступлений по лицевым счетам</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Выгрузка юр. лиц клиентов</value>
   </data>
-  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Выгрузка лицевых счетов</value>
-  </data>
-  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Выгрузка сверок</value>
-  </data>
+
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Акционная</value>
   </data>

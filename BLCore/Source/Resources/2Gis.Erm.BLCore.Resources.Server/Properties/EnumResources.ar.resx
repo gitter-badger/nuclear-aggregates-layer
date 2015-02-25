@@ -450,35 +450,11 @@
   <data name="IntegrationTypeNone" xml:space="preserve">
     <value>Not specified</value>
   </data>
-  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
-    <value>Loading companies</value>
-  </data>
-  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
-    <value>Loading categories</value>
-  </data>
-  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
-    <value>Loading territories</value>
-  </data>
-  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
-    <value>Unloading companies with active orders</value>
-  </data>
-  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
-    <value>Loading writing-offs</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Unloading orders</value>
-  </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Loading account receipts</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Unloading legal entities of Clients</value>
-  </data>
-  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Unloading of personal accounts</value>
-  </data>
-  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Unloading reconciliation reports</value>
   </data>
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Promotional</value>

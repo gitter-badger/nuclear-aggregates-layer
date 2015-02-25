@@ -5,10 +5,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.BranchOfficeOrganizationUnits;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.RabbitMq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersonProfiles;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Limits;
@@ -26,16 +24,13 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Operations.Concrete.LegalPersons;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.BranchOfficeOrganizationUnits;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Deals;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.LegalPersonProfiles;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages;
@@ -791,19 +786,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
             ContainingClass = typeof(CreateLocalMessageHandler),
             Request = typeof(CreateLocalMessageRequest)
         },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ExportFirmsWithActiveOrdersHandler),
-            Request = typeof(ExportFirmsWithActiveOrdersRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(CreateLocalMessageHandler),
-                    Request = typeof(CreateLocalMessageRequest)
-                }
-            }
-        },
+       
         new UseCaseNode(1)
         {
             ContainingClass = typeof(ExportLegalPersonsHandler),
@@ -827,19 +810,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
             ContainingClass = typeof(CreateLocalMessageHandler),
             Request = typeof(CreateLocalMessageRequest)
         },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ExportFirmsWithActiveOrdersHandler),
-            Request = typeof(ExportFirmsWithActiveOrdersRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(CreateLocalMessageHandler),
-                    Request = typeof(CreateLocalMessageRequest)
-                }
-            }
-        },
+        
         new UseCaseNode(1)
         {
             ContainingClass = typeof(ExportLegalPersonsHandler),
@@ -1088,21 +1059,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
     {
         new UseCaseNode(1)
         {
-            ContainingClass = typeof(WriteFirmsWithActiveOrdersToRabbitMqHandler),
-            Request = typeof(WriteFirmsWithActiveOrdersToRabbitMqRequest)
-        },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DgppImportFirmsHandler),
-            Request = typeof(DgppImportFirmsRequest)
-        },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DgppImportTerritoriesHandler),
-            Request = typeof(DgppImportTerritoriesRequest)
-        },
-        new UseCaseNode(1)
-        {
             ContainingClass = typeof(ImportAccountDetailsFrom1CHandler),
             Request = typeof(ImportAccountDetailsFrom1CRequest),
 
@@ -1290,42 +1246,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(ChangeOrderDealHandler),
                         Request = typeof(ChangeOrderDealRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.RabbitMq.ImportLocalMessagesFromRabbitMq\ExecuteInternal",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ImportlocalMessagesFromRabbitMqHandler),
-                        Request = typeof(ImportLocalMessagesFromRabbitMqRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(CreateLocalMessageHandler),
-            Request = typeof(CreateLocalMessageRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.RabbitMq.ImportLocalMessagesFromRabbitMq\ExecuteInternal",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ImportlocalMessagesFromRabbitMqHandler),
-                        Request = typeof(ImportLocalMessagesFromRabbitMqRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(CreateLocalMessageHandler),
-            Request = typeof(CreateLocalMessageRequest)
-        }
-    }
                     }
                 },
                 new UseCase

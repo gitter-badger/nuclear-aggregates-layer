@@ -198,8 +198,6 @@
     <Compile Include="Firms\DTO\FirmInfo\FirmAddressWithCategoriesDto.cs" />
     <Compile Include="Firms\DTO\FirmInfo\FirmWithAddressesAndProjectDto.cs" />
     <Compile Include="Firms\DTO\FirmInfo\ProjectDto.cs" />
-    <Compile Include="Firms\DTO\ImportFirmsDTOs.cs" />
-    <Compile Include="Firms\DTO\ImportTerritoriesDTOs.cs" />
     <Compile Include="Firms\DTO\RegionalTerritoryDto.cs" />
     <Compile Include="Firms\IFirmRepository.cs" />
     <Compile Include="Firms\DTO\ChangeClientTerritoryDto.cs" />

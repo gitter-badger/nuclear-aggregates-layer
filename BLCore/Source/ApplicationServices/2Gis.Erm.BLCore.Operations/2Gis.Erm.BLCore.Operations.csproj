@@ -120,10 +120,6 @@
     <Compile Include="Concrete\Old\Deals\CloseDealHandler.cs" />
     <Compile Include="Concrete\Old\Deals\ReopenDealHandler.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\LocalMessageHelper.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\AccountDetailsFrom1CHelper.cs" />
     <Compile Include="Concrete\Integration\Export\GetDebitsInfoInitialForExportOperationService.cs" />
@@ -133,8 +129,6 @@
     <Compile Include="Concrete\LegalPersons\ValidateLegalPersonsForExportOperationService.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ValidateAccountDetailsFrom1CHandler.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\ImportlocalMessagesFromRabbitMqHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAdvertisementHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeClientHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeFirmAddressHandler.cs" />

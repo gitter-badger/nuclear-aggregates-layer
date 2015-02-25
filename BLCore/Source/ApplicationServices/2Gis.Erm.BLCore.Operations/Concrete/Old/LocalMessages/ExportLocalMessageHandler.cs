@@ -5,7 +5,6 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -102,11 +101,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
         {
             switch (request.IntegrationType)
             {
-                case IntegrationTypeExport.FirmsWithActiveOrdersToDgpp:
-                    {
-                        return _subRequestProcessor.HandleSubRequest(new ExportFirmsWithActiveOrdersRequest(), Context);
-                    }
-
                 case IntegrationTypeExport.LegalPersonsTo1C:
                     {
                         return _subRequestProcessor.HandleSubRequest(
@@ -133,7 +127,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 case IntegrationTypeExport.AccountDetailsToServiceBus:
                 {
                     return ExportAccountDetailsToServiceBus(request);
-                }
+                        }
 
                 default:
                     throw new NotSupportedException();
