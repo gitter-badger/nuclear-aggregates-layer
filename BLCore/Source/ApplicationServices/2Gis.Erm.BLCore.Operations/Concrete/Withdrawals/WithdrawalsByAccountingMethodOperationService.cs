@@ -85,7 +85,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             {
                 try
                 {
-                    result.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
+                    using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+                    {
+                        result.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
+                        transactionScope.Complete();
+                    }
                 }
                 catch (Exception ex)
                 {

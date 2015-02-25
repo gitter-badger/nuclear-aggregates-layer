@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                             string.Join(Environment.NewLine, report));
 
                     _logger.Error(msg);
-                    return WithdrawalProcessingResult.Errors(msg);
+                    return WithdrawalProcessingResult.Errors(report.ToArray());
                 }
 
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
