@@ -111,10 +111,8 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Deals\ReplicateDealStageOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
     <Compile Include="Suite\Base\UseModelEntityHandlerTestBase.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\GetAccountDetailsForExportContentTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\GetDebitsInfoInitialForExportTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\PerfomedOperationsProcessorOperationsTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowBillingTest.cs" />
+	<Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowBillingTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsForErmTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowFinancialData1CTest.cs" />

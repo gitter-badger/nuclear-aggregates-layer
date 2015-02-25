@@ -72,9 +72,6 @@
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\ExportAccountDetailsBeforeWithdrawalOperationException.cs" />
-    <Compile Include="Concrete\Integration\Export\IGetAccountDetailsForExportContentOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\IGetDebitsInfoInitialForExportOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Flows\FlowAdvModelsInfo.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportAdvModelInRubricInfoService.cs" />
@@ -174,9 +171,6 @@
     <Compile Include="Concrete\Integration\Settings\IIntegrationLocalizationSettings.cs" />
     <Compile Include="Concrete\Integration\Settings\IIntegrationSettings.cs" />
     <Compile Include="Concrete\Integration\Settings\IntegrationSettingsAspect.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\DebitDto.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\DebitsInfoInitialDto.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\PlatformDistribution.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />

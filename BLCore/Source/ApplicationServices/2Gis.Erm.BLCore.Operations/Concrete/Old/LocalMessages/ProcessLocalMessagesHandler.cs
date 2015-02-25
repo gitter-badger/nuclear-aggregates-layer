@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Transactions;
 using System.Xml;
 
@@ -18,7 +17,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -146,32 +144,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                         return ProcessDataForAutoMailer(localMessageDto);
                     }
 
-                case IntegrationTypeExport.AccountDetailsToServiceBus:
-                {
-                    return ProcessAccountDetailsToServiceBus(localMessageDto);
-                }
-
                 case IntegrationTypeExport.LegalPersonsTo1C:
                 case IntegrationTypeExport.None:
                     throw new NotificationException("Неподдерживаемый тип интеграционного запроса на экспорт");
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        private ExportResponse ProcessAccountDetailsToServiceBus(LocalMessageDto localMessageDto)
-        {
-            var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
-
-            var stream = file.Content.UnzipStream(x => Path.GetExtension(x) == ".xml").Single().Value;
-            return (ExportResponse)_subRequestProcessor.HandleSubRequest(new WriteMessageToServiceBusRequest
-                {
-                    MessageStream = stream,
-                    FlowName = "flowFinancialData",
-                    XsdSchemaResourceExpression = () => Properties.Resources.flowFinancialData_DebitsInfoInitial
-                },
-                                                                         Context,
-                                                                         false);
         }
 
         private ExportResponse ProcessFirmsWithActiveOrdersToDgpp(LocalMessageDto localMessageDto)
