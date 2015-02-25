@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
         public static bool TryBuildSuite(
             ISettingsContainer settingsContainer, 
             ICommonLog logger, 
+            ILoggerContextManager loggerContextManager,
             out ITestRunner testRunner)
         {
             testRunner = null;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
             
             try
             {
-                var diContainer = Bootstrapper.ConfigureUnity(settingsContainer, logger);
+                var diContainer = Bootstrapper.ConfigureUnity(settingsContainer, logger, loggerContextManager);
                 logger.Info("SignIn current user");
                 SignIn(diContainer);
                 logger.Info("Resolving tests runner");

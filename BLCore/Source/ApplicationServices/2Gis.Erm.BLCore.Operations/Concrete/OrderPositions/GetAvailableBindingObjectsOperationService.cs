@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
@@ -53,12 +51,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 var pricePositionInfo = _priceReadModel.GetPricePositionDetailedInfo(pricePositionId);
                 var firmAddresses = GetFirmAddresses(orderDto.FirmId, includeHiddenAddresses);
                 var firmAddressesCategories = _categoryReadModel.GetFirmAddressesCategories(orderDto.DestOrganizationUnitId, firmAddresses.Select(x => x.Id));
-                foreach (var firmAddress in firmAddresses)
-                {
-                    firmAddress.Categories = firmAddressesCategories.ContainsKey(firmAddress.Id) ? firmAddressesCategories[firmAddress.Id] : Enumerable.Empty<long>();
-                }
 
-                var firmCategoryIds = firmAddresses.SelectMany(firmAddress => firmAddress.Categories).Distinct().ToArray();
+                var firmCategoryIds = firmAddressesCategories.SelectMany(x => x.Value).Distinct().ToArray();
                 var themeDtos = _themeReadModel.FindThemesCanBeUsedWithOrder(orderDto.DestOrganizationUnitId, orderDto.BeginDistributionDate, orderDto.EndDistributionDatePlan);
 
                 IEnumerable<LinkingObjectsSchemaDto.WarningDto> warnings = null;
@@ -75,6 +69,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 var additionalCategories = orderPositionId.HasValue
                                                ? _categoryReadModel.GetAdditionalCategories(firmCategoryIds, orderPositionId.Value, pricePositionInfo.SalesModel, orderDto.DestOrganizationUnitId)
                                                : Enumerable.Empty<LinkingObjectsSchemaDto.CategoryDto>();
+
+                // Оставим в качестве допустимых рубрик в адрес только те рубрики, что остались в качестве допустимых рубрик по фирме
+                var allAvailableFirmCategoryIds = firmCategories.Select(x => x.Id).Concat(additionalCategories.Select(x => x.Id));
+                foreach (var firmAddress in firmAddresses)
+                {
+                    firmAddress.Categories = firmAddressesCategories.ContainsKey(firmAddress.Id) ? firmAddressesCategories[firmAddress.Id] : Enumerable.Empty<long>();
+                    firmAddress.Categories = firmAddress.Categories.Where(allAvailableFirmCategoryIds.Contains);
+                }
 
                 var result = new LinkingObjectsSchemaDto
                            {

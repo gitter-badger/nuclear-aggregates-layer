@@ -76,6 +76,7 @@
     <Compile Include="Concrete\Integration\Flows\FlowAdvModelsInfo.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportAdvModelInRubricInfoService.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
+    <Compile Include="Concrete\Integration\Shared\ServiceBusSalesModel.cs" />
     <Compile Include="Concrete\LegalPersons\IValidateLegalPersonsForExportOperationService.cs" />
     <Compile Include="Concrete\LegalPersons\ValidateLegalPersonDto.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />

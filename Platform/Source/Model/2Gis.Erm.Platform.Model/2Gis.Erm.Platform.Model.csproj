@@ -397,6 +397,7 @@
     <Compile Include="Entities\Erm\Parts\Emirates\EmiratesLegalPersonProfilePart.cs" />
     <Compile Include="Entities\Erm\Parts\Kazakhstan\KazakhstanLegalPersonPart.cs" />
     <Compile Include="Entities\Erm\Parts\Kazakhstan\KazakhstanLegalPersonProfilePart.cs" />
+    <Compile Include="Entities\Erm\Parts\Russia\RussiaLegalPersonProfilePart.cs" />
     <Compile Include="Entities\Erm\Parts\Ukraine\UkraineBranchOfficePart.cs" />
     <Compile Include="Entities\Erm\Parts\Ukraine\UkraineLegalPersonPart.cs" />
     <Compile Include="Entities\Erm\Parts\Ukraine\UkraineLegalPersonProfilePart.cs" />
