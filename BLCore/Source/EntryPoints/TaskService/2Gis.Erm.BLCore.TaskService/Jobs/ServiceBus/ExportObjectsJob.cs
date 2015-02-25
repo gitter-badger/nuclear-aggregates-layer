@@ -109,6 +109,16 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                         }
                 },
                 {
+                    "flowfinancialdata.accountdetails",
+                    new FlowDescription
+                        {
+                            EntityName = EntityName.AccountDetail,
+                            FlowName = "flowFinancialData",
+                            SchemaResourceName = "flowFinancialData_DebitsInfoInitial",
+                            IntegrationEntityName = EntityName.ExportFlowFinancialDataDebitsInfoInitial
+                        }
+                },
+                {
                     "flowpricelists.pricelist",
                     new FlowDescription
                         {
