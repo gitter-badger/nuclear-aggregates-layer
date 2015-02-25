@@ -114,6 +114,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                                             .Group(OrderValidationRuleGroup.SalesModelValidation)
                                             .UseCaching
                                             .Rules(
+                                                    
+                                                    // Оказалось, что текущее положение вещей конфликтует с идеей, 
+                                                    // что рубрика продается только по одной модели продаж. 
+                                                    // В будущем мы будем получать ограничения и продавать рубрики по нескольким моделям продаж.
+                                                    // Сейчас же решили просто отключить проверку и дать выйти существующим заказам.
+                                                    // ERM-5916
+
                                                     //OrderValidationRuleMetadata.Config.Rule<SalesModelRestrictionsOrderValidationRule>(45).Common
                                                   );
 
