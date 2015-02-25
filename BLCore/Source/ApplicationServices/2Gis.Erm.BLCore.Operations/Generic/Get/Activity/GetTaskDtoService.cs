@@ -83,12 +83,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             EntityReference regardingObject = null;
             if (parentEntityName.CanBeRegardingObject())
             {
-                dto.IsNeedLookupInitialization = true;
                 regardingObject = ToEntityReference(parentEntityName, parentEntityId);
             }
             else if (parentEntityName == EntityName.Contact && parentEntityId.HasValue)
             {
-                dto.IsNeedLookupInitialization = true;
                 var client = _clientReadModel.GetClientByContact(parentEntityId.Value);
                 if (client != null)
                 {
@@ -115,10 +113,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private EntityReference ToEntityReference(EntityName entityName, long? entityId)
         {
-            if (!entityId.HasValue)
-            {
-                return null;
-            }
+            if (!entityId.HasValue) return null;
 
             string name;
             switch (entityName)

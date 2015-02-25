@@ -41,8 +41,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         [ExcludeZeroValue]
         public ActivityStatus Status { get; set; }
 
-        public bool IsNeedLookupInitialization { get; set; }
-
         [RequiredLocalized]
         [ExcludeZeroValue]
         public ActivityPriority Priority { get; set; }
@@ -72,7 +70,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset();
             Priority = modelDto.Priority;
             Status = modelDto.Status;
-            IsNeedLookupInitialization = modelDto.IsNeedLookupInitialization;
 
             var regardingObjects = (modelDto.RegardingObjects ?? Enumerable.Empty<EntityReference>()).ToList();
             Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Client));

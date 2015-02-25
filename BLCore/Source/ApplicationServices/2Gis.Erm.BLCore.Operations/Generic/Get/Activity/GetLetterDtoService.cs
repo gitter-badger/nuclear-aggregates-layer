@@ -93,7 +93,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             EntityReference regardingObject = null;
             if (parentEntityName.CanBeRegardingObject())
             {
-                dto.IsNeedLookupInitialization = true;
                 regardingObject = ToEntityReference(parentEntityName, parentEntityId);
             }
             else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
@@ -109,7 +108,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var recipient = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
             if (recipient != null)
             {
-                dto.IsNeedLookupInitialization = true;
                 dto.RecipientRef = recipient;
             }
 

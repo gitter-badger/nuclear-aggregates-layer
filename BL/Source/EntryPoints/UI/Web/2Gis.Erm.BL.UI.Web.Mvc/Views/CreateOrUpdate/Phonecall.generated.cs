@@ -205,23 +205,12 @@ WriteLiteral("        ");
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("        ");
-
-            
-            #line 33 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-   Write(Html.HiddenFor(m => m.IsNeedLookupInitialization));
-
-            
-            #line default
-            #line hidden
 WriteLiteral("\r\n\r\n");
 
 WriteLiteral("        ");
 
             
-            #line 35 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding));
 
             
@@ -230,13 +219,13 @@ WriteLiteral("        ");
 WriteLiteral("\r\n");
 
             
-            #line 36 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 35 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 36 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 35 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
           
             var firmDataFields = new[]
                                      {
@@ -254,7 +243,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 45 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 44 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
             @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
@@ -267,7 +256,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 48 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 47 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
@@ -278,7 +267,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 50 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 49 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -289,7 +278,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 51 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 50 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Purpose, FieldFlex.lone, null, EnumResources.ResourceManager)));
 
             
@@ -300,7 +289,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 52 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -311,7 +300,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 53 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 52 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
@@ -326,7 +315,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 58 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 57 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Contact, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
@@ -337,7 +326,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 60 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 59 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -348,7 +337,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 61 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 60 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             
