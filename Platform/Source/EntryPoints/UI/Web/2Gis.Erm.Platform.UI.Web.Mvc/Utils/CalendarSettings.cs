@@ -35,8 +35,8 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
         {
             public TimeSettings()
             {
-                Start = TimeSpan.FromHours(0);
-                End = TimeSpan.FromDays(1).Add(TimeSpan.FromSeconds(-1));
+                Start = TimeSpan.FromHours(8);
+                End = TimeSpan.FromHours(20).Add(TimeSpan.FromSeconds(1));
                 Step = TimeSpan.FromMinutes(30);
             }
 
