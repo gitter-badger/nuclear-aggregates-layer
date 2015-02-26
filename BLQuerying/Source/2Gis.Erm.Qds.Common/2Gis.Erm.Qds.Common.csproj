@@ -70,11 +70,23 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="CommonConnectionSettings.cs" />
+    <Compile Include="DelegateEnumerable.cs" />
+    <Compile Include="DocumentWrapper.cs" />
+    <Compile Include="ErmBulkDescriptor.cs" />
+    <Compile Include="ErmBulkOperationBody.cs" />
+    <Compile Include="ErmBulkUpdateDescriptor.cs" />
+    <Compile Include="ErmMultiGetDescriptor.cs" />
+    <Compile Include="IDocumentWrapper.cs" />
     <Compile Include="IElasticApi.cs" />
     <Compile Include="ElasticApi.cs" />
+    <Compile Include="IElasticManagementApi.cs" />
+    <Compile Include="IElasticMetadataApi.cs" />
+    <Compile Include="InternalSerializer.cs" />
+    <Compile Include="ScrollEnumerator.cs" />
     <Compile Include="Settings\INestSettings.cs" />
     <Compile Include="Settings\NestSettingsAspect.cs" />
     <Compile Include="Settings\Protocol.cs" />
+    <Compile Include="UpdateType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
