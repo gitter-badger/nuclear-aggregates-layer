@@ -60,6 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.FirmInfo
                 {
                     Id = firm.Id,
                     Name = firm.Name,
+                    Owner = firm.Owner,
                     Project = new ProjectInfoDto
                         {
                             Code = firm.Project.Code,
