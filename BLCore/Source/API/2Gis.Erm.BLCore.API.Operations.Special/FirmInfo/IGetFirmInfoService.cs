@@ -8,6 +8,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.FirmInfo
 {
     public interface IGetFirmInfoService : IOperation<GetFirmInfoIdentity>
     {
-        IEnumerable<FirmInfoDto> GetFirmInfosByCrmIds(IEnumerable<Guid> crmIds);
+        IEnumerable<FirmInfoDto> GetFirmInfosByIds(IEnumerable<long> ids);
     }
 }

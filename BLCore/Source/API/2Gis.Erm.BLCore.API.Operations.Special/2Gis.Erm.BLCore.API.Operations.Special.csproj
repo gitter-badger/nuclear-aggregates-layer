@@ -65,7 +65,7 @@
     <Compile Include="CostCalculation\ICostCalculator.cs" />
     <Compile Include="CostCalculation\PositionIsNotRepresentedException.cs" />
     <Compile Include="FirmInfo\CategoryInfoDto.cs" />
-    <Compile Include="FirmInfo\FirmGuidDto.cs" />
+    <Compile Include="FirmInfo\FirmIdDto.cs" />
     <Compile Include="FirmInfo\FirmInfoDto.cs" />
     <Compile Include="FirmInfo\IGetFirmInfoService.cs" />
     <Compile Include="FirmInfo\ProjectInfoDto.cs" />

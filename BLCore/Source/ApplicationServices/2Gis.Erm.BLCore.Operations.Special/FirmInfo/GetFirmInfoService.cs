@@ -19,26 +19,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.FirmInfo
             _firmReadModel = firmReadModel;
         }
 
-        public IEnumerable<FirmInfoDto> GetFirmInfosByCrmIds(IEnumerable<Guid> crmIds)
+        public IEnumerable<FirmInfoDto> GetFirmInfosByIds(IEnumerable<long> ids)
         {
-            var idsWithMssingFirms = new List<Guid>();
-            var idsWithMissingProjects = new List<Guid>();
+            var idsWithMssingFirms = new List<long>();
+            var idsWithMissingProjects = new List<long>();
             var result = new List<FirmInfoDto>();
 
-            var firms = _firmReadModel.GetFirmInfosByCrmIds(crmIds);
+            var firms = _firmReadModel.GetFirmInfosByIds(ids);
 
-            foreach (var crmId in crmIds)
+            foreach (var id in ids)
             {
                 FirmWithAddressesAndProjectDto firm;
-                if (!firms.TryGetValue(crmId, out firm))
+                if (!firms.TryGetValue(id, out firm))
                 {
-                    idsWithMssingFirms.Add(crmId);
+                    idsWithMssingFirms.Add(id);
                     continue;
                 }
 
                 if (firm.Project == null)
                 {
-                    idsWithMissingProjects.Add(crmId);
+                    idsWithMissingProjects.Add(id);
                     continue;
                 }
 
@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.FirmInfo
             return firmDto;
         }
 
-        private static bool TryGetErrorReport(IEnumerable<Guid> idsWithMssingFirms, IEnumerable<Guid> idsWithMissingProjects, out string report)
+        private static bool TryGetErrorReport(IEnumerable<long> idsWithMssingFirms, IEnumerable<long> idsWithMissingProjects, out string report)
         {
             var sb = new StringBuilder();
 

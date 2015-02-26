@@ -24,11 +24,11 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
             _logger = logger;
         }
 
-        public IEnumerable<FirmInfoDto> Execute(IEnumerable<FirmGuidDto> firmIds)
+        public IEnumerable<FirmInfoDto> Execute(IEnumerable<FirmIdDto> firmIds)
         {
             try
             {
-                return _getFirmInfoService.GetFirmInfosByCrmIds(firmIds.Select(x => x.Id));
+                return _getFirmInfoService.GetFirmInfosByIds(firmIds.Select(x => x.Id));
             }
             catch (BusinessLogicException ex)
             {

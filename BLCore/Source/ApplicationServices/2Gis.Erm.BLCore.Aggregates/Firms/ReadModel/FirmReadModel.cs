@@ -36,13 +36,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             return _secureFinder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.FirmId).Single();
         }
 
-        public IReadOnlyDictionary<Guid, FirmWithAddressesAndProjectDto> GetFirmInfosByCrmIds(IEnumerable<Guid> crmIds)
+        public IReadOnlyDictionary<long, FirmWithAddressesAndProjectDto> GetFirmInfosByIds(IEnumerable<long> ids)
         {
-            return _secureFinder.Find(FirmSpecs.Firms.Find.ByReplicationCodes(crmIds))
-                                .Select(f => new
-                                {
-                                    CrmId = f.ReplicationCode,
-                                    Dto = new FirmWithAddressesAndProjectDto
+            return _secureFinder.Find(Specs.Find.ByIds<Firm>(ids))
+                                .Select(f => new FirmWithAddressesAndProjectDto
                                     {
                                         Id = f.Id,
                                         Name = f.Name,
@@ -67,9 +64,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                                                        Code = p.Id,
                                                        Name = p.DisplayName
                                                    }).FirstOrDefault()
-                                    }
-                                })
-                                .ToDictionary(x => x.CrmId, x => x.Dto);
+                                    })
+                                .ToDictionary(x => x.Id, x => x);
         }
 
         public IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId)
