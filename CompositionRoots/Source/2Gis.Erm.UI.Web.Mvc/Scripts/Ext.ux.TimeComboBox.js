@@ -45,16 +45,16 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
         }
     },
     roundToInterval: function (date) {
+        var time = moment(date, this.displayFormat, true);
         if (!this.step || !this.needRoundInSelect)
-            return date;
-        var time = moment(date, this.displayFormat, true);        
+            return moment.duration(time).asMilliseconds();
+           
         var remainder = time.minute() % this.step;
         if (remainder != 0) {
             var addingMinutes = this.step - remainder;
             time.add('minutes', addingMinutes);
         }
-
-        var rval = time.format(this.displayFormat);
+        
         return moment.duration(time).asMilliseconds();
     },
     initTime: function (start, end, step) {
