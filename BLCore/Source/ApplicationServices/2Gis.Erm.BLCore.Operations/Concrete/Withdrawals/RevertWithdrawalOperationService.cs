@@ -151,7 +151,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                                              TimePeriod period,
                                                                              AccountingMethod accountingMethod)
         {
-            using (var scope = _scopeFactory.CreateNonCoupled<WithdrawalIdentity>())
+            using (var scope = _scopeFactory.CreateNonCoupled<RevertWithdrawalIdentity>())
             {
                 var withdrawalInfos = _accountReadModel.GetInfoForRevertWithdrawal(organizationUnitId, period, accountingMethod);
 

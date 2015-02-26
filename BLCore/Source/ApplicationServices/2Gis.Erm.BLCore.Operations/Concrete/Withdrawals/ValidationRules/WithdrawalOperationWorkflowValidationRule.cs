@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
@@ -19,15 +19,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules
 
         public bool Validate(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod, out IEnumerable<string> messages)
         {
-            messages = new List<string>();
             var lastWithdrawal = _accountReadModel.GetLastWithdrawalIncludingUndefinedAccountingMethod(organizationUnitId, period, accountingMethod);
 
             if (lastWithdrawal == null || lastWithdrawal.Status == WithdrawalStatus.Error || lastWithdrawal.Status == WithdrawalStatus.Reverted)
             {
+                messages = Enumerable.Empty<string>();
                 return true;
             }
 
-            ((IList)messages).Add("Forbidden previous withdrawal status " + lastWithdrawal.Status);
+            messages = new[] { "Forbidden previous withdrawal status " + lastWithdrawal.Status };
 
             return false;
         }

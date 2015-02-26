@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
@@ -19,13 +19,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules
 
         public bool Validate(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod, out IEnumerable<string> messages)
         {
-            messages = new List<string>();
             if (!_accountReadModel.HasActiveLocksForSourceOrganizationUnitByPeriod(organizationUnitId, period))
             {
-                ((IList)messages).Add("Active locks for orders not found, because final release have to be done before withdrawal");
+                messages = new[] { "Active locks for orders not found, because final release have to be done before withdrawal" };
                 return false;
             }
 
+            messages = Enumerable.Empty<string>();
             return true;
         }
     }

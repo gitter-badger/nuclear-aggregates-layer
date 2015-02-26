@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
@@ -20,14 +19,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules
 
         public bool Validate(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod, out IEnumerable<string> messages)
         {
-            messages = new List<string>();
             string report;
             var result = _checkOperationPeriodService.IsOperationPeriodValid(period, out report);
             if (!string.IsNullOrWhiteSpace(report))
             {
-                ((IList)messages).Add(report);
+                messages = new[] { report };
+                return false;
             }
 
+            messages = Enumerable.Empty<string>();
             return result;
         }
     }

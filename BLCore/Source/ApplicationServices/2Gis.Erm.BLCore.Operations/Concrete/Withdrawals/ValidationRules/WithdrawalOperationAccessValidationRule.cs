@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
@@ -23,13 +23,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules
 
         public bool Validate(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod, out IEnumerable<string> messages)
         {
-            messages = new List<string>();
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.WithdrawalAccess, _userContext.Identity.Code))
             {
-                ((IList)messages).Add("User doesn't have sufficient privileges for managing withdrawal");
+                messages = new[] { "User doesn't have sufficient privileges for managing withdrawal" };
                 return false;
             }
 
+            messages = Enumerable.Empty<string>();
             return true;
         }
     }
