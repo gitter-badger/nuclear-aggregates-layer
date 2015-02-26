@@ -7,6 +7,7 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
     mode: 'local',
     // private override
     triggerAction: 'all',
+    needRoundInSelect: true,
     // private override
     typeAhead: false,
     displayFormat:Ext.CultureInfo.DateTimeFormatInfo.MomentJsShortTimePattern,
@@ -19,7 +20,7 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
     selectByValue: function (v, scrollIntoView) {
         if (!Ext.isEmpty(v, true)) {
             var roundedTime = this.roundToInterval(v);
-            var r = this.findRecord(this.valueField || this.displayField, roundedTime);
+            var r = this.findRecord(this.valueField , roundedTime);
             if (r) {
                 this.select(this.store.indexOf(r), scrollIntoView);
                 return true;
@@ -30,13 +31,23 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
     generateStore: function (initial) {
         if (this.minValue && this.maxValue && this.step) {
             var times = this.initTime(this.minValue, this.maxValue, this.step);
-            this.bindStore(times, initial);
+            var store = new window.Ext.data.Store( {
+                xtype: 'jsonstore',
+                autoLoad: false,
+                data: times,
+                reader: new window.Ext.data.JsonReader({                  
+                    fields: [{ name: "id", mapping: "id" }, { name: "name", mapping: 'name' }]
+                })
+            });
+            this.displayField = 'name';
+            this.valueField = 'id';
+            this.store = store;
         }
     },
     roundToInterval: function (date) {
-        if (!this.step)
+        if (!this.step || !this.needRoundInSelect)
             return date;
-        var time = moment(date, "HH:mm", true);        
+        var time = moment(date, this.displayFormat, true);        
         var remainder = time.minute() % this.step;
         if (remainder != 0) {
             var addingMinutes = this.step - remainder;
@@ -44,7 +55,7 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
         }
 
         var rval = time.format(this.displayFormat);
-        return rval;
+        return moment.duration(time).asMilliseconds();
     },
     initTime: function (start, end, step) {
 
@@ -56,7 +67,8 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
 
         var values = [];
         while (start <= end) {
-            values.push(start.format(this.displayFormat));
+            //var id = start.clone();
+            values.push({ id: moment.duration(start).asMilliseconds(), name: start.format(this.displayFormat) });
             start.add('minutes',step);
         }
 

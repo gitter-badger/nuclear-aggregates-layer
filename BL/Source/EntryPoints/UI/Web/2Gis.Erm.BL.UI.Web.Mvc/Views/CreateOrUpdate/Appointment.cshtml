@@ -52,9 +52,9 @@
 
         @Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, 
-                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = CalendarSettings.TimeSettings.WorkDayTimeSettings }),
             @Html.TemplateField(m => m.ScheduledEnd, FieldFlex.twins, 
-                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() })
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = CalendarSettings.TimeSettings.WorkDayTimeSettings })
             )
         @Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }))
         @Html.SectionRow(@Html.TemplateField(m => m.Location, FieldFlex.lone))

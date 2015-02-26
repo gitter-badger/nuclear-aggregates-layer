@@ -271,7 +271,7 @@ WriteLiteral("        ");
             #line 50 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
-                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = CalendarSettings.TimeSettings.WorkDayTimeSettings }),
             @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager)));
 
             
