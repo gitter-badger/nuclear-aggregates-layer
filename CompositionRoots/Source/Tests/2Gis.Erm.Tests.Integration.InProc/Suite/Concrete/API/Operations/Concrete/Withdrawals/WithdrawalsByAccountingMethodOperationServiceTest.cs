@@ -22,7 +22,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             var date = new DateTime(2014, 12, 1); //DateTime.UtcNow.GetPrevMonthLastDate();
             var timePeriod = new TimePeriod(date.GetPrevMonthFirstDate(), date);
 
-            var result = _withdrawalsByAccountingMethodOperationService.Withdraw(timePeriod, AccountingMethod.GuaranteedProvision);
+            Guid operationId;
+            _withdrawalsByAccountingMethodOperationService.Withdraw(timePeriod, AccountingMethod.GuaranteedProvision, out operationId);
+            _withdrawalsByAccountingMethodOperationService.Withdraw(timePeriod, AccountingMethod.PlannedProvision, out operationId);
 
             return OrdinaryTestResult.As.Succeeded;
         }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
+using System.Web;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -15,6 +18,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
@@ -30,6 +34,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IUserContext _userContext;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly ICommonLog _commonLog;
+        private readonly IOperationService _operationService;
+        private readonly IGetWithdrawalsErrorsCsvReportOperationService _getWithdrawalsErrorsCsvReportOperationService;
 
         public WithdrawalsByAccountingMethodOperationService(IAccountReadModel accountReadModel,
                                                              IWithdrawalOperationService withdrawalOperationService,
@@ -38,7 +44,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                              ICheckOperationPeriodService checkOperationPeriodService,
                                                              IUserContext userContext,
                                                              IUseCaseTuner useCaseTuner,
-                                                             ICommonLog commonLog)
+                                                             ICommonLog commonLog,
+                                                             IOperationService operationService,
+                                                             IGetWithdrawalsErrorsCsvReportOperationService getWithdrawalsErrorsCsvReportOperationService)
         {
             _accountReadModel = accountReadModel;
             _withdrawalOperationService = withdrawalOperationService;
@@ -48,9 +56,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _userContext = userContext;
             _useCaseTuner = useCaseTuner;
             _commonLog = commonLog;
+            _operationService = operationService;
+            _getWithdrawalsErrorsCsvReportOperationService = getWithdrawalsErrorsCsvReportOperationService;
         }
 
-        public IDictionary<long, WithdrawalProcessingResult> Withdraw(TimePeriod period, AccountingMethod accountingMethod)
+        public bool Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId)
         {
             _useCaseTuner.AlterDuration<WithdrawalsByAccountingMethodOperationService>();
 
@@ -80,31 +90,56 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
 
             var organizationUnits = _accountReadModel.GetOrganizationUnitsToProccessWithdrawals(period.Start, period.End, accountingMethod);
-            var result = new Dictionary<long, WithdrawalProcessingResult>();
+            var processingResultsByOrganizationUnit = new Dictionary<long, WithdrawalProcessingResult>();
             foreach (var organizationUnit in organizationUnits)
             {
                 try
                 {
                     using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
                     {
-                        result.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
+                        processingResultsByOrganizationUnit.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
                         transactionScope.Complete();
                     }
                 }
                 catch (Exception ex)
                 {
-                    result.Add(organizationUnit, WithdrawalProcessingResult.Errors(ex.ToString()));
+                    processingResultsByOrganizationUnit.Add(organizationUnit, WithdrawalProcessingResult.Errors(ex.ToString()));
                     _commonLog.ErrorFormat(ex, "Не удалось провести списание по отделению организации {0}", organizationUnit);
                 }
             }
 
-            // Регистрируем факт проведения операции. Вложенных записей нет, т.к. списание по каждому городу проходит в своей транзакции
+            // Регистрируем факт проведения операции.
             using (var scope = _operationScopeFactory.CreateNonCoupled<WithdrawalsByAccountingMethodIdentity>())
             {
-                scope.Complete();
-            }
+                var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
+                businessOperationId = Guid.NewGuid();
+                
+                var operation = new Operation
+                                    {
+                                        Guid = businessOperationId,
+                                        StartTime = DateTime.UtcNow,
+                                        FinishTime = DateTime.UtcNow,
+                                        OwnerCode = _userContext.Identity.Code,
+                                        Status = allWithwrawalsSucceded ? OperationStatus.Success : OperationStatus.Error,
+                                        Type = BusinessOperation.Withdrawal,
+                                    };
 
-            return result;
+                var csvReport = allWithwrawalsSucceded
+                                    ? new WithdrawalsErrorsReport()
+                                    : _getWithdrawalsErrorsCsvReportOperationService.GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded)
+                                                                                                                                        .ToDictionary(x => x.Key, y => y.Value),
+                                                                                                     period,
+                                                                                                     accountingMethod);
+
+                _operationService.FinishOperation(operation,
+                                                  csvReport.ReportContent,
+                                                  HttpUtility.UrlPathEncode(csvReport.ReportFileName),
+                                                  csvReport.ContentType);
+                scope.Added(operation);
+                scope.Complete();
+
+                return allWithwrawalsSucceded;
+            }
         }
     }
 }

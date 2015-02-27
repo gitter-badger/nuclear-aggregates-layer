@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations;
@@ -9,7 +9,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
 {
     public interface IWithdrawalsByAccountingMethodOperationService : IOperation<WithdrawalsByAccountingMethodIdentity>
     {
-        // Ключем является идентификатор отделения организации
-        IDictionary<long, WithdrawalProcessingResult> Withdraw(TimePeriod period, AccountingMethod accountingMethod);
+        bool Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId);
     }
 }
