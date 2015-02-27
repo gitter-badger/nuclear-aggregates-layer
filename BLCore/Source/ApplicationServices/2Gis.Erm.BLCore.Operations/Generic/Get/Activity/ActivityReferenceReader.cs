@@ -8,7 +8,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using Microsoft.Xrm.Client.Caching.Configuration;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
 {
@@ -102,9 +105,46 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
             return new EntityReference { Id = entity.TargetEntityId, Name = name, EntityName = entity.TargetEntityName };
         }
 
+        public IEnumerable<EntityReference> FindAutoCompleteReferences(EntityReference entity) 
+        {
+            if (entity == null || entity.Id == null)
+            {
+                return Enumerable.Empty<EntityReference>();
+            }
+
+            var rval = new List<EntityReference>();
+            switch (entity.EntityName)
+            {
+                case EntityName.Client:
+                    var firms = _firmReadModel.GetFirmsForClientAndLinkedChild(entity.Id.Value);
+                    var firmEnumerable = firms as Firm[] ?? firms.ToArray();
+                    if (firmEnumerable.Any())
+                    {
+                        if (firmEnumerable.Count() == 1)
+                        {
+                            var firm = firmEnumerable.First();
+                            var entityReference = new EntityReference { EntityName = EntityName.Firm, Name = firm.Name, Id = firm.Id };
+                            rval.Add(entityReference);
+                        }
+                        else
+                        {
+                            var entityReference = new EntityReference { EntityName = EntityName.Firm };
+                            rval.Add(entityReference);
+                        } 
+                    }
+                    
+
+                    break;
+            }
+
+            return rval;
+        }
+        
+
         private IEnumerable<EntityReference> AdaptReferences<TEntity>(IEnumerable<EntityReference<TEntity>> references) where TEntity : IEntity
         {
             return references.Select(ToEntityReference).Where(x => x != null).ToList();
         }
+       
     }
 }

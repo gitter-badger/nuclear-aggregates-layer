@@ -14,6 +14,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
         Client GetClientByContact(long clientId);
         string GetContactName(long contactId);
 
+        IEnumerable<Contact> GetClientContacts(long clientId);
         IEnumerable<string> GetContactEmailsByBirthDate(int month, int day);
         bool IsClientLinksExists(long? masterClientId, long? childClientId, bool? isDeleted);
         IEnumerable<MasterClientDto> GetMasterAdvertisingAgencies(long childClientId);

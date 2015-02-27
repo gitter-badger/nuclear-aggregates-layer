@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO.FirmInfo;
@@ -251,6 +252,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         public Dictionary<long, Firm> GetFirms(IEnumerable<long> firmIds)
         {
             return _finder.FindMany(Specs.Find.ByIds<Firm>(firmIds)).ToDictionary(x => x.Id);
+        }
+
+        public IEnumerable<Firm> GetFirmsForClientAndLinkedChild(long clientId)
+        {
+            var clientAndChild = _finder.Find(ClientSpecs.DenormalizedClientLinks.Find.ClientChild(clientId)).Select(s => (long?)s.ChildClientId).ToArray().Union(new[] { (long?)clientId });
+            return _finder.Find(FirmSpecs.Firms.Find.ByClientIds(clientAndChild)).ToArray();
         }
 
         public IReadOnlyDictionary<int, RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase)

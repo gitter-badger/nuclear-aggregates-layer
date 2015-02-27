@@ -41,6 +41,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
 			return _finder.Find(Specs.Find.ById<Contact>(contactId)).Select(x => x.FullName).Single();
 		}
 
+        public IEnumerable<Contact> GetClientContacts(long clientId)
+        {
+            return _finder.Find(ClientSpecs.Contacts.Find.ByClientId(clientId));
+        }
+
         public IEnumerable<string> GetContactEmailsByBirthDate(int month, int day)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Contact>() &&

@@ -38,6 +38,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
                 {
                     return new FindSpecification<Firm>(x => crmId.Contains(x.ReplicationCode));
                 }
+
+                public static IFindSpecification<Firm> ByClientIds(IEnumerable<long?> clientAndChild)
+                {
+                    return new FindSpecification<Firm>(x => clientAndChild.Contains(x.ClientId));
+                }
             }
 
             public static class Select

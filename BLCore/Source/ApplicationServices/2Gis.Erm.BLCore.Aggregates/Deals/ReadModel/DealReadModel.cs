@@ -45,7 +45,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel
         public IEnumerable<Deal> GetDealsByMainFirmIds(IEnumerable<long> mainFirmIds)
         {
             return _finder.Find(DealSpecs.Deals.Find.ByMainFirms(mainFirmIds)).ToArray();
-        } 
+        }
+
+        public IEnumerable<Deal> GetDealsByClientId(long clientId)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Deal>() && DealSpecs.Deals.Find.ForClient(clientId));
+        }
 
         public DealAndFirmNamesDto GetRelatedDealAndFirmNames(long dealId, long firmId)
         {
