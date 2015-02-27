@@ -16,13 +16,13 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public UpdateType UpdateType { get; set; }
 
-        public Func<ElasticApi.ErmBulkDescriptor, ElasticApi.ErmBulkDescriptor> IndexFunc
+        public Func<ErmBulkDescriptor, ErmBulkDescriptor> IndexFunc
         {
             get
             {
                 if (Version == null)
                 {
-                    return bulkDescriptor => (ElasticApi.ErmBulkDescriptor)bulkDescriptor
+                    return bulkDescriptor => (ErmBulkDescriptor)bulkDescriptor
                         .Create<TDocument>(bulkIndexDescriptor => bulkIndexDescriptor
                             .Id(Id)
                             .Document(Document));
