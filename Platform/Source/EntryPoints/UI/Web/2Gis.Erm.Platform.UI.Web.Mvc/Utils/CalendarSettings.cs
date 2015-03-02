@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
         public class TimeSettings
         {
-            public static readonly TimeSettings  WorkHours = new TimeSettings(TimeSpan.FromHours(8), TimeSpan.FromHours(20), TimeSpan.FromMinutes(30));
+            public static readonly TimeSettings WorkHours = new TimeSettings(TimeSpan.FromHours(8), TimeSpan.FromHours(20), TimeSpan.FromMinutes(30));
 
             public TimeSettings()
             {
