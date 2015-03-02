@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         /// </summary>
         public static bool CanBeContacted(this IEntityType entityName)
         {
-            return entityName.Equals(EntityType.Instance);
+            return entityName.Equals(EntityType.Instance.Contact());
         }
     }
 }
