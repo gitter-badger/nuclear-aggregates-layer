@@ -5190,15 +5190,15 @@ Periodo de la publicación: {3}.</value>
     <value>No hay permisos suficientes para cambiar de supervisor de la acción {0}</value>
   </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
-    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+    <value>Posición "{0}" no puede estar vendida en la categoría "{1}" del proyecto "{2}"</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
-    <value>Отделение организации {0} не связано с проектом.</value>
+    <value>El departamento de la empresa {0} no está relacionado con el proyecto.</value>
   </data>
   <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
-    <value>Невозможно сохранить действие на фирму в резерве</value>
+    <value>No es posible guardar la acción sobre la empresa en reserva</value>
   </data>
   <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
-    <value>Невозможно сохранить действие на клиента в резерве</value>
+    <value>No es posible guardar la acción sobre el cliente en reserva</value>
   </data>
 </root>

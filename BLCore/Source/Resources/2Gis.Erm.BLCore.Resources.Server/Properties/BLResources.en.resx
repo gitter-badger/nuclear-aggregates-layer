@@ -5189,15 +5189,15 @@ Placement period: {3}.</value>
     <value>Not enough rights to change the owner for the action {0}</value>
   </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
-    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+    <value>Item "{0}" cannot be sold into category "{1}" of project "</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
-    <value>Отделение организации {0} не связано с проектом.</value>
+    <value>Company division {0} is not linked to the project.</value>
   </data>
   <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
-    <value>Невозможно сохранить действие на фирму в резерве</value>
+    <value>You cannot save the action to a company in reserve</value>
   </data>
   <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
-    <value>Невозможно сохранить действие на клиента в резерве</value>
+    <value>You cannot save the action to a client in reserve </value>
   </data>
 </root>
