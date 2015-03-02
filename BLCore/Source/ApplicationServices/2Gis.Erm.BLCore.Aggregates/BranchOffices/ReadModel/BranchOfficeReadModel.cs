@@ -63,7 +63,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
 
         public PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
         {
-            var primary = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryOfOrganizationUnit(organizationUnitId));
+            var primary =
+                _finder.FindOne(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId) &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.Primary());
             var primaryForRegionalSales =
                 _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId));
             return new PrimaryBranchOfficeOrganizationUnits

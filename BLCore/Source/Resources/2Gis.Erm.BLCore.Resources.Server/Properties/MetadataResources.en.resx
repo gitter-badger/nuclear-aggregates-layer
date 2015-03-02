@@ -1272,9 +1272,6 @@
   <data name="Registered" xml:space="preserve">
     <value>Registered</value>
   </data>
-  <data name="CreateCsvFile" xml:space="preserve">
-    <value>Export an additional .csv file</value>
-  </data>
   <data name="OrderProcessingRequest" xml:space="preserve">
     <value>Request from PA</value>
   </data>

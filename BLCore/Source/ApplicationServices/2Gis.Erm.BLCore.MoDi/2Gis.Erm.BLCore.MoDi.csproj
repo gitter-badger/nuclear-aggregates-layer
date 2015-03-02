@@ -56,7 +56,6 @@
     <Compile Include="Configurations\PackagePositionsSettingsConfiguration.cs" />
     <Compile Include="Configurations\SaleSchemasSettingsConfiguration.cs" />
     <Compile Include="MoneyDistributionCalculator.cs" />
-    <Compile Include="AccountingSystemService.cs" />
     <Compile Include="ReportsService.cs" />
   </ItemGroup>
   <ItemGroup>

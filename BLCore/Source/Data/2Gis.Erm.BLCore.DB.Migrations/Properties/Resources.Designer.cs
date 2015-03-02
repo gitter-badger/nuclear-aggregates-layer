@@ -2678,6 +2678,28 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///  &lt;IsvConfig&gt;
         ///    &lt;configuration version=&quot;3.0.0000.0&quot;&gt;
         ///      &lt;Root&gt;
+        ///        &lt;ToolBar&gt;
+        ///          &lt;Button Icon=&quot;/_imgs/AdvFind/new.GIF&quot; JavaScript=&quot;openStdWin(&apos;https://web-app02.test.erm.2gis.ru/Grid/View/Order?singleDataView=DListOrdersFast&apos;, &apos;FastSearch&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
+        ///            &lt;Titles&gt;
+        ///              &lt;Title LCID=&quot;1049&quot; Text=&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string customizations_201502090244 {
+            get {
+                return ResourceManager.GetString("customizations_201502090244", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///  &lt;/Entities&gt;
+        ///  &lt;Roles&gt;
+        ///  &lt;/Roles&gt;
+        ///  &lt;Workflows&gt;
+        ///  &lt;/Workflows&gt;
+        ///  &lt;IsvConfig&gt;
+        ///    &lt;configuration version=&quot;3.0.0000.0&quot;&gt;
+        ///      &lt;Root&gt;
         ///        &lt;!-- 		Application Level Tool Bar, не удалять !		--&gt;
         ///      &lt;/Root&gt;
         ///      &lt;Entities&gt;
