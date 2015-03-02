@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                var serviceEntityNames = new IEntityType[] { EntityType.Instance.None(), EntityType.Instance.All() };
 
                var result = new Dictionary<int, EntitySet>();
-               var values = ((IEntityType[])Enum.GetValues(typeof(IEntityType))).Where(x => !serviceEntityNames.Contains(x)).ToArray();
+               var values = EntityType.Instance.GetTypes().Where(x => !serviceEntityNames.Contains(x)).ToArray();
                foreach (var value in values)
                {
                    result.Add(new[] { value }.EvaluateHash(), new EntitySet(value));
