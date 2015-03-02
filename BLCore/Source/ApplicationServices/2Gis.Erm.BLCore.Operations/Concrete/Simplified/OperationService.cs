@@ -3,13 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
-using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
@@ -22,14 +21,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
         private readonly IRepository<FileWithContent> _fileRepository;
         private readonly IRepository<Operation> _operationRepository;
         private readonly IIdentityProvider _identityProvider;
+        private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public OperationService(IRepository<FileWithContent> fileRepository, IRepository<Operation> operationRepository, IIdentityProvider identityProvider, IFinder finder, IFileContentFinder fileContentFinder)
+        public OperationService(IRepository<FileWithContent> fileRepository,
+                                IRepository<Operation> operationRepository,
+                                IIdentityProvider identityProvider,
+                                IFinder finder,
+                                IFileContentFinder fileContentFinder,
+                                IOperationScopeFactory operationScopeFactory)
         {
             _fileRepository = fileRepository;
             _operationRepository = operationRepository;
             _identityProvider = identityProvider;
             _finder = finder;
             _fileContentFinder = fileContentFinder;
+            _operationScopeFactory = operationScopeFactory;
         }
 
         public void Add(Operation operation)
@@ -76,23 +82,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 
         public void FinishOperation(Operation operation, Stream newData, string fileName, string contentType)
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _operationScopeFactory.CreateOrUpdateOperationFor(operation))
             {
                 long? logFileId = null;
 
                 if (newData != null)
                 {
                     var fileWithContent = new FileWithContent
-                        {
-                            ContentType = contentType,
-                            ContentLength = newData.Length,
-                            FileName = fileName,
-                            Content = newData
-                        };
+                                              {
+                                                  ContentType = contentType,
+                                                  ContentLength = newData.Length,
+                                                  FileName = fileName,
+                                                  Content = newData
+                                              };
 
                     _identityProvider.SetFor(fileWithContent);
                     _fileRepository.Add(fileWithContent);
                     logFileId = fileWithContent.Id;
+                    scope.Added(fileWithContent);
                 }
 
                 operation.LogFileId = logFileId;
@@ -100,13 +107,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
                 if (operation.Id > 0)
                 {
                     Update(operation);
+                    scope.Updated(operation);
                 }
                 else
                 {
                     Add(operation);
+                    scope.Added(operation);
                 }
 
-                transaction.Complete();
+                scope.Complete();
             }
         }
 

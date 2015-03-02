@@ -135,7 +135,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                   csvReport.ReportContent,
                                                   HttpUtility.UrlPathEncode(csvReport.ReportFileName),
                                                   csvReport.ContentType);
-                scope.Added(operation);
                 scope.Complete();
 
                 return allWithwrawalsSucceded;
