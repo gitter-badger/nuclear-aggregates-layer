@@ -11,16 +11,16 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Withdrawals
 {
-    public class WithdrawalAndRevertWithdrawalOperationServiceTest : UseModelEntityTestBase<OrganizationUnit>
+    public class WithdrawAndRevertWithdrawalOperationServiceTest : UseModelEntityTestBase<OrganizationUnit>
     {
-        private readonly IWithdrawalOperationService _withdrawalOperationService;
+        private readonly IWithdrawOperationService _withdrawOperationService;
         private readonly IRevertWithdrawalOperationService _revertWithdrawalOperationService;
 
-        public WithdrawalAndRevertWithdrawalOperationServiceTest(IAppropriateEntityProvider<OrganizationUnit> appropriateEntityProvider,
-                                                 IWithdrawalOperationService withdrawalOperationService,
-                                                 IRevertWithdrawalOperationService revertWithdrawalOperationService) : base(appropriateEntityProvider)
+        public WithdrawAndRevertWithdrawalOperationServiceTest(IAppropriateEntityProvider<OrganizationUnit> appropriateEntityProvider,
+                                                               IWithdrawOperationService withdrawOperationService,
+                                                               IRevertWithdrawalOperationService revertWithdrawalOperationService) : base(appropriateEntityProvider)
         {
-            _withdrawalOperationService = withdrawalOperationService;
+            _withdrawOperationService = withdrawOperationService;
             _revertWithdrawalOperationService = revertWithdrawalOperationService;
         }
 
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
             _revertWithdrawalOperationService.Revert(modelEntity.Id, timePeriod, AccountingMethod.GuaranteedProvision, "test");
 
-            _withdrawalOperationService.Withdraw(modelEntity.Id, timePeriod, AccountingMethod.GuaranteedProvision);
+            _withdrawOperationService.Withdraw(modelEntity.Id, timePeriod, AccountingMethod.GuaranteedProvision);
 
             return OrdinaryTestResult.As.Succeeded;
         }

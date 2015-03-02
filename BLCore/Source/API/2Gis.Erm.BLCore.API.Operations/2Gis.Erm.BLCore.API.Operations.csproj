@@ -231,7 +231,7 @@
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRule.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRulesProvider.cs" />
     <Compile Include="Concrete\Withdrawals\IGetWithdrawalsErrorsCsvReportOperationService.cs" />
-    <Compile Include="Concrete\Withdrawals\IWithdrawalsByAccountingMethodOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\IBulkWithdrawOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
     <Compile Include="Crosscutting\ICanChangeOrderPositionBindingObjectsDetector.cs" />

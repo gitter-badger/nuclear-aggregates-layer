@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
     {
         private readonly IRevertWithdrawalOperationService _revertWithdrawalOperationService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IWithdrawalsByAccountingMethodOperationService _withdrawalByAccountingMethodOperationService;
+        private readonly IBulkWithdrawOperationService _bulkWithdrawOperationService;
 
 
         public WithdrawalInfoController(IMsCrmSettings msCrmSettings,
@@ -41,13 +41,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IRevertWithdrawalOperationService revertWithdrawalOperationService,
                                         ISecurityServiceFunctionalAccess functionalAccessService,
-                                        IWithdrawalsByAccountingMethodOperationService withdrawalByAccountingMethodOperationService)
+                                        IBulkWithdrawOperationService bulkWithdrawOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
 
             _revertWithdrawalOperationService = revertWithdrawalOperationService;
             _functionalAccessService = functionalAccessService;
-            _withdrawalByAccountingMethodOperationService = withdrawalByAccountingMethodOperationService;
+            _bulkWithdrawOperationService = bulkWithdrawOperationService;
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                             viewModel.PeriodStart.GetEndPeriodOfThisMonth());
 
                 Guid businessOperationId;
-                var allWithwrawalsSucceded = _withdrawalByAccountingMethodOperationService.Withdraw(period, viewModel.AccountingMethod, out businessOperationId);
+                var allWithwrawalsSucceded = _bulkWithdrawOperationService.Withdraw(period, viewModel.AccountingMethod, out businessOperationId);
                 viewModel.IsSuccess = allWithwrawalsSucceded;
 
                 if (!allWithwrawalsSucceded)

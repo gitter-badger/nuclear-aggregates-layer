@@ -24,10 +24,10 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withd
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
     [UseCase(Duration = UseCaseDuration.ExtraLong)]
-    public sealed class WithdrawalsByAccountingMethodOperationService : IWithdrawalsByAccountingMethodOperationService
+    public sealed class BulkWithdrawOperationService : IBulkWithdrawOperationService
     {
         private readonly IAccountReadModel _accountReadModel;
-        private readonly IWithdrawalOperationService _withdrawalOperationService;
+        private readonly IWithdrawOperationService _withdrawOperationService;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ICheckOperationPeriodService _checkOperationPeriodService;
@@ -37,19 +37,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IOperationService _operationService;
         private readonly IGetWithdrawalsErrorsCsvReportOperationService _getWithdrawalsErrorsCsvReportOperationService;
 
-        public WithdrawalsByAccountingMethodOperationService(IAccountReadModel accountReadModel,
-                                                             IWithdrawalOperationService withdrawalOperationService,
-                                                             IOperationScopeFactory operationScopeFactory,
-                                                             ISecurityServiceFunctionalAccess functionalAccessService,
-                                                             ICheckOperationPeriodService checkOperationPeriodService,
-                                                             IUserContext userContext,
-                                                             IUseCaseTuner useCaseTuner,
-                                                             ICommonLog commonLog,
-                                                             IOperationService operationService,
-                                                             IGetWithdrawalsErrorsCsvReportOperationService getWithdrawalsErrorsCsvReportOperationService)
+        public BulkWithdrawOperationService(IAccountReadModel accountReadModel,
+                                                      IWithdrawOperationService withdrawOperationService,
+                                                      IOperationScopeFactory operationScopeFactory,
+                                                      ISecurityServiceFunctionalAccess functionalAccessService,
+                                                      ICheckOperationPeriodService checkOperationPeriodService,
+                                                      IUserContext userContext,
+                                                      IUseCaseTuner useCaseTuner,
+                                                      ICommonLog commonLog,
+                                                      IOperationService operationService,
+                                                      IGetWithdrawalsErrorsCsvReportOperationService getWithdrawalsErrorsCsvReportOperationService)
         {
             _accountReadModel = accountReadModel;
-            _withdrawalOperationService = withdrawalOperationService;
+            _withdrawOperationService = withdrawOperationService;
             _operationScopeFactory = operationScopeFactory;
             _functionalAccessService = functionalAccessService;
             _checkOperationPeriodService = checkOperationPeriodService;
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
         public bool Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId)
         {
-            _useCaseTuner.AlterDuration<WithdrawalsByAccountingMethodOperationService>();
+            _useCaseTuner.AlterDuration<BulkWithdrawOperationService>();
 
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.WithdrawalAccess, _userContext.Identity.Code))
             {
@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 {
                     using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
                     {
-                        processingResultsByOrganizationUnit.Add(organizationUnit, _withdrawalOperationService.Withdraw(organizationUnit, period, accountingMethod));
+                        processingResultsByOrganizationUnit.Add(organizationUnit, _withdrawOperationService.Withdraw(organizationUnit, period, accountingMethod));
                         transactionScope.Complete();
                     }
                 }
@@ -109,11 +109,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
 
             // Регистрируем факт проведения операции.
-            using (var scope = _operationScopeFactory.CreateNonCoupled<WithdrawalsByAccountingMethodIdentity>())
+            using (var scope = _operationScopeFactory.CreateNonCoupled<BulkWithdrawIdentity>())
             {
                 var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
                 businessOperationId = Guid.NewGuid();
-                
+
                 var operation = new Operation
                                     {
                                         Guid = businessOperationId,

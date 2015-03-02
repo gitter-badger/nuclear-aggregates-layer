@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withd
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
 {
-    public interface IWithdrawalOperationService : IOperation<WithdrawalIdentity>
+    public interface IWithdrawOperationService : IOperation<WithdrawIdentity>
     {
         WithdrawalProcessingResult Withdraw(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod);
     }

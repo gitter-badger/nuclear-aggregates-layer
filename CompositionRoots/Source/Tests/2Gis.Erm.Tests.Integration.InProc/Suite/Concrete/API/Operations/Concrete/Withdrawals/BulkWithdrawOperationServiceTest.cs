@@ -8,11 +8,11 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Withdrawals
 {
-    public class WithdrawalsByAccountingMethodOperationServiceTest : IIntegrationTest
+    public class BulkWithdrawOperationServiceTest : IIntegrationTest
     {
-        private readonly IWithdrawalsByAccountingMethodOperationService _withdrawalsByAccountingMethodOperationService;
+        private readonly IBulkWithdrawOperationService _withdrawalsByAccountingMethodOperationService;
 
-        public WithdrawalsByAccountingMethodOperationServiceTest(IWithdrawalsByAccountingMethodOperationService withdrawalsByAccountingMethodOperationService)
+        public BulkWithdrawOperationServiceTest(IBulkWithdrawOperationService withdrawalsByAccountingMethodOperationService)
         {
             _withdrawalsByAccountingMethodOperationService = withdrawalsByAccountingMethodOperationService;
         }

@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int SetAsDefaultThemeIdentity = 29;
         public const int CreateIdentity = 30;
         public const int UpdateIdentity = 31;
-        public const int WithdrawalIdentity = 32;
+        public const int WithdrawIdentity = 32;
         public const int RevertWithdrawalIdentity = 33;
         public const int DetachIdentity = 34;
         public const int MsCrmExportIdentity = 35;
@@ -172,7 +172,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int GetAccountDetailsForExportContentIdentity = 14104;
 
         // EntityName.Account = 142
-        public const int WithdrawalsByAccountingMethodIdentity = 14201;
+        public const int BulkWithdrawIdentity = 14201;
         public const int GetWithdrawalsErrorsCsvReportIdentity = 14202;
 
         // EntityName.OrderProcessingRequest = 550

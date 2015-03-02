@@ -570,7 +570,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\DeleteLockDetailsDuringRevertingWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\RevertWithdrawFromAccountsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\GetWithdrawalsErrorsCsvReportIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawalsByAccountingMethodIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\BulkWithdrawIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawFromAccountsIdentity.cs" />
     <Compile Include="ModelIndicators.Boundaries.cs" />
     <Compile Include="ModelIndicators.Simplified.cs" />
@@ -685,7 +685,7 @@
     <Compile Include="Identities\Operations\Identity\IOperationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ReportsServiceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\RevertWithdrawalIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawalIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\StrictOperationIdentityUtils.cs" />
     <Compile Include="UndefinedEnumValueAttribute.cs" />
     <Compile Include="Zones\CompositionRoot.cs" />
