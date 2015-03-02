@@ -150,27 +150,5 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         {
             return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) && LegalPersonSpecs.Profiles.Find.DuplicateByName(legalPersonProfileId, name)).Any();
         }
-
-        public IDictionary<long, IEnumerable<ValidateLegalPersonDto>> GetLegalPersonDtosToValidate(IEnumerable<long> organizationUnitIds,
-                                                                                                   DateTime periodStartDate,
-                                                                                                   DateTime periodEndDate)
-        {
-            return
-                _finder.Find(AccountSpecs.Locks.Find.BySourceOrganizationUnits(organizationUnitIds) &&
-                             AccountSpecs.Locks.Find.ForPeriod(periodStartDate, periodEndDate) &&
-                             Specs.Find.NotDeleted<Lock>() &&
-                             Specs.Find.InactiveEntities<Lock>())
-                       .Select(x => new
-                                        {
-                                            x.Order.SourceOrganizationUnitId,
-                                            LegalPersonDto = new ValidateLegalPersonDto
-                                                                 {
-                                                                     LegalPersonId = x.Order.LegalPersonId.Value,
-                                                                     SyncCode1C = x.Account.LegalPesonSyncCode1C
-                                                                 }
-                                        })
-                       .GroupBy(x => x.SourceOrganizationUnitId)
-                       .ToDictionary(x => x.Key, y => y.Select(z => z.LegalPersonDto));
-        }
     }
 }

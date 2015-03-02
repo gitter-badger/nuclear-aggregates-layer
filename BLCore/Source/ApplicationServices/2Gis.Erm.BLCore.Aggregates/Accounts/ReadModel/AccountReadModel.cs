@@ -291,20 +291,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                           .FirstOrDefault();
         }
 
-        public IEnumerable<string> GetOrganizationUnitsWithNoSuccessfulLastWithdrawal(IEnumerable<long> organizationUnitIds, TimePeriod period)
-        {
-            var organizationUnitsWithSuccessfulWithdrawals = _finder.Find(Specs.Find.ActiveAndNotDeleted<WithdrawalInfo>()
-                                                                          && AccountSpecs.Withdrawals.Find.ByOrganizations(organizationUnitIds)
-                                                                          && AccountSpecs.Withdrawals.Find.ForPeriod(period)
-                                                                          && AccountSpecs.Withdrawals.Find.Succeed())
-                                                                    .Select(x => x.OrganizationUnitId)
-                                                                    .ToArray();
-
-            return _finder.Find(Specs.Find.ByIds<OrganizationUnit>(organizationUnitIds.Except(organizationUnitsWithSuccessfulWithdrawals)))
-                          .Select(x => x.Name)
-                          .ToArray();
-        }
-
         public BranchOfficeOrganizationUnit FindPrimaryBranchOfficeOrganizationUnit(long organizationUnitId)
         {
             return _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit() &&
