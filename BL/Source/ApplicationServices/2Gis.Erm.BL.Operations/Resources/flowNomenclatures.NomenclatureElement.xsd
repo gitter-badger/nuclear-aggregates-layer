@@ -41,6 +41,11 @@
           <xs:documentation>MultiPlannedProvision - Планируемое оказание услуги по мультирубрикам - модель продаж предполагающая, что конечная цена услуги известна только после её оказания (продажи по кликам);</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
+      <xs:enumeration value="MAR">
+        <xs:annotation>
+          <xs:documentation>Медийная реклама в рубрику</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 

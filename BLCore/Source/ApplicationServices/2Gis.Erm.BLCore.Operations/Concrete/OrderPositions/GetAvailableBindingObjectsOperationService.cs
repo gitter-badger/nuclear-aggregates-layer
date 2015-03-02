@@ -74,8 +74,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 var allAvailableFirmCategoryIds = firmCategories.Select(x => x.Id).Concat(additionalCategories.Select(x => x.Id));
                 foreach (var firmAddress in firmAddresses)
                 {
-                    firmAddress.Categories = firmAddressesCategories.ContainsKey(firmAddress.Id) ? firmAddressesCategories[firmAddress.Id] : Enumerable.Empty<long>();
-                    firmAddress.Categories = firmAddress.Categories.Where(allAvailableFirmCategoryIds.Contains);
+                    firmAddress.Categories =
+                        (firmAddressesCategories.ContainsKey(firmAddress.Id)
+                             ? firmAddressesCategories[firmAddress.Id]
+                             : Enumerable.Empty<long>()).Where(allAvailableFirmCategoryIds.Contains);
                 }
 
                 var result = new LinkingObjectsSchemaDto
