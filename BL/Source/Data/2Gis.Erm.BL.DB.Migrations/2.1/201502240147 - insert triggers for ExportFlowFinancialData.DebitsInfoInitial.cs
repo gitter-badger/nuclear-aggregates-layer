@@ -12,8 +12,8 @@ INSERT INTO [Shared].[BusinessOperationServices](Operation, Descriptor, Service)
 VALUES ({0}, {1}, {2})";
 
         private const int ExportService = 19;
-        private const int WriteOffOperation = 32;
-        private const int RevertWriteOffOperation = 33;
+        private const int WriteOffOperation = 1015;
+        private const int RevertWriteOffOperation = 1018;
         private const int Descriptor = 0;
 
         protected override void ApplyOverride(IMigrationContext context)
