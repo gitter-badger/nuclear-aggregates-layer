@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Xml;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -38,11 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         protected override SerializeObjectsResponse Handle(SerializeObjectsRequest<TEntity, TProcessedOperationEntity> request)
         {
-            var builder = request.IsRecovery
-                                  ? _exportRepository.GetBuilderForFailedObjects(request.FailedEntities)
-                                  : _exportRepository.GetBuilderForOperations(request.Operations);
-            var objectsDtos = _exportRepository.GetEntityDtos(builder, CreateDtoExpression());
-
+            var objectsDtos = request.IsRecovery ? ProcessFailedEntities(request.FailedEntities) : ProcessOperations(request.Operations);
             var processedObjectsDtos = ProcessDtosAfterMaterialization(objectsDtos).ToArray();
 
             var unsuccessfulExportObjects = new List<IExportableEntityDto>();
@@ -73,6 +70,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     SuccessObjects = serializedObjects.Select(x => x.ExportableEntityDto).ToArray(), 
                     FailedObjects = unsuccessfulExportObjects
                 };
+        }
+
+        protected virtual IEnumerable<IExportableEntityDto> ProcessOperations(IEnumerable<PerformedBusinessOperation> operations)
+        {
+            var builder = _exportRepository.GetBuilderForOperations(operations);
+            return _exportRepository.GetEntityDtos(builder, CreateDtoExpression());
+        }
+
+        protected virtual IEnumerable<IExportableEntityDto> ProcessFailedEntities(IEnumerable<ExportFailedEntity> entities)
+        {
+            var builder = _exportRepository.GetBuilderForFailedObjects(entities);
+            return _exportRepository.GetEntityDtos(builder, CreateDtoExpression());
         }
 
         /// <summary>
