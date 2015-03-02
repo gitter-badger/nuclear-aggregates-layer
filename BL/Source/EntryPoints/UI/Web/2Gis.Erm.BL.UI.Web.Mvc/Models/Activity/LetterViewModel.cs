@@ -60,6 +60,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         public LookupField Sender { get; set; }
         public LookupField Recipient { get; set; }
 
+        public IEnumerable<string> AmbiguousLookupFields { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (LetterDomainEntityDto)domainEntityDto;
@@ -78,6 +80,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
             Sender = LookupField.FromReference(modelDto.SenderRef);
             Recipient = LookupField.FromReference(modelDto.RecipientRef);
+
+            AmbiguousLookupFields = (modelDto.RecipientRef != null ? regardingObjects.Concat(new[] { modelDto.RecipientRef }) : regardingObjects).GetAmbiguousFields();
 
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be only there?

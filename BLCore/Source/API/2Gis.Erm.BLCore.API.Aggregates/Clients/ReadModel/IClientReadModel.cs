@@ -11,7 +11,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
         Client GetClient(long clientId);
         string GetClientName(long clientId);
 
-        Client GetClientByContact(long clientId);
+        Client GetClientByContact(long contactId);
+        Client GetClientByDeal(long dealId);
+        Client GetClientByFirm(long firmId);
         string GetContactName(long contactId);
 
         IEnumerable<Contact> GetClientContacts(long clientId);

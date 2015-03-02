@@ -9,17 +9,24 @@ Ext.DoubleGis.UI.RegardingObjectController = Ext.extend(Ext.util.Observable, {
         Ext.getCmp("Firm").on("afterselect", this.onFirmChanged, this);
         Ext.getCmp("Deal").on("afterselect", this.onDealChanged, this);
 
-        if (!Ext.fly("Id").getValue(true) && !Ext.fly("DealId").getValue() && !Ext.fly("FirmId").getValue()) {
-            // Логика для заполнения незаполненных полей "В отношении" для новой сущности.
-            if (Ext.fly("ClientId").getValue()) {
-                this.onClientChanged();
-            }
-            else if (Ext.fly("DealId").getValue()) {
-                this.onDealChanged();
-            }
-            else if (Ext.fly("FirmId").getValue()) {
-                this.onFirmChanged();
-            }
+        //if (!Ext.fly("Id").getValue(true) && !Ext.fly("DealId").getValue() && !Ext.fly("FirmId").getValue()) {
+        //    // Логика для заполнения незаполненных полей "В отношении" для новой сущности.
+        //    if (Ext.fly("ClientId").getValue()) {
+        //        this.onClientChanged();
+        //    }
+        //    else if (Ext.fly("DealId").getValue()) {
+        //        this.onDealChanged();
+        //    }
+        //    else if (Ext.fly("FirmId").getValue()) {
+        //        this.onFirmChanged();
+        //    }
+        //}
+        if (config.Settings.ambiguousFields.indexOf('Firm') >= 0) {
+            Ext.getCmp("Firm").forceGetData();
+        }
+      
+        if (config.Settings.ambiguousFields.indexOf('Deal') >= 0) {
+            Ext.getCmp("Deal").forceGetData();
         }
     },
     onClientChanged: function () {

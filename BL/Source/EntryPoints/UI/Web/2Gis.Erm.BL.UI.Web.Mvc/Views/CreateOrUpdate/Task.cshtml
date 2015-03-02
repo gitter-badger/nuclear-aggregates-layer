@@ -18,6 +18,7 @@
         Ext.onReady(function()
         {
             var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
+            Ext.apply(cardSettings, { ambiguousFields: @Html.WriteJson(Model.AmbiguousLookupFields) });
             window.Card = new window.Ext.DoubleGis.UI.Task(cardSettings);
             window.Card.Build();
         });

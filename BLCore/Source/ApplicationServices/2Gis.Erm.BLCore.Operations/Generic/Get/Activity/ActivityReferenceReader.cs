@@ -116,30 +116,89 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
             switch (entity.EntityName)
             {
                 case EntityName.Client:
+                    rval.Add(entity);
                     var firms = _firmReadModel.GetFirmsForClientAndLinkedChild(entity.Id.Value);
-                    var firmEnumerable = firms as Firm[] ?? firms.ToArray();
-                    if (firmEnumerable.Any())
+                    var firmReference = ConvertToEntityReference(firms, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
+                    rval.Add(firmReference);
+                    var deals = _dealReadModel.GetDealsByClientId(entity.Id.Value);
+                    var dealReference = ConvertToEntityReference(deals, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
+                    rval.Add(dealReference);
+                    break;
+                case EntityName.Contact:
+                    var client = _clientReadModel.GetClientByContact(entity.Id.Value);
+                    if (client != null)
                     {
-                        if (firmEnumerable.Count() == 1)
-                        {
-                            var firm = firmEnumerable.First();
-                            var entityReference = new EntityReference { EntityName = EntityName.Firm, Name = firm.Name, Id = firm.Id };
-                            rval.Add(entityReference);
-                        }
-                        else
-                        {
-                            var entityReference = new EntityReference { EntityName = EntityName.Firm };
-                            rval.Add(entityReference);
-                        } 
+                        var clientRefs = new EntityReference { EntityName = EntityName.Client, Name = client.Name, Id = client.Id };
+                        rval.Add(clientRefs);
+                        var firms1 = _firmReadModel.GetFirmsForClientAndLinkedChild(client.Id);
+                        var firmReference1 = ConvertToEntityReference(firms1, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
+                        rval.Add(firmReference1);
+                        var deals1 = _dealReadModel.GetDealsByClientId(client.Id);
+                        var dealReference1 = ConvertToEntityReference(deals1, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
+                        rval.Add(dealReference1);
                     }
-                    
+
+                    break;
+                case EntityName.Deal:
+                    rval.Add(entity);
+                    var client2 = _clientReadModel.GetClientByDeal(entity.Id.Value);
+                    if (client2 != null)
+                    {
+                        var clientRefs = new EntityReference { EntityName = EntityName.Client, Name = client2.Name, Id = client2.Id };
+                        rval.Add(clientRefs);
+                        var firms1 = _firmReadModel.GetFirmsForClientAndLinkedChild(client2.Id);
+                        var firmReference1 = ConvertToEntityReference(firms1, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
+                        rval.Add(firmReference1);
+                        //var deals1 = _dealReadModel.GetDealsByClientId(client2.Id);
+                        //var dealReference1 = ConvertToEntityReference(deals1, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
+                        //rval.Add(dealReference1);
+                    }
+
+                    break;
+                case EntityName.Firm:
+                    rval.Add(entity);
+                     var client1 = _clientReadModel.GetClientByFirm(entity.Id.Value);
+                    if (client1 != null)
+                    {
+                        var clientRefs = new EntityReference { EntityName = EntityName.Client, Name = client1.Name, Id = client1.Id };
+                        rval.Add(clientRefs);
+                        //var firms1 = _firmReadModel.GetFirmsForClientAndLinkedChild(client1.Id);
+                        //var firmReference1 = ConvertToEntityReference(firms1, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
+                        //rval.Add(firmReference1);
+                        var deals1 = _dealReadModel.GetDealsByClientId(client1.Id);
+                        var dealReference1 = ConvertToEntityReference(deals1, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
+                        rval.Add(dealReference1);
+                    }
 
                     break;
             }
 
-            return rval;
+            return rval.Where(s => s != null).ToArray();
         }
-        
+
+        public EntityReference FindClientContact(long clientId)
+        {
+            var contacts = _clientReadModel.GetClientContacts(clientId);
+            return ConvertToEntityReference(contacts, s => new EntityReference { EntityName = EntityName.Contact, Name = s.FullName, Id = s.Id });
+        }
+
+        private EntityReference ConvertToEntityReference<TEntity>(IEnumerable<TEntity> entities, Func<TEntity, EntityReference> convertToEntityReference) where TEntity : IEntity
+        {
+            var enumerable = entities as TEntity[] ?? entities.ToArray();
+            if (!enumerable.Any())
+            {
+                return null;
+            }
+
+            if (enumerable.Count() == 1)
+            {
+                var convertEntity = enumerable.First();
+                return convertToEntityReference(convertEntity);
+            }
+
+            return new EntityReference { EntityName = typeof(TEntity).AsEntityName() };
+        }
+
 
         private IEnumerable<EntityReference> AdaptReferences<TEntity>(IEnumerable<EntityReference<TEntity>> references) where TEntity : IEntity
         {

@@ -19,6 +19,7 @@
         Ext.onReady(function() {
             var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
             Ext.apply(cardSettings, { contactField: "ContactId", contactComponent: "Contact" });
+            Ext.apply(cardSettings, { ambiguousFields: @Html.WriteJson(Model.AmbiguousLookupFields) });
             window.Card = new window.Ext.DoubleGis.UI.Phonecall(cardSettings);
             window.Card.Build();
         });

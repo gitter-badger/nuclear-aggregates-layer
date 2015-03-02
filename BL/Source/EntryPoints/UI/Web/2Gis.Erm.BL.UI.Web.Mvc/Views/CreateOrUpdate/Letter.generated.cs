@@ -147,19 +147,27 @@ WriteLiteral("\r\n    <script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n        Ext.onReady(function()\r\n        {\r\n            var cardSettings = ");
+WriteLiteral(">\r\n    Ext.onReady(function()\r\n    {\r\n        var cardSettings = ");
 
             
             #line 21 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-                          Write(Html.WriteJson(Model.ViewConfig.CardSettings));
+                      Write(Html.WriteJson(Model.ViewConfig.CardSettings));
 
             
             #line default
             #line hidden
 WriteLiteral(";\r\n            Ext.apply(cardSettings, { contactField: \"RecipientId\", contactComp" +
-"onent: \"Recipient\" });\r\n            window.Card = new window.Ext.DoubleGis.UI.Le" +
-"tter(cardSettings);\r\n            window.Card.Build();\r\n        });\r\n    </script" +
-">\r\n");
+"onent: \"Recipient\" });\r\n            Ext.apply(cardSettings, { ambiguousFields: ");
+
+            
+            #line 23 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+                                                  Write(Html.WriteJson(Model.AmbiguousLookupFields));
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" });\r\n            window.Card = new window.Ext.DoubleGis.UI.Letter(cardSettings);" +
+"\r\n            window.Card.Build();\r\n        });\r\n    </script>\r\n");
 
 });
 
@@ -173,14 +181,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1256), Tuple.Create("\"", 1292)
+WriteAttribute("title", Tuple.Create(" title=\"", 1349), Tuple.Create("\"", 1385)
             
-            #line 31 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-, Tuple.Create(Tuple.Create("", 1264), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 32 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+, Tuple.Create(Tuple.Create("", 1357), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1264), false)
+, 1357), false)
 );
 
 WriteLiteral(">\r\n");
@@ -188,7 +196,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 33 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.HiddenFor(m => m.Id));
 
             
@@ -199,7 +207,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 33 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.HiddenFor(m => m.Status));
 
             
@@ -210,7 +218,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 35 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 36 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding));
 
             
@@ -219,13 +227,13 @@ WriteLiteral("        ");
 WriteLiteral("\r\n");
 
             
-            #line 36 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 37 "..\..\Views\CreateOrUpdate\Letter.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 36 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 37 "..\..\Views\CreateOrUpdate\Letter.cshtml"
           
             var firmDataFields = new[]
                                      {
@@ -243,7 +251,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 45 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 46 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
             @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
@@ -256,7 +264,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 48 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 49 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
@@ -267,7 +275,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 50 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -278,7 +286,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 51 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 52 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -289,7 +297,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 52 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 53 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
@@ -303,7 +311,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 56 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 57 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Sender, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User })));
 
             
@@ -314,7 +322,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 57 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 58 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
@@ -325,7 +333,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 59 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 60 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -336,7 +344,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 60 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 61 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             

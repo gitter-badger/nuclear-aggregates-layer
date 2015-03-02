@@ -76,6 +76,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Timestamp = appointment.Timestamp,
                 };
         }
+
         protected override IDomainEntityDto<Appointment> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             var now = DateTime.Now;
@@ -86,11 +87,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 ScheduledEnd = now.Add(TimeSpan.FromMinutes(15)),
                 Status = ActivityStatus.InProgress,
             };
-            EntityReference regardingObject = null;
             if (parentEntityName.CanBeRegardingObject())
             {
-                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
-            }            
+                EntityReference regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+                if (regardingObject.Id != null)
+                {
+                    var contact = _activityReferenceReader.FindClientContact(regardingObject.Id.Value);
+                    dto.RegardingObjects = _activityReferenceReader.FindAutoCompleteReferences(regardingObject);
+                    if (contact != null)
+                    {
+                        dto.Attendees = new[] { contact };
+                    }
+                }
+            }
             else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
             {
                 dto.RegardingObjects = _activityReferenceReader.GetRegardingObjects(parentEntityName, parentEntityId.Value);
@@ -102,15 +111,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 }
             }
 
-            if (regardingObject != null)
-            {
-                dto.RegardingObjects = new[] { regardingObject };
-            }
-
             var attendee = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
             if (attendee != null)
             {
                 dto.Attendees = new[] { attendee };
+                dto.RegardingObjects = _activityReferenceReader.FindAutoCompleteReferences(attendee);
             }
 
             return dto;
@@ -123,7 +128,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private EntityReference ToEntityReference(EntityName entityName, long? entityId)
         {
-            if (!entityId.HasValue) return null;
+            if (!entityId.HasValue)
+            {
+                return null;
+            }
 
             string name;
             switch (entityName)
@@ -144,7 +152,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     return null;
             }
 
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName};
+            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
         }
-   }
+    }
 }

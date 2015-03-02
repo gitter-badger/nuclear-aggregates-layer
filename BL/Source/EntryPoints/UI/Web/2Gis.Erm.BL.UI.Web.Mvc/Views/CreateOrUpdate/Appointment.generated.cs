@@ -157,9 +157,17 @@ WriteLiteral(">\r\n        Ext.onReady(function() {\r\n            var cardSetti
             #line default
             #line hidden
 WriteLiteral(";\r\n            Ext.apply(cardSettings, { contactField: \"AttendeeId\", contactCompo" +
-"nent: \"Attendee\" });\r\n            window.Card = new window.Ext.DoubleGis.UI.Appo" +
-"intment(cardSettings);\r\n            window.Card.Build();\r\n        });\r\n    </scr" +
-"ipt>\r\n");
+"nent: \"Attendee\" });\r\n            Ext.apply(cardSettings, { ambiguousFields: ");
+
+            
+            #line 22 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+                                                  Write(Html.WriteJson(Model.AmbiguousLookupFields));
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" });\r\n            window.Card = new window.Ext.DoubleGis.UI.Appointment(cardSetti" +
+"ngs);\r\n            window.Card.Build();\r\n        });\r\n    </script>\r\n");
 
 });
 
@@ -173,14 +181,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1260), Tuple.Create("\"", 1296)
+WriteAttribute("title", Tuple.Create(" title=\"", 1365), Tuple.Create("\"", 1401)
             
-            #line 30 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-, Tuple.Create(Tuple.Create("", 1268), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 31 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+, Tuple.Create(Tuple.Create("", 1373), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1268), false)
+, 1373), false)
 );
 
 WriteLiteral(">\r\n");
@@ -188,7 +196,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 31 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 32 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.HiddenFor(m => m.Id));
 
             
@@ -199,7 +207,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 33 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.HiddenFor(m => m.Status));
 
             
@@ -210,7 +218,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 33 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.HiddenFor(m => m.Priority));
 
             
@@ -221,7 +229,7 @@ WriteLiteral("\r\n        \r\n");
 WriteLiteral("        ");
 
             
-            #line 35 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 36 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding));
 
             
@@ -230,13 +238,13 @@ WriteLiteral("        ");
 WriteLiteral("\r\n");
 
             
-            #line 36 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 37 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 36 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 37 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
           
             var firmDataFields = new[]
                                      {
@@ -254,7 +262,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 45 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 46 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
             @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
@@ -267,7 +275,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 48 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 49 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
@@ -278,7 +286,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 50 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -289,7 +297,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 51 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 52 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Purpose, FieldFlex.lone, null, EnumResources.ResourceManager)));
 
             
@@ -300,7 +308,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 52 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 53 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -311,7 +319,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 54 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 55 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, 
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
@@ -327,7 +335,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 60 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 61 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
@@ -338,7 +346,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 61 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 62 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Location, FieldFlex.lone)));
 
             
@@ -349,7 +357,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 63 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 64 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -360,7 +368,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 64 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 65 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             

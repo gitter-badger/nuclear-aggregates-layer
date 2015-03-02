@@ -63,6 +63,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         public LookupField Firm { get; set; }
         public LookupField Contact { get; set; }
 
+        public IEnumerable<string> AmbiguousLookupFields { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (PhonecallDomainEntityDto)domainEntityDto;
@@ -80,6 +82,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal));
             Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Firm));
             Contact = LookupField.FromReference(modelDto.RecipientRef);
+
+            AmbiguousLookupFields = (modelDto.RecipientRef != null ? regardingObjects.Concat(new[] { modelDto.RecipientRef }) : regardingObjects).GetAmbiguousFields();        
 
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be it there anyway?

@@ -20,8 +20,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
     public sealed class AppointmentViewModel : EntityViewModelBase<Appointment>, IActivityViewModel
     {
         public override byte[] Timestamp { get; set; }
-        
-        public override bool IsSecurityRoot { get { return true; } }
+
+        public override bool IsSecurityRoot
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         public override string EntityStatus
         {
@@ -63,6 +69,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         [StringLengthLocalized(256)]
         public string Location { get; set; }
 
+        public IEnumerable<string> AmbiguousLookupFields { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (AppointmentDomainEntityDto)domainEntityDto;
@@ -82,7 +90,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal));
             Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Firm));
 
-            Attendee = LookupField.FromReference((modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityName == EntityName.Contact));
+            var attendeeReference = (modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityName == EntityName.Contact);
+            Attendee = LookupField.FromReference(attendeeReference);
+            
+
+            AmbiguousLookupFields = (modelDto.Attendees != null ? modelDto.Attendees.Concat(regardingObjects) : regardingObjects).GetAmbiguousFields();             
 
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be only there?

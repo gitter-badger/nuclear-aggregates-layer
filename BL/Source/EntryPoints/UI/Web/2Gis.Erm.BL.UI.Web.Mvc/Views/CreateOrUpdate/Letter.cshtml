@@ -20,6 +20,7 @@
         {
             var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
             Ext.apply(cardSettings, { contactField: "RecipientId", contactComponent: "Recipient" });
+            Ext.apply(cardSettings, { ambiguousFields: @Html.WriteJson(Model.AmbiguousLookupFields) });
             window.Card = new window.Ext.DoubleGis.UI.Letter(cardSettings);
             window.Card.Build();
         });

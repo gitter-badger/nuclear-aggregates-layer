@@ -12,5 +12,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
         IEnumerable<EntityReference> GetAttendees(EntityName entityName, long entityId);
 
         IEnumerable<EntityReference> FindAutoCompleteReferences(EntityReference entity);
+
+        EntityReference FindClientContact(long clientId);
     }
 }

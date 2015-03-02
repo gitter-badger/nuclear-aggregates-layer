@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -49,7 +50,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel
 
         public IEnumerable<Deal> GetDealsByClientId(long clientId)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Deal>() && DealSpecs.Deals.Find.ForClient(clientId));
+            var clientAndChild = _finder.Find(ClientSpecs.DenormalizedClientLinks.Find.ClientChild(clientId)).Select(s => (long?)s.ChildClientId).ToArray().Union(new[] { (long?)clientId });
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Deal>() && DealSpecs.Deals.Find.ByClientIds(clientAndChild));
         }
 
         public DealAndFirmNamesDto GetRelatedDealAndFirmNames(long dealId, long firmId)
