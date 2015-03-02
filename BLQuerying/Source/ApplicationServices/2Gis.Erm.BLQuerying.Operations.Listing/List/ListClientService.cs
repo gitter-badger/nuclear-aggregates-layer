@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Client>();
-
+        
             bool excludeReserve;
             Expression<Func<Client, bool>> excludeReserveFilter = null;
             if (querySettings.TryGetExtendedProperty("ExcludeReserve", out excludeReserve))
@@ -396,6 +396,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 CreatedOn = x.CreatedOn,
                 IsAdvertisingAgency = x.IsAdvertisingAgency,
                 InformationSourceEnum = x.InformationSource,
+                IsOwner = _userContext.Identity.Code == x.OwnerCode,
                 OwnerName = null,
             })
             .QuerySettings(_filterHelper, querySettings);

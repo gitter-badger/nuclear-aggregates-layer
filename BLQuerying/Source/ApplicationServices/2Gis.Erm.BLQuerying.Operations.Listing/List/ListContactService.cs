@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -14,15 +15,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListContactService : ListEntityDtoServiceBase<Contact, ListContactDto>
     {
+        private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
         public ListContactService(
+            IUserContext userContext,
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
             FilterHelper filterHelper)
         {
+            _userContext = userContext;
             _userIdentifierService = userIdentifierService;
             _finder = finder;
             _filterHelper = filterHelper;
@@ -31,7 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Contact>();
-
+         
             bool excludeReserve;
             Expression<Func<Contact, bool>> excludeReserveFilter = null;
             if (querySettings.TryGetExtendedProperty("ExcludeReserve", out excludeReserve))
@@ -66,6 +70,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 IsActive = x.IsActive,
                 IsDeleted = x.IsDeleted,
                 IsFired = x.IsFired,
+                IsOwner = _userContext.Identity.Code == x.OwnerCode,
                 AccountRole = x.AccountRole.ToStringLocalizedExpression(),
                 Owner = null,
             })
