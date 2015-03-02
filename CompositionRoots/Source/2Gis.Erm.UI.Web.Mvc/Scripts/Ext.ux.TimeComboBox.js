@@ -7,7 +7,7 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
     mode: 'local',
     // private override
     triggerAction: 'all',
-    needRoundInSelect: true,
+    roundingToList: true,
     // private override
     typeAhead: false,
     displayFormat:Ext.CultureInfo.DateTimeFormatInfo.MomentJsShortTimePattern,
@@ -46,13 +46,13 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
     },
     roundToInterval: function (date) {
         var time = moment(date, this.displayFormat, true);
-        if (!this.step || !this.needRoundInSelect)
+        if (!this.step || !this.roundingToList)
             return moment.duration(time).asMilliseconds();
            
         var remainder = time.minute() % this.step;
         if (remainder != 0) {
             var addingMinutes = this.step - remainder;
-            time.add('minutes', addingMinutes);
+            time.add(addingMinutes, 'minutes');
         }
         
         return moment.duration(time).asMilliseconds();

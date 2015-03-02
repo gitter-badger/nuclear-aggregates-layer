@@ -33,6 +33,8 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
         public class TimeSettings
         {
+            public static readonly TimeSettings  WorkHours = new TimeSettings(TimeSpan.FromHours(8), TimeSpan.FromHours(20), TimeSpan.FromMinutes(30));
+
             public TimeSettings()
             {
                 Start = TimeSpan.FromHours(0);
@@ -45,15 +47,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
                 End = end;
                 Start = start;
                 Step = step;
-            }
-
-            public static TimeSettings WorkDayTimeSettings
-            {
-                get
-                {
-                    return new TimeSettings(TimeSpan.FromHours(8), TimeSpan.FromHours(20), TimeSpan.FromMinutes(30));
-                }
-            }
+            }           
 
             public TimeSpan Start { get; set; }
             public TimeSpan End { get; set; }
