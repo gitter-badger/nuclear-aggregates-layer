@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 {
-    public enum PhonecallPurpose
+    public enum AppointmentPurpose
     {
         NotSet = 0,
         FirstCall = 1,

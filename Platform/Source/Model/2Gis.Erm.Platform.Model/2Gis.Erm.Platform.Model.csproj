@@ -63,6 +63,7 @@
     <Compile Include="Entities\Activity\Appointment.cs" />
     <Compile Include="Entities\Activity\AppointmentAttendee.cs" />
     <Compile Include="Entities\Activity\AppointmentOrganizer.cs" />
+    <Compile Include="Entities\Activity\AppointmentPurpose.cs" />
     <Compile Include="Entities\Activity\AppointmentRegardingObject.cs" />
     <Compile Include="Entities\Activity\EntityReference.cs" />
     <Compile Include="Entities\Activity\EntityToEntityReferenceExtensions.cs" />

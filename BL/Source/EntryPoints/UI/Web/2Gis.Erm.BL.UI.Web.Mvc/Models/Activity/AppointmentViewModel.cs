@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         [RequiredLocalized]
         [ExcludeZeroValue]
-        public ActivityPurpose Purpose { get; set; }
+        public AppointmentPurpose Purpose { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]

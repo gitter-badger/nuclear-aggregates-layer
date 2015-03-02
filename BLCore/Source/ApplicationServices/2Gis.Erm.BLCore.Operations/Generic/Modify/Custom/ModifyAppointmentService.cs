@@ -140,19 +140,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             _changeDealStageOperationService.Change(dealId, newDealStage);
         }
 
-        private static DealStage ConvertToStage(ActivityPurpose purpose)
+        private static DealStage ConvertToStage(AppointmentPurpose purpose)
         {
             switch (purpose)
             {
-                case ActivityPurpose.FirstCall:
+                case AppointmentPurpose.FirstCall:
                     return DealStage.CollectInformation;
 
-                case ActivityPurpose.ProductPresentation:
-                case ActivityPurpose.OpportunitiesPresentation:
+                case AppointmentPurpose.ProductPresentation:
+                case AppointmentPurpose.OpportunitiesPresentation:
                     return DealStage.HoldingProductPresentation;
 
-                case ActivityPurpose.OfferApproval:
-                case ActivityPurpose.DecisionApproval:
+                case AppointmentPurpose.OfferApproval:
+                case AppointmentPurpose.DecisionApproval:
                     return DealStage.MatchAndSendProposition;
 
                 default:
