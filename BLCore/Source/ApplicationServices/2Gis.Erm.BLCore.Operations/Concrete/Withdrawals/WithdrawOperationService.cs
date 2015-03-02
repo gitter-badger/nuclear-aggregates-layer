@@ -68,6 +68,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             _useCaseTuner.AlterDuration<WithdrawOperationService>();
 
+            var withdrawOperationParametersDescription = GetOperationParametersDescription(organizationUnitId, period, accountingMethod);
+
             WithdrawalInfo acquiredWithdrawal = null;
 
             try
@@ -75,10 +77,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 IEnumerable<string> report;
                 if (!TryAcquireTargetWithdrawal(organizationUnitId, period, accountingMethod, out acquiredWithdrawal, out report))
                 {
-                    var msg = string.Format("Can't acquire withdrawal for organization unit id {0} by period {1} and accounting method {2}. Errors: {3}",
-                                            organizationUnitId,
-                                            period,
-                                            accountingMethod,
+                    var msg = string.Format("Can't acquire withdrawal. {0} Errors: {1}",
+                                            withdrawOperationParametersDescription,
                                             string.Join(Environment.NewLine, report));
 
                     _logger.Error(msg);
@@ -90,11 +90,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                     if (!LockSuccessfullyAcquired(acquiredWithdrawal))
                     {
                         var msg =
-                            string.Format("Acquired withdrawal with id {0} for organization unit with id {1} by period {2} and accounting method {3} has processing status violations. Possible reason for errors - concurrent withdrawal\reverting process and invalid withdrawal status processing",
+                            string.Format("Acquired withdrawal with id {0} has processing status violations. Possible reason for errors - concurrent withdrawal\reverting process and invalid withdrawal status processing. {1}",
                                           acquiredWithdrawal.Id,
-                                          acquiredWithdrawal.OrganizationUnitId,
-                                          period,
-                                          accountingMethod);
+                                          withdrawOperationParametersDescription);
 
                         _logger.Error(msg);
 
@@ -110,10 +108,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
             catch (WithdrawalException ex)
             {
-                var msg = string.Format("Withdrawing aborted. An error occured. Organization unit id {0}. Period: {1} and accounting method {2}. Error: {3}",
-                                        organizationUnitId,
-                                        period,
-                                        accountingMethod,
+                var msg = string.Format("Withdrawing aborted. An error occured. {0} Error: {1}",
+                                        withdrawOperationParametersDescription,
                                         ex.Message);
                 _logger.Error(ex, msg);
 
@@ -121,10 +117,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
             catch (Exception ex)
             {
-                var msg = string.Format("Withdrawing aborted. Unexpected exception was caught. Organization unit id {0}. Period: {1} and accounting method {2}",
-                                        organizationUnitId,
-                                        period,
-                                        accountingMethod);
+                var msg = string.Format("Withdrawing aborted. Unexpected exception was caught. {0}",
+                                        withdrawOperationParametersDescription);
                 _logger.Error(ex, msg);
 
                 return Abort(acquiredWithdrawal, msg);
@@ -162,10 +156,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             using (var scope = _scopeFactory.CreateNonCoupled<WithdrawIdentity>())
             {
-                _logger.InfoFormat("Withdrawing. Organization unit {0}. {1} and accounting method {2}. Starting lock details creation process",
-                                   organizationUnitId,
-                                   period,
-                                   accountingMethod);
+                var withdrawOperationParametersDescription = GetOperationParametersDescription(organizationUnitId, period, accountingMethod);
+                _logger.InfoFormat("Withdrawing. {0} Starting lock details creation process",
+                                   withdrawOperationParametersDescription);
 
                 if (accountingMethod == AccountingMethod.PlannedProvision)
                 {
@@ -174,10 +167,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
                 var withdrawalInfos = _accountReadModel.GetInfoForWithdrawal(organizationUnitId, period, accountingMethod);
 
-                _logger.InfoFormat("Withdrawing. Organization unit {0}. {1} and accounting method {2}. Starting accounts actualization process. Target withdrawal infos count: {3}",
-                                   organizationUnitId,
-                                   period,
-                                   accountingMethod,
+                _logger.InfoFormat("Withdrawing. {0} Starting accounts actualization process. Target withdrawal infos count: {1}",
+                                   withdrawOperationParametersDescription,
                                    withdrawalInfos.Length);
                 _actualizeAccountsDuringWithdrawalOperationService.Actualize(period,
                                                                              withdrawalInfos.Select(i => new AccountStateForWithdrawalDto
@@ -190,10 +181,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                                                                                  OrderNumber = i.Order.Number
                                                                                                              }));
 
-                _logger.InfoFormat("Withdrawing. Organization unit {0}. {1} and accounting method {2}. Starting orders actualization process",
-                                   organizationUnitId,
-                                   period,
-                                   accountingMethod);
+                _logger.InfoFormat("Withdrawing. {0} Starting orders actualization process",
+                                   withdrawOperationParametersDescription);
                 _actualizeOrdersDuringWithdrawalOperationService.Actualize(organizationUnitId,
                                                                            withdrawalInfos.GroupBy(dto => dto.Order.Id, (l, dtos) => dtos.Single())
                                                                                           .Select(dto => new ActualizeOrdersDto
@@ -203,20 +192,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                                                                                  AmountToWithdrawNext = dto.AmountToWithdrawNextAfterWithdrawal
                                                                                                              }));
 
-                _logger.InfoFormat("Withdrawing. Organization unit {0}. {1} and accounting method {2}. Starting deals actualization process",
-                                   organizationUnitId,
-                                   period,
-                                   accountingMethod);
+                _logger.InfoFormat("Withdrawing. {0} Starting deals actualization process",
+                                   withdrawOperationParametersDescription);
                 _actualizeDealsDuringWithdrawalOperationService.Actualize(withdrawalInfos
                                                                               .Where(dto => dto.Order.DealId.HasValue)
                                                                               .Select(dto => dto.Order.DealId.Value)
                                                                               .Distinct());
 
                 _withdrawalChangeStatusAggregateService.Finish(acquiredWithdrawal, WithdrawalStatus.Success, null);
-                _logger.InfoFormat("Withdrawing process successfully finished. Organization unit {0}. {1} and accounting method {2}.",
-                                   organizationUnitId,
-                                   period,
-                                   accountingMethod);
+                _logger.InfoFormat("Withdrawing process successfully finished. {0}",
+                                   withdrawOperationParametersDescription);
 
                 scope.Complete();
             }
@@ -231,8 +216,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                 out IEnumerable<string> report)
         {
             acquiredWithdrawal = null;
+            var withdrawOperationParametersDescription = GetOperationParametersDescription(organizationUnitId, period, accountingMethod);
 
-            _logger.InfoFormat("Starting withdrawal process for organization unit with id {0} and time period {1} and accounting method {2}", organizationUnitId, period, accountingMethod);
+            _logger.InfoFormat("Starting withdrawal process. {0}", withdrawOperationParametersDescription);
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
@@ -251,14 +237,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 transaction.Complete();
             }
 
-            _logger.InfoFormat("Withdrawal process for organization unit {0} and period {1} and accounting method {2} is granted. Acquired withdrawal entry id {3}",
-                               organizationUnitId,
-                               period,
-                               accountingMethod,
+            _logger.InfoFormat("Withdrawal process for organization is granted. {0} Acquired withdrawal entry id {1}",
+                               withdrawOperationParametersDescription,
                                acquiredWithdrawal.Id);
 
             report = Enumerable.Empty<string>();
             return true;
+        }
+
+        private string GetOperationParametersDescription(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod)
+        {
+            return string.Format("Organization unit id: {0}. Period: {1}. Accounting method {2}.",
+                                 organizationUnitId,
+                                 period,
+                                 accountingMethod);
         }
     }
 }
