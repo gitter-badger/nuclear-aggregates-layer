@@ -7,13 +7,14 @@ using DoubleGis.Erm.Platform.Migration.MW;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
 {
-    [Migration(201412291720, "ERM-5524:Не отображаются созданные встречи в гриде Календаря","a.pashkin")]
-    public class Migration201412291720:IContextedMigration<IActivityMigrationContext>
+    [Migration(201412291720, "ERM-5524:Не отображаются созданные встречи в гриде Календаря", "a.pashkin")]
+    public class Migration201412291720 : IContextedMigration<IActivityMigrationContext>
     {
         public void Apply(IActivityMigrationContext context)
         {
             try
             {
+                context.Connection.StatementTimeout = 30 * 60 * 1000;
                 context.Connection.BeginTransaction();
                 var queryString = BuildSql(Resources.InsertMissingOrganizers_201412291720, context.CrmDatabaseName);
                 context.Connection.ExecuteNonQuery(queryString);                
@@ -31,11 +32,9 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
             throw new NotImplementedException();
         }
 
-        private static string BuildSql(String script, String crmDbName)
+        private static string BuildSql(string script, string crmDbName)
         {
-            return String.Format(script, crmDbName);
+            return string.Format(script, crmDbName);
         }
-
-       
     }
 }
