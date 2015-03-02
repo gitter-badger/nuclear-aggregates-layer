@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
             set { _periodStart = value.AssumeUtcKind(); }
         }
 
-        public Guid ErrorLogFileId { get; set; }
+        public Guid OperationId { get; set; }
         public bool? HasErrors { get; set; }
     }
 }

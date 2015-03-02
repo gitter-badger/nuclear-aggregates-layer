@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                                              viewModel.AccountingMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
 
                     viewModel.HasErrors = true;
-                    viewModel.ErrorLogFileId = businessOperationId;
+                    viewModel.OperationId = businessOperationId;
                     viewModel.Message = resultMessage;
                 }
                 else

@@ -205,10 +205,10 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteLiteral(" name=\"operationId\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 2134), Tuple.Create("\"", 2163)
+WriteAttribute("value", Tuple.Create(" value=\"", 2134), Tuple.Create("\"", 2160)
             
             #line 61 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-, Tuple.Create(Tuple.Create("", 2142), Tuple.Create<System.Object, System.Int32>(Model.ErrorLogFileId
+, Tuple.Create(Tuple.Create("", 2142), Tuple.Create<System.Object, System.Int32>(Model.OperationId
             
             #line default
             #line hidden

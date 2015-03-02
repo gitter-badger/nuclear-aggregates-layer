@@ -58,7 +58,7 @@
         <div style="height: 8px; padding-left: 5px; padding-top: 4px; position: fixed;" id="DivErrors">
             @using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
             {
-                <input type="hidden" name="operationId" value="@Model.ErrorLogFileId" />
+                <input type="hidden" name="operationId" value="@Model.OperationId" />
             }
         </div>
     }
