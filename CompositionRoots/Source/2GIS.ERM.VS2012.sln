@@ -539,8 +539,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.Tracing.API", "..\.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.Tracing.Log4Net", "..\..\Nuclear\Nuclear.Tracing\Tracing.Log4Net\Nuclear.Tracing.Log4Net.csproj", "{71BB326B-2CF7-41F9-AA20-324DFD7E7AFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.Tracing.Log4Net.Config", "..\..\Nuclear\Nuclear.Tracing\Tracing.Log4Net.Config\Nuclear.Tracing.Log4Net.Config.csproj", "{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1811,16 +1809,6 @@ Global
 		{71BB326B-2CF7-41F9-AA20-324DFD7E7AFA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{71BB326B-2CF7-41F9-AA20-324DFD7E7AFA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{71BB326B-2CF7-41F9-AA20-324DFD7E7AFA}.Release|x64.ActiveCfg = Release|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2029,6 +2017,5 @@ Global
 		{9CCCAA28-2B9F-484B-B717-DB95FDF0114A} = {FD389F82-CED9-46D0-A86B-1EE43F94044A}
 		{3C5CCC9B-4FAE-4547-BDD1-673930B6779F} = {F50D2915-D840-43FD-BE30-F49BEF458620}
 		{71BB326B-2CF7-41F9-AA20-324DFD7E7AFA} = {F50D2915-D840-43FD-BE30-F49BEF458620}
-		{C9FA5CF5-AA97-4278-8D1D-80F3CB38DDAC} = {F50D2915-D840-43FD-BE30-F49BEF458620}
 	EndGlobalSection
 EndGlobal
