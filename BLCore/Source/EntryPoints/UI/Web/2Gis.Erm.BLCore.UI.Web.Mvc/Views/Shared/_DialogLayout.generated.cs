@@ -630,15 +630,30 @@ WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4072), Tuple.Create("\"", 4126)
-, Tuple.Create(Tuple.Create("", 4078), Tuple.Create("/Scripts/Ext.ux.Calendar2.js?", 4078), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4072), Tuple.Create("\"", 4129)
+, Tuple.Create(Tuple.Create("", 4078), Tuple.Create("/Scripts/Ext.ux.TimeComboBox.js?", 4078), true)
             
             #line 64 "..\..\Views\Shared\_DialogLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 4107), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 4110), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 4107), false)
+, 4110), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 4176), Tuple.Create("\"", 4230)
+, Tuple.Create(Tuple.Create("", 4182), Tuple.Create("/Scripts/Ext.ux.Calendar2.js?", 4182), true)
+            
+            #line 65 "..\..\Views\Shared\_DialogLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 4211), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 4211), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -646,27 +661,27 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral("></script>\r\n\r\n");
 
             
-            #line 66 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 67 "..\..\Views\Shared\_DialogLayout.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 66 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 67 "..\..\Views\Shared\_DialogLayout.cshtml"
      if (IsSectionDefined("PageScript")) { 
         
             
             #line default
             #line hidden
             
-            #line 67 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 68 "..\..\Views\Shared\_DialogLayout.cshtml"
    Write(RenderSection("PageScript"));
 
             
             #line default
             #line hidden
             
-            #line 67 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 68 "..\..\Views\Shared\_DialogLayout.cshtml"
                                     
     }
 
@@ -678,7 +693,7 @@ WriteLiteral("    \r\n    <title>\r\n");
 WriteLiteral("        ");
 
             
-            #line 71 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 72 "..\..\Views\Shared\_DialogLayout.cshtml"
    Write(RenderSection("Title"));
 
             
@@ -687,13 +702,13 @@ WriteLiteral("        ");
 WriteLiteral("\r\n    </title>\r\n</head>\r\n    <body>\r\n");
 
             
-            #line 75 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 76 "..\..\Views\Shared\_DialogLayout.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 75 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 76 "..\..\Views\Shared\_DialogLayout.cshtml"
          if (IsSectionDefined("RawContent"))
         {
 
@@ -711,7 +726,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 78 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 79 "..\..\Views\Shared\_DialogLayout.cshtml"
            Write(RenderSection("TopBarTitle"));
 
             
@@ -728,7 +743,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 81 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 82 "..\..\Views\Shared\_DialogLayout.cshtml"
            Write(RenderSection("RawContent"));
 
             
@@ -737,7 +752,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n");
 
             
-            #line 83 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 84 "..\..\Views\Shared\_DialogLayout.cshtml"
         }
         else
         {
@@ -783,7 +798,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                            ");
 
             
-            #line 94 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 95 "..\..\Views\Shared\_DialogLayout.cshtml"
                                        Write(RenderSection("TopBarTitle"));
 
             
@@ -793,13 +808,13 @@ WriteLiteral("\r\n                                        </span>\r\n           
 "      </td>\r\n                                </tr>\r\n");
 
             
-            #line 98 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 99 "..\..\Views\Shared\_DialogLayout.cshtml"
                                 
             
             #line default
             #line hidden
             
-            #line 98 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 99 "..\..\Views\Shared\_DialogLayout.cshtml"
                                  if (IsSectionDefined("TopBarMessage"))
                                 {
 
@@ -822,7 +837,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                                ");
 
             
-            #line 103 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 104 "..\..\Views\Shared\_DialogLayout.cshtml"
                                            Write(RenderSection("TopBarMessage"));
 
             
@@ -832,7 +847,7 @@ WriteLiteral("\r\n                                            </span>\r\n       
 "              </td>\r\n                                    </tr>\r\n");
 
             
-            #line 107 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 108 "..\..\Views\Shared\_DialogLayout.cshtml"
                                 }
 
             
@@ -849,7 +864,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 114 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 115 "..\..\Views\Shared\_DialogLayout.cshtml"
                    Write(RenderSection("PageContent"));
 
             
@@ -869,13 +884,13 @@ WriteLiteral(" class=\"ms-crm-Dialog-Footer\"");
 WriteLiteral(">\r\n");
 
             
-            #line 119 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 120 "..\..\Views\Shared\_DialogLayout.cshtml"
                         
             
             #line default
             #line hidden
             
-            #line 119 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 120 "..\..\Views\Shared\_DialogLayout.cshtml"
                          if (IsSectionDefined("PageButtons"))
                         {
                             
@@ -883,14 +898,14 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 121 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 122 "..\..\Views\Shared\_DialogLayout.cshtml"
                        Write(RenderSection("PageButtons"));
 
             
             #line default
             #line hidden
             
-            #line 121 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 122 "..\..\Views\Shared\_DialogLayout.cshtml"
                                                          
                         }
                         else
@@ -907,14 +922,14 @@ WriteLiteral(" type=\"button\"");
 
 WriteLiteral(" id=\"OK\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 6565), Tuple.Create("\"", 6588)
+WriteAttribute("value", Tuple.Create(" value=\"", 6669), Tuple.Create("\"", 6692)
             
-            #line 125 "..\..\Views\Shared\_DialogLayout.cshtml"
-  , Tuple.Create(Tuple.Create("", 6573), Tuple.Create<System.Object, System.Int32>(BLResources.OK
+            #line 126 "..\..\Views\Shared\_DialogLayout.cshtml"
+  , Tuple.Create(Tuple.Create("", 6677), Tuple.Create<System.Object, System.Int32>(BLResources.OK
             
             #line default
             #line hidden
-, 6573), false)
+, 6677), false)
 );
 
 WriteLiteral(" />\r\n");
@@ -927,20 +942,20 @@ WriteLiteral(" type=\"button\"");
 
 WriteLiteral(" id=\"Cancel\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 6672), Tuple.Create("\"", 6699)
+WriteAttribute("value", Tuple.Create(" value=\"", 6776), Tuple.Create("\"", 6803)
             
-            #line 126 "..\..\Views\Shared\_DialogLayout.cshtml"
-      , Tuple.Create(Tuple.Create("", 6680), Tuple.Create<System.Object, System.Int32>(BLResources.Cancel
+            #line 127 "..\..\Views\Shared\_DialogLayout.cshtml"
+      , Tuple.Create(Tuple.Create("", 6784), Tuple.Create<System.Object, System.Int32>(BLResources.Cancel
             
             #line default
             #line hidden
-, 6680), false)
+, 6784), false)
 );
 
 WriteLiteral(" />\r\n");
 
             
-            #line 127 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 128 "..\..\Views\Shared\_DialogLayout.cshtml"
                         }
 
             
@@ -949,7 +964,7 @@ WriteLiteral(" />\r\n");
 WriteLiteral("                    </td>\r\n                </tr>\r\n            </table>\r\n");
 
             
-            #line 131 "..\..\Views\Shared\_DialogLayout.cshtml"
+            #line 132 "..\..\Views\Shared\_DialogLayout.cshtml"
         }
 
             

@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
         {
             Day = 0,
             Month,
-        }
+        }        
 
         public StoreMode Store { get; set; }
         public DisplayMode Display { get; set; }
@@ -33,6 +33,8 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
         public class TimeSettings
         {
+            public static readonly TimeSettings WorkHours = new TimeSettings(TimeSpan.FromHours(8), TimeSpan.FromHours(20), TimeSpan.FromMinutes(30));
+
             public TimeSettings()
             {
                 Start = TimeSpan.FromHours(0);
@@ -40,9 +42,16 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
                 Step = TimeSpan.FromMinutes(30);
             }
 
-            public TimeSpan Start { get; set; }
-            public TimeSpan End { get; set; }
-            public TimeSpan Step { get; set; }
+            public TimeSettings(TimeSpan start, TimeSpan end, TimeSpan step)
+            {
+                End = end;
+                Start = start;
+                Step = step;
+            }           
+
+            public TimeSpan Start { get; private set; }
+            public TimeSpan End { get; private set; }
+            public TimeSpan Step { get; private set; }
         }
     }
 }
