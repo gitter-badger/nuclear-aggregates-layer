@@ -69,7 +69,7 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
         while (start <= end) {
             //var id = start.clone();
             values.push({ id: moment.duration(start).asMilliseconds(), name: start.format(this.displayFormat) });
-            start.add('minutes',step);
+            start.add(step,'minutes');
         }
 
         return values;

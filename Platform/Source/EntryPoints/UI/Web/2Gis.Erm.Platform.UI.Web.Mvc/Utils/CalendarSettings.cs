@@ -49,9 +49,9 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
                 Step = step;
             }           
 
-            public TimeSpan Start { get; set; }
-            public TimeSpan End { get; set; }
-            public TimeSpan Step { get; set; }
+            public TimeSpan Start { get; private set; }
+            public TimeSpan End { get; private set; }
+            public TimeSpan Step { get; private set; }
         }
     }
 }
