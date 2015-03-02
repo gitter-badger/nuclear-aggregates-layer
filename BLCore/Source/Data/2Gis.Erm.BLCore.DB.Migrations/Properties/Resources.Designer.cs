@@ -2879,6 +2879,15 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InsertMissingOrganizers_201412291720 {
+            get {
+                return ResourceManager.GetString("InsertMissingOrganizers_201412291720", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF object_id(&apos;[Activity].[AppointmentReferences]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentReferences];
         ///IF object_id(&apos;[Activity].[AppointmentBase]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentBase];
         ///

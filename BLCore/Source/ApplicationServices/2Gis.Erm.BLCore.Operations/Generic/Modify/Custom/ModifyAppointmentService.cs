@@ -75,17 +75,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             {
                 IEnumerable<AppointmentRegardingObject> oldRegardingObjects;
                 IEnumerable<AppointmentAttendee> oldAttendees;
+                AppointmentOrganizer oldOrganizer;
                 if (appointment.IsNew())
                 {
                     _createOperationService.Create(appointment);
                     oldRegardingObjects = null;
                     oldAttendees = null;
+                    oldOrganizer = null;
                 }
                 else
                 {
                     _updateOperationService.Update(appointment);
                     oldRegardingObjects = _readModel.GetRegardingObjects(appointment.Id);
                     oldAttendees = _readModel.GetAttendees(appointment.Id);
+                    oldOrganizer = _readModel.GetOrganizer(appointment.Id);
                 }
 
                 _updateOperationService.UpdateAttendees(appointment,
@@ -95,6 +98,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 _updateOperationService.ChangeRegardingObjects(appointment,
                                                                oldRegardingObjects,
                                                                appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
+
+                _updateOperationService.ChangeOrganizer(appointment,
+                                                        oldOrganizer,
+                                                        appointment.ReferencesIfAny<Appointment, AppointmentOrganizer>(appointmentDto.Organizer));
 
                 if (appointment.Status == ActivityStatus.Completed)
                 {

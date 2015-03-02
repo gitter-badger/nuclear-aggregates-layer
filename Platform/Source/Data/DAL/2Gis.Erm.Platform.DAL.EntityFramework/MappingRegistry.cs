@@ -53,6 +53,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 			      .ForMember(dto => dto.TargetEntityName, x => x.MapFrom(t => (EntityName)t.ReferencedType))
 			      .ForMember(dto => dto.TargetEntityId, x => x.MapFrom(t => t.ReferencedObjectId))
 				;
+            Mapper.CreateMap<AppointmentReference, AppointmentOrganizer>()
+                  .ForMember(dto => dto.SourceEntityId, x => x.MapFrom(t => t.AppointmentId))
+                  .ForMember(dto => dto.TargetEntityName, x => x.MapFrom(t => (EntityName)t.ReferencedType))
+                  .ForMember(dto => dto.TargetEntityId, x => x.MapFrom(t => t.ReferencedObjectId))
+                ;
 
             #endregion
 
@@ -142,6 +147,13 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 			      .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => (int)src.TargetEntityName))
 			      .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
 				;
+
+            Mapper.CreateMap<AppointmentOrganizer, AppointmentReference>()
+                  .ForMember(dest => dest.AppointmentId, cfg => cfg.MapFrom(src => src.SourceEntityId))
+                  .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => AppointmentReferenceType.Organizer))
+                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => (int)src.TargetEntityName))
+                  .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId))
+                ;
 
 			#endregion
 

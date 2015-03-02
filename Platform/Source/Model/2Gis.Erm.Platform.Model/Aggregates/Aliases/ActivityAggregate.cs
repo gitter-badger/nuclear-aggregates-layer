@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 		Appointment = EntityName.Appointment,
         AppointmentRegardingObject = EntityName.AppointmentRegardingObject,
         AppointmentAttendee = EntityName.AppointmentAttendee,
+        AppointmentOrganizer = EntityName.AppointmentOrganizer,
 	}
 	
 	public enum PhonecallAggregate
