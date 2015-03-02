@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
-using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -21,27 +17,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetLetterDtoService : GetDomainEntityDtoServiceBase<Letter>
     {
         private readonly ILetterReadModel _letterReadModel;
-        private readonly IClientReadModel _clientReadModel;
         private readonly IActivityReferenceReader _activityReferenceReader;
-        private readonly IDealReadModel _dealReadModel;
-        private readonly IFirmReadModel _firmReadModel;
-        private readonly ISecurityServiceUserIdentifier _userIdentifier;
 
         public GetLetterDtoService(IUserContext userContext,
                                  ILetterReadModel letterReadModel,
-                                 IClientReadModel clientReadModel,
-                                 IActivityReferenceReader activityReferenceReader,
-                                 IDealReadModel dealReadModel,
-                                 IFirmReadModel firmReadModel,
-                                 ISecurityServiceUserIdentifier userIdentifier)
+                                 IActivityReferenceReader activityReferenceReader)
             : base(userContext)
         {
             _letterReadModel = letterReadModel;
-            _clientReadModel = clientReadModel;
             _activityReferenceReader = activityReferenceReader;
-            _dealReadModel = dealReadModel;
-            _firmReadModel = firmReadModel;
-            _userIdentifier = userIdentifier;
         }
 
         protected override IDomainEntityDto<Letter> GetDto(long entityId)
@@ -90,25 +74,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityName.User }
                 };
 
-            EntityReference regardingObject = null;
             if (parentEntityName.CanBeRegardingObject())
             {
-                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+                var regardingObject = _activityReferenceReader.ToEntityReference(parentEntityName, parentEntityId);                
+                if (regardingObject.Id != null)
+                {
+                    dto.RegardingObjects = _activityReferenceReader.FindAutoCompleteReferences(regardingObject);
+                    dto.RecipientRef = _activityReferenceReader.FindClientContact(dto.RegardingObjects);
+                }
             }
             else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
             {
                 dto.RegardingObjects = _activityReferenceReader.GetRegardingObjects(parentEntityName, parentEntityId.Value);
             }
 
-            if (regardingObject != null)
-            {
-                dto.RegardingObjects = new[] { regardingObject };
-            }
-
-            var recipient = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
+            var recipient = parentEntityName.CanBeContacted() ? _activityReferenceReader.ToEntityReference(parentEntityName, parentEntityId) : null;
             if (recipient != null)
             {
                 dto.RecipientRef = recipient;
+                dto.RegardingObjects = _activityReferenceReader.FindAutoCompleteReferences(recipient);
             }
 
             return dto;
@@ -116,44 +100,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Letter>> references)
         {
-            return references.Select(x => ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
+            return references.Select(x => _activityReferenceReader.ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
         }
 
         private EntityReference ToEntityReference(EntityReference<Letter> reference)
         {
-            return reference != null ? ToEntityReference(reference.TargetEntityName, reference.TargetEntityId) : null;
-        }
-
-        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
-        {
-            if (!entityId.HasValue)
-            {
-                return null;
-            }
-
-            string name;
-            switch (entityName)
-            {
-                case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entityId.Value);
-                    break;
-                case EntityName.Contact:
-                    name = _clientReadModel.GetContactName(entityId.Value);
-                    break;
-                case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entityId.Value).Name;
-                    break;
-                case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entityId.Value);
-                    break;
-                case EntityName.User:
-                    name = (_userIdentifier.GetUserInfo(entityId) ?? UserInfo.Empty).DisplayName;
-                    break;
-                default:
-                    return null;
-            }
-
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
+            return reference != null ? _activityReferenceReader.ToEntityReference(reference.TargetEntityName, reference.TargetEntityId) : null;
         }
     }
 }

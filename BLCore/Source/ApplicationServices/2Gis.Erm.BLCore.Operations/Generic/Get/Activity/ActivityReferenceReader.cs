@@ -11,8 +11,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-using Microsoft.Xrm.Client.Caching.Configuration;
-
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
 {
     public class ActivityReferenceReader : IActivityReferenceReader
@@ -76,33 +74,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
             }
         }
 
-        private EntityReference ToEntityReference<TEntity>(EntityReference<TEntity> entity) where TEntity : IEntity
+        public EntityReference FindClientContact(IEnumerable<EntityReference> references)
         {
-            if (entity == null)
+            var client = references.FirstOrDefault(s => s.EntityName == EntityName.Client);
+            if (client != null && client.Id.HasValue)
             {
-                return null;
+                var contacts = _clientReadModel.GetClientContacts(client.Id.Value);
+                return ConvertToEntityReference(contacts, s => new EntityReference { EntityName = EntityName.Contact, Name = s.FullName, Id = s.Id });
             }
 
-            string name;
-            switch (entity.TargetEntityName)
-            {
-                case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entity.TargetEntityId);
-                    break;
-                case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entity.TargetEntityId).Name;
-                    break;
-                case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entity.TargetEntityId);
-                    break;
-                case EntityName.Contact:
-                    name = _clientReadModel.GetContactName(entity.TargetEntityId);
-                    break;
-                default:
-                    return null;
-            }
-
-            return new EntityReference { Id = entity.TargetEntityId, Name = name, EntityName = entity.TargetEntityName };
+            return null;
         }
 
         public IEnumerable<EntityReference> FindAutoCompleteReferences(EntityReference entity) 
@@ -111,76 +92,138 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
             {
                 return Enumerable.Empty<EntityReference>();
             }
-
-            var rval = new List<EntityReference>();
+            
             switch (entity.EntityName)
             {
                 case EntityName.Client:
-                    rval.Add(entity);
-                    var firms = _firmReadModel.GetFirmsForClientAndLinkedChild(entity.Id.Value);
-                    var firmReference = ConvertToEntityReference(firms, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
-                    rval.Add(firmReference);
-                    var deals = _dealReadModel.GetDealsByClientId(entity.Id.Value);
-                    var dealReference = ConvertToEntityReference(deals, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
-                    rval.Add(dealReference);
-                    break;
+                    return FindAutoCompleteReferencesByClient(entity);                    
                 case EntityName.Contact:
-                    var client = _clientReadModel.GetClientByContact(entity.Id.Value);
-                    if (client != null)
-                    {
-                        var clientRefs = new EntityReference { EntityName = EntityName.Client, Name = client.Name, Id = client.Id };
-                        rval.Add(clientRefs);
-                        var firms1 = _firmReadModel.GetFirmsForClientAndLinkedChild(client.Id);
-                        var firmReference1 = ConvertToEntityReference(firms1, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
-                        rval.Add(firmReference1);
-                        var deals1 = _dealReadModel.GetDealsByClientId(client.Id);
-                        var dealReference1 = ConvertToEntityReference(deals1, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
-                        rval.Add(dealReference1);
-                    }
-
-                    break;
+                    return FindAutoCompleteReferencesByContact(entity);                    
                 case EntityName.Deal:
-                    rval.Add(entity);
-                    var client2 = _clientReadModel.GetClientByDeal(entity.Id.Value);
-                    if (client2 != null)
-                    {
-                        var clientRefs = new EntityReference { EntityName = EntityName.Client, Name = client2.Name, Id = client2.Id };
-                        rval.Add(clientRefs);
-                        var firms1 = _firmReadModel.GetFirmsForClientAndLinkedChild(client2.Id);
-                        var firmReference1 = ConvertToEntityReference(firms1, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
-                        rval.Add(firmReference1);
-                        //var deals1 = _dealReadModel.GetDealsByClientId(client2.Id);
-                        //var dealReference1 = ConvertToEntityReference(deals1, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
-                        //rval.Add(dealReference1);
-                    }
-
-                    break;
+                    return FindAutoCompleteReferencesByDeal(entity);
                 case EntityName.Firm:
-                    rval.Add(entity);
-                     var client1 = _clientReadModel.GetClientByFirm(entity.Id.Value);
-                    if (client1 != null)
-                    {
-                        var clientRefs = new EntityReference { EntityName = EntityName.Client, Name = client1.Name, Id = client1.Id };
-                        rval.Add(clientRefs);
-                        //var firms1 = _firmReadModel.GetFirmsForClientAndLinkedChild(client1.Id);
-                        //var firmReference1 = ConvertToEntityReference(firms1, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
-                        //rval.Add(firmReference1);
-                        var deals1 = _dealReadModel.GetDealsByClientId(client1.Id);
-                        var dealReference1 = ConvertToEntityReference(deals1, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
-                        rval.Add(dealReference1);
-                    }
-
-                    break;
+                    return FindAutoCompleteReferencesByFirm(entity);
             }
 
-            return rval.Where(s => s != null).ToArray();
+            return Enumerable.Empty<EntityReference>();
         }
 
-        public EntityReference FindClientContact(long clientId)
+        public EntityReference ToEntityReference(EntityName entityName, long? entityId)
         {
-            var contacts = _clientReadModel.GetClientContacts(clientId);
-            return ConvertToEntityReference(contacts, s => new EntityReference { EntityName = EntityName.Contact, Name = s.FullName, Id = s.Id });
+            if (!entityId.HasValue)
+            {
+                return null;
+            }
+
+            string name;
+            switch (entityName)
+            {
+                case EntityName.Client:
+                    name = _clientReadModel.GetClientName(entityId.Value);
+                    break;
+                case EntityName.Contact:
+                    name = _clientReadModel.GetContactName(entityId.Value);
+                    break;
+                case EntityName.Deal:
+                    name = _dealReadModel.GetDeal(entityId.Value).Name;
+                    break;
+                case EntityName.Firm:
+                    name = _firmReadModel.GetFirmName(entityId.Value);
+                    break;
+                default:
+                    return null;
+            }
+
+            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
         }
+
+        private IEnumerable<EntityReference> FindAutoCompleteReferencesByFirm(EntityReference entity)
+        {
+            var rval = new List<EntityReference> { entity };
+            if (entity.Id != null)
+            {
+                var client = _clientReadModel.GetClientByFirm(entity.Id.Value);
+                if (client != null)
+                {
+                    var clientRefs = new EntityReference { EntityName = EntityName.Client, Name = client.Name, Id = client.Id };
+                    rval.Add(clientRefs);
+                    AddDealReference(client.Id, rval);
+                }
+            }
+
+            return rval.Where(s => s != null);
+        }
+
+        private IEnumerable<EntityReference> FindAutoCompleteReferencesByDeal(EntityReference entity)
+        {
+            var rval = new List<EntityReference> { entity };
+            if (entity.Id != null)
+            {
+                var clientReference = FindClientReferenceByEntityId(_clientReadModel.GetClientByDeal, entity.Id.Value);
+
+                if (clientReference != null && clientReference.Id.HasValue)
+                {
+                    rval.Add(clientReference);
+                    AddFirmReference(clientReference.Id.Value, rval);
+                }
+            }
+
+            return rval.Where(s => s != null);
+        }
+
+        private IEnumerable<EntityReference> FindAutoCompleteReferencesByContact(EntityReference entity)
+        {
+            var rval = new List<EntityReference>();
+            if (entity.Id != null)
+            {
+                var clientReference = FindClientReferenceByEntityId(_clientReadModel.GetClientByContact, entity.Id.Value);                
+                if (clientReference != null && clientReference.Id.HasValue)
+                {
+                    rval.Add(clientReference);
+                    AddFirmReference(clientReference.Id.Value, rval);
+                    AddDealReference(clientReference.Id.Value, rval);
+                }
+            }
+
+            return rval.Where(s => s != null);
+        }
+
+        private IEnumerable<EntityReference> FindAutoCompleteReferencesByClient(EntityReference entity)
+        {
+            var rval = new List<EntityReference> { entity };
+            if (entity.Id != null)
+            {
+                AddFirmReference(entity.Id.Value, rval);
+                AddDealReference(entity.Id.Value, rval);
+            }
+
+            return rval.Where(s => s != null);
+        }
+
+        private EntityReference FindClientReferenceByEntityId(Func<long, Client> reader, long entityId)
+        {
+            var client = reader(entityId);
+            if (client != null)
+            {
+                return new EntityReference { EntityName = EntityName.Client, Name = client.Name, Id = client.Id };
+            }
+
+            return null;
+        }
+
+        private void AddFirmReference(long clientId, List<EntityReference> rval)
+        {
+            var firms = _firmReadModel.GetFirmsForClientAndLinkedChild(clientId);
+            var firmReference = ConvertToEntityReference(firms, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
+            rval.Add(firmReference);
+        }
+
+        private void AddDealReference(long clientId, List<EntityReference> rval)
+        {
+            var deals = _dealReadModel.GetDealsByClientId(clientId);
+            var dealReference = ConvertToEntityReference(deals, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
+            rval.Add(dealReference);
+        }       
 
         private EntityReference ConvertToEntityReference<TEntity>(IEnumerable<TEntity> entities, Func<TEntity, EntityReference> convertToEntityReference) where TEntity : IEntity
         {
@@ -199,11 +242,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
             return new EntityReference { EntityName = typeof(TEntity).AsEntityName() };
         }
 
-
         private IEnumerable<EntityReference> AdaptReferences<TEntity>(IEnumerable<EntityReference<TEntity>> references) where TEntity : IEntity
         {
             return references.Select(ToEntityReference).Where(x => x != null).ToList();
         }
        
+        private EntityReference ToEntityReference<TEntity>(EntityReference<TEntity> entity) where TEntity : IEntity
+        {
+            if (entity == null)
+            {
+                return null;
+            }
+
+            return ToEntityReference(entity.TargetEntityName, entity.TargetEntityId);
+        }
     }
 }

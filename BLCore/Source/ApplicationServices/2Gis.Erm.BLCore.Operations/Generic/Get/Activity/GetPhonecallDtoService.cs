@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -22,23 +19,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private readonly IActivityReferenceReader _activityReferenceReader;
 
-        private readonly IClientReadModel _clientReadModel;
-        private readonly IDealReadModel _dealReadModel;
-        private readonly IFirmReadModel _firmReadModel;
-
         public GetPhonecallDtoService(IUserContext userContext,
                                       IPhonecallReadModel activityReadModel,
-                                      IActivityReferenceReader activityReferenceReader,
-                                      IClientReadModel clientReadModel,
-                                      IDealReadModel dealReadModel,
-                                      IFirmReadModel firmReadModel)
+                                      IActivityReferenceReader activityReferenceReader)
             : base(userContext)
         {
             _activityReadModel = activityReadModel;
             _activityReferenceReader = activityReferenceReader;
-            _clientReadModel = clientReadModel;
-            _dealReadModel = dealReadModel;
-            _firmReadModel = firmReadModel;
         }
 
         protected override IDomainEntityDto<Phonecall> GetDto(long entityId)
@@ -62,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Purpose = phonecall.Purpose,
                     Status = phonecall.Status,
                     RegardingObjects = AdaptReferences(regardingObjects),
-                    RecipientRef = recipient != null ? ToEntityReference(recipient.TargetEntityName, recipient.TargetEntityId) : null,
+                    RecipientRef = recipient != null ? _activityReferenceReader.ToEntityReference(recipient.TargetEntityName, recipient.TargetEntityId) : null,
 
                     OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = phonecall.CreatedBy, Name = null },
@@ -84,10 +71,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Status = ActivityStatus.InProgress,
                 };
 
-            EntityReference regardingObject = null;
             if (parentEntityName.CanBeRegardingObject())
             {
-                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
+                var regardingObject = _activityReferenceReader.ToEntityReference(parentEntityName, parentEntityId);
+                if (regardingObject.Id != null)
+                {
+                    dto.RegardingObjects = _activityReferenceReader.FindAutoCompleteReferences(regardingObject);
+                    dto.RecipientRef = _activityReferenceReader.FindClientContact(dto.RegardingObjects);
+                }
             }
             else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
             {
@@ -98,17 +89,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 {
                     dto.RecipientRef = entityReferences.First();
                 }
-            }
+            }           
 
-            if (regardingObject != null)
-            {
-                dto.RegardingObjects = new[] { regardingObject };
-            }
-
-            var recipient = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
+            var recipient = parentEntityName.CanBeContacted() ? _activityReferenceReader.ToEntityReference(parentEntityName, parentEntityId) : null;
             if (recipient != null)
             {
                 dto.RecipientRef = recipient;
+                dto.RegardingObjects = _activityReferenceReader.FindAutoCompleteReferences(recipient);
             }
 
             return dto;
@@ -116,36 +103,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Phonecall>> references)
         {
-            return references.Select(x => ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
-        }
-
-        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
-        {
-            if (!entityId.HasValue)
-            {
-                return null;
-            }
-
-            string name;
-            switch (entityName)
-            {
-                case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entityId.Value);
-                    break;
-                case EntityName.Contact:
-                    name = _clientReadModel.GetContactName(entityId.Value);
-                    break;
-                case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entityId.Value).Name;
-                    break;
-                case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entityId.Value);
-                    break;
-                default:
-                    return null;
-            }
-
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
+            return references.Select(x => _activityReferenceReader.ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
         }
     }
 }

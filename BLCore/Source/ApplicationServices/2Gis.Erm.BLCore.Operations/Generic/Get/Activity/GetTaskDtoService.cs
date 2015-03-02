@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -19,24 +16,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetTaskDtoService : GetDomainEntityDtoServiceBase<Task>
     {
         private readonly ITaskReadModel _taskReadModel;
-        private readonly IActivityReferenceReader _activityReadModel;        
-        private readonly IClientReadModel _clientReadModel;
-        private readonly IDealReadModel _dealReadModel;
-        private readonly IFirmReadModel _firmReadModel;
+        private readonly IActivityReferenceReader _activityReferenceReader;
 
         public GetTaskDtoService(IUserContext userContext,
                                  ITaskReadModel taskReadModel,
-                                 IActivityReferenceReader activityReadModel,
-                                 IClientReadModel clientReadModel,
-                                 IDealReadModel dealReadModel,
-                                 IFirmReadModel firmReadModel)
+                                 IActivityReferenceReader activityReferenceReader)
             : base(userContext)
         {
             _taskReadModel = taskReadModel;
-            _activityReadModel = activityReadModel;            
-            _clientReadModel = clientReadModel;
-            _dealReadModel = dealReadModel;
-            _firmReadModel = firmReadModel;
+            _activityReferenceReader = activityReferenceReader;
         }
 
         protected override IDomainEntityDto<Task> GetDto(long entityId)
@@ -80,58 +68,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Status = ActivityStatus.InProgress,
                 };
 
-            EntityReference regardingObject = null;
-            if (parentEntityName.CanBeRegardingObject())
+            if (parentEntityName.CanBeRegardingObject() || parentEntityName.CanBeContacted())
             {
-                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
-            }
-            else if (parentEntityName == EntityName.Contact && parentEntityId.HasValue)
-            {
-                var client = _clientReadModel.GetClientByContact(parentEntityId.Value);
-                if (client != null)
+                var regardingObject = _activityReferenceReader.ToEntityReference(parentEntityName, parentEntityId);
+                if (regardingObject.Id != null)
                 {
-                    regardingObject = ToEntityReference(EntityName.Client, client.Id);
+                    dto.RegardingObjects = _activityReferenceReader.FindAutoCompleteReferences(regardingObject);
                 }
             }
             else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
             {
-                dto.RegardingObjects = _activityReadModel.GetRegardingObjects(parentEntityName, parentEntityId.Value);
+                dto.RegardingObjects = _activityReferenceReader.GetRegardingObjects(parentEntityName, parentEntityId.Value);
             }
-
-            if (regardingObject != null)
-            {
-                dto.RegardingObjects = new[] { regardingObject };
-            }
-
+            
             return dto;
         }
 
         private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Task>> references)
         {
-            return references.Select(x => ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
-        }
-
-        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
-        {
-            if (!entityId.HasValue) return null;
-
-            string name;
-            switch (entityName)
-            {
-                case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entityId.Value);
-                    break;
-                case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entityId.Value).Name;
-                    break;
-                case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entityId.Value);
-                    break;
-                default:
-                    return null;
-            }
-
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
+            return references.Select(x => _activityReferenceReader.ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
         }
     }
 }
