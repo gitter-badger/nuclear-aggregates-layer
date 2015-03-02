@@ -488,7 +488,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Complete\CompleteIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Revert\RevertIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Revert\ReopenIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\DeleteChargesForPeriodAndProjectIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportChargesInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Building\ImportBuildingIdentity.cs" />

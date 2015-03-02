@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Revert
 {  
     [ServiceContract(SessionMode = SessionMode.Allowed, Namespace = ServiceNamespaces.BasicOperations.Revert201502)]
-    public interface IRevertApplicationService
+    public interface IReopenApplicationService
     {
         [OperationContract]
         [FaultContract(typeof(RevertOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.Revert201502)]

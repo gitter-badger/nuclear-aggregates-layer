@@ -3,7 +3,7 @@
 namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Revert
 {  
     [DataContract]
-    public class RevertIdentity : OperationIdentityBase<RevertIdentity>, IEntitySpecificOperationIdentity
+    public class ReopenIdentity : OperationIdentityBase<ReopenIdentity>, IEntitySpecificOperationIdentity
     {
         public override int Id
         {
@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.R
         {
             get
             {
-                return "Revert";
+                return "Reopen";
             }
         }
     }    

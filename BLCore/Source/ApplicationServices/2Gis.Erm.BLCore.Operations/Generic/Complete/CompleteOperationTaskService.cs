@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Compl
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 {
-    public class CompleteTaskService : ICompleteGenericService<Task>
+    public class CompleteOperationTaskService : ICompleteOperationGenericService<Task>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ITaskReadModel _taskReadModel;
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         private readonly IUserContext _userContext;
         private readonly IChangeTaskStatusAggregateService _changeTaskStatusAggregateService;
 
-        public CompleteTaskService(
+        public CompleteOperationTaskService(
             IOperationScopeFactory operationScopeFactory,
             ITaskReadModel taskReadModel,
             ISecurityServiceEntityAccess entityAccessService,

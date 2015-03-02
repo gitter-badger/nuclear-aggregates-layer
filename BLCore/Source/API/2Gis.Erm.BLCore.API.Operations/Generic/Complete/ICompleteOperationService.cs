@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Compl
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Complete
 {
-    public interface ICompleteService : IOperation<CompleteIdentity>
+    public interface ICompleteOperationService : IOperation<CompleteIdentity>
     {
         void Complete(long entityId);
     }

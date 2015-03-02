@@ -57,19 +57,19 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
             return GetEntitySpecificOperation<IIntegrationProcessorOperationService, ExportIdentity>(new EntitySet(entities), null);
         }
 
-        public ICancelService GetCancelService(EntityName entityName)
+        public ICancelOperationService GetCancelService(EntityName entityName)
         {            
-            return GetEntitySpecificOperation<ICancelService, CancelIdentity>(entityName.ToEntitySet(), null);
+            return GetEntitySpecificOperation<ICancelOperationService, CancelIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public ICompleteService GetCompleteService(EntityName entityName)
+        public ICompleteOperationService GetCompleteService(EntityName entityName)
         {
-            return GetEntitySpecificOperation<ICompleteService, CompleteIdentity>(entityName.ToEntitySet(), null);
+            return GetEntitySpecificOperation<ICompleteOperationService, CompleteIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IRevertService GetRevertService(EntityName entityName)
+        public IReopenOperationService GetRevertService(EntityName entityName)
         {
-            return GetEntitySpecificOperation<IRevertService, RevertIdentity>(entityName.ToEntitySet(), null);
+            return GetEntitySpecificOperation<IReopenOperationService, ReopenIdentity>(entityName.ToEntitySet(), null);
         }
 
         public IListEntityService GetListEntityService(EntityName entityName)

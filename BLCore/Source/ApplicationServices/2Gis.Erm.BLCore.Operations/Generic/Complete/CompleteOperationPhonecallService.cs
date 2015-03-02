@@ -19,56 +19,56 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Compl
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 {
-    public class CompleteAppointmentService : ICompleteGenericService<Appointment>
+    public class CompleteOperationPhonecallService : ICompleteOperationGenericService<Phonecall>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
-        private readonly IAppointmentReadModel _appointmentReadModel;
+        private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
         private readonly IChangeDealStageOperationService _changeDealStageOperationService;
-        private readonly IChangeAppointmentStatusAggregateService _changeAppointmentStatusAggregateService;
+        private readonly IChangePhonecallStatusAggregateService _changePhonecallStatusAggregateService;
 
-        public CompleteAppointmentService(
-            IOperationScopeFactory operationScopeFactory, 
-            IAppointmentReadModel appointmentReadModel,
+        public CompleteOperationPhonecallService(
+            IOperationScopeFactory operationScopeFactory,
+            IPhonecallReadModel phonecallReadModel,
             ISecurityServiceEntityAccess entityAccessService,
             IUserContext userContext,
             IChangeDealStageOperationService changeDealStageOperationService,
-            IChangeAppointmentStatusAggregateService changeAppointmentStatusAggregateService)
+            IChangePhonecallStatusAggregateService changePhonecallStatusAggregateService)
         {
             _operationScopeFactory = operationScopeFactory;
-            _appointmentReadModel = appointmentReadModel;
+            _phonecallReadModel = phonecallReadModel;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
             _changeDealStageOperationService = changeDealStageOperationService;
-            _changeAppointmentStatusAggregateService = changeAppointmentStatusAggregateService;
+            _changePhonecallStatusAggregateService = changePhonecallStatusAggregateService;
         }
-
+       
         public void Complete(long entityId)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Appointment>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Phonecall>())
             {
-                var appointment = _appointmentReadModel.GetAppointment(entityId);
-                
-                if (appointment.Status != ActivityStatus.InProgress)
+                var phonecall = _phonecallReadModel.GetPhonecall(entityId);
+
+                if (phonecall.Status != ActivityStatus.InProgress)
                 {
-                    throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, appointment.Header));
+                    throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, phonecall.Header));
                 }
 
-                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, appointment.OwnerCode))
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
                 {
-                    throw new SecurityException(string.Format("{0}: {1}", appointment.Header, BLResources.SecurityAccessDenied));
-                }                
+                    throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
+                } 
 
-                _changeAppointmentStatusAggregateService.Change(appointment, ActivityStatus.Completed);
+                _changePhonecallStatusAggregateService.Change(phonecall, ActivityStatus.Completed);
 
-                var appointmentRegardingObjects = _appointmentReadModel.GetRegardingObjects(entityId);
-                UpdateDealStage(appointmentRegardingObjects, appointment);
+                var phonecallRegardingObjects = _phonecallReadModel.GetRegardingObjects(entityId);
+                UpdateDealStage(phonecallRegardingObjects, phonecall);
 
-                scope.Updated<Appointment>(entityId);
+                scope.Updated<Phonecall>(entityId);
                 scope.Complete();
             }
-        }
+        }      
 
         private static DealStage ConvertToStage(ActivityPurpose purpose)
         {
@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         /// <remarks>
         /// See the specs on https://confluence.2gis.ru/pages/viewpage.action?pageId=48464616.
         /// </remarks>
-        private void UpdateDealStage(IEnumerable<AppointmentRegardingObject> regardingObjects, Appointment phonecall)
+        private void UpdateDealStage(IEnumerable<PhonecallRegardingObject> regardingObjects, Phonecall phonecall)
         {
             var dealRef = regardingObjects.FirstOrDefault(x => x.TargetEntityName == EntityName.Deal);
             if (dealRef == null)

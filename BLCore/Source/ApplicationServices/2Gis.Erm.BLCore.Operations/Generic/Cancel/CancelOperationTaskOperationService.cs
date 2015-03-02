@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cance
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
 {
-    public class CancelTaskService : ICancelGenericService<Task>
+    public class CancelOperationTaskOperationService : ICancelOperationGenericOperationService<Task>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ITaskReadModel _taskReadModel;
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
         private readonly IUserContext _userContext;
         private readonly IChangeTaskStatusAggregateService _changeTaskStatusAggregateService;
 
-        public CancelTaskService(
+        public CancelOperationTaskOperationService(
             IOperationScopeFactory operationScopeFactory,
             ITaskReadModel taskReadModel,
             ISecurityServiceEntityAccess entityAccessService,

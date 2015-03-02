@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Revert
 {
-    public interface IRevertGenericService<TEntity> : IEntityOperation<TEntity>, IRevertService
+    public interface IReopenOperationGenericService<TEntity> : IEntityOperation<TEntity>, IReopenOperationService
         where TEntity : class, IEntityKey
     {
     }    

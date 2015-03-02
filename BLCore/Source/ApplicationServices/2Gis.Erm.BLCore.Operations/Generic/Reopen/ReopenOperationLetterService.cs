@@ -13,42 +13,43 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Rever
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Revert
 {
-    public class RevertTaskService : IRevertGenericService<Task>
+    public class ReopenOperationLetterService : IReopenOperationGenericService<Letter>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
-        private readonly ITaskReadModel _taskReadModel;
+        private readonly ILetterReadModel _letterReadModel;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
-        private readonly IChangeTaskStatusAggregateService _changeTaskStatusAggregateService;
 
-        public RevertTaskService(
+        private readonly IChangeLetterStatusAggregateService _changeAppointmentStatusAggregateService;
+
+        public ReopenOperationLetterService(
             IOperationScopeFactory operationScopeFactory,
-            ITaskReadModel taskReadModel,
+            ILetterReadModel letterReadModel,
             ISecurityServiceEntityAccess entityAccessService,
             IUserContext userContext,
-            IChangeTaskStatusAggregateService changeTaskStatusAggregateService)
+            IChangeLetterStatusAggregateService changeAppointmentStatusAggregateService)
         {
             _operationScopeFactory = operationScopeFactory;
-            _taskReadModel = taskReadModel;
+            _letterReadModel = letterReadModel;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
-            _changeTaskStatusAggregateService = changeTaskStatusAggregateService;
+            _changeAppointmentStatusAggregateService = changeAppointmentStatusAggregateService;
         }
 
-        public void Revert(long entityId)
+        public virtual void Revert(long entityId)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<RevertIdentity, Task>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<ReopenIdentity, Letter>())
             {
-                var task = _taskReadModel.GetTask(entityId);
-              
-                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, task.OwnerCode))
+                var letter = _letterReadModel.GetLetter(entityId);
+
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, letter.OwnerCode))
                 {
-                    throw new SecurityException(string.Format("{0}: {1}", task.Header, BLResources.SecurityAccessDenied));
-                }   
+                    throw new SecurityException(string.Format("{0}: {1}", letter.Header, BLResources.SecurityAccessDenied));
+                }       
 
-                _changeTaskStatusAggregateService.Change(task, ActivityStatus.InProgress);
+                _changeAppointmentStatusAggregateService.Change(letter, ActivityStatus.InProgress);
 
-                scope.Updated<Task>(entityId);
+                scope.Updated<Letter>(entityId);
                 scope.Complete();
             }
         }

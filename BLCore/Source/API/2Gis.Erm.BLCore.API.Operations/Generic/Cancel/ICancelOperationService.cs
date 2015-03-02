@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cance
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Cancel
 {
-    public interface ICancelService : IOperation<CancelIdentity>
+    public interface ICancelOperationService : IOperation<CancelIdentity>
     {
         void Cancel(long entityId);
     }

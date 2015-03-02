@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Rever
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Revert
 {
-    public interface IRevertService : IOperation<RevertIdentity>
+    public interface IReopenOperationService : IOperation<ReopenIdentity>
     {
         void Revert(long entityId);
     }    

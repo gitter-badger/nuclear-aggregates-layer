@@ -40,8 +40,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations
         IDownloadFileService GetDownloadFileService(EntityName entityName);
         IUploadFileService GetUploadFileService(EntityName entityName);
         IIntegrationProcessorOperationService GetOperationsExportService(EntityName entityName, EntityName integrationEntityName);
-        ICancelService GetCancelService(EntityName entityName);
-        ICompleteService GetCompleteService(EntityName entityName);
-        IRevertService GetRevertService(EntityName entityName);
+        ICancelOperationService GetCancelService(EntityName entityName);
+        ICompleteOperationService GetCompleteService(EntityName entityName);
+        IReopenOperationService GetRevertService(EntityName entityName);
     }
 }
