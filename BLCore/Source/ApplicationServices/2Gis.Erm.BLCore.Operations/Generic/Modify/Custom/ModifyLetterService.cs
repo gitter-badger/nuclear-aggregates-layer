@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
@@ -45,6 +46,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var letterDto = (LetterDomainEntityDto)domainEntityDto;
+            if (letterDto.RegardingObjects == null || !letterDto.RegardingObjects.Any())
+            {
+                throw new BusinessLogicException(BLResources.NoRegardingObjectValidationError);
+            }
+
             var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
             if (letterDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
@@ -56,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
-
+           
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 IEnumerable<LetterRegardingObject> oldRegardingObjects = null;

@@ -54,8 +54,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var appointmentDto = (AppointmentDomainEntityDto)domainEntityDto;
-            var appointment = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
+            if (appointmentDto.RegardingObjects == null || !appointmentDto.RegardingObjects.Any())
+            {
+                throw new BusinessLogicException(BLResources.NoRegardingObjectValidationError);
+            }
 
+            var appointment = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);            
             if (appointment.ScheduledStart > appointment.ScheduledEnd)
             {
                 throw new NotificationException(BLResources.ModifyAppointmentService_ScheduleRangeIsIncorrect);

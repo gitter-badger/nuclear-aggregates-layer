@@ -456,7 +456,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
         ///--   20.05.2014, i.maslennikov: поддержка асинхронной репликации
         ///ALTER PROCEDURE [Integration].[ImportFirmFromXml]
-        ///	@Xml [xml] = NULL,        /// [rest of string was truncated]&quot;;.
+        ///	@Xml [xml] = NULL,
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _20434_ImportFirmFromXml {
             get {
@@ -2558,6 +2559,36 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ALTER TABLE [Integration].[HotClientRequests] ADD TaskNewId bigint 
+        ///
+        ///GO
+        ///
+        ///UPDATE [Integration].[HotClientRequests] 
+        ///SET TaskNewId = taskBase.Id
+        ///FROM [Integration].[HotClientRequests] hotClients
+        ///INNER JOIN [Activity].[TaskBase] taskBase ON
+        ///	hotClients.TaskId = taskBase.ReplicationCode
+        ///
+        ///GO
+        ///
+        ///ALTER TABLE [Integration].[HotClientRequests] DROP COLUMN TaskId
+        ///
+        ///GO
+        ///
+        ///sp_rename &apos;Integration.HotClientRequests.TaskNewId&apos;, &apos;TaskId&apos;, &apos;COLUMN&apos;
+        ///
+        ///GO 
+        ///
+        ///
+        ///.
+        /// </summary>
+        internal static string Change_HotClientRequest_TaskId_type {
+            get {
+                return ResourceManager.GetString("Change_HotClientRequest_TaskId_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /****** Object:  StoredProcedure [Billing].[ReplicateDeals]    Script Date: 20.01.2015 16:15:02 ******/
         ///SET ANSI_NULLS ON
         ///GO
@@ -3737,7 +3768,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
         ///          &lt;HasRelatedActivities&gt;False&lt;/HasRelatedActivities&gt;
         ///          &lt;ObjectTypeCode&gt;4201&lt;/ObjectTypeCode&gt;
-        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;        /// [rest of string was truncated]&quot;;.
+        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration6642 {
             get {
@@ -3920,7 +3952,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
         ///          &lt;HasRelatedActivities&gt;False&lt;/HasRelatedActivities&gt;
         ///          &lt;ObjectTypeCode&gt;4201&lt;/ObjectTypeCode&gt;
-        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;        /// [rest of string was truncated]&quot;;.
+        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration8145 {
             get {
