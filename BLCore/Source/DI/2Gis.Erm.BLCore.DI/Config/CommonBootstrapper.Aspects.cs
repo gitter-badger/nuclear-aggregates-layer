@@ -188,11 +188,11 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         public static IUnityContainer ConfigureOperationServices(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory)
         {
             return container.RegisterType<IOperationServicesManager, UnityOperationServicesManager>(entryPointSpecificLifetimeManagerFactory())
-                            .RegisterTypeWithDependencies(typeof(WithdrawalOperationAccessValidationRule), Lifetime.PerScope, null)
-                            .RegisterTypeWithDependencies(typeof(PeriodValidationRule), Lifetime.PerScope, null)
-                            .RegisterTypeWithDependencies(typeof(WithdrawalOperationWorkflowValidationRule), Lifetime.PerScope, null)
-                            .RegisterTypeWithDependencies(typeof(LocksExistenceValidationRule), Lifetime.PerScope, null)
-                            .RegisterTypeWithDependencies(typeof(LegalPersonsValidationRule), Lifetime.PerScope, null)
+                            .RegisterTypeWithDependencies(typeof(WithdrawalOperationAccessValidationRule), Lifetime.PerResolve, null)
+                            .RegisterTypeWithDependencies(typeof(PeriodValidationRule), Lifetime.PerResolve, null)
+                            .RegisterTypeWithDependencies(typeof(WithdrawalOperationWorkflowValidationRule), Lifetime.PerResolve, null)
+                            .RegisterTypeWithDependencies(typeof(LocksExistenceValidationRule), Lifetime.PerResolve, null)
+                            .RegisterTypeWithDependencies(typeof(LegalPersonsValidationRule), Lifetime.PerResolve, null)
                             .RegisterType<IWithdrawalOperationValidationRulesProvider, UnityWithdrawalOperationValidationRulesProvider>(entryPointSpecificLifetimeManagerFactory());
         }
 
