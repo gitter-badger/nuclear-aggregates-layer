@@ -5187,4 +5187,7 @@ Placement period: {3}.</value>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
   </data>
+  <data name="Support" xml:space="preserve">
+    <value>Техподдержка</value>
+  </data>
 </root>

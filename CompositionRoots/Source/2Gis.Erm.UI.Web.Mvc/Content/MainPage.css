@@ -133,6 +133,8 @@ height: 16px;
 font-weight: bold;
 }
 
+#HelpMe a {color: #d6e8ff; font-weight: normal; }
+
 SPAN.main-header-sign-in,
 .main-header-sign-in-org
 {

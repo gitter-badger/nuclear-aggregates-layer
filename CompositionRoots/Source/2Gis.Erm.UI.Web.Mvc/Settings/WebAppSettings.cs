@@ -27,10 +27,12 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
     public sealed class WebAppSettings : 
         SettingsContainerBase,
         IReportsSettings,
-        IWebAppProcesingSettings
+        IWebAppProcesingSettings,
+        ISupportSettings
     {
         private readonly IntSetting _authExpirationTimeInMinutes = ConfigFileSetting.Int.Required("AuthExpirationTimeInMinutes");
         private readonly StringSetting _reportServer = ConfigFileSetting.String.Required("ReportServer");
+        private readonly StringSetting _supportUrl = ConfigFileSetting.String.Required("SupportUrl");
 
         public WebAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
@@ -62,6 +64,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
         string IReportsSettings.ReportServer
         {
             get { return _reportServer.Value; }
+        }
+
+        string ISupportSettings.SupportUrl
+        {
+            get { return _supportUrl.Value; }
         }
     }
 }
