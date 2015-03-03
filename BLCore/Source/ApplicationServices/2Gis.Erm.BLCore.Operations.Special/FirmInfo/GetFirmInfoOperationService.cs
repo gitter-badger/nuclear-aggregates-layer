@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO.FirmInfo;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.FirmInfo;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 
@@ -13,10 +13,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.FirmInfo
     public class GetFirmInfoOperationService : IGetFirmInfoOperationService
     {
         private readonly IFirmReadModel _firmReadModel;
+        private readonly IUserReadModel _userReadModel;
 
-        public GetFirmInfoOperationService(IFirmReadModel firmReadModel)
+        public GetFirmInfoOperationService(IFirmReadModel firmReadModel, IUserReadModel userReadModel)
         {
             _firmReadModel = firmReadModel;
+            _userReadModel = userReadModel;
         }
 
         public IEnumerable<FirmInfoDto> GetFirmInfosByIds(IEnumerable<long> ids)
@@ -26,6 +28,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.FirmInfo
             var result = new List<FirmInfoDto>();
 
             var firms = _firmReadModel.GetFirmInfosByIds(ids);
+            var users = _userReadModel.GetUserNames(firms.Values.Select(f => f.OwnerCode));
+
+            foreach (var dto in firms.Values)
+            {
+                dto.Owner = users[dto.OwnerCode];
+            }
 
             foreach (var id in ids)
             {

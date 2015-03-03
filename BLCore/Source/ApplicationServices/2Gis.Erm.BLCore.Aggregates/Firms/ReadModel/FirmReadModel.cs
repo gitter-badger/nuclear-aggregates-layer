@@ -39,18 +39,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public IReadOnlyDictionary<long, FirmWithAddressesAndProjectDto> GetFirmInfosByIds(IEnumerable<long> ids)
         {
-            var firms = _secureFinder.Find(FirmSpecs.Firms.Select.FirmWithAddressesAndProject(), Specs.Find.ByIds<Firm>(ids))
+            return _secureFinder.Find(FirmSpecs.Firms.Select.FirmWithAddressesAndProject(), Specs.Find.ByIds<Firm>(ids))
                                 .ToDictionary(dto => dto.Id, dto => dto);
-
-            var users = _finder.Find(Specs.Find.ByIds<User>(firms.Values.Select(f => f.OwnerCode)))
-                               .ToDictionary(user => user.Id, user => user.DisplayName);
-
-            foreach (var dto in firms.Values)
-            {
-                dto.Owner = users[dto.OwnerCode];
-            }
-
-            return firms;
         }
 
         public IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId)
