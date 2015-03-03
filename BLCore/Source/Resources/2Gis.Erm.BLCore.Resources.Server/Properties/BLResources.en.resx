@@ -5191,4 +5191,7 @@ Placement period: {3}.</value>
   <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
     <value>Невозможно завершить действие {0} в статусе "Выполнено"/"Отменено"</value>
   </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value >Операция смены клиента не определена для указанного типа сущности</value>
+  </data>
 </root>

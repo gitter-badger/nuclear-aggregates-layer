@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -225,6 +226,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                 }
 
                 case BusinessOperation.Cancel:
+                    if (!_operationMetadataProvider.IsSupported<CancelIdentity>(entityTypeName))
+                    {
+                        throw new NotificationException(BLResources.CancelOperationIsNotSpecifiedForThisEntity);
+                    }
+
                     return View("Cancel",
                                new GroupOperationViewModel
                                {

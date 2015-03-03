@@ -68,8 +68,8 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         private void ExecuteInternal(EntityName entityName, long entityId)
         {
-            var CancelService = _operationServicesManager.GetCompleteService(entityName);
-            CancelService.Complete(entityId);
+            var completeService = _operationServicesManager.GetCompleteService(entityName);
+            completeService.Complete(entityId);
         }
     }
 }

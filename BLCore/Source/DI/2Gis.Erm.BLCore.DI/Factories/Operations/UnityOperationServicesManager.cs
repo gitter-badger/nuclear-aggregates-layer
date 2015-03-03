@@ -59,16 +59,19 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
 
         public ICancelOperationService GetCancelService(EntityName entityName)
         {            
+            CheckOperationAvailability<CancelIdentity>(entityName);
             return GetEntitySpecificOperation<ICancelOperationService, CancelIdentity>(entityName.ToEntitySet(), null);
         }
 
         public ICompleteOperationService GetCompleteService(EntityName entityName)
         {
+            CheckOperationAvailability<CompleteIdentity>(entityName);
             return GetEntitySpecificOperation<ICompleteOperationService, CompleteIdentity>(entityName.ToEntitySet(), null);
         }
 
         public IReopenOperationService GetReopenService(EntityName entityName)
         {
+            CheckOperationAvailability<ReopenIdentity>(entityName);
             return GetEntitySpecificOperation<IReopenOperationService, ReopenIdentity>(entityName.ToEntitySet(), null);
         }
 

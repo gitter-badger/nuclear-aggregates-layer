@@ -140,58 +140,58 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 777), Tuple.Create("\"", 825)
-, Tuple.Create(Tuple.Create("", 784), Tuple.Create("/Content/Progress.css?", 784), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 753), Tuple.Create("\"", 801)
+, Tuple.Create(Tuple.Create("", 760), Tuple.Create("/Content/Progress.css?", 760), true)
             
             #line 17 "..\..\Views\GroupOperation\Cancel.cshtml"
-, Tuple.Create(Tuple.Create("", 806), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 782), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 806), false)
+, 782), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 844), Tuple.Create("\"", 902)
-, Tuple.Create(Tuple.Create("", 850), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 850), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 820), Tuple.Create("\"", 878)
+, Tuple.Create(Tuple.Create("", 826), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 826), true)
             
             #line 19 "..\..\Views\GroupOperation\Cancel.cshtml"
-, Tuple.Create(Tuple.Create("", 883), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 859), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 883), false)
+, 859), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 949), Tuple.Create("\"", 1015)
-, Tuple.Create(Tuple.Create("", 955), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 955), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 925), Tuple.Create("\"", 991)
+, Tuple.Create(Tuple.Create("", 931), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 931), true)
             
             #line 20 "..\..\Views\GroupOperation\Cancel.cshtml"
-, Tuple.Create(Tuple.Create("", 996), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 972), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 996), false)
+, 972), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1062), Tuple.Create("\"", 1107)
-, Tuple.Create(Tuple.Create("", 1068), Tuple.Create("/Scripts/Tooltip.js?", 1068), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1038), Tuple.Create("\"", 1083)
+, Tuple.Create(Tuple.Create("", 1044), Tuple.Create("/Scripts/Tooltip.js?", 1044), true)
             
             #line 21 "..\..\Views\GroupOperation\Cancel.cshtml"
-, Tuple.Create(Tuple.Create("", 1088), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 1064), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1088), false)
+, 1064), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -242,22 +242,22 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Activate\');\r\n    
 ".syncRequest({\r\n                    method: \'POST\',\r\n                    url: \'/" +
 "Operation/CreateOperationWithErrorLog\',\r\n                    params: { operation" +
 "Id: Ext.getDom(\"operationId\").value, log: msg, contentType: \'text/csv\', logFileN" +
-"ame: \'Cancel_errors.csv\' }\r\n                });\r\n                if ((fi" +
-"nishOperationResponse.conn.status >= 200 && finishOperationResponse.conn.status " +
-"< 300) || (Ext.isIE && finishOperationResponse.conn.status == 1223)) {\r\n        " +
-"        }\r\n                else {\r\n                    alert(finishOperationResp" +
-"onse.conn.responseText);\r\n                    return;\r\n                }\r\n      " +
-"      }\r\n        });\r\n        Ext.onReady(function() {\r\n            Ext.getDom(\'" +
-"PageContentCell\').style[\"vertical-align\"] = \"top\";\r\n\r\n            var dialogArgu" +
-"ments = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.d" +
-"ialogArguments.Values : window.dialogArguments);\r\n            var ids = dialogAr" +
-"guments;\r\n\r\n            var isExtendedMode = (Ext.isArray(dialogArguments) && di" +
-"alogArguments.length > 0 && Ext.isObject(dialogArguments[0]) && dialogArguments[" +
-"0].hasOwnProperty(\'entityId\'));\r\n            if (isExtendedMode) {\r\n            " +
-"    ids = [];\r\n                Ext.each(dialogArguments, function (x) { ids.push" +
-"(x.entityId); });\r\n            }\r\n\r\n            var config = {\r\n                " +
-"EntitiesToProcess: isExtendedMode ? dialogArguments : null,\r\n                Ent" +
-"ities: ids, // массив id сущностей\r\n                OperationName: \'");
+"ame: \'Cancel_errors.csv\' }\r\n                });\r\n                if ((finishOper" +
+"ationResponse.conn.status >= 200 && finishOperationResponse.conn.status < 300) |" +
+"| (Ext.isIE && finishOperationResponse.conn.status == 1223)) {\r\n                " +
+"}\r\n                else {\r\n                    alert(finishOperationResponse.con" +
+"n.responseText);\r\n                    return;\r\n                }\r\n            }\r" +
+"\n        });\r\n        Ext.onReady(function() {\r\n            Ext.getDom(\'PageCont" +
+"entCell\').style[\"vertical-align\"] = \"top\";\r\n\r\n            var dialogArguments = " +
+"!window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArg" +
+"uments.Values : window.dialogArguments);\r\n            var ids = dialogArguments;" +
+"\r\n\r\n            var isExtendedMode = (Ext.isArray(dialogArguments) && dialogArgu" +
+"ments.length > 0 && Ext.isObject(dialogArguments[0]) && dialogArguments[0].hasOw" +
+"nProperty(\'entityId\'));\r\n            if (isExtendedMode) {\r\n                ids " +
+"= [];\r\n                Ext.each(dialogArguments, function (x) { ids.push(x.entit" +
+"yId); });\r\n            }\r\n\r\n            var config = {\r\n                Entities" +
+"ToProcess: isExtendedMode ? dialogArguments : null,\r\n                Entities: i" +
+"ds, // массив id сущностей\r\n                OperationName: \'");
 
             
             #line 114 "..\..\Views\GroupOperation\Cancel.cshtml"
@@ -307,14 +307,14 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteLiteral(" name=\"operationId\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 7094), Tuple.Create("\"", 7117)
+WriteAttribute("value", Tuple.Create(" value=\"", 7062), Tuple.Create("\"", 7085)
             
             #line 130 "..\..\Views\GroupOperation\Cancel.cshtml"
-, Tuple.Create(Tuple.Create("", 7102), Tuple.Create<System.Object, System.Int32>(Guid.NewGuid()
+, Tuple.Create(Tuple.Create("", 7070), Tuple.Create<System.Object, System.Int32>(Guid.NewGuid()
             
             #line default
             #line hidden
-, 7102), false)
+, 7070), false)
 );
 
 WriteLiteral(" />\r\n");
