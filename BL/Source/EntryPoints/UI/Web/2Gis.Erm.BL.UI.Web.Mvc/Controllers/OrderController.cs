@@ -27,6 +27,7 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -68,54 +69,51 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
-                               IUserContext userContext,
-                               ICommonLog logger,
                                IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                               IAPIIdentityServiceSettings identityServiceSettings,
+                               IUserContext userContext,
+                               ICommonLog logger,
                                IGetBaseCurrencyService getBaseCurrencyService,
-                               ISecurityServiceUserIdentifier userIdentifierService,
-                               ISecurityServiceFunctionalAccess functionalAccessService,
-                               IReplicationCodeConverter replicationCodeConverter,
-                               IPublicService publicService,
-                               ISecureFinder secureFinder,
+                               ICopyOrderOperationService copyOrderOperationService,
                                IFinder finder,
-                               IReleaseReadModel releaseReadModel,
+                               ISecurityServiceFunctionalAccess functionalAccessService,
+                               IOperationService operationService,
+                               IProcessOrderCreationRequestSingleOperation orderCreationOperation,
+                               IProcessOrderProlongationRequestSingleOperation orderProlongationOperation,
                                IOrderReadModel orderReadModel,
                                IOrderRepository orderRepository,
-                               IOperationService operationService,
-                               IProcessOrderProlongationRequestSingleOperation orderProlongationOperation,
-                               IProcessOrderCreationRequestSingleOperation orderCreationOperation,
-                               ICopyOrderOperationService copyOrderOperationService,
+                               IPublicService publicService,
+                               IReleaseReadModel releaseReadModel,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
+                               IReplicationCodeConverter replicationCodeConverter,
+                               ISecureFinder secureFinder,
+                               ISecurityServiceUserIdentifier userIdentifierService,
                                IDetermineOrderBargainOperationService determineOrderBargainOperationService,
                                ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
                                IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
-            _userIdentifierService = userIdentifierService;
-            _functionalAccessService = functionalAccessService;
-            _replicationCodeConverter = replicationCodeConverter;
-            _publicService = publicService;
-            _secureFinder = secureFinder;
+            _copyOrderOperationService = copyOrderOperationService;
             _finder = finder;
-            _releaseReadModel = releaseReadModel;
+            _functionalAccessService = functionalAccessService;
+            _operationService = operationService;
+            _orderCreationOperation = orderCreationOperation;
+            _orderProlongationOperation = orderProlongationOperation;
             _orderReadModel = orderReadModel;
             _orderRepository = orderRepository;
-            _operationService = operationService;
-            _orderProlongationOperation = orderProlongationOperation;
-            _orderCreationOperation = orderCreationOperation;
-            _copyOrderOperationService = copyOrderOperationService;
+            _publicService = publicService;
+            _releaseReadModel = releaseReadModel;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
+            _replicationCodeConverter = replicationCodeConverter;
+            _secureFinder = secureFinder;
+            _userIdentifierService = userIdentifierService;
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
             _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
             _changeOrderLegalPersonProfileOperationService = changeOrderLegalPersonProfileOperationService;
         }
+
+
 
         #region Ajax methods
 
@@ -232,7 +230,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             if (!Enum.TryParse(orderTypeValue, out orderType))
             {
                 return new JsonNetResult(new
-                    {
+            {
                                                  CanCreate = false,
                                                  Message = BLResources.WrongOrderType
                     });

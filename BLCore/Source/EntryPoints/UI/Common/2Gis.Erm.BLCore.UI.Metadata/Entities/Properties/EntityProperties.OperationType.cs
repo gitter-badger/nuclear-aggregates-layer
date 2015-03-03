@@ -38,9 +38,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.SyncCode1C)),
 
-                    EntityPropertyMetadata.Create<OperationTypeDomainEntityDto>(dto => dto.IdentityServiceUrl)
-                                  .WithFeatures(new HiddenFeature()),
-
                     EntityPropertyMetadata.Create<OperationTypeDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),

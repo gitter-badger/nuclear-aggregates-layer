@@ -18,10 +18,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
 
         public EmiratesGetBranchOfficeOrganizationUnitDtoService(IUserContext userContext,
-                                                                 IAPIIdentityServiceSettings identityServiceSettings,
                                                                  IBranchOfficeReadModel branchOfficeReadModel,
                                                                  IOrganizationUnitReadModel organizationUnitReadModel)
-            : base(userContext, branchOfficeReadModel, organizationUnitReadModel, identityServiceSettings)
+            : base(userContext, branchOfficeReadModel, organizationUnitReadModel)
         {
             _branchOfficeReadModel = branchOfficeReadModel;
         }

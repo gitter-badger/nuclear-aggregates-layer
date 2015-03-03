@@ -1587,6 +1587,10 @@
       <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>

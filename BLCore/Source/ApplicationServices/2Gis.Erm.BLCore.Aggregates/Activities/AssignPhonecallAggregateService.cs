@@ -1,6 +1,8 @@
 using System;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -26,6 +28,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             if (phonecall == null)
             {
                 throw new ArgumentNullException("phonecall");
+            }
+
+            if (phonecall.Status != ActivityStatus.InProgress)
+            {
+                throw new BusinessLogicException(BLResources.CannotAssignActivityNotInProgress);
             }
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Phonecall>())

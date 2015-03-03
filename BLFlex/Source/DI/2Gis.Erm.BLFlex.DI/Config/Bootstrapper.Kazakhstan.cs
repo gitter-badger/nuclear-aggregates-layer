@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                                                                                                                                                typeof(BillDatesConsistencyRule))))
                 .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                 .RegisterType<IPriceCostsForSubPositionsProvider, NullPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
-                .ConfigureUkraineSpecificNumberServices();
+                .ConfigureKazakhstanSpecificNumberServices();
         }
 
         internal static IUnityContainer ConfigureKazakhstanSpecificNumberServices(this IUnityContainer container)
@@ -55,7 +56,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             return container
                 .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
                 .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
-                .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia));
+                .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "БЗ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia));
         }
 
         // TODO переделать на нормальную метадату

@@ -11,6 +11,7 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
         Percents,
         Number,
         NumberN0,
-        MoneyWordsUpperStart
+        MoneyWordsUpperStart,
+        PercentWords
     }
 }

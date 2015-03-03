@@ -1239,12 +1239,6 @@
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value />
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value />
   </data>
@@ -1440,9 +1434,6 @@
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value />
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value />
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value />
   </data>
@@ -1453,9 +1444,6 @@
     <value />
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
     <value />
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
@@ -5161,6 +5149,21 @@
     <value />
   </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Невозможно назначить действие в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Невозможно назначить куратором служебного пользователя</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Недостаточно прав для смены куратора у действия {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value />
   </data>
 </root>

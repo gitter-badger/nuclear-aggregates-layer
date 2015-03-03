@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -21,21 +22,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly IChangeOrderPositionBindingObjectsOperationService _changeOrderPositionBindingObjectsOperationService;
 
-        public ChangeBindingObjectsController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService,
-            IOperationServicesManager operationServicesManager,
-            IChangeOrderPositionBindingObjectsOperationService changeOrderPositionBindingObjectsOperationService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+        public ChangeBindingObjectsController(IMsCrmSettings msCrmSettings,
+                                              IAPIOperationsServiceSettings operationsServiceSettings,
+                                              IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                              IAPIIdentityServiceSettings identityServiceSettings,
+                                              IUserContext userContext,
+                                              ICommonLog logger,
+                                              IGetBaseCurrencyService getBaseCurrencyService,
+                                              IOperationServicesManager operationServicesManager,
+                                              IChangeOrderPositionBindingObjectsOperationService changeOrderPositionBindingObjectsOperationService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _changeOrderPositionBindingObjectsOperationService = changeOrderPositionBindingObjectsOperationService;

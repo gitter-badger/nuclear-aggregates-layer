@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<QualifyOperationErrorDescription>(
                     new QualifyOperationErrorDescription(entityName, ex.Message, ownerCode, actualRelatedEntityId),
                     HttpStatusCode.BadRequest);
@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<QualifyOperationErrorDescription>(
                     new QualifyOperationErrorDescription(entityName, ex.Message, actualOwnerCode, relatedEntityId));
             }

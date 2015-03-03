@@ -26,8 +26,6 @@
 				</Scripts>
 				<ToolbarItems>
 					<ToolbarItem Name="Assign" DisableOnEmpty="true" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
-					<ToolbarItem Name="ExportAccountDetailsTo1C" NameLocaleResourceId="ControlExportAccountDetailsTo1C" ControlType="TextImageButton" LockOnInactive="true" Action="scope.ExportAccountDetailsTo1C" Icon="en_ico_16_ExportAccountDetails.gif" SecurityPrivelegeFlag="604" />
-          <ToolbarItem Name="ExportAccountDetailsToServiceBus" NameLocaleResourceId="ControlExportAccountDetailsToServiceBus" ControlType="TextImageButton" LockOnInactive="true" Action="scope.ExportAccountDetailsToServiceBus" Icon="en_ico_16_ExportAccountDetails.gif" SecurityPrivelegeFlag="604" />
 				</ToolbarItems>
 				<Fields>
 					<Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -135,10 +133,12 @@
 			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListInactiveActivities" HideInCardRelatedGrid="" />
 			<!--Мои действия-->
 			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyActivities" HideInCardRelatedGrid="*" />
+      <!--Мои открытые планы-->
+      <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyOpenedActivities" HideInCardRelatedGrid="" />
 			<!--Действия по моим подчиненным-->
 			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListActivitiesForSubordinates" HideInCardRelatedGrid="*" />
 			<!--Мои завершенные действия-->
-			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyCompletedActivities" HideInCardRelatedGrid="*"/>
+			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListMyCompletedActivities" HideInCardRelatedGrid=""/>
 			<!--Завершенные действия по моим подчиненным-->
 			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListCompletedActivitiesForSubordinates" HideInCardRelatedGrid="*" />
 			<!--Мои запланированные действия -->

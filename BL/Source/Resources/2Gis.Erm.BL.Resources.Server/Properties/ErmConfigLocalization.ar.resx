@@ -1173,12 +1173,6 @@
   <data name="ControlExport" xml:space="preserve">
     <value>Unload</value>
   </data>
-  <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Unloading writing-offs</value>
-  </data>
-  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Unload write-offs to bus</value>
-  </data>
   <data name="ControlImportFromFile" xml:space="preserve">
     <value>Load</value>
   </data>
@@ -1862,6 +1856,9 @@
   </data>
   <data name="ControlIncreaseLimit" xml:space="preserve">
     <value>Increase</value>
+  </data>
+  <data name="DListMyOpenedActivities" xml:space="preserve">
+    <value>My active plans</value>
   </data>
   <data name="DListTimeZones" xml:space="preserve">
     <value>Time zones</value>

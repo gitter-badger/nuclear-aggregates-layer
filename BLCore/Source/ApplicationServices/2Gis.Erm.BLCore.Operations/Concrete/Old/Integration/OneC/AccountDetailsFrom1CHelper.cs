@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.ServiceModel;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.API.MoDi.Accounting;
-using DoubleGis.Erm.BLCore.API.MoDi.Remote.AccountingSystem;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
@@ -46,13 +42,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             }
 
             return rows.ToArray();
-        }
-
-        internal static ExportAccountDetailsTo1CResponse ExportRegionalAccountDetails(IClientProxyFactory clientProxyFactory, long organizationUnitId, DateTime startDate, DateTime endDate)
-        {
-            var clientProxy = clientProxyFactory.GetClientProxy<IAccountingSystemApplicationService, WSHttpBinding>();
-            var response = clientProxy.Execute(service => service.ExportAccountDetailsTo1C(organizationUnitId, startDate, endDate));
-            return response;
         }
 
         private static string TrimAndReplaceEmptyString(string input)

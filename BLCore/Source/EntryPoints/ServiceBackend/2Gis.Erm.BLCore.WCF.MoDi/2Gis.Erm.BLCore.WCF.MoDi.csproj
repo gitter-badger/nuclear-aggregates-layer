@@ -49,7 +49,6 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="AccountingSystem.svc.cs" />
     <Compile Include="MoneyDistributionSettingsAspect.cs" />
     <Compile Include="Reports.svc.cs" />
     <Compile Include="Util\BouInfo.cs" />

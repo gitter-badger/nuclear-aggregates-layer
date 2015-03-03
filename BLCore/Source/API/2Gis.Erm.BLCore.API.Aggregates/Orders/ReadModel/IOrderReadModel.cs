@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         IReadOnlyDictionary<long, byte[]> GetOrdersCurrentVersions(Expression<Func<Order, bool>> ordersPredicate);
         IReadOnlyDictionary<long, IEnumerable<long>> GetRelatedOrdersByFirm(IEnumerable<long> orderIds);
         IEnumerable<OrderReleaseInfo> GetOrderReleaseInfos(long organizationUnitId, TimePeriod period);
-        IEnumerable<Order> GetOrdersForRelease(long organizationUnitId, TimePeriod period);
+        IEnumerable<long> GetOrderIdsForRelease(long organizationUnitId, TimePeriod period);
         OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds);
         IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId);
         IEnumerable<OrderWithDummyAdvertisementDto> GetOrdersWithDummyAdvertisement(long organizationUnitId, long ownerCode, bool includeOwnerDescendants);
@@ -122,5 +122,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId);
         long? GetLegalPersonProfileIdByOrder(long orderId);
         IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId);
+        SalesModel GetOrderSalesModel(long orderId);
     }
 }

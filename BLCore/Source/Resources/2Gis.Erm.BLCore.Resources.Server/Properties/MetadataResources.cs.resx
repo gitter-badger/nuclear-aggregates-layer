@@ -1272,9 +1272,6 @@
   <data name="Registered" xml:space="preserve">
     <value>Registrovaná (Spisová značka z OR)</value>
   </data>
-  <data name="CreateCsvFile" xml:space="preserve">
-    <value>Dodatečně odeslat soubor ve formátu csv</value>
-  </data>
   <data name="OrderProcessingRequest" xml:space="preserve">
     <value>Požadavek z OP</value>
   </data>
@@ -1483,5 +1480,8 @@
   </data>
   <data name="OtherAuthorityDocument" xml:space="preserve">
     <value>Jiné</value>
+  </data>
+  <data name="ChiefFullNameInNominative" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
 </root>

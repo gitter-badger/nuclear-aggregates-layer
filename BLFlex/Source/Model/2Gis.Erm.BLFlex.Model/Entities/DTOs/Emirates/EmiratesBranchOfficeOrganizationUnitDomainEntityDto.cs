@@ -62,7 +62,5 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates
         public long BranchOfficeAddlId { get; set; }
         [DataMember]
         public string BranchOfficeAddlName { get; set; }
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
     }
 }

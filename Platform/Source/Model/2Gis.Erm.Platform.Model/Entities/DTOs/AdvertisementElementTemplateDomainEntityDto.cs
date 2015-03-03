@@ -71,9 +71,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public bool NeedsValidation { get; set; }
 
         [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
-
-        [DataMember]
         public EntityReference DummyAdvertisementElementRef { get; set; }
 
         // supported file types

@@ -11,6 +11,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -25,23 +26,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IGenerateDealNameService _dealNameService;
         private readonly ISetMainLegalPersonForDealOperationService _setMainLegalPersonForDealOperationService;
 
-        public DealController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IPublicService publicService,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService,
-            IGenerateDealNameService dealNameService,
-            ISetMainLegalPersonForDealOperationService setMainLegalPersonForDealOperationService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+        public DealController(IMsCrmSettings msCrmSettings,
+                              IAPIOperationsServiceSettings operationsServiceSettings,
+                              IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                              IAPIIdentityServiceSettings identityServiceSettings,
+                              IUserContext userContext,
+                              ICommonLog logger,
+                              IGetBaseCurrencyService getBaseCurrencyService,
+                              IPublicService publicService,
+                              IGenerateDealNameService dealNameService,
+                              ISetMainLegalPersonForDealOperationService setMainLegalPersonForDealOperationService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _publicService = publicService;
             _dealNameService = dealNameService;

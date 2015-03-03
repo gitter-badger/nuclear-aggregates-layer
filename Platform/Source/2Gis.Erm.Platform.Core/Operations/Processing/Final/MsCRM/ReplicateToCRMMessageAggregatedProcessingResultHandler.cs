@@ -127,7 +127,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't replicate {0} entities of type {1}", replicationTargets.Count, replicationType);
+                _logger.ErrorFormat(ex, "Can't replicate {0} entities of type {1}", replicationTargets.Count, replicationType);
                 return false;
             }
         }

@@ -1182,12 +1182,6 @@
   <data name="ControlExport" xml:space="preserve">
     <value />
   </data>
-  <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value />
-  </data>
   <data name="ControlImportFromFile" xml:space="preserve">
     <value />
   </data>
@@ -1865,6 +1859,9 @@
     <value />
   </data>
   <data name="ControlIncreaseLimit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DListMyOpenedActivities" xml:space="preserve">
     <value />
   </data>
   <data name="DListTimeZones" xml:space="preserve">

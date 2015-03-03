@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoEx("Bulk delete locks completed. Deleted locks count = " + deletedLocks);
+            _logger.Info("Bulk delete locks completed. Deleted locks count = " + deletedLocks);
         }
     }
 }

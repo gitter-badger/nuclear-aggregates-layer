@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ContributionTypes.Read
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Kazakhstan;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -20,19 +19,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
         private readonly IBargainTypeReadModel _bargainTypeReadModel;
         private readonly IContributionTypeReadModel _contributionTypeReadModel;
         private readonly IProjectSpecification<BranchOffice, KazakhstanBranchOfficeDomainEntityDto> _specification;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
 
         public KazakhstanGetBranchOfficeDtoService(IUserContext userContext,
                                                    IBranchOfficeReadModel readModel,
                                                    IBargainTypeReadModel bargainTypeReadModel,
-                                                   IContributionTypeReadModel contributionTypeReadModel,
-                                                   IAPIIdentityServiceSettings identityServiceSettings)
+                                                   IContributionTypeReadModel contributionTypeReadModel)
             : base(userContext)
         {
             _readModel = readModel;
             _bargainTypeReadModel = bargainTypeReadModel;
             _contributionTypeReadModel = contributionTypeReadModel;
-            _identityServiceSettings = identityServiceSettings;
             _specification = BranchOfficeFlexSpecs.BranchOffices.Kazakhstan.Project.DomainEntityDto();
         }
 
@@ -56,10 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
 
         protected override IDomainEntityDto<BranchOffice> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new KazakhstanBranchOfficeDomainEntityDto
-                       {
-                           IdentityServiceUrl = _identityServiceSettings.RestUrl
-                       };
+            return new KazakhstanBranchOfficeDomainEntityDto();
         }
     }
 }

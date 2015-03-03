@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.GeoClassifier;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Project
 
         public IEnumerable<Project> GetProjectsByOrganizationUnit(long organizationUnitId)
         {
-            return _finder.Find<Project>(x => x.IsActive && x.OrganizationUnitId == organizationUnitId).ToArray();
+            return _finder.FindMany(ProjectSpecs.Find.ByOrganizationUnit(organizationUnitId) && Specs.Find.Active<Project>());
         }
 
         public Project GetProjectByCode(long projectCode)

@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
                 var exceptionMessage = (ex is XmlException) ? "Неверный формат сообщения" : ex.Message;
                 var errorMessage = string.Format("Ошибка обработки сообщения [{0}]: {1}", localMessageDto.LocalMessage.Id, exceptionMessage);
-                _logger.ErrorEx(ex, errorMessage);
+                _logger.Error(ex, errorMessage);
 
                 messages.Add(errorMessage);
             }
@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                         localMessageDto.LocalMessage.Id,
                         response.Processed,
                         response.Total);
-                _logger.InfoEx(resultMessage);
+                _logger.Info(resultMessage);
 
                 messages.Add(resultMessage);
                 if (response.Messages != null)
@@ -152,7 +152,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 }
 
                 case IntegrationTypeExport.LegalPersonsTo1C:
-                case IntegrationTypeExport.AccountDetailsTo1C:
                 case IntegrationTypeExport.None:
                     throw new NotificationException("Неподдерживаемый тип интеграционного запроса на экспорт");
                 default:

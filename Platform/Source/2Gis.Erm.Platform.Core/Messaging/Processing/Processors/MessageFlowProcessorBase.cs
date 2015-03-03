@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormatEx(ex, "Failed sync processing for message flow " + SourceMessageFlow);
+                Logger.ErrorFormat(ex, "Failed sync processing for message flow " + SourceMessageFlow);
                 throw;
             }
         }
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorEx(ex, "Can't stop async processor for flow " + SourceMessageFlow);
+                    Logger.Error(ex, "Can't stop async processor for flow " + SourceMessageFlow);
                     throw;
                 }
                 finally
@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Waiting for async processing results finished unexpectedly" + SourceMessageFlow);
+                Logger.Error(ex, "Waiting for async processing results finished unexpectedly" + SourceMessageFlow);
                 throw;
             }
         }
@@ -128,7 +128,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't create appropriate message receiver for specified flow " + SourceMessageFlow);
+                Logger.Error(ex, "Can't create appropriate message receiver for specified flow " + SourceMessageFlow);
                 throw;
             }
 
@@ -139,7 +139,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             {
                 stopwatch.Start();
 
-                Logger.DebugFormatEx("Starting processing message flow {0}. Receiving messages", SourceMessageFlow);
+                Logger.DebugFormat("Starting processing message flow {0}. Receiving messages", SourceMessageFlow);
 
                 try
                 {
@@ -147,13 +147,13 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorEx(ex, "Can't receive messages from flow " + SourceMessageFlow);
+                    Logger.Error(ex, "Can't receive messages from flow " + SourceMessageFlow);
                     throw;
                 }
 
                 if (!flowMessages.Any())
                 {
-                    Logger.DebugFormatEx("Further flow {0} processing skipped, because no message received, possible transport is empty", SourceMessageFlow);
+                    Logger.DebugFormat("Further flow {0} processing skipped, because no message received, possible transport is empty", SourceMessageFlow);
                     return new ProcessingResult
                                {
                                    ActuallyProcessedMessageCount = 0, 
@@ -161,7 +161,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                                };
                 }
 
-                Logger.DebugFormatEx("Starting processing message flow. Acquired messages batch size: {0}. Source message flow: {1}", flowMessages.Count, SourceMessageFlow);
+                Logger.DebugFormat("Starting processing message flow. Acquired messages batch size: {0}. Source message flow: {1}", flowMessages.Count, SourceMessageFlow);
 
                 TopologyProcessingResults topologyProcessingResults;
                 try
@@ -172,14 +172,14 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorEx(ex, "Can't process messages from flow " + SourceMessageFlow + ". Trying to report failed messages");
+                    Logger.Error(ex, "Can't process messages from flow " + SourceMessageFlow + ". Trying to report failed messages");
                     try
                     {
                         messageReceiver.Complete(Enumerable.Empty<IMessage>(), flowMessages);
                     }
                     catch (Exception nex)
                     {
-                        Logger.ErrorEx(nex, "Can't report failed messages, flow details: " + SourceMessageFlow);
+                        Logger.Error(nex, "Can't report failed messages, flow details: " + SourceMessageFlow);
                         throw;
                     }
 
@@ -190,10 +190,10 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                                                       flowMessages.Count,
                                                       topologyProcessingResults.Succeeded.Count,
                                                       topologyProcessingResults.Failed.Count);
-                Logger.DebugEx(processingSummary);
+                Logger.Debug(processingSummary);
                 if (topologyProcessingResults.Failed.Any())
                 {
-                    Logger.ErrorFormatEx("Messages form flow {0} after processing has failed elements. {1}", SourceMessageFlow, processingSummary);
+                    Logger.ErrorFormat("Messages form flow {0} after processing has failed elements. {1}", SourceMessageFlow, processingSummary);
                 }
 
                 /* проверка скорости работы транспорта при исключении топологии 
@@ -215,7 +215,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't process messages from specified flow " + SourceMessageFlow);
+                Logger.Error(ex, "Can't process messages from specified flow " + SourceMessageFlow);
                 throw;
             }
             finally
@@ -226,7 +226,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 var rateMsg = flowMessages == null || flowMessages.Count == 0
                                   ? "not measured 0 messages was provided by receiver"
                                   : (flowMessages.Count / batchProcessingTime).ToString();
-                _logger.DebugFormatEx("Processing flow {0} rate msg/sec: {1}", SourceMessageFlow, rateMsg);
+                _logger.DebugFormat("Processing flow {0} rate msg/sec: {1}", SourceMessageFlow, rateMsg);
 
                 var disposableMessageReceiver = messageReceiver as IDisposable; 
                 if (disposableMessageReceiver != null)
@@ -255,13 +255,13 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorFormatEx(ex, "Failed async processing for message flow " + SourceMessageFlow + ". Processing will be continued after some delay");
+                    Logger.ErrorFormat(ex, "Failed async processing for message flow " + SourceMessageFlow + ". Processing will be continued after some delay");
                 }
 
                 if (processingResult == null)
                 {
                     currentDelay = DelayAfterFailure;
-                    Logger.InfoFormatEx("Processing flow {0}. Restoration delay after previous failure was applied ms: {1}", SourceMessageFlow, currentDelay);
+                    Logger.InfoFormat("Processing flow {0}. Restoration delay after previous failure was applied ms: {1}", SourceMessageFlow, currentDelay);
                 }
                 else
                 {
@@ -269,7 +269,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                     if (effectiveBatchUtilizationPercentage > SufficientBatchUtilizationMinPercentage)
                     {
                         currentDelay = BaseDelayMs;
-                        Logger.DebugFormatEx(
+                        Logger.DebugFormat(
                             "Processing flow {0}. {1} messages was handled during the last cycle. Message batch utilization: {2:F1}%. Delay has base value ms: {3}",
                             SourceMessageFlow,
                             processingResult.ActuallyProcessedMessageCount,
@@ -279,7 +279,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                     else
                     {
                         currentDelay = Math.Min(currentDelay + DelayIncrementMs, MaxDelayMs);
-                        Logger.DebugFormatEx(
+                        Logger.DebugFormat(
                             "Processing flow {0}. Message batch size {1} utilization is {2:F1}% and lower than min sufficient value {3:F1}%. Delay was incremented and has value ms: {4}",
                             processingResult.RequestedMessageBatchSize,
                             effectiveBatchUtilizationPercentage,

@@ -54,6 +54,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Accounts\DTO\AccountDetailForExportDto.cs" />
     <Compile Include="Accounts\DTO\AccountDTOs.cs" />
     <Compile Include="Accounts\DTO\AccountIdAndOwnerCodeDto.cs" />
     <Compile Include="Accounts\DTO\AccountInfoForImportFrom1C.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Common\Specs\Simplified\OrderProcessingRequestSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\PlatformSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\PrintFormTemplateSpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\ProjectSpecs.cs" />
     <Compile Include="Deals\DTO\DealActualizeDuringWithdrawalDto.cs" />
     <Compile Include="Deals\DTO\DealAndLegalPersonNamesDto.cs" />
     <Compile Include="Deals\DTO\DealAndFirmNamesDto.cs" />
@@ -286,6 +288,7 @@
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositionAdvertisements.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderReleaseTotals.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
+    <Compile Include="OrganizationUnits\Exceptions\OrganizationUnitHasNoProjectsException.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
@@ -329,7 +332,10 @@
     <Compile Include="Roles\IRoleRepository.cs" />
     <Compile Include="Roles\ReadModel\RoleSpecs.Relations.cs" />
     <Compile Include="Settings\IDebtProcessingSettings.cs" />
+    <Compile Include="SimplifiedModel\Categories\IBulkCreateSalesModelCategoryRestrictionsService.cs" />
+    <Compile Include="SimplifiedModel\Categories\IBulkDeleteSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
+    <Compile Include="SimplifiedModel\Categories\ReadModel\ISalesModelCategoryRestrictionReadModel.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />

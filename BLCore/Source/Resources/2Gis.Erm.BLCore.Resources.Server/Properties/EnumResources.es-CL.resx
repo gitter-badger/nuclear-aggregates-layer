@@ -483,9 +483,6 @@
   <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
     <value>Descarga de cuentas personales</value>
   </data>
-  <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Descarga de amortizaciones en las cuentas personales</value>
-  </data>
   <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
     <value>Descarga de verificaciones</value>
   </data>
@@ -1329,17 +1326,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Advertencia</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Orden de compra sin IVA con descuento</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Orden de compra</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Orden de compra con IVA y con descuento</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Orden de compra sin IVA y sin descuento</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Orden de compra con IVA sin descuento</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Llamada</value>
@@ -1930,15 +1921,6 @@
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Acuerdo de prolongar el contrato</value>
   </data>
-  <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentUkraineTobaccoGoods" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
   <data name="FasCommentChileAlcohol" xml:space="preserve">
     <value>Publicidad de Bebidas Alcohólicas</value>
   </data>
@@ -1947,15 +1929,6 @@
   </data>
   <data name="FasCommentChileMedicalReceiptDrugs" xml:space="preserve">
     <value>Publicidad de medicamentos que se venden bajo la receta médica</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
     <value>Beber en exceso daña su salud y puede dañar a terceros. El consumo de alcohol disminuye su capacidad para conducir.</value>
@@ -1998,5 +1971,47 @@
   </data>
   <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
     <value>Prestación de servicios del plan que abarcan varias categorías</value>
+  </data>
+  <data name="FasCommentUkraineAutotherapy" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineMedicalDevice" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineSoundPhonogram" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineSoundLive" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineEmploymentAssistance" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAutotherapy" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineMedicalDevice" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineSoundPhonogram" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineSoundLive" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
 </root>

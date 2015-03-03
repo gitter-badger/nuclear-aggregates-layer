@@ -1241,13 +1241,6 @@ Blokujících chyb:{2}</value>
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Informace o oddělení pr. osoby organizace</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.
-11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Neznámý uživatel</value>
   </data>
@@ -1443,9 +1436,6 @@ Blokujících chyb:{2}</value>
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Bude zapnuto uživatelů: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>Vybrané oddělení organizace není pobočkou nebo není převedeno do ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>Ve skupinách hlavních položek jsou objekty, které odkazují na neaktivní položky</value>
   </data>
@@ -1457,9 +1447,6 @@ Blokujících chyb:{2}</value>
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>Uvedená faktura nebyla nalezena</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Při ukládání profilu pr. osoby klienta došlo k chybě</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>Není uvedeno oddělení organizace</value>
@@ -5181,5 +5168,20 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Pokus o uložení pozice v objednávce s modelem prodejů '{0}' s počtem, který se nerovná 1</value>
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Nelze přidělit akci ve statusu "Splněno"/"Zrušeno"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Nelze stanovit kurátorem služebního uživatele</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Nemáte oprávnění pro změnu kurátora u této akce {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
   </data>
 </root>
