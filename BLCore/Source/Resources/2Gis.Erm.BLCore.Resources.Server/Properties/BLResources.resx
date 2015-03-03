@@ -1239,12 +1239,6 @@
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value />
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value />
   </data>
@@ -1440,9 +1434,6 @@
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value />
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value />
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value />
   </data>
@@ -1453,9 +1444,6 @@
     <value />
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
     <value />
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">

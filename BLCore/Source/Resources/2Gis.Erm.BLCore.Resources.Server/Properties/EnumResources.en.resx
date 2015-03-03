@@ -477,9 +477,6 @@
   <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
     <value>Unloading of personal accounts</value>
   </data>
-  <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Unloading account writing-offs</value>
-  </data>
   <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
     <value>Unloading reconciliation reports</value>
   </data>
@@ -1317,17 +1314,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Warning</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Invoice without VAT and with discount</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Invoice</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Invoice with VAT and discount</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Invoice without VAT and discount</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Invoice with VAT and without discount</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Call</value>

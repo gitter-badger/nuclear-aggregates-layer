@@ -1,3 +1,0 @@
-﻿<%@ ServiceHost Debug="true" 
-                Service="DoubleGis.Erm.BLCore.WCF.MoDi.AccountingSystemApplicationService" 
-                Factory="DoubleGis.Erm.API.WCF.MoDi.UnityServiceHostFactory" %>
