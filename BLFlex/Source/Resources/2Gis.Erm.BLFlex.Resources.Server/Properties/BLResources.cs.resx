@@ -158,13 +158,6 @@
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
     <value>Média: „{0}“ (verze pro PC). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
-    <value>7.</value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>7. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.
-8.</value>
-  </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
     <value>Není možné vytvořit objednávku pro typ právnické osoby '{0}' uvedený v profilu</value>
   </data>
@@ -188,18 +181,6 @@
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value>Název právnické osoby</value>
-  </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
@@ -462,5 +443,26 @@
   </data>
   <data name="OrderFieldNotSpecified" xml:space="preserve">
     <value>V objednávce není vyplněno pole "{0}"</value>
+  </data>
+  <data name="PositionNameFormatContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultipleAsterix" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
 </root>

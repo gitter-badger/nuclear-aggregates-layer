@@ -12107,24 +12107,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string PrintOrderHandler_RegionalTechnicalTerminationParagraph1 {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_RegionalTechnicalTerminationParagraph1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_RegionalTechnicalTerminationParagraph2 {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_RegionalTechnicalTerminationParagraph2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string PrintTerminationNoticeFileNameFormat {
             get {
                 return ResourceManager.GetString("PrintTerminationNoticeFileNameFormat", resourceCulture);

@@ -7,9 +7,10 @@
 *.sln.docstates
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
+# The following patterns are commented as the code containing the some folders matching the rules, e.g. Release. As well there are the rules ("bin/" and "obj/") matching the same.
+#[Dd]ebug/
+#[Dd]ebugPublic/
+#[Rr]elease/
 x64/
 build/
 bld/

@@ -188,6 +188,7 @@
     <Compile Include="Russia\Generic\Modify\LegalPersonFlexSpecs.LegalPersonProfiles.cs" />
     <Compile Include="Shared\Consistency\EmiratesLegalPersonProfileConsistencyRuleContainer.cs" />
     <Compile Include="Shared\Consistency\KazakhstanLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Formatter\RussianPercentToWordsFormatter.cs" />
     <Compile Include="Shared\PositionDetailedName.cs" />
     <Compile Include="Shared\EmiratesFormatterFactory.cs" />
     <Compile Include="Shared\Formatter\DirhamFormatter.cs" />

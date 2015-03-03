@@ -156,12 +156,6 @@
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value />
-  </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
     <value />
   </data>
@@ -184,18 +178,6 @@
     <value />
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
     <value />
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
@@ -454,6 +436,27 @@
     <value />
   </data>
   <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatContextCategorySingle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatAddressContextCategorySingle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatAddressContextCategoryMultiple" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatContextCategoryMultiple" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategorySingle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategoryMultiple" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameFormatContextCategoryMultipleAsterix" xml:space="preserve">
     <value />
   </data>
 </root>

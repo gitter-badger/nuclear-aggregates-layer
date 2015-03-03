@@ -1241,13 +1241,6 @@
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Информация об Отделении Юр. Лица Организации</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
-11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Неизвестный пользователь</value>
   </data>

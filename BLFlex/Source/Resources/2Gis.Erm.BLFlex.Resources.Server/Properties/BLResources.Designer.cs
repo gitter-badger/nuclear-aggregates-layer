@@ -639,6 +639,24 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string PositionNameFormatAddressContextCategoryMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressContextCategoryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressContextCategorySingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressContextCategorySingle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string PositionNameFormatAddressFirstLevelCategoryMultiple {
             get {
                 return ResourceManager.GetString("PositionNameFormatAddressFirstLevelCategoryMultiple", resourceCulture);
@@ -651,6 +669,24 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         public static string PositionNameFormatAddressFirstLevelCategorySingle {
             get {
                 return ResourceManager.GetString("PositionNameFormatAddressFirstLevelCategorySingle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressFirstLevelContextCategoryMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressFirstLevelContextCategoryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressFirstLevelContextCategorySingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressFirstLevelContextCategorySingle", resourceCulture);
             }
         }
         
@@ -705,6 +741,33 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         public static string PositionNameFormatCompositeDetalization {
             get {
                 return ResourceManager.GetString("PositionNameFormatCompositeDetalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatContextCategoryMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatContextCategoryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatContextCategoryMultipleAsterix {
+            get {
+                return ResourceManager.GetString("PositionNameFormatContextCategoryMultipleAsterix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatContextCategorySingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatContextCategorySingle", resourceCulture);
             }
         }
         
@@ -813,60 +876,6 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         public static string PrintOrderHandler_ElectronicMedaiParagraphPC {
             get {
                 return ResourceManager.GetString("PrintOrderHandler_ElectronicMedaiParagraphPC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_TechnicalTerminationParagraph1 {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_TechnicalTerminationParagraph1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_TechnicalTerminationParagraph2 {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_TechnicalTerminationParagraph2", resourceCulture);
             }
         }
         
