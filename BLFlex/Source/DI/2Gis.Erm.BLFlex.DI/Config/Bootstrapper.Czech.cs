@@ -41,7 +41,6 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                 .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
                                                                            new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(BillSummConsistencyRule),
-                                                                                                                                               typeof(BillDatesConsistencyRule),
                                                                                                                                                typeof(BillDistributionPeriodConsistencyRule))))
                         .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
                         .RegisterType<IPriceCostsForSubPositionsProvider, NullPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
