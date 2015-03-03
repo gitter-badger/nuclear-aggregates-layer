@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         private readonly Lazy<EFDomainContext> _domainContext;
 
-        protected EFRepository(IUserContext userContext, 
+        public EFRepository(IUserContext userContext, 
                                IModifiableDomainContextProvider domainContextProvider, 
                                IPersistenceChangesRegistryProvider changesRegistryProvider, 
                                IMappingEngine mappingEngine)
