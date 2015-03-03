@@ -12,11 +12,11 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.DomainEntityObtainers
 {
-    public sealed class BillObtainer : IBusinessModelEntityObtainer<Bill>, IAggregateReadModel<Order>, ICzechAdapted
+    public sealed class CzechBillObtainer : IBusinessModelEntityObtainer<Bill>, IAggregateReadModel<Order>, ICzechAdapted
     {
         private readonly IFinder _finder;
 
-        public BillObtainer(IFinder finder)
+        public CzechBillObtainer(IFinder finder)
         {
             _finder = finder;
         }
