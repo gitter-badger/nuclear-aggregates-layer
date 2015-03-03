@@ -119,11 +119,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             var persistentEntity = ConvertToPersistent(entity);
             if (persistentEntity is IDeletableEntity)
             {
-                _domainContext.Value.Update(entity);
+                _domainContext.Value.Update(persistentEntity);
             }
             else
             {
-                _domainContext.Value.Remove(entity);
+                _domainContext.Value.Remove(persistentEntity);
             }
 
             // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id
