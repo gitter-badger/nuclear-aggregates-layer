@@ -47,7 +47,20 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoolSetting.cs" />
+    <Compile Include="DecimalSetting.cs" />
+    <Compile Include="EnumSetting.cs" />
+    <Compile Include="IntSetting.cs" />
+    <Compile Include="ISettings.cs" />
+    <Compile Include="ISettingsAspect.cs" />
+    <Compile Include="ISettingsContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingBase.cs" />
+    <Compile Include="SettingEvaluationResult.cs" />
+    <Compile Include="SettingsContainerBase.cs" />
+    <Compile Include="SettingsContainerUtils.cs" />
+    <Compile Include="SettingsIndicators.cs" />
+    <Compile Include="StringSetting.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -40,7 +40,23 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICommonLog.cs" />
+    <Compile Include="ILoggerContextEntryProvider.cs" />
+    <Compile Include="ILoggerContextManager.cs" />
+    <Compile Include="LoggerContextConstEntryProvider.cs" />
+    <Compile Include="LoggerContextEntryProvider.cs" />
+    <Compile Include="LoggerContextKeys.cs" />
+    <Compile Include="LoggerContextManager.cs" />
+    <Compile Include="LoggerContextSelfHostedEntryProvider.cs" />
+    <Compile Include="NullLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemInfo\AssemblyVersionInfo.cs" />
+    <Compile Include="SystemInfo\EnvironmentInfo.cs" />
+    <Compile Include="SystemInfo\NetworkInfo.cs" />
+    <Compile Include="SystemInfo\OS\OSInfo.cs" />
+    <Compile Include="SystemInfo\OS\OSVersionDescriptor.cs" />
+    <Compile Include="SystemInfo\ProcessInfo.cs" />
+    <Compile Include="SystemInfo\SecurityInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

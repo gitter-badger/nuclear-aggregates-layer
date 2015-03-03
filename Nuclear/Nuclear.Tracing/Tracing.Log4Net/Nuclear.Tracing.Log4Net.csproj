@@ -40,6 +40,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\Log4NetLoggerBuilder.cs" />
+    <Compile Include="Log4NetCommonLog.cs" />
+    <Compile Include="Log4NetCommonLog.Debug.cs" />
+    <Compile Include="Log4NetCommonLog.Error.cs" />
+    <Compile Include="Log4NetCommonLog.Fatal.cs" />
+    <Compile Include="Log4NetCommonLog.Info.cs" />
+    <Compile Include="Log4NetCommonLog.Warning.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
