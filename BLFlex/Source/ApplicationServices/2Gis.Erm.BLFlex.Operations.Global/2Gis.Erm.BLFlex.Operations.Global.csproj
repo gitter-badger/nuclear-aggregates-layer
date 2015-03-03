@@ -74,6 +74,7 @@
     <Compile Include="Czech\Generic\Get\CzechGetBranchOfficeOrganizationUnitDtoService.cs" />
     <Compile Include="Czech\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
     <Compile Include="Czech\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBillObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBranchOfficeObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Cyprus\Generic\List\CyprusListLegalPersonService.cs" />
