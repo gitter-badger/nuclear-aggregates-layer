@@ -67,7 +67,7 @@
     <Compile Include="FirmInfo\CategoryInfoDto.cs" />
     <Compile Include="FirmInfo\FirmIdDto.cs" />
     <Compile Include="FirmInfo\FirmInfoDto.cs" />
-    <Compile Include="FirmInfo\IGetFirmInfoService.cs" />
+    <Compile Include="FirmInfo\IGetFirmInfoOperationService.cs" />
     <Compile Include="FirmInfo\ProjectInfoDto.cs" />
     <Compile Include="DI\OperationsSpecialZone.cs" />
     <Compile Include="OrderProcessingRequests\CancelledOrderRequestStateDescription.cs" />
