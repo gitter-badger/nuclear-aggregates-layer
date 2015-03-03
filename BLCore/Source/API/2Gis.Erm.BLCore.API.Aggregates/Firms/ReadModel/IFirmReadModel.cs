@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
 {
     public interface IFirmReadModel : IAggregateReadModel<Firm>
     {
-        IReadOnlyDictionary<long, FirmWithAddressesAndProjectDto> GetFirmInfosByIds(IEnumerable<long> crmIds);
+        IReadOnlyDictionary<long, FirmWithAddressesAndProjectDto> GetFirmInfosByIds(IEnumerable<long> ids);
         long GetOrderFirmId(long orderId);
         IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId);
         long GetOrgUnitId(long firmId);
