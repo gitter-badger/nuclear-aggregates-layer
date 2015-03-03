@@ -4,7 +4,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations;
-using DoubleGis.Erm.BLCore.API.Operations.Remote.Revert;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Reopen;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             catch (Exception ex)
             {
                 _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
-                throw new WebFaultException<RevertOperationErrorDescription>(new RevertOperationErrorDescription(entityName, ex.Message),
+                throw new WebFaultException<ReopenOperationErrorDescription>(new ReopenOperationErrorDescription(entityName, ex.Message),
                                                                                HttpStatusCode.BadRequest);
             }
         }
@@ -61,15 +61,15 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             catch (Exception ex)
             {
                 _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
-                throw new WebFaultException<RevertOperationErrorDescription>(new RevertOperationErrorDescription(entityName, ex.Message),
+                throw new WebFaultException<ReopenOperationErrorDescription>(new ReopenOperationErrorDescription(entityName, ex.Message),
                                                                                HttpStatusCode.BadRequest);
             }
         }
 
         private void ExecuteInternal(EntityName entityName, long entityId)
         {
-            var CancelService = _operationServicesManager.GetRevertService(entityName);
-            CancelService.Revert(entityId);
+            var CancelService = _operationServicesManager.GetReopenService(entityName);
+            CancelService.Reopen(entityId);
         }
     }
 }

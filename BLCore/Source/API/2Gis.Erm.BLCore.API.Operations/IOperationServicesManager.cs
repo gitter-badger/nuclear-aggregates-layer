@@ -16,7 +16,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Revert;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Reopen;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations
@@ -42,6 +42,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations
         IIntegrationProcessorOperationService GetOperationsExportService(EntityName entityName, EntityName integrationEntityName);
         ICancelOperationService GetCancelService(EntityName entityName);
         ICompleteOperationService GetCompleteService(EntityName entityName);
-        IReopenOperationService GetRevertService(EntityName entityName);
+        IReopenOperationService GetReopenService(EntityName entityName);
     }
 }

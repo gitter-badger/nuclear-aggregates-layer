@@ -1,0 +1,43 @@
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Complete;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
+
+namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Complete
+{
+    public class CompleteLetterAggregateService : ICompleteLetterAggregateService
+    {
+        private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IRepository<Letter> _repository;
+
+        public CompleteLetterAggregateService(
+            IOperationScopeFactory operationScopeFactory,
+            IRepository<Letter> repository)
+        {
+            _operationScopeFactory = operationScopeFactory;
+            _repository = repository;
+        }
+
+        public void Complete(Letter letter)
+        {
+            if (letter == null)
+            {
+                throw new ArgumentNullException("letter");
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Letter>())
+            {
+                letter.Status = ActivityStatus.Completed;
+
+                _repository.Update(letter);
+                _repository.Save();
+
+                operationScope.Updated<Letter>(letter.Id);
+                operationScope.Complete();
+            }
+        }
+    }
+}

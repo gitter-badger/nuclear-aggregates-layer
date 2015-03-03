@@ -3,13 +3,13 @@
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Entities;
 
-namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Revert
+namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Reopen
 {  
-    [ServiceContract(SessionMode = SessionMode.Allowed, Namespace = ServiceNamespaces.BasicOperations.Revert201502)]
+    [ServiceContract(SessionMode = SessionMode.Allowed, Namespace = ServiceNamespaces.BasicOperations.Reopen201502)]
     public interface IReopenApplicationService
     {
         [OperationContract]
-        [FaultContract(typeof(RevertOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.Revert201502)]
+        [FaultContract(typeof(ReopenOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.Reopen201502)]
         void Execute(EntityName entityName, long entityId);
     }
 }

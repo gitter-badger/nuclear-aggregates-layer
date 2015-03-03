@@ -21,7 +21,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Revert;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Reopen;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -31,7 +31,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Revert;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Reopen;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 using Microsoft.Practices.Unity;
@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
             return GetEntitySpecificOperation<ICompleteOperationService, CompleteIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IReopenOperationService GetRevertService(EntityName entityName)
+        public IReopenOperationService GetReopenService(EntityName entityName)
         {
             return GetEntitySpecificOperation<IReopenOperationService, ReopenIdentity>(entityName.ToEntitySet(), null);
         }

@@ -70,8 +70,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         public const int CancelIdentity = 1042;
         public const int CompleteIdentity = 1043;
-        public const int RevertIdentity = 1044;
-        public const int ChangeActivityStatusIdentity = 1045;
+        public const int ReopenIdentity = 1044;        
 
         // EntityName.ReleaseWithdrawal = 215
         public const int ActualizeOrderReleaseWithdrawalsIdentity = 21501;

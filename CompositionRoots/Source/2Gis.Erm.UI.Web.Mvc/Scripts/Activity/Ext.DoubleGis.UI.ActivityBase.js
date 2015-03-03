@@ -105,8 +105,8 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     CancelActivity: function () {        
         this.ChangeStatus("Cancel");
     },
-    RevertActivity: function() {        
-        this.ChangeStatus("Revert");
+    ReopenActivity: function() {        
+        this.ChangeStatus("Reopen");
     },
     Assign: function () {
         if (!this.checkDirty()) return;

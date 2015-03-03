@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Platform.API.Core
             public const string MsCrm201309 = "http://2gis.ru/erm/api/basicoperations/mscrm/2013/09";
             public const string Cancel201502 = "http://2gis.ru/erm/api/basicoperations/Cancel/2015/02";
             public const string Complete201502 = "http://2gis.ru/erm/api/basicoperations/Complete/2015/02";
-            public const string Revert201502 = "http://2gis.ru/erm/api/basicoperations/Revert/2015/02";
+            public const string Reopen201502 = "http://2gis.ru/erm/api/basicoperations/Revert/2015/02";
         }
 
         public static class OrderValidation
