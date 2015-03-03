@@ -1,6 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Resources.Server;
-
-namespace DoubleGis.Erm.Platform.Common.Logging
+﻿namespace DoubleGis.Erm.Platform.Common.Logging
 {
     /// <summary>
     /// Контейнер для значения свойства одного из контекстов логирования (см. например GlobalContext log4net)
@@ -30,7 +28,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging
 
         public sealed override string ToString()
         {
-            return Value ?? ResPlatform.ValueNotFound;
+            return Value ?? "Not found";
         }
     }
 }

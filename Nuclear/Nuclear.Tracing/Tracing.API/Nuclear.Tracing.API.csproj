@@ -46,7 +46,6 @@
     <Compile Include="LoggerContextConstEntryProvider.cs" />
     <Compile Include="LoggerContextEntryProvider.cs" />
     <Compile Include="LoggerContextKeys.cs" />
-    <Compile Include="LoggerContextManager.cs" />
     <Compile Include="LoggerContextSelfHostedEntryProvider.cs" />
     <Compile Include="NullLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
