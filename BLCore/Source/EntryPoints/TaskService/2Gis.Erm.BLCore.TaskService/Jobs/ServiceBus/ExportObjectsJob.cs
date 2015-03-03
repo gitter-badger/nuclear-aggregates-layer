@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                         }
                 },
                 {
-                    "flowfinancialdata.accountdetails",
+                    "flowfinancialdata.debitsinfoinitial",
                     new FlowDescription
                         {
                             EntityName = EntityName.AccountDetail,
