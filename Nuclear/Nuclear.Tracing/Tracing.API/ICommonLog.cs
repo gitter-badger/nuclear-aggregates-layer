@@ -1,10 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Common.Crosscutting;
-
 namespace DoubleGis.Erm.Platform.Common.Logging
 {
-    public interface ICommonLog : IInvariantSafeCrosscuttingService
+    public interface ICommonLog
     {
         void Debug(string message);
         void Debug(string message, string methodName);

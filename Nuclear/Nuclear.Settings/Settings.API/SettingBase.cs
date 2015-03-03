@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 
 namespace DoubleGis.Erm.Platform.Common.Settings
 {
@@ -70,7 +69,7 @@ namespace DoubleGis.Erm.Platform.Common.Settings
                     var result = ProcessSettingValue(settingValue);
                     if (!result.Successed)
                     {
-                        throw new ConfigurationErrorsException(string.Format("Can't process settings value. Setting name: {0}, raw value: {1}", _settingName, settingValue));
+                        throw new InvalidOperationException(string.Format("Can't process settings value. Setting name: {0}, raw value: {1}", _settingName, settingValue));
                     }
 
                     return result.Value;
