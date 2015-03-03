@@ -118,6 +118,7 @@
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonProfileDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Generic\Modify\ModifyBranchOfficeOrganizationUnitServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\RussianPercentToWordsFormatterSpecs.cs" />
     <Compile Include="BL\Print\MultiCulture\NewSalesModelBargainDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\KopekInRussianPluralizerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\HryvniaInRussianPluralizerSpecs.cs" />
