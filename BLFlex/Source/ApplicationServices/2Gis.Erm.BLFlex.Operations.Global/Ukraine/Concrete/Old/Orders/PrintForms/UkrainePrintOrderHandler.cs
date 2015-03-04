@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                     CurrencyIsoCode = orderInfo.CurrencyIsoCode,
                     FileName = orderInfo.OrderNumber,
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
-                    TemplateCode = TemplateCode.OrderWithVatWithDiscount,
+                    TemplateCode = TemplateCode.Order,
                     PrintData = GetPrintData(request, orderInfo)
                 };
 

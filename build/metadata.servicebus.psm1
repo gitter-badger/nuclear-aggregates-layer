@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 
 # TODO: Наполнить метаданные
 $SharedAccessKeys = @{
-	'Production.Russia' = 'e97SXT9BYyBHpANc+ZjiOjp97EHqcaFii/BK77Ntijo='
+	'Production.Russia' = 'ekQp9UcnukDWwNK9ZCiHXU91ovxdXs/XMZ05fAsam+s='
 	'Load.Russia' = 'daOQn6EYUWbJPlfV1592+xCIQRTumxZzzEw2c1i1u0M='
 	'Test.01' = 'VMjlhLcjp4K3+Ur6c2c8vEbEsRZVbFXHuiv9MRW7Y34='
 	'Test.02' = 'UQcwkyrf7YrfjVVmq0Y3J7fIQIpfc4UuUHcORMeg+vA='
