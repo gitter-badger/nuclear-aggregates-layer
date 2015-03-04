@@ -349,14 +349,14 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 
         private void ConfigureLogger()
         {
-            var loggerApiAppender = new Log4NetApiAppender(new RestApiClient(_apiSettings));
-            loggerApiAppender.AddFilter(
+            var tracerApiAppender = new Log4NetApiAppender(new RestApiClient(_apiSettings));
+            tracerApiAppender.AddFilter(
                 new LevelRangeFilter
                 {
                     LevelMin = Level.Error,
                     LevelMax = Level.Fatal
                 });
-            AddAppender(Log4NetTracerBuilder.LoggingHierarchyName, loggerApiAppender);
+            AddAppender(Log4NetTracerBuilder.TracingHierarchyName, tracerApiAppender);
         }
 
         // Add an appender to a logger

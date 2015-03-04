@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
             {
                 return (string)FindInstance(contextKey);
             }
-            throw new ConfigurationErrorsException("loggerContextKey cannot be found. See Log4NetConfigurationOperationContextExtension for details");
+            throw new ConfigurationErrorsException("tracerContextKey cannot be found. See Log4NetConfigurationOperationContextExtension for details");
         }
 
         public void SetTracerContextValue(string tracerContextKey, string value)
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
             }
             else
             {
-                throw new ConfigurationErrorsException("loggerContextKey cannot be found. See Log4NetConfigurationOperationContextExtension for details");
+                throw new ConfigurationErrorsException("tracerContextKey cannot be found. See Log4NetConfigurationOperationContextExtension for details");
             }
         }
     }

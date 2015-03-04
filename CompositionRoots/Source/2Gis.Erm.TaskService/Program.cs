@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.TaskService
             var settingsContainer = new TaskServiceAppSettings(BusinessModels.Supported);
             var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
 
-            var loggerContextEntryProviders =
+            var tracerContextEntryProviders =
                     new ITracerContextEntryProvider[] 
                     {
                         new TracerContextConstEntryProvider(TracerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
@@ -44,8 +44,8 @@ namespace DoubleGis.Erm.TaskService
                         new TracerContextSelfHostedEntryProvider(TracerContextKeys.Required.UserAccount)
                     };
 
-            var loggerContextManager = new TracerContextManager(loggerContextEntryProviders);
-            var logger = Log4NetTracerBuilder.Use
+            var tracerContextManager = new TracerContextManager(tracerContextEntryProviders);
+            var tracer = Log4NetTracerBuilder.Use
                                              .DefaultXmlConfig
                                              .Console
                                              .EventLog
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.TaskService
             IUnityContainer container = null;
             try
             {
-                container = Bootstrapper.ConfigureUnity(settingsContainer, logger, loggerContextManager);
+                container = Bootstrapper.ConfigureUnity(settingsContainer, tracer, tracerContextManager);
                 var schedulerManager = container.Resolve<ISchedulerManager>();
 
                 if (IsConsoleMode(args))

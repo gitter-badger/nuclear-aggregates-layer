@@ -79,27 +79,27 @@ namespace DoubleGis.Platform.UI.WPF.Shell
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var logger = _tracer;
-            if (logger != null)
+            var tracer = _tracer;
+            if (tracer != null)
             {
                 var ex = e.ExceptionObject as Exception;
                 if (ex != null)
                 {
-                    logger.FatalFormat(ex, "UnhandledException. IsTerminating={0}.", e.IsTerminating);
+                    tracer.FatalFormat(ex, "UnhandledException. IsTerminating={0}.", e.IsTerminating);
                 }
                 else
                 {
-                    logger.FatalFormat("UnhandledException. IsTerminating={0}. Description: {1}", e.IsTerminating, e.ExceptionObject);
+                    tracer.FatalFormat("UnhandledException. IsTerminating={0}. Description: {1}", e.IsTerminating, e.ExceptionObject);
                 }
             }
         }
 
         private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            var logger = _tracer;
-            if (logger != null)
+            var tracer = _tracer;
+            if (tracer != null)
             {
-                logger.ErrorFormat("Dispatcher unhanlded exception catched. Is handled: {0}. Exception: {1}", e.Handled, e.Exception);
+                tracer.ErrorFormat("Dispatcher unhanlded exception catched. Is handled: {0}. Exception: {1}", e.Handled, e.Exception);
             }
         }
     }

@@ -116,9 +116,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
 
         private void Logger()
         {
-            var logger = _container.Resolve<ITracer>();
-            logger.Error("test message 1");
-            logger.Error(new InvalidOperationException("test exception 1"), "test message 2");
+            var tracer = _container.Resolve<ITracer>();
+            tracer.Error("test message 1");
+            tracer.Error(new InvalidOperationException("test exception 1"), "test message 2");
         }
 
         private void List()

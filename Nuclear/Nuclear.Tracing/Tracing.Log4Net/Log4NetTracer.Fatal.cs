@@ -65,7 +65,7 @@ namespace Nuclear.Tracing.Log4Net
                 return;
             }
 
-            _log.Fatal(string.Format(_loggingCulture, message, param1), exception);
+            _log.Fatal(string.Format(_tracingCulture, message, param1), exception);
         }
 
         void ITracer.FatalFormat(Exception exception, string message, object param1, object param2)
@@ -75,7 +75,7 @@ namespace Nuclear.Tracing.Log4Net
                 return;
             }
 
-            _log.Fatal(string.Format(_loggingCulture, message, param1, param2), exception);
+            _log.Fatal(string.Format(_tracingCulture, message, param1, param2), exception);
         }
 
         void ITracer.FatalFormat(Exception exception, string message, object param1, object param2, object param3)
@@ -85,7 +85,7 @@ namespace Nuclear.Tracing.Log4Net
                 return;
             }
 
-            _log.Fatal(string.Format(_loggingCulture, message, param1, param2, param3), exception);
+            _log.Fatal(string.Format(_tracingCulture, message, param1, param2, param3), exception);
         }
 
         void ITracer.FatalFormat(Exception exception, string message, params object[] args)
@@ -95,7 +95,7 @@ namespace Nuclear.Tracing.Log4Net
                 return;
             }
 
-            _log.Fatal(string.Format(_loggingCulture, message, args), exception);
+            _log.Fatal(string.Format(_tracingCulture, message, args), exception);
         }
 
         void ITracer.FatalFormat(string message, object param1)
@@ -135,7 +135,7 @@ namespace Nuclear.Tracing.Log4Net
                 return;
             }
 
-            _log.FatalFormat(_loggingCulture, message, args);
+            _log.FatalFormat(_tracingCulture, message, args);
         }
     }
 }

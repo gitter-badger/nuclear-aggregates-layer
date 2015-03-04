@@ -4,8 +4,8 @@ namespace Nuclear.Tracing.API
     {
         private string _value = "NOT_SET";
 
-        public TracerContextSelfHostedEntryProvider(string loggerContextKey) 
-            : base(loggerContextKey)
+        public TracerContextSelfHostedEntryProvider(string tracerContextKey) 
+            : base(tracerContextKey)
         {
         }
 

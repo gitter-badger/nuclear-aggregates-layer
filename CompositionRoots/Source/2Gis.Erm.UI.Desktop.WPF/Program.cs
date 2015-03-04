@@ -16,23 +16,23 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
         [STAThread]
         public static void Main(string[] args)
         {
-            var logger = Log4NetTracerBuilder.Use
-                                             .XmlConfig(Path.Combine(Bootstrapper.GetApplicationWorkingDirectory, Log4NetTracerBuilder.DefaultLogConfigFileName))
+            var tracer = Log4NetTracerBuilder.Use
+                                             .XmlConfig(Path.Combine(Bootstrapper.GetApplicationWorkingDirectory, Log4NetTracerBuilder.DefaultTracerConfigFileName))
                                              .File("Erm.WPF.Client")
                                              .Build; 
 
-            logger.Info("Application starting ...");
+            tracer.Info("Application starting ...");
 
-            logger.Info(
+            tracer.Info(
                 new StringBuilder().AppendLine("Environment info:" + EnvironmentInfo.Description)
                                    .AppendLine("User info:" + SecurityInfo.UserSecuritySettingsDescription)
                                    .AppendLine("Network info:" + NetworkInfo.DomainMembership)
                                    .ToString());
 
-            var app = new App(logger);
+            var app = new App(tracer);
 
-            logger.Info("Application started successfully");
-            logger.Info("Application run ...");
+            tracer.Info("Application started successfully");
+            tracer.Info("Application run ...");
 
             try
             {
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
                 return;
             }
 
-            logger.Info("Application finished");
+            tracer.Info("Application finished");
         }
     }
 }

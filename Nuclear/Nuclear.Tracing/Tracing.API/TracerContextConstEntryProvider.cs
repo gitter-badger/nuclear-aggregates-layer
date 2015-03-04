@@ -2,17 +2,17 @@ namespace Nuclear.Tracing.API
 {
     public sealed class TracerContextConstEntryProvider : TracerContextEntryProvider
     {
-        private readonly string _loggerContextValue;
+        private readonly string _tracerContextValue;
 
-        public TracerContextConstEntryProvider(string loggerContextKey, string loggerContextValue) 
-            : base(loggerContextKey)
+        public TracerContextConstEntryProvider(string tracerContextKey, string tracerContextValue) 
+            : base(tracerContextKey)
         {
-            _loggerContextValue = loggerContextValue;
+            _tracerContextValue = tracerContextValue;
         }
 
         public override string Value
         {
-            get { return _loggerContextValue; }
+            get { return _tracerContextValue; }
             set { }
         }
     }

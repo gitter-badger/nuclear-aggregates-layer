@@ -148,7 +148,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 return container;
             }
 
-            var logger = container.Resolve<ITracer>();
+            var tracer = container.Resolve<ITracer>();
 
             var containersUniqueMap = new HashSet<Guid>();
             var modulesUniqueMap = new HashSet<Guid>();
@@ -164,7 +164,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 }
                 catch (Exception ex)
                 {
-                    logger.FatalFormat(ex, "Can't process settings for module container with path {0}", modulesDescriptor.ModulesContainerFullPath);
+                    tracer.FatalFormat(ex, "Can't process settings for module container with path {0}", modulesDescriptor.ModulesContainerFullPath);
                     throw;
                 }
 
@@ -175,7 +175,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 }
                 catch (Exception ex)
                 {
-                    logger.FatalFormat(ex,
+                    tracer.FatalFormat(ex,
                                             "Can't create module container of type {0} from file {1}",
                                             modulesDescriptor.ContainerType,
                                             modulesDescriptor.ModulesContainerFullPath);
@@ -187,7 +187,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                     var msg = string.Format("Module container of type {0} has duplicated Id: {1}",
                                             modulesDescriptor.ContainerType,
                                             moduleContainer.Id);
-                    logger.Fatal(msg);
+                    tracer.Fatal(msg);
                     throw new InvalidOperationException(msg);
                 }
 
@@ -201,14 +201,14 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                     }
                     catch (Exception ex)
                     {
-                        logger.FatalFormat(ex, "Can't create module of type {0} from file {1}", moduleType, modulesDescriptor.ModulesContainerFullPath);
+                        tracer.FatalFormat(ex, "Can't create module of type {0} from file {1}", moduleType, modulesDescriptor.ModulesContainerFullPath);
                         throw;
                     }
 
                     if (!modulesUniqueMap.Add(module.Id))
                     {
                         var msg = string.Format("Module of type {0} has duplicated Id: {1}", moduleType, module.Id);
-                        logger.Fatal(msg);
+                        tracer.Fatal(msg);
                         throw new InvalidOperationException(msg);
                     }
 

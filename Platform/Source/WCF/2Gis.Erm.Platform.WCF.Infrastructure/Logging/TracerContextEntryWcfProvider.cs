@@ -6,7 +6,7 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
 {
     public class TracerContextEntryWcfProvider : TracerContextEntryProvider
     {
-        public TracerContextEntryWcfProvider(string loggerContextKey) : base(loggerContextKey)
+        public TracerContextEntryWcfProvider(string tracerContextKey) : base(tracerContextKey)
         {
         }
 

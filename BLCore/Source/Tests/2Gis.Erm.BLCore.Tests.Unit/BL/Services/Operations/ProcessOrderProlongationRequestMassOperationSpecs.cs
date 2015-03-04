@@ -30,11 +30,11 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations
             {
                 OrderProcessingRequestService = Mock.Of<IOrderProcessingRequestService>();
                 var basicOrderProlongationOperation = Mock.Of<IBasicOrderProlongationOperationLogic>();
-                var logger = Mock.Of<ITracer>();
+                var tracer = Mock.Of<ITracer>();
 
                 Operation = new ProcessOrderProlongationRequestMassOperation(OrderProcessingRequestService,
                                                                              basicOrderProlongationOperation,
-                                                                             logger);
+                                                                             tracer);
             };
 
             Because of = () =>

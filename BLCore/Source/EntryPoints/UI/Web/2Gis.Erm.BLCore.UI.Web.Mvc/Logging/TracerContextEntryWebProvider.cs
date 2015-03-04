@@ -7,8 +7,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 {
     public class TracerContextEntryWebProvider : TracerContextEntryProvider
     {
-        public TracerContextEntryWebProvider(string loggerContextKey) 
-            : base(loggerContextKey)
+        public TracerContextEntryWebProvider(string tracerContextKey) 
+            : base(tracerContextKey)
         {
         }
 

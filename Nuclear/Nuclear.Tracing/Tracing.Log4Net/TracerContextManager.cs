@@ -13,7 +13,7 @@ namespace Nuclear.Tracing.Log4Net
     {
         private readonly IReadOnlyDictionary<string, ITracerContextEntryProvider> _providers;
 
-        public TracerContextManager(IEnumerable<ITracerContextEntryProvider> loggerContextEntryProviders)
+        public TracerContextManager(IEnumerable<ITracerContextEntryProvider> tracerContextEntryProviders)
         {
             var providers = new Dictionary<string, ITracerContextEntryProvider>();
             var requiredContextEntryProvidersRegistry =
@@ -24,7 +24,7 @@ namespace Nuclear.Tracing.Log4Net
                         .Select(fi => fi.GetValue(null))
                         .Cast<string>());
 
-            foreach (var provider in loggerContextEntryProviders)
+            foreach (var provider in tracerContextEntryProviders)
             {
                 if (requiredContextEntryProvidersRegistry.Contains(provider.Key))
                 {
@@ -37,7 +37,7 @@ namespace Nuclear.Tracing.Log4Net
 
             if (requiredContextEntryProvidersRegistry.Any())
             {
-                throw new ApplicationException(string.Format("Required logger context entry providers \"{0}\" is not specified", string.Join(";", requiredContextEntryProvidersRegistry)));
+                throw new ApplicationException(string.Format("Required tracer context entry providers \"{0}\" is not specified", string.Join(";", requiredContextEntryProvidersRegistry)));
             }
 
             _providers = providers;
@@ -50,7 +50,7 @@ namespace Nuclear.Tracing.Log4Net
                 ITracerContextEntryProvider provider;
                 if (!_providers.TryGetValue(entryKey, out provider))
                 {
-                    throw new InvalidOperationException(string.Format("Can't get value, specified logger context entry key \"{0}\" is not supported", entryKey));
+                    throw new InvalidOperationException(string.Format("Can't get value, specified tracer context entry key \"{0}\" is not supported", entryKey));
                 }
 
                 return provider.Value;

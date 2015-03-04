@@ -12,23 +12,23 @@
     /// </summary>
     public abstract class TracerContextEntryProvider : ITracerContextEntryProvider
     {
-        private readonly string _loggerContextKey;
+        private readonly string _tracerContextKey;
 
-        protected TracerContextEntryProvider(string loggerContextKey)
+        protected TracerContextEntryProvider(string tracerContextKey)
         {
-            _loggerContextKey = loggerContextKey;
+            _tracerContextKey = tracerContextKey;
         }
 
         public string Key
         {
-            get { return _loggerContextKey; }
+            get { return _tracerContextKey; }
         }
 
         public abstract string Value { get; set; }
 
         public sealed override string ToString()
         {
-            return Value ?? "Not found";
+            return Value ?? "NOT_SET";
         }
     }
 }

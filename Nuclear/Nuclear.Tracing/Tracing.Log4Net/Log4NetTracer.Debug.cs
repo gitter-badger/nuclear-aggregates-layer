@@ -68,7 +68,7 @@ namespace Nuclear.Tracing.Log4Net
                 return;
             }
 
-            _log.DebugFormat(_loggingCulture, message, args);
+            _log.DebugFormat(_tracingCulture, message, args);
         }
     }
 }

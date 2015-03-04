@@ -31,8 +31,8 @@ namespace DoubleGis.Erm.Platform.DI.WCF
             Func<ISettingsContainer, ITracer, ITracerContextManager, IUnityContainer> unityContainerFactory)
         {
             var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
-            var loggerContextEntryProviders =
-                    new ITracerContextEntryProvider[] 
+            var tracerContextEntryProviders =
+                    new ITracerContextEntryProvider[]
                     {
                         new TracerContextConstEntryProvider(TracerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
                         new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
@@ -44,14 +44,14 @@ namespace DoubleGis.Erm.Platform.DI.WCF
                         new TracerContextEntryWcfProvider(TracerContextKeys.Optional.UserAgent)
                     };
 
-            TracerContextManager = new TracerContextManager(loggerContextEntryProviders);
-            var logger = Log4NetTracerBuilder.Use
+            TracerContextManager = new TracerContextManager(tracerContextEntryProviders);
+            var tracer = Log4NetTracerBuilder.Use
                                              .DefaultXmlConfig
                                              .EventLog
                                              .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
                                              .Build;
 
-            DIContainer = unityContainerFactory(settingsContainer, logger, TracerContextManager);
+            DIContainer = unityContainerFactory(settingsContainer, tracer, TracerContextManager);
         }
 
         protected override ServiceHost CreateServiceHost(Type serviceType, Uri[] baseAddresses)

@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
             var settingsContainer = new WebAppSettings(BusinessModels.Supported);
             var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
 
-            var loggerContextEntryProviders =
+            var tracerContextEntryProviders =
                     new ITracerContextEntryProvider[] 
                     {
                         new TracerContextConstEntryProvider(TracerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
@@ -87,15 +87,15 @@ namespace DoubleGis.Erm.UI.Web.Mvc
                         new TracerContextEntryWebProvider(TracerContextKeys.Optional.UserAgent)
                     };
 
-            _tracerContextManager = new TracerContextManager(loggerContextEntryProviders);
-            var logger = Log4NetTracerBuilder.Use
+            _tracerContextManager = new TracerContextManager(tracerContextEntryProviders);
+            var tracer = Log4NetTracerBuilder.Use
                                              .DefaultXmlConfig
                                              .EventLog
                                              .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
                                              .Build;
 
             // initialize unity
-            _container = Bootstrapper.ConfigureUnity(settingsContainer, logger, _tracerContextManager);
+            _container = Bootstrapper.ConfigureUnity(settingsContainer, tracer, _tracerContextManager);
 
             // set global dependency resolver
             DependencyResolver.SetResolver(_container.Resolve<UnityDependencyResolver>());

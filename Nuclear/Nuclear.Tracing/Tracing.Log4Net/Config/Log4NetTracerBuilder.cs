@@ -21,10 +21,10 @@ namespace Nuclear.Tracing.Log4Net.Config
 {
     public sealed class Log4NetTracerBuilder
     {
-        public const string DefaultLogConfigFileName = "log4net.config";
-        public const string LoggingHierarchyName = "Erm";
+        public const string DefaultTracerConfigFileName = "log4net.config";
+        public const string TracingHierarchyName = "Erm";
 
-        private readonly CultureInfo _loggingCulture = new CultureInfo("ru-RU");
+        private readonly CultureInfo _tracingCulture = new CultureInfo("ru-RU");
 
         private readonly PatternLayout _localPatternLayout = new PatternLayout
         {
@@ -43,7 +43,7 @@ namespace Nuclear.Tracing.Log4Net.Config
                                         .ToString()
         };
 
-        private readonly IDictionary<Type, List<IAppender>> _loggerAppendersMap = new Dictionary<Type, List<IAppender>>();
+        private readonly IDictionary<Type, List<IAppender>> _tracerAppendersMap = new Dictionary<Type, List<IAppender>>();
         private string _xmlConfigFullPath;
         private string _dbAppenderConnectionString;
 
@@ -97,7 +97,7 @@ namespace Nuclear.Tracing.Log4Net.Config
         {
             get
             {
-                _xmlConfigFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultLogConfigFileName);
+                _xmlConfigFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultTracerConfigFileName);
                 return this;
             }
         }
@@ -196,7 +196,7 @@ namespace Nuclear.Tracing.Log4Net.Config
 
         private static Log4NetTracer Create(Log4NetTracerBuilder builder)
         {
-            var loggersHierarchy = (Hierarchy)LogManager.GetRepository();
+            var tracerHierarchy = (Hierarchy)LogManager.GetRepository();
             if (!string.IsNullOrEmpty(builder._xmlConfigFullPath))
             {
                 var targetXmlConfigFileInfo = new FileInfo(builder._xmlConfigFullPath);
@@ -208,11 +208,11 @@ namespace Nuclear.Tracing.Log4Net.Config
                 // если включен импорт конфигруации из xml файла, то делаем импорт до применения конфигурации задаваемой в коде, 
                 // т.к. режим импорта merge не работает как заявлено (атрибут update="Merge" тэга log4net в конфиге не срабатывает) => если первыми будут применены настройки из кода, 
                 // то после импорта из xml они будут перезатерты
-                XmlConfigurator.Configure(loggersHierarchy, targetXmlConfigFileInfo);
+                XmlConfigurator.Configure(tracerHierarchy, targetXmlConfigFileInfo);
             }
 
             var xmlConfiguredAppendersRegistrar = new HashSet<string>();
-            foreach (var appender in loggersHierarchy.GetAppenders())
+            foreach (var appender in tracerHierarchy.GetAppenders())
             {
                 xmlConfiguredAppendersRegistrar.Add(appender.GetType().Name + appender.Name);
                 var adoNetAppender = appender as AdoNetAppender;
@@ -223,18 +223,18 @@ namespace Nuclear.Tracing.Log4Net.Config
                 }
             }
 
-            foreach (var appender in builder._loggerAppendersMap.SelectMany(x => x.Value))
+            foreach (var appender in builder._tracerAppendersMap.SelectMany(x => x.Value))
             {
                 if (xmlConfiguredAppendersRegistrar.Contains(appender.GetType().Name + appender.Name))
                 {
                     continue;
                 }
 
-                loggersHierarchy.Root.AddAppender(appender);
+                tracerHierarchy.Root.AddAppender(appender);
             }
 
-            loggersHierarchy.Configured = true;
-            return new Log4NetTracer(LoggingHierarchyName, builder._loggingCulture);
+            tracerHierarchy.Configured = true;
+            return new Log4NetTracer(TracingHierarchyName, builder._tracingCulture);
         }
 
         private static IRawLayout LayoutForContextProperty(string contextPropertyKey)
@@ -298,7 +298,7 @@ namespace Nuclear.Tracing.Log4Net.Config
         {
             var appenderKey = typeof(TAppender);
             List<IAppender> appenders;
-            if (!_loggerAppendersMap.TryGetValue(appenderKey, out appenders))
+            if (!_tracerAppendersMap.TryGetValue(appenderKey, out appenders))
             {
                 appenders = new List<IAppender>();
                 foreach (var initializer in initializers)
@@ -309,7 +309,7 @@ namespace Nuclear.Tracing.Log4Net.Config
                     appenders.Add(appender);
                 }
 
-                _loggerAppendersMap.Add(appenderKey, appenders);
+                _tracerAppendersMap.Add(appenderKey, appenders);
             }
         }
     }
