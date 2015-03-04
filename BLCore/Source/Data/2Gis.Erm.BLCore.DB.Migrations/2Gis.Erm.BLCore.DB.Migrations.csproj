@@ -365,7 +365,7 @@
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateAppointments.sql" />
     <Content Include="Resources\201501201646\Billing.ReplicateDeals.sql" />
     <Content Include="Resources\201502110416\Log.Events_DateLocalTimeZone.sql" />
-    <None Include="Resources\201503040330\customizations_201503040330.xml" />
+    <None Include="Resources\201503040330\customizations.xml" />
     <None Include="Resources\201502090244\customizations_201502090244.xml" />
     <None Include="packages.config" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />

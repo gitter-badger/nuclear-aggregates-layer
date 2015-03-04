@@ -2669,7 +2669,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;Button Icon=&quot;/_imgs/support/helpme.png&quot; JavaScript=&quot;openStdWin(&apos;https://web-app04.test.erm.2gis.ru/Support/Index&apos;, &apos;HelpMe&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
         ///            &lt;Titles&gt;
         ///              &lt;Title LCID=&quot;1049&quot; Text=&quot;Техподдержка&quot; /&gt;
-        ///            &lt;/Ti [rest of string was truncated]&quot;;.
+        ///            &lt;/Titles&gt;
+        ///         [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string customizations_201503040330 {
             get {
