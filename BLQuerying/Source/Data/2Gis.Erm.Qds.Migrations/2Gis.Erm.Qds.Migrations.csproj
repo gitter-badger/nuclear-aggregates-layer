@@ -60,6 +60,7 @@
     <Compile Include="2.0\2014.06.17 rev. 21201 - Add FastSearch button to MSCRM.cs" />
     <Compile Include="2.0\2014.07.01 rev. 13546 - Создание поисковой инфраструктуры.cs" />
     <Compile Include="2.0\2014.07.01 rev. 15468 - Первичная миграция данных.cs" />
+    <Compile Include="2.0\201503040120 - replicate Firms.cs" />
     <Compile Include="2.0\2014.10.10 rev. 25182 - ReplicationQueue mapping.cs" />
     <Compile Include="2.0\2014.07.28 rev. 22693 - Related docs.cs" />
     <Compile Include="2.0\2014.07.23 rev. 22565 - ReplicationQueue mapping.cs" />
