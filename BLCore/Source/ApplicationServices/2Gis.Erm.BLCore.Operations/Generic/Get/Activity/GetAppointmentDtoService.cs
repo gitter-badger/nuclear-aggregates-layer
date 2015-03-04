@@ -6,11 +6,13 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 // ReSharper disable once CheckNamespace
@@ -30,11 +32,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         public GetAppointmentDtoService(IUserContext userContext,
                                         IAppointmentReadModel appointmentReadModel,
-                                        IActivityReferenceReader activityReferenceReader)
+                                        IActivityReferenceReader activityReferenceReader,
+                                        IFirmReadModel firmReadModel,
+                                        IDealReadModel dealReadModel,
+                                        IClientReadModel clientReadModel,
+                                        IPhonecallReadModel phonecallReadModel,
+                                        ILetterReadModel letterReadModel,
+                                        ITaskReadModel taskReadModel)
             : base(userContext)
         {
             _appointmentReadModel = appointmentReadModel;
-            _activityReferenceReader = activityReferenceReader;            
+            _activityReferenceReader = activityReferenceReader;
+            _firmReadModel = firmReadModel;
+            _dealReadModel = dealReadModel;
+            _clientReadModel = clientReadModel;
+            _phonecallReadModel = phonecallReadModel;
+            _letterReadModel = letterReadModel;
+            _taskReadModel = taskReadModel;
         }
 
         protected override IDomainEntityDto<Appointment> GetDto(long entityId)
@@ -130,7 +144,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     return ReadRegardingObjects(parentEntityName, parentEntityId.Value);
                 }
 
-                if (parentEntityName.CanBeRegardingObject())
+                if (parentEntityName.CanBeRegardingObject() || parentEntityName.CanBeContacted())
                 {
                     return ResolveRegardingObjects(parentEntityName, parentEntityId.Value);
                 }
@@ -148,7 +162,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             if (parentEntityName.CanBeContacted())
             {
-                //return ResolveAttendees(parentEntityName, parentEntityId);
+                return ResolveAttendees(parentEntityName, parentEntityId);
             }
 
             return Enumerable.Empty<EntityReference>();
@@ -177,12 +191,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 case EntityName.Client:
                     return ResolveRegardingObjectsFromClient(entityId);
-//                case EntityName.Contact:
-//                    return FindAutoCompleteReferencesByContact(entity);
-//                case EntityName.Deal:
-//                    return FindAutoCompleteReferencesByDeal(entity);
-//                case EntityName.Firm:
-//                    return FindAutoCompleteReferencesByFirm(entity);
+                case EntityName.Contact:
+                    return ResolveRegardingObjectsFromContact(entityId);
+                case EntityName.Deal:
+                    return ResolveRegardingObjectsFromDeal(entityId);
+                case EntityName.Firm:
+                    return ResolveRegardingObjectsFromFirm(entityId);
             }
 
             return Enumerable.Empty<EntityReference>();
@@ -208,43 +222,95 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         private IEnumerable<EntityReference> ResolveRegardingObjectsFromClient(long clientId)
         {
             return 
-                Enumerable.Repeat(new EntityReference { EntityName = EntityName.Client, Id = clientId }, 1)
+                Enumerable.Repeat(ToEntityReference(EntityName.Client, clientId), 1)
                 .Concat(LookupFirmReferences(clientId).Take(1))
                 .Concat(LookupDealReferences(clientId).Take(1));
         }
 
+        private IEnumerable<EntityReference> ResolveRegardingObjectsFromFirm(long firmId)
+        {
+            var firmReference = ToEntityReference(EntityName.Firm, firmId);
+            var clientReference = _clientReadModel.GetClientByFirm(firmId).ToReference();
+            if (clientReference.Id != null)
+            {
+                return
+                    new[] { firmReference, clientReference }
+                        .Concat(LookupDealReferences(clientReference.Id.Value).Take(1));
+            }
+
+            return Enumerable.Empty<EntityReference>();
+        }
+
+        private IEnumerable<EntityReference> ResolveRegardingObjectsFromDeal(long dealId)
+        {
+            var dealReference = ToEntityReference(EntityName.Deal, dealId);
+            var clientReference = _clientReadModel.GetClientByDeal(dealId).ToReference();
+            if (clientReference.Id != null)
+            {
+                return
+                    new[] { dealReference, clientReference }                
+                        .Concat(LookupFirmReferences(clientReference.Id.Value).Take(1));
+            }
+
+            return Enumerable.Empty<EntityReference>();
+        }
+
+        private IEnumerable<EntityReference> ResolveRegardingObjectsFromContact(long contactId)
+        {            
+            var clientReference = _clientReadModel.GetClientByContact(contactId).ToReference();
+            if (clientReference.Id != null)
+            {
+                return
+                    Enumerable.Repeat(clientReference, 1)
+                        .Concat(LookupDealReferences(clientReference.Id.Value).Take(1))
+                        .Concat(LookupFirmReferences(clientReference.Id.Value).Take(1));
+            }
+
+            return Enumerable.Empty<EntityReference>();
+        }
+
         private IEnumerable<EntityReference> LookupFirmReferences(long clientId)
         {
-            var firms = _firmReadModel.GetFirmsForClientAndLinkedChild(clientId);
-            return ConvertToEntityReference(firms, s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
+            return _firmReadModel.GetFirmsForClientAndLinkedChild(clientId).ResolveReferemceAmbiguity(s => new EntityReference { EntityName = EntityName.Firm, Id = s.Id, Name = s.Name });
         }
 
         private IEnumerable<EntityReference> LookupDealReferences(long clientId)
         {
-            var deals = _dealReadModel.GetDealsByClientId(clientId);
-            return ConvertToEntityReference(deals, s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
-        }
-
-        private static IEnumerable<EntityReference> ConvertToEntityReference<TEntity>(IEnumerable<TEntity> entities, Func<TEntity, EntityReference> convertToEntityReference) 
-            where TEntity : IEntity
-        {
-            var ambiguousEntity = new EntityReference { EntityName = typeof(TEntity).AsEntityName() };
-            var firstEntityOrNull = (entities ?? Enumerable.Empty<TEntity>())
-                .Select((x,i) => new { Entity = i==0 ? convertToEntityReference(x) : ambiguousEntity, Index = i })
-                .Take(2) 
-                .LastOrDefault();
-
-            if (firstEntityOrNull != null)
-            {
-                return new[] { firstEntityOrNull.Entity };
-            }
-            
-            return Enumerable.Empty<EntityReference>();
+            return _dealReadModel.GetDealsByClientId(clientId).ResolveReferemceAmbiguity(s => new EntityReference { EntityName = EntityName.Deal, Id = s.Id, Name = s.Name });
         }
 
         private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Appointment>> references)
         {
             return references.Select(x => _activityReferenceReader.ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
+        }
+
+        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
+        {
+            if (!entityId.HasValue)
+            {
+                return null;
+            }
+
+            string name;
+            switch (entityName)
+            {
+                case EntityName.Client:
+                    name = _clientReadModel.GetClientName(entityId.Value);
+                    break;
+                case EntityName.Contact:
+                    name = _clientReadModel.GetContactName(entityId.Value);
+                    break;
+                case EntityName.Deal:
+                    name = _dealReadModel.GetDeal(entityId.Value).Name;
+                    break;
+                case EntityName.Firm:
+                    name = _firmReadModel.GetFirmName(entityId.Value);
+                    break;                
+                default:
+                    return null;
+            }
+
+            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
         }
     }
 }
