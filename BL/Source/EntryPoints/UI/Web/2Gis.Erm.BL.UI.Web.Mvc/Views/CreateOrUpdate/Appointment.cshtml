@@ -18,7 +18,8 @@
     <script type="text/javascript">
         Ext.onReady(function() {
             var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
-            Ext.apply(cardSettings, { contactField: "AttendeeId", contactComponent: "Attendee" });
+            Ext.apply(cardSettings, { contactField: "AttendeeId", contactComponent: "Attendee"});
+            Ext.apply(cardSettings, { duration: @CalendarSettings.TimeSettings.DefaultAppointmentDuration.TotalMinutes });
             window.Card = new window.Ext.DoubleGis.UI.Appointment(cardSettings);
             window.Card.Build();
         });

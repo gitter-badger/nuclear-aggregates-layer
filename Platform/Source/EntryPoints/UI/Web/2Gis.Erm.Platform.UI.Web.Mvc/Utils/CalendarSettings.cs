@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
         public class TimeSettings
         {
+            public static readonly TimeSpan DefaultAppointmentDuration = TimeSpan.FromMinutes(60);
             public TimeSettings()
             {
                 Start = TimeSpan.FromHours(0);
