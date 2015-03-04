@@ -19,6 +19,7 @@
     <SccProvider>SAK</SccProvider>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\2Gis.UI.WPF.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -43,7 +44,6 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <!-- region ClickOnce -->
   <PropertyGroup Label="ClickOnce settings">
@@ -253,6 +253,18 @@
     <None Include="Scripts\GenerateDesignTimePaths.cmd" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
+      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
+      <Name>Nuclear.Settings.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj">
+      <Project>{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}</Project>
+      <Name>Nuclear.Tracing.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Nuclear\Nuclear.Tracing\Tracing.Log4Net\Nuclear.Tracing.Log4Net.csproj">
+      <Project>{71BB326B-2CF7-41F9-AA20-324DFD7E7AFA}</Project>
+      <Name>Nuclear.Tracing.Log4Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

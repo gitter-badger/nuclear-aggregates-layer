@@ -177,6 +177,10 @@
     <Compile Include="Util\Threading\UIDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
+      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
+      <Name>Nuclear.Settings.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

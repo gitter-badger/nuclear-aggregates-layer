@@ -80,6 +80,14 @@
       <Project>{F5C50F83-8C4F-42F9-AD37-03740AB78416}</Project>
       <Name>2Gis.Erm.BL.API.Operations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
+      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
+      <Name>Nuclear.Settings.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj">
+      <Project>{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}</Project>
+      <Name>Nuclear.Tracing.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

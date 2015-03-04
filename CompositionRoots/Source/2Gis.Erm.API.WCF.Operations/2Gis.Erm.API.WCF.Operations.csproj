@@ -219,6 +219,18 @@
       <Project>{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}</Project>
       <Name>2Gis.Erm.BL.DI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
+      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
+      <Name>Nuclear.Settings.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Settings\Settings\Nuclear.Settings.csproj">
+      <Project>{93878135-691A-418B-97B1-3AC9E250EC3A}</Project>
+      <Name>Nuclear.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj">
+      <Project>{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}</Project>
+      <Name>Nuclear.Tracing.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
       <Name>2Gis.Erm.Platform.API.Aggregates</Name>

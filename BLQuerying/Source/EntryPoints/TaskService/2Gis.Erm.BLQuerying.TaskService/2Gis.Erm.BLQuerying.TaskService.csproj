@@ -75,6 +75,10 @@
       <Project>{BE701360-D551-40B4-BD60-5F70CF4DE575}</Project>
       <Name>2Gis.Erm.BLCore.TaskService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj">
+      <Project>{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}</Project>
+      <Name>Nuclear.Tracing.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

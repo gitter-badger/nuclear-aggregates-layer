@@ -90,6 +90,10 @@
       <Project>{48a5c193-6a10-4188-9b82-90fdadc95c16}</Project>
       <Name>2Gis.Erm.BLQuerying.DI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
+      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
+      <Name>Nuclear.Settings.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

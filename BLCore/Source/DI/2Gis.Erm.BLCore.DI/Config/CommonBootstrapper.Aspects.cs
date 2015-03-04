@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
@@ -26,7 +24,6 @@ using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
@@ -51,7 +48,6 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;

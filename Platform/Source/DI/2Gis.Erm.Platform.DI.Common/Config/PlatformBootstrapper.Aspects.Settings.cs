@@ -9,7 +9,7 @@ using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.Platform.DI.Common.Config
 {
-    public static partial class PlatformBootstrapper
+    public static class PlatformBootstrapper
     {
         public static IUnityContainer ConfigureSettingsAspects(this IUnityContainer unityContainer, ISettingsContainer settingsContainer)
         {

@@ -96,6 +96,14 @@
     <Compile Include="ValidatorDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
+      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
+      <Name>Nuclear.Settings.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Nuclear\Nuclear.Settings\Settings\Nuclear.Settings.csproj">
+      <Project>{93878135-691A-418B-97B1-3AC9E250EC3A}</Project>
+      <Name>Nuclear.Settings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

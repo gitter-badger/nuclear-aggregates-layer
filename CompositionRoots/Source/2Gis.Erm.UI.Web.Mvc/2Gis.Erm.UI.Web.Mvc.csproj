@@ -1292,6 +1292,22 @@
       <Project>{92094490-5350-427a-8a9d-80123d41e30a}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
+      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
+      <Name>Nuclear.Settings.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Settings\Settings\Nuclear.Settings.csproj">
+      <Project>{93878135-691A-418B-97B1-3AC9E250EC3A}</Project>
+      <Name>Nuclear.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj">
+      <Project>{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}</Project>
+      <Name>Nuclear.Tracing.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Tracing\Tracing.Log4Net\Nuclear.Tracing.Log4Net.csproj">
+      <Project>{71BB326B-2CF7-41F9-AA20-324DFD7E7AFA}</Project>
+      <Name>Nuclear.Tracing.Log4Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
       <Name>2Gis.Erm.Platform.API.Aggregates</Name>

@@ -96,6 +96,14 @@
       <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
       <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
+      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
+      <Name>Nuclear.Settings.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj">
+      <Project>{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}</Project>
+      <Name>Nuclear.Tracing.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
