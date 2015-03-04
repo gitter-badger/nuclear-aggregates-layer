@@ -20,11 +20,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
     // handle mvc-pipeline exceptions and rewrite them as 500 or 403 errors
     public sealed class ExceptionFilter : IExceptionFilter
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public ExceptionFilter(ITracer logger)
+        public ExceptionFilter(ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
         }
 
         void IExceptionFilter.OnException(ExceptionContext filterContext)
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
             var errorTitle = HandleException(exception, httpResponse);
 
-            _logger.Fatal(exception, BLResources.CriticalError);
+            _tracer.Fatal(exception, BLResources.CriticalError);
 
             // ajax request
             if (isAjaxRequest)

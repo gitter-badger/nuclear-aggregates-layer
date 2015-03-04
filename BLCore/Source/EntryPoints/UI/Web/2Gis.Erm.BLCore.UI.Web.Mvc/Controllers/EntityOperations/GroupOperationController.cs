@@ -34,11 +34,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                         IAPIIdentityServiceSettings identityServiceSettings,
                                         IUserContext userContext,
-                                        ITracer logger,
+                                        ITracer tracer,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IReplicationCodeConverter replicationCodeConverter,
                                         IOperationsMetadataProvider operationMetadataProvider)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _replicationCodeConverter = replicationCodeConverter;
             _operationMetadataProvider = operationMetadataProvider;

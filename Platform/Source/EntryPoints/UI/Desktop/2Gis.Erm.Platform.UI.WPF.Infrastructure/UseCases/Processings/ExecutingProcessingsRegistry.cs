@@ -8,20 +8,20 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Processings
 {
     public sealed class ExecutingProcessingsRegistry : IExecutingProcessingsRegistry
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly ConcurrentDictionary<Guid,IProcessingDescriptor> _registry = 
             new ConcurrentDictionary<Guid, IProcessingDescriptor>();
 
-        public ExecutingProcessingsRegistry(ITracer logger)
+        public ExecutingProcessingsRegistry(ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IProcessingDescriptor StartProcessing(IProcessingDescriptor processingDescriptor)
         {
             if (_registry.TryAdd(processingDescriptor.Id, processingDescriptor))
             {
-                _logger.DebugFormat("Processing entry created. Processing: " + processingDescriptor);
+                _tracer.DebugFormat("Processing entry created. Processing: " + processingDescriptor);
             }
 
             return processingDescriptor;
@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Processings
             IProcessingDescriptor descriptor;
             if (_registry.TryRemove(processingId, out descriptor) && descriptor != null)
             {
-                _logger.DebugFormat("Processing entry removed. Processing: " + descriptor);
+                _tracer.DebugFormat("Processing entry removed. Processing: " + descriptor);
             }
 
             return descriptor;

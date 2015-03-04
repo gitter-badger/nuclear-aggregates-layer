@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         private readonly IIdentityProvider _identityProvider;
         private readonly IRepository<LockDetail> _lockDetailRepository;
         private readonly IRepository<Lock> _lockRepository;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public AccountBulkCreateLocksAggregateService(
@@ -28,13 +28,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
             IRepository<LockDetail> lockDetailRepository,
             IIdentityProvider identityProvider,
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _lockRepository = lockRepository;
             _lockDetailRepository = lockDetailRepository;
             _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Create(TimePeriod period, IEnumerable<OrderReleaseInfo> orderReleaseInfo)
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormat("Bulk create locks for period {0}. Created locks count = {1}", period, createdLocks);
+            _tracer.InfoFormat("Bulk create locks for period {0}. Created locks count = {1}", period, createdLocks);
         }
     }
 }

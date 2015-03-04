@@ -25,20 +25,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
         private readonly IImportMetadataProvider _importMetadataProvider;
         private readonly IImportServiceBusDtoServiceFactory _importServiceBusDtoServiceFactory;
         private readonly IIntegrationSettings _integrationSettings;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public ImportFromServiceBusService(IClientProxyFactory clientProxyFactory,
                                            IImportServiceBusDtoServiceFactory importServiceBusDtoServiceFactory,
                                            IImportMetadataProvider importMetadataProvider,
                                            IIntegrationSettings integrationSettings,
-                                           ITracer logger,
+                                           ITracer tracer,
                                            IDeserializeServiceBusDtoServiceFactory deserializeServiceBusDtoServiceFactory)
         {
             _clientProxyFactory = clientProxyFactory;
             _importServiceBusDtoServiceFactory = importServiceBusDtoServiceFactory;
             _importMetadataProvider = importMetadataProvider;
             _integrationSettings = integrationSettings;
-            _logger = logger;
+            _tracer = tracer;
             _deserializeServiceBusDtoServiceFactory = deserializeServiceBusDtoServiceFactory;
         }
 
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
         {
             if (!_importMetadataProvider.IsSupported(flowName))
             {
-                _logger.InfoFormat("Импорт объектов из потока {0} - поток не поддерживается", flowName);
+                _tracer.InfoFormat("Импорт объектов из потока {0} - поток не поддерживается", flowName);
                 return;
             }
 
@@ -63,11 +63,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
                             var package = brokerApiReceiver.ReceivePackage();
                             if (package == null)
                             {
-                                _logger.InfoFormat("Импорт объектов из потока {0} - шина пустая", flowName);
+                                _tracer.InfoFormat("Импорт объектов из потока {0} - шина пустая", flowName);
                                 break;
                             }
 
-                            _logger.InfoFormat("Импорт объектов из потока {0} - загружено {1} объектов из шины", flowName, package.Length);
+                            _tracer.InfoFormat("Импорт объектов из потока {0} - загружено {1} объектов из шины", flowName, package.Length);
 
                             if (package.Length == 0)
                             {
@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
                             }
                             catch (NonBlockingImportErrorException e)
                             {
-                                _logger.ErrorFormat(e, "Неблокирующая ошибка при импорте объектов из потока {0} - {1}", flowName, e.Message);
+                                _tracer.ErrorFormat(e, "Неблокирующая ошибка при импорте объектов из потока {0} - {1}", flowName, e.Message);
                             }
 
                             brokerApiReceiver.Acknowledge();
@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
                     }
                     catch (Exception e)
                     {
-                        _logger.ErrorFormat(e, "Ошибка при импорте объектов из потока {0} - {1}", flowName, e.Message);
+                        _tracer.ErrorFormat(e, "Ошибка при импорте объектов из потока {0} - {1}", flowName, e.Message);
                         throw;
                     }
                     finally

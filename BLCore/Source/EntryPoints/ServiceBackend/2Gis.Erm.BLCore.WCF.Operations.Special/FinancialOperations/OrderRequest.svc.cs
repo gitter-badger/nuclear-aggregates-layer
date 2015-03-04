@@ -14,18 +14,18 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
 {
     public class OrderProcessingRequestsApplicationService : IOrderProcessingRequestsApplicationService
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly ICreateOrderProlongationRequestOperationService _orderProlongationRequestService;
         private readonly ICreateOrderCreationRequestOperationService _orderCreationRequestService;
 
         public OrderProcessingRequestsApplicationService(
-            ITracer logger,
+            ITracer tracer,
             ICreateOrderProlongationRequestOperationService orderProcessingRequestService,
             IUserContext userContext,
             ICreateOrderCreationRequestOperationService orderCreationRequestService,
             IResourceGroupManager resourceGroupManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _orderProlongationRequestService = orderProcessingRequestService;
             _orderCreationRequestService = orderCreationRequestService;
 
@@ -40,12 +40,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }
@@ -58,12 +58,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }
@@ -86,12 +86,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }

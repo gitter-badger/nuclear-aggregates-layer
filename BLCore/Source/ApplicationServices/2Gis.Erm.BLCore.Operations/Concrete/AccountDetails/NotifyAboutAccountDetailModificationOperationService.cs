@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
 {
     public class NotifyAboutAccountDetailModificationOperationService : INotifyAboutAccountDetailModificationOperationService
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly INotificationsSettings _notificationsSettings;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
@@ -23,14 +23,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly Dictionary<long, string> _ownerEmailsMap = new Dictionary<long, string>();
 
-        public NotifyAboutAccountDetailModificationOperationService(ITracer logger,
+        public NotifyAboutAccountDetailModificationOperationService(ITracer tracer,
                                                                     INotificationsSettings notificationsSettings,
                                                                     INotificationSender notificationSender,
                                                                     IEmployeeEmailResolver employeeEmailResolver,
                                                                     IAccountReadModel accountReadModel,
                                                                     IOperationScopeFactory operationScopeFactory)
         {
-            _logger = logger;
+            _tracer = tracer;
             _notificationsSettings = notificationsSettings;
             _notificationSender = notificationSender;
             _employeeEmailResolver = employeeEmailResolver;
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.Info("Notifications disabled in config file");
+                _tracer.Info("Notifications disabled in config file");
                 return;
             }
 
@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
                     }
                     else
                     {
-                        _logger.Error(string.Format("Can't send notification about - payment received. Can't get to_address email. Account id: {0}. Owner code: {1}",
+                        _tracer.Error(string.Format("Can't send notification about - payment received. Can't get to_address email. Account id: {0}. Owner code: {1}",
                                                       infoToSendNotificationDto.AccountId,
                                                       infoToSendNotificationDto.AccountOwnerCode));
                     }

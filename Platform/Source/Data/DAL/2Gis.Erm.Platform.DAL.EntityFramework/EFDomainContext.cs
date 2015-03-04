@@ -24,21 +24,21 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly IDbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public EFDomainContext(IProcessingContext processingContext,
                                string defaultContextName,
                                IDbContext dbContext,
                                IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
                                IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider,
-                               ITracer logger)
+                               ITracer tracer)
         {
             _processingContext = processingContext;
             _defaultContextName = defaultContextName;
             _dbContext = dbContext;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
             _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
-            _logger = logger;
+            _tracer = tracer;
 
             EnsureUseCaseDuration();
         }
@@ -182,9 +182,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 {
                     _replicableHashSet.Clear();
 
-                    if (_logger != null)
+                    if (_tracer != null)
                     {
-                        _logger.Error(ex, string.Format("Произошла ошибка при репликации сущности EntityType=[{0}], Id=[{1}]", entity.GetType().Name, entity.Id));
+                        _tracer.Error(ex, string.Format("Произошла ошибка при репликации сущности EntityType=[{0}], Id=[{1}]", entity.GetType().Name, entity.Id));
                     }
 
                     throw;

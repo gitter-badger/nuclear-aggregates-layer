@@ -16,8 +16,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
                                                                                                     AggregatedResultsHandlerMessageProcessingStage.AggregatedResultsInput>
     {
         public AggregatedResultsHandlerMessageProcessingStage(IMessageAggregatedProcessingResultsHandlerFactory actorFactory,
-                                                              ITracer logger)
-            : base(actorFactory, logger)
+                                                              ITracer tracer)
+            : base(actorFactory, tracer)
         {
         }
 

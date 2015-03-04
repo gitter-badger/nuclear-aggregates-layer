@@ -12,17 +12,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
 {
     public sealed class WriteFirmsWithActiveOrdersToRabbitMqHandler : RequestHandler<WriteFirmsWithActiveOrdersToRabbitMqRequest, ExportResponse>
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IFirmRepository _firmRepository;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IRabbitMqQueueFactory _rabbitMqQueueFactory;
 
-        public WriteFirmsWithActiveOrdersToRabbitMqHandler(IRabbitMqQueueFactory rabbitMqQueueFactory, IIntegrationSettings integrationSettings, IFirmRepository firmRepository, ITracer logger)
+        public WriteFirmsWithActiveOrdersToRabbitMqHandler(IRabbitMqQueueFactory rabbitMqQueueFactory, IIntegrationSettings integrationSettings, IFirmRepository firmRepository, ITracer tracer)
         {
             _rabbitMqQueueFactory = rabbitMqQueueFactory;
             _integrationSettings = integrationSettings;
             _firmRepository = firmRepository;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override ExportResponse Handle(WriteFirmsWithActiveOrdersToRabbitMqRequest request)
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
         private NotificationException CreateAndLogFatalError(string format, params object[] args)
         {
             var message = string.Format(format, args);
-            _logger.Fatal(message);
+            _tracer.Fatal(message);
             throw new NotificationException(message);
         }
     }

@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
     {
         private const string DataSourceName = "SchedulerData";
 
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly ITaskServiceProcessingSettings _processingSettings;
         private readonly IConnectionStringSettings _connectionStringSettings;
         private readonly IJobFactory _jobFactory;
@@ -35,14 +35,14 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
             ITaskServiceProcessingSettings processingSettings,
             IConnectionStringSettings connectionStringSettings,
             IJobFactory jobFactory,
-            ITracer logger)
+            ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
             _processingSettings = processingSettings;
             _connectionStringSettings = connectionStringSettings;
             _jobFactory = jobFactory;
 
-            _logger.InfoFormat("Версия сервиса: {0} ", ThisAssembly.SemanticVersion);
+            _tracer.InfoFormat("Версия сервиса: {0} ", ThisAssembly.SemanticVersion);
         }
 
         public void Start()
@@ -82,11 +82,11 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                 scheduler.JobFactory = _jobFactory;
                 scheduler.Start();
 
-                _logger.Debug("Сервис успешно запущен");
+                _tracer.Debug("Сервис успешно запущен");
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Произошла ошибка при инициализации сервиса");
+                _tracer.Error(ex, "Произошла ошибка при инициализации сервиса");
             }
         }
 
@@ -115,18 +115,18 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                         const string MsgTemplate = "Can't interrupt job with key {0} and group {1}. " +
                                                    "Only jobs that are implements {2} can be in group with \"{3}\" suffix. " +
                                                    "Check quartz configuration.";
-                        _logger.ErrorFormat(ex, MsgTemplate, jobKey.Name, jobKey.Group, typeof(IInterruptableJob), InterruptableJobIndicatorSuffix);
+                        _tracer.ErrorFormat(ex, MsgTemplate, jobKey.Name, jobKey.Group, typeof(IInterruptableJob), InterruptableJobIndicatorSuffix);
                     }
                 }
 
                 scheduler.Shutdown(true);
                 SchedulerRepository.Instance.Remove(_processingSettings.SchedulerName);
 
-                _logger.Debug("Сервис успешно остановлен");
+                _tracer.Debug("Сервис успешно остановлен");
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Произошла ошибка при остановке сервиса");
+                _tracer.Error(ex, "Произошла ошибка при остановке сервиса");
             }
         }
 

@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Delete
     public sealed class RestApiDeleteGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IDeleteGenericEntityService<TEntity>
         where TEntity : class, IEntityKey
     {
-        public RestApiDeleteGenericEntityService(IApiClient apiClient, ITracer logger)
-            : base(apiClient, logger, "Delete.svc")
+        public RestApiDeleteGenericEntityService(IApiClient apiClient, ITracer tracer)
+            : base(apiClient, tracer, "Delete.svc")
         {
         }
 
@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Delete
             var apiTargetResource = GetOperationApiTargetResource("{0}/{1}", EntityName, entityId);
             var request = new ApiRequest(apiTargetResource);
             var response = ApiClient.Post(request);
-            response.IfErrorThanReportAndThrowException(apiTargetResource + string.Format(". EntityName: {0}. Id: {1}", EntityName, entityId), Logger);
+            response.IfErrorThanReportAndThrowException(apiTargetResource + string.Format(". EntityName: {0}. Id: {1}", EntityName, entityId), Tracer);
             return !string.IsNullOrEmpty(response.ResultContent) ? JsonConvert.DeserializeObject<DeleteConfirmation>(response.ResultContent, new DotNetDateTimeConverter()) : null;
         }
 

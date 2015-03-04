@@ -16,23 +16,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public OrderChangeStateOrders2ArchiveAggregateService(
             IRepository<Order> orderRepository, 
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IEnumerable<ChangesDescriptor> Archiving(IEnumerable<Order> orders)
         {
             var changes = new List<ChangesDescriptor>();
 
-            _logger.Info("Starting changing orders workflow step to Archive");
+            _tracer.Info("Starting changing orders workflow step to Archive");
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Order>())
             {
                 foreach (var order in orders)
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormat("Finished changing orders workflow step to Archive. Processed order: {0}", changes.Count);
+            _tracer.InfoFormat("Finished changing orders workflow step to Archive. Processed order: {0}", changes.Count);
             return changes;
         }
     }

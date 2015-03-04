@@ -12,14 +12,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
     public sealed class ServiceBusLoggingTest : IIntegrationTest
     {
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public ServiceBusLoggingTest(
             IOperationScopeFactory scopeFactory, 
-            ITracer logger)
+            ITracer tracer)
         {
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public ITestResult Execute()
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
             {
                 profiler.Stop();
                 decimal elapsedSeconds = profiler.ElapsedMilliseconds / 1000M;
-                _logger.InfoFormat("Execution count: {0}, it takes {1} sec, result processing rate exec/sec: {2}", 
+                _tracer.InfoFormat("Execution count: {0}, it takes {1} sec, result processing rate exec/sec: {2}", 
                     TargetExecutionCount,
                     elapsedSeconds,
                     TargetExecutionCount / elapsedSeconds);

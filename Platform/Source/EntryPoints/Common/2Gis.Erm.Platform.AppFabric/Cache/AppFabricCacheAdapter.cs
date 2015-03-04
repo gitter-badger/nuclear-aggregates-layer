@@ -11,15 +11,15 @@ namespace DoubleGis.Erm.Platform.AppFabric.Cache
 {
     public class AppFabricCacheAdapter : ICacheAdapter, IDisposable
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly string _cacheName;
         private readonly DataCacheFactory _dataCacheFactory = new DataCacheFactory();
         private readonly RetryPolicy<CacheTransientErrorDetectionStrategy> _retryPolicy =
             new RetryPolicy<CacheTransientErrorDetectionStrategy>(3, TimeSpan.FromSeconds(1));
         
-        public AppFabricCacheAdapter(ITracer logger, string cacheName)
+        public AppFabricCacheAdapter(ITracer tracer, string cacheName)
         {
-            _logger = logger;
+            _tracer = tracer;
             _cacheName = cacheName;
             _retryPolicy.Retrying += OnRetrying;
         }
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.Platform.AppFabric.Cache
 
         private void OnRetrying(object sender, RetryingEventArgs args)
         {
-            _logger.WarnFormat("Retrying to execute action within AppFabric Cache adapter. " +
+            _tracer.WarnFormat("Retrying to execute action within AppFabric Cache adapter. " +
                                  "Current retry count = {0}, last exception: {1}",
                                  args.CurrentRetryCount,
                                  args.LastException.ToString());

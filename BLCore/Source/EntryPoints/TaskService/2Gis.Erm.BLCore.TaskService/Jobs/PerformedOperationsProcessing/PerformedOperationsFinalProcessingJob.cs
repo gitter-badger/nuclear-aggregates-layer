@@ -31,8 +31,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             IMessageFlowProcessorFactory messageFlowProcessorFactory,
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService, 
-            ITracer logger)
-            : base(signInService, userImpersonationService, logger)
+            ITracer tracer)
+            : base(signInService, userImpersonationService, tracer)
         {
             _integrationSettings = integrationSettings;
             _messageFlowRegistry = messageFlowRegistry;
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
                                                 typeof(PerformedOperationsFinalProcessingJob),
                                                 IgnoreErrorsOnStages,
                                                 rawStage);
-                        Logger.Error(msg);
+                        Tracer.Error(msg);
 
                         throw new InvalidOperationException(msg);
                     }
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
         {
             if (!_integrationSettings.EnableIntegration)
             {
-                Logger.InfoFormat("Integration disabled in settings. Job stops immediately");
+                Tracer.InfoFormat("Integration disabled in settings. Job stops immediately");
                 return;
             }
 
@@ -107,13 +107,13 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             if (!_messageFlowRegistry.TryResolve(flowDescriptor, out messageFlow))
             {
                 var msg = "Unsupported flow specified for processing: " + flowDescriptor;
-                Logger.Fatal(msg);
+                Tracer.Fatal(msg);
                 throw new InvalidOperationException(msg);
             }
 
             ISyncMessageFlowProcessor messageFlowProcessor;
 
-            Logger.Debug("Launching message flow processing. Target message flow: " + messageFlow);
+            Tracer.Debug("Launching message flow processing. Target message flow: " + messageFlow);
 
             try
             {
@@ -129,19 +129,19 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Can't create processor for  specified flow " + messageFlow);
+                Tracer.Error(ex, "Can't create processor for  specified flow " + messageFlow);
                 throw;
             }
 
             try
             {
-                Logger.Debug("Message flow processor starting. Target message flow: " + messageFlow);
+                Tracer.Debug("Message flow processor starting. Target message flow: " + messageFlow);
                 messageFlowProcessor.Process();
-                Logger.Debug("Message flow processor finished. Target message flow: " + messageFlow);
+                Tracer.Debug("Message flow processor finished. Target message flow: " + messageFlow);
             }
             catch (Exception ex)
             {
-                Logger.Fatal(ex, "Message flow processor unexpectedly interrupted. Target message flow: " + messageFlow);
+                Tracer.Fatal(ex, "Message flow processor unexpectedly interrupted. Target message flow: " + messageFlow);
                 throw;
             }
             finally

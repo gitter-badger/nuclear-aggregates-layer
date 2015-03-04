@@ -12,8 +12,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 {
     public sealed class TransformMessageProcessingStage : MessageProcessingStageBase<IMessageTransformerFactory, IMessageTransformer, IReadOnlyDictionary<Guid, IMessage>>
     {
-        public TransformMessageProcessingStage(IMessageTransformerFactory actorFactory, ITracer logger) 
-            : base(actorFactory, logger)
+        public TransformMessageProcessingStage(IMessageTransformerFactory actorFactory, ITracer tracer) 
+            : base(actorFactory, tracer)
         {
         }
 
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
                 if (!actor.CanTransform(input.Value))
                 {
                     string msg = string.Format("Can't transform message from flow {0} by transformer {1}", context.MessageFlow, actor.GetType().Name);
-                    Logger.Error(msg);
+                    Tracer.Error(msg);
 
                     results.Add(input.Key, 
                                 Stage.EmptyResult()

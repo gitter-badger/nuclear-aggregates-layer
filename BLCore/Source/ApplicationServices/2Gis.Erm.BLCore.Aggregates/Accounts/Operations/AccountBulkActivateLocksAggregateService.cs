@@ -16,23 +16,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         private readonly IRepository<Lock> _lockRepository;
         private readonly IRepository<LockDetail> _lockDetailRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AccountBulkActivateLocksAggregateService(
             IRepository<Lock> lockRepository, 
             IRepository<LockDetail> lockDetailRepository,
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _lockRepository = lockRepository;
             _lockDetailRepository = lockDetailRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Activate(IEnumerable<ActivateLockDto> lockInfos)
         {
-            _logger.InfoFormat("Starting activation process for locks");
+            _tracer.InfoFormat("Starting activation process for locks");
 
             int processedLocksCount = 0;
             int processedLockDetailsCount = 0;
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                         ++processedLockDetailsCount;
                     }
 
-                    _logger.DebugFormat(
+                    _tracer.DebugFormat(
                         "Processed lock with id {0}. Current counters state: locks {1}, lockdetails {2}",
                         info.Lock.Id,
                         processedLocksCount,
@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormat(
+            _tracer.InfoFormat(
                 "Finished activation process for locks. Counters: locks {0}, lockdetails {1}",
                 processedLocksCount,
                 processedLockDetailsCount);

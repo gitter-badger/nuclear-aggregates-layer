@@ -173,11 +173,11 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
 
         private readonly IOperationServicesManager _servicesManager;
 
-        public ExportObjectsJob(ITracer logger,
+        public ExportObjectsJob(ITracer tracer,
                                 ISignInService signInService,
                                 IUserImpersonationService userImpersonationService,
                                 IOperationServicesManager servicesManager)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _servicesManager = servicesManager;
         }

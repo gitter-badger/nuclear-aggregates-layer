@@ -29,10 +29,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                                       IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                                       IAPIIdentityServiceSettings identityServiceSettings,
                                                       IUserContext userContext,
-                                                      ITracer logger,
+                                                      ITracer tracer,
                                                       IGetBaseCurrencyService getBaseCurrencyService,
                                                       IPublicService publicService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
         }
@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
             return View(viewModel);
         }
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
             return View(viewModel);
         }

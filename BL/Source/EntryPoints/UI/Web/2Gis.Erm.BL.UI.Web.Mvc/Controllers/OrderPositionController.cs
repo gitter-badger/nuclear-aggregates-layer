@@ -34,12 +34,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                        IAPIIdentityServiceSettings identityServiceSettings,
                                        IUserContext userContext,
-                                       ITracer logger,
+                                       ITracer tracer,
                                        IGetBaseCurrencyService getBaseCurrencyService,
                                        IPublicService publicService,
                                        IGetRatedPricesForCategoryOperationService getRatedPricesForCategoryOperationService,
                                        IViewOrderPositionOperationService viewOrderPositionOperationService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
             _getRatedPricesForCategoryOperationService = getRatedPricesForCategoryOperationService;
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             catch (Exception ex)
             {
                 var tmpModel = new ViewModel();
-                ModelUtils.OnException(this, Logger, tmpModel, ex);
+                ModelUtils.OnException(this, Tracer, tmpModel, ex);
                 return new JsonNetResult(tmpModel.Message);
             }
         }

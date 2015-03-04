@@ -13,10 +13,10 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         private readonly INotificationsProcessor _notificationsProcessor;
 
         public ProcessNotifications(INotificationsProcessor notificationsProcessor,
-                                    ITracer logger,
+                                    ITracer tracer,
                                     ISignInService signInService,
                                     IUserImpersonationService userImpersonationService)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _notificationsProcessor = notificationsProcessor;
         }

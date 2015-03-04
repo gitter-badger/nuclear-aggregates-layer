@@ -17,12 +17,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
     public class FirmInfoApplicationService : IFirmInfoApplicationRestService
     {
         private readonly IGetFirmInfoService _getFirmInfoService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public FirmInfoApplicationService(IGetFirmInfoService getFirmInfoService, ITracer logger)
+        public FirmInfoApplicationService(IGetFirmInfoService getFirmInfoService, ITracer tracer)
         {
             _getFirmInfoService = getFirmInfoService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IEnumerable<FirmInfoDto> Execute(IEnumerable<FirmGuidDto> firmIds)
@@ -33,12 +33,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<FirmInfoOperationErrorDescription>(new FirmInfoOperationErrorDescription(ex.Message), HttpStatusCode.BadRequest);
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<FirmInfoOperationErrorDescription>(new FirmInfoOperationErrorDescription(ex.Message), HttpStatusCode.InternalServerError);
             }
         }

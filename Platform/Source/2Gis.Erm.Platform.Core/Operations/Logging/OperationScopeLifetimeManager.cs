@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         private readonly IOperationConsistencyContextsProvider _verifierContextsProvider;
         private readonly IOperationConsistencyVerifier _operationConsistencyVerifier;
         private readonly IProcessingContext _processingContext;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public OperationScopeLifetimeManager(
             IEnvironmentSettings environmentSettings,
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             IOperationConsistencyContextsProvider verifierContextsProvider,
             IOperationConsistencyVerifier operationConsistencyVerifier,
             IProcessingContext processingContext,
-            ITracer logger)
+            ITracer tracer)
         {
             _environmentSettings = environmentSettings;
             _operationLogger = operationLogger;
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             _verifierContextsProvider = verifierContextsProvider;
             _operationConsistencyVerifier = operationConsistencyVerifier;
             _processingContext = processingContext;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Close(IOperationScope scope)
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             if (!_operationConsistencyVerifier.IsOperationContextConsistent(verifierContexts))
             {
                 var msg = string.Format("Operation verifier. Operation context is not consistent. Use case root operation identity: {0}", useCase.RootNode.OperationIdentity);
-                _logger.Error(msg);
+                _tracer.Error(msg);
 
                 // TODO {all, 07.08.2013}: подумать в каких условиях бросать exception, в каких нет (например, development и test environment - бросаем exception, production - просто логируем)
                 if (_environmentSettings.Type == EnvironmentType.Development

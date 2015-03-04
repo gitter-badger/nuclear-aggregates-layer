@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IAccountBulkDeactivateUsedLockAggregateService _accountBulkDeactivateUsedLockAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public ActualizeAccountsDuringWithdrawalOperationService(
             IAccountReadModel accountReadModel,
@@ -30,21 +30,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IAccountBulkDeactivateUsedLockAggregateService accountBulkDeactivateUsedLockAggregateService,
             IUseCaseTuner useCaseTuner, 
             IOperationScopeFactory scopeFactory, 
-            ITracer logger)
+            ITracer tracer)
         {
             _accountReadModel = accountReadModel;
             _accountWithdrawFromAccountsAggregateService = accountWithdrawFromAccountsAggregateService;
             _accountBulkDeactivateUsedLockAggregateService = accountBulkDeactivateUsedLockAggregateService;
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Actualize(TimePeriod withdrawalPeriod, IEnumerable<AccountStateForWithdrawalDto> accountInfos)
         {
             _useCaseTuner.AlterDuration<ActualizeAccountsDuringWithdrawalOperationService>();
 
-            _logger.InfoFormat("Starting accounts state actualization process during withdrawal");
+            _tracer.InfoFormat("Starting accounts state actualization process during withdrawal");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeAccountsDuringWithdrawalIdentity>())
             {
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoFormat("Finished accounts state actualization process during withdrawal");
+            _tracer.InfoFormat("Finished accounts state actualization process during withdrawal");
         }
     }
 }

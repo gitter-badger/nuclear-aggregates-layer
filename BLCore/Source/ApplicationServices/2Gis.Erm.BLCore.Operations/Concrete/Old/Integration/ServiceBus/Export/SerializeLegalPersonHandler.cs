@@ -26,8 +26,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         
         public SerializeLegalPersonHandler(ISecurityServiceUserIdentifier securityServiceUserIdentifier, 
                                            IExportRepository<LegalPerson> exportOperationsRepository, 
-                                           ITracer logger)
-            : base(exportOperationsRepository, logger)
+                                           ITracer tracer)
+            : base(exportOperationsRepository, tracer)
         {
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }

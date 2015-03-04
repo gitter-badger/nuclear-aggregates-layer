@@ -17,8 +17,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Append
         private readonly EntityName _appendedEntityName;
         private readonly EntityName _parentEntityName;
 
-        public RestApiAppendGenericEntityService(IApiClient apiClient, ITracer logger)
-            : base(apiClient, logger, "Append.svc/Rest/{0}/{1}/{2}/{3}")
+        public RestApiAppendGenericEntityService(IApiClient apiClient, ITracer tracer)
+            : base(apiClient, tracer, "Append.svc/Rest/{0}/{1}/{2}/{3}")
         {
             _appendedEntityName = typeof(TAppended).AsEntityName();
             _parentEntityName = typeof(TParent).AsEntityName();
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Append
             response.IfErrorThanReportAndThrowException(apiTargetResource + string.Format(". AppendedType: {0}. ParentType: {1}",
                                                                                           _appendedEntityName,
                                                                                           _parentEntityName),
-                                                        Logger);
+                                                        Tracer);
         }
     }
 }

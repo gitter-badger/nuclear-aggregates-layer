@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
     public sealed class SerializeDenialReasonHandler : SerializeObjectsHandler<DenialReason, ExportFlowOrders_DenialReason>
     {
         public SerializeDenialReasonHandler(IExportRepository<DenialReason> exportOperationsRepository,
-                                            ITracer logger)
-            : base(exportOperationsRepository, logger)
+                                            ITracer tracer)
+            : base(exportOperationsRepository, tracer)
         {
         }
 

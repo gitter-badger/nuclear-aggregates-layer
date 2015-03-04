@@ -25,10 +25,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.UI
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                               IAPIIdentityServiceSettings identityServiceSettings,
                               IUserContext userContext,
-                              ITracer logger,
+                              ITracer tracer,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IUIServicesManager uiServicesManager)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _uiServicesManager = uiServicesManager;
         }

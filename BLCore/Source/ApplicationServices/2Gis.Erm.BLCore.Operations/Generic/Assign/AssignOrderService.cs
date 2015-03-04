@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecureFinder _finder;
         private readonly IOrderRepository _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
 
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             ISecureFinder finder,
             IOrderRepository orderRepository,
             IOperationScopeFactory scopeFactory,
-            ITracer logger,
+            ITracer tracer,
             ISecurityServiceEntityAccess entityAccessService,
             IUserContext userContext)
         {
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _finder = finder;
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
         }
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                         .Updated<Order>(entityId)
                         .Complete();
 
-                    _logger.InfoFormat("Куратором заказа с id={0} назначен пользователь {1}", entityId, ownerCode);
+                    _tracer.InfoFormat("Куратором заказа с id={0} назначен пользователь {1}", entityId, ownerCode);
                     return null;
                 }
             }

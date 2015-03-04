@@ -60,11 +60,11 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             }
         }
 
-        public static IUnityContainer ConfigureDI(this IUnityContainer container, ITracer logger)
+        public static IUnityContainer ConfigureDI(this IUnityContainer container, ITracer tracer)
         {
             LocalPath = GetApplicationWorkingDirectory;
 
-            logger.Info("Start configure. Startup directory: " + LocalPath);
+            tracer.Info("Start configure. Startup directory: " + LocalPath);
 
             try
             {
@@ -72,7 +72,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 container.AddExtension(queryableContainerExtension);
                 container.RegisterInstance(Mapping.QueryableExtension, queryableContainerExtension);
 
-                container.RegisterLogger(logger)
+                container.RegisterLogger(tracer)
                          .RegisterModules()
                          .RegisterType<IDocumentManager, DocumentManager>(Lifetime.Singleton)
                          .RegisterType<IDocumentsStateInfo, DocumentManager>(Lifetime.Singleton)
@@ -84,20 +84,20 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             }
             catch (Exception ex)
             {
-                logger.FatalFormat(ex, "Can't configure application");
+                tracer.FatalFormat(ex, "Can't configure application");
                 throw;
             }
 
-            logger.Info("Configured successfully");
+            tracer.Info("Configured successfully");
 
             return container;
         }
 
-        public static IUnityContainer Run(this IUnityContainer container, ITracer logger)
+        public static IUnityContainer Run(this IUnityContainer container, ITracer tracer)
         {
             try
             {
-                logger.Info("Start running ...");
+                tracer.Info("Start running ...");
                 var standaloneWorkerModules = container.ResolveAll<IStandaloneWorkerModule>();
                 foreach (var module in standaloneWorkerModules)
                 {
@@ -110,11 +110,11 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             }
             catch (Exception ex)
             {
-                logger.ErrorFormat(ex, "Can't run application");
+                tracer.ErrorFormat(ex, "Can't run application");
                 throw;
             }
 
-            logger.Info("Run successfully ...");
+            tracer.Info("Run successfully ...");
 
             return container;
         }
@@ -135,9 +135,9 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             return container.RegisterType<IUIDispatcher, UIDispatcher>(Lifetime.Singleton, new InjectionConstructor(Dispatcher.CurrentDispatcher));
         }
 
-        private static IUnityContainer RegisterLogger(this IUnityContainer container, ITracer logger)
+        private static IUnityContainer RegisterLogger(this IUnityContainer container, ITracer tracer)
         {
-            return container.RegisterInstance<ITracer>(logger, Lifetime.Singleton);
+            return container.RegisterInstance<ITracer>(tracer, Lifetime.Singleton);
         }
 
         private static IUnityContainer RegisterModules(this IUnityContainer container)

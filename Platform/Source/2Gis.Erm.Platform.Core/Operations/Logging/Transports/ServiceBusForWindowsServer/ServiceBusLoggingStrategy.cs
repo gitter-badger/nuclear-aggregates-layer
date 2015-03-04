@@ -13,16 +13,16 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
     {
         private readonly ITrackedUseCase2BrokeredMessageConverter _trackedUseCase2BrokeredMessageConverter;
         private readonly IServiceBusMessageSender _serviceBusMessageSender;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public ServiceBusLoggingStrategy(
             ITrackedUseCase2BrokeredMessageConverter trackedUseCase2BrokeredMessageConverter,
             IServiceBusMessageSender serviceBusMessageSender,
-            ITracer logger)
+            ITracer tracer)
         {
             _trackedUseCase2BrokeredMessageConverter = trackedUseCase2BrokeredMessageConverter;
             _serviceBusMessageSender = serviceBusMessageSender;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public LoggingSession Begin()
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             catch (Exception ex)
             {
                 report = ex.ToDecription();
-                _logger.ErrorFormat(ex, "Can't log info about usecase to service bus. Use case details: {0}", useCase);
+                _tracer.ErrorFormat(ex, "Can't log info about usecase to service bus. Use case details: {0}", useCase);
                 
                 return false;
             }

@@ -20,17 +20,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
         where TEntity : class, IEntity, IEntityKey
         where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IPublicService _publicService;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IIntegrationSettings _integrationSettings;
 
-        public OperationsExporter(ITracer logger,
+        public OperationsExporter(ITracer tracer,
                                   IClientProxyFactory clientProxyFactory,
                                   IIntegrationSettings integrationSettings,
                                   IPublicService publicService)
         {
-            _logger = logger;
+            _tracer = tracer;
             _clientProxyFactory = clientProxyFactory;
             _integrationSettings = integrationSettings;
             _publicService = publicService;
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
             }
             catch (Exception e)
             {
-                _logger.FatalFormat(e, "Ошибка при экспорте сущности {0}", typeof(TEntity).Name);
+                _tracer.FatalFormat(e, "Ошибка при экспорте сущности {0}", typeof(TEntity).Name);
                 throw;
             }
         }

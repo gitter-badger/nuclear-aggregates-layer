@@ -19,8 +19,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Modify
             IDesktopClientProxyFactory clientProxyFactory,
             IStandartConfigurationSettings configuration,
             IApiSettings apiSettings,
-            ITracer logger)
-            : base(clientProxyFactory, configuration, apiSettings, logger)
+            ITracer tracer)
+            : base(clientProxyFactory, configuration, apiSettings, tracer)
         {
         }
 
@@ -34,12 +34,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Modify
             }
             catch (FaultException<CreateOrUpdateOperationErrorDescription> ex)
             {
-                Logger.Error(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
+                Tracer.Error(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
+                Tracer.Error(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
                 throw;
             }
         }

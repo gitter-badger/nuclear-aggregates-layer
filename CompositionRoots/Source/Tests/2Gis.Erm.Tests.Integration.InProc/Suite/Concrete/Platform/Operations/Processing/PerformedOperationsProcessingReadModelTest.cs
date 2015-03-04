@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
         private readonly IPerformedOperationsProcessingReadModel _readModel;
         private readonly IProducedQueryLogContainer _producedQueryLogContainer;
         private readonly IUseCaseTuner _useCaseTuner;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public PerformedOperationsProcessingReadModelTest(
             IConnectionStringSettings connectionStringSettings,
@@ -46,14 +46,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
             IPerformedOperationsProcessingReadModel readModel,
             IProducedQueryLogContainer producedQueryLogContainer,
             IUseCaseTuner useCaseTuner,
-            ITracer logger)
+            ITracer tracer)
         {
             _connectionStringSettings = connectionStringSettings;
             _finder = finder;
             _readModel = readModel;
             _producedQueryLogContainer = producedQueryLogContainer;
             _useCaseTuner = useCaseTuner;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public ITestResult Execute()

@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AssignAccountDetailService(
             IPublicService publicService, 
@@ -38,14 +38,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             IOperationScopeFactory scopeFactory,
             IUserContext userContext,
             ISecurityServiceEntityAccess entityAccessService, 
-            ITracer logger)
+            ITracer tracer)
         {
             _publicService = publicService;
             _finder = finder;
             _accountRepository = accountRepository;
             _scopeFactory = scopeFactory;
             _entityAccessService = entityAccessService;
-            _logger = logger;
+            _tracer = tracer;
             _userContext = userContext;
         }
 
@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     .Complete();
             }
 
-            _logger.InfoFormat("Куратором операции по ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
+            _tracer.InfoFormat("Куратором операции по ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
 
             return null;
         }

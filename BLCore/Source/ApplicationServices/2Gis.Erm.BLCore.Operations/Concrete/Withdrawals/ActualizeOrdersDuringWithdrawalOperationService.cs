@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IOrderChangeStateOrders2ArchiveAggregateService _orderChangeStateOrders2ArchiveAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IActionLogger _actionLogger;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public ActualizeOrdersDuringWithdrawalOperationService(
             IOrderReadModel orderReadModel,
@@ -28,19 +28,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IOrderChangeStateOrders2ArchiveAggregateService orderChangeStateOrders2ArchiveAggregateService,
             IOperationScopeFactory scopeFactory,
             IActionLogger actionLogger,
-            ITracer logger)
+            ITracer tracer)
         {
             _orderReadModel = orderReadModel;
             _orderActualizeOrdersAmoutDuringWithdrawalAggregateService = orderActualizeOrdersAmoutDuringWithdrawalAggregateService;
             _orderChangeStateOrders2ArchiveAggregateService = orderChangeStateOrders2ArchiveAggregateService;
             _scopeFactory = scopeFactory;
             _actionLogger = actionLogger;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Actualize(long withdrawalOrganizationUnitId, IEnumerable<ActualizeOrdersDto> orderInfos)
         {
-            _logger.Info("Starting actialize orders during withdrawal process");
+            _tracer.Info("Starting actialize orders during withdrawal process");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeOrdersDuringWithdrawalIdentity>())
             {
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.Info("Finished actialize orders during withdrawal process");
+            _tracer.Info("Finished actialize orders during withdrawal process");
         }
     }
 }

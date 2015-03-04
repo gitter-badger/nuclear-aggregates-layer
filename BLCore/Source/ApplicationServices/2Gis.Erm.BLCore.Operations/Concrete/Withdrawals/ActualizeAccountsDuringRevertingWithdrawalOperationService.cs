@@ -19,27 +19,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IAccountBulkActivateLocksAggregateService _accountBulkActivateLocksAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public ActualizeAccountsDuringRevertingWithdrawalOperationService(
             IAccountRevertWithdrawFromAccountsAggregateService accountRevertWithdrawFromAccountsAggregateService,
             IAccountBulkActivateLocksAggregateService accountBulkActivateLocksAggregateService,
             IUseCaseTuner useCaseTuner, 
             IOperationScopeFactory scopeFactory, 
-            ITracer logger)
+            ITracer tracer)
         {
             _accountRevertWithdrawFromAccountsAggregateService = accountRevertWithdrawFromAccountsAggregateService;
             _accountBulkActivateLocksAggregateService = accountBulkActivateLocksAggregateService;
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Actualize(IEnumerable<AccountStateForRevertingWithdrawalDto> accountInfos)
         {
             _useCaseTuner.AlterDuration<ActualizeAccountsDuringWithdrawalOperationService>();
 
-            _logger.InfoFormat("Starting accounts state actualization process during reverting withdrawal");
+            _tracer.InfoFormat("Starting accounts state actualization process during reverting withdrawal");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeAccountsDuringRevertingWithdrawalIdentity>())
             {
@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoFormat("Finished accounts state actualization process during reverting withdrawal");
+            _tracer.InfoFormat("Finished accounts state actualization process during reverting withdrawal");
         }
     }
 }

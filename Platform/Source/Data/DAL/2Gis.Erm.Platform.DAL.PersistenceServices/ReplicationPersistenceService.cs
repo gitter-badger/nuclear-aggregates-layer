@@ -14,18 +14,18 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
     {
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IDatabaseCaller _databaseCaller;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
         public ReplicationPersistenceService(
             IMsCrmSettings msCrmSettings,
             IDatabaseCaller databaseCaller,
-            ITracer logger,
+            ITracer tracer,
             IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
             _msCrmSettings = msCrmSettings;
             _databaseCaller = databaseCaller;
-            _logger = logger;
+            _tracer = tracer;
             _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
         }
 
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
         {
             if (!_msCrmSettings.EnableReplication)
             {
-                _logger.WarnFormat("Replication to MsCRM disabled in config. Do nothing ...");
+                _tracer.WarnFormat("Replication to MsCRM disabled in config. Do nothing ...");
                 notReplicated = new long[0];
                 return;
             }
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorFormat(ex, "Can't replicate entity with id {0} using procedure {1}", id, procedureName);
+                    _tracer.ErrorFormat(ex, "Can't replicate entity with id {0} using procedure {1}", id, procedureName);
                     failed.Add(id);
                 }
             }
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Can't replicate entities batch using procedure {0}", procedureName);
+                _tracer.ErrorFormat(ex, "Can't replicate entities batch using procedure {0}", procedureName);
                 notReplicated = new List<long>(ids);
             }
         }

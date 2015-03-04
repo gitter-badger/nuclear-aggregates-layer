@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public NotifyAboutAdvertisementElementFileChangedOperationService(
             INotificationsSettings notificationsSettings, 
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             IEmployeeEmailResolver employeeEmailResolver,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _notificationsSettings = notificationsSettings;
             _advertisementReadModel = advertisementReadModel;
@@ -46,14 +46,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             _employeeEmailResolver = employeeEmailResolver;
             _userContext = userContext;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Notify(long advertisementElementId)
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.Info("Notifications disabled in config file");
+                _tracer.Info("Notifications disabled in config file");
                 return;
             }
 
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             }
             else
             {
-                _logger.Error("Can't send notification about - advertisment element changed. Can't get to_address email. Firm name: " + mailInfo.FirmRef.Name +
+                _tracer.Error("Can't send notification about - advertisment element changed. Can't get to_address email. Firm name: " + mailInfo.FirmRef.Name +
                                 ". Owner code: " + mailInfo.FirmOwnerCode);
             }
         }

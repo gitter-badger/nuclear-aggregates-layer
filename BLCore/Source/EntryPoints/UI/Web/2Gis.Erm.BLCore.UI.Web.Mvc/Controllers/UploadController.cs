@@ -53,10 +53,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                 IAPIIdentityServiceSettings identityServiceSettings,
                                 IUserContext userContext,
-                                ITracer logger,
+                                ITracer tracer,
                                 IGetBaseCurrencyService getBaseCurrencyService,
                                 IOperationServicesManager operationServicesManager)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
         }
@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             catch (Exception ex)
             {
                 // todo: не работает на клиенте
-                Logger.Error(ex, BLResources.ErrorDuringOperation);
+                Tracer.Error(ex, BLResources.ErrorDuringOperation);
                 var errorText = ExceptionFilter.HandleException(ex, Response);
                 Response.StatusCode = 200;
                 var result = new { Message = errorText };

@@ -21,16 +21,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
         private readonly IFirmPersistenceService _firmPersistenceService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public ImportFirmAggregateService(
             IFirmPersistenceService firmPersistenceService, 
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _firmPersistenceService = firmPersistenceService;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public EntityChangesContext ImportFirms(IEnumerable<FirmServiceBusDto> dtos,
@@ -68,8 +68,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
                 if (diffParsedDtoAndAggregateService.Any())
                 {
                     importFirmChanges.Updated<Firm>(diffParsedDtoAndAggregateService);
-                    _logger.Warn("There are different firm changes detected from parsed dto and reported by aggregate service. Divergent firm ids count: " + diffParsedDtoAndAggregateService.Length);
-                    _logger.Debug("Divergent firm ids (DiffParsedDtoAndAggregateService): " + string.Join(",", diffParsedDtoAndAggregateService));
+                    _tracer.Warn("There are different firm changes detected from parsed dto and reported by aggregate service. Divergent firm ids count: " + diffParsedDtoAndAggregateService.Length);
+                    _tracer.Debug("Divergent firm ids (DiffParsedDtoAndAggregateService): " + string.Join(",", diffParsedDtoAndAggregateService));
                 }
 
                 return importFirmChanges;

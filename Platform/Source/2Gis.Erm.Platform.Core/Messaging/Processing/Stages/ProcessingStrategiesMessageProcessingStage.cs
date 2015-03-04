@@ -19,8 +19,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 
         public ProcessingStrategiesMessageProcessingStage(IMessageFlowRegistry messageFlowRegistry,
                                                           IMessageProcessingStrategyFactory actorFactory,
-                                                          ITracer logger)
-            : base(actorFactory, logger)
+                                                          ITracer tracer)
+            : base(actorFactory, tracer)
         {
             _messageFlowRegistry = messageFlowRegistry;
         }
@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
                 if (!actor.CanProcess(input.Value))
                 {
                     string msg = string.Format("Can't process message from flow {0} by strategy {1}", context.MessageFlow, actor.GetType().Name);
-                    Logger.Error(msg);
+                    Tracer.Error(msg);
 
                     results.Add(input.Key,
                                 Stage.EmptyResult()

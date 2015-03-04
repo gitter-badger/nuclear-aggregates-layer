@@ -44,12 +44,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Kazakhstan.Controllers
                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                      IAPIIdentityServiceSettings identityServiceSettings,
                                      IUserContext userContext,
-                                     ITracer logger,
+                                     ITracer tracer,
                                      IGetBaseCurrencyService getBaseCurrencyService,
                                      ISecurityServiceFunctionalAccess functionalAccessService,
                                      IPublicService publicService,
                                      ILegalPersonReadModel legalPersonReadModel)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Kazakhstan.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
 
             return View(model);

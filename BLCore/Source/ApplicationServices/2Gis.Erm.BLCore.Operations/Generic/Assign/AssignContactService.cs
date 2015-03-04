@@ -12,18 +12,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
     public class AssignContactService : IAssignGenericEntityService<Contact>
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IAssignAggregateRepository<Contact> _assignContactRepository;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public AssignContactService(
-            ITracer logger, 
+            ITracer tracer, 
             IAssignAggregateRepository<Contact> assignContactRepository, 
             IPublicService publicService, 
             IOperationScopeFactory scopeFactory)
         {
-            _logger = logger;
+            _tracer = tracer;
             _assignContactRepository = assignContactRepository;
             _publicService = publicService;
             _scopeFactory = scopeFactory;
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     .Complete();
             }
 
-            _logger.InfoFormat("Куратором фирмы с id={0} назначен пользователь {1}", entityId, ownerCode);
+            _tracer.InfoFormat("Куратором фирмы с id={0} назначен пользователь {1}", entityId, ownerCode);
 
             return null;
         }

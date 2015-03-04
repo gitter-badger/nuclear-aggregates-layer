@@ -20,12 +20,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
     public class RequestStateApplicationService : IRequestStateApplicationService
     {
         private readonly IGetDomainEntityDtoService<OrderProcessingRequest> _domainEntityDtoService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public RequestStateApplicationService(IGetDomainEntityDtoService<OrderProcessingRequest> domainEntityDtoService, ITracer logger)
+        public RequestStateApplicationService(IGetDomainEntityDtoService<OrderProcessingRequest> domainEntityDtoService, ITracer tracer)
         {
             _domainEntityDtoService = domainEntityDtoService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IOrderRequestStateDescription[] GetState(IEnumerable<long> requestIds)
@@ -69,12 +69,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }

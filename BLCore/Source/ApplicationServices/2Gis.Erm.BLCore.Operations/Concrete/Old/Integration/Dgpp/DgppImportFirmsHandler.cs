@@ -76,19 +76,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private readonly ISecurityServiceUserIdentifier _securityService;
         private readonly IOperationScopeFactory _operationScopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         private readonly IFirmRepository _firmRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public DgppImportFirmsHandler(ISecurityServiceUserIdentifier securityService,
-            ITracer logger,
+            ITracer tracer,
             IFirmRepository firmRepository, 
             IUnitOfWork unitOfWork,
             IOperationScopeFactory operationScopeFactory)
         {
             _securityService = securityService;
-            _logger = logger;
+            _tracer = tracer;
             _firmRepository = firmRepository;
             _unitOfWork = unitOfWork;
             _operationScopeFactory = operationScopeFactory;
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
         {
             try
             {
-                _logger.InfoFormat("{0}: начало", HandlerName);
+                _tracer.InfoFormat("{0}: начало", HandlerName);
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
                     ImportFirmsHeaderDto header;
@@ -124,7 +124,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
             }
             finally
             {
-                _logger.InfoFormat("{0}: окончание", HandlerName);
+                _tracer.InfoFormat("{0}: окончание", HandlerName);
             }
         }
 

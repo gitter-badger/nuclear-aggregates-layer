@@ -15,16 +15,16 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
     {
         private readonly ISignInService _signInService;
         private readonly IUserImpersonationService _userImpersonationService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         protected TaskServiceJobBase(
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService,
-            ITracer logger)
+            ITracer tracer)
         {
             _signInService = signInService;
             _userImpersonationService = userImpersonationService;
-            _logger = logger;
+            _tracer = tracer;
         }
         
         /// <summary>
@@ -32,9 +32,9 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
         /// </summary>
         public string ErmUserImpersonateAs { get; set; }
 
-        protected ITracer Logger
+        protected ITracer Tracer
         {
-            get { return _logger; }
+            get { return _tracer; }
         }
 
         public void Execute(IJobExecutionContext context)
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
 
             try
             {
-                Logger.InfoFormat("[{0}][{1}]{2} - старт задачи", group, description, jobDataMap);
+                Tracer.InfoFormat("[{0}][{1}]{2} - старт задачи", group, description, jobDataMap);
 
                 // аутентифицируем текущего пользователя в системе и выполняем logon
                 _signInService.SignIn();
@@ -67,17 +67,17 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
                 // если указано, то подменяем пользователя указанным 
                 if (!string.IsNullOrEmpty(ErmUserImpersonateAs))
                 {
-                    Logger.InfoFormat("[{0}][{1}]{2} - используем учетную запись пользователя '{3}'", group, description, jobDataMap, ErmUserImpersonateAs);
+                    Tracer.InfoFormat("[{0}][{1}]{2} - используем учетную запись пользователя '{3}'", group, description, jobDataMap, ErmUserImpersonateAs);
                     _userImpersonationService.ImpersonateAsUser(ErmUserImpersonateAs);
                 }
 
                 ExecuteInternal(context);
 
-                Logger.InfoFormat("[{0}][{1}]{2} - окончание задачи", group, description, jobDataMap);
+                Tracer.InfoFormat("[{0}][{1}]{2} - окончание задачи", group, description, jobDataMap);
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat(ex, "[{0}][{1}]{2} - ошибка при выполнении задачи", group, description, jobDataMap);
+                Tracer.ErrorFormat(ex, "[{0}][{1}]{2} - ошибка при выполнении задачи", group, description, jobDataMap);
                 throw new JobExecutionException(ex);
             }
             finally

@@ -16,18 +16,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         private readonly IRepository<Lock> _lockRepository;
         private readonly IRepository<LockDetail> _lockDetailRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AccountBulkDeleteLocksAggregateService(
             IRepository<Lock> lockRepository,
             IRepository<LockDetail> lockDetailRepository,
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _lockRepository = lockRepository;
             _lockDetailRepository = lockDetailRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Delete(IEnumerable<LockDto> locks)
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.Info("Bulk delete locks completed. Deleted locks count = " + deletedLocks);
+            _tracer.Info("Bulk delete locks completed. Deleted locks count = " + deletedLocks);
         }
     }
 }

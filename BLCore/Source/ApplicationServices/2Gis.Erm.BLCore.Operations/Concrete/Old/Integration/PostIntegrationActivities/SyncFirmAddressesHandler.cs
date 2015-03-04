@@ -18,15 +18,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.PostIntegrati
     {
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IFirmRepository _firmRepository;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public SyncFirmAddressesHandler(IFirmRepository firmRepository,
                                         IClientProxyFactory clientProxyFactory,
-                                        ITracer logger)
+                                        ITracer tracer)
         {
             _firmRepository = firmRepository;
             _clientProxyFactory = clientProxyFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override EmptyResponse Handle(SyncFirmAddressesRequest request)
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.PostIntegrati
 
             foreach (var addresNotFound in addresses.Where(x => string.IsNullOrEmpty(x.Value)))
             {
-                _logger.ErrorFormat(string.Format("Адрес фирмы с AddressCode=[{0}] не найден в системе GeoMaster", addresNotFound.Key));
+                _tracer.ErrorFormat(string.Format("Адрес фирмы с AddressCode=[{0}] не найден в системе GeoMaster", addresNotFound.Key));
             }
 
             ProcessGeoMasterResponse(request.FirmAddresses, addresses);

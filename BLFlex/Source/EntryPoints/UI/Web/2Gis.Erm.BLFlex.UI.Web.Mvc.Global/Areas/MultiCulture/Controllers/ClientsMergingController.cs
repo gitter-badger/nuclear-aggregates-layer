@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                         IAPIIdentityServiceSettings identityServiceSettings,
                                         IUserContext userContext,
-                                        ITracer logger,
+                                        ITracer tracer,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IOperationServicesManager operationServicesManager,
                                         ISecurityServiceUserIdentifier userIdentifierService,
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
                                         IPublicService publicService,
                                         IFinder finder,
                                         IBusinessModelEntityObtainer<Client> clientObtainer)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _userIdentifierService = userIdentifierService;

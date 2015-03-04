@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
         private readonly IRepository<NotificationEmailsTo> _emailsToEntityRepository;
         private readonly IRepository<NotificationEmailsCc> _emailsCcEntityRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IIdentityProvider _identityProvider;
 
         public NotificationSender(IRepository<NotificationEmails> emailEntityRepository,
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                                   IRepository<NotificationEmailsCc> emailsCcEntityRepository,
                                   IIdentityProvider identityProvider,
                                   IOperationScopeFactory scopeFactory,
-                                  ITracer logger)
+                                  ITracer tracer)
         {
             _identityProvider = identityProvider;
             _emailEntityRepository = emailEntityRepository;
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             _emailsToEntityRepository = emailsToEntityRepository;
             _emailsCcEntityRepository = emailsCcEntityRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         void INotificationSender.PostMessage(NotificationAddress[] to, string subject, string body)
@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Can't send notifications");
+                _tracer.Error(ex, "Can't send notifications");
                 throw;
             }
         }

@@ -15,28 +15,28 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases
         private readonly ITargetBlock<MessageProcessingContext> _asyncInputBlock;
         private readonly ITargetBlock<MessageProcessingContext> _syncInputBlock;
         private readonly IUseCaseHandlersRegistry _handlersRegistry;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public DataflowUseCaseMessageProcessor(
             ITargetBlock<MessageProcessingContext> asyncInputBlock, 
             ITargetBlock<MessageProcessingContext> syncInputBlock,
             IUseCaseHandlersRegistry handlersRegistry,
-            ITracer logger)
+            ITracer tracer)
         {
             _asyncInputBlock = asyncInputBlock;
             _syncInputBlock = syncInputBlock;
             _handlersRegistry = handlersRegistry;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public MessageProcessingResult<TResult> Send<TResult>(MessageProcessingContext processingContext)
         {
-            _logger.DebugFormat("Try send message. UseCase={0}. Message: {1}", processingContext.UseCase.Id, processingContext.Message);
+            _tracer.DebugFormat("Try send message. UseCase={0}. Message: {1}", processingContext.UseCase.Id, processingContext.Message);
 
             if (!IsProcessingContextValid(processingContext))
             {
                 var msg = string.Format("Can't send. Unsupported message type. UseCase:{0}.Message:{1}", processingContext.UseCase.Id, processingContext.Message);
-                _logger.Error(msg);
+                _tracer.Error(msg);
                 throw new NotSupportedException(msg);
             }
 
@@ -54,19 +54,19 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases
                 throw new InvalidOperationException(string.Format(ResPlatformUI.MessageNotProcessedCorrectly, processingContext.Message.GetType().Name));
             }
 
-            _logger.DebugFormat("Message sended. UseCase={0}. Message: {1}", processingContext.UseCase.Id, processingContext.Message);
+            _tracer.DebugFormat("Message sended. UseCase={0}. Message: {1}", processingContext.UseCase.Id, processingContext.Message);
             return (MessageProcessingResult<TResult>)processingContext.CompletionSource.Task.Result.ProcessingResult;
         }
 
         public bool Post(MessageProcessingContext processingContext)
         {
             bool postResult;
-            _logger.DebugFormat("Try posting message. UseCase={0}. Message: {1}", processingContext.UseCase.Id, processingContext.Message);
+            _tracer.DebugFormat("Try posting message. UseCase={0}. Message: {1}", processingContext.UseCase.Id, processingContext.Message);
 
             if (!IsProcessingContextValid(processingContext))
             {
                 var msg = string.Format("Can't post. Unsupported message type. UseCase:{0}.Message:{1}", processingContext.UseCase.Id, processingContext.Message);
-                _logger.Error(msg);
+                _tracer.Error(msg);
                 throw new NotSupportedException(msg);
             }
 
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases
                 }
             }
 
-            _logger.DebugFormat("Message posted. UseCase={0}. Message: {1}", processingContext.UseCase.Id, processingContext.Message);
+            _tracer.DebugFormat("Message posted. UseCase={0}. Message: {1}", processingContext.UseCase.Id, processingContext.Message);
             return postResult;
         }
 

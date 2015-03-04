@@ -12,8 +12,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Disqualif
     public sealed class RestApiDisqualifyGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IDisqualifyGenericEntityService<TEntity>
         where TEntity : class, IEntityKey
     {
-        public RestApiDisqualifyGenericEntityService(IApiClient apiClient, ITracer logger)
-            : base(apiClient, logger, "Disqualify.svc")
+        public RestApiDisqualifyGenericEntityService(IApiClient apiClient, ITracer tracer)
+            : base(apiClient, tracer, "Disqualify.svc")
         {
         }
 
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Disqualif
             var apiTargetResource = GetOperationApiTargetResource("{0}/{1}/{2}", EntityName, entityId, bypassValidation);
             var request = new ApiRequest(apiTargetResource);
             var response = ApiClient.Post(request);
-            response.IfErrorThanReportAndThrowException(apiTargetResource + string.Format(". EntityName: {0}. Id: {1}", EntityName, entityId), Logger);
+            response.IfErrorThanReportAndThrowException(apiTargetResource + string.Format(". EntityName: {0}. Id: {1}", EntityName, entityId), Tracer);
             return !string.IsNullOrEmpty(response.ResultContent) ? JsonConvert.DeserializeObject<DisqualifyResult>(response.ResultContent) : null;
         }
     }

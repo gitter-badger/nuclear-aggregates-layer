@@ -23,16 +23,16 @@ namespace DoubleGis.Platform.UI.WPF.Shell
     {
         private readonly IUnityContainer _container = new UnityContainer();
         private readonly IShellSettings _shellSettings;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public App(ITracer logger)
+        public App(ITracer tracer)
         {
-            if (logger == null)
+            if (tracer == null)
             {
-                throw new ArgumentNullException("logger");
+                throw new ArgumentNullException("tracer");
             }
 
-            _logger = logger;
+            _tracer = tracer;
 
             _shellSettings = new ShellSettings();
             _container.RegisterInstance<IShellSettings>(_shellSettings, Lifetime.Singleton);
@@ -54,8 +54,8 @@ namespace DoubleGis.Platform.UI.WPF.Shell
             DispatcherUnhandledException += OnDispatcherUnhandledException;
 
             _container
-                .ConfigureDI(_logger)
-                .Run(_logger);
+                .ConfigureDI(_tracer)
+                .Run(_tracer);
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -79,7 +79,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var logger = _logger;
+            var logger = _tracer;
             if (logger != null)
             {
                 var ex = e.ExceptionObject as Exception;
@@ -96,7 +96,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell
 
         private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            var logger = _logger;
+            var logger = _tracer;
             if (logger != null)
             {
                 logger.ErrorFormat("Dispatcher unhanlded exception catched. Is handled: {0}. Exception: {1}", e.Handled, e.Exception);

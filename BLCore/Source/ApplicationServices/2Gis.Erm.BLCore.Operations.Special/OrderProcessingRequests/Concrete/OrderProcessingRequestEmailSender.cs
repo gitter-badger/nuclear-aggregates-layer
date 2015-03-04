@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
     public class OrderProcessingRequestEmailSender : IOrderProcessingRequestEmailSender,
                                                      ICreatedOrderProcessingRequestEmailSender
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly ISecurityServiceUserIdentifier _userIdentityService;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
@@ -28,14 +28,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                                                  IEmployeeEmailResolver employeeEmailResolver,
                                                  IOrderProcessingRequestNotificationFormatter notificationFormatter,
                                                  ISecurityServiceUserIdentifier userIdentityService,
-                                                 ITracer logger)
+                                                 ITracer tracer)
         {
             _notificationsSettings = notificationsSettings;
             _notificationFormatter = notificationFormatter;
             _notificationSender = notificationSender;
             _employeeEmailResolver = employeeEmailResolver;
             _userIdentityService = userIdentityService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public OrderProcessingRequestEmailSendResult SendProcessingMessages(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest,
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.Info("Notifications disabled in config file");
+                _tracer.Info("Notifications disabled in config file");
                 return false;
             }
 

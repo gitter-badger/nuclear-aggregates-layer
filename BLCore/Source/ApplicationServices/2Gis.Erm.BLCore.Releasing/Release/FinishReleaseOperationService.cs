@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUseCaseTuner _useCaseTuner;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public FinishReleaseOperationService(IOrderReadModel orderReadModel,
                                              IReleaseReadModel releaseReadModel,
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                              IUserContext userContext,
                                              IOperationScopeFactory scopeFactory,
                                              IUseCaseTuner useCaseTuner,
-                                             ITracer logger)
+                                             ITracer tracer)
         {
             _orderReadModel = orderReadModel;
             _releaseReadModel = releaseReadModel;
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             _userContext = userContext;
             _scopeFactory = scopeFactory;
             _useCaseTuner = useCaseTuner;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         // TODO {d.ivanov, 17.01.2014}: Текущая реализация Succeeded предполагает, что в случае ошибки статус сборки не будет изменен на Error.
@@ -74,31 +74,31 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 var releaseInfo = ResolveRelease(releaseId);
 
-                _logger.InfoFormat("Finishing release with id {0} ou:{1} period: {2} and success state",
+                _tracer.InfoFormat("Finishing release with id {0} ou:{1} period: {2} and success state",
                                      releaseId,
                                      releaseInfo.OrganizationUnitName,
                                      releaseInfo.Period);
                 if (releaseInfo.Release.IsBeta)
                 {
-                    _logger.Info("Release type is beta, so no actions required in ERM accounts (locks, limits and etc.) state");
+                    _tracer.Info("Release type is beta, so no actions required in ERM accounts (locks, limits and etc.) state");
                 }
                 else
                 {
-                    _logger.Info("Creating locks");
+                    _tracer.Info("Creating locks");
                     var orderInfos = _orderReadModel.GetOrderReleaseInfos(releaseInfo.Release.OrganizationUnitId, releaseInfo.Period);
                     _accountBulkCreateLocksAggregateService.Create(releaseInfo.Period, orderInfos);
-                    _logger.Info("Locks created");
+                    _tracer.Info("Locks created");
 
-                    _logger.Info("Closing limits");
+                    _tracer.Info("Closing limits");
                     var limitsForRelease = _accountReadModel.GetLimitsForRelease(releaseInfo.Release.OrganizationUnitId, releaseInfo.Period);
                     var hungLimitsBeforeReleasePeriod = _accountReadModel.GetHungLimitsByOrganizationUnitForDate(releaseInfo.Release.OrganizationUnitId,
                                                                                                                  releaseInfo.Period.Start.GetPrevMonthFirstDate());
                     _accountBulkCloseLimitsAggregateService.Close(limitsForRelease.Union(hungLimitsBeforeReleasePeriod));
-                    _logger.Info("Limits closed");
+                    _tracer.Info("Limits closed");
                 }
 
                 _releaseChangeStatusAggregateService.Finished(releaseInfo.Release, ReleaseStatus.Success, string.Empty);
-                _logger.InfoFormat("Finished release with id {0} and success state", releaseId);
+                _tracer.InfoFormat("Finished release with id {0} and success state", releaseId);
 
                 scope.Complete();
             }
@@ -114,7 +114,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 var releaseInfo = ResolveRelease(releaseId);
 
-                _logger.InfoFormat("Finishing release with id {0} ou:{1} period: {2} and failed state, " +
+                _tracer.InfoFormat("Finishing release with id {0} ou:{1} period: {2} and failed state, " +
                                      "because errors detected in the release process on the external side",
                                      releaseId,
                                      releaseInfo.OrganizationUnitName,
@@ -122,7 +122,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 _releaseChangeStatusAggregateService.Finished(releaseInfo.Release,
                                                               ReleaseStatus.Error,
                                                               "Can't completly finish release. Errors detected in the release process on the external side");
-                _logger.InfoFormat("Finished release with id {0} ou:{1} period: {2} and failed state, " +
+                _tracer.InfoFormat("Finished release with id {0} ou:{1} period: {2} and failed state, " +
                                      "because errors detected in the release process on the external side",
                                      releaseId,
                                      releaseInfo.OrganizationUnitName,
@@ -144,7 +144,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             if (release == null)
             {
                 var msg = "Can't find release entry for specified release id " + releaseId;
-                _logger.Error(msg);
+                _tracer.Error(msg);
                 throw new ArgumentException(msg);
             }
 
@@ -165,7 +165,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             releaseInfo.OrganizationUnitName,
                                             releaseInfo.Period,
                                             ReleaseStatus.InProgressWaitingExternalProcessing);
-                _logger.Error(message);
+                _tracer.Error(message);
                 throw new InvalidOperationException(message);
             }
 

@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserContext _userContext;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AssignAccountService(
             IPublicService publicService,
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             ISecurityServiceFunctionalAccess functionalAccessService,
             IOperationScopeFactory scopeFactory,
             IUserContext userContext, 
-            ITracer logger)
+            ITracer tracer)
         {
             _publicService = publicService;
             _finder = finder;
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _functionalAccessService = functionalAccessService;
             _scopeFactory = scopeFactory;
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                         .Complete();
                 }
                 
-                _logger.InfoFormat("Куратором ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
+                _tracer.InfoFormat("Куратором ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
             }
             catch (ProcessAccountsWithDebtsException ex)
             {

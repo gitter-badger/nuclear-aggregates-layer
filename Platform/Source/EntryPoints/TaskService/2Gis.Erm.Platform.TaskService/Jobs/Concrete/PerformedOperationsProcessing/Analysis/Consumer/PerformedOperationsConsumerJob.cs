@@ -28,8 +28,8 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
             IPerformedOperationsConsumerFactory performedOperationsConsumerFactory,
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService, 
-            ITracer logger) 
-            : base(signInService, userImpersonationService, logger)
+            ITracer tracer) 
+            : base(signInService, userImpersonationService, tracer)
         {
             _messageFlowRegistry = messageFlowRegistry;
             _performedOperationsConsumerFactory = performedOperationsConsumerFactory;
@@ -40,18 +40,18 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
         public void Interrupt()
         {
-            Logger.Info("Consuming performed operations. Interrupt called for job, consuming performed operations is stopping");
+            Tracer.Info("Consuming performed operations. Interrupt called for job, consuming performed operations is stopping");
             _consumersCancellationTokenSource.Cancel();
         }
 
         protected override void ExecuteInternal(IJobExecutionContext context)
         {
-            Logger.Info("Consuming performed operations. Processing started");
+            Tracer.Info("Consuming performed operations. Processing started");
 
             var workers = ResolveWorkersForPerformedOperationsSources();
             Task.WaitAll(workers);
 
-            Logger.Info("Consuming performed operations. Processing stopped");
+            Tracer.Info("Consuming performed operations. Processing stopped");
         }
 
         private Task[] ResolveWorkersForPerformedOperationsSources()

@@ -16,23 +16,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         private readonly IRepository<Account> _accountRepository;
         private readonly IRepository<AccountDetail> _accountDetailRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AccountRevertWithdrawFromAccountsAggregateService(
             IRepository<Account> accountRepository, 
             IRepository<AccountDetail> accountDetailRepository,
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _accountRepository = accountRepository;
             _accountDetailRepository = accountDetailRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void RevertWithdraw(IEnumerable<RevertWithdrawFromAccountsDto> withdrawInfos)
         {
-            _logger.Info("Started reverting withdrawals process for accounts");
+            _tracer.Info("Started reverting withdrawals process for accounts");
 
             using (var scope = _scopeFactory.CreateNonCoupled<RevertWithdrawFromAccountsIdentity>())
             {
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 
                 foreach (var info in withdrawInfos)
                 {
-                    _logger.DebugFormat("Deleting account details for withdrawal by account with id {0}", info.Account.Id);
+                    _tracer.DebugFormat("Deleting account details for withdrawal by account with id {0}", info.Account.Id);
 
                     info.Account.Balance = info.BalanceBeforeRevertWithdrawal;
 
@@ -58,15 +58,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                     ++processedAccounts;
                 }
 
-                _logger.InfoFormat("During withdrawal reverting process {0} account details was deleted", processedAccountDetails);
-                _logger.InfoFormat("Actualize accounts balances during withdrawal process. Accounts count: {0}", processedAccounts);
+                _tracer.InfoFormat("During withdrawal reverting process {0} account details was deleted", processedAccountDetails);
+                _tracer.InfoFormat("Actualize accounts balances during withdrawal process. Accounts count: {0}", processedAccounts);
 
                 _accountDetailRepository.Save();
                 _accountRepository.Save();
                 scope.Complete();
             }
 
-            _logger.Info("Finished reverting withdrawal process for accounts");
+            _tracer.Info("Finished reverting withdrawal process for accounts");
         }
     }
 }

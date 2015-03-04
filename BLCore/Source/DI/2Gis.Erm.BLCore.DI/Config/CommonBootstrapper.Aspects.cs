@@ -76,9 +76,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             }
         }
 
-        public static IUnityContainer ConfigureTracing(this IUnityContainer container, ITracer logger, ITracerContextManager tracerContextManager)
+        public static IUnityContainer ConfigureTracing(this IUnityContainer container, ITracer tracer, ITracerContextManager tracerContextManager)
         {
-            return container.RegisterInstance(logger)
+            return container.RegisterInstance(tracer)
                             .RegisterInstance(tracerContextManager);
         }
 

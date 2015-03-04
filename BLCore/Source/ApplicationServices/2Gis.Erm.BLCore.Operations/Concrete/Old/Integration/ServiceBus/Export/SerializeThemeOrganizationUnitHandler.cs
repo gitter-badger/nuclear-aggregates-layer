@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
     public sealed class SerializeThemeOrganizationUnitHandler : SerializeObjectsHandler<ThemeOrganizationUnit, ExportFlowOrdersThemeBranch>
     {
         public SerializeThemeOrganizationUnitHandler(IExportRepository<ThemeOrganizationUnit> exportRepository,
-                                                     ITracer logger)
-            : base(exportRepository, logger)
+                                                     ITracer tracer)
+            : base(exportRepository, tracer)
         {
         }
 

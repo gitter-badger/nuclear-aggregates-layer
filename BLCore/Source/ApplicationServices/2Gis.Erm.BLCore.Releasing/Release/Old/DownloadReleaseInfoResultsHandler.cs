@@ -14,13 +14,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release.Old
 {
     public sealed class DownloadReleaseInfoResultsHandler : RequestHandler<DownloadReleaseInfoResultsRequest, StreamResponse>
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IReleaseReadModel _releaseRepository;
 
-        public DownloadReleaseInfoResultsHandler(ITracer logger, ISubRequestProcessor subRequestProcessor, IReleaseReadModel releaseRepository)
+        public DownloadReleaseInfoResultsHandler(ITracer tracer, ISubRequestProcessor subRequestProcessor, IReleaseReadModel releaseRepository)
         {
-            _logger = logger;
+            _tracer = tracer;
             _subRequestProcessor = subRequestProcessor;
             _releaseRepository = releaseRepository;
         }
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release.Old
             var results = validationResults as ReleaseProcessingMessage[] ?? validationResults.ToArray();
             if (!results.Any())
             {
-                _logger.WarnFormat(BLResources.ReleaseValidationResultsNotFound, request.ReleaseInfoId);
+                _tracer.WarnFormat(BLResources.ReleaseValidationResultsNotFound, request.ReleaseInfoId);
                 return new StreamResponse();
             }
 

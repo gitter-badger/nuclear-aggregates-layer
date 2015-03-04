@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
     public class SerializePositionChildrenHandler : SerializeObjectsHandler<PositionChildren, ExportFlowNomenclatures_NomenclatureElementRelation>
     {
-        public SerializePositionChildrenHandler(IExportRepository<PositionChildren> exportRepository, ITracer logger) : base(exportRepository, logger)
+        public SerializePositionChildrenHandler(IExportRepository<PositionChildren> exportRepository, ITracer tracer) : base(exportRepository, tracer)
         {
         }
 

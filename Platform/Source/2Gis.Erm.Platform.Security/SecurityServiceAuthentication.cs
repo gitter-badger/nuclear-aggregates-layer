@@ -14,12 +14,12 @@ namespace DoubleGis.Erm.Platform.Security
     public sealed class SecurityServiceAuthentication : ISecurityServiceAuthentication
     {
         private readonly IFinder _finder;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public SecurityServiceAuthentication(IFinder finder, ITracer logger)
+        public SecurityServiceAuthentication(IFinder finder, ITracer tracer)
         {
             _finder = finder;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         IUserIdentity ISecurityServiceAuthentication.AuthenticateUser(string userAccount)
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.Platform.Security
 
             try
             {
-                _logger.DebugFormat("Получаю учетную запись пользователя по аккаунту: [{0}]", userAccount);
+                _tracer.DebugFormat("Получаю учетную запись пользователя по аккаунту: [{0}]", userAccount);
                 var userInfo = _finder.Find<User>(x => !x.IsDeleted && x.IsActive && x.Account == userAccount)
                     .Select(x => new
                     {
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Platform.Security
                         x.DisplayName
                     }).SingleOrDefault();
             
-                _logger.DebugFormat("Получил учетную запись пользователя по аккаунту: [{0}]. Полученная учетная запись: [{1}].", userAccount, (userInfo == null) ? "null" : userInfo.DisplayName);
+                _tracer.DebugFormat("Получил учетную запись пользователя по аккаунту: [{0}]. Полученная учетная запись: [{1}].", userAccount, (userInfo == null) ? "null" : userInfo.DisplayName);
 
                 if (userInfo == null)
                 {

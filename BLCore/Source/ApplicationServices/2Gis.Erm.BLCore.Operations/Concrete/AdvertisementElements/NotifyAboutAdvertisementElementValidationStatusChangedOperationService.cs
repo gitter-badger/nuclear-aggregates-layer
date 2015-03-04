@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
         private readonly ILinkToEntityCardFactory _linkToEntityCardFactory;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public NotifyAboutAdvertisementElementValidationStatusChangedOperationService(
             INotificationsSettings notificationsSettings, 
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             ILinkToEntityCardFactory linkToEntityCardFactory,
             IEmployeeEmailResolver employeeEmailResolver,
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _notificationsSettings = notificationsSettings;
             _advertisementReadModel = advertisementReadModel;
@@ -44,14 +44,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             _linkToEntityCardFactory = linkToEntityCardFactory;
             _employeeEmailResolver = employeeEmailResolver;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Notify(long advertisementElementId)
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.Info("Notifications disabled in config file");
+                _tracer.Info("Notifications disabled in config file");
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             }
             else
             {
-                _logger.Error("Can't send notification about - advertisment element changed. Can't get to_address email. Firm name: " + changeInfo.FirmRef.Name +
+                _tracer.Error("Can't send notification about - advertisment element changed. Can't get to_address email. Firm name: " + changeInfo.FirmRef.Name +
                                 ". Owner code: " + changeInfo.FirmOwnerCode);
             }
         }

@@ -12,8 +12,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
 {
     public sealed class DebugTestJob : TaskServiceJobBase
     {
-        public DebugTestJob(ITracer logger, ISignInService signInService, IUserImpersonationService userImpersonationService)
-            : base(signInService, userImpersonationService, logger)
+        public DebugTestJob(ITracer tracer, ISignInService signInService, IUserImpersonationService userImpersonationService)
+            : base(signInService, userImpersonationService, tracer)
         {
         }
 

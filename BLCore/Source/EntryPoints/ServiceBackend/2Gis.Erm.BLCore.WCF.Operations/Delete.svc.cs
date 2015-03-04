@@ -17,12 +17,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class DeleteApplicationService : IDeleteApplicationService, IDeleteApplicationRestService
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public DeleteApplicationService(ITracer logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
+        public DeleteApplicationService(ITracer tracer, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _operationServicesManager = operationServicesManager;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<DeleteOperationErrorDescription>(new DeleteOperationErrorDescription(entityName, ex.Message),
                                                                              HttpStatusCode.BadRequest);
             }
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<DeleteOperationErrorDescription>(new DeleteOperationErrorDescription(entityName, ex.Message));
             }
         }

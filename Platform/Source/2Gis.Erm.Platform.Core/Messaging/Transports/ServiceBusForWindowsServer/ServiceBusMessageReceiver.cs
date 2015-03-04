@@ -14,16 +14,16 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
     public sealed partial class ServiceBusMessageReceiver<TMessageFlow> : IServiceBusMessageReceiver<TMessageFlow> 
         where TMessageFlow : class, IMessageFlow, new()
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly ServiceBusConnectionPool<ReceiverSlot, SubscriptionClient> _serviceBusConnectionPool;
 
-        public ServiceBusMessageReceiver(ITracer logger, IServiceBusMessageReceiverSettings serviceBusMessageReceiverSettings)
+        public ServiceBusMessageReceiver(ITracer tracer, IServiceBusMessageReceiverSettings serviceBusMessageReceiverSettings)
         {
-            _logger = logger;
+            _tracer = tracer;
             _serviceBusConnectionPool = new ServiceBusConnectionPool<ReceiverSlot, SubscriptionClient>(
                 serviceBusMessageReceiverSettings.ConnectionsCount,
                 serviceBusMessageReceiverSettings.ConnectionString,
-                factory => new ReceiverSlot(logger, () => CreateSubscriptionClient(factory, serviceBusMessageReceiverSettings.TransportEntityPath)));
+                factory => new ReceiverSlot(tracer, () => CreateSubscriptionClient(factory, serviceBusMessageReceiverSettings.TransportEntityPath)));
         }
 
         public IEnumerable<BrokeredMessage> ReceiveBatch(int messageCount)
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             {
                 var topicPath = receiverSlot.GetClientPropertyValue(x => x.TopicPath);
                 var flowName = receiverSlot.GetClientPropertyValue(x => x.Name);
-                _logger.ErrorFormat(ex, "Can't receive messages from service bus for message flow {0}/{1}", topicPath, flowName);
+                _tracer.ErrorFormat(ex, "Can't receive messages from service bus for message flow {0}/{1}", topicPath, flowName);
                 
                 throw;
             }
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             {
                 var topicPath = receiverSlot.GetClientPropertyValue(x => x.TopicPath);
                 var flowName = receiverSlot.GetClientPropertyValue(x => x.Name);
-                _logger.ErrorFormat(ex, "Can't complete messages receiving from service bus for message flow {0}/{1}", topicPath, flowName);
+                _tracer.ErrorFormat(ex, "Can't complete messages receiving from service bus for message flow {0}/{1}", topicPath, flowName);
                 
                 throw;
             }
@@ -84,8 +84,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
 
         private class ReceiverSlot : ServiceBusConnectionSlot<SubscriptionClient>
         {
-            public ReceiverSlot(ITracer logger, Func<SubscriptionClient> messageClientEntityFactory)
-                : base(logger, messageClientEntityFactory)
+            public ReceiverSlot(ITracer tracer, Func<SubscriptionClient> messageClientEntityFactory)
+                : base(tracer, messageClientEntityFactory)
             {
             }
 

@@ -20,20 +20,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         private readonly IRepository<AccountDetail> _accountDetailRepository;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AccountWithdrawFromAccountsAggregateService(
             IRepository<Account> accountRepository, 
             IRepository<AccountDetail> accountDetailRepository, 
             IIdentityProvider identityProvider, 
             IOperationScopeFactory scopeFactory, 
-            ITracer logger)
+            ITracer tracer)
         {
             _accountRepository = accountRepository;
             _accountDetailRepository = accountDetailRepository;
             _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IReadOnlyDictionary<long, long> Withdraw(
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         {
             var accountDetailsMap = new Dictionary<long, long>();
 
-            _logger.Info("Started withdrawal process for accounts");
+            _tracer.Info("Started withdrawal process for accounts");
 
             using (var scope = _scopeFactory.CreateNonCoupled<WithdrawFromAccountsIdentity>())
             {
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 foreach (var info in withdrawInfos)
                 {
                     var nowDate = DateTime.UtcNow;
-                    _logger.DebugFormat("Creating account detail for withdrawal by account with id {0}", info.Account.Id);
+                    _tracer.DebugFormat("Creating account detail for withdrawal by account with id {0}", info.Account.Id);
                     var accountDetail = new AccountDetail
                     {
                         AccountId = info.Account.Id,
@@ -80,8 +80,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                     targetAccount.Balance = targetAccount.Balance - accountDetail.Amount;
                 }
 
-                _logger.InfoFormat("During withdrawal process {0} account details was created", accountDetailsMap.Count);
-                _logger.InfoFormat("Actualize accounts balances during withdrawal process. Accounts count: {0}", accounts.Count);
+                _tracer.InfoFormat("During withdrawal process {0} account details was created", accountDetailsMap.Count);
+                _tracer.InfoFormat("Actualize accounts balances during withdrawal process. Accounts count: {0}", accounts.Count);
 
                 foreach (var account in accounts.Values)
                 {
@@ -94,7 +94,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.Info("Finished withdrawal process for accounts");
+            _tracer.Info("Finished withdrawal process for accounts");
 
             return accountDetailsMap;
         }

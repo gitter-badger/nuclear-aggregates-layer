@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastruc
             return response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK;
         }
 
-        public static void IfErrorThanReportAndThrowException(this ApiResponse response, string operationDescription, ITracer logger = null)
+        public static void IfErrorThanReportAndThrowException(this ApiResponse response, string operationDescription, ITracer tracer = null)
         {
             if (!response.IsSuccessfull)
             {
@@ -89,9 +89,9 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastruc
                     }
                     catch (Exception ex)
                     {
-                        if (logger != null)
+                        if (tracer != null)
                         {
-                            logger.ErrorFormat(ex, "Can't deserialize api exception detail");
+                            tracer.ErrorFormat(ex, "Can't deserialize api exception detail");
                         }
                     }
                 }
@@ -99,9 +99,9 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastruc
                 var topLevelErrorDescription = "Api operation execution failed. " + operationDescription;
                 var exception = new ApiException(topLevelErrorDescription, response.ErrorException) { ApiExceptionDescription = exceptionDescription };
                 
-                if (logger != null)
+                if (tracer != null)
                 {
-                    logger.Error(exception, topLevelErrorDescription);
+                    tracer.Error(exception, topLevelErrorDescription);
                 }
 
                 throw exception;

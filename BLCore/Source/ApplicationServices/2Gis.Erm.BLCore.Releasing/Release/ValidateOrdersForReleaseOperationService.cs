@@ -20,20 +20,20 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     {
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public ValidateOrdersForReleaseOperationService(IClientProxyFactory clientProxyFactory,
             IOrderReadModel orderReadModel,
-            ITracer logger)
+            ITracer tracer)
         {
             _clientProxyFactory = clientProxyFactory;
             _orderReadModel = orderReadModel;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IEnumerable<ReleaseProcessingMessage> Validate(long organizationUnitId, TimePeriod period, bool isBeta)
         {
-            _logger.InfoFormat("Starting orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
+            _tracer.InfoFormat("Starting orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
             
             var orderValidationServiceProxy = _clientProxyFactory.GetClientProxy<IOrderValidationApplicationService, WSHttpBinding>();
             var validationResults = orderValidationServiceProxy.Execute(
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             var convertedResults = ConvertValidationMessages(validationResults.Messages);
 
-            _logger.InfoFormat("Finished orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
+            _tracer.InfoFormat("Finished orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
 
             return convertedResults;
         }

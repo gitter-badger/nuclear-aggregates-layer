@@ -19,9 +19,9 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
 
         public ImportObjectsJob(ISignInService signInService,
                                 IUserImpersonationService userImpersonationService,
-                                ITracer logger,
+                                ITracer tracer,
                                 IIntegrationSettings integrationSettings,
-                                IImportFromServiceBusService importFromServiceBusService) : base(signInService, userImpersonationService, logger)
+                                IImportFromServiceBusService importFromServiceBusService) : base(signInService, userImpersonationService, tracer)
         {
             _integrationSettings = integrationSettings;
             _importFromServiceBusService = importFromServiceBusService;

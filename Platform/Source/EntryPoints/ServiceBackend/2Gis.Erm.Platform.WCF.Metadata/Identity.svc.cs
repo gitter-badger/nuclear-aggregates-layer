@@ -15,15 +15,15 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
     {
         private readonly IEnvironmentSettings _environmentSettings;
         private readonly IIdentityProviderService _identityService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public IdentityProviderApplicationService(IEnvironmentSettings environmentSettings,
                                                   IIdentityProviderService identityService,
-                                                  ITracer logger)
+                                                  ITracer tracer)
         {
             _environmentSettings = environmentSettings;
             _identityService = identityService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public long[] GetIdentities(int count)
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't generate requested identities";
-                _logger.Error(ex, Message);
+                _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't generate requested identities";
-                _logger.Error(ex, Message);
+                _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }

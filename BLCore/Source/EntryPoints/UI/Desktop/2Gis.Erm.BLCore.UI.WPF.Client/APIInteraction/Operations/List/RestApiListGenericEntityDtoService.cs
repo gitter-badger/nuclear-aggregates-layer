@@ -13,8 +13,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
         where TEntity : class, IEntityKey 
         where TEntityDto : IOperationSpecificEntityDto
     {
-        public RestApiListGenericEntityDtoService(IApiClient apiClient, ITracer logger)
-            : base(apiClient, logger)
+        public RestApiListGenericEntityDtoService(IApiClient apiClient, ITracer tracer)
+            : base(apiClient, tracer)
         {
         }
 

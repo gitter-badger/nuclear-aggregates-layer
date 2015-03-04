@@ -28,8 +28,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
         public SequentialMessageFlowProcessingTopology(
             IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage> stagesMap,
             IEnumerable<MessageProcessingStage> ignoreErrorsOnStage,
-            ITracer logger)
-            : base(stagesMap, ignoreErrorsOnStage, logger)
+            ITracer tracer)
+            : base(stagesMap, ignoreErrorsOnStage, tracer)
         {
         }
 
@@ -37,8 +37,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
         {
             var availableStages = StagesMap.Keys.OrderBy(x => x).ToArray();
 
-            Logger.InfoFormat("Starting processing topology for message flow {0}. Acquired messages batch size: {1}.", SourceMessageFlow, messages.Count);
-            Logger.DebugFormat("Processing message flow {0} has available stages : {1}", SourceMessageFlow, string.Join(";", availableStages));
+            Tracer.InfoFormat("Starting processing topology for message flow {0}. Acquired messages batch size: {1}.", SourceMessageFlow, messages.Count);
+            Tracer.DebugFormat("Processing message flow {0} has available stages : {1}", SourceMessageFlow, string.Join(";", availableStages));
 
             int counter = -1;
             var processingContext = new MessageBatchProcessingContext(messages, availableStages);
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
             foreach (var messageProcessingBucket in processingContext.MessageProcessings)
             {
                 ++counter;
-                Logger.DebugFormat("Processing message flow {0}, current message ordinal number {1}", SourceMessageFlow, counter);
+                Tracer.DebugFormat("Processing message flow {0}, current message ordinal number {1}", SourceMessageFlow, counter);
 
                 var targetMessageProcessingContexts = new[] { messageProcessingBucket.Value };
                 canContinueProcessing = true;
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
 
                 if (!canContinueProcessing)
                 {
-                    Logger.ErrorFormat(
+                    Tracer.ErrorFormat(
                         "Processing message flow {0}, by single message aborted on message with ordinal number {1}. Jump to {2} stage", 
                         SourceMessageFlow, 
                         counter, 
@@ -112,7 +112,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
             IMessageProcessingStage messageProcessingStage;
             if (!StagesMap.TryGetValue(targetStage, out messageProcessingStage))
             {
-                Logger.DebugFormat("Specified target stage {0} is not available, skip stage processing", targetStage);
+                Tracer.DebugFormat("Specified target stage {0} is not available, skip stage processing", targetStage);
                 return true;
             }
 
@@ -125,7 +125,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
             {
                 canContinueProcessing = IgnoreErrorsOnStage.Contains(targetStage);
                 
-                Logger.ErrorFormat(
+                Tracer.ErrorFormat(
                     "Processing stage {0} failed. Stage processed properly: {1}. AllTargetMessagesFailedOnStage: {2}. CanContinueProcessing: {3}", 
                     messageProcessingStage.Stage,
                     isProcessedProperly,

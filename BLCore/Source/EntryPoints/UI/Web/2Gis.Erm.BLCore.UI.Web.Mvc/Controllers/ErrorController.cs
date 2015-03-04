@@ -26,9 +26,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                IAPIIdentityServiceSettings identityServiceSettings,
                                IUserContext userContext,
-                               ITracer logger,
+                               ITracer tracer,
                                IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
         }
 
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         [HttpPost]
         public JsonNetResult LogError()
         {
-            Logger.WarnFormat("Javascript exception occured: {0}", HttpUtility.UrlDecode(Request.Params.ToString()));
+            Tracer.WarnFormat("Javascript exception occured: {0}", HttpUtility.UrlDecode(Request.Params.ToString()));
             return new JsonNetResult();
         }
     }

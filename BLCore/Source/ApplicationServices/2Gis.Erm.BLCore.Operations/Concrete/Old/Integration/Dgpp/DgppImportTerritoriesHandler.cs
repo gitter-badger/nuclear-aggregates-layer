@@ -40,13 +40,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private const string HandlerName = "Импорт территорий из ДГПП";
 
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IFirmRepository _firmRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public DgppImportTerritoriesHandler(ITracer logger, IFirmRepository firmRepository, IOperationScopeFactory operationScopeFactory)
+        public DgppImportTerritoriesHandler(ITracer tracer, IFirmRepository firmRepository, IOperationScopeFactory operationScopeFactory)
         {
-            _logger = logger;
+            _tracer = tracer;
             _firmRepository = firmRepository;
             _operationScopeFactory = operationScopeFactory;
         }
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
         {
             try
             {
-                _logger.InfoFormat("{0}: начало", HandlerName);
+                _tracer.InfoFormat("{0}: начало", HandlerName);
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
                     ImportTerritoriesHeaderDto header;
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
             }
             finally
             {
-                _logger.InfoFormat("{0}: окончание", HandlerName);
+                _tracer.InfoFormat("{0}: окончание", HandlerName);
             }
         }
 

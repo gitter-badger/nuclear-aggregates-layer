@@ -27,13 +27,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         private readonly IEnumerable<string> _elementsToIgnore;
         private readonly IFinder _finder;
 
-        public LogWebRequestHandler(ITracer logger,
+        public LogWebRequestHandler(ITracer tracer,
                                     IActionLogger actionLogger,
                                     EntityName entityType,
                                     CompareObjectMode compareObjectMode,
                                     IEnumerable<string> elementsToIgnore,
                                     IFinder finder)
-            : base(logger)
+            : base(tracer)
         {
             _actionLogger = actionLogger;
             _entityType = entityType;
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 
             if (entity == null)
             {
-                Logger.Fatal("Критичная ошибка журналирования объекта. Не удалось получить экземпляр объекта до изменения");
+                Tracer.Fatal("Критичная ошибка журналирования объекта. Не удалось получить экземпляр объекта до изменения");
             }
             else
             {
@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
+                    Tracer.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
                 }
             }
 
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.Fatal(ex, "Критичная ошибка журналирования операций");
+                    Tracer.Fatal(ex, "Критичная ошибка журналирования операций");
                 }
             }
 

@@ -20,8 +20,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Get
             IDesktopClientProxyFactory clientProxyFactory, 
             IStandartConfigurationSettings configuration, 
             IApiSettings apiSettings,
-            ITracer logger)
-            : base(clientProxyFactory, configuration, apiSettings, logger)
+            ITracer tracer)
+            : base(clientProxyFactory, configuration, apiSettings, tracer)
         {
         }
 
@@ -35,12 +35,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Get
             }
             catch (FaultException<GetDomainEntityDtoOperationErrorDescription> ex)
             {
-                Logger.Error(ex, "Can't get dto for entity " + EntityType.Name + ". Entity id: " + entityId);
+                Tracer.Error(ex, "Can't get dto for entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Can't get dto for entity " + EntityType.Name + ". Entity id: " + entityId);
+                Tracer.Error(ex, "Can't get dto for entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
         }

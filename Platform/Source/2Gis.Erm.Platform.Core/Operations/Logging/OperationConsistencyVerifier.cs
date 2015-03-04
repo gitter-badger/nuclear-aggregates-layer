@@ -16,12 +16,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
     {
         private delegate bool OperationContextConsistencyChecker(IVerifierContext context, out bool isConsistent);
 
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly OperationContextConsistencyChecker[] _checkers;
 
-        public OperationConsistencyVerifier(ITracer logger)
+        public OperationConsistencyVerifier(ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
             _checkers = new OperationContextConsistencyChecker[]
                 {
                     OperationDetailsToPersistenceChangesChecker,
@@ -83,12 +83,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             isConsistent = !(addedInconsistency || deletedInconsistency || updatedInconsistency);
             if (!isConsistent)
             {
-                _logger.ErrorFormat("Inconsistent operation context detected. Report: " + inconsistencyReport);
+                _tracer.ErrorFormat("Inconsistent operation context detected. Report: " + inconsistencyReport);
             }
 
             if (severalModificationsReport.Length > 0)
             {
-                _logger.Info(severalModificationsReport.ToString());
+                _tracer.Info(severalModificationsReport.ToString());
             }
 
             return true;

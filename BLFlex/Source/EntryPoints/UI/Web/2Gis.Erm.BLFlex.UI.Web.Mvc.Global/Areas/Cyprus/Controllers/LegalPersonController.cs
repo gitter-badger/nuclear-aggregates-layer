@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Cyprus.Controllers
         private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         // TODO {all, 31.07.2013}: Избавиться от этого костыля
-        public LegalPersonController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IAPIIdentityServiceSettings identityServiceSettings, IUserContext userContext, ITracer logger, IGetBaseCurrencyService getBaseCurrencyService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, ILegalPersonReadModel legalPersonReadModel) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+        public LegalPersonController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IAPIIdentityServiceSettings identityServiceSettings, IUserContext userContext, ITracer tracer, IGetBaseCurrencyService getBaseCurrencyService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, ILegalPersonReadModel legalPersonReadModel) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Cyprus.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
             return View(model);
         }

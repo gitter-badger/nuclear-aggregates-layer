@@ -15,16 +15,16 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         MessageReceiverBase<TMessageFlow, ServiceBusPerformedOperationsMessage, IPerformedOperationsReceiverSettings> 
         where TMessageFlow : class, IMessageFlow, new()
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IServiceBusMessageReceiver<TMessageFlow> _serviceBusMessageReceiver;
 
         public ServiceBusOperationsReceiver(
             IPerformedOperationsReceiverSettings messageReceiverSettings, 
             IServiceBusMessageReceiver<TMessageFlow> serviceBusMessageReceiver,
-            ITracer logger)
+            ITracer tracer)
             : base(messageReceiverSettings)
         {
-            _logger = logger;
+            _tracer = tracer;
             _serviceBusMessageReceiver = serviceBusMessageReceiver;
         }
 
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
                     }
                     catch (Exception ex)
                     {
-                                _logger.ErrorFormat(ex, "Service Bus message with Id={0} cannot be abandoned", brokeredMessage.MessageId);
+                                _tracer.ErrorFormat(ex, "Service Bus message with Id={0} cannot be abandoned", brokeredMessage.MessageId);
                         throw;
                     }
                 }

@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
     public class OrderProcessingService : IOrderProcessingService
     {
         private readonly IUserContext _userContext;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IAccountRepository _accountRepository;
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         public OrderProcessingService(
             IUserContext userContext,
-            ITracer logger,
+            ITracer tracer,
             IOrderRepository orderRepository,
             IAccountRepository accountRepository,
             IReleaseReadModel releaseRepository,
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             ILegalPersonReadModel legalPersonReadModel)
         {
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
             _orderRepository = orderRepository;
             _accountRepository = accountRepository;
             _releaseRepository = releaseRepository;
@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                 operationScope,
                                                                 _userRepository,
                                                                 _orderReadModel,
-                                                                _logger,
+                                                                _tracer,
                                                                 _releaseRepository,
                                                                 _accountRepository,
                                                                 _functionalAccessService,
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                            operationScope,
                                                                            _userRepository,
                                                                            _orderReadModel,
-                                                                           _logger,
+                                                                           _tracer,
                                                                            _releaseRepository));
             }
 

@@ -27,8 +27,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
             IDesktopClientProxyFactory clientProxyFactory,
             IStandartConfigurationSettings configuration,
             IApiSettings apiSettings,
-            ITracer logger)
-            : base(clientProxyFactory, configuration, apiSettings, logger)
+            ITracer tracer)
+            : base(clientProxyFactory, configuration, apiSettings, tracer)
         {
             _operationProgressCallback = operationProgressCallback;
         }
@@ -43,12 +43,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
             }
             catch (FaultException<AssignOperationErrorDescription> ex)
             {
-                Logger.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
+                Tracer.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
+                Tracer.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
         }
@@ -63,12 +63,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
             }
             catch (FaultException<AssignOperationErrorDescription> ex)
             {
-                Logger.Error(ex, "Can't execute group assign entity " + EntityType.Name);
+                Tracer.Error(ex, "Can't execute group assign entity " + EntityType.Name);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Can't execute group assign entity " + EntityType.Name);
+                Tracer.Error(ex, "Can't execute group assign entity " + EntityType.Name);
                 throw;
             }
         }

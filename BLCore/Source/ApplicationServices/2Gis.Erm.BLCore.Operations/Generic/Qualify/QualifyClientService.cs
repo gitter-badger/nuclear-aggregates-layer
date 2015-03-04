@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IClientReadModel _readModel;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
         private readonly IPhonecallReadModel _phonecallReadModel;
@@ -50,14 +50,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             IAssignPhonecallAggregateService assignPhonecallAggregateService,
             IAssignTaskAggregateService assignTaskAggregateService,
             IClientReadModel readModel,
-            ITracer logger)
+            ITracer tracer)
         {
             _userContext = userContext;
             _clientRepository = clientRepository;
             _userIdentifierService = userIdentifierService;
             _scopeFactory = scopeFactory;
             _readModel = readModel;
-            _logger = logger;
+            _tracer = tracer;
             _appointmentReadModel = appointmentReadModel;
             _letterReadModel = letterReadModel;
             _phonecallReadModel = phonecallReadModel;
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 
             AssignRelatedActivities(entityId, ownerCode);
 
-            _logger.InfoFormat("[ERM] Клиент с id={0} взят из резерва, с назначением пользователю с id={1}", entityId, ownerCode);
+            _tracer.InfoFormat("[ERM] Клиент с id={0} взят из резерва, с назначением пользователю с id={1}", entityId, ownerCode);
 
             return new QualifyResult
                 {

@@ -15,14 +15,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
     public sealed class HotClientMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
         private readonly IProcessHotClientRequestOperationService _processHotClientRequestOperationService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public HotClientMessageAggregatedProcessingResultHandler(
             IProcessHotClientRequestOperationService processHotClientRequestOperationService,
-            ITracer logger)
+            ITracer tracer)
         {
             _processHotClientRequestOperationService = processHotClientRequestOperationService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 
                     if (concreteProcessingResult.HotClientRequest.HasAssignedTask)
                     {
-                        _logger.WarnFormat(
+                        _tracer.WarnFormat(
                             "Hot client request with id {0} has been already processed and a task has been assigned. Skip the request processing.",
                             concreteProcessingResult.HotClientRequest.Id);
 
@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
                 catch (Exception ex)
                 {
                     var msg = string.Format("Can't create hot client task for request with id = {0}", hotClientInfo.HotClientRequest.Id);
-                    _logger.ErrorFormat(ex, msg);
+                    _tracer.ErrorFormat(ex, msg);
                     
                     messageProcessingStageResult = MessageProcessingStage.Handle
                                                                          .EmptyResult()

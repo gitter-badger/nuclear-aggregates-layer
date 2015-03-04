@@ -13,13 +13,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
     {
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly ISecurityServiceUserIdentifier _securityService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public MsCrmEmployeeEmailResolveStrategy(IMsCrmSettings msCrmSettings, ISecurityServiceUserIdentifier securityService, ITracer logger)
+        public MsCrmEmployeeEmailResolveStrategy(IMsCrmSettings msCrmSettings, ISecurityServiceUserIdentifier securityService, ITracer tracer)
         {
             _msCrmSettings = msCrmSettings;
             _securityService = securityService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         #region Implementation of IEmployeeEmailResolveStrategy
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
                 var userInfo = _securityService.GetUserInfo(employeeUserCode);
                 if (userInfo == null)
                 {
-                    _logger.Error("Can't find user info for specified user code: " + employeeUserCode);
+                    _tracer.Error("Can't find user info for specified user code: " + employeeUserCode);
                     return false;
                 }
 
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Can't get email info from MSCRM for user code: " + employeeUserCode);
+                _tracer.Error(ex, "Can't get email info from MSCRM for user code: " + employeeUserCode);
             }
 
             return false;

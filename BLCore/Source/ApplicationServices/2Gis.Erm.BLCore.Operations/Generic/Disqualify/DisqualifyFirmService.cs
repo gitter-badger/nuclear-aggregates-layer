@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         private readonly IUserContext _userContext;
         private readonly IFirmRepository _firmRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IActivityReadService _activityReadService;
 
@@ -31,14 +31,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             IUserContext userContext,
             IFirmRepository firmRepository,
             ISecurityServiceUserIdentifier userIdentifierService, 
-            ITracer logger,
+            ITracer tracer,
             IOperationScopeFactory operationScopeFactory,
             IActivityReadService activityReadService)
         {
             _userContext = userContext;
             _firmRepository = firmRepository;
             _userIdentifierService = userIdentifierService;
-            _logger = logger;
+            _tracer = tracer;
             _operationScopeFactory = operationScopeFactory;
             _activityReadService = activityReadService;
         }
@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
                 operationScope.Complete();
             }
 
-            _logger.InfoFormat("Фирма с id={0} возвращена в резерв", entityId);
+            _tracer.InfoFormat("Фирма с id={0} возвращена в резерв", entityId);
 
             return null;
         }

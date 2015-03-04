@@ -10,8 +10,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Activate
     public sealed class RestApiActivateGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IActivateGenericEntityService<TEntity>
         where TEntity : class, IEntityKey, IDeactivatableEntity
     {
-        public RestApiActivateGenericEntityService(IApiClient apiClient, ITracer logger)
-            : base(apiClient, logger, "Activate.svc")
+        public RestApiActivateGenericEntityService(IApiClient apiClient, ITracer tracer)
+            : base(apiClient, tracer, "Activate.svc")
         {
         }
 
@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Activate
             var apiTargetResource = GetOperationApiTargetResource("{0}/{1}", EntityName, entityId);
             var request = new ApiRequest(apiTargetResource);
             var response = ApiClient.Post(request);
-            response.IfErrorThanReportAndThrowException(apiTargetResource + string.Format(". EntityName: {0}. Id: {1}", EntityName, entityId), Logger);
+            response.IfErrorThanReportAndThrowException(apiTargetResource + string.Format(". EntityName: {0}. Id: {1}", EntityName, entityId), Tracer);
             return StubReturnValue;
         }
     }

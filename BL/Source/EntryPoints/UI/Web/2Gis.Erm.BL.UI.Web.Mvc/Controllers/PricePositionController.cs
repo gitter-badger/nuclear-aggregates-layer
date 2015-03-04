@@ -30,11 +30,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                        IAPIIdentityServiceSettings identityServiceSettings,
                                        IUserContext userContext,
-                                       ITracer logger,
+                                       ITracer tracer,
                                        IGetBaseCurrencyService getBaseCurrencyService,
                                        IPriceReadModel priceReadModel,
                                        ICopyPricePositionOperationService copyPricePositionOperationService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _priceReadModel = priceReadModel;
             _copyPricePositionOperationService = copyPricePositionOperationService;
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
 
             return View(model);

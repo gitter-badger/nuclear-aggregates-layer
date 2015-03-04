@@ -17,12 +17,12 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         private readonly ICleanupPersistenceService _cleanupPersistenceService;
 
         public CleanupLogsJob(
-            ITracer logger,
+            ITracer tracer,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
             IDBCleanupSettings settings,
             ICleanupPersistenceService cleanupPersistenceService)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _settings = settings;
             _cleanupPersistenceService = cleanupPersistenceService;

@@ -25,15 +25,15 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
             IOperationScopeFactory scopeFactory,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
-            ITracer logger)
-            : base(signInService, userImpersonationService, logger)
+            ITracer tracer)
+            : base(signInService, userImpersonationService, tracer)
         {
             _scopeFactory = scopeFactory;
         }
 
         public void Interrupt()
         {
-            Logger.Info("Stopping ... ");
+            Tracer.Info("Stopping ... ");
             _isStopped = true;
         }
 
@@ -41,14 +41,14 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         {
             while (!_isStopped)
             {
-                Logger.Info("Processing ... ");
+                Tracer.Info("Processing ... ");
 
                 Process();
 
                 Thread.Sleep(10);
             }
 
-            Logger.Info("Stopped ... ");
+            Tracer.Info("Stopped ... ");
         }
 
         private void Process()

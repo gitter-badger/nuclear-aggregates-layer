@@ -25,12 +25,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
     {
         private readonly TOperationIdentity _operationIdentity = new TOperationIdentity();
         private readonly IOperationServicesManager _operationServicesManager;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        protected OperationMessageHandlerBase(IOperationServicesManager operationServicesManager, ITracer logger)
+        protected OperationMessageHandlerBase(IOperationServicesManager operationServicesManager, ITracer tracer)
         {
             _operationServicesManager = operationServicesManager;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected IOperationServicesManager OperationServicesManager
@@ -38,9 +38,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
             get { return _operationServicesManager; }
         }
 
-        protected ITracer Logger
+        protected ITracer Tracer
         {
-            get { return _logger; }
+            get { return _tracer; }
         }
 
         protected TOperationIdentity OperationIdentity
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Can't execute operation " + OperationIdentity);
+                Tracer.Error(ex, "Can't execute operation " + OperationIdentity);
             }
             finally
             {

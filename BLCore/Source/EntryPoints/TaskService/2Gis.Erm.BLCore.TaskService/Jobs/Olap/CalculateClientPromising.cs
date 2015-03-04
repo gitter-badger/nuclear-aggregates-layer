@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.Olap
 
         public CalculateClientPromising(ISignInService signInService,
                                         IUserImpersonationService userImpersonationService,
-                                        ITracer logger,
-                                        ICalculateClientPromisingOperationService calculateClientPromisingOperationService) : base(signInService, userImpersonationService, logger)
+                                        ITracer tracer,
+                                        ICalculateClientPromisingOperationService calculateClientPromisingOperationService) : base(signInService, userImpersonationService, tracer)
         {
             _calculateClientPromisingOperationService = calculateClientPromisingOperationService;
         }

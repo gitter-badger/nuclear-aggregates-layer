@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Platform.DAL
         // фабрики, для реального создания экземпляров domaincontext
         private readonly IModifiableDomainContextFactory _modifiableDomainContextFactory;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         private readonly object _domainContextRegistrarSynch = new object();
         private readonly IDictionary<Guid, HostDomainContextsStorage> _domainContextRegistrar = new Dictionary<Guid, HostDomainContextsStorage>();
@@ -36,12 +36,12 @@ namespace DoubleGis.Erm.Platform.DAL
         protected UnitOfWork(IReadDomainContext readDomainContext,
                              IModifiableDomainContextFactory modifiableDomainContextFactory,
                              IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-                             ITracer logger)
+                             ITracer tracer)
         {
             _readDomainContext = readDomainContext;
             _modifiableDomainContextFactory = modifiableDomainContextFactory;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         Guid IDomainContextHost.ScopeId

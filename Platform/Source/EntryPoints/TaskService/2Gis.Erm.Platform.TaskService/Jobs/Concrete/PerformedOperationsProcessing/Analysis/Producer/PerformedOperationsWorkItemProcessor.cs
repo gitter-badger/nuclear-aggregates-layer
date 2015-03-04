@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
         private readonly IOperationScopeDisposableFactoryAccessor _operationScopeFactoryAccessor;
         private readonly IIdentityRequestStrategy _identityRequestStrategy;
         private readonly CancellationToken _cancellationToken;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly Task _worker;
 
         public PerformedOperationsWorkItemProcessor(
@@ -29,14 +29,14 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
             IOperationScopeDisposableFactoryAccessor operationScopeFactoryAccessor, 
             IIdentityRequestStrategy identityRequestStrategy,
             CancellationToken cancellationToken,
-            ITracer logger)
+            ITracer tracer)
         {
             _processorId = processorId;
             _workItemsSource = workItemsSource;
             _operationScopeFactoryAccessor = operationScopeFactoryAccessor;
             _identityRequestStrategy = identityRequestStrategy;
             _cancellationToken = cancellationToken;
-            _logger = logger;
+            _tracer = tracer;
 
             _worker = new Task(WorkerFunc, TaskCreationOptions.LongRunning);
         }
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
         private void WorkerFunc()
         {
-            _logger.InfoFormat("Producing performed operations. Processor id {0} started", _processorId);
+            _tracer.InfoFormat("Producing performed operations. Processor id {0} started", _processorId);
 
             var workItemStopwatch = new Stopwatch();
             var operationStopwatch = new Stopwatch();
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                 int succeeded = 0;
                 int failed = 0;
                 
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                         "Producing performed operations. Processor id: {0}. Work item scheduled. Operation count: {1}. Entities count: {2}",
                         _processorId,
                         nextPerformedOperationsWorkItem.OperationsCount,
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                         operationStopwatch.Stop();
                         ++succeeded;
                         
-                        _logger.DebugFormat(
+                        _tracer.DebugFormat(
                             "Producing performed operations. Processor id: {0}. Operation pushed in {1} sec. Operation count: {2}. Entities count: {3}. Producing rate : {4:F2} op/sec. Units (ops|entities) rate: {5:F2} unit/sec",
                             _processorId,
                             operationStopwatch.Elapsed.TotalSeconds,
@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                         operationStopwatch.Stop();
                         ++failed;
                         
-                        _logger.ErrorFormat(
+                        _tracer.ErrorFormat(
                             ex, 
                             "Producing performed operations. Processor id: {0}. Operation push failed after {1} sec. Operation count: {2}. Entities count: {3}",
                             _processorId,
@@ -115,7 +115,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
                 workItemStopwatch.Stop();
 
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                         "Producing performed operations. Processor id: {0}. Work item processed in {1:F2} sec by ratio {2:F2}%, succeeded {3:F2}%. Operation count: {4}. Entities count: {5}. Producing rate : {6:F2} op/sec. Units (ops|entities) rate: {7:F2} unit/sec",
                         _processorId,
                         workItemStopwatch.Elapsed.TotalSeconds,
@@ -127,7 +127,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                         (double)(nextPerformedOperationsWorkItem.EntitiesCount + 1) * nextPerformedOperationsWorkItem .OperationsCount / operationStopwatch.Elapsed.TotalSeconds);
             }
 
-            _logger.InfoFormat("Producing performed operations. Processor id {0} stopped", _processorId);
+            _tracer.InfoFormat("Producing performed operations. Processor id {0} stopped", _processorId);
         }
 
         private void PushOperations(int affectedEntitiesCount)

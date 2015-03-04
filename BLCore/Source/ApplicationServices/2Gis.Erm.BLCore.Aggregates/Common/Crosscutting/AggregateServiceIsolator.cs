@@ -13,12 +13,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
     public sealed class AggregateServiceIsolator : IAggregateServiceIsolator
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public AggregateServiceIsolator(IUnitOfWork unitOfWork, ITracer logger)
+        public AggregateServiceIsolator(IUnitOfWork unitOfWork, ITracer tracer)
         {
             _unitOfWork = unitOfWork;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Execute<TAggregateService>(Action<TAggregateService> action) where TAggregateService : class, IAggregateRepository
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Isolated aggregate service execution failed");
+                _tracer.ErrorFormat(ex, "Isolated aggregate service execution failed");
                 throw;
             }
         }

@@ -16,11 +16,11 @@ namespace DoubleGis.Erm.BLCore.WCF.MoDi
     {
         private readonly IReportsService _reportsService;
 
-        public ReportsApplicationService(IUserContext userContext, IReportsService reportsService, ITracer logger)
+        public ReportsApplicationService(IUserContext userContext, IReportsService reportsService, ITracer tracer)
         {
             _reportsService = reportsService;
 
-            logger.InfoFormat("Печатается отчёт от имени пользователя {0} ({1})", userContext.Identity.DisplayName, userContext.Identity.Account);
+            tracer.InfoFormat("Печатается отчёт от имени пользователя {0} ({1})", userContext.Identity.DisplayName, userContext.Identity.Account);
             EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
         }
 

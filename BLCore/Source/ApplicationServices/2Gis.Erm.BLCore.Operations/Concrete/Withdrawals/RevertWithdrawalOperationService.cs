@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUseCaseTuner _useCaseTuner;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IDeleteLockDetailsDuringRevertingWithdrawalOperationService _deleteLockDetailsDuringRevertingWithdrawalOperationService;
 
         public RevertWithdrawalOperationService(
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IUserContext userContext,
             IUseCaseTuner useCaseTuner,
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _accountReadModel = accountReadModel;
             _actualizeAccountsDuringRevertingWithdrawalOperationService = actualizeAccountsDuringRevertingWithdrawalOperationService;
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _userContext = userContext;
             _scopeFactory = scopeFactory;
             _useCaseTuner = useCaseTuner;
-            _logger = logger;
+            _tracer = tracer;
             _deleteLockDetailsDuringRevertingWithdrawalOperationService = deleteLockDetailsDuringRevertingWithdrawalOperationService;
         }
 
@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                         period,
                         report);
 
-                    _logger.ErrorFormat(msg);
+                    _tracer.ErrorFormat(msg);
                     return WithdrawalProcessingResult.Error(msg);
                 }
 
@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                 acquiredWithdrawal.OrganizationUnitId,
                                 period);
 
-                        _logger.Error(msg);
+                        _tracer.Error(msg);
 
                         transaction.Complete();
                         return WithdrawalProcessingResult.Error(msg);
@@ -122,7 +122,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                         "Reverting withdrawing aborted. Unexpected exception was caught. Organization unit id {0}. Period: {1}",
                         organizationUnitId,
                         period);
-                _logger.Error(ex, msg);
+                _tracer.Error(ex, msg);
 
                 if (acquiredWithdrawal != null)
                 {
@@ -152,7 +152,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             {
                 var withdrawalInfos = _accountReadModel.GetInfoForRevertWithdrawal(organizationUnitId, period);
 
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                     "Reverting withdrawal. Organization unit {0}. {1}. Starting accounts actualization process. Target withdrawal infos count: {2}",
                     organizationUnitId,
                     period,
@@ -167,7 +167,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                         LockDetails = i.LockDetails
                     }));
 
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                     "Reverting withdrawal. Organization unit {0}. {1}. Starting orders actualization process",
                     organizationUnitId,
                     period);
@@ -179,7 +179,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                         AmountToWithdrawNext = dto.AmountToWithdrawNextAfterWithdrawalRevert
                     }));
 
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                     "Reverting withdrawal. Organization unit {0}. {1}. Starting deals actualization process",
                     organizationUnitId,
                     period);
@@ -189,13 +189,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                         .Select(dto => dto.Order.DealId.Value)
                         .Distinct());
 
-                _logger.InfoFormat("Reverting withdrawal. Organization unit {0}. {1}. Starting locks actualization process for planned positions",
+                _tracer.InfoFormat("Reverting withdrawal. Organization unit {0}. {1}. Starting locks actualization process for planned positions",
                                      organizationUnitId,
                                      period);
                 _deleteLockDetailsDuringRevertingWithdrawalOperationService.DeleteLockDetails(organizationUnitId, period);
 
                 _withdrawalChangeStatusAggregateService.ChangeStatus(acquiredWithdrawal, WithdrawalStatus.Reverted, null);
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                     "Reverting withdrawal process successfully finished. Organization unit {0}. {1}.",
                     organizationUnitId,
                     period);
@@ -215,7 +215,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             acquiredWithdrawal = null;
 
-            _logger.InfoFormat("Starting reverting withdrawal process for organization unit with id {0} and time period {1}", organizationUnitId, period);
+            _tracer.InfoFormat("Starting reverting withdrawal process for organization unit with id {0} and time period {1}", organizationUnitId, period);
 
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.WithdrawalAccess, _userContext.Identity.Code))
             {
@@ -258,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 transaction.Complete();
             }
 
-            _logger.InfoFormat(
+            _tracer.InfoFormat(
                     "Reverting withdrawal process for organization unit {0} and period {1} is granted. Acquired withdrawal entry id {2}",
                     organizationUnitId,
                     period,

@@ -14,16 +14,16 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topolo
         protected readonly IMessageFlow SourceMessageFlow = new TMessageFlow();
         protected readonly IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage> StagesMap;
         protected readonly IEnumerable<MessageProcessingStage> IgnoreErrorsOnStage;
-        protected readonly ITracer Logger;
+        protected readonly ITracer Tracer;
 
         protected MessageProcessingTopologyBase(
             IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage> stagesMap,
             IEnumerable<MessageProcessingStage> ignoreErrorsOnStage,
-            ITracer logger)
+            ITracer tracer)
         {
             StagesMap = stagesMap;
             IgnoreErrorsOnStage = ignoreErrorsOnStage;
-            Logger = logger;
+            Tracer = tracer;
         }
 
         Task<TopologyProcessingResults> IMessageProcessingTopology.ProcessAsync(IReadOnlyList<IMessage> messages)

@@ -49,12 +49,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                       IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                       IAPIIdentityServiceSettings identityServiceSettings,
                                       IUserContext userContext,
-                                      ITracer logger,
+                                      ITracer tracer,
                                       IGetBaseCurrencyService getBaseCurrencyService,
                                       ISecurityServiceFunctionalAccess functionalAccessService,
                                       IPublicService publicService,
                                       ILocalMessageRepository localMessageRepository)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;

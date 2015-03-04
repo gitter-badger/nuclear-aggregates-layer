@@ -17,25 +17,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IOrderRestoreOrdersFromArchiveAggregateService _restoreOrdersFromArchiveAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IActionLogger _actionLogger;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public ActualizeOrdersDuringRevertingWithdrawalOperationService(
             IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService orderActualizeOrdersAmoutDuringWithdrawalAggregateService,
             IOrderRestoreOrdersFromArchiveAggregateService restoreOrdersFromArchiveAggregateService,
             IOperationScopeFactory scopeFactory,
             IActionLogger actionLogger,
-            ITracer logger)
+            ITracer tracer)
         {
             _orderActualizeOrdersAmoutDuringWithdrawalAggregateService = orderActualizeOrdersAmoutDuringWithdrawalAggregateService;
             _restoreOrdersFromArchiveAggregateService = restoreOrdersFromArchiveAggregateService;
             _scopeFactory = scopeFactory;
             _actionLogger = actionLogger;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Actualize(IEnumerable<ActualizeOrdersDto> orderInfos)
         {
-            _logger.Info("Starting actualize orders during reverting withdrawal process");
+            _tracer.Info("Starting actualize orders during reverting withdrawal process");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeOrdersDuringRevertingWithdrawalIdentity>())
             {
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.Info("Finished actualize orders during reverting withdrawal process");
+            _tracer.Info("Finished actualize orders during reverting withdrawal process");
         }
     }
 }

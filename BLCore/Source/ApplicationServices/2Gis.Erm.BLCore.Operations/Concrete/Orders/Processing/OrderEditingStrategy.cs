@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             }
         };
 
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IReleaseReadModel _releaseRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                     IOperationScope operationScope,
                                     IUserRepository userRepository,
                                     IOrderReadModel orderReadModel,
-                                    ITracer logger,
+                                    ITracer tracer,
                                     IReleaseReadModel releaseRepository,
                                     IAccountRepository accountRepository,
                                     ISecurityServiceFunctionalAccess functionalAccessService,
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                     ILegalPersonReadModel legalPersonReadModel)
             : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
-            _logger = logger;
+            _tracer = tracer;
             _releaseRepository = releaseRepository;
             _accountRepository = accountRepository;
             _functionalAccessService = functionalAccessService;
@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                     return;
                 }
 
-                _logger.WarnFormat(
+                _tracer.WarnFormat(
                     "Попытка изменить флаг 'Работа с задолженностью по документам' в заказе [{0}] со значения [{1}] на [{2}]",
                     order.Id, 
                     orderStateValidationInfo.HasDocumentsDebt, 
@@ -178,7 +178,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         {
             #region Logging
 
-            _logger.InfoFormat("Обновление скидки заказа [{0}]", order.Id);
+            _tracer.InfoFormat("Обновление скидки заказа [{0}]", order.Id);
 
             #endregion
 
@@ -186,13 +186,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
             #region Logging
 
-            _logger.Debug("Обновление скидки заказа - завершено");
+            _tracer.Debug("Обновление скидки заказа - завершено");
 
             #endregion
 
             #region Logging
 
-            _logger.InfoFormat("Обновление остатков по заказу [{0}]", order.Id);
+            _tracer.InfoFormat("Обновление остатков по заказу [{0}]", order.Id);
 
             #endregion
 
@@ -200,7 +200,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
             #region Logging
 
-            _logger.Debug("Обновление остатков по заказу - завершено");
+            _tracer.Debug("Обновление остатков по заказу - завершено");
 
             #endregion
         }

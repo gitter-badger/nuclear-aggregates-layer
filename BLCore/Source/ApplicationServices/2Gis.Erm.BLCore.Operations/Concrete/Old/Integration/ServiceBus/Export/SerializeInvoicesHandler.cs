@@ -22,9 +22,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
 
         public SerializeInvoicesHandler(IExportRepository<Order> exportOperationsRepository,
-                                        ITracer logger,
+                                        ITracer tracer,
                                         ISecurityServiceUserIdentifier securityServiceUserIdentifier)
-            : base(exportOperationsRepository, logger)
+            : base(exportOperationsRepository, tracer)
         {
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }

@@ -14,18 +14,18 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IReleaseReadModel _releaseReadModel;
         private readonly IReleaseAttachProcessingMessagesAggregateService _attachProcessingMessagesAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AttachExternalReleaseProcessingMessagesOperationService(
             IReleaseReadModel releaseReadModel,
             IReleaseAttachProcessingMessagesAggregateService attachProcessingMessagesAggregateService,
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _releaseReadModel = releaseReadModel;
             _attachProcessingMessagesAggregateService = attachProcessingMessagesAggregateService;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Attach(long releaseId, ExternalReleaseProcessingMessage[] messages)
@@ -38,9 +38,9 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     throw new NotificationException(string.Format("Can't save release external processing results. Release entry for specifed release id " + releaseId + " not found"));
                 }
 
-                _logger.InfoFormat("Attaching external release processing results. Release id: {0}. Messages count:{1}.", release.Id, messages.Length);
+                _tracer.InfoFormat("Attaching external release processing results. Release id: {0}. Messages count:{1}.", release.Id, messages.Length);
                 _attachProcessingMessagesAggregateService.SaveExternalMessages(release, messages);
-                _logger.InfoFormat("External release processing results attached successfully.", release.Id, messages.Length);
+                _tracer.InfoFormat("External release processing results attached successfully.", release.Id, messages.Length);
 
                 scope.Complete();
             }

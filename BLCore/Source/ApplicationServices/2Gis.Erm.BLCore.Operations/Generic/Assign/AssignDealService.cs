@@ -15,18 +15,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IDealRepository _dealRepository;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AssignDealService(
             IDealRepository dealRepository, 
             IPublicService publicService, 
             IOperationScopeFactory scopeFactory, 
-            ITracer logger)
+            ITracer tracer)
         {
             _dealRepository = dealRepository;
             _publicService = publicService;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     .Complete();
             }
             
-            _logger.InfoFormat("Куратором сделки с id={0} назначен пользователь {1}", entityId, ownerCode);
+            _tracer.InfoFormat("Куратором сделки с id={0} назначен пользователь {1}", entityId, ownerCode);
 
             return null;
         }

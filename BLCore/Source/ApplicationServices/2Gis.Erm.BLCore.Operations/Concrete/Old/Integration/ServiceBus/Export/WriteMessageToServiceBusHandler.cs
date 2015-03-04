@@ -22,13 +22,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 {
     public sealed class WriteMessageToServiceBusHandler : RequestHandler<WriteMessageToServiceBusRequest, ExportResponse>
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IClientProxyFactory _clientProxyFactory;
 
-        public WriteMessageToServiceBusHandler(ITracer logger, IIntegrationSettings integrationSettings, IClientProxyFactory clientProxyFactory)
+        public WriteMessageToServiceBusHandler(ITracer tracer, IIntegrationSettings integrationSettings, IClientProxyFactory clientProxyFactory)
         {
-            _logger = logger;
+            _tracer = tracer;
             _integrationSettings = integrationSettings;
             _clientProxyFactory = clientProxyFactory;
         }
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             var isValidXml = data.ValidateXml(xsd, out error);
             if (!isValidXml)
             {
-                _logger.Fatal(error);
+                _tracer.Fatal(error);
                 throw new BusinessLogicException(string.Format(BLResources.XSDValidationError, error));
             }
 
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     }
                     catch (Exception e)
                     {
-                        _logger.ErrorFormat(e, "Ошибка при записи объекта в шину интеграции (поток {0})", flowName);
+                        _tracer.ErrorFormat(e, "Ошибка при записи объекта в шину интеграции (поток {0})", flowName);
                         throw;
                     }
                 }

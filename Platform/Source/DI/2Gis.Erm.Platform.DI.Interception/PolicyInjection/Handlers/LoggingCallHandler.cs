@@ -6,11 +6,11 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
 {
     public abstract class LoggingCallHandler : ICallHandler 
     {
-        protected readonly ITracer Logger;
+        protected readonly ITracer Tracer;
 
-        protected LoggingCallHandler(ITracer logger)
+        protected LoggingCallHandler(ITracer tracer)
         {
-            Logger = logger;
+            Tracer = tracer;
         }
 
         public int Order { get; set; }

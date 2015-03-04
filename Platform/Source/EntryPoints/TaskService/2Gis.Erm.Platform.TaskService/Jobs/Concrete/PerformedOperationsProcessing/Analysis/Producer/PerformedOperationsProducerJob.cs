@@ -28,8 +28,8 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
             IIdentityRequestStrategy identityRequestStrategy,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
-            ITracer logger)
-            : base(signInService, userImpersonationService, logger)
+            ITracer tracer)
+            : base(signInService, userImpersonationService, tracer)
         {
             _operationScopeFactoryAccessor = operationScopeFactoryAccessor;
             _identityRequestStrategy = identityRequestStrategy;
@@ -58,30 +58,30 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
         public void Interrupt()
         {
-            Logger.Info("Producing performed operations. Interrupt called for job, producing performed operations is stopping");
+            Tracer.Info("Producing performed operations. Interrupt called for job, producing performed operations is stopping");
             _cancellationTokenSource.Cancel();
         }
 
         protected override void ExecuteInternal(IJobExecutionContext context)
         {
-            Logger.Info("Producing performed operations. Processing started. Processors used: " + MaxParallelism);
+            Tracer.Info("Producing performed operations. Processing started. Processors used: " + MaxParallelism);
 
             var workItemsProcessors = new Task[MaxParallelism];
             for (int i = 0; i < workItemsProcessors.Length; i++)
             {
-                var processor = new PerformedOperationsWorkItemProcessor(i, _workItemsSource, _operationScopeFactoryAccessor, _identityRequestStrategy, _cancellationTokenSource.Token, Logger);
+                var processor = new PerformedOperationsWorkItemProcessor(i, _workItemsSource, _operationScopeFactoryAccessor, _identityRequestStrategy, _cancellationTokenSource.Token, Tracer);
                 workItemsProcessors[i] = processor.Process();
             }
 
             _workItemsGenerator.Start();
             Task.WaitAll(workItemsProcessors);
             
-            Logger.Info("Producing performed operations. Processing stopped");
+            Tracer.Info("Producing performed operations. Processing stopped");
         }
 
         private void WorkItemsGeneratorFunc()
         {
-            Logger.Info("Producing performed operations. Work items generator started");
+            Tracer.Info("Producing performed operations. Work items generator started");
 
             var cancellationToken = _cancellationTokenSource.Token;
             while (!cancellationToken.IsCancellationRequested)
@@ -99,7 +99,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
             _workItemsSource.CompleteAdding();
 
-            Logger.Info("Producing performed operations. Work items generator stopped");
+            Tracer.Info("Producing performed operations. Work items generator stopped");
         }
     }
 }

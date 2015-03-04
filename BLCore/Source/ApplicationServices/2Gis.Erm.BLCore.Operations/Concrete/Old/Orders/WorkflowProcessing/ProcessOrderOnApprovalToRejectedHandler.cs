@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         private readonly IUserContext _userContext;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IOrderReadModel _orderReadModel;
 
         public ProcessOrderOnApprovalToRejectedHandler(
@@ -29,13 +29,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             IUserContext userContext,
             INotificationSender notificationSender,
             IEmployeeEmailResolver employeeEmailResolver,
-            ITracer logger)
+            ITracer tracer)
         {
             _notificationsSettings = notificationsSettings;
             _userContext = userContext;
             _notificationSender = notificationSender;
             _employeeEmailResolver = employeeEmailResolver;
-            _logger = logger;
+            _tracer = tracer;
             _orderReadModel = orderReadModel;
         }
 
@@ -56,14 +56,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.Info("Notifications disabled in config file");
+                _tracer.Info("Notifications disabled in config file");
                 return;
             }
 
             string orderOwnerEmail;
             if (!_employeeEmailResolver.TryResolveEmail(order.OwnerCode, out orderOwnerEmail) || string.IsNullOrEmpty(orderOwnerEmail))
             {
-                _logger.Error("Can't send notification about - order rejection. Can't get to_address email. Order id: " + order.Id + ". Owner code: " + order.OwnerCode);
+                _tracer.Error("Can't send notification about - order rejection. Can't get to_address email. Order id: " + order.Id + ". Owner code: " + order.OwnerCode);
                 return;
             }
 

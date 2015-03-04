@@ -15,11 +15,11 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         private readonly IRequestBirthdayCongratulationOperationService _requestBirthdayCongratulationOperationService;
 
         public RequestBirthdaysCongratulationJob(
-            ITracer logger,
+            ITracer tracer,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
             IRequestBirthdayCongratulationOperationService requestBirthdayCongratulationOperationService)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _requestBirthdayCongratulationOperationService = requestBirthdayCongratulationOperationService;
         }

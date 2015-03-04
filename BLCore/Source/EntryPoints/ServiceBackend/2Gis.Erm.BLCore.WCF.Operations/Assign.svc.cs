@@ -17,13 +17,13 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class AssignApplicationService : IAssignApplicationService, IAssignApplicationRestService
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IUserContext _userContext;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public AssignApplicationService(ITracer logger, IUserContext userContext, IOperationServicesManager operationServicesManager, IResourceGroupManager resourceGroupManager)
+        public AssignApplicationService(ITracer tracer, IUserContext userContext, IOperationServicesManager operationServicesManager, IResourceGroupManager resourceGroupManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _userContext = userContext;
             _operationServicesManager = operationServicesManager;
 
@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<AssignOperationErrorDescription>(
                     new AssignOperationErrorDescription(entityName, ex.Message, ownerCode, bypassValidation, isPartialAssign),
                     HttpStatusCode.BadRequest);
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<AssignOperationErrorDescription>(new AssignOperationErrorDescription(entityName, ex.Message, actualOwnerCode, actualIsPartialAssign, actualBypassValidation));
             }
         }

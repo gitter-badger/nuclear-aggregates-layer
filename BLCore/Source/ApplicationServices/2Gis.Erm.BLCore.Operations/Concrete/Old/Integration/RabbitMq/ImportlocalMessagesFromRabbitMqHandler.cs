@@ -20,14 +20,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IIntegrationSettings _integrationSettings;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IRabbitMqQueueFactory _corporateQueueFactory;
 
-        public ImportlocalMessagesFromRabbitMqHandler(ISubRequestProcessor subRequestProcessor, IIntegrationSettings integrationSettings, IRabbitMqQueueFactory corporateQueueFactory, ITracer logger)
+        public ImportlocalMessagesFromRabbitMqHandler(ISubRequestProcessor subRequestProcessor, IIntegrationSettings integrationSettings, IRabbitMqQueueFactory corporateQueueFactory, ITracer tracer)
         {
             _subRequestProcessor = subRequestProcessor;
             _integrationSettings = integrationSettings;
-            _logger = logger;
+            _tracer = tracer;
             _corporateQueueFactory = corporateQueueFactory;
         }
 
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
                 {
                     foreach (var corporateMessage in reader.ReadAndRemove())
                     {
-                        _logger.Info(string.Format("Принято новое сообщение из корпоративной очереди [{0}], [{1}]", request.QueueName, corporateMessage));
+                        _tracer.Info(string.Format("Принято новое сообщение из корпоративной очереди [{0}], [{1}]", request.QueueName, corporateMessage));
 
                         _subRequestProcessor.HandleSubRequest(new CreateLocalMessageRequest
                         {
@@ -67,12 +67,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
                             }
                         }, Context);
 
-                        _logger.Info(string.Format("Сообщение из корпоративной очереди [{0}], успешно перемещено в локальную очередь, [{1}]", request.QueueName, corporateMessage));
+                        _tracer.Info(string.Format("Сообщение из корпоративной очереди [{0}], успешно перемещено в локальную очередь, [{1}]", request.QueueName, corporateMessage));
                     }
                 }
                 catch (Exception ex)
                 {
-                    _logger.Error(ex, String.Format("Произошла ошибка при загрузке сообщения из очереди [{0}]", request.QueueName));
+                    _tracer.Error(ex, String.Format("Произошла ошибка при загрузке сообщения из очереди [{0}]", request.QueueName));
                 }
             }
 

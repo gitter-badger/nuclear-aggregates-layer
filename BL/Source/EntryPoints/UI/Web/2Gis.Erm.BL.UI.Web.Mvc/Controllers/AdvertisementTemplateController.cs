@@ -27,11 +27,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                                IAPIIdentityServiceSettings identityServiceSettings,
                                                IUserContext userContext,
-                                               ITracer logger,
+                                               ITracer tracer,
                                                IGetBaseCurrencyService getBaseCurrencyService,
                                                IAdvertisementRepository advertisementRepository,
                                                IPublicService publicService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _advertisementRepository = advertisementRepository;
             _publicService = publicService;

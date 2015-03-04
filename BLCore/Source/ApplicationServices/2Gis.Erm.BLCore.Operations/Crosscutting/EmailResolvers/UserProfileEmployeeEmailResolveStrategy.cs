@@ -8,12 +8,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
     public class UserProfileEmployeeEmailResolveStrategy : IEmployeeEmailResolveStrategy
     {
         private readonly IUserRepository _userRepository;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public UserProfileEmployeeEmailResolveStrategy(IUserRepository userRepository, ITracer logger)
+        public UserProfileEmployeeEmailResolveStrategy(IUserRepository userRepository, ITracer tracer)
         {
             _userRepository = userRepository;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         #region Implementation of IEmployeeEmailResolveStrategy
@@ -25,13 +25,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
             var userProfile = _userRepository.GetProfileForUser(employeeUserCode);
             if (userProfile == null)
             {
-                _logger.Error("Can't find profile by user id: " + employeeUserCode);
+                _tracer.Error("Can't find profile by user id: " + employeeUserCode);
                 return false;
             }
 
             if (string.IsNullOrEmpty(userProfile.Email))
             {
-                _logger.Warn("Email is empty in user profile with id: " + userProfile.Id);
+                _tracer.Warn("Email is empty in user profile with id: " + userProfile.Id);
                 return false;
             }
 

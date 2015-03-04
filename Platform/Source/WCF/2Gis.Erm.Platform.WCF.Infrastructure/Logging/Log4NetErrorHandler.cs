@@ -9,11 +9,11 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
 {
     public class Log4NetErrorHandler : IErrorHandler
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public Log4NetErrorHandler(ITracer logger)
+        public Log4NetErrorHandler(ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void ProvideFault(Exception error, MessageVersion version, ref Message fault)
@@ -29,17 +29,17 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
                 if (fault.HasDetail)
                 {
                     var details = fault.GetReaderAtDetailContents().ReadContentAsString();
-                    _logger.WarnFormat("FaultException was thrown in ERM WCF service. Details: {0}",
+                    _tracer.WarnFormat("FaultException was thrown in ERM WCF service. Details: {0}",
                         !string.IsNullOrEmpty(details) ? details : faultException.ToString());
                 }
                 else
                 {
-                    _logger.WarnFormat("FaultException was thrown in ERM WCF service. Details: {0}", faultException.ToString());
+                    _tracer.WarnFormat("FaultException was thrown in ERM WCF service. Details: {0}", faultException.ToString());
                 }
             }
             else
             {
-                _logger.Fatal(error, "Unhandled exception has occured in ERM WCF service");
+                _tracer.Fatal(error, "Unhandled exception has occured in ERM WCF service");
             }
 
             return false;

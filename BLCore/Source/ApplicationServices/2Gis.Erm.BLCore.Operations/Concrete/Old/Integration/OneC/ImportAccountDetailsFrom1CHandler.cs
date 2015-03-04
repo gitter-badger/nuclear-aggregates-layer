@@ -25,14 +25,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
     public sealed class ImportAccountDetailsFrom1CHandler : RequestHandler<ImportAccountDetailsFrom1CRequest, ImportResponse>
     {
         private readonly ILocalizationSettings _localizationSettings;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IAccountRepository _accountRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly INotifyAboutAccountDetailModificationOperationService _notifyAboutAccountDetailModificationOperationService;
 
         public ImportAccountDetailsFrom1CHandler(ILocalizationSettings localizationSettings,
-                                                 ITracer logger,
+                                                 ITracer tracer,
                                                  IBranchOfficeReadModel branchOfficeReadModel,
                                                  IAccountRepository accountRepository,
                                                  ILegalPersonRepository legalPersonRepository,
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         {
             _localizationSettings = localizationSettings;
-            _logger = logger;
+            _tracer = tracer;
             _branchOfficeReadModel = branchOfficeReadModel;
             _accountRepository = accountRepository;
             _legalPersonRepository = legalPersonRepository;
@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 var message = string.Format("Невозможно распознать строку при импорте списаний по лицевым счетам. Строка [{0}].", index);
                 errors.Add(message);
 
-                _logger.Error(message);
+                _tracer.Error(message);
                 return false;
             }
 
@@ -132,7 +132,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                             index);
                 errors.Add(message);
 
-                _logger.Error(message);
+                _tracer.Error(message);
                 return false;
             }
 
@@ -143,7 +143,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                             index);
                 errors.Add(message);
 
-                _logger.Error(message);
+                _tracer.Error(message);
                 return false;
             }
 
@@ -153,7 +153,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 var message = string.Format("Активное юридическое лицо клиента с кодом [{0}] не найдено. Строка [{1}].", row.LegalPerson1CCode, index);
                 errors.Add(message);
 
-                _logger.Error(message);
+                _tracer.Error(message);
                 return false;
             }
 
@@ -165,7 +165,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                             index);
                 errors.Add(message);
 
-                _logger.Error(message);
+                _tracer.Error(message);
                 return false;
             }
 
@@ -179,7 +179,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                     index);
                 errors.Add(message);
 
-                _logger.Error(message);
+                _tracer.Error(message);
                 return false;
             }
 
@@ -208,7 +208,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 var message = string.Format("Активный тип операции с кодом [{0}] не найден. Строка [{1}].", row.DocumentType, index);
                 errors.Add(message);
 
-                _logger.Error(message);
+                _tracer.Error(message);
                 return false;
             }
 

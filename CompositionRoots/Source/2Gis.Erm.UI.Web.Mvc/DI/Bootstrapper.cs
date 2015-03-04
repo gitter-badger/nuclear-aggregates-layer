@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer logger, ITracerContextManager tracerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer tracer, ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    settingsContainer.AsSettings<IWebAppProcesingSettings>(),
-                                                                   logger,
+                                                                   tracer,
                                                                    tracerContextManager))
                      .ConfigureInterception(settingsContainer.AsSettings<IGlobalizationSettings>())
                      .ConfigureServiceClient();
@@ -201,11 +201,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             IWebAppProcesingSettings webAppProcessingSettings,
-            ITracer logger,
+            ITracer tracer,
             ITracerContextManager tracerContextManager)
         {
             return container
-                     .ConfigureTracing(logger, tracerContextManager)
+                     .ConfigureTracing(tracer, tracerContextManager)
                      .ConfigureGlobal(globalizationSettings)
                      .CreateErmSpecific(connectionStringSettings, msCrmSettings)
                      .CreateErmReportsSpecific(connectionStringSettings)

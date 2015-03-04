@@ -39,13 +39,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                      IAPIIdentityServiceSettings identityServiceSettings,
                                      IUserContext userContext,
-                                     ITracer logger,
+                                     ITracer tracer,
                                      IGetBaseCurrencyService getBaseCurrencyService,
                                      ILocalizationSettings localizationSettings,
                                      IUserProfileService userProfileService,
                                      IGetUserInfoService userInfoService,
                                      IFinder finder)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _localizationSettings = localizationSettings;
             _userProfileService = userProfileService;

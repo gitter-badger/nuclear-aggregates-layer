@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.LocalMessages
     {
         private readonly IPublicService _publicService;
 
-        public ProcessLocalMessages(ITracer logger, IPublicService publicService, ISignInService signInService, IUserImpersonationService userImpersonationService)
-            : base(signInService, userImpersonationService, logger)
+        public ProcessLocalMessages(ITracer tracer, IPublicService publicService, ISignInService signInService, IUserImpersonationService userImpersonationService)
+            : base(signInService, userImpersonationService, tracer)
         {
             _publicService = publicService;
         }

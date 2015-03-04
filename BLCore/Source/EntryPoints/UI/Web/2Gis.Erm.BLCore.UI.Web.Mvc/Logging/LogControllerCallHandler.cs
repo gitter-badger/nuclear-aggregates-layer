@@ -20,8 +20,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         private readonly IActionLogger _actionLogger;
         private readonly IDependentEntityProvider _entityProvider;
 
-        public LogControllerCallHandler(ITracer logger, IActionLogger actionLogger, IDependentEntityProvider entityProvider)
-            : base(logger)
+        public LogControllerCallHandler(ITracer tracer, IActionLogger actionLogger, IDependentEntityProvider entityProvider)
+            : base(tracer)
         {
             _actionLogger = actionLogger;
             _entityProvider = entityProvider;
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
             }
             catch (Exception ex)
             {
-                Logger.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
+                Tracer.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
             }
 
             var result = getNext()(input, getNext);
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.Fatal(ex, "Критичная ошибка журналирования операций");
+                    Tracer.Fatal(ex, "Критичная ошибка журналирования операций");
                 }
             }
 

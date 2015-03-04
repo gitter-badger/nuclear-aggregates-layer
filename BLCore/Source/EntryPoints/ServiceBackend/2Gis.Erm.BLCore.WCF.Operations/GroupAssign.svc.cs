@@ -18,13 +18,13 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Single)]
     public sealed class GroupAssignApplicationService : IGroupAssignApplicationService
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly INotifiyProgressSettings _notifiyProgressSettings;
 
-        public GroupAssignApplicationService(IOperationServicesManager operationServicesManager, INotifiyProgressSettings notifiyProgressSettings, IUserContext userContext, IResourceGroupManager resourceGroupManager, ITracer logger)
+        public GroupAssignApplicationService(IOperationServicesManager operationServicesManager, INotifiyProgressSettings notifiyProgressSettings, IUserContext userContext, IResourceGroupManager resourceGroupManager, ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
             _operationServicesManager = operationServicesManager;
             _notifiyProgressSettings = notifiyProgressSettings;
 
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                    _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                     operationResult = new AssignResult
                         {
                             Succeeded = false,
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
                     }
                     catch (Exception ex)
                     {
-                        _logger.ErrorFormat(ex, "Error has occured in {0}. Callback failed", GetType().Name);
+                        _tracer.ErrorFormat(ex, "Error has occured in {0}. Callback failed", GetType().Name);
                     }
                 }
             }

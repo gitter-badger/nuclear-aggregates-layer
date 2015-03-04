@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                IAPIIdentityServiceSettings identityServiceSettings,
                                IUserContext userContext,
-                               ITracer logger,
+                               ITracer tracer,
                                IGetBaseCurrencyService getBaseCurrencyService,
                                ICopyOrderOperationService copyOrderOperationService,
                                IFinder finder,
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IDetermineOrderBargainOperationService determineOrderBargainOperationService,
                                ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
                                IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _copyOrderOperationService = copyOrderOperationService;
             _finder = finder;
@@ -187,7 +187,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             catch (Exception ex)
             {
                 var model = new ViewModel();
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
                 return new JsonNetResult(new { model.Message, model.MessageType });
             }
         }
@@ -406,7 +406,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
 
             return View(viewModel);
@@ -498,7 +498,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
 
             return View(viewModel);
@@ -537,7 +537,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
 
             return View(model);

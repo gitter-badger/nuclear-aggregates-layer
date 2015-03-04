@@ -18,8 +18,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.LocalMessages
             IPublicService publicService, 
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService,
-            ITracer logger)
-            : base(signInService, userImpersonationService, logger)
+            ITracer tracer)
+            : base(signInService, userImpersonationService, tracer)
         {
             _publicService = publicService;
         }

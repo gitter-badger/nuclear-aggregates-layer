@@ -13,8 +13,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
     public sealed class ExecuteAssignMessageHandler : 
         OperationMessageHandlerBase<AssignIdentity, AssignCommonParameter, AssignEntityParameter, AssignResult>
     {
-        public ExecuteAssignMessageHandler(IOperationServicesManager operationServicesManager, ITracer logger)
-            : base(operationServicesManager, logger)
+        public ExecuteAssignMessageHandler(IOperationServicesManager operationServicesManager, ITracer tracer)
+            : base(operationServicesManager, tracer)
         {
         }
 

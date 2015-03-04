@@ -13,17 +13,17 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
     public sealed class OperationProgressCallback : IOperationProgressCallback
     {
         private readonly IMessageSink _messageSink;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
-        public OperationProgressCallback(IMessageSink messageSink, ITracer logger)
+        public OperationProgressCallback(IMessageSink messageSink, ITracer tracer)
         {
             _messageSink = messageSink;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void NotifyAboutProgress(Guid operationToken, IOperationResult[] results)
         {
-            _logger.DebugFormat("Callback received. Operation: {0}. Results count: {1}", operationToken, results != null ? results.Length : -1);
+            _tracer.DebugFormat("Callback received. Operation: {0}. Results count: {1}", operationToken, results != null ? results.Length : -1);
             _messageSink.Post(new OperationProgressMessage(operationToken, results));
         }
     }

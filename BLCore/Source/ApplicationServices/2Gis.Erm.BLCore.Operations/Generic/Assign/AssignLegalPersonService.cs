@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IPublicService _publicService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AssignLegalPersonService(
             ILegalPersonRepository legalPersonRepository,
@@ -33,14 +33,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             IPublicService publicService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext, 
-            ITracer logger)
+            ITracer tracer)
         {
             _legalPersonRepository = legalPersonRepository;
             _scopeFactory = scopeFactory;
             _publicService = publicService;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                         .Complete();
                 }
                 
-                _logger.InfoFormat("Куратором юр.лица с id={0} назначен пользователь {1}, isPartialAssign={2}", entityId, ownerCode, isPartialAssign);
+                _tracer.InfoFormat("Куратором юр.лица с id={0} назначен пользователь {1}, isPartialAssign={2}", entityId, ownerCode, isPartialAssign);
             }
             catch (ProcessAccountsWithDebtsException ex)
             {

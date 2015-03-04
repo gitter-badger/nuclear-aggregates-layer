@@ -19,15 +19,15 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class UploadBinaryApplicationService : IUploadBinaryApplicationRestService
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public UploadBinaryApplicationService(ITracer logger,
+        public UploadBinaryApplicationService(ITracer tracer,
                                               IOperationServicesManager operationServicesManager,
                                               IUserContext userContext,
                                               IResourceGroupManager resourceGroupManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _operationServicesManager = operationServicesManager;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<UploadBinaryOperationErrorDescription>(new UploadBinaryOperationErrorDescription(entityName, ex.Message), HttpStatusCode.BadRequest);
             }
         }

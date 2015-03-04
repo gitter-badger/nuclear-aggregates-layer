@@ -23,16 +23,16 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
     {
         private readonly IFinder _finder;
         private readonly IPriceConfigurationService _priceConfigurationService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AssociatedAndDeniedPricePositionsOrderValidationRule(
             IFinder finder,
             IPriceConfigurationService priceConfigurationService,
-            ITracer logger)
+            ITracer tracer)
         {
             _finder = finder;
             _priceConfigurationService = priceConfigurationService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
             var orderStatesDictionary = ADPValidationInitializationHelper.LoadOrderStates(validationQueryProvider);
 
             var validationResultBuilder = new ADPValidationResultBuilder(orderStatesDictionary, request.Mode, request.OrderId);
-            var validatorsDictionary = ADPValidationInitializationHelper.LoadValidators(_logger,
+            var validatorsDictionary = ADPValidationInitializationHelper.LoadValidators(_tracer,
                                                                                         request.Mode,
                                                                                         request.OrderId,
                                                                                         validationQueryProvider,

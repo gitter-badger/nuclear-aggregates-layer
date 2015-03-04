@@ -21,18 +21,18 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
     {
         private readonly ICalculateOrderCostService _calculateOrderCostService;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IGetPositionsByOrderService _getPositionsByOrderService;
 
         public CostCalculationApplicationService(IUserContext userContext,
                                                  ICalculateOrderCostService calculateOrderCostService,
-                                                 ITracer logger,
+                                                 ITracer tracer,
                                                  IGetPositionsByOrderService getPositionsByOrderService,
                                                  ICalculateOrderPositionCostService calculateOrderPositionCostService,
                                                  IResourceGroupManager resourceGroupManager)
         {
             _calculateOrderCostService = calculateOrderCostService;
-            _logger = logger;
+            _tracer = tracer;
             _getPositionsByOrderService = getPositionsByOrderService;
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
 
@@ -49,17 +49,17 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (PositionIsNotRepresentedException exception)
             {
-                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 return GetEmptyCalculationResults(orderId);
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }
@@ -91,12 +91,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }
@@ -129,12 +129,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }
@@ -179,12 +179,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }

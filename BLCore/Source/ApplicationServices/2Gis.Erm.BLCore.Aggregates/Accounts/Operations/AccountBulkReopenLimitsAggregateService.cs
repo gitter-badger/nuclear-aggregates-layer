@@ -14,16 +14,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
     {
         private readonly IRepository<Limit> _limitRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public AccountBulkReopenLimitsAggregateService(
             IRepository<Limit> limitRepository,
             IOperationScopeFactory scopeFactory,
-            ITracer logger)
+            ITracer tracer)
         {
             _limitRepository = limitRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Reopen(IEnumerable<Limit> limits)
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.Info("Reopened limits count: " + reopenedLimits);
+            _tracer.Info("Reopened limits count: " + reopenedLimits);
         }
     }
 }

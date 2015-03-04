@@ -17,8 +17,8 @@ namespace DoubleGis.Erm.BLQuerying.TaskService.Jobs
         private readonly IDefferedDocumentUpdater _defferedDocumentUpdater;
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
-        public ReplicateDocumentsToElasticSearchJob(ISignInService signInService, IUserImpersonationService userImpersonationService, ITracer logger, IDefferedDocumentUpdater defferedDocumentUpdater)
-            : base(signInService, userImpersonationService, logger)
+        public ReplicateDocumentsToElasticSearchJob(ISignInService signInService, IUserImpersonationService userImpersonationService, ITracer tracer, IDefferedDocumentUpdater defferedDocumentUpdater)
+            : base(signInService, userImpersonationService, tracer)
         {
             _defferedDocumentUpdater = defferedDocumentUpdater;
         }

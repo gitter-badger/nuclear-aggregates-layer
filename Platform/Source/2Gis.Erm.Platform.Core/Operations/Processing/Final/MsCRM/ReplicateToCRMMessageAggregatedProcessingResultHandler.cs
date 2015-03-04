@@ -17,17 +17,17 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
     {
         private readonly IReplicationPersistenceService _replicationPersistenceService;
         private readonly IAsyncMsCRMReplicationSettings _asyncMsCRMReplicationSettings;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
         public ReplicateToCRMMessageAggregatedProcessingResultHandler(
             IAsyncMsCRMReplicationSettings asyncMsCRMReplicationSettings,
             IReplicationPersistenceService replicationPersistenceService,
-            ITracer logger,
+            ITracer tracer,
             IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
             _asyncMsCRMReplicationSettings = asyncMsCRMReplicationSettings;
-            _logger = logger;
+            _tracer = tracer;
             _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
             _replicationPersistenceService = replicationPersistenceService;
         }
@@ -128,7 +128,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Can't replicate {0} entities of type {1}", replicationTargets.Count, replicationType);
+                _tracer.ErrorFormat(ex, "Can't replicate {0} entities of type {1}", replicationTargets.Count, replicationType);
                 return false;
             }
         }

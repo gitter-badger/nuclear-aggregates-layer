@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
         private readonly IProcessingContext _processingContext;
         private readonly IProducedQueryLogAccessor _producedQueryLogAccessor;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
         public EFDomainContextFactory(IDomainContextMetadataProvider domainContextMetadataProvider,
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                                       IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
                                       IProcessingContext processingContext,
                                       IProducedQueryLogAccessor producedQueryLogAccessor,
-                                      ITracer logger,
+                                      ITracer tracer,
                                       IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
             _domainContextMetadataProvider = domainContextMetadataProvider;
@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
             _processingContext = processingContext;
             _producedQueryLogAccessor = producedQueryLogAccessor;
-            _logger = logger;
+            _tracer = tracer;
             _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
         }
 
@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                                        dbContext,
                                        _pendingChangesHandlingStrategy,
                                        _msCrmReplicationMetadataProvider,
-                                       _logger);
+                                       _tracer);
         }
     }
 }

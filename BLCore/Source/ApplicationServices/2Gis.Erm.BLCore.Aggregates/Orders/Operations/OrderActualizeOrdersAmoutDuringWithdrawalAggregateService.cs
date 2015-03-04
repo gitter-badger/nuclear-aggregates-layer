@@ -19,25 +19,25 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
         private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IRepository<Order> _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
 
         public OrderActualizeOrdersAmoutDuringWithdrawalAggregateService(
             IBusinessModelSettings businessModelSettings,
             IRepository<Order> orderRepository, 
             IOperationScopeFactory scopeFactory, 
-            ITracer logger)
+            ITracer tracer)
         {
             _businessModelSettings = businessModelSettings;
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IReadOnlyDictionary<long, Order> Actualize(IEnumerable<ActualizeOrdersDto> orders, bool isWithdrawalReverting)
         {
             var processedOrders = new Dictionary<long, Order>();
 
-            _logger.InfoFormat("Starting actualizing order amount info during withdrawal process. Is reverting: {0}", isWithdrawalReverting);
+            _tracer.InfoFormat("Starting actualizing order amount info during withdrawal process. Is reverting: {0}", isWithdrawalReverting);
 
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Order>())
             {
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormat(
+            _tracer.InfoFormat(
                 "Finished actualizing order amount info during withdrawal process. Is reverting: {0}. Orders processed: {1}", 
                 isWithdrawalReverting,
                 processedOrders.Count);

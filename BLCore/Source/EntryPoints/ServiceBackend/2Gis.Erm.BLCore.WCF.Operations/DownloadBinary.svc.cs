@@ -17,15 +17,15 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class DownloadBinaryApplicationService : IDownloadBinaryApplicationRestService
     {
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public DownloadBinaryApplicationService(ITracer logger,
+        public DownloadBinaryApplicationService(ITracer tracer,
                                                 IOperationServicesManager operationServicesManager,
                                                 IUserContext userContext,
                                                 IResourceGroupManager resourceGroupManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _operationServicesManager = operationServicesManager;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<DownloadBinaryOperationErrorDescription>(new DownloadBinaryOperationErrorDescription(entityName, ex.Message),
                                                                                      HttpStatusCode.BadRequest);
             }

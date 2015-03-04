@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.TaskService.DI
 {
     public static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer logger, ITracerContextManager tracerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer tracer, ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                          logger, 
+                                                                          tracer, 
                                                                           tracerContextManager))
                             .ConfigureServiceClient();
 
@@ -144,11 +144,11 @@ namespace DoubleGis.Erm.TaskService.DI
             IMsCrmSettings msCrmSettings, 
             ICachingSettings cachingSettings, 
             IOperationLoggingSettings operationLoggingSettings,
-            ITracer logger, 
+            ITracer tracer, 
             ITracerContextManager tracerContextManager)
         {
             return container
-                    .ConfigureTracing(logger, tracerContextManager)
+                    .ConfigureTracing(tracer, tracerContextManager)
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
                     .CreateSecuritySpecific()

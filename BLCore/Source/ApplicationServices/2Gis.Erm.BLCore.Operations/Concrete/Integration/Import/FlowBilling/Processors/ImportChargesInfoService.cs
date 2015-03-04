@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         private readonly IChargeBulkCreateAggregateService _chargeBulkCreateAggregateService;
         private readonly IChargeCreateHistoryAggregateService _chargeCreateHistoryAggregateService;
         private readonly IDeleteChargesForPeriodAndProjectOperationService _deleteChargesService;
-        private readonly ITracer _logger;
+        private readonly ITracer _tracer;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IPositionReadModel _positionReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                                         IChargeBulkCreateAggregateService chargeBulkCreateAggregateService,
                                         IChargeCreateHistoryAggregateService chargeCreateHistoryAggregateService,
                                         IDeleteChargesForPeriodAndProjectOperationService deleteChargesService,
-                                        ITracer logger,
+                                        ITracer tracer,
                                         IOrderReadModel orderReadModel,
                                         IPositionReadModel positionReadModel,
                                         IOperationScopeFactory scopeFactory,
@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             _chargeBulkCreateAggregateService = chargeBulkCreateAggregateService;
             _chargeCreateHistoryAggregateService = chargeCreateHistoryAggregateService;
             _deleteChargesService = deleteChargesService;
-            _logger = logger;
+            _tracer = tracer;
             _orderReadModel = orderReadModel;
             _positionReadModel = positionReadModel;
             _scopeFactory = scopeFactory;
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             }
             catch (Exception e)
             {
-                _logger.Error(e, e.Message);
+                _tracer.Error(e, e.Message);
                 using (var transaction = new TransactionScope(TransactionScopeOption.Suppress, DefaultTransactionOptions.Default))
                 {
                     LogImportStatus(chargesInfo, ChargesHistoryStatus.Error, e.Message);
