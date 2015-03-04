@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
             ITracer logger,
-            ILoggerContextManager loggerContextManager)
+            ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           logger,
-                                                                          loggerContextManager))
+                                                                          tracerContextManager))
                      .ConfigureServiceClient();
         }
 
@@ -93,10 +93,10 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             IOperationLoggingSettings operationLoggingSettings,
             IMsCrmSettings msCrmSettings,
             ITracer logger,
-            ILoggerContextManager loggerContextManager)
+            ITracerContextManager tracerContextManager)
         {
             return container
-                .ConfigureLogging(logger, loggerContextManager)
+                .ConfigureTracing(logger, tracerContextManager)
                 .CreateSecuritySpecific()
                 .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureReleasingInfrastructure()

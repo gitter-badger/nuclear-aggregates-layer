@@ -4,16 +4,16 @@ namespace DoubleGis.Erm.Platform.API.Security.UserContext.Identity
 {
     public sealed class LoggerContextUserLogonAuditor : IUserLogonAuditor
     {
-        private readonly ILoggerContextManager _loggerContextManager;
+        private readonly ITracerContextManager _tracerContextManager;
 
-        public LoggerContextUserLogonAuditor(ILoggerContextManager loggerContextManager)
+        public LoggerContextUserLogonAuditor(ITracerContextManager tracerContextManager)
         {
-            _loggerContextManager = loggerContextManager;
+            _tracerContextManager = tracerContextManager;
         }
 
         public void LoggedIn(IUserIdentity identity)
         {
-            _loggerContextManager[LoggerContextKeys.Required.UserAccount] = identity.Account;
+            _tracerContextManager[TracerContextKeys.Required.UserAccount] = identity.Account;
         }
     }
 }

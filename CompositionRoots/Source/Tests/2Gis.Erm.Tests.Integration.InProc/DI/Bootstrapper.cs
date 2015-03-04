@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
     internal static partial class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer logger, ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -143,7 +143,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    logger,
-                                                                   loggerContextManager))
+                                                                   tracerContextManager))
                      .ConfigureServiceClient()
                      .OverrideDependencies();
 
@@ -164,10 +164,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             ITracer logger,
-            ILoggerContextManager loggerContextManager)
+            ITracerContextManager tracerContextManager)
         {
             return container
-                    .ConfigureLogging(logger, loggerContextManager)
+                    .ConfigureTracing(logger, tracerContextManager)
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
                     .CreateSecuritySpecific()

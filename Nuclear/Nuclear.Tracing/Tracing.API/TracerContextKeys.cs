@@ -1,6 +1,6 @@
 namespace Nuclear.Tracing.API
 {
-    public static class LoggerContextKeys
+    public static class TracerContextKeys
     {
         public static class Required
         {

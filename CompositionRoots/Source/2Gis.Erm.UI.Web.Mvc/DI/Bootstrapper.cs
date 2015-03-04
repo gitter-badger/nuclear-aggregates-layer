@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer logger, ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -137,7 +137,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    settingsContainer.AsSettings<IWebAppProcesingSettings>(),
                                                                    logger,
-                                                                   loggerContextManager))
+                                                                   tracerContextManager))
                      .ConfigureInterception(settingsContainer.AsSettings<IGlobalizationSettings>())
                      .ConfigureServiceClient();
                 
@@ -202,10 +202,10 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             IOperationLoggingSettings operationLoggingSettings,
             IWebAppProcesingSettings webAppProcessingSettings,
             ITracer logger,
-            ILoggerContextManager loggerContextManager)
+            ITracerContextManager tracerContextManager)
         {
             return container
-                     .ConfigureLogging(logger, loggerContextManager)
+                     .ConfigureTracing(logger, tracerContextManager)
                      .ConfigureGlobal(globalizationSettings)
                      .CreateErmSpecific(connectionStringSettings, msCrmSettings)
                      .CreateErmReportsSpecific(connectionStringSettings)

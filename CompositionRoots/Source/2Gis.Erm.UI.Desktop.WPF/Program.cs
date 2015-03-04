@@ -16,8 +16,8 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
         [STAThread]
         public static void Main(string[] args)
         {
-            var logger = Log4NetLoggerBuilder.Use
-                                             .XmlConfig(Path.Combine(Bootstrapper.GetApplicationWorkingDirectory, Log4NetLoggerBuilder.DefaultLogConfigFileName))
+            var logger = Log4NetTracerBuilder.Use
+                                             .XmlConfig(Path.Combine(Bootstrapper.GetApplicationWorkingDirectory, Log4NetTracerBuilder.DefaultLogConfigFileName))
                                              .File("Erm.WPF.Client")
                                              .Build; 
 

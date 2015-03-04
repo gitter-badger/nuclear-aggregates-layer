@@ -25,18 +25,18 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
             var environmentSettings = settings.AsSettings<IEnvironmentSettings>();
 
             var loggerContextEntryProviders =
-                new ILoggerContextEntryProvider[]
+                new ITracerContextEntryProvider[]
                     {
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
-                        new LoggerContextSelfHostedEntryProvider(LoggerContextKeys.Required.UserAccount)
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new TracerContextSelfHostedEntryProvider(TracerContextKeys.Required.UserAccount)
                     };
 
-            var loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
+            var loggerContextManager = new TracerContextManager(loggerContextEntryProviders);
 
-            var logger = Log4NetLoggerBuilder.Use
+            var logger = Log4NetTracerBuilder.Use
                                              .Console
                                              .File(environmentSettings.EnvironmentName + "_" + environmentSettings.EntryPointName)
                                              .Build;

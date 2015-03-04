@@ -37,9 +37,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc
     {
         private static IUnityContainer _container;
         private static bool _databaseSynchronized;
-        private static ILoggerContextManager _loggerContextManager;
+        private static ITracerContextManager _tracerContextManager;
 
-        private static ITracer Logger
+        private static ITracer Tracer
         {
             get { return _container.Resolve<ITracer>(); }
         }
@@ -75,27 +75,27 @@ namespace DoubleGis.Erm.UI.Web.Mvc
             var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
 
             var loggerContextEntryProviders =
-                    new ILoggerContextEntryProvider[] 
+                    new ITracerContextEntryProvider[] 
                     {
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
-                        new LoggerContextEntryWebProvider(LoggerContextKeys.Required.UserAccount),
-                        new LoggerContextEntryWebProvider(LoggerContextKeys.Optional.UserSession),
-                        new LoggerContextEntryWebProvider(LoggerContextKeys.Optional.UserAddress),
-                        new LoggerContextEntryWebProvider(LoggerContextKeys.Optional.UserAgent)
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new TracerContextEntryWebProvider(TracerContextKeys.Required.UserAccount),
+                        new TracerContextEntryWebProvider(TracerContextKeys.Optional.UserSession),
+                        new TracerContextEntryWebProvider(TracerContextKeys.Optional.UserAddress),
+                        new TracerContextEntryWebProvider(TracerContextKeys.Optional.UserAgent)
                     };
 
-            _loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
-            var logger = Log4NetLoggerBuilder.Use
+            _tracerContextManager = new TracerContextManager(loggerContextEntryProviders);
+            var logger = Log4NetTracerBuilder.Use
                                              .DefaultXmlConfig
                                              .EventLog
                                              .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
                                              .Build;
 
             // initialize unity
-            _container = Bootstrapper.ConfigureUnity(settingsContainer, logger, _loggerContextManager);
+            _container = Bootstrapper.ConfigureUnity(settingsContainer, logger, _tracerContextManager);
 
             // set global dependency resolver
             DependencyResolver.SetResolver(_container.Resolve<UnityDependencyResolver>());
@@ -140,7 +140,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
             }
 
             LoggerContextPrepareForRequestProcessing();
-            Logger.DebugFormat("Старт обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
+            Tracer.DebugFormat("Старт обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
 
             // аутентифицируем и логиним пользователя
             var userInfo = SignInService.SignIn();
@@ -157,7 +157,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
 
         protected void Application_ReleaseRequestState(object sender, EventArgs e)
         {
-            Logger.DebugFormat("Окончание обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
+            Tracer.DebugFormat("Окончание обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
         }
 
         // error handling for non-500 errors
@@ -179,7 +179,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
                     ExecuteErrorController("PageNotFound");
                     break;
                 default:
-                    Logger.Error(exception, "Unexpected error has occured");
+                    Tracer.Error(exception, "Unexpected error has occured");
                     break;
             }
         }
@@ -256,7 +256,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc
             var userAddress = Request.UserHostAddress ?? "Не определено";
             var userAgent = (Request.Browser == null) ? "Не определено" : Request.Browser.Browser;
 
-            _loggerContextManager.SetUserInfo(userAccount, Session.SessionID, userAddress, userAgent);
+            _tracerContextManager.SetUserInfo(userAccount, Session.SessionID, userAddress, userAgent);
         }
     }
 }

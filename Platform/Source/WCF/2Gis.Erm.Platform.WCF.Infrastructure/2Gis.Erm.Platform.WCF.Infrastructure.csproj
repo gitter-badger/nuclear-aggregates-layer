@@ -71,7 +71,7 @@
     <Compile Include="Logging\Log4NetConfigurationOperationContextExtension.cs" />
     <Compile Include="Logging\Log4NetErrorHandler.cs" />
     <Compile Include="Logging\ErrorHandlerFactory.cs" />
-    <Compile Include="Logging\LoggerContextEntryWcfProvider.cs" />
+    <Compile Include="Logging\TracerContextEntryWcfProvider.cs" />
     <Compile Include="MultipartStreamWrapper.cs" />
     <Compile Include="NullableQueryStringConverter.cs" />
     <Compile Include="Proxy\ClientProxyFactory.cs" />

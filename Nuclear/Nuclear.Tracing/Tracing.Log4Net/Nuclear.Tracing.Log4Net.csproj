@@ -45,14 +45,14 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Log4NetLoggerBuilder.cs" />
+    <Compile Include="Config\Log4NetTracerBuilder.cs" />
     <Compile Include="Log4NetTracer.cs" />
-    <Compile Include="Log4NetCommonLog.Debug.cs" />
-    <Compile Include="Log4NetCommonLog.Error.cs" />
-    <Compile Include="Log4NetCommonLog.Fatal.cs" />
-    <Compile Include="Log4NetCommonLog.Info.cs" />
-    <Compile Include="Log4NetCommonLog.Warning.cs" />
-    <Compile Include="LoggerContextManager.cs" />
+    <Compile Include="Log4NetTracer.Debug.cs" />
+    <Compile Include="Log4NetTracer.Error.cs" />
+    <Compile Include="Log4NetTracer.Fatal.cs" />
+    <Compile Include="Log4NetTracer.Info.cs" />
+    <Compile Include="Log4NetTracer.Warning.cs" />
+    <Compile Include="TracerContextManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

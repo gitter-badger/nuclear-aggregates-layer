@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
             ITracer logger,
-            ILoggerContextManager loggerContextManager)
+            ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           logger,
-                                                                          loggerContextManager))
+                                                                          tracerContextManager))
                         .ConfigureServiceClient()
                         .EnsureMetadataCorrectness();
         }
@@ -106,10 +106,10 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             IOperationLoggingSettings operationLoggingSettings,
             IMsCrmSettings msCrmSettings,
             ITracer logger,
-            ILoggerContextManager loggerContextManager)
+            ITracerContextManager tracerContextManager)
         {
             return container
-                .ConfigureLogging(logger, loggerContextManager)
+                .ConfigureTracing(logger, tracerContextManager)
                 .CreateErmSpecific()
                 .CreateSecuritySpecific()
                 .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)

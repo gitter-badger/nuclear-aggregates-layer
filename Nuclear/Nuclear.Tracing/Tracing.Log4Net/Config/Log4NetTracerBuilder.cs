@@ -19,7 +19,7 @@ using Nuclear.Tracing.API;
 
 namespace Nuclear.Tracing.Log4Net.Config
 {
-    public sealed class Log4NetLoggerBuilder
+    public sealed class Log4NetTracerBuilder
     {
         public const string DefaultLogConfigFileName = "log4net.config";
         public const string LoggingHierarchyName = "Erm";
@@ -34,11 +34,11 @@ namespace Nuclear.Tracing.Log4Net.Config
         private readonly PatternLayout _eventLogPatternLayout = new PatternLayout
         {
             ConversionPattern = new StringBuilder("%utcdate %-5level %message")
-                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.Environment))
-                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.EntryPoint))
-                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.EntryPointHost))
-                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.EntryPointInstanceId))
-                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.UserAccount))
+                                        .Append(" " + PatternSegmentForContextProperty(TracerContextKeys.Required.Environment))
+                                        .Append(" " + PatternSegmentForContextProperty(TracerContextKeys.Required.EntryPoint))
+                                        .Append(" " + PatternSegmentForContextProperty(TracerContextKeys.Required.EntryPointHost))
+                                        .Append(" " + PatternSegmentForContextProperty(TracerContextKeys.Required.EntryPointInstanceId))
+                                        .Append(" " + PatternSegmentForContextProperty(TracerContextKeys.Required.UserAccount))
                                         .Append("%newline %exception")
                                         .ToString()
         };
@@ -47,15 +47,15 @@ namespace Nuclear.Tracing.Log4Net.Config
         private string _xmlConfigFullPath;
         private string _dbAppenderConnectionString;
 
-        private Log4NetLoggerBuilder()
+        private Log4NetTracerBuilder()
         {
             _localPatternLayout.ActivateOptions();
             _eventLogPatternLayout.ActivateOptions();
         }
 
-        public static Log4NetLoggerBuilder Use 
+        public static Log4NetTracerBuilder Use 
         {
-            get { return new Log4NetLoggerBuilder(); }
+            get { return new Log4NetTracerBuilder(); }
         }
 
         public ITracer Build
@@ -63,7 +63,7 @@ namespace Nuclear.Tracing.Log4Net.Config
             get { return Create(this); }
         }
 
-        public Log4NetLoggerBuilder Console
+        public Log4NetTracerBuilder Console
         {
             get
             {
@@ -78,7 +78,7 @@ namespace Nuclear.Tracing.Log4Net.Config
             }
         }
         
-        public Log4NetLoggerBuilder Trace
+        public Log4NetTracerBuilder Trace
         {
             get
             {
@@ -93,7 +93,7 @@ namespace Nuclear.Tracing.Log4Net.Config
             }
         }
 
-        public Log4NetLoggerBuilder DefaultXmlConfig
+        public Log4NetTracerBuilder DefaultXmlConfig
         {
             get
             {
@@ -102,7 +102,7 @@ namespace Nuclear.Tracing.Log4Net.Config
             }
         }
 
-        public Log4NetLoggerBuilder EventLog
+        public Log4NetTracerBuilder EventLog
         {
             get
             {
@@ -122,7 +122,7 @@ namespace Nuclear.Tracing.Log4Net.Config
             }
         }
         
-        public Log4NetLoggerBuilder DB(string connectionString)
+        public Log4NetTracerBuilder DB(string connectionString)
         {
             _dbAppenderConnectionString = connectionString;
             AttachOnce<AdoNetAppender>(
@@ -166,7 +166,7 @@ namespace Nuclear.Tracing.Log4Net.Config
             return this;
         }
 
-        public Log4NetLoggerBuilder File(string fileName, bool alwaysCreateNew = false)
+        public Log4NetTracerBuilder File(string fileName, bool alwaysCreateNew = false)
         {
             var logfileFullPath = string.Format(
                     @"{0}\2GIS\InternalLogs\{1}.log", 
@@ -188,13 +188,13 @@ namespace Nuclear.Tracing.Log4Net.Config
             return this;
         }
 
-        public Log4NetLoggerBuilder XmlConfig(string xmlConfigFullPath)
+        public Log4NetTracerBuilder XmlConfig(string xmlConfigFullPath)
         {
             _xmlConfigFullPath = xmlConfigFullPath;
             return this;
         }
 
-        private static Log4NetTracer Create(Log4NetLoggerBuilder builder)
+        private static Log4NetTracer Create(Log4NetTracerBuilder builder)
         {
             var loggersHierarchy = (Hierarchy)LogManager.GetRepository();
             if (!string.IsNullOrEmpty(builder._xmlConfigFullPath))
@@ -284,14 +284,14 @@ namespace Nuclear.Tracing.Log4Net.Config
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Level", DbType = DbType.String, Size = 5, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%level")) });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Message", DbType = DbType.String, Size = 8000, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%message")) });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@ExceptionData", DbType = DbType.String, Size = 8000, Layout = new Layout2RawLayoutAdapter(new ExceptionLayout()) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Environment", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Required.Environment) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPoint", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Required.EntryPoint) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointHost", DbType = DbType.String, Size = 250, Layout = LayoutForContextProperty(LoggerContextKeys.Required.EntryPointHost) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointInstanceId", DbType = DbType.String, Size = 36, Layout = LayoutForContextProperty(LoggerContextKeys.Required.EntryPointInstanceId) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAccount", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Required.UserAccount) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserSession", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Optional.UserSession) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAddress", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Optional.UserAddress) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAgent", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Optional.UserAgent) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Environment", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(TracerContextKeys.Required.Environment) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPoint", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(TracerContextKeys.Required.EntryPoint) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointHost", DbType = DbType.String, Size = 250, Layout = LayoutForContextProperty(TracerContextKeys.Required.EntryPointHost) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointInstanceId", DbType = DbType.String, Size = 36, Layout = LayoutForContextProperty(TracerContextKeys.Required.EntryPointInstanceId) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAccount", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(TracerContextKeys.Required.UserAccount) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserSession", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(TracerContextKeys.Optional.UserSession) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAddress", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(TracerContextKeys.Optional.UserAddress) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAgent", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(TracerContextKeys.Optional.UserAgent) });
         }
 
         private void AttachOnce<TAppender>(params Action<TAppender>[] initializers) where TAppender : class, IAppender, IOptionHandler, new()

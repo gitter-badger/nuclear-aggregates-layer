@@ -177,7 +177,7 @@
     <Compile Include="DI\UnityDependencyResolver.cs" />
     <Compile Include="DI\UnityUIServicesManager.cs" />
     <Compile Include="Logging\LogControllerCallHandler.cs" />
-    <Compile Include="Logging\LoggerContextEntryWebProvider.cs" />
+    <Compile Include="Logging\TracerContextEntryWebProvider.cs" />
     <Compile Include="Logging\LogWebRequestAttribute.cs" />
     <Compile Include="Logging\LogWebRequestHandler.cs" />
     <Compile Include="Logging\WebLoggerContextInitializerExtension.cs" />

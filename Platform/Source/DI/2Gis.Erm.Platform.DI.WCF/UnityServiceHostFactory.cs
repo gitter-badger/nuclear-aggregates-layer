@@ -23,35 +23,35 @@ namespace DoubleGis.Erm.Platform.DI.WCF
     public abstract class UnityServiceHostFactoryBase<TConcreteSettings> : ServiceHostFactory
         where TConcreteSettings : class, ISettingsContainer
     {
-        protected readonly ILoggerContextManager LoggerContextManager;
+        protected readonly ITracerContextManager TracerContextManager;
         protected readonly IUnityContainer DIContainer;
 
         protected UnityServiceHostFactoryBase(
             TConcreteSettings settingsContainer,
-            Func<ISettingsContainer, ITracer, ILoggerContextManager, IUnityContainer> unityContainerFactory)
+            Func<ISettingsContainer, ITracer, ITracerContextManager, IUnityContainer> unityContainerFactory)
         {
             var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
             var loggerContextEntryProviders =
-                    new ILoggerContextEntryProvider[] 
+                    new ITracerContextEntryProvider[] 
                     {
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
-                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserAccount),
-                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Optional.UserSession),
-                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Optional.UserAddress),
-                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Optional.UserAgent)
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new TracerContextEntryWcfProvider(TracerContextKeys.Required.UserAccount),
+                        new TracerContextEntryWcfProvider(TracerContextKeys.Optional.UserSession),
+                        new TracerContextEntryWcfProvider(TracerContextKeys.Optional.UserAddress),
+                        new TracerContextEntryWcfProvider(TracerContextKeys.Optional.UserAgent)
                     };
 
-            LoggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
-            var logger = Log4NetLoggerBuilder.Use
+            TracerContextManager = new TracerContextManager(loggerContextEntryProviders);
+            var logger = Log4NetTracerBuilder.Use
                                              .DefaultXmlConfig
                                              .EventLog
                                              .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
                                              .Build;
 
-            DIContainer = unityContainerFactory(settingsContainer, logger, LoggerContextManager);
+            DIContainer = unityContainerFactory(settingsContainer, logger, TracerContextManager);
         }
 
         protected override ServiceHost CreateServiceHost(Type serviceType, Uri[] baseAddresses)

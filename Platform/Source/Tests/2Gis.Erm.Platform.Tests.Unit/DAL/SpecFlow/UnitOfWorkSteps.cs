@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
                                                  new StubDomainContext(),
                                                  new StubDomainContextFactory(),
                                                  new NullPendingChangesHandlingStrategy(),
-                                                 new NullLogger());
+                                                 new NullTracer());
         }
 
         [Given(@"create instance of MockUnitOfWork class")]

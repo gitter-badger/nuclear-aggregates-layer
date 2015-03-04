@@ -42,7 +42,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 // Более цивилизованные варианты - подключиться к API автоматизации Visual studio (см. EnvDTE) и провоцировать перезагрузку/перерисовку Designer 
                 #endregion
 
-                logger = Log4NetLoggerBuilder.Use
+                logger = Log4NetTracerBuilder.Use
                                              .Trace
                                              .File("Erm.WPF.Client.DesignTime")
                                              .Build;

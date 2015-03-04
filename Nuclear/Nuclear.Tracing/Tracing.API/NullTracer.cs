@@ -2,7 +2,7 @@
 
 namespace Nuclear.Tracing.API
 {
-    public sealed class NullLogger : ITracer
+    public sealed class NullTracer : ITracer
     {
         void ITracer.Debug(string message)
         {

@@ -10,11 +10,11 @@
     /// Т.о. в случае log4net никто непосредственно get для свойства Value не вызывает, 
     /// т.к. даже не значет о наличии этого свойства, просто для экземпляра данного типа (его подклассов) вызывается ToString
     /// </summary>
-    public abstract class LoggerContextEntryProvider : ILoggerContextEntryProvider
+    public abstract class TracerContextEntryProvider : ITracerContextEntryProvider
     {
         private readonly string _loggerContextKey;
 
-        protected LoggerContextEntryProvider(string loggerContextKey)
+        protected TracerContextEntryProvider(string loggerContextKey)
         {
             _loggerContextKey = loggerContextKey;
         }

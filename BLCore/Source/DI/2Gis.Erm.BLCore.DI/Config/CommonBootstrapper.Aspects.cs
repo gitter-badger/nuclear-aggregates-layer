@@ -8,14 +8,14 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Factories.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.DB;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -23,9 +23,9 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -76,10 +76,10 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             }
         }
 
-        public static IUnityContainer ConfigureLogging(this IUnityContainer container, ITracer logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureTracing(this IUnityContainer container, ITracer logger, ITracerContextManager tracerContextManager)
         {
             return container.RegisterInstance(logger)
-                            .RegisterInstance(loggerContextManager);
+                            .RegisterInstance(tracerContextManager);
         }
 
         public static IUnityContainer ConfigureDAL(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings)

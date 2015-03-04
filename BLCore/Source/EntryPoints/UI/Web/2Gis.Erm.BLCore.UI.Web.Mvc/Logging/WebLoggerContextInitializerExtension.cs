@@ -2,19 +2,19 @@
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 {
-    public static class WebLoggerContextManagerExtension
+    public static class WebTracerContextManagerExtension
     {
         public static void SetUserInfo(
-            this ILoggerContextManager loggerContextManager,
+            this ITracerContextManager tracerContextManager,
             string userAccount,
             string userSession,
             string userAddress,
             string userAgent)
         {
-            loggerContextManager[LoggerContextKeys.Required.UserAccount] = userAccount;
-            loggerContextManager[LoggerContextKeys.Optional.UserSession] = userSession;
-            loggerContextManager[LoggerContextKeys.Optional.UserAddress] = userAddress;
-            loggerContextManager[LoggerContextKeys.Optional.UserAgent] = userAgent;
+            tracerContextManager[TracerContextKeys.Required.UserAccount] = userAccount;
+            tracerContextManager[TracerContextKeys.Optional.UserSession] = userSession;
+            tracerContextManager[TracerContextKeys.Optional.UserAddress] = userAddress;
+            tracerContextManager[TracerContextKeys.Optional.UserAgent] = userAgent;
         }
     }
 }

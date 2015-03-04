@@ -1,10 +1,10 @@
 namespace Nuclear.Tracing.API
 {
-    public sealed class LoggerContextSelfHostedEntryProvider : LoggerContextEntryProvider
+    public sealed class TracerContextSelfHostedEntryProvider : TracerContextEntryProvider
     {
         private string _value = "NOT_SET";
 
-        public LoggerContextSelfHostedEntryProvider(string loggerContextKey) 
+        public TracerContextSelfHostedEntryProvider(string loggerContextKey) 
             : base(loggerContextKey)
         {
         }

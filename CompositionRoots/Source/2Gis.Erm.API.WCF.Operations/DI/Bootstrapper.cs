@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
             ITracer logger,
-            ILoggerContextManager loggerContextManager)
+            ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -134,7 +134,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    settingsContainer.AsSettings<INestSettings>(),
                                                                    logger,
-                                                                   loggerContextManager))
+                                                                   tracerContextManager))
                      .ConfigureInterception()
                      .ConfigureServiceClient();
 
@@ -223,10 +223,10 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             IOperationLoggingSettings operationLoggingSettings,
             INestSettings nestSettings,
             ITracer logger,
-            ILoggerContextManager loggerContextManager)
+            ITracerContextManager tracerContextManager)
         {
             return container
-                .ConfigureLogging(logger, loggerContextManager)
+                .ConfigureTracing(logger, tracerContextManager)
                 .ConfigureGlobal(globalizationSettings)
                 .CreateErmSpecific(msCrmSettings)
                 .CreateSecuritySpecific()

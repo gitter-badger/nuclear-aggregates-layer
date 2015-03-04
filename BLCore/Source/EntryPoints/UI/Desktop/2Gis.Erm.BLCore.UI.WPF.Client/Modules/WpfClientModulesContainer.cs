@@ -356,7 +356,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
                     LevelMin = Level.Error,
                     LevelMax = Level.Fatal
                 });
-            AddAppender(Log4NetLoggerBuilder.LoggingHierarchyName, loggerApiAppender);
+            AddAppender(Log4NetTracerBuilder.LoggingHierarchyName, loggerApiAppender);
         }
 
         // Add an appender to a logger

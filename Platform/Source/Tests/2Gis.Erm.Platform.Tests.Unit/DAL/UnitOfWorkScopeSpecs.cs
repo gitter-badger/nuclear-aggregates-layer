@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                     new StubDomainContext(),
                                                     new StubDomainContextFactory(),
                                                     new NullPendingChangesHandlingStrategy(),
-                                                    new NullLogger());
+                                                    new NullTracer());
 
                     _unitOfWorkScope = UnitOfWork.CreateScope();
                 };
@@ -297,7 +297,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                         new StubDomainContext(),
                                                         new StubDomainContextFactory(),
                                                         new ForcePendingChangesHandlingStrategy(),
-                                                        new NullLogger());
+                                                        new NullTracer());
 
                     _unitOfWorkScope = unitOfWork.CreateScope();
 

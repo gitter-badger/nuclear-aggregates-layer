@@ -1,6 +1,6 @@
 ﻿namespace Nuclear.Tracing.API
 {
-    public interface ILoggerContextManager
+    public interface ITracerContextManager
     {
         string this[string entryKey]
         {

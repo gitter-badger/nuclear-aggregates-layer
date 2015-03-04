@@ -9,16 +9,16 @@ using Nuclear.Tracing.API;
 
 namespace Nuclear.Tracing.Log4Net
 {
-    public sealed class LoggerContextManager : ILoggerContextManager
+    public sealed class TracerContextManager : ITracerContextManager
     {
-        private readonly IReadOnlyDictionary<string, ILoggerContextEntryProvider> _providers;
+        private readonly IReadOnlyDictionary<string, ITracerContextEntryProvider> _providers;
 
-        public LoggerContextManager(IEnumerable<ILoggerContextEntryProvider> loggerContextEntryProviders)
+        public TracerContextManager(IEnumerable<ITracerContextEntryProvider> loggerContextEntryProviders)
         {
-            var providers = new Dictionary<string, ILoggerContextEntryProvider>();
+            var providers = new Dictionary<string, ITracerContextEntryProvider>();
             var requiredContextEntryProvidersRegistry =
                 new HashSet<string>(
-                    typeof(LoggerContextKeys.Required)
+                    typeof(TracerContextKeys.Required)
                         .GetFields(BindingFlags.Public | BindingFlags.Static)
                         .Where(fi => fi.IsLiteral)
                         .Select(fi => fi.GetValue(null))
@@ -47,7 +47,7 @@ namespace Nuclear.Tracing.Log4Net
         {
             get
             {
-                ILoggerContextEntryProvider provider;
+                ITracerContextEntryProvider provider;
                 if (!_providers.TryGetValue(entryKey, out provider))
                 {
                     throw new InvalidOperationException(string.Format("Can't get value, specified logger context entry key \"{0}\" is not supported", entryKey));
@@ -57,7 +57,7 @@ namespace Nuclear.Tracing.Log4Net
             }
             set
             {
-                ILoggerContextEntryProvider provider;
+                ITracerContextEntryProvider provider;
                 if (!_providers.TryGetValue(entryKey, out provider))
                 {
                     throw new InvalidOperationException(string.Format("Can't set value, specified logger context entry key \"{0}\" is not supported", entryKey));

@@ -41,13 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITracer.cs" />
-    <Compile Include="ILoggerContextEntryProvider.cs" />
-    <Compile Include="ILoggerContextManager.cs" />
-    <Compile Include="LoggerContextConstEntryProvider.cs" />
-    <Compile Include="LoggerContextEntryProvider.cs" />
-    <Compile Include="LoggerContextKeys.cs" />
-    <Compile Include="LoggerContextSelfHostedEntryProvider.cs" />
-    <Compile Include="NullLogger.cs" />
+    <Compile Include="ITracerContextEntryProvider.cs" />
+    <Compile Include="ITracerContextManager.cs" />
+    <Compile Include="TracerContextConstEntryProvider.cs" />
+    <Compile Include="TracerContextEntryProvider.cs" />
+    <Compile Include="TracerContextKeys.cs" />
+    <Compile Include="TracerContextSelfHostedEntryProvider.cs" />
+    <Compile Include="NullTracer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemInfo\AssemblyVersionInfo.cs" />
     <Compile Include="SystemInfo\EnvironmentInfo.cs" />

@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                  new StubDomainContext(),
                                                  new StubDomainContextFactory(),
                                                  new NullPendingChangesHandlingStrategy(),
-                                                 new NullLogger());
+                                                 new NullTracer());
             };
         }
 
