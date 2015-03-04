@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Threading;
 
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
@@ -22,6 +20,9 @@ using DoubleGis.Platform.UI.WPF.Shell.Layout.UserInfo;
 using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
 
 using Microsoft.Practices.Unity;
+
+using Nuclear.Settings.API;
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Platform.UI.WPF.Shell.DI
 {

@@ -5,7 +5,9 @@ using System.Reflection;
 
 using log4net;
 
-namespace DoubleGis.Erm.Platform.Common.Logging
+using Nuclear.Tracing.API;
+
+namespace Nuclear.Tracing.Log4Net
 {
     public sealed class LoggerContextManager : ILoggerContextManager
     {

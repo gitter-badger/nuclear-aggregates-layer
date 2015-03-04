@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
 {

@@ -1,6 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Common.Settings;
+﻿using Nest;
 
-using Nest;
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.Qds.Common.Settings
 {

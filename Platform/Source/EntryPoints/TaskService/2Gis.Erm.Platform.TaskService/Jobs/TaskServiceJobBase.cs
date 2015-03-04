@@ -4,7 +4,8 @@ using System.Text;
 using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using Nuclear.Tracing.API;
 
 using Quartz;
 

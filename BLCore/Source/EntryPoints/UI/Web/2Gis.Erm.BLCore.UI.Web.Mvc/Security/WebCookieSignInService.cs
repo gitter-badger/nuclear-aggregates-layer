@@ -7,9 +7,10 @@ using System.Web.Security;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
 
 using Newtonsoft.Json;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
 {

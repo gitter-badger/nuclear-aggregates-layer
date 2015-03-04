@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DoubleGis.Erm.Platform.Common.Settings
+namespace Nuclear.Settings.API
 {
     /// <summary>
     /// Маркерный интерфейс для типа содержащего определенный набор настроек, часть из которых может быть вынесена в аспекты

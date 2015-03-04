@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.Common.Logging;
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
 {

@@ -16,8 +16,6 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Identities;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Metadata;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
@@ -32,6 +30,9 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.S
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 
 using Microsoft.Practices.Unity;
+
+using Nuclear.Settings.API;
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.API.WCF.Metadata.DI
 {

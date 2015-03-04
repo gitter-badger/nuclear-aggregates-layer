@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Common.Logging;
-
 using Microsoft.Practices.Unity;
+
+using Nuclear.Tracing.API;
 
 using Quartz;
 using Quartz.Simpl;

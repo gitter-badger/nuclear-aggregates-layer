@@ -9,8 +9,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {

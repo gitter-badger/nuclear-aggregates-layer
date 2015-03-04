@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 
-using DoubleGis.Erm.Platform.Common.Logging.SystemInfo.OS;
+using Nuclear.Tracing.API.SystemInfo.OS;
 
-namespace DoubleGis.Erm.Platform.Common.Logging.SystemInfo
+namespace Nuclear.Tracing.API.SystemInfo
 {
     /// <summary>
     /// Класс сбора информации об окружении (ОС, hardware)

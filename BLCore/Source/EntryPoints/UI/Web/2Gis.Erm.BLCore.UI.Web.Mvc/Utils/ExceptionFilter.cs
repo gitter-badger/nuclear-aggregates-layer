@@ -12,7 +12,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {

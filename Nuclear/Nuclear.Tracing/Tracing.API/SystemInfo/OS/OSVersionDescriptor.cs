@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace DoubleGis.Erm.Platform.Common.Logging.SystemInfo.OS
+namespace Nuclear.Tracing.API.SystemInfo.OS
 {
     // ReSharper disable InconsistentNaming
     /// <summary>

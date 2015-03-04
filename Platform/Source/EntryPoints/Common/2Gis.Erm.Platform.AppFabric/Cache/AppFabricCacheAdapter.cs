@@ -1,10 +1,11 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Common.Logging;
 
 using Microsoft.ApplicationServer.Caching;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.AppFabric.Cache
 {

@@ -2,10 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks.Dataflow;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases
 {

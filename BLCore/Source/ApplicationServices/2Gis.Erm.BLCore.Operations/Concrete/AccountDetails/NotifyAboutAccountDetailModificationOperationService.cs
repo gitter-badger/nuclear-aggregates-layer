@@ -7,8 +7,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.AccountDetails;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AccountDetail;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
 {

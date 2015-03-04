@@ -3,7 +3,7 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
 
-using DoubleGis.Erm.Platform.Common.Logging;
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
 {

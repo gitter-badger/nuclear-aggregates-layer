@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.Platform.Common.Settings
+﻿namespace Nuclear.Settings.API
 {
     /// <summary>
     /// Маркерный интерфейс для определенного аспекта конфигурационной информации

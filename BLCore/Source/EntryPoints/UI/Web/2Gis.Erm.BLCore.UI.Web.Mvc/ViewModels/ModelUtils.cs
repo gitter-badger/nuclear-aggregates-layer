@@ -5,8 +5,9 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
 {

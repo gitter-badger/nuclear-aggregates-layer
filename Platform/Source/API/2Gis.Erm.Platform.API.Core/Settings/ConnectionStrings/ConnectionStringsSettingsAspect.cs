@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Common.Settings;
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings
 {

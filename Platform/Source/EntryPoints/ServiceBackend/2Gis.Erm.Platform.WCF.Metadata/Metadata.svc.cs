@@ -9,9 +9,10 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Metadata
 {

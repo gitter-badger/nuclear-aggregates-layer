@@ -15,7 +15,9 @@ using log4net.Filter;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
 
-namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
+using Nuclear.Tracing.API;
+
+namespace Nuclear.Tracing.Log4Net.Config
 {
     public sealed class Log4NetLoggerBuilder
     {

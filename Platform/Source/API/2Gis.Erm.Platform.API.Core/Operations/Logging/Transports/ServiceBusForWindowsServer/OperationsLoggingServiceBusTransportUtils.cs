@@ -2,7 +2,8 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.Common.Settings;
+
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer
 {

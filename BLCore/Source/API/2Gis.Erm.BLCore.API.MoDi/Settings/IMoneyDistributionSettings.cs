@@ -4,7 +4,8 @@ using System.Globalization;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Enums;
-using DoubleGis.Erm.Platform.Common.Settings;
+
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.API.MoDi.Settings
 {

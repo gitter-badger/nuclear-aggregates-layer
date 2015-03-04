@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
-using DoubleGis.Erm.Platform.Common.Logging;
 
 using Microsoft.ServiceBus.Messaging;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer
 {

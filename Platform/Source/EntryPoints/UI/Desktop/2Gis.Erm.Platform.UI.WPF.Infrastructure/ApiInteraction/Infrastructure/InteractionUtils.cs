@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 
-using DoubleGis.Erm.Platform.Common.Logging;
-
 using Newtonsoft.Json;
+
+using Nuclear.Tracing.API;
 
 using RestSharp;
 

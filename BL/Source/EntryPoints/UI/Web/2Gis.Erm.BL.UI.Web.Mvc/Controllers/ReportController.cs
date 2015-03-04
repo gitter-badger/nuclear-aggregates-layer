@@ -31,7 +31,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -41,6 +40,8 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 using Newtonsoft.Json;
+
+using Nuclear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 using ReportModel = DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report.ReportModel;

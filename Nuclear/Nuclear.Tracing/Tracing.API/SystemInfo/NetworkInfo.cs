@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.NetworkInformation;
 
-namespace DoubleGis.Erm.Platform.Common.Logging.SystemInfo
+namespace Nuclear.Tracing.API.SystemInfo
 {
     /// <summary>
     /// Класс сбора информации о сетевых параметрах (имя машины, в домене или нет)

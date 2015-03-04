@@ -4,9 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using Nuclear.Settings;
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.Globalization
 {

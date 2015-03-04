@@ -48,9 +48,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -80,6 +78,9 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.BrokerApiReceiver;
 
 using Microsoft.Practices.Unity;
+
+using Nuclear.Settings.API;
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {

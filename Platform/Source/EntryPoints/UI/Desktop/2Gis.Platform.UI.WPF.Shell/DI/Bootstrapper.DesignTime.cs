@@ -2,8 +2,6 @@
 using System.IO;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
@@ -16,6 +14,9 @@ using DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability;
 using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
 
 using Microsoft.Practices.Unity;
+
+using Nuclear.Tracing.API;
+using Nuclear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Platform.UI.WPF.Shell.DI
 {

@@ -1,4 +1,4 @@
-namespace DoubleGis.Erm.Platform.Common.Logging
+namespace Nuclear.Tracing.API
 {
     public sealed class LoggerContextSelfHostedEntryProvider : LoggerContextEntryProvider
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DoubleGis.Erm.Platform.Common.Settings
+namespace Nuclear.Settings.API
 {
     public sealed class EnumSetting<TSetting> : SettingBase<TSetting>
         where TSetting : struct, IConvertible

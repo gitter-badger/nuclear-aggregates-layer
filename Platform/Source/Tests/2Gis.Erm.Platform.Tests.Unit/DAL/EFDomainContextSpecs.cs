@@ -4,7 +4,6 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
@@ -17,6 +16,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using Nuclear.Tracing.API;
 
 using It = Machine.Specifications.It;
 using SaveOptions = DoubleGis.Erm.Platform.DAL.SaveOptions;

@@ -2,8 +2,9 @@
 
 using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using Nuclear.Tracing.API;
 
 using Quartz;
 

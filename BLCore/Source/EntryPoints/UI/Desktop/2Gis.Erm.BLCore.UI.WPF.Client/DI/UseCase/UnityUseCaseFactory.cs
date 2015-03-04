@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks.Dataflow;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers;
@@ -10,6 +9,8 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Processings;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
 using Microsoft.Practices.Unity;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
 {

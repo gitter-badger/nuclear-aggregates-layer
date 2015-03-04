@@ -1,7 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model;
+
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.Globalization
 {

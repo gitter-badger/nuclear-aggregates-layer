@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Common.Settings;
-using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
+﻿using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
+
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api.Settings
 {

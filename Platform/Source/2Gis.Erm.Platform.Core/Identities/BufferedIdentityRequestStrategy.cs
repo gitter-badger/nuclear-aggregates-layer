@@ -5,8 +5,9 @@ using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Metadata;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Identities
 {

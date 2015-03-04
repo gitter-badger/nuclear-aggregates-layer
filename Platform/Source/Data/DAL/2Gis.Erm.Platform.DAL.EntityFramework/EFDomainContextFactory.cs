@@ -2,8 +2,9 @@
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {

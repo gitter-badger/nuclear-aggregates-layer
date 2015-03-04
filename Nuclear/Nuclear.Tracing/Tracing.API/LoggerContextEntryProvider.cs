@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.Platform.Common.Logging
+﻿namespace Nuclear.Tracing.API
 {
     /// <summary>
     /// Контейнер для значения свойства одного из контекстов логирования (см. например GlobalContext log4net)

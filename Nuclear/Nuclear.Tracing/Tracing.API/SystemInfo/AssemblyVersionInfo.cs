@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Text;
 
-namespace DoubleGis.Erm.Platform.Common.Logging.SystemInfo
+namespace Nuclear.Tracing.API.SystemInfo
 {
     /// <summary>
     /// Класс для получение информации по managed сборкам

@@ -7,14 +7,16 @@ using System.ServiceModel.Description;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
-using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceHost;
 
 using Microsoft.Practices.Unity;
+
+using Nuclear.Settings.API;
+using Nuclear.Tracing.API;
+using Nuclear.Tracing.API.SystemInfo;
+using Nuclear.Tracing.Log4Net;
+using Nuclear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.Platform.DI.WCF
 {

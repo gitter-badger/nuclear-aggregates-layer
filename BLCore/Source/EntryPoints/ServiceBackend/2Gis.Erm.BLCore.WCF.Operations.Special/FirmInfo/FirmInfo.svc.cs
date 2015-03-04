@@ -8,7 +8,8 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.BLCore.API.Operations.Special.FirmInfo;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.FirmInfo;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
 {

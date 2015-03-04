@@ -8,7 +8,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topologies;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
 {

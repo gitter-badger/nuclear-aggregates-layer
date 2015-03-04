@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
 {

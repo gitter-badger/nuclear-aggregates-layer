@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Common.Settings;
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings
 {

@@ -6,8 +6,9 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {

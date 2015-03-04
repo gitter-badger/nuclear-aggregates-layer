@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DoubleGis.Erm.Platform.Common.Settings
+namespace Nuclear.Settings.API
 {
     public static class SettingsContainerUtils
     {

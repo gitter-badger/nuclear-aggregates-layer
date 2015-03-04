@@ -3,11 +3,12 @@ using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using Nuclear.Tracing.API;
 
 using Quartz;
 

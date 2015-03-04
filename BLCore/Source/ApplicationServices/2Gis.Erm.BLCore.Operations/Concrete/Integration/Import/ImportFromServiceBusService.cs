@@ -10,9 +10,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus.Import;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
 {

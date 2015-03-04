@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using Nuclear.Tracing.API;
 
 using Quartz;
 

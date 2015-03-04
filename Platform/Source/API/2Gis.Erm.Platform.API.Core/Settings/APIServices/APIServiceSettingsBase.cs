@@ -1,5 +1,6 @@
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices.Config;
-using DoubleGis.Erm.Platform.Common.Settings;
+
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.APIServices
 {

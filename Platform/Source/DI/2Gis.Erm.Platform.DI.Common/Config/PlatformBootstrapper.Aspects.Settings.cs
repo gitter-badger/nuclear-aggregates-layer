@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DoubleGis.Erm.Platform.Common.Settings;
-
 using Microsoft.Practices.Unity;
+
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.DI.Common.Config
 {

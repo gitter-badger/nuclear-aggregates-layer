@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DoubleGis.Erm.Platform.Common.Settings
+namespace Nuclear.Settings.API
 {
     /// <summary>
     /// Базовый класс для контейнеров настроек, с возможностью подключать аспекты настроек

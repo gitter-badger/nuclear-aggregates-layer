@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 {

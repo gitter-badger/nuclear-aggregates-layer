@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Common.Logging;
+﻿using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 {

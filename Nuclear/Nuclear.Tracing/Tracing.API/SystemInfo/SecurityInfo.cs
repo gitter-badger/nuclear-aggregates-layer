@@ -6,7 +6,7 @@ using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Text;
 
-namespace DoubleGis.Erm.Platform.Common.Logging.SystemInfo
+namespace Nuclear.Tracing.API.SystemInfo
 {
     /// <summary>
     /// Класс сбора информации о настройка безопасности

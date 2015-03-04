@@ -5,8 +5,9 @@ using System.Linq;
 using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Settings;
+
+using Nuclear.Tracing.API;
 
 using Quartz;
 using Quartz.Impl;

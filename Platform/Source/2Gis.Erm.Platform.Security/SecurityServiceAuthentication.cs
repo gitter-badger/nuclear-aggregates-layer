@@ -4,9 +4,10 @@ using System.ServiceModel.Security;
 
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security
 {

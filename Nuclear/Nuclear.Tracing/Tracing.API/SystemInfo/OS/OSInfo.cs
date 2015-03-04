@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace DoubleGis.Erm.Platform.Common.Logging.SystemInfo.OS
+namespace Nuclear.Tracing.API.SystemInfo.OS
 {
 	/// <summary>
 	/// Класс для получения информации о версии ОС

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace DoubleGis.Erm.Platform.Common.Settings
+using Nuclear.Settings.API;
+
+namespace Nuclear.Settings
 {
     public static class ConfigFileSetting
     {

@@ -23,7 +23,6 @@ using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -71,6 +70,8 @@ using log4net.Filter;
 using log4net.Repository.Hierarchy;
 
 using Microsoft.Practices.Unity;
+
+using Nuclear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 {

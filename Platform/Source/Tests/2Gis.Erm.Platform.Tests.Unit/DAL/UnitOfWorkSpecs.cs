@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -15,6 +14,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using Nuclear.Tracing.API;
 
 using It = Machine.Specifications.It;
 

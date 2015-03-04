@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DoubleGis.Erm.Platform.Common.Settings
+namespace Nuclear.Settings.API
 {
     public sealed class DecimalSetting : SettingBase<decimal>
     {

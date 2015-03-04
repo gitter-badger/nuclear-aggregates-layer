@@ -6,7 +6,8 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
-using DoubleGis.Erm.Platform.Common.Settings;
+
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.API.WCF.MoDi.Settings
 {

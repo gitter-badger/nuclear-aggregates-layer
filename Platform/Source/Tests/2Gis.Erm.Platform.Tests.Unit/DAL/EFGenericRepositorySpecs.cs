@@ -2,7 +2,6 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -16,6 +15,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using Nuclear.Tracing.API;
 
 using It = Machine.Specifications.It;
 

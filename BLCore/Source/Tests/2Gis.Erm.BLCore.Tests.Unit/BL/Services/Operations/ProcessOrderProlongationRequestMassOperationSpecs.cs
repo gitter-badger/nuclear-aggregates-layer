@@ -2,11 +2,12 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
-using DoubleGis.Erm.Platform.Common.Logging;
 
 using Machine.Specifications;
 
 using Moq;
+
+using Nuclear.Tracing.API;
 
 using It = Machine.Specifications.It;
 

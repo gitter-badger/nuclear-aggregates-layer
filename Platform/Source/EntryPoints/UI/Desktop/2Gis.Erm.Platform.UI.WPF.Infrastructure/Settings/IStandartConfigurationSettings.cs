@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-using DoubleGis.Erm.Platform.Common.Settings;
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings
 {

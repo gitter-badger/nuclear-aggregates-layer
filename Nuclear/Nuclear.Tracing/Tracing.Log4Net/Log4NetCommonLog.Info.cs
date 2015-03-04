@@ -1,6 +1,8 @@
 ﻿using log4net;
 
-namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
+using Nuclear.Tracing.API;
+
+namespace Nuclear.Tracing.Log4Net
 {
     public sealed partial class Log4NetCommonLog
     {

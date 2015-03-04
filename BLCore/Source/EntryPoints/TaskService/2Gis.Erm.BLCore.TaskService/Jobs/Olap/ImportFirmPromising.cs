@@ -1,8 +1,9 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using Nuclear.Tracing.API;
 
 using Quartz;
 

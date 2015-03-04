@@ -4,7 +4,8 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
 {

@@ -1,10 +1,11 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 
 using Microsoft.Practices.Unity;
+
+using Nuclear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DI.Factories
 {

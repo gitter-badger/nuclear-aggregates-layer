@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.Platform.Common.Settings;
+﻿using Nuclear.Settings;
+using Nuclear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.API.Common.Settings
 {
