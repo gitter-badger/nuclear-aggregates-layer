@@ -1241,12 +1241,6 @@ Locking errors:{2}</value>
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Information about division of  the legal entity</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. The present Quotation comes into effect from {0}. The Quotation No.{1} as of {2} becomes inoperative from {3}.11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Unknown user</value>
   </data>
