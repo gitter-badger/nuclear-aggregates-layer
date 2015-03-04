@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global
@@ -20,18 +21,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
                           .Select(order => new OrderRelationsDto
-                              {
-                                  BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
-                                  OrderNumber = order.Number,
-                                  CurrencyIsoCode = order.Currency.ISOCode,
-                                  LegalPersonId = order.LegalPersonId,
-                                  SourceOrganizationUnitId = order.SourceOrganizationUnitId,
-                                  DestOrganizationUnitId = order.DestOrganizationUnitId,
-                                  FirmId = order.FirmId,
+                                               {
+                                                   BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
+                                                   OrderNumber = order.Number,
+                                                   CurrencyIsoCode = order.Currency.ISOCode,
+                                                   LegalPersonId = order.LegalPersonId,
+                                                   SourceOrganizationUnitId = order.SourceOrganizationUnitId,
+                                                   DestOrganizationUnitId = order.DestOrganizationUnitId,
+                                                   FirmId = order.FirmId,
                                   LegalPersonProfileId = order.LegalPersonProfileId,
-                                  BranchOfficeId = order.BranchOfficeOrganizationUnit.BranchOfficeId,
-                                  IsOrderWithDiscount = order.DiscountSum.HasValue && order.DiscountSum.Value > 0
-                              })
+                                                   BranchOfficeId = order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                                   SalesModel = (SalesModel?)order.OrderPositions.FirstOrDefault(op => op.IsActive && !op.IsDeleted).PricePosition.Position.SalesModel,
+                                               })
                           .Single();
         }
 
