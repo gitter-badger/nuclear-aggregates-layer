@@ -254,20 +254,28 @@ WriteLiteral("</span>\r\n                            <br/>\r\n                  
 
 WriteLiteral(" id=\"HelpMe\"");
 
-WriteLiteral(">\r\n");
+WriteLiteral(">\r\n                                <a");
 
-WriteLiteral("                                ");
+WriteLiteral(" href=\"Support/Index\"");
+
+WriteLiteral(" target=\"_blank\"");
+
+WriteLiteral("><img");
+
+WriteLiteral(" src=\"/Content/images/CommonUI/helpme.png\"");
+
+WriteLiteral(" /><span>");
 
             
             #line 50 "..\..\Views\Main\Index.cshtml"
-                           Write(Html.ActionLink(BLResources.Support, "Index", "Support", null, new { target = "_blank" }));
+                                                                                                                          Write(BLResources.Support);
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                            </span>\r\n                        </td>\r\n           " +
-"         </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n" +
-"    </div>\r\n");
+WriteLiteral("</span></a>\r\n                            </span>\r\n                        </td>\r\n" +
+"                    </tr>\r\n                </tbody>\r\n            </table>\r\n     " +
+"   </div>\r\n    </div>\r\n");
 
 });
 

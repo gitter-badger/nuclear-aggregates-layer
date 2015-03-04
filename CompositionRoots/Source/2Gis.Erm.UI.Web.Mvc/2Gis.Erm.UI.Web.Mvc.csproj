@@ -159,6 +159,7 @@
     <Compile Include="Settings\WebAppSettings.cs" />
     <Content Include="ClientBin\2Gis.Erm.BLCore.UI.Web.Silverlight.xap" />
     <Content Include="Content\Administration.css" />
+    <Content Include="Content\images\CommonUI\helpme.png" />
     <Content Include="Content\input-overlay.css" />
     <Content Include="Content\time-period.css" />
     <Content Include="Content\advertisement-element-status.css" />
