@@ -14,13 +14,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IReleaseReadModel _releaseReadModel;
         private readonly IReleaseAttachProcessingMessagesAggregateService _attachProcessingMessagesAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public AttachExternalReleaseProcessingMessagesOperationService(
             IReleaseReadModel releaseReadModel,
             IReleaseAttachProcessingMessagesAggregateService attachProcessingMessagesAggregateService,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _releaseReadModel = releaseReadModel;
             _attachProcessingMessagesAggregateService = attachProcessingMessagesAggregateService;

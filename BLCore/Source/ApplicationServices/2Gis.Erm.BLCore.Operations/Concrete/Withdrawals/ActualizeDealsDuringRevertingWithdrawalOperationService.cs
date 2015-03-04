@@ -18,13 +18,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IDealReadModel _dealReadModel;
         private readonly IDealChangeStageAggregateService _dealChangeStageAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ActualizeDealsDuringRevertingWithdrawalOperationService(
             IDealReadModel dealReadModel,
             IDealChangeStageAggregateService dealChangeStageAggregateService,
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _dealReadModel = dealReadModel;
             _dealChangeStageAggregateService = dealChangeStageAggregateService;

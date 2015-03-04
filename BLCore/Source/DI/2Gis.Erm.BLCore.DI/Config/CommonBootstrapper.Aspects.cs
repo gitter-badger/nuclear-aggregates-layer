@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             {
                 case CachingMode.Distributed:
                     return container.RegisterType<ICacheAdapter, AppFabricCacheAdapter>(Lifetime.Singleton,
-                                                                                        new InjectionConstructor(new ResolvedParameter<ICommonLog>(),
+                                                                                        new InjectionConstructor(new ResolvedParameter<ITracer>(),
                                                                                                                  cachingSettings.DistributedCacheName));
                 case CachingMode.InProc:
                     return container.RegisterType<ICacheAdapter, MemCacheAdapter>(entryPointSpecificLifetimeManagerFactory());
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             }
         }
 
-        public static IUnityContainer ConfigureLogging(this IUnityContainer container, ICommonLog logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureLogging(this IUnityContainer container, ITracer logger, ILoggerContextManager loggerContextManager)
         {
             return container.RegisterInstance(logger)
                             .RegisterInstance(loggerContextManager);

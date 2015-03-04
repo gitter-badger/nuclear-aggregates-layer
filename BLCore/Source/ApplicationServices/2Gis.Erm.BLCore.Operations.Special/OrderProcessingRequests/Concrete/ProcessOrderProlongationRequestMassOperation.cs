@@ -11,12 +11,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
     {
         private readonly IOrderProcessingRequestService _orderProcessingRequestService;
         private readonly IBasicOrderProlongationOperationLogic _basicOrderProlongationOperation;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ProcessOrderProlongationRequestMassOperation(
             IOrderProcessingRequestService orderProcessingRequestService,
             IBasicOrderProlongationOperationLogic basicOrderProlongationOperation,
-            ICommonLog logger)
+            ITracer logger)
         {
             _orderProcessingRequestService = orderProcessingRequestService;
             _basicOrderProlongationOperation = basicOrderProlongationOperation;

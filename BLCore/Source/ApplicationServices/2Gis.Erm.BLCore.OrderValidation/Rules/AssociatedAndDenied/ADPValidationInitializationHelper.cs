@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
         }
 
         public static IDictionary<long, ADPValidator> LoadValidators(
-            ICommonLog logger,
+            ITracer logger,
             ADPCheckMode checkMode,
             long orderId,
             ADPValidationQueryProvider validationQueryProvider,

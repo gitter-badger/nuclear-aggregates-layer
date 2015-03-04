@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         private readonly IFileService _fileService;
 
         public DeleteOrphanFilesJob(
-            ICommonLog logger,
+            ITracer logger,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
             IFileService fileService)

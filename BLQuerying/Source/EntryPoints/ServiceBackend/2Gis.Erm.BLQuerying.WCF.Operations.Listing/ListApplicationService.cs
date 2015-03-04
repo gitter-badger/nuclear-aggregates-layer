@@ -25,11 +25,11 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
     {
         private readonly IUIConfigurationService _configurationService;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly IUseCaseTuner _useCaseTuner;
 
-        public ListApplicationService(ICommonLog logger,
+        public ListApplicationService(ITracer logger,
                                       IOperationServicesManager operationServicesManager,
                                       IUseCaseTuner useCaseTuner,
                                       IUIConfigurationService configurationService,

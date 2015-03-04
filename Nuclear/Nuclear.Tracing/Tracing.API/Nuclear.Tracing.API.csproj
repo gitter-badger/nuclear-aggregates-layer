@@ -40,7 +40,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICommonLog.cs" />
+    <Compile Include="ITracer.cs" />
     <Compile Include="ILoggerContextEntryProvider.cs" />
     <Compile Include="ILoggerContextManager.cs" />
     <Compile Include="LoggerContextConstEntryProvider.cs" />

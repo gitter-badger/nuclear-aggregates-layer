@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public NotifyAboutAdvertisementElementFileChangedOperationService(
             INotificationsSettings notificationsSettings, 
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             IEmployeeEmailResolver employeeEmailResolver,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _notificationsSettings = notificationsSettings;
             _advertisementReadModel = advertisementReadModel;

@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
         private readonly IUserContext _userContext;
         private readonly IFirmRepository _firmRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ICreateClientByFirmOperationService _createClientByFirmAggregateService;
         private readonly IClientReadModel _clientReadModel;
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             IUserContext userContext,
             IFirmRepository firmRepository,
             ISecurityServiceUserIdentifier userIdentifierService,
-            ICommonLog logger,
+            ITracer logger,
             IOperationScopeFactory operationScopeFactory,
             ICreateClientByFirmOperationService createClientByFirmAggregateService,
             IClientReadModel clientReadModel)

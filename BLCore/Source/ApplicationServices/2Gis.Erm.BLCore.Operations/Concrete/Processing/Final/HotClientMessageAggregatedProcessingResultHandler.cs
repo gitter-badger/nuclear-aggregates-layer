@@ -15,11 +15,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
     public sealed class HotClientMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
         private readonly IProcessHotClientRequestOperationService _processHotClientRequestOperationService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public HotClientMessageAggregatedProcessingResultHandler(
             IProcessHotClientRequestOperationService processHotClientRequestOperationService,
-            ICommonLog logger)
+            ITracer logger)
         {
             _processHotClientRequestOperationService = processHotClientRequestOperationService;
             _logger = logger;

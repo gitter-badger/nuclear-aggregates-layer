@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
     public class SerializePositionHandler : SerializeObjectsHandler<Position, ExportFlowNomenclatures_NomenclatureElement>
     {
-        public SerializePositionHandler(IExportRepository<Position> exportRepository, ICommonLog logger)
+        public SerializePositionHandler(IExportRepository<Position> exportRepository, ITracer logger)
             : base(exportRepository, logger)
         {
         }

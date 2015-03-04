@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
@@ -157,7 +157,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             Func<ResolvedParameter[]> resolvedParametersCreator =
                 () => new ResolvedParameter[]
                     {
-                        new ResolvedParameter<ICommonLog>(),
+                        new ResolvedParameter<ITracer>(),
                                                new ResolvedParameter<IActionLogger>(Mapping.SimplifiedModelConsumerScope),
                         new ResolvedParameter<IDependentEntityProvider>()
                     };
@@ -222,7 +222,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             INestSettings nestSettings,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             return container

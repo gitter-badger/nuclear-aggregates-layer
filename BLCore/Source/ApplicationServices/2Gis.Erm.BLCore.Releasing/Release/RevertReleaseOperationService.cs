@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IAggregateServiceIsolator _aggregateServiceIsolator;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public RevertReleaseOperationService(IAccountReadModel accountReadModel,
                                              IReleaseReadModel releaseReadModel,
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                              IAggregateServiceIsolator aggregateServiceIsolator,
                                              IUseCaseTuner useCaseTuner,
                                              IOperationScopeFactory scopeFactory,
-                                             ICommonLog logger)
+                                             ITracer logger)
         {
             _accountReadModel = accountReadModel;
             _releaseReadModel = releaseReadModel;

@@ -25,9 +25,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
 
         private readonly IUnityContainer _container;
         private readonly IUseCaseHandlersRegistry _handlersRegistry;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public UnityUseCaseFactory(IUnityContainer container, IUseCaseHandlersRegistry handlersRegistry, ICommonLog logger)
+        public UnityUseCaseFactory(IUnityContainer container, IUseCaseHandlersRegistry handlersRegistry, ITracer logger)
         {
             _container = container;
             _handlersRegistry = handlersRegistry;

@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
     public abstract class RestApiListEntityServiceBase<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IListEntityService
         where TEntity : class, IEntityKey
     {
-        protected RestApiListEntityServiceBase(IApiClient apiClient, ICommonLog logger)
+        protected RestApiListEntityServiceBase(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "List.svc")
         {
         }

@@ -16,13 +16,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         private readonly IRepository<Lock> _lockRepository;
         private readonly IRepository<LockDetail> _lockDetailRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public AccountBulkDeleteLocksAggregateService(
             IRepository<Lock> lockRepository,
             IRepository<LockDetail> lockDetailRepository,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _lockRepository = lockRepository;
             _lockDetailRepository = lockDetailRepository;

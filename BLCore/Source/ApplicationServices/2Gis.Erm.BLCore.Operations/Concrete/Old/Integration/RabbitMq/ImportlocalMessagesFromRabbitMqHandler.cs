@@ -20,10 +20,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IIntegrationSettings _integrationSettings;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IRabbitMqQueueFactory _corporateQueueFactory;
 
-        public ImportlocalMessagesFromRabbitMqHandler(ISubRequestProcessor subRequestProcessor, IIntegrationSettings integrationSettings, IRabbitMqQueueFactory corporateQueueFactory, ICommonLog logger)
+        public ImportlocalMessagesFromRabbitMqHandler(ISubRequestProcessor subRequestProcessor, IIntegrationSettings integrationSettings, IRabbitMqQueueFactory corporateQueueFactory, ITracer logger)
         {
             _subRequestProcessor = subRequestProcessor;
             _integrationSettings = integrationSettings;

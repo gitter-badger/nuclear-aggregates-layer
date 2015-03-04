@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Delete
     public sealed class RestApiDeleteGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IDeleteGenericEntityService<TEntity>
         where TEntity : class, IEntityKey
     {
-        public RestApiDeleteGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiDeleteGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "Delete.svc")
         {
         }

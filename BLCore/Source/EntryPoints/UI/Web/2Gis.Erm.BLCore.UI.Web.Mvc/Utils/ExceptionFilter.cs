@@ -20,9 +20,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
     // handle mvc-pipeline exceptions and rewrite them as 500 or 403 errors
     public sealed class ExceptionFilter : IExceptionFilter
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public ExceptionFilter(ICommonLog logger)
+        public ExceptionFilter(ITracer logger)
         {
             _logger = logger;
         }

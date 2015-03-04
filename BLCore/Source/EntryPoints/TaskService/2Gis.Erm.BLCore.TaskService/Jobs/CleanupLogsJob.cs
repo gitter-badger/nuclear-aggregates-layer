@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         private readonly ICleanupPersistenceService _cleanupPersistenceService;
 
         public CleanupLogsJob(
-            ICommonLog logger,
+            ITracer logger,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
             IDBCleanupSettings settings,

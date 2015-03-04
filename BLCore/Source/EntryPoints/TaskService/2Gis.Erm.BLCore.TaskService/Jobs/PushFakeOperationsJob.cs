@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
             IOperationScopeFactory scopeFactory,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
-            ICommonLog logger)
+            ITracer logger)
             : base(signInService, userImpersonationService, logger)
         {
             _scopeFactory = scopeFactory;

@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 {
     public class OrderWorkflowProcessingStrategy : OrderProcessingStrategy
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IReleaseReadModel _releaseRepository;
 
         public OrderWorkflowProcessingStrategy(IUserContext userContext,
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                IOperationScope operationScope,
                                                IUserRepository userRepository,
                                                IOrderReadModel orderReadModel,
-                                               ICommonLog logger,
+                                               ITracer logger,
                                                IReleaseReadModel releaseRepository)
             : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {

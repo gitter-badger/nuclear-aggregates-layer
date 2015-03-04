@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
         private readonly IOperationsPrimaryProcessingCompleteAggregateService _operationsPrimaryProcessingCompleteAggregateService;
         private readonly IOperationsPrimaryProcessingAbandonAggregateService _operationsPrimaryProcessingAbandonAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public DBOnlinePerformedOperationsReceiver(
             IPerformedOperationsReceiverSettings messageReceiverSettings,
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
             IOperationsPrimaryProcessingCompleteAggregateService operationsPrimaryProcessingCompleteAggregateService,
             IOperationsPrimaryProcessingAbandonAggregateService operationsPrimaryProcessingAbandonAggregateService,
             IUseCaseTuner useCaseTuner,
-            ICommonLog logger)
+            ITracer logger)
             : base(messageReceiverSettings)
         {
             _timeSafetyOffset = TimeSpan.FromHours(messageReceiverSettings.TimeSafetyOffsetHours);

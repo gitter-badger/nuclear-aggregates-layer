@@ -13,9 +13,9 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
         where TActor : class
     {
         protected readonly TActorFactory ActorFactory;
-        protected readonly ICommonLog Logger;
+        protected readonly ITracer Logger;
 
-        protected MessageProcessingStageBase(TActorFactory actorFactory, ICommonLog logger)
+        protected MessageProcessingStageBase(TActorFactory actorFactory, ITracer logger)
         {
             ActorFactory = actorFactory;
             Logger = logger;

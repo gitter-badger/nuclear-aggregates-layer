@@ -2,7 +2,7 @@
 
 namespace Nuclear.Tracing.API
 {
-    public interface ICommonLog
+    public interface ITracer
     {
         void Debug(string message);
         void Debug(string message, string methodName);

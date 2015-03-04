@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                        (IOperationScope)null,
                        (IUserRepository)null,
                        MockOrderReadModel(),
-                       (ICommonLog)null,
+                       (ITracer)null,
                        (IReleaseReadModel)null,
                        (IAccountRepository)null,
                        (ISecurityServiceFunctionalAccess)null,

@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
     internal static partial class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ICommonLog logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer logger, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -163,7 +163,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             return container

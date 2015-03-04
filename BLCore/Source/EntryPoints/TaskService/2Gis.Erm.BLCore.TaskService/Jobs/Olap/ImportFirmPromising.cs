@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.Olap
     {
         private readonly IPublicService _publicService;
 
-        public ImportFirmPromising(ICommonLog logger, IPublicService publicService, ISignInService signInService, IUserImpersonationService userImpersonationService)
+        public ImportFirmPromising(ITracer logger, IPublicService publicService, ISignInService signInService, IUserImpersonationService userImpersonationService)
             : base(signInService, userImpersonationService, logger)
         {
             _publicService = publicService;

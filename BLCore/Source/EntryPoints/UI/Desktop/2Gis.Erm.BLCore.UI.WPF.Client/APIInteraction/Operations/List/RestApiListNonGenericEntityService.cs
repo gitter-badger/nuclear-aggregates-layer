@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
 {
     public class RestApiListNonGenericEntityService : RestApiOperationServiceBase, IListNonGenericEntityService
     {
-        public RestApiListNonGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiListNonGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "List.svc")
         {
         }

@@ -22,9 +22,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     {
         private readonly IFinder _finder;
         private readonly IPriceRepository _priceRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public AdvertisementAmountOrderValidationRule(IFinder finder, IPriceRepository priceRepository, ICommonLog logger)
+        public AdvertisementAmountOrderValidationRule(IFinder finder, IPriceRepository priceRepository, ITracer logger)
         {
             _finder = finder;
             _priceRepository = priceRepository;

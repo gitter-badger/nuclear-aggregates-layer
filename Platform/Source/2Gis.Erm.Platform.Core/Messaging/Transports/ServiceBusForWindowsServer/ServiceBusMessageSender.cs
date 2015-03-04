@@ -12,11 +12,11 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
 {
     public sealed partial class ServiceBusMessageSender : IServiceBusMessageSender
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ServiceBusConnectionPool<SenderSlot, MessageSender> _serviceBusConnectionPool;
         
         public ServiceBusMessageSender(IServiceBusMessageSenderSettings serviceBusMessageSenderSettings,
-                                       ICommonLog logger)
+                                       ITracer logger)
         {
             _logger = logger;
 
@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
 
         private class SenderSlot : ServiceBusConnectionSlot<MessageSender>
         {
-            public SenderSlot(ICommonLog logger, Func<MessageSender> messageClientEntityFactory)
+            public SenderSlot(ITracer logger, Func<MessageSender> messageClientEntityFactory)
                 : base(logger, messageClientEntityFactory)
             {
             }

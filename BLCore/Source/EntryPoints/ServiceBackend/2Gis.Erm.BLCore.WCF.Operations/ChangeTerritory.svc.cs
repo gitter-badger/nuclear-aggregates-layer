@@ -16,10 +16,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class ChangeTerritoryApplicationService : IChangeTerritoryApplicationService, IChangeTerritoryApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public ChangeTerritoryApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
+        public ChangeTerritoryApplicationService(ITracer logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;

@@ -19,10 +19,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         MessageTransformerBase<TMessageFlow, ServiceBusPerformedOperationsMessage, TrackedUseCase>
         where TMessageFlow : class, IMessageFlow, new()
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly RuntimeTypeModel _protobufModel;
 
-        public BinaryEntireBrokeredMessage2TrackedUseCaseTransformer(ICommonLog logger)
+        public BinaryEntireBrokeredMessage2TrackedUseCaseTransformer(ITracer logger)
         {
             _logger = logger;
             _protobufModel = ProtoBufTypeModelForTrackedUseCaseConfigurator.Configure();

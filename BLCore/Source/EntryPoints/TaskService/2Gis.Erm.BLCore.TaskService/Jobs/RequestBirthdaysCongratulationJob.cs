@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         private readonly IRequestBirthdayCongratulationOperationService _requestBirthdayCongratulationOperationService;
 
         public RequestBirthdaysCongratulationJob(
-            ICommonLog logger,
+            ITracer logger,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
             IRequestBirthdayCongratulationOperationService requestBirthdayCongratulationOperationService)

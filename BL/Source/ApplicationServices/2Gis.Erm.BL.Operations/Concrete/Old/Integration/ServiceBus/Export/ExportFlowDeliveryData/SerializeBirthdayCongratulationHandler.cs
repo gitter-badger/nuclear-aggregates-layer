@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
         private readonly IClientReadModel _clientReadModel;
 
         public SerializeBirthdayCongratulationHandler(IExportRepository<BirthdayCongratulation> exportRepository,
-                                                      ICommonLog logger,
+                                                      ITracer logger,
                                                       IClientReadModel clientReadModel)
             : base(exportRepository, logger)
         {

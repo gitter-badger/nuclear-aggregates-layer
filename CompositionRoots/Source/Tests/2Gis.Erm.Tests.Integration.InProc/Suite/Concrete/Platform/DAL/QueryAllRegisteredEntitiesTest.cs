@@ -21,9 +21,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
     {
         private readonly IEfDbModelConfigurationsProvider _dbModelConfigurationsProvider;
         private readonly IFinder _finder;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public QueryAllRegisteredEntitiesTest(IEfDbModelConfigurationsProvider dbModelConfigurationsProvider, IFinder finder, ICommonLog logger)
+        public QueryAllRegisteredEntitiesTest(IEfDbModelConfigurationsProvider dbModelConfigurationsProvider, IFinder finder, ITracer logger)
         {
             _dbModelConfigurationsProvider = dbModelConfigurationsProvider;
             _finder = finder;

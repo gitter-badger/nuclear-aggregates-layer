@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Append
         private readonly EntityName _appendedEntityName;
         private readonly EntityName _parentEntityName;
 
-        public RestApiAppendGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiAppendGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "Append.svc/Rest/{0}/{1}/{2}/{3}")
         {
             _appendedEntityName = typeof(TAppended).AsEntityName();

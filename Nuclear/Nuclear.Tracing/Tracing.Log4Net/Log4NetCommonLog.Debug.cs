@@ -4,14 +4,14 @@ using Nuclear.Tracing.API;
 
 namespace Nuclear.Tracing.Log4Net
 {
-    public sealed partial class Log4NetCommonLog
+    public sealed partial class Log4NetTracer
     {
-        void ICommonLog.Debug(string message)
+        void ITracer.Debug(string message)
         {
-            ((ICommonLog)this).Debug(message, null);
+            ((ITracer)this).Debug(message, null);
         }
 
-        void ICommonLog.Debug(string message, string methodName)
+        void ITracer.Debug(string message, string methodName)
         {
             if (!_log.IsDebugEnabled)
             {
@@ -31,7 +31,7 @@ namespace Nuclear.Tracing.Log4Net
             }
         }
 
-        void ICommonLog.DebugFormat(string message, object param1)
+        void ITracer.DebugFormat(string message, object param1)
         {
             if (!_log.IsDebugEnabled)
             {
@@ -41,7 +41,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.DebugFormat(message, param1);
         }
 
-        void ICommonLog.DebugFormat(string message, object param1, object param2)
+        void ITracer.DebugFormat(string message, object param1, object param2)
         {
             if (!_log.IsDebugEnabled)
             {
@@ -51,7 +51,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.DebugFormat(message, param1, param2);
         }
 
-        void ICommonLog.DebugFormat(string message, object param1, object param2, object param3)
+        void ITracer.DebugFormat(string message, object param1, object param2, object param3)
         {
             if (!_log.IsDebugEnabled)
             {
@@ -61,7 +61,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.DebugFormat(message, param1, param2, param3);
         }
 
-        void ICommonLog.DebugFormat(string message, params object[] args)
+        void ITracer.DebugFormat(string message, params object[] args)
         {
             if (!_log.IsDebugEnabled)
             {

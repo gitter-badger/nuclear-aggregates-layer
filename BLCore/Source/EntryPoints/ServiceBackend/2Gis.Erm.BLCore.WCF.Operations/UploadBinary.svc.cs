@@ -19,10 +19,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class UploadBinaryApplicationService : IUploadBinaryApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public UploadBinaryApplicationService(ICommonLog logger,
+        public UploadBinaryApplicationService(ITracer logger,
                                               IOperationServicesManager operationServicesManager,
                                               IUserContext userContext,
                                               IResourceGroupManager resourceGroupManager)

@@ -14,11 +14,11 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release.Old
 {
     public sealed class DownloadReleaseInfoResultsHandler : RequestHandler<DownloadReleaseInfoResultsRequest, StreamResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IReleaseReadModel _releaseRepository;
 
-        public DownloadReleaseInfoResultsHandler(ICommonLog logger, ISubRequestProcessor subRequestProcessor, IReleaseReadModel releaseRepository)
+        public DownloadReleaseInfoResultsHandler(ITracer logger, ISubRequestProcessor subRequestProcessor, IReleaseReadModel releaseRepository)
         {
             _logger = logger;
             _subRequestProcessor = subRequestProcessor;

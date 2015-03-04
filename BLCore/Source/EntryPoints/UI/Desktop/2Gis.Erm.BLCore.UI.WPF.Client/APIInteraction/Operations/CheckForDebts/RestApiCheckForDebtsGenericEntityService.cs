@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.CheckForD
     public sealed class RestApiCheckForDebtsGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, ICheckGenericEntityForDebtsService<TEntity>
         where TEntity : class, IEntityKey
     {
-        public RestApiCheckForDebtsGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiCheckForDebtsGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "CheckForDebts.svc")
         {
         }

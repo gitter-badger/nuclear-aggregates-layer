@@ -60,7 +60,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             }
         }
 
-        public static IUnityContainer ConfigureDI(this IUnityContainer container, ICommonLog logger)
+        public static IUnityContainer ConfigureDI(this IUnityContainer container, ITracer logger)
         {
             LocalPath = GetApplicationWorkingDirectory;
 
@@ -93,7 +93,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             return container;
         }
 
-        public static IUnityContainer Run(this IUnityContainer container, ICommonLog logger)
+        public static IUnityContainer Run(this IUnityContainer container, ITracer logger)
         {
             try
             {
@@ -135,9 +135,9 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             return container.RegisterType<IUIDispatcher, UIDispatcher>(Lifetime.Singleton, new InjectionConstructor(Dispatcher.CurrentDispatcher));
         }
 
-        private static IUnityContainer RegisterLogger(this IUnityContainer container, ICommonLog logger)
+        private static IUnityContainer RegisterLogger(this IUnityContainer container, ITracer logger)
         {
-            return container.RegisterInstance<ICommonLog>(logger, Lifetime.Singleton);
+            return container.RegisterInstance<ITracer>(logger, Lifetime.Singleton);
         }
 
         private static IUnityContainer RegisterModules(this IUnityContainer container)
@@ -148,7 +148,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 return container;
             }
 
-            var logger = container.Resolve<ICommonLog>();
+            var logger = container.Resolve<ITracer>();
 
             var containersUniqueMap = new HashSet<Guid>();
             var modulesUniqueMap = new HashSet<Guid>();

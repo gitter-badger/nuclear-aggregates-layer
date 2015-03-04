@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 {
     public sealed class TransformMessageProcessingStage : MessageProcessingStageBase<IMessageTransformerFactory, IMessageTransformer, IReadOnlyDictionary<Guid, IMessage>>
     {
-        public TransformMessageProcessingStage(IMessageTransformerFactory actorFactory, ICommonLog logger) 
+        public TransformMessageProcessingStage(IMessageTransformerFactory actorFactory, ITracer logger) 
             : base(actorFactory, logger)
         {
         }

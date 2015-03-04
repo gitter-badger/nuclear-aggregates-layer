@@ -58,7 +58,7 @@ namespace Nuclear.Tracing.Log4Net.Config
             get { return new Log4NetLoggerBuilder(); }
         }
 
-        public ICommonLog Build
+        public ITracer Build
         {
             get { return Create(this); }
         }
@@ -194,7 +194,7 @@ namespace Nuclear.Tracing.Log4Net.Config
             return this;
         }
 
-        private static Log4NetCommonLog Create(Log4NetLoggerBuilder builder)
+        private static Log4NetTracer Create(Log4NetLoggerBuilder builder)
         {
             var loggersHierarchy = (Hierarchy)LogManager.GetRepository();
             if (!string.IsNullOrEmpty(builder._xmlConfigFullPath))
@@ -234,7 +234,7 @@ namespace Nuclear.Tracing.Log4Net.Config
             }
 
             loggersHierarchy.Configured = true;
-            return new Log4NetCommonLog(LoggingHierarchyName, builder._loggingCulture);
+            return new Log4NetTracer(LoggingHierarchyName, builder._loggingCulture);
         }
 
         private static IRawLayout LayoutForContextProperty(string contextPropertyKey)

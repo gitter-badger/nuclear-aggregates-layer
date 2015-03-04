@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Activate
     public sealed class RestApiActivateGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IActivateGenericEntityService<TEntity>
         where TEntity : class, IEntityKey, IDeactivatableEntity
     {
-        public RestApiActivateGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiActivateGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "Activate.svc")
         {
         }

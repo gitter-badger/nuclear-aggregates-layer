@@ -19,14 +19,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IAccountBulkActivateLocksAggregateService _accountBulkActivateLocksAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ActualizeAccountsDuringRevertingWithdrawalOperationService(
             IAccountRevertWithdrawFromAccountsAggregateService accountRevertWithdrawFromAccountsAggregateService,
             IAccountBulkActivateLocksAggregateService accountBulkActivateLocksAggregateService,
             IUseCaseTuner useCaseTuner, 
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _accountRevertWithdrawFromAccountsAggregateService = accountRevertWithdrawFromAccountsAggregateService;
             _accountBulkActivateLocksAggregateService = accountBulkActivateLocksAggregateService;

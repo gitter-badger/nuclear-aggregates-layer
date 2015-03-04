@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
     {
         public static bool TryBuildSuite(
             ISettingsContainer settingsContainer, 
-            ICommonLog logger, 
+            ITracer logger, 
             ILoggerContextManager loggerContextManager,
             out ITestRunner testRunner)
         {

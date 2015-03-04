@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             IMessageFlowProcessorFactory messageFlowProcessorFactory,
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService, 
-            ICommonLog logger) 
+            ITracer logger) 
             : base(signInService, userImpersonationService, logger)
         {
             _integrationSettings = integrationSettings;

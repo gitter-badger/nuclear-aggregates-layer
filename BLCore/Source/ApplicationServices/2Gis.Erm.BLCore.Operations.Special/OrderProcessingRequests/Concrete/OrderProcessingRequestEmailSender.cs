@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
     public class OrderProcessingRequestEmailSender : IOrderProcessingRequestEmailSender,
                                                      ICreatedOrderProcessingRequestEmailSender
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ISecurityServiceUserIdentifier _userIdentityService;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                                                  IEmployeeEmailResolver employeeEmailResolver,
                                                  IOrderProcessingRequestNotificationFormatter notificationFormatter,
                                                  ISecurityServiceUserIdentifier userIdentityService,
-                                                 ICommonLog logger)
+                                                 ITracer logger)
         {
             _notificationsSettings = notificationsSettings;
             _notificationFormatter = notificationFormatter;

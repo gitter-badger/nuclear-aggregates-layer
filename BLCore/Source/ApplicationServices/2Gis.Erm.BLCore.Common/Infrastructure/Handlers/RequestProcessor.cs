@@ -10,9 +10,9 @@ namespace DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers
     public sealed class RequestProcessor : IRequestProcessor, ISubRequestProcessor
     {
         private readonly IRequestHandlerFactory _requestHandlerFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public RequestProcessor(IRequestHandlerFactory requestHandlerFactory, ICommonLog logger)
+        public RequestProcessor(IRequestHandlerFactory requestHandlerFactory, ITracer logger)
         {
             _requestHandlerFactory = requestHandlerFactory;
             _logger = logger;

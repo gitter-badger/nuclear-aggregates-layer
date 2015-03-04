@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Log4NetLoggerBuilder.cs" />
-    <Compile Include="Log4NetCommonLog.cs" />
+    <Compile Include="Log4NetTracer.cs" />
     <Compile Include="Log4NetCommonLog.Debug.cs" />
     <Compile Include="Log4NetCommonLog.Error.cs" />
     <Compile Include="Log4NetCommonLog.Fatal.cs" />

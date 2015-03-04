@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
     public sealed class SerializeFirmAddressHandler : SerializeObjectsHandler<FirmAddress, ExportFlowCardExtensionsCardCommercial>
     {
         public SerializeFirmAddressHandler(IExportRepository<FirmAddress> exportRepository,
-                                           ICommonLog logger)
+                                           ITracer logger)
             : base(exportRepository, logger)
         {
         }

@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 {
     public class CopyPricePositionOperationService : ICopyPricePositionOperationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IPriceReadModel _priceReadModel;
         private readonly ICreatePricePositionAggregateService _createPricePositionAggregateService;
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private readonly IBulkCreateAssociatedPositionsGroupsAggregateService _bulkCreateAssociatedPositionsGroupsAggregateService;
         private readonly IBulkCreateAssociatedPositionsAggregateService _bulkCreateAssociatedPositionsAggregateService;
 
-        public CopyPricePositionOperationService(ICommonLog logger,
+        public CopyPricePositionOperationService(ITracer logger,
                                                  IOperationScopeFactory operationScopeFactory,
                                                  IPriceReadModel priceReadModel,
                                                  ICreatePricePositionAggregateService createPricePositionAggregateService,

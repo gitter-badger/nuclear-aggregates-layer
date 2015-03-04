@@ -14,9 +14,9 @@ namespace DoubleGis.Erm.Platform.Security
     public sealed class SecurityServiceAuthentication : ISecurityServiceAuthentication
     {
         private readonly IFinder _finder;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public SecurityServiceAuthentication(IFinder finder, ICommonLog logger)
+        public SecurityServiceAuthentication(IFinder finder, ITracer logger)
         {
             _finder = finder;
             _logger = logger;

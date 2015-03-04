@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
         private readonly Type _entityType;
         private readonly EntityName _entityName;
 
-        protected RestApiOperationEntitySpecificServiceBase(IApiClient apiClient, ICommonLog logger, string operationApiTargetResource)
+        protected RestApiOperationEntitySpecificServiceBase(IApiClient apiClient, ITracer logger, string operationApiTargetResource)
             : base(apiClient, logger, operationApiTargetResource)
         {
             _entityType = typeof(TEntity);

@@ -13,9 +13,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
     public sealed class AggregateServiceIsolator : IAggregateServiceIsolator
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public AggregateServiceIsolator(IUnitOfWork unitOfWork, ICommonLog logger)
+        public AggregateServiceIsolator(IUnitOfWork unitOfWork, ITracer logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;

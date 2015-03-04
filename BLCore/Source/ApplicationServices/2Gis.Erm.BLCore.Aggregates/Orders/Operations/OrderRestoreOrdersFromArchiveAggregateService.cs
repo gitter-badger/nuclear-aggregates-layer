@@ -16,12 +16,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public OrderRestoreOrdersFromArchiveAggregateService(
             IRepository<Order> orderRepository, 
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;

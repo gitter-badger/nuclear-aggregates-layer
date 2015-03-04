@@ -16,10 +16,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class ActivateApplicationService : IActivateApplicationService, IActivateApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public ActivateApplicationService(ICommonLog logger,
+        public ActivateApplicationService(ITracer logger,
                                           IOperationServicesManager operationServicesManager,
                                           IUserContext userContext,
                                           IResourceGroupManager resourceGroupManager)

@@ -49,19 +49,19 @@ namespace DoubleGis.Erm.Platform.Security
 
         private readonly IFinder _finder;
         private readonly IUserEntityService _userEntityService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ICacheAdapter _cacheAdapter;
         private readonly TimeSpan _cacheSlidingSpan = TimeSpan.FromSeconds(60);
 
         public SecurityServiceFacade(IFinder finder,
             IUserEntityService userEntityService,
             ICacheAdapter cacheAdapter,
-            ICommonLog commonLog)
+            ITracer tracer)
         {
             _finder = finder;
             _userEntityService = userEntityService;
             _cacheAdapter = cacheAdapter;
-            _logger = commonLog;
+            _logger = tracer;
         }
 
         private DateTime CacheAbsoluteSpan

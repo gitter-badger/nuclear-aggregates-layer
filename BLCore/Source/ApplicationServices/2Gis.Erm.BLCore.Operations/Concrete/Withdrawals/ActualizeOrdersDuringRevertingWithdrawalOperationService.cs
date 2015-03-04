@@ -17,14 +17,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IOrderRestoreOrdersFromArchiveAggregateService _restoreOrdersFromArchiveAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IActionLogger _actionLogger;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ActualizeOrdersDuringRevertingWithdrawalOperationService(
             IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService orderActualizeOrdersAmoutDuringWithdrawalAggregateService,
             IOrderRestoreOrdersFromArchiveAggregateService restoreOrdersFromArchiveAggregateService,
             IOperationScopeFactory scopeFactory,
             IActionLogger actionLogger,
-            ICommonLog logger)
+            ITracer logger)
         {
             _orderActualizeOrdersAmoutDuringWithdrawalAggregateService = orderActualizeOrdersAmoutDuringWithdrawalAggregateService;
             _restoreOrdersFromArchiveAggregateService = restoreOrdersFromArchiveAggregateService;

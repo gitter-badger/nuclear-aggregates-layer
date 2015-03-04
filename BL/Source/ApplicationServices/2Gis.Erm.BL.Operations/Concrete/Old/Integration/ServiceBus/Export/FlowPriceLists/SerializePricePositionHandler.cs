@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
     public sealed class SerializePricePositionHandler : SerializeObjectsHandler<PricePosition, ExportFlowPriceListsPriceListPosition>
     {
         public SerializePricePositionHandler(IExportRepository<PricePosition> exportOperationsRepository,
-                                             ICommonLog logger)
+                                             ITracer logger)
             : base(exportOperationsRepository, logger)
         {
         }

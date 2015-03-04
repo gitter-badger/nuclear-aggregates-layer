@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                      ObjectContextMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
                                                      _enabledReplicationMetadataProvider,
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
             };
 
             protected static Mock<IDbContext> ObjectContextMock { get; private set; }
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                      ObjectContextMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
                                                      _enabledReplicationMetadataProvider,
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
@@ -164,7 +164,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                          ObjectContextMock.Object,
                                                          Mock.Of<IPendingChangesHandlingStrategy>(),
                                                          _disabledReplicationMetadataProvider,
-                                                         Mock.Of<ICommonLog>());
+                                                         Mock.Of<ITracer>());
                 };
 
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
@@ -190,7 +190,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                          objectContextMock.Object,
                                                          new NullPendingChangesHandlingStrategy(),
                                                          _disabledReplicationMetadataProvider,
-                                                         Mock.Of<ICommonLog>());
+                                                         Mock.Of<ITracer>());
                 };
 
             Because of = () => _exception = Catch.Exception(() => _domainContext.Dispose());
@@ -215,7 +215,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                      objectContextMock.Object,
                                                      new ForcePendingChangesHandlingStrategy(),
                                                     _disabledReplicationMetadataProvider,
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
             };
 
             Because of = () => _exception = Catch.Exception(() => _domainContext.Dispose());

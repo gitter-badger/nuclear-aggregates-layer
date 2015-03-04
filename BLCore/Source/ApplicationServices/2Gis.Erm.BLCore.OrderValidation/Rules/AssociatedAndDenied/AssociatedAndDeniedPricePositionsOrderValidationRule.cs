@@ -23,12 +23,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
     {
         private readonly IFinder _finder;
         private readonly IPriceConfigurationService _priceConfigurationService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public AssociatedAndDeniedPricePositionsOrderValidationRule(
             IFinder finder,
             IPriceConfigurationService priceConfigurationService,
-            ICommonLog logger)
+            ITracer logger)
         {
             _finder = finder;
             _priceConfigurationService = priceConfigurationService;

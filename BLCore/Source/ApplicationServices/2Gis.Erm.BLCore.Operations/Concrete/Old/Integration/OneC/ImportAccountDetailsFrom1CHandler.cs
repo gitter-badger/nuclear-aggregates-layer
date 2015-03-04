@@ -25,14 +25,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
     public sealed class ImportAccountDetailsFrom1CHandler : RequestHandler<ImportAccountDetailsFrom1CRequest, ImportResponse>
     {
         private readonly ILocalizationSettings _localizationSettings;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IAccountRepository _accountRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly INotifyAboutAccountDetailModificationOperationService _notifyAboutAccountDetailModificationOperationService;
 
         public ImportAccountDetailsFrom1CHandler(ILocalizationSettings localizationSettings,
-                                                 ICommonLog logger,
+                                                 ITracer logger,
                                                  IBranchOfficeReadModel branchOfficeReadModel,
                                                  IAccountRepository accountRepository,
                                                  ILegalPersonRepository legalPersonRepository,

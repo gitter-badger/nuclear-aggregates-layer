@@ -17,13 +17,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
     {
         private readonly IReplicationPersistenceService _replicationPersistenceService;
         private readonly IAsyncMsCRMReplicationSettings _asyncMsCRMReplicationSettings;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
         public ReplicateToCRMMessageAggregatedProcessingResultHandler(
             IAsyncMsCRMReplicationSettings asyncMsCRMReplicationSettings,
             IReplicationPersistenceService replicationPersistenceService,
-            ICommonLog logger,
+            ITracer logger,
             IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
             _asyncMsCRMReplicationSettings = asyncMsCRMReplicationSettings;

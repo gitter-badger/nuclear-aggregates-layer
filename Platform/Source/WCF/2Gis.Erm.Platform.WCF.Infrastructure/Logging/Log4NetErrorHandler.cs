@@ -9,9 +9,9 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
 {
     public class Log4NetErrorHandler : IErrorHandler
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public Log4NetErrorHandler(ICommonLog logger)
+        public Log4NetErrorHandler(ITracer logger)
         {
             _logger = logger;
         }

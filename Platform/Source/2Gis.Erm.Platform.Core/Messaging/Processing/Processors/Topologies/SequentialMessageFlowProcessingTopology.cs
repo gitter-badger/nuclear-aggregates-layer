@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
         public SequentialMessageFlowProcessingTopology(
             IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage> stagesMap,
             IEnumerable<MessageProcessingStage> ignoreErrorsOnStage,
-            ICommonLog logger)
+            ITracer logger)
             : base(stagesMap, ignoreErrorsOnStage, logger)
         {
         }

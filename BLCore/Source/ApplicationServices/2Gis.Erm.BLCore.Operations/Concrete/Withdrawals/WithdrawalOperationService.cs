@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IUserContext _userContext;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ICreateLockDetailsDuringWithdrawalOperationService _createLockDetailsDuringWithdrawalOperationService;
 
         public WithdrawalOperationService(
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IUserContext userContext,
             IUseCaseTuner useCaseTuner,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _accountReadModel = accountReadModel;
             _actualizeAccountsDuringWithdrawalOperationService = actualizeAccountsDuringWithdrawalOperationService;

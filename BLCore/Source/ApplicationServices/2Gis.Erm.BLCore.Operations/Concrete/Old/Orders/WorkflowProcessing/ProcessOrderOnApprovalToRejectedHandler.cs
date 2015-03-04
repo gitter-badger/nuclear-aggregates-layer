@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         private readonly IUserContext _userContext;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOrderReadModel _orderReadModel;
 
         public ProcessOrderOnApprovalToRejectedHandler(
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             IUserContext userContext,
             INotificationSender notificationSender,
             IEmployeeEmailResolver employeeEmailResolver,
-            ICommonLog logger)
+            ITracer logger)
         {
             _notificationsSettings = notificationsSettings;
             _userContext = userContext;

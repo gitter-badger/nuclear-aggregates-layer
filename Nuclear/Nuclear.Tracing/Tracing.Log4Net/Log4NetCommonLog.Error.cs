@@ -6,14 +6,14 @@ using Nuclear.Tracing.API;
 
 namespace Nuclear.Tracing.Log4Net
 {
-    public sealed partial class Log4NetCommonLog
+    public sealed partial class Log4NetTracer
     {
-        void ICommonLog.Error(string message)
+        void ITracer.Error(string message)
         {
-            ((ICommonLog)this).Error(message, null);
+            ((ITracer)this).Error(message, null);
         }
 
-        void ICommonLog.Error(string message, string methodName)
+        void ITracer.Error(string message, string methodName)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -33,12 +33,12 @@ namespace Nuclear.Tracing.Log4Net
             }
         }
 
-        void ICommonLog.Error(Exception exception, string message)
+        void ITracer.Error(Exception exception, string message)
         {
-            ((ICommonLog)this).Error(exception, message, null);
+            ((ITracer)this).Error(exception, message, null);
         }
 
-        void ICommonLog.Error(Exception exception, string message, string methodName)
+        void ITracer.Error(Exception exception, string message, string methodName)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -58,7 +58,7 @@ namespace Nuclear.Tracing.Log4Net
             }
         }
 
-        void ICommonLog.ErrorFormat(Exception exception, string message, object param1)
+        void ITracer.ErrorFormat(Exception exception, string message, object param1)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -68,7 +68,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.Error(string.Format(_loggingCulture, message, param1), exception);
         }
 
-        void ICommonLog.ErrorFormat(Exception exception, string message, object param1, object param2)
+        void ITracer.ErrorFormat(Exception exception, string message, object param1, object param2)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -78,7 +78,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.Error(string.Format(_loggingCulture, message, param1, param2), exception);
         }
 
-        void ICommonLog.ErrorFormat(Exception exception, string message, object param1, object param2, object param3)
+        void ITracer.ErrorFormat(Exception exception, string message, object param1, object param2, object param3)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -88,7 +88,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.Error(string.Format(_loggingCulture, message, param1, param2, param3), exception);
         }
 
-        void ICommonLog.ErrorFormat(Exception exception, string message, params object[] args)
+        void ITracer.ErrorFormat(Exception exception, string message, params object[] args)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -98,7 +98,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.Error(string.Format(_loggingCulture, message, args), exception);
         }
 
-        void ICommonLog.ErrorFormat(string message, object param1)
+        void ITracer.ErrorFormat(string message, object param1)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -108,7 +108,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.ErrorFormat(message, param1);
         }
 
-        void ICommonLog.ErrorFormat(string message, object param1, object param2)
+        void ITracer.ErrorFormat(string message, object param1, object param2)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -118,7 +118,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.ErrorFormat(message, param1, param2);
         }
 
-        void ICommonLog.ErrorFormat(string message, object param1, object param2, object param3)
+        void ITracer.ErrorFormat(string message, object param1, object param2, object param3)
         {
             if (!_log.IsErrorEnabled)
             {
@@ -128,7 +128,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.ErrorFormat(message, param1, param2, param3);
         }
 
-        void ICommonLog.ErrorFormat(string message, params object[] args)
+        void ITracer.ErrorFormat(string message, params object[] args)
         {
             if (!_log.IsErrorEnabled)
             {

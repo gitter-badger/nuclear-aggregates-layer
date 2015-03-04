@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         public SerializeThemeTemplateHandler(IExportRepository<ThemeTemplate> exportRepository,
                                              IThemeRepository themeRepository,
-                                             ICommonLog logger)
+                                             ITracer logger)
             : base(exportRepository, logger)
         {
             _themeRepository = themeRepository;

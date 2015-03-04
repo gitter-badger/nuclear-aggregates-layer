@@ -16,15 +16,15 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
     public class GetDebitsInfoInitialForExportTest : IIntegrationTest
     {
         private readonly IGetDebitsInfoInitialForExportOperationService _debitsInfoInitialForExportOperationService;
-        private readonly ICommonLog _commonLog;
+        private readonly ITracer _tracer;
         private readonly IAppropriateEntityProvider<OrganizationUnit> _organizationUnitProvider;
 
         public GetDebitsInfoInitialForExportTest(IGetDebitsInfoInitialForExportOperationService debitsInfoInitialForExportOperationService,
-                                                 ICommonLog commonLog,
+                                                 ITracer tracer,
                                                  IAppropriateEntityProvider<OrganizationUnit> organizationUnitProvider)
         {
             _debitsInfoInitialForExportOperationService = debitsInfoInitialForExportOperationService;
-            _commonLog = commonLog;
+            _tracer = tracer;
             _organizationUnitProvider = organizationUnitProvider;
         }
 
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
             _debitsInfoInitialForExportOperationService.Get(startDate, endDate, allIds);
             stopwatch.Stop();
-            _commonLog.InfoFormat("Выборка списаний завершена за {0:F2}", stopwatch.Elapsed.TotalSeconds);
+            _tracer.InfoFormat("Выборка списаний завершена за {0:F2}", stopwatch.Elapsed.TotalSeconds);
 
             return OrdinaryTestResult.As.Succeeded;
         }

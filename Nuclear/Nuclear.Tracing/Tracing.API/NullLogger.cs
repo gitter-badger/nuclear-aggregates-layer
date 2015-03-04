@@ -2,214 +2,214 @@
 
 namespace Nuclear.Tracing.API
 {
-    public sealed class NullLogger : ICommonLog
+    public sealed class NullLogger : ITracer
     {
-        void ICommonLog.Debug(string message)
+        void ITracer.Debug(string message)
         {
             // do nothing
         }
 
-        void ICommonLog.Debug(string message, string methodName)
+        void ITracer.Debug(string message, string methodName)
         {
             // do nothing
         }
 
-        void ICommonLog.DebugFormat(string message, object param1)
+        void ITracer.DebugFormat(string message, object param1)
         {
             // do nothing
         }
 
-        void ICommonLog.DebugFormat(string message, object param1, object param2)
+        void ITracer.DebugFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        void ICommonLog.DebugFormat(string message, object param1, object param2, object param3)
+        void ITracer.DebugFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        void ICommonLog.DebugFormat(string message, params object[] args)
+        void ITracer.DebugFormat(string message, params object[] args)
         {
             // do nothing
         }
 
-        void ICommonLog.Info(string message)
+        void ITracer.Info(string message)
         {
             // do nothing
         }
 
-        void ICommonLog.Info(string message, string methodName)
+        void ITracer.Info(string message, string methodName)
         {
             // do nothing
         }
 
-        void ICommonLog.InfoFormat(string message, object param1)
+        void ITracer.InfoFormat(string message, object param1)
         {
             // do nothing
         }
 
-        void ICommonLog.InfoFormat(string message, object param1, object param2)
+        void ITracer.InfoFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        void ICommonLog.InfoFormat(string message, object param1, object param2, object param3)
+        void ITracer.InfoFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        void ICommonLog.InfoFormat(string message, params object[] args)
+        void ITracer.InfoFormat(string message, params object[] args)
         {
             // do nothing
         }
 
-        void ICommonLog.Warn(string message)
+        void ITracer.Warn(string message)
         {
             // do nothing
         }
 
-        void ICommonLog.Warn(string message, string methodName)
+        void ITracer.Warn(string message, string methodName)
         {
             // do nothing
         }
 
-        void ICommonLog.WarnFormat(string message, object param1)
+        void ITracer.WarnFormat(string message, object param1)
         {
             // do nothing
         }
 
-        void ICommonLog.WarnFormat(string message, object param1, object param2)
+        void ITracer.WarnFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        void ICommonLog.WarnFormat(string message, object param1, object param2, object param3)
+        void ITracer.WarnFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        void ICommonLog.WarnFormat(string message, params object[] args)
+        void ITracer.WarnFormat(string message, params object[] args)
         {
             // do nothing
         }
 
-        void ICommonLog.Error(string message)
+        void ITracer.Error(string message)
         {
             // do nothing
         }
 
-        void ICommonLog.Error(string message, string methodName)
+        void ITracer.Error(string message, string methodName)
         {
             // do nothing
         }
 
-        void ICommonLog.Error(Exception exception, string message)
+        void ITracer.Error(Exception exception, string message)
         {
             // do nothing
         }
 
-        void ICommonLog.Error(Exception exception, string message, string methodName)
+        void ITracer.Error(Exception exception, string message, string methodName)
         {
             // do nothing
         }
 
-        void ICommonLog.ErrorFormat(Exception exception, string message, object param1)
+        void ITracer.ErrorFormat(Exception exception, string message, object param1)
         {
             // do nothing
         }
 
-        void ICommonLog.ErrorFormat(Exception exception, string message, object param1, object param2)
+        void ITracer.ErrorFormat(Exception exception, string message, object param1, object param2)
         {
             // do nothing
         }
 
-        void ICommonLog.ErrorFormat(Exception exception, string message, object param1, object param2, object param3)
+        void ITracer.ErrorFormat(Exception exception, string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        void ICommonLog.ErrorFormat(Exception exception, string message, params object[] args)
+        void ITracer.ErrorFormat(Exception exception, string message, params object[] args)
         {
             // do nothing
         }
 
-        void ICommonLog.ErrorFormat(string message, object param1)
+        void ITracer.ErrorFormat(string message, object param1)
         {
             // do nothing
         }
 
-        void ICommonLog.ErrorFormat(string message, object param1, object param2)
+        void ITracer.ErrorFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        void ICommonLog.ErrorFormat(string message, object param1, object param2, object param3)
+        void ITracer.ErrorFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        void ICommonLog.ErrorFormat(string message, params object[] args)
+        void ITracer.ErrorFormat(string message, params object[] args)
         {
             // do nothing
         }
 
-        void ICommonLog.Fatal(string message)
+        void ITracer.Fatal(string message)
         {
             // do nothing
         }
 
-        void ICommonLog.Fatal(string message, string methodName)
+        void ITracer.Fatal(string message, string methodName)
         {
             // do nothing
         }
 
-        void ICommonLog.Fatal(Exception exception, string message)
+        void ITracer.Fatal(Exception exception, string message)
         {
             // do nothing
         }
 
-        void ICommonLog.Fatal(Exception exception, string message, string methodName)
+        void ITracer.Fatal(Exception exception, string message, string methodName)
         {
             // do nothing
         }
 
-        void ICommonLog.FatalFormat(Exception exception, string message, object param1)
+        void ITracer.FatalFormat(Exception exception, string message, object param1)
         {
             // do nothing
         }
 
-        void ICommonLog.FatalFormat(Exception exception, string message, object param1, object param2)
+        void ITracer.FatalFormat(Exception exception, string message, object param1, object param2)
         {
             // do nothing
         }
 
-        void ICommonLog.FatalFormat(Exception exception, string message, object param1, object param2, object param3)
+        void ITracer.FatalFormat(Exception exception, string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        void ICommonLog.FatalFormat(Exception exception, string message, params object[] args)
+        void ITracer.FatalFormat(Exception exception, string message, params object[] args)
         {
             // do nothing
         }
 
-        void ICommonLog.FatalFormat(string message, object param1)
+        void ITracer.FatalFormat(string message, object param1)
         {
             // do nothing
         }
 
-        void ICommonLog.FatalFormat(string message, object param1, object param2)
+        void ITracer.FatalFormat(string message, object param1, object param2)
         {
             // do nothing
         }
 
-        void ICommonLog.FatalFormat(string message, object param1, object param2, object param3)
+        void ITracer.FatalFormat(string message, object param1, object param2, object param3)
         {
             // do nothing
         }
 
-        void ICommonLog.FatalFormat(string message, params object[] args)
+        void ITracer.FatalFormat(string message, params object[] args)
         {
             // do nothing
         }

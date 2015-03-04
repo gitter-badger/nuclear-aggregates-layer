@@ -26,13 +26,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> _orderOperationsProcessingsStoreService;
         private readonly IOperationsProcessingsStoreService<Order, ExportFlowOrdersInvoice> _invoiceOperationsProcessingsStoreService;
         private readonly IExportRepository<Order> _exportRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ServiceBusEnsureOrderExportedStrategy(IIntegrationSettings integrationSettings,
                                                      IOrderReadModel orderReadModel,
                                                      IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> operationsProcessingsStoreService,
                                                      IExportRepository<Order> exportRepository,
-                                                     ICommonLog logger,
+                                                     ITracer logger,
                                                      IOperationsProcessingsStoreService<Order, ExportFlowOrdersInvoice> invoiceOperationsProcessingsStoreService)
         {
             _integrationSettings = integrationSettings;

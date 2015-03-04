@@ -20,12 +20,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
         where TEntity : class, IEntity, IEntityKey
         where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IPublicService _publicService;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IIntegrationSettings _integrationSettings;
 
-        public OperationsExporter(ICommonLog logger,
+        public OperationsExporter(ITracer logger,
                                   IClientProxyFactory clientProxyFactory,
                                   IIntegrationSettings integrationSettings,
                                   IPublicService publicService)

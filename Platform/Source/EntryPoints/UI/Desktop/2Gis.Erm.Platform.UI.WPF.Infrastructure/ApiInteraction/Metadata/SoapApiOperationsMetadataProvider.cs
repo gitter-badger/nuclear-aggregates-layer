@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
         public SoapApiOperationsMetadataProvider(IStandartConfigurationSettings configuration,
                                                 IDesktopClientProxyFactory clientProxyFactory,
                                                 IApiSettings apiSettings,
-                                                ICommonLog logger,
+                                                ITracer logger,
                                                 ICacheAdapter cacheAdapter)
             : base(clientProxyFactory, configuration, apiSettings, logger)
         {

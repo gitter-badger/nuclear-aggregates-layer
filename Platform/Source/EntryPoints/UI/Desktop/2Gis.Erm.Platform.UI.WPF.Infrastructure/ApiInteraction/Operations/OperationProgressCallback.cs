@@ -13,9 +13,9 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
     public sealed class OperationProgressCallback : IOperationProgressCallback
     {
         private readonly IMessageSink _messageSink;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public OperationProgressCallback(IMessageSink messageSink, ICommonLog logger)
+        public OperationProgressCallback(IMessageSink messageSink, ITracer logger)
         {
             _messageSink = messageSink;
             _logger = logger;

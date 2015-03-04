@@ -22,13 +22,13 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
         private readonly IEnvironmentSettings _environmentSettings;
         private readonly IOperationsMetadataProvider _metadataProvider;
         private readonly IServiceAvailabilityProvider _serviceAvailabilityProvider;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public MetadataProviderApplicationService(
             IEnvironmentSettings environmentSettings, 
             IOperationsMetadataProvider metadataProvider, 
             IServiceAvailabilityProvider serviceAvailabilityProvider,
-            ICommonLog logger)
+            ITracer logger)
         {
             _environmentSettings = environmentSettings;
             _metadataProvider = metadataProvider;

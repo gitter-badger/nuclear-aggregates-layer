@@ -17,13 +17,13 @@ namespace DoubleGis.Erm.Platform.Core.Identities
         private const int MaxRequestedCount = 32767;
 
         private readonly IClientProxyFactory _clientProxyFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         private readonly ConcurrentQueue<long> _idBuffer = new ConcurrentQueue<long>();
         private int _nextRequestedCount = 1;
         private int _threadsCount;
 
-        public BufferedIdentityRequestStrategy(IClientProxyFactory clientProxyFactory, ICommonLog logger)
+        public BufferedIdentityRequestStrategy(IClientProxyFactory clientProxyFactory, ITracer logger)
         {
             _clientProxyFactory = clientProxyFactory;
             _logger = logger;

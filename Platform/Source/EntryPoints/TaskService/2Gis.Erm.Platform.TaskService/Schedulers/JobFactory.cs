@@ -17,9 +17,9 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
         private readonly Dictionary<IJob, IUnityContainer> _containerMap = new Dictionary<IJob, IUnityContainer>();
 
         private readonly IUnityContainer _container;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public JobFactory(IUnityContainer container, ICommonLog logger)
+        public JobFactory(IUnityContainer container, ITracer logger)
         {
             _container = container;
             _logger = logger;

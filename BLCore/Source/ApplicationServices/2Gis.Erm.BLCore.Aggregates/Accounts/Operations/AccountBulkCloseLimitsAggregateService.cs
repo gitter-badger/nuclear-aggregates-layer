@@ -15,12 +15,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
     {
         private readonly IRepository<Limit> _limitRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public AccountBulkCloseLimitsAggregateService(
             IRepository<Limit> limitRepository,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _limitRepository = limitRepository;
             _scopeFactory = scopeFactory;

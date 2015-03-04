@@ -8,11 +8,11 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Processings
 {
     public sealed class ExecutingProcessingsRegistry : IExecutingProcessingsRegistry
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ConcurrentDictionary<Guid,IProcessingDescriptor> _registry = 
             new ConcurrentDictionary<Guid, IProcessingDescriptor>();
 
-        public ExecutingProcessingsRegistry(ICommonLog logger)
+        public ExecutingProcessingsRegistry(ITracer logger)
         {
             _logger = logger;
         }

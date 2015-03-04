@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
     public sealed class BatchDeletePersistenceService : IBatchDeletePersistenceService
     {
         private readonly IDatabaseCaller _databaseCaller;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         private readonly IReadOnlyDictionary<Type, string> _entitiesTableMap =
             new Dictionary<Type, string>
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                     { typeof(SalesModelCategoryRestriction), "BusinessDirectory.SalesModelCategoryRestrictions" },
                 };
 
-        public BatchDeletePersistenceService(IDatabaseCaller databaseCaller, ICommonLog logger)
+        public BatchDeletePersistenceService(IDatabaseCaller databaseCaller, ITracer logger)
         {
             _databaseCaller = databaseCaller;
             _logger = logger;

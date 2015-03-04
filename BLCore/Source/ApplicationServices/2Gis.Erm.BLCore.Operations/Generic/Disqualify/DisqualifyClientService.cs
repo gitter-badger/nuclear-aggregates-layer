@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IClientReadModel _clientReadModel;
         private readonly IActivityReadService _activityReadService;
         private readonly IAppointmentReadModel _appointmentReadModel;
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
                                        IClientRepository clientRepository,
                                        ISecurityServiceUserIdentifier userIdentifierService,
                                        ISecurityServiceFunctionalAccess functionalAccessService,
-                                       ICommonLog logger,
+                                       ITracer logger,
                                        ISecurityServiceEntityAccess securityServiceEntityAccess,
                                        IClientReadModel clientReadModel,
                                        IActivityReadService activityReadService,

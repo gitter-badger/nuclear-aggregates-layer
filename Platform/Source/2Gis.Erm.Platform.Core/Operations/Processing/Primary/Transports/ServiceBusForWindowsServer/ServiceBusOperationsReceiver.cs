@@ -15,13 +15,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         MessageReceiverBase<TMessageFlow, ServiceBusPerformedOperationsMessage, IPerformedOperationsReceiverSettings> 
         where TMessageFlow : class, IMessageFlow, new()
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IServiceBusMessageReceiver<TMessageFlow> _serviceBusMessageReceiver;
 
         public ServiceBusOperationsReceiver(
             IPerformedOperationsReceiverSettings messageReceiverSettings, 
             IServiceBusMessageReceiver<TMessageFlow> serviceBusMessageReceiver,
-            ICommonLog logger)
+            ITracer logger)
             : base(messageReceiverSettings)
         {
             _logger = logger;

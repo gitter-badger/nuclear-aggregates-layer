@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.LocalMessages
         private readonly IPublicService _publicService;
 
         public ReprocessLocalMessages(
-            ICommonLog logger, 
+            ITracer logger, 
             IPublicService publicService, 
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService)

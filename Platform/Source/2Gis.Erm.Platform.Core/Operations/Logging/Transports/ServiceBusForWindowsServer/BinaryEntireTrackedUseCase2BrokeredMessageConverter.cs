@@ -17,10 +17,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
 {
     public sealed class BinaryEntireTrackedUseCase2BrokeredMessageConverter : ITrackedUseCase2BrokeredMessageConverter
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly RuntimeTypeModel _protobufModel;
 
-        public BinaryEntireTrackedUseCase2BrokeredMessageConverter(ICommonLog logger)
+        public BinaryEntireTrackedUseCase2BrokeredMessageConverter(ITracer logger)
         {
             _logger = logger;
             _protobufModel = ProtoBufTypeModelForTrackedUseCaseConfigurator.Configure();

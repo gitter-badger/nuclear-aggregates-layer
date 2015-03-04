@@ -12,11 +12,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
     public sealed class ServiceBusLoggingTest : IIntegrationTest
     {
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ServiceBusLoggingTest(
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _scopeFactory = scopeFactory;
             _logger = logger;

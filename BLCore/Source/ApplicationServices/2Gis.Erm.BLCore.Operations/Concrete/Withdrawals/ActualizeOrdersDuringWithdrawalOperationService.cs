@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IOrderChangeStateOrders2ArchiveAggregateService _orderChangeStateOrders2ArchiveAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IActionLogger _actionLogger;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ActualizeOrdersDuringWithdrawalOperationService(
             IOrderReadModel orderReadModel,
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IOrderChangeStateOrders2ArchiveAggregateService orderChangeStateOrders2ArchiveAggregateService,
             IOperationScopeFactory scopeFactory,
             IActionLogger actionLogger,
-            ICommonLog logger)
+            ITracer logger)
         {
             _orderReadModel = orderReadModel;
             _orderActualizeOrdersAmoutDuringWithdrawalAggregateService = orderActualizeOrdersAmoutDuringWithdrawalAggregateService;

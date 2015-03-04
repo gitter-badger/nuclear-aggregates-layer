@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         public SerializeOrdersHandler(ISecurityServiceUserIdentifier securityServiceUserIdentifier,
                                       IExportRepository<Order> exportOperationsRepository,
-                                      ICommonLog logger)
+                                      ITracer logger)
             : base(exportOperationsRepository, logger)
         {
             _securityServiceUserIdentifier = securityServiceUserIdentifier;

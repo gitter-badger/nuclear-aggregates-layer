@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.ChangeTer
     public sealed class RestApiChangeTerritoryGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IChangeGenericEntityTerritoryService<TEntity>
         where TEntity : class, IEntityKey
     {
-        public RestApiChangeTerritoryGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiChangeTerritoryGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "ChangeTerritory.svc")
         {
         }

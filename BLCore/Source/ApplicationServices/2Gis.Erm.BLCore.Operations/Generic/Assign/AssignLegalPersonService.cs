@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IPublicService _publicService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public AssignLegalPersonService(
             ILegalPersonRepository legalPersonRepository,
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             IPublicService publicService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _legalPersonRepository = legalPersonRepository;
             _scopeFactory = scopeFactory;

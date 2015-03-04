@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                         objectContext.Object,
                                                         Mock.Of<IPendingChangesHandlingStrategy>(),
                                                         new MsCrmReplicationMetadataProvider(EntityNameUtils.AsyncReplicated2MsCrmEntities, EntityNameUtils.AllReplicated2MsCrmEntities.Except(EntityNameUtils.AsyncReplicated2MsCrmEntities)),
-                                                        Mock.Of<ICommonLog>());
+                                                        Mock.Of<ITracer>());
 
                 var modifiableDomainContextProviderMock = new Mock<IModifiableDomainContextProvider>();
                 modifiableDomainContextProviderMock.Setup(p => p.Get<TEntity>()).Returns(domainContext);

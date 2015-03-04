@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
     public class OrderProcessingService : IOrderProcessingService
     {
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IAccountRepository _accountRepository;
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         public OrderProcessingService(
             IUserContext userContext,
-            ICommonLog logger,
+            ITracer logger,
             IOrderRepository orderRepository,
             IAccountRepository accountRepository,
             IReleaseReadModel releaseRepository,

@@ -15,10 +15,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class GetDomainEntityDtoApplicationService : IGetDomainEntityDtoApplicationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public GetDomainEntityDtoApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
+        public GetDomainEntityDtoApplicationService(ITracer logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;

@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
         private readonly ILinkToEntityCardFactory _linkToEntityCardFactory;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public NotifyAboutAdvertisementElementValidationStatusChangedOperationService(
             INotificationsSettings notificationsSettings, 
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             ILinkToEntityCardFactory linkToEntityCardFactory,
             IEmployeeEmailResolver employeeEmailResolver,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _notificationsSettings = notificationsSettings;
             _advertisementReadModel = advertisementReadModel;

@@ -15,11 +15,11 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
     {
         private readonly IEnvironmentSettings _environmentSettings;
         private readonly IIdentityProviderService _identityService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public IdentityProviderApplicationService(IEnvironmentSettings environmentSettings,
                                                   IIdentityProviderService identityService,
-                                                  ICommonLog logger)
+                                                  ITracer logger)
         {
             _environmentSettings = environmentSettings;
             _identityService = identityService;

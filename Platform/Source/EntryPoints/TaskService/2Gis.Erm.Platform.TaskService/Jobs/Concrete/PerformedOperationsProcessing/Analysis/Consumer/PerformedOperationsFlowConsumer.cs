@@ -25,14 +25,14 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
         private readonly IPerformedOperationsReceiverSettings _performedOperationsReceiverSettings;
         private readonly IMessageReceiver _performedOperationMessagesReceiver;
         private readonly CancellationToken _cancellationToken;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly Task _worker;
 
         public PerformedOperationsFlowConsumer(
             IPerformedOperationsReceiverSettings performedOperationsReceiverSettings, 
             IMessageReceiver performedOperationMessagesReceiver, 
             CancellationToken cancellationToken, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _performedOperationsReceiverSettings = performedOperationsReceiverSettings;
             _performedOperationMessagesReceiver = performedOperationMessagesReceiver;

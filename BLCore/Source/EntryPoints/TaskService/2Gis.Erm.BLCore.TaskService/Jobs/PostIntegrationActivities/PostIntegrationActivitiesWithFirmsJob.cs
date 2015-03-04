@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PostIntegrationActivities
         private readonly IOperationServicesManager _servicesManager;
         private readonly IIntegrationLocalizationSettings _integrationLocalizationSettings;
 
-        public PostIntegrationActivitiesWithFirmsJob(ICommonLog logger,
+        public PostIntegrationActivitiesWithFirmsJob(ITracer logger,
                                                      ISignInService signInService,
                                                      IUserImpersonationService userImpersonationService,
                                                      IOperationServicesManager servicesManager,

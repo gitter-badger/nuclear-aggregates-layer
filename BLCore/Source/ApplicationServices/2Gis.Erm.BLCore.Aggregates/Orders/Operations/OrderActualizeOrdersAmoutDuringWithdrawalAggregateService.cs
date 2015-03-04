@@ -19,13 +19,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
         private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IRepository<Order> _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public OrderActualizeOrdersAmoutDuringWithdrawalAggregateService(
             IBusinessModelSettings businessModelSettings,
             IRepository<Order> orderRepository, 
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _businessModelSettings = businessModelSettings;
             _orderRepository = orderRepository;

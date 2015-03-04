@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
     public sealed class OrderValidationOperationFeedback : IOrderValidationOperationFeedback
     {
         private readonly IOrderValidationDiagnosticStorage _orderValidationDiagnosticStorage;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         private readonly Stopwatch _operationTime = new Stopwatch();
         private readonly Stopwatch _validationTime = new Stopwatch();
@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
 
         private OperationIndicators _operationIndicators;
 
-        public OrderValidationOperationFeedback(IOrderValidationDiagnosticStorage orderValidationDiagnosticStorage, ICommonLog logger)
+        public OrderValidationOperationFeedback(IOrderValidationDiagnosticStorage orderValidationDiagnosticStorage, ITracer logger)
         {
             _orderValidationDiagnosticStorage = orderValidationDiagnosticStorage;
             _logger = logger;

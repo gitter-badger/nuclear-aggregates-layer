@@ -14,13 +14,13 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
     {
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IDatabaseCaller _databaseCaller;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
         public ReplicationPersistenceService(
             IMsCrmSettings msCrmSettings,
             IDatabaseCaller databaseCaller,
-            ICommonLog logger,
+            ITracer logger,
             IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
             _msCrmSettings = msCrmSettings;

@@ -17,14 +17,14 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
         private readonly IStartReleaseOperationService _startReleaseOperationService;
         private readonly IAttachExternalReleaseProcessingMessagesOperationService _attachExternalReleaseProcessingMessagesOperationService;
         private readonly IFinishReleaseOperationService _finishReleaseOperationService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ReleaseApplicationService(IStartReleaseOperationService startReleaseOperationService,
                                          IAttachExternalReleaseProcessingMessagesOperationService attachExternalReleaseProcessingMessagesOperationService,
                                          IFinishReleaseOperationService finishReleaseOperationService,
                                          IUserContext userContext,
                                          IResourceGroupManager resourceGroupManager,
-                                         ICommonLog logger)
+                                         ITracer logger)
         {
             _startReleaseOperationService = startReleaseOperationService;
             _attachExternalReleaseProcessingMessagesOperationService = attachExternalReleaseProcessingMessagesOperationService;

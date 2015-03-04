@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         private readonly IChargeBulkCreateAggregateService _chargeBulkCreateAggregateService;
         private readonly IChargeCreateHistoryAggregateService _chargeCreateHistoryAggregateService;
         private readonly IDeleteChargesForPeriodAndProjectOperationService _deleteChargesService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IPositionReadModel _positionReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                                         IChargeBulkCreateAggregateService chargeBulkCreateAggregateService,
                                         IChargeCreateHistoryAggregateService chargeCreateHistoryAggregateService,
                                         IDeleteChargesForPeriodAndProjectOperationService deleteChargesService,
-                                        ICommonLog logger,
+                                        ITracer logger,
                                         IOrderReadModel orderReadModel,
                                         IPositionReadModel positionReadModel,
                                         IOperationScopeFactory scopeFactory,

@@ -26,9 +26,9 @@ namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
             }
         }
 
-        private static ICommonLog Logger { get; set; }
+        private static ITracer Logger { get; set; }
 
-        public static void Attach(ICommonLog logger)
+        public static void Attach(ITracer logger)
         {
             Logger = logger;
             AppDomain.CurrentDomain.AssemblyLoad += OnAssemblyLoad;

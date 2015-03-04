@@ -17,10 +17,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class ActionsHistoryApplicationService : IActionsHistoryApplicationService, IActionsHistoryApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public ActionsHistoryApplicationService(ICommonLog logger,
+        public ActionsHistoryApplicationService(ITracer logger,
                                                 IOperationServicesManager operationServicesManager,
                                                 IUserContext userContext,
                                                 IResourceGroupManager resourceGroupManager)

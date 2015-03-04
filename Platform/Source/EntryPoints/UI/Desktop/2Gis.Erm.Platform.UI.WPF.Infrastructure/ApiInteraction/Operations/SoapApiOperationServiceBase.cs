@@ -10,13 +10,13 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
         private readonly IDesktopClientProxyFactory _clientProxyFactory;
         private readonly IStandartConfigurationSettings _configuration;
         private readonly IApiSettings _apiSettings;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         protected SoapApiOperationServiceBase(
             IDesktopClientProxyFactory clientProxyFactory,
             IStandartConfigurationSettings configuration,
             IApiSettings apiSettings,
-            ICommonLog logger)
+            ITracer logger)
         {
             _clientProxyFactory = clientProxyFactory;
             _configuration = configuration;
@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
             _logger = logger;
         }
 
-        protected ICommonLog Logger
+        protected ITracer Logger
         {
             get
             {

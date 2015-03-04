@@ -18,11 +18,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.PostIntegrati
     {
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IFirmRepository _firmRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public SyncFirmAddressesHandler(IFirmRepository firmRepository,
                                         IClientProxyFactory clientProxyFactory,
-                                        ICommonLog logger)
+                                        ITracer logger)
         {
             _firmRepository = firmRepository;
             _clientProxyFactory = clientProxyFactory;

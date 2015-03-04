@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         public override ICallHandler CreateHandler(IUnityContainer container)
         {
             return new LogWebRequestHandler(
-                container.Resolve<ICommonLog>(),
+                container.Resolve<ITracer>(),
                 container.Resolve<IActionLogger>(Mapping.SimplifiedModelConsumerScope),
                 _entityType,
                 CompareObjectMode,

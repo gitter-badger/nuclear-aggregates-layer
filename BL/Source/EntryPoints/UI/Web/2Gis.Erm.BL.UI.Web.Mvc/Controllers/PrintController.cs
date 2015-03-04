@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         public PrintController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
-                               ICommonLog logger,
+                               ITracer logger,
                                IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                IGetBaseCurrencyService getBaseCurrencyService,

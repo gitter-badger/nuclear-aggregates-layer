@@ -15,11 +15,11 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary
     public sealed class PerformedOperationsMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
         private readonly IOperationsFinalProcessingEnqueueAggregateService _operationsFinalProcessingEnqueueAggregateService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public PerformedOperationsMessageAggregatedProcessingResultHandler(
             IOperationsFinalProcessingEnqueueAggregateService operationsFinalProcessingEnqueueAggregateService,
-            ICommonLog logger)
+            ITracer logger)
         {
             _operationsFinalProcessingEnqueueAggregateService = operationsFinalProcessingEnqueueAggregateService;
             _logger = logger;

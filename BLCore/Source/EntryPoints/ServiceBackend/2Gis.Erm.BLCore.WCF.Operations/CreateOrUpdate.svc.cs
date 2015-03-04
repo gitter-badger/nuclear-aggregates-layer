@@ -16,9 +16,9 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     public class CreateOrUpdateApplicationService : ICreateOrUpdateApplicationService
     {
         private readonly IOperationServicesManager _operationServicesManager;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public CreateOrUpdateApplicationService(IOperationServicesManager operationServicesManager, ICommonLog logger, IUserContext userContext, IResourceGroupManager resourceGroupManager)
+        public CreateOrUpdateApplicationService(IOperationServicesManager operationServicesManager, ITracer logger, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _operationServicesManager = operationServicesManager;
             _logger = logger;

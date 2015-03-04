@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         public SerializeThemeHandler(IExportRepository<Theme> exportOperationsRepository,
                                      IThemeRepository themeRepository,
-                                     ICommonLog logger)
+                                     ITracer logger)
             : base(exportOperationsRepository, logger)
         {
             _themeRepository = themeRepository;

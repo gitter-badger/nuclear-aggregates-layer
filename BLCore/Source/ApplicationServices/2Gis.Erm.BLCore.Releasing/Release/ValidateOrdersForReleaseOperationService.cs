@@ -20,11 +20,11 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     {
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ValidateOrdersForReleaseOperationService(IClientProxyFactory clientProxyFactory,
             IOrderReadModel orderReadModel,
-            ICommonLog logger)
+            ITracer logger)
         {
             _clientProxyFactory = clientProxyFactory;
             _orderReadModel = orderReadModel;

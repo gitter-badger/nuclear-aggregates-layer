@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.ChangeCli
     public sealed class RestApiChangeClientGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IChangeGenericEntityClientService<TEntity>
         where TEntity : class, IEntityKey
     {
-        public RestApiChangeClientGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiChangeClientGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "ChangeClient.svc")
         {
         }

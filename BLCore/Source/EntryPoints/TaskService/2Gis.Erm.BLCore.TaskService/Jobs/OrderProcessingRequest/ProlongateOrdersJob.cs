@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.OrderProcessingRequest
 
         public ProlongateOrdersJob(ISignInService signInService,
                                    IUserImpersonationService userImpersonationService,
-                                   ICommonLog logger,
+                                   ITracer logger,
                                    IProcessOrderProlongationRequestMassOperation orderPrologationOperation)
             : base(signInService, userImpersonationService, logger)
         {

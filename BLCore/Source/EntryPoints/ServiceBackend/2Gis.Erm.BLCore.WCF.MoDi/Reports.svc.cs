@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.WCF.MoDi
     {
         private readonly IReportsService _reportsService;
 
-        public ReportsApplicationService(IUserContext userContext, IReportsService reportsService, ICommonLog logger)
+        public ReportsApplicationService(IUserContext userContext, IReportsService reportsService, ITracer logger)
         {
             _reportsService = reportsService;
 

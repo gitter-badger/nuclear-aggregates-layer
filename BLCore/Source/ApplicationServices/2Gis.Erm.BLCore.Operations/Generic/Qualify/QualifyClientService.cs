@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IClientReadModel _readModel;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
         private readonly IPhonecallReadModel _phonecallReadModel;
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             IAssignPhonecallAggregateService assignPhonecallAggregateService,
             IAssignTaskAggregateService assignTaskAggregateService,
             IClientReadModel readModel,
-            ICommonLog logger)
+            ITracer logger)
         {
             _userContext = userContext;
             _clientRepository = clientRepository;

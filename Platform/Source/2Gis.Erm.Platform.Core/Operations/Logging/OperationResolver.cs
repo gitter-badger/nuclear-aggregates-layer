@@ -14,12 +14,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
     public sealed class OperationResolver : IOperationResolver
     {
         private readonly IOperationIdentityRegistry _operationIdentityRegistry;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         [Obsolete("Все новые PBO создаются с заполненным свойством OperationEntities, после того как необходимость обработки записей в старом формате исчезнет, либо сами записи исчезнут, нужно удалить всю логику вывода strictoperationidentities из PBO.descriptor")]
         private readonly IReadOnlyDictionary<int, EntitySet> _operationEntitiesMap;
 
-        public OperationResolver(IOperationIdentityRegistry operationIdentityRegistry, ICommonLog logger)
+        public OperationResolver(IOperationIdentityRegistry operationIdentityRegistry, ITracer logger)
         {
             _operationIdentityRegistry = operationIdentityRegistry;
             _logger = logger;

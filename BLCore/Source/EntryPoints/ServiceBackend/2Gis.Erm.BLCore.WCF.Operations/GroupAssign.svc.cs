@@ -18,11 +18,11 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Single)]
     public sealed class GroupAssignApplicationService : IGroupAssignApplicationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly INotifiyProgressSettings _notifiyProgressSettings;
 
-        public GroupAssignApplicationService(IOperationServicesManager operationServicesManager, INotifiyProgressSettings notifiyProgressSettings, IUserContext userContext, IResourceGroupManager resourceGroupManager, ICommonLog logger)
+        public GroupAssignApplicationService(IOperationServicesManager operationServicesManager, INotifiyProgressSettings notifiyProgressSettings, IUserContext userContext, IResourceGroupManager resourceGroupManager, ITracer logger)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;

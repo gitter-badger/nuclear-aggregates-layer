@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Get
             IDesktopClientProxyFactory clientProxyFactory, 
             IStandartConfigurationSettings configuration, 
             IApiSettings apiSettings,
-            ICommonLog logger)
+            ITracer logger)
             : base(clientProxyFactory, configuration, apiSettings, logger)
         {
         }

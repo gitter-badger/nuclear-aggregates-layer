@@ -14,10 +14,10 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
     public sealed partial class ServiceBusMessageReceiver<TMessageFlow> : IServiceBusMessageReceiver<TMessageFlow> 
         where TMessageFlow : class, IMessageFlow, new()
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ServiceBusConnectionPool<ReceiverSlot, SubscriptionClient> _serviceBusConnectionPool;
 
-        public ServiceBusMessageReceiver(ICommonLog logger, IServiceBusMessageReceiverSettings serviceBusMessageReceiverSettings)
+        public ServiceBusMessageReceiver(ITracer logger, IServiceBusMessageReceiverSettings serviceBusMessageReceiverSettings)
         {
             _logger = logger;
             _serviceBusConnectionPool = new ServiceBusConnectionPool<ReceiverSlot, SubscriptionClient>(
@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
 
         private class ReceiverSlot : ServiceBusConnectionSlot<SubscriptionClient>
         {
-            public ReceiverSlot(ICommonLog logger, Func<SubscriptionClient> messageClientEntityFactory)
+            public ReceiverSlot(ITracer logger, Func<SubscriptionClient> messageClientEntityFactory)
                 : base(logger, messageClientEntityFactory)
             {
             }

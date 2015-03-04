@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         public SerializeAdvertisementHandler(IExportRepository<Advertisement> exportRepository,
                                              IFileService fileService,
-                                             ICommonLog logger)
+                                             ITracer logger)
             : base(exportRepository, logger)
         {
             _fileService = fileService;

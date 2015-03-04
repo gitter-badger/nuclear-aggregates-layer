@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         public SerializeClientHandler(
             IExportRepository<Client> exportRepository,
             ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-            ICommonLog logger)
+            ITracer logger)
             : base(exportRepository, logger)
         {
             _securityServiceUserIdentifier = securityServiceUserIdentifier;

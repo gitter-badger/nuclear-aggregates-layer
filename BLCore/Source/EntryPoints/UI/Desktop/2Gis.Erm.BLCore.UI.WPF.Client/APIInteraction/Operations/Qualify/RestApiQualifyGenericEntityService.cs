@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Qualify
     public sealed class RestApiQualifyGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IQualifyGenericEntityService<TEntity>
         where TEntity : class, IEntityKey
     {
-        public RestApiQualifyGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiQualifyGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "Qualify.svc")
         {
         }

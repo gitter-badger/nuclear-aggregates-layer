@@ -21,12 +21,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
         private readonly IFirmPersistenceService _firmPersistenceService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ImportFirmAggregateService(
             IFirmPersistenceService firmPersistenceService, 
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _firmPersistenceService = firmPersistenceService;
             _scopeFactory = scopeFactory;

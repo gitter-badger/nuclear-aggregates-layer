@@ -22,11 +22,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 {
     public sealed class WriteMessageToServiceBusHandler : RequestHandler<WriteMessageToServiceBusRequest, ExportResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IClientProxyFactory _clientProxyFactory;
 
-        public WriteMessageToServiceBusHandler(ICommonLog logger, IIntegrationSettings integrationSettings, IClientProxyFactory clientProxyFactory)
+        public WriteMessageToServiceBusHandler(ITracer logger, IIntegrationSettings integrationSettings, IClientProxyFactory clientProxyFactory)
         {
             _logger = logger;
             _integrationSettings = integrationSettings;

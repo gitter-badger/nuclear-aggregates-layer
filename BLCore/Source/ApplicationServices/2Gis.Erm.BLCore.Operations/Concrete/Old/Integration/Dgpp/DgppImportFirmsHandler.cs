@@ -76,13 +76,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private readonly ISecurityServiceUserIdentifier _securityService;
         private readonly IOperationScopeFactory _operationScopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         private readonly IFirmRepository _firmRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public DgppImportFirmsHandler(ISecurityServiceUserIdentifier securityService,
-            ICommonLog logger,
+            ITracer logger,
             IFirmRepository firmRepository, 
             IUnitOfWork unitOfWork,
             IOperationScopeFactory operationScopeFactory)

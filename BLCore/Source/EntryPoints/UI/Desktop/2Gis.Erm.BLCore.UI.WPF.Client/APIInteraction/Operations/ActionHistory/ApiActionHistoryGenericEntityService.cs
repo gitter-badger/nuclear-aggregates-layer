@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.ActionHis
 {
     public sealed class RestApiActionsHistoryService : RestApiOperationServiceBase, IActionsHistoryService
     {
-        public RestApiActionsHistoryService(IApiClient apiClient, ICommonLog logger)
+        public RestApiActionsHistoryService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "ActionsHistory.svc")
         {
         }

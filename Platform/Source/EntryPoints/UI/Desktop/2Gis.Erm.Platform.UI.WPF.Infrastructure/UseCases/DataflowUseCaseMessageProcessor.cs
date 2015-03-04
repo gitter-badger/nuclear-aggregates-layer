@@ -15,13 +15,13 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases
         private readonly ITargetBlock<MessageProcessingContext> _asyncInputBlock;
         private readonly ITargetBlock<MessageProcessingContext> _syncInputBlock;
         private readonly IUseCaseHandlersRegistry _handlersRegistry;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public DataflowUseCaseMessageProcessor(
             ITargetBlock<MessageProcessingContext> asyncInputBlock, 
             ITargetBlock<MessageProcessingContext> syncInputBlock,
             IUseCaseHandlersRegistry handlersRegistry,
-            ICommonLog logger)
+            ITracer logger)
         {
             _asyncInputBlock = asyncInputBlock;
             _syncInputBlock = syncInputBlock;

@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
     {
         private const string DataSourceName = "SchedulerData";
 
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ITaskServiceProcessingSettings _processingSettings;
         private readonly IConnectionStringSettings _connectionStringSettings;
         private readonly IJobFactory _jobFactory;
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
             ITaskServiceProcessingSettings processingSettings,
             IConnectionStringSettings connectionStringSettings,
             IJobFactory jobFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _logger = logger;
             _processingSettings = processingSettings;

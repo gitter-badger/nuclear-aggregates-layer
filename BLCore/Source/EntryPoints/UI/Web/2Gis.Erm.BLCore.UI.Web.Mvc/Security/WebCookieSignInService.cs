@@ -18,14 +18,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
     {
         private readonly ISecurityServiceAuthentication _securityServiceAuthentication;
         private readonly IUserIdentityLogonService _userIdentityLogonService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         
         private readonly int _expirationInMinutes;
         private const string CookieName = "ErmTmp";
 
         public WebCookieSignInService(  ISecurityServiceAuthentication securityServiceAuthentication,
                                         IUserIdentityLogonService userIdentityLogonService,
-                                        ICommonLog logger, 
+                                        ITracer logger, 
                                         int expirationInMinutes)    
         {
             _securityServiceAuthentication = securityServiceAuthentication;

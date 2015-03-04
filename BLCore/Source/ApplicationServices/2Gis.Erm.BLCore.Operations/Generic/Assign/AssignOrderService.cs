@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecureFinder _finder;
         private readonly IOrderRepository _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
 
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             ISecureFinder finder,
             IOrderRepository orderRepository,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger,
+            ITracer logger,
             ISecurityServiceEntityAccess entityAccessService,
             IUserContext userContext)
         {

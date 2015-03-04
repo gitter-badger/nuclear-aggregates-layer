@@ -24,7 +24,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
     {
         public static IShellViewModel DesignTimeResolveShellViewModel()
         {
-            ICommonLog logger = null;
+            ITracer logger = null;
             try
             {
                 #region Описание особенностей работы VS designer
@@ -58,7 +58,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 container.AddExtension(queryableContainerExtension);
                 container.RegisterInstance(Mapping.QueryableExtension, queryableContainerExtension);
 
-                container.RegisterInstance<ICommonLog>(logger, Lifetime.Singleton)
+                container.RegisterInstance<ITracer>(logger, Lifetime.Singleton)
                          ////.RegisterModules(DesignTimeAssemblyLoader.AssemblyLoaderToNoLoadContext)
                          .RegisterModules()
                          .DesignTimeConfigureModules()

@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public StartSimplifiedReleaseOperationService(IOrderReadModel orderReadModel,
                                                       IReleaseReadModel releaseReadModel,
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                                       ISecurityServiceFunctionalAccess functionalAccessService,
                                                       IUserContext userContext,
                                                       IOperationScopeFactory scopeFactory,
-                                                      ICommonLog logger)
+                                                      ITracer logger)
         {
             _orderReadModel = orderReadModel;
             _releaseReadModel = releaseReadModel;

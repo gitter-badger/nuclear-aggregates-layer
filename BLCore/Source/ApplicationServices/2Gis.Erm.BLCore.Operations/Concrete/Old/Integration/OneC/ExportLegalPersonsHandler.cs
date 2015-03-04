@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private static readonly Encoding CyrillicEncoding = Encoding.GetEncoding(1251);
 
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IUserRepository _userRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IAccountRepository _accountRepository;
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         public ExportLegalPersonsHandler(
             ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-            ICommonLog logger,
+            ITracer logger,
             ILegalPersonRepository legalPersonRepository,
             IUserRepository userRepository,
             IAccountRepository accountRepository,

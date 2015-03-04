@@ -20,11 +20,11 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
     {
         private const EntityName AdvertisementElement = EntityName.AdvertisementElement;
 
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IGetDomainEntityDtoService _getDomainEntityDtoService;
         private readonly IModifyDomainEntityService _modifyBusinessModelEntityService;
 
-        public ManageTextAdsApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager)
+        public ManageTextAdsApplicationService(ITracer logger, IOperationServicesManager operationServicesManager)
         {
             _logger = logger;
             _getDomainEntityDtoService = operationServicesManager.GetDomainEntityDtoService(AdvertisementElement);

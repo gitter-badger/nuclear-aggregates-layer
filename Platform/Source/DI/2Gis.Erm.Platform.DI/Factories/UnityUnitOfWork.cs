@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
             IReadDomainContext readDomainContext, 
             IModifiableDomainContextFactory modifiableDomainContextFactory, 
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-            ICommonLog logger)
+            ITracer logger)
         : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, logger)
         {
             _unityContainer = unityContainer;

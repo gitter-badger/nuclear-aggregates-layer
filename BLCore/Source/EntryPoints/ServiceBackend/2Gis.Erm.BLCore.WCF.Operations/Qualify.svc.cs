@@ -17,11 +17,11 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class QualifyApplicationService : IQualifyApplicationService, IQualifyApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IUserContext _userContext;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public QualifyApplicationService(ICommonLog logger, IUserContext userContext, IOperationServicesManager operationServicesManager, IResourceGroupManager resourceGroupManager)
+        public QualifyApplicationService(ITracer logger, IUserContext userContext, IOperationServicesManager operationServicesManager, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _userContext = userContext;

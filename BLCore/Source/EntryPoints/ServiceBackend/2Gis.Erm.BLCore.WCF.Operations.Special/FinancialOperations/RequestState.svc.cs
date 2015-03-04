@@ -20,9 +20,9 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
     public class RequestStateApplicationService : IRequestStateApplicationService
     {
         private readonly IGetDomainEntityDtoService<OrderProcessingRequest> _domainEntityDtoService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public RequestStateApplicationService(IGetDomainEntityDtoService<OrderProcessingRequest> domainEntityDtoService, ICommonLog logger)
+        public RequestStateApplicationService(IGetDomainEntityDtoService<OrderProcessingRequest> domainEntityDtoService, ITracer logger)
         {
             _domainEntityDtoService = domainEntityDtoService;
             _logger = logger;

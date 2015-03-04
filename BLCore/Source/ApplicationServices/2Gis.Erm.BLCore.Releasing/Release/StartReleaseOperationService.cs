@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUseCaseTuner _useCaseTuner;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public StartReleaseOperationService(IIntegrationSettings integrationSettings,
                                             IReleaseReadModel releaseReadModel,
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             IUserContext userContext,
                                             IOperationScopeFactory scopeFactory,
                                             IUseCaseTuner useCaseTuner,
-                                            ICommonLog logger)
+                                            ITracer logger)
         {
             _integrationSettings = integrationSettings;
             _releaseReadModel = releaseReadModel;

@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 
         public ProcessingStrategiesMessageProcessingStage(IMessageFlowRegistry messageFlowRegistry,
                                                           IMessageProcessingStrategyFactory actorFactory,
-                                                          ICommonLog logger)
+                                                          ITracer logger)
             : base(actorFactory, logger)
         {
             _messageFlowRegistry = messageFlowRegistry;

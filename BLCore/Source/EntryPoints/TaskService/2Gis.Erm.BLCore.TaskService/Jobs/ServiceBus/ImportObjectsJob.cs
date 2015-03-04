@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
 
         public ImportObjectsJob(ISignInService signInService,
                                 IUserImpersonationService userImpersonationService,
-                                ICommonLog logger,
+                                ITracer logger,
                                 IIntegrationSettings integrationSettings,
                                 IImportFromServiceBusService importFromServiceBusService) : base(signInService, userImpersonationService, logger)
         {

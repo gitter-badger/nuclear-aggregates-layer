@@ -20,14 +20,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         private readonly IRepository<AccountDetail> _accountDetailRepository;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public AccountWithdrawFromAccountsAggregateService(
             IRepository<Account> accountRepository, 
             IRepository<AccountDetail> accountDetailRepository, 
             IIdentityProvider identityProvider, 
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _accountRepository = accountRepository;
             _accountDetailRepository = accountDetailRepository;

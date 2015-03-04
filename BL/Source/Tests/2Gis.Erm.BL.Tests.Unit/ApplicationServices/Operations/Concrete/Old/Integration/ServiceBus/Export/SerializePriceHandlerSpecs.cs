@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.Export
 
                     SerializeRequest = SerializeObjectsRequest<Price, ExportFlowPriceListsPriceList>.Create(SchemaName, Enumerable.Empty<PerformedBusinessOperation>());
 
-                    Handler = new SerializePriceHandler(PriceExportRepositoryMock.Object, Mock.Of<ICommonLog>());
+                    Handler = new SerializePriceHandler(PriceExportRepositoryMock.Object, Mock.Of<ITracer>());
                 };
 
             private const string SchemaName = "flowPriceLists_PriceList";

@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
         private readonly IMessageReceiverFactory _messageReceiverFactory;
         private readonly IMessageProcessingTopology _processingTopology;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         private readonly CancellationTokenSource _workerCancellationTokenSource;
         private readonly Task _workerTask;
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
         protected MessageFlowProcessorBase(TMessageFlowProcessorSettings processorSettings,
             IMessageReceiverFactory messageReceiverFactory,
             IMessageProcessingTopology processingTopology,
-            ICommonLog logger)
+            ITracer logger)
         {
             ProcessorSettings = processorSettings;
             _messageReceiverFactory = messageReceiverFactory;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             _workerTask = new Task(AsyncWorker, _workerCancellationTokenSource.Token, TaskCreationOptions.LongRunning);
         }
 
-        protected ICommonLog Logger
+        protected ITracer Logger
         {
             get { return _logger; }
         }

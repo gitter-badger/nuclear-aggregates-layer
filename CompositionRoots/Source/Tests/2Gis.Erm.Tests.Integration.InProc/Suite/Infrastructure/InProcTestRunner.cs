@@ -14,9 +14,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
         private readonly ITestSuite _testSuite;
         private readonly ITestFactory _testFactory;
         private readonly ITestStatusObserver _testStatusObserver;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public InProcTestRunner(ITestSuite testSuite, ITestFactory testFactory, ITestStatusObserver testStatusObserver, ICommonLog logger)
+        public InProcTestRunner(ITestSuite testSuite, ITestFactory testFactory, ITestStatusObserver testStatusObserver, ITracer logger)
         {
             _testSuite = testSuite;
             _testFactory = testFactory;

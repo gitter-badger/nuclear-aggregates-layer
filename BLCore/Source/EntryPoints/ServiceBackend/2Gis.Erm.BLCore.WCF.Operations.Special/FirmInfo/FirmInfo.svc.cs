@@ -17,9 +17,9 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
     public class FirmInfoApplicationService : IFirmInfoApplicationRestService
     {
         private readonly IGetFirmInfoService _getFirmInfoService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public FirmInfoApplicationService(IGetFirmInfoService getFirmInfoService, ICommonLog logger)
+        public FirmInfoApplicationService(IGetFirmInfoService getFirmInfoService, ITracer logger)
         {
             _getFirmInfoService = getFirmInfoService;
             _logger = logger;

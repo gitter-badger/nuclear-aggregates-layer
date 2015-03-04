@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.RabbitMq
     {
         private readonly IPublicService _publicService;
 
-        public ImportLocalMessagesFromRabbitMq(IPublicService publicService, ICommonLog logger, ISignInService signInService, IUserImpersonationService userImpersonationService)
+        public ImportLocalMessagesFromRabbitMq(IPublicService publicService, ITracer logger, ISignInService signInService, IUserImpersonationService userImpersonationService)
             : base(signInService, userImpersonationService, logger)
         {
             _publicService = publicService;

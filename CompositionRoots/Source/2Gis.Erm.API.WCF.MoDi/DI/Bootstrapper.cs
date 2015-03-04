@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
             IGlobalizationSettings globalizationSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             return container

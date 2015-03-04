@@ -25,13 +25,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
         private readonly IImportMetadataProvider _importMetadataProvider;
         private readonly IImportServiceBusDtoServiceFactory _importServiceBusDtoServiceFactory;
         private readonly IIntegrationSettings _integrationSettings;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ImportFromServiceBusService(IClientProxyFactory clientProxyFactory,
                                            IImportServiceBusDtoServiceFactory importServiceBusDtoServiceFactory,
                                            IImportMetadataProvider importMetadataProvider,
                                            IIntegrationSettings integrationSettings,
-                                           ICommonLog logger,
+                                           ITracer logger,
                                            IDeserializeServiceBusDtoServiceFactory deserializeServiceBusDtoServiceFactory)
         {
             _clientProxyFactory = clientProxyFactory;

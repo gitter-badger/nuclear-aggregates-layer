@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         private readonly IIdentityProvider _identityProvider;
         private readonly IRepository<LockDetail> _lockDetailRepository;
         private readonly IRepository<Lock> _lockRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public AccountBulkCreateLocksAggregateService(
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
             IRepository<LockDetail> lockDetailRepository,
             IIdentityProvider identityProvider,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _lockRepository = lockRepository;
             _lockDetailRepository = lockDetailRepository;

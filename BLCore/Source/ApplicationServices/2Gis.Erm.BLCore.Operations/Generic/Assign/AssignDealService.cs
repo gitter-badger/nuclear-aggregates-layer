@@ -15,13 +15,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IDealRepository _dealRepository;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public AssignDealService(
             IDealRepository dealRepository, 
             IPublicService publicService, 
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _dealRepository = dealRepository;
             _publicService = publicService;

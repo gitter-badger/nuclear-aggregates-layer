@@ -40,11 +40,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private const string HandlerName = "Импорт территорий из ДГПП";
 
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IFirmRepository _firmRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public DgppImportTerritoriesHandler(ICommonLog logger, IFirmRepository firmRepository, IOperationScopeFactory operationScopeFactory)
+        public DgppImportTerritoriesHandler(ITracer logger, IFirmRepository firmRepository, IOperationScopeFactory operationScopeFactory)
         {
             _logger = logger;
             _firmRepository = firmRepository;

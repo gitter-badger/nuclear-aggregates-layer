@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public UploadAdvertisementElementFileOperationService(
             IAdvertisementReadModel advertisementReadModel,
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _advertisementReadModel = advertisementReadModel;
             _notifyAboutAdvertisementElementFileChangedOperationService = notifyAboutAdvertisementElementFileChangedOperationService;

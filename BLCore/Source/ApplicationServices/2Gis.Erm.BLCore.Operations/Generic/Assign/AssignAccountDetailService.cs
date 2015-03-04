@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public AssignAccountDetailService(
             IPublicService publicService, 
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             IOperationScopeFactory scopeFactory,
             IUserContext userContext,
             ISecurityServiceEntityAccess entityAccessService, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _publicService = publicService;
             _finder = finder;

@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
     public sealed class RestApiAssignGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IAssignGenericEntityService<TEntity>
         where TEntity : class, IEntityKey, ICuratedEntity
     {
-        public RestApiAssignGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiAssignGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "Assign.svc")
         {
         }

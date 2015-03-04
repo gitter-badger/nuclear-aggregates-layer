@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         private readonly IEnumerable<string> _elementsToIgnore;
         private readonly IFinder _finder;
 
-        public LogWebRequestHandler(ICommonLog logger,
+        public LogWebRequestHandler(ITracer logger,
                                     IActionLogger actionLogger,
                                     EntityName entityType,
                                     CompareObjectMode compareObjectMode,

@@ -25,9 +25,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
     {
         private readonly TOperationIdentity _operationIdentity = new TOperationIdentity();
         private readonly IOperationServicesManager _operationServicesManager;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        protected OperationMessageHandlerBase(IOperationServicesManager operationServicesManager, ICommonLog logger)
+        protected OperationMessageHandlerBase(IOperationServicesManager operationServicesManager, ITracer logger)
         {
             _operationServicesManager = operationServicesManager;
             _logger = logger;
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
             get { return _operationServicesManager; }
         }
 
-        protected ICommonLog Logger
+        protected ITracer Logger
         {
             get { return _logger; }
         }

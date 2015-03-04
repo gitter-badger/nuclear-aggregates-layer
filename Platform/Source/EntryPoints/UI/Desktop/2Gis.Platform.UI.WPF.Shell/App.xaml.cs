@@ -23,9 +23,9 @@ namespace DoubleGis.Platform.UI.WPF.Shell
     {
         private readonly IUnityContainer _container = new UnityContainer();
         private readonly IShellSettings _shellSettings;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public App(ICommonLog logger)
+        public App(ITracer logger)
         {
             if (logger == null)
             {

@@ -14,12 +14,12 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public sealed class ReplicateToElasticSearchMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IDocumentUpdater _documentUpdater;
         private readonly ReplicationQueueHelper _replicationQueueHelper;
 
         public ReplicateToElasticSearchMessageAggregatedProcessingResultHandler(
-            ICommonLog logger,
+            ITracer logger,
             IDocumentUpdater documentUpdater,
             ReplicationQueueHelper replicationQueueHelper)
         {

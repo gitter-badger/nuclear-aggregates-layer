@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ICommonLog logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer logger, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -162,7 +162,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             Func<ResolvedParameter[]> resolvedParametersCreator =
                 () => new ResolvedParameter[]
                     {
-                        new ResolvedParameter<ICommonLog>(),
+                        new ResolvedParameter<ITracer>(),
                         new ResolvedParameter<IActionLogger>(Mapping.SimplifiedModelConsumerScope),
                         new ResolvedParameter<IDependentEntityProvider>()
                     };
@@ -201,7 +201,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             IWebAppProcesingSettings webAppProcessingSettings,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             return container
@@ -343,7 +343,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IGetUserInfoService, GetUserInfoFromAdService>(Lifetime.PerScope, mappingScope)
                 .RegisterType<IDefaultUserContextConfigurator, WebDefaultUserContextConfigurator>(CustomLifetime.PerRequest, 
                         new InjectionConstructor(typeof(IUserContext),
-                                                 typeof(ICommonLog)))
+                                                 typeof(ITracer)))
                 .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<IUserContext, UserContext>(CustomLifetime.PerRequest, new InjectionFactory(c => new UserContext(null, null)))
                 .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
@@ -351,7 +351,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<ISignInService, WebCookieSignInService>(CustomLifetime.PerRequest,
                                     new InjectionConstructor(typeof(ISecurityServiceAuthentication), 
                                                              typeof(IUserIdentityLogonService), 
-                                                             typeof(ICommonLog),
+                                                             typeof(ITracer),
                                                              webAppProcesingSettings.AuthExpirationTimeInMinutes));
         }
 

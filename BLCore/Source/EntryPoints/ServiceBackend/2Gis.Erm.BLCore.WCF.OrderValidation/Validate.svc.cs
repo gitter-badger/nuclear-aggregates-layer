@@ -19,12 +19,12 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
     public class OrderValidationApplicationService : IOrderValidationApplicationService, IOrderValidationApplicationRestService
     {
         private readonly IValidateOrdersOperationService _validateOrdersOperationService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public OrderValidationApplicationService(IUserContext userContext,
                                                  IValidateOrdersOperationService validateOrdersOperationService,
                                                  IResourceGroupManager resourceGroupManager,
-                                                 ICommonLog logger)
+                                                 ITracer logger)
         {
             _validateOrdersOperationService = validateOrdersOperationService;
             _logger = logger;

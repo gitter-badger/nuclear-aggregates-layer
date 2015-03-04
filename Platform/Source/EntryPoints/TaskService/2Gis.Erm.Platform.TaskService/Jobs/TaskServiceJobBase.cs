@@ -15,12 +15,12 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
     {
         private readonly ISignInService _signInService;
         private readonly IUserImpersonationService _userImpersonationService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         protected TaskServiceJobBase(
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService,
-            ICommonLog logger)
+            ITracer logger)
         {
             _signInService = signInService;
             _userImpersonationService = userImpersonationService;
@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
         /// </summary>
         public string ErmUserImpersonateAs { get; set; }
 
-        protected ICommonLog Logger
+        protected ITracer Logger
         {
             get { return _logger; }
         }

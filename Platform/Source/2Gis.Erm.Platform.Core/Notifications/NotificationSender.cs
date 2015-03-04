@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
         private readonly IRepository<NotificationEmailsTo> _emailsToEntityRepository;
         private readonly IRepository<NotificationEmailsCc> _emailsCcEntityRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IIdentityProvider _identityProvider;
 
         public NotificationSender(IRepository<NotificationEmails> emailEntityRepository,
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                                   IRepository<NotificationEmailsCc> emailsCcEntityRepository,
                                   IIdentityProvider identityProvider,
                                   IOperationScopeFactory scopeFactory,
-                                  ICommonLog logger)
+                                  ITracer logger)
         {
             _identityProvider = identityProvider;
             _emailEntityRepository = emailEntityRepository;

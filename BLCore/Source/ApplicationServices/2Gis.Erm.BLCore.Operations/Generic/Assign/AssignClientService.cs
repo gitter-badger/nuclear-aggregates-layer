@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IClientReadModel _clientReadModel;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger,
+            ITracer logger,
             IClientReadModel clientReadModel,
             IAppointmentReadModel appointmentReadModel,
             ILetterReadModel letterReadModel,

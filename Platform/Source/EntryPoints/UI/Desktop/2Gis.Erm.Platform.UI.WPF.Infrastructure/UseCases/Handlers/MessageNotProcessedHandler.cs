@@ -14,9 +14,9 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers
     public sealed class MessageNotProcessedHandler<TMessage> : UseCaseSyncMessageHandlerBase<TMessage>, IFinisingProcessingMessagesHandler
         where TMessage : class, IMessage
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public MessageNotProcessedHandler(ICommonLog logger)
+        public MessageNotProcessedHandler(ITracer logger)
         {
             _logger = logger;
         }

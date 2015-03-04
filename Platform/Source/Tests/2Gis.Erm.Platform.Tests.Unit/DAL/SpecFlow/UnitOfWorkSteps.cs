@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
                 Mock.Of<IReadDomainContext>(),
                 Mock.Of<IModifiableDomainContextFactory>(),
                 Mock.Of<IPendingChangesHandlingStrategy>(),
-                Mock.Of<ICommonLog>());
+                Mock.Of<ITracer>());
         }
 
         #endregion

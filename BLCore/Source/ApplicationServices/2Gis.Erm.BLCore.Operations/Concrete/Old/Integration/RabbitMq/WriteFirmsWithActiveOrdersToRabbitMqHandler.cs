@@ -12,12 +12,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
 {
     public sealed class WriteFirmsWithActiveOrdersToRabbitMqHandler : RequestHandler<WriteFirmsWithActiveOrdersToRabbitMqRequest, ExportResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IFirmRepository _firmRepository;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IRabbitMqQueueFactory _rabbitMqQueueFactory;
 
-        public WriteFirmsWithActiveOrdersToRabbitMqHandler(IRabbitMqQueueFactory rabbitMqQueueFactory, IIntegrationSettings integrationSettings, IFirmRepository firmRepository, ICommonLog logger)
+        public WriteFirmsWithActiveOrdersToRabbitMqHandler(IRabbitMqQueueFactory rabbitMqQueueFactory, IIntegrationSettings integrationSettings, IFirmRepository firmRepository, ITracer logger)
         {
             _rabbitMqQueueFactory = rabbitMqQueueFactory;
             _integrationSettings = integrationSettings;

@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.DI.WCF
 
         protected UnityServiceHostFactoryBase(
             TConcreteSettings settingsContainer,
-            Func<ISettingsContainer, ICommonLog, ILoggerContextManager, IUnityContainer> unityContainerFactory)
+            Func<ISettingsContainer, ITracer, ILoggerContextManager, IUnityContainer> unityContainerFactory)
         {
             var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
             var loggerContextEntryProviders =

@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         private readonly IActionLogger _actionLogger;
         private readonly IDependentEntityProvider _entityProvider;
 
-        public LogControllerCallHandler(ICommonLog logger, IActionLogger actionLogger, IDependentEntityProvider entityProvider)
+        public LogControllerCallHandler(ITracer logger, IActionLogger actionLogger, IDependentEntityProvider entityProvider)
             : base(logger)
         {
             _actionLogger = actionLogger;

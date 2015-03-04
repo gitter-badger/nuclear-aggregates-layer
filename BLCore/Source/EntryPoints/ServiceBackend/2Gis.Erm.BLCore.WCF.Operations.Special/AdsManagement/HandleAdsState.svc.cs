@@ -14,10 +14,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class HandleAdsStateApplicationService : IHandleAdsStateApplicationService, IHandleAdsStateApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IChangeAdvertisementElementStatusOperationService _changeAdvertisementElementStatusOperationService;
 
-        public HandleAdsStateApplicationService(ICommonLog logger,
+        public HandleAdsStateApplicationService(ITracer logger,
                                                 IChangeAdvertisementElementStatusOperationService changeAdvertisementElementStatusOperationService)
         {
             _logger = logger;

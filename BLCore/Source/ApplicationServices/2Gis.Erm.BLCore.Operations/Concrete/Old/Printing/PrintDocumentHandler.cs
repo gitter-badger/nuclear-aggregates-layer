@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing
 {
     public sealed class PrintDocumentHandler : RequestHandler<PrintDocumentRequest, StreamResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IPrintFormService _printFormService;
         private readonly IFileService _fileService;
         private readonly IBranchOfficeRepository _branchOfficeRepository;
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing
         public PrintDocumentHandler(IPrintFormService printFormService,
                                     IFileService fileService,
                                     IBranchOfficeRepository branchOfficeRepository,
-                                    ICommonLog logger)
+                                    ITracer logger)
         {
             _logger = logger;
             _printFormService = printFormService;

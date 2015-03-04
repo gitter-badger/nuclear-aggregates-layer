@@ -39,9 +39,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc
         private static bool _databaseSynchronized;
         private static ILoggerContextManager _loggerContextManager;
 
-        private static ICommonLog Logger
+        private static ITracer Logger
         {
-            get { return _container.Resolve<ICommonLog>(); }
+            get { return _container.Resolve<ITracer>(); }
         }
 
         private static ISignInService SignInService

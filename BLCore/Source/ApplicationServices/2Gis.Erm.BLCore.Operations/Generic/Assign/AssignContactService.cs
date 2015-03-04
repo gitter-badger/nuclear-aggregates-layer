@@ -12,13 +12,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
     public class AssignContactService : IAssignGenericEntityService<Contact>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IAssignAggregateRepository<Contact> _assignContactRepository;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public AssignContactService(
-            ICommonLog logger, 
+            ITracer logger, 
             IAssignAggregateRepository<Contact> assignContactRepository, 
             IPublicService publicService, 
             IOperationScopeFactory scopeFactory)

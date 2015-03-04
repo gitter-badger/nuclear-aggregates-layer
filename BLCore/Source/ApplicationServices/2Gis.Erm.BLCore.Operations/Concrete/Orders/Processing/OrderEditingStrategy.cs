@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             }
         };
 
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IReleaseReadModel _releaseRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                     IOperationScope operationScope,
                                     IUserRepository userRepository,
                                     IOrderReadModel orderReadModel,
-                                    ICommonLog logger,
+                                    ITracer logger,
                                     IReleaseReadModel releaseRepository,
                                     IAccountRepository accountRepository,
                                     ISecurityServiceFunctionalAccess functionalAccessService,

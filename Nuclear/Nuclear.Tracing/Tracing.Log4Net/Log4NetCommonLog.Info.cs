@@ -4,14 +4,14 @@ using Nuclear.Tracing.API;
 
 namespace Nuclear.Tracing.Log4Net
 {
-    public sealed partial class Log4NetCommonLog
+    public sealed partial class Log4NetTracer
     {
-        void ICommonLog.Info(string message)
+        void ITracer.Info(string message)
         {
-            ((ICommonLog)this).Info(message, null);
+            ((ITracer)this).Info(message, null);
         }
 
-        void ICommonLog.Info(string message, string methodName)
+        void ITracer.Info(string message, string methodName)
         {
             if (!_log.IsInfoEnabled)
             {
@@ -31,7 +31,7 @@ namespace Nuclear.Tracing.Log4Net
             }
         }
 
-        void ICommonLog.InfoFormat(string message, object param1)
+        void ITracer.InfoFormat(string message, object param1)
         {
             if (!_log.IsInfoEnabled)
             {
@@ -41,7 +41,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.InfoFormat(message, param1);
         }
 
-        void ICommonLog.InfoFormat(string message, object param1, object param2)
+        void ITracer.InfoFormat(string message, object param1, object param2)
         {
             if (!_log.IsInfoEnabled)
             {
@@ -51,7 +51,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.InfoFormat(message, param1, param2);
         }
 
-        void ICommonLog.InfoFormat(string message, object param1, object param2, object param3)
+        void ITracer.InfoFormat(string message, object param1, object param2, object param3)
         {
             if (!_log.IsInfoEnabled)
             {
@@ -61,7 +61,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.InfoFormat(message, param1, param2, param3);
         }
 
-        void ICommonLog.InfoFormat(string message, params object[] args)
+        void ITracer.InfoFormat(string message, params object[] args)
         {
             if (!_log.IsInfoEnabled)
             {

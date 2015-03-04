@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             IReadDomainContext readDomainContext,
             IModifiableDomainContextFactory modifiableDomainContextFactory,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-            ICommonLog logger)
+            ITracer logger)
             : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, logger)
         {
             _createRepositoryAction = createRepositoryAction;
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             IReadDomainContext readDomainContext,
             IModifiableDomainContextFactory modifiableDomainContextFactory,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-            ICommonLog logger)
+            ITracer logger)
             : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, logger)
         {
         }

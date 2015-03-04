@@ -11,13 +11,13 @@ namespace DoubleGis.Erm.Platform.AppFabric.Cache
 {
     public class AppFabricCacheAdapter : ICacheAdapter, IDisposable
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly string _cacheName;
         private readonly DataCacheFactory _dataCacheFactory = new DataCacheFactory();
         private readonly RetryPolicy<CacheTransientErrorDetectionStrategy> _retryPolicy =
             new RetryPolicy<CacheTransientErrorDetectionStrategy>(3, TimeSpan.FromSeconds(1));
         
-        public AppFabricCacheAdapter(ICommonLog logger, string cacheName)
+        public AppFabricCacheAdapter(ITracer logger, string cacheName)
         {
             _logger = logger;
             _cacheName = cacheName;

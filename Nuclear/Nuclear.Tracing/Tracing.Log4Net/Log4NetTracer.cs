@@ -6,12 +6,12 @@ using Nuclear.Tracing.API;
 
 namespace Nuclear.Tracing.Log4Net
 {
-    public sealed partial class Log4NetCommonLog : ICommonLog
+    public sealed partial class Log4NetTracer : ITracer
     {
         private readonly CultureInfo _loggingCulture;
         private readonly ILog _log;
 
-        public Log4NetCommonLog(string loggerName, CultureInfo loggingCulture)
+        public Log4NetTracer(string loggerName, CultureInfo loggingCulture)
         {
             _loggingCulture = loggingCulture;
             _log = LogManager.GetLogger(loggerName);

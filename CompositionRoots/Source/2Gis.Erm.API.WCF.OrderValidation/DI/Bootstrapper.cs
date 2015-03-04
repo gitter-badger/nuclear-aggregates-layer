@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             IMsCrmSettings msCrmSettings,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             return container

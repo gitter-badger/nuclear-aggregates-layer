@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
         private readonly IAPISpecialOperationsServiceSettings _specialOperationsServiceSettings;
         private readonly IAPIIdentityServiceSettings _identityServiceSettings;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IGetBaseCurrencyService _getBaseCurrencyService;
 
         protected ControllerBase(IMsCrmSettings msCrmSettings,
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                  IAPIIdentityServiceSettings identityServiceSettings,
                                  IUserContext userContext,
-                                 ICommonLog logger,
+                                 ITracer logger,
                                  IGetBaseCurrencyService getBaseCurrencyService)
         {
             _msCrmSettings = msCrmSettings;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
             get { return _userContext; }
         }
 
-        protected ICommonLog Logger
+        protected ITracer Logger
         {
             get { return _logger; }
         }

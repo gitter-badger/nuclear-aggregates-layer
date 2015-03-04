@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         private readonly IOperationConsistencyContextsProvider _verifierContextsProvider;
         private readonly IOperationConsistencyVerifier _operationConsistencyVerifier;
         private readonly IProcessingContext _processingContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public OperationScopeLifetimeManager(
             IEnvironmentSettings environmentSettings,
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             IOperationConsistencyContextsProvider verifierContextsProvider,
             IOperationConsistencyVerifier operationConsistencyVerifier,
             IProcessingContext processingContext,
-            ICommonLog logger)
+            ITracer logger)
         {
             _environmentSettings = environmentSettings;
             _operationLogger = operationLogger;

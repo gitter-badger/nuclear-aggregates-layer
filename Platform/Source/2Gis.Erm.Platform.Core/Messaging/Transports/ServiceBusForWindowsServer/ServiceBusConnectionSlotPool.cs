@@ -63,14 +63,14 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
     internal abstract class ServiceBusConnectionSlot<TClient> : IDisposable where TClient : MessageClientEntity
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly TClient _clientEntity;
         private readonly RetryPolicy<ServiceBusTransientErrorDetectionStrategy> _retryPolicy =
                 new RetryPolicy<ServiceBusTransientErrorDetectionStrategy>(3, TimeSpan.FromSeconds(1));
 
         private int _activeTransmissions;
 
-        protected ServiceBusConnectionSlot(ICommonLog logger, Func<TClient> messageClientEntityFactory)
+        protected ServiceBusConnectionSlot(ITracer logger, Func<TClient> messageClientEntityFactory)
         {
             _logger = logger;
             _clientEntity = messageClientEntityFactory();

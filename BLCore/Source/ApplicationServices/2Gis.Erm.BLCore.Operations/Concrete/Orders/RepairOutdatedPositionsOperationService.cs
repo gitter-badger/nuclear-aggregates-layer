@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 {
     public class RepairOutdatedPositionsOperationService : IRepairOutdatedPositionsOperationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IPublicService _publicService;
 
         private readonly IOrderRepository _orderRepository;
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             IOrderDeleteReleaseWithdrawalsAggregateService deleteReleaseWithdrawalsAggregateService,
             IOrderDeleteReleaseTotalsAggregateService deleteReleaseTotalsAggregateService,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer logger)
         {
             _logger = logger;
             _publicService = publicService;

@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
             IDesktopClientProxyFactory clientProxyFactory,
             IStandartConfigurationSettings configuration,
             IApiSettings apiSettings,
-            ICommonLog logger)
+            ITracer logger)
             : base(clientProxyFactory, configuration, apiSettings, logger)
         {
             _entityType = typeof(TEntity);

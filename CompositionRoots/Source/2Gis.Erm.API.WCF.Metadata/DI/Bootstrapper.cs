@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
             IConnectionStringSettings connectionStringSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             return container

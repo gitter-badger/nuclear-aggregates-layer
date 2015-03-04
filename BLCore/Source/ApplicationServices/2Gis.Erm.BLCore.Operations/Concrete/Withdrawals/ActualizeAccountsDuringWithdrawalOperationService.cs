@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IAccountBulkDeactivateUsedLockAggregateService _accountBulkDeactivateUsedLockAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ActualizeAccountsDuringWithdrawalOperationService(
             IAccountReadModel accountReadModel,
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IAccountBulkDeactivateUsedLockAggregateService accountBulkDeactivateUsedLockAggregateService,
             IUseCaseTuner useCaseTuner, 
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _accountReadModel = accountReadModel;
             _accountWithdrawFromAccountsAggregateService = accountWithdrawFromAccountsAggregateService;

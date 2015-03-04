@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary
         public PerformedOperationsFlowProcessor(IPerformedOperationsFlowProcessorSettings processorSettings,
                                                 IMessageReceiverFactory messageReceiverFactory,
                                                 IMessageProcessingTopology processingTopology,
-                                                ICommonLog logger) 
+                                                ITracer logger) 
             : base(processorSettings, messageReceiverFactory, processingTopology, logger)
         {
         }

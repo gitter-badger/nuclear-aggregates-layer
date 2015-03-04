@@ -25,14 +25,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
         private readonly IOperationContextParser _operationContextParser;
         private readonly IFinder _finder;
         private readonly IPublicService _publicService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ImportedFirmAddressOperationsExporter(
             IOperationResolver operationResolver,
             IOperationContextParser operationContextParser,
             IFinder finder, 
             IPublicService publicService, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _operationResolver = operationResolver;
             _operationContextParser = operationContextParser;

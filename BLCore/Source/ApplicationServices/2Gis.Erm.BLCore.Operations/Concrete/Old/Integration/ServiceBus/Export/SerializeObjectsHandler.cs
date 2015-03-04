@@ -23,9 +23,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
         private readonly IExportRepository<TEntity> _exportRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        protected SerializeObjectsHandler(IExportRepository<TEntity> exportRepository, ICommonLog logger)
+        protected SerializeObjectsHandler(IExportRepository<TEntity> exportRepository, ITracer logger)
         {
             _logger = logger;
             _exportRepository = exportRepository;

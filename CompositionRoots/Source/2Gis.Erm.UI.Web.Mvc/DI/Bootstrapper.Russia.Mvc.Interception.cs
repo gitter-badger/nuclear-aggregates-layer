@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             Func<ResolvedParameter[]> resolvedParametersCreator =
                 () => new ResolvedParameter[]
                     {
-                        new ResolvedParameter<ICommonLog>(),
+                        new ResolvedParameter<ITracer>(),
                         new ResolvedParameter<IActionLogger>(Mapping.SimplifiedModelConsumerScope),
                         new ResolvedParameter<IDependentEntityProvider>()
                     };

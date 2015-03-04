@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
         private readonly CompareObjectMode _compareObjectMode;
         private readonly IEnumerable<string> _elementsToIgnore;
 
-        public LogOperationServiceCallHandler(ICommonLog logger,
+        public LogOperationServiceCallHandler(ITracer logger,
                                               IActionLogger actionLogger,
                                               IDependentEntityProvider entityProvider,
                                               CompareObjectMode compareObjectMode,

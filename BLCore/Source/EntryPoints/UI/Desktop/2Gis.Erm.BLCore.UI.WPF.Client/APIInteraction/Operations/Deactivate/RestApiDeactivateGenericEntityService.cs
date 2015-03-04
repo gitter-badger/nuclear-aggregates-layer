@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Deactivat
     public sealed class RestApiDeactivateGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IDeactivateGenericEntityService<TEntity>
         where TEntity : class, IEntityKey, IDeactivatableEntity
     {
-        public RestApiDeactivateGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiDeactivateGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "Deactivate.svc")
         {
         }

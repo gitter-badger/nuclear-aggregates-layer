@@ -6,14 +6,14 @@ using Nuclear.Tracing.API;
 
 namespace Nuclear.Tracing.Log4Net
 {
-    public sealed partial class Log4NetCommonLog
+    public sealed partial class Log4NetTracer
     {
-        void ICommonLog.Fatal(string message)
+        void ITracer.Fatal(string message)
         {
-            ((ICommonLog)this).Fatal(message, null);
+            ((ITracer)this).Fatal(message, null);
         }
 
-        void ICommonLog.Fatal(string message, string methodName)
+        void ITracer.Fatal(string message, string methodName)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -33,12 +33,12 @@ namespace Nuclear.Tracing.Log4Net
             }
         }
 
-        void ICommonLog.Fatal(Exception exception, string message)
+        void ITracer.Fatal(Exception exception, string message)
         {
-            ((ICommonLog)this).Fatal(exception, message, null);
+            ((ITracer)this).Fatal(exception, message, null);
         }
 
-        void ICommonLog.Fatal(Exception exception, string message, string methodName)
+        void ITracer.Fatal(Exception exception, string message, string methodName)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -58,7 +58,7 @@ namespace Nuclear.Tracing.Log4Net
             }
         }
 
-        void ICommonLog.FatalFormat(Exception exception, string message, object param1)
+        void ITracer.FatalFormat(Exception exception, string message, object param1)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -68,7 +68,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.Fatal(string.Format(_loggingCulture, message, param1), exception);
         }
 
-        void ICommonLog.FatalFormat(Exception exception, string message, object param1, object param2)
+        void ITracer.FatalFormat(Exception exception, string message, object param1, object param2)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -78,7 +78,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.Fatal(string.Format(_loggingCulture, message, param1, param2), exception);
         }
 
-        void ICommonLog.FatalFormat(Exception exception, string message, object param1, object param2, object param3)
+        void ITracer.FatalFormat(Exception exception, string message, object param1, object param2, object param3)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -88,7 +88,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.Fatal(string.Format(_loggingCulture, message, param1, param2, param3), exception);
         }
 
-        void ICommonLog.FatalFormat(Exception exception, string message, params object[] args)
+        void ITracer.FatalFormat(Exception exception, string message, params object[] args)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -98,7 +98,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.Fatal(string.Format(_loggingCulture, message, args), exception);
         }
 
-        void ICommonLog.FatalFormat(string message, object param1)
+        void ITracer.FatalFormat(string message, object param1)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -108,7 +108,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.FatalFormat(message, param1);
         }
 
-        void ICommonLog.FatalFormat(string message, object param1, object param2)
+        void ITracer.FatalFormat(string message, object param1, object param2)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -118,7 +118,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.FatalFormat(message, param1, param2);
         }
 
-        void ICommonLog.FatalFormat(string message, object param1, object param2, object param3)
+        void ITracer.FatalFormat(string message, object param1, object param2, object param3)
         {
             if (!_log.IsFatalEnabled)
             {
@@ -128,7 +128,7 @@ namespace Nuclear.Tracing.Log4Net
             _log.FatalFormat(message, param1, param2, param3);
         }
 
-        void ICommonLog.FatalFormat(string message, params object[] args)
+        void ITracer.FatalFormat(string message, params object[] args)
         {
             if (!_log.IsFatalEnabled)
             {

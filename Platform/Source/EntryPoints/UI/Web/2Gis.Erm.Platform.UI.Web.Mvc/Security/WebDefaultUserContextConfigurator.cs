@@ -19,10 +19,10 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Security
     public class WebDefaultUserContextConfigurator : IDefaultUserContextConfigurator
     {
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly String _uid;
 
-        public WebDefaultUserContextConfigurator(IUserContext userContext, ICommonLog logger)
+        public WebDefaultUserContextConfigurator(IUserContext userContext, ITracer logger)
         {
             _userContext = userContext;
             _logger = logger;

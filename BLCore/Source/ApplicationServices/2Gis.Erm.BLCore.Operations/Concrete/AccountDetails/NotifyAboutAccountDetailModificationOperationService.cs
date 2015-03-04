@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
 {
     public class NotifyAboutAccountDetailModificationOperationService : INotifyAboutAccountDetailModificationOperationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly INotificationsSettings _notificationsSettings;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly Dictionary<long, string> _ownerEmailsMap = new Dictionary<long, string>();
 
-        public NotifyAboutAccountDetailModificationOperationService(ICommonLog logger,
+        public NotifyAboutAccountDetailModificationOperationService(ITracer logger,
                                                                     INotificationsSettings notificationsSettings,
                                                                     INotificationSender notificationSender,
                                                                     IEmployeeEmailResolver employeeEmailResolver,

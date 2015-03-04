@@ -21,12 +21,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
     {
         private readonly ICalculateOrderCostService _calculateOrderCostService;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IGetPositionsByOrderService _getPositionsByOrderService;
 
         public CostCalculationApplicationService(IUserContext userContext,
                                                  ICalculateOrderCostService calculateOrderCostService,
-                                                 ICommonLog logger,
+                                                 ITracer logger,
                                                  IGetPositionsByOrderService getPositionsByOrderService,
                                                  ICalculateOrderPositionCostService calculateOrderPositionCostService,
                                                  IResourceGroupManager resourceGroupManager)

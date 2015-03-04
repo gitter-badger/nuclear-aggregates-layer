@@ -13,10 +13,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
     public sealed class OperationLogger : IOperationLogger
     {
         private readonly IReadOnlyCollection<IOperationLoggingStrategy> _loggingStrategies;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public OperationLogger(IOperationLoggingStrategy[] loggingStrategies, // unity registrations 1..*
-                               ICommonLog logger)
+                               ITracer logger)
         {
             _loggingStrategies = loggingStrategies;
             _logger = logger;

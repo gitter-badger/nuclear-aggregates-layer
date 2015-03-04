@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final
         public PerformedOperationsFinalFlowProcessor(IPerformedOperationsFinalFlowProcessorSettings processorSettings,
                                                      IMessageReceiverFactory messageReceiverFactory,
                                                      IMessageProcessingTopology processingTopology,
-                                                     ICommonLog logger) 
+                                                     ITracer logger) 
             : base(processorSettings, messageReceiverFactory, processingTopology, logger)
         {
         }

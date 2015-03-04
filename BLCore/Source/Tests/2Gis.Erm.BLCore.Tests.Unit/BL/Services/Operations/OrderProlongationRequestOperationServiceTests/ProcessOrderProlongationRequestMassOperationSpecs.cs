@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
         {
             protected static IOrderProcessingRequestService orderProcessingRequestService;
             protected static IBasicOrderProlongationOperationLogic basicOrderProlongationOperation;
-            protected static ICommonLog logger;
+            protected static ITracer logger;
 
             protected static List<OrderProcessingRequest> activeOrderProcessingRequests;
             private static ProcessOrderProlongationRequestMassOperation target;
@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             {
                 orderProcessingRequestService = Mock.Of<IOrderProcessingRequestService>();
                 basicOrderProlongationOperation = Mock.Of<IBasicOrderProlongationOperationLogic>();
-                logger = Mock.Of<ICommonLog>();
+                logger = Mock.Of<ITracer>();
 
                 activeOrderProcessingRequests = new List<OrderProcessingRequest>();
 

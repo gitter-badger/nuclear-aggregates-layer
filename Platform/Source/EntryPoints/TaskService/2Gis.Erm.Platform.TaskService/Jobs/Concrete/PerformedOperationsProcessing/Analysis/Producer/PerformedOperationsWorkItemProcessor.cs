@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
         private readonly IOperationScopeDisposableFactoryAccessor _operationScopeFactoryAccessor;
         private readonly IIdentityRequestStrategy _identityRequestStrategy;
         private readonly CancellationToken _cancellationToken;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly Task _worker;
 
         public PerformedOperationsWorkItemProcessor(
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
             IOperationScopeDisposableFactoryAccessor operationScopeFactoryAccessor, 
             IIdentityRequestStrategy identityRequestStrategy,
             CancellationToken cancellationToken,
-            ICommonLog logger)
+            ITracer logger)
         {
             _processorId = processorId;
             _workItemsSource = workItemsSource;

@@ -7,10 +7,10 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
     public abstract class RestApiOperationServiceBase
     {
         private readonly IApiClient _apiClient;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly string _operationApiTargetResource;
 
-        protected RestApiOperationServiceBase(IApiClient apiClient, ICommonLog logger, string operationApiTargetResource)
+        protected RestApiOperationServiceBase(IApiClient apiClient, ITracer logger, string operationApiTargetResource)
         {
             _apiClient = apiClient;
             _logger = logger;
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
             }
         }
 
-        protected ICommonLog Logger
+        protected ITracer Logger
         {
             get
             {

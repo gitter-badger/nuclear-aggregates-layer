@@ -24,14 +24,14 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly IDbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public EFDomainContext(IProcessingContext processingContext,
                                string defaultContextName,
                                IDbContext dbContext,
                                IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
                                IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider,
-                               ICommonLog logger)
+                               ITracer logger)
         {
             _processingContext = processingContext;
             _defaultContextName = defaultContextName;

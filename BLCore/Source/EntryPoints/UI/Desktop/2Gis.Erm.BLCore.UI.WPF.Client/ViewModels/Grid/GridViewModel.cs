@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
 
         private readonly IListNonGenericEntityService _listService;
         private readonly IUserInfo _userInfo;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         // COMMENT {all, 25.06.2014}: ConcurrentBag может иметь опасные side effect - memory leak - в данном случае храним строки по этому не опасно, однако при рефаторинге - обращать внимание
         private readonly ConcurrentBag<string> _sortingSettingsPriority = new ConcurrentBag<string>();
@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
             IListNonGenericEntityService listService,
             ITitleProviderFactory titleProviderFactory,
             IUserInfo userInfo,
-            ICommonLog logger)
+            ITracer logger)
         {
             if (defaultViewSettings == null)
             {

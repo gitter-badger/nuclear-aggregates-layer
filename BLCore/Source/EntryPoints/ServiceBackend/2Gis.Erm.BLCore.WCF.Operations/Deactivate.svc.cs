@@ -17,11 +17,11 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class DeactivateApplicationService : IDeactivateApplicationService, IDeactivateApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IUserContext _userContext;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public DeactivateApplicationService(ICommonLog logger, IUserContext userContext, IOperationServicesManager operationServicesManager, IResourceGroupManager resourceGroupManager)
+        public DeactivateApplicationService(ITracer logger, IUserContext userContext, IOperationServicesManager operationServicesManager, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _userContext = userContext;

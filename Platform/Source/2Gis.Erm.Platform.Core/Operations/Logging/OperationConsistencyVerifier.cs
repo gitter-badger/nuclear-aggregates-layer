@@ -16,10 +16,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
     {
         private delegate bool OperationContextConsistencyChecker(IVerifierContext context, out bool isConsistent);
 
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly OperationContextConsistencyChecker[] _checkers;
 
-        public OperationConsistencyVerifier(ICommonLog logger)
+        public OperationConsistencyVerifier(ITracer logger)
         {
             _logger = logger;
             _checkers = new OperationContextConsistencyChecker[]

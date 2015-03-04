@@ -18,14 +18,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Deals
         private readonly IDealChangeStageAggregateService _dealChangeStageAggregateService;
         private readonly IActionLogger _actionLogger;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ChangeDealStageOperationService(
             IDealReadModel dealReadModel,
             IDealChangeStageAggregateService dealChangeStageAggregateService,
             IActionLogger actionLogger,
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer logger)
         {
             _dealReadModel = dealReadModel;
             _dealChangeStageAggregateService = dealChangeStageAggregateService;

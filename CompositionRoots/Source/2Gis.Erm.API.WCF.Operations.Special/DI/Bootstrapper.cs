@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            ICommonLog logger,
+            ITracer logger,
             ILoggerContextManager loggerContextManager)
         {
             return container

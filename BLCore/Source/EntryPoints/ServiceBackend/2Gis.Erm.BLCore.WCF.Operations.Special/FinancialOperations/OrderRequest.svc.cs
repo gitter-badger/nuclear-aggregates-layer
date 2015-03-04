@@ -14,12 +14,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
 {
     public class OrderProcessingRequestsApplicationService : IOrderProcessingRequestsApplicationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ICreateOrderProlongationRequestOperationService _orderProlongationRequestService;
         private readonly ICreateOrderCreationRequestOperationService _orderCreationRequestService;
 
         public OrderProcessingRequestsApplicationService(
-            ICommonLog logger,
+            ITracer logger,
             ICreateOrderProlongationRequestOperationService orderProcessingRequestService,
             IUserContext userContext,
             ICreateOrderCreationRequestOperationService orderCreationRequestService,

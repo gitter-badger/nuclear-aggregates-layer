@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
         private readonly IProcessingContext _processingContext;
         private readonly IProducedQueryLogAccessor _producedQueryLogAccessor;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
         public EFDomainContextFactory(IDomainContextMetadataProvider domainContextMetadataProvider,
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                                       IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
                                       IProcessingContext processingContext,
                                       IProducedQueryLogAccessor producedQueryLogAccessor,
-                                      ICommonLog logger,
+                                      ITracer logger,
                                       IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
             _domainContextMetadataProvider = domainContextMetadataProvider;

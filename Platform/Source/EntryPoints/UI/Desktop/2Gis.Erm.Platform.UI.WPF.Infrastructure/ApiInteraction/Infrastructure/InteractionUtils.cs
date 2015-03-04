@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastruc
             return response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK;
         }
 
-        public static void IfErrorThanReportAndThrowException(this ApiResponse response, string operationDescription, ICommonLog logger = null)
+        public static void IfErrorThanReportAndThrowException(this ApiResponse response, string operationDescription, ITracer logger = null)
         {
             if (!response.IsSuccessfull)
             {

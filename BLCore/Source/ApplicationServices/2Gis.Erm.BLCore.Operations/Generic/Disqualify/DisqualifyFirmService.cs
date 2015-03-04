@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         private readonly IUserContext _userContext;
         private readonly IFirmRepository _firmRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IActivityReadService _activityReadService;
 
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             IUserContext userContext,
             IFirmRepository firmRepository,
             ISecurityServiceUserIdentifier userIdentifierService, 
-            ICommonLog logger,
+            ITracer logger,
             IOperationScopeFactory operationScopeFactory,
             IActivityReadService activityReadService)
         {

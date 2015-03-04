@@ -6,9 +6,9 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
 {
     public class ErrorHandlerFactory : IErrorHandlerFactory
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public ErrorHandlerFactory(ICommonLog logger)
+        public ErrorHandlerFactory(ITracer logger)
         {
             _logger = logger;
         }

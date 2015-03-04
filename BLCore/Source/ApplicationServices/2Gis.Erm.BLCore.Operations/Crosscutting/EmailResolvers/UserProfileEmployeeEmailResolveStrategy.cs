@@ -8,9 +8,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
     public class UserProfileEmployeeEmailResolveStrategy : IEmployeeEmailResolveStrategy
     {
         private readonly IUserRepository _userRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public UserProfileEmployeeEmailResolveStrategy(IUserRepository userRepository, ICommonLog logger)
+        public UserProfileEmployeeEmailResolveStrategy(IUserRepository userRepository, ITracer logger)
         {
             _userRepository = userRepository;
             _logger = logger;

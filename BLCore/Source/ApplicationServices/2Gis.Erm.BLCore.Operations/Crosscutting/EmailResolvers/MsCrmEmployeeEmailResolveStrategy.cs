@@ -13,9 +13,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
     {
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly ISecurityServiceUserIdentifier _securityService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
-        public MsCrmEmployeeEmailResolveStrategy(IMsCrmSettings msCrmSettings, ISecurityServiceUserIdentifier securityService, ICommonLog logger)
+        public MsCrmEmployeeEmailResolveStrategy(IMsCrmSettings msCrmSettings, ISecurityServiceUserIdentifier securityService, ITracer logger)
         {
             _msCrmSettings = msCrmSettings;
             _securityService = securityService;

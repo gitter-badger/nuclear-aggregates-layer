@@ -30,13 +30,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
     {
         private readonly IFileService _fileService;
         private readonly ILocalMessageRepository _localMessageRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ISubRequestProcessor _subRequestProcessor;
 
         public ProcessLocalMessagesHandler(ILocalMessageRepository localMessageRepository,
                                            IFileService fileService,
                                            ISubRequestProcessor subRequestProcessor,
-                                           ICommonLog logger)
+                                           ITracer logger)
         {
             _localMessageRepository = localMessageRepository;
             _fileService = fileService;

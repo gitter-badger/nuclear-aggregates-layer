@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                               IAPIIdentityServiceSettings identityServiceSettings,
                               IUserContext userContext,
-                              ICommonLog logger,
+                              ITracer logger,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IUIConfigurationService configurationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)

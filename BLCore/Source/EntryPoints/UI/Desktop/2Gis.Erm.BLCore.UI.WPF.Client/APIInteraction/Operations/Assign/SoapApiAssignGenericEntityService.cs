@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
             IDesktopClientProxyFactory clientProxyFactory,
             IStandartConfigurationSettings configuration,
             IApiSettings apiSettings,
-            ICommonLog logger)
+            ITracer logger)
             : base(clientProxyFactory, configuration, apiSettings, logger)
         {
             _operationProgressCallback = operationProgressCallback;

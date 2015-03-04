@@ -6,9 +6,9 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
 {
     public abstract class LoggingCallHandler : ICallHandler 
     {
-        protected readonly ICommonLog Logger;
+        protected readonly ITracer Logger;
 
-        protected LoggingCallHandler(ICommonLog logger)
+        protected LoggingCallHandler(ITracer logger)
         {
             Logger = logger;
         }

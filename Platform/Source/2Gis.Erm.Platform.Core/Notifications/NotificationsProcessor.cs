@@ -27,14 +27,14 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
 
         private readonly IFinder _finder;
         private readonly IRepository<NotificationProcessings> _processingsEntityRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly IIdentityProvider _identityProvider;
 
         public NotificationsProcessor(
             INotificationProcessingSettings notificationProcessingSettings,
             IFinder finder,                            
             IRepository<NotificationProcessings> processingsEntityRepository,
-            ICommonLog logger, 
+            ITracer logger, 
             IIdentityProvider identityProvider)
         {
             _defaultSender = notificationProcessingSettings.DefaultSender;

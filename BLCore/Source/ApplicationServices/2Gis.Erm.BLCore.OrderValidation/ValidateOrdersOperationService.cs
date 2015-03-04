@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IOrderValidationOperationFeedback _operationFeedback;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ValidateOrdersOperationService(
             IOrderValidationCachingSettings orderValidationCachingSettings,
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             IUseCaseTuner useCaseTuner,
             IOperationScopeFactory scopeFactory,
             IOrderValidationOperationFeedback operationFeedback,
-            ICommonLog logger)
+            ITracer logger)
         {
             _orderValidationCachingSettings = orderValidationCachingSettings;
             _orderReadModel = orderReadModel;

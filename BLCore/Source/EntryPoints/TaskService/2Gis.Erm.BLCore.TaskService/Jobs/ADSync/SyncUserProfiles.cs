@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ADSync
     {
         private readonly IPublicService _publicService;
 
-        public SyncUserProfiles(ICommonLog logger, IPublicService publicService, ISignInService signInService, IUserImpersonationService userImpersonationService)
+        public SyncUserProfiles(ITracer logger, IPublicService publicService, ISignInService signInService, IUserImpersonationService userImpersonationService)
             : base(signInService, userImpersonationService, logger)
         {
             _publicService = publicService;

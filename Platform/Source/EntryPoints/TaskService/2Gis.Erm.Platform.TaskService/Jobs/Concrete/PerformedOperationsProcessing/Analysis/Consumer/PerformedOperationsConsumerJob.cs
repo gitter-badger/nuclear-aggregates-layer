@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
             IPerformedOperationsConsumerFactory performedOperationsConsumerFactory,
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService, 
-            ICommonLog logger) 
+            ITracer logger) 
             : base(signInService, userImpersonationService, logger)
         {
             _messageFlowRegistry = messageFlowRegistry;

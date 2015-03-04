@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Disqualif
     public sealed class RestApiDisqualifyGenericEntityService<TEntity> : RestApiOperationEntitySpecificServiceBase<TEntity>, IDisqualifyGenericEntityService<TEntity>
         where TEntity : class, IEntityKey
     {
-        public RestApiDisqualifyGenericEntityService(IApiClient apiClient, ICommonLog logger)
+        public RestApiDisqualifyGenericEntityService(IApiClient apiClient, ITracer logger)
             : base(apiClient, logger, "Disqualify.svc")
         {
         }

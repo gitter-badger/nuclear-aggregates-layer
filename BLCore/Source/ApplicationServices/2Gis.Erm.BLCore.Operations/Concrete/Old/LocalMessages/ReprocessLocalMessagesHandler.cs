@@ -10,10 +10,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 {
     public sealed class ReprocessLocalMessagesHandler : RequestHandler<ReprocessLocalMessagesRequest, EmptyResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
         private readonly ILocalMessageRepository _localMessageRepository;
 
-        public ReprocessLocalMessagesHandler(ICommonLog logger, ILocalMessageRepository localMessageRepository)
+        public ReprocessLocalMessagesHandler(ITracer logger, ILocalMessageRepository localMessageRepository)
         {
             _logger = logger;
             _localMessageRepository = localMessageRepository;

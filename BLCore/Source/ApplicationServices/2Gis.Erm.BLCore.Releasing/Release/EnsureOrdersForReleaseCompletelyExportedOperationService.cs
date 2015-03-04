@@ -21,13 +21,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IClientProxyFactory _clientProxyFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public EnsureOrdersForReleaseCompletelyExportedOperationService(IEnsureOrderExportedStrategyContainer ensureOrderExportedStrategyContainer,
                                                                         IOperationScopeFactory scopeFactory,
                                                                         IIntegrationSettings integrationSettings,
                                                                         IClientProxyFactory clientProxyFactory,
-                                                                        ICommonLog logger)
+                                                                        ITracer logger)
         {
             _ensureOrderExportedStrategyContainer = ensureOrderExportedStrategyContainer;
             _scopeFactory = scopeFactory;

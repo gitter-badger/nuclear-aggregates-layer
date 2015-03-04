@@ -13,12 +13,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
     {
         private readonly ITrackedUseCase2BrokeredMessageConverter _trackedUseCase2BrokeredMessageConverter;
         private readonly IServiceBusMessageSender _serviceBusMessageSender;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _logger;
 
         public ServiceBusLoggingStrategy(
             ITrackedUseCase2BrokeredMessageConverter trackedUseCase2BrokeredMessageConverter,
             IServiceBusMessageSender serviceBusMessageSender,
-            ICommonLog logger)
+            ITracer logger)
         {
             _trackedUseCase2BrokeredMessageConverter = trackedUseCase2BrokeredMessageConverter;
             _serviceBusMessageSender = serviceBusMessageSender;
