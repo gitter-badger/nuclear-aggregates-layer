@@ -25,14 +25,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
         public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
 
-            if (((IOrderDirectionAspect)viewModel).DestinationOrganizationUnit == null || ((IOrderDirectionAspect)viewModel).DestinationOrganizationUnit.Key == null)
+            if (((IOrderDirectionAspect)viewModel).DestinationOrganizationUnitKey == null)
             {
                 return;
             }
 
             if (((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.Approved || ((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.OnTermination)
             {
-                var isReleaseInProgress = _releaseReadModel.HasFinalReleaseInProgress(((IOrderDirectionAspect)viewModel).DestinationOrganizationUnit.Key.Value,
+                var isReleaseInProgress = _releaseReadModel.HasFinalReleaseInProgress(((IOrderDirectionAspect)viewModel).DestinationOrganizationUnitKey.Value,
                                                                                       new TimePeriod(((IOrderDatesAspect)viewModel).BeginDistributionDate, ((IOrderDatesAspect)viewModel).EndDistributionDateFact));
                 if (isReleaseInProgress)
                 {

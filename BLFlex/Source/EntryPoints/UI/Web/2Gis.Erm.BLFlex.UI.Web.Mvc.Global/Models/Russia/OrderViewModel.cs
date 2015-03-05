@@ -31,10 +31,46 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                                          ITerminatableAspect,
                                          IRussiaAdapted
     {
+        #region Реализация аспектов
+        public long? SourceOrganizationUnitKey
+        {
+            get { return SourceOrganizationUnit.Key; }
+        }
+
+        public long? DestinationOrganizationUnitKey
+        {
+            get { return DestinationOrganizationUnit.Key; }
+        }
+
+        public string SourceOrganizationUnitValue
+        {
+            get { return SourceOrganizationUnit.Value; }
+        }
+
+        public string DestinationOrganizationUnitValue
+        {
+            get
+            {
+                return DestinationOrganizationUnit.Value;
+            }
+        }
+
+        public long? InspectorKey
+        {
+            get { return Inspector.Key; }
+        }
+
+        public string InspectorValue
+        {
+            get { return Inspector.Value; }
+            set { Inspector.Value = value; }
+        }
+
         OrderState IOrderWorkflowAspect.WorkflowStepId
-    {
+        {
             get { return (OrderState)WorkflowStepId; }
         }
+        #endregion
 
         [Dependency(DependencyType.Hidden, "RegionalNumber", @"Ext.getDom('Id').value==0 ||
                                                              (!Ext.getCmp('SourceOrganizationUnit').getValue() || !Ext.getCmp('DestinationOrganizationUnit').getValue()) ||

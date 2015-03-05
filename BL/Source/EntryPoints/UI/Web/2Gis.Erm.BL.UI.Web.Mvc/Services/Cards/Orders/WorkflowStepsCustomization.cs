@@ -37,11 +37,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             ((IOrderWorkflowAspect)viewModel).AvailableSteps = GetAvailableSteps(viewModel.Id,
                                                                viewModel.IsNew,
                                                                ((IOrderWorkflowAspect)viewModel).WorkflowStepId,
-                                                               ((IOrderDirectionAspect)viewModel).SourceOrganizationUnit.Key);
+                                                               ((IOrderDirectionAspect)viewModel).SourceOrganizationUnitKey);
 
             if (((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.Approved || ((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.OnTermination)
             {
-                if (!((IOrderDirectionAspect)viewModel).DestinationOrganizationUnit.Key.HasValue)
+                if (!((IOrderDirectionAspect)viewModel).DestinationOrganizationUnitKey.HasValue)
                 {
                     throw new NotificationException("Destination organization unit should be specified");
                 }

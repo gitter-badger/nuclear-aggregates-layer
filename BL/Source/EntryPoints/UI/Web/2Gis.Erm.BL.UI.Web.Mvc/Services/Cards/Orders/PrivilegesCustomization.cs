@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -34,7 +33,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
             ((IOrderSecurityAspect)viewModel).CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
             ((IOrderSecurityAspect)viewModel).HasOrderDocumentsDebtChecking =
-                _functionalAccessService.HasOrderChangeDocumentsDebtAccess(((IOrderDirectionAspect)viewModel).SourceOrganizationUnit.Key ?? 0, currentUserCode);
+                _functionalAccessService.HasOrderChangeDocumentsDebtAccess(((IOrderDirectionAspect)viewModel).SourceOrganizationUnitKey ?? 0, currentUserCode);
 
             // Если есть права и нет сборки в настоящий момент 
             ((IOrderSecurityAspect)viewModel).HasOrderDocumentsDebtChecking &= !((IOrderWorkflowLockableAspect)viewModel).IsWorkflowLocked;

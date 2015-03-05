@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
         public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
-            ((IInspectorAspect)viewModel).Inspector.Value = _userIdentifierService.GetUserInfo(((IInspectorAspect)viewModel).Inspector.Key).DisplayName;
+            ((IInspectorAspect)viewModel).InspectorValue = _userIdentifierService.GetUserInfo(((IInspectorAspect)viewModel).InspectorKey).DisplayName;
         }
     }
 }
