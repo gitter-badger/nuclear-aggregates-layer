@@ -37,10 +37,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
 
                 public static FindSpecification<Lock> ByAccountingMethod(AccountingMethod accountingMethod)
                 {
-                    var salesModels = accountingMethod == AccountingMethod.GuaranteedProvision
-                                          ? new[] { SalesModel.GuaranteedProvision }
-                                          : new[] { SalesModel.PlannedProvision, SalesModel.MultiPlannedProvision };
-
+                    var salesModels = accountingMethod.ToSalesModels();
                     return new FindSpecification<Lock>(x => x.Order.OrderPositions.Any(y => salesModels.Contains(y.PricePosition.Position.SalesModel)));
                 }
 
