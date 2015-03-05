@@ -818,6 +818,7 @@
     <Compile Include="2.1\Migration201502111010.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
     <Compile Include="2.1\201502090244 - remove account details export buttons from MS CRM.cs" />
+    <Compile Include="2.1\201501261917 - Drop single replication SPs.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />
