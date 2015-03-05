@@ -997,15 +997,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Выгрузить дополнительно файл в формате csv.
-        /// </summary>
-        public static string CreateCsvFile {
-            get {
-                return ResourceManager.GetString("CreateCsvFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Дата создания.
         /// </summary>
         public static string CreateDate {

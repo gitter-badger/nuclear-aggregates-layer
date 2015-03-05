@@ -67,32 +67,32 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>())
                           .Select(o => new OrderReleaseInfo
-                              {
-                                  OrderId = o.Id,
-                                  OrderNumber = o.Number,
-                                  AccountId = o.AccountId
-                                              ?? o.BranchOfficeOrganizationUnit.Accounts
-                                                  .Where(x => x.IsActive && !x.IsDeleted && x.LegalPersonId == o.LegalPersonId)
-                                                  .Select(x => (long?)x.Id)
-                                                  .FirstOrDefault(),
-                                  PriceId = o.OrderPositions.Select(p => p.PricePosition.PriceId).FirstOrDefault(),
-                                  AmountToWithdrawSum = o.OrderReleaseTotals
-                                                         .Where(x => x.ReleaseBeginDate == period.Start && x.ReleaseEndDate == period.End)
-                                                         .Select(x => x.AmountToWithdraw)
-                                                         .FirstOrDefault(),
-                                  OrderPositions = o.OrderPositions.Where(op => op.IsActive && !op.IsDeleted)
-                                                    .Select(op => new OrderPositionReleaseInfo
-                                                        {
-                                                            OrderPositionId = op.Id,
-                                                            AmountToWithdraw = op.ReleasesWithdrawals.Where(rw =>
-                                                                                                            rw.ReleaseBeginDate == period.Start &&
-                                                                                                            rw.ReleaseEndDate == period.End)
-                                                                                 .Select(rw => rw.AmountToWithdraw)
-                                                                                 .FirstOrDefault(),
-                                                            IsPlannedProvision =
+                                           {
+                                               OrderId = o.Id,
+                                               OrderNumber = o.Number,
+                                               AccountId = o.AccountId
+                                                           ?? o.BranchOfficeOrganizationUnit.Accounts
+                                                               .Where(x => x.IsActive && !x.IsDeleted && x.LegalPersonId == o.LegalPersonId)
+                                                               .Select(x => (long?)x.Id)
+                                                               .FirstOrDefault(),
+                                               PriceId = o.OrderPositions.Select(p => p.PricePosition.PriceId).FirstOrDefault(),
+                                               AmountToWithdrawSum = o.OrderReleaseTotals
+                                                                      .Where(x => x.ReleaseBeginDate == period.Start && x.ReleaseEndDate == period.End)
+                                                                      .Select(x => x.AmountToWithdraw)
+                                                                      .FirstOrDefault(),
+                                               OrderPositions = o.OrderPositions.Where(op => op.IsActive && !op.IsDeleted)
+                                                                 .Select(op => new OrderPositionReleaseInfo
+                                                                                   {
+                                                                                       OrderPositionId = op.Id,
+                                                                                       AmountToWithdraw = op.ReleasesWithdrawals.Where(rw =>
+                                                                                                                                       rw.ReleaseBeginDate == period.Start &&
+                                                                                                                                       rw.ReleaseEndDate == period.End)
+                                                                                                            .Select(rw => rw.AmountToWithdraw)
+                                                                                                            .FirstOrDefault(),
+                                                                                       IsPlannedProvision =
                                                                                            SalesModelUtil.PlannedProvisionSalesModels.Contains(op.PricePosition.Position.SalesModel)
-                                                        })
-                              })
+                                                                                   })
+                                           })
                           .ToArray();
         }
 

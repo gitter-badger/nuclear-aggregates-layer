@@ -1241,13 +1241,6 @@
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Информация об Отделении Юр. Лица Организации</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
-11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Неизвестный пользователь</value>
   </data>
@@ -1443,9 +1436,6 @@
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Будет включеныо пользователей: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>Выбранное отделение организации не является филиалом, либо не переведено на ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>В группах основных позиций присутствуют объекты, ссылающиеся на неактивные позиции</value>
   </data>
@@ -1457,9 +1447,6 @@
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>Указанный счёт не найден</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Ошибка при сохранении профиля юр. лица клиента</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>Отделение организации не указано</value>
