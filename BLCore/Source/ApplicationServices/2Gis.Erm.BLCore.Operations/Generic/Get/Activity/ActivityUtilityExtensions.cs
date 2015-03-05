@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 // ReSharper disable once CheckNamespace
@@ -32,23 +32,65 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return entityName == EntityName.Appointment || entityName == EntityName.Letter || entityName == EntityName.Phonecall || entityName == EntityName.Task;
         }
 
-        public static EntityReference ToReference(this Client client)
+        public static IEnumerable<T> LookupElements<T>(this IReadOnlyDictionary<EntityName, Func<long, IEnumerable<T>>> lookups, EntityName entityName, long? entityId)
         {
-            return new EntityReference { EntityName = EntityName.Client, Name = client.Name, Id = client.Id };
+            Func<long, IEnumerable<T>> lookup;
+            if (entityId != null && lookups.TryGetValue(entityName, out lookup))
+            {
+                return lookup(entityId.Value);
+            }
+            return Enumerable.Empty<T>();
         }
 
-        public static IEnumerable<EntityReference> ResolveReferemceAmbiguity<TEntity>(this IEnumerable<TEntity> entities, Func<TEntity, EntityReference> convertToEntityReference)
+        public static EntityReference ToEntityReference<TEntity>(this TEntity entity, Func<TEntity, string> getName = null)
+            where TEntity : IEntity, IEntityKey
+        {
+            return new EntityReference
+                       {
+                           EntityName = typeof(TEntity).AsEntityName(), 
+                           Id = entity.Id,
+                           Name = getName != null ? getName(entity) : null, 
+                       };
+        }
+
+        public static EntityReference ToEntityReference<TEntity>(this EntityReference<TEntity> reference)
             where TEntity : IEntity
         {
-            var ambiguousEntity = new EntityReference { EntityName = typeof(TEntity).AsEntityName() };
-            var firstEntityOrNull =
-                (entities ?? Enumerable.Empty<TEntity>()).Select((x, i) => new { Entity = i == 0 ? convertToEntityReference(x) : ambiguousEntity, Index = i })
-                                                         .Take(2)
-                                                         .LastOrDefault();
-
-            if (firstEntityOrNull != null)
+            if (reference == null)
             {
-                yield return firstEntityOrNull.Entity;
+                throw new ArgumentNullException("reference");
+            }
+            return new EntityReference { Id = reference.TargetEntityId, EntityName = reference.TargetEntityName };
+        }
+
+        public static IEnumerable<EntityReference> ToEntityReferences<TEntity>(this EntityReference<TEntity> reference)
+            where TEntity : IEntity
+        {
+            return new[] { reference }.ToEntityReferences();
+        }
+
+        public static IEnumerable<EntityReference> ToEntityReferences<TEntity>(this IEnumerable<EntityReference<TEntity>> references)
+            where TEntity : IEntity
+        {
+            return references.Select(ToEntityReference);
+        }
+
+        public static IEnumerable<EntityReference> ToEntityReferencesWithNoAmbiguity<TEntity>(this IEnumerable<TEntity> entities, Func<TEntity, string> getName)
+            where TEntity : IEntity, IEntityKey
+        {
+            var ambiguousEntity = new EntityReference { EntityName = typeof(TEntity).AsEntityName() };
+            var firstOrAmbiguous = (entities ?? Enumerable.Empty<TEntity>())
+                .Select((x, i) => new 
+                    {
+                        Reference = i == 0 ? new EntityReference { EntityName = typeof(TEntity).AsEntityName(), Id = x.Id,  Name = getName(x) } : ambiguousEntity,
+                        Index = i
+                    })
+                .Take(2)
+                .LastOrDefault();
+
+            if (firstOrAmbiguous != null)
+            {
+                yield return firstOrAmbiguous.Reference;
             }
         }
     }

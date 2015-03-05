@@ -313,7 +313,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterTypeWithDependencies<IViewModelCustomizationProvider, ViewModelCustomizationProvider>(CustomLifetime.PerRequest, mappingScope)
 
-                .RegisterTypeWithDependencies<IActivityReferenceReader, ActivityReferenceReader>(CustomLifetime.PerRequest, mappingScope)
                 .ConfigureNotificationsSender(msCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory); 
         }
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -15,29 +18,65 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetPhonecallDtoService : GetDomainEntityDtoServiceBase<Phonecall>
     {
-        private readonly IPhonecallReadModel _activityReadModel;
+        private readonly IPhonecallReadModel _phonecallReadModel;
 
-        private readonly IActivityReferenceReader _activityReferenceReader;
+        private readonly IClientReadModel _clientReadModel;
+        private readonly IDealReadModel _dealReadModel;
+        private readonly IFirmReadModel _firmReadModel;
+
+        private readonly Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>> _lookupsForRegardingObjects;
+        private readonly Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>> _lookupsForRecipients;
 
         public GetPhonecallDtoService(IUserContext userContext,
-                                      IPhonecallReadModel activityReadModel,
-                                      IActivityReferenceReader activityReferenceReader)
+                                      IAppointmentReadModel appointmentReadModel,
+                                      IClientReadModel clientReadModel,
+                                      IFirmReadModel firmReadModel,
+                                      IDealReadModel dealReadModel,
+                                      ILetterReadModel letterReadModel,
+                                      IPhonecallReadModel phonecallReadModel,
+                                      ITaskReadModel taskReadModel)
             : base(userContext)
         {
-            _activityReadModel = activityReadModel;
-            _activityReferenceReader = activityReferenceReader;
+            _phonecallReadModel = phonecallReadModel;
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
+            _dealReadModel = dealReadModel;
+
+            var service = new ActivityReferenceReader(clientReadModel, dealReadModel, firmReadModel);
+
+            _lookupsForRegardingObjects = new Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>>
+            {
+                { EntityName.Appointment, entityId => appointmentReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityName.Letter, entityId => letterReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityName.Phonecall, entityId => phonecallReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityName.Task, entityId => taskReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityName.Client, entityId => service.ResolveRegardingObjectsFromClient(entityId) },
+                { EntityName.Contact, entityId => service.ResolveRegardingObjectsFromContact(entityId) },
+                { EntityName.Deal, entityId => service.ResolveRegardingObjectsFromDeal(entityId) },
+                { EntityName.Firm, entityId => service.ResolveRegardingObjectsFromFirm(entityId) },
+            };
+
+            _lookupsForRecipients = new Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>>
+            {
+                { EntityName.Appointment, entityId => appointmentReadModel.GetAttendees(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityName.Letter, entityId => letterReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityName.Phonecall, entityId => phonecallReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityName.Client, entityId => service.ResolveContactsFromClient(entityId) },
+                { EntityName.Contact, entityId => service.ResolveContactsFromContact(entityId) },
+                { EntityName.Deal, entityId => service.ResolveContactsFromDeal(entityId) },
+                { EntityName.Firm, entityId => service.ResolveContactsFromFirm(entityId) },
+            };
         }
 
         protected override IDomainEntityDto<Phonecall> GetDto(long entityId)
         {
-            var phonecall = _activityReadModel.GetPhonecall(entityId);
+            var phonecall = _phonecallReadModel.GetPhonecall(entityId);
             if (phonecall == null)
             {
                 throw new InvalidOperationException("The phonecall does not exist for the specified ID.");
             }
 
-            var regardingObjects = _activityReadModel.GetRegardingObjects(entityId);
-            var recipient = _activityReadModel.GetRecipient(entityId);
+            var recipient = _phonecallReadModel.GetRecipient(entityId);
 
             return new PhonecallDomainEntityDto
                 {
@@ -48,8 +87,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Priority = phonecall.Priority,
                     Purpose = phonecall.Purpose,
                     Status = phonecall.Status,
-                    RegardingObjects = AdaptReferences(regardingObjects),
-                    RecipientRef = recipient != null ? _activityReferenceReader.ToEntityReference(recipient.TargetEntityName, recipient.TargetEntityId) : null,
+                    RegardingObjects = _lookupsForRecipients.LookupElements(EntityName.Phonecall, entityId),
+                    RecipientRef = recipient.ToEntityReference<Phonecall>(),
 
                     OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = phonecall.CreatedBy, Name = null },
@@ -64,46 +103,41 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Phonecall> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            var dto = new PhonecallDomainEntityDto
-                {
-                    ScheduledOn = DateTime.Now,
-                    Priority = ActivityPriority.Average,
-                    Status = ActivityStatus.InProgress,
-                };
+            return new PhonecallDomainEntityDto
+                       {
+                           ScheduledOn = DateTime.Now,
+                           Priority = ActivityPriority.Average,
+                           Status = ActivityStatus.InProgress,
 
-            if (parentEntityName.CanBeRegardingObject())
-            {
-                var regardingObject = _activityReferenceReader.ToEntityReference(parentEntityName, parentEntityId);
-                if (regardingObject.Id != null)
-                {
-                    dto.RegardingObjects = _activityReferenceReader.FindAutoCompleteReferences(regardingObject);
-                    dto.RecipientRef = _activityReferenceReader.FindClientContact(dto.RegardingObjects);
-                }
-            }
-            else if (parentEntityName.IsActivity() && parentEntityId.HasValue)
-            {
-                dto.RegardingObjects = _activityReferenceReader.GetRegardingObjects(parentEntityName, parentEntityId.Value);
-                var attandees = _activityReferenceReader.GetAttendees(parentEntityName, parentEntityId.Value);
-                var entityReferences = attandees as EntityReference[] ?? attandees.ToArray();
-                if (entityReferences.Any() && entityReferences.Count() == 1)
-                {
-                    dto.RecipientRef = entityReferences.First();
-                }
-            }           
-
-            var recipient = parentEntityName.CanBeContacted() ? _activityReferenceReader.ToEntityReference(parentEntityName, parentEntityId) : null;
-            if (recipient != null)
-            {
-                dto.RecipientRef = recipient;
-                dto.RegardingObjects = _activityReferenceReader.FindAutoCompleteReferences(recipient);
-            }
-
-            return dto;
+                           RegardingObjects = _lookupsForRecipients.LookupElements(parentEntityName, parentEntityId),
+                           RecipientRef = _lookupsForRecipients.LookupElements(parentEntityName, parentEntityId).FirstOrDefault(),
+                       };
         }
 
-        private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Phonecall>> references)
+        private EntityReference EmbedEntityNameIfNeeded(EntityReference reference)
         {
-            return references.Select(x => _activityReferenceReader.ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
+            if (reference.Id != null && reference.Name == null)
+            {
+                reference.Name = ReadEntityName(reference.EntityName, reference.Id.Value);
+            }
+            return reference;
+        }
+
+        private string ReadEntityName(EntityName entityName, long entityId)
+        {
+            switch (entityName)
+            {
+                case EntityName.Client:
+                    return _clientReadModel.GetClientName(entityId);
+                case EntityName.Contact:
+                    return _clientReadModel.GetContactName(entityId);
+                case EntityName.Deal:
+                    return _dealReadModel.GetDeal(entityId).Name;
+                case EntityName.Firm:
+                    return _firmReadModel.GetFirmName(entityId);
+                default:
+                    throw new ArgumentOutOfRangeException("entityName");
+            }
         }
     }
 }

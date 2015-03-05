@@ -380,7 +380,6 @@
     <Compile Include="Generic\Get\Activity\GetLetterDtoService.cs" />
     <Compile Include="Generic\Get\Activity\GetPhonecallDtoService.cs" />
     <Compile Include="Generic\Get\Activity\GetTaskDtoService.cs" />
-    <Compile Include="Generic\Get\Activity\IActivityReferenceReader.cs" />
     <Compile Include="Generic\Get\GetAccountDetailDtoService.cs" />
     <Compile Include="Generic\Get\GetAccountDtoService.cs" />
     <Compile Include="Generic\Get\GetAdditionalFirmServiceDtoService.cs" />
