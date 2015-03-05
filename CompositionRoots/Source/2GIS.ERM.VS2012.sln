@@ -519,26 +519,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Resources.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Operations.Tests.Unit", "..\..\BL\Source\Tests\2Gis.Erm.BL.Operations.Tests.Unit\2Gis.Erm.BL.Operations.Tests.Unit.csproj", "{50B591AE-4761-4324-83F9-9359A876033C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuclear", "Nuclear", "{21CE2229-B78B-497B-80A1-CFE6E3CBD74D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tracing", "Tracing", "{F50D2915-D840-43FD-BE30-F49BEF458620}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\Nuclear\Nuclear.Tracing\Tracing.snk = ..\..\Nuclear\Nuclear.Tracing\Tracing.snk
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Settings", "Settings", "{FD389F82-CED9-46D0-A86B-1EE43F94044A}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\Nuclear\Nuclear.Settings\Settings.snk = ..\..\Nuclear\Nuclear.Settings\Settings.snk
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.Settings", "..\..\Nuclear\Nuclear.Settings\Settings\Nuclear.Settings.csproj", "{93878135-691A-418B-97B1-3AC9E250EC3A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.Settings.API", "..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj", "{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.Tracing.API", "..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj", "{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.Tracing.Log4Net", "..\..\Nuclear\Nuclear.Tracing\Tracing.Log4Net\Nuclear.Tracing.Log4Net.csproj", "{71BB326B-2CF7-41F9-AA20-324DFD7E7AFA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
