@@ -815,6 +815,7 @@
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
     <Compile Include="2.1\201501201646 - Deal replication fix.cs" />
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
+    <Compile Include="2.1\201502190640 - Rename AdditionalEmail to Email.cs" />
     <Compile Include="2.1\Migration201502111010.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
     <Compile Include="2.1\201501190608 - add Amount to Billing.Charges.cs" />
