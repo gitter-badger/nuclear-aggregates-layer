@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.Operations
                     var charge = new Charge
                         {
                             OrderPositionId = chargeDto.OrderPositionId,
-                            PositionId = chargeDto.PositionId,
+                            Amount = chargeDto.Amount,
                             ProjectId = projectId,
                             PeriodStartDate = startDate,
                             PeriodEndDate = endDate,
