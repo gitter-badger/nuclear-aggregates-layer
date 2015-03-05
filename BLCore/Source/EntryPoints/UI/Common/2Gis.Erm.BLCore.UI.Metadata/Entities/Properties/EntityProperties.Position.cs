@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                       new EnumPropertyFeature(EnumResources.ResourceManager),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CalculationMethod)),
 
-                    EntityPropertyMetadata.Create<PositionDomainEntityDto>(dto => dto.SalesModel)
+                    EntityPropertyMetadata.Create<PositionDomainEntityDto>(dto => dto.PositionsGroup)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new EnumPropertyFeature(EnumResources.ResourceManager),

@@ -270,6 +270,7 @@
     <Compile Include="Entities\Enums\ReasonForNewDeal.cs" />
     <Compile Include="Entities\Enums\ReleaseStatus.cs" />
     <Compile Include="Entities\Enums\RequestMessageType.cs" />
+    <Compile Include="Entities\Enums\PositionsGroup.cs" />
     <Compile Include="Entities\Enums\SalesModel.cs" />
     <Compile Include="Entities\Enums\StaffAmount.cs" />
     <Compile Include="Entities\Enums\TaxationType.cs" />

@@ -19,7 +19,6 @@
       <xs:enumeration value="CPS"/>
       <xs:enumeration value="FH"/>
       <xs:enumeration value="MFH"/>
-      <xs:enumeration value="MAR"/>
     </xs:restriction>
   </xs:simpleType>
 

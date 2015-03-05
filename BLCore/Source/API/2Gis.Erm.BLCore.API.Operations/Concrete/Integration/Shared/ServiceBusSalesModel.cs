@@ -9,8 +9,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Shared
         None = 0,
         CPS = 10,
         FH = 11,
-        MFH = 12,
-        MAR = 13
+        MFH = 12
     }
 
     public static class ServiceBusSalesModelExtensions
@@ -27,8 +26,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Shared
                     return ServiceBusSalesModel.FH;
                 case SalesModel.MultiPlannedProvision:
                     return ServiceBusSalesModel.MFH;
-                case SalesModel.Media:
-                    return ServiceBusSalesModel.MAR;
                 default:
                     throw new ArgumentOutOfRangeException("model");
             }
@@ -44,8 +41,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Shared
                     return SalesModel.PlannedProvision;
                 case ServiceBusSalesModel.MFH:
                     return SalesModel.MultiPlannedProvision;
-                case ServiceBusSalesModel.MAR:
-                    return SalesModel.Media;
                 default:
                     throw new ArgumentOutOfRangeException("model");
             }

@@ -1484,4 +1484,7 @@
   <data name="ChiefFullNameInNominative" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="PositionsGroup" xml:space="preserve">
+    <value>Группа номенклатур</value>
+  </data>
 </root>
