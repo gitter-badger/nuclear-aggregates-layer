@@ -63,12 +63,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         protected override IEnumerable<IExportableEntityDto> ProcessFailedEntities(IEnumerable<ExportFailedEntity> entities)
         {
-            throw new NotImplementedException("Обработка невыгруженных с первой попытки пакетов не поддерживается");
+            throw new NotSupportedException("Обработка невыгруженных с первой попытки пакетов не поддерживается");
         }
 
         protected override ISelectSpecification<AccountDetail, IExportableEntityDto> CreateDtoExpression()
         {
-            throw new NotImplementedException("Данные выбираются только пакетом по операции");
+            throw new NotSupportedException("Данные выбираются только пакетом по операции");
         }
 
         private IExportableEntityDto FormatExportRecord(PerformedBusinessOperation operation)
