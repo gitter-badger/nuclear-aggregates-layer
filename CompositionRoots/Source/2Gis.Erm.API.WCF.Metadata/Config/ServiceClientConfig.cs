@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Config
 
                                       .AddEndpoint("Calculate", binding, specialOperationsSvcSettings.BaseUrl, "Calculate.svc")
 
-                                      .AddEndpoint("CancelActivity", binding, operationsSvcSettings.BaseUrl, "CancelActivity.svc");
+                                      .AddEndpoint("Cancel", binding, operationsSvcSettings.BaseUrl, "Cancel.svc");
 
             return container.RegisterInstance<IDiscoveryEndpointContainer>(discoveryEndpointContainer);
         }
