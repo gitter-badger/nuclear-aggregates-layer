@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Purpose = phonecall.Purpose,
                     Status = phonecall.Status,
                     RegardingObjects = _lookupsForRegardingObjects.LookupElements(EntityName.Phonecall, entityId),
-                    RecipientRef = recipient != null ? recipient.ToEntityReference(ReadEntityName) : null,
+                    RecipientRef = recipient != null ? EmbedEntityNameIfNeeded(recipient.ToEntityReference<Phonecall>()) : null,
                     OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = phonecall.CreatedBy, Name = null },
                     CreatedOn = phonecall.CreatedOn,

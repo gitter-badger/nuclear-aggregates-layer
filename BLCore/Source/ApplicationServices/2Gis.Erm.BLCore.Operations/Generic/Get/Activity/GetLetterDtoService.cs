@@ -94,8 +94,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Priority = letter.Priority,
                     Status = letter.Status,
                     RegardingObjects = _lookupsForRegardingObjects.LookupElements(EntityName.Letter, entityId),
-                    SenderRef = sender != null ? sender.ToEntityReference(ReadEntityName) : null,
-                    RecipientRef = recipient != null ? recipient.ToEntityReference(ReadEntityName) : null,
+                    SenderRef = sender != null ? EmbedEntityNameIfNeeded(sender.ToEntityReference<Letter>()) : null,
+                    RecipientRef = recipient != null ? EmbedEntityNameIfNeeded(recipient.ToEntityReference<Letter>()) : null,
 
                     OwnerRef = new EntityReference { Id = letter.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = letter.CreatedBy, Name = null },
