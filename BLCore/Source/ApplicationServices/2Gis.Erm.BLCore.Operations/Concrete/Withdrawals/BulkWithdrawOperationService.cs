@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _getWithdrawalsErrorsCsvReportOperationService = getWithdrawalsErrorsCsvReportOperationService;
         }
 
-        public bool Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId)
+        public BulkWithdrawResult Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId)
         {
             _useCaseTuner.AlterDuration<BulkWithdrawOperationService>();
 
@@ -131,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                   csvReport.ContentType);
                 scope.Complete();
 
-                return allWithwrawalsSucceded;
+                return allWithwrawalsSucceded ? BulkWithdrawResult.AllSucceeded : BulkWithdrawResult.ErrorsOccurred;
             }
         }
     }

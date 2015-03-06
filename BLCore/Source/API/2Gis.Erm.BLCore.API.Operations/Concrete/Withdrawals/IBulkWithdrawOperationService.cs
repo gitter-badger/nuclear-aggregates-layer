@@ -7,8 +7,14 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withd
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
 {
+    public enum BulkWithdrawResult
+    {
+        AllSucceeded = 1,
+        ErrorsOccurred = 2
+    }
+
     public interface IBulkWithdrawOperationService : IOperation<BulkWithdrawIdentity>
     {
-        bool Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId);
+        BulkWithdrawResult Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId);
     }
 }

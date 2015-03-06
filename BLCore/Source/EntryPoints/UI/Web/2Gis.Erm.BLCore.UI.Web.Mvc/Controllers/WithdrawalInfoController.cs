@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                             viewModel.PeriodStart.GetEndPeriodOfThisMonth());
 
                 Guid businessOperationId;
-                var allWithwrawalsSucceded = _bulkWithdrawOperationService.Withdraw(period, viewModel.AccountingMethod, out businessOperationId);
+                var allWithwrawalsSucceded = _bulkWithdrawOperationService.Withdraw(period, viewModel.AccountingMethod, out businessOperationId) == BulkWithdrawResult.AllSucceeded;
                 viewModel.IsSuccess = allWithwrawalsSucceded;
 
                 if (!allWithwrawalsSucceded)
