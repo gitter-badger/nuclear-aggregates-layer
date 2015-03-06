@@ -12,10 +12,10 @@ Ext.DoubleGis.UI.Appointment = Ext.extend(Ext.DoubleGis.UI.ActivityBase, {
         Ext.DoubleGis.UI.Appointment.superclass.Build.call(this);
        
         Ext.get("Purpose").on("change", this.autocompleteHeader, this);
-        Ext.get("ScheduledStart").on("change", this.test, this);
+        Ext.get("ScheduledStart").on("change", this.changeScheduleEnd, this);
     },
-    test:function() {
-        var time = Ext.getCmp("ScheduledStart").getElementDate();
+    changeScheduleEnd: function () {
+        var time = Ext.getCmp("ScheduledStart").getValue();
         if (time) {
             var newTime = time.add(this.duration, 'minutes');
             Ext.getCmp("ScheduledEnd").setValue(newTime);

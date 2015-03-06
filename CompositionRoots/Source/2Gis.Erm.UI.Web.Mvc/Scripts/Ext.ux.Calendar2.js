@@ -137,7 +137,7 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
             return;
         }
 
-        var date = this.getElementDate();
+        var date = this.getValue();
         if (date) {
             this.setValue(date);
         } else {
@@ -145,15 +145,14 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
             this.validate();
         }
     },
-    getElementDate: function() {
+    getValue: function() {
         var date = this.parseUserDate(this.editor.getValue());
         var time = this.time ? this.parseUserTime(this.time.getValue()) : 0;
         if (date) {
-            date.add(time, "ms");
-            return date;
+            date.add(time, "ms");        
         }
 
-        return undefined;
+        return date;
     },
     setValue: function (date) {
         this.ignoreChangeEvent = true;
