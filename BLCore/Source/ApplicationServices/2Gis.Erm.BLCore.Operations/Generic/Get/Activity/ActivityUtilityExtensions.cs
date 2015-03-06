@@ -54,22 +54,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                        };
         }
 
-        public static EntityReference ToEntityReference<TEntity>(this EntityReference<TEntity> reference, Func<EntityName, long, string> getName)
-            where TEntity : IEntity
-        {
-            if (reference == null)
-            {
-                throw new ArgumentNullException("reference");
-            }
-
-            return new EntityReference
-                       {
-                           Id = reference.TargetEntityId,
-                           EntityName = reference.TargetEntityName,
-                           Name = getName(reference.TargetEntityName, reference.TargetEntityId)
-                       };
-        }
-
         public static EntityReference ToEntityReference<TEntity>(this EntityReference<TEntity> reference)
             where TEntity : IEntity
         {
