@@ -68,6 +68,7 @@
     <Compile Include="Accounts\DTO\WithdrawalDto.cs" />
     <Compile Include="Accounts\DTO\WithdrawFromAccountsDto.cs" />
     <Compile Include="Accounts\IAccountRepository.cs" />
+    <Compile Include="Accounts\Operations\AccountingMethodViolationException.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkActivateLocksAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCloseLimitsAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCreateLocksAggregateService.cs" />

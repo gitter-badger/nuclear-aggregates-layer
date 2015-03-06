@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         {
             if (accountingMethod == AccountingMethod.Undefined)
             {
-                throw new ArgumentException("", "accountingMethod");
+                throw new AccountingMethodViolationException(accountingMethod);
             }
 
             WithdrawalInfo newWithdrawal;
