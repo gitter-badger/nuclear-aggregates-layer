@@ -24,16 +24,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
         public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
+            var orderDirectionAspect = (IOrderDirectionAspect)viewModel;
+            var orderWorkflowAspect = (IOrderWorkflowAspect)viewModel;
+            var orderDatesAspect = (IOrderDatesAspect)viewModel;
 
-            if (((IOrderDirectionAspect)viewModel).DestinationOrganizationUnitKey == null)
+            if (orderDirectionAspect.DestinationOrganizationUnitKey == null)
             {
                 return;
             }
 
-            if (((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.Approved || ((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.OnTermination)
+            if (orderWorkflowAspect.WorkflowStepId == OrderState.Approved || orderWorkflowAspect.WorkflowStepId == OrderState.OnTermination)
             {
-                var isReleaseInProgress = _releaseReadModel.HasFinalReleaseInProgress(((IOrderDirectionAspect)viewModel).DestinationOrganizationUnitKey.Value,
-                                                                                      new TimePeriod(((IOrderDatesAspect)viewModel).BeginDistributionDate, ((IOrderDatesAspect)viewModel).EndDistributionDateFact));
+                var isReleaseInProgress = _releaseReadModel.HasFinalReleaseInProgress(orderDirectionAspect.DestinationOrganizationUnitKey.Value,
+                                                                                      new TimePeriod(orderDatesAspect.BeginDistributionDate, orderDatesAspect.EndDistributionDateFact));
                 if (isReleaseInProgress)
                 {
                     viewModel.LockOrderToolbar();

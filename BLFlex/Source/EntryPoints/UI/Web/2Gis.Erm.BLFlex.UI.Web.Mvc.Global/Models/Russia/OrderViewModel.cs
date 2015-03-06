@@ -31,7 +31,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                                          ITerminatableAspect,
                                          IRussiaAdapted
     {
-        #region Реализация аспектов
         public long? SourceOrganizationUnitKey
         {
             get { return SourceOrganizationUnit.Key; }
@@ -70,7 +69,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         {
             get { return (OrderState)WorkflowStepId; }
         }
-        #endregion
 
         [Dependency(DependencyType.Hidden, "RegionalNumber", @"Ext.getDom('Id').value==0 ||
                                                              (!Ext.getCmp('SourceOrganizationUnit').getValue() || !Ext.getCmp('DestinationOrganizationUnit').getValue()) ||

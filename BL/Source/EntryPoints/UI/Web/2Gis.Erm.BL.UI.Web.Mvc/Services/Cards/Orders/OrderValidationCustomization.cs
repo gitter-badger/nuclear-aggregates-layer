@@ -29,9 +29,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
         public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
-            ((IOrderValidationServiceAspect)viewModel).OrderValidationServiceUrl = _orderValidationServiceSettings.RestUrl;
+            var orderWorkflowAspect = (IOrderWorkflowAspect)viewModel;
+            var orderValidationServiceAspect = (IOrderValidationServiceAspect)viewModel;
 
-            var disableOrderValidation = !_stepsWithAvailableValidation.Contains(((IOrderWorkflowAspect)viewModel).WorkflowStepId);
+            orderValidationServiceAspect.OrderValidationServiceUrl = _orderValidationServiceSettings.RestUrl;
+
+            var disableOrderValidation = !_stepsWithAvailableValidation.Contains(orderWorkflowAspect.WorkflowStepId);
 
             if (disableOrderValidation)
             {

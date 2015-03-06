@@ -29,19 +29,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
         public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
+            var orderWorkflowAspect = (IOrderWorkflowAspect)viewModel;
+            var orderDirectionAspect = (IOrderDirectionAspect)viewModel;
+
             modelState.SetModelValue("WorkflowStepId",
-                                     new ValueProviderResult(((IOrderWorkflowAspect)viewModel).PreviousWorkflowStepId,
-                                                             ((IOrderWorkflowAspect)viewModel).PreviousWorkflowStepId.ToString(CultureInfo.InvariantCulture),
+                                     new ValueProviderResult(orderWorkflowAspect.PreviousWorkflowStepId,
+                                                             orderWorkflowAspect.PreviousWorkflowStepId.ToString(CultureInfo.InvariantCulture),
                                                              null));
 
-            ((IOrderWorkflowAspect)viewModel).AvailableSteps = GetAvailableSteps(viewModel.Id,
-                                                               viewModel.IsNew,
-                                                               ((IOrderWorkflowAspect)viewModel).WorkflowStepId,
-                                                               ((IOrderDirectionAspect)viewModel).SourceOrganizationUnitKey);
+            orderWorkflowAspect.AvailableSteps = GetAvailableSteps(viewModel.Id,
+                                                                   viewModel.IsNew,
+                                                                   orderWorkflowAspect.WorkflowStepId,
+                                                                   orderDirectionAspect.SourceOrganizationUnitKey);
 
-            if (((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.Approved || ((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.OnTermination)
+            if (orderWorkflowAspect.WorkflowStepId == OrderState.Approved || orderWorkflowAspect.WorkflowStepId == OrderState.OnTermination)
             {
-                if (!((IOrderDirectionAspect)viewModel).DestinationOrganizationUnitKey.HasValue)
+                if (!orderDirectionAspect.DestinationOrganizationUnitKey.HasValue)
                 {
                     throw new NotificationException("Destination organization unit should be specified");
                 }

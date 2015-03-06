@@ -25,18 +25,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
         public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
+            var orderDirectionAspect = (IOrderDirectionAspect)viewModel;
+            var orderSecurityAspect = (IOrderSecurityAspect)viewModel;
+            var orderWorkflowLockableAspect = (IOrderWorkflowLockableAspect)viewModel;
+
             var currentUserCode = _userContext.Identity.Code;
             Func<FunctionalPrivilegeName, bool> functionalPrivilegeValidator =
                 privilegeName => _functionalAccessService.HasFunctionalPrivilegeGranted(privilegeName, currentUserCode);
 
-            ((IOrderSecurityAspect)viewModel).CurrenctUserCode = currentUserCode;
+            orderSecurityAspect.CurrenctUserCode = currentUserCode;
 
-            ((IOrderSecurityAspect)viewModel).CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
-            ((IOrderSecurityAspect)viewModel).HasOrderDocumentsDebtChecking =
-                _functionalAccessService.HasOrderChangeDocumentsDebtAccess(((IOrderDirectionAspect)viewModel).SourceOrganizationUnitKey ?? 0, currentUserCode);
+            orderSecurityAspect.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
+            orderSecurityAspect.HasOrderDocumentsDebtChecking =
+                _functionalAccessService.HasOrderChangeDocumentsDebtAccess(orderDirectionAspect.SourceOrganizationUnitKey ?? 0, currentUserCode);
 
             // Если есть права и нет сборки в настоящий момент 
-            ((IOrderSecurityAspect)viewModel).HasOrderDocumentsDebtChecking &= !((IOrderWorkflowLockableAspect)viewModel).IsWorkflowLocked;
+            orderSecurityAspect.HasOrderDocumentsDebtChecking &= !orderWorkflowLockableAspect.IsWorkflowLocked;
         }
     }
 }

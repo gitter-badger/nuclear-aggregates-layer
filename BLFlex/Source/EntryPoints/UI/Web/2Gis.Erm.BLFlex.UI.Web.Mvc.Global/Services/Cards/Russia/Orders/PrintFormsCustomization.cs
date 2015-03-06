@@ -15,9 +15,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders
     {
         public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
-            var isActionDisabledBasedOnWorkflowStepId = !((ITerminatableAspect)viewModel).IsTerminated ||
-                                                        !(((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.OnTermination ||
-                                                          ((IOrderWorkflowAspect)viewModel).WorkflowStepId == OrderState.Archive);
+            var orderWorkflowAspect = (IOrderWorkflowAspect)viewModel;
+            var terminatableAspect = (ITerminatableAspect)viewModel;
+
+            var isActionDisabledBasedOnWorkflowStepId = !terminatableAspect.IsTerminated ||
+                                                        !(orderWorkflowAspect.WorkflowStepId == OrderState.OnTermination ||
+                                                          orderWorkflowAspect.WorkflowStepId == OrderState.Archive);
             
             if (isActionDisabledBasedOnWorkflowStepId)
             {

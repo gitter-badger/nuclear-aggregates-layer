@@ -11,8 +11,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts
     {
         public static void LockOrderToolbar(this EntityViewModelBase<Order> orderViewModel)
         {
+            var orderWorkflowLockableAspect = (IOrderWorkflowLockableAspect)orderViewModel;
+           
             Array.ForEach(orderViewModel.ViewConfig.CardSettings.CardToolbar.ToArray(), item => item.Disabled = true);
-            ((IOrderWorkflowLockableAspect)orderViewModel).IsWorkflowLocked = true;
+            orderWorkflowLockableAspect.IsWorkflowLocked = true;
         }
     }
 }
