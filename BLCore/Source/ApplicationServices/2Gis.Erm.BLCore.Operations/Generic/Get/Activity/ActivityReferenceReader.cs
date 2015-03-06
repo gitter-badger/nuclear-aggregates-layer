@@ -69,6 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
                     .Concat(LookupFirmReferencesForClient(client.Id))
                     .Concat(LookupDealReferencesForClient(client.Id));
             }
+
             return Enumerable.Empty<EntityReference>();
         }
 
@@ -84,6 +85,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
             {
                 return LookupContactReferencesForClient(client.Id);
             }
+
             return Enumerable.Empty<EntityReference>();
         }
 
@@ -100,12 +102,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
 
         public IEnumerable<EntityReference> ResolveContactsFromContact(long contactId)
         {
-            return new[] { new EntityReference
-                               {
-                                   EntityName = EntityName.Contact, 
-                                   Id = contactId, 
-                                   Name = _clientReadModel.GetContactName(contactId)
-                               } };
+            return new[] { new EntityReference { EntityName = EntityName.Contact, Id = contactId, Name = _clientReadModel.GetContactName(contactId) } };
         }
 
         private IEnumerable<EntityReference> LookupFirmReferencesForClient(long clientId)

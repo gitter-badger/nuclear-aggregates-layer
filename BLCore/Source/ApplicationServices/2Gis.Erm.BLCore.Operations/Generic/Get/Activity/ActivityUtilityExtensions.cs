@@ -39,6 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 return lookup(entityId.Value);
             }
+
             return Enumerable.Empty<T>();
         }
 
@@ -53,6 +54,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                        };
         }
 
+        public static EntityReference ToEntityReference<TEntity>(this EntityReference<TEntity> reference, Func<EntityName, long, string> getName)
+            where TEntity : IEntity
+        {
+            if (reference == null)
+            {
+                throw new ArgumentNullException("reference");
+            }
+
+            return new EntityReference
+                       {
+                           Id = reference.TargetEntityId,
+                           EntityName = reference.TargetEntityName,
+                           Name = getName(reference.TargetEntityName, reference.TargetEntityId)
+                       };
+        }
+
         public static EntityReference ToEntityReference<TEntity>(this EntityReference<TEntity> reference)
             where TEntity : IEntity
         {
@@ -60,13 +77,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 throw new ArgumentNullException("reference");
             }
-            return new EntityReference { Id = reference.TargetEntityId, EntityName = reference.TargetEntityName };
+
+            return new EntityReference
+            {
+                Id = reference.TargetEntityId,
+                EntityName = reference.TargetEntityName,
+            };
         }
 
         public static IEnumerable<EntityReference> ToEntityReferences<TEntity>(this EntityReference<TEntity> reference)
             where TEntity : IEntity
         {
-            return new[] { reference }.ToEntityReferences();
+            return new[] { reference }.Where(x => x != null).ToEntityReferences();
         }
 
         public static IEnumerable<EntityReference> ToEntityReferences<TEntity>(this IEnumerable<EntityReference<TEntity>> references)

@@ -22,8 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         private readonly IClientReadModel _clientReadModel;
         private readonly IDealReadModel _dealReadModel;
         private readonly IFirmReadModel _firmReadModel;
-        private readonly Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>> _lookupsForRegardingObjects;
-        private readonly Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>> _lookupsForRecipients;
+        private readonly Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>> _lookupsForRegardingObjects;        
 
         public GetTaskDtoService(IUserContext userContext,
                                  IAppointmentReadModel appointmentReadModel,
@@ -48,22 +47,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 { EntityName.Letter, entityId => letterReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
                 { EntityName.Phonecall, entityId => phonecallReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
                 { EntityName.Task, entityId => taskReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Client, entityId => service.ResolveRegardingObjectsFromClient(entityId) },
-                { EntityName.Contact, entityId => service.ResolveRegardingObjectsFromContact(entityId) },
-                { EntityName.Deal, entityId => service.ResolveRegardingObjectsFromDeal(entityId) },
-                { EntityName.Firm, entityId => service.ResolveRegardingObjectsFromFirm(entityId) },
-            };
-
-            _lookupsForRecipients = new Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>>
-            {
-                { EntityName.Appointment, entityId => appointmentReadModel.GetAttendees(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Letter, entityId => letterReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Phonecall, entityId => phonecallReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Client, entityId => service.ResolveContactsFromClient(entityId) },
-                { EntityName.Contact, entityId => service.ResolveContactsFromContact(entityId) },
-                { EntityName.Deal, entityId => service.ResolveContactsFromDeal(entityId) },
-                { EntityName.Firm, entityId => service.ResolveContactsFromFirm(entityId) },
-            };
+                { EntityName.Client, service.ResolveRegardingObjectsFromClient },
+                { EntityName.Contact, service.ResolveRegardingObjectsFromContact },
+                { EntityName.Deal, service.ResolveRegardingObjectsFromDeal },
+                { EntityName.Firm, service.ResolveRegardingObjectsFromFirm },
+            };           
         }
 
         protected override IDomainEntityDto<Task> GetDto(long entityId)
@@ -83,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     TaskType = task.TaskType,
                     Priority = task.Priority,
                     Status = task.Status,
-                    RegardingObjects = _lookupsForRecipients.LookupElements(EntityName.Task, entityId),
+                    RegardingObjects = _lookupsForRegardingObjects.LookupElements(EntityName.Task, entityId),
 
                     OwnerRef = new EntityReference { Id = task.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = task.CreatedBy, Name = null },
@@ -104,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                            Priority = ActivityPriority.Average,
                            Status = ActivityStatus.InProgress,
 
-                           RegardingObjects = _lookupsForRecipients.LookupElements(parentEntityName, parentEntityId),
+                           RegardingObjects = _lookupsForRegardingObjects.LookupElements(parentEntityName, parentEntityId),
                        };
         }
 
@@ -114,6 +102,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 reference.Name = ReadEntityName(reference.EntityName, reference.Id.Value);
             }
+
             return reference;
         }
 

@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -21,6 +22,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
         private readonly ILetterReadModel _letterReadModel;
 
+        private readonly ISecurityServiceUserIdentifier _userIdentifier;
+
         private readonly IClientReadModel _clientReadModel;
         private readonly IDealReadModel _dealReadModel;
         private readonly IFirmReadModel _firmReadModel;
@@ -34,11 +37,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                    IFirmReadModel firmReadModel,
                                    IDealReadModel dealReadModel,
                                    ILetterReadModel letterReadModel,
+                                   ISecurityServiceUserIdentifier userIdentifier,
                                    IPhonecallReadModel phonecallReadModel,
                                    ITaskReadModel taskReadModel)
             : base(userContext)
         {
             _letterReadModel = letterReadModel;
+            _userIdentifier = userIdentifier;
             _clientReadModel = clientReadModel;
             _firmReadModel = firmReadModel;
             _dealReadModel = dealReadModel;
@@ -51,10 +56,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 { EntityName.Letter, entityId => letterReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
                 { EntityName.Phonecall, entityId => phonecallReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
                 { EntityName.Task, entityId => taskReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Client, entityId => service.ResolveRegardingObjectsFromClient(entityId) },
-                { EntityName.Contact, entityId => service.ResolveRegardingObjectsFromContact(entityId) },
-                { EntityName.Deal, entityId => service.ResolveRegardingObjectsFromDeal(entityId) },
-                { EntityName.Firm, entityId => service.ResolveRegardingObjectsFromFirm(entityId) },
+                { EntityName.Client, service.ResolveRegardingObjectsFromClient },
+                { EntityName.Contact, service.ResolveRegardingObjectsFromContact },
+                { EntityName.Deal, service.ResolveRegardingObjectsFromDeal },
+                { EntityName.Firm, service.ResolveRegardingObjectsFromFirm },
             };
 
             _lookupsForRecipients = new Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>>
@@ -62,10 +67,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 { EntityName.Appointment, entityId => appointmentReadModel.GetAttendees(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
                 { EntityName.Letter, entityId => letterReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
                 { EntityName.Phonecall, entityId => phonecallReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Client, entityId => service.ResolveContactsFromClient(entityId) },
-                { EntityName.Contact, entityId => service.ResolveContactsFromContact(entityId) },
-                { EntityName.Deal, entityId => service.ResolveContactsFromDeal(entityId) },
-                { EntityName.Firm, entityId => service.ResolveContactsFromFirm(entityId) },
+                { EntityName.Client, service.ResolveContactsFromClient },
+                { EntityName.Contact, service.ResolveContactsFromContact },
+                { EntityName.Deal, service.ResolveContactsFromDeal },
+                { EntityName.Firm, service.ResolveContactsFromFirm },
             };
         }
 
@@ -88,9 +93,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     ScheduledOn = letter.ScheduledOn,
                     Priority = letter.Priority,
                     Status = letter.Status,
-                    RegardingObjects = _lookupsForRecipients.LookupElements(EntityName.Letter, entityId),
-                    SenderRef = sender.ToEntityReference<Letter>(),
-                    RecipientRef = recipient.ToEntityReference<Letter>(),
+                    RegardingObjects = _lookupsForRegardingObjects.LookupElements(EntityName.Letter, entityId),
+                    SenderRef = sender != null ? sender.ToEntityReference(ReadEntityName) : null,
+                    RecipientRef = recipient != null ? recipient.ToEntityReference(ReadEntityName) : null,
 
                     OwnerRef = new EntityReference { Id = letter.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = letter.CreatedBy, Name = null },
@@ -124,6 +129,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 reference.Name = ReadEntityName(reference.EntityName, reference.Id.Value);
             }
+
             return reference;
         }
 
@@ -139,6 +145,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     return _dealReadModel.GetDeal(entityId).Name;
                 case EntityName.Firm:
                     return _firmReadModel.GetFirmName(entityId);
+                case EntityName.User:
+                    return (_userIdentifier.GetUserInfo(entityId) ?? UserInfo.Empty).DisplayName;                    
                 default:
                     throw new ArgumentOutOfRangeException("entityName");
             }
