@@ -31,22 +31,22 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                                          ITerminatableAspect,
                                          IRussiaAdapted
     {
-        public long? SourceOrganizationUnitKey
+        long? IOrderDirectionAspect.SourceOrganizationUnitKey
         {
             get { return SourceOrganizationUnit.Key; }
         }
 
-        public long? DestinationOrganizationUnitKey
+        long? IOrderDirectionAspect.DestinationOrganizationUnitKey
         {
             get { return DestinationOrganizationUnit.Key; }
         }
 
-        public string SourceOrganizationUnitValue
+        string IOrderDirectionAspect.SourceOrganizationUnitValue
         {
             get { return SourceOrganizationUnit.Value; }
         }
 
-        public string DestinationOrganizationUnitValue
+        string IOrderDirectionAspect.DestinationOrganizationUnitValue
         {
             get
             {
@@ -54,12 +54,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             }
         }
 
-        public long? InspectorKey
+        long? IInspectorAspect.InspectorKey
         {
             get { return Inspector.Key; }
         }
 
-        public string InspectorValue
+        string IInspectorAspect.InspectorValue
         {
             get { return Inspector.Value; }
             set { Inspector.Value = value; }
