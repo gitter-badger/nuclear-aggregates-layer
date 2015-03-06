@@ -69,7 +69,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         [StringLengthLocalized(256)]
         public string Location { get; set; }
 
-        public IEnumerable<string> AmbiguousLookupFields { get; set; }
+        public bool AttendeeAutoUpdate { get; set; }
+        public bool FirmAutoUpdate { get; set; }
+        public bool DealAutoUpdate { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -92,9 +94,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
             var attendeeReference = (modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityName == EntityName.Contact);
             Attendee = LookupField.FromReference(attendeeReference);
-            
 
-            AmbiguousLookupFields = (modelDto.Attendees != null ? modelDto.Attendees.Concat(regardingObjects) : regardingObjects).GetAmbiguousFields();             
+            FirmAutoUpdate = regardingObjects.IsAutoUpdate(EntityName.Firm);
+            DealAutoUpdate = regardingObjects.IsAutoUpdate(EntityName.Deal);
+            AttendeeAutoUpdate = modelDto.Attendees.IsAutoUpdate(EntityName.Contact);
 
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be only there?

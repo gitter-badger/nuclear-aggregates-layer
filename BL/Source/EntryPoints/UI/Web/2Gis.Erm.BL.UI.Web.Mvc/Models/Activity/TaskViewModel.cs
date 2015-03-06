@@ -62,7 +62,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         public LookupField Deal { get; set; }
         public LookupField Firm { get; set; }
 
-        public IEnumerable<string> AmbiguousLookupFields { get; set; }
+        public bool DealAutoUpdate { get; set; }
+        public bool FirmAutoUpdate { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -81,12 +82,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal));
             Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Firm));
 
-            AmbiguousLookupFields = regardingObjects.GetAmbiguousFields();
+            FirmAutoUpdate = regardingObjects.IsAutoUpdate(EntityName.Firm);
+            DealAutoUpdate = regardingObjects.IsAutoUpdate(EntityName.Deal);            
 
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be it there anyway?
         }
-
+        
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
             Action<IList<EntityReference>, LookupField, EntityName> addIfSet =

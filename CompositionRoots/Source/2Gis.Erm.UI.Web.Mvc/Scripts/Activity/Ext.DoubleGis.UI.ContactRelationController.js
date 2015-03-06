@@ -15,19 +15,7 @@ Ext.DoubleGis.UI.ContactRelationController = Ext.extend(Ext.util.Observable, {
 
         Ext.getCmp(this.clientComp).on("change", this.onClientChanged, this);
         Ext.getCmp(this.contactComp).on("afterselect", this.onContactChanged, this);
-
-        // иницируем заполнение для новой сущности
-        //if (!Ext.fly("Id").getValue(true) && !Ext.fly("DealId").getValue() && !Ext.fly("FirmId").getValue()) {
-        //    if (Ext.fly(this.clientField).getValue()) {
-        //        this.onClientChanged();
-        //    }
-        //    else if (Ext.fly(this.contactField).getValue()) {
-        //        this.onContactChanged();
-        //    }
-        //}
-        if (config.Settings.ambiguousFields.indexOf('Contact') >= 0) {
-            Ext.getCmp(this.contactComp).forceGetData();
-        }
+       
     },
     onClientChanged: function () {
         if (Ext.fly(this.clientComp).getValue()) {
