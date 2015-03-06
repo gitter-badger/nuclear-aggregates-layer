@@ -220,7 +220,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
             _logger.InfoFormat("Starting withdrawal process. {0}", withdrawOperationParametersDescription);
 
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
             {
                 var validationRules = _withdrawalOperationValidationRulesProvider.GetValidationRules();
 
