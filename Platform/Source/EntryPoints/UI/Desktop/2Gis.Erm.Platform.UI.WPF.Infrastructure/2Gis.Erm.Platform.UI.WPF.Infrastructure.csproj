@@ -439,14 +439,16 @@
       <Project>{153868e3-4c4c-45fe-86d6-6b4fbd39249c}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
-      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
-      <Name>Nuclear.Settings.API</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj">
-      <Project>{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}</Project>
-      <Name>Nuclear.Tracing.API</Name>
-    </ProjectReference>
+    <Reference Include="2Gis.Nuclear.Settings.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2Gis.Nuclear.Tracing.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <ProjectReference Include="..\..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>

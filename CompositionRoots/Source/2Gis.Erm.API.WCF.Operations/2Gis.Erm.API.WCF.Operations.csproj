@@ -4,8 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
+    <ProductVersion></ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{ACAA20F3-B75C-49C4-B32B-E636BDC8046C}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -219,18 +218,21 @@
       <Project>{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}</Project>
       <Name>2Gis.Erm.BL.DI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
-      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
-      <Name>Nuclear.Settings.API</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Settings\Settings\Nuclear.Settings.csproj">
-      <Project>{93878135-691A-418B-97B1-3AC9E250EC3A}</Project>
-      <Name>Nuclear.Settings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj">
-      <Project>{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}</Project>
-      <Name>Nuclear.Tracing.API</Name>
-    </ProjectReference>
+    <Reference Include="2Gis.Nuclear.Settings.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2Gis.Nuclear.Settings">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\2Gis.Nuclear.Settings.1.0.1\lib\net451\2Gis.Nuclear.Settings.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2Gis.Nuclear.Tracing.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
       <Name>2Gis.Erm.Platform.API.Aggregates</Name>
@@ -342,8 +344,7 @@
     </Content>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -362,8 +363,7 @@
           <IISUrl>https://localhost:44302/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -109,10 +109,11 @@
     <Compile Include="ServiceModel\ServiceBehaviors\ErmServiceBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Nuclear\Nuclear.Tracing\Tracing.API\Nuclear.Tracing.API.csproj">
-      <Project>{3C5CCC9B-4FAE-4547-BDD1-673930B6779F}</Project>
-      <Name>Nuclear.Tracing.API</Name>
-    </ProjectReference>
+    <Reference Include="2Gis.Nuclear.Tracing.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

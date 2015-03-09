@@ -92,10 +92,11 @@
     <Compile Include="Extensions\ScopedDependencyOverride\ScopedDependencyOverride.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
-      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
-      <Name>Nuclear.Settings.API</Name>
-    </ProjectReference>
+    <Reference Include="2Gis.Nuclear.Settings.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

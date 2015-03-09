@@ -134,10 +134,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Nuclear\Nuclear.Settings\Settings.API\Nuclear.Settings.API.csproj">
-      <Project>{9CCCAA28-2B9F-484B-B717-DB95FDF0114A}</Project>
-      <Name>Nuclear.Settings.API</Name>
-    </ProjectReference>
+    <Reference Include="2Gis.Nuclear.Settings.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <ProjectReference Include="..\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
       <Project>{f33c2da3-cf31-4bce-986e-e198f1c9ea82}</Project>
       <Name>2Gis.Erm.Platform.Resources.Server</Name>
