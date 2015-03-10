@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             entityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             entityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             entityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            entityDto.AdditionalEmail = TestAdditionalEmail;
+            entityDto.Email = TestAdditionalEmail;
             entityDto.PostAddress = TestPostAddress;
             entityDto.PaymentMethod = TestPaymentMethod;
             entityDto.AccountNumber = TestAccountNumber;
@@ -104,7 +104,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             entityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             entityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             entityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            entityDto.AdditionalEmail = TestAdditionalEmail;
+            entityDto.Email = TestAdditionalEmail;
             entityDto.PostAddress = TestPostAddress;
             entityDto.PaymentMethod = TestPaymentMethod;
             entityDto.AccountNumber = TestAccountNumber;
@@ -304,7 +304,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             entityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             entityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             entityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            entityDto.AdditionalEmail = TestAdditionalEmail;
+            entityDto.Email = TestAdditionalEmail;
             entityDto.PostAddress = TestPostAddress;
             entityDto.PaymentMethod = TestPaymentMethod;
             entityDto.AccountNumber = TestAccountNumber;

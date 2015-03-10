@@ -42,6 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                 {
                     { "ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
                     { "EmailForAccountingDocuments", legalPersonProfile.EmailForAccountingDocuments },
+                    { "Email", legalPersonProfile.Email },
                 };
 
             return new PrintData

@@ -19,9 +19,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public EntityReference ProjectRef { get; set; }
 
         [DataMember]
-        public EntityReference PositionRef { get; set; }
-
-        [DataMember]
         public DateTime PeriodStartDate { get; set; }
 
         [DataMember]
@@ -29,6 +26,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public EntityReference SessionRef { get; set; }
+
+        [DataMember]
+        public decimal Amount { get; set; }
 
         [DataMember]
         public EntityReference CreatedByRef { get; set; }
