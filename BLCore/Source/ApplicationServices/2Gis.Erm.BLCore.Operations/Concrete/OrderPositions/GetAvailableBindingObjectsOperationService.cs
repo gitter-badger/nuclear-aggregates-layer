@@ -5,12 +5,16 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Data;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderPosition;
 
@@ -27,12 +31,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
         private readonly ICategoryReadModel _categoryReadModel;
 
         public GetAvailableBindingObjectsOperationService(IFirmReadModel firmReadModel,
-                                                           IThemeReadModel themeReadModel,
-                                                           IPositionReadModel positionReadModel,
-                                                           IOrderReadModel orderReadModel,
-                                                           IPriceReadModel priceReadModel,
-                                                           IOperationScopeFactory operationScopeFactory,
-                                                           ICategoryReadModel categoryReadModel)
+                                                          IThemeReadModel themeReadModel,
+                                                          IPositionReadModel positionReadModel,
+                                                          IOrderReadModel orderReadModel,
+                                                          IPriceReadModel priceReadModel,
+                                                          IOperationScopeFactory operationScopeFactory,
+                                                          ICategoryReadModel categoryReadModel)
         {
             _firmReadModel = firmReadModel;
             _themeReadModel = themeReadModel;
@@ -52,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 var firmAddresses = GetFirmAddresses(orderDto.FirmId, includeHiddenAddresses);
                 var firmAddressesCategories = _categoryReadModel.GetFirmAddressesCategories(orderDto.DestOrganizationUnitId, firmAddresses.Select(x => x.Id));
 
-                var firmCategoryIds = firmAddressesCategories.SelectMany(x => x.Value).Distinct().ToArray();
+                var firmCategoryIds = firmAddressesCategories.SelectMany(x => x.Value).Select(x => x.Id).Distinct().ToArray();
                 var themeDtos = _themeReadModel.FindThemesCanBeUsedWithOrder(orderDto.DestOrganizationUnitId, orderDto.BeginDistributionDate, orderDto.EndDistributionDatePlan);
 
                 IEnumerable<LinkingObjectsSchemaDto.WarningDto> warnings = null;
@@ -65,34 +69,76 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.ThereIsNoSuitableThemes } };
                 }
 
-                var firmCategories = _categoryReadModel.GetFirmCategories(firmCategoryIds, pricePositionInfo.SalesModel, orderDto.DestOrganizationUnitId);
-                var additionalCategories = orderPositionId.HasValue
-                                               ? _categoryReadModel.GetAdditionalCategories(firmCategoryIds, orderPositionId.Value, pricePositionInfo.SalesModel, orderDto.DestOrganizationUnitId)
-                                               : Enumerable.Empty<LinkingObjectsSchemaDto.CategoryDto>();
+                var firmCategoriesSupportedBySalesModel = _categoryReadModel.GetFirmCategories(firmCategoryIds, pricePositionInfo.SalesModel, orderDto.DestOrganizationUnitId);
+                var salesIntoCategories = orderPositionId.HasValue
+                                              ? _categoryReadModel.GetSalesIntoCategories(orderPositionId.Value)
+                                              : Enumerable.Empty<CategoryOpaDto>();
 
-                // Оставим в качестве допустимых рубрик в адрес только те рубрики, что остались в качестве допустимых рубрик по фирме
-                var allAvailableFirmCategoryIds = firmCategories.Select(x => x.Id).Concat(additionalCategories.Select(x => x.Id));
+                var salesIntoCategoriesByFirmAddress = salesIntoCategories.Where(x => x.FirmAddressId.HasValue)
+                                                                          .GroupBy(x => x.FirmAddressId)
+                                                                          .ToDictionary(x => x.Key, y => y);
+
+                // Оставим в качестве допустимых рубрик в адрес только те рубрики, что остались в качестве допустимых рубрик по фирме, либо те, в которые уже были продажи.
                 foreach (var firmAddress in firmAddresses)
                 {
                     firmAddress.Categories =
                         (firmAddressesCategories.ContainsKey(firmAddress.Id)
-                             ? firmAddressesCategories[firmAddress.Id]
-                             : Enumerable.Empty<long>()).Where(allAvailableFirmCategoryIds.Contains);
+                             ? firmAddressesCategories[firmAddress.Id].Select(x => x.Id).Where(x => firmCategoriesSupportedBySalesModel.Any(y => y.Id == x))
+                             : Enumerable.Empty<long>())
+                            .Union(salesIntoCategoriesByFirmAddress.ContainsKey(firmAddress.Id)
+                                       ? salesIntoCategoriesByFirmAddress[firmAddress.Id].Select(x => x.CategoryId)
+                                       : Enumerable.Empty<long>());
+                }
+
+                var positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId);
+
+                var salesIntoCategoriesByPositions = salesIntoCategories.GroupBy(x => x.PositionId)
+                                                                        .ToDictionary(x => x.Key, y => y);
+
+
+                var allFirmCategories = firmAddressesCategories.SelectMany(x => x.Value).DistinctBy(x => x.Id).ToArray();
+                foreach (var position in positions)
+                {
+                    var salesIntoCategoriesByPosition = salesIntoCategoriesByPositions.ContainsKey(position.Id)
+                                                            ? salesIntoCategoriesByPositions[position.Id]
+                                                            : Enumerable.Empty<CategoryOpaDto>();
+
+                    position.AvailableCategories = GetCategoriesAvailableForPosition(allFirmCategories,
+                                                                                     firmCategoriesSupportedBySalesModel,
+                                                                                     salesIntoCategoriesByPosition,
+                                                                                     (PositionsGroup)position.PositionsGroup);
                 }
 
                 var result = new LinkingObjectsSchemaDto
-                           {
-                               Warnings = warnings,
-                               FirmCategories = firmCategories,
-                               AdditionalCategories = additionalCategories,
-                               Themes = themeDtos,
-                               Positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId),
-                               FirmAddresses = firmAddresses
-                           };
+                                 {
+                                     Warnings = warnings,
+                                     FirmCategories =
+                                         firmCategoriesSupportedBySalesModel.Concat(salesIntoCategories.Where(AdditionalCategoriesWithSales(firmCategoriesSupportedBySalesModel.Select(x => x.Id))
+                                                                                                                  .Predicate.Compile())
+                                                                                                       .Select(LinkingObjectCategoryDto().Selector.Compile())),
+                                     Themes = themeDtos,
+                                     Positions = positions,
+                                     FirmAddresses = firmAddresses
+                                 };
 
                 operationScope.Complete();
                 return result;
             }
+        }
+
+        private static FindSpecification<CategoryOpaDto> AdditionalCategoriesWithSales(IEnumerable<long> categories)
+        {
+            return new FindSpecification<CategoryOpaDto>(x => !categories.Contains(x.CategoryId));
+        }
+
+        private static ISelectSpecification<CategoryOpaDto, LinkingObjectsSchemaDto.CategoryDto> LinkingObjectCategoryDto()
+        {
+            return new SelectSpecification<CategoryOpaDto, LinkingObjectsSchemaDto.CategoryDto>(x => new LinkingObjectsSchemaDto.CategoryDto
+            {
+                Id = x.CategoryId,
+                Level = x.CategoryLevel,
+                Name = x.CategoryName
+            });
         }
 
         private LinkingObjectsSchemaDto.FirmAddressDto[] GetFirmAddresses(long firmId, bool includeHiddenAddresses)
@@ -125,6 +171,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             }
 
             return string.Format("{0} — {1}", address, referencePoint);
+        }
+
+        private IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetCategoriesAvailableForPosition(
+            IEnumerable<LinkingObjectsSchemaDto.CategoryDto> allFirmCategories,
+            IEnumerable<LinkingObjectsSchemaDto.CategoryDto> supportedBySalesModelCategories,
+            IEnumerable<CategoryOpaDto> salesIntoCategoriesByPosition,
+            PositionsGroup positionsGroup)
+        {
+            var positionsGroupCategories = positionsGroup == PositionsGroup.Media ? allFirmCategories : supportedBySalesModelCategories;
+            return
+                positionsGroupCategories.Concat(salesIntoCategoriesByPosition.Where(AdditionalCategoriesWithSales(positionsGroupCategories.Select(x => x.Id)).Predicate.Compile())
+                                                                             .Select(LinkingObjectCategoryDto().Selector.Compile()));
         }
     }
 }

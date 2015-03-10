@@ -332,6 +332,7 @@
     <Compile Include="Roles\IRoleRepository.cs" />
     <Compile Include="Roles\ReadModel\RoleSpecs.Relations.cs" />
     <Compile Include="Settings\IDebtProcessingSettings.cs" />
+    <Compile Include="SimplifiedModel\Categories\DTO\CategoryOpaDto.cs" />
     <Compile Include="SimplifiedModel\Categories\IBulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\IBulkDeleteSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />

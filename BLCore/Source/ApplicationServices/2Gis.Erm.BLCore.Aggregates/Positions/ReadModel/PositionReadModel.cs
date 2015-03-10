@@ -74,7 +74,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                                                  x.Name,
                                                  x.BindingObjectTypeEnum,
                                                  x.AdvertisementTemplateId,
-                                                 x.AdvertisementTemplate.DummyAdvertisementId
+                                                 x.AdvertisementTemplate.DummyAdvertisementId,
+                                                 x.PositionsGroup
                                              })
                             .ToArray()
                             .Select(x => new LinkingObjectsSchemaDto.PositionDto
@@ -84,7 +85,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                                                  LinkingObjectType = x.BindingObjectTypeEnum.ToString(),
                                                  AdvertisementTemplateId = x.AdvertisementTemplateId,
                                                  DummyAdvertisementId = x.DummyAdvertisementId,
-                                                 IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType(x.BindingObjectTypeEnum)
+                                                 IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType(x.BindingObjectTypeEnum),
+                                                 PositionsGroup = (int)x.PositionsGroup
                                              })
                             .ToArray();
         }
