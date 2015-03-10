@@ -10,17 +10,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules
 {
     public class PeriodValidationRule : IWithdrawalOperationValidationRule
     {
-        private readonly ICheckOperationPeriodService _checkOperationPeriodService;
+        private readonly IMonthPeriodValidationService _checkPeriodService;
 
-        public PeriodValidationRule(ICheckOperationPeriodService checkOperationPeriodService)
+        public PeriodValidationRule(IMonthPeriodValidationService checkOperationPeriodService)
         {
-            _checkOperationPeriodService = checkOperationPeriodService;
+            _checkPeriodService = checkOperationPeriodService;
         }
 
         public bool Validate(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod, out IEnumerable<string> messages)
         {
             string report;
-            var result = _checkOperationPeriodService.IsOperationPeriodValid(period, out report);
+            var result = _checkPeriodService.IsValid(period, out report);
             if (!string.IsNullOrWhiteSpace(report))
             {
                 messages = new[] { report };

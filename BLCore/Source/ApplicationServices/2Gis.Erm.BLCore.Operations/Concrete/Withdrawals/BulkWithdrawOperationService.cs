@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IWithdrawOperationService _withdrawOperationService;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly ICheckOperationPeriodService _checkOperationPeriodService;
+        private readonly IMonthPeriodValidationService _checkPeriodService;
         private readonly IUserContext _userContext;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly ICommonLog _commonLog;
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                             IWithdrawOperationService withdrawOperationService,
                                             IOperationScopeFactory operationScopeFactory,
                                             ISecurityServiceFunctionalAccess functionalAccessService,
-                                            ICheckOperationPeriodService checkOperationPeriodService,
+                                            IMonthPeriodValidationService checkPeriodService,
                                             IUserContext userContext,
                                             IUseCaseTuner useCaseTuner,
                                             ICommonLog commonLog,
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _withdrawOperationService = withdrawOperationService;
             _operationScopeFactory = operationScopeFactory;
             _functionalAccessService = functionalAccessService;
-            _checkOperationPeriodService = checkOperationPeriodService;
+            _checkPeriodService = checkPeriodService;
             _userContext = userContext;
             _useCaseTuner = useCaseTuner;
             _commonLog = commonLog;
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
 
             string report;
-            if (!_checkOperationPeriodService.IsOperationPeriodValid(period, out report))
+            if (!_checkPeriodService.IsValid(period, out report))
             {
                 throw new InvalidPeriodException(report);
             }
