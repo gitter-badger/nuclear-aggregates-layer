@@ -30,13 +30,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Complete
                 throw new ArgumentNullException("appointment");
             }
 
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Appointment>())
+            if (appointment.Status != ActivityStatus.InProgress)
             {
-                if (appointment.Status != ActivityStatus.InProgress)
-                {
-                    throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, appointment.Header));
-                }
+                throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, appointment.Header));
+            }
 
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Appointment>())
+            {                
                 appointment.Status = ActivityStatus.Completed;
 
                 _repository.Update(appointment);

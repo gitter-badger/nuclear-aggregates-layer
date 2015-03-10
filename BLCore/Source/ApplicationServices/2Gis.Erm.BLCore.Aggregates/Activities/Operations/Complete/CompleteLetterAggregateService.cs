@@ -30,13 +30,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Complete
                 throw new ArgumentNullException("letter");
             }
 
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Letter>())
+            if (letter.Status != ActivityStatus.InProgress)
             {
-                if (letter.Status != ActivityStatus.InProgress)
-                {
-                    throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, letter.Header));
-                }
+                throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, letter.Header));
+            }
 
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Letter>())
+            {                
                 letter.Status = ActivityStatus.Completed;
 
                 _repository.Update(letter);

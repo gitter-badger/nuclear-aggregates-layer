@@ -30,13 +30,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Cancel
                 throw new ArgumentNullException("letter");
             }
 
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CancelIdentity, Letter>())
+            if (letter.Status != ActivityStatus.InProgress)
             {
-                if (letter.Status != ActivityStatus.InProgress)
-                {
-                    throw new BusinessLogicException(string.Format(BLResources.CannotCancelFinishedOrClosedActivity, letter.Header));
-                }
+                throw new BusinessLogicException(string.Format(BLResources.CannotCancelFinishedOrClosedActivity, letter.Header));
+            }
 
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CancelIdentity, Letter>())
+            {                
                 letter.Status = ActivityStatus.Canceled;
 
                 _repository.Update(letter);
