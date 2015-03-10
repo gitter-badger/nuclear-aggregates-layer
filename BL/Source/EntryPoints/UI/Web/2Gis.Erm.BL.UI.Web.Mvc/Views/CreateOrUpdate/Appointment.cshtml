@@ -16,13 +16,12 @@
 @section CustomInit
 {
     <script type="text/javascript">
-        Ext.onReady(function() {
-            var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
-            Ext.apply(cardSettings, { contactField: "AttendeeId", contactComponent: "Attendee"});
-            Ext.apply(cardSettings, { duration: @CalendarSettings.TimeSettings.DefaultAppointmentDuration.TotalMinutes });
-            window.Card = new window.Ext.DoubleGis.UI.Appointment(cardSettings);
-            window.Card.Build();
-        });
+    Ext.onReady(function() {
+        var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
+        Ext.apply(cardSettings, { contactField: "AttendeeId", contactComponent: "Attendee", duration: @CalendarSettings.DefaultAppointmentDuration.TotalMinutes});            
+        window.Card = new window.Ext.DoubleGis.UI.Appointment(cardSettings);
+        window.Card.Build();
+    });
     </script>
 }
 
