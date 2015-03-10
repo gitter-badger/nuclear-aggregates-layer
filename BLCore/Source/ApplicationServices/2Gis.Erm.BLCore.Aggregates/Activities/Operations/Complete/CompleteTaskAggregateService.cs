@@ -1,6 +1,8 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Complete;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -30,6 +32,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Complete
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Task>())
             {
+                if (task.Status != ActivityStatus.InProgress)
+                {
+                    throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, task.Header));
+                }
+
                 task.Status = ActivityStatus.Completed;
 
                 _repository.Update(task);

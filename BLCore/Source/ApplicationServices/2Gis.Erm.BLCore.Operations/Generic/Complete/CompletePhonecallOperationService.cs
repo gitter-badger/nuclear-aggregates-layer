@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -49,12 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         {
             using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Phonecall>())
             {
-                var phonecall = _phonecallReadModel.GetPhonecall(entityId);
-
-                if (phonecall.Status != ActivityStatus.InProgress)
-                {
-                    throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, phonecall.Header));
-                }
+                var phonecall = _phonecallReadModel.GetPhonecall(entityId);                
 
                 if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
                 {

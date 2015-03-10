@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -49,12 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Appointment>())
             {
                 var appointment = _appointmentReadModel.GetAppointment(entityId);
-                
-                if (appointment.Status != ActivityStatus.InProgress)
-                {
-                    throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, appointment.Header));
-                }
-
+                                
                 if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, appointment.OwnerCode))
                 {
                     throw new SecurityException(string.Format("{0}: {1}", appointment.Header, BLResources.SecurityAccessDenied));

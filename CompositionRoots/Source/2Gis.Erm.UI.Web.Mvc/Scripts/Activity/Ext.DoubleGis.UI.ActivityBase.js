@@ -57,7 +57,20 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             return false;
         }
         return true;
-    },    
+    },
+    postOperation: function (operationName) {
+        this.Items.Toolbar.disable();
+        this.submitMode = this.submitModes.SAVE;
+        var operationUrl = this.EvaluateOperationUrl(operationName) + "/" + this.form.Id.value;
+        window.Ext.Ajax.syncRequest({
+            timeout: 1200000,
+            url: operationUrl,
+            method: 'POST',
+            scope: this,
+            success: this.refresh,
+            failure: this.postFormFailure
+        });
+    },
     ChangeStatus: function (operation)
     {
         var currentIsDirty = this.isDirty;
@@ -84,21 +97,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     },
     EvaluateOperationUrl: function (operationName) {
         return String.format(this.EvaluateOperationUrlTemplate(operationName), this.EntityName);
-    },
-    postOperation: function (operationName)
-    {
-        this.Items.Toolbar.disable();
-        this.submitMode = this.submitModes.SAVE;
-        var operationUrl = this.EvaluateOperationUrl(operationName) + "/" + this.form.Id.value;
-        window.Ext.Ajax.syncRequest({
-            timeout: 1200000,
-            url: operationUrl,
-            method: 'POST',            
-            scope: this,           
-            success: this.refresh,
-            failure: this.postFormFailure            
-        });
-    },
+    },    
     CompleteActivity: function () {        
         this.ChangeStatus("Complete");
     },

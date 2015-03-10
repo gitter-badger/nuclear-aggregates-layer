@@ -1,6 +1,8 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Cancel;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -30,6 +32,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Cancel
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<CancelIdentity, Phonecall>())
             {
+                if (phonecall.Status != ActivityStatus.InProgress)
+                {
+                    throw new BusinessLogicException(string.Format(BLResources.CannotCancelFinishedOrClosedActivity, phonecall.Header));
+                }
+
                 phonecall.Status = ActivityStatus.Canceled;
 
                 _repository.Update(phonecall);
