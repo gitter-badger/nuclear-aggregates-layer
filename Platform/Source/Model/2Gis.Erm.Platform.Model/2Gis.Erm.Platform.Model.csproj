@@ -569,7 +569,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\CreateLockDetailsDuringWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\DeleteLockDetailsDuringRevertingWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\RevertWithdrawFromAccountsIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\GetWithdrawalsErrorsCsvReportIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\GetWithdrawalErrorsCsvReportIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\BulkWithdrawIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawFromAccountsIdentity.cs" />
     <Compile Include="ModelIndicators.Boundaries.cs" />

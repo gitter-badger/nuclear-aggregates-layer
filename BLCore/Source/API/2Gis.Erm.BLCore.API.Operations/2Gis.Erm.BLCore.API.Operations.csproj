@@ -216,7 +216,7 @@
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />
-    <Compile Include="Concrete\Withdrawals\WithdrawalsErrorsReport.cs" />
+    <Compile Include="Concrete\Withdrawals\WithdrawalErrorsReport.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeDealsDuringRevertingWithdrawalOperationService.cs" />
@@ -230,7 +230,7 @@
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRule.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRulesProvider.cs" />
-    <Compile Include="Concrete\Withdrawals\IGetWithdrawalsErrorsCsvReportOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\IGetWithdrawalErrorsCsvReportOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IBulkWithdrawOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />

@@ -33,18 +33,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly ICommonLog _commonLog;
         private readonly IOperationService _operationService;
-        private readonly IGetWithdrawalsErrorsCsvReportOperationService _getWithdrawalsErrorsCsvReportOperationService;
+        private readonly IGetWithdrawalErrorsCsvReportOperationService _getWithdrawalErrorsCsvReportOperationService;
 
         public BulkWithdrawOperationService(IAccountReadModel accountReadModel,
-                                                      IWithdrawOperationService withdrawOperationService,
-                                                      IOperationScopeFactory operationScopeFactory,
-                                                      ISecurityServiceFunctionalAccess functionalAccessService,
-                                                      ICheckOperationPeriodService checkOperationPeriodService,
-                                                      IUserContext userContext,
-                                                      IUseCaseTuner useCaseTuner,
-                                                      ICommonLog commonLog,
-                                                      IOperationService operationService,
-                                                      IGetWithdrawalsErrorsCsvReportOperationService getWithdrawalsErrorsCsvReportOperationService)
+                                            IWithdrawOperationService withdrawOperationService,
+                                            IOperationScopeFactory operationScopeFactory,
+                                            ISecurityServiceFunctionalAccess functionalAccessService,
+                                            ICheckOperationPeriodService checkOperationPeriodService,
+                                            IUserContext userContext,
+                                            IUseCaseTuner useCaseTuner,
+                                            ICommonLog commonLog,
+                                            IOperationService operationService,
+                                            IGetWithdrawalErrorsCsvReportOperationService getWithdrawalErrorsCsvReportOperationService)
         {
             _accountReadModel = accountReadModel;
             _withdrawOperationService = withdrawOperationService;
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _useCaseTuner = useCaseTuner;
             _commonLog = commonLog;
             _operationService = operationService;
-            _getWithdrawalsErrorsCsvReportOperationService = getWithdrawalsErrorsCsvReportOperationService;
+            _getWithdrawalErrorsCsvReportOperationService = getWithdrawalErrorsCsvReportOperationService;
         }
 
         public BulkWithdrawResult Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId)
@@ -119,8 +119,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                     };
 
                 var csvReport = allWithwrawalsSucceded
-                                    ? new WithdrawalsErrorsReport()
-                                    : _getWithdrawalsErrorsCsvReportOperationService.GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded)
+                                    ? new WithdrawalErrorsReport()
+                                    : _getWithdrawalErrorsCsvReportOperationService.GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded)
                                                                                                                                         .ToDictionary(x => x.Key, y => y.Value),
                                                                                                      period,
                                                                                                      accountingMethod);

@@ -173,7 +173,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Account = 142
         public const int BulkWithdrawIdentity = 14201;
-        public const int GetWithdrawalsErrorsCsvReportIdentity = 14202;
+        public const int GetWithdrawalErrorsCsvReportIdentity = 14202;
 
         // EntityName.OrderProcessingRequest = 550
         public const int RequestOrderProlongationIdentity = 55001;

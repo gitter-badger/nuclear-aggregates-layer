@@ -9,30 +9,28 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
-    [UseCase(Duration = UseCaseDuration.ExtraLong)]
-    public sealed class GetWithdrawalsErrorsReportOperationService : IGetWithdrawalsErrorsCsvReportOperationService
+    public sealed class GetWithdrawalErrorsReportOperationService : IGetWithdrawalErrorsCsvReportOperationService
     {
         private readonly IGlobalizationSettings _globalizationSettings;
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public GetWithdrawalsErrorsReportOperationService(IGlobalizationSettings globalizationSettings, IOrganizationUnitReadModel organizationUnitReadModel, IOperationScopeFactory operationScopeFactory)
+        public GetWithdrawalErrorsReportOperationService(IGlobalizationSettings globalizationSettings, IOrganizationUnitReadModel organizationUnitReadModel, IOperationScopeFactory operationScopeFactory)
         {
             _globalizationSettings = globalizationSettings;
             _organizationUnitReadModel = organizationUnitReadModel;
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public WithdrawalsErrorsReport GetErrorsReport(IDictionary<long, WithdrawalProcessingResult> resultsWithErrors, TimePeriod period, AccountingMethod accountingMethod)
+        public WithdrawalErrorsReport GetErrorsReport(IDictionary<long, WithdrawalProcessingResult> resultsWithErrors, TimePeriod period, AccountingMethod accountingMethod)
         {
-            using (var scope = _operationScopeFactory.CreateNonCoupled<GetWithdrawalsErrorsCsvReportIdentity>())
+            using (var scope = _operationScopeFactory.CreateNonCoupled<GetWithdrawalErrorsCsvReportIdentity>())
             {
                 var organizationUnitNames = _organizationUnitReadModel.GetNames(resultsWithErrors.Select(x => x.Key));
                 var dataTable = new DataTable();
@@ -52,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
                 scope.Complete();
 
-                return new WithdrawalsErrorsReport
+                return new WithdrawalErrorsReport
                 {
                     ReportContent = reportContent,
                     ReportFileName = string.Format("WithdrawalReport{0:dd-MM-yy}_{1:dd-MM-yy}_{2}.csv", period.Start, period.End, accountingMethod),
