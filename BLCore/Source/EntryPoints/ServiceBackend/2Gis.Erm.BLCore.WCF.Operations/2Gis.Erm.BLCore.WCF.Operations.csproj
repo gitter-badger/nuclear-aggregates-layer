@@ -60,9 +60,11 @@
     <Compile Include="Append.svc.cs" />
     <Compile Include="Assign.svc.cs" />
     <Compile Include="BasicOperationsSharedTypesBehaviorFactory.cs" />
+    <Compile Include="CancelApplicationService.cs" />
     <Compile Include="ChangeClient.svc.cs" />
     <Compile Include="ChangeTerritory.svc.cs" />
     <Compile Include="CheckForDebts.svc.cs" />
+    <Compile Include="CompleteApplicationService.cs" />
     <Compile Include="CreateOrUpdate.svc.cs" />
     <Compile Include="Deactivate.svc.cs" />
     <Compile Include="Delete.svc.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="GetDomainEntityDto.svc.cs" />
     <Compile Include="GroupAssign.svc.cs" />
     <Compile Include="Qualify.svc.cs" />
+    <Compile Include="ReopenApplicationService.cs" />
     <Compile Include="SharedTypesMessageInspectorEndpointBehaviorExtensionElement.cs" />
     <Compile Include="SharedTypesProvider.cs" />
     <Compile Include="UploadBinary.svc.cs" />

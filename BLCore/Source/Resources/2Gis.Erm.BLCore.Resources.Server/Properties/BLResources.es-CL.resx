@@ -5192,4 +5192,16 @@ Periodo de la publicación: {3}.</value>
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>No hay permisos suficientes para cambiar de supervisor de la acción {0}</value>
   </data>
+  <data name="CancelConfirmation" xml:space="preserve">
+    <value >Подтвердите отмену действий</value>
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value>Невозможно отменить действие {0} в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value>Невозможно завершить действие {0} в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value >Операция смены клиента не определена для указанного типа сущности</value>
+  </data>
 </root>

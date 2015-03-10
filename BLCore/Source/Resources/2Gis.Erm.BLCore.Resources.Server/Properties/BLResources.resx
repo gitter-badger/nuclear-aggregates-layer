@@ -5172,4 +5172,16 @@
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>Недостаточно прав для смены куратора у действия {0}</value>
   </data>
+  <data name="CancelConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value />
+  </data>
 </root>

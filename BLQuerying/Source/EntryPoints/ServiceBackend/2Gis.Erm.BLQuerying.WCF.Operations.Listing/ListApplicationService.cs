@@ -108,7 +108,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                     parentId = parentIdParsed;
                 }
                 
-
                 return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType);
             }
             catch (Exception ex)

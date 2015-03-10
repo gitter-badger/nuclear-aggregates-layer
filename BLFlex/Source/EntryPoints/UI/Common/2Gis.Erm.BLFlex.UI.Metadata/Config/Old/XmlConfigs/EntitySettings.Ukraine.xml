@@ -105,6 +105,7 @@
           <ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
+          <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -412,7 +413,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -1624,7 +1625,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -2215,7 +2216,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -2597,7 +2598,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
