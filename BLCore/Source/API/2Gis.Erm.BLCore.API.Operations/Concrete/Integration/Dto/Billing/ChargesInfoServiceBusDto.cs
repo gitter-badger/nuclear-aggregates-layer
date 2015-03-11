@@ -17,12 +17,4 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing
         public XElement Content { get; set; }
         public Guid SessionId { get; set; }
     }
-
-    public sealed class ChargeDto
-    {
-        public long FirmCode { get; set; }
-        public long NomenclatureElementCode { get; set; }
-        public long NomenclatureElementToChargeCode { get; set; }
-        public long RubricCode { get; set; }
-    }
 }

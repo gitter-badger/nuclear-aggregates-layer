@@ -84,7 +84,6 @@
     <Compile Include="NullPersistenceChangesRegistry.cs" />
     <Compile Include="NullPersistenceChangesRegistryProvider.cs" />
     <Compile Include="FinderBaseProvider.cs" />
-    <Compile Include="ICompositeRepository.cs" />
     <Compile Include="IFinderBaseProvider.cs" />
     <Compile Include="IReadDomainContextProviderForHost.cs" />
     <Compile Include="DomainContextProviderProxy.cs" />
@@ -117,7 +116,6 @@
     <Compile Include="IFindSpecification.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkScope.cs" />
-    <Compile Include="SaveOptions.cs" />
     <Compile Include="SecureFinder.cs" />
     <Compile Include="SecurityHelper.cs" />
     <Compile Include="Specifications\FindSpecification.cs" />

@@ -2,6 +2,7 @@ using System;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
@@ -24,23 +25,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public sealed class BillController : ControllerBase
     {
-        // для первого платежа - 20 число месяца, для последующих - 10 число месяца
-        // Если Дата подписания > 20-го числа текущего месяца то "Дата оплаты, до" в первом (единственном) счёте устанавливать = Дате подписания БЗ.
-        private static readonly Func<int, DateTime, DateTime, DateTime> PaymentDatePlanEvaluator =
-            (paymentNumber, signupDate, beginPeriod) =>
-                {
-                    if (paymentNumber == 1)
-                    {
-                        var firstPaymantDate = beginPeriod.AddMonths(-1).AddDays(20 - beginPeriod.Day);
-                        return signupDate.Day > 20 && signupDate.Month == firstPaymantDate.Month && signupDate.Year == firstPaymantDate.Year ? signupDate : firstPaymantDate;
-                    }
-
-                    return beginPeriod.AddMonths(-1).AddDays(10 - beginPeriod.Day);
-                };
-
         private readonly IPublicService _publicService;
         private readonly IDeleteOrderBillsOperationService _deleteBillsService;
         private readonly ICreateOrderBillsOperationService _createOrderBillsService;
+        private readonly ICalculateBillsOperationService _calculateBillsOperationService;
 
         public BillController(IMsCrmSettings msCrmSettings,
                               IAPIOperationsServiceSettings operationsServiceSettings,
@@ -51,12 +39,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
                               IDeleteOrderBillsOperationService deleteBillsService,
-                              ICreateOrderBillsOperationService createOrderBillsService)
+                              ICreateOrderBillsOperationService createOrderBillsService,
+                              ICalculateBillsOperationService calculateBillsOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
             _deleteBillsService = deleteBillsService;
             _createOrderBillsService = createOrderBillsService;
+            _calculateBillsOperationService = calculateBillsOperationService;
         }
 
         public ActionResult DeleteAll()
@@ -89,15 +79,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         public JsonNetResult GetInitPaymentsInfo(long? orderId, BillPaymentType paymentType, int? paymentAmount)
         {
-            var response = (GetInitPaymentsInfoResponse)
-                           _publicService.Handle(new GetInitPaymentsInfoRequest
-                           {
-                               OrderId = orderId,
-                               PaymentType = paymentType,
-                               PaymentAmount = paymentAmount,
-                               PaymentDatePlanEvaluator = PaymentDatePlanEvaluator
-                           });
-            return new JsonNetResult(response.PaymentsInfo);
+            var payments = _calculateBillsOperationService.GetPayments(orderId, paymentAmount, paymentType);
+            return new JsonNetResult(payments);
         }
 
         [HttpPost]
@@ -108,7 +91,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                            _publicService.Handle(new GetDistributedPaymentsInfoRequest
                            {
                                OrderId = orderId,
-                               PaymentDatePlanEvaluator = PaymentDatePlanEvaluator,
                                InitPaymentsInfos = initPaymentsInfo
                            });
 

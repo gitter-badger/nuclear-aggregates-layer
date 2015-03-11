@@ -132,6 +132,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int CheckIfOrderPositionCanBeModifiedIdentity = 15119;
         public const int ChangeOrderLegalPersonProfileIdentity = 15120;
 
+        // EntityName.Bill = 188
+        public const int CalculateBillsIdentity = 18801;
+
         // EntityName.OrderPosition = 150
         public const int CalculateOrderPositionCostIdentity = 15001;
         public const int ValidateOrderPositionAdvertisementsIdentity = 15002;

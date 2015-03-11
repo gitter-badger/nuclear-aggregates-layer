@@ -258,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                             DirectorName = lpp.ChiefNameInNominative, 
                             DocumentDeliveryMethod = lpp.DocumentsDeliveryMethod, 
                             DocumentDeliveryAddress = lpp.DocumentsDeliveryAddress, 
-                            Email = lpp.EmailForAccountingDocuments ?? lpp.AdditionalEmail, 
+                            Email = lpp.EmailForAccountingDocuments ?? lpp.Email, 
                             PaymentDetails = lpp.PaymentEssentialElements,
                             IsHidden = !lpp.IsActive, 
                             OperatesOnTheBasisInGenitive = lpp.OperatesOnTheBasisInGenitive,

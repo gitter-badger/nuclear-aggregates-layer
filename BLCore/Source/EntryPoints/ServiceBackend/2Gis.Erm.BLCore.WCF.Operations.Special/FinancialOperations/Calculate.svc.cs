@@ -147,21 +147,20 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
                 throw new InvalidOperationException("Для всех результатов НДС должен быть задан или отсутсвовать");
             }
 
-            var result = calculationResult.PositionCalcs.Select(
-                x => x.Vat.HasValue
-                         ? (ICostCalculationResult)new BizAccountPositionCostWithVatResult
-            {
-                                 PayablePlan = x.PayablePlan,
-                                 PositionId = x.PositionId,
-                                 DiscountSum = x.DiscountSum,
-                                 Vat = x.Vat.Value
-                }
-                         : (ICostCalculationResult)new BizAccountPositionCostResult
-                        {
-                                 PayablePlan = x.PayablePlan,
-                                 PositionId = x.PositionId,
-                                 DiscountSum = x.DiscountSum,
-                             }).ToArray();
+            var result = calculationResult.PositionCalcs.Select(x => x.Vat.HasValue
+                                                                         ? (ICostCalculationResult)new BizAccountPositionCostWithVatResult
+                                                                                                       {
+                                                                                                           PayablePlan = x.PayablePlan,
+                                                                                                           PositionId = x.PositionId,
+                                                                                                           DiscountSum = x.DiscountSum,
+                                                                                                           Vat = x.Vat.Value
+                                                                                                       }
+                                                                         : (ICostCalculationResult)new BizAccountPositionCostResult
+                                                                                                       {
+                                                                                                           PayablePlan = x.PayablePlan,
+                                                                                                           PositionId = x.PositionId,
+                                                                                                           DiscountSum = x.DiscountSum,
+                                                                                                       }).ToArray();
 
             return result;
         }

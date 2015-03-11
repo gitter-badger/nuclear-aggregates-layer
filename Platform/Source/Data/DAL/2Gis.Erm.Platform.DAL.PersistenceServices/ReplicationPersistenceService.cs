@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
 
         public void ReplicateToMsCrm(Type entityType, IReadOnlyCollection<long> ids, TimeSpan timeout, out IReadOnlyCollection<long> notReplicated)
         {
-            if (!_msCrmSettings.EnableReplication)
+            if (!_msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Database))
             {
                 _tracer.WarnFormat("Replication to MsCRM disabled in config. Do nothing ...");
                 notReplicated = new long[0];
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             }
 
             EntityReplicationInfo entityReplicationInfo;
-            if (!_msCrmReplicationMetadataProvider.TryGetAsyncMetadata(entityType, ReplicationMode.Batch, out entityReplicationInfo))
+            if (!_msCrmReplicationMetadataProvider.TryGetMetadata(entityType, ReplicationMode.Batch, out entityReplicationInfo))
             {
                 throw new InvalidOperationException("Can't find replication metadata for specified entity type " + entityType.FullName);
             }
@@ -56,6 +56,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                     ReplicateBatch(entityReplicationInfo.SchemaQualifiedStoredProcedureName, timeout, ids, out notReplicated);
                     break;
                 }
+
                 default:
                 {
                     throw new ArgumentOutOfRangeException();

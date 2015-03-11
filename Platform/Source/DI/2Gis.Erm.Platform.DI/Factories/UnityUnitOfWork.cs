@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
             return _unityContainer.Resolve(consumerType, dependencyOverrides);
         }
 
-        protected override object CreateCosumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
+        protected override object CreateConsumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
         {
             var dependencyOverrides = new DependencyOverrides
                         {
