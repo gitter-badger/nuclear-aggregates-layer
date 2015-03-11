@@ -67,6 +67,7 @@
     <Compile Include="Kazakhstan\LegalPerson\ReadModel\KazakhstanLegalPersonReadModel.cs" />
     <Compile Include="MultiCulture\BranchOfficesAggregate\ReadModel\MultiCultureBranchOfficeReadModel.cs" />
     <Compile Include="MultiCulture\Crosscutting\BillDatesConsistencyRule.cs" />
+    <Compile Include="MultiCulture\Crosscutting\BillDistributionPeriodConsistencyRule.cs" />
     <Compile Include="MultiCulture\Crosscutting\BillDublicateNumbersConsistencyRule.cs" />
     <Compile Include="MultiCulture\Crosscutting\BillSummConsistencyRule.cs" />
     <Compile Include="MultiCulture\Crosscutting\ChileBillNumberFormatConsistencyRule.cs" />

@@ -20,10 +20,10 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Id).HasColumnName("Id");
             Property(t => t.OrderPositionId).HasColumnName("OrderPositionId");
             Property(t => t.ProjectId).HasColumnName("ProjectId");
-            Property(t => t.PositionId).HasColumnName("PositionId");
             Property(t => t.PeriodStartDate).HasColumnName("PeriodStartDate");
             Property(t => t.PeriodEndDate).HasColumnName("PeriodEndDate");
             Property(t => t.SessionId).HasColumnName("SessionId");
+            Property(t => t.Amount).HasColumnName("Amount");
             Property(t => t.CreatedBy).HasColumnName("CreatedBy");
             Property(t => t.CreatedOn).HasColumnName("CreatedOn");
             Property(t => t.ModifiedBy).HasColumnName("ModifiedBy");
