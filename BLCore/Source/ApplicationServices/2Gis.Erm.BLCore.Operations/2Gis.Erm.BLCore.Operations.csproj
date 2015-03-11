@@ -58,6 +58,7 @@
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviour.cs" />
     <Compile Include="Concrete\AdvertisementElements\UpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
     <Compile Include="Concrete\HotClients\ProcessHotClientRequestOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\AccountDetailIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowAdvModelsInfo\Deserializers\DeserializeAdvModelInRubricInfoService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowAdvModelsInfo\Processors\ImportAdvModelInRubricInfoService.cs" />
     <Compile Include="Concrete\Integration\Olap\CalculateClientPromisingOperationService.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesHandler.cs" />
     <Compile Include="Concrete\Old\Integration\RabbitMq\ImportlocalMessagesFromRabbitMqHandler.cs" />
     <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAccountDetailHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAdvertisementHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeClientHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeFirmAddressHandler.cs" />
