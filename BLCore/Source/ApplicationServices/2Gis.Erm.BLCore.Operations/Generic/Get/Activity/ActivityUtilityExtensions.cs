@@ -20,5 +20,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             return entityName == EntityName.Contact;
         }
+
+        public static bool IsActivity(this EntityName entityName)
+        {
+            return entityName == EntityName.Appointment || entityName == EntityName.Letter || entityName == EntityName.Phonecall || entityName == EntityName.Task;
+        }
     }
 }

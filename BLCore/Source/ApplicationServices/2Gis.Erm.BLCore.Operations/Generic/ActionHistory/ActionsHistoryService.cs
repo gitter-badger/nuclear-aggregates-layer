@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ActionHistory;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
@@ -118,7 +119,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
                 case "DealStage":
                     return EnumUtils.ParseEnum<DealStage>(value).ToStringLocalized(EnumResources.ResourceManager, userCultureInfo);
                 case "Status":
-                    if (entityName == EntityName.Appointment || entityName == EntityName.Letter || entityName == EntityName.Phonecall || entityName == EntityName.Task)
+                    if (entityName.IsActivity())
                     {
                         ActivityStatus status;
                         return EnumUtils.TryParseEnum(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, userCultureInfo) : value;
