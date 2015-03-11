@@ -185,7 +185,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                          .Name.Static("PrintBargainAdditionalAgreementAction")
                                          .Title.Resource(() => ErmConfigLocalization.ControlPrintBargainAdditAgreementAction)
                                          .ControlType(ControlType.TextButton)
-                                         .JSHandler("PrintOrderBargainAdditionalAgreement");
+                                         .JSHandler("PrintBargainAdditionalAgreement");
                 }
             }
 
