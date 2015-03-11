@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 
         public void Customize(OrderPositionViewModel viewModel, ModelStateDictionary modelState)
         {
-            if (!IsBindingObjectChangeAllowed(viewModel.Id))
+            if (viewModel.IsNew || !IsBindingObjectChangeAllowed(viewModel.Id))
             {
                 viewModel.ViewConfig.CardSettings.CardToolbar
                     = viewModel.ViewConfig.CardSettings.CardToolbar
