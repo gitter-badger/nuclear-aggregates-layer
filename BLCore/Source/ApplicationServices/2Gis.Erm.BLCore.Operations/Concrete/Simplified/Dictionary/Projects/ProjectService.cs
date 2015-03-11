@@ -36,13 +36,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Project
 
         public Project GetProjectByCode(long projectCode)
         {
-            return _finder.Find(Specs.Find.ById<Project>(projectCode)).SingleOrDefault();
+            return _finder.FindOne(Specs.Find.ById<Project>(projectCode));
+        }
+
+        public bool DoesActiveProjectExist(long projectCode)
+        {
+            return _finder.Find(Specs.Find.ById<Project>(projectCode) && Specs.Find.Active<Project>()).Any();
         }
 
         public void Update(Project project)
         {
-          _projectGenericRepository.Update(project);
-
+            _projectGenericRepository.Update(project);
             _projectGenericRepository.Save();
         }
 

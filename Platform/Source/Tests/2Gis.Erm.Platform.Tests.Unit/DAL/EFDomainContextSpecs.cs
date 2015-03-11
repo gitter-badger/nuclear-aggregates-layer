@@ -1,25 +1,20 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
+
+using Effort;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
-using Moq;
+using NuClear.Model.Common.Entities.Aspects;
 
 using It = Machine.Specifications.It;
-using SaveOptions = DoubleGis.Erm.Platform.DAL.SaveOptions;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
@@ -29,13 +24,11 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         static IModifiableDomainContext _domainContext;
 
-        static IMsCrmReplicationMetadataProvider _enabledReplicationMetadataProvider = new MsCrmReplicationMetadataProvider(EntityNameUtils.AsyncReplicated2MsCrmEntities,
-                                                                                                                            EntityNameUtils.AllReplicated2MsCrmEntities
-                                                                                                                            .Except(
-                                                                                                                                                                               EntityNameUtils
-                                                                                                                                                                                   .AsyncReplicated2MsCrmEntities));
 
-        static IMsCrmReplicationMetadataProvider _disabledReplicationMetadataProvider = new MsCrmReplicationMetadataProvider(Enumerable.Empty<Type>(), Enumerable.Empty<Type>());
+        public class Entity : IEntity, IEntityKey
+        {
+            public virtual long Id { get; set; }
+        }
 
         [Tags("DAL")]
         [Subject(typeof(EFDomainContext))]
@@ -43,153 +36,38 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () =>
             {
-                
-                ObjectContextMock  = new Mock<IDbContext>();
+                Effort.Provider.EffortProviderConfiguration.RegisterProvider();
 
-                _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
-                                                     DefaultContextName,
-                                                     ObjectContextMock.Object,
-                                                     Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     _enabledReplicationMetadataProvider,
-                                                     Mock.Of<ICommonLog>());
+                var builder = new DbModelBuilder();
+                builder.Entity<Entity>().ToTable("E").HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+                var connection = DbConnectionFactory.CreateTransient();
+                var dbContext = new DbContext(connection, builder.Build(connection).Compile(), true);
+
+                dbContext.Configuration.ValidateOnSaveEnabled = true;
+                dbContext.Configuration.UseDatabaseNullSemantics = true;
+                dbContext.Configuration.LazyLoadingEnabled = false;
+                dbContext.Configuration.ProxyCreationEnabled = false;
+                dbContext.Configuration.AutoDetectChangesEnabled = false;
+
+                DbContext = dbContext;
             };
 
-            protected static Mock<IDbContext> ObjectContextMock { get; private set; }
-        }
-
-        class When_call_SaveChanges_for_added_entities : EFDomainContextMockContext
-        {
-            static Deal _deal;
-
-            Establish context = () =>
-                {
-                    _deal = new Deal { ReplicationCode = Guid.Empty };
-
-                    ObjectContextMock.Setup(p => p.Entries())
-                                     .Returns(new[] { new StubEntityEntry(_deal, EntityState.Added) });
-                };
-
-            Because of = () => _domainContext.SaveChanges(SaveOptions.None);
-
-            It entity_ReplicationCode_should_be_set = () => _deal.ReplicationCode.Should().NotBe(Guid.Empty);
-        }
-
-        class When_call_SaveChanges_for_modified_entities : EFDomainContextMockContext
-        {
-            static Deal _deal;
-            static Guid _guid;
-
-            Establish context = () =>
-                {
-                    _guid = Guid.NewGuid();
-                    _deal = new Deal { ReplicationCode = _guid };
-
-                    ObjectContextMock.Setup(p => p.Entries())
-                                     .Returns(new[] { new StubEntityEntry(_deal, EntityState.Modified) });
-                };
-
-            Because of = () => _domainContext.SaveChanges(SaveOptions.None);
-
-            It entity_ReplicationCode_should_not_be_changed = () => _deal.ReplicationCode.Should().Be(_guid);
-        }
-
-        class When_call_SaveChanges_for_one_simple_and_four_replicable_entities : EFDomainContextMockContext
-        {
-            Establish context = () =>
-                {
-                    var advertisement = new Advertisement();
-                    var deal = new Deal();
-                    var order = new Order();
-                    var orderPosition = new OrderPosition();
-                    var firm = new Firm();
-
-                    ObjectContextMock.Setup(p => p.Entries())
-                                     .Returns(new[]
-                                         {
-                                             new StubEntityEntry(advertisement, EntityState.Added), 
-                                             new StubEntityEntry(deal, EntityState.Added),
-                                             new StubEntityEntry(order, EntityState.Modified),
-                                             new StubEntityEntry(orderPosition, EntityState.Deleted),
-                                             new StubEntityEntry(firm, EntityState.Unchanged)
-                                         })
-                                     .Verifiable();
-
-                    _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
-                                                     DefaultContextName,
-                                                     ObjectContextMock.Object,
-                                                     Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     _enabledReplicationMetadataProvider,
-                                                     Mock.Of<ICommonLog>());
-                };
-
-            Because of = () => _domainContext.SaveChanges(SaveOptions.None);
-
-            It replicate_deal_stored_proc_should_be_called_once = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.Is<string>(y => y == "Erm.ReplicateDeal"), Moq.It.IsAny<object[]>()),
-                                         Times.Once());
-
-            It replicate_order_stored_proc_should_be_called_once = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.Is<string>(y => y == "Erm.ReplicateOrder"), Moq.It.IsAny<object[]>()),
-                                         Times.Once());
-
-            It replicate_order_position_stored_proc_should_be_called_once = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.Is<string>(y => y == "Erm.ReplicateOrderPosition"), Moq.It.IsAny<object[]>()),
-                                         Times.Once());
-
-            It should_be_two_replicate_stored_procs_called = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.IsAny<string>(), Moq.It.IsAny<object[]>()),
-                                         Times.Exactly(3));
-        }
-
-        class When_call_SaveChanges_with_disabled_EnableReplication_param : EFDomainContextMockContext
-        {
-
-            Establish context = () =>
-                {
-                    var deal = new Deal();
-                    var order = new Order();
-                    var orderPosition = new OrderPosition();
-               
-                    ObjectContextMock.Setup(p => p.Entries())
-                                     .Returns(new[]
-                                         {
-                                             new StubEntityEntry(deal, EntityState.Added),
-                                             new StubEntityEntry(order, EntityState.Modified),
-                                             new StubEntityEntry(orderPosition, EntityState.Deleted)
-                                         });
-
-                    _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
-                                                         DefaultContextName,
-                                                         ObjectContextMock.Object,
-                                                         Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                         _disabledReplicationMetadataProvider,
-                                                         Mock.Of<ICommonLog>());
-                };
-
-            Because of = () => _domainContext.SaveChanges(SaveOptions.None);
-
-            It any_replicate_stored_procs_should_not_be_called = () =>
-                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.IsAny<string>(), Moq.It.IsAny<object[]>()), Times.Never());
+            protected static DbContext DbContext { get; private set; }
         }
 
         [Tags("DAL")]
         [Subject(typeof(EFDomainContext))]
-        class When_Disposing_with_NullPendingChangesHandlingStrategy
+        class When_Disposing_with_NullPendingChangesHandlingStrategy : EFDomainContextMockContext
         {
             static Exception _exception;
 
             Establish context = () =>
                 {
-                    var objectContextMock = new Mock<IDbContext>();
-                    objectContextMock.Setup(x => x.Entries())
-                                     .Returns(new[] { new StubEntityEntry(null, Moq.It.IsAny<EntityState>()) });
-
                     _domainContext = new EFDomainContext(new ProcessingContext(),
-                                                         DefaultContextName,
-                                                         objectContextMock.Object,
-                                                         new NullPendingChangesHandlingStrategy(),
-                                                         _disabledReplicationMetadataProvider,
-                                                         Mock.Of<ICommonLog>());
+                                                         DbContext,
+                                                         new NullPendingChangesHandlingStrategy());
+                    _domainContext.Add(new Entity() { Id = 100 });
                 };
 
             Because of = () => _exception = Catch.Exception(() => _domainContext.Dispose());
@@ -199,22 +77,16 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         [Tags("DAL")]
         [Subject(typeof(EFDomainContext))]
-        class When_Disposing_with_ForcePendingChangesHandlingStrategy
+        class When_Disposing_with_ForcePendingChangesHandlingStrategy : EFDomainContextMockContext
         {
             static Exception _exception;
 
             Establish context = () =>
             {
-                var objectContextMock = new Mock<IDbContext>();
-                objectContextMock.Setup(x => x.HasChanges())
-                                 .Returns(true);
-
                 _domainContext = new EFDomainContext(new ProcessingContext(),
-                                                     DefaultContextName,
-                                                     objectContextMock.Object,
-                                                     new ForcePendingChangesHandlingStrategy(),
-                                                    _disabledReplicationMetadataProvider,
-                                                     Mock.Of<ICommonLog>());
+                                                     DbContext,
+                                                     new ForcePendingChangesHandlingStrategy());
+                _domainContext.Add(new Entity() { Id = 100 });
             };
 
             Because of = () => _exception = Catch.Exception(() => _domainContext.Dispose());

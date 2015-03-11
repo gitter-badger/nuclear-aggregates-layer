@@ -156,7 +156,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
@@ -198,7 +198,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                 {
                     Id = Id,
                     Name = Name.EnsureСleanness(),
-                    AdditionalEmail = Email.EnsureСleanness(),
+                    Email = Email.EnsureСleanness(),
                     ChiefNameInGenitive = ChiefNameInGenitive.EnsureСleanness(),
                     ChiefNameInNominative = ChiefNameInNominative.EnsureСleanness(),
                     DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),

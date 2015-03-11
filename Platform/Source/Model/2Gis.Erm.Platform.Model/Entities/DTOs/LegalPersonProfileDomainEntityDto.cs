@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public string EmailForAccountingDocuments { get; set; }
 
         [DataMember]
-        public string AdditionalEmail { get; set; }
+        public string Email { get; set; }
 
         [DataMember]
         public string PersonResponsibleForDocuments { get; set; }

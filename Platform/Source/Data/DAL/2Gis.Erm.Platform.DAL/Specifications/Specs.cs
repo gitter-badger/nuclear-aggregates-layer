@@ -64,6 +64,11 @@ namespace DoubleGis.Erm.Platform.DAL.Specifications
                 return new FindSpecification<TEntity>(x => !x.IsActive && !x.IsDeleted);
             }
 
+            public static FindSpecification<TEntity> InactiveOrDeletedEntities<TEntity>() where TEntity : class, IEntity, IDeletableEntity, IDeactivatableEntity
+            {
+                return new FindSpecification<TEntity>(x => !x.IsActive || x.IsDeleted);
+            }
+
             public static FindSpecification<TEntity> Owned<TEntity>(long ownerCode) where TEntity : class, IEntity, ICuratedEntity
             {
                 return new FindSpecification<TEntity>(x => x.OwnerCode == ownerCode);

@@ -1,7 +1,9 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Common.Utils.Data;
+
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities
 {
@@ -50,6 +52,12 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             if (stateTrackingEntity != null)
             {
                 stateTrackingEntity.Timestamp = null;
+            }
+
+            var replicableEntity = entity as IReplicableEntity;
+            if (replicableEntity != null)
+            {
+                replicableEntity.ReplicationCode = Guid.Empty;
             }
 
             return entity;

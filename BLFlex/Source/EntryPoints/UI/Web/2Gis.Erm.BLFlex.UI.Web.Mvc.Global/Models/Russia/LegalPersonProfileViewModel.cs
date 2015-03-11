@@ -149,7 +149,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             ChiefFullNameInNominative = modelDto.ChiefFullNameInNominative;
@@ -185,7 +185,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                 {
                     Id = Id,
                     Name = Name.EnsureСleanness(),
-                    AdditionalEmail = Email.EnsureСleanness(),
+                    Email = Email.EnsureСleanness(),
                     ChiefNameInGenitive = ChiefNameInGenitive.EnsureСleanness(),
                     ChiefNameInNominative = ChiefNameInNominative.EnsureСleanness(),
                     ChiefFullNameInNominative = ChiefFullNameInNominative.EnsureСleanness(),

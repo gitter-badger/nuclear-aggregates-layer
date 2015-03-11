@@ -77,10 +77,12 @@
     <Compile Include="Cyprus\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusBranchOfficeObtainer.cs" />
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Czech\Concrete\CzechEvaluateBillDateService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetBranchOfficeDtoService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetBranchOfficeOrganizationUnitDtoService.cs" />
     <Compile Include="Czech\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
     <Compile Include="Czech\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBillObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBranchOfficeObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Cyprus\Generic\List\CyprusListLegalPersonService.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="Kazakhstan\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
     <Compile Include="Kazakhstan\Generic\Modify\DomainEntityObtainers\KazakhstanBranchOfficeObtainer.cs" />
     <Compile Include="MultiCulture\Concrete\Clients\MultiCultureCreateClientByFirmOperationService.cs" />
+    <Compile Include="MultiCulture\Concrete\EvaluateBillDateService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Deserializers\MultiCultureDeserializeCardService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Processors\MultiCultureImportCardService.cs" />
     <Compile Include="MultiCulture\Concrete\Old\LegalPersons\KazakhstanValidatePaymentRequisitesIsUnique.cs" />

@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
         {
             _isSaved = true;
 
-            return ((IModifiableDomainContext)_usedModifiableDomainContext).SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
+            return ((IModifiableDomainContext)_usedModifiableDomainContext).SaveChanges();
         }
 
         public void Update(TEntity entity)

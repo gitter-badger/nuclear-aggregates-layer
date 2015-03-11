@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Russia
         public string EmailForAccountingDocuments { get; set; }
 
         [DataMember]
-        public string AdditionalEmail { get; set; }
+        public string Email { get; set; }
 
         [DataMember]
         public string PersonResponsibleForDocuments { get; set; }

@@ -64,17 +64,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityType.Instance.LetterRecipient(),
             };
 
-        public static readonly Type[] AsyncReplicated2MsCrmEntities =
-            {
-                typeof(Firm),
-                typeof(FirmAddress),
-                typeof(Territory),
-                typeof(Appointment),
-                typeof(Letter),
-                typeof(Phonecall),
-                typeof(Task)
-            };
-
         public static readonly Type[] AllReplicated2MsCrmEntities =
             {
                 typeof(OrganizationUnit),
@@ -99,7 +88,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(Bargain),
                 typeof(OrderProcessingRequest),
                 typeof(User),
-                typeof(UserTerritory)
+                typeof(UserTerritory),
+                typeof(Firm),
+                typeof(FirmAddress),
+                typeof(Territory),
+                typeof(Appointment),
+                typeof(Letter),
+                typeof(Phonecall),
+                typeof(Task)
             };
 
         /// <summary>
@@ -114,15 +110,15 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
                 typeof(SecurityAccelerator),
-
-                typeof(AppointmentBase),
-                typeof(AppointmentReference),
-                typeof(PhonecallBase),
-                typeof(PhonecallReference),
-                typeof(TaskBase),
-                typeof(TaskReference),
-                typeof(LetterBase),
-                typeof(LetterReference),
+                
+				typeof(AppointmentBase),
+				typeof(AppointmentReference),
+				typeof(PhonecallBase),
+				typeof(PhonecallReference),
+				typeof(TaskBase),
+				typeof(TaskReference),
+				typeof(LetterBase),
+				typeof(LetterReference),
             };
 
         /// <summary>
@@ -223,16 +219,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         {
             Type entityType = entityName.AsEntityType();
             return typeof(IEntityFile).IsAssignableFrom(entityType) || typeof(IEntityFileOptional).IsAssignableFrom(entityType);
-        }
-
-        public static bool IsAsync2MsCrmReplicated(this Type entityType)
-        {
-            if (!entityType.IsEntity())
-            {
-                throw new InvalidOperationException("Specified type " + entityType + " is not domain model entity");
-            }
-
-            return AsyncReplicated2MsCrmEntities.Contains(entityType);
         }
     }
 }
