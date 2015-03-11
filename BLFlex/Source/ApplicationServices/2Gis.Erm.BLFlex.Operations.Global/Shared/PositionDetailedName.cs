@@ -25,9 +25,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
         private static string Format<T>(Key key, IEnumerable<Advertisement> values)
             where T : ISalesModelPositionNameFormatter, new()
         {
+            var singleBindingObject = values.Distinct(new BindingComparer()).Count() == 1;
             var formatter = new T();
             var prefix = key.OrderPositionName;
-            var details = key.IsComposite ? FormatComposite(formatter, values) : formatter.Format(values);
+            var details = key.IsComposite && !singleBindingObject 
+                ? FormatComposite(formatter, values) 
+                : formatter.Format(values);
             return Compose(NameDetailsSeparator, prefix, details);
         }
 
@@ -206,6 +209,46 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             public string ReferencePoint { get; set; }
             public string ThemeName { get; set; }
             public string CategoryName { get; set; }
+        }
+
+        private class BindingComparer : IEqualityComparer<Advertisement>
+        {
+            public bool Equals(Advertisement x, Advertisement y)
+            {
+                if (ReferenceEquals(x, y))
+                {
+                    return true;
+                }
+
+                if (ReferenceEquals(null, x))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(null, y))
+                {
+                    return false;
+                }
+
+                return x.BindingType == y.BindingType
+                    && string.Equals(x.Address, y.Address)
+                    && string.Equals(x.ReferencePoint, y.ReferencePoint)
+                    && string.Equals(x.ThemeName, y.ThemeName)
+                    && string.Equals(x.CategoryName, y.CategoryName);
+            }
+
+            public int GetHashCode(Advertisement obj)
+            {
+                unchecked
+                {
+                    var hashCode = (int)obj.BindingType;
+                    hashCode = (hashCode * 397) ^ (obj.Address != null ? obj.Address.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^ (obj.ReferencePoint != null ? obj.ReferencePoint.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^ (obj.ThemeName != null ? obj.ThemeName.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^ (obj.CategoryName != null ? obj.CategoryName.GetHashCode() : 0);
+                    return hashCode;
+                }
+            }
         }
     }
 }
