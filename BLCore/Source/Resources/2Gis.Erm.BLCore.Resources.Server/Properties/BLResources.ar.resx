@@ -5193,4 +5193,7 @@ Placement period: {3}.</value>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value >Операция смены клиента не определена для указанного типа сущности</value>
   </data>
+  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
+    <value>Вы пытаетесь завершить действие, запланированное будущим периодом, измените срок действия или отмените,если действие не было выполнено</value>
+  </data>
 </root>

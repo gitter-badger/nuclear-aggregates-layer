@@ -5178,4 +5178,7 @@
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value />
   </data>
+  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
+    <value />
+  </data>
 </root>

@@ -567,6 +567,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ActivityClosingInFuturePeriodDenied {
+            get {
+                return ResourceManager.GetString("ActivityClosingInFuturePeriodDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ActualPriceNotFound {
             get {
                 return ResourceManager.GetString("ActualPriceNotFound", resourceCulture);
