@@ -338,16 +338,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                             },
                                         }
                                 },
-                                {
-                                    "ClientLinks",
-                                    new Dictionary<string, Tuple<object, object>>
-                                        {
-                                            {
-                                                "Icon",
-                                                new Tuple<object, object>("en_ico_16_Links.gif", "en_ico_16_ClientLink.gif")
-                                            },
-                                        }
-                                },
                             }
                     },
 
@@ -569,16 +559,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                             {
                                                 "Icon",
                                                 new Tuple<object, object>("en_ico_lrg_UserAccount.gif", "en_ico_lrg_User.gif")
-                                            },
-                                        }
-                                },
-                                {
-                                    "ContentTab",
-                                    new Dictionary<string, Tuple<object, object>>
-                                        {
-                                            {
-                                                "Icon",
-                                                new Tuple<object, object>("en_ico_16_UserAccount.gif", "en_ico_16_User.gif")
                                             },
                                         }
                                 },
@@ -833,16 +813,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                             {
                                                 "Icon",
                                                 new Tuple<object, object>("en_ico_lrg_UserGroup.gif", "en_ico_lrg_Role.gif")
-                                            },
-                                        }
-                                },
-                                {
-                                    "ContentTab",
-                                    new Dictionary<string, Tuple<object, object>>
-                                        {
-                                            {
-                                                "Icon",
-                                                new Tuple<object, object>("en_ico_16_UserGroup.gif", "en_ico_16_Role.gif")
                                             },
                                         }
                                 },
