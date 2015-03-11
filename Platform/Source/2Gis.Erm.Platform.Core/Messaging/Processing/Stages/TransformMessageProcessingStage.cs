@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Transformers;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 {

@@ -38,6 +38,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.Log4Net, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.Log4Net.1.0.2\lib\net451\2GIS.NuClear.Tracing.Log4Net.dll</HintPath>
+    </Reference>
     <Reference Include="FirstFloor.ModernUI, Version=1.0.3.0, Culture=neutral, PublicKeyToken=2d21ec3cd074c59a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\ModernUI.WPF.1.0.3\lib\net45\FirstFloor.ModernUI.dll</HintPath>
@@ -577,16 +585,6 @@
     <Reference Include="2Gis.Nuclear.Settings.API">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.Log4Net">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.Log4Net.1.0.1\lib\net451\2Gis.Nuclear.Tracing.Log4Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">

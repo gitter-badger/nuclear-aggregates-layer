@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {

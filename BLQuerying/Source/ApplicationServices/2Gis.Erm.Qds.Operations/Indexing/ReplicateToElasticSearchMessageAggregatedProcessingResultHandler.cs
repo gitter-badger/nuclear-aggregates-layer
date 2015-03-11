@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {

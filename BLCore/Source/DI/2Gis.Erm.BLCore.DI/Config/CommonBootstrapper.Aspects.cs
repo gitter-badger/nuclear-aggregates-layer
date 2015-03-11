@@ -56,7 +56,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {

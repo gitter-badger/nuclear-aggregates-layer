@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Notifications
 {

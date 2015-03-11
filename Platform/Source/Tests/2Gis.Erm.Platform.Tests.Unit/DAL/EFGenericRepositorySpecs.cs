@@ -19,7 +19,7 @@ using Machine.Specifications;
 
 using Moq;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using It = Machine.Specifications.It;
 

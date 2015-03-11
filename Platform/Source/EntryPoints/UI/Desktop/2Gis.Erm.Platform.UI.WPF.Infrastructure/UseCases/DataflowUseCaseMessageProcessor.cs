@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases
 {

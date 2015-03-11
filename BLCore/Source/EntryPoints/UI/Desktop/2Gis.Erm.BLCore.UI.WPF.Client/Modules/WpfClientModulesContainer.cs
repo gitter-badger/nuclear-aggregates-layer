@@ -71,7 +71,7 @@ using log4net.Repository.Hierarchy;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Tracing.Log4Net.Config;
+using NuClear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 {

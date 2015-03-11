@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Security;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using Quartz;
 

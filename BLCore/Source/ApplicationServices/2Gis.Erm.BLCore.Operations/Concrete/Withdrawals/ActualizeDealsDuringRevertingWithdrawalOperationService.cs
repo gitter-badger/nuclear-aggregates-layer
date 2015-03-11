@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {

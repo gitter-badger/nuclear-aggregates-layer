@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.API.MoDi.Reports;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.MoDi
 {

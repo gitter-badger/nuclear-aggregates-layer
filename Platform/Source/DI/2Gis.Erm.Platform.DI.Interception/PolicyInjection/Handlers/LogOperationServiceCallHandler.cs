@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Microsoft.Practices.Unity.InterceptionExtension;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
 {

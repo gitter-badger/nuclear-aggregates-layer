@@ -4,7 +4,7 @@ using System.Diagnostics;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.DiagnosticStorage;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
 {

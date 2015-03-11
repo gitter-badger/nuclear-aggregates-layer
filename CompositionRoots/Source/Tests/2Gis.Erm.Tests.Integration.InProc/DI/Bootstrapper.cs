@@ -80,7 +80,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.B
 using Microsoft.Practices.Unity;
 
 using Nuclear.Settings.API;
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {

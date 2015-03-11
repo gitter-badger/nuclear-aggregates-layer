@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {

@@ -12,7 +12,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
 {

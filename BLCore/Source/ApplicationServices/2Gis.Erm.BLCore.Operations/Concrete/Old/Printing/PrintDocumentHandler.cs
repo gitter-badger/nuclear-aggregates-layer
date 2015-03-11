@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing
 {

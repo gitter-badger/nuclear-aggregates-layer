@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
 {

@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Identities
 {

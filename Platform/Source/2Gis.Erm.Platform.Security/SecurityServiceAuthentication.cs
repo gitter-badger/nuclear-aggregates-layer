@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security
 {

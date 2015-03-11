@@ -92,13 +92,23 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <StartupObject></StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon></ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.Log4Net, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.Log4Net.1.0.2\lib\net451\2GIS.NuClear.Tracing.Log4Net.dll</HintPath>
+    </Reference>
     <Reference Include="AvalonDock, Version=2.0.1746.0, Culture=neutral, PublicKeyToken=96637cf0d3eefdfb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\AvalonDock.2.0.1746\lib\net40\AvalonDock.dll</HintPath>
@@ -256,16 +266,6 @@
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.Log4Net">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.Log4Net.1.0.1\lib\net451\2Gis.Nuclear.Tracing.Log4Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
@@ -290,8 +290,10 @@
   <ItemGroup>
     <PublishFile Include="de\FluentValidation.resources">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Satellite</FileType>

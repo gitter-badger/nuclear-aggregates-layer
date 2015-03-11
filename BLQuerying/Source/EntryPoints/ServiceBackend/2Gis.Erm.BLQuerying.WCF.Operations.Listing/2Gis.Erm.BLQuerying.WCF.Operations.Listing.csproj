@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll</HintPath>
@@ -99,11 +103,6 @@
     <Reference Include="2Gis.Nuclear.Settings">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.1.0.1\lib\net451\2Gis.Nuclear.Settings.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <ProjectReference Include="..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

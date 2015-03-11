@@ -20,7 +20,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Resources.Server;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security
 {

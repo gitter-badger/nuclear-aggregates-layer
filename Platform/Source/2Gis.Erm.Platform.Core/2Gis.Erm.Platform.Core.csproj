@@ -40,6 +40,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling">
       <HintPath>..\..\..\CompositionRoots\Source\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
     </Reference>
@@ -174,11 +178,6 @@
     <Reference Include="2Gis.Nuclear.Settings.API">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <ProjectReference Include="..\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">

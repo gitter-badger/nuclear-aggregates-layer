@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
 {

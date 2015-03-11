@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
 {

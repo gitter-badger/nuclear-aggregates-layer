@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 using Newtonsoft.Json;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {

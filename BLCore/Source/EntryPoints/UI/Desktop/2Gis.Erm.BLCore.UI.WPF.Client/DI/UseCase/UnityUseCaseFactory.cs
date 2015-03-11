@@ -10,7 +10,7 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
 {

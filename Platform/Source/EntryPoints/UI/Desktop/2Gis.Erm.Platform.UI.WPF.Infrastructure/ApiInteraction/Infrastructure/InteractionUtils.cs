@@ -5,7 +5,7 @@ using System.Net;
 
 using Newtonsoft.Json;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using RestSharp;
 

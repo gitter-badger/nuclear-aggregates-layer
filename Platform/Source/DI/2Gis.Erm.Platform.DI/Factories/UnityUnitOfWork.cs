@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DI.Factories
 {

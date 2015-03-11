@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Modify
 {

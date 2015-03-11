@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.Common.Identities;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Metadata
 {

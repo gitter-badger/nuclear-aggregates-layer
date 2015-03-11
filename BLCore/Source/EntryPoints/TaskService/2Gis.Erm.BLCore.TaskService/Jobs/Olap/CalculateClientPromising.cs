@@ -2,7 +2,7 @@
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using Quartz;
 

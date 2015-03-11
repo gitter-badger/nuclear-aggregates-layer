@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 using Microsoft.ServiceBus.Messaging;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using ProtoBuf.Meta;
 

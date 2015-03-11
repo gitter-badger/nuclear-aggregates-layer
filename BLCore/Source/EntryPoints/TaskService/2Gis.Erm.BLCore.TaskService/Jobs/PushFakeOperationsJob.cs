@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using Quartz;
 

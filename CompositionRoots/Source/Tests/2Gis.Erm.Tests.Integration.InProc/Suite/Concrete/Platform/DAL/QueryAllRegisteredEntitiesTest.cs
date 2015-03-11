@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
 {

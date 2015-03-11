@@ -27,7 +27,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 using Newtonsoft.Json;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 using DoubleGis.Erm.Platform.DAL.Specifications;

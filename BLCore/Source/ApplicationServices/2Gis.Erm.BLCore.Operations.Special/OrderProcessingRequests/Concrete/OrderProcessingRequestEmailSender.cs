@@ -9,7 +9,7 @@ using DoubleGis.Erm.Core.Services.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Security;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {

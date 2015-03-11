@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 {

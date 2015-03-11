@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.API.ServiceBusBroker;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
 {

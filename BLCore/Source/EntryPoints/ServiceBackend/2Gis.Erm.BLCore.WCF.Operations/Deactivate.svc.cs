@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {

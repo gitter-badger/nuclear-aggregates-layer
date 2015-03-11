@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
 {

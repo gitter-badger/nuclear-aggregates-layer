@@ -77,7 +77,7 @@ using DoubleGis.Erm.TaskService.Config;
 using Microsoft.Practices.Unity;
 
 using Nuclear.Settings.API;
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using Quartz.Spi;
 

@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Processings;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
 {

@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
 {

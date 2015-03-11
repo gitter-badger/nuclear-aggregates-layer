@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Consumer
 {

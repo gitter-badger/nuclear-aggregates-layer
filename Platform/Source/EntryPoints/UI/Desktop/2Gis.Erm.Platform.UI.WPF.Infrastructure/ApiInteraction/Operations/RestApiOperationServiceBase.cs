@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
 {

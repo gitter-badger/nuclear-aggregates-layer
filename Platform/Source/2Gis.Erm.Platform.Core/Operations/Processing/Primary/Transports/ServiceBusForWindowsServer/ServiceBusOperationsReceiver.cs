@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer
 {

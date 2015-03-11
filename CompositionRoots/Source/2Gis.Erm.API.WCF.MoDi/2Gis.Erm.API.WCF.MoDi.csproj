@@ -4,7 +4,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion></ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{62E68D3E-1DBF-4759-A330-F412D62FBEDD}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -47,6 +48,10 @@
     <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
@@ -148,11 +153,6 @@
     <Reference Include="2Gis.Nuclear.Settings.API">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
@@ -262,7 +262,8 @@
           <IISUrl>https://localhost:44304</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

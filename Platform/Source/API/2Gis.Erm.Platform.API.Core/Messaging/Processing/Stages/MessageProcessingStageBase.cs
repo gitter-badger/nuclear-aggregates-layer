@@ -4,7 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
 {

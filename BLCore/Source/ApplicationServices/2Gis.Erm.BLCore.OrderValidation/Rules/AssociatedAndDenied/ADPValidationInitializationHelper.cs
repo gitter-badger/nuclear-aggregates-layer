@@ -5,7 +5,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
 {

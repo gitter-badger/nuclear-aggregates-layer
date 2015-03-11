@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Releasing
 {

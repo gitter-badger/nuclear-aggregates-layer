@@ -5,7 +5,7 @@ using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Security;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using Quartz;
 

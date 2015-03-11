@@ -22,7 +22,7 @@ using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 {

@@ -13,10 +13,10 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceHost;
 using Microsoft.Practices.Unity;
 
 using Nuclear.Settings.API;
-using Nuclear.Tracing.API;
-using Nuclear.Tracing.API.SystemInfo;
-using Nuclear.Tracing.Log4Net;
-using Nuclear.Tracing.Log4Net.Config;
+using NuClear.Tracing.API;
+using NuClear.Tracing.Environment;
+using NuClear.Tracing.Log4Net;
+using NuClear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.Platform.DI.WCF
 {

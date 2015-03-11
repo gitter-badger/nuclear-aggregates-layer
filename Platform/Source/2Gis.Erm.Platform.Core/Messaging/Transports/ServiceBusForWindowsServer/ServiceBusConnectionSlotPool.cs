@@ -6,7 +6,7 @@ using System.Threading;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using Microsoft.ServiceBus.Messaging;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer
 {

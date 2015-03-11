@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL
 {

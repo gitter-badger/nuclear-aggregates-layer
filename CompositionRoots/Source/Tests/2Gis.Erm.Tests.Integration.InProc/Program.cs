@@ -9,10 +9,10 @@ using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using Nuclear.Settings.API;
-using Nuclear.Tracing.API;
-using Nuclear.Tracing.API.SystemInfo;
-using Nuclear.Tracing.Log4Net;
-using Nuclear.Tracing.Log4Net.Config;
+using NuClear.Tracing.API;
+using NuClear.Tracing.Environment;
+using NuClear.Tracing.Log4Net;
+using NuClear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc
 {

@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.API.Security;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using Quartz;
 

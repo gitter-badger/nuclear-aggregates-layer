@@ -32,7 +32,7 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
 {
