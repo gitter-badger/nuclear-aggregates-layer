@@ -1,8 +1,4 @@
-﻿using System.ServiceModel;
-
-using DoubleGis.Erm.Platform.API.Metadata;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
+﻿using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 
 using Microsoft.Practices.Unity;
 
@@ -13,16 +9,6 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.Config
         internal static IUnityContainer ConfigureServiceClient(this IUnityContainer container)
         {
             var provider = new ServiceClientSettingsProvider();
-
-            var identityServiceSettings = container.Resolve<IAPIIdentityServiceSettings>();
-
-            var wsHttpBinding = BindingConfig.WsHttp.UseTransportSecurity(HttpClientCredentialType.None);
-
-
-            provider
-
-                // identity service
-                .AddEndpoint<IIdentityProviderApplicationService>(wsHttpBinding, identityServiceSettings.BaseUrl, "Identity.svc/Soap");
 
             return container.RegisterInstance<IServiceClientSettingsProvider>(provider);
         }

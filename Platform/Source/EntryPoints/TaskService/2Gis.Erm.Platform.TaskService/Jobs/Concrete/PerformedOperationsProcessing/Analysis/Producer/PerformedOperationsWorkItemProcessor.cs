@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific;
+using DoubleGis.NuClear.IdentityService.Client.Interaction;
 
 using Nuclear.Tracing.API;
 

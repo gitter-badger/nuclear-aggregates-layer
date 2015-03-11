@@ -37,6 +37,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.IdentityService.Client, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b743d84006fae806, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.IdentityService.Client.1.0.2\lib\net451\2GIS.NuClear.IdentityService.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="2Gis.Nuclear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.1.0.1\lib\net451\2Gis.Nuclear.Settings.dll</HintPath>
+    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
@@ -525,6 +533,7 @@
     <Compile Include="DI\BlCoreUiWebMvcAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

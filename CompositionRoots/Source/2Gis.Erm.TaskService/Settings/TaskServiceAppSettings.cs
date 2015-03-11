@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.TaskService.Settings;
 using DoubleGis.Erm.Qds.Common.Settings;
 
@@ -76,9 +76,8 @@ namespace DoubleGis.Erm.TaskService.Settings
                .Use<PerformedOperationsTransportSettingsAspect>()
                .IfRequiredUsePerformedOperationsFromServiceBusAspect()
                .Use<AsyncMsCRMReplicationSettingsAspect>()
-               .Use(RequiredServices
-                       .Is<APIIdentityServiceSettingsAspect>()
-                       .Is<APIMoDiServiceSettingsAspect>());
+               .Use<IdentityServiceClientSettingsAspect>()
+               .Use(RequiredServices.Is<APIMoDiServiceSettingsAspect>());
         }
 
         string IIntegrationLocalizationSettings.BasicLanguage

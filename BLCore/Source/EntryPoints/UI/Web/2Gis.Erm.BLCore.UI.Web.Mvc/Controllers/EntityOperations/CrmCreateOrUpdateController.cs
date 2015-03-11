@@ -14,7 +14,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         public CrmCreateOrUpdateController(IMsCrmSettings msCrmSettings,
                                            IAPIOperationsServiceSettings operationsServiceSettings,
                                            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                           IAPIIdentityServiceSettings identityServiceSettings,
+                                           IIdentityServiceClientSettings identityServiceSettings,
                                            IUserContext userContext,
                                            ITracer tracer,
                                            IGetBaseCurrencyService getBaseCurrencyService,

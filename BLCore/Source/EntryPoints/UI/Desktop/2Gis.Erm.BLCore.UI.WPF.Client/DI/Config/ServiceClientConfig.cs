@@ -23,6 +23,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
 

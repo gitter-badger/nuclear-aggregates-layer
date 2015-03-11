@@ -29,7 +29,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public ReportController(IMsCrmSettings msCrmSettings,
                                 IAPIOperationsServiceSettings operationsServiceSettings,
                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                IAPIIdentityServiceSettings identityServiceSettings,
+                                IIdentityServiceClientSettings identityServiceSettings,
                                 IUserContext userContext,
                                 ITracer tracer,
                                 IGetBaseCurrencyService getBaseCurrencyService,

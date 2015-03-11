@@ -28,6 +28,7 @@ using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
+using DoubleGis.NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 

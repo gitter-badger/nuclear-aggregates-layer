@@ -46,6 +46,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.IdentityService.Client">
+      <HintPath>..\packages\2GIS.NuClear.IdentityService.Client.1.0.2\lib\net451\2GIS.NuClear.IdentityService.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Common.Logging">
       <HintPath>..\packages\Common.Logging.2.2.0\lib\net40\Common.Logging.dll</HintPath>
       <Private>True</Private>

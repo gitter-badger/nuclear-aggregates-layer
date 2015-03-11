@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.NuClear.IdentityService.Client.Settings;
 
 using Nuclear.Settings;
 using Nuclear.Settings.API;
@@ -45,11 +46,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
                 .Use<CachingSettingsAspect>()
                 .Use<ValidateFileSettingsAspect>()
                 .Use<OperationLoggingSettingsAspect>()
+                .Use<IdentityServiceClientSettingsAspect>()
                 .IfRequiredUseOperationLogging2ServiceBus()
                 .Use(RequiredServices
                         .Is<APIIntrospectionServiceSettingsAspect>()
                         .Is<APIOrderValidationServiceSettingsAspect>()
-                        .Is<APIIdentityServiceSettingsAspect>()
                         .Is<APIOperationsServiceSettingsAspect>()
                         .Is<APISpecialOperationsServiceSettingsAspect>()
                         .Is<APIMoDiServiceSettingsAspect>()

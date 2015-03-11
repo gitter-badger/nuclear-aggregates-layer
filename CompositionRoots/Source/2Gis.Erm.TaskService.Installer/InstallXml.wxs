@@ -169,6 +169,9 @@
       <Component>
         <File Source="!(bindpath.PackagesDir)\protobuf-net.2.0.0.669\lib\net35\protobuf-net.dll" />
       </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.IdentityService.Client.1.0.1\lib\net451\2GIS.NuClear.IdentityService.Client.dll" />
+      </Component>
     </ComponentGroup>
     
     <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">

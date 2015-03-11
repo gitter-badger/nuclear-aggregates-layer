@@ -26,6 +26,7 @@ using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
+using DoubleGis.NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 
@@ -107,8 +108,8 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
         {
             // MoDi сервис только читает из базы, поэтому ему не нужна полная реализация сервиса получения идентификаторов.
             return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(CustomLifetime.PerOperationContext);
+                     .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)

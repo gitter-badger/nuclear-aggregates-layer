@@ -61,7 +61,7 @@ Ext.ux.IdField = Ext.extend(Ext.Component, {
         window.Ext.Ajax.request({
             scope: this,
             method: 'GET',
-            url: this.serviceUrl + '/NewIdentity',
+            url: this.serviceUrl + '/one',
             success: function (result, options) {
                 window.Card.Mask.hide();
                 this.setValue(result.responseText);

@@ -13,7 +13,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         public UserProfileController(IMsCrmSettings msCrmSettings,
                                      IAPIOperationsServiceSettings operationsServiceSettings,
                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                     IAPIIdentityServiceSettings identityServiceSettings,
+                                     IIdentityServiceClientSettings identityServiceSettings,
                                      IUserContext userContext,
                                      ITracer tracer,
                                      IGetBaseCurrencyService getBaseCurrencyService,

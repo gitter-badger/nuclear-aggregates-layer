@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.NuClear.IdentityService.Client.Interaction;
 
 using Nuclear.Tracing.API;
 

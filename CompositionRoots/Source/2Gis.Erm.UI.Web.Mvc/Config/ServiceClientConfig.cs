@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Metadata;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 
 using Microsoft.Practices.Unity;
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Config
         {
             var provider = new ServiceClientSettingsProvider();
 
-            var identityServiceSettings = container.Resolve<IAPIIdentityServiceSettings>();
+            var identityServiceSettings = container.Resolve<IIdentityServiceClientSettings>();
             var orderValidationServiceSettings = container.Resolve<IAPIOrderValidationServiceSettings>();
             var moDiServiceSettings = container.Resolve<IAPIMoDiServiceSettings>();
 
@@ -38,9 +38,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Config
 
                 // order validation service
                 .AddEndpoint<IOrderValidationApplicationService>(wsHttpBinding, orderValidationServiceSettings.BaseUrl, "Validate.svc/Soap")
-
-                // identity service
-                .AddEndpoint<IIdentityProviderApplicationService>(wsHttpBinding, identityServiceSettings.BaseUrl, "Identity.svc/Soap")
 
                 // modi service
                 .AddEndpoint<IWithdrawalInfoApplicationService>(wsHttpBinding, moDiServiceSettings.BaseUrl, "WithdrawalInfo.svc")

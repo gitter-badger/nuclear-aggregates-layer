@@ -5,7 +5,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public ClientController(IMsCrmSettings msCrmSettings,
                                 IAPIOperationsServiceSettings operationsServiceSettings,
                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                IAPIIdentityServiceSettings identityServiceSettings,
+                                IIdentityServiceClientSettings identityServiceSettings,
                                 IUserContext userContext,
                                 ITracer tracer,
                                 IGetBaseCurrencyService getBaseCurrencyService)
