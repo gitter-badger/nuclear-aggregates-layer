@@ -130,6 +130,18 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
 
             this.autocompleteHeader();
+
+            if (window.Ext.getDom("ViewConfig_id").value && window.Ext.getDom("ViewConfig_id").value != "0") {
+                this.Items.TabPanel.add(
+                    {
+                        xtype: "actionshistorytab",
+                        pCardInfo:
+                        {
+                            pTypeName: this.Settings.EntityName,
+                            pId: window.Ext.getDom("ViewConfig_Id").value
+                        }
+                    });
+            }
         }
     }
     
