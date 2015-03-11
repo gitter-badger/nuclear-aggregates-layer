@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.R
             It should_have_expected_DocumentsDeliveryMethod = () => DomainEntityDto.DocumentsDeliveryMethod.Should().Be(LegalPersonViewProfileModelsTestHelper.TestDocumentsDeliveryMethod);
             It should_have_expected_PersonResponsibleForDocuments = () => DomainEntityDto.PersonResponsibleForDocuments.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPersonResponsibleForDocuments);
             It should_have_expected_EmailForAccountingDocuments = () => DomainEntityDto.EmailForAccountingDocuments.Should().Be(LegalPersonViewProfileModelsTestHelper.TestEmailForAccountingDocuments);
-            It should_have_expected_AdditionalEmail = () => DomainEntityDto.AdditionalEmail.Should().Be(LegalPersonViewProfileModelsTestHelper.TestAdditionalEmail);
+            It should_have_expected_AdditionalEmail = () => DomainEntityDto.Email.Should().Be(LegalPersonViewProfileModelsTestHelper.TestAdditionalEmail);
             It should_have_expected_PostAddress = () => DomainEntityDto.PostAddress.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPostAddress);
             It should_have_expected_PaymentEssentialElements = () => DomainEntityDto.PaymentEssentialElements.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPaymentEssentialElements);
             It should_have_expected_Phone = () => DomainEntityDto.Phone.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPhone);
