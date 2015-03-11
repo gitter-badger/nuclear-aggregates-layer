@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -117,6 +118,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
                 case "DealStage":
                     return EnumUtils.ParseEnum<DealStage>(value).ToStringLocalized(EnumResources.ResourceManager, userCultureInfo);
                 case "Status":
+                    if (entityName == EntityName.Appointment || entityName == EntityName.Letter || entityName == EntityName.Phonecall || entityName == EntityName.Task)
+                    {
+                        ActivityStatus status;
+                        return EnumUtils.TryParseEnum(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, userCultureInfo) : value;
+                    }
+
                     if (entityName == EntityName.Limit)
                     {
                         LimitStatus status;
