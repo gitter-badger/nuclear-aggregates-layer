@@ -11,10 +11,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified
     public interface IOperationService : ISimplifiedModelConsumer, IInvariantSafeCrosscuttingService
     {
         FileWithContent GetLogForOperation(Guid operationId);
-        void FinishOperation(Operation operation, string operationLog, string logfileName, string contentType = MediaTypeNames.Text.Plain);
-        void FinishOperation(Operation operation, byte[] logContent, string logfileName, string contentType);
-        void FinishOperation(Operation operation, Stream newData, string fileName, string contentType);
-        void Add(Operation operation);
-        void Update(Operation operation);
+        void CreateOperation(Operation operation, string operationLog, string logfileName, string contentType = MediaTypeNames.Text.Plain);
+        void CreateOperation(Operation operation, byte[] logContent, string logfileName, string contentType);
+        void CreateOperation(Operation operation, Stream newData, string fileName, string contentType);
     }
 }

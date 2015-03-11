@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
             // ВНИМАНИЕ! В текущей реализации есть вероятность не сохранить эту сущность → инфа об ошибках потеряется.
             // Однако, если в этом случае можно запустить списание еще раз, чтобы получить этот отчет. И так до победного.
-            _operationService.FinishOperation(operation,
+            _operationService.CreateOperation(operation,
                                               csvReport.ReportContent,
                                               HttpUtility.UrlPathEncode(csvReport.ReportFileName),
                                               csvReport.ContentType);

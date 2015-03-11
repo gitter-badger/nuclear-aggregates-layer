@@ -39,28 +39,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public void Add(Operation operation)
-        {
-            _identityProvider.SetFor(operation);
-            _operationRepository.Add(operation);
-            _operationRepository.Save();
-        }
-
-        public void Update(Operation operation)
-        {
-            _operationRepository.Update(operation);
-            _operationRepository.Save();
-        }
-
-        public void FinishOperation(Operation operation, byte[] logContent, string logfileName, string contentType)
+        public void CreateOperation(Operation operation, byte[] logContent, string logfileName, string contentType)
         {
             using (MemoryStream ms = (logContent != null && logContent.Length > 0) ? new MemoryStream(logContent) : null)
             {
-                FinishOperation(operation, ms, logfileName, contentType);
+                CreateOperation(operation, ms, logfileName, contentType);
             }
         }
 
-        public void FinishOperation(Operation operation, string operationLog, string logfileName, string contentType = MediaTypeNames.Text.Plain)
+        public void CreateOperation(Operation operation, string operationLog, string logfileName, string contentType = MediaTypeNames.Text.Plain)
         {
             if (!string.IsNullOrEmpty(operationLog))
             {
@@ -72,44 +59,42 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
                     stream.Seek(0, SeekOrigin.Begin);
 
                     // Этот вызов должен быть внутри using'а, т.к. StreamWriter при закрытии себя закрывает MemoryStream.
-                    FinishOperation(operation, stream, logfileName, MediaTypeNames.Text.Plain);
+                    CreateOperation(operation, stream, logfileName, MediaTypeNames.Text.Plain);
                 }
             }
             else
             {
-                FinishOperation(operation, null as Stream, logfileName, MediaTypeNames.Text.Plain);
+                CreateOperation(operation, null as Stream, logfileName, MediaTypeNames.Text.Plain);
             }
         }
 
-        public void FinishOperation(Operation operation, Stream newData, string fileName, string contentType)
+        public void CreateOperation(Operation operation, Stream newData, string fileName, string contentType)
         {
-            if (operation.Id > 0)
+            using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, Operation>())
             {
-                using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Operation>())
+                if (newData != null)
                 {
-                    if (newData != null)
-                    {
-                        operation.LogFileId = AddFileWithContent(newData, fileName, contentType);
-                    }
+                    var fileWithContent = new FileWithContent
+                                              {
+                                                  ContentType = contentType,
+                                                  ContentLength = newData.Length,
+                                                  FileName = fileName,
+                                                  Content = newData
+                                              };
 
-                    Update(operation);
-                    scope.Updated(operation);
-                    scope.Complete();
-                }
-            }
-            else
-            {
-                using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, Operation>())
-                {
-                    if (newData != null)
-                    {
-                        operation.LogFileId = AddFileWithContent(newData, fileName, contentType);
-                    }
+                    _identityProvider.SetFor(fileWithContent);
+                    _fileRepository.Add(fileWithContent);
+                    scope.Added(fileWithContent);
 
-                    Add(operation);
-                    scope.Added(operation);
-                    scope.Complete();
+                    operation.LogFileId = fileWithContent.Id;
                 }
+
+                _identityProvider.SetFor(operation);
+                _operationRepository.Add(operation);
+                _operationRepository.Save();
+
+                scope.Added(operation)
+                     .Complete();
             }
         }
 
@@ -125,26 +110,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
             }
 
             return null;
-        }
-
-        private long AddFileWithContent(Stream newData, string fileName, string contentType)
-        {
-            var fileWithContent = new FileWithContent
-            {
-                ContentType = contentType,
-                ContentLength = newData.Length,
-                FileName = fileName,
-                Content = newData
-            };
-
-            using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, FileWithContent>())
-            {
-                _identityProvider.SetFor(fileWithContent);
-                _fileRepository.Add(fileWithContent);
-                scope.Added(fileWithContent);   
-            }
-
-            return fileWithContent.Id;
         }
     }
 }
