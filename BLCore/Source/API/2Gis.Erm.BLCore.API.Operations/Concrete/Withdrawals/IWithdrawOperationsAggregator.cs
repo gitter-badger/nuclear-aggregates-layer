@@ -5,8 +5,14 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
 {
+    public enum BulkWithdrawResult
+    {
+        AllSucceeded = 1,
+        ErrorsOccurred = 2
+    }
+
     public interface IWithdrawOperationsAggregator
     {
-        bool Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId);
+        BulkWithdrawResult Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId);
     }
 }

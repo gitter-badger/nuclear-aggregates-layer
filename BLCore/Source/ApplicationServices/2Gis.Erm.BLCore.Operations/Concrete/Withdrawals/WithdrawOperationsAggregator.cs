@@ -25,35 +25,35 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IAccountReadModel _accountReadModel;
         private readonly IWithdrawOperationService _withdrawOperationService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly ICheckOperationPeriodService _checkOperationPeriodService;
+        private readonly IMonthPeriodValidationService _checkPeriodService;
         private readonly IUserContext _userContext;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly ICommonLog _commonLog;
         private readonly IOperationService _operationService;
-        private readonly IGetWithdrawalsErrorsCsvReportOperationService _getWithdrawalsErrorsCsvReportOperationService;
+        private readonly IGetWithdrawalErrorsCsvReportOperationService _getWithdrawalErrorsCsvReportOperationService;
 
         public WithdrawOperationsAggregator(IAccountReadModel accountReadModel,
                                             IWithdrawOperationService withdrawOperationService,
                                             ISecurityServiceFunctionalAccess functionalAccessService,
-                                            ICheckOperationPeriodService checkOperationPeriodService,
+                                            IMonthPeriodValidationService checkPeriodService,
                                             IUserContext userContext,
                                             IUseCaseTuner useCaseTuner,
                                             ICommonLog commonLog,
                                             IOperationService operationService,
-                                            IGetWithdrawalsErrorsCsvReportOperationService getWithdrawalsErrorsCsvReportOperationService)
+                                            IGetWithdrawalErrorsCsvReportOperationService getWithdrawalErrorsCsvReportOperationService)
         {
             _accountReadModel = accountReadModel;
             _withdrawOperationService = withdrawOperationService;
             _functionalAccessService = functionalAccessService;
-            _checkOperationPeriodService = checkOperationPeriodService;
+            _checkPeriodService = checkPeriodService;
             _userContext = userContext;
             _useCaseTuner = useCaseTuner;
             _commonLog = commonLog;
             _operationService = operationService;
-            _getWithdrawalsErrorsCsvReportOperationService = getWithdrawalsErrorsCsvReportOperationService;
+            _getWithdrawalErrorsCsvReportOperationService = getWithdrawalErrorsCsvReportOperationService;
         }
 
-        public bool Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId)
+        public BulkWithdrawResult Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId)
         {
             _useCaseTuner.AlterDuration<WithdrawOperationsAggregator>();
 
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
 
             string report;
-            if (!_checkOperationPeriodService.IsOperationPeriodValid(period, out report))
+            if (!_checkPeriodService.IsValid(period, out report))
             {
                 throw new InvalidPeriodException(report);
             }
@@ -97,32 +97,32 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 }
             }
 
-            var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
-            businessOperationId = Guid.NewGuid();
+                var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
+                businessOperationId = Guid.NewGuid();
 
-            var operation = new Operation
-                                {
-                                    Guid = businessOperationId,
-                                    StartTime = DateTime.UtcNow,
-                                    FinishTime = DateTime.UtcNow,
-                                    OwnerCode = _userContext.Identity.Code,
-                                    Status = allWithwrawalsSucceded ? OperationStatus.Success : OperationStatus.Error,
-                                    Type = BusinessOperation.Withdrawal,
-                                };
+                var operation = new Operation
+                                    {
+                                        Guid = businessOperationId,
+                                        StartTime = DateTime.UtcNow,
+                                        FinishTime = DateTime.UtcNow,
+                                        OwnerCode = _userContext.Identity.Code,
+                                        Status = allWithwrawalsSucceded ? OperationStatus.Success : OperationStatus.Error,
+                                        Type = BusinessOperation.Withdrawal,
+                                    };
 
-            var csvReport = allWithwrawalsSucceded
-                                ? new WithdrawalsErrorsReport()
-                                : _getWithdrawalsErrorsCsvReportOperationService.GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded)
-                                                                                                                                    .ToDictionary(x => x.Key, y => y.Value),
-                                                                                                 period,
-                                                                                                 accountingMethod);
+                var csvReport = allWithwrawalsSucceded
+                                    ? new WithdrawalErrorsReport()
+                                    : _getWithdrawalErrorsCsvReportOperationService.GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded)
+                                                                                                                                        .ToDictionary(x => x.Key, y => y.Value),
+                                                                                                     period,
+                                                                                                     accountingMethod);
 
-            _operationService.FinishOperation(operation,
-                                              csvReport.ReportContent,
-                                              HttpUtility.UrlPathEncode(csvReport.ReportFileName),
-                                              csvReport.ContentType);
+                _operationService.FinishOperation(operation,
+                                                  csvReport.ReportContent,
+                                                  HttpUtility.UrlPathEncode(csvReport.ReportFileName),
+                                                  csvReport.ContentType);
 
-            return allWithwrawalsSucceded;
+                return allWithwrawalsSucceded ? BulkWithdrawResult.AllSucceeded : BulkWithdrawResult.ErrorsOccurred;
+            }
         }
     }
-}

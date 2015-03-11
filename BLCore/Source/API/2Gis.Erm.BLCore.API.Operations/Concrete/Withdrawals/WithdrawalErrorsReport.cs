@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
 {
-    public class WithdrawalsErrorsReport
+    public class WithdrawalErrorsReport
     {
         public byte[] ReportContent { get; set; }
         public string ReportFileName { get; set; }

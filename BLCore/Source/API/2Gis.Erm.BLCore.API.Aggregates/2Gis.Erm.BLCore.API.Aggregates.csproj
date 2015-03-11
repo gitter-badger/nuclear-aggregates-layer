@@ -68,6 +68,7 @@
     <Compile Include="Accounts\DTO\WithdrawalDto.cs" />
     <Compile Include="Accounts\DTO\WithdrawFromAccountsDto.cs" />
     <Compile Include="Accounts\IAccountRepository.cs" />
+    <Compile Include="Accounts\Operations\AccountingMethodViolationException.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkActivateLocksAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCloseLimitsAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCreateLocksAggregateService.cs" />
@@ -144,7 +145,7 @@
     <Compile Include="CommonService\MessageHelper.cs" />
     <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
     <Compile Include="Common\Crosscutting\ICheckInnService.cs" />
-    <Compile Include="Common\Crosscutting\ICheckOperationPeriodService.cs" />
+    <Compile Include="Common\Crosscutting\IMonthPeriodValidationService.cs" />
     <Compile Include="Common\Crosscutting\IConcurrentPeriodCounter.cs" />
     <Compile Include="Common\DTO\BusinessEntityInstanceDto.cs" />
     <Compile Include="Common\Generics\IActivateAggregateRepository.cs" />

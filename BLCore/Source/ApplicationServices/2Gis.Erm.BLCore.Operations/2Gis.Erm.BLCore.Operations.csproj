@@ -266,13 +266,13 @@
     <Compile Include="Concrete\Withdrawals\ActualizeDealsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDuringWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\GetWithdrawalErrorsReportOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\RevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\ValidationRules\LegalPersonsValidationRule.cs" />
     <Compile Include="Concrete\Withdrawals\ValidationRules\PeriodValidationRule.cs" />
     <Compile Include="Concrete\Withdrawals\ValidationRules\LocksExistenceValidationRule.cs" />
     <Compile Include="Concrete\Withdrawals\ValidationRules\WithdrawalOperationWorkflowValidationRule.cs" />
     <Compile Include="Concrete\Withdrawals\ValidationRules\WithdrawalOperationAccessValidationRule.cs" />
-    <Compile Include="Concrete\Withdrawals\GetWithdrawalsErrorsReportOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawOperationsAggregator.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawOperationService.cs" />
     <Compile Include="Crosscutting\AdvertisementElements\AdvertisementElementPlainTextHarmonizer.cs" />

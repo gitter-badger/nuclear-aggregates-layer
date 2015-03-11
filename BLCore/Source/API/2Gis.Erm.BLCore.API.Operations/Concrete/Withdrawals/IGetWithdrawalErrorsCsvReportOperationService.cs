@@ -7,8 +7,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withd
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
 {
-    public interface IGetWithdrawalsErrorsCsvReportOperationService : IOperation<GetWithdrawalsErrorsCsvReportIdentity>
+    public interface IGetWithdrawalErrorsCsvReportOperationService : IOperation<GetWithdrawalErrorsCsvReportIdentity>
     {
-        WithdrawalsErrorsReport GetErrorsReport(IDictionary<long, WithdrawalProcessingResult> resultsWithErrors, TimePeriod period, AccountingMethod accountingMethod);
+        WithdrawalErrorsReport GetErrorsReport(IDictionary<long, WithdrawalProcessingResult> resultsWithErrors, TimePeriod period, AccountingMethod accountingMethod);
     }
 }

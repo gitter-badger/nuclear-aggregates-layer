@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IActualizeOrdersDuringRevertingWithdrawalOperationService _actualizeOrdersDuringRevertingWithdrawalOperationService;
         private readonly IActualizeDealsDuringRevertingWithdrawalOperationService _actualizeDealsDuringRevertingWithdrawalOperationService;
         private readonly IAccountWithdrawalChangeStatusAggregateService _withdrawalChangeStatusAggregateService;
-        private readonly ICheckOperationPeriodService _checkOperationPeriodService;
+        private readonly IMonthPeriodValidationService _checkPeriodService;
         private readonly IAggregateServiceIsolator _aggregateServiceIsolator;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IActualizeDealsDuringRevertingWithdrawalOperationService actualizeDealsDuringRevertingWithdrawalOperationService,
             IDeleteLockDetailsDuringRevertingWithdrawalOperationService deleteLockDetailsDuringRevertingWithdrawalOperationService,
             IAccountWithdrawalChangeStatusAggregateService withdrawalChangeStatusAggregateService,
-            ICheckOperationPeriodService checkOperationPeriodService,
+            IMonthPeriodValidationService checkPeriodService,
             IAggregateServiceIsolator aggregateServiceIsolator,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _actualizeOrdersDuringRevertingWithdrawalOperationService = actualizeOrdersDuringRevertingWithdrawalOperationService;
             _actualizeDealsDuringRevertingWithdrawalOperationService = actualizeDealsDuringRevertingWithdrawalOperationService;
             _withdrawalChangeStatusAggregateService = withdrawalChangeStatusAggregateService;
-            _checkOperationPeriodService = checkOperationPeriodService;
+            _checkPeriodService = checkPeriodService;
             _aggregateServiceIsolator = aggregateServiceIsolator;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
@@ -228,7 +228,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 return false;
             }
 
-            if (!_checkOperationPeriodService.IsOperationPeriodValid(period, out report))
+            if (!_checkPeriodService.IsValid(period, out report))
             {
                 return false;
             }
