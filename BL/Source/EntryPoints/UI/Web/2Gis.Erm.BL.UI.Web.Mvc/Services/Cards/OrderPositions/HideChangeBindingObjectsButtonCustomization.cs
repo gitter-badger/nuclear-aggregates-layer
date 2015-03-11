@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 {
+    // TODO {all, 11.03.2015}: Удалить
     public sealed class HideChangeBindingObjectsButtonCustomization : IViewModelCustomization<OrderPositionViewModel>
     {
         private readonly IOrderReadModel _orderReadModel;
