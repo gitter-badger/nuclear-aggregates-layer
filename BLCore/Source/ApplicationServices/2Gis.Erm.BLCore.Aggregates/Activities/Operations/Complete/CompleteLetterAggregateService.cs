@@ -36,6 +36,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Complete
                 throw new ArgumentNullException("letter");
             }
 
+            if (letter.Status == ActivityStatus.Completed)
+            {
+                return;
+            }
+
             if (letter.Status != ActivityStatus.InProgress)
             {
                 throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, letter.Header));

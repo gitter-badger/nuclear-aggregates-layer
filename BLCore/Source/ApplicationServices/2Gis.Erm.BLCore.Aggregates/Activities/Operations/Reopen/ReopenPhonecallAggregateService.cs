@@ -34,6 +34,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Reopen
                 throw new ArgumentNullException("phonecall");
             }
 
+            if (phonecall.Status == ActivityStatus.InProgress)
+            {
+                return;
+            }
+
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<ReopenIdentity, Phonecall>())
             {
                 var originalStatus = phonecall.Status;

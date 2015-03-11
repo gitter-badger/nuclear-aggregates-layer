@@ -34,6 +34,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Reopen
                 throw new ArgumentNullException("letter");
             }
 
+            if (letter.Status == ActivityStatus.InProgress)
+            {
+                return;
+            }
+
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<ReopenIdentity, Letter>())
             {
                 var originalValue = letter.Status;

@@ -36,6 +36,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Cancel
                 throw new ArgumentNullException("task");
             }
 
+            if (task.Status == ActivityStatus.Canceled)
+            {
+                return;
+            }
+
             if (task.Status != ActivityStatus.InProgress)
             {
                 throw new BusinessLogicException(string.Format(BLResources.CannotCancelFinishedOrClosedActivity, task.Header));
