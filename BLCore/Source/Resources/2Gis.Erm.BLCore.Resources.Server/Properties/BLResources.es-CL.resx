@@ -1241,13 +1241,6 @@ Errores de bloqueo:{2}</value>
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Información acerca de  la Sucursal de la Persona Jurídica de la Entidad</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira desde el {3}.
-11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Usuario desconocido</value>
   </data>
@@ -4960,8 +4953,8 @@ Periodo de la publicación: {3}.</value>
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Cerrar por ser rechazado</value>
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>El nuevo modelo de ventas por ahora no se aplica para la ciudad de "{0}" y/o para la categoría de "{1}"</value>
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
+    <value>Categorías ({0}) no están compatibles con el modelo de ventas "{1}" en la ciudad "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Para todas las subposiciones de la posición de la orden formalizada para la posición de la lista de precios con el cálculo del coeficiente [{0}], debe indicarse una categoría</value>
