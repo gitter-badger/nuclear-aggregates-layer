@@ -42,6 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             _activityReadService = activityReadService;
         }
 
+        // Метод должен быть виртуальным для работы ActionsHistory
         public virtual DisqualifyResult Disqualify(long entityId, bool bypassValidation)
         {
             // Проверяем открытые связанные объекты:
