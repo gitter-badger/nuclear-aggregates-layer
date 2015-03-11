@@ -273,7 +273,7 @@
     <Compile Include="Concrete\Withdrawals\ValidationRules\WithdrawalOperationWorkflowValidationRule.cs" />
     <Compile Include="Concrete\Withdrawals\ValidationRules\WithdrawalOperationAccessValidationRule.cs" />
     <Compile Include="Concrete\Withdrawals\GetWithdrawalsErrorsReportOperationService.cs" />
-    <Compile Include="Concrete\Withdrawals\BulkWithdrawOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\WithdrawOperationsAggregator.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawOperationService.cs" />
     <Compile Include="Crosscutting\AdvertisementElements\AdvertisementElementPlainTextHarmonizer.cs" />
     <Compile Include="Crosscutting\AdvertisementElements\IAdvertisementElementPlainTextHarmonizer.cs" />

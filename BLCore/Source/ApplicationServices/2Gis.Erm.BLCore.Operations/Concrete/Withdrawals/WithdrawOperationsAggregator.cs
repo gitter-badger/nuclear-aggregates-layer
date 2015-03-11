@@ -9,7 +9,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -17,16 +16,14 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
     [UseCase(Duration = UseCaseDuration.ExtraLong)]
-    public sealed class BulkWithdrawOperationService : IBulkWithdrawOperationService
+    public sealed class WithdrawOperationsAggregator : IWithdrawOperationsAggregator
     {
         private readonly IAccountReadModel _accountReadModel;
         private readonly IWithdrawOperationService _withdrawOperationService;
-        private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ICheckOperationPeriodService _checkOperationPeriodService;
         private readonly IUserContext _userContext;
@@ -35,20 +32,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IOperationService _operationService;
         private readonly IGetWithdrawalsErrorsCsvReportOperationService _getWithdrawalsErrorsCsvReportOperationService;
 
-        public BulkWithdrawOperationService(IAccountReadModel accountReadModel,
-                                                      IWithdrawOperationService withdrawOperationService,
-                                                      IOperationScopeFactory operationScopeFactory,
-                                                      ISecurityServiceFunctionalAccess functionalAccessService,
-                                                      ICheckOperationPeriodService checkOperationPeriodService,
-                                                      IUserContext userContext,
-                                                      IUseCaseTuner useCaseTuner,
-                                                      ICommonLog commonLog,
-                                                      IOperationService operationService,
-                                                      IGetWithdrawalsErrorsCsvReportOperationService getWithdrawalsErrorsCsvReportOperationService)
+        public WithdrawOperationsAggregator(IAccountReadModel accountReadModel,
+                                            IWithdrawOperationService withdrawOperationService,
+                                            ISecurityServiceFunctionalAccess functionalAccessService,
+                                            ICheckOperationPeriodService checkOperationPeriodService,
+                                            IUserContext userContext,
+                                            IUseCaseTuner useCaseTuner,
+                                            ICommonLog commonLog,
+                                            IOperationService operationService,
+                                            IGetWithdrawalsErrorsCsvReportOperationService getWithdrawalsErrorsCsvReportOperationService)
         {
             _accountReadModel = accountReadModel;
             _withdrawOperationService = withdrawOperationService;
-            _operationScopeFactory = operationScopeFactory;
             _functionalAccessService = functionalAccessService;
             _checkOperationPeriodService = checkOperationPeriodService;
             _userContext = userContext;
@@ -60,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
         public bool Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId)
         {
-            _useCaseTuner.AlterDuration<BulkWithdrawOperationService>();
+            _useCaseTuner.AlterDuration<WithdrawOperationsAggregator>();
 
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.WithdrawalAccess, _userContext.Identity.Code))
             {
@@ -102,37 +97,32 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 }
             }
 
-            // Регистрируем факт проведения операции.
-            using (var scope = _operationScopeFactory.CreateNonCoupled<BulkWithdrawIdentity>())
-            {
-                var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
-                businessOperationId = Guid.NewGuid();
+            var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
+            businessOperationId = Guid.NewGuid();
 
-                var operation = new Operation
-                                    {
-                                        Guid = businessOperationId,
-                                        StartTime = DateTime.UtcNow,
-                                        FinishTime = DateTime.UtcNow,
-                                        OwnerCode = _userContext.Identity.Code,
-                                        Status = allWithwrawalsSucceded ? OperationStatus.Success : OperationStatus.Error,
-                                        Type = BusinessOperation.Withdrawal,
-                                    };
+            var operation = new Operation
+                                {
+                                    Guid = businessOperationId,
+                                    StartTime = DateTime.UtcNow,
+                                    FinishTime = DateTime.UtcNow,
+                                    OwnerCode = _userContext.Identity.Code,
+                                    Status = allWithwrawalsSucceded ? OperationStatus.Success : OperationStatus.Error,
+                                    Type = BusinessOperation.Withdrawal,
+                                };
 
-                var csvReport = allWithwrawalsSucceded
-                                    ? new WithdrawalsErrorsReport()
-                                    : _getWithdrawalsErrorsCsvReportOperationService.GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded)
-                                                                                                                                        .ToDictionary(x => x.Key, y => y.Value),
-                                                                                                     period,
-                                                                                                     accountingMethod);
+            var csvReport = allWithwrawalsSucceded
+                                ? new WithdrawalsErrorsReport()
+                                : _getWithdrawalsErrorsCsvReportOperationService.GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded)
+                                                                                                                                    .ToDictionary(x => x.Key, y => y.Value),
+                                                                                                 period,
+                                                                                                 accountingMethod);
 
-                _operationService.FinishOperation(operation,
-                                                  csvReport.ReportContent,
-                                                  HttpUtility.UrlPathEncode(csvReport.ReportFileName),
-                                                  csvReport.ContentType);
-                scope.Complete();
+            _operationService.FinishOperation(operation,
+                                              csvReport.ReportContent,
+                                              HttpUtility.UrlPathEncode(csvReport.ReportFileName),
+                                              csvReport.ContentType);
 
-                return allWithwrawalsSucceded;
-            }
+            return allWithwrawalsSucceded;
         }
     }
 }
