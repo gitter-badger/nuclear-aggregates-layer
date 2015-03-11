@@ -74,7 +74,6 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Tests.Integration.InProc.Config;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.MassProcessing;
-using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.OrderValidation;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Logging;
@@ -94,8 +93,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
-            Type[] explicitlyTypesSpecified = //null;
-             { typeof(BulkWithdrawTest) };
+            Type[] explicitlyTypesSpecified = null;
+            //{ typeof(BulkWithdrawTest) };
             // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
             { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest), typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };

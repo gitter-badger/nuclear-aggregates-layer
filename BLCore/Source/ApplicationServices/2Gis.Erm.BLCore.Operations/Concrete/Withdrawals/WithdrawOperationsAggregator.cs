@@ -97,32 +97,34 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 }
             }
 
-                var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
-                businessOperationId = Guid.NewGuid();
+            var allWithwrawalsSucceded = processingResultsByOrganizationUnit.All(x => x.Value.Succeded);
+            businessOperationId = Guid.NewGuid();
 
-                var operation = new Operation
-                                    {
-                                        Guid = businessOperationId,
-                                        StartTime = DateTime.UtcNow,
-                                        FinishTime = DateTime.UtcNow,
-                                        OwnerCode = _userContext.Identity.Code,
-                                        Status = allWithwrawalsSucceded ? OperationStatus.Success : OperationStatus.Error,
-                                        Type = BusinessOperation.Withdrawal,
-                                    };
+            var operation = new Operation
+                                {
+                                    Guid = businessOperationId,
+                                    StartTime = DateTime.UtcNow,
+                                    FinishTime = DateTime.UtcNow,
+                                    OwnerCode = _userContext.Identity.Code,
+                                    Status = allWithwrawalsSucceded ? OperationStatus.Success : OperationStatus.Error,
+                                    Type = BusinessOperation.Withdrawal,
+                                };
 
-                var csvReport = allWithwrawalsSucceded
-                                    ? new WithdrawalErrorsReport()
-                                    : _getWithdrawalErrorsCsvReportOperationService.GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded)
-                                                                                                                                        .ToDictionary(x => x.Key, y => y.Value),
-                                                                                                     period,
-                                                                                                     accountingMethod);
+            var csvReport = allWithwrawalsSucceded
+                                ? new WithdrawalErrorsReport()
+                                : _getWithdrawalErrorsCsvReportOperationService.GetErrorsReport(processingResultsByOrganizationUnit.Where(x => !x.Value.Succeded)
+                                                                                                                                   .ToDictionary(x => x.Key, y => y.Value),
+                                                                                                period,
+                                                                                                accountingMethod);
 
-                _operationService.FinishOperation(operation,
-                                                  csvReport.ReportContent,
-                                                  HttpUtility.UrlPathEncode(csvReport.ReportFileName),
-                                                  csvReport.ContentType);
+            // ВНИМАНИЕ! В текущей реализации есть вероятность не сохранить эту сущность → инфа об ошибках потеряется.
+            // Однако, если в этом случае можно запустить списание еще раз, чтобы получить этот отчет. И так до победного.
+            _operationService.FinishOperation(operation,
+                                              csvReport.ReportContent,
+                                              HttpUtility.UrlPathEncode(csvReport.ReportFileName),
+                                              csvReport.ContentType);
 
-                return allWithwrawalsSucceded ? BulkWithdrawResult.AllSucceeded : BulkWithdrawResult.ErrorsOccurred;
-            }
+            return allWithwrawalsSucceded ? BulkWithdrawResult.AllSucceeded : BulkWithdrawResult.ErrorsOccurred;
         }
     }
+}
