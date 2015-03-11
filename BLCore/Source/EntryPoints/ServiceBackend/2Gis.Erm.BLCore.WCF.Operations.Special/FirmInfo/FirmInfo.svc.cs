@@ -15,20 +15,20 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class FirmInfoApplicationService : IFirmInfoApplicationRestService
     {
-        private readonly IGetFirmInfoService _getFirmInfoService;
+        private readonly IGetFirmInfoOperationService _getFirmInfoOperationService;
         private readonly ICommonLog _logger;
 
-        public FirmInfoApplicationService(IGetFirmInfoService getFirmInfoService, ICommonLog logger)
+        public FirmInfoApplicationService(IGetFirmInfoOperationService getFirmInfoOperationService, ICommonLog logger)
         {
-            _getFirmInfoService = getFirmInfoService;
+            _getFirmInfoOperationService = getFirmInfoOperationService;
             _logger = logger;
         }
 
-        public IEnumerable<FirmInfoDto> Execute(IEnumerable<FirmGuidDto> firmIds)
+        public IEnumerable<FirmInfoDto> Execute(IEnumerable<FirmIdDto> firmIds)
         {
             try
             {
-                return _getFirmInfoService.GetFirmInfosByCrmIds(firmIds.Select(x => x.Id));
+                return _getFirmInfoOperationService.GetFirmInfosByIds(firmIds.Select(x => x.Id));
             }
             catch (BusinessLogicException ex)
             {
