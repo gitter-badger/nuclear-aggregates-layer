@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 {
@@ -82,40 +83,33 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 
         public void FinishOperation(Operation operation, Stream newData, string fileName, string contentType)
         {
-            using (var scope = _operationScopeFactory.CreateOrUpdateOperationFor(operation))
+            if (operation.Id > 0)
             {
-                long? logFileId = null;
-
-                if (newData != null)
+                using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Operation>())
                 {
-                    var fileWithContent = new FileWithContent
-                                              {
-                                                  ContentType = contentType,
-                                                  ContentLength = newData.Length,
-                                                  FileName = fileName,
-                                                  Content = newData
-                                              };
+                    if (newData != null)
+                    {
+                        operation.LogFileId = AddFileWithContent(newData, fileName, contentType);
+                    }
 
-                    _identityProvider.SetFor(fileWithContent);
-                    _fileRepository.Add(fileWithContent);
-                    logFileId = fileWithContent.Id;
-                    scope.Added(fileWithContent);
-                }
-
-                operation.LogFileId = logFileId;
-
-                if (operation.Id > 0)
-                {
                     Update(operation);
                     scope.Updated(operation);
+                    scope.Complete();
                 }
-                else
+            }
+            else
+            {
+                using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, Operation>())
                 {
+                    if (newData != null)
+                    {
+                        operation.LogFileId = AddFileWithContent(newData, fileName, contentType);
+                    }
+
                     Add(operation);
                     scope.Added(operation);
+                    scope.Complete();
                 }
-
-                scope.Complete();
             }
         }
 
@@ -131,6 +125,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
             }
 
             return null;
+        }
+
+        private long AddFileWithContent(Stream newData, string fileName, string contentType)
+        {
+            var fileWithContent = new FileWithContent
+            {
+                ContentType = contentType,
+                ContentLength = newData.Length,
+                FileName = fileName,
+                Content = newData
+            };
+
+            using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, FileWithContent>())
+            {
+                _identityProvider.SetFor(fileWithContent);
+                _fileRepository.Add(fileWithContent);
+                scope.Added(fileWithContent);   
+            }
+
+            return fileWithContent.Id;
         }
     }
 }
