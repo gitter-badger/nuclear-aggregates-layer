@@ -15,13 +15,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
             {
                 if (bill.PaymentDatePlan > bill.BeginDistributionDate)
                 {
-                    report = String.Format(BLCore.Resources.Server.Properties.BLResources.PaymentDatePlanMustBeLessThanBeginDistributionDateForPayment, bill.Number);
-                    return false;
-                }
-
-                if (bill.BeginDistributionDate > bill.EndDistributionDate)
-                {
-                    report = String.Format(BLCore.Resources.Server.Properties.BLResources.BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPayment, bill.Number);
+                    report = string.Format(BLCore.Resources.Server.Properties.BLResources.PaymentDatePlanMustBeLessThanBeginDistributionDateForPayment, bill.Number);
                     return false;
                 }
 

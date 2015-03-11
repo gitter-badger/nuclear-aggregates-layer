@@ -127,7 +127,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
@@ -161,7 +161,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
                 {
                     Id = Id,
                     Name = Name.Ensure—leanness(),
-                    AdditionalEmail = Email.Ensure—leanness(),
+                    Email = Email.Ensure—leanness(),
                     ChiefNameInGenitive = ChiefNameInGenitive.Ensure—leanness(),
                     ChiefNameInNominative = ChiefNameInNominative.Ensure—leanness(),
                     Registered = Registered.Ensure—leanness(),

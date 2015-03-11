@@ -26,10 +26,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
         protected override OrdinaryTestResult ExecuteWithModel(HotClientRequest modelEntity)
         {
-            return _msCrmSettings.EnableReplication
-                       ? Result.When(_getHotClientTaskToReplicateOperationService.GetHotClientTask(modelEntity.Id))
-                               .Then(r => r.Should().NotBeNull())
-                       : OrdinaryTestResult.As.Ignored;
+            return Result.When(_getHotClientTaskToReplicateOperationService.GetHotClientTask(modelEntity.Id))
+                         .Then(r => r.Should().NotBeNull());
         }
     }
 }

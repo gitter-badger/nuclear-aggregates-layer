@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureBillViewModel : EntityViewModelBase<Bill>, INumberAspect, ICzechAdapted, ICyprusAdapted, IRussiaAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
+    public sealed class MultiCultureBillViewModel : EntityViewModelBase<Bill>, INumberAspect, ICyprusAdapted, IRussiaAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         [RequiredLocalized]
         [DisplayNameLocalized("BillNumber")]

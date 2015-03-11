@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
             DocumentsDeliveryMethod = modelDto.DocumentsDeliveryMethod;
             PaymentMethod = modelDto.PaymentMethod;
@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                 {
                     Id = Id,
                     Name = Name.Ensure—leanness(),
-                    AdditionalEmail = Email.Ensure—leanness(),
+                    Email = Email.Ensure—leanness(),
                     DocumentsDeliveryAddress = DocumentsDeliveryAddress.Ensure—leanness(),
                     PaymentMethod = PaymentMethod,
                     AccountNumber = AccountNumber.Ensure—leanness(),

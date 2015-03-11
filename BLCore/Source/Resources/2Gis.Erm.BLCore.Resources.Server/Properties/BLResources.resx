@@ -4941,7 +4941,7 @@
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value />
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
     <value />
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">

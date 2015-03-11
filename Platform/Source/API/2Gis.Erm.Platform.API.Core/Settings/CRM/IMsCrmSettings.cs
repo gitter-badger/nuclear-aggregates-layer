@@ -1,6 +1,4 @@
-﻿using System;
-
-using DoubleGis.Erm.Platform.Common.Settings;
+﻿using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
 {
@@ -9,8 +7,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
     /// </summary>
     public interface IMsCrmSettings : ISettings
     {
-        [Obsolete("Use IntegrationMode instead")]
-        bool EnableReplication { get; }
         MsCrmIntegrationMode IntegrationMode { get; }
 
         string CrmOrganizationName { get; }

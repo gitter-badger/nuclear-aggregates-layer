@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.EmailForAccountingDocuments)
                 .HasMaxLength(64);
 
-            Property(t => t.AdditionalEmail)
+            Property(t => t.Email)
                 .HasMaxLength(64);
 
             Property(t => t.PersonResponsibleForDocuments)
@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.RecipientName).HasColumnName("RecipientName");
             Property(t => t.DocumentsDeliveryMethod).HasColumnName("DocumentsDeliveryMethod");
             Property(t => t.EmailForAccountingDocuments).HasColumnName("EmailForAccountingDocuments");
-            Property(t => t.AdditionalEmail).HasColumnName("AdditionalEmail");
+            Property(t => t.Email).HasColumnName("Email");
             Property(t => t.PersonResponsibleForDocuments).HasColumnName("PersonResponsibleForDocuments");
             Property(t => t.Phone).HasColumnName("Phone");
             Property(t => t.PaymentEssentialElements).HasColumnName("PaymentEssentialElements");

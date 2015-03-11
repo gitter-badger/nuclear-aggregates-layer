@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
             DocumentsDeliveryMethod = modelDto.DocumentsDeliveryMethod;
             PaymentMethod = modelDto.PaymentMethod;
@@ -190,7 +190,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
             {
                 Id = Id,
                 Name = Name.EnsureСleanness(),
-                AdditionalEmail = Email.EnsureСleanness(),
+                Email = Email.EnsureСleanness(),
                 DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),
                 PaymentMethod = PaymentMethod,
                 AccountNumber = AccountNumber.EnsureСleanness(),
