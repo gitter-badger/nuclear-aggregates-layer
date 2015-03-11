@@ -5,7 +5,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -32,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
             return _finder.Find(Specs.Find.ByIds<Category>(categoryIds)).ToDictionary(x => x.Id, x => x.Level);
         }
 
-        public IDictionary<long, IEnumerable<LinkingObjectsSchemaDto.CategoryDto>> GetFirmAddressesCategories(long destOrganizationUnitId, IEnumerable<long> firmAddressIds)
+        public IDictionary<long, IEnumerable<LinkingObjectsSchemaCategoryDto>> GetFirmAddressesCategories(long destOrganizationUnitId, IEnumerable<long> firmAddressIds)
         {
             var categoryOrganizationUnits =
                 _finder.Find(CategorySpecs.CategoryOrganizationUnits.Find.ForOrganizationUnit(destOrganizationUnitId) &&
@@ -58,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
             return directLinkedCategories.Union(firstLevelCategories)
                                          .GroupBy(x => x.FirmAddressId)
                                          .ToDictionary(x => x.Key,
-                                                       x => x.Select(y => new LinkingObjectsSchemaDto.CategoryDto
+                                                       x => x.Select(y => new LinkingObjectsSchemaCategoryDto
                                                                               {
                                                                                   Id = y.Category.Id,
                                                                                   Level = y.Category.Level,
@@ -66,20 +65,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
                                                                               }));
         }
 
-        public IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetFirmCategories(IEnumerable<long> firmCategoryIds, SalesModel salesModel, long organizationUnitId)
+        public IEnumerable<LinkingObjectsSchemaCategoryDto> GetFirmCategories(IEnumerable<long> firmCategoryIds, SalesModel salesModel, long organizationUnitId)
         {
             return _finder.Find(Specs.Find.ByIds<Category>(firmCategoryIds)
                                 && CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, organizationUnitId))
-                          .Select(item => new LinkingObjectsSchemaDto.CategoryDto { Id = item.Id, Name = item.Name, Level = item.Level, })
+                          .Select(item => new LinkingObjectsSchemaCategoryDto { Id = item.Id, Name = item.Name, Level = item.Level, })
                           .Distinct()
                           .ToArray();
         }
 
-        public IEnumerable<CategoryOpaDto> GetSalesIntoCategories(long orderPositionId)
+        public IEnumerable<CategoryAsLinkingObjectDto> GetSalesIntoCategories(long orderPositionId)
         {
             return _finder.Find(OrderSpecs.OrderPositionAdvertisements.Find.ByOrderPosition(orderPositionId))
                           .Where(opa => opa.CategoryId.HasValue)
-                          .Select(opa => new CategoryOpaDto
+                          .Select(opa => new CategoryAsLinkingObjectDto
                                              {
                                                  CategoryId = opa.CategoryId.Value,
                                                  CategoryName = opa.Category.Name,

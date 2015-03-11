@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.DTO;
@@ -13,8 +15,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderPosition;
 
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 var firmCategoriesSupportedBySalesModel = _categoryReadModel.GetFirmCategories(firmCategoryIds, pricePositionInfo.SalesModel, orderDto.DestOrganizationUnitId);
                 var salesIntoCategories = orderPositionId.HasValue
                                               ? _categoryReadModel.GetSalesIntoCategories(orderPositionId.Value)
-                                              : Enumerable.Empty<CategoryOpaDto>();
+                                              : Enumerable.Empty<CategoryAsLinkingObjectDto>();
 
                 var salesIntoCategoriesByFirmAddress = salesIntoCategories.Where(x => x.FirmAddressId.HasValue)
                                                                           .GroupBy(x => x.FirmAddressId)
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                        : Enumerable.Empty<long>());
                 }
 
-                var positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId);
+                var positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId).Select(ConvertToResponsePositionDto);
 
                 var salesIntoCategoriesByPositions = salesIntoCategories.GroupBy(x => x.PositionId)
                                                                         .ToDictionary(x => x.Key, y => y);
@@ -101,7 +101,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 {
                     var salesIntoCategoriesByPosition = salesIntoCategoriesByPositions.ContainsKey(position.Id)
                                                             ? salesIntoCategoriesByPositions[position.Id]
-                                                            : Enumerable.Empty<CategoryOpaDto>();
+                                                            : Enumerable.Empty<CategoryAsLinkingObjectDto>();
 
                     position.AvailableCategories = GetCategoriesAvailableForPosition(allFirmCategories,
                                                                                      firmCategoriesSupportedBySalesModel,
@@ -113,9 +113,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                  {
                                      Warnings = warnings,
                                      FirmCategories =
-                                         firmCategoriesSupportedBySalesModel.Concat(salesIntoCategories.Where(AdditionalCategoriesWithSales(firmCategoriesSupportedBySalesModel.Select(x => x.Id))
-                                                                                                                  .Predicate.Compile())
-                                                                                                       .Select(LinkingObjectCategoryDto().Selector.Compile())),
+                                         firmCategoriesSupportedBySalesModel.Select(ConvertToResponseCategoryDto)
+                                                                            .Concat(salesIntoCategories.Where(AdditionalCategoriesWithSales(firmCategoriesSupportedBySalesModel
+                                                                                                                                                .Select(x => x.Id)))
+                                                                                                       .Select(LinkingObjectCategoryDto())),
                                      Themes = themeDtos,
                                      Positions = positions,
                                      FirmAddresses = firmAddresses
@@ -126,19 +127,65 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             }
         }
 
-        private static FindSpecification<CategoryOpaDto> AdditionalCategoriesWithSales(IEnumerable<long> categories)
+        private static Func<CategoryAsLinkingObjectDto, bool> AdditionalCategoriesWithSales(IEnumerable<long> categories)
         {
-            return new FindSpecification<CategoryOpaDto>(x => !categories.Contains(x.CategoryId));
+            return x => !categories.Contains(x.CategoryId);
         }
 
-        private static ISelectSpecification<CategoryOpaDto, LinkingObjectsSchemaDto.CategoryDto> LinkingObjectCategoryDto()
+        private static Func<CategoryAsLinkingObjectDto, LinkingObjectsSchemaDto.CategoryDto> LinkingObjectCategoryDto()
         {
-            return new SelectSpecification<CategoryOpaDto, LinkingObjectsSchemaDto.CategoryDto>(x => new LinkingObjectsSchemaDto.CategoryDto
+            return x => new LinkingObjectsSchemaDto.CategoryDto
+                            {
+                                Id = x.CategoryId,
+                                Level = x.CategoryLevel,
+                                Name = x.CategoryName
+                            };
+        }
+
+        private static LinkingObjectsSchemaDto.CategoryDto ConvertToResponseCategoryDto(LinkingObjectsSchemaCategoryDto dto)
+        {
+            return new LinkingObjectsSchemaDto.CategoryDto
             {
-                Id = x.CategoryId,
-                Level = x.CategoryLevel,
-                Name = x.CategoryName
-            });
+                Id = dto.Id,
+                Level = dto.Level,
+                Name = dto.Name
+            };
+        }
+
+        private static LinkingObjectsSchemaDto.PositionDto ConvertToResponsePositionDto(LinkingObjectsSchemaPositionDto dto)
+        {
+            return new LinkingObjectsSchemaDto.PositionDto
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                PositionsGroup = (int)dto.PositionsGroup,
+                LinkingObjectType = dto.BindingObjectType.ToString(),
+                IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType(dto.BindingObjectType),
+                AdvertisementTemplateId = dto.AdvertisementTemplateId,
+                DummyAdvertisementId = dto.DummyAdvertisementId,
+            };
+        }
+
+        private static bool IsPositionBindingOfSingleType(PositionBindingObjectType type)
+        {
+            switch (type)
+            {
+                case PositionBindingObjectType.Firm:
+                case PositionBindingObjectType.AddressCategorySingle:
+                case PositionBindingObjectType.AddressSingle:
+                case PositionBindingObjectType.CategorySingle:
+                case PositionBindingObjectType.AddressFirstLevelCategorySingle:
+                    return true;
+                case PositionBindingObjectType.AddressMultiple:
+                case PositionBindingObjectType.CategoryMultiple:
+                case PositionBindingObjectType.CategoryMultipleAsterix:
+                case PositionBindingObjectType.AddressCategoryMultiple:
+                case PositionBindingObjectType.AddressFirstLevelCategoryMultiple:
+                case PositionBindingObjectType.ThemeMultiple:
+                    return false;
+                default:
+                    throw new ArgumentOutOfRangeException("type");
+            }
         }
 
         private LinkingObjectsSchemaDto.FirmAddressDto[] GetFirmAddresses(long firmId, bool includeHiddenAddresses)
@@ -174,15 +221,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
         }
 
         private IEnumerable<LinkingObjectsSchemaDto.CategoryDto> GetCategoriesAvailableForPosition(
-            IEnumerable<LinkingObjectsSchemaDto.CategoryDto> allFirmCategories,
-            IEnumerable<LinkingObjectsSchemaDto.CategoryDto> supportedBySalesModelCategories,
-            IEnumerable<CategoryOpaDto> salesIntoCategoriesByPosition,
+            IEnumerable<LinkingObjectsSchemaCategoryDto> allFirmCategories,
+            IEnumerable<LinkingObjectsSchemaCategoryDto> supportedBySalesModelCategories,
+            IEnumerable<CategoryAsLinkingObjectDto> salesIntoCategoriesByPosition,
             PositionsGroup positionsGroup)
         {
-            var positionsGroupCategories = positionsGroup == PositionsGroup.Media ? allFirmCategories : supportedBySalesModelCategories;
+            var positionsGroupCategories = (positionsGroup == PositionsGroup.Media
+                                                ? allFirmCategories
+                                                : supportedBySalesModelCategories).Select(ConvertToResponseCategoryDto);
             return
-                positionsGroupCategories.Concat(salesIntoCategoriesByPosition.Where(AdditionalCategoriesWithSales(positionsGroupCategories.Select(x => x.Id)).Predicate.Compile())
-                                                                             .Select(LinkingObjectCategoryDto().Selector.Compile()));
+                positionsGroupCategories.Concat(salesIntoCategoriesByPosition.Where(AdditionalCategoriesWithSales(positionsGroupCategories.Select(x => x.Id)))
+                                                                             .Select(LinkingObjectCategoryDto()));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.DTO
 {
-    public sealed class CategoryOpaDto
+    public sealed class CategoryAsLinkingObjectDto
     {
         public long CategoryId { get; set; }
         public string CategoryName { get; set; }
