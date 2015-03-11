@@ -1,4 +1,5 @@
-﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity.AppointmentViewModel
+﻿@using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
+@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity.AppointmentViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -18,7 +19,7 @@
     <script type="text/javascript">
     Ext.onReady(function() {
         var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
-        Ext.apply(cardSettings, { contactField: "AttendeeId", contactComponent: "Attendee", duration: @CalendarSettings.DefaultAppointmentDuration.TotalMinutes});            
+        Ext.apply(cardSettings, { contactField: "AttendeeId", contactComponent: "Attendee", duration: @Model.Duration.TotalMinutes});            
         window.Card = new window.Ext.DoubleGis.UI.Appointment(cardSettings);
         window.Card.Build();
     });

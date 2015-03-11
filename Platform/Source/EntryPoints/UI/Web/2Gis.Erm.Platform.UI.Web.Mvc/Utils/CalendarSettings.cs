@@ -4,8 +4,6 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 {
     public sealed class CalendarSettings
     {
-        public static readonly TimeSpan DefaultAppointmentDuration = TimeSpan.FromMinutes(60);
-
         public enum StoreMode
         {
             /// <summary>

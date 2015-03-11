@@ -19,9 +19,25 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 {
     public sealed class AppointmentViewModel : EntityViewModelBase<Appointment>, IActivityViewModel
     {
+        private static readonly TimeSpan DefaultDuration = TimeSpan.FromMinutes(60);
+
+        public TimeSpan Duration
+        {
+            get
+            {
+                return DefaultDuration;
+            }
+        }
+
         public override byte[] Timestamp { get; set; }
-        
-        public override bool IsSecurityRoot { get { return true; } }
+
+        public override bool IsSecurityRoot
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         public override string EntityStatus
         {
