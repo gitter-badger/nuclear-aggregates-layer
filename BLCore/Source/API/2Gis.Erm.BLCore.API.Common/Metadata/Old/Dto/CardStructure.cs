@@ -13,6 +13,7 @@
 
         public bool HasComments { get; set; }
         public bool HasAdminTab { get; set; }
+        public bool HasActionsHistory { get; set; }
         public int DecimalDigits { get; set; }
 
         public ToolbarElementStructure[] CardToolbar { get; set; }

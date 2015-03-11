@@ -122,19 +122,6 @@
         };
     });
     
-    window.Card.on("afterbuild", function (card) {
-        if (window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
-            this.Items.TabPanel.add(
-            {
-                xtype: "actionshistorytab",
-                pCardInfo:
-                {
-                    pTypeName: this.Settings.EntityName,
-                    pId: window.Ext.getDom("ViewConfig_Id").value
-                }
-            });
-        }
-    });
     
     window.Card.on('beforepost', function (card) {
         card.genericSave(card.submitMode);

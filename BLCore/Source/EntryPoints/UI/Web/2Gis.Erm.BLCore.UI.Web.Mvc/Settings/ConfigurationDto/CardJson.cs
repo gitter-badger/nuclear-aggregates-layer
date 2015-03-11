@@ -15,6 +15,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto
 
         public bool HasComments { get; set; }
         public bool HasAdminTab { get; set; }
+        public bool HasActionsHistory { get; set; }
         public int DecimalDigits { get; set; }
 
         public ToolbarJson[] CardToolbar { get; set; }

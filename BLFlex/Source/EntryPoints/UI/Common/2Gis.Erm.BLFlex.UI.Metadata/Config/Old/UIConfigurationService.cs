@@ -625,6 +625,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 EntityLocalizedName = GetLocalizedName(cardSettings.EntityNameLocaleResourceId, culture),
                 EntityMainAttribute = cardSettings.EntityMainAttribute,
                 HasComments = cardSettings.HasComments,
+                HasActionsHistory = cardSettings.HasActionsHistory,
                 HasAdminTab = cardSettings.HasAdminTab,
                 DecimalDigits = cardSettings.DecimalDigits,
 
@@ -747,6 +748,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             if (entityMainAttribute != null)
             {
                 cardJson.EntityMainAttribute = entityMainAttribute.Value;
+            }
+
+            var hasActionsHistory = cardEl.Attribute("HasActionsHistory");
+            if (hasActionsHistory != null)
+            {
+                cardJson.HasActionsHistory = (bool)hasActionsHistory;
             }
 
             var hasComments = cardEl.Attribute("HasComments");

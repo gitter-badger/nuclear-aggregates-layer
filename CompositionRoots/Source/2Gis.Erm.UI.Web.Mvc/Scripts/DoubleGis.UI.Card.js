@@ -235,6 +235,10 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             this.Items.TabPanel.add({ xtype: "notepanel", pCardInfo: { pTypeName: this.Settings.EntityName, pId: window.Ext.getDom("ViewConfig_Id").value } });
         }
 
+        if (this.Settings.HasActionsHistory === true && window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
+            this.Items.TabPanel.add({ xtype: "actionshistorytab", pCardInfo: { pTypeName: this.Settings.EntityName, pId: window.Ext.getDom("ViewConfig_Id").value } });
+        }
+
         if (window.Ext.getDom("Message").innerHTML.trim()) {
             this.isDirty = window.Ext.getDom("MessageType").innerHTML.trim() == "CriticalError";
             this.AddNotification(window.Ext.getDom("Message").innerText.trim(), window.Ext.getDom("MessageType").innerHTML.trim(), "ServerError");
