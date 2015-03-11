@@ -30,15 +30,15 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
 
         public void ReplicateToMsCrm(Type entityType, IReadOnlyCollection<long> ids, TimeSpan timeout, out IReadOnlyCollection<long> notReplicated)
         {
-            if (!_msCrmSettings.EnableReplication)
+            if (!_msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Database))
             {
-                _logger.WarnFormatEx("Replication to MsCRM disabled in config. Do nothing ...");
+                _logger.WarnFormat("Replication to MsCRM disabled in config. Do nothing ...");
                 notReplicated = new long[0];
                 return;
             }
 
             EntityReplicationInfo entityReplicationInfo;
-            if (!_msCrmReplicationMetadataProvider.TryGetAsyncMetadata(entityType, ReplicationMode.Batch, out entityReplicationInfo))
+            if (!_msCrmReplicationMetadataProvider.TryGetMetadata(entityType, ReplicationMode.Batch, out entityReplicationInfo))
             {
                 throw new InvalidOperationException("Can't find replication metadata for specified entity type " + entityType.FullName);
             }
@@ -55,6 +55,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                     ReplicateBatch(entityReplicationInfo.SchemaQualifiedStoredProcedureName, timeout, ids, out notReplicated);
                     break;
                 }
+
                 default:
                 {
                     throw new ArgumentOutOfRangeException();
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorFormatEx(ex, "Can't replicate entity with id {0} using procedure {1}", id, procedureName);
+                    _logger.ErrorFormat(ex, "Can't replicate entity with id {0} using procedure {1}", id, procedureName);
                     failed.Add(id);
                 }
             }
@@ -92,7 +93,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't replicate entities batch using procedure {0}", procedureName);
+                _logger.ErrorFormat(ex, "Can't replicate entities batch using procedure {0}", procedureName);
                 notReplicated = new List<long>(ids);
             }
         }

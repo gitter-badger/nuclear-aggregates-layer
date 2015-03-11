@@ -71,8 +71,19 @@
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
+    <Compile Include="Concrete\Bills\ICalculateBillsOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\ExportAccountDetailsBeforeWithdrawalOperationException.cs" />
+    <Compile Include="Concrete\Integration\Export\IGetAccountDetailsForExportContentOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\IGetDebitsInfoInitialForExportOperationService.cs" />
+    <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
+    <Compile Include="Concrete\Integration\Flows\FlowAdvModelsInfo.cs" />
+    <Compile Include="Concrete\Integration\Import\Operations\IImportAdvModelInRubricInfoService.cs" />
+    <Compile Include="Concrete\Integration\Dto\Billing\ChargeDto.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
+    <Compile Include="Concrete\Integration\Shared\ServiceBusSalesModel.cs" />
+    <Compile Include="Concrete\LegalPersons\IValidateLegalPersonsForExportOperationService.cs" />
+    <Compile Include="Concrete\LegalPersons\ValidateLegalPersonDto.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IChangeOrderPositionBindingObjectsOperationService.cs" />
@@ -172,7 +183,7 @@
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\NewSalesModelNotEnabledForCategoryOrOrganizationUnitException.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\CategoryIsRestrictedBySalesModelException.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainRequest.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IValidateOrderPositionAdvertisementsOperationService.cs" />
@@ -262,9 +273,7 @@
     <Compile Include="Concrete\Old\Bills\BillPaymentType.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplate.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfo.cs" />
-    <Compile Include="Concrete\Old\Bills\DistributeBillPayments.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfo.cs" />
-    <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfo.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBill.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForPrintJointBill.cs" />
     <Compile Include="Concrete\Old\Bills\PrintBillRequest.cs" />
@@ -290,15 +299,11 @@
     <Compile Include="Concrete\Old\Integration\ImportResponse.cs" />
     <Compile Include="Concrete\Old\Integration\MessageProcessingResponse.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForBranchRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForFranchiseesRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsToServiceBusForBranchRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsToServiceBusForFranchiseesRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportLegalPersonsRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ImportAccountDetailsFrom1CRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ValidateAccountDetailsFrom1CRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ValidateAccountDetailsFrom1CResponse.cs" />
-    <Compile Include="Concrete\Old\Integration\OneC\ValidateLegalPersonRequest.cs" />
+    <Compile Include="Concrete\LegalPersons\LegalPersonValidationForExportErrorDto.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\ReplicateObjectAfterCardsImportRequest.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesRequest.cs" />
     <Compile Include="Concrete\Old\Integration\RabbitMq\ImportLocalMessagesFromRabbitMqRequest.cs" />
@@ -527,7 +532,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Concrete\Integration\Import\FlowBilling\" />
     <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\PricePositions\" />
     <Folder Include="Concrete\Simplified\MsCRM\Dto\" />

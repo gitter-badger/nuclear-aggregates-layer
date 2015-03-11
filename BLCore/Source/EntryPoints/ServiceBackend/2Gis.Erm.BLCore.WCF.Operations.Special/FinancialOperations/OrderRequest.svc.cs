@@ -39,12 +39,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }
@@ -57,12 +57,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }
@@ -85,12 +85,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }

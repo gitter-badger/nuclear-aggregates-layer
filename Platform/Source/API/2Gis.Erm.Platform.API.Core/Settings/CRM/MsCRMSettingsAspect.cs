@@ -20,11 +20,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
             _crmOrganizationName = new Lazy<string>(ExtractOrganizationName);
         }
 
-        public bool EnableReplication
-        {
-            get { return IntegrationMode != MsCrmIntegrationMode.Disabled; }
-        }
-
         public MsCrmIntegrationMode IntegrationMode
         {
             get { return _integrationMode.Value; }

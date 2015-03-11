@@ -117,7 +117,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                       new LimitedLengthPropertyFeature(64),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.EmailForAccountingDocuments)),
 
-                    EntityPropertyMetadata.Create<LegalPersonProfileDomainEntityDto>(dto => dto.AdditionalEmail)
+                    EntityPropertyMetadata.Create<LegalPersonProfileDomainEntityDto>(dto => dto.Email)
                                   .WithFeatures(
                                       new EmailPropertyFeature(),
                                       new LimitedLengthPropertyFeature(64),

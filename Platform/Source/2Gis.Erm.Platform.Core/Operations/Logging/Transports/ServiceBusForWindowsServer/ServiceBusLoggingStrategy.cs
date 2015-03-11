@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             catch (Exception ex)
             {
                 report = ex.ToDecription();
-                _logger.ErrorFormatEx(ex, "Can't log info about usecase to service bus. Use case details: {0}", useCase);
+                _logger.ErrorFormat(ex, "Can't log info about usecase to service bus. Use case details: {0}", useCase);
                 
                 return false;
             }

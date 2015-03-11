@@ -109,6 +109,22 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                                                                               .Common);
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed. Suppression is OK here.")]
+        private readonly OrderValidationRuleGroupMetadata _salesModelGroupMetadata =
+            OrderValidationRuleGroupMetadata.Config
+                                            .Group(OrderValidationRuleGroup.SalesModelValidation)
+                                            .UseCaching
+                                            .Rules(
+                                                    
+                                                    // Оказалось, что текущее положение вещей конфликтует с идеей, 
+                                                    // что рубрика продается только по одной модели продаж. 
+                                                    // В будущем мы будем получать ограничения и продавать рубрики по нескольким моделям продаж.
+                                                    // Сейчас же решили просто отключить проверку и дать выйти существующим заказам.
+                                                    // ERM-5916
+
+                                                    //OrderValidationRuleMetadata.Config.Rule<SalesModelRestrictionsOrderValidationRule>(45).Common
+                                                  );
+
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed. Suppression is OK here.")]
         private readonly OrderValidationRuleGroupMetadata _advertisementMaterialsGroupMetadata =
             OrderValidationRuleGroupMetadata.Config
                                             .Group(OrderValidationRuleGroup.AdvertisementMaterialsValidation)
@@ -150,6 +166,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                     .Id.Is(IdBuilder.For<MetadataOrderValidationIdentity>("Rules"))
                     .Childs( // автоматически не заполняем, т.к. нарушается сортировка - элементов немного пока заполняем вручную 
                         _genericGroupMetadata,
+                        _salesModelGroupMetadata,
                         _advertisementMaterialsGroupMetadata,
                         _adPositionsGroupMetadata,
                         _advertisementAmountGroupMetadata);

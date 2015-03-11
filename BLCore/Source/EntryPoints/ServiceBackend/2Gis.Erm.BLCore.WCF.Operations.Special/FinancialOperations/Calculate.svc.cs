@@ -48,17 +48,17 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (PositionIsNotRepresentedException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 return GetEmptyCalculationResults(orderId);
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }
@@ -90,12 +90,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }
@@ -128,12 +128,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }
@@ -146,21 +146,20 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
                 throw new InvalidOperationException("Для всех результатов НДС должен быть задан или отсутсвовать");
             }
 
-            var result = calculationResult.PositionCalcs.Select(
-                x => x.Vat.HasValue
-                         ? (ICostCalculationResult)new BizAccountPositionCostWithVatResult
-            {
-                                 PayablePlan = x.PayablePlan,
-                                 PositionId = x.PositionId,
-                                 DiscountSum = x.DiscountSum,
-                                 Vat = x.Vat.Value
-                }
-                         : (ICostCalculationResult)new BizAccountPositionCostResult
-                        {
-                                 PayablePlan = x.PayablePlan,
-                                 PositionId = x.PositionId,
-                                 DiscountSum = x.DiscountSum,
-                             }).ToArray();
+            var result = calculationResult.PositionCalcs.Select(x => x.Vat.HasValue
+                                                                         ? (ICostCalculationResult)new BizAccountPositionCostWithVatResult
+                                                                                                       {
+                                                                                                           PayablePlan = x.PayablePlan,
+                                                                                                           PositionId = x.PositionId,
+                                                                                                           DiscountSum = x.DiscountSum,
+                                                                                                           Vat = x.Vat.Value
+                                                                                                       }
+                                                                         : (ICostCalculationResult)new BizAccountPositionCostResult
+                                                                                                       {
+                                                                                                           PayablePlan = x.PayablePlan,
+                                                                                                           PositionId = x.PositionId,
+                                                                                                           DiscountSum = x.DiscountSum,
+                                                                                                       }).ToArray();
 
             return result;
         }
@@ -178,12 +177,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException exception)
             {
-                _logger.ErrorFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.ErrorFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(exception.Message));
             }
             catch (Exception exception)
             {
-                _logger.FatalFormatEx(exception, "Error has occured in {0}", GetType().Name);
+                _logger.FatalFormat(exception, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<CostCalculatonErrorDescription>(new CostCalculatonErrorDescription(BLResources.InTheCostCalculationServiceErrorOccured));
             }
         }

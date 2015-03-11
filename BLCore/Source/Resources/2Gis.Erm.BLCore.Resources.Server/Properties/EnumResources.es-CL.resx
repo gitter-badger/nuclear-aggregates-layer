@@ -483,9 +483,6 @@
   <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
     <value>Descarga de cuentas personales</value>
   </data>
-  <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Descarga de amortizaciones en las cuentas personales</value>
-  </data>
   <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
     <value>Descarga de verificaciones</value>
   </data>
@@ -1329,17 +1326,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Advertencia</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Orden de compra sin IVA con descuento</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Orden de compra</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Orden de compra con IVA y con descuento</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Orden de compra sin IVA y sin descuento</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Orden de compra con IVA sin descuento</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Llamada</value>

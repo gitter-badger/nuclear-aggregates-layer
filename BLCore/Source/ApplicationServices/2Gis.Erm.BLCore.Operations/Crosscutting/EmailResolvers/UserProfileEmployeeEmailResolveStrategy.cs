@@ -24,13 +24,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
             var userProfile = _userRepository.GetProfileForUser(employeeUserCode);
             if (userProfile == null)
             {
-                _logger.ErrorEx("Can't find profile by user id: " + employeeUserCode);
+                _logger.Error("Can't find profile by user id: " + employeeUserCode);
                 return false;
             }
 
             if (string.IsNullOrEmpty(userProfile.Email))
             {
-                _logger.WarnEx("Email is empty in user profile with id: " + userProfile.Id);
+                _logger.Warn("Email is empty in user profile with id: " + userProfile.Id);
                 return false;
             }
 

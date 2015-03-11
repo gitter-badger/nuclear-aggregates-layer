@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
                 }
             }
 
-            foreach (var replicationType in _msCrmReplicationMetadataProvider.GetAsyncReplicationTypeSequence())
+            foreach (var replicationType in _msCrmReplicationMetadataProvider.GetReplicationTypeSequence())
             {
                 List<Tuple<Guid, long>> replicationBucket;
                 if (!replicationTargets.TryGetValue(replicationType, out replicationBucket))
@@ -127,7 +127,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't replicate {0} entities of type {1}", replicationTargets.Count, replicationType);
+                _logger.ErrorFormat(ex, "Can't replicate {0} entities of type {1}", replicationTargets.Count, replicationType);
                 return false;
             }
         }

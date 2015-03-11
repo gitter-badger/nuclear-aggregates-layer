@@ -119,6 +119,7 @@
     <Compile Include="Advertisements\Operations\DeleteAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\BulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
     <Compile Include="Advertisements\Operations\UpdateAdvertisementElementStatusAggregateService.cs" />
+    <Compile Include="Charges\Operations\ChargeBulkDeleteAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\DeleteClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientLinkAggregateService.cs" />
@@ -212,6 +213,8 @@
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
     <Compile Include="Positions\SalesModelUtil.cs" />
+    <Compile Include="SimplifiedModel\Categories\BulkCreateSalesModelCategoryRestrictionsService.cs" />
+    <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\CategoryReadModel.cs" />
     <Compile Include="Roles\ReadModel\RoleReadModel.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
@@ -265,7 +268,7 @@
     <Compile Include="Users\ReadModel\UserReadModel.cs" />
     <Compile Include="Users\UserRepository.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLockDetailsAggregateService.cs" />
-    <Compile Include="Charges\Operations\ChargeBulkDeleteAggregateService.cs" />
+    <Compile Include="SimplifiedModel\Categories\BulkDeleteSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="Charges\Operations\ChargeBulkCreateAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountBulkDeleteLockDetailsAggregateService.cs" />
     <Compile Include="Charges\Operations\ChargeCreateHistoryAggregateService.cs" />
