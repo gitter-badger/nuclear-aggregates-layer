@@ -2012,7 +2012,7 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PositionsGroupMedia" xml:space="preserve">
-    <value>Медийная реклама</value>
+    <value>Media advertising</value>
   </data>
   <data name="PositionsGroupNone" xml:space="preserve">
     <value />
