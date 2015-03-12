@@ -5182,12 +5182,12 @@ Doba zveřejnění: {3}.</value>
     <value>Отделение организации {0} не связано с проектом.</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
-    <value>Укажите период, способ учета оказания услуг и отделение организации</value>
+    <value>Zadejte období, způsob evidence  poskytování služeb a oddělení organizace</value>
   </data>
   <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
-    <value>Укажите период и способ учета оказания услуг</value>
+    <value>Zadejte období a způsob evidence poskytování služeb</value>
   </data>
   <data name="WithdrawalFailed" xml:space="preserve">
-    <value>Списание за {0} - {1} со способом оказания услуг: '{2}' завершено с ошибками</value>
+    <value>Stržení prostředků za {0} - {1} s následujícím způsobem poskytování služeb: '{2}' provedeno s chybami</value>
   </data>
 </root>

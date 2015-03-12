@@ -5179,12 +5179,12 @@ Placement period: {3}.</value>
     <value>Отделение организации {0} не связано с проектом.</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
-    <value>Укажите период, способ учета оказания услуг и отделение организации</value>
+    <value>Please specify the period, service accounting method, and company branch</value>
   </data>
   <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
-    <value>Укажите период и способ учета оказания услуг</value>
+    <value>Please specify the period and service accounting method</value>
   </data>
   <data name="WithdrawalFailed" xml:space="preserve">
-    <value>Списание за {0} - {1} со способом оказания услуг: '{2}' завершено с ошибками</value>
+    <value>Writing-off for {0} - {1} with servicing method {2} completed with errors</value>
   </data>
 </root>

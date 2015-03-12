@@ -5183,12 +5183,12 @@ Periodo de la publicación: {3}.</value>
     <value>Отделение организации {0} не связано с проектом.</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
-    <value>Укажите период, способ учета оказания услуг и отделение организации</value>
+    <value>Indique el período, modo para contabilizar la prestación de servicios y departamento de la empresa</value>
   </data>
   <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
-    <value>Укажите период и способ учета оказания услуг</value>
+    <value>Indique el período y modo para contabilizar la prestación de servicios</value>
   </data>
   <data name="WithdrawalFailed" xml:space="preserve">
-    <value>Списание за {0} - {1} со способом оказания услуг: '{2}' завершено с ошибками</value>
+    <value>Retiro del {0} - {1} mediante el modo de prestación de servicios: '{2}' finalizado con errores</value>
   </data>
 </root>

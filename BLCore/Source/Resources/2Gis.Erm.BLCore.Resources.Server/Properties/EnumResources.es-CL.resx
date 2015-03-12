@@ -2015,15 +2015,15 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
-    <value>Гарантируемое оказание</value>
+    <value>Prestación garantizada</value>
   </data>
   <data name="AccountingMethodPlannedProvision" xml:space="preserve">
-    <value>Планируемое оказание</value>
+    <value>Prestación planificada</value>
   </data>
   <data name="AccountingMethodUndefined" xml:space="preserve">
     <value />
   </data>
   <data name="BusinessOperationWithdrawal" xml:space="preserve">
-    <value>Списание</value>
+    <value>Retiro</value>
   </data>
 </root>
