@@ -66,67 +66,71 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
         public WithdrawalProcessingResult Withdraw(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod)
         {
-            if (Transaction.Current != null)
-            {
-                throw new AmbientTransactionNotSupportedException("An ambient transaction is not supported for withdraw operation");
-            }
-
             _useCaseTuner.AlterDuration<WithdrawOperationService>();
 
             var withdrawOperationParametersDescription = GetOperationParametersDescription(organizationUnitId, period, accountingMethod);
 
             WithdrawalInfo acquiredWithdrawal = null;
 
-            try
+            using (var scope = new TransactionScope(TransactionScopeOption.Suppress, DefaultTransactionOptions.Default))
             {
-                IEnumerable<string> report;
-                if (!TryAcquireTargetWithdrawal(organizationUnitId, period, accountingMethod, out acquiredWithdrawal, out report))
+                try
                 {
-                    var msg = string.Format("Can't acquire withdrawal. {0} Errors: {1}",
-                                            withdrawOperationParametersDescription,
-                                            string.Join(Environment.NewLine, report));
-
-                    _logger.Error(msg);
-                    return WithdrawalProcessingResult.Errors(report.ToArray());
-                }
-
-                using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-                {
-                    if (!LockSuccessfullyAcquired(acquiredWithdrawal))
+                    IEnumerable<string> report;
+                    if (!TryAcquireTargetWithdrawal(organizationUnitId, period, accountingMethod, out acquiredWithdrawal, out report))
                     {
-                        var msg =
-                            string.Format("Acquired withdrawal with id {0} has processing status violations. Possible reason for errors - concurrent withdrawal\reverting process and invalid withdrawal status processing. {1}",
-                                          acquiredWithdrawal.Id,
-                                          withdrawOperationParametersDescription);
+                        var msg = string.Format("Can't acquire withdrawal. {0} Errors: {1}",
+                                                withdrawOperationParametersDescription,
+                                                string.Join(Environment.NewLine, report));
 
                         _logger.Error(msg);
-
-                        transaction.Complete();
-                        return WithdrawalProcessingResult.Errors(msg);
+                        scope.Complete();
+                        return WithdrawalProcessingResult.Errors(report.ToArray());
                     }
 
-                    var result = ExecuteWithdrawalProcessing(acquiredWithdrawal, organizationUnitId, period, accountingMethod);
+                    using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+                    {
+                        if (!LockSuccessfullyAcquired(acquiredWithdrawal))
+                        {
+                            var msg =
+                                string.Format("Acquired withdrawal with id {0} has processing status violations. Possible reason for errors - concurrent withdrawal\reverting process and invalid withdrawal status processing. {1}",
+                                              acquiredWithdrawal.Id,
+                                              withdrawOperationParametersDescription);
 
-                    transaction.Complete();
+                            _logger.Error(msg);
+
+                            transaction.Complete();
+                            return WithdrawalProcessingResult.Errors(msg);
+                        }
+
+                        var result = ExecuteWithdrawalProcessing(acquiredWithdrawal, organizationUnitId, period, accountingMethod);
+
+                        transaction.Complete();
+                        scope.Complete();
+                        return result;
+                    }
+                }
+                catch (WithdrawalException ex)
+                {
+                    var msg = string.Format("Withdrawing aborted. An error occured. {0} Error: {1}",
+                                            withdrawOperationParametersDescription,
+                                            ex.Message);
+                    _logger.Error(ex, msg);
+
+                    var result = Abort(acquiredWithdrawal, msg);
+                    scope.Complete();
                     return result;
                 }
-            }
-            catch (WithdrawalException ex)
-            {
-                var msg = string.Format("Withdrawing aborted. An error occured. {0} Error: {1}",
-                                        withdrawOperationParametersDescription,
-                                        ex.Message);
-                _logger.Error(ex, msg);
+                catch (Exception ex)
+                {
+                    var msg = string.Format("Withdrawing aborted. Unexpected exception was caught. {0}",
+                                            withdrawOperationParametersDescription);
+                    _logger.Error(ex, msg);
 
-                return Abort(acquiredWithdrawal, msg);
-            }
-            catch (Exception ex)
-            {
-                var msg = string.Format("Withdrawing aborted. Unexpected exception was caught. {0}",
-                                        withdrawOperationParametersDescription);
-                _logger.Error(ex, msg);
-
-                return Abort(acquiredWithdrawal, msg);
+                    var result = Abort(acquiredWithdrawal, msg);
+                    scope.Complete();
+                    return result;
+                }
             }
         }
 

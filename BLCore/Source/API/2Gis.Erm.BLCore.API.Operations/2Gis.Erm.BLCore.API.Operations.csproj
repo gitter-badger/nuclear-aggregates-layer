@@ -220,7 +220,6 @@
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />
     <Compile Include="Concrete\Withdrawals\IGetWithdrawalErrorsCsvReportOperationService.cs" />
-    <Compile Include="Concrete\Withdrawals\AmbientTransactionNotSupportedException.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalErrorsReport.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringWithdrawalOperationService.cs" />
