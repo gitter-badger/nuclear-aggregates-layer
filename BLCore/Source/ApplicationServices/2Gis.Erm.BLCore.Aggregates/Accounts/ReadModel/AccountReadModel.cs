@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
@@ -400,8 +401,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                                        (ld, op) => new
                                                            {
                                                                LockDetail = ld,
-                                                               IsPlannedProvision = op.PricePosition.Position.SalesModel ==
-                                                                                    SalesModel.PlannedProvision
+                                                                                        IsPlannedProvision =
+                                                                                    SalesModelUtil.PlannedProvisionSalesModels.Contains(op.PricePosition.Position.SalesModel)
                                                            })
                                                  .Where(x => x.IsPlannedProvision)
                                                  .Select(x => x.LockDetail)

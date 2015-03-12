@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                     {
                                         Id = x.Id,
                                         Name = x.Name,
-                                        AdditionalEmail = x.AdditionalEmail,
+                                        Email = x.Email,
                                         ChiefNameInGenitive = x.ChiefNameInGenitive,
                                         ChiefNameInNominative = x.ChiefNameInNominative,
                                         DocumentsDeliveryAddress = x.DocumentsDeliveryAddress,
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                 legalPersonProfile.RecipientName = dto.RecipientName;
                                 legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
                                 legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
-                                legalPersonProfile.AdditionalEmail = dto.AdditionalEmail;
+                                legalPersonProfile.Email = dto.Email;
                                 legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
                                 legalPersonProfile.Phone = dto.Phone;
                                 legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;

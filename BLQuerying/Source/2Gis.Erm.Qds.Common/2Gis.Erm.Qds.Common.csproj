@@ -36,13 +36,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elasticsearch.Net">
-      <HintPath>..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.4.2\lib\net45\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Nest">
-      <HintPath>..\..\..\CompositionRoots\Source\packages\NEST.1.2.0\lib\Nest.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Elasticsearch.Net.Connection.HttpClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.Connection.HttpClient.1.4.2\lib\net45\Elasticsearch.Net.Connection.HttpClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net.Connection.Thrift, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.Connection.Thrift.1.4.2\lib\net45\Elasticsearch.Net.Connection.Thrift.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\NEST.1.4.2\lib\net45\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -51,6 +59,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Common.cs">
@@ -59,12 +69,24 @@
     <Compile Include="..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="ElasticMetadataApi.cs" />
+    <Compile Include="CommonConnectionSettings.cs" />
+    <Compile Include="DelegateEnumerable.cs" />
+    <Compile Include="DocumentWrapper.cs" />
+    <Compile Include="ErmBulkDescriptor.cs" />
+    <Compile Include="ErmBulkOperationBody.cs" />
+    <Compile Include="ErmBulkUpdateDescriptor.cs" />
+    <Compile Include="ErmMultiGetDescriptor.cs" />
+    <Compile Include="IDocumentWrapper.cs" />
     <Compile Include="IElasticApi.cs" />
     <Compile Include="ElasticApi.cs" />
+    <Compile Include="IElasticManagementApi.cs" />
+    <Compile Include="IElasticMetadataApi.cs" />
+    <Compile Include="InternalSerializer.cs" />
+    <Compile Include="ScrollEnumerator.cs" />
     <Compile Include="Settings\INestSettings.cs" />
     <Compile Include="Settings\NestSettingsAspect.cs" />
     <Compile Include="Settings\Protocol.cs" />
+    <Compile Include="UpdateType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -81,7 +103,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="TODO.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

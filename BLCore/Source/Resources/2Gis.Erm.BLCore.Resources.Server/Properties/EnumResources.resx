@@ -1317,17 +1317,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Предупреждение</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС со скидкой</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Бланк заказа</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС со скидкой</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС без скидки</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС без скидки</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>Бланк заказа (multi full house)</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Звонок</value>

@@ -1662,16 +1662,10 @@
   <data name="ReleaseStatusInProgressWaitingExternalProcessing" xml:space="preserve">
     <value>InProgress Waiting External Processing</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС со скидкой</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Бланк заказа</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС без скидки</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="OrderProcessingRequestStateCancelled" xml:space="preserve">

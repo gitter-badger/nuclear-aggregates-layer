@@ -253,12 +253,12 @@
     <Compile Include="Orders\DTO\OrderLinkingObjectsDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberStates.cs" />
-    <Compile Include="Orders\DTO\OrderPositionChargeInfo.cs" />
     <Compile Include="Orders\DTO\OrderPositionPriceDto.cs" />
     <Compile Include="Orders\DTO\OrderWithDummyAdvertisementDto.cs" />
     <Compile Include="Orders\IBargainRepository.cs" />
     <Compile Include="Orders\IOrderRepository.cs" />
     <Compile Include="Orders\Operations\Bargains\ICloseClientBargainsAggregateService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillDateService.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeAmountToWithdrawAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IBulkDeleteBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IBulkCreateBillAggregateService.cs" />
@@ -360,7 +360,6 @@
     <Compile Include="Users\ReadModel\UserSpecs.UserProfiles.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.UserRoles.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.Users.cs" />
-    <Compile Include="Charges\Dto\ChargeDto.cs" />
     <Compile Include="Charges\Dto\ChargesHistoryDto.cs" />
     <Compile Include="Charges\Dto\CreateLockDetailDto.cs" />
     <Compile Include="Charges\Operations\IChargeBulkCreateAggregateService.cs" />
