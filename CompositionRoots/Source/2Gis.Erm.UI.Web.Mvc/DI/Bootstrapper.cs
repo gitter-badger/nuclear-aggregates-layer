@@ -95,7 +95,7 @@ using DoubleGis.Erm.UI.Web.Mvc.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.DI

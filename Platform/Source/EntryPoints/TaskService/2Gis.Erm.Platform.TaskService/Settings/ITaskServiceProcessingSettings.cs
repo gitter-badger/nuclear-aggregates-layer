@@ -1,4 +1,4 @@
-﻿using Nuclear.Settings.API;
+﻿using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.TaskService.Settings
 {

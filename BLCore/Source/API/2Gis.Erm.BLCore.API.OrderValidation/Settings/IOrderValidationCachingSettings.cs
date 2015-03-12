@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.Settings
 {

@@ -29,7 +29,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.API.WCF.MoDi.DI

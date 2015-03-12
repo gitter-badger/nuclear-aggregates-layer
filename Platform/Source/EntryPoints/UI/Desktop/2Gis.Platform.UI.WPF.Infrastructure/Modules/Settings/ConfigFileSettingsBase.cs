@@ -5,7 +5,7 @@ using System.Xml;
 
 using nJupiter.Configuration;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings
 {

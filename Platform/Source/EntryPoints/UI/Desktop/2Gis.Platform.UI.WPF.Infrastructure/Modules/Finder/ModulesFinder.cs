@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Policy;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Finder
 {

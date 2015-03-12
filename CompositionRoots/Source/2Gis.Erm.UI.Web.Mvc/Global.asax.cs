@@ -25,7 +25,7 @@ using DoubleGis.Erm.UI.Web.Mvc.Settings;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 using NuClear.Tracing.API;
 using NuClear.Tracing.Environment;
 using NuClear.Tracing.Log4Net;

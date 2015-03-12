@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.Common.Caching;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.Caching
 {

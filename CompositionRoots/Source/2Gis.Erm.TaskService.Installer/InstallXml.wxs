@@ -170,10 +170,10 @@
         <File Source="!(bindpath.PackagesDir)\protobuf-net.2.0.0.669\lib\net35\protobuf-net.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\2Gis.Nuclear.Settings.1.0.1\lib\net451\2Gis.Nuclear.Settings.dll" />
+        <File Source="!(bindpath.PackagesDir)\2Gis.NuClear.Settings.1.0.1\lib\net451\2Gis.NuClear.Settings.dll" />
       </Component>
         <Component>
-        <File Source="!(bindpath.PackagesDir)\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll" />
+        <File Source="!(bindpath.PackagesDir)\2Gis.NuClear.Settings.API.1.0.1\lib\net451\2Gis.NuClear.Settings.API.dll" />
       </Component>
         <Component>
         <File Source="!(bindpath.PackagesDir)\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll" />

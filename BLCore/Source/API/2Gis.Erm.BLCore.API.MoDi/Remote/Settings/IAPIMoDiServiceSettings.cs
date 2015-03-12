@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings
 {

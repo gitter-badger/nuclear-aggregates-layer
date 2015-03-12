@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Qds.Operations.Listing;
 
-using Nuclear.Settings;
+using NuClear.Settings;
 
 namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
 {

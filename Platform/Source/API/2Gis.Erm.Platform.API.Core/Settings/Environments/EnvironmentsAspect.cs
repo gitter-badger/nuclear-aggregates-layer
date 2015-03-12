@@ -1,5 +1,5 @@
-﻿using Nuclear.Settings;
-using Nuclear.Settings.API;
+﻿using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.Environments
 {

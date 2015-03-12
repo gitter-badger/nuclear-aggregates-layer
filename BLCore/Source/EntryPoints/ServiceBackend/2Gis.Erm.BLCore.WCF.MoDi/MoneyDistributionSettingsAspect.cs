@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Settings;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.MoDi
 {

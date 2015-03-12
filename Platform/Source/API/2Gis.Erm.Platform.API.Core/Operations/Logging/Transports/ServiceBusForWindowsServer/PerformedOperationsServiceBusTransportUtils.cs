@@ -5,7 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer
 {

@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusFo
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.API.WCF.MoDi.Settings
 {

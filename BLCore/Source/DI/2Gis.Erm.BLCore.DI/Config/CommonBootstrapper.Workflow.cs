@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Zones;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {

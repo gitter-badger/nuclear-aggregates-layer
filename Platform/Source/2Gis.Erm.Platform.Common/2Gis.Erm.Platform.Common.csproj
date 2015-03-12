@@ -39,6 +39,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\CompositionRoots\Source\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
@@ -134,11 +138,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="2Gis.Nuclear.Settings.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
       <Project>{f33c2da3-cf31-4bce-986e-e198f1c9ea82}</Project>
       <Name>2Gis.Erm.Platform.Resources.Server</Name>

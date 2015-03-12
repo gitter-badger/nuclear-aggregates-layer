@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 
-using Nuclear.Settings;
-using Nuclear.Settings.API;
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Settings
 {

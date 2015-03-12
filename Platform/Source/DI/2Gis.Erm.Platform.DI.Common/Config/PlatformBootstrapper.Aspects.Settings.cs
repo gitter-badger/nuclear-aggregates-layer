@@ -5,7 +5,7 @@ using System.Text;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.DI.Common.Config
 {
