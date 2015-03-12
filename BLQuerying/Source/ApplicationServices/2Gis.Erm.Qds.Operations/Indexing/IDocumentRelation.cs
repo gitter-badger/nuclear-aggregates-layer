@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public interface IDocumentRelation
     {
-        Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers);
+        Func<ErmMultiGetDescriptor, ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers);
         void UpdateDocumentParts(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits);
     }
 

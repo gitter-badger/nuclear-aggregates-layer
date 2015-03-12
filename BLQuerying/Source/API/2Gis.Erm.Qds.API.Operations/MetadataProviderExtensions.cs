@@ -15,9 +15,9 @@ namespace DoubleGis.Erm.Qds.API.Operations
         public static IReadOnlyDictionary<Type, IEnumerable<IDocumentPartFeature>> GetDocumentRelationMetadatas(this IMetadataProvider metadataProvider)
         {
             MetadataSet metadataSet;
-            var metadatas = metadataProvider.TryGetMetadata<DocumentRelationsIdentity>(out metadataSet)
-                                ? metadataSet.Metadata.Values.Cast<DocumentRelationMetadata>().ToList()
-                                : Enumerable.Empty<DocumentRelationMetadata>();
+            var metadatas = metadataProvider.TryGetMetadata<DocumentIndexingIdentity>(out metadataSet)
+                                ? metadataSet.Metadata.Values.Cast<DocumentIndexingMetadata>().ToList()
+                                : Enumerable.Empty<DocumentIndexingMetadata>();
             return metadatas.ToDictionary(x => x.DocumentType, x => x.Features.OfType<IDocumentPartFeature>());
         }
 
