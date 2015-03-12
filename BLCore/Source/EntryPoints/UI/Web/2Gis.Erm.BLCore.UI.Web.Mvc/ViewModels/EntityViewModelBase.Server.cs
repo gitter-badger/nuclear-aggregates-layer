@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public abstract class EntityViewModelBase<T> : EntityViewModelBase, IDeactivatableAspect, IDeletableAspect, INewableAspect 
+    public abstract class EntityViewModelBase<T> : EntityViewModelBase, IDeactivatableAspect, IDeletableAspect, INewableAspect, IIdentityAspect 
     {
         private LookupField _createdBy;
         private LookupField _modifiedBy;
