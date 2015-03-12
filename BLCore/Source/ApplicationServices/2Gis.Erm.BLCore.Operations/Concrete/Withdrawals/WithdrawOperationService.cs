@@ -66,6 +66,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
         public WithdrawalProcessingResult Withdraw(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod)
         {
+            if (Transaction.Current != null)
+            {
+                throw new AmbientTransactionNotSupportedException("An ambient transaction is not supported for withdraw operation");
+            }
+
             _useCaseTuner.AlterDuration<WithdrawOperationService>();
 
             var withdrawOperationParametersDescription = GetOperationParametersDescription(organizationUnitId, period, accountingMethod);
