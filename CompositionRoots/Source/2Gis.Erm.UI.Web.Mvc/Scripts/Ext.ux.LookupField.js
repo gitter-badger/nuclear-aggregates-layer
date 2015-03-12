@@ -17,7 +17,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     errorMessage: true,
     tabIndex: -1,
     readOnly: false,
-    autoUpdate: false,
+    clientInitialization: false,
     supressMatchesErrors: false,
     parentEntityName: "None",
     parentIdPattern: "",
@@ -54,7 +54,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         this.setDisabled(this.disabled);
         this.searchBtn.dom.src = this.disabled || this.readOnly ? this.btnDis : this.btnOff;
         this.initHandlers();
-        if (this.autoUpdate == true) {
+        if (this.clientInitialization == true) {
             this.forceGetData();
         }
     },

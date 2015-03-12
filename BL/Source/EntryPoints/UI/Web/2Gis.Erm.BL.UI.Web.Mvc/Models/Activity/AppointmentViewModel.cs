@@ -69,9 +69,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         [StringLengthLocalized(256)]
         public string Location { get; set; }
 
-        public bool AttendeeAutoUpdate { get; set; }
-        public bool FirmAutoUpdate { get; set; }
-        public bool DealAutoUpdate { get; set; }
+        public bool AttendeeClientInitialization { get; set; }
+        public bool FirmClientInitialization { get; set; }
+        public bool DealClientInitialization { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -95,9 +95,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             var attendeeReference = (modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityName == EntityName.Contact);
             Attendee = LookupField.FromReference(attendeeReference);
 
-            FirmAutoUpdate = regardingObjects.IsAutoUpdate(EntityName.Firm);
-            DealAutoUpdate = regardingObjects.IsAutoUpdate(EntityName.Deal);
-            AttendeeAutoUpdate = modelDto.Attendees.IsAutoUpdate(EntityName.Contact);
+            FirmClientInitialization = regardingObjects.IsClientInitialization(EntityName.Firm);
+            DealClientInitialization = regardingObjects.IsClientInitialization(EntityName.Deal);
+            AttendeeClientInitialization = modelDto.Attendees.IsClientInitialization(EntityName.Contact);
 
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be only there?

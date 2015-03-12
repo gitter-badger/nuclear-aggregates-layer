@@ -256,7 +256,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             sb.AppendFormat("id:\"{0}\", ", name);
             sb.AppendFormat("name:\"{0}\", ", name);
             sb.AppendFormat("applyTo:\"{0}\", ", name);
-            sb.AppendFormat("autoUpdate: {0},", lookupSettings.AutoUpdate.ToString(CultureInfo.InvariantCulture).ToLower());
+            sb.AppendFormat("clientInitialization: {0},", lookupSettings.ClientInitialization.ToString(CultureInfo.InvariantCulture).ToLower());
             sb.AppendFormat("entityName:\"{0}\", ", lookupSettings.EntityName);
             sb.AppendFormat("extendedInfo:\"{0}\", ", lookupSettings.ExtendedInfo);
             sb.AppendFormat("parentEntityName:\"{0}\", ", lookupSettings.ParentEntityName);

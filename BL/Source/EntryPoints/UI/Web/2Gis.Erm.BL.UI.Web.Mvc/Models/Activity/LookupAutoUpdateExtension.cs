@@ -5,9 +5,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 {
-    public static class LookupAutoUpdateExtension
+    public static class LookupClientInitializationExtension
     {
-        public static bool IsAutoUpdate(this IEnumerable<EntityReference> references, EntityName entityName) 
+        public static bool IsClientInitialization(this IEnumerable<EntityReference> references, EntityName entityName) 
         {
             if (references == null)
             {
@@ -17,10 +17,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             return references.Any(s => s.EntityName == entityName && !s.Id.HasValue);
         }
 
-        public static bool IsAutoUpdate(this EntityReference reference, EntityName entityName)
+        public static bool IsClientInitialization(this EntityReference reference, EntityName entityName)
         {
             var references = new[] { reference };
-            return IsAutoUpdate(references, entityName);
+            return IsClientInitialization(references, entityName);
         }
     }
 }
