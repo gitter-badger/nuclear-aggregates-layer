@@ -197,7 +197,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                     {
                         disqualifyOperation, new IOperationServiceInterceptionDescriptor<IOperation>[]
                             {
-                                new OperationServiceInterceptionDescriptor<DisqualifyClientService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
+                                new OperationServiceInterceptionDescriptor<DisqualifyClientService>(CompareObjectMode.Shallow, Enumerable.Empty<string>()),
+                                new OperationServiceInterceptionDescriptor<DisqualifyFirmService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
                             }
                     },
                     {
