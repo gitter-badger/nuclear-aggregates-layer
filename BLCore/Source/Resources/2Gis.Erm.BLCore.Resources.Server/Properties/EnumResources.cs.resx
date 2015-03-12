@@ -1314,17 +1314,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Upozornění</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Objednávka bez DPH se slevou</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Objednávka</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Objednávka bez DPH se slevou</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Objednávka bez DPH bez slevy</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Objednávka včetně DPH bez slevy</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Hovor</value>

@@ -253,7 +253,7 @@ namespace DoubleGis.Erm.Platform.DAL
                                                  IReadDomainContextProvider readDomainContextProvider,
                                                  IModifiableDomainContextProvider modifiableDomainContextProvider);
 
-        protected abstract object CreateCosumerReadModel(Type readModelType,
+        protected abstract object CreateConsumerReadModel(Type readModelType,
                                                           IReadDomainContextProvider readDomainContextProvider);
 
         protected abstract object CreatePersistenceService(Type consumerType,

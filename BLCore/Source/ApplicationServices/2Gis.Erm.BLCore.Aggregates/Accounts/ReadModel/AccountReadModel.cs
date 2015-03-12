@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
@@ -371,22 +372,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
             var orderPositionsQuery = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrderPosition>());
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() && AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId, period))
                           .Select(l => new
-                              {
-                                  Lock = l,
-                                  LockDetails = l.LockDetails
-                                                 .Where(ld => ld.IsActive && !ld.IsDeleted)
-                                                 .Join(orderPositionsQuery,
-                                                       ld => ld.OrderPositionId,
-                                                       op => op.Id,
-                                                       (ld, op) => new
-                                                           {
-                                                               LockDetail = ld,
-                                                               IsPlannedProvision = op.PricePosition.Position.SalesModel ==
-                                                                                    SalesModel.PlannedProvision
-                                                           })
-                                                 .Where(x => x.IsPlannedProvision)
-                                                 .Select(x => x.LockDetail)
-                              })
+                                           {
+                                               Lock = l,
+                                               LockDetails = l.LockDetails
+                                                              .Where(ld => ld.IsActive && !ld.IsDeleted)
+                                                              .Join(orderPositionsQuery,
+                                                                    ld => ld.OrderPositionId,
+                                                                    op => op.Id,
+                                                                    (ld, op) => new
+                                                                                    {
+                                                                                        LockDetail = ld,
+                                                                                        IsPlannedProvision =
+                                                                                    SalesModelUtil.PlannedProvisionSalesModels.Contains(op.PricePosition.Position.SalesModel)
+                                                                                    })
+                                                              .Where(x => x.IsPlannedProvision)
+                                                              .Select(x => x.LockDetail)
+                                           })
                           .Where(x => x.LockDetails.Any())
                           .Select(x => new LockDto { Lock = x.Lock, Details = x.LockDetails })
                           .ToArray();

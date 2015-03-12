@@ -1323,17 +1323,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Warning</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Quotation without VAT and with discount</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Quotation</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Quotation with VAT and discount</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Quotation without VAT and discount</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Quotation with VAT and without discount</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Call</value>
