@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using Quartz;
 using Quartz.Simpl;

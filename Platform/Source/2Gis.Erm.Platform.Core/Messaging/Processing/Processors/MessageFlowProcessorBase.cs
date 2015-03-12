@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topologies;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 {

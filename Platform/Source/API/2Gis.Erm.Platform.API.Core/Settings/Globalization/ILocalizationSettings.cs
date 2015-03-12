@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.Globalization
 {

@@ -7,8 +7,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.DI;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Settings.API;
-using Nuclear.Tracing.API;
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 {

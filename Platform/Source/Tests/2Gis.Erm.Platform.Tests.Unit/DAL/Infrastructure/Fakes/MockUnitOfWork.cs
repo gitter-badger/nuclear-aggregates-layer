@@ -2,7 +2,7 @@ using System;
 
 using DoubleGis.Erm.Platform.DAL;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 {
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             throw new NotImplementedException();
         }
 
-        protected override object CreateCosumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
+        protected override object CreateConsumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
         {
             throw new NotImplementedException();
         }

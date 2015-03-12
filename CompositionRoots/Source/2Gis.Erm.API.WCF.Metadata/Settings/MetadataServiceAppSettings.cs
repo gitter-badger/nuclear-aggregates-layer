@@ -15,8 +15,8 @@ using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.Common.Identities;
 
-using Nuclear.Settings;
-using Nuclear.Settings.API;
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.API.WCF.Metadata.Settings
 {

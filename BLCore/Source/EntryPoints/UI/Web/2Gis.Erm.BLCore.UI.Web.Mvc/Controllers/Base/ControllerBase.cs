@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
 using DoubleGis.NuClear.IdentityService.Client.Settings;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
 {

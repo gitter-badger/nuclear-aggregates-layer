@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {

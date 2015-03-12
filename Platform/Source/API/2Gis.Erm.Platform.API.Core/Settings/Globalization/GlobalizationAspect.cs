@@ -7,8 +7,8 @@ using System.Reflection;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-using Nuclear.Settings;
-using Nuclear.Settings.API;
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.Globalization
 {

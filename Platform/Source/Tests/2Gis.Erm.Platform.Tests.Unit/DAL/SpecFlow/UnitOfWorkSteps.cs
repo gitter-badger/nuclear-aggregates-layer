@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories;
 
 using Moq;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using NUnit.Framework;
 

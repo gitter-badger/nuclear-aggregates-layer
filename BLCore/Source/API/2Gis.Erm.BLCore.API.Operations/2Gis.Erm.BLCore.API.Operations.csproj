@@ -22,8 +22,10 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -45,6 +47,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -69,6 +79,7 @@
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
+    <Compile Include="Concrete\Bills\ICalculateBillsOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\ExportAccountDetailsBeforeWithdrawalOperationException.cs" />
     <Compile Include="Concrete\Integration\Export\IGetAccountDetailsForExportContentOperationService.cs" />
@@ -76,6 +87,7 @@
     <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Flows\FlowAdvModelsInfo.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportAdvModelInRubricInfoService.cs" />
+    <Compile Include="Concrete\Integration\Dto\Billing\ChargeDto.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Integration\Shared\ServiceBusSalesModel.cs" />
     <Compile Include="Concrete\LegalPersons\IValidateLegalPersonsForExportOperationService.cs" />
@@ -179,7 +191,7 @@
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\NewSalesModelNotEnabledForCategoryOrOrganizationUnitException.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\CategoryIsRestrictedBySalesModelException.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainRequest.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IValidateOrderPositionAdvertisementsOperationService.cs" />
@@ -265,9 +277,7 @@
     <Compile Include="Concrete\Old\Bills\BillPaymentType.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplate.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfo.cs" />
-    <Compile Include="Concrete\Old\Bills\DistributeBillPayments.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfo.cs" />
-    <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfo.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBill.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForPrintJointBill.cs" />
     <Compile Include="Concrete\Old\Bills\PrintBillRequest.cs" />
@@ -477,16 +487,6 @@
     <Compile Include="Remote\UploadBinary\IUploadBinaryApplicationRestService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="2Gis.Nuclear.Settings.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Settings">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.1.0.1\lib\net451\2Gis.Nuclear.Settings.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

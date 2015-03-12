@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
@@ -258,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                             DirectorName = lpp.ChiefNameInNominative, 
                             DocumentDeliveryMethod = lpp.DocumentsDeliveryMethod, 
                             DocumentDeliveryAddress = lpp.DocumentsDeliveryAddress, 
-                            Email = lpp.EmailForAccountingDocuments ?? lpp.AdditionalEmail, 
+                            Email = lpp.EmailForAccountingDocuments ?? lpp.Email, 
                             PaymentDetails = lpp.PaymentEssentialElements,
                             IsHidden = !lpp.IsActive, 
                             OperatesOnTheBasisInGenitive = lpp.OperatesOnTheBasisInGenitive,

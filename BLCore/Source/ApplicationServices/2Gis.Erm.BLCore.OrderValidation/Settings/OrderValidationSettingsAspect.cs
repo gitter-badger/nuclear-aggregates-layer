@@ -4,7 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Settings
 {

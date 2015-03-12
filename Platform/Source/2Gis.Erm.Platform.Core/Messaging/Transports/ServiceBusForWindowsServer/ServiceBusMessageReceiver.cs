@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusFo
 
 using Microsoft.ServiceBus.Messaging;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer
 {

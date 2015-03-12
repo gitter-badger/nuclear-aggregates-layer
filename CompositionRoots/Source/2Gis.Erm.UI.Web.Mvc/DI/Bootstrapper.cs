@@ -96,8 +96,8 @@ using DoubleGis.NuClear.IdentityService.Client.Interaction;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
-using Nuclear.Settings.API;
-using Nuclear.Tracing.API;
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {

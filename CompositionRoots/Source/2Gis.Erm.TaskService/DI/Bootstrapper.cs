@@ -77,8 +77,8 @@ using DoubleGis.NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Settings.API;
-using Nuclear.Tracing.API;
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
 
 using Quartz.Spi;
 

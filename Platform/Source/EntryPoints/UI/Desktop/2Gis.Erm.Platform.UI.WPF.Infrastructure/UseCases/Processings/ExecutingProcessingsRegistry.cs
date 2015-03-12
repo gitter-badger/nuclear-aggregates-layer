@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Linq;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Processings
 {

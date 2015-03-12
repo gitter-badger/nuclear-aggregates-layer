@@ -11,7 +11,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.AdsManagement;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
 {

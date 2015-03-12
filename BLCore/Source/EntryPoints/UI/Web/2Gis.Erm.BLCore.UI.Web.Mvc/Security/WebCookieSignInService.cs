@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 
 using Newtonsoft.Json;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
 {

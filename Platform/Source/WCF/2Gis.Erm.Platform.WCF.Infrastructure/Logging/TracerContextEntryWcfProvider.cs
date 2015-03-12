@@ -1,6 +1,6 @@
 ﻿using System.ServiceModel;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
 {

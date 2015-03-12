@@ -16,8 +16,8 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Qds.Common.Settings;
 
-using Nuclear.Settings;
-using Nuclear.Settings.API;
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.Settings
 {

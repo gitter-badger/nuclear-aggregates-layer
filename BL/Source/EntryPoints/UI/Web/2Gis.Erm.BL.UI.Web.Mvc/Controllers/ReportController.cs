@@ -41,7 +41,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 using Newtonsoft.Json;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 using ReportModel = DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report.ReportModel;

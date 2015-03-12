@@ -12,8 +12,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Kazakhstan
         {
             return new[]
                 {
-                    TemplateCode.OrderWithoutVatWithDiscount,
-                    TemplateCode.OrderWithoutVatWithoutDiscount,
+                    TemplateCode.Order,
                     TemplateCode.ClientBargain,
                     TemplateCode.BargainProlongationAgreement,
                     TemplateCode.LetterOfGuarantee,

@@ -25,7 +25,7 @@ using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
@@ -209,8 +209,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                     legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson ? ClearText(legalPerson.PassportNumber) : ClearText(legalPerson.Kpp),
                     string.Concat(
                         profile.EmailForAccountingDocuments ?? string.Empty,
-                        profile.EmailForAccountingDocuments != null && profile.AdditionalEmail != null ? "," : string.Empty,
-                        profile.AdditionalEmail ?? string.Empty),
+                        profile.EmailForAccountingDocuments != null && profile.Email != null ? "," : string.Empty,
+                        profile.Email ?? string.Empty),
                     string.Format(
                         BLResources.ExportLegalPersonDelivaryFormattedInfo,
                         ClearText(profile.DocumentsDeliveryAddress),

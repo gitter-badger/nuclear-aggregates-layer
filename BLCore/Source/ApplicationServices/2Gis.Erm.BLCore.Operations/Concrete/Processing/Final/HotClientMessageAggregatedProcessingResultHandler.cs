@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 {

@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.NuClear.IdentityService.Client.Settings;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.API.WCF.MoDi.Settings
 {

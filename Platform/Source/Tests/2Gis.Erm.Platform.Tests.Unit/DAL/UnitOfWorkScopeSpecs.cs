@@ -12,7 +12,7 @@ using FluentAssertions;
 
 using Machine.Specifications;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {

@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
 {

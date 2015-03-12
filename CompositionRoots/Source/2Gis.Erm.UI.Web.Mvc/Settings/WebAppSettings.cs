@@ -19,8 +19,8 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.NuClear.IdentityService.Client.Settings;
 
-using Nuclear.Settings;
-using Nuclear.Settings.API;
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Settings
 {

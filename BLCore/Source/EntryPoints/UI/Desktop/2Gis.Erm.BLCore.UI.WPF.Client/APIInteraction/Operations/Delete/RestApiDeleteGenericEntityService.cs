@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
 
 using Newtonsoft.Json;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Delete
 {

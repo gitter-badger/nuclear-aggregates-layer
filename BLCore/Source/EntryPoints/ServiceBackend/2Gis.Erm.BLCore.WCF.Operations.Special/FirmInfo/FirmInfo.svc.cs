@@ -9,7 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.FirmInfo;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.FirmInfo;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
 {

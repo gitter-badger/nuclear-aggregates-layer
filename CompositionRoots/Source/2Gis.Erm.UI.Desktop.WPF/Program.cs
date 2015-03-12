@@ -6,8 +6,8 @@ using System.Windows;
 using DoubleGis.Platform.UI.WPF.Shell;
 using DoubleGis.Platform.UI.WPF.Shell.DI;
 
-using Nuclear.Tracing.API.SystemInfo;
-using Nuclear.Tracing.Log4Net.Config;
+using NuClear.Tracing.Environment;
+using NuClear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.UI.Desktop.WPF
 {

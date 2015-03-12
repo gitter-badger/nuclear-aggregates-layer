@@ -6,7 +6,7 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices.Config;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices.Config.Xml;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.APIServices
 {

@@ -12,7 +12,7 @@ using DoubleGis.Platform.UI.WPF.Shell.Settings;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Platform.UI.WPF.Shell
 {

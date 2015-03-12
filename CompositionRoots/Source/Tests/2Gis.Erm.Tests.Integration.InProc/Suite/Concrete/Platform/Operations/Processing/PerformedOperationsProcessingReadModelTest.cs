@@ -20,7 +20,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 
 using FluentAssertions;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Processing
 {

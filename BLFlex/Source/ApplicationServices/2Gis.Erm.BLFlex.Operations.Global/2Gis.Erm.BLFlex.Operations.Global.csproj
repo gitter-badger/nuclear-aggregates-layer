@@ -39,17 +39,9 @@
     <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="2GIS.NuClear.IdentityService.Client, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b743d84006fae806, processorArchitecture=MSIL">
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.IdentityService.Client.1.0.2\lib\net451\2GIS.NuClear.IdentityService.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.1.0.1\lib\net451\2Gis.Nuclear.Settings.dll</HintPath>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -81,10 +73,12 @@
     <Compile Include="Cyprus\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusBranchOfficeObtainer.cs" />
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Czech\Concrete\CzechEvaluateBillDateService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetBranchOfficeDtoService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetBranchOfficeOrganizationUnitDtoService.cs" />
     <Compile Include="Czech\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
     <Compile Include="Czech\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBillObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBranchOfficeObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Cyprus\Generic\List\CyprusListLegalPersonService.cs" />
@@ -134,6 +128,7 @@
     <Compile Include="Kazakhstan\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
     <Compile Include="Kazakhstan\Generic\Modify\DomainEntityObtainers\KazakhstanBranchOfficeObtainer.cs" />
     <Compile Include="MultiCulture\Concrete\Clients\MultiCultureCreateClientByFirmOperationService.cs" />
+    <Compile Include="MultiCulture\Concrete\EvaluateBillDateService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Deserializers\MultiCultureDeserializeCardService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Processors\MultiCultureImportCardService.cs" />
     <Compile Include="MultiCulture\Concrete\Old\LegalPersons\KazakhstanValidatePaymentRequisitesIsUnique.cs" />
@@ -200,6 +195,7 @@
     <Compile Include="Russia\Generic\Modify\LegalPersonFlexSpecs.LegalPersonProfiles.cs" />
     <Compile Include="Shared\Consistency\EmiratesLegalPersonProfileConsistencyRuleContainer.cs" />
     <Compile Include="Shared\Consistency\KazakhstanLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Formatter\RussianPercentToWordsFormatter.cs" />
     <Compile Include="Shared\PositionDetailedName.cs" />
     <Compile Include="Shared\EmiratesFormatterFactory.cs" />
     <Compile Include="Shared\Formatter\DirhamFormatter.cs" />
@@ -419,11 +415,6 @@
       <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
-    <Reference Include="2Gis.Nuclear.Settings.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
@@ -492,6 +483,10 @@
   <ItemGroup>
     <Folder Include="Emirates\Concrete\Old\AccepttanceReport\PrintForms\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -500,10 +495,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
 </Project>

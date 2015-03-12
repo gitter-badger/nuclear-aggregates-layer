@@ -10,7 +10,7 @@ using Elasticsearch.Net.ConnectionPool;
 
 using Nest;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Qds.Common.Settings
 {

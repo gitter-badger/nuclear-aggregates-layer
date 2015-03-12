@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.Platform.Model;
 
-using Nuclear.Settings.API;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.Globalization
 {

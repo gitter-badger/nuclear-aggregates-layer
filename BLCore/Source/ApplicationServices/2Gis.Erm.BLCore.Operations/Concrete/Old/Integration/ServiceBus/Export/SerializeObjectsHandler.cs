@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 using SaveOptions = System.Xml.Linq.SaveOptions;
 

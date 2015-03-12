@@ -40,6 +40,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
@@ -90,37 +98,19 @@
     <Compile Include="Activity\LetterReferenceType.cs" />
     <Compile Include="Activity\PhonecallReferenceType.cs" />
     <Compile Include="Activity\TaskReferenceType.cs" />
-    <Compile Include="EFEntityEntry.cs" />
-    <Compile Include="EFMappingRepository.cs" />
     <Compile Include="EFGenericRepository.cs" />
     <Compile Include="EFFileRepository.cs" />
-    <Compile Include="EFDbContext.cs" />
     <Compile Include="EFRepository.cs" />
     <Compile Include="EFDomainContextFactory.cs" />
     <Compile Include="EFSecureGenericRepository.cs" />
-    <Compile Include="EFUtils.cs" />
     <Compile Include="EFDomainContext.cs" />
-    <Compile Include="IDbEntityEntry.cs" />
     <Compile Include="IEfDbModelConfigurationsProvider.cs" />
-    <Compile Include="IDomainEntityEntryAccessor.cs" />
     <Compile Include="IEfDbModelFactory.cs" />
-    <Compile Include="IDbContext.cs" />
-    <Compile Include="IRepositoryProxy.cs" />
     <Compile Include="CompositeEntityDecorator.cs" />
     <Compile Include="MappingRegistry.cs" />
     <Compile Include="SqlServerConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="2Gis.Nuclear.Settings.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>

@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
@@ -254,7 +254,7 @@ namespace DoubleGis.Erm.Platform.DAL
                                                  IReadDomainContextProvider readDomainContextProvider,
                                                  IModifiableDomainContextProvider modifiableDomainContextProvider);
 
-        protected abstract object CreateCosumerReadModel(Type readModelType,
+        protected abstract object CreateConsumerReadModel(Type readModelType,
                                                           IReadDomainContextProvider readDomainContextProvider);
 
         protected abstract object CreatePersistenceService(Type consumerType,

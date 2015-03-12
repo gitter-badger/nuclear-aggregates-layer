@@ -37,17 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="2GIS.NuClear.IdentityService.Client, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b743d84006fae806, processorArchitecture=MSIL">
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.IdentityService.Client.1.0.2\lib\net451\2GIS.NuClear.IdentityService.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.1.0.1\lib\net451\2Gis.Nuclear.Settings.dll</HintPath>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -126,6 +118,7 @@
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonProfileDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Generic\Modify\ModifyBranchOfficeOrganizationUnitServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\RussianPercentToWordsFormatterSpecs.cs" />
     <Compile Include="BL\Print\MultiCulture\NewSalesModelBargainDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\KopekInRussianPluralizerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\HryvniaInRussianPluralizerSpecs.cs" />
@@ -209,11 +202,6 @@
       <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
       <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
     </ProjectReference>
-    <Reference Include="2Gis.Nuclear.Settings.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

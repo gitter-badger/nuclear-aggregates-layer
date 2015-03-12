@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DI.Factories
 {
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
             return _unityContainer.Resolve(consumerType, dependencyOverrides);
         }
 
-        protected override object CreateCosumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
+        protected override object CreateConsumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
         {
             var dependencyOverrides = new DependencyOverrides
                         {

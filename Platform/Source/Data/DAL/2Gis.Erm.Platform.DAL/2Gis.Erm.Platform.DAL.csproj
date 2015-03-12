@@ -84,7 +84,6 @@
     <Compile Include="NullPersistenceChangesRegistry.cs" />
     <Compile Include="NullPersistenceChangesRegistryProvider.cs" />
     <Compile Include="FinderBaseProvider.cs" />
-    <Compile Include="ICompositeRepository.cs" />
     <Compile Include="IFinderBaseProvider.cs" />
     <Compile Include="IReadDomainContextProviderForHost.cs" />
     <Compile Include="DomainContextProviderProxy.cs" />
@@ -117,7 +116,6 @@
     <Compile Include="IFindSpecification.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkScope.cs" />
-    <Compile Include="SaveOptions.cs" />
     <Compile Include="SecureFinder.cs" />
     <Compile Include="SecurityHelper.cs" />
     <Compile Include="Specifications\FindSpecification.cs" />
@@ -133,16 +131,15 @@
     <Compile Include="EAV\WrappedQuery.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="2Gis.Nuclear.Tracing.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -164,7 +161,9 @@
       <Name>2Gis.Erm.Platform.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -173,9 +172,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
 </Project>

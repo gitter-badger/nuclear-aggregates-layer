@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                     CurrencyIsoCode = orderInfo.CurrencyIsoCode,
                     FileName = orderInfo.OrderNumber,
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
-                    TemplateCode = TemplateCode.OrderWithVatWithDiscount,
+                    TemplateCode = TemplateCode.Order,
                     PrintData = GetPrintData(request, orderInfo)
                 };
 

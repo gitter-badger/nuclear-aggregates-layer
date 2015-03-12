@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
-using Nuclear.Tracing.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
 {
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
                 }
             }
 
-            foreach (var replicationType in _msCrmReplicationMetadataProvider.GetAsyncReplicationTypeSequence())
+            foreach (var replicationType in _msCrmReplicationMetadataProvider.GetReplicationTypeSequence())
             {
                 List<Tuple<Guid, long>> replicationBucket;
                 if (!replicationTargets.TryGetValue(replicationType, out replicationBucket))

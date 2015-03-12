@@ -41,25 +41,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="2GIS.NuClear.IdentityService.Client">
-      <HintPath>..\..\packages\2GIS.NuClear.IdentityService.Client.1.0.2\lib\net451\2GIS.NuClear.IdentityService.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Settings">
-      <HintPath>..\..\packages\2Gis.Nuclear.Settings.1.0.1\lib\net451\2Gis.Nuclear.Settings.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2Gis.Nuclear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+    <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\2Gis.Nuclear.Settings.API.1.0.1\lib\net451\2Gis.Nuclear.Settings.API.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
     </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.API">
-      <HintPath>..\..\packages\2Gis.Nuclear.Tracing.API.1.0.1\lib\net451\2Gis.Nuclear.Tracing.API.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
     </Reference>
-    <Reference Include="2Gis.Nuclear.Tracing.Log4Net">
-      <HintPath>..\..\packages\2Gis.Nuclear.Tracing.Log4Net.1.0.1\lib\net451\2Gis.Nuclear.Tracing.Log4Net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.Environment">
+      <HintPath>..\..\packages\2GIS.NuClear.Tracing.Environment.1.0.2\lib\net451\2GIS.NuClear.Tracing.Environment.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.Log4Net, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\2GIS.NuClear.Tracing.Log4Net.1.0.2\lib\net451\2GIS.NuClear.Tracing.Log4Net.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -218,7 +217,7 @@
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
     <Compile Include="Suite\Concrete\OrderValidation\AdvertisementsOnlyWhiteListOrderValidationRuleTest.cs" />
     <Compile Include="Suite\Concrete\Platform\DAL\QueryAllRegisteredEntitiesTest.cs" />
-    <Compile Include="Suite\Concrete\Platform\Identity\IdentityRequestStrategiesTest.cs" />
+    <Compile Include="Suite\Concrete\Platform\Identity\BufferedIdentityRequestStrategyTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Logging\ServiceBusLoggingTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\PerformedOperationsProcessingReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\ServiceBusReceiverTest.cs" />

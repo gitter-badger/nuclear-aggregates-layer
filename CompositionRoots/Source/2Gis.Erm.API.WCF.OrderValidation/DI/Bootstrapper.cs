@@ -48,8 +48,8 @@ using DoubleGis.NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 
-using Nuclear.Settings.API;
-using Nuclear.Tracing.API;
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 {
