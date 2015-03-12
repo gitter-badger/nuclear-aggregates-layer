@@ -111,7 +111,6 @@
     <Compile Include="ApiInteraction\Infrastructure\InteractionModel.cs" />
     <Compile Include="ApiInteraction\Infrastructure\InteractionUtils.cs" />
     <Compile Include="ApiInteraction\Infrastructure\RestApiClient.cs" />
-    <Compile Include="Logging\Log4NetApiAppender.cs" />
     <Compile Include="Presentation\Common\IImageProviderFactory.cs" />
     <Compile Include="Presentation\Common\ImageProviderFactory.cs" />
     <Compile Include="Presentation\Common\ResourceDictionaryImageProvider.cs" />

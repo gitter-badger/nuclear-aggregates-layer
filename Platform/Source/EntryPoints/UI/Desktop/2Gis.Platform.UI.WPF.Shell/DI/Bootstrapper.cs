@@ -72,7 +72,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 container.AddExtension(queryableContainerExtension);
                 container.RegisterInstance(Mapping.QueryableExtension, queryableContainerExtension);
 
-                container.RegisterLogger(tracer)
+                container.RegisterTracer(tracer)
                          .RegisterModules()
                          .RegisterType<IDocumentManager, DocumentManager>(Lifetime.Singleton)
                          .RegisterType<IDocumentsStateInfo, DocumentManager>(Lifetime.Singleton)
@@ -135,7 +135,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             return container.RegisterType<IUIDispatcher, UIDispatcher>(Lifetime.Singleton, new InjectionConstructor(Dispatcher.CurrentDispatcher));
         }
 
-        private static IUnityContainer RegisterLogger(this IUnityContainer container, ITracer tracer)
+        private static IUnityContainer RegisterTracer(this IUnityContainer container, ITracer tracer)
         {
             return container.RegisterInstance<ITracer>(tracer, Lifetime.Singleton);
         }
