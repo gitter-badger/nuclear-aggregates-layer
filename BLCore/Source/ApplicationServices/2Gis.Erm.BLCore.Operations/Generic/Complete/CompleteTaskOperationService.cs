@@ -40,20 +40,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
         public void Complete(long entityId)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Task>())
+            var task = _taskReadModel.GetTask(entityId);
+
+            if (task.ScheduledOn.Date > DateTime.Now.Date)
             {
-                var task = _taskReadModel.GetTask(entityId);
+                throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
+            }
 
-                if (task.ScheduledOn.Date > DateTime.Now.Date)
-                {
-                    throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
-                }
+            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, task.OwnerCode))
+            {
+                throw new SecurityException(string.Format("{0}: {1}", task.Header, BLResources.SecurityAccessDenied));
+            }   
 
-                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, task.OwnerCode))
-                {
-                    throw new SecurityException(string.Format("{0}: {1}", task.Header, BLResources.SecurityAccessDenied));
-                }   
-
+            using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Task>())
+            {                
                 _completeTaskAggregateService.Complete(task);
 
                 scope.Updated<Task>(entityId);
