@@ -16,7 +16,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
 {
-    [Obsolete("На текущий момент в UI нет кнопки вызова возврата фирмы в резерв. Необходимо уточнить и удалить в случае ненадобности")]
+    [Obsolete("На текущий момент в UI нет кнопки вызова возврата фирмы в резерв. Необходимо уточнить и удалить в случае ненадобности. " 
+        + "Уточняю. Эта кнопка есть, находится в гриде фирм (карточка клиента) называется 'отвязать от клиента'")]
     public class DisqualifyFirmService : IDisqualifyGenericEntityService<Firm>
     {
         private readonly IUserContext _userContext;
