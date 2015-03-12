@@ -50,7 +50,7 @@ Ext.ux.ActionsHistoryTab = Ext.extend(Ext.Panel, {
         });
         this.store = new Ext.data.GroupingStore({
             reader: this.reader,
-            remoteSort: true,
+            remoteSort: false,
             sortInfo: { field: 'propertyName', direction: "ASC" },
             groupDir: "DESC",
             groupField: 'actionsHistoryId',
