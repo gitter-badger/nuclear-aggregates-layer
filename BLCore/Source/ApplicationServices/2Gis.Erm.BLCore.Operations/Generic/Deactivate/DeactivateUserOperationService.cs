@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
@@ -26,6 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly ISecureFinder _finder;
         private readonly IUserRepository _userRepository;
         private readonly IClientRepository _clientRepository;
+        private readonly IActionLogger _actionLogger;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserReadModel _userReadModel;
         private readonly IDeactivateUserAggregateService _deactivateUserAggregateService;
@@ -47,6 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             ITaskReadModel taskReadModel,
             IUserRepository userRepository,
             IClientRepository clientRepository,
+            IActionLogger actionLogger,
             IDeactivateUserAggregateService deactivateUserAggregateService,
             IAssignAppointmentAggregateService assignAppointmentAggregateService,
             IAssignLetterAggregateService assignLetterAggregateService,
@@ -59,6 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             _finder = finder;
             _userRepository = userRepository;
             _clientRepository = clientRepository;
+            _actionLogger = actionLogger;
             _scopeFactory = scopeFactory;
             _userReadModel = userReadModel;
             _deactivateUserAggregateService = deactivateUserAggregateService;
@@ -127,22 +131,30 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         {
             foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsOwnedBy(previousUserId))
             {
+                var originalOwner = appointment.OwnerCode;
                 _assignAppointmentAggregateService.Assign(appointment, newUserId);
+                _actionLogger.LogChanges(appointment, x => x.OwnerCode, originalOwner, appointment.OwnerCode);
             }
 
             foreach (var letter in _letterReadModel.LookupOpenLettersOwnedBy(previousUserId))
             {
+                var originalOwner = letter.OwnerCode;
                 _assignLetterAggregateService.Assign(letter, newUserId);
+                _actionLogger.LogChanges(letter, x => x.OwnerCode, originalOwner, letter.OwnerCode);
             }
 
             foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsOwnedBy(previousUserId))
             {
+                var originalOwner = phonecall.OwnerCode;
                 _assignPhonecallAggregateService.Assign(phonecall, newUserId);
+                _actionLogger.LogChanges(phonecall, x => x.OwnerCode, originalOwner, phonecall.OwnerCode);
             }
 
             foreach (var task in _taskReadModel.LookupOpenTasksOwnedBy(previousUserId))
             {
+                var originalOwner = task.OwnerCode;
                 _assignTaskAggregateService.Assign(task, newUserId);
+                _actionLogger.LogChanges(task, x => x.OwnerCode, originalOwner, task.OwnerCode);
             }
         }
     }

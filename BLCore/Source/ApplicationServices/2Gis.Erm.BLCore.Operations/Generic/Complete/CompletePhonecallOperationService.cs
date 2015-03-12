@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -23,6 +24,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
+
+        private readonly IActionLogger _actionLogger;
+
         private readonly IUserContext _userContext;
         private readonly IChangeDealStageOperationService _changeDealStageOperationService;
 
@@ -32,6 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             IOperationScopeFactory operationScopeFactory,
             IPhonecallReadModel phonecallReadModel,
             ISecurityServiceEntityAccess entityAccessService,
+            IActionLogger actionLogger,
             IUserContext userContext,
             IChangeDealStageOperationService changeDealStageOperationService,
             ICompletePhonecallAggregateService completePhonecallAggregateService)
@@ -39,6 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             _operationScopeFactory = operationScopeFactory;
             _phonecallReadModel = phonecallReadModel;
             _entityAccessService = entityAccessService;
+            _actionLogger = actionLogger;
             _userContext = userContext;
             _changeDealStageOperationService = changeDealStageOperationService;
             _completePhonecallAggregateService = completePhonecallAggregateService;
@@ -46,19 +52,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
         public void Complete(long entityId)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Phonecall>())
+            var phonecall = _phonecallReadModel.GetPhonecall(entityId);
+            var originalStatus = phonecall.Status;
+
+            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
             {
-                var phonecall = _phonecallReadModel.GetPhonecall(entityId);                
+                throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
+            } 
 
-                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
-                {
-                    throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
-                } 
-
+            using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Phonecall>())
+            {                
                 _completePhonecallAggregateService.Complete(phonecall);
 
                 var phonecallRegardingObjects = _phonecallReadModel.GetRegardingObjects(entityId);
                 UpdateDealStage(phonecallRegardingObjects, phonecall);
+
+                _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, phonecall.Status);
 
                 scope.Updated<Phonecall>(entityId);
                 scope.Complete();

@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -22,6 +23,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IAppointmentReadModel _appointmentReadModel;
+
+        private readonly IActionLogger _actionLogger;
+
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
         private readonly IChangeDealStageOperationService _changeDealStageOperationService;
@@ -30,6 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         public CompleteAppointmentOperationService(
             IOperationScopeFactory operationScopeFactory, 
             IAppointmentReadModel appointmentReadModel,
+            IActionLogger actionLogger,
             ISecurityServiceEntityAccess entityAccessService,
             IUserContext userContext,
             IChangeDealStageOperationService changeDealStageOperationService,
@@ -37,6 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         {
             _operationScopeFactory = operationScopeFactory;
             _appointmentReadModel = appointmentReadModel;
+            _actionLogger = actionLogger;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
             _changeDealStageOperationService = changeDealStageOperationService;
@@ -45,19 +51,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
         public void Complete(long entityId)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Appointment>())
-            {
-                var appointment = _appointmentReadModel.GetAppointment(entityId);
-                                
-                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, appointment.OwnerCode))
-                {
-                    throw new SecurityException(string.Format("{0}: {1}", appointment.Header, BLResources.SecurityAccessDenied));
-                }                
+            var appointment = _appointmentReadModel.GetAppointment(entityId);
+            var originalStatus = appointment.Status;
 
+            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, appointment.OwnerCode))
+            {
+                throw new SecurityException(string.Format("{0}: {1}", appointment.Header, BLResources.SecurityAccessDenied));
+            }                
+
+            using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Appointment>())
+            {                
                 _completeAppointmentAggregateService.Complete(appointment);
 
                 var appointmentRegardingObjects = _appointmentReadModel.GetRegardingObjects(entityId);
                 UpdateDealStage(appointmentRegardingObjects, appointment);
+
+                _actionLogger.LogChanges(appointment, x => x.Status, originalStatus, appointment.Status);
 
                 scope.Updated<Appointment>(entityId);
                 scope.Complete();
