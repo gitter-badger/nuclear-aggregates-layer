@@ -322,16 +322,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WithdrawalInfo.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Edit\AdditionalFirmAddressServices.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdditionalFirmAddressServices.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Edit\AdditionalFirmServices.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdditionalFirmServices.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Edit\EntityPrivileges.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -571,14 +561,6 @@
     <None Include="Views\CreateOrUpdate\WithdrawalInfo.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>WithdrawalInfo.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Edit\AdditionalFirmAddressServices.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>AdditionalFirmAddressServices.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Edit\AdditionalFirmServices.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>AdditionalFirmServices.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Edit\EntityPrivileges.cshtml">
       <Generator>RazorGenerator</Generator>

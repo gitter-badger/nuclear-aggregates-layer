@@ -1380,9 +1380,6 @@
   <data name="EnMOperation" xml:space="preserve">
     <value>Операции</value>
   </data>
-  <data name="AdditionalFirmServices" xml:space="preserve">
-    <value>Доп. услуги</value>
-  </data>
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value>Гарантийное письмо (изменение РМ)</value>
   </data>

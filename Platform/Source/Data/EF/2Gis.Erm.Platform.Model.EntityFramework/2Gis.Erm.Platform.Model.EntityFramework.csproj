@@ -64,7 +64,6 @@
     <Compile Include="Config\Erm\AccountMap.cs" />
     <Compile Include="Config\Erm\ActionsHistoryDetailMap.cs" />
     <Compile Include="Config\Erm\ActionsHistoryMap.cs" />
-    <Compile Include="Config\Erm\AdditionalFirmServiceMap.cs" />
     <Compile Include="Config\Erm\AdsTemplatesAdsElementTemplateMap.cs" />
     <Compile Include="Config\Erm\AdvertisementElementDenialReasonMap.cs" />
     <Compile Include="Config\Erm\AdvertisementElementMap.cs" />
@@ -109,7 +108,6 @@
     <Compile Include="Config\Erm\DictionaryEntityInstanceMap.cs" />
     <Compile Include="Config\Erm\DictionaryEntityPropertyInstanceMap.cs" />
     <Compile Include="Config\Erm\ExportFailedEntityMap.cs" />
-    <Compile Include="Config\Erm\ExportFlowCardExtensions_CardCommercialMap.cs" />
     <Compile Include="Config\Erm\ExportFlowDeliveryData_LetterSendRequestMap.cs" />
     <Compile Include="Config\Erm\ExportFlowFinancialData_ClientMap.cs" />
     <Compile Include="Config\Erm\ExportFlowFinancialData_LegalEntityMap.cs" />
@@ -126,7 +124,6 @@
     <Compile Include="Config\Erm\ExportFlowPriceLists_PriceListPositionMap.cs" />
     <Compile Include="Config\Erm\FileMap.cs" />
     <Compile Include="Config\Erm\FirmAddressMap.cs" />
-    <Compile Include="Config\Erm\FirmAddressServiceMap.cs" />
     <Compile Include="Config\Erm\FirmContactMap.cs" />
     <Compile Include="Config\Erm\FirmMap.cs" />
     <Compile Include="Config\ErmSecurity\FunctionalPrivilegeDepthMap.cs" />

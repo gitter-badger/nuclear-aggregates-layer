@@ -94,6 +94,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportCardRelationForErmIdentity = 14608;
 
         // EntityName.FirmAddress = 164
+        [Obsolete]
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
         public const int ImportFirmAddressFromServiceBusIdentity = 16402;
 

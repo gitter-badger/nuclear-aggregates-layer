@@ -1233,9 +1233,6 @@
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Profil pr. osoby klienta</value>
   </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Dod. služby pro firmy</value>
-  </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Odstranění profilu pr. osoby klienta</value>
   </data>

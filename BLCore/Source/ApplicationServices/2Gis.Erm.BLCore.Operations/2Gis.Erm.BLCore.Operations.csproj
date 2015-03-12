@@ -65,7 +65,6 @@
     <Compile Include="Concrete\HotClients\GetHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Deals\ChangeDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\CreateBlankFirmsOperationService.cs" />
-    <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\BirthdaysCongratulationIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\DenialReasonIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\PositionChildrenOperationsExportService.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="Concrete\Integration\Export\Exporters\ExportableEntityDto.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\AdvertismentIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\ClientIntegrationProcessorOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\Processors\Concrete\FirmAddressIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\ImportedFirmAddressIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\IntegrationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\InvoiceIntegrationProcessorOperationService.cs" />
@@ -137,7 +135,6 @@
     <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAdvertisementHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeClientHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeFirmAddressHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeLegalPersonHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeObjectsHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeInvoicesHandler.cs" />
@@ -252,7 +249,6 @@
     <Compile Include="Concrete\Simplified\Dictionary\Countries\CountryService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currency\CurrencyService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currency\GetBaseCurrencyService.cs" />
-    <Compile Include="Concrete\Simplified\Dictionary\Firms\AdditionalFirmServicesService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\PlatformService.cs" />
     <Compile Include="Concrete\Simplified\NoteService.cs" />
     <Compile Include="Concrete\Simplified\OperationService.cs" />
@@ -336,7 +332,6 @@
     <Compile Include="Generic\Delete\DeleteAccountDetailService.cs" />
     <Compile Include="Generic\Delete\DeleteLegalPersonDealService.cs" />
     <Compile Include="Generic\Delete\DeleteClientLinkService.cs" />
-    <Compile Include="Generic\Delete\DeleteAdditionalFirmServiceService.cs" />
     <Compile Include="Generic\Delete\DeleteAdsTemplatesAdsElementTemplateService.cs" />
     <Compile Include="Generic\Delete\DeleteAdvertisementElementTemplateService.cs" />
     <Compile Include="Generic\Delete\DeleteAdvertisementService.cs" />
@@ -379,7 +374,6 @@
     <Compile Include="Generic\Get\Activity\GetTaskDtoService.cs" />
     <Compile Include="Generic\Get\GetAccountDetailDtoService.cs" />
     <Compile Include="Generic\Get\GetAccountDtoService.cs" />
-    <Compile Include="Generic\Get\GetAdditionalFirmServiceDtoService.cs" />
     <Compile Include="Generic\Get\GetAdsTemplatesAdsElementTemplateDtoService.cs" />
     <Compile Include="Generic\Get\GetAdvertisementDtoService.cs" />
     <Compile Include="Generic\Get\GetAdvertisementElementDtoService.cs" />
@@ -444,7 +438,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\Activity\LetterObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\AdditionalFirmServiceObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdsTemplatesAdsElementTemplateObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementElementObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementElementTemplateObtainer.cs" />
@@ -500,7 +493,6 @@
     <Compile Include="Generic\Modify\Old\EditAccessSharingHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountDetailHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditAdditionalFirmServiceHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdsTemplatesAdsElementTemplateHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdvertisementElementTemplateHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdvertisementHandler.cs" />
@@ -745,9 +737,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Concrete\Integration\Schemas\flowCardExtensions.CardCommercial.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Concrete\Integration\Schemas\flowDeliveryData.SendingGroup.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -785,6 +774,7 @@
   <ItemGroup>
     <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
+    <Folder Include="Concrete\Simplified\Dictionary\Firms\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

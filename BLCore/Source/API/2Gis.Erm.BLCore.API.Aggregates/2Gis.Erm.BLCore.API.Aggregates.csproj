@@ -162,7 +162,6 @@
     <Compile Include="Common\Specs\Dictionary\CategorySpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\OrganizationUnitSpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\TerritoryDtoSpecifications.cs" />
-    <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CountrySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CurrencySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\NoteSpecifications.cs" />
