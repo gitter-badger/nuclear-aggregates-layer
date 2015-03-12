@@ -7,15 +7,15 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs
 {
     public sealed class BargainGridDoc : IOperationSpecificEntityDto, IAuthorizationDoc
     {
-        public long? Id { get; set; }
+        public long Id { get; set; }
         public string Number { get; set; }
         public DateTime? BargainEndDate { get; set; }
         public BargainKind BargainKindEnum { get; set; }
         public string BargainKind { get; set; }
-        public DateTime? CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public bool? IsActive { get; set; }
-        public bool? IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
 
         // relations
         public string LegalPersonId { get; set; }

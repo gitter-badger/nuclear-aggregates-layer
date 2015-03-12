@@ -2,9 +2,9 @@
 {
     public enum Protocol
     {
-        None = 0,
-
-        Http = 9200,
-        Thrift = 9500,
+        None,
+        Http,
+        Thrift,
+        ThriftCompact,
     }
 }
