@@ -42,17 +42,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         }
 
         public virtual void Complete(long entityId)
-        {
-            var letter = _letterReadModel.GetLetter(entityId);
-            var originalStatus = letter.Status;
-
-            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, letter.OwnerCode))
-            {
-                throw new SecurityException(string.Format("{0}: {1}", letter.Header, BLResources.SecurityAccessDenied));
-            }       
-
+        {           
             using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Letter>())
-            {                
+            {
+                var letter = _letterReadModel.GetLetter(entityId);
+                var originalStatus = letter.Status;
+
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, letter.OwnerCode))
+                {
+                    throw new SecurityException(string.Format("{0}: {1}", letter.Header, BLResources.SecurityAccessDenied));
+                }       
+
                 _completeLetterAggregateService.Complete(letter);
 
                 _actionLogger.LogChanges(letter, x => x.Status, originalStatus, letter.Status);

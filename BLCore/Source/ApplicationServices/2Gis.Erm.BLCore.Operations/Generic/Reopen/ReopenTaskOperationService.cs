@@ -42,17 +42,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Reopen
         }
 
         public void Reopen(long entityId)
-        {
-            var task = _taskReadModel.GetTask(entityId);
-            var originalStatus = task.Status;
-
-            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, task.OwnerCode))
-            {
-                throw new SecurityException(string.Format("{0}: {1}", task.Header, BLResources.SecurityAccessDenied));
-            }   
-
+        {            
             using (var scope = _operationScopeFactory.CreateSpecificFor<ReopenIdentity, Task>())
-            {                
+            {
+                var task = _taskReadModel.GetTask(entityId);
+                var originalStatus = task.Status;
+
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, task.OwnerCode))
+                {
+                    throw new SecurityException(string.Format("{0}: {1}", task.Header, BLResources.SecurityAccessDenied));
+                }   
+
                 _reopenTaskAggregateService.Reopen(task);
 
                 _actionLogger.LogChanges(task, x => x.Status, originalStatus, task.Status);

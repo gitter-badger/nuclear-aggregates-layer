@@ -42,17 +42,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Reopen
         }
 
         public virtual void Reopen(long entityId)
-        {
-            var letter = _letterReadModel.GetLetter(entityId);
-            var originalStatus = letter.Status;
-
-            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, letter.OwnerCode))
-            {
-                throw new SecurityException(string.Format("{0}: {1}", letter.Header, BLResources.SecurityAccessDenied));
-            }       
-
+        {            
             using (var scope = _operationScopeFactory.CreateSpecificFor<ReopenIdentity, Letter>())
-            {                
+            {
+                var letter = _letterReadModel.GetLetter(entityId);
+                var originalStatus = letter.Status;
+
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, letter.OwnerCode))
+                {
+                    throw new SecurityException(string.Format("{0}: {1}", letter.Header, BLResources.SecurityAccessDenied));
+                }       
+
                 _reopenLetterAggregateService.Reopen(letter);
 
                 _actionLogger.LogChanges(letter, x => x.Status, originalStatus, letter.Status);

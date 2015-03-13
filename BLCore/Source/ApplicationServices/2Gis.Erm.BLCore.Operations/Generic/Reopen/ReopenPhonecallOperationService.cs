@@ -42,17 +42,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Reopen
         }
 
         public void Reopen(long entityId)
-        {
-            var phonecall = _phonecallReadModel.GetPhonecall(entityId);
-            var originalStatus = phonecall.Status;
-
-            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
-            {
-                throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
-            } 
-
+        {            
             using (var scope = _operationScopeFactory.CreateSpecificFor<ReopenIdentity, Phonecall>())
-            {                
+            {
+                var phonecall = _phonecallReadModel.GetPhonecall(entityId);
+                var originalStatus = phonecall.Status;
+
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
+                {
+                    throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
+                } 
+
                 _reopenPhonecallAggregateService.Reopen(phonecall);
 
                 _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, phonecall.Status);

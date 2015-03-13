@@ -42,17 +42,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
         }
 
         public void Cancel(long entityId)
-        {
-            var phonecall = _phonecallReadModel.GetPhonecall(entityId);
-            var originalStatus = phonecall.Status;
-
-            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
-            {
-                throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
-            } 
-
+        {            
             using (var scope = _operationScopeFactory.CreateSpecificFor<CancelIdentity, Phonecall>())
-            {               
+            {
+                var phonecall = _phonecallReadModel.GetPhonecall(entityId);
+                var originalStatus = phonecall.Status;
+
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
+                {
+                    throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
+                } 
+
                 _cancelPhonecallAggregateService.Cancel(phonecall);
 
                 _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, phonecall.Status);

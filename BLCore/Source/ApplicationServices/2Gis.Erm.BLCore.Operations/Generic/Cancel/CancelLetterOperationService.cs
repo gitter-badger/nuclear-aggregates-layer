@@ -43,17 +43,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
         }
 
         public virtual void Cancel(long entityId)
-        {
-            var letter = _letterReadModel.GetLetter(entityId);
-            var originalStatus = letter.Status;
-
-            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, letter.OwnerCode))
-            {
-                throw new SecurityException(string.Format("{0}: {1}", letter.Header, BLResources.SecurityAccessDenied));
-            }       
-
+        {           
             using (var scope = _operationScopeFactory.CreateSpecificFor<CancelIdentity, Letter>())
-            {                
+            {
+                var letter = _letterReadModel.GetLetter(entityId);
+                var originalStatus = letter.Status;
+
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, letter.OwnerCode))
+                {
+                    throw new SecurityException(string.Format("{0}: {1}", letter.Header, BLResources.SecurityAccessDenied));
+                }       
+
                 _cancelLetterAggregateService.Cancel(letter);
 
                 _actionLogger.LogChanges(letter, x => x.Status, originalStatus, letter.Status);
