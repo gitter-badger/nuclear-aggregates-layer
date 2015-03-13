@@ -774,7 +774,6 @@
   <ItemGroup>
     <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
-    <Folder Include="Concrete\Simplified\Dictionary\Firms\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

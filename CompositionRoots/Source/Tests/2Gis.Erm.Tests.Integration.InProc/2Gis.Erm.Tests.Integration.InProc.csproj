@@ -654,7 +654,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DI\ConflictResolvers\" />
-    <Folder Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Firms\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>

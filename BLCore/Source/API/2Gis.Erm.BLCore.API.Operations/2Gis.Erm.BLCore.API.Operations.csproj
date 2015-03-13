@@ -515,7 +515,6 @@
   <ItemGroup>
     <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\PricePositions\" />
-    <Folder Include="Concrete\Simplified\Dictionary\Firms\" />
     <Folder Include="Concrete\Simplified\MsCRM\Dto\" />
     <Folder Include="Generic\Modify\Exceptions\Limits\" />
   </ItemGroup>
