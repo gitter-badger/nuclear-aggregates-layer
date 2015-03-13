@@ -25,7 +25,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Chile
             if (isActionDisabledBasedOnWorkflowStepId)
             {
                 viewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");
-                viewModel.ViewConfig.DisableCardToolbarItem("PrintBargainAdditionalAgreementAction");
             }
         }
     }
