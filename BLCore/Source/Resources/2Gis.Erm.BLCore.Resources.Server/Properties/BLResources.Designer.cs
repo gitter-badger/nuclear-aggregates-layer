@@ -9254,6 +9254,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NoLocksToWithdrawFound {
+            get {
+                return ResourceManager.GetString("NoLocksToWithdrawFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string NoMessageAvailable {
             get {
                 return ResourceManager.GetString("NoMessageAvailable", resourceCulture);

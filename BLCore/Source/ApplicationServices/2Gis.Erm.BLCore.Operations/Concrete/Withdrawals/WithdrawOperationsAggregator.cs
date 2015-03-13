@@ -56,6 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         public BulkWithdrawResult Withdraw(TimePeriod period, AccountingMethod accountingMethod, out Guid businessOperationId)
         {
             _useCaseTuner.AlterDuration<WithdrawOperationsAggregator>();
+            businessOperationId = Guid.Empty;
 
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.WithdrawalAccess, _userContext.Identity.Code))
             {
@@ -83,6 +84,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
 
             var organizationUnits = _accountReadModel.GetOrganizationUnitsToProccessWithdrawals(period.Start, period.End, accountingMethod);
+            if (!organizationUnits.Any())
+            {
+                return BulkWithdrawResult.NoSuitableDataFound;
+            }
+
             var processingResultsByOrganizationUnit = new Dictionary<long, WithdrawalProcessingResult>();
             foreach (var organizationUnit in organizationUnits)
             {

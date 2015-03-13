@@ -8,7 +8,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
     public enum BulkWithdrawResult
     {
         AllSucceeded = 1,
-        ErrorsOccurred = 2
+        ErrorsOccurred = 2,
+        NoSuitableDataFound = 3
     }
 
     public interface IWithdrawOperationsAggregator

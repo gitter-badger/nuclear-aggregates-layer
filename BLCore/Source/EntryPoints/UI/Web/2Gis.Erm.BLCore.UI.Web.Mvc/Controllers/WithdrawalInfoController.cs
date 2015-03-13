@@ -84,25 +84,41 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                             viewModel.PeriodStart.GetEndPeriodOfThisMonth());
 
                 Guid businessOperationId;
-                var allWithwrawalsSucceded = _withdrawOperationsAggregator.Withdraw(period, viewModel.AccountingMethod, out businessOperationId) == BulkWithdrawResult.AllSucceeded;
-                viewModel.IsSuccess = allWithwrawalsSucceded;
+                var result = _withdrawOperationsAggregator.Withdraw(period, viewModel.AccountingMethod, out businessOperationId);
 
-                if (!allWithwrawalsSucceded)
+                switch (result)
                 {
-                    
-                    var resultMessage = string.Format(BLResources.WithdrawalFailed,
-                                                             period.Start,
-                                                             period.End,
-                                                             viewModel.AccountingMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                    case BulkWithdrawResult.AllSucceeded:
+                    {
+                        viewModel.Message = "Withdrawal successfully finished";
+                        viewModel.IsSuccess = true;
+                        break;
+                    }
 
-                    viewModel.HasErrors = true;
-                    viewModel.OperationId = businessOperationId;
-                    viewModel.Message = resultMessage;
+                    case BulkWithdrawResult.ErrorsOccurred:
+                    {
+                        var resultMessage = string.Format(BLResources.WithdrawalFailed,
+                                                          period.Start,
+                                                          period.End,
+                                                          viewModel.AccountingMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+
+                        viewModel.HasErrors = true;
+                        viewModel.OperationId = businessOperationId;
+                        viewModel.Message = resultMessage;
+                        break;
+                    }
+
+                    case BulkWithdrawResult.NoSuitableDataFound:
+                    {
+                        viewModel.Message = string.Format(BLResources.NoLocksToWithdrawFound,
+                                                          period,
+                                                          viewModel.AccountingMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                        break;
+                    }
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
-                else
-                {
-                    viewModel.Message = "Withdrawal successfully finished";
-                } 
             }
             catch (Exception ex)
             {
