@@ -24,7 +24,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Emirates
 
             if (isActionDisabledBasedOnWorkflowStepId)
             {
-                viewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");
                 viewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction");
                 viewModel.ViewConfig.DisableCardToolbarItem("PrintBargainAdditionalAgreementAction");
             }
