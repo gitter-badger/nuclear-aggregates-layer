@@ -84,7 +84,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Identity.svc" />
     <Content Include="Metadata.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

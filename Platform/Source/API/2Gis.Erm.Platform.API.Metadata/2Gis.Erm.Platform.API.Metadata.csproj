@@ -54,8 +54,6 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="IIdentityProviderApplicationRestService.cs" />
-    <Compile Include="IIdentityProviderApplicationService.cs" />
     <Compile Include="IMetadataProviderApplicationRestService.cs" />
     <Compile Include="IMetadataProviderApplicationService.cs" />
     <Compile Include="MetadataOperationErrorDescription.cs" />
