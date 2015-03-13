@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
-using DoubleGis.NuClear.IdentityService.Client.Interaction;
 
-using Nuclear.Tracing.API;
+using NuClear.IdentityService.Client.Interaction;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Identity
 {

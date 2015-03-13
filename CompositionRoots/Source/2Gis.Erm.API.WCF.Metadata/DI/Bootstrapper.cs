@@ -28,7 +28,6 @@ using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
-using DoubleGis.NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 
@@ -112,9 +111,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                 // TODO {all, 29.08.2013}: Удалить регистрацию acessor, после рефакторинга потребителей IIdentityProvider в соответствии с SRP не будет потребителей не будет нужен и accessor
                 // Пока приходится регистрировать не только генератор Id но и accessor для него, чтобы проходил resolve типов, несмотря на то что сервис генерации ID (как и весь сервис metadata) работает только в readonly режиме и создает никакие сущности
                 // Примеры таких не используемых потребителей - Security service facade и т.п.
-                     .RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
-                     .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton)
-                     .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
+                     .RegisterType<IIdentityProvider, NullIdentityProvider>(Lifetime.Singleton);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)

@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.NuClear.IdentityService.Client.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
 

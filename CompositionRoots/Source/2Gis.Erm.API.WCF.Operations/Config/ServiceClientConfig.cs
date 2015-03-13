@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Metadata;
-using DoubleGis.NuClear.IdentityService.Client.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 
 using Microsoft.Practices.Unity;

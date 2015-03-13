@@ -2,9 +2,6 @@
 
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
-using DoubleGis.Erm.Platform.API.Metadata;
-using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 
 using Microsoft.Practices.Unity;
@@ -17,7 +14,6 @@ namespace DoubleGis.Erm.TaskService.Config
         {
             var provider = new ServiceClientSettingsProvider();
 
-            var identityServiceSettings = container.Resolve<IIdentityServiceClientSettings>();
             var withdrawalInfoSvcSettings = container.Resolve<IAPIMoDiServiceSettings>();
 
             var wsHttpBinding = BindingConfig.WsHttp.UseTransportSecurity(HttpClientCredentialType.None);

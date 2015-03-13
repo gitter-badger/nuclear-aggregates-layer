@@ -6,7 +6,6 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
-using DoubleGis.NuClear.IdentityService.Client.Settings;
 
 using NuClear.Settings.API;
 

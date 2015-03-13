@@ -91,7 +91,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.UI.Web.Mvc.Config;
-using DoubleGis.NuClear.IdentityService.Client.Interaction;
+using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;

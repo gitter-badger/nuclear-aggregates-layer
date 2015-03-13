@@ -73,7 +73,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 using DoubleGis.Erm.TaskService.Config;
-using DoubleGis.NuClear.IdentityService.Client.Interaction;
+using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 

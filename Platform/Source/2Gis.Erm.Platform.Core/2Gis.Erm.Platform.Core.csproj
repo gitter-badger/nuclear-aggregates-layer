@@ -40,6 +40,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.IdentityService.Client, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b743d84006fae806, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.IdentityService.Client.1.0.3\lib\net451\2GIS.NuClear.IdentityService.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
@@ -87,12 +95,11 @@
     <Compile Include="EntityProjection\IAssignSpecification.cs" />
     <Compile Include="EntityProjection\IProjectSpecification.cs" />
     <Compile Include="EntityProjection\ProjectSpecification.cs" />
-    <Compile Include="Identities\BufferedIdentityRequestStrategy.cs" />
     <Compile Include="Identities\IdentityProviderBase.cs" />
     <Compile Include="Identities\IdentityRequestChecker.cs" />
     <Compile Include="Identities\IdentityServiceIdentityProvider.cs" />
+    <Compile Include="Identities\NullIdentityProvider.cs" />
     <Compile Include="Identities\NullIdentityRequestChecker.cs" />
-    <Compile Include="Identities\NullIdentityRequestStrategy.cs" />
     <Compile Include="Messaging\Processing\Handlers\NullMessageAggregatedProcessingResultsHandler.cs" />
     <Compile Include="Messaging\Processing\Processors\Topologies\SequentialMessageFlowProcessingTopology.cs" />
     <Compile Include="Messaging\Processing\Processors\MessageFlowProcessorBase.Dispose.cs" />

@@ -12,7 +12,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.Common.Identities;
 
 using NuClear.Settings;

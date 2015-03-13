@@ -77,7 +77,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.BrokerApiReceiver;
-using DoubleGis.NuClear.IdentityService.Client.Interaction;
+using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 

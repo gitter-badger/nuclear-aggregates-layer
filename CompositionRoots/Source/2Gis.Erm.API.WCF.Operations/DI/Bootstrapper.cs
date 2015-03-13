@@ -84,7 +84,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.S
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.WCF.BasicOperations.Config;
-using DoubleGis.NuClear.IdentityService.Client.Interaction;
+using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
