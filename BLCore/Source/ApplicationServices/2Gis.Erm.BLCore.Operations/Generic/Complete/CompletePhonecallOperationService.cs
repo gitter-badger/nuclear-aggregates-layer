@@ -48,20 +48,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
         public void Complete(long entityId)
         {
-            var phonecall = _phonecallReadModel.GetPhonecall(entityId);
-
-            if (phonecall.ScheduledOn.Date > DateTime.Now.Date)
-            {
-                throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
-            }
-
-            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
-            {
-                throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
-            } 
-
             using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Phonecall>())
-            {                
+            {
+                var phonecall = _phonecallReadModel.GetPhonecall(entityId);
+
+                if (phonecall.ScheduledOn.Date > DateTime.Now.Date)
+                {
+                    throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
+                }
+
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
+                {
+                    throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
+                } 
+
                 _completePhonecallAggregateService.Complete(phonecall);
 
                 var phonecallRegardingObjects = _phonecallReadModel.GetRegardingObjects(entityId);

@@ -46,21 +46,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         }
 
         public void Complete(long entityId)
-        {
-            var appointment = _appointmentReadModel.GetAppointment(entityId);
-
-            if (appointment.ScheduledStart.Date > DateTime.Now.Date)
-            {
-                throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
-            }
-
-            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, appointment.OwnerCode))
-            {
-                throw new SecurityException(string.Format("{0}: {1}", appointment.Header, BLResources.SecurityAccessDenied));
-            }                
-
+        {            
             using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Appointment>())
-            {                
+            {
+                var appointment = _appointmentReadModel.GetAppointment(entityId);
+
+                if (appointment.ScheduledStart.Date > DateTime.Now.Date)
+                {
+                    throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
+                }
+                       
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, appointment.OwnerCode))
+                {
+                    throw new SecurityException(string.Format("{0}: {1}", appointment.Header, BLResources.SecurityAccessDenied));
+                }                
+
                 _completeAppointmentAggregateService.Complete(appointment);
 
                 var appointmentRegardingObjects = _appointmentReadModel.GetRegardingObjects(entityId);

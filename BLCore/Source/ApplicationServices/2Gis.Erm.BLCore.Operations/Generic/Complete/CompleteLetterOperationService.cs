@@ -39,20 +39,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
         public virtual void Complete(long entityId)
         {
-            var letter = _letterReadModel.GetLetter(entityId);
-
-            if (letter.ScheduledOn.Date > DateTime.Now.Date)
-            {
-                throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
-            }
-
-            if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, letter.OwnerCode))
-            {
-                throw new SecurityException(string.Format("{0}: {1}", letter.Header, BLResources.SecurityAccessDenied));
-            }       
-
             using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Letter>())
-            {               
+            {
+                var letter = _letterReadModel.GetLetter(entityId);
+
+                if (letter.ScheduledOn.Date > DateTime.Now.Date)
+                {
+                    throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
+                }
+
+                if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, letter.OwnerCode))
+                {
+                    throw new SecurityException(string.Format("{0}: {1}", letter.Header, BLResources.SecurityAccessDenied));
+                }       
+
                 _completeLetterAggregateService.Complete(letter);
 
                 scope.Updated<Letter>(entityId);
