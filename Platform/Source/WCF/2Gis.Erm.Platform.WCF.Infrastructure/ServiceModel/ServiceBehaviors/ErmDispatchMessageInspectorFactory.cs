@@ -1,21 +1,21 @@
 using System.ServiceModel.Dispatcher;
 
-using DoubleGis.Erm.Platform.Common.Logging;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors
 {
     public class ErmDispatchMessageInspectorFactory : IDispatchMessageInspectorFactory
     {
-        private readonly ILoggerContextManager _loggerContextManager;
+        private readonly ITracerContextManager _tracerContextManager;
 
-        public ErmDispatchMessageInspectorFactory(ILoggerContextManager loggerContextManager)
+        public ErmDispatchMessageInspectorFactory(ITracerContextManager tracerContextManager)
         {
-            _loggerContextManager = loggerContextManager;
+            _tracerContextManager = tracerContextManager;
         }
 
         public IDispatchMessageInspector Create()
         {
-            return new ErmOperationContextMessageInspector(_loggerContextManager);
+            return new ErmOperationContextMessageInspector(_tracerContextManager);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -10,6 +9,8 @@ using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.EntityTypes;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories;
 
 using Moq;
+
+using NuClear.Tracing.API;
 
 using NUnit.Framework;
 
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
                                                  new StubDomainContext(),
                                                  new StubDomainContextFactory(),
                                                  new NullPendingChangesHandlingStrategy(),
-                                                 new NullLogger());
+                                                 new NullTracer());
         }
 
         [Given(@"create instance of MockUnitOfWork class")]
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
                 Mock.Of<IReadDomainContext>(),
                 Mock.Of<IModifiableDomainContextFactory>(),
                 Mock.Of<IPendingChangesHandlingStrategy>(),
-                Mock.Of<ICommonLog>());
+                Mock.Of<ITracer>());
         }
 
         #endregion

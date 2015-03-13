@@ -2,11 +2,12 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
-using DoubleGis.Erm.Platform.Common.Logging;
 
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Tracing.API;
 
 using It = Machine.Specifications.It;
 
@@ -29,11 +30,11 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations
             {
                 OrderProcessingRequestService = Mock.Of<IOrderProcessingRequestService>();
                 var basicOrderProlongationOperation = Mock.Of<IBasicOrderProlongationOperationLogic>();
-                var logger = Mock.Of<ICommonLog>();
+                var tracer = Mock.Of<ITracer>();
 
                 Operation = new ProcessOrderProlongationRequestMassOperation(OrderProcessingRequestService,
                                                                              basicOrderProlongationOperation,
-                                                                             logger);
+                                                                             tracer);
             };
 
             Because of = () =>

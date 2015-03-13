@@ -4,16 +4,17 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
 {
     public sealed class ExecuteAssignMessageHandler : 
         OperationMessageHandlerBase<AssignIdentity, AssignCommonParameter, AssignEntityParameter, AssignResult>
     {
-        public ExecuteAssignMessageHandler(IOperationServicesManager operationServicesManager, ICommonLog logger)
-            : base(operationServicesManager, logger)
+        public ExecuteAssignMessageHandler(IOperationServicesManager operationServicesManager, ITracer tracer)
+            : base(operationServicesManager, tracer)
         {
         }
 

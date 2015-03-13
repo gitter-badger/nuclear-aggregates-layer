@@ -4,13 +4,15 @@ using System.Reflection;
 using System.Text;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
-using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
+
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+using NuClear.Tracing.Environment;
+using NuClear.Tracing.Log4Net;
+using NuClear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc
 {
@@ -22,25 +24,25 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
             var settings = new TestAPIInProcOperationsSettings(BusinessModels.Supported);
             var environmentSettings = settings.AsSettings<IEnvironmentSettings>();
 
-            var loggerContextEntryProviders =
-                new ILoggerContextEntryProvider[]
+            var tracerContextEntryProviders =
+                new ITracerContextEntryProvider[]
                     {
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
-                        new LoggerContextSelfHostedEntryProvider(LoggerContextKeys.Required.UserAccount)
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new TracerContextSelfHostedEntryProvider(TracerContextKeys.Required.UserAccount)
                     };
 
-            var loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
+            var tracerContextManager = new TracerContextManager(tracerContextEntryProviders);
 
-            var logger = Log4NetLoggerBuilder.Use
+            var tracer = Log4NetTracerBuilder.Use
                                              .Console
                                              .File(environmentSettings.EnvironmentName + "_" + environmentSettings.EntryPointName)
                                              .Build;
 
-            logger.Info("Configuring composition root " + Assembly.GetExecutingAssembly().GetName().Name);
-            logger.Info(new StringBuilder()
+            tracer.Info("Configuring composition root " + Assembly.GetExecutingAssembly().GetName().Name);
+            tracer.Info(new StringBuilder()
                             .AppendLine("Runtime description:")
                             .AppendLine("TargetEnvironment: " + environmentSettings.Type)
                             .AppendLine("TargetEnvironmentName: " + environmentSettings.EnvironmentName)
@@ -48,11 +50,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
 
             TestResultsSet testResults = null;
             ITestRunner testRunner;
-            if (TestSuiteBuilder.TryBuildSuite(settings, logger, loggerContextManager, out testRunner))
+            if (TestSuiteBuilder.TryBuildSuite(settings, tracer, tracerContextManager, out testRunner))
             {
-                logger.Info("Running test suite");
+                tracer.Info("Running test suite");
                 testResults = testRunner.Run();
-                logger.Info(testResults.ToReport());
+                tracer.Info(testResults.ToReport());
             }
 
             if (!args.Any())

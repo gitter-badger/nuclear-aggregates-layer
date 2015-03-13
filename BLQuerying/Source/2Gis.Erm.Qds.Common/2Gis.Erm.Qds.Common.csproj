@@ -36,9 +36,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.4.2\lib\net45\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\..\..\CompositionRoots\Source\bin\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Elasticsearch.Net.Connection.HttpClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

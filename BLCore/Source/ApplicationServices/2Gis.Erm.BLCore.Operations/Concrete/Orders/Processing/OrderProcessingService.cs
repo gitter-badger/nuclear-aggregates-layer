@@ -18,18 +18,19 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 {
     public class OrderProcessingService : IOrderProcessingService
     {
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IAccountRepository _accountRepository;
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         public OrderProcessingService(
             IUserContext userContext,
-            ICommonLog logger,
+            ITracer tracer,
             IOrderRepository orderRepository,
             IAccountRepository accountRepository,
             IReleaseReadModel releaseRepository,
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             ILegalPersonReadModel legalPersonReadModel)
         {
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
             _orderRepository = orderRepository;
             _accountRepository = accountRepository;
             _releaseRepository = releaseRepository;
@@ -102,7 +103,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                 operationScope,
                                                                 _userRepository,
                                                                 _orderReadModel,
-                                                                _logger,
+                                                                _tracer,
                                                                 _releaseRepository,
                                                                 _accountRepository,
                                                                 _functionalAccessService,
@@ -119,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                            operationScope,
                                                                            _userRepository,
                                                                            _orderReadModel,
-                                                                           _logger,
+                                                                           _tracer,
                                                                            _releaseRepository));
             }
 
