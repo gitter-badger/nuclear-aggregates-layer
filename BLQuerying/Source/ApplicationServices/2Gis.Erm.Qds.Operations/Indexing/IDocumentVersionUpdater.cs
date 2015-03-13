@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public interface IDocumentVersionUpdater
     {
-        Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers);
+        Func<ErmMultiGetDescriptor, ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers);
         void UpdateDocumentVersions(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits);
     }
 
