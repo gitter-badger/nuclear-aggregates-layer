@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
         public void Customize(EntityViewModelBase<Order> viewModel, ModelStateDictionary modelState)
         {
-            if (CanSwitchToAccount(viewModel.Id))
+            if (!CanSwitchToAccount(viewModel.Id))
             {
                 // TODO {all, 26.01.2015}: Сделать словарик с именами элементов
                 viewModel.ViewConfig.DisableCardToolbarItem("SwitchToAccount");
