@@ -6,8 +6,6 @@ using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
-using DoubleGis.Erm.Platform.API.Metadata;
-using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 
 using Microsoft.Practices.Unity;
@@ -22,7 +20,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Config
         {
             var provider = new ServiceClientSettingsProvider();
 
-            var identityServiceSettings = container.Resolve<IIdentityServiceClientSettings>();
             var orderValidationServiceSettings = container.Resolve<IAPIOrderValidationServiceSettings>();
             var moDiServiceSettings = container.Resolve<IAPIMoDiServiceSettings>();
 
