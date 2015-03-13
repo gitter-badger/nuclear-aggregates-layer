@@ -147,6 +147,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IRepository<Appointment>, EFRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<AppointmentRegardingObject>, EFRepository<AppointmentRegardingObject, AppointmentReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<AppointmentAttendee>, EFRepository<AppointmentAttendee, AppointmentReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<AppointmentOrganizer>, EFRepository<AppointmentOrganizer, AppointmentReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<Phonecall>, EFRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<PhonecallRegardingObject>, EFRepository<PhonecallRegardingObject, PhonecallReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<PhonecallRecipient>, EFRepository<PhonecallRecipient, PhonecallReference>>(Lifetime.PerResolve)
