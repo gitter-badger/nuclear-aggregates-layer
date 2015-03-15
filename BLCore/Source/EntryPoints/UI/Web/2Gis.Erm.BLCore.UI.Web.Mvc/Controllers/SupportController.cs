@@ -6,9 +6,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 {
     public sealed class SupportController : Controller
     {
-        private readonly ISupportSettings _supportSettings;
+        private readonly ISupportDepartmentIntegrationSettings _supportSettings;
 
-        public SupportController(ISupportSettings supportSettings)
+        public SupportController(ISupportDepartmentIntegrationSettings supportSettings)
         {
             _supportSettings = supportSettings;
         }

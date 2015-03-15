@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
 {
-    public interface ISupportSettings : ISettings
+    public interface ISupportDepartmentIntegrationSettings : ISettings
     {
         string SupportUrl { get; }
     }

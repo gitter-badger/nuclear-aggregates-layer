@@ -256,7 +256,7 @@ WriteLiteral(" id=\"HelpMe\"");
 
 WriteLiteral(">\r\n                                <a");
 
-WriteLiteral(" href=\"Support/Index\"");
+WriteLiteral(" href=\"Support\"");
 
 WriteLiteral(" target=\"_blank\"");
 
@@ -268,7 +268,7 @@ WriteLiteral(" /><span>");
 
             
             #line 50 "..\..\Views\Main\Index.cshtml"
-                                                                                                                          Write(BLResources.Support);
+                                                                                                                    Write(BLResources.Support);
 
             
             #line default

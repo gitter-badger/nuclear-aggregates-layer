@@ -9,7 +9,7 @@
     <configuration version="3.0.0000.0">
       <Root>
         <ToolBar>
-          <Button Icon="/_imgs/support/helpme.png" JavaScript="openStdWin('https://web-app04.test.erm.2gis.ru/Support/Index', 'HelpMe', 1000, 600)" Client="Web">
+          <Button Icon="/_imgs/support/helpme.png" JavaScript="openStdWin('https://web-app04.test.erm.2gis.ru/Support', 'HelpMe', 1000, 600)" Client="Web">
             <Titles>
               <Title LCID="1049" Text="Техподдержка" />
             </Titles>

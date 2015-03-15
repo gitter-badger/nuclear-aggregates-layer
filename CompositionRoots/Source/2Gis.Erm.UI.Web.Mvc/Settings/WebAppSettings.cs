@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
         SettingsContainerBase,
         IReportsSettings,
         IWebAppProcesingSettings,
-        ISupportSettings
+        ISupportDepartmentIntegrationSettings
     {
         private readonly IntSetting _authExpirationTimeInMinutes = ConfigFileSetting.Int.Required("AuthExpirationTimeInMinutes");
         private readonly StringSetting _reportServer = ConfigFileSetting.String.Required("ReportServer");
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
             get { return _reportServer.Value; }
         }
 
-        string ISupportSettings.SupportUrl
+        string ISupportDepartmentIntegrationSettings.SupportUrl
         {
             get { return _supportUrl.Value; }
         }
