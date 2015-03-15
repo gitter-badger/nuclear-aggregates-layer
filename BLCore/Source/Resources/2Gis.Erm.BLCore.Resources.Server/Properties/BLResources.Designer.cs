@@ -2863,6 +2863,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CannotSaveActivityForClientInReserve {
+            get {
+                return ResourceManager.GetString("CannotSaveActivityForClientInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotSaveActivityForFirmInReserve {
+            get {
+                return ResourceManager.GetString("CannotSaveActivityForFirmInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotSaveBranchOfficeInnExists {
             get {
                 return ResourceManager.GetString("CannotSaveBranchOfficeInnExists", resourceCulture);
@@ -3718,9 +3736,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit {
+        public static string CategoryIsNotSupportedForSalesModel {
             get {
-                return ResourceManager.GetString("CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit", resourceCulture);
+                return ResourceManager.GetString("CategoryIsNotSupportedForSalesModel", resourceCulture);
             }
         }
         
@@ -9317,6 +9335,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NoRegardingObjectValidationError {
+            get {
+                return ResourceManager.GetString("NoRegardingObjectValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Not {
             get {
                 return ResourceManager.GetString("Not", resourceCulture);
@@ -12110,24 +12137,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string PrintOrderHandler_RegionalPaltformNotSupported {
             get {
                 return ResourceManager.GetString("PrintOrderHandler_RegionalPaltformNotSupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_RegionalTechnicalTerminationParagraph1 {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_RegionalTechnicalTerminationParagraph1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PrintOrderHandler_RegionalTechnicalTerminationParagraph2 {
-            get {
-                return ResourceManager.GetString("PrintOrderHandler_RegionalTechnicalTerminationParagraph2", resourceCulture);
             }
         }
         

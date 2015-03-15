@@ -16,7 +16,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills
     public sealed class GetDistributedPaymentsInfoRequest : Request
     {
         public long? OrderId { get; set; }
-        public Func<int, DateTime, DateTime, DateTime> PaymentDatePlanEvaluator { get; set; }
         public IEnumerable<DistributedPaymentsInfo> InitPaymentsInfos { get; set; }
     }
 

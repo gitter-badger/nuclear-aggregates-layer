@@ -1239,12 +1239,6 @@
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value />
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value />
   </data>
@@ -4950,7 +4944,7 @@
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value />
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
     <value />
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
@@ -5166,11 +5160,20 @@
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>Недостаточно прав для смены куратора у действия {0}</value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value></value>
+  </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
     <value />
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value />
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value/>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value/>
   </data>
   <data name="Support" xml:space="preserve">
     <value />

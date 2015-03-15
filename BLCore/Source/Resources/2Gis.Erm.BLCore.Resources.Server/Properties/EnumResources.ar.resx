@@ -1323,17 +1323,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Warning</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Quotation without VAT and with discount</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Quotation</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Quotation with VAT and discount</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Quotation without VAT and discount</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Quotation with VAT and without discount</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Call</value>
@@ -1353,31 +1347,58 @@
   <data name="ActivityPriorityHigh" xml:space="preserve">
     <value>High</value>
   </data>
-  <data name="ActivityPurposeFirstCall" xml:space="preserve">
+  <data name="PhonecallPurposeFirstCall" xml:space="preserve">
     <value>First contact (Aquaintance)</value>
   </data>
-  <data name="ActivityPurposeProductPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeProductPresentation" xml:space="preserve">
     <value>Presentations</value>
   </data>
-  <data name="ActivityPurposeOpportunitiesPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeOpportunitiesPresentation" xml:space="preserve">
     <value>Presentation of advertising deal</value>
   </data>
-  <data name="ActivityPurposeOfferApproval" xml:space="preserve">
+  <data name="PhonecallPurposeOfferApproval" xml:space="preserve">
     <value>Approval and sending of CO</value>
   </data>
-  <data name="ActivityPurposeDecisionApproval" xml:space="preserve">
+  <data name="PhonecallPurposeDecisionApproval" xml:space="preserve">
     <value>Approval of decision deadline</value>
   </data>
-  <data name="ActivityPurposeSale" xml:space="preserve">
+  <data name="PhonecallPurposeSale" xml:space="preserve">
     <value>Sale</value>
   </data>
-  <data name="ActivityPurposeService" xml:space="preserve">
+  <data name="PhonecallPurposeService" xml:space="preserve">
     <value>Service</value>
   </data>
-  <data name="ActivityPurposeUpsale" xml:space="preserve">
+  <data name="PhonecallPurposeUpsale" xml:space="preserve">
     <value>Upsale</value>
   </data>
-  <data name="ActivityPurposeProlongation" xml:space="preserve">
+  <data name="PhonecallPurposeProlongation" xml:space="preserve">
+    <value>Extension</value>
+  </data>
+  <data name="AppointmentPurposeFirstCall" xml:space="preserve">
+    <value>First contact (Aquaintance)</value>
+  </data>
+  <data name="AppointmentPurposeProductPresentation" xml:space="preserve">
+    <value>Presentations</value>
+  </data>
+  <data name="AppointmentPurposeOpportunitiesPresentation" xml:space="preserve">
+    <value>Presentation of advertising deal</value>
+  </data>
+  <data name="AppointmentPurposeOfferApproval" xml:space="preserve">
+    <value>Approval and sending of CO</value>
+  </data>
+  <data name="AppointmentPurposeDecisionApproval" xml:space="preserve">
+    <value>Approval of decision deadline</value>
+  </data>
+  <data name="AppointmentPurposeSale" xml:space="preserve">
+    <value>Sale</value>
+  </data>
+  <data name="AppointmentPurposeService" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="AppointmentPurposeUpsale" xml:space="preserve">
+    <value>Upsale</value>
+  </data>
+  <data name="AppointmentPurposeProlongation" xml:space="preserve">
     <value>Extension</value>
   </data>
   <data name="ActivityStatusInProgress" xml:space="preserve">
@@ -1461,7 +1482,10 @@
   <data name="ActivityPriorityNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
-  <data name="ActivityPurposeNotSet" xml:space="preserve">
+  <data name="PhonecallPurposeNotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="AppointmentPurposeNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
   <data name="ActivityStatusNotSet" xml:space="preserve">

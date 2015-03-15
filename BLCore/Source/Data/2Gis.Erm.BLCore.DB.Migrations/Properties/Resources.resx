@@ -589,8 +589,14 @@
   <data name="ReplicateOrders_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\201411261501\replicateorders.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="Change_HotClientRequest_TaskId_type" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201502061644\change hotclientrequest taskid type.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="Billing_ReplicateDeals_201501201646" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\201501201646\billing.replicatedeals.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="InsertMissingOrganizers_201412291720" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201412291720 - Insert missing organizers.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
   <data name="_201411241430_UpgradeLoggingStorage_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.11.24 rev. 201411241430\UpgradeLoggingStorage.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>

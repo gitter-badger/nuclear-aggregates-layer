@@ -62,6 +62,8 @@
     <Compile Include="Entities\Activity\ActivityStatus.cs" />
     <Compile Include="Entities\Activity\Appointment.cs" />
     <Compile Include="Entities\Activity\AppointmentAttendee.cs" />
+    <Compile Include="Entities\Activity\AppointmentOrganizer.cs" />
+    <Compile Include="Entities\Activity\AppointmentPurpose.cs" />
     <Compile Include="Entities\Activity\AppointmentRegardingObject.cs" />
     <Compile Include="Entities\Activity\EntityReference.cs" />
     <Compile Include="Entities\Activity\EntityToEntityReferenceExtensions.cs" />
@@ -487,6 +489,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Bargain\BindToOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Bargain\DetermineOrderBargainIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Bargain\BulkCloseClientBargainsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Bill\CalculateBillsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\DeleteChargesForPeriodAndProjectIdentity.cs" />

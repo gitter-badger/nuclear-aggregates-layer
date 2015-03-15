@@ -10,10 +10,9 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
     {
         public static IUnityContainer ConfigureQdsListing(this IUnityContainer container)
         {
-            container.RegisterType<IExtendedInfoFilterMetadata, UnityExtendedInfoFilterMetadata>(Lifetime.Singleton);
-            container.RegisterType<IQdsExtendedInfoFilterMetadata, UnityQdsExtendedInfoFilterMetadata>(Lifetime.Singleton);
-
-            return container;
+            return container
+                .RegisterType<IExtendedInfoFilterMetadata, UnityExtendedInfoFilterMetadata>(Lifetime.Singleton)
+                .RegisterType<IQdsExtendedInfoFilterMetadata, UnityQdsExtendedInfoFilterMetadata>(Lifetime.Singleton);
         }
     }
 }
