@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.ServiceModel;
 using System.Threading;
 
@@ -67,6 +68,8 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
             _logger.DebugFormat("Requested identifiers coerced count: {0}. Concurrently requesting threads count: {1}.", requestedCount, _threadsCount);
 
+            var sw = Stopwatch.StartNew();
+
             long[] ids;
             try
             {
@@ -76,6 +79,13 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             {
                 _logger.ErrorFormat("An error occurred while requesting identifiers", ex);
                 throw;
+            }
+
+            // TODO {all, 16.03.2015}: Ловим тормозные запросы к identity service. Убрать, когда решится ситуация с кривыми маршрутами из-за proxy (либо после выпуска фичи ISM)
+            var elapsed = sw.Elapsed;
+            if (elapsed > TimeSpan.FromSeconds(1))
+            {
+                _logger.WarnFormat("Too long identity request duration: {0}", elapsed);
             }
 
             foreach (var id in ids)
