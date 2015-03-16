@@ -1,4 +1,5 @@
-﻿using Nest;
+﻿using System;
+using System.Collections.Generic;
 
 using NuClear.Settings.API;
 
@@ -10,6 +11,6 @@ namespace DoubleGis.Erm.Qds.Common.Settings
         string IndexPrefix { get; }
         int BatchSize { get; }
         string BatchTimeout { get; }
-        IConnectionSettingsValues ConnectionSettings { get; }
+        IEnumerable<Uri> Uris { get; }
     }
 }

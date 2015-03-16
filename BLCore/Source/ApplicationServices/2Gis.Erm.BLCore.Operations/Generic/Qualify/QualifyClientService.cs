@@ -68,7 +68,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             _assignTaskAggregateService = assignTaskAggregateService;
         }
 
-        public QualifyResult Qualify(long entityId, long ownerCode, long? relatedEntityId)
+        // Метод должен быть виртуальным для работы ActionsHistory
+        public virtual QualifyResult Qualify(long entityId, long ownerCode, long? relatedEntityId)
         {
             var currentUser = _userContext.Identity;
             var reserveUser = _userIdentifierService.GetReserveUserIdentity();
