@@ -137,16 +137,6 @@
                     <Title LCID="1049" Text="Назначение" />
                   </Titles>
                 </MenuItem>
-                <MenuItem Icon="/_imgs/ico_18_4405.gif" JavaScript="window.showModalDialog('https://web-app.prod.erm.2gis.ru/Account/ExportTo1CDialog', '', 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ');">
-                  <Titles>
-                    <Title LCID="1049" Text="Выгрузка списаний" />
-                  </Titles>
-                </MenuItem>
-                <MenuItem Icon="/_imgs/ico_18_4405.gif" JavaScript="window.showModalDialog('https://web-app.prod.erm.2gis.ru/Account/ExportToServiceBusDialog', '', 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ');">
-                  <Titles>
-                    <Title LCID="1049" Text="Выгрузка списаний в шину" />
-                  </Titles>
-                </MenuItem>
               </ActionsMenu>
             </MenuBar>
           </Grid>
