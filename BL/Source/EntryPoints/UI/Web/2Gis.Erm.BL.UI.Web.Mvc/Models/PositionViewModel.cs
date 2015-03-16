@@ -84,6 +84,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             PositionCategory = LookupField.FromReference(modelDto.CategoryRef);
             AdvertisementTemplate = LookupField.FromReference(modelDto.AdvertisementTemplateRef);
             IsReadonlyTemplate = modelDto.IsReadOnlyTemplate;
+            IsPublished = modelDto.IsPublished;
             Timestamp = modelDto.Timestamp;
         }
 
