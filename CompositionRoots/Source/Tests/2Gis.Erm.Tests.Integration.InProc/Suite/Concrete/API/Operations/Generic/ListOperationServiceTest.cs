@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
                     Args = new ListingContext
                         {
                             GivenDescription = "Listing of accountDetails, skip 0, take 40, with asc sorting by Id",
-                            SearchModel = new SearchListModel { Start = 0, Limit = 40, Sort = "Id", Dir = "ASC" }
+                            SearchModel = new SearchListModel { Start = 0, Limit = 40, Sort = "Id ASC" }
                         }
                 } };
         }

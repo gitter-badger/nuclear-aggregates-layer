@@ -238,7 +238,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
     },
     //Создание хранилища для данных (инициализиция колонок, конфигуряние адреса для запроса данных и т.д.)
     BuildStore: function (rdrFields) {
-        this.Items.Store = new window.Ext.data.Store({
+        this.Items.Store = new Ext.DoubleGis.Store({
             remoteSort: true,
             autoLoad: false,
             reader: new window.Ext.data.JsonReader({
@@ -286,7 +286,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             dataList.fireEvent("afterrefresh", this);
         });
     },
-
+   
     //отрисовка самого грида
     BuildGrid: function (columns) {
         if (this.Items.Grid) {
