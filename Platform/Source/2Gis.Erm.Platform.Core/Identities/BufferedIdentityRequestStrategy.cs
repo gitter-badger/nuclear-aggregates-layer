@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             var missingCount = requestedCount - availableCount;
             int coercedCount = Math.Min(Math.Max(_nextRequestedCount, missingCount), MaxRequestedCount);
 
-            _logger.DebugFormat("Requested identifiers coerced count: {0}. Concurrently requesting threads count: {1}.", requestedCount, _threadsCount);
+            _logger.DebugFormat("Requested identifiers coerced count: {0}. Concurrently requesting threads count: {1}.", coercedCount, _threadsCount);
 
             var sw = Stopwatch.StartNew();
 
