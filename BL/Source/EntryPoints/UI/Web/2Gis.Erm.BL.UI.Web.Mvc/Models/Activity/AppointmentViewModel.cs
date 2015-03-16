@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         [RequiredLocalized]
         [ExcludeZeroValue]
-        public ActivityPurpose Purpose { get; set; }
+        public AppointmentPurpose Purpose { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -86,6 +86,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
             Attendee = LookupField.FromReference((modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityName == EntityName.Contact));
 
+            
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be only there?
         }
@@ -122,8 +123,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     Location = Location,
                     RegardingObjects = regardingObjects,
                     Attendees = attendees,
-                    OwnerRef = Owner.ToReference(),
-
+                    OwnerRef = Owner.ToReference(EntityName.User),    
+                    Organizer = Owner.ToReference(EntityName.User),
                     CreatedByRef = CreatedBy.ToReference(),
                     CreatedOn = CreatedOn,
                     ModifiedByRef = ModifiedBy.ToReference(),

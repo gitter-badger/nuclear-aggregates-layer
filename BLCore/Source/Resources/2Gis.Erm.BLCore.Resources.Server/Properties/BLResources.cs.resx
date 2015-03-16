@@ -5175,10 +5175,19 @@ Doba zveřejnění: {3}.</value>
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>Nemáte oprávnění pro změnu kurátora u této akce {0}</value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Pole Klient, Obchod, Firma jsou prazdne. Je treba vyplnit alespon jedno z techto poli</value>
+  </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
-    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+    <value>Pozici "{0}" nelze prodat do rubriky "{1}" v projektu "{2}"</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
-    <value>Отделение организации {0} не связано с проектом.</value>
+    <value>Oddělení organizace {0} není spojeno s projektem.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>Není možné uložit akci do organizace, která je v rezervě</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>Nelze uložit akci na klienta v rezervě</value>
   </data>
 </root>
