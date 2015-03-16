@@ -130,7 +130,6 @@
     <Compile Include="Concrete\Integration\Export\GetAccountDetailsForExportContentOperationService.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportLegalPersonsHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ImportAccountDetailsFrom1CHandler.cs" />
-    <Compile Include="Concrete\LegalPersons\ValidateLegalPersonsForExportOperationService.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ValidateAccountDetailsFrom1CHandler.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesHandler.cs" />
     <Compile Include="Concrete\Old\Integration\RabbitMq\ImportlocalMessagesFromRabbitMqHandler.cs" />
@@ -790,6 +789,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Concrete\LegalPersons\" />
     <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
   </ItemGroup>

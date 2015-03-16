@@ -9,10 +9,11 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-namespace DoubleGis.Erm.BLCore.Operations.Concrete.LegalPersons
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.LegalPersons
 {
-    public sealed class ValidateLegalPersonsForExportOperationService : IValidateLegalPersonsForExportOperationService
+    public sealed class RussiaValidateLegalPersonsForExportOperationService : IValidateLegalPersonsForExportOperationService, IRussiaAdapted
     {
         private static readonly Func<LegalPerson, string>[] BlockingValidators =
         {
@@ -69,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.LegalPersons
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public ValidateLegalPersonsForExportOperationService(ILegalPersonReadModel legalPersonReadModel, IOperationScopeFactory operationScopeFactory)
+        public RussiaValidateLegalPersonsForExportOperationService(ILegalPersonReadModel legalPersonReadModel, IOperationScopeFactory operationScopeFactory)
         {
             _legalPersonReadModel = legalPersonReadModel;
             _operationScopeFactory = operationScopeFactory;
