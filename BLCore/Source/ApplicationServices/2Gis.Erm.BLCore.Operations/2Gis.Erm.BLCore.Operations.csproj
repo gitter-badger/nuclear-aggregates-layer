@@ -789,8 +789,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Concrete\LegalPersons\" />
-    <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
   </ItemGroup>
   <ItemGroup />
