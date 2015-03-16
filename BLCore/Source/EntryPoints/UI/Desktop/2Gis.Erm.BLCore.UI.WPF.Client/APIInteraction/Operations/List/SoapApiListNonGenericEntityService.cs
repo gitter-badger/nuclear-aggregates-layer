@@ -1,7 +1,6 @@
 ﻿using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -26,7 +25,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                                                               searchListModel.ExtendedInfo,
                                                               searchListModel.NameLocaleResourceId,
                                                               searchListModel.Limit,
-                                                              searchListModel.Dir,
                                                               searchListModel.Sort,
                                                               searchListModel.ParentEntityId,
                                                               searchListModel.ParentEntityName));

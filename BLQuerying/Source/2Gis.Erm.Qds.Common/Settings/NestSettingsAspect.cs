@@ -7,10 +7,6 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.Common.Settings;
 
-using Elasticsearch.Net.ConnectionPool;
-
-using Nest;
-
 namespace DoubleGis.Erm.Qds.Common.Settings
 {
     public sealed class NestSettingsAspect : ISettingsAspect, INestSettings
@@ -27,18 +23,19 @@ namespace DoubleGis.Erm.Qds.Common.Settings
             var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };
 
             Protocol = GetSettingValue(builder, "Protocol", Protocol.Http);
-            ConnectionSettings = CreateConnectionSettings(builder, Protocol);
-
             IndexPrefix = GetSettingValue(builder, "IndexPrefix", string.Empty).ToLowerInvariant();
             BatchSize = GetSettingValue(builder, "BatchSize", 1000);
             BatchTimeout = GetSettingValue(builder, "BatchTimeout", "1m");
+
+            var endpoint = GetSettingValue(builder, "Endpoint", "localhost");
+            Uris = ParseUris(endpoint, Protocol);
         }
 
         public Protocol Protocol { get; private set; }
         public string IndexPrefix { get; private set; }
         public int BatchSize { get; private set; }
         public string BatchTimeout { get; private set; }
-        public IConnectionSettingsValues ConnectionSettings { get; private set; }
+        public IEnumerable<Uri> Uris { get; private set; }
 
         private static T GetSettingValue<T>(DbConnectionStringBuilder builder, string key, T defaultValue)
         {
@@ -61,21 +58,6 @@ namespace DoubleGis.Erm.Qds.Common.Settings
             return convertedValue;
         }
 
-        private static ConnectionSettings CreateConnectionSettings(DbConnectionStringBuilder builder, Protocol protocol)
-        {
-            var endpoint = GetSettingValue(builder, "Endpoint", "localhost");
-            var uris = ParseUris(endpoint, protocol);
-            var connectionPool = new StaticConnectionPool(uris);
-
-            var connectionSettings = new ConnectionSettings(connectionPool)
-                .ExposeRawResponse()                        // более подробные сообщения об ошибках
-                .EnableCompressedResponses()                // accept-encoding: gzip, deflate
-                .SetPingTimeout(2000)                       // на тестовом кластере живая нода может пинговаться долго, таймаут по умолчанию не подходит
-                .ThrowOnElasticsearchServerExceptions();    // кидать исключения вместо выставления IResponse.IsValid
-
-            return connectionSettings;
-        }
-
         private static IEnumerable<Uri> ParseUris(string endpoint, Protocol protocol)
         {
             var uris = endpoint.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x =>
@@ -90,7 +72,20 @@ namespace DoubleGis.Erm.Qds.Common.Settings
                         throw new ArgumentException();
                     case 1:
                         host = hostAndPort[0].Trim();
-                        port = (int)protocol;
+
+                        switch (protocol)
+                        {
+                            case Protocol.Http:
+                                port = 9200;
+                                break;
+                            case Protocol.Thrift:
+                            case Protocol.ThriftCompact:
+                                port = 9500;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException("protocol");
+                        }
+
                         break;
                     case 2:
                         host = hostAndPort[0].Trim();

@@ -5179,11 +5179,20 @@ Cумма по операции: {5}.
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>Недостаточно прав для смены куратора у действия {0}</value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Поля Клиент, Сделка и Фирма пустые. Необходимо заполнить как минимум одно из полей.</value>
+  </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
     <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие на фирму в резерве</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие на клиента в резерве</value>
   </data>
   <data name="CancelConfirmation" xml:space="preserve">
     <value >Подтвердите отмену действий</value>

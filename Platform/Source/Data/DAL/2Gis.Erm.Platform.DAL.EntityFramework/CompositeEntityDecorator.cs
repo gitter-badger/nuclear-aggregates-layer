@@ -36,7 +36,10 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             {
                 return Find<AppointmentReference, TEntity>(expression, x => x.Reference == (int)AppointmentReferenceType.RequiredAttendees);
             }
-
+            if (typeof(TEntity) == typeof(AppointmentOrganizer))
+            {
+                return Find<AppointmentReference, TEntity>(expression, x => x.Reference == (int)AppointmentReferenceType.Organizer);
+            }
 			
             if (typeof(TEntity) == typeof(Phonecall))
             {

@@ -4687,7 +4687,7 @@ Contacto: {1}</value>
   <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para la posición: "{0}"</value>
   </data>
-    <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+  <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
@@ -5149,6 +5149,9 @@ Periodo de la publicación: {3}.</value>
     <value>Están planificadas incorrectamente las fechas del inicio y término de la reunión.
 </value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Campos Cliente, Negocios y Empresa estan vacios. Es necesario completar por lo menos uno de los campos</value>
+  </data>
   <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
     <value>Para trabajar con el perfil se necesita que estén indicadas las razones sociales</value>
   </data>
@@ -5180,10 +5183,16 @@ Periodo de la publicación: {3}.</value>
     <value>No hay permisos suficientes para cambiar de supervisor de la acción {0}</value>
   </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
-    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+    <value>Posición "{0}" no puede estar vendida en la categoría "{1}" del proyecto "{2}"</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
-    <value>Отделение организации {0} не связано с проектом.</value>
+    <value>El departamento de la empresa {0} no está relacionado con el proyecto.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>No es posible guardar la acción sobre la empresa en reserva</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>No es posible guardar la acción sobre el cliente en reserva</value>
   </data>
   <data name="CancelConfirmation" xml:space="preserve">
     <value >Подтвердите отмену действий</value>

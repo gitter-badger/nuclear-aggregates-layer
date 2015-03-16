@@ -65,19 +65,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             }
         }      
 
-        private static DealStage ConvertToStage(ActivityPurpose purpose)
+        private static DealStage ConvertToStage(PhonecallPurpose purpose)
         {
             switch (purpose)
             {
-                case ActivityPurpose.FirstCall:
+                case PhonecallPurpose.FirstCall:
                     return DealStage.CollectInformation;
 
-                case ActivityPurpose.ProductPresentation:
-                case ActivityPurpose.OpportunitiesPresentation:
+                case PhonecallPurpose.ProductPresentation:
+                case PhonecallPurpose.OpportunitiesPresentation:
                     return DealStage.HoldingProductPresentation;
 
-                case ActivityPurpose.OfferApproval:
-                case ActivityPurpose.DecisionApproval:
+                case PhonecallPurpose.OfferApproval:
+                case PhonecallPurpose.DecisionApproval:
                     return DealStage.MatchAndSendProposition;
 
                 default:
