@@ -78,8 +78,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool RestrictChildPositionPlatformsCanBeChanged { get; set; }
-
-        [DataMember]
-        public bool IsReadOnlyTemplate { get; set; }
     }
 }
