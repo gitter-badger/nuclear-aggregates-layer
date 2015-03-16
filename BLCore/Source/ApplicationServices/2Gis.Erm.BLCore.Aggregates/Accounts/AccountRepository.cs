@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
@@ -38,7 +39,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         private readonly IRepository<AccountDetail> _accountDetailGenericRepository;
         private readonly ISecureRepository<Account> _accountGenericSecureRepository;
         private readonly ISecureRepository<AccountDetail> _accountDetailGenericSecureRepository;
-        private readonly ISecureRepository<Limit> _limitGenericSecureRepository;
         private readonly IRepository<OperationType> _operationTypeGenericRepository;
         private readonly IRepository<Lock> _lockGenericRepository;
         private readonly IRepository<LockDetail> _lockDetailGenericRepository;
@@ -53,7 +53,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                                  IRepository<AccountDetail> accountDetailGenericRepository,
                                  ISecureRepository<Account> accountGenericSecureRepository,
                                  ISecureRepository<AccountDetail> accountDetailGenericSecureRepository,
-                                 ISecureRepository<Limit> limitGenericSecureRepository,
                                  IRepository<OperationType> operationTypeGenericRepository,
                                  IRepository<Lock> lockGenericRepository,
                                  IRepository<LockDetail> lockDetailGenericRepository,
@@ -68,7 +67,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             _accountDetailGenericRepository = accountDetailGenericRepository;
             _accountGenericSecureRepository = accountGenericSecureRepository;
             _accountDetailGenericSecureRepository = accountDetailGenericSecureRepository;
-            _limitGenericSecureRepository = limitGenericSecureRepository;
             _operationTypeGenericRepository = operationTypeGenericRepository;
             _lockGenericRepository = lockGenericRepository;
             _lockDetailGenericRepository = lockDetailGenericRepository;
@@ -546,72 +544,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                 .ToArray();
         }
 
-        int IAssignAggregateRepository<Account>.Assign(long entityId, long ownerCode)
-        {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity>(EntityName.Account))
-            {
-                var limits = 
-                    _secureFinder
-                        .Find(AccountSpecs.Limits.Find.ForAccount(entityId) && Specs.Find.ActiveAndNotDeleted<Limit>())
-                        .ToArray();
-
-                foreach (var limit in limits)
-                {
-                    limit.OwnerCode = ownerCode;
-                    _limitGenericSecureRepository.Update(limit);
-
-                    operationScope.Updated<Limit>(limit.Id);
-                }
-
-                _limitGenericSecureRepository.Save();
-
-                var entity = _secureFinder.Find(Specs.Find.ById<Account>(entityId)).Single();
-                entity.OwnerCode = ownerCode;
-                _accountGenericSecureRepository.Update(entity);
-                var count = _accountGenericSecureRepository.Save();
-
-                operationScope
-                    .Updated<Account>(entity.Id)
-                    .Complete();
-
-                return count;
-            }
-        }
-
-        int IAssignAggregateRepository<AccountDetail>.Assign(long entityId, long ownerCode)
-        {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity>(EntityName.AccountDetail))
-            {
-                var entity = _secureFinder.Find(Specs.Find.ById<AccountDetail>(entityId)).Single();
-                entity.OwnerCode = ownerCode;
-                _accountDetailGenericSecureRepository.Update(entity);
-                var count = _accountDetailGenericSecureRepository.Save();
-
-                operationScope
-                    .Updated<AccountDetail>(entity.Id)
-                    .Complete();
-
-                return count;
-            }
-        }
-
-        int IAssignAggregateRepository<Limit>.Assign(long entityId, long ownerCode)
-        {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity>(EntityName.Limit))
-            {
-                var entity = _secureFinder.Find(Specs.Find.ById<Limit>(entityId)).Single();
-                entity.OwnerCode = ownerCode;
-                _limitGenericSecureRepository.Update(entity);
-                var count = _limitGenericSecureRepository.Save();
-
-                operationScope
-                    .Updated<Limit>(entity.Id)
-                    .Complete();
-
-                return count;
-            }
-        }
-
         int IDeleteAggregateRepository<Lock>.Delete(long entityId)
         {
             var entity = _finder.Find(Specs.Find.ById<Lock>(entityId)).Single();
@@ -628,40 +560,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         {
             var entity = _finder.Find(Specs.Find.ById<OperationType>(entityId)).Single();
             return Delete(entity);
-        }
-
-        void ICheckAggregateForDebtsRepository<Account>.CheckForDebts(long entityId, long currentUserCode, bool bypassValidation)
-        {
-            if (bypassValidation)
-            {
-                var hasProcessAccountsWithDebtsPermissionGranted =
-                    _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.ProcessAccountsWithDebts, currentUserCode);
-                if (!hasProcessAccountsWithDebtsPermissionGranted)
-                {
-                    throw new SecurityException(BLResources.ProcessAccountsWithDebtsOperationIsNotAllowed);
-                }
-
-                return;
-            }
-
-            var accountWithDebts = (from account in _finder.Find(Specs.Find.ById<Account>(entityId))
-                                    let lockDetailBalance = account.Balance - (account.Locks
-                                                                                   .Where(x => x.IsActive && !x.IsDeleted)      // скобки и проверки на null тут НУЖНЫ,
-                                                                                   .Sum(x => (decimal?)x.PlannedAmount) ?? 0)  // т.к. без них возможна ситуация decimal - null = null
-                                    where lockDetailBalance <= _debtProcessingSettings.MinDebtAmount
-                                    select new AccountWithDebtInfo
-                                    {
-
-                                        LegalPersonName = account.LegalPerson.ShortName,
-                                        AccountNumber = account.Id,
-                                        LockDetailBalance = lockDetailBalance
-                                    })
-                .ToArray();
-            var errorMessage = CheckForDebtsHelper.CollectErrors(accountWithDebts);
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                throw new ProcessAccountsWithDebtsException(errorMessage);
-            }
         }
 
         private Account CreateAccountImpl(long legalPersonId, long branchOfficeOrganizationUnitId)

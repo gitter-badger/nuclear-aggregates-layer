@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -42,5 +43,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
         long GetLimitOwnerCode(long limitId);
         IDictionary<long, IEnumerable<AccountDetailForExportDto>> GetAccountDetailsForExportTo1C(IEnumerable<long> organizationUnitIds, DateTime periodStartDate, DateTime periodEndDate);
         IEnumerable<string> GetOrganizationUnitsWithNoSuccessfulLastWithdrawal(IEnumerable<long> organizationUnitIds, TimePeriod period);
+        IReadOnlyCollection<AccountWithDebtInfo> GetAccountsWithDebts(IEnumerable<long> accountIds);
+        AssignAccountDto GetInfoForAssignAccount(long accountId);
+        AccountDetail GetAccountDetail(long accountDetailId);
     }
 }

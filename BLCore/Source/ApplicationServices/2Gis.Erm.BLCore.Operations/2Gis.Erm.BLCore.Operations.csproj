@@ -293,8 +293,8 @@
     <Compile Include="Generic\Append\AppendUserRoleOperationService.cs" />
     <Compile Include="Generic\Append\AppendUserTerritoryService.cs" />
     <Compile Include="Generic\Assign\ActivitySecurityAccessExtenstion.cs" />
-    <Compile Include="Generic\Assign\AssignAccountDetailService.cs" />
-    <Compile Include="Generic\Assign\AssignAccountService.cs" />
+    <Compile Include="Generic\Assign\AssignAccountDetailOperationService.cs" />
+    <Compile Include="Generic\Assign\AssignAccountOperationService.cs" />
     <Compile Include="Generic\Assign\AssignAppointmentService.cs" />
     <Compile Include="Generic\Assign\AssignClientService.cs" />
     <Compile Include="Generic\Assign\AssignContactService.cs" />
@@ -303,6 +303,7 @@
     <Compile Include="Generic\Assign\AssignGenericEntityService.cs" />
     <Compile Include="Generic\Assign\AssignLegalPersonService.cs" />
     <Compile Include="Generic\Assign\AssignLetterService.cs" />
+    <Compile Include="Generic\Assign\AssignLimitOperationService.cs" />
     <Compile Include="Generic\Assign\AssignOrderService.cs" />
     <Compile Include="Generic\Assign\AssignPhonecallService.cs" />
     <Compile Include="Generic\Assign\AssignTaskService.cs" />

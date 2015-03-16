@@ -36,7 +36,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Model
                                                                  null,
                                                                  Mock.Of<ISecureRepository<Account>>(),
                                                                  null,
-                                                                 Mock.Of<ISecureRepository<Limit>>(),
                                                                  null,
                                                                  null,
                                                                  null,

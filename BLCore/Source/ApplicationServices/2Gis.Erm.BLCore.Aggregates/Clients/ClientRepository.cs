@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
@@ -667,11 +668,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                         LockDetailBalance = lockDetailBalance
                                     })
                     .ToArray();
-            var errorMessage = CheckForDebtsHelper.CollectErrors(accountWithDebts);
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                throw new ProcessAccountsWithDebtsException(errorMessage);
-            }
+            CheckForDebtsHelper.ThrowIfAnyError(accountWithDebts);
         }
         
         int IChangeAggregateTerritoryRepository<Client>.ChangeTerritory(long entityId, long territoryId)

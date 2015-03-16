@@ -9,9 +9,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts
 {
     public interface IAccountRepository : IAggregateRootRepository<Account>,
-                                          IAssignAggregateRepository<Account>,
-                                          IAssignAggregateRepository<AccountDetail>,
-                                          IAssignAggregateRepository<Limit>,
                                           IDeleteAggregateRepository<OperationType>,
                                           IDeleteAggregateRepository<Lock>,
                                           IDeleteAggregateRepository<LockDetail>,
