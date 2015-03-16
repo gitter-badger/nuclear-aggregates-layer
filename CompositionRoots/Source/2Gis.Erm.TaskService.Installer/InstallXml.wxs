@@ -181,6 +181,9 @@
         <Component>
         <File Source="!(bindpath.PackagesDir)\2Gis.Nuclear.Tracing.Log4Net.1.0.2\lib\net451\2Gis.Nuclear.Tracing.Log4Net.dll" />
       </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.IdentityService.Client.1.0.3\lib\net451\2GIS.NuClear.IdentityService.Client.dll" />
+      </Component>
     </ComponentGroup>
     
     <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">
