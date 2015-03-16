@@ -176,6 +176,8 @@
     <Compile Include="Services\Enumeration\Emirates\EmiratesFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureAppointmentPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaAppointmentPurposeEnumCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
       <DependentUpon>Deal.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -482,11 +484,11 @@
     <Compile Include="Services\Cards\Czech\CzechLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\LegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\MultiCulture\MultiCultureFasCommentCustomization.cs" />
-    <Compile Include="Services\Enumeration\Russia\RussiaActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaPhonecallPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusOperatesOnTheBasisTypesEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusOrderFileKindEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCulturePhonecallPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechLegalPersonTypeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechOperatesOnTheBasisTypesEnumCustomization.cs" />
