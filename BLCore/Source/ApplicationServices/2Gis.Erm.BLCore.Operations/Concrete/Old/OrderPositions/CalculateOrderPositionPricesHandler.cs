@@ -3,6 +3,8 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
 {
@@ -18,6 +20,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
         protected override CalculateOrderPositionPricesResponse Handle(CalculateOrderPositionPricesRequest request)
         {
             var order = _orderReadModel.GetOrderSecure(request.OrderId);
+            if (order == null)
+            {
+                throw new EntityNotFoundException(typeof(Order), request.OrderId);
+            }
 
             var priceCalculations = _orderReadModel.CalculatePricePerUnit(request.OrderId, request.CategoryRate, request.Cost);
 

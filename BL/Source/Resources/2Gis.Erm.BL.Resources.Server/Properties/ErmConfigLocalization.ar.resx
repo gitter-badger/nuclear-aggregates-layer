@@ -1866,4 +1866,7 @@
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Switch to another profile</value>
   </data>
+  <data name="ControlSpecifyDocumentsDebt" xml:space="preserve">
+    <value>Наличие документов</value>
+  </data>
 </root>

@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Cyprus
 
                         CardMetadata.For<Order>()
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.CyprusOrderPrintActions()),
+                                    .MultiCultureConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.CyprusOrderPrintActions()),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

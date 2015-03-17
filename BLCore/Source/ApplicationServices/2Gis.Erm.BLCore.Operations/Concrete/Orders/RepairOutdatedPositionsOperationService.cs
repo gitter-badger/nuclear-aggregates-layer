@@ -93,6 +93,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 ActualizeOrderPositions(currentOrderInfo.OrderPositions, actualPriceId, resultMessages, saveDiscounts);
                 
                 var order = _orderReadModel.GetOrderSecure(orderId);
+                if (order == null)
+                {
+                    throw new EntityNotFoundException(typeof(Order), orderId);
+                }
+
                 _publicService.Handle(new UpdateOrderFinancialPerformanceRequest
                     {
                         Order = order,

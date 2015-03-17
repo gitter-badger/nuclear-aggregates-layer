@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Czech
 
                         CardMetadata.For<Order>()
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.CzechOrderPrintActions()),
+                                    .MultiCultureConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.CzechOrderPrintActions()),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

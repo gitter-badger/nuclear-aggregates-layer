@@ -293,11 +293,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                             new ReadOnlyPropertyFeature(),
                             new HiddenFeature()),
 
-                    new EntityPropertyMetadata("HasOrderDocumentsDebtChecking", typeof(bool))
-                        .WithFeatures(
-                            new ReadOnlyPropertyFeature(),
-                            new HiddenFeature()),
-
                     new EntityPropertyMetadata("CanEditOrderType", typeof(bool))
                         .WithFeatures(
                             new ReadOnlyPropertyFeature(),

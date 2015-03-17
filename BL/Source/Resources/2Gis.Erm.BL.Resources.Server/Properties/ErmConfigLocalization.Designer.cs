@@ -936,6 +936,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlSpecifyDocumentsDebt {
+            get {
+                return ResourceManager.GetString("ControlSpecifyDocumentsDebt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlSplitter {
             get {
                 return ResourceManager.GetString("ControlSplitter", resourceCulture);

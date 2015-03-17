@@ -289,4 +289,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public DateTime EndDistributionDatePlan { get; set; }
         public DateTime EndDistributionDateFact { get; set; }
     }
+
+    public sealed class OrderDocumentsDebtDto
+    {
+        public EntityReference Order { get; set; }
+        public DocumentsDebt HasDocumentsDebt { get; set; }
+        public string DocumentsComment { get; set; }
+    }
 }

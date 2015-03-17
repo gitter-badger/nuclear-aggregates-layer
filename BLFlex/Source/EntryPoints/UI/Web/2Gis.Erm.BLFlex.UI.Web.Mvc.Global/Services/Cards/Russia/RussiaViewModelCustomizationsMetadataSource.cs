@@ -41,7 +41,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                                                        .Use<LegalPersonProfileDisableDocumentsCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<Order, EntityViewModelBase<Order>>()
-                                                       .Use<PrintFormsCustomization>(),
+                                                       .Use<PrintFormsCustomization>()
+                                                       .Use<ManageDocumentsDebtCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

@@ -178,6 +178,7 @@
     <Compile Include="Services\Cards\Emirates\EmiratesPrintFormsCustomization.cs" />
     <Compile Include="Services\Cards\Kazakhstan\KazakhstanViewModelCustomizationsMetadataSource.cs" />
     <Compile Include="Services\Cards\MultiCulturePrintFormsCustomization.cs" />
+    <Compile Include="Services\Cards\Russia\Orders\ManageDocumentsDebtCustomization.cs" />
     <Compile Include="Services\Cards\Russia\Orders\PrintFormsCustomization.cs" />
     <Compile Include="Services\Cards\Russia\RussiaViewModelCustomizationsMetadataSource.cs" />
     <Compile Include="Services\Cards\Ukraine\UkraineViewModelCustomizationsMetadataSource.cs" />

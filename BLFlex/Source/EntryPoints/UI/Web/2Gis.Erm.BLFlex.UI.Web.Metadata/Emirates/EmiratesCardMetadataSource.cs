@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Emirates
 
                         CardMetadata.For<Order>()
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.EmiratesOrderPrintActions()),
+                                    .MultiCultureConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.EmiratesOrderPrintActions()),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

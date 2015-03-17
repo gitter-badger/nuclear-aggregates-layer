@@ -7,9 +7,6 @@
         }
     },
 
-    setupMenuAvailability: function () {  
-    },
-
     setupCultureSpecificEventListeners: function () {
         Ext.getCmp("Client").on("change", this.onClientChanged, this);
     },

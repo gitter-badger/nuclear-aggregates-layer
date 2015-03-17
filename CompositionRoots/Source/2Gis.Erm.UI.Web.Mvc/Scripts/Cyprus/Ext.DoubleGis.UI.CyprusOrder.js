@@ -6,9 +6,6 @@
             this.getMenuItem('PrintActions', 'PrintActionsAdditional', 'PrintBargainAction').disable();
         }
     },
-
-    setupMenuAvailability: function () {  
-    },
     
     onLegalPersonChanged: function (cmp) {
         var legalPersonLookup = Ext.getCmp('LegalPerson');
