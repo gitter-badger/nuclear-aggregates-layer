@@ -75,6 +75,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="ActionLogging\ActionsLogger.cs" />
+    <Compile Include="Diagnostics\IpRouteTracer.cs" />
     <Compile Include="EntityProjection\AssignSpecification.cs" />
     <Compile Include="EntityProjection\IAssignSpecification.cs" />
     <Compile Include="EntityProjection\IProjectSpecification.cs" />
