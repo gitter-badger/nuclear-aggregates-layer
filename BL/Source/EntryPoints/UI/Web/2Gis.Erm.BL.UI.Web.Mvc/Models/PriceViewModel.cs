@@ -55,6 +55,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             CurrencyId = modelDto.CurrencyRef.Id ?? 0;
             IsPublished = modelDto.IsPublished;
             Timestamp = modelDto.Timestamp;
+            Name = modelDto.Name;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
