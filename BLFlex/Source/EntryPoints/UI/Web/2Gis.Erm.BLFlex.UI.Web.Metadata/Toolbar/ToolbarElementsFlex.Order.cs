@@ -82,7 +82,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .Name.Static("SwitchToAccount")
                                      .Title.Resource(() => ErmConfigLocalization.ControlSwitchToAccount)
                                      .ControlType(ControlType.TextButton)
-                                     .LockOnInactive()
                                      .LockOnNew()
                                      .JSHandler("SwitchToAccount");
             }

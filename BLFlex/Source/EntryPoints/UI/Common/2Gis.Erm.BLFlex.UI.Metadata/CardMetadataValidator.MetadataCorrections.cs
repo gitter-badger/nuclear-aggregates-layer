@@ -134,6 +134,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                                 "ControlType",
                                                 new Tuple<object, object>(ControlType.ImageButton.ToString(), ControlType.TextButton.ToString())
                                             },
+                                            {
+                                                "LockOnInactive",
+                                                new Tuple<object, object>(true, false)
+                                            },
                                         }
                                 },
                             }

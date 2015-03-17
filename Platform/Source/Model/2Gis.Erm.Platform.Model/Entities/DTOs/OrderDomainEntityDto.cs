@@ -200,9 +200,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public string Platform { get; set; }
 
         [DataMember]
-        public bool CanSwitchToAccount { get; set; }
-
-        [DataMember]
         public bool ShowRegionalAttributes { get; set; }
     }
 }
