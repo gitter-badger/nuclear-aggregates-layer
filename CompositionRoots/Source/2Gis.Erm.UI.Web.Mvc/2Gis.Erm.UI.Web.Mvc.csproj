@@ -707,6 +707,7 @@
     <Content Include="Scripts\Emirates\DataList\Order.DataList.js" />
     <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.Client.Emirates.js" />
     <Content Include="Scripts\Emirates\MergeClients.Emirates.js" />
+    <Content Include="Scripts\Ext.DoubleGis.Store.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Deal.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Bargain.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementTemplate.js" />

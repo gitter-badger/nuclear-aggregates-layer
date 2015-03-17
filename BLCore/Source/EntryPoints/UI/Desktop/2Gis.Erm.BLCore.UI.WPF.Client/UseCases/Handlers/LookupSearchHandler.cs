@@ -75,7 +75,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                                                    ParentEntityName = settings.LookupEntity,
                                                    FilterInput = message.SearchText,
                                                    ExtendedInfo = PrepareExtendedInfo(settings.ExtendedInfo, propertiesContainer),
-                                                   Dir = "DESC",
                                                    Start = 0,
                                                    Limit = 5,
                                                });

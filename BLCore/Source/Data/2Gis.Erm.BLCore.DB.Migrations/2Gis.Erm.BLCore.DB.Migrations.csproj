@@ -813,7 +813,9 @@
     <Compile Include="2.1\2014.10.20 rev. 25393 - Alter OrderValidationResults.cs" />
     <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
+    <Compile Include="2.1\201502061644 - Change HotClientsRequests TaskId type.cs" />
     <Compile Include="2.1\201501201646 - Deal replication fix.cs" />
+    <Compile Include="2.1\201412291720 - Insert missing Organizers.cs" />
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
     <Compile Include="2.1\201502190640 - Rename AdditionalEmail to Email.cs" />
     <Compile Include="2.1\Migration201502111010.cs" />
@@ -889,6 +891,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="Resources\201412291720 - Insert missing organizers.sql" />
+    <Content Include="Resources\201502061644\Change HotClientRequest TaskId type.sql" />
     <Compile Include="Shared\CrmDbHelper.cs" />
     <Compile Include="Shared\ErmTableUtilsForOldIntKeys.cs" />
     <Compile Include="Shared\InsertedNotNullableColumnDefinition.cs" />

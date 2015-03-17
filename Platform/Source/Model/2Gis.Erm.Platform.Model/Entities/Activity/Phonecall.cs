@@ -24,6 +24,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
         public DateTime ScheduledOn { get; set; }
         public ActivityPriority Priority { get; set; }
         public ActivityStatus Status { get; set; }
-        public ActivityPurpose Purpose { get; set; }
+        public PhonecallPurpose Purpose { get; set; }
     }
 }

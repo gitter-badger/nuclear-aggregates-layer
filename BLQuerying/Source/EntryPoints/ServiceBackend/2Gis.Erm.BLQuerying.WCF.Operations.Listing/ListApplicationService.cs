@@ -51,14 +51,13 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                   string extendedInfo,
                                   string nameLocaleResourceId,
                                   int limit,
-                                  string dir,
                                   string sort,
                                   long? parentId,
                                   EntityName parentType)
         {
             try
             {
-                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType);
+                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, sort, parentId, parentType);
             }
             catch (Exception ex)
             {
@@ -73,7 +72,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                   string extendedInfo,
                                   string nameLocaleResourceId,
                                   int limit,
-                                  string dir,
                                   string sort,
                                   string parentIdArg,
                                   string parentTypeArg)
@@ -107,10 +105,9 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                     }
 
                     parentId = parentIdParsed;
-                }
-                
+                }              
 
-                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType);
+                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, sort, parentId, parentType);
             }
             catch (Exception ex)
             {
@@ -125,7 +122,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                            string extendedInfo,
                                            string nameLocaleResourceId,
                                            int limit,
-                                           string dir,
                                            string sort,
                                            long? parentId,
                                            EntityName parentType)
@@ -153,8 +149,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                 ExtendedInfo = extendedInfo,
                 NameLocaleResourceId = dataListStructure.NameLocaleResourceId,
                 Limit = limit,
-                Dir = !string.IsNullOrEmpty(dir) ? dir : dataListStructure.DefaultSortDirection == 1 ? "DESC" : "ASC",
-                Sort = !string.IsNullOrEmpty(sort) ? sort : dataListStructure.DefaultSortField,
+                Sort = !string.IsNullOrEmpty(sort) ? sort : string.Format("{0} {1}",dataListStructure.DefaultSortField, dataListStructure.DefaultSortDirection == 1 ? "DESC" : "ASC"),
                 ParentEntityId = parentId,
                 ParentEntityName = parentType
             };

@@ -177,6 +177,7 @@
         Appointment = 501,
         AppointmentRegardingObject = 510,
         AppointmentAttendee = 511,
+        AppointmentOrganizer = 512,
         Phonecall = 502,
         PhonecallRegardingObject = 521,
         PhonecallRecipient = 522,
