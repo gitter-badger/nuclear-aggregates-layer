@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -429,6 +430,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public bool IsLimitRecalculationAvailable(long limitId)
         {
             var limit = _finder.FindOne(Specs.Find.ById<Limit>(limitId));
+            if (limit == null)
+            {
+                throw new EntityNotFoundException(typeof(Limit), limitId);
+            }
 
             // заказы, по которым считается лимит плюс заказы в состоянии "на расторжении"
             var orderOrganizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>()

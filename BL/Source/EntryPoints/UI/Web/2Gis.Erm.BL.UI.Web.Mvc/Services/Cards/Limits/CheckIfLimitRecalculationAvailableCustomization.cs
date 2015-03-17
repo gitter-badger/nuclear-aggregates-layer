@@ -18,6 +18,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
 
         public void Customize(LimitViewModel viewModel, ModelStateDictionary modelState)
         {
+            if (viewModel.IsNew)
+            {
+                return;
+            }
+
             // Кнопка "Пересчитать" в карточке лимита должна быть доступна с момента создания лимита и до тех пор пока за период по которому выставлен лимит отсутствует финальная,
             // успешная сборка по городам назначения заказов входящих в расчёт суммы лимита.
             if (!_accountReadModel.IsLimitRecalculationAvailable(viewModel.Id))
