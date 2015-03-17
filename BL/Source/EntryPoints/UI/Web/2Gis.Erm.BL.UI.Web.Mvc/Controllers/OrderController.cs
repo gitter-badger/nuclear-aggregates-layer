@@ -391,7 +391,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };
 
-                    _operationService.FinishOperation(operation,
+                    _operationService.CreateOperation(operation,
                                                       response.ReportContent,
                                                       HttpUtility.UrlPathEncode(response.ReportFileName),
                                                       response.ContentType);
@@ -476,13 +476,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             FinishTime = DateTime.UtcNow,
                             OwnerCode = UserContext.Identity.Code,
                             Status = OperationStatus.Success,
-                            Type = (BusinessOperation)BusinessOperation.GetOrdersWithDummyAdvertisements,
+                            Type = BusinessOperation.GetOrdersWithDummyAdvertisements,
                             Description = operationDescription,
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };
 
-                    _operationService.FinishOperation(
-                                                      operation,
+                    _operationService.CreateOperation(operation,
                                                       response.ReportContent,
                                                       HttpUtility.UrlPathEncode(response.ReportFileName),
                                                       response.ContentType);

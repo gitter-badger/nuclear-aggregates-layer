@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IActualizeOrdersDuringRevertingWithdrawalOperationService _actualizeOrdersDuringRevertingWithdrawalOperationService;
         private readonly IActualizeDealsDuringRevertingWithdrawalOperationService _actualizeDealsDuringRevertingWithdrawalOperationService;
         private readonly IAccountWithdrawalChangeStatusAggregateService _withdrawalChangeStatusAggregateService;
-        private readonly ICheckOperationPeriodService _checkOperationPeriodService;
+        private readonly IMonthPeriodValidationService _checkPeriodService;
         private readonly IAggregateServiceIsolator _aggregateServiceIsolator;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IActualizeDealsDuringRevertingWithdrawalOperationService actualizeDealsDuringRevertingWithdrawalOperationService,
             IDeleteLockDetailsDuringRevertingWithdrawalOperationService deleteLockDetailsDuringRevertingWithdrawalOperationService,
             IAccountWithdrawalChangeStatusAggregateService withdrawalChangeStatusAggregateService,
-            ICheckOperationPeriodService checkOperationPeriodService,
+            IMonthPeriodValidationService checkPeriodService,
             IAggregateServiceIsolator aggregateServiceIsolator,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _actualizeOrdersDuringRevertingWithdrawalOperationService = actualizeOrdersDuringRevertingWithdrawalOperationService;
             _actualizeDealsDuringRevertingWithdrawalOperationService = actualizeDealsDuringRevertingWithdrawalOperationService;
             _withdrawalChangeStatusAggregateService = withdrawalChangeStatusAggregateService;
-            _checkOperationPeriodService = checkOperationPeriodService;
+            _checkPeriodService = checkPeriodService;
             _aggregateServiceIsolator = aggregateServiceIsolator;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
@@ -69,25 +69,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _deleteLockDetailsDuringRevertingWithdrawalOperationService = deleteLockDetailsDuringRevertingWithdrawalOperationService;
         }
 
-        public WithdrawalProcessingResult Revert(long organizationUnitId, TimePeriod period, string comment)
+        public WithdrawalProcessingResult Revert(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod, string comment)
         {
             _useCaseTuner.AlterDuration<RevertWithdrawalOperationService>();
 
             WithdrawalInfo acquiredWithdrawal = null;
 
+            var operationParametersDescription = GetOperationParametersDescription(organizationUnitId, period, accountingMethod);
+
             try
             {
                 string report;
-                if (!TryAcquireTargetWithdrawal(organizationUnitId, period, comment, out acquiredWithdrawal, out report))
+                if (!TryAcquireTargetWithdrawal(organizationUnitId, period, accountingMethod, comment, out acquiredWithdrawal, out report))
                 {
-                    var msg = string.Format(
-                        "Can't acquire withdrawal for organization unit id {0} by period {1}. Error: {2}",
-                        organizationUnitId,
-                        period,
-                        report);
+                    var msg = string.Format("Can't acquire withdrawal. {0}. Error: {1}",
+                                            operationParametersDescription,
+                                            report);
 
                     _logger.ErrorFormat(msg);
-                    return WithdrawalProcessingResult.Error(msg);
+                    return WithdrawalProcessingResult.Errors(msg);
                 }
 
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
@@ -95,19 +95,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                     if (!LockSuccessfullyAcquired(acquiredWithdrawal))
                     {
                         var msg =
-                            string.Format(
-                                "Acquired withdrawal with id {0} for organization unit with id {1} by period {2} has processing status violations. Possible reason for errors - concurrent withdrawal\reverting process and invalid withdrawal status processing",
-                                acquiredWithdrawal.Id,
-                                acquiredWithdrawal.OrganizationUnitId,
-                                period);
+                            string.Format("Acquired withdrawal with id {0} has processing status violations. Possible reason for errors - concurrent withdrawal\reverting process and invalid withdrawal status processing. {1}",
+                                          acquiredWithdrawal.Id,
+                                          operationParametersDescription);
 
                         _logger.Error(msg);
 
                         transaction.Complete();
-                        return WithdrawalProcessingResult.Error(msg);
+                        return WithdrawalProcessingResult.Errors(msg);
                     }
 
-                    var result = ExecuteRevertWithdrawalProcessing(acquiredWithdrawal, organizationUnitId, period);
+                    var result = ExecuteRevertWithdrawalProcessing(acquiredWithdrawal, organizationUnitId, period, accountingMethod);
 
                     transaction.Complete();
 
@@ -117,87 +115,92 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             catch (Exception ex)
             {
                 var msg =
-                    string.Format(
-                        "Reverting withdrawing aborted. Unexpected exception was caught. Organization unit id {0}. Period: {1}",
-                        organizationUnitId,
-                        period);
+                    string.Format("Reverting withdrawing aborted. Unexpected exception was caught. {0}",
+                                  operationParametersDescription);
                 _logger.Error(ex, msg);
 
                 if (acquiredWithdrawal != null)
                 {
                     _aggregateServiceIsolator.TransactedExecute<IAccountWithdrawalChangeStatusAggregateService>(TransactionScopeOption.RequiresNew,
-                                                                        service => service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
+                                                                                                                service =>
+                                                                                                                service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
                 }
 
-                return WithdrawalProcessingResult.Error(msg);
+                return WithdrawalProcessingResult.Errors(msg);
             }
         }
 
         private bool LockSuccessfullyAcquired(WithdrawalInfo acquiredWithdrawal)
         {
             var lockedWithdrawal =
-                    _accountReadModel.GetLastWithdrawal(
-                                            acquiredWithdrawal.OrganizationUnitId,
-                                            new TimePeriod(acquiredWithdrawal.PeriodStartDate, acquiredWithdrawal.PeriodEndDate));
+                _accountReadModel.GetLastWithdrawal(acquiredWithdrawal.OrganizationUnitId,
+                                                    new TimePeriod(acquiredWithdrawal.PeriodStartDate, acquiredWithdrawal.PeriodEndDate),
+                                                    acquiredWithdrawal.AccountingMethod);
             return lockedWithdrawal != null
                     && lockedWithdrawal.Id == acquiredWithdrawal.Id
                     && lockedWithdrawal.Status == WithdrawalStatus.Reverting
                     && acquiredWithdrawal.SameVersionAs(lockedWithdrawal);
         }
 
-        private WithdrawalProcessingResult ExecuteRevertWithdrawalProcessing(WithdrawalInfo acquiredWithdrawal, long organizationUnitId, TimePeriod period)
+        private WithdrawalProcessingResult ExecuteRevertWithdrawalProcessing(WithdrawalInfo acquiredWithdrawal,
+                                                                             long organizationUnitId,
+                                                                             TimePeriod period,
+                                                                             AccountingMethod accountingMethod)
         {
-            using (var scope = _scopeFactory.CreateNonCoupled<WithdrawalIdentity>())
+            using (var scope = _scopeFactory.CreateNonCoupled<RevertWithdrawalIdentity>())
             {
-                var withdrawalInfos = _accountReadModel.GetInfoForRevertWithdrawal(organizationUnitId, period);
+                var operationParametersDescription = GetOperationParametersDescription(organizationUnitId, period, accountingMethod);
+                var withdrawalInfos = _accountReadModel.GetInfoForRevertWithdrawal(organizationUnitId, period, accountingMethod);
 
-                _logger.InfoFormat(
-                    "Reverting withdrawal. Organization unit {0}. {1}. Starting accounts actualization process. Target withdrawal infos count: {2}",
-                    organizationUnitId,
-                    period,
-                    withdrawalInfos.Length);
-                _actualizeAccountsDuringRevertingWithdrawalOperationService.Actualize(
-                    withdrawalInfos.Select(i => new AccountStateForRevertingWithdrawalDto
-                    {
-                        Account = i.Account,
-                        DebitAccountDetail = i.DebitAccountDetail,
-                        AccountBalanceBeforeRevertingWithdrawal = i.AccountBalanceBeforeRevertWithdrawal,
-                        Lock = i.Lock,
-                        LockDetails = i.LockDetails
-                    }));
+                _logger.InfoFormat("Reverting withdrawal. {0} Starting accounts actualization process. Target withdrawal infos count: {1}",
+                                   operationParametersDescription,
+                                   withdrawalInfos.Length);
 
-                _logger.InfoFormat(
-                    "Reverting withdrawal. Organization unit {0}. {1}. Starting orders actualization process",
-                    organizationUnitId,
-                    period);
-                _actualizeOrdersDuringRevertingWithdrawalOperationService.Actualize(
-                    withdrawalInfos.GroupBy(dto => dto.Order.Id, (l, dtos) => dtos.Single()).Select(dto => new ActualizeOrdersDto
-                    {
-                        Order = dto.Order,
-                        AmountAlreadyWithdrawn = dto.AmountAlreadyWithdrawnAfterWithdrawalRevert,
-                        AmountToWithdrawNext = dto.AmountToWithdrawNextAfterWithdrawalRevert
-                    }));
+                _actualizeAccountsDuringRevertingWithdrawalOperationService
+                    .Actualize(withdrawalInfos.Select(i => new AccountStateForRevertingWithdrawalDto
+                                                               {
+                                                                   Account = i.Account,
+                                                                   DebitAccountDetail = i.DebitAccountDetail,
+                                                                   AccountBalanceBeforeRevertingWithdrawal =
+                                                                       i.AccountBalanceBeforeRevertWithdrawal,
+                                                                   Lock = i.Lock,
+                                                                   LockDetails = i.LockDetails
+                                                               }));
 
-                _logger.InfoFormat(
-                    "Reverting withdrawal. Organization unit {0}. {1}. Starting deals actualization process",
-                    organizationUnitId,
-                    period);
-                _actualizeDealsDuringRevertingWithdrawalOperationService.Actualize(
-                    withdrawalInfos
-                        .Where(dto => dto.Order.DealId.HasValue)
-                        .Select(dto => dto.Order.DealId.Value)
-                        .Distinct());
+                _logger.InfoFormat("Reverting withdrawal. {0} Starting orders actualization process",
+                                   operationParametersDescription);
 
-                _logger.InfoFormat("Reverting withdrawal. Organization unit {0}. {1}. Starting locks actualization process for planned positions",
-                                     organizationUnitId,
-                                     period);
-                _deleteLockDetailsDuringRevertingWithdrawalOperationService.DeleteLockDetails(organizationUnitId, period);
+                _actualizeOrdersDuringRevertingWithdrawalOperationService
+                    .Actualize(withdrawalInfos.GroupBy(dto => dto.Order.Id, (l, dtos) => dtos.Single())
+                                              .Select(dto => new ActualizeOrdersDto
+                                                                 {
+                                                                     Order = dto.Order,
+                                                                     AmountAlreadyWithdrawn =
+                                                                         dto.AmountAlreadyWithdrawnAfterWithdrawalRevert,
+                                                                     AmountToWithdrawNext =
+                                                                         dto.AmountToWithdrawNextAfterWithdrawalRevert
+                                                                 }));
+
+                _logger.InfoFormat("Reverting withdrawal. {0} Starting deals actualization process",
+                                   operationParametersDescription);
+
+                _actualizeDealsDuringRevertingWithdrawalOperationService
+                    .Actualize(withdrawalInfos
+                                   .Where(dto => dto.Order.DealId.HasValue)
+                                   .Select(dto => dto.Order.DealId.Value)
+                                   .Distinct());
+
+                if (accountingMethod == AccountingMethod.PlannedProvision)
+                {
+                    _logger.InfoFormat("Reverting withdrawal. {0} Starting locks actualization process for planned positions",
+                                       operationParametersDescription);
+
+                    _deleteLockDetailsDuringRevertingWithdrawalOperationService.DeleteLockDetails(organizationUnitId, period);
+                }
 
                 _withdrawalChangeStatusAggregateService.ChangeStatus(acquiredWithdrawal, WithdrawalStatus.Reverted, null);
-                _logger.InfoFormat(
-                    "Reverting withdrawal process successfully finished. Organization unit {0}. {1}.",
-                    organizationUnitId,
-                    period);
+                _logger.InfoFormat("Reverting withdrawal process successfully finished. {0}",
+                                   operationParametersDescription);
 
                 scope.Complete();
             }
@@ -205,16 +208,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             return WithdrawalProcessingResult.Succeeded;
         }
 
-        private bool TryAcquireTargetWithdrawal(
-            long organizationUnitId,
-            TimePeriod period,
-            string comment,
-            out WithdrawalInfo acquiredWithdrawal,
-            out string report)
+        private bool TryAcquireTargetWithdrawal(long organizationUnitId,
+                                                TimePeriod period,
+                                                AccountingMethod accountingMethod,
+                                                string comment,
+                                                out WithdrawalInfo acquiredWithdrawal,
+                                                out string report)
         {
             acquiredWithdrawal = null;
 
-            _logger.InfoFormat("Starting reverting withdrawal process for organization unit with id {0} and time period {1}", organizationUnitId, period);
+            var operationParametersDescription = GetOperationParametersDescription(organizationUnitId, period, accountingMethod);
+
+            _logger.InfoFormat("Starting reverting withdrawal process. {0}",
+                               operationParametersDescription);
 
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.WithdrawalAccess, _userContext.Identity.Code))
             {
@@ -222,33 +228,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 return false;
             }
 
-            if (!_checkOperationPeriodService.IsOperationPeriodValid(period, out report))
+            if (!_checkPeriodService.IsValid(period, out report))
             {
                 return false;
             }
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var lastWithdrawal = _accountReadModel.GetLastWithdrawal(organizationUnitId, period);
+                var lastWithdrawal = _accountReadModel.GetLastWithdrawal(organizationUnitId, period, accountingMethod);
                 if (!CanBeReverted(lastWithdrawal, out report))
                 {
                     report =
-                        string.Format(
-                            "Can't start reverting withdrawal process for organization unit with id {0} and time period {1}. {2}",
-                            organizationUnitId,
-                            period,
-                            report);
+                        string.Format("Can't start reverting withdrawal process. {0} {1}",
+                                      operationParametersDescription,
+                                      report);
 
-                    return false;
-                }
-
-                if (_accountReadModel.HasActiveLocksForSourceOrganizationUnitByPeriod(organizationUnitId, period))
-                {
-                    report =
-                        string.Format(
-                            "Can't start reverting withdrawal process  for organization unit with id {0} and time period {1}. Active locks for orders found, withdrawal operation have to be executed properly before reverting",
-                            organizationUnitId,
-                            period);
                     return false;
                 }
 
@@ -257,11 +251,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 transaction.Complete();
             }
 
-            _logger.InfoFormat(
-                    "Reverting withdrawal process for organization unit {0} and period {1} is granted. Acquired withdrawal entry id {2}",
-                    organizationUnitId,
-                    period,
-                    acquiredWithdrawal.Id);
+            _logger.InfoFormat("Reverting withdrawal process is granted. {0} Acquired withdrawal entry id {1}",
+                               operationParametersDescription,
+                               acquiredWithdrawal.Id);
 
             return true;
         }
@@ -284,21 +276,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                     report = BLResources.CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning;
                     break;
                 }
+
                 case WithdrawalStatus.Reverting:
                 {
                     report = BLResources.CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning;
                     break;
                 }
+
                 case WithdrawalStatus.Error:
                 {
                     report = EnumResources.CannotRevertWithdrawalBecausePreviousWithdrawalIsFailed;
                     break;
                 }
+
                 case WithdrawalStatus.Reverted:
                 {
                     report = EnumResources.WithdrawalIsAlreadyReverted;
                     break;
                 }
+
                 case WithdrawalStatus.Success:
                 {
                     canBeReverted = true;
@@ -307,6 +303,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
 
             return canBeReverted;
+        }
+
+        private string GetOperationParametersDescription(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod)
+        {
+            return string.Format("Organization unit id: {0}. Period: {1}. Accounting method {2}.",
+                                 organizationUnitId,
+                                 period,
+                                 accountingMethod);
         }
     }
 }

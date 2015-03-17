@@ -1,6 +1,7 @@
-﻿using DoubleGis.Erm.Platform.Common.Settings;
+﻿using System;
+using System.Collections.Generic;
 
-using Nest;
+using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.Qds.Common.Settings
 {
@@ -10,6 +11,6 @@ namespace DoubleGis.Erm.Qds.Common.Settings
         string IndexPrefix { get; }
         int BatchSize { get; }
         string BatchTimeout { get; }
-        IConnectionSettingsValues ConnectionSettings { get; }
+        IEnumerable<Uri> Uris { get; }
     }
 }

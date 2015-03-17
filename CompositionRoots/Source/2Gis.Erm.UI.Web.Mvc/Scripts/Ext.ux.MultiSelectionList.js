@@ -140,7 +140,7 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
     initStore: function() {
         var qstringparams = this.parseWindowLocation();
 
-        this.store = new window.Ext.data.Store({
+        this.store = new Ext.DoubleGis.Store({
             remoteSort: true,
             //Ставим false потому, что при загрузке страницы будет присобачен фильтр
             autoLoad: false,
@@ -344,7 +344,7 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
         }
         return this.fireEvent('rowdblclick', vw, index, node, e);
     },
-    beforeStoreLoad: function (scope, options) {
+    beforeStoreLoad: function(store, operation, eOpts) {
         if (!this.mask) {
             this.mask = new window.Ext.LoadMask(window.Ext.get("grid-left"));
         }

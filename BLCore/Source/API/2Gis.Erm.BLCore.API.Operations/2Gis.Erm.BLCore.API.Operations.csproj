@@ -52,6 +52,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -71,10 +72,12 @@
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
+    <Compile Include="Concrete\Bills\ICalculateBillsOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Flows\FlowAdvModelsInfo.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportAdvModelInRubricInfoService.cs" />
+    <Compile Include="Concrete\Integration\Dto\Billing\ChargeDto.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Integration\Shared\ServiceBusSalesModel.cs" />
     <Compile Include="Concrete\LegalPersons\IValidateLegalPersonsForExportOperationService.cs" />
@@ -175,7 +178,7 @@
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\NewSalesModelNotEnabledForCategoryOrOrganizationUnitException.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\CategoryIsRestrictedBySalesModelException.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainRequest.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IValidateOrderPositionAdvertisementsOperationService.cs" />
@@ -210,6 +213,8 @@
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />
+    <Compile Include="Concrete\Withdrawals\IGetWithdrawalErrorsCsvReportOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\WithdrawalErrorsReport.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeDealsDuringRevertingWithdrawalOperationService.cs" />
@@ -219,7 +224,11 @@
     <Compile Include="Concrete\Withdrawals\ICreateLockDetailsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IDeleteChargesForPeriodAndProjectOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IDeleteLockDetailsDuringRevertingWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\InvalidPeriodException.cs" />
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRule.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRulesProvider.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawOperationsAggregator.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
     <Compile Include="Crosscutting\ICanChangeOrderPositionBindingObjectsDetector.cs" />
@@ -261,9 +270,7 @@
     <Compile Include="Concrete\Old\Bills\BillPaymentType.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplate.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfo.cs" />
-    <Compile Include="Concrete\Old\Bills\DistributeBillPayments.cs" />
     <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfo.cs" />
-    <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfo.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBill.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForPrintJointBill.cs" />
     <Compile Include="Concrete\Old\Bills\PrintBillRequest.cs" />

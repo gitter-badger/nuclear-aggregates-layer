@@ -2,7 +2,6 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -12,11 +11,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bills
 {
     public sealed class UpdateBillAggregateService : IUpdateBillAggregateService
     {
-        private readonly IRepository<Bill> _billGenericRepository;
+        private readonly ISecureRepository<Bill> _billGenericRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IBillsConsistencyService _billsConsistencyService;
 
-        public UpdateBillAggregateService(IOperationScopeFactory scopeFactory, IRepository<Bill> billGenericRepository, IBillsConsistencyService billsConsistencyService)
+        public UpdateBillAggregateService(IOperationScopeFactory scopeFactory, ISecureRepository<Bill> billGenericRepository, IBillsConsistencyService billsConsistencyService)
         {
             _scopeFactory = scopeFactory;
             _billGenericRepository = billGenericRepository;

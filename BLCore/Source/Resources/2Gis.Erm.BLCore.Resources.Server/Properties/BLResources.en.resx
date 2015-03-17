@@ -2737,9 +2737,6 @@ The operation has been executed: {6}.</value>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>Continue operation?</value>
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Specify a company division and period for writing-off</value>
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>No active holds are found for the company {0} as of {1}</value>
   </data>
@@ -4962,8 +4959,8 @@ Placement period: {3}.</value>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>Cannot create a complex item with the type of the reference object different from the following: {0}</value>
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>The new sales model is not supported in "{0}" city or in the "{1}" category</value>
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
+    <value>The categories ({0}) are not supported for the "{1}" sales model in "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>A category should be specified for all subitems of the order item prepared as a price-list item with [{0}] coefficient calculation method</value>
@@ -4975,7 +4972,7 @@ Placement period: {3}.</value>
     <value>Errors</value>
   </data>
   <data name="File" xml:space="preserve">
-     <value>File</value>
+    <value>File</value>
   </data>
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value>Cannot activate an item from a published price-list</value>
@@ -5149,6 +5146,9 @@ Placement period: {3}.</value>
     <value>The start and end dates of the meeting are set incorrectly.
 </value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>The Client, Deal and Company fields are empty. Please fill in at least one field.</value>
+  </data>
   <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
     <value>Specify legal entities to enable profiles</value>
   </data>
@@ -5180,9 +5180,27 @@ Placement period: {3}.</value>
     <value>Not enough rights to change the owner for the action {0}</value>
   </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
-    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+    <value>Item "{0}" cannot be sold into category "{1}" of project "</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
-    <value>Отделение организации {0} не связано с проектом.</value>
+    <value>Company division {0} is not linked to the project.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>You cannot save the action to a company in reserve</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>You cannot save the action to a client in reserve </value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Please specify the period, service accounting method, and company branch</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Please specify the period and service accounting method</value>
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Writing-off for {0} - {1} with servicing method {2} completed with errors</value>
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
   </data>
 </root>

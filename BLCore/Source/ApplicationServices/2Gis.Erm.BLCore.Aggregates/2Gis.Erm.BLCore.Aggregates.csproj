@@ -138,7 +138,7 @@
     <Compile Include="BranchOffices\ReadModel\BranchOfficeReadModel.cs" />
     <Compile Include="Clients\ClientRepository.cs" />
     <Compile Include="Common\Crosscutting\AggregateServiceIsolator.cs" />
-    <Compile Include="Common\Crosscutting\CheckOperationPeriodService.cs" />
+    <Compile Include="Common\Crosscutting\MonthPeriodValidationService.cs" />
     <Compile Include="Common\Crosscutting\AssignedEntityProvider.cs" />
     <Compile Include="Common\Crosscutting\ConcurrentPeriodCounter.cs" />
     <Compile Include="Deals\DealRepository.cs" />

@@ -49,7 +49,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
                           .SingleOrDefault();
         }
 
-
         public LegalPerson GetLegalPerson(long legalPersonId)
         {
             return _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId));
@@ -117,9 +116,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
                           .ToArray();
         }
 
-        public LegalPersonAndProfilesExistanceDto GetLegalPersonWithProfileExistanceInfo(long legalPersonId)
+        public LegalPersonAndProfilesExistenceDto GetLegalPersonWithProfileExistenceInfo(long legalPersonId)
         {
-            return new LegalPersonAndProfilesExistanceDto
+            return new LegalPersonAndProfilesExistenceDto
             {
                 LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId)),
                 LegalPersonHasProfiles =
@@ -127,10 +126,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
             };
         }
 
-        public IEnumerable<LegalPersonAndProfilesExistanceDto> GetLegalPersonsWithProfileExistanceInfo(IEnumerable<long> legalPersonIds)
+        public IEnumerable<LegalPersonAndProfilesExistenceDto> GetLegalPersonsWithProfileExistenceInfo(IEnumerable<long> legalPersonIds)
         {
             var legalPersons = GetLegalPersons(legalPersonIds);
-            var profileExistance = _finder.Find(Specs.Find.ByIds<LegalPerson>(legalPersonIds))
+            var profileExistence = _finder.Find(Specs.Find.ByIds<LegalPerson>(legalPersonIds))
                                           .Select(x => new
                                                            {
                                                                Id = x.Id,
@@ -138,7 +137,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
                                                            })
                                           .ToDictionary(x => x.Id, y => y.HasProfiles);
 
-            return profileExistance.Select(x => new LegalPersonAndProfilesExistanceDto
+            return profileExistence.Select(x => new LegalPersonAndProfilesExistenceDto
                                                     {
                                                         LegalPersonHasProfiles = x.Value,
                                                         LegalPerson = legalPersons.Single(y => y.Id == x.Key)
@@ -149,6 +148,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         public bool IsThereLegalPersonProfileDuplicate(long legalPersonProfileId, long legalPersonId, string name)
         {
             return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) && LegalPersonSpecs.Profiles.Find.DuplicateByName(legalPersonProfileId, name)).Any();
+        }
+
+        public IEnumerable<ValidateLegalPersonDto> GetLegalPersonDtosToValidateForWithdrawalOperation(long organizationUnitId,
+                                                                                                   DateTime periodStartDate,
+                                                                                                   DateTime periodEndDate)
+        {
+            return
+                _finder.Find(AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
+                             AccountSpecs.Locks.Find.ForPeriod(periodStartDate, periodEndDate) &&
+                             Specs.Find.ActiveAndNotDeleted<Lock>())
+                       .Select(x =>
+                               new ValidateLegalPersonDto
+                                                                 {
+                                                                     LegalPersonId = x.Order.LegalPersonId.Value,
+                                                                     SyncCode1C = x.Account.LegalPesonSyncCode1C
+                                        })
+                       .ToArray();
         }
     }
 }

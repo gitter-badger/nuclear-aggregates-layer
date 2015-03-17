@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string RecipientName { get; set; }
         public DocumentsDeliveryMethod DocumentsDeliveryMethod { get; set; }
         public string EmailForAccountingDocuments { get; set; }
-        public string AdditionalEmail { get; set; }
+        public string Email { get; set; }
         public string PersonResponsibleForDocuments { get; set; }
         public string Phone { get; set; }
         public string PaymentEssentialElements { get; set; }
