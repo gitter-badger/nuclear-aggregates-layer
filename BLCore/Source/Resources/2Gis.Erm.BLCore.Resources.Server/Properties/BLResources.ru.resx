@@ -5132,7 +5132,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-  </data>
+</data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5176,11 +5176,20 @@ Cумма по операции: {5}.
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>Недостаточно прав для смены куратора у действия {0}</value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Поля Клиент, Сделка и Фирма пустые. Необходимо заполнить как минимум одно из полей.</value>
+  </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
     <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие на фирму в резерве</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие на клиента в резерве</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Укажите период, способ учета оказания услуг и отделение организации</value>

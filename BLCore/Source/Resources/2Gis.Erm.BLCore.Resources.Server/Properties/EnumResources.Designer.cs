@@ -259,96 +259,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Согласование сроков принятия решения.
-        /// </summary>
-        public static string ActivityPurposeDecisionApproval {
-            get {
-                return ResourceManager.GetString("ActivityPurposeDecisionApproval", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Первый контакт (Знакомство).
-        /// </summary>
-        public static string ActivityPurposeFirstCall {
-            get {
-                return ResourceManager.GetString("ActivityPurposeFirstCall", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Не задано.
-        /// </summary>
-        public static string ActivityPurposeNotSet {
-            get {
-                return ResourceManager.GetString("ActivityPurposeNotSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Согласование и отправка КП.
-        /// </summary>
-        public static string ActivityPurposeOfferApproval {
-            get {
-                return ResourceManager.GetString("ActivityPurposeOfferApproval", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Проведение презентации рекламных возможностей.
-        /// </summary>
-        public static string ActivityPurposeOpportunitiesPresentation {
-            get {
-                return ResourceManager.GetString("ActivityPurposeOpportunitiesPresentation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Проведение презентации.
-        /// </summary>
-        public static string ActivityPurposeProductPresentation {
-            get {
-                return ResourceManager.GetString("ActivityPurposeProductPresentation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Продление.
-        /// </summary>
-        public static string ActivityPurposeProlongation {
-            get {
-                return ResourceManager.GetString("ActivityPurposeProlongation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Продажа.
-        /// </summary>
-        public static string ActivityPurposeSale {
-            get {
-                return ResourceManager.GetString("ActivityPurposeSale", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Сервис.
-        /// </summary>
-        public static string ActivityPurposeService {
-            get {
-                return ResourceManager.GetString("ActivityPurposeService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Допродажа.
-        /// </summary>
-        public static string ActivityPurposeUpsale {
-            get {
-                return ResourceManager.GetString("ActivityPurposeUpsale", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Отменено.
         /// </summary>
         public static string ActivityStatusCanceled {
@@ -624,6 +534,96 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string AllOrdersReportTypeToProlongate {
             get {
                 return ResourceManager.GetString("AllOrdersReportTypeToProlongate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Согласование сроков принятия решения.
+        /// </summary>
+        public static string AppointmentPurposeDecisionApproval {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeDecisionApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Первый контакт (Знакомство).
+        /// </summary>
+        public static string AppointmentPurposeFirstCall {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeFirstCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не задано.
+        /// </summary>
+        public static string AppointmentPurposeNotSet {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Согласование и отправка КП.
+        /// </summary>
+        public static string AppointmentPurposeOfferApproval {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeOfferApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Проведение презентации рекламных возможностей.
+        /// </summary>
+        public static string AppointmentPurposeOpportunitiesPresentation {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeOpportunitiesPresentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Проведение презентации.
+        /// </summary>
+        public static string AppointmentPurposeProductPresentation {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeProductPresentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Продление.
+        /// </summary>
+        public static string AppointmentPurposeProlongation {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeProlongation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Продажа.
+        /// </summary>
+        public static string AppointmentPurposeSale {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeSale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сервис.
+        /// </summary>
+        public static string AppointmentPurposeService {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Допродажа.
+        /// </summary>
+        public static string AppointmentPurposeUpsale {
+            get {
+                return ResourceManager.GetString("AppointmentPurposeUpsale", resourceCulture);
             }
         }
         
@@ -4458,6 +4458,96 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string PaymentMethodUnderfined {
             get {
                 return ResourceManager.GetString("PaymentMethodUnderfined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Согласование сроков принятия решения.
+        /// </summary>
+        public static string PhonecallPurposeDecisionApproval {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeDecisionApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Первый контакт (Знакомство).
+        /// </summary>
+        public static string PhonecallPurposeFirstCall {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeFirstCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не задано.
+        /// </summary>
+        public static string PhonecallPurposeNotSet {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Согласование и отправка КП.
+        /// </summary>
+        public static string PhonecallPurposeOfferApproval {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeOfferApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Проведение презентации рекламных возможностей.
+        /// </summary>
+        public static string PhonecallPurposeOpportunitiesPresentation {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeOpportunitiesPresentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Проведение презентации.
+        /// </summary>
+        public static string PhonecallPurposeProductPresentation {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeProductPresentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Продление.
+        /// </summary>
+        public static string PhonecallPurposeProlongation {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeProlongation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Продажа.
+        /// </summary>
+        public static string PhonecallPurposeSale {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeSale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сервис.
+        /// </summary>
+        public static string PhonecallPurposeService {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Допродажа.
+        /// </summary>
+        public static string PhonecallPurposeUpsale {
+            get {
+                return ResourceManager.GetString("PhonecallPurposeUpsale", resourceCulture);
             }
         }
         
