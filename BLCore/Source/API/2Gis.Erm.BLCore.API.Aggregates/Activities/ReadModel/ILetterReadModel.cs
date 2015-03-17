@@ -18,6 +18,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 
         IEnumerable<Letter> LookupLettersRegarding(EntityName entityName, long entityId);
         IEnumerable<Letter> LookupOpenLettersRegarding(EntityName entityName, long entityId);
-        IEnumerable<long> LookupOpenLettersOwnedBy(long ownerCode);
+        IEnumerable<Letter> LookupOpenLettersOwnedBy(long ownerCode);
     }
 }

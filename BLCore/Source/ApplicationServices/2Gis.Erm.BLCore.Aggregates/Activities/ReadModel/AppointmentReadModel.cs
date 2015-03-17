@@ -68,9 +68,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Active<Appointment>() & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Appointment>(ids)).ToArray();
         }
 
-        public IEnumerable<long> LookupOpenAppointmentsOwnedBy(long ownerCode)
+        public IEnumerable<Appointment> LookupOpenAppointmentsOwnedBy(long ownerCode)
         {
-            return _finder.FindMany(Specs.Find.Owned<Appointment>(ownerCode) & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress)).Select(s => s.Id).ToArray();
+            return _finder.FindMany(Specs.Find.Owned<Appointment>(ownerCode) & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress)).ToArray();
         }
     }
 }

@@ -63,9 +63,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Active<Task>() & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Task>(ids)).ToArray();
         }
 
-        public IEnumerable<long> LookupOpenTasksOwnedBy(long ownerCode)
+        public IEnumerable<Task> LookupOpenTasksOwnedBy(long ownerCode)
         {
-            return _finder.FindMany(Specs.Find.Owned<Task>(ownerCode) & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress)).Select(s => s.Id).ToArray();
+            return _finder.FindMany(Specs.Find.Owned<Task>(ownerCode) & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress)).ToArray();
         }
     }
 }

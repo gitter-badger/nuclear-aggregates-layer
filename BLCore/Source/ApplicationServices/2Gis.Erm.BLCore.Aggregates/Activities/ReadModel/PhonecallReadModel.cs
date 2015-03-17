@@ -68,10 +68,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Active<Phonecall>() & Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Phonecall>(ids)).ToArray();
         }
 
-        public IEnumerable<long> LookupOpenPhonecallsOwnedBy(long ownerCode)
+        public IEnumerable<Phonecall> LookupOpenPhonecallsOwnedBy(long ownerCode)
         {
             return _finder.FindMany(Specs.Find.Owned<Phonecall>(ownerCode) &
-                                    Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress)).Select(s => s.Id).ToArray();
+                                    Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress)).ToArray();
         }
     }
 }

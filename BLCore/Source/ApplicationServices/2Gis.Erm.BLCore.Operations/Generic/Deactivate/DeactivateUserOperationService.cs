@@ -133,22 +133,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         {
             foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsOwnedBy(previousUserId))
             {
-                _assignAppointmentOperationService.Assign(appointment, newUserId, false, false);
+                _assignAppointmentOperationService.Assign(appointment.Id, newUserId, false, false);
             }
 
             foreach (var letter in _letterReadModel.LookupOpenLettersOwnedBy(previousUserId))
             {
-                _assignLetterOperationService.Assign(letter, newUserId, false, false);
+                _assignLetterOperationService.Assign(letter.Id, newUserId, false, false);
             }
 
             foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsOwnedBy(previousUserId))
             {
-                _assignPhonecallOperationService.Assign(phonecall, newUserId, false, false);
+                _assignPhonecallOperationService.Assign(phonecall.Id, newUserId, false, false);
             }
 
             foreach (var task in _taskReadModel.LookupOpenTasksOwnedBy(previousUserId))
             {
-                _assignTaskOperationService.Assign(task, newUserId, false, false);
+                _assignTaskOperationService.Assign(task.Id, newUserId, false, false);
             }
         }
     }

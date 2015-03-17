@@ -17,6 +17,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 
         IEnumerable<Appointment> LookupAppointmentsRegarding(EntityName entityName, long entityId);
         IEnumerable<Appointment> LookupOpenAppointmentsRegarding(EntityName entityName, long entityId);
-        IEnumerable<long> LookupOpenAppointmentsOwnedBy(long ownerCode);
+        IEnumerable<Appointment> LookupOpenAppointmentsOwnedBy(long ownerCode);
     }
 }

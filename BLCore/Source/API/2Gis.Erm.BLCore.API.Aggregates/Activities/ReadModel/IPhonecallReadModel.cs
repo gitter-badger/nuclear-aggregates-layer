@@ -17,6 +17,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 
         IEnumerable<Phonecall> LookupPhonecallsRegarding(EntityName entityName, long entityId);
         IEnumerable<Phonecall> LookupOpenPhonecallsRegarding(EntityName entityName, long entityId);
-        IEnumerable<long> LookupOpenPhonecallsOwnedBy(long ownerCode);
+        IEnumerable<Phonecall> LookupOpenPhonecallsOwnedBy(long ownerCode);
     }
 }
