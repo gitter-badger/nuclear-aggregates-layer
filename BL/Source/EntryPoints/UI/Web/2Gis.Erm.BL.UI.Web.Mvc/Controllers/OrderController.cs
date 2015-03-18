@@ -312,6 +312,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new EmptyResult();
         }
 
+        // TODO {all, 18.03.2015}: Есть понимание, что это должно быть вынесено.
         [HttpGet]
         public ViewResult SetOrderDocumentsDebt(long orderId)
         {
@@ -327,6 +328,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return View(model);
         }
 
+        // TODO {all, 18.03.2015}: Есть понимание, что это должно быть вынесено.
         [HttpPost]
         public ViewResult SetOrderDocumentsDebt(SetOrderDocumentsDebtViewModel model)
         {
