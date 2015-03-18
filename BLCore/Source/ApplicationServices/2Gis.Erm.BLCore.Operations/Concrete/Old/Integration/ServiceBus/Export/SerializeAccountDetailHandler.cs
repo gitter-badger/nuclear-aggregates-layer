@@ -7,12 +7,15 @@ using System.Xml.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
+using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
@@ -146,29 +149,49 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                          });
         }
 
-        private IFindSpecification<Lock> CreateAccountDetailsFilter(PerformedBusinessOperation rootOperation)
+        private IFindSpecification<Lock> CreateAccountDetailsFilter(PerformedBusinessOperation operation)
         {
-            var accountDetailIds = new List<long>();
+            if (operation.Operation == WithdrawFromAccountsIdentity.Instance.Id)
             {
                 string report;
                 EntityChangesContext changesContext;
-                if (!_operationContextParser.TryParse(rootOperation.Context, out changesContext, out report))
+                if (!_operationContextParser.TryParse(operation.Context, out changesContext, out report))
                 {
                     throw new InvalidOperationException("Can't parse operation context. Detail: " + report);
                 }
 
-                accountDetailIds.AddRange(GetAccountDetails(changesContext.AddedChanges));
-                accountDetailIds.AddRange(GetAccountDetails(changesContext.UpdatedChanges));
-                accountDetailIds.AddRange(GetAccountDetails(changesContext.DeletedChanges));
+                var accountDetailIds = GetAccountDetails<AccountDetail>(changesContext.AddedChanges);
+                return Specs.Find.NotDeleted<Lock>() && AccountSpecs.Locks.Find.ByAccountDetails(accountDetailIds);
             }
 
-            return Specs.Find.NotDeleted<Lock>() && AccountSpecs.Locks.Find.ByAccountDetails(accountDetailIds);
+            if (operation.Operation == RevertWithdrawFromAccountsIdentity.Instance.Id)
+            {
+                // Операция отката списания разрывает связь между AccountDetail и Lock (AccountDetail становится IsDeleted = true)
+                // Cтановится невозможно определить период, город истоник и назначения, тип заказа.
+                // Поэтому в том-же UseCase идем операцию активации блокировок и из неё извлекаем список блокировок
+                var activateLocksOperation = _finder.Find(OperationSpecs.Performed.Find.InUseCase(operation.UseCaseId)
+                                                          && OperationSpecs.Performed.Find.Specific<BulkDeactivateIdentity, Lock>())
+                                                    .Single();
+
+                string report;
+                EntityChangesContext changesContext;
+                if (!_operationContextParser.TryParse(activateLocksOperation.Context, out changesContext, out report))
+                {
+                    throw new InvalidOperationException("Can't parse operation context. Detail: " + report);
+                }
+
+                var lockIds = GetAccountDetails<Lock>(changesContext.UpdatedChanges);
+
+                return Specs.Find.NotDeleted<Lock>() && Specs.Find.ByIds<Lock>(lockIds);
+            }
+
+            throw new UnsupportedExportOperationException(operation);
         }
 
-        private IEnumerable<long> GetAccountDetails(IReadOnlyDictionary<Type, ConcurrentDictionary<long, int>> changes)
+        private IEnumerable<long> GetAccountDetails<TEntity>(IReadOnlyDictionary<Type, ConcurrentDictionary<long, int>> changes)
         {
             ConcurrentDictionary<long, int> ids;
-            return changes.TryGetValue(typeof(AccountDetail), out ids) 
+            return changes.TryGetValue(typeof(TEntity), out ids) 
                 ? ids.Keys 
                 : new long[0];
         }
