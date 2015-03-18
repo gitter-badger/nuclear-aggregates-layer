@@ -927,18 +927,18 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ControlShare {
+        public static string ControlSetDocumentsDebt {
             get {
-                return ResourceManager.GetString("ControlShare", resourceCulture);
+                return ResourceManager.GetString("ControlSetDocumentsDebt", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ControlSpecifyDocumentsDebt {
+        public static string ControlShare {
             get {
-                return ResourceManager.GetString("ControlSpecifyDocumentsDebt", resourceCulture);
+                return ResourceManager.GetString("ControlShare", resourceCulture);
             }
         }
         

@@ -40,16 +40,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/SpecifyOrderDocumentsDebt.cshtml")]
-    public partial class SpecifyOrderDocumentsDebt : System.Web.Mvc.WebViewPage<SpecifyOrderDocumentsDebtViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/SetOrderDocumentsDebt.cshtml")]
+    public partial class SetOrderDocumentsDebt : System.Web.Mvc.WebViewPage<SetOrderDocumentsDebtViewModel>
     {
-        public SpecifyOrderDocumentsDebt()
+        public SetOrderDocumentsDebt()
         {
         }
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 3 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -63,7 +63,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 7 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 7 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
             Write(BLResources.ManageDocumentsDebt);
 
             
@@ -78,7 +78,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 8 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
                   Write(BLResources.ManageDocumentsDebt);
 
             
@@ -100,40 +100,29 @@ DefineSection("PageContent", () => {
 
 WriteLiteral("\r\n    <script");
 
+WriteAttribute("src", Tuple.Create(" src=\"", 277), Tuple.Create("\"", 353)
+, Tuple.Create(Tuple.Create("", 283), Tuple.Create("/Scripts/Ext.DoubleGis.UI.SetOrderDocumentsDebt.js?", 283), true)
+            
+            #line 13 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
+, Tuple.Create(Tuple.Create("", 334), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 334), false)
+);
+
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(@">
-        Ext.onReady(function () {
-            if (Ext.getDom(""Notifications"").innerHTML.trim() == ""OK"") {
-                window.returnValue = 'OK';
-                window.close();
-                return;
-            } else if (Ext.getDom(""Notifications"").innerHTML.trim() != """") {
-                Ext.getDom(""Notifications"").style.display = ""block"";
-            }
-
-            Ext.get(""Cancel"").on(""click"", function () { window.returnValue = 'CANCELED'; window.close(); });
-            Ext.get(""OK"").on(""click"", function () {
-                if (Ext.DoubleGis.FormValidator.validate(window.EntityForm)) {
-                    Ext.getDom(""OK"").disabled = ""disabled"";
-                    Ext.getDom(""Cancel"").disabled = ""disabled"";
-                    EntityForm.submit();
-                }
-            });
-        });
-    </script>
-    
-   
-");
+WriteLiteral("></script>\r\n    \r\n   \r\n");
 
             
-            #line 35 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 16 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 16 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -157,7 +146,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 39 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 20 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
            Write(Model.Message);
 
             
@@ -172,7 +161,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 42 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 23 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
            Write(Html.TemplateField(m => m.Order,
                                     FieldFlex.lone,
                                     new LookupSettings { EntityName = EntityName.Order, ReadOnly = true }));
@@ -189,7 +178,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 47 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 28 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
            Write(Html.TemplateField(m => m.HasDocumentsDebt,  FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
@@ -204,7 +193,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 50 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 31 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
            Write(Html.TemplateField(m => m.DocumentsComment, FieldFlex.lone));
 
             
@@ -213,7 +202,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 53 "..\..\Views\Order\SpecifyOrderDocumentsDebt.cshtml"
+            #line 34 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
     }
 
             

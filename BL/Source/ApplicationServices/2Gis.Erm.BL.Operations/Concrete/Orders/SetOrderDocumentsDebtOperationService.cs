@@ -14,21 +14,21 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BL.Operations.Concrete.Orders
 {
-    public sealed class SpecifyOrderDocumentsDebtOperationService : ISpecifyOrderDocumentsDebtOperationService
+    public sealed class SetOrderDocumentsDebtOperationService : ISetOrderDocumentsDebtOperationService
     {
         private readonly IOrderReadModel _orderReadModel;
-        private readonly ISpecifyOrderDocumentsDebtAggregateService _specifyOrderDocumentsDebtAggregateService;
+        private readonly ISetOrderDocumentsDebtAggregateService _specifyOrderDocumentsDebtAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IReleaseReadModel _releaseReadModel;
 
-        public SpecifyOrderDocumentsDebtOperationService(IOrderReadModel orderReadModel,
-                                                         ISpecifyOrderDocumentsDebtAggregateService specifyOrderDocumentsDebtAggregateService,
-                                                         IOperationScopeFactory scopeFactory,
-                                                         ISecurityServiceFunctionalAccess functionalAccessService,
-                                                         IUserContext userContext,
-                                                         IReleaseReadModel releaseReadModel)
+        public SetOrderDocumentsDebtOperationService(IOrderReadModel orderReadModel,
+                                                     ISetOrderDocumentsDebtAggregateService specifyOrderDocumentsDebtAggregateService,
+                                                     IOperationScopeFactory scopeFactory,
+                                                     ISecurityServiceFunctionalAccess functionalAccessService,
+                                                     IUserContext userContext,
+                                                     IReleaseReadModel releaseReadModel)
         {
             _orderReadModel = orderReadModel;
             _specifyOrderDocumentsDebtAggregateService = specifyOrderDocumentsDebtAggregateService;
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Orders
             _releaseReadModel = releaseReadModel;
         }
 
-        public void Specify(long orderId, DocumentsDebt documentsDebt, string documentsDebtComment)
+        public void Set(long orderId, DocumentsDebt documentsDebt, string documentsDebtComment)
         {
             var order = _orderReadModel.GetOrderSecure(orderId);
             if (order == null)
@@ -48,18 +48,18 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Orders
 
             if (!_functionalAccessService.HasOrderChangeDocumentsDebtAccess(order.SourceOrganizationUnitId, _userContext.Identity.Code))
             {
-                throw new OperationAccessDeniedException(SpecifyOrderDocumentsDebtIdentity.Instance);
+                throw new OperationAccessDeniedException(SetOrderDocumentsDebtIdentity.Instance);
             }
 
             if (_releaseReadModel.HasFinalReleaseInProgress(order.DestOrganizationUnitId,
                                                             new TimePeriod(order.BeginDistributionDate, order.EndDistributionDateFact)))
             {
-                throw new SpecifyOrderDocumentsDebtOperationIsBlockedByReleaseException(BLResources.OperationCannotBePerformedSinceReleaseIsInProgress);
+                throw new SetOrderDocumentsDebtOperationIsBlockedByReleaseException(BLResources.OperationCannotBePerformedSinceReleaseIsInProgress);
             }
 
-            using (var scope = _scopeFactory.CreateNonCoupled<SpecifyOrderDocumentsDebtIdentity>())
+            using (var scope = _scopeFactory.CreateNonCoupled<SetOrderDocumentsDebtIdentity>())
             {
-                _specifyOrderDocumentsDebtAggregateService.Specify(order, documentsDebt, documentsDebtComment);
+                _specifyOrderDocumentsDebtAggregateService.Set(order, documentsDebt, documentsDebtComment);
                 scope.Complete();
             }
         }

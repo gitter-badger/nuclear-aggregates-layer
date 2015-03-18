@@ -176,7 +176,7 @@
     <Compile Include="Models\ChangeOrderStateDefaultViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnApprovalViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnTerminationRejectionModel.cs" />
-    <Compile Include="Models\SpecifyOrderDocumentsDebtViewModel.cs" />
+    <Compile Include="Models\SetOrderDocumentsDebtViewModel.cs" />
     <Compile Include="Models\SelectLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\CheckOrdersReadinessForReleaseDialogViewModel.cs" />
     <Compile Include="Models\CloseBargainsViewModel.cs" />
@@ -289,8 +289,8 @@
     <Compile Include="Services\Grid\LimitGridViewService.cs" />
     <Compile Include="Services\Grid\OrderFileViewService.cs" />
     <Compile Include="Utils\ModelBinderProvider.cs" />
-    <Compile Include="Views\Order\SpecifyOrderDocumentsDebt.generated.cs">
-      <DependentUpon>SpecifyOrderDocumentsDebt.cshtml</DependentUpon>
+    <Compile Include="Views\Order\SetOrderDocumentsDebt.generated.cs">
+      <DependentUpon>SetOrderDocumentsDebt.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -820,9 +820,9 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Order\SpecifyOrderDocumentsDebt.cshtml">
+    <None Include="Views\Order\SetOrderDocumentsDebt.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SpecifyOrderDocumentsDebt.generated.cs</LastGenOutput>
+      <LastGenOutput>SetOrderDocumentsDebt.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\SelectLegalPersonProfile.cshtml">
       <Generator>RazorGenerator</Generator>

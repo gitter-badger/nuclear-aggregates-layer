@@ -6,20 +6,20 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BL.Operations.Concrete.Orders
 {
-    public class GetOrderDocumentsDebtInfoOperationService : IGetOrderDocumentsDebtInfoOperationService
+    public class GetOrderDocumentsDebtOperationService : IGetOrderDocumentsDebtOperationService
     {
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public GetOrderDocumentsDebtInfoOperationService(IOrderReadModel orderReadModel, IOperationScopeFactory operationScopeFactory)
+        public GetOrderDocumentsDebtOperationService(IOrderReadModel orderReadModel, IOperationScopeFactory operationScopeFactory)
         {
             _orderReadModel = orderReadModel;
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public OrderDocumentsDebtDto GetOrderDocumentsDebtInfo(long orderId)
+        public OrderDocumentsDebtDto Get(long orderId)
         {
-            using (var scope = _operationScopeFactory.CreateNonCoupled<GetOrderDocumentsDebtInfoIdentity>())
+            using (var scope = _operationScopeFactory.CreateNonCoupled<GetOrderDocumentsDebtIdentity>())
             {
                 var result = _orderReadModel.GetOrderDocumentsDebtInfo(orderId);
                 scope.Complete();

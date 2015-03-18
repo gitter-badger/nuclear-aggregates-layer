@@ -4,8 +4,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BL.API.Operations.Concrete.Orders
 {
-    public interface ISpecifyOrderDocumentsDebtOperationService : IOperation<SpecifyOrderDocumentsDebtIdentity>
+    public interface ISetOrderDocumentsDebtOperationService : IOperation<SetOrderDocumentsDebtIdentity>
     {
-        void Specify(long orderId, DocumentsDebt documentsDebt, string documentsDebtComment);
+        void Set(long orderId, DocumentsDebt documentsDebt, string documentsDebtComment);
     }
 }

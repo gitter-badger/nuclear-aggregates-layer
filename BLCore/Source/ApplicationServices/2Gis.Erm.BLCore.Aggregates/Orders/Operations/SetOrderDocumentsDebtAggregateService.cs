@@ -7,18 +7,18 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
 {
-    public sealed class SpecifyOrderDocumentsDebtAggregateService : ISpecifyOrderDocumentsDebtAggregateService
+    public sealed class SetOrderDocumentsDebtAggregateService : ISetOrderDocumentsDebtAggregateService
     {
         private readonly ISecureRepository<Order> _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public SpecifyOrderDocumentsDebtAggregateService(ISecureRepository<Order> orderRepository, IOperationScopeFactory scopeFactory)
+        public SetOrderDocumentsDebtAggregateService(ISecureRepository<Order> orderRepository, IOperationScopeFactory scopeFactory)
         {
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
         }
 
-        public void Specify(Order order, DocumentsDebt documentsDebt, string documentsDebtComment)
+        public void Set(Order order, DocumentsDebt documentsDebt, string documentsDebtComment)
         {
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Order>())
             {

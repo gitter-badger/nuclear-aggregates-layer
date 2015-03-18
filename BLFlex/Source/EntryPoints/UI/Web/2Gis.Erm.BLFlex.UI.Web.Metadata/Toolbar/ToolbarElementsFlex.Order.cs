@@ -90,11 +90,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
             {
                 return
                     UIElementMetadata.Config
-                                     .Name.Static("SpecifyDocumentsDebt")
-                                     .Title.Resource(() => ErmConfigLocalization.ControlSpecifyDocumentsDebt)
+                                     .Name.Static("SetDocumentsDebt")
+                                     .Title.Resource(() => ErmConfigLocalization.ControlSetDocumentsDebt)
                                      .ControlType(ControlType.TextButton)
                                      .LockOnNew()
-                                     .JSHandler("SpecifyDocumentsDebt")
+                                     .JSHandler("SetDocumentsDebt")
                                      .AccessWithPrivelege<Order>(EntityAccessTypes.Update);
             }
 

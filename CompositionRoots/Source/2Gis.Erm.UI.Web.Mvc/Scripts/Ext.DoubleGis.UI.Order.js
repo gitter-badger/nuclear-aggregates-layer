@@ -76,10 +76,10 @@ window.InitPage = function () {
                         failure: function (response) { Card.Mask.hide(); this.AddNotification(response.responseText, 'CriticalError', 'ServerError'); }
                     });
                 },
-                SpecifyDocumentsDebt: function () {
+                SetDocumentsDebt: function () {
                     this.Items.Toolbar.disable();
                     var params = "dialogWidth:" + 600 + "px; dialogHeight:" + 250 + "px; status:yes; scroll:no;resizable:no;";
-                    var url = Ext.urlAppend('/Order/SpecifyOrderDocumentsDebt', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
+                    var url = Ext.urlAppend('/Order/SetOrderDocumentsDebt', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
                     var result = window.showModalDialog(url, null, params);
                     if (result == 'OK') {
                         this.refresh();

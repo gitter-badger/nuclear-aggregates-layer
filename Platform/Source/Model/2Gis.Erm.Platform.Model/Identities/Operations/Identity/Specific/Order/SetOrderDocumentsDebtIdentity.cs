@@ -1,12 +1,12 @@
 ﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 {
-    public sealed class SpecifyOrderDocumentsDebtIdentity : OperationIdentityBase<SpecifyOrderDocumentsDebtIdentity>, INonCoupledOperationIdentity
+    public sealed class SetOrderDocumentsDebtIdentity : OperationIdentityBase<SetOrderDocumentsDebtIdentity>, INonCoupledOperationIdentity
     {
         public override int Id
         {
             get
             {
-                return OperationIdentityIds.SpecifyOrderDocumentsDebtIdentity;
+                return OperationIdentityIds.SetOrderDocumentsDebtIdentity;
             }
         }
 

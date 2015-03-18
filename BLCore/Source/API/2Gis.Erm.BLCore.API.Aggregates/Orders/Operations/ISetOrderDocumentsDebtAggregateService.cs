@@ -5,8 +5,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations
 {
-    public interface ISpecifyOrderDocumentsDebtAggregateService : IAggregateSpecificOperation<Order, SpecifyOrderDocumentsDebtIdentity>
+    public interface ISetOrderDocumentsDebtAggregateService : IAggregateSpecificOperation<Order, SetOrderDocumentsDebtIdentity>
     {
-        void Specify(Order order, DocumentsDebt documentsDebt, string documentsDebtComment);
+        void Set(Order order, DocumentsDebt documentsDebt, string documentsDebtComment);
     }
 }

@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders
 {
     public sealed class ManageDocumentsDebtCustomization : IViewModelCustomization<EntityViewModelBase<Order>>, IRussiaAdapted
     {
-        private const string ButtonName = "SpecifyDocumentsDebt";
+        private const string ButtonName = "SetDocumentsDebt";
         private readonly IUserContext _userContext;
         private readonly IReleaseReadModel _releaseReadModel;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;

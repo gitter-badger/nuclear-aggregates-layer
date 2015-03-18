@@ -4,8 +4,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BL.API.Operations.Concrete.Orders
 {
-    public interface IGetOrderDocumentsDebtInfoOperationService : IOperation<GetOrderDocumentsDebtInfoIdentity>
+    public interface IGetOrderDocumentsDebtOperationService : IOperation<GetOrderDocumentsDebtIdentity>
     {
-        OrderDocumentsDebtDto GetOrderDocumentsDebtInfo(long orderId);
+        OrderDocumentsDebtDto Get(long orderId);
     }
 }
