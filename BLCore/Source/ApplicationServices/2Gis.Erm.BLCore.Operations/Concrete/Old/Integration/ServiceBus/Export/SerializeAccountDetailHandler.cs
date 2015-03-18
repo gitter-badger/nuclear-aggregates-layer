@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
@@ -106,17 +107,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                        };
         }
 
-        // FIXME {a.rechkalov, 02.03.2015}: После слияния со списанием - использовать реализацию оттуда.
-        private AccountingMethod ModelToMethod(SalesModel model)
+        private string ModelToMethod(SalesModel model)
         {
-            switch (model)
+            var method = model.ToAccountingMethod();
+            switch (method)
             {
-                case SalesModel.None:
-                case SalesModel.GuaranteedProvision:
-                    return AccountingMethod.Fact;
-                case SalesModel.PlannedProvision:
-                case SalesModel.MultiPlannedProvision:
-                    return AccountingMethod.Planned;
+                case AccountingMethod.GuaranteedProvision:
+                    return "Fact";
+                case AccountingMethod.PlannedProvision:
+                    return "Planned";
                 default:
                     throw new ArgumentException("model");
             }
@@ -222,7 +221,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }
             public IEnumerable<DebitDto> Debits { get; set; }
-            public AccountingMethod AccountingMethod { get; set; }
+            public string AccountingMethod { get; set; }
 
             public decimal ClientDebitTotalAmount
             {
@@ -240,12 +239,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public decimal Amount { get; set; }
             public string MediaInfo { get; set; }
             public string LegalEntityBranchCode1C { get; set; }
-        }
-
-        private enum AccountingMethod
-        {
-            Fact,
-            Planned
         }
     }
 }
