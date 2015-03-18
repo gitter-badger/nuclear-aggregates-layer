@@ -1311,9 +1311,6 @@
   <data name="DFieldTotalAmount" xml:space="preserve">
     <value>Сумма по всем заказам</value>
   </data>
-  <data name="DListRegionalAdvertisingSharing" xml:space="preserve">
-    <value>Обмен региональной рекламой</value>
-  </data>
   <data name="DListAllUsers" xml:space="preserve">
     <value>Все пользователи</value>
   </data>
@@ -1662,6 +1659,9 @@
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
     <value>Мои запланированные планы на сегодня</value>
   </data>
+  <data name ="DListMyOpenedActivities" xml:space="preserve">
+    <value>Мои открытые планы</value>
+  </data>
   <data name="DListMyCompletedActivities" xml:space="preserve">
     <value>Мои завершенные планы</value>
   </data>
@@ -1827,6 +1827,12 @@
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Количество документов</value>
   </data>
+  <data name="EnLetter" xml:space="preserve">
+    <value>Письмо</value>
+  </data>
+  <data name="ControlCreateLetter" xml:space="preserve">
+    <value>Создать Письмо</value>
+  </data>
   <data name="CrdRelClientLinks" xml:space="preserve">
     <value>Связи</value>
   </data>
@@ -1854,8 +1860,8 @@
   <data name="ControlIncreaseLimit" xml:space="preserve">
     <value>Увеличить</value>
   </data>
-  <data name="DListMyOpenedActivities" xml:space="preserve">
-    <value>Мои открытые планы</value>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Часовые пояса</value>
   </data>
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Сменить профиль</value>
