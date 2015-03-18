@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Net;
 using System.ServiceModel;
 using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Metadata;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
@@ -17,15 +19,17 @@ namespace DoubleGis.Erm.Platform.Core.Identities
         private const int MaxRequestedCount = 32767;
 
         private readonly IClientProxyFactory _clientProxyFactory;
+        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
         private readonly ICommonLog _logger;
 
         private readonly ConcurrentQueue<long> _idBuffer = new ConcurrentQueue<long>();
         private int _nextRequestedCount = 1;
         private int _threadsCount;
 
-        public BufferedIdentityRequestStrategy(IClientProxyFactory clientProxyFactory, ICommonLog logger)
+        public BufferedIdentityRequestStrategy(IClientProxyFactory clientProxyFactory, IAPIIdentityServiceSettings identityServiceSettings, ICommonLog logger)
         {
             _clientProxyFactory = clientProxyFactory;
+            _identityServiceSettings = identityServiceSettings;
             _logger = logger;
         }
 
@@ -83,9 +87,10 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
             // TODO {all, 16.03.2015}: Ловим тормозные запросы к identity service. Убрать, когда решится ситуация с кривыми маршрутами из-за proxy (либо после выпуска фичи ISM)
             var elapsed = sw.Elapsed;
-            if (elapsed > TimeSpan.FromSeconds(1))
+            if (elapsed > TimeSpan.FromSeconds(5))
             {
-                _logger.WarnFormat("Too long identity request duration: {0}", elapsed);
+                var proxy = WebRequest.GetSystemWebProxy().GetProxy(_identityServiceSettings.BaseUrl);
+                _logger.WarnFormat("Too long identity request duration: {0}. Used proxy url: {1}", elapsed, proxy);
             }
 
             foreach (var id in ids)
