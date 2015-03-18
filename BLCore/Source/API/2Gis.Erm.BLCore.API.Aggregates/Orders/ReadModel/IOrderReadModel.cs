@@ -25,6 +25,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds);
         IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId);
         IEnumerable<OrderWithDummyAdvertisementDto> GetOrdersWithDummyAdvertisement(long organizationUnitId, long ownerCode, bool includeOwnerDescendants);
+        IDictionary<long, string> PickInactiveOrDeletedOrderPositionNames(IEnumerable<long> orderPositionIds);
+        IEnumerable<long> GetExistingOrderPositionIds(IEnumerable<long> orderPositionIds);
 
         Dictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
             IEnumerable<long> orderIds,
@@ -92,11 +94,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         IEnumerable<SubPositionDto> GetSelectedSubPositions(long orderPositionId);
         decimal GetVatRate(long? sourceOrganizationUnitId, long destOrganizationUnitId, out bool showVat);
 
-        bool TryAcquireOrderPositions(long projectId,
-                                      TimePeriod timePeriod,
-                                      IReadOnlyCollection<OrderPositionChargeInfo> orderPositionChargeInfos,
-                                      out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
-                                      out string message);
         long GetOrderOwnerCode(long orderId);
 
         IReadOnlyCollection<Bargain> GetNonClosedClientBargains();
@@ -109,7 +106,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderOrganizationUnitDerivedFieldsDto GetFieldValuesByOrganizationUnit(long organizationUnitId);
         OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId);
         long? GetBargainIdByOrder(long orderId);
-        long GetBargainLegalPersonId(long bargainId);
+        long GetLegalPersonIdByBargain(long bargainId);
 
         OrderAmountToWithdrawInfo GetOrderAmountToWithdrawInfo(long orderId);
         OrderRecalculateWithdrawalsDto GetOrderRecalculateWithdrawalsInfo(long orderId);

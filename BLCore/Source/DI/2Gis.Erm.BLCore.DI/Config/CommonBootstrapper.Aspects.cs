@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel;
+using AutoMapper;
+
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Factories.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.DB;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -27,9 +26,9 @@ using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
-using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -51,7 +50,6 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
@@ -146,18 +144,20 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType(typeof(ISecureRepository<>), typeof(EFSecureGenericRepository<>), Lifetime.PerResolve)
 						
 						// TODO {s.pomadin, 11.08.2014}: перенести регистрацию в DAL
-						.RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<AppointmentRegardingObject>, EFMappingRepository<AppointmentRegardingObject, AppointmentReference>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<AppointmentAttendee>, EFMappingRepository<AppointmentAttendee, AppointmentReference>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<PhonecallRegardingObject>, EFMappingRepository<PhonecallRegardingObject, PhonecallReference>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<PhonecallRecipient>, EFMappingRepository<PhonecallRecipient, PhonecallReference>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<TaskRegardingObject>, EFMappingRepository<TaskRegardingObject, TaskReference>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<Letter>, EFMappingRepository<Letter, LetterBase>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<LetterRegardingObject>, EFMappingRepository<LetterRegardingObject, LetterReference>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<LetterSender>, EFMappingRepository<LetterSender, LetterReference>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<LetterRecipient>, EFMappingRepository<LetterRecipient, LetterReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Appointment>, EFRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<AppointmentRegardingObject>, EFRepository<AppointmentRegardingObject, AppointmentReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<AppointmentAttendee>, EFRepository<AppointmentAttendee, AppointmentReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<AppointmentOrganizer>, EFRepository<AppointmentOrganizer, AppointmentReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Phonecall>, EFRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<PhonecallRegardingObject>, EFRepository<PhonecallRegardingObject, PhonecallReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<PhonecallRecipient>, EFRepository<PhonecallRecipient, PhonecallReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Task>, EFRepository<Task, TaskBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<TaskRegardingObject>, EFRepository<TaskRegardingObject, TaskReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Letter>, EFRepository<Letter, LetterBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<LetterRegardingObject>, EFRepository<LetterRegardingObject, LetterReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<LetterSender>, EFRepository<LetterSender, LetterReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<LetterRecipient>, EFRepository<LetterRecipient, LetterReference>>(Lifetime.PerResolve)
+                        .RegisterDalMappings()
 
                         // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
@@ -273,7 +273,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                                                    string mappingScope, 
                                                                    Func<LifetimeManager> lifetimeManagerCreator)
         {
-            if (msCrmSettings.EnableReplication)
+            if (msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk))
             {
                 unityContainer.RegisterOne2ManyTypesPerTypeUniqueness<IEmployeeEmailResolveStrategy, MsCrmEmployeeEmailResolveStrategy>(lifetimeManagerCreator());
             }
@@ -287,7 +287,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                             (container, type, arg3) =>
                                 {
                                     var crmSettings = container.Resolve<IMsCrmSettings>(); 
-                                    var strategies = crmSettings.EnableReplication
+                                    var strategies = crmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk)
                                         ? new[]
                                             {
                                                 container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(),
@@ -310,47 +310,19 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
         public static IUnityContainer ConfigureReplicationMetadata(this IUnityContainer container, IMsCrmSettings msCrmSettings)
         {
-            Type[] asyncReplicatedTypes;
-            Type[] syncReplicatedTypes;
-            ResolveReplicatedTypes(msCrmSettings.IntegrationMode, out asyncReplicatedTypes, out syncReplicatedTypes);
+            object replicatedTypes = msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Database)
+                                         ? EntityNameUtils.AllReplicated2MsCrmEntities
+                                         : new Type[0];
 
-            return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton,
-                                                                                                               new InjectionConstructor(asyncReplicatedTypes, syncReplicatedTypes));
+            return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton, new InjectionConstructor(replicatedTypes));
         }
 
-        private static void ResolveReplicatedTypes(MsCrmIntegrationMode integrationMode, out Type[] asyncReplicatedTypes, out Type[] syncReplicatedTypes)
-        {
-            switch (integrationMode)
-            {
-                case MsCrmIntegrationMode.Disabled:
+        private static IUnityContainer RegisterDalMappings(this IUnityContainer container)
                 {
-                    asyncReplicatedTypes = new Type[0];
-                    syncReplicatedTypes = new Type[0];
-                    break;
-                }
-                case MsCrmIntegrationMode.Sync:
-                {
-                    asyncReplicatedTypes = new Type[0];
-                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities;
-                    break;
-                }
-                case MsCrmIntegrationMode.Mixed:
-                {
-                    asyncReplicatedTypes = EntityNameUtils.AsyncReplicated2MsCrmEntities;
-                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities.Except(EntityNameUtils.AsyncReplicated2MsCrmEntities).ToArray();
-                    break;
-                }
-                case MsCrmIntegrationMode.Async:
-                {
-                    asyncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities.Union(EntityNameUtils.AsyncReplicated2MsCrmEntities).ToArray();
-                    syncReplicatedTypes = new Type[0];
-                    break;
-                }
-                default:
-                {
-                    throw new ArgumentOutOfRangeException("integrationMode");
-                }
-            }
+            // FIXME {all, 28.01.2015}: Выпилить При дальнейшем рефакторинге DAL
+            MappingRegistry.RegisterMappingFromDal();
+            MappingRegistry.RegisterMappingToDal();
+            return container.RegisterInstance(Mapper.Engine);
         }
     }
 }
