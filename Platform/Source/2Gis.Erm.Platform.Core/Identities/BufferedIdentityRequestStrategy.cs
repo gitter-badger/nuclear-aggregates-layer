@@ -7,7 +7,6 @@ using System.Threading;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Core.Diagnostics;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.Platform.Core.Identities
@@ -84,23 +83,9 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
             // TODO {all, 16.03.2015}: Ловим тормозные запросы к identity service. Убрать, когда решится ситуация с кривыми маршрутами из-за proxy (либо после выпуска фичи ISM)
             var elapsed = sw.Elapsed;
-            if (elapsed > TimeSpan.FromSeconds(5))
+            if (elapsed > TimeSpan.FromSeconds(1))
             {
                 _logger.WarnFormat("Too long identity request duration: {0}", elapsed);
-                foreach (var host in new[] { "uk-erm-iis02", "uk-erm-iis03", "uk-erm-iis04" })
-                {
-                    string traceResults;
-                    try
-                    {
-                        traceResults = IpRouteTracer.Trace(host);
-                    }
-                    catch (Exception)
-                    {
-                        traceResults = string.Format("[Unexpected error while tracing route to {0}]", host);
-                    }
-
-                    _logger.Warn(traceResults);
-                }
             }
 
             foreach (var id in ids)
