@@ -79,31 +79,35 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         {
             var filter = CreateAccountDetailsFilter(operation);
             var selector = AccountDetailDtoSelectSpecification();
-            var exportData = _finder.Find(selector, filter)
-                                    .ToArray()
-                                    .GroupBy(dto => Tuple.Create(dto.DestOrganizationUnitId, ModelToMethod(dto.SalesModel), dto.PeriodStartDate, dto.PeriodEndDate))
-                                    .Single();
+            var exportData = _finder.Find(selector, filter).ToArray();
+
+            var key = exportData.Select(dto => Tuple.Create(dto.DestOrganizationUnitId, ModelToMethod(dto.SalesModel), dto.PeriodStartDate, dto.PeriodEndDate))
+                                .Distinct()
+                                .Single();
+
+            var debits = operation.Operation == RevertWithdrawFromAccountsIdentity.Instance.Id
+                             ? new DebitDto[0]
+                             : exportData.Select(dto => new DebitDto
+                                                            {
+                                                                AccountCode = dto.AccountId,
+                                                                Amount = dto.Amount,
+                                                                LegalEntityBranchCode1C = dto.LegalEntityBranchCode1C,
+                                                                MediaInfo = dto.ElectronicMedia,
+                                                                OrderCode = dto.OrderId,
+                                                                OrderNumber = dto.OrderNumber,
+                                                                OrderType = (int)dto.OrderType,
+                                                                ProfileCode = dto.OrderLegalPersonProfileId ?? dto.MainLegalPersonProfileId,
+                                                            })
+                                         .ToArray();
 
             return new DebitContainerDto
                        {
                            Id = operation.Id,
-                           OrganizationUnitCode = exportData.Key.Item1.ToString(),
-                           AccountingMethod = exportData.Key.Item2,
-                           StartDate = exportData.Key.Item3,
-                           EndDate = exportData.Key.Item4,
-                           Debits = exportData.Where(dto => !dto.IsDeleted)
-                                              .Select(dto => new DebitDto
-                                                                 {
-                                                                     AccountCode = dto.AccountId,
-                                                                     Amount = dto.Amount,
-                                                                     LegalEntityBranchCode1C = dto.LegalEntityBranchCode1C,
-                                                                     MediaInfo = dto.ElectronicMedia,
-                                                                     OrderCode = dto.OrderId,
-                                                                     OrderNumber = dto.OrderNumber,
-                                                                     OrderType = (int)dto.OrderType,
-                                                                     ProfileCode = dto.OrderLegalPersonProfileId ?? dto.MainLegalPersonProfileId,
-                                                                 })
-                                              .ToArray(),
+                           OrganizationUnitCode = key.Item1.ToString(),
+                           AccountingMethod = key.Item2,
+                           StartDate = key.Item3,
+                           EndDate = key.Item4,
+                           Debits = debits
                        };
         }
 
@@ -143,8 +147,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                                          .Where(p => !p.IsDeleted && p.IsMainProfile)
                                                          .Select(p => p.Id)
                                                          .FirstOrDefault(),
-
-                             IsDeleted = x.AccountDetail.IsDeleted,
                          });
         }
 
@@ -210,7 +212,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public SalesModel SalesModel { get; set; }
             public string LegalEntityBranchCode1C { get; set; }
             public long MainLegalPersonProfileId { get; set; }
-            public bool IsDeleted { get; set; }
         }
 
         private sealed class DebitContainerDto : IExportableEntityDto
