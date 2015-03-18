@@ -1,16 +1,16 @@
-﻿using DoubleGis.Erm.Platform.Common.Logging;
+﻿using Microsoft.Practices.Unity.InterceptionExtension;
 
-using Microsoft.Practices.Unity.InterceptionExtension;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
 {
     public abstract class LoggingCallHandler : ICallHandler 
     {
-        protected readonly ICommonLog Logger;
+        protected readonly ITracer Tracer;
 
-        protected LoggingCallHandler(ICommonLog logger)
+        protected LoggingCallHandler(ITracer tracer)
         {
-            Logger = logger;
+            Tracer = tracer;
         }
 
         public int Order { get; set; }
