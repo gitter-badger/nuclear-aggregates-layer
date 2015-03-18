@@ -25,7 +25,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
         private static string Format<T>(Key key, IEnumerable<Advertisement> values)
             where T : ISalesModelPositionNameFormatter, new()
         {
-            var singleBindingObject = values.Distinct(new BindingComparer()).Count() == 1;
+            var singleBindingObject = values.GroupBy(advertisement => advertisement.PositionName)
+                                            .Distinct(new BindingGroupComparer()).Count() == 1;
             var formatter = new T();
             var prefix = key.OrderPositionName;
             var details = key.IsComposite && !singleBindingObject 
@@ -209,6 +210,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             public string ReferencePoint { get; set; }
             public string ThemeName { get; set; }
             public string CategoryName { get; set; }
+        }
+
+        private class BindingGroupComparer : IEqualityComparer<IGrouping<string, Advertisement>>
+        {
+            private readonly BindingComparer _bindingComparer = new BindingComparer();
+
+            public bool Equals(IGrouping<string, Advertisement> x, IGrouping<string, Advertisement> y)
+            {
+                return x.Count() == y.Count()
+                       && x.All(advertisement => y.Contains(advertisement, _bindingComparer));
+            }
+
+            public int GetHashCode(IGrouping<string, Advertisement> group)
+            {
+                return group.Aggregate(0, (acc, advertisement) => acc ^ _bindingComparer.GetHashCode());
+            }
         }
 
         private class BindingComparer : IEqualityComparer<Advertisement>
