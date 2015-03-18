@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -32,7 +25,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
     {
         private const string OperationTypeDebitForOrderPayment = "11";
 
-        private readonly IDebtProcessingSettings _debtProcessingSettings;
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
         private readonly IRepository<Account> _accountGenericRepository;
@@ -42,12 +34,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         private readonly IRepository<OperationType> _operationTypeGenericRepository;
         private readonly IRepository<Lock> _lockGenericRepository;
         private readonly IRepository<LockDetail> _lockDetailGenericRepository;
-        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public AccountRepository(IDebtProcessingSettings debtProcessingSettings,
-                                 IFinder finder,
+        public AccountRepository(IFinder finder,
                                  ISecureFinder secureFinder,
                                  IRepository<Account> accountGenericRepository,
                                  IRepository<AccountDetail> accountDetailGenericRepository,
@@ -56,11 +46,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                                  IRepository<OperationType> operationTypeGenericRepository,
                                  IRepository<Lock> lockGenericRepository,
                                  IRepository<LockDetail> lockDetailGenericRepository,
-                                 ISecurityServiceFunctionalAccess functionalAccessService,
                                  IIdentityProvider identityProvider,
                                  IOperationScopeFactory scopeFactory)
         {
-            _debtProcessingSettings = debtProcessingSettings;
             _finder = finder;
             _secureFinder = secureFinder;
             _accountGenericRepository = accountGenericRepository;
@@ -70,7 +58,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             _operationTypeGenericRepository = operationTypeGenericRepository;
             _lockGenericRepository = lockGenericRepository;
             _lockDetailGenericRepository = lockDetailGenericRepository;
-            _functionalAccessService = functionalAccessService;
             _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
         }

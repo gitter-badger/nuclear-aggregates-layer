@@ -11,8 +11,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts
     public interface IAccountRepository : IAggregateRootRepository<Account>,
                                           IDeleteAggregateRepository<OperationType>,
                                           IDeleteAggregateRepository<Lock>,
-                                          IDeleteAggregateRepository<LockDetail>,
-                                          ICheckAggregateForDebtsRepository<Account>
+                                          IDeleteAggregateRepository<LockDetail>
     {
         IDictionary<long, decimal> GetBalanceByAccounts(IEnumerable<long> accountIds);
         AccountDetail GetAccountDetail(long entityId);
