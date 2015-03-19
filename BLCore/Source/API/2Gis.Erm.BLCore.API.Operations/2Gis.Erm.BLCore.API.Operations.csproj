@@ -86,6 +86,8 @@
     <Compile Include="Concrete\LegalPersons\ValidateLegalPersonDto.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\Dto\OrderPositionPricePerUnitDto.cs" />
+    <Compile Include="Concrete\OrderPositions\ICalculateOrderPositionPricePerUnitOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IChangeOrderPositionBindingObjectsOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IReplaceOrderPositionAdvertisementLinksOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IGetAvailableBindingObjectsOperationService.cs" />

@@ -207,7 +207,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                                 Amount = orderPosition.Amount
                             });
 
-                        orderPosition.CategoryRate = calculateOrderPositionPricesResponse.CategoryRate;
+                        orderPosition.CategoryRate = categoryRate;
                         orderPosition.ShipmentPlan = calculateOrderPositionPricesResponse.ShipmentPlan;
                         orderPosition.PricePerUnit = calculateOrderPositionPricesResponse.PricePerUnit;
                         orderPosition.PayablePrice = calculateOrderPositionPricesResponse.PayablePrice;

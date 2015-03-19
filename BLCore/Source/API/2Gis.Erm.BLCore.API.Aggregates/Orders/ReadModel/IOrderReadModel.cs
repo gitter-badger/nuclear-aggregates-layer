@@ -85,7 +85,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderDeactivationPosibility IsOrderDeactivationPossible(long orderId);
         OrderStateValidationInfo GetOrderStateValidationInfo(long orderId);
         bool IsOrderForOrganizationUnitsPairExist(long orderId, long sourceOrganizationUnitId, long destOrganizationUnitId);
-        OrderPositionPriceDto CalculatePricePerUnit(long orderId, decimal categoryRate, decimal pricePositionCost);
         IEnumerable<Order> GetOrdersForDeal(long dealId);
         OrderPositionAdvertisementLinksDto GetOrderPositionAdvertisementLinksInfo(long orderPositionId);
         OrderUsageDto GetOrderUsage(long orderId);
@@ -93,6 +92,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         Order GetOrderUnsecure(long orderId);
         IEnumerable<SubPositionDto> GetSelectedSubPositions(long orderPositionId);
         decimal GetVatRate(long? sourceOrganizationUnitId, long destOrganizationUnitId, out bool showVat);
+        decimal GetVatRate(long orderId, out bool showVat);
 
         long GetOrderOwnerCode(long orderId);
 
