@@ -1383,6 +1383,12 @@
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value>Letter of guarantee (change of AM)</value>
   </data>
+  <data name="ControlPrintFirmChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>  
+  <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="ControlDetachFirm" xml:space="preserve">
     <value>Unlink from client</value>
   </data>

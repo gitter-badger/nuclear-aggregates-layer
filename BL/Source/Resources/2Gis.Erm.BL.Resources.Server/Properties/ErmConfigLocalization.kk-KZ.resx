@@ -1386,6 +1386,12 @@
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value>Гарантийное письмо (изменение РМ)</value>
   </data>
+  <data name="ControlPrintFirmChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>  
+  <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="ControlDetachFirm" xml:space="preserve">
     <value>Отвязать от клиента</value>
   </data>

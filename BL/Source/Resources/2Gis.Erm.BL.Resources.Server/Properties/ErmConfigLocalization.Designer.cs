@@ -657,6 +657,24 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlPrintBindingChangeAgreement {
+            get {
+                return ResourceManager.GetString("ControlPrintBindingChangeAgreement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ControlPrintFirmChangeAgreement {
+            get {
+                return ResourceManager.GetString("ControlPrintFirmChangeAgreement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlPrintLetterOfGuaranteeAction {
             get {
                 return ResourceManager.GetString("ControlPrintLetterOfGuaranteeAction", resourceCulture);
