@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Resources.Client;
@@ -25,6 +24,8 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Notificati
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
 {
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
 
         private readonly IListNonGenericEntityService _listService;
         private readonly IUserInfo _userInfo;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         // COMMENT {all, 25.06.2014}: ConcurrentBag может иметь опасные side effect - memory leak - в данном случае храним строки по этому не опасно, однако при рефаторинге - обращать внимание
         private readonly ConcurrentBag<string> _sortingSettingsPriority = new ConcurrentBag<string>();
@@ -78,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
             IListNonGenericEntityService listService,
             ITitleProviderFactory titleProviderFactory,
             IUserInfo userInfo,
-            ICommonLog logger)
+            ITracer tracer)
         {
             if (defaultViewSettings == null)
             {
@@ -88,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
             _identity = identity;
             _listService = listService;
             _userInfo = userInfo;
-            _logger = logger;
+            _tracer = tracer;
             _messageSink = messageSink;
 
             _pagerViewModel = pagerViewModel;
@@ -425,7 +426,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Can't get listing for entity " + _identity.EntityName);
+                _tracer.Error(ex, "Can't get listing for entity " + _identity.EntityName);
                 var msg = string.Format(_cantGetListingMessageFormat.Title, EntityNameString);
                 _messageSink.Post(new NotificationMessage(new INotification[] { new SystemNotification(Guid.NewGuid(), NotificationLevel.Error, msg) }));
             }

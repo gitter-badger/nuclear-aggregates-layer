@@ -5,18 +5,19 @@ using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
     public sealed class SerializeFirmAddressHandler : SerializeObjectsHandler<FirmAddress, ExportFlowCardExtensionsCardCommercial>
     {
         public SerializeFirmAddressHandler(IExportRepository<FirmAddress> exportRepository,
-                                           ICommonLog logger)
-            : base(exportRepository, logger)
+                                           ITracer tracer)
+            : base(exportRepository, tracer)
         {
         }
 

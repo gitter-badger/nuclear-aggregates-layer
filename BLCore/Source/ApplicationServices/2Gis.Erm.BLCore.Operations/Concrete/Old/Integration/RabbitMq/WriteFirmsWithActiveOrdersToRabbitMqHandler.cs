@@ -5,23 +5,24 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.RabbitMq;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
 {
     public sealed class WriteFirmsWithActiveOrdersToRabbitMqHandler : RequestHandler<WriteFirmsWithActiveOrdersToRabbitMqRequest, ExportResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IFirmRepository _firmRepository;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IRabbitMqQueueFactory _rabbitMqQueueFactory;
 
-        public WriteFirmsWithActiveOrdersToRabbitMqHandler(IRabbitMqQueueFactory rabbitMqQueueFactory, IIntegrationSettings integrationSettings, IFirmRepository firmRepository, ICommonLog logger)
+        public WriteFirmsWithActiveOrdersToRabbitMqHandler(IRabbitMqQueueFactory rabbitMqQueueFactory, IIntegrationSettings integrationSettings, IFirmRepository firmRepository, ITracer tracer)
         {
             _rabbitMqQueueFactory = rabbitMqQueueFactory;
             _integrationSettings = integrationSettings;
             _firmRepository = firmRepository;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override ExportResponse Handle(WriteFirmsWithActiveOrdersToRabbitMqRequest request)
@@ -61,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
         private NotificationException CreateAndLogFatalError(string format, params object[] args)
         {
             var message = string.Format(format, args);
-            _logger.Fatal(message);
+            _tracer.Fatal(message);
             throw new NotificationException(message);
         }
     }

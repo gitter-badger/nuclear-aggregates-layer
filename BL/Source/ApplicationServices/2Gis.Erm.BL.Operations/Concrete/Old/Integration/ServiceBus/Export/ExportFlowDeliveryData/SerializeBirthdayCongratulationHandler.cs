@@ -8,10 +8,11 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export.ExportFlowDeliveryData
 {
@@ -24,9 +25,9 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
         private readonly IClientReadModel _clientReadModel;
 
         public SerializeBirthdayCongratulationHandler(IExportRepository<BirthdayCongratulation> exportRepository,
-                                                      ICommonLog logger,
+                                                      ITracer tracer,
                                                       IClientReadModel clientReadModel)
-            : base(exportRepository, logger)
+            : base(exportRepository, tracer)
         {
             _clientReadModel = clientReadModel;
         }
