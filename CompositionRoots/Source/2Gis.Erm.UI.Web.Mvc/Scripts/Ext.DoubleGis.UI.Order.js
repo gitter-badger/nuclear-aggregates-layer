@@ -243,6 +243,12 @@ window.InitPage = function () {
                 PrintLetterOfGuarantee: function () {
                     this.Print('PrintLetterOfGuarantee');
                 },
+                PrintFirmChangeAgreement: function () {
+                    this.Print('PrintFirmChangeAgreement');
+                },
+                PrintBindingChangeAgreement: function () {
+                    this.Print('PrintBindingChangeAgreement');
+                },
                 ChangeDeal: function () {
                     if (!this.checkDirty()) return;
                     var params = "dialogWidth:450px; dialogHeight:200px; status:yes; scroll:no; resizable:no; ";
