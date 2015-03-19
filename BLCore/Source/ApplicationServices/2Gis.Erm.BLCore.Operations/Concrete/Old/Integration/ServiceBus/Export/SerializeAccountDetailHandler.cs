@@ -81,7 +81,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             var selector = AccountDetailDtoSelectSpecification();
             var exportData = _finder.Find(selector, filter).ToArray();
 
-            var key = exportData.Select(dto => Tuple.Create(dto.DestOrganizationUnitId, ModelToMethod(dto.SalesModel), dto.PeriodStartDate, dto.PeriodEndDate))
+            var key = exportData.Select(dto => new DebitContainerKey
+                                                   {
+                                                       DestOrganizationUnitId = dto.DestOrganizationUnitId,
+                                                       AccountingMethod = ModelToMethod(dto.SalesModel),
+                                                       PeriodStartDate = dto.PeriodStartDate,
+                                                       PeriodEndDate = dto.PeriodEndDate
+                                                   })
                                 .Distinct()
                                 .Single();
 
@@ -104,10 +110,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return new DebitContainerDto
                        {
                            Id = operation.Id,
-                           OrganizationUnitCode = key.Item1.ToString(),
-                           AccountingMethod = key.Item2,
-                           StartDate = key.Item3,
-                           EndDate = key.Item4,
+                           OrganizationUnitCode = key.DestOrganizationUnitId.ToString(),
+                           AccountingMethod = key.AccountingMethod,
+                           StartDate = key.PeriodStartDate,
+                           EndDate = key.PeriodEndDate,
                            Debits = debits
                        };
         }
@@ -172,7 +178,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 // Cтановитс€ невозможно определить период, город истоник и назначени€, тип заказа.
                 // ѕоэтому в том-же UseCase идем операцию активации блокировок и из неЄ извлекаем список блокировок
                 var activateLocksOperation = _finder.Find(OperationSpecs.Performed.Find.InUseCase(operation.UseCaseId)
-                                                          && OperationSpecs.Performed.Find.Specific<BulkDeactivateIdentity, Lock>())
+                                                          && OperationSpecs.Performed.Find.Specific<BulkActivateIdentity, Lock>())
                                                     .Single();
 
                 string report;
@@ -241,6 +247,40 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public decimal Amount { get; set; }
             public string MediaInfo { get; set; }
             public string LegalEntityBranchCode1C { get; set; }
+        }
+
+        private sealed class DebitContainerKey : IEquatable<DebitContainerKey>
+        {
+            public long DestOrganizationUnitId { get; set; }
+            public string AccountingMethod { get; set; }
+            public DateTime PeriodStartDate { get; set; }
+            public DateTime PeriodEndDate { get; set; }
+
+            public bool Equals(DebitContainerKey other)
+            {
+                if (other == null)
+                {
+                    return false;
+                }
+
+                return DestOrganizationUnitId == other.DestOrganizationUnitId
+                       && string.Equals(AccountingMethod, other.AccountingMethod)
+                       && PeriodStartDate == other.PeriodStartDate
+                       && PeriodEndDate == other.PeriodEndDate;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return Equals(obj as DebitContainerKey);
+            }
+
+            public override int GetHashCode()
+            {
+                return DestOrganizationUnitId.GetHashCode()
+                    ^ AccountingMethod.GetHashCode()
+                    ^ PeriodStartDate.GetHashCode()
+                    ^ PeriodEndDate.GetHashCode();
+            }
         }
     }
 }
