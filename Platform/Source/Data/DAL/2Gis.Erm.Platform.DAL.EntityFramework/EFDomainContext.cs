@@ -49,7 +49,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public void Add<TEntity>(TEntity entity) where TEntity : class
         {
             _dbContext.Set<TEntity>().Add(entity);
-            _dbEntityEntriesCache[entity] = _dbContext.Entry(entity);
+
+            // TODO {all, 19.03.2015}: Могут возникнуть проблемы для сущностей с автогенеренными id - возможно для них стоит по-другому реализовать Equals/GetHashCode
+            _dbEntityEntriesCache.Add(entity, _dbContext.Entry(entity));
         }
 
         public void AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
@@ -57,7 +59,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _dbContext.Set<TEntity>().AddRange(entities);
             foreach (var entity in entities)
             {
-                _dbEntityEntriesCache[entity] = _dbContext.Entry(entity);
+                // TODO {all, 19.03.2015}: Могут возникнуть проблемы для сущностей с автогенеренными id - возможно для них стоит по-другому реализовать Equals/GetHashCode
+                _dbEntityEntriesCache.Add(entity, _dbContext.Entry(entity));
             }
         }
 
