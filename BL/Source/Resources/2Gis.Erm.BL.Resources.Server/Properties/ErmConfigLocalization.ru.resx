@@ -1144,7 +1144,7 @@
     <value>Уведомление о расторжении</value>
   </data>
   <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
-    <value>Дополнительное соглашение</value>
+    <value>Доп. соглашение (расторжение)</value>
   </data>
   <data name="DListDeal" xml:space="preserve">
     <value>Сделки</value>
