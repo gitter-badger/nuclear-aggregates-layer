@@ -98,6 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                                                 OrderType = (int)dto.OrderType,
                                                                 ProfileCode = dto.OrderLegalPersonProfileId ?? dto.MainLegalPersonProfileId,
                                                             })
+                                         .Where(dto => dto.Amount > 0)
                                          .ToArray();
 
             return new DebitContainerDto
