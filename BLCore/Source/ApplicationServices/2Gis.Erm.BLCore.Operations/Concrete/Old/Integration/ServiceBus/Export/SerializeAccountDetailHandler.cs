@@ -93,10 +93,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             var debits = operation.Operation == RevertWithdrawFromAccountsIdentity.Instance.Id
                              ? new DebitDto[0]
-                             : exportData.Select(dto => new DebitDto
+                             : exportData.Where(dto => dto.Amount.HasValue && dto.Amount.Value > 0)
+                                         .Select(dto => new DebitDto
                                                             {
                                                                 AccountCode = dto.AccountId,
-                                                                Amount = dto.Amount,
+                                                                Amount = dto.Amount.Value,
                                                                 LegalEntityBranchCode1C = dto.LegalEntityBranchCode1C,
                                                                 MediaInfo = dto.ElectronicMedia,
                                                                 OrderCode = dto.OrderId,
@@ -104,7 +105,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                                                 OrderType = (int)dto.OrderType,
                                                                 ProfileCode = dto.OrderLegalPersonProfileId ?? dto.MainLegalPersonProfileId,
                                                             })
-                                         .Where(dto => dto.Amount > 0)
                                          .ToArray();
 
             return new DebitContainerDto
@@ -207,7 +207,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         private sealed class AccountDetailDto
         {
             public long AccountId { get; set; }
-            public decimal Amount { get; set; }
+            public decimal? Amount { get; set; }
             public DateTime PeriodStartDate { get; set; }
             public DateTime PeriodEndDate { get; set; }
             public long OrderId { get; set; }
