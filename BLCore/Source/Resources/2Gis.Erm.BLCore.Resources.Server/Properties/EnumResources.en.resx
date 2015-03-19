@@ -1710,6 +1710,12 @@
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Contract termination notice without a reason specified for a legal entity</value>
   </data>
+  <data name="TemplateCodeFirmChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
     <value>Unload to bus account write-offs</value>
   </data>
