@@ -90,7 +90,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                        : Enumerable.Empty<long>());
                 }
 
-                var positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId).Select(ConvertToResponsePositionDto);
+                var positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId)
+                                                  .Select(ConvertToResponsePositionDto)
+                                                  .ToArray();
 
                 var salesIntoCategoriesByPositions = salesIntoCategories.GroupBy(x => x.PositionId)
                                                                         .ToDictionary(x => x.Key, y => y);
@@ -116,7 +118,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                          firmCategoriesSupportedBySalesModel.Select(ConvertToResponseCategoryDto)
                                                                             .Concat(salesIntoCategories.Where(AdditionalCategoriesWithSales(firmCategoriesSupportedBySalesModel
                                                                                                                                                 .Select(x => x.Id)))
-                                                                                                       .Select(LinkingObjectCategoryDto())),
+                                                                                                       .Select(LinkingObjectCategoryDto()))
+                                                                                                       .ToArray(),
                                      Themes = themeDtos,
                                      Positions = positions,
                                      FirmAddresses = firmAddresses
@@ -228,10 +231,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
         {
             var positionsGroupCategories = (positionsGroup == PositionsGroup.Media
                                                 ? allFirmCategories
-                                                : supportedBySalesModelCategories).Select(ConvertToResponseCategoryDto);
+                                                : supportedBySalesModelCategories).Select(ConvertToResponseCategoryDto).ToArray();
             return
                 positionsGroupCategories.Concat(salesIntoCategoriesByPosition.Where(AdditionalCategoriesWithSales(positionsGroupCategories.Select(x => x.Id)))
-                                                                             .Select(LinkingObjectCategoryDto()));
+                                                                             .Select(LinkingObjectCategoryDto()))
+                                        .ToArray();
         }
     }
 }
