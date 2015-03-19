@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                                         new XAttribute("MediaInfo", debitDto.MediaInfo)));
 
             return new XElement("DebitsInfoInitial",
-                                new XAttribute("OrganizationUnitCode", dto.OrganizationUnitCode),
+                                new XAttribute("OrganizationUnitCode", dto.SourceOrganizationUnitSyncCode1C),
                                 new XAttribute("StartDate", dto.StartDate),
                                 new XAttribute("EndDate", dto.EndDate),
                                 new XAttribute("ClientDebitTotalAmount", dto.ClientDebitTotalAmount),
@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             var key = exportData.Select(dto => new DebitContainerKey
                                                    {
-                                                       DestOrganizationUnitId = dto.DestOrganizationUnitId,
+                                                       SourceOrganizationUnitSyncCode1C = dto.SourceOrganizationUnitSyncCode1C,
                                                        AccountingMethod = ModelToMethod(dto.SalesModel),
                                                        PeriodStartDate = dto.PeriodStartDate,
                                                        PeriodEndDate = dto.PeriodEndDate
@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return new DebitContainerDto
                        {
                            Id = operation.Id,
-                           OrganizationUnitCode = key.DestOrganizationUnitId.ToString(),
+                           SourceOrganizationUnitSyncCode1C = key.SourceOrganizationUnitSyncCode1C,
                            AccountingMethod = key.AccountingMethod,
                            StartDate = key.PeriodStartDate,
                            EndDate = key.PeriodEndDate,
@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                              OrderType = x.Order.OrderType,
                              OrderNumber = x.Order.Number,
                              ElectronicMedia = x.Order.DestOrganizationUnit.ElectronicMedia,
-                             DestOrganizationUnitId = x.Order.DestOrganizationUnit.Id,
+                             SourceOrganizationUnitSyncCode1C = x.Order.SourceOrganizationUnit.SyncCode1C,
                              SalesModel = x.Order.OrderPositions.Select(position => position.PricePosition.Position.SalesModel).Distinct().FirstOrDefault(),
                              LegalEntityBranchCode1C = x.Order.BranchOfficeOrganizationUnit.SyncCode1C,
                              MainLegalPersonProfileId = x.Account.LegalPerson.LegalPersonProfiles
@@ -215,7 +215,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public OrderType OrderType { get; set; }
             public string OrderNumber { get; set; }
             public string ElectronicMedia { get; set; }
-            public long DestOrganizationUnitId { get; set; }
+            public string SourceOrganizationUnitSyncCode1C { get; set; }
             public SalesModel SalesModel { get; set; }
             public string LegalEntityBranchCode1C { get; set; }
             public long MainLegalPersonProfileId { get; set; }
@@ -225,7 +225,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         {
             public long Id { get; set; }
             
-            public string OrganizationUnitCode { get; set; }
+            public string SourceOrganizationUnitSyncCode1C { get; set; }
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }
             public IEnumerable<DebitDto> Debits { get; set; }
@@ -251,7 +251,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         private sealed class DebitContainerKey : IEquatable<DebitContainerKey>
         {
-            public long DestOrganizationUnitId { get; set; }
+            public string SourceOrganizationUnitSyncCode1C { get; set; }
             public string AccountingMethod { get; set; }
             public DateTime PeriodStartDate { get; set; }
             public DateTime PeriodEndDate { get; set; }
@@ -263,7 +263,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     return false;
                 }
 
-                return DestOrganizationUnitId == other.DestOrganizationUnitId
+                return string.Equals(SourceOrganizationUnitSyncCode1C, other.SourceOrganizationUnitSyncCode1C)
                        && string.Equals(AccountingMethod, other.AccountingMethod)
                        && PeriodStartDate == other.PeriodStartDate
                        && PeriodEndDate == other.PeriodEndDate;
@@ -276,7 +276,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             public override int GetHashCode()
             {
-                return DestOrganizationUnitId.GetHashCode()
+                return SourceOrganizationUnitSyncCode1C.GetHashCode()
                     ^ AccountingMethod.GetHashCode()
                     ^ PeriodStartDate.GetHashCode()
                     ^ PeriodEndDate.GetHashCode();
