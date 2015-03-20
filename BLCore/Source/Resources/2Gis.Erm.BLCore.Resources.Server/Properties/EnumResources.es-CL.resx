@@ -2044,4 +2044,10 @@
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="PositionsGroupMedia" xml:space="preserve">
+    <value>Publicidad mediática</value>
+  </data>
+  <data name="PositionsGroupNone" xml:space="preserve">
+    <value />
+  </data>
 </root>

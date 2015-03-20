@@ -5,6 +5,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         None = 0,
         GuaranteedProvision = 10,
         PlannedProvision = 11,
-        MultiPlannedProvision = 12
+        MultiPlannedProvision = 12,
     }
 }

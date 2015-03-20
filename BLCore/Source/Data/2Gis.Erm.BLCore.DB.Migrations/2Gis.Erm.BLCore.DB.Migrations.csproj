@@ -817,6 +817,7 @@
     <Compile Include="2.1\201501201646 - Deal replication fix.cs" />
     <Compile Include="2.1\201412291720 - Insert missing Organizers.cs" />
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
+    <Compile Include="2.1\201503040626 - Add PositionsGroup.cs" />
     <Compile Include="2.1\201502190640 - Rename AdditionalEmail to Email.cs" />
     <Compile Include="2.1\Migration201502111010.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
