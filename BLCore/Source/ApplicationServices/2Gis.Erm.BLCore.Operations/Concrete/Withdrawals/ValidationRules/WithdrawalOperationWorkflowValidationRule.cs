@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules
                 return true;
             }
 
-            messages = new[] { string.Format("There is a withdrawal with a forbidden status. The status is '{0}'", lastWithdrawal.Status) };
+            messages = new[] { string.Format("There is a previous withdrawal with a forbidden status. The status is '{0}'", lastWithdrawal.Status) };
 
             return false;
         }
