@@ -196,6 +196,7 @@
     <Compile Include="Suite\Concrete\Common\FinderEntityProvider.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Generic\GetDomainEntityDtoOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
+    <Compile Include="Suite\Concrete\Operations\Assign\AssignAccountOperationServiceTests.cs" />
     <Compile Include="Suite\Concrete\OrderValidation\AdvertisementsOnlyWhiteListOrderValidationRuleTest.cs" />
     <Compile Include="Suite\Concrete\Platform\DAL\QueryAllRegisteredEntitiesTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Identity\BufferedIdentityRequestStrategyTest.cs" />
