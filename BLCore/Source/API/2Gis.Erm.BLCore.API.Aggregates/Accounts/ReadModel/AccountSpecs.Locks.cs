@@ -38,7 +38,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                 public static FindSpecification<Lock> ByAccountingMethod(AccountingMethod accountingMethod)
                 {
                     var salesModels = accountingMethod.ToSalesModels();
-                    return new FindSpecification<Lock>(x => x.Order.OrderPositions.Any(y => salesModels.Contains(y.PricePosition.Position.SalesModel)));
+                    return
+                        new FindSpecification<Lock>(
+                            x => x.Order.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                  .Any(y => salesModels.Contains(y.PricePosition.Position.SalesModel)));
                 }
 
                 public static FindSpecification<Lock> ForPreviousPeriods(DateTime periodStart, DateTime periodEnd)
