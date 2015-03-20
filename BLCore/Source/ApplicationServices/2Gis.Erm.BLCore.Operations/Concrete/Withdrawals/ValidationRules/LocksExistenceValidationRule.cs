@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules
         {
             if (!_accountReadModel.HasActiveLocksForSourceOrganizationUnitByPeriod(organizationUnitId, period))
             {
-                messages = new[] { "Active locks for orders not found, because final release have to be done before withdrawal" };
+                messages = new[] { "Active locks for orders are not found. Make sure that a final release had been done before the withdrawal" };
                 return false;
             }
 
