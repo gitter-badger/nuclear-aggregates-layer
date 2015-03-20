@@ -77,13 +77,15 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public void Remove<TEntity>(TEntity entity) where TEntity : class
         {
-            _dbContext.Set<TEntity>().Remove(GetAttachedEntity(entity));
+            // EF ругается, если попытаться удалить entity, 
+            // совпадающую по primary key с уже существующей в контексте, но не равную ей по reference
+            _dbContext.Set<TEntity>().Remove(GetCachedEntity(entity));
             _dbEntityEntriesCache.Remove(entity);
         }
 
         public void RemoveRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
-            _dbContext.Set<TEntity>().RemoveRange(entities.Select(GetAttachedEntity).ToArray());
+            _dbContext.Set<TEntity>().RemoveRange(entities.Select(GetCachedEntity));
             foreach (var entity in entities)
             {
                 _dbEntityEntriesCache.Remove(entity);
@@ -128,11 +130,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _dbContext.Database.CommandTimeout = Math.Max(timeout, currentValue);
         }
 
-        private TEntity GetAttachedEntity<TEntity>(TEntity entity) where TEntity : class
+        private TEntity GetCachedEntity<TEntity>(TEntity entity) where TEntity : class
         {
-            DbEntityEntry<TEntity> entry;
-            AttachEntity(entity, out entry);
-            return entry.Entity;
+            object cachedEntry;
+            return _dbEntityEntriesCache.TryGetValue(entity, out cachedEntry)
+                       ? ((DbEntityEntry<TEntity>)cachedEntry).Entity
+                       : entity;
         }
 
         private bool AttachEntity<TEntity>(TEntity entity, out DbEntityEntry<TEntity> dbEntityEntry) where TEntity : class
