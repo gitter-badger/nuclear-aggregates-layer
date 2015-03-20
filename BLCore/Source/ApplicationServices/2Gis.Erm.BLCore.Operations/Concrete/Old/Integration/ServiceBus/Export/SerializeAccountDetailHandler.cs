@@ -249,37 +249,46 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public string LegalEntityBranchCode1C { get; set; }
         }
 
-        private sealed class DebitContainerKey : IEquatable<DebitContainerKey>
+        private sealed class DebitContainerKey
         {
             public string SourceOrganizationUnitSyncCode1C { get; set; }
             public string AccountingMethod { get; set; }
             public DateTime PeriodStartDate { get; set; }
             public DateTime PeriodEndDate { get; set; }
 
-            public bool Equals(DebitContainerKey other)
+            public override bool Equals(object obj)
             {
-                if (other == null)
+                if (ReferenceEquals(null, obj))
                 {
                     return false;
                 }
 
-                return string.Equals(SourceOrganizationUnitSyncCode1C, other.SourceOrganizationUnitSyncCode1C)
-                       && string.Equals(AccountingMethod, other.AccountingMethod)
-                       && PeriodStartDate == other.PeriodStartDate
-                       && PeriodEndDate == other.PeriodEndDate;
-            }
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
 
-            public override bool Equals(object obj)
-            {
-                return Equals(obj as DebitContainerKey);
+                return obj is DebitContainerKey && Equals((DebitContainerKey)obj);
             }
 
             public override int GetHashCode()
             {
-                return SourceOrganizationUnitSyncCode1C.GetHashCode()
-                    ^ AccountingMethod.GetHashCode()
-                    ^ PeriodStartDate.GetHashCode()
-                    ^ PeriodEndDate.GetHashCode();
+                unchecked
+                {
+                    var hashCode = SourceOrganizationUnitSyncCode1C != null ? SourceOrganizationUnitSyncCode1C.GetHashCode() : 0;
+                    hashCode = (hashCode * 397) ^ (AccountingMethod != null ? AccountingMethod.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^ PeriodStartDate.GetHashCode();
+                    hashCode = (hashCode * 397) ^ PeriodEndDate.GetHashCode();
+                    return hashCode;
+                }
+            }
+
+            private bool Equals(DebitContainerKey other)
+            {
+                return string.Equals(SourceOrganizationUnitSyncCode1C, other.SourceOrganizationUnitSyncCode1C)
+                       && string.Equals(AccountingMethod, other.AccountingMethod)
+                       && PeriodStartDate.Equals(other.PeriodStartDate)
+                       && PeriodEndDate.Equals(other.PeriodEndDate);
             }
         }
     }
