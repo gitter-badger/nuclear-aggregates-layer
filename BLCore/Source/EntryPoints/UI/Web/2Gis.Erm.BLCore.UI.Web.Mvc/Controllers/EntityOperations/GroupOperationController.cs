@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
@@ -47,7 +48,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         public ActionResult Execute(BusinessOperation operation, EntityName entityTypeName)
         {
             var operationName = operation.ToString();
-
             // TODO {all, 23.07.2013}: реализовать проверку доступности операций не через switch, а через operationMetadataProvider
             // т.е. обобщенным образом + генерацию View можно устроить через конвейер resolvers, без километрового switch
 
@@ -96,6 +96,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                             EntityTypeName = entityTypeName,
                                         });
                     }
+
                     if (entityTypeName == EntityName.Territory)
                     {
                         return View("DeactivateTerritory",
@@ -105,6 +106,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                             EntityTypeName = entityTypeName,
                                         });
                     }
+
                     return View("Deactivate",
                                 new GroupOperationViewModel
                                     {
@@ -112,6 +114,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         EntityTypeName = entityTypeName,
                                     });
                 }
+
                 case BusinessOperation.Qualify:
                 {
                     if (entityTypeName == EntityName.Firm)
@@ -136,6 +139,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                     throw new NotificationException(BLResources.QualifyOperationIsNotSpecifiedForThisEntity);
                 }
+
                 case BusinessOperation.Disqualify:
                 {
                     if (entityTypeName == EntityName.Firm)
@@ -160,6 +164,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                     throw new NotificationException(BLResources.DisqualifyOperationIsNotSpecifiedForThisEntity);
                 }
+
                 case BusinessOperation.ChangeTerritory:
                 {
                     if (entityTypeName == EntityName.Firm)
@@ -184,6 +189,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                     throw new NotificationException(BLResources.DisqualifyOperationIsNotSpecifiedForThisEntity);
                 }
+
                 case BusinessOperation.ChangeClient:
                 {
                     if (entityTypeName == EntityName.Firm)
@@ -224,11 +230,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             }
         }
 
-        public JsonNetResult ConvertToEntityIds(EntityName entityTypeName, Guid[] replicationCodes)
+        public JsonNetResult ConvertToEntityIds(EntityName[] entityTypeNames, Guid[] replicationCodes)
         {
             try
             {
-                return new JsonNetResult(_replicationCodeConverter.ConvertToEntityIds(entityTypeName, replicationCodes));
+                var list = entityTypeNames.Zip(replicationCodes, (k, v) => new CrmEntityInfo { Id = v, EntityName = k }).ToList();
+                return new JsonNetResult(_replicationCodeConverter.ConvertToEntityIds(list));
             }
             catch (ArgumentException ex)
             {
