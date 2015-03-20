@@ -101,7 +101,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                           .ToArray();
         }
 
-        
+        public IDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
+                          .Select(x => new
+                                           {
+                                               Id = x.Id,
+                                               PositionsGroup = x.PositionsGroup
+                                           })
+                          .ToDictionary(x => x.Id, x => x.PositionsGroup);
+        }
 
         public IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds)
         {
