@@ -182,12 +182,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Operations.Assig
 
         public static SelectSpecification<Account, AccountOwnerDto> SelectAccountOwnerDto()
         {
-            return Specs.Select.Generic((Account x) => new AccountOwnerDto
-                                                           {
-                                                               Id = x.Id,
-                                                               AccountOwner = x.OwnerCode,
-                                                               LimitOwners = x.Limits.Where(y => y.IsActive && !y.IsDeleted).Select(y => y.OwnerCode)
-                                                           });
+            return new SelectSpecification<Account, AccountOwnerDto>(x => new AccountOwnerDto
+                                                                              {
+                                                                                  Id = x.Id,
+                                                                                  AccountOwner = x.OwnerCode,
+                                                                                  LimitOwners = x.Limits.Where(y => y.IsActive && !y.IsDeleted).Select(y => y.OwnerCode)
+                                                                              });
         }
     }
 
