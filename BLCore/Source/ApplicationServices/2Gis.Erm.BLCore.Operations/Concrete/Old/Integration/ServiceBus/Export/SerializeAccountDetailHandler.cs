@@ -148,7 +148,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                              OrderNumber = x.Order.Number,
                              ElectronicMedia = x.Order.DestOrganizationUnit.ElectronicMedia,
                              SourceOrganizationUnitSyncCode1C = x.Order.SourceOrganizationUnit.SyncCode1C,
-                             SalesModel = x.Order.OrderPositions.Select(position => position.PricePosition.Position.SalesModel).Distinct().FirstOrDefault(),
+                             SalesModel = x.Order.OrderPositions
+                                           .Where(position => position.IsActive && !position.IsDeleted)
+                                           .Select(position => position.PricePosition.Position.SalesModel)
+                                           .FirstOrDefault(),
                              LegalEntityBranchCode1C = x.Order.BranchOfficeOrganizationUnit.SyncCode1C,
                              MainLegalPersonProfileId = x.Account.LegalPerson.LegalPersonProfiles
                                                          .Where(p => !p.IsDeleted && p.IsMainProfile)
