@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -172,11 +173,11 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
 
         private readonly IOperationServicesManager _servicesManager;
 
-        public ExportObjectsJob(ICommonLog logger,
+        public ExportObjectsJob(ITracer tracer,
                                 ISignInService signInService,
                                 IUserImpersonationService userImpersonationService,
                                 IOperationServicesManager servicesManager)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _servicesManager = servicesManager;
         }

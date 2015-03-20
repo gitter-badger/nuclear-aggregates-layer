@@ -2,9 +2,10 @@
 using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -16,8 +17,8 @@ namespace DoubleGis.Erm.BLQuerying.TaskService.Jobs
         private readonly IDefferedDocumentUpdater _defferedDocumentUpdater;
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
-        public ReplicateDocumentsToElasticSearchJob(ISignInService signInService, IUserImpersonationService userImpersonationService, ICommonLog logger, IDefferedDocumentUpdater defferedDocumentUpdater)
-            : base(signInService, userImpersonationService, logger)
+        public ReplicateDocumentsToElasticSearchJob(ISignInService signInService, IUserImpersonationService userImpersonationService, ITracer tracer, IDefferedDocumentUpdater defferedDocumentUpdater)
+            : base(signInService, userImpersonationService, tracer)
         {
             _defferedDocumentUpdater = defferedDocumentUpdater;
         }

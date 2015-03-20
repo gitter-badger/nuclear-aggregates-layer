@@ -18,11 +18,11 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus.Import;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus.Import.FlowBilling;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Charge;
 
+using NuClear.Tracing.API;
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBilling.Processors
 {
     public class ImportChargesInfoService : IImportChargesInfoService
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         private readonly IChargeBulkCreateAggregateService _chargeBulkCreateAggregateService;
         private readonly IChargeCreateHistoryAggregateService _chargeCreateHistoryAggregateService;
         private readonly IDeleteChargesForPeriodAndProjectOperationService _deleteChargesService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IChargeReadModel _chargeReadModel;
         private readonly IOrderReadModel _orderReadModel;
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                                         IChargeBulkCreateAggregateService chargeBulkCreateAggregateService,
                                         IChargeCreateHistoryAggregateService chargeCreateHistoryAggregateService,
                                         IDeleteChargesForPeriodAndProjectOperationService deleteChargesService,
-                                        ICommonLog logger,
+                                        ITracer tracer,
                                         IOperationScopeFactory scopeFactory,
                                         IChargeReadModel chargeReadModel,
                                         IOrderReadModel orderReadModel,
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             _chargeBulkCreateAggregateService = chargeBulkCreateAggregateService;
             _chargeCreateHistoryAggregateService = chargeCreateHistoryAggregateService;
             _deleteChargesService = deleteChargesService;
-            _logger = logger;
+            _tracer = tracer;
             _scopeFactory = scopeFactory;
             _chargeReadModel = chargeReadModel;
             _orderReadModel = orderReadModel;
@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             }
             catch (Exception e)
             {
-                _logger.Error(e, e.Message);
+                _tracer.Error(e, e.Message);
                 using (var transaction = new TransactionScope(TransactionScopeOption.Suppress, DefaultTransactionOptions.Default))
                 {
                     LogImportStatus(chargesInfo, ChargesHistoryStatus.Error, e.Message);

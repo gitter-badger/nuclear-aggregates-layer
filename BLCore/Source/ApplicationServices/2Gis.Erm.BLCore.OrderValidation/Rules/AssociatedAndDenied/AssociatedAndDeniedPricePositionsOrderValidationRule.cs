@@ -5,10 +5,11 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
 {
@@ -22,16 +23,16 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
     {
         private readonly IFinder _finder;
         private readonly IPriceConfigurationService _priceConfigurationService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public AssociatedAndDeniedPricePositionsOrderValidationRule(
             IFinder finder,
             IPriceConfigurationService priceConfigurationService,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _finder = finder;
             _priceConfigurationService = priceConfigurationService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
@@ -97,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
             var orderStatesDictionary = ADPValidationInitializationHelper.LoadOrderStates(validationQueryProvider);
 
             var validationResultBuilder = new ADPValidationResultBuilder(orderStatesDictionary, request.Mode, request.OrderId);
-            var validatorsDictionary = ADPValidationInitializationHelper.LoadValidators(_logger,
+            var validatorsDictionary = ADPValidationInitializationHelper.LoadValidators(_tracer,
                                                                                         request.Mode,
                                                                                         request.OrderId,
                                                                                         validationQueryProvider,

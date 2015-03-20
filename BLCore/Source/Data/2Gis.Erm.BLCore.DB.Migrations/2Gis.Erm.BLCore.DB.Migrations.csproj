@@ -825,6 +825,7 @@
     <Compile Include="2.1\201501201220 - remove PositionId column.cs" />
     <Compile Include="2.1\201502090244 - remove account details export buttons from MS CRM.cs" />
     <Compile Include="2.1\201501261917 - Drop single replication SPs.cs" />
+    <Compile Include="2.1\201503111149 - Drop obsoleted logging infrastructure.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />

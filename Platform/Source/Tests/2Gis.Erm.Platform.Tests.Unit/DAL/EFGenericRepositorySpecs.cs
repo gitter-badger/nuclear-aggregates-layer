@@ -19,6 +19,8 @@ using Machine.Specifications;
 
 using Moq;
 
+using NuClear.Tracing.API;
+
 using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
@@ -82,7 +84,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 modifiableDomainContextProviderMock.Setup(p => p.Get<TEntity>()).Returns(domainContext);
 
                 GenericRepository = new EFGenericRepository<TEntity>(new StubUserContext(),
-                                                                     modifiableDomainContextProviderMock.Object,
+                                                                                                             modifiableDomainContextProviderMock.Object,
                                                                      new NullPersistenceChangesRegistryProvider(),
                                                                      Mock.Of<IMappingEngine>());
             };
@@ -122,10 +124,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         class When_call_Update_to_update_an_IAuditableEntity_entity : StubEFGenericRepositoryContext<AuditableEntity>
         {
             Establish context = () =>
-                                    {
+                {
                                         Entity.CreatedBy = 1234;
                                         Entity.CreatedOn = new DateTime(2000, 01, 01);
-                                    };
+                };
 
             Because of = () => GenericRepository.Update(Entity);
 
@@ -145,9 +147,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         class When_call_Update_to_update_an_IReplicableEntity_entity : StubEFGenericRepositoryContext<ReplicableEntity>
         {
             Establish context = () =>
-                                    {
+            {
                                         Entity.ReplicationCode = new Guid("FE2DCB8F-4D29-4164-B826-C2A94A2A1AAB");
-                                    };
+            };
 
             Because of = () => GenericRepository.Update(Entity);
 

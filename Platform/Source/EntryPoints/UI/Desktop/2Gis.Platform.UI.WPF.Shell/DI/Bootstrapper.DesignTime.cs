@@ -2,8 +2,6 @@
 using System.IO;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
@@ -17,13 +15,16 @@ using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Tracing.API;
+using NuClear.Tracing.Log4Net.Config;
+
 namespace DoubleGis.Platform.UI.WPF.Shell.DI
 {
     public static partial class Bootstrapper
     {
         public static IShellViewModel DesignTimeResolveShellViewModel()
         {
-            ICommonLog logger = null;
+            ITracer tracer = null;
             try
             {
                 #region Описание особенностей работы VS designer
@@ -41,14 +42,14 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 // Более цивилизованные варианты - подключиться к API автоматизации Visual studio (см. EnvDTE) и провоцировать перезагрузку/перерисовку Designer 
                 #endregion
 
-                logger = Log4NetLoggerBuilder.Use
+                tracer = Log4NetTracerBuilder.Use
                                              .Trace
                                              .File("Erm.WPF.Client.DesignTime")
                                              .Build;
 
-                logger.Info("Design time configuring started ...");
+                tracer.Info("Design time configuring started ...");
 
-                DesignTimeAssemblyLoader.Attach(logger);
+                DesignTimeAssemblyLoader.Attach(tracer);
 
                 var container = new UnityContainer();
                 LocalPath = DesignTimePaths.LocalPath;
@@ -57,7 +58,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 container.AddExtension(queryableContainerExtension);
                 container.RegisterInstance(Mapping.QueryableExtension, queryableContainerExtension);
 
-                container.RegisterInstance<ICommonLog>(logger, Lifetime.Singleton)
+                container.RegisterInstance<ITracer>(tracer, Lifetime.Singleton)
                          ////.RegisterModules(DesignTimeAssemblyLoader.AssemblyLoaderToNoLoadContext)
                          .RegisterModules()
                          .DesignTimeConfigureModules()
@@ -74,25 +75,25 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 }
 
                 var shellViewModel = container.Resolve<IShellViewModel>();
-                logger.Info("Design time shell view model successfully resolved");
+                tracer.Info("Design time shell view model successfully resolved");
 
                 return shellViewModel;
 
             }
             catch (FileNotFoundException ex)
             {
-                if (logger != null)
+                if (tracer != null)
                 {
-                    logger.Fatal(ex, "Can't load required file. " + ex.FileName + ". " + ex.FusionLog);
-                    logger.Fatal(ex, "Can't resolve design time view model");
+                    tracer.Fatal(ex, "Can't load required file. " + ex.FileName + ". " + ex.FusionLog);
+                    tracer.Fatal(ex, "Can't resolve design time view model");
                 }
                 throw;
             }
             catch (Exception ex)
             {
-                if (logger != null)
+                if (tracer != null)
                 {
-                    logger.Fatal(ex, "Can't resolve design time view model");
+                    tracer.Fatal(ex, "Can't resolve design time view model");
                 }
                 throw;
             }
