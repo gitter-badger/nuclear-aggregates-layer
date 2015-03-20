@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
+using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
@@ -48,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                                         new XAttribute("MediaInfo", debitDto.MediaInfo)));
 
             return new XElement("DebitsInfoInitial",
-                                new XAttribute("OrganizationUnitCode", dto.OrganizationUnitCode),
+                                new XAttribute("OrganizationUnitCode", dto.SourceOrganizationUnitSyncCode1C),
                                 new XAttribute("StartDate", dto.StartDate),
                                 new XAttribute("EndDate", dto.EndDate),
                                 new XAttribute("ClientDebitTotalAmount", dto.ClientDebitTotalAmount),
@@ -75,45 +79,54 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         {
             var filter = CreateAccountDetailsFilter(operation);
             var selector = AccountDetailDtoSelectSpecification();
-            var exportData = _finder.Find(selector, filter)
-                                    .ToArray()
-                                    .GroupBy(dto => Tuple.Create(dto.DestOrganizationUnitId, ModelToMethod(dto.SalesModel), dto.PeriodStartDate, dto.PeriodEndDate))
-                                    .Single();
+            var exportData = _finder.Find(selector, filter).ToArray();
+
+            var key = exportData.Select(dto => new DebitContainerKey
+                                                   {
+                                                       SourceOrganizationUnitSyncCode1C = dto.SourceOrganizationUnitSyncCode1C,
+                                                       AccountingMethod = ModelToMethod(dto.SalesModel),
+                                                       PeriodStartDate = dto.PeriodStartDate,
+                                                       PeriodEndDate = dto.PeriodEndDate
+                                                   })
+                                .Distinct()
+                                .Single();
+
+            var debits = operation.Operation == RevertWithdrawFromAccountsIdentity.Instance.Id
+                             ? new DebitDto[0]
+                             : exportData.Where(dto => dto.Amount.HasValue && dto.Amount.Value > 0)
+                                         .Select(dto => new DebitDto
+                                                            {
+                                                                AccountCode = dto.AccountId,
+                                                                Amount = dto.Amount.Value,
+                                                                LegalEntityBranchCode1C = dto.LegalEntityBranchCode1C,
+                                                                MediaInfo = dto.ElectronicMedia,
+                                                                OrderCode = dto.OrderId,
+                                                                OrderNumber = dto.OrderNumber,
+                                                                OrderType = (int)dto.OrderType,
+                                                                ProfileCode = dto.OrderLegalPersonProfileId ?? dto.MainLegalPersonProfileId,
+                                                            })
+                                         .ToArray();
 
             return new DebitContainerDto
                        {
                            Id = operation.Id,
-                           OrganizationUnitCode = exportData.Key.Item1.ToString(),
-                           AccountingMethod = exportData.Key.Item2,
-                           StartDate = exportData.Key.Item3,
-                           EndDate = exportData.Key.Item4,
-                           Debits = exportData.Where(dto => !dto.IsDeleted)
-                                              .Select(dto => new DebitDto
-                                                                 {
-                                                                     AccountCode = dto.AccountId,
-                                                                     Amount = dto.Amount,
-                                                                     LegalEntityBranchCode1C = dto.LegalEntityBranchCode1C,
-                                                                     MediaInfo = dto.ElectronicMedia,
-                                                                     OrderCode = dto.OrderId,
-                                                                     OrderNumber = dto.OrderNumber,
-                                                                     OrderType = (int)dto.OrderType,
-                                                                     ProfileCode = dto.OrderLegalPersonProfileId ?? dto.MainLegalPersonProfileId,
-                                                                 })
-                                              .ToArray(),
+                           SourceOrganizationUnitSyncCode1C = key.SourceOrganizationUnitSyncCode1C,
+                           AccountingMethod = key.AccountingMethod,
+                           StartDate = key.PeriodStartDate,
+                           EndDate = key.PeriodEndDate,
+                           Debits = debits
                        };
         }
 
-        // FIXME {a.rechkalov, 02.03.2015}: После слияния со списанием - использовать реализацию оттуда.
-        private AccountingMethod ModelToMethod(SalesModel model)
+        private string ModelToMethod(SalesModel model)
         {
-            switch (model)
+            var method = model.ToAccountingMethod();
+            switch (method)
             {
-                case SalesModel.None:
-                case SalesModel.GuaranteedProvision:
-                    return AccountingMethod.Fact;
-                case SalesModel.PlannedProvision:
-                case SalesModel.MultiPlannedProvision:
-                    return AccountingMethod.Planned;
+                case AccountingMethod.GuaranteedProvision:
+                    return "Fact";
+                case AccountingMethod.PlannedProvision:
+                    return "Planned";
                 default:
                     throw new ArgumentException("model");
             }
@@ -134,41 +147,61 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                              OrderType = x.Order.OrderType,
                              OrderNumber = x.Order.Number,
                              ElectronicMedia = x.Order.DestOrganizationUnit.ElectronicMedia,
-                             DestOrganizationUnitId = x.Order.DestOrganizationUnit.Id,
+                             SourceOrganizationUnitSyncCode1C = x.Order.SourceOrganizationUnit.SyncCode1C,
                              SalesModel = x.Order.OrderPositions.Select(position => position.PricePosition.Position.SalesModel).Distinct().FirstOrDefault(),
                              LegalEntityBranchCode1C = x.Order.BranchOfficeOrganizationUnit.SyncCode1C,
                              MainLegalPersonProfileId = x.Account.LegalPerson.LegalPersonProfiles
                                                          .Where(p => !p.IsDeleted && p.IsMainProfile)
                                                          .Select(p => p.Id)
                                                          .FirstOrDefault(),
-
-                             IsDeleted = x.AccountDetail.IsDeleted,
                          });
         }
 
-        private IFindSpecification<Lock> CreateAccountDetailsFilter(PerformedBusinessOperation rootOperation)
+        private IFindSpecification<Lock> CreateAccountDetailsFilter(PerformedBusinessOperation operation)
         {
-            var accountDetailIds = new List<long>();
+            if (operation.Operation == WithdrawFromAccountsIdentity.Instance.Id)
             {
                 string report;
                 EntityChangesContext changesContext;
-                if (!_operationContextParser.TryParse(rootOperation.Context, out changesContext, out report))
+                if (!_operationContextParser.TryParse(operation.Context, out changesContext, out report))
                 {
                     throw new InvalidOperationException("Can't parse operation context. Detail: " + report);
                 }
 
-                accountDetailIds.AddRange(GetAccountDetails(changesContext.AddedChanges));
-                accountDetailIds.AddRange(GetAccountDetails(changesContext.UpdatedChanges));
-                accountDetailIds.AddRange(GetAccountDetails(changesContext.DeletedChanges));
+                var accountDetailIds = GetAccountDetails<AccountDetail>(changesContext.AddedChanges);
+                return Specs.Find.NotDeleted<Lock>() && AccountSpecs.Locks.Find.ByAccountDetails(accountDetailIds);
             }
 
-            return Specs.Find.NotDeleted<Lock>() && AccountSpecs.Locks.Find.ByAccountDetails(accountDetailIds);
+            if (operation.Operation == RevertWithdrawFromAccountsIdentity.Instance.Id)
+            {
+                // Операция отката списания разрывает связь между AccountDetail и Lock (AccountDetail становится IsDeleted = true)
+                // Cтановится невозможно определить период, город истоник и назначения, тип заказа.
+                // Поэтому в том-же UseCase идем операцию активации блокировок и из неё извлекаем список блокировок
+                // Обращение в таблицу PBO в прикладной логике экспорта - ОГРОМНЫЙ тех долг, т.к. в прикладной логике мы оперируем понятием очереди,
+                // но никак не транспорта, на котором эта очередь реализована. То есть к таблице ни в коем случае нельзя обращаться.
+                var activateLocksOperation = _finder.Find(OperationSpecs.Performed.Find.InUseCase(operation.UseCaseId)
+                                                          && OperationSpecs.Performed.Find.Specific<BulkActivateIdentity, Lock>())
+                                                    .Single();
+
+                string report;
+                EntityChangesContext changesContext;
+                if (!_operationContextParser.TryParse(activateLocksOperation.Context, out changesContext, out report))
+                {
+                    throw new InvalidOperationException("Can't parse operation context. Detail: " + report);
+                }
+
+                var lockIds = GetAccountDetails<Lock>(changesContext.UpdatedChanges);
+
+                return Specs.Find.NotDeleted<Lock>() && Specs.Find.ByIds<Lock>(lockIds);
+            }
+
+            throw new UnsupportedExportOperationException(operation);
         }
 
-        private IEnumerable<long> GetAccountDetails(IReadOnlyDictionary<Type, ConcurrentDictionary<long, int>> changes)
+        private IEnumerable<long> GetAccountDetails<TEntity>(IReadOnlyDictionary<Type, ConcurrentDictionary<long, int>> changes)
         {
             ConcurrentDictionary<long, int> ids;
-            return changes.TryGetValue(typeof(AccountDetail), out ids) 
+            return changes.TryGetValue(typeof(TEntity), out ids) 
                 ? ids.Keys 
                 : new long[0];
         }
@@ -176,7 +209,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         private sealed class AccountDetailDto
         {
             public long AccountId { get; set; }
-            public decimal Amount { get; set; }
+            public decimal? Amount { get; set; }
             public DateTime PeriodStartDate { get; set; }
             public DateTime PeriodEndDate { get; set; }
             public long OrderId { get; set; }
@@ -184,22 +217,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public OrderType OrderType { get; set; }
             public string OrderNumber { get; set; }
             public string ElectronicMedia { get; set; }
-            public long DestOrganizationUnitId { get; set; }
+            public string SourceOrganizationUnitSyncCode1C { get; set; }
             public SalesModel SalesModel { get; set; }
             public string LegalEntityBranchCode1C { get; set; }
             public long MainLegalPersonProfileId { get; set; }
-            public bool IsDeleted { get; set; }
         }
 
         private sealed class DebitContainerDto : IExportableEntityDto
         {
             public long Id { get; set; }
             
-            public string OrganizationUnitCode { get; set; }
+            public string SourceOrganizationUnitSyncCode1C { get; set; }
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }
             public IEnumerable<DebitDto> Debits { get; set; }
-            public AccountingMethod AccountingMethod { get; set; }
+            public string AccountingMethod { get; set; }
 
             public decimal ClientDebitTotalAmount
             {
@@ -219,10 +251,47 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public string LegalEntityBranchCode1C { get; set; }
         }
 
-        private enum AccountingMethod
+        private sealed class DebitContainerKey
         {
-            Fact,
-            Planned
+            public string SourceOrganizationUnitSyncCode1C { get; set; }
+            public string AccountingMethod { get; set; }
+            public DateTime PeriodStartDate { get; set; }
+            public DateTime PeriodEndDate { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj is DebitContainerKey && Equals((DebitContainerKey)obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = SourceOrganizationUnitSyncCode1C != null ? SourceOrganizationUnitSyncCode1C.GetHashCode() : 0;
+                    hashCode = (hashCode * 397) ^ (AccountingMethod != null ? AccountingMethod.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^ PeriodStartDate.GetHashCode();
+                    hashCode = (hashCode * 397) ^ PeriodEndDate.GetHashCode();
+                    return hashCode;
+                }
+            }
+
+            private bool Equals(DebitContainerKey other)
+            {
+                return string.Equals(SourceOrganizationUnitSyncCode1C, other.SourceOrganizationUnitSyncCode1C)
+                       && string.Equals(AccountingMethod, other.AccountingMethod)
+                       && PeriodStartDate.Equals(other.PeriodStartDate)
+                       && PeriodEndDate.Equals(other.PeriodEndDate);
+            }
         }
     }
 }

@@ -144,6 +144,7 @@
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeOrganizationUnitHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeTemplateHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\UnsupportedExportOperationException.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\WriteMessageToServiceBusHandler.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCardsForERM\Deserializers\DeserializeCardForErmService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCardsForERM\Processors\ImportCardForErmService.cs" />
