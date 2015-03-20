@@ -41,6 +41,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                     return new FindSpecification<Lock>(x => x.Order.OrderPositions.Any(y => salesModels.Contains(y.PricePosition.Position.SalesModel)));
                 }
 
+                public static FindSpecification<Lock> ByAccountDetails(IEnumerable<long> accountDetailIds)
+                {
+                    return new FindSpecification<Lock>(x => x.DebitAccountDetailId.HasValue && accountDetailIds.Contains(x.DebitAccountDetailId.Value));
+                }
+
                 public static FindSpecification<Lock> ForPreviousPeriods(DateTime periodStart, DateTime periodEnd)
                 {
                     return new FindSpecification<Lock>(x => x.PeriodStartDate < periodStart && x.PeriodEndDate < periodEnd);

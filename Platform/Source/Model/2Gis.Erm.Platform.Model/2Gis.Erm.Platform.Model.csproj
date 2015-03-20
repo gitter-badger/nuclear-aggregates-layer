@@ -339,6 +339,7 @@
     <Compile Include="Entities\Erm\ExportFailedEntity.cs" />
     <Compile Include="Entities\Erm\ExportFlowCardExtensionsCardCommercial.cs" />
     <Compile Include="Entities\Erm\ExportFlowDeliveryData_LetterSendRequest.cs" />
+    <Compile Include="Entities\Erm\ExportFlowFinancialDataDebitsInfoInitial.cs" />
     <Compile Include="Entities\Erm\ExportFlowFinancialDataClient.cs" />
     <Compile Include="Entities\Erm\ExportFlowFinancialDataLegalEntity.cs" />
     <Compile Include="Entities\Erm\ExportFlowNomenclatures_NomenclatureElement.cs" />
@@ -474,7 +475,6 @@
     <Compile Include="Entities\Security\UserRole.cs" />
     <Compile Include="Entities\Security\UserTerritory.cs" />
     <Compile Include="IBoundedContext.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\GetAccountDetailsForExportContentIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\GetDebitsInfoInitialForExportIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\NotifyAboutAccountDetailModificationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\BulkUpdateIdentity.cs" />

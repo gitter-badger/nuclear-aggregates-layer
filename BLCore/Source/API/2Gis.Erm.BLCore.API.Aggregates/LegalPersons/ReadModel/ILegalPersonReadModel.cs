@@ -29,7 +29,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
         LegalPersonAndProfilesExistenceDto GetLegalPersonWithProfileExistenceInfo(long legalPersonId);
         IEnumerable<LegalPersonAndProfilesExistenceDto> GetLegalPersonsWithProfileExistenceInfo(IEnumerable<long> legalPersonIds);
         bool IsThereLegalPersonProfileDuplicate(long legalPersonProfileId, long legalPersonId, string name);
-
         IEnumerable<ValidateLegalPersonDto> GetLegalPersonDtosToValidateForWithdrawalOperation(long organizationUnitId,
                                                                                                DateTime periodStartDate,
                                                                                                DateTime periodEndDate);

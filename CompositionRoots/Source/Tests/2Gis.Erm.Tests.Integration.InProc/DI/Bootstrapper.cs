@@ -224,6 +224,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             const string MappingScope = Mapping.Erm;
 
             container.RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
+                     .RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
                      .RegisterTypeWithDependencies<IPublicService, PublicService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)

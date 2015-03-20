@@ -43,7 +43,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
         decimal CalculateLimitIncreasingValue(long limitId);
         long GetLimitOwnerCode(long limitId);
         IDictionary<long, IEnumerable<AccountDetailForExportDto>> GetAccountDetailsForExportTo1C(IEnumerable<long> organizationUnitIds, DateTime periodStartDate, DateTime periodEndDate);
-        IEnumerable<string> GetOrganizationUnitsWithNoSuccessfulLastWithdrawal(IEnumerable<long> organizationUnitIds, TimePeriod period);
         IEnumerable<long> GetOrganizationUnitsToProccessWithdrawals(DateTime periodStartDate, DateTime periodEndDate, AccountingMethod accountingMethod);
     }
 }

@@ -357,5 +357,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName AdvertisementElementStatus = new SchemaQualifiedObjectName(ErmSchemas.Billing, "AdvertisementElementStatuses");
         public static readonly SchemaQualifiedObjectName AdvertisementElementDenialReason = new SchemaQualifiedObjectName(ErmSchemas.Billing, "AdvertisementElementDenialReasons");
         public static readonly SchemaQualifiedObjectName OrderValidationCacheEntries = new SchemaQualifiedObjectName(ErmSchemas.Shared, "OrderValidationCacheEntries");
+
+        public static readonly SchemaQualifiedObjectName ExportFlowFinancialDataDebitsInfoInitial = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowFinancialData_DebitsInfoInitial");
     }
 }
