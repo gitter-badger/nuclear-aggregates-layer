@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
 
                 _cancelPhonecallAggregateService.Cancel(phonecall);
 
-                _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, phonecall.Status);
+                _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, ActivityStatus.Canceled);
 
                 scope.Updated<Phonecall>(entityId);
                 scope.Complete();

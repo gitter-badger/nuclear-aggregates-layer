@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Reopen
 
                 _reopenTaskAggregateService.Reopen(task);
 
-                _actionLogger.LogChanges(task, x => x.Status, originalStatus, task.Status);
+                _actionLogger.LogChanges(task, x => x.Status, originalStatus, ActivityStatus.InProgress);
 
                 scope.Updated<Task>(entityId);
                 scope.Complete();

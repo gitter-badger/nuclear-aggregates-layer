@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
 
                 _cancelAppointmentAggregateService.Cancel(appointment);
 
-                _actionLogger.LogChanges(appointment, x => x.Status, originalStatus, appointment.Status);
+                _actionLogger.LogChanges(appointment, x => x.Status, originalStatus, ActivityStatus.Canceled);
 
                 scope.Updated<Appointment>(entityId);
                 scope.Complete();

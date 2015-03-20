@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
                 _completeLetterAggregateService.Complete(letter);
 
-                _actionLogger.LogChanges(letter, x => x.Status, originalStatus, letter.Status);
+                _actionLogger.LogChanges(letter, x => x.Status, originalStatus, ActivityStatus.Completed);
 
                 scope.Updated<Letter>(entityId);
                 scope.Complete();

@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
 
                 _cancelLetterAggregateService.Cancel(letter);
 
-                _actionLogger.LogChanges(letter, x => x.Status, originalStatus, letter.Status);
+                _actionLogger.LogChanges(letter, x => x.Status, originalStatus, ActivityStatus.Canceled);
 
                 scope.Updated<Letter>(entityId);
                 scope.Complete();

@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Reopen
 
                 _reopenLetterAggregateService.Reopen(letter);
 
-                _actionLogger.LogChanges(letter, x => x.Status, originalStatus, letter.Status);
+                _actionLogger.LogChanges(letter, x => x.Status, originalStatus, ActivityStatus.InProgress);
 
                 scope.Updated<Letter>(entityId);
                 scope.Complete();

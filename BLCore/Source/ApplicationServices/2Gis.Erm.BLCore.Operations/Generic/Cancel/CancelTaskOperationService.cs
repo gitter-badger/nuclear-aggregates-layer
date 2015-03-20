@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
 
                 _cancelTaskAggregateService.Cancel(task);
 
-                _actionLogger.LogChanges(task, x => x.Status, originalStatus, task.Status);
+                _actionLogger.LogChanges(task, x => x.Status, originalStatus, ActivityStatus.Canceled);
 
                 scope.Updated<Task>(entityId);
                 scope.Complete();

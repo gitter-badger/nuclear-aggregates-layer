@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             {               
                 _assignLetterAggregateService.Assign(entity, ownerCode);
 
-                _actionLogger.LogChanges(entity, x => x.OwnerCode, originalOwner, entity.OwnerCode);
+                _actionLogger.LogChanges(entity, x => x.OwnerCode, originalOwner, ownerCode);
 
                 operationScope
                     .Updated<Letter>(entityId)

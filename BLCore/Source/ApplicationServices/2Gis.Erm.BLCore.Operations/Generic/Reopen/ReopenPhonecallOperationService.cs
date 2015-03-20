@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Reopen
 
                 _reopenPhonecallAggregateService.Reopen(phonecall);
 
-                _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, phonecall.Status);
+                _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, ActivityStatus.InProgress);
 
                 scope.Updated<Phonecall>(entityId);
                 scope.Complete();

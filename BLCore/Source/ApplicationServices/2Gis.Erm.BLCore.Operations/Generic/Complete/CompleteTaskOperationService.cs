@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
                 _completeTaskAggregateService.Complete(task);
 
-                _actionLogger.LogChanges(task, x => x.Status, originalStatus, task.Status);
+                _actionLogger.LogChanges(task, x => x.Status, originalStatus, ActivityStatus.Completed);
 
                 scope.Updated<Task>(entityId);
                 scope.Complete();

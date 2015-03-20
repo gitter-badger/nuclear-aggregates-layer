@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
                 var phonecallRegardingObjects = _phonecallReadModel.GetRegardingObjects(entityId);
                 UpdateDealStage(phonecallRegardingObjects, phonecall);
 
-                _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, phonecall.Status);
+                _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, ActivityStatus.Completed);
 
                 scope.Updated<Phonecall>(entityId);
                 scope.Complete();

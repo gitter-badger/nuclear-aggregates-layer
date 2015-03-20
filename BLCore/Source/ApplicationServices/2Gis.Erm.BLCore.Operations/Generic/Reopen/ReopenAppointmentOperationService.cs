@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Reopen
 
                 _reopenAppointmentAggregateService.Reopen(appointment);
 
-                _actionLogger.LogChanges(appointment, x => x.Status, originalStatus, appointment.Status);
+                _actionLogger.LogChanges(appointment, x => x.Status, originalStatus, ActivityStatus.InProgress);
 
                 scope.Updated<Appointment>(entityId);
                 scope.Complete();

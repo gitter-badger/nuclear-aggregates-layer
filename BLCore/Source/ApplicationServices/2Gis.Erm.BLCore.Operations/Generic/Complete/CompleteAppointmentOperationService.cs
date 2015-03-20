@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
                 var appointmentRegardingObjects = _appointmentReadModel.GetRegardingObjects(entityId);
                 UpdateDealStage(appointmentRegardingObjects, appointment);
 
-                _actionLogger.LogChanges(appointment, x => x.Status, originalStatus, appointment.Status);
+                _actionLogger.LogChanges(appointment, x => x.Status, originalStatus, ActivityStatus.Completed);
 
                 scope.Updated<Appointment>(entityId);
                 scope.Complete();
