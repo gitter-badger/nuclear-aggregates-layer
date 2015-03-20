@@ -177,6 +177,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 // Операция отката списания разрывает связь между AccountDetail и Lock (AccountDetail становится IsDeleted = true)
                 // Cтановится невозможно определить период, город истоник и назначения, тип заказа.
                 // Поэтому в том-же UseCase идем операцию активации блокировок и из неё извлекаем список блокировок
+                // Обращение в таблицу PBO в прикладной логике экспорта - ОГРОМНЫЙ тех долг, т.к. в прикладной логике мы оперируем понятием очереди,
+                // но никак не транспорта, на котором эта очередь реализована. То есть к таблице ни в коем случае нельзя обращаться.
                 var activateLocksOperation = _finder.Find(OperationSpecs.Performed.Find.InUseCase(operation.UseCaseId)
                                                           && OperationSpecs.Performed.Find.Specific<BulkActivateIdentity, Lock>())
                                                     .Single();
