@@ -13,10 +13,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 {
@@ -39,13 +40,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private const string HandlerName = "Импорт территорий из ДГПП";
 
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IFirmRepository _firmRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public DgppImportTerritoriesHandler(ICommonLog logger, IFirmRepository firmRepository, IOperationScopeFactory operationScopeFactory)
+        public DgppImportTerritoriesHandler(ITracer tracer, IFirmRepository firmRepository, IOperationScopeFactory operationScopeFactory)
         {
-            _logger = logger;
+            _tracer = tracer;
             _firmRepository = firmRepository;
             _operationScopeFactory = operationScopeFactory;
         }
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
         {
             try
             {
-                _logger.InfoFormat("{0}: начало", HandlerName);
+                _tracer.InfoFormat("{0}: начало", HandlerName);
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
                     ImportTerritoriesHeaderDto header;
@@ -80,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
             }
             finally
             {
-                _logger.InfoFormat("{0}: окончание", HandlerName);
+                _tracer.InfoFormat("{0}: окончание", HandlerName);
             }
         }
 

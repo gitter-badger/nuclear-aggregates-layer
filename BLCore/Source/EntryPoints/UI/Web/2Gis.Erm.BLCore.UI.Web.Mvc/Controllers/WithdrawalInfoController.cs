@@ -18,8 +18,9 @@ using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -36,12 +37,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                         IAPIIdentityServiceSettings identityServiceSettings,
                                         IUserContext userContext,
-                                        ICommonLog logger,
+                                        ITracer tracer,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IWithdrawalOperationService withdrawalOperationService,
                                         IRevertWithdrawalOperationService revertWithdrawalOperationService,
                                         ISecurityServiceFunctionalAccess functionalAccessService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _withdrawalOperationService = withdrawalOperationService;
             _revertWithdrawalOperationService = revertWithdrawalOperationService;
@@ -90,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
 
             return View(viewModel);
@@ -131,7 +132,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
 
             return View(viewModel);

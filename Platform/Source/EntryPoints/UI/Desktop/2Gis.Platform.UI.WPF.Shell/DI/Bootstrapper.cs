@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Threading;
 
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
@@ -22,6 +20,9 @@ using DoubleGis.Platform.UI.WPF.Shell.Layout.UserInfo;
 using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Platform.UI.WPF.Shell.DI
 {
@@ -59,11 +60,11 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             }
         }
 
-        public static IUnityContainer ConfigureDI(this IUnityContainer container, ICommonLog logger)
+        public static IUnityContainer ConfigureDI(this IUnityContainer container, ITracer tracer)
         {
             LocalPath = GetApplicationWorkingDirectory;
 
-            logger.Info("Start configure. Startup directory: " + LocalPath);
+            tracer.Info("Start configure. Startup directory: " + LocalPath);
 
             try
             {
@@ -71,7 +72,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 container.AddExtension(queryableContainerExtension);
                 container.RegisterInstance(Mapping.QueryableExtension, queryableContainerExtension);
 
-                container.RegisterLogger(logger)
+                container.RegisterTracer(tracer)
                          .RegisterModules()
                          .RegisterType<IDocumentManager, DocumentManager>(Lifetime.Singleton)
                          .RegisterType<IDocumentsStateInfo, DocumentManager>(Lifetime.Singleton)
@@ -83,20 +84,20 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             }
             catch (Exception ex)
             {
-                logger.FatalFormat(ex, "Can't configure application");
+                tracer.FatalFormat(ex, "Can't configure application");
                 throw;
             }
 
-            logger.Info("Configured successfully");
+            tracer.Info("Configured successfully");
 
             return container;
         }
 
-        public static IUnityContainer Run(this IUnityContainer container, ICommonLog logger)
+        public static IUnityContainer Run(this IUnityContainer container, ITracer tracer)
         {
             try
             {
-                logger.Info("Start running ...");
+                tracer.Info("Start running ...");
                 var standaloneWorkerModules = container.ResolveAll<IStandaloneWorkerModule>();
                 foreach (var module in standaloneWorkerModules)
                 {
@@ -109,11 +110,11 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             }
             catch (Exception ex)
             {
-                logger.ErrorFormat(ex, "Can't run application");
+                tracer.ErrorFormat(ex, "Can't run application");
                 throw;
             }
 
-            logger.Info("Run successfully ...");
+            tracer.Info("Run successfully ...");
 
             return container;
         }
@@ -134,9 +135,9 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             return container.RegisterType<IUIDispatcher, UIDispatcher>(Lifetime.Singleton, new InjectionConstructor(Dispatcher.CurrentDispatcher));
         }
 
-        private static IUnityContainer RegisterLogger(this IUnityContainer container, ICommonLog logger)
+        private static IUnityContainer RegisterTracer(this IUnityContainer container, ITracer tracer)
         {
-            return container.RegisterInstance<ICommonLog>(logger, Lifetime.Singleton);
+            return container.RegisterInstance<ITracer>(tracer, Lifetime.Singleton);
         }
 
         private static IUnityContainer RegisterModules(this IUnityContainer container)
@@ -147,7 +148,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 return container;
             }
 
-            var logger = container.Resolve<ICommonLog>();
+            var tracer = container.Resolve<ITracer>();
 
             var containersUniqueMap = new HashSet<Guid>();
             var modulesUniqueMap = new HashSet<Guid>();
@@ -163,7 +164,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 }
                 catch (Exception ex)
                 {
-                    logger.FatalFormat(ex, "Can't process settings for module container with path {0}", modulesDescriptor.ModulesContainerFullPath);
+                    tracer.FatalFormat(ex, "Can't process settings for module container with path {0}", modulesDescriptor.ModulesContainerFullPath);
                     throw;
                 }
 
@@ -174,7 +175,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 }
                 catch (Exception ex)
                 {
-                    logger.FatalFormat(ex,
+                    tracer.FatalFormat(ex,
                                             "Can't create module container of type {0} from file {1}",
                                             modulesDescriptor.ContainerType,
                                             modulesDescriptor.ModulesContainerFullPath);
@@ -186,7 +187,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                     var msg = string.Format("Module container of type {0} has duplicated Id: {1}",
                                             modulesDescriptor.ContainerType,
                                             moduleContainer.Id);
-                    logger.Fatal(msg);
+                    tracer.Fatal(msg);
                     throw new InvalidOperationException(msg);
                 }
 
@@ -200,14 +201,14 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                     }
                     catch (Exception ex)
                     {
-                        logger.FatalFormat(ex, "Can't create module of type {0} from file {1}", moduleType, modulesDescriptor.ModulesContainerFullPath);
+                        tracer.FatalFormat(ex, "Can't create module of type {0} from file {1}", moduleType, modulesDescriptor.ModulesContainerFullPath);
                         throw;
                     }
 
                     if (!modulesUniqueMap.Add(module.Id))
                     {
                         var msg = string.Format("Module of type {0} has duplicated Id: {1}", moduleType, module.Id);
-                        logger.Fatal(msg);
+                        tracer.Fatal(msg);
                         throw new InvalidOperationException(msg);
                     }
 
