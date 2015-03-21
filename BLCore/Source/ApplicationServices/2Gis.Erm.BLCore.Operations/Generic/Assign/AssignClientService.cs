@@ -92,9 +92,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 
                     _clientRepository.AssignWithRelatedEntities(entityId, ownerCode, isPartialAssign);
 
-                    operationScope
-                        .Updated<Client>(entityId)
-                        .Complete();
+                    operationScope.Updated<Client>(entityId)
+                                  .Complete();
                 }
 
                 AssignRelatedActivities(entityId, prevOwnerCode, ownerCode, isPartialAssign);

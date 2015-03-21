@@ -101,16 +101,16 @@
         <File Source="!(bindpath.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\NEST.1.2.0\lib\Nest.dll" />
+        <File Source="!(bindpath.PackagesDir)\NEST.1.4.2\lib\net45\Nest.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll" />
+        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.1.4.2\lib\net45\Elasticsearch.Net.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.2.0\lib\Elasticsearch.Net.Connection.Thrift.dll" />
+        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.4.2\lib\net45\Elasticsearch.Net.Connection.Thrift.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.HttpClient.1.2.0\lib\net45\Elasticsearch.Net.Connection.HttpClient.dll" />
+        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.HttpClient.1.4.2\lib\net45\Elasticsearch.Net.Connection.HttpClient.dll" />
       </Component>
       <Component>
         <File Source="!(bindpath.PackagesDir)\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll" />
@@ -180,6 +180,12 @@
       </Component>
         <Component>
         <File Source="!(bindpath.PackagesDir)\2Gis.Nuclear.Tracing.Log4Net.1.0.2\lib\net451\2Gis.Nuclear.Tracing.Log4Net.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Tracing.Environment.1.0.2\lib\net451\2GIS.NuClear.Tracing.Environment.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.IdentityService.Client.1.0.3\lib\net451\2GIS.NuClear.IdentityService.Client.dll" />
       </Component>
     </ComponentGroup>
     

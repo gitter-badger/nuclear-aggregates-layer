@@ -38,14 +38,14 @@
   <ItemGroup>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.4.2\lib\net45\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="FastMember">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\FastMember.Signed.1.0.0.11\lib\net40\FastMember.dll</HintPath>
     </Reference>
     <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.2.0\lib\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.4.2\lib\net45\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -82,9 +82,9 @@
     <Compile Include="Indexing\IDefferedDocumentUpdater.cs" />
     <Compile Include="Indexing\IDocumentUpdater.cs" />
     <Compile Include="Indexing\IDocumentWrapper.cs" />
-    <Compile Include="Indexing\Metadata\DocumentRelationMetadata.cs" />
-    <Compile Include="Indexing\Metadata\DocumentRelationMetadataBuilder.cs" />
-    <Compile Include="Indexing\Metadata\DocumentRelationsIdentity.cs" />
+    <Compile Include="Indexing\Metadata\DocumentIndexingMetadata.cs" />
+    <Compile Include="Indexing\Metadata\DocumentIndexingMetadataBuilder.cs" />
+    <Compile Include="Indexing\Metadata\DocumentIndexingIdentity.cs" />
     <Compile Include="Indexing\Metadata\Features\DocumentPartFeature.cs" />
     <Compile Include="Replication\Metadata\Features\EntityRelationFeature.cs" />
     <Compile Include="Indexing\Metadata\Features\IDocumentPartFeature.cs" />

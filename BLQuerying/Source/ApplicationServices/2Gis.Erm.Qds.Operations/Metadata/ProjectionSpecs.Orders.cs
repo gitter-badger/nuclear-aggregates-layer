@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
 
                                                               IsActive = accessor.Get(c => c.IsActive),
                                                               IsDeleted = accessor.Get(c => c.IsDeleted),
-                                                              HasDocumentsDebt = (byte?)accessor.Get(c => c.HasDocumentsDebt),
+                                                              HasDocumentsDebt = accessor.Get(c => c.HasDocumentsDebt),
 
                                                               CreatedOn = accessor.Get(c => c.CreatedOn),
                                                               ModifiedOn = accessor.Get(c => c.ModifiedOn),
