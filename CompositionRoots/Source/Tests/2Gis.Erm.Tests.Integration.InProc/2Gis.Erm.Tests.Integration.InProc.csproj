@@ -220,7 +220,7 @@
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
     <Compile Include="Suite\Concrete\OrderValidation\AdvertisementsOnlyWhiteListOrderValidationRuleTest.cs" />
     <Compile Include="Suite\Concrete\Platform\DAL\QueryAllRegisteredEntitiesTest.cs" />
-    <Compile Include="Suite\Concrete\Platform\Identity\IdentityRequestStrategiesTest.cs" />
+    <Compile Include="Suite\Concrete\Platform\Identity\RangedIdentityRequestStrategyTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Logging\ServiceBusLoggingTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\PerformedOperationsProcessingReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\ServiceBusReceiverTest.cs" />
