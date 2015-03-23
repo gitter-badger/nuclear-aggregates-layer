@@ -4,13 +4,15 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Orders;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Kazakhstan.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
+using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
@@ -55,9 +57,11 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         internal static IUnityContainer ConfigureKazakhstanSpecificNumberServices(this IUnityContainer container)
         {
             return container
+                .RegisterType<IOrderNumberTemplatesProvider, KazakhstanOrderNumberTemplatesProvider>(Lifetime.Singleton)
+                .RegisterType<IOrderNumberGenerationStrategiesProvider, RussiaOrderNumberGenerationStrategiesProvider>(Lifetime.Singleton)
                 .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
                 .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
-                .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "БЗ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia))
+                .RegisterTypeWithDependencies<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, null)
                 .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 

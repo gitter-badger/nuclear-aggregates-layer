@@ -78,6 +78,12 @@
     <Compile Include="MultiCulture\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
+    <Compile Include="MultiCulture\Orders\ReadFromFormatOrderNumberGenerationStrategy.cs" />
+    <Compile Include="MultiCulture\Orders\ReadFromCurrentOrderNumberOrderNumberGenerationStrategy.cs" />
+    <Compile Include="MultiCulture\Orders\ReadFromOldFormatOrderNumberGenerationStrategy.cs" />
+    <Compile Include="MultiCulture\Orders\ReadFromNewFormatOrderNumberGenerationStrategy.cs" />
+    <Compile Include="MultiCulture\Orders\RomanAlphabetCountriesOrderNumberGenerationStrategiesProvider.cs" />
+    <Compile Include="MultiCulture\Orders\RussiaOrderNumberGenerationStrategiesProvider.cs" />
     <Compile Include="Russia\LegalPersons\RussiaLegalPersonReadModel.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />

@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
-using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
@@ -26,7 +25,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
+namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetOrderDtoService : GetDomainEntityDtoServiceBase<Order>
     {
@@ -167,6 +166,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
                 resultDto.CurrencyRef = refs.Currency;
                 resultDto.SourceOrganizationUnitRef = refs.OrganizationUnit;
+            }
+
+            if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, userId))
+            {
+                resultDto.OrderType = OrderType.AdvertisementAgency;
             }
         }
 

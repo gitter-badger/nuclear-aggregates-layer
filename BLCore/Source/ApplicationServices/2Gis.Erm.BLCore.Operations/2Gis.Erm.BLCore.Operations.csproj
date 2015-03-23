@@ -268,9 +268,12 @@
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\RevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalOperationService.cs" />
+    <Compile Include="Crosscutting\OrderNumberEvaluator.cs" />
     <Compile Include="Crosscutting\AdvertisementElements\AdvertisementElementPlainTextHarmonizer.cs" />
     <Compile Include="Crosscutting\AdvertisementElements\IAdvertisementElementPlainTextHarmonizer.cs" />
     <Compile Include="Crosscutting\CanChangeOrderPositionBindingObjectsDetector.cs" />
+    <Compile Include="Crosscutting\EvaluateOrderNumberService.cs" />
+    <Compile Include="Crosscutting\EvaluateOrderNumberWithoutRegionalService.cs" />
     <Compile Include="Crosscutting\FirmWorkingTimeLocalizer.cs" />
     <Compile Include="Crosscutting\CardLink\WebClientLinkToEntityCardFactory.cs" />
     <Compile Include="Generic\ActionHistory\ActionsHistoryService.cs" />

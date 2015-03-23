@@ -1990,8 +1990,6 @@
   <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
     <value>Плановое оказание услуг по нескольким рубрикам</value>
   </data>
-  
-    
   <data name="FasCommentUkraineAutotherapy" xml:space="preserve">
     <value>Реклама методов профилактики, диагностики, лечения и реабилитации</value>
   </data>
@@ -2013,8 +2011,6 @@
   <data name="FasCommentUkraineEmploymentAssistance" xml:space="preserve">
     <value>Реклама услуг по трудоустройству</value>
   </data>
-  
-  
   <data name="FasCommentDisplayTextUkraineAutotherapy" xml:space="preserve">
     <value>Самолечение может быть вредным для вашего здоровья.</value>
   </data>
@@ -2035,5 +2031,8 @@
   </data>
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>Запрещается получать от граждан, которым оказаны услуги по поиску работы и содействию в трудоустройстве, другие связанные с этим услуги, гонорары, комиссионные или иные вознаграждения.</value>
+  </data>
+  <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
+    <value>Рекламное агентство</value>
   </data>
 </root>

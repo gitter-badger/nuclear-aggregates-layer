@@ -4,14 +4,14 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Orders;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete;
 using DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
@@ -50,10 +50,12 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureCzechSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("S_{0}-{1}-{2}", "AS_{0}-{1}-{2}"))
-                        .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
-                        .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("OBJ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet))
-                        .RegisterType<IEvaluateBillDateService, CzechEvaluateBillDateService>();
+                .RegisterType<IOrderNumberTemplatesProvider, CzechOrderNumberTemplatesProvider>(Lifetime.Singleton)
+                .RegisterType<IOrderNumberGenerationStrategiesProvider, RomanAlphabetCountriesOrderNumberGenerationStrategiesProvider>(Lifetime.Singleton)
+                .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("S_{0}-{1}-{2}", "AS_{0}-{1}-{2}"))
+                .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
+                .RegisterTypeWithDependencies<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, null)
+                .RegisterType<IEvaluateBillDateService, CzechEvaluateBillDateService>();
         }
 
         // TODO переделать на нормальную метадату

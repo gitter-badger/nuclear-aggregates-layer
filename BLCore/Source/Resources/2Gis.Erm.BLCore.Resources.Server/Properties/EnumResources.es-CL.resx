@@ -2044,4 +2044,7 @@
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
+    <value>Рекламное агентство</value>
+  </data>
 </root>
