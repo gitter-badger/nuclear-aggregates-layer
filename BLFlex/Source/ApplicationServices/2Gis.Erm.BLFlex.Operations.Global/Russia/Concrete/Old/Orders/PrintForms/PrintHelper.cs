@@ -75,7 +75,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
                            { "LegalPersonProfile.PositionInGenitive", legalPersonProfile.PositionInGenitive },
                            { "LegalPersonProfile.ChiefNameInGenitive", legalPersonProfile.ChiefNameInGenitive },
-                           { "LegalPersonProfile.OperatesOnTheBasisInGenitive", legalPersonProfile.OperatesOnTheBasisInGenitive },
 
                            { "BranchOfficeOrganizationUnit.ShortLegalName", branchOfficeOrganizationUnit.ShortLegalName },
                            { "BranchOfficeOrganizationUnit.PositionInGenitive", branchOfficeOrganizationUnit.PositionInGenitive },
@@ -144,6 +143,5 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                     throw new ArgumentOutOfRangeException();
             }
         }
-
     }
 }
