@@ -8,7 +8,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
 {
     public static class CardMetadataExtensions
     {
-        public static CardMetadataBuilder<Order> ConfigOrderToolbarWithSpecificPrintActions(this CardMetadataBuilder<Order> metadataBuilder, params UIElementMetadata[] printActions)
+        public static CardMetadataBuilder<Order> MultiCultureConfigOrderToolbarWithSpecificPrintActions(this CardMetadataBuilder<Order> metadataBuilder,
+                                                                                                        params UIElementMetadata[] printActions)
         {
             return metadataBuilder.Actions
                                   .Attach(ToolbarElements.Create<Order>(),
@@ -22,6 +23,26 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                           ToolbarElements.Print(printActions),
                                           ToolbarElements.Splitter(),
                                           ToolbarElements.Additional(UIElementMetadata.Config.OrderAdditionalActions()),
+                                          ToolbarElements.Close());
+        }
+
+        public static CardMetadataBuilder<Order> RussiConfigOrderToolbarWithSpecificPrintActions(this CardMetadataBuilder<Order> metadataBuilder,
+                                                                                                 params UIElementMetadata[] printActions)
+        {
+            return metadataBuilder.Actions
+                                  .Attach(ToolbarElements.Create<Order>(),
+                                          ToolbarElements.Update<Order>(),
+                                          ToolbarElements.Splitter(),
+                                          ToolbarElements.CreateAndClose<Order>(),
+                                          ToolbarElements.UpdateAndClose<Order>(),
+                                          ToolbarElements.Splitter(),
+                                          ToolbarElements.Refresh<Order>(),
+                                          ToolbarElements.Splitter(),
+                                          ToolbarElements.Print(printActions),
+                                          ToolbarElements.Splitter(),
+                                          ToolbarElements.Additional(UIElementMetadata.Config.OrderAdditionalActions()),
+                                          ToolbarElements.Splitter(),
+                                          ToolbarElementsFlex.Orders.ManageDocumentsDebt(),
                                           ToolbarElements.Close());
         }
 

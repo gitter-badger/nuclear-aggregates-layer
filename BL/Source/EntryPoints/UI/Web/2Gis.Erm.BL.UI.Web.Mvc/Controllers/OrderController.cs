@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -67,6 +68,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
         private readonly IChangeOrderLegalPersonProfileOperationService _changeOrderLegalPersonProfileOperationService;
         private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
+        private readonly IGetOrderDocumentsDebtOperationService _getOrderDocumentsDebtOperationService;
+        private readonly ISetOrderDocumentsDebtOperationService _setOrderDocumentsDebtOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IAPIOperationsServiceSettings operationsServiceSettings,
@@ -91,7 +94,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ISecurityServiceUserIdentifier userIdentifierService,
                                IDetermineOrderBargainOperationService determineOrderBargainOperationService,
                                ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
-                               IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService)
+                               IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService,
+                               IGetOrderDocumentsDebtOperationService getOrderDocumentsDebtOperationService,
+                               ISetOrderDocumentsDebtOperationService setOrderDocumentsDebtOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
         {
             _copyOrderOperationService = copyOrderOperationService;
@@ -111,9 +116,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
             _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
             _changeOrderLegalPersonProfileOperationService = changeOrderLegalPersonProfileOperationService;
+            _getOrderDocumentsDebtOperationService = getOrderDocumentsDebtOperationService;
+            _setOrderDocumentsDebtOperationService = setOrderDocumentsDebtOperationService;
         }
-
-
 
         #region Ajax methods
 
@@ -230,12 +235,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             if (!Enum.TryParse(orderTypeValue, out orderType))
             {
                 return new JsonNetResult(new
-                    {
+                                             {
                                                  CanCreate = false,
                                                  Message = BLResources.WrongOrderType
-                    });
+                                             });
             }
-
 
             return new JsonNetResult(new
                                          {
@@ -307,6 +311,31 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _changeOrderLegalPersonProfileOperationService.ChangeLegalPersonProfile(orderId, legalPersonProfileId);
             return new EmptyResult();
         }
+
+        // TODO {all, 18.03.2015}: Есть понимание, что это должно быть вынесено.
+        [HttpGet]
+        public ViewResult SetOrderDocumentsDebt(long orderId)
+        {
+            var dto = _getOrderDocumentsDebtOperationService.Get(orderId);
+
+            var model = new SetOrderDocumentsDebtViewModel
+            {
+                Order = dto.Order.ToLookupField(),
+                DocumentsComment = dto.DocumentsComment,
+                HasDocumentsDebt = dto.HasDocumentsDebt
+            };
+
+            return View(model);
+        }
+
+        // TODO {all, 18.03.2015}: Есть понимание, что это должно быть вынесено.
+        [HttpPost]
+        public ViewResult SetOrderDocumentsDebt(SetOrderDocumentsDebtViewModel model)
+        {
+            _setOrderDocumentsDebtOperationService.Set(model.Order.Key.Value, model.HasDocumentsDebt, model.DocumentsComment);
+            model.Message = BLResources.OK;
+            return View(model);
+        }        
 
         public ActionResult CheckOrdersReadinessForReleaseDialog()
         {
@@ -476,7 +505,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             FinishTime = DateTime.UtcNow,
                             OwnerCode = UserContext.Identity.Code,
                             Status = OperationStatus.Success,
-                            Type = (BusinessOperation)BusinessOperation.GetOrdersWithDummyAdvertisements,
+                            Type = BusinessOperation.GetOrdersWithDummyAdvertisements,
                             Description = operationDescription,
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };

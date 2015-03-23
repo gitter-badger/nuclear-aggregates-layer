@@ -8390,6 +8390,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ManageDocumentsDebt {
+            get {
+                return ResourceManager.GetString("ManageDocumentsDebt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ManagerFullName {
             get {
                 return ResourceManager.GetString("ManagerFullName", resourceCulture);
@@ -9653,6 +9662,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Operation {
             get {
                 return ResourceManager.GetString("Operation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OperationCannotBePerformedSinceReleaseIsInProgress {
+            get {
+                return ResourceManager.GetString("OperationCannotBePerformedSinceReleaseIsInProgress", resourceCulture);
             }
         }
         

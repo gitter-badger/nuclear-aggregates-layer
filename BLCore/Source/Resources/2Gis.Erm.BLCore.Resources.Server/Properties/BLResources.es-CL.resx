@@ -5185,10 +5185,16 @@ Periodo de la publicación: {3}.</value>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>El departamento de la empresa {0} no está relacionado con el proyecto.</value>
   </data>
-  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForFirmInReserve" xml:space="preserve">
     <value>No es posible guardar la acción sobre la empresa en reserva</value>
   </data>
-  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>No es posible guardar la acción sobre el cliente en reserva</value>
+  </data>
+  <data name="ManageDocumentsDebt" xml:space="preserve">
+    <value>Управление наличием документов</value>
+  </data>
+  <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Операция не может быть проведена т.к. выполняется сборка</value>
   </data>
 </root>

@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Ukraine
 
                         CardMetadata.For<Order>()
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.UkraineAndKazakhstanOrderPrintActions())
+                                    .MultiCultureConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.UkraineAndKazakhstanOrderPrintActions())
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

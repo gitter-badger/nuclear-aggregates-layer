@@ -17,9 +17,6 @@
         }
     },
 
-    setupMenuAvailability: function () {
-    },
-
     onLegalPersonChanged: function (cmp) {
         var legalPersonLookup = Ext.getCmp('LegalPerson');
         var legalPersonId = legalPersonLookup.item ? legalPersonLookup.item.id : null;

@@ -4,6 +4,5 @@
     {
         long CurrenctUserCode { get; set; }
         bool CanEditOrderType { get; set; }
-        bool HasOrderDocumentsDebtChecking { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Copy;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
@@ -55,6 +56,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         {
             var orderIndex = _orderRepository.GenerateNextOrderUniqueNumber();
             var orderToCopy = _orderReadModel.GetOrderSecure(orderId);
+            if (orderToCopy == null)
+            {
+                throw new EntityNotFoundException(typeof(Order), orderId);
+            }
+
             var beginDistributionDate = DateTime.UtcNow.GetNextMonthFirstDate();
             return CopyOrder(orderToCopy, orderIndex, isTechnicalTermination, beginDistributionDate, orderToCopy.ReleaseCountPlan, DiscountType.Default, orderToCopy.DealId);
         }

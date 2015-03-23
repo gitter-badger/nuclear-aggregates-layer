@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                                                                                                             .With(ToolbarElementsFlex.LegalPersons.Russia.Merge())),
 
                         CardMetadata.For<Order>()
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.RussianOrderPrintActions())
+                                    .RussiConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.RussianOrderPrintActions())
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions()
                                                                        .With(RelatedItem.EntityGrid(EntityName.OrderProcessingRequest,
                                                                                                      () => ErmConfigLocalization.CrdRelOrderProcessingRequests))),

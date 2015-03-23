@@ -113,7 +113,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public bool HasDestOrganizationUnitPublishedPrice { get; set; }
 
         public bool CanEditOrderType { get; set; }
-        public bool HasOrderDocumentsDebtChecking { get; set; }
 
         [RequiredLocalized]
         [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit", "!Ext.getCmp('SourceOrganizationUnit').getValue()")]

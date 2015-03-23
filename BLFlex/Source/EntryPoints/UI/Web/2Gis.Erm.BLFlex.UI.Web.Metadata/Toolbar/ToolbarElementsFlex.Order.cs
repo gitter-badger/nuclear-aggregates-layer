@@ -86,6 +86,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                      .JSHandler("SwitchToAccount");
             }
 
+            public static UIElementMetadataBuilder ManageDocumentsDebt()
+            {
+                return
+                    UIElementMetadata.Config
+                                     .Name.Static("SetDocumentsDebt")
+                                     .Title.Resource(() => ErmConfigLocalization.ControlSetDocumentsDebt)
+                                     .ControlType(ControlType.TextButton)
+                                     .LockOnNew()
+                                     .JSHandler("SetDocumentsDebt")
+                                     .AccessWithPrivelege<Order>(EntityAccessTypes.Update);
+            }
+
             public static UIElementMetadataBuilder CopyOrder()
             {
                 return

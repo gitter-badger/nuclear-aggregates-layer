@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Chile
 
                         CardMetadata.For<Order>()
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions())
-                                    .ConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.ChileOrderPrintActions())
+                                    .MultiCultureConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.ChileOrderPrintActions())
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
