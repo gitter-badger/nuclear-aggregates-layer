@@ -11,10 +11,11 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
@@ -27,16 +28,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IAccountDebtsChecker _accountDebtsChecker;
 
         public AssignAccountOperationService(IAccountReadModel accountReadModel,
                                     IAssignAccountAggregateService assignAccountAggregateService,
-                                    ISecurityServiceEntityAccess entityAccessService,
-                                    ISecurityServiceFunctionalAccess functionalAccessService,
-                                    IOperationScopeFactory scopeFactory,
-                                    IUserContext userContext,
-                                    ICommonLog logger,
+            ISecurityServiceEntityAccess entityAccessService,
+            ISecurityServiceFunctionalAccess functionalAccessService,
+            IOperationScopeFactory scopeFactory,
+            IUserContext userContext,
+                                    ITracer tracer,
                                     IOwnerValidator ownerValidator,
                                     IAccountDebtsChecker accountDebtsChecker)
         {
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _functionalAccessService = functionalAccessService;
             _scopeFactory = scopeFactory;
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
             _ownerValidator = ownerValidator;
             _accountDebtsChecker = accountDebtsChecker;
         }
@@ -82,8 +83,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 
                     operationScope.Complete();
                 }
-
-                _logger.InfoFormat("Куратором ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
+                
+                _tracer.InfoFormat("Куратором ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
             }
             catch (ProcessAccountsWithDebtsException ex)
             {
@@ -95,12 +96,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                 }
 
                 return new AssignResult
-                           {
-                               EntityId = entityId,
-                               OwnerCode = ownerCode,
-                               CanProceed = true,
-                               Message = ex.Message
-                           };
+                {
+                    EntityId = entityId,
+                    OwnerCode = ownerCode,
+                    CanProceed = true,
+                    Message = ex.Message
+                };
             }
 
             return null;

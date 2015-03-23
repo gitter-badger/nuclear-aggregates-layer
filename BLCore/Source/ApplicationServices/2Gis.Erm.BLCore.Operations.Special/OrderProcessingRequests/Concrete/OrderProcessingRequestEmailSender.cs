@@ -8,14 +8,15 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Core.Services.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
     public class OrderProcessingRequestEmailSender : IOrderProcessingRequestEmailSender,
                                                      ICreatedOrderProcessingRequestEmailSender
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ISecurityServiceUserIdentifier _userIdentityService;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
@@ -27,14 +28,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                                                  IEmployeeEmailResolver employeeEmailResolver,
                                                  IOrderProcessingRequestNotificationFormatter notificationFormatter,
                                                  ISecurityServiceUserIdentifier userIdentityService,
-                                                 ICommonLog logger)
+                                                 ITracer tracer)
         {
             _notificationsSettings = notificationsSettings;
             _notificationFormatter = notificationFormatter;
             _notificationSender = notificationSender;
             _employeeEmailResolver = employeeEmailResolver;
             _userIdentityService = userIdentityService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public OrderProcessingRequestEmailSendResult SendProcessingMessages(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest,
@@ -89,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         {
             if (!_notificationsSettings.EnableNotifications)
             {
-                _logger.Info("Notifications disabled in config file");
+                _tracer.Info("Notifications disabled in config file");
                 return false;
             }
 

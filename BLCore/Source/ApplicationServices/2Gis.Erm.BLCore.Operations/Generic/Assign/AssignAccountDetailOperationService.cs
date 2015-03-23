@@ -9,10 +9,11 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
@@ -22,15 +23,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IAccountReadModel _accountReadModel;
         private readonly IAssignAccountDetailAggregateService _assignAccountDetailAggregateService;
 
         public AssignAccountDetailOperationService(IOwnerValidator ownerValidator,
-                                          IOperationScopeFactory scopeFactory,
-                                          ISecurityServiceEntityAccess entityAccessService,
+            IOperationScopeFactory scopeFactory,
+            ISecurityServiceEntityAccess entityAccessService, 
                                           IUserContext userContext,
-                                          ICommonLog logger,
+                                          ITracer tracer,
                                           IAccountReadModel accountReadModel,
                                           IAssignAccountDetailAggregateService assignAccountDetailAggregateService)
         {
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _scopeFactory = scopeFactory;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
             _accountReadModel = accountReadModel;
             _assignAccountDetailAggregateService = assignAccountDetailAggregateService;
         }
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                 operationScope.Complete();
             }
 
-            _logger.InfoFormat("Куратором операции по ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
+            _tracer.InfoFormat("Куратором операции по ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
 
             return null;
         }

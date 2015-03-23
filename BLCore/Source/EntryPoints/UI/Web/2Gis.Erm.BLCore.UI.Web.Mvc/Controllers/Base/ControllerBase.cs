@@ -8,8 +8,9 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
 {
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
         private readonly IAPISpecialOperationsServiceSettings _specialOperationsServiceSettings;
         private readonly IAPIIdentityServiceSettings _identityServiceSettings;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IGetBaseCurrencyService _getBaseCurrencyService;
 
         protected ControllerBase(IMsCrmSettings msCrmSettings,
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                  IAPIIdentityServiceSettings identityServiceSettings,
                                  IUserContext userContext,
-                                 ICommonLog logger,
+                                 ITracer tracer,
                                  IGetBaseCurrencyService getBaseCurrencyService)
         {
             _msCrmSettings = msCrmSettings;
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
             _specialOperationsServiceSettings = specialOperationsServiceSettings;
             _identityServiceSettings = identityServiceSettings;
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
             _getBaseCurrencyService = getBaseCurrencyService;
         }
 
@@ -45,9 +46,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
             get { return _userContext; }
         }
 
-        protected ICommonLog Logger
+        protected ITracer Tracer
         {
-            get { return _logger; }
+            get { return _tracer; }
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -73,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
             // log controller action
             var controllerName = RouteData.GetRequiredString("controller");
             var actionName = RouteData.GetRequiredString("action");
-            Logger.DebugFormat("Вызов контроллера [{0}]. Метод [{1}]", controllerName, actionName);
+            Tracer.DebugFormat("Вызов контроллера [{0}]. Метод [{1}]", controllerName, actionName);
 
             base.ExecuteCore();
         }

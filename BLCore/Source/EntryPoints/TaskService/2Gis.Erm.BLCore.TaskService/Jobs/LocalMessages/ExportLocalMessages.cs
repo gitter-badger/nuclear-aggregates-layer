@@ -1,9 +1,10 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -17,8 +18,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.LocalMessages
             IPublicService publicService, 
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService,
-            ICommonLog logger)
-            : base(signInService, userImpersonationService, logger)
+            ITracer tracer)
+            : base(signInService, userImpersonationService, tracer)
         {
             _publicService = publicService;
         }

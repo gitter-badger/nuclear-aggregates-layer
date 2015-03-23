@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Common.Logging;
-
 using Microsoft.Practices.Unity;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 using Quartz.Simpl;
@@ -17,12 +17,12 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
         private readonly Dictionary<IJob, IUnityContainer> _containerMap = new Dictionary<IJob, IUnityContainer>();
 
         private readonly IUnityContainer _container;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public JobFactory(IUnityContainer container, ICommonLog logger)
+        public JobFactory(IUnityContainer container, ITracer tracer)
         {
             _container = container;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public override IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
@@ -43,12 +43,12 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                     _containerMap.Add(job, childContainer);
                 }
                 
-                _logger.Debug(string.Format("Создание задачи [{0}]", bundle.JobDetail.JobType));
+                _tracer.Debug(string.Format("Создание задачи [{0}]", bundle.JobDetail.JobType));
                 return job;
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Произошла ошибка при выполнении задачи [{0}]", bundle.JobDetail.Description);
+                _tracer.ErrorFormat(ex, "Произошла ошибка при выполнении задачи [{0}]", bundle.JobDetail.Description);
                 throw new SchedulerException(ex);
             }
         }

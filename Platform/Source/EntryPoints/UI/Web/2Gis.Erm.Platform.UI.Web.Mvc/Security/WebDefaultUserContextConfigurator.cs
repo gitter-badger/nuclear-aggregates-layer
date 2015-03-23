@@ -5,7 +5,8 @@ using System.Web;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Security
 {
@@ -18,13 +19,13 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Security
     public class WebDefaultUserContextConfigurator : IDefaultUserContextConfigurator
     {
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly String _uid;
 
-        public WebDefaultUserContextConfigurator(IUserContext userContext, ICommonLog logger)
+        public WebDefaultUserContextConfigurator(IUserContext userContext, ITracer tracer)
         {
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
             _uid = Guid.NewGuid().ToString();
         }
 
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Security
             if (userContextAccessor == null)
             {
                 var msg = "Тип зарегистрированый в DI контейнере, как реализующий " + typeof(IUserContext).Name + ", не реализует обязательный интерфейс " + typeof(IUserContextModifyAccessor).Name;
-                _logger.Fatal(msg);
+                _tracer.Fatal(msg);
                 throw new InvalidOperationException(msg);
             }
 

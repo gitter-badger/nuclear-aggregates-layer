@@ -6,8 +6,9 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
@@ -18,27 +19,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IAccountBulkActivateLocksAggregateService _accountBulkActivateLocksAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ActualizeAccountsDuringRevertingWithdrawalOperationService(
             IAccountRevertWithdrawFromAccountsAggregateService accountRevertWithdrawFromAccountsAggregateService,
             IAccountBulkActivateLocksAggregateService accountBulkActivateLocksAggregateService,
             IUseCaseTuner useCaseTuner, 
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _accountRevertWithdrawFromAccountsAggregateService = accountRevertWithdrawFromAccountsAggregateService;
             _accountBulkActivateLocksAggregateService = accountBulkActivateLocksAggregateService;
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Actualize(IEnumerable<AccountStateForRevertingWithdrawalDto> accountInfos)
         {
             _useCaseTuner.AlterDuration<ActualizeAccountsDuringWithdrawalOperationService>();
 
-            _logger.InfoFormat("Starting accounts state actualization process during reverting withdrawal");
+            _tracer.InfoFormat("Starting accounts state actualization process during reverting withdrawal");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeAccountsDuringRevertingWithdrawalIdentity>())
             {
@@ -68,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoFormat("Finished accounts state actualization process during reverting withdrawal");
+            _tracer.InfoFormat("Finished accounts state actualization process during reverting withdrawal");
         }
     }
 }

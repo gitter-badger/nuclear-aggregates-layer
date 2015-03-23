@@ -24,8 +24,6 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -58,6 +56,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
     public static partial class CommonBootstrapper
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             {
                 case CachingMode.Distributed:
                     return container.RegisterType<ICacheAdapter, AppFabricCacheAdapter>(Lifetime.Singleton,
-                                                                                        new InjectionConstructor(new ResolvedParameter<ICommonLog>(),
+                                                                                        new InjectionConstructor(new ResolvedParameter<ITracer>(),
                                                                                                                  cachingSettings.DistributedCacheName));
                 case CachingMode.InProc:
                     return container.RegisterType<ICacheAdapter, MemCacheAdapter>(entryPointSpecificLifetimeManagerFactory());
@@ -77,10 +77,10 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             }
         }
 
-        public static IUnityContainer ConfigureLogging(this IUnityContainer container, ICommonLog logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureTracing(this IUnityContainer container, ITracer tracer, ITracerContextManager tracerContextManager)
         {
-            return container.RegisterInstance(logger)
-                            .RegisterInstance(loggerContextManager);
+            return container.RegisterInstance(tracer)
+                            .RegisterInstance(tracerContextManager);
         }
 
         public static IUnityContainer ConfigureDAL(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings)
@@ -146,6 +146,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IRepository<Appointment>, EFRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<AppointmentRegardingObject>, EFRepository<AppointmentRegardingObject, AppointmentReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<AppointmentAttendee>, EFRepository<AppointmentAttendee, AppointmentReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<AppointmentOrganizer>, EFRepository<AppointmentOrganizer, AppointmentReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<Phonecall>, EFRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<PhonecallRegardingObject>, EFRepository<PhonecallRegardingObject, PhonecallReference>>(Lifetime.PerResolve)
                         .RegisterType<IRepository<PhonecallRecipient>, EFRepository<PhonecallRecipient, PhonecallReference>>(Lifetime.PerResolve)

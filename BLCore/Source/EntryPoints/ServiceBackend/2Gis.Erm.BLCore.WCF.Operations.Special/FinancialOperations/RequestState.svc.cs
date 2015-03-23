@@ -8,23 +8,24 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.OrderProcessing;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
 {
     public class RequestStateApplicationService : IRequestStateApplicationService
     {
         private readonly IGetDomainEntityDtoService<OrderProcessingRequest> _domainEntityDtoService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public RequestStateApplicationService(IGetDomainEntityDtoService<OrderProcessingRequest> domainEntityDtoService, ICommonLog logger)
+        public RequestStateApplicationService(IGetDomainEntityDtoService<OrderProcessingRequest> domainEntityDtoService, ITracer tracer)
         {
             _domainEntityDtoService = domainEntityDtoService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IOrderRequestStateDescription[] GetState(IEnumerable<long> requestIds)
@@ -68,12 +69,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }
