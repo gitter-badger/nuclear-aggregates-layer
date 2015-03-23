@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         {
             return new PrintData
                        {
-                           { "Now", DateTime.Today },
+                           { "DateToday", DateTime.Today },
                            { "Order.Number", order.Number },
                            { "Order.CreatedOn", order.CreatedOn },
                            { "LegalPerson.LegalName", legalPerson.LegalName },
