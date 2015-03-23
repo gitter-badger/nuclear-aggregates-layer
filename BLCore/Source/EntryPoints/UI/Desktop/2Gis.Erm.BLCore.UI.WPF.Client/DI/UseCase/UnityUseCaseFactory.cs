@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks.Dataflow;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers;
@@ -10,6 +9,8 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Processings;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
 {
@@ -24,13 +25,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
 
         private readonly IUnityContainer _container;
         private readonly IUseCaseHandlersRegistry _handlersRegistry;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public UnityUseCaseFactory(IUnityContainer container, IUseCaseHandlersRegistry handlersRegistry, ICommonLog logger)
+        public UnityUseCaseFactory(IUnityContainer container, IUseCaseHandlersRegistry handlersRegistry, ITracer tracer)
         {
             _container = container;
             _handlersRegistry = handlersRegistry;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IUseCase Create()
@@ -42,8 +43,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
             var useCase = 
                 new Platform.UI.WPF.Infrastructure.UseCases.UseCase(
                     useCaseId,
-                    new DataflowUseCaseMessageProcessor(sequentialProcessingNetwork, freeProcessingNetwork, _handlersRegistry, _logger), 
-                    new ExecutingProcessingsRegistry(_logger), 
+                    new DataflowUseCaseMessageProcessor(sequentialProcessingNetwork, freeProcessingNetwork, _handlersRegistry, _tracer), 
+                    new ExecutingProcessingsRegistry(_tracer), 
                     useCaseScopeContainer);
             useCaseScopeContainer.RegisterType<IMessageSink, UseCaseMessageSink>(Lifetime.Singleton, new InjectionConstructor(typeof(IUseCaseManager), useCaseId));
             return useCase;
@@ -136,7 +137,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
                             catch (Exception ex)
                             {
                                 var msg = string.Format("Handler \"CanHandle\" exception caught. Handler:{0}. UseCase:{1}. Message:{2}", handlerType, context.UseCase.Id, context.Message);
-                                _logger.Error(ex, msg);
+                                _tracer.Error(ex, msg);
                                 context.PipelineUnhandledExceptions.Add(handlerType, new AggregateException(msg, ex));
                                 return context;
                             }
@@ -155,7 +156,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
                                 {
                                     var msg = string.Format(
                                         "Async handler \"Handle\" exception caught. Handler:{0}. UseCase:{1}. Message:{2}", handlerType, context.UseCase.Id, context.Message);
-                                    _logger.Error(ex, msg);
+                                    _tracer.Error(ex, msg);
                                     context.PipelineUnhandledExceptions.Add(handler.GetType(), new AggregateException(msg, ex));
                                     return context;
                                 }
@@ -173,7 +174,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
                                 {
                                     var msg = string.Format(
                                         "Sync handler \"Handle\" exception caught. Handler:{0}. UseCase:{1}. Message:{2}", handlerType, context.UseCase.Id, context.Message);
-                                    _logger.Error(ex, msg);
+                                    _tracer.Error(ex, msg);
                                     context.PipelineUnhandledExceptions.Add(handler.GetType(), new AggregateException(msg, ex));
                                     return context;
                                 }
@@ -186,7 +187,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase
                                         handlerType,
                                         context.UseCase.Id,
                                         context.Message));
-                            _logger.Error(notSupportedException.Message);
+                            _tracer.Error(notSupportedException.Message);
                             context.PipelineUnhandledExceptions.Add(handler.GetType(), notSupportedException);
                             return context;
                         });

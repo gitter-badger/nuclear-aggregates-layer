@@ -1,21 +1,21 @@
 ﻿using System.ServiceModel.Dispatcher;
 
-using DoubleGis.Erm.Platform.Common.Logging;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Logging
 {
     public class ErrorHandlerFactory : IErrorHandlerFactory
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public ErrorHandlerFactory(ICommonLog logger)
+        public ErrorHandlerFactory(ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IErrorHandler Create()
         {
-            return new Log4NetErrorHandler(_logger);
+            return new Log4NetErrorHandler(_tracer);
         }
     }
 }

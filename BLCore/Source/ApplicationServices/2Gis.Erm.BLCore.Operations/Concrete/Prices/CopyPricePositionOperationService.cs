@@ -8,15 +8,16 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 {
     public class CopyPricePositionOperationService : ICopyPricePositionOperationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IPriceReadModel _priceReadModel;
         private readonly ICreatePricePositionAggregateService _createPricePositionAggregateService;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private readonly IBulkCreateAssociatedPositionsGroupsAggregateService _bulkCreateAssociatedPositionsGroupsAggregateService;
         private readonly IBulkCreateAssociatedPositionsAggregateService _bulkCreateAssociatedPositionsAggregateService;
 
-        public CopyPricePositionOperationService(ICommonLog logger,
+        public CopyPricePositionOperationService(ITracer tracer,
                                                  IOperationScopeFactory operationScopeFactory,
                                                  IPriceReadModel priceReadModel,
                                                  ICreatePricePositionAggregateService createPricePositionAggregateService,
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                                                  IBulkCreateAssociatedPositionsGroupsAggregateService bulkCreateAssociatedPositionsGroupsAggregateService,
                                                  IBulkCreateAssociatedPositionsAggregateService bulkCreateAssociatedPositionsAggregateService)
         {
-            _logger = logger;
+            _tracer = tracer;
             _operationScopeFactory = operationScopeFactory;
             _priceReadModel = priceReadModel;
             _createPricePositionAggregateService = createPricePositionAggregateService;
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                 var pricePosition = _priceReadModel.GetPricePosition(sourcePricePositionId);
                 if (pricePosition == null)
                 {
-                    _logger.Fatal(BLResources.UnableToGetExisitingPricePosition);
+                    _tracer.Fatal(BLResources.UnableToGetExisitingPricePosition);
                     throw new NotificationException(BLResources.UnableToGetExisitingPricePosition);
                 }
 
@@ -79,21 +80,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             var isPriceExist = _priceReadModel.IsPriceExist(priceId);
             if (!isPriceExist)
             {
-                _logger.Fatal(BLResources.UnableToGetExisitingPrice);
+                _tracer.Fatal(BLResources.UnableToGetExisitingPrice);
                 throw new NotificationException(BLResources.UnableToGetExisitingPrice);
             }
 
             var isPriceContainsPosition = _priceReadModel.IsPriceContainsPosition(priceId, positionId);
             if (isPriceContainsPosition)
             {
-                _logger.Fatal(BLResources.PricePositionForPositionAlreadyCreated);
+                _tracer.Fatal(BLResources.PricePositionForPositionAlreadyCreated);
                 throw new NotificationException(BLResources.PricePositionForPositionAlreadyCreated);
             }
 
             var isPriceContainsPositionWithinNonDeleted = _priceReadModel.IsPriceContainsPositionWithinNonDeleted(priceId, positionId);
             if (isPriceContainsPositionWithinNonDeleted)
             {
-                _logger.Fatal(BLResources.HiddenPricePositionForPositionAlreadyCreated);
+                _tracer.Fatal(BLResources.HiddenPricePositionForPositionAlreadyCreated);
                 throw new NotificationException(BLResources.HiddenPricePositionForPositionAlreadyCreated);
             }
         }

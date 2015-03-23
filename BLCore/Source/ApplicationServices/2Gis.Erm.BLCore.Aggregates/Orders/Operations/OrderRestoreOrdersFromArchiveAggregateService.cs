@@ -3,11 +3,12 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
 {
@@ -15,23 +16,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public OrderRestoreOrdersFromArchiveAggregateService(
             IRepository<Order> orderRepository, 
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IEnumerable<ChangesDescriptor> Restore(IEnumerable<Order> orders)
         {
             var changes = new List<ChangesDescriptor>();
 
-            _logger.Info("Starting restoring orders from Archive");
+            _tracer.Info("Starting restoring orders from Archive");
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Order>())
             {
                 foreach (var order in orders)
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormat("Finished restoring orders from Archive. Processed order: {0}", changes.Count);
+            _tracer.InfoFormat("Finished restoring orders from Archive. Processed order: {0}", changes.Count);
             return changes;
         }
     }

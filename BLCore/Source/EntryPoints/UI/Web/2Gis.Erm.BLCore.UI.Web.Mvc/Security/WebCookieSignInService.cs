@@ -7,9 +7,10 @@ using System.Web.Security;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
 
 using Newtonsoft.Json;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
 {
@@ -17,19 +18,19 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
     {
         private readonly ISecurityServiceAuthentication _securityServiceAuthentication;
         private readonly IUserIdentityLogonService _userIdentityLogonService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         
         private readonly int _expirationInMinutes;
         private const string CookieName = "ErmTmp";
 
         public WebCookieSignInService(  ISecurityServiceAuthentication securityServiceAuthentication,
                                         IUserIdentityLogonService userIdentityLogonService,
-                                        ICommonLog logger, 
+                                        ITracer tracer, 
                                         int expirationInMinutes)    
         {
             _securityServiceAuthentication = securityServiceAuthentication;
             _userIdentityLogonService = userIdentityLogonService;
-            _logger = logger;
+            _tracer = tracer;
 
             _expirationInMinutes = expirationInMinutes;
         }
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
             var context = HttpContext.Current;
             if (context.User == null || !(context.User.Identity is WindowsIdentity))
             {
-                _logger.Warn(BLResources.WindowsIdentityNotFoundInContext);
+                _tracer.Warn(BLResources.WindowsIdentityNotFoundInContext);
                 throw new UnauthorizedAccessException(BLResources.WindowsIdentityNotFoundInContext);
             }
 
@@ -78,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
             }
             catch (Exception ex)
             {
-                _logger.FatalFormat(ex, BLResources.ErorrWhileUserAuthentication, currentIdentity.Name);
+                _tracer.FatalFormat(ex, BLResources.ErorrWhileUserAuthentication, currentIdentity.Name);
                 throw new UnauthorizedAccessException(string.Format(BLResources.ErorrWhileUserAuthentication, currentIdentity.Name), ex);
             }
         }

@@ -2,19 +2,20 @@
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 {
     public sealed class ReprocessLocalMessagesHandler : RequestHandler<ReprocessLocalMessagesRequest, EmptyResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ILocalMessageRepository _localMessageRepository;
 
-        public ReprocessLocalMessagesHandler(ICommonLog logger, ILocalMessageRepository localMessageRepository)
+        public ReprocessLocalMessagesHandler(ITracer tracer, ILocalMessageRepository localMessageRepository)
         {
-            _logger = logger;
+            _tracer = tracer;
             _localMessageRepository = localMessageRepository;
         }
 
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 var reprocessResult = string.Format("Сообщение [{0}] было отправлено на повторную обработку", localMessage.Id);
                 _localMessageRepository.SetResult(localMessage, LocalMessageStatus.WaitForProcess, new[] { reprocessResult }, 0);
 
-                _logger.Info(reprocessResult);
+                _tracer.Info(reprocessResult);
             }
 
             return Response.Empty;
