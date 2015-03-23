@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private void Attach<TEntity>(TEntity entity, EntityState entityState)
             where TEntity : class
         {
-            if (_attachedEntitiesRegistrar.Contains(entity))
+            if (!_attachedEntitiesRegistrar.Add(entity))
             {
                 var entityKey = entity as IEntityKey;
 
@@ -138,8 +138,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                                                                     typeof(TEntity).Name,
                                                                     entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
             }
-
-            _attachedEntitiesRegistrar.Add(entity);
 
             var entry = _dbContext.Entry(entity);
             _dbContext.Set<TEntity>().Attach(entity);
