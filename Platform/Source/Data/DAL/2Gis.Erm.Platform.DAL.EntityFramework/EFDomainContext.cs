@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-
-using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -18,6 +15,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly IProcessingContext _processingContext;
         private readonly DbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
+
+        private readonly ISet<object> _attachedEntitiesRegistrar = new HashSet<object>();
 
         public EFDomainContext(IProcessingContext processingContext,
                                DbContext dbContext,
@@ -48,41 +47,49 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public void Add<TEntity>(TEntity entity) where TEntity : class
         {
-            _dbContext.Set<TEntity>().Add(entity);
-                }
+            Attach(entity, EntityState.Added);
+        }
 
         public void AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
-                {
-            _dbContext.Set<TEntity>().AddRange(entities);
-                    }
+        {
+            foreach (var entity in entities)
+            {
+                Attach(entity, EntityState.Added);
+            }
+        }
 
         public void Update<TEntity>(TEntity entity) where TEntity : class
         {
-            DbEntityEntry<TEntity> entry;
-            if (!AttachEntity(entity, out entry))
-            {
-                entry.CurrentValues.SetValues(entity);
-            }
-
-            entry.State = EntityState.Modified;
+            Attach(entity, EntityState.Modified);
         }
 
         public void Remove<TEntity>(TEntity entity) where TEntity : class
         {
-            // physically delete from database
-            _dbContext.Set<TEntity>().Remove(GetAttachedEntity(entity));
+            Attach(entity, EntityState.Deleted);
         }
 
-        public void RemoveRange<TEntity>(IEnumerable<TEntity> entitiesToDeletePhysically) where TEntity : class
+        public void RemoveRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
-            _dbContext.Set<TEntity>().RemoveRange(entitiesToDeletePhysically.Select(GetAttachedEntity).ToArray());
+            foreach (var entity in entities)
+            {
+                Attach(entity, EntityState.Deleted);
+            }
         }
 
         public int SaveChanges()
         {
             EnsureUseCaseDuration();
 
-            return _dbContext.SaveChanges();
+            var rez = _dbContext.SaveChanges();
+
+            foreach (var entry in _dbContext.ChangeTracker.Entries())
+            {
+                entry.State = EntityState.Detached;
+            }
+
+            _attachedEntitiesRegistrar.Clear();
+
+            return rez;
         }
 
         public IQueryable GetQueryableSource(Type entityType)
@@ -116,43 +123,27 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _dbContext.Database.CommandTimeout = Math.Max(timeout, currentValue);
         }
 
-        private TEntity GetAttachedEntity<TEntity>(TEntity entity) where TEntity : class
-            {
-            DbEntityEntry<TEntity> entry;
-            AttachEntity(entity, out entry);
-            return entry.Entity;
-        }
-
-        private bool AttachEntity<TEntity>(TEntity entity, out DbEntityEntry<TEntity> dbEntityEntry) where TEntity : class
+        private void Attach<TEntity>(TEntity entity, EntityState entityState)
+            where TEntity : class
         {
-            var existingEntry = _dbContext.ChangeTracker.Entries<TEntity>().SingleOrDefault(x => x.Entity.Equals(entity));
-            if (existingEntry != null)
-        {
-                if (existingEntry.State != EntityState.Unchanged)
+            if (_attachedEntitiesRegistrar.Contains(entity))
             {
-                    var entityKey = entity as IEntityKey;
+                var entityKey = entity as IEntityKey;
 
-                    // используется НЕотложенное сохранение - т.е. объект изменили, не сохранили изменения и опять пытаемся менять экземпляр сущности с тем же identity
-                    throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
-                                                                      "with unsaved changes => trying to update not saved entity. " +
-                                                                      "Possible entity repository save method not called before next update. " +
-                                                                      "Save mode is immediately, not deferred",
-                                                                      typeof(TEntity).Name,
-                                                                      entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
+                // т.е. для экземпяра выполнили CUD, не сохранили и опять пытаемся менять экземпляр с тем же identity
+                throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
+                                                                    "with unsaved changes => trying to update not saved entity. " +
+                                                                    "Possible entity repository save method not called before next update. " +
+                                                                    "Save mode is immediately, not deferred",
+                                                                    typeof(TEntity).Name,
+                                                                    entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
             }
 
-                dbEntityEntry = existingEntry;
-                return false;
-                }
+            _attachedEntitiesRegistrar.Add(entity);
 
             var entry = _dbContext.Entry(entity);
-            if (entry.State == EntityState.Detached)
-                    {
-                _dbContext.Set<TEntity>().Attach(entity);
-                    }
-
-            dbEntityEntry = entry;
-            return true;
+            _dbContext.Set<TEntity>().Attach(entity);
+            entry.State = entityState;
         }
     }
 }
