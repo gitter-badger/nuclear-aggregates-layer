@@ -426,6 +426,7 @@ var extendExt = function () {
             cacheBuster: function () {
                 return (new Date().getTime());
             },
+            dateTimePattern: 'd.m.Y g:i:s',
             dateWOffset: function (v, formatInfo) {
                 formatInfo = formatInfo || Ext.CultureInfo.DateTimeFormatInfo;
                 if (!v) {
