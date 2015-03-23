@@ -30,9 +30,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.List
         public int Limit { get; set; }
 
         [DataMember]
-        public string Dir { get; set; }
-
-        [DataMember]
         public string Sort { get; set; }
     }
 }

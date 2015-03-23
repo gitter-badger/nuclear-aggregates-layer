@@ -1,25 +1,25 @@
 ﻿using System.Diagnostics;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Logging
 {
     public sealed class ServiceBusLoggingTest : IIntegrationTest
     {
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ServiceBusLoggingTest(
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public ITestResult Execute()
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
             {
                 profiler.Stop();
                 decimal elapsedSeconds = profiler.ElapsedMilliseconds / 1000M;
-                _logger.InfoFormat("Execution count: {0}, it takes {1} sec, result processing rate exec/sec: {2}", 
+                _tracer.InfoFormat("Execution count: {0}, it takes {1} sec, result processing rate exec/sec: {2}", 
                     TargetExecutionCount,
                     elapsedSeconds,
                     TargetExecutionCount / elapsedSeconds);

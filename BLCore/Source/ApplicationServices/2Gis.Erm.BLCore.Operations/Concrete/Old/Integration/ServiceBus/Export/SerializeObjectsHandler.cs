@@ -6,11 +6,12 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Xml;
 using DoubleGis.Erm.Platform.DAL;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
+
+using NuClear.Tracing.API;
 
 using SaveOptions = System.Xml.Linq.SaveOptions;
 
@@ -22,11 +23,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
         private readonly IExportRepository<TEntity> _exportRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        protected SerializeObjectsHandler(IExportRepository<TEntity> exportRepository, ICommonLog logger)
+        protected SerializeObjectsHandler(IExportRepository<TEntity> exportRepository, ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
             _exportRepository = exportRepository;
         }
 
@@ -62,10 +63,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             {
                 const string Message = "При подготовке к выгрузке записи типа {0} с идентификаторами {1} не прошли проверку";
                 var invalidIds = string.Join(", ", unsuccessfulExportObjects.Select(dto => dto.Id));
-                _logger.WarnFormat(Message, typeof(TEntity).Name, invalidIds);
+                _tracer.WarnFormat(Message, typeof(TEntity).Name, invalidIds);
             }
 
-            _logger.InfoFormat("Подготовлено к экспорту {0} из {1} найденных записей.", serializedObjects.Length, processedObjectsDtos.Length);
+            _tracer.InfoFormat("Подготовлено к экспорту {0} из {1} найденных записей.", serializedObjects.Length, processedObjectsDtos.Length);
 
             return new SerializeObjectsResponse
                 {
@@ -100,7 +101,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             if (!string.IsNullOrEmpty(error))
             {
                 unsuccessfulExportObjects.Add(exportableEntityDto);
-                _logger.ErrorFormat("Ошибка при экспорте в шину интеграции экземпляра сущности {0} [Id={1}]: {2}", typeof(TEntity).Name, exportableEntityDto.Id, error);
+                _tracer.ErrorFormat("Ошибка при экспорте в шину интеграции экземпляра сущности {0} [Id={1}]: {2}", typeof(TEntity).Name, exportableEntityDto.Id, error);
                 return false;
             }
 
@@ -115,7 +116,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             if (!isValidXml)
             {
                 unsuccessfulExportObjects.Add(exportableEntityDto);
-                _logger.ErrorFormat("Ошибка при экспорте в шину интеграции экземпляра сущности {0} [Id={1}]: {2}", typeof(TEntity).Name, exportableEntityDto.Id, error);
+                _tracer.ErrorFormat("Ошибка при экспорте в шину интеграции экземпляра сущности {0} [Id={1}]: {2}", typeof(TEntity).Name, exportableEntityDto.Id, error);
             }
 
             return isValidXml;

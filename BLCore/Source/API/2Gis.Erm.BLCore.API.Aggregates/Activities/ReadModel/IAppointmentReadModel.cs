@@ -12,6 +12,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
         Appointment GetAppointment(long appointmentId);
         IEnumerable<AppointmentRegardingObject> GetRegardingObjects(long appointmentId);
         IEnumerable<AppointmentAttendee> GetAttendees(long appointmentId);
+        AppointmentOrganizer GetOrganizer(long appointmentId);
 
         bool CheckIfAppointmentExistsRegarding(IEntityType entityName, long entityId);
         bool CheckIfOpenAppointmentExistsRegarding(IEntityType entityName, long entityId);

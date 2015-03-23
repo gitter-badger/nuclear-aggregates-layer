@@ -26,7 +26,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                                                               searchListModel.ExtendedInfo,
                                                               searchListModel.NameLocaleResourceId,
                                                               searchListModel.Limit,
-                                                              searchListModel.Dir,
                                                               searchListModel.Sort,
                                                               searchListModel.ParentEntityId,
                                                               searchListModel.ParentEntityName));

@@ -11,20 +11,20 @@ using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
-    public class CompositeEntityDecorator : ICompositeEntityDecorator
-    {
+	public class CompositeEntityDecorator : ICompositeEntityDecorator
+	{
         private readonly IFinder _finder;
 
-        public CompositeEntityDecorator(IFinder finder)
-        {
-            _finder = finder;
-        }
+		public CompositeEntityDecorator(IFinder finder)
+		{
+			_finder = finder;
+		}
 
         public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression)
-        {
-            // TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
+		{
+			// TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
 
-            if (typeof(TEntity) == typeof(Appointment))
+			if (typeof(TEntity) == typeof(Appointment))
             {
                 return Find<AppointmentBase, TEntity>(expression, null);
             }
@@ -36,8 +36,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             {
                 return Find<AppointmentReference, TEntity>(expression, x => x.Reference == (int)AppointmentReferenceType.RequiredAttendees);
             }
-
-
+            if (typeof(TEntity) == typeof(AppointmentOrganizer))
+            {
+                return Find<AppointmentReference, TEntity>(expression, x => x.Reference == (int)AppointmentReferenceType.Organizer);
+            }
+			
             if (typeof(TEntity) == typeof(Phonecall))
             {
                 return Find<PhonecallBase, TEntity>(expression, null);
@@ -50,8 +53,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             {
                 return Find<PhonecallReference, TEntity>(expression, x => x.Reference == (int)PhonecallReferenceType.Recipient);
             }
-
-
+			
+            
             if (typeof(TEntity) == typeof(Task))
             {
                 return Find<TaskBase, TEntity>(expression, null);
@@ -61,7 +64,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 return Find<TaskReference, TEntity>(expression, x => x.Reference == (int)TaskReferenceType.RegardingObject);
             }
 
-
+            
             if (typeof(TEntity) == typeof(Letter))
             {
                 return Find<LetterBase, TEntity>(expression, null);
@@ -80,8 +83,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
 
 
-            throw new NotSupportedException("The requested mapping is not supported");
-        }
+			throw new NotSupportedException("The requested mapping is not supported");
+		}
 
         public IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification)
         {
@@ -100,24 +103,24 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private IQueryable<TEntity> Find<TPersistentEntity, TEntity>(
             Expression<Func<TEntity, bool>> postPredicate,
             Expression<Func<TPersistentEntity, bool>> prePredicate)
-            where TPersistentEntity : class, IEntity
-        {
-            CheckRegistration<TPersistentEntity, TEntity>();
+			where TPersistentEntity : class, IEntity
+		{
+			CheckRegistration<TPersistentEntity, TEntity>();
+			
+			var persistentEntities = _finder.FindAll<TPersistentEntity>();
+			if (prePredicate != null)
+			{
+				persistentEntities = persistentEntities.Where(prePredicate);
+			}
 
-            var persistentEntities = _finder.FindAll<TPersistentEntity>();
-            if (prePredicate != null)
-            {
-                persistentEntities = persistentEntities.Where(prePredicate);
-            }
+			var entities = persistentEntities.Project().To<TEntity>();
 
-            var entities = persistentEntities.Project().To<TEntity>();
-
-            if (postPredicate != null)
-            {
-                entities = entities.Where(postPredicate);
-            }
-
-            return entities;
-        }
-    }
+			if (postPredicate != null)
+			{
+				entities = entities.Where(postPredicate);
+			}
+			
+			return entities;
+		}
+	}
 }

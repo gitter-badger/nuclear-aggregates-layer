@@ -11,10 +11,11 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
 {
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public UploadAdvertisementElementFileOperationService(
             IAdvertisementReadModel advertisementReadModel,
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _advertisementReadModel = advertisementReadModel;
             _notifyAboutAdvertisementElementFileChangedOperationService = notifyAboutAdvertisementElementFileChangedOperationService;
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public UploadFileResult UploadFile(UploadFileParams uploadFileParams)
@@ -96,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
                 else
                 {
                     // Отредактирована заглушка РМ. Уведомление не отправляем
-                    _logger.Info("Отредактирована заглушка РМ. Уведомление не отправляем");
+                    _tracer.Info("Отредактирована заглушка РМ. Уведомление не отправляем");
                 }
 
                 scope.Updated<AdvertisementElement>(uploadFileParams.EntityId)

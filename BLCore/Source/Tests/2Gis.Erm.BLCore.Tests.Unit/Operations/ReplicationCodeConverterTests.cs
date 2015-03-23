@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Operations
         [Test]
         public void ShouldThrowExceptionIfNoEntities()
         {
-            var exception = Assert.Throws<ArgumentException>(() => _conveter.ConvertToEntityIds(EntityType.Instance.Task(), new[] { CrmId }));
+            var exception = Assert.Throws<ArgumentException>(() => _conveter.ConvertToEntityIds(new[] { new CrmEntityInfo { EntityName = EntityName.Task, Id = CrmId } }));
             Assert.That(exception.Message, Is.StringContaining("cannot be converted").IgnoreCase);
         }
 
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Operations
             var task = new Task { Id = ErmId };
             SetupMany(_unsecureFinder, task);
 
-            Assert.That(_conveter.ConvertToEntityIds(EntityType.Instance.Task(), new[] { CrmId }), Is.EquivalentTo(new[] { ErmId }));
+            Assert.That(_conveter.ConvertToEntityIds(new[] { new CrmEntityInfo { EntityName = EntityName.Task, Id = CrmId } }), Is.EquivalentTo(new[] { ErmId }));
         }
 
         private static void SetupOne<TEntity>(Mock<IFinder> finder, TEntity entity)

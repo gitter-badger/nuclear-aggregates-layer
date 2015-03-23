@@ -2863,6 +2863,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CannotSaveActivityForClientInReserve {
+            get {
+                return ResourceManager.GetString("CannotSaveActivityForClientInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotSaveActivityForFirmInReserve {
+            get {
+                return ResourceManager.GetString("CannotSaveActivityForFirmInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotSaveBranchOfficeInnExists {
             get {
                 return ResourceManager.GetString("CannotSaveBranchOfficeInnExists", resourceCulture);
@@ -9311,6 +9329,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string NonDraftAdvertisementElementEditing {
             get {
                 return ResourceManager.GetString("NonDraftAdvertisementElementEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NoRegardingObjectValidationError {
+            get {
+                return ResourceManager.GetString("NoRegardingObjectValidationError", resourceCulture);
             }
         }
         

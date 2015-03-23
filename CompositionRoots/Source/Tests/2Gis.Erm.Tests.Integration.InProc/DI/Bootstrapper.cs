@@ -48,9 +48,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -81,12 +79,14 @@ using Microsoft.Practices.Unity;
 using NuClear.Metamodeling.Processors;
 using NuClear.Metamodeling.Validators;
 using NuClear.Model.Common.Entities;
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
     internal static partial class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ICommonLog logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer tracer, ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -142,8 +142,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                                                    settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                   logger,
-                                                                   loggerContextManager))
+                                                                   tracer,
+                                                                   tracerContextManager))
                      .ConfigureServiceClient()
                      .OverrideDependencies();
 
@@ -163,11 +163,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            ICommonLog logger,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             return container
-                    .ConfigureLogging(logger, loggerContextManager)
+                    .ConfigureTracing(tracer, tracerContextManager)
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
                     .CreateSecuritySpecific()

@@ -41,6 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             position.BindingObjectTypeEnum = dto.BindingObjectTypeEnum;
             position.CalculationMethodEnum = dto.CalculationMethodEnum;
             position.SalesModel = dto.SalesModel;
+            position.PositionsGroup = dto.PositionsGroup;
             position.AdvertisementTemplateId = dto.AdvertisementTemplateRef != null ? dto.AdvertisementTemplateRef.Id : null;
             position.ExportCode = dto.ExportCode;
             position.DgppId = dto.DgppId;

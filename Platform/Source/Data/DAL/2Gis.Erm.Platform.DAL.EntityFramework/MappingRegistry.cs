@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             Mapper.CreateMap<AppointmentBase, Appointment>()
                   .ForMember(dto => dto.Header, x => x.MapFrom(t => t.Subject))
                   .ForMember(dto => dto.Status, x => x.MapFrom(t => (ActivityStatus)t.Status))
-                  .ForMember(dto => dto.Purpose, x => x.MapFrom(t => (ActivityPurpose)t.Purpose))
+                  .ForMember(dto => dto.Purpose, x => x.MapFrom(t => (AppointmentPurpose)t.Purpose))
                   .ForMember(dto => dto.Priority, x => x.MapFrom(t => (ActivityPriority)t.Priority));
 
             Mapper.CreateMap<AppointmentReference, AppointmentRegardingObject>()
@@ -28,13 +28,18 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                   .ForMember(dto => dto.SourceEntityId, x => x.MapFrom(t => t.AppointmentId))
                   .ForMember(dto => dto.TargetEntityTypeId, x => x.MapFrom(t => t.ReferencedType))
                   .ForMember(dto => dto.TargetEntityId, x => x.MapFrom(t => t.ReferencedObjectId));
+            Mapper.CreateMap<AppointmentReference, AppointmentOrganizer>()
+                  .ForMember(dto => dto.SourceEntityId, x => x.MapFrom(t => t.AppointmentId))
+                  .ForMember(dto => dto.TargetEntityName, x => x.MapFrom(t => (EntityName)t.ReferencedType))
+                  .ForMember(dto => dto.TargetEntityId, x => x.MapFrom(t => t.ReferencedObjectId))
+                ;
 
             Mapper.CreateMap<PhonecallBase, Phonecall>()
                   .ForMember(dto => dto.Header, x => x.MapFrom(t => t.Subject))
                   .ForMember(dto => dto.Status, x => x.MapFrom(t => (ActivityStatus)t.Status))
                   .ForMember(dto => dto.Priority, x => x.MapFrom(t => (ActivityPriority)t.Priority))
-                  .ForMember(dto => dto.Purpose, x => x.MapFrom(t => (ActivityPurpose)t.Purpose));
-
+                  .ForMember(dto => dto.Purpose, x => x.MapFrom(t => (PhonecallPurpose)t.Purpose));
+            
             Mapper.CreateMap<PhonecallReference, PhonecallRegardingObject>()
                   .ForMember(dto => dto.SourceEntityId, x => x.MapFrom(t => t.PhonecallId))
                   .ForMember(dto => dto.TargetEntityTypeId, x => x.MapFrom(t => t.ReferencedType))
@@ -49,17 +54,17 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                   .ForMember(dto => dto.Status, x => x.MapFrom(t => (ActivityStatus)t.Status))
                   .ForMember(dto => dto.Priority, x => x.MapFrom(t => (ActivityPriority)t.Priority))
                   .ForMember(dto => dto.TaskType, x => x.MapFrom(t => (TaskType)t.TaskType));
-
+            
             Mapper.CreateMap<TaskReference, TaskRegardingObject>()
                   .ForMember(dto => dto.SourceEntityId, x => x.MapFrom(t => t.TaskId))
                   .ForMember(dto => dto.TargetEntityTypeId, x => x.MapFrom(t => t.ReferencedType))
                   .ForMember(dto => dto.TargetEntityId, x => x.MapFrom(t => t.ReferencedObjectId));
-
+            
             Mapper.CreateMap<LetterBase, Letter>()
                   .ForMember(dto => dto.Header, x => x.MapFrom(t => t.Subject))
                   .ForMember(dto => dto.Status, x => x.MapFrom(t => (ActivityStatus)t.Status))
                   .ForMember(dto => dto.Priority, x => x.MapFrom(t => (ActivityPriority)t.Priority));
-
+            
             Mapper.CreateMap<LetterReference, LetterRegardingObject>()
                   .ForMember(dto => dto.SourceEntityId, x => x.MapFrom(t => t.LetterId))
                   .ForMember(dto => dto.TargetEntityTypeId, x => x.MapFrom(t => t.ReferencedType))
@@ -92,6 +97,14 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                   .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => AppointmentReferenceType.RequiredAttendees))
                   .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityTypeId))
                   .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId));
+            
+            Mapper.CreateMap<AppointmentOrganizer, AppointmentReference>()
+                  .ForMember(dest => dest.AppointmentId, cfg => cfg.MapFrom(src => src.SourceEntityId))
+                  .ForMember(dest => dest.Reference, cfg => cfg.MapFrom(src => AppointmentReferenceType.Organizer))
+                  .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityTypeId))
+                  .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId));
+            
+            #region Phonecall
 
             Mapper.CreateMap<Phonecall, PhonecallBase>()
                   .ForMember(dto => dto.Subject, x => x.MapFrom(t => t.Header))

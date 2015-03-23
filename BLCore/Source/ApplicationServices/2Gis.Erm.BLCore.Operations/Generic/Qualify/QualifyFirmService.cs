@@ -8,9 +8,10 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 {
@@ -19,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
         private readonly IUserContext _userContext;
         private readonly IFirmRepository _firmRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ICreateClientByFirmOperationService _createClientByFirmAggregateService;
         private readonly IClientReadModel _clientReadModel;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             IUserContext userContext,
             IFirmRepository firmRepository,
             ISecurityServiceUserIdentifier userIdentifierService,
-            ICommonLog logger,
+            ITracer tracer,
             IOperationScopeFactory operationScopeFactory,
             ICreateClientByFirmOperationService createClientByFirmAggregateService,
             IClientReadModel clientReadModel)
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             _userContext = userContext;
             _firmRepository = firmRepository;
             _userIdentifierService = userIdentifierService;
-            _logger = logger;
+            _tracer = tracer;
             _operationScopeFactory = operationScopeFactory;
             _createClientByFirmAggregateService = createClientByFirmAggregateService;
             _clientReadModel = clientReadModel;
@@ -91,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
                 operationScope.Complete();
             }
 
-            _logger.InfoFormat("Фирма с id={0} взята из резерва, с назначением пользователю {1}", entityId, ownerCode);
+            _tracer.InfoFormat("Фирма с id={0} взята из резерва, с назначением пользователю {1}", entityId, ownerCode);
 
             return new QualifyResult
                        {

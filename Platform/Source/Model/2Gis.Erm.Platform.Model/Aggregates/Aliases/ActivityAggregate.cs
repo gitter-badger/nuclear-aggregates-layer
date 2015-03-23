@@ -48,7 +48,8 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
                     .Concat(new IEntityType[]
                                 {
                                     EntityType.Instance.AppointmentRegardingObject(),
-                                    EntityType.Instance.AppointmentAttendee()
+                                    EntityType.Instance.AppointmentAttendee(),
+                                    EntityType.Instance.AppointmentOrganizer()
                                 })
                     .ToArray();
             }
@@ -68,24 +69,24 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
             {
                 return new[] { Root }
                     .Concat(new IEntityType[]
-                                {
+    {
                                     EntityType.Instance.PhonecallRegardingObject(),
                                     EntityType.Instance.PhonecallRecipient()
                                 })
                     .ToArray();
-            }
+    }
         }
     }
 
     public static class TaskAggregate
-    {
+	{
         public static IEntityType Root
         {
             get { return EntityType.Instance.Task(); }
-        }
-
+	}
+	
         public static IEntityType[] Entities
-        {
+	{
             get
             {
                 return new[] { Root }
@@ -96,14 +97,14 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
                     .ToArray();
             }
         }
-    }
-
+	}
+	
     public static class LetterAggregate
     {
         public static IEntityType Root
-        {
+	{
             get { return EntityType.Instance.Letter(); }
-        }
+	}
 
         public static IEntityType[] Entities
         {
@@ -111,7 +112,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
             {
                 return new[] { Root }
                     .Concat(new IEntityType[]
-                        {
+	{
                             EntityType.Instance.LetterRegardingObject(),
                             EntityType.Instance.LetterSender(),
                             EntityType.Instance.LetterRecipient()

@@ -7,9 +7,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
@@ -20,16 +21,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
         private readonly IFirmPersistenceService _firmPersistenceService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ImportFirmAggregateService(
             IFirmPersistenceService firmPersistenceService, 
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _firmPersistenceService = firmPersistenceService;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public EntityChangesContext ImportFirms(IEnumerable<FirmServiceBusDto> dtos,
@@ -67,8 +68,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
                 if (diffParsedDtoAndAggregateService.Any())
                 {
                     importFirmChanges.Updated<Firm>(diffParsedDtoAndAggregateService);
-                    _logger.Warn("There are different firm changes detected from parsed dto and reported by aggregate service. Divergent firm ids count: " + diffParsedDtoAndAggregateService.Length);
-                    _logger.Debug("Divergent firm ids (DiffParsedDtoAndAggregateService): " + string.Join(",", diffParsedDtoAndAggregateService));
+                    _tracer.Warn("There are different firm changes detected from parsed dto and reported by aggregate service. Divergent firm ids count: " + diffParsedDtoAndAggregateService.Length);
+                    _tracer.Debug("Divergent firm ids (DiffParsedDtoAndAggregateService): " + string.Join(",", diffParsedDtoAndAggregateService));
                 }
 
                 return importFirmChanges;

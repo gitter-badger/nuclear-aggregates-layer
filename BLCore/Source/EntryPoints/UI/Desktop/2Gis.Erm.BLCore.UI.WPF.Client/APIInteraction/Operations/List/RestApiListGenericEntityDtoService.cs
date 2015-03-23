@@ -2,9 +2,10 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Common.Logging;
 using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
 {
@@ -12,8 +13,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
         where TEntity : class, IEntityKey 
         where TEntityDto : IOperationSpecificEntityDto
     {
-        public RestApiListGenericEntityDtoService(IApiClient apiClient, ICommonLog logger)
-            : base(apiClient, logger)
+        public RestApiListGenericEntityDtoService(IApiClient apiClient, ITracer tracer)
+            : base(apiClient, tracer)
         {
         }
 

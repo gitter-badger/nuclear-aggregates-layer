@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -48,12 +49,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public void Add<TEntity>(TEntity entity) where TEntity : class
         {
             _dbContext.Set<TEntity>().Add(entity);
-                }
+        }
 
         public void AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
-                {
+        {
             _dbContext.Set<TEntity>().AddRange(entities);
-                    }
+        }
 
         public void Update<TEntity>(TEntity entity) where TEntity : class
         {
@@ -116,7 +117,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         }
 
         private TEntity GetAttachedEntity<TEntity>(TEntity entity) where TEntity : class
-            {
+        {
             DbEntityEntry<TEntity> entry;
             AttachEntity(entity, out entry);
             return entry.Entity;
@@ -126,9 +127,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             var existingEntry = _dbContext.ChangeTracker.Entries<TEntity>().SingleOrDefault(x => x.Entity.Equals(entity));
             if (existingEntry != null)
-        {
-                if (existingEntry.State != EntityState.Unchanged)
             {
+                if (existingEntry.State != EntityState.Unchanged)
+                {
                     var entityKey = entity as IEntityKey;
 
                     // используется НЕотложенное сохранение - т.е. объект изменили, не сохранили изменения и опять пытаемся менять экземпляр сущности с тем же identity
@@ -138,17 +139,17 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                                                                       "Save mode is immediately, not deferred",
                                                                       typeof(TEntity).Name,
                                                                       entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
-            }
+                }
 
                 dbEntityEntry = existingEntry;
                 return false;
-                }
+            }
 
             var entry = _dbContext.Entry(entity);
             if (entry.State == EntityState.Detached)
-                    {
+            {
                 _dbContext.Set<TEntity>().Attach(entity);
-                    }
+            }
 
             dbEntityEntry = entry;
             return true;

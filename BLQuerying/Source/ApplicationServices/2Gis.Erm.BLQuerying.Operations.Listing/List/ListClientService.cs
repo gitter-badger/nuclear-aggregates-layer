@@ -63,6 +63,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Client>();
 
+            bool excludeReserve;
+            Expression<Func<Client, bool>> excludeReserveFilter = null;
+            if (querySettings.TryGetExtendedProperty("ExcludeReserve", out excludeReserve))
+            {
+                var reserveCode = _userIdentifierService.GetReserveUserIdentity().Code;
+                excludeReserveFilter = x => x.OwnerCode != reserveCode;
+            }
+
             bool availableForLinking;
             if (querySettings.TryGetExtendedProperty("AvailableForLinking", out availableForLinking))
             {
@@ -75,45 +83,59 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
-            var myTerritoryFilter = querySettings.CreateForExtendedProperty<Client, bool>("MyTerritory", info =>
+            var myTerritoryFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+                "MyTerritory",
+                info =>
             {
                 var userId = _userContext.Identity.Code;
                 return x => x.Territory.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
             });
 
-            var myBranchFilter = querySettings.CreateForExtendedProperty<Client, bool>("MyBranch", info =>
+            var myBranchFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+                "MyBranch",
+                info =>
             {
                 var userId = _userContext.Identity.Code;
                 return x => x.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
             });
 
-            var debtFilter = querySettings.CreateForExtendedProperty<Client, bool>("WithDebt", info =>
+            var debtFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+                "WithDebt",
+                info =>
             {
                 var minDebtAmount = _debtProcessingSettings.MinDebtAmount;
-                return x => x.LegalPersons.Where(y => y.IsActive && !y.IsDeleted)
-                          .SelectMany(y => y.Accounts).Where(y => y.IsActive && !y.IsDeleted)
+                        return
+                            x =>
+                            x.LegalPersons.Where(y => y.IsActive && !y.IsDeleted)
+                             .SelectMany(y => y.Accounts)
+                             .Where(y => y.IsActive && !y.IsDeleted)
                           .Any(y => y.Balance < minDebtAmount);
             });
 
-            var barterOrdersFilter = querySettings.CreateForExtendedProperty<Client, bool>("WithBarterOrders", info =>
-            {
-                return x => x.LegalPersons.Any(y => !y.IsDeleted && y.IsActive && y.Orders.Any(z => !z.IsDeleted && z.IsActive && (z.OrderType == OrderType.AdsBarter || z.OrderType == OrderType.ProductBarter || z.OrderType == OrderType.ServiceBarter)));
-            });
+            var barterOrdersFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+                "WithBarterOrders",
+                info => x =>
+                        x.LegalPersons.Any(
+                            y =>
+                            !y.IsDeleted && y.IsActive
+                            && y.Orders.Any(
+                                z =>
+                                !z.IsDeleted && z.IsActive
+                                && (z.OrderType == OrderType.AdsBarter || z.OrderType == OrderType.ProductBarter || z.OrderType == OrderType.ServiceBarter))));
 
-            var noMakingDecisionsFilter = querySettings.CreateForExtendedProperty<Client, bool>("NoMakingDecisions", info =>
-            {
-                return x => !x.Contacts.Any(y => !y.IsDeleted && y.IsActive && !y.IsFired && y.AccountRole == AccountRole.MakingDecisions);
-            });
+            var noMakingDecisionsFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+                "NoMakingDecisions",
+                info => x => !x.Contacts.Any(y => !y.IsDeleted && y.IsActive && !y.IsFired && y.AccountRole == AccountRole.MakingDecisions));
 
-            var regionalFilter = querySettings.CreateForExtendedProperty<Client, bool>("IsRegional", info =>
-            {
-                return x => x.LegalPersons.Any(y => !y.IsDeleted && y.IsActive && y.Orders.Any(z => !z.IsDeleted && z.IsActive && z.SourceOrganizationUnitId != z.DestOrganizationUnitId));
-            });
+            var regionalFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+                "IsRegional",
+                info => x =>
+                        x.LegalPersons.Any(
+                            y => !y.IsDeleted && y.IsActive && y.Orders.Any(z => !z.IsDeleted && z.IsActive && z.SourceOrganizationUnitId != z.DestOrganizationUnitId)));
 
-            var dealCountFilter = querySettings.CreateForExtendedProperty<Client, int>("MinDealCount", dealCount =>
-            {
-                return x => x.Deals.Count(y => !y.IsDeleted && y.IsActive) > dealCount;
-            });
+            var dealCountFilter = querySettings.CreateForExtendedProperty<Client, int>(
+                "MinDealCount",
+                dealCount => x => x.Deals.Count(y => !y.IsDeleted && y.IsActive) > dealCount);
 
             query = query.Filter(_filterHelper, myTerritoryFilter, myBranchFilter, debtFilter, barterOrdersFilter, noMakingDecisionsFilter, regionalFilter, dealCountFilter);
 
@@ -138,8 +160,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     select regardingObject;
 
                 query = from client in query
-                        where (
-                            from regardingObject in regardingObjects
+                        where (from regardingObject in regardingObjects
                             where regardingObject.TargetEntityId == client.Id
                             select regardingObject).Count() == 1
                         select client;
@@ -167,24 +188,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         select client;
             }
 
-            var contactFilter = querySettings.CreateForExtendedProperty<Client, long>(
-                "ContactId",
-                contactId => x => x.Contacts.Any(y => y.Id == contactId));
-            var dealFilter = querySettings.CreateForExtendedProperty<Client, long>(
-                "DealId",
-                dealId => x => x.Deals.Any(y => y.Id == dealId));
-            var firmFilter = querySettings.CreateForExtendedProperty<Client, long>(
-                "FirmId",
-                firmId => x => x.Firms.Any(y => y.Id == firmId));
+            var contactFilter = querySettings.CreateForExtendedProperty<Client, long>("ContactId", contactId => x => x.Contacts.Any(y => y.Id == contactId));
+            var dealFilter = querySettings.CreateForExtendedProperty<Client, long>("DealId", dealId => x => x.Deals.Any(y => y.Id == dealId));
+            var firmFilter = querySettings.CreateForExtendedProperty<Client, long>("FirmId", firmId => x => x.Firms.Any(y => y.Id == firmId));
 
-            return SelectClients(
-                query
-                    .Where(x => !x.IsDeleted)
-                    .Filter(_filterHelper
-                    , contactFilter
-                    , dealFilter
-                    , firmFilter)
-                    , querySettings);
+            return SelectClients(query.Where(x => !x.IsDeleted).Filter(_filterHelper, excludeReserveFilter, contactFilter, dealFilter, firmFilter), querySettings);
         }
 
         private IRemoteCollection GetClientsAvailableForLinking(QuerySettings querySettings)
@@ -389,6 +397,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 CreatedOn = x.CreatedOn,
                 IsAdvertisingAgency = x.IsAdvertisingAgency,
                 InformationSourceEnum = x.InformationSource,
+                IsOwner = _userContext.Identity.Code == x.OwnerCode,
                 OwnerName = null,
             })
             .QuerySettings(_filterHelper, querySettings);

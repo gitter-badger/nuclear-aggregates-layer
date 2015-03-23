@@ -16,12 +16,13 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IClientReadModel _clientReadModel;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger,
+            ITracer tracer,
             IClientReadModel clientReadModel,
             IAppointmentReadModel appointmentReadModel,
             ILetterReadModel letterReadModel,
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
             _clientReadModel = clientReadModel;
             _appointmentReadModel = appointmentReadModel;
             _letterReadModel = letterReadModel;
@@ -93,14 +94,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 
                     _clientRepository.AssignWithRelatedEntities(entityId, ownerCode, isPartialAssign);
 
-                    operationScope
-                        .Updated<Client>(entityId)
-                        .Complete();
+                    operationScope.Updated<Client>(entityId)
+                                  .Complete();
                 }
 
                 AssignRelatedActivities(entityId, prevOwnerCode, ownerCode, isPartialAssign);
 
-                _logger.InfoFormat("[ERM] Куратором клиента с id={0} назначен пользователь {1}, isPartialAssign = {2}", entityId, ownerCode, isPartialAssign);
+                _tracer.InfoFormat("[ERM] Куратором клиента с id={0} назначен пользователь {1}, isPartialAssign = {2}", entityId, ownerCode, isPartialAssign);
 
                 return null;
             }

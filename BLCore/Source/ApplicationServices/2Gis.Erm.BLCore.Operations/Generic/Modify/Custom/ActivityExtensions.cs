@@ -32,5 +32,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                    ? null
                    : new TEntityReference { SourceEntityId = entity.Id, TargetEntityTypeId = reference.EntityTypeId, TargetEntityId = reference.Id.Value };
         }
+
+        public static bool HasReferenceInReserve(this IEnumerable<EntityReference> references, EntityName entityName, Predicate<long> validator)
+        {
+            return references.Any(s => s.EntityName == entityName && s.Id.HasValue && validator(s.Id.Value));
+        }
     }
 }

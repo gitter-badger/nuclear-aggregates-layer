@@ -1,10 +1,10 @@
 using System;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
 {
@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
         private readonly Type _entityType;
         private readonly IEntityType _entityName;
 
-        protected RestApiOperationEntitySpecificServiceBase(IApiClient apiClient, ICommonLog logger, string operationApiTargetResource)
-            : base(apiClient, logger, operationApiTargetResource)
+        protected RestApiOperationEntitySpecificServiceBase(IApiClient apiClient, ITracer tracer, string operationApiTargetResource)
+            : base(apiClient, tracer, operationApiTargetResource)
         {
             _entityType = typeof(TEntity);
             _entityName = EntityType.AsEntityName();

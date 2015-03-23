@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -15,6 +14,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Tracing.API;
 
 using It = Machine.Specifications.It;
 
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                  new StubDomainContext(),
                                                  new StubDomainContextFactory(),
                                                  new NullPendingChangesHandlingStrategy(),
-                                                 new NullLogger());
+                                                 new NullTracer());
             };
         }
 
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                         Mock.Of<IReadDomainContext>(),
                         Mock.Of<IModifiableDomainContextFactory>(),
                         Mock.Of<IPendingChangesHandlingStrategy>(),
-                        Mock.Of<ICommonLog>());
+                        Mock.Of<ITracer>());
                 };
 
             protected static IReadDomainContextProvider ReadDomainContextProvider { get; private set; }
@@ -155,7 +156,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                         Mock.Of<IReadDomainContext>(),
                         Mock.Of<IModifiableDomainContextFactory>(),
                         Mock.Of<IPendingChangesHandlingStrategy>(),
-                        Mock.Of<ICommonLog>());
+                        Mock.Of<ITracer>());
                     _unitOfWork2 = new MockUnitOfWork(
                         (x, y) =>
                             {
@@ -163,7 +164,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                         Mock.Of<IReadDomainContext>(),
                         Mock.Of<IModifiableDomainContextFactory>(),
                         Mock.Of<IPendingChangesHandlingStrategy>(),
-                        Mock.Of<ICommonLog>());
+                        Mock.Of<ITracer>());
                 };
 
             Because of = () =>
@@ -185,7 +186,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      Mock.Of<IModifiableDomainContextFactory>(),
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>
@@ -213,7 +214,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () => ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<IEntity>(_unitOfWork);
@@ -236,7 +237,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>
@@ -263,7 +264,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>
@@ -293,7 +294,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                  ModifiableDomainContextFactoryMock.Object,
                                                  Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                 Mock.Of<ICommonLog>());
+                                                 Mock.Of<ITracer>());
             };
 
             Because of = () =>
@@ -322,7 +323,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>
@@ -357,7 +358,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>

@@ -1,13 +1,13 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
 using NuClear.Assembling.Zones;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {

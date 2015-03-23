@@ -53,6 +53,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityType.Instance.Appointment(),
                 EntityType.Instance.AppointmentRegardingObject(),
                 EntityType.Instance.AppointmentAttendee(),
+                EntityType.Instance.AppointmentOrganizer(),
                 EntityType.Instance.Phonecall(),
                 EntityType.Instance.PhonecallRegardingObject(),
                 EntityType.Instance.PhonecallRecipient(),

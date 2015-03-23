@@ -23,7 +23,6 @@ using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -33,6 +32,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
 {
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                      IAPIIdentityServiceSettings identityServiceSettings,
                                      IUserContext userContext,
-                                     ICommonLog logger,
+                                     ITracer tracer,
                                      IGetBaseCurrencyService getBaseCurrencyService,
                                      IOperationServicesManager operationServicesManager,
                                      ISecurityServiceUserIdentifier userIdentifierService,
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                                      IReplicationCodeConverter replicationCodeConverter,
                                      IPublicService publicService,
                                      IFinder finder)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _userIdentifierService = userIdentifierService;
@@ -257,7 +257,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
 
             return View(model);

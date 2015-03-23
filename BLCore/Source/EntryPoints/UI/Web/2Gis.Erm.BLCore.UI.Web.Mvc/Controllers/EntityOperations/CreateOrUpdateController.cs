@@ -21,7 +21,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -30,6 +29,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                         IAPIIdentityServiceSettings identityServiceSettings,
                                         IUserContext userContext,
-                                        ICommonLog logger,
+                                        ITracer tracer,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IUIConfigurationService uiConfigurationService,
                                         IUIServicesManager uiServicesManager,
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         ISecurityServiceUserIdentifier userIdentifierService,
                                         ISecurityServiceFunctionalAccess functionalAccessService,
                                         ISecurityServiceEntityAccess entityAccessService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _uiConfigurationService = uiConfigurationService;
             _uiServicesManager = uiServicesManager;
@@ -102,15 +102,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             }
             catch (ArgumentException ex)
             {
-                ModelUtils.OnException(this, Logger, model, new NotificationException(ex.Message));
+                ModelUtils.OnException(this, Tracer, model, new NotificationException(ex.Message));
             }
             catch (NotSupportedException ex)
             {
-                ModelUtils.OnException(this, Logger, model, new NotificationException(ex.Message));
+                ModelUtils.OnException(this, Tracer, model, new NotificationException(ex.Message));
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
             finally
             {

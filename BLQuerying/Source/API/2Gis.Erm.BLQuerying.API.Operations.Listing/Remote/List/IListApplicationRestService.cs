@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.Collections.Generic;
+using System.ServiceModel;
 using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
@@ -10,7 +11,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
     public interface IListApplicationRestService
     {
         [OperationContract(Name = "ExecuteRest")]
-        [WebInvoke(Method = "GET", UriTemplate = "/{entityName}?start={start}&filterInput={filterInput}&extendedInfo={extendedInfo}&nameLocaleResourceId={nameLocaleResourceId}&limit={limit}&dir={dir}&sort={sort}&pId={parentId}&pType={parentType}", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        [WebInvoke(Method = "GET", UriTemplate = "/{entityName}?start={start}&filterInput={filterInput}&extendedInfo={extendedInfo}&nameLocaleResourceId={nameLocaleResourceId}&limit={limit}&sort={sort}&pId={parentId}&pType={parentType}", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         [FaultContract(typeof(ListOperationErrorDescription))]
         ListResult Execute(string entityName,
                            int start,
@@ -18,7 +19,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
                            string extendedInfo,
                            string nameLocaleResourceId,
                            int limit,
-                           string dir,
                            string sort,
                            string parentId,
                            string parentType);

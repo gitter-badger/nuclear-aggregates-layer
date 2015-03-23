@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         [RequiredLocalized]
         [ExcludeZeroValue]
-        public ActivityPurpose Purpose { get; set; }
+        public PhonecallPurpose Purpose { get; set; }
 
         [RequiredLocalized]
         [ExcludeZeroValue]

@@ -20,7 +20,6 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 
@@ -29,6 +28,7 @@ using Newtonsoft.Json;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -48,14 +48,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                            IAPIIdentityServiceSettings identityServiceSettings,
                                            IUserContext userContext,
-                                           ICommonLog logger,
+                                           ITracer tracer,
                                            IGetBaseCurrencyService getBaseCurrencyService,
                                            IReplicationCodeConverter replicationCodeConverter,
                                            ISecurityServiceEntityAccess entityAccessService,
                                            IPublicService publicService,
                                            ISecureFinder secureFinder,
                                            ISecurityServiceSharings securityServiceSharings)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _replicationCodeConverter = replicationCodeConverter;
             _entityAccessService = entityAccessService;

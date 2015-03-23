@@ -18,5 +18,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
                                     IEnumerable<AppointmentRegardingObject> oldReferences,
                                     IEnumerable<AppointmentRegardingObject> newReferences);
 
+        void ChangeOrganizer(Appointment appointment,
+                                    AppointmentOrganizer oldReference,
+                                    AppointmentOrganizer newReference);
+
     }
 }

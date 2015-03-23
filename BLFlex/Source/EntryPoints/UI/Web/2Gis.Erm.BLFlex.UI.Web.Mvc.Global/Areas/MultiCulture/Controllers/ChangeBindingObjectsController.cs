@@ -9,11 +9,11 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -28,12 +28,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
                                               IAPIOperationsServiceSettings operationsServiceSettings,
                                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                               IAPIIdentityServiceSettings identityServiceSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IGetBaseCurrencyService getBaseCurrencyService,
-            IOperationServicesManager operationServicesManager,
-            IChangeOrderPositionBindingObjectsOperationService changeOrderPositionBindingObjectsOperationService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+                                              IUserContext userContext,
+                                              ITracer tracer,
+                                              IGetBaseCurrencyService getBaseCurrencyService,
+                                              IOperationServicesManager operationServicesManager,
+                                              IChangeOrderPositionBindingObjectsOperationService changeOrderPositionBindingObjectsOperationService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _changeOrderPositionBindingObjectsOperationService = changeOrderPositionBindingObjectsOperationService;

@@ -5,13 +5,13 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 
 using Microsoft.Practices.Unity.InterceptionExtension;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
 {
@@ -24,12 +24,12 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
         private readonly CompareObjectMode _compareObjectMode;
         private readonly IEnumerable<string> _elementsToIgnore;
 
-        public LogOperationServiceCallHandler(ICommonLog logger,
+        public LogOperationServiceCallHandler(ITracer tracer,
                                               IActionLogger actionLogger,
                                               IDependentEntityProvider entityProvider,
                                               CompareObjectMode compareObjectMode,
                                               IEnumerable<string> elementsToIgnore)
-            : base(logger)
+            : base(tracer)
         {
             _actionLogger = actionLogger;
             _entityProvider = entityProvider;
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
             }
             catch (Exception ex)
             {
-                Logger.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
+                Tracer.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
             }
 
             var result = getNext()(input, getNext);
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
                 }
                 catch (Exception ex)
                 {
-                    Logger.Fatal(ex, "Критичная ошибка журналирования операций");
+                    Tracer.Fatal(ex, "Критичная ошибка журналирования операций");
                 }
             }
 

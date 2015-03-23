@@ -4,11 +4,12 @@ using System.ServiceModel;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.CreateOrUpdate;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
@@ -16,12 +17,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
     public class CreateOrUpdateApplicationService : ICreateOrUpdateApplicationService
     {
         private readonly IOperationServicesManager _operationServicesManager;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public CreateOrUpdateApplicationService(IOperationServicesManager operationServicesManager, ICommonLog logger, IUserContext userContext, IResourceGroupManager resourceGroupManager)
+        public CreateOrUpdateApplicationService(IOperationServicesManager operationServicesManager, ITracer tracer, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _operationServicesManager = operationServicesManager;
-            _logger = logger;
+            _tracer = tracer;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}. Entity details: type [{1}], id [{2}]", GetType().Name, entityName, dto != null ? dto.Id.ToString() : "not defined");
+                _tracer.ErrorFormat(ex, "Error has occured in {0}. Entity details: type [{1}], id [{2}]", GetType().Name, entityName, dto != null ? dto.Id.ToString() : "not defined");
                 throw new FaultException<CreateOrUpdateOperationErrorDescription>(new CreateOrUpdateOperationErrorDescription(entityName, ex.Message),
                                                                                   ex.Message);
             }

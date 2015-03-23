@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     RegardingObjects = AdaptReferences(regardingObjects),
                     Attendees = AdaptReferences(attendees),
 
-                    OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
+                    OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name =null},
                     CreatedByRef = new EntityReference { Id = appointment.CreatedBy, Name = null },
                     CreatedOn = appointment.CreatedOn,
                     ModifiedByRef = new EntityReference { Id = appointment.ModifiedBy, Name = null },

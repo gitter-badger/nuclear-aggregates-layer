@@ -8,11 +8,11 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.AdsManagement;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
 {
@@ -21,13 +21,13 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
     {
         private static readonly IEntityType AdvertisementElement = EntityType.Instance.AdvertisementElement();
 
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IGetDomainEntityDtoService _getDomainEntityDtoService;
         private readonly IModifyDomainEntityService _modifyBusinessModelEntityService;
 
-        public ManageTextAdsApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager)
+        public ManageTextAdsApplicationService(ITracer tracer, IOperationServicesManager operationServicesManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _getDomainEntityDtoService = operationServicesManager.GetDomainEntityDtoService(AdvertisementElement);
             _modifyBusinessModelEntityService = operationServicesManager.GetModifyDomainEntityService(AdvertisementElement);
         }
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ManageTextAdsErrorDescription>(new ManageTextAdsErrorDescription(adsElementId, ex.Message),
                                                                            HttpStatusCode.BadRequest);
             }
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ManageTextAdsErrorDescription>(new ManageTextAdsErrorDescription(adsElementId, ex.Message),
                                                                            HttpStatusCode.BadRequest);
             }
@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ManageTextAdsErrorDescription>(new ManageTextAdsErrorDescription(adsElementId, ex.Message));
             }
         }
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ManageTextAdsErrorDescription>(new ManageTextAdsErrorDescription(adsElementId, ex.Message));
             }
         }

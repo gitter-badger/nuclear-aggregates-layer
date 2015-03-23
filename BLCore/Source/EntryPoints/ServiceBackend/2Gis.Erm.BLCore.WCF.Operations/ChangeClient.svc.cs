@@ -7,22 +7,23 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeClient;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.ChangeClient;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 using NuClear.Model.Common.Entities;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class ChangeClientApplicationService : IChangeClientApplicationService, IChangeClientApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public ChangeClientApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
+        public ChangeClientApplicationService(ITracer tracer, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _operationServicesManager = operationServicesManager;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
@@ -55,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ChangeClientOperationErrorDescription>(
                     new ChangeClientOperationErrorDescription(entityName, ex.Message, entityId, clientId, null),
                     HttpStatusCode.BadRequest);
@@ -95,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ChangeClientOperationErrorDescription>(
                     new ChangeClientOperationErrorDescription(entityName, ex.Message, entityId, clientId, bypassValidation),
                     HttpStatusCode.BadRequest);
@@ -110,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ChangeClientOperationErrorDescription>(
                     new ChangeClientOperationErrorDescription(entityName, ex.Message, entityId, clientId, null));
             }
@@ -125,7 +126,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ChangeClientOperationErrorDescription>(
                     new ChangeClientOperationErrorDescription(entityName, ex.Message, entityId, clientId, actualBypassValidation));
             }

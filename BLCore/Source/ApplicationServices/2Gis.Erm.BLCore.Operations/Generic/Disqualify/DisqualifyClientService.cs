@@ -15,11 +15,11 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
 {
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IClientReadModel _clientReadModel;
         private readonly IActivityReadService _activityReadService;
         private readonly IAppointmentReadModel _appointmentReadModel;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
                                        IClientRepository clientRepository,
                                        ISecurityServiceUserIdentifier userIdentifierService,
                                        ISecurityServiceFunctionalAccess functionalAccessService,
-                                       ICommonLog logger,
+                                       ITracer tracer,
                                        ISecurityServiceEntityAccess securityServiceEntityAccess,
                                        IClientReadModel clientReadModel,
                                        IActivityReadService activityReadService,
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             _clientRepository = clientRepository;
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
-            _logger = logger;
+            _tracer = tracer;
             _securityServiceEntityAccess = securityServiceEntityAccess;
             _clientReadModel = clientReadModel;
             _activityReadService = activityReadService;
@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
 
                 AssignRelatedActivities(client.Id, reserveUser.Code);
 
-                _logger.InfoFormat("Клиент с id={0} возвращен в резерв", entityId);
+                _tracer.InfoFormat("Клиент с id={0} возвращен в резерв", entityId);
 
                 return null;
             }

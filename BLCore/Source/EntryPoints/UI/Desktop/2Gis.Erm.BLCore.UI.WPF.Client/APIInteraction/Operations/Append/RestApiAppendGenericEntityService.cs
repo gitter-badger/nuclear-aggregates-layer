@@ -1,12 +1,12 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Append
 {
@@ -17,8 +17,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Append
         private readonly IEntityType _appendedEntityName;
         private readonly IEntityType _parentEntityName;
 
-        public RestApiAppendGenericEntityService(IApiClient apiClient, ICommonLog logger)
-            : base(apiClient, logger, "Append.svc/Rest/{0}/{1}/{2}/{3}")
+        public RestApiAppendGenericEntityService(IApiClient apiClient, ITracer tracer)
+            : base(apiClient, tracer, "Append.svc/Rest/{0}/{1}/{2}/{3}")
         {
             _appendedEntityName = typeof(TAppended).AsEntityName();
             _parentEntityName = typeof(TParent).AsEntityName();
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Append
             response.IfErrorThanReportAndThrowException(apiTargetResource + string.Format(". AppendedType: {0}. ParentType: {1}",
                                                                                           _appendedEntityName,
                                                                                           _parentEntityName),
-                                                        Logger);
+                                                        Tracer);
         }
     }
 }

@@ -50,6 +50,9 @@
             @Html.TemplateField(m => m.SalesModel, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
+            @Html.TemplateField(m => m.PositionsGroup, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
             @Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Platform(), ReadOnly = Model.IsPublished })
         </div>
         <div class="row-wrapper">

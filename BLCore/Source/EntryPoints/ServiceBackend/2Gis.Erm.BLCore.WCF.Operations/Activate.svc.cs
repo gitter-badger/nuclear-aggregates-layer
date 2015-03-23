@@ -6,25 +6,26 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Activate;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 using NuClear.Model.Common.Entities;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class ActivateApplicationService : IActivateApplicationService, IActivateApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public ActivateApplicationService(ICommonLog logger,
+        public ActivateApplicationService(ITracer tracer,
                                           IOperationServicesManager operationServicesManager,
                                           IUserContext userContext,
                                           IResourceGroupManager resourceGroupManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _operationServicesManager = operationServicesManager;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<ActivateOperationErrorDescription>(new ActivateOperationErrorDescription(entityName, ex.Message),
                                                                                HttpStatusCode.BadRequest);
             }
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<ActivateOperationErrorDescription>(new ActivateOperationErrorDescription(entityName, ex.Message));
             }
         }

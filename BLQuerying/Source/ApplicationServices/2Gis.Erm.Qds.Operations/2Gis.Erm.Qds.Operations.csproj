@@ -51,6 +51,17 @@
     <Reference Include="Elasticsearch.Net">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll</HintPath>
       <Private>True</Private>
+    <Reference Include="2GIS.NuClear.Settings.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.4.2\lib\net45\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="FastMember">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\FastMember.Signed.1.0.0.11\lib\net40\FastMember.dll</HintPath>
@@ -58,7 +69,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.2.0\lib\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.4.2\lib\net45\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -87,7 +98,7 @@
     <Compile Include="Indexing\DocumentUpdater.cs" />
     <Compile Include="Indexing\DocumentWrapper.cs" />
     <Compile Include="Indexing\EntityToDocumentRelation.cs" />
-    <Compile Include="Metadata\DocumentRelationMetadataSource.cs" />
+    <Compile Include="Metadata\DocumentIndexingMetadataSource.cs" />
     <Compile Include="Indexing\UserToUserAuthorizationDocRelation.cs" />
     <Compile Include="Indexing\IDocumentRelation.cs" />
     <Compile Include="Indexing\IEntityToDocumentRelation.cs" />

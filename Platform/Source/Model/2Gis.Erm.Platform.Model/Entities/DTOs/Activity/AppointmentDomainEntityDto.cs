@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         [DataMember]
         public ActivityPriority Priority { get; set; }
         [DataMember]
-        public ActivityPurpose Purpose { get; set; }
+        public AppointmentPurpose Purpose { get; set; }
         [DataMember]
         public ActivityStatus Status { get; set; }
         [DataMember]
@@ -35,6 +35,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         
         [DataMember]
         public EntityReference OwnerRef { get; set; }
+        [DataMember]
+        public EntityReference Organizer { get; set; }
         [DataMember]
         public EntityReference CreatedByRef { get; set; }
         [DataMember]

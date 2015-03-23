@@ -31,7 +31,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -43,6 +42,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using Newtonsoft.Json;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 using ReportModel = DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report.ReportModel;
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                 IAPIIdentityServiceSettings identityServiceSettings,
                                 IUserContext userContext,
-                                ICommonLog logger,
+                                ITracer tracer,
                                 IGetBaseCurrencyService getBaseCurrencyService,
                                 IReportsSettings reportsSettings,
                                 ILocalizationSettings localizationSettings,
@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                 IUserRepository userRepository,
                                 IPublicService publicService,
                                 IClientProxyFactory clientProxyFactory)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _reportsSettings = reportsSettings;
             _localizationSettings = localizationSettings;
@@ -463,44 +463,44 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             if (reportField.LookupEntityName.Equals(EntityType.Instance.User()))
             {
-                var userExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
+                    var userExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
                                                ? null
                                                : "subordinatesOf=" + UserContext.Identity.Code;
-                return new ReportModel.ReportFieldDefinition
-                {
-                    Type = typeof(LookupField),
-                    Name = reportField.Name,
+                    return new ReportModel.ReportFieldDefinition
+                        {
+                            Type = typeof(LookupField),
+                            Name = reportField.Name,
                     Config = new LookupSettings { EntityName = EntityType.Instance.User(), ExtendedInfo = userExtendedInfo },
-                    DefaultValue = GetDefaultUserLookup(),
-                };
-            }
-            
-            if (reportField.LookupEntityName.Equals(EntityType.Instance.OrganizationUnit()))
-            {
-                var organizationUnitExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
-                                                           ? new[] { reportField.LookupExtendedInfo }
-                                                           : new[] { "userId=" + UserContext.Identity.Code, reportField.LookupExtendedInfo };
-                return new ReportModel.ReportFieldDefinition
-                {
-                    Type = typeof(LookupField),
-                    Name = reportField.Name,
-                    Config = new LookupSettings
-                    {
-                        EntityName = EntityType.Instance.OrganizationUnit(),
-                        ExtendedInfo = string.Join("&", organizationUnitExtendedInfo.Where(s => !string.IsNullOrWhiteSpace(s)))
-                    },
-                    DefaultValue = GetDefaultOrganizationUnitLookup(),
-                };
+                            DefaultValue = GetDefaultUserLookup(),
+                        };
             }
 
-            return new ReportModel.ReportFieldDefinition
+            if (reportField.LookupEntityName.Equals(EntityType.Instance.OrganizationUnit()))
             {
-                Type = typeof(LookupField),
-                Name = reportField.Name,
-                Config = new LookupSettings { EntityName = reportField.LookupEntityName, ExtendedInfo = reportField.LookupExtendedInfo },
-                DefaultValue = null,
-            };
-        }
+                    var organizationUnitExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
+                                                           ? new[] { reportField.LookupExtendedInfo }
+                                                           : new[] { "userId=" + UserContext.Identity.Code, reportField.LookupExtendedInfo };
+                    return new ReportModel.ReportFieldDefinition
+                        {
+                            Type = typeof(LookupField),
+                            Name = reportField.Name,
+                            Config = new LookupSettings
+                                {
+                        EntityName = EntityType.Instance.OrganizationUnit(),
+                                    ExtendedInfo = string.Join("&", organizationUnitExtendedInfo.Where(s => !string.IsNullOrWhiteSpace(s)))
+                                },
+                            DefaultValue = GetDefaultOrganizationUnitLookup(),
+                        };
+            }
+
+                    return new ReportModel.ReportFieldDefinition
+                    {
+                        Type = typeof(LookupField),
+                        Name = reportField.Name,
+                        Config = new LookupSettings { EntityName = reportField.LookupEntityName, ExtendedInfo = reportField.LookupExtendedInfo },
+                        DefaultValue = null,
+                    };
+            }
 
         private PeriodType GetDateTimePeriodType(ReportFieldDefault field)
         {

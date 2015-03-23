@@ -126,6 +126,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityType.Instance.Appointment(), typeof(Appointment) },
                 { EntityType.Instance.AppointmentRegardingObject(), typeof(AppointmentRegardingObject) },
                 { EntityType.Instance.AppointmentAttendee(), typeof(AppointmentAttendee) },
+                { EntityType.Instance.AppointmentOrganizer(), typeof(AppointmentOrganizer) },
                 { EntityType.Instance.Phonecall(), typeof(Phonecall) },
                 { EntityType.Instance.PhonecallRegardingObject(), typeof(PhonecallRegardingObject) },
                 { EntityType.Instance.PhonecallRecipient(), typeof(PhonecallRecipient) },

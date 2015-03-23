@@ -13,7 +13,6 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -22,6 +21,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Resources.Server;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security
 {
@@ -50,19 +50,19 @@ namespace DoubleGis.Erm.Platform.Security
 
         private readonly IFinder _finder;
         private readonly IUserEntityService _userEntityService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ICacheAdapter _cacheAdapter;
         private readonly TimeSpan _cacheSlidingSpan = TimeSpan.FromSeconds(60);
 
         public SecurityServiceFacade(IFinder finder,
             IUserEntityService userEntityService,
             ICacheAdapter cacheAdapter,
-            ICommonLog commonLog)
+            ITracer tracer)
         {
             _finder = finder;
             _userEntityService = userEntityService;
             _cacheAdapter = cacheAdapter;
-            _logger = commonLog;
+            _tracer = tracer;
         }
 
         private DateTime CacheAbsoluteSpan
@@ -96,14 +96,14 @@ namespace DoubleGis.Erm.Platform.Security
 
             if (userInfo == null)
             {
-                _logger.FatalFormat("Пользователь 'Резерв района' не найден по учетной записи [{0}]", ReserveUserAccount);
+                _tracer.FatalFormat("Пользователь 'Резерв района' не найден по учетной записи [{0}]", ReserveUserAccount);
                 throw new SecurityException("Пользователь 'Резерв района' не найден");
             }
 
             if (userInfo.UserCode != ReserveUserId)
             {   // небольшое УГ, проверяем, чтобы Id пользователя 'Резерв района' был допустимый, он должен быть стабильным в любой инсталляции системы
                 // т.к. на конкретное значение завязаны миграции и т.п.
-                _logger.FatalFormat("Пользователь 'Резерв района' имеет Id отличный от допустимого [{0}]", ReserveUserId);
+                _tracer.FatalFormat("Пользователь 'Резерв района' имеет Id отличный от допустимого [{0}]", ReserveUserId);
                 throw new SecurityException("Пользователь 'Резерв района' имеет недопустимый Id");
             }
 
@@ -121,11 +121,11 @@ namespace DoubleGis.Erm.Platform.Security
 
             var key = string.Format(CacheKeyMask, "UserInfo", userCode, string.Empty);
 
-            _logger.DebugFormat("Попытка получить данные пользователя по коду: {0}", userCode);
+            _tracer.DebugFormat("Попытка получить данные пользователя по коду: {0}", userCode);
             var result = _cacheAdapter.Get<UserInfo>(key);
             if (result != null)
             {
-                _logger.DebugFormat("Получен пользователь через кэш. Код:{0}. Учетная запись:{1}. Имя:{2}.", result.Code, result.Account, result.DisplayName);
+                _tracer.DebugFormat("Получен пользователь через кэш. Код:{0}. Учетная запись:{1}. Имя:{2}.", result.Code, result.Account, result.DisplayName);
                 return result;
             }
 
@@ -137,7 +137,7 @@ namespace DoubleGis.Erm.Platform.Security
 
             _cacheAdapter.Add(key, result, CacheAbsoluteSpan);
 
-            _logger.DebugFormat("Получен пользователь через БД. Код:{0}. Учетная запись:{1}. Имя:{2}.", result.Code, result.Account, result.DisplayName);
+            _tracer.DebugFormat("Получен пользователь через БД. Код:{0}. Учетная запись:{1}. Имя:{2}.", result.Code, result.Account, result.DisplayName);
             return result;
         }
 
@@ -150,12 +150,12 @@ namespace DoubleGis.Erm.Platform.Security
 
             var key = string.Format(CacheKeyMask, "UserInfo", userAccount, string.Empty);
 
-            _logger.DebugFormat("Попытка получить данные пользователя по учетной записи: {0}", userAccount);
+            _tracer.DebugFormat("Попытка получить данные пользователя по учетной записи: {0}", userAccount);
 
             var result = _cacheAdapter.Get<UserInfo>(key);
             if (result != null)
             {
-                _logger.DebugFormat("Получен пользователь через кэш. Код:{0}. Учетная запись:{1}. Имя:{2}.", result.Code, result.Account, result.DisplayName);
+                _tracer.DebugFormat("Получен пользователь через кэш. Код:{0}. Учетная запись:{1}. Имя:{2}.", result.Code, result.Account, result.DisplayName);
                 return result;
             }
 
@@ -167,7 +167,7 @@ namespace DoubleGis.Erm.Platform.Security
 
             _cacheAdapter.Add(key, result, CacheAbsoluteSpan);
 
-            _logger.DebugFormat("Получен пользователь. Код:{0}. Учетная запись:{1}. Имя:{2}.", result.Code, result.Account, result.DisplayName);
+            _tracer.DebugFormat("Получен пользователь. Код:{0}. Учетная запись:{1}. Имя:{2}.", result.Code, result.Account, result.DisplayName);
             return result;
         }
 

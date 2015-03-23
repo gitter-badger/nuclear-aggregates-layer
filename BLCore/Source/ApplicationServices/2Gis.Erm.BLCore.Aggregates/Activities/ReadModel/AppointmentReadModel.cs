@@ -34,11 +34,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Custom<AppointmentAttendee>(x => x.SourceEntityId == appointmentId)).ToList();
         }
 
+        public AppointmentOrganizer GetOrganizer(long appointmentId)
+        {
+            return _finder.FindOne(Specs.Find.Custom<AppointmentOrganizer>(x => x.SourceEntityId == appointmentId));
+        }
+
         public bool CheckIfAppointmentExistsRegarding(IEntityType entityName, long entityId)
         {
             return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId)).Any();
         }
-
+        
         public bool CheckIfOpenAppointmentExistsRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId))

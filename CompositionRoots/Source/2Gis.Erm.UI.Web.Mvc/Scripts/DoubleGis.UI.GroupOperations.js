@@ -42,7 +42,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         this.QuantProgress = 1 / this.EntitiesCount;
         this.IsSingleEntityProcessing = this.EntitiesCount === 1;
 
-        this.IsCallFromCrm = !Ext.isNumber(parseFloat(+this.Config.Entities[0]));
+        this.IsCallFromCrm = !(isNumber(this.Config.Entities[0]));
 
         if (this.Config.listeners) {
             var p, l = this.Config.listeners;
@@ -116,14 +116,20 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
     IsUserSettingsValid: function () { /*переопределить в потомке*/ },
     PreProcessEntities: function () { /*реализация по-умолчанию*/ return true; },
     ConvertEntityIds: function () {
+        var entityNamesArray = new Array(this.Config.Entities.length);
+        var entityReplicationCodesArray = new Array(this.Config.Entities.length);
+        for (var i = 0; i < this.Config.Entities.length; i++) {
+            entityNamesArray[i] = this.Config.Entities[i].EntityName;
+            entityReplicationCodesArray[i] = this.Config.Entities[i].EntityId;
+        }
         var response = window.Ext.Ajax.syncRequest({
             timeout: 1200000,
             url: this.EvaluateConvertIdsUrl(),
             method: 'POST',
             params:
                 {
-                    entityTypeName: Ext.getDom("EntityTypeName").value,
-                    replicationCodes: this.Config.Entities
+                    entityTypeNames: entityNamesArray,
+                    replicationCodes: entityReplicationCodesArray
                 }
         });
         if ((response.conn.status >= 200 && response.conn.status < 300) || (Ext.isIE && response.conn.status == 1223)) {
@@ -150,8 +156,17 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
     },
     ProcessNextEntityInQueue: function () {
         if (this.ProcessingQueue.length != 0) {
-            var entityId = this.ProcessingQueue.shift();
-        	var entityName = this.ResolveEntityName(entityId);
+            var nextEntity = this.ProcessingQueue.shift();
+            var entityName, entityId;
+            if (!isNumber(nextEntity))
+            {
+                entityName = nextEntity.EntityName;
+                entityId = nextEntity.Id;
+            } else 
+            {
+                entityId = nextEntity;
+                entityName = this.ResolveEntityName(nextEntity);
+            }
         	var operationUrl = String.format(this.EvaluateOperationUrlTemplate(), entityName);
             var params = this.CreateParamsForControllerCall(entityId);
 

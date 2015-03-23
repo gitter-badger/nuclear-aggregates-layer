@@ -42,11 +42,11 @@
     </Reference>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.4.2\lib\net45\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.2.0\lib\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.4.2\lib\net45\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -64,6 +64,7 @@
     <Compile Include="2.0\2014.06.17 rev. 21201 - Add FastSearch button to MSCRM.cs" />
     <Compile Include="2.0\2014.07.01 rev. 13546 - Создание поисковой инфраструктуры.cs" />
     <Compile Include="2.0\2014.07.01 rev. 15468 - Первичная миграция данных.cs" />
+    <Compile Include="2.0\201503040120 - replicate Firms.cs" />
     <Compile Include="2.0\2014.10.10 rev. 25182 - ReplicationQueue mapping.cs" />
     <Compile Include="2.0\2014.07.28 rev. 22693 - Related docs.cs" />
     <Compile Include="2.0\2014.07.23 rev. 22565 - ReplicationQueue mapping.cs" />

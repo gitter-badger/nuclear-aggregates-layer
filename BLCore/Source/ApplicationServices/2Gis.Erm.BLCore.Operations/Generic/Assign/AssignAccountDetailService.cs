@@ -11,7 +11,6 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -19,6 +18,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public AssignAccountDetailService(
             IPublicService publicService, 
@@ -39,14 +40,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             IOperationScopeFactory scopeFactory,
             IUserContext userContext,
             ISecurityServiceEntityAccess entityAccessService, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _publicService = publicService;
             _finder = finder;
             _accountRepository = accountRepository;
             _scopeFactory = scopeFactory;
             _entityAccessService = entityAccessService;
-            _logger = logger;
+            _tracer = tracer;
             _userContext = userContext;
         }
 
@@ -85,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     .Complete();
             }
 
-            _logger.InfoFormat("Куратором операции по ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
+            _tracer.InfoFormat("Куратором операции по ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
 
             return null;
         }
