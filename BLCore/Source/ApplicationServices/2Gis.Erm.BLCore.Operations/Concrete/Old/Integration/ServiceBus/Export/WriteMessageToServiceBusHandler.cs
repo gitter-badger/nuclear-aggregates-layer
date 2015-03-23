@@ -11,23 +11,24 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Xml;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
     public sealed class WriteMessageToServiceBusHandler : RequestHandler<WriteMessageToServiceBusRequest, ExportResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IClientProxyFactory _clientProxyFactory;
 
-        public WriteMessageToServiceBusHandler(ICommonLog logger, IIntegrationSettings integrationSettings, IClientProxyFactory clientProxyFactory)
+        public WriteMessageToServiceBusHandler(ITracer tracer, IIntegrationSettings integrationSettings, IClientProxyFactory clientProxyFactory)
         {
-            _logger = logger;
+            _tracer = tracer;
             _integrationSettings = integrationSettings;
             _clientProxyFactory = clientProxyFactory;
         }
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             var isValidXml = data.ValidateXml(xsd, out error);
             if (!isValidXml)
             {
-                _logger.Fatal(error);
+                _tracer.Fatal(error);
                 throw new BusinessLogicException(string.Format(BLResources.XSDValidationError, error));
             }
 
@@ -81,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     }
                     catch (Exception e)
                     {
-                        _logger.ErrorFormat(e, "Ошибка при записи объекта в шину интеграции (поток {0})", flowName);
+                        _tracer.ErrorFormat(e, "Ошибка при записи объекта в шину интеграции (поток {0})", flowName);
                         throw;
                     }
                 }

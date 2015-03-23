@@ -14,12 +14,13 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearc
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 
 using FluentAssertions;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Processing
 {
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
         private readonly IPerformedOperationsProcessingReadModel _readModel;
         private readonly IProducedQueryLogContainer _producedQueryLogContainer;
         private readonly IUseCaseTuner _useCaseTuner;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public PerformedOperationsProcessingReadModelTest(
             IConnectionStringSettings connectionStringSettings,
@@ -45,14 +46,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
             IPerformedOperationsProcessingReadModel readModel,
             IProducedQueryLogContainer producedQueryLogContainer,
             IUseCaseTuner useCaseTuner,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _connectionStringSettings = connectionStringSettings;
             _finder = finder;
             _readModel = readModel;
             _producedQueryLogContainer = producedQueryLogContainer;
             _useCaseTuner = useCaseTuner;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public ITestResult Execute()

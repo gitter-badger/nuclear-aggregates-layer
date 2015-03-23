@@ -4975,7 +4975,7 @@ Placement period: {3}.</value>
     <value>Errors</value>
   </data>
   <data name="File" xml:space="preserve">
-     <value>File</value>
+    <value>File</value>
   </data>
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value>Cannot activate an item from a published price-list</value>
@@ -5149,6 +5149,9 @@ Placement period: {3}.</value>
     <value>The start and end dates of the meeting are set incorrectly.
 </value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>The Client, Deal and Company fields are empty. Please fill in at least one field.</value>
+  </data>
   <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
     <value>Specify legal entities to enable profiles</value>
   </data>
@@ -5180,9 +5183,15 @@ Placement period: {3}.</value>
     <value>Not enough rights to change the owner for the action {0}</value>
   </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
-    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+    <value>Item "{0}" cannot be sold into category "{1}" of project "</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
-    <value>Отделение организации {0} не связано с проектом.</value>
+    <value>Company division {0} is not linked to the project.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>You cannot save the action to a company in reserve</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>You cannot save the action to a client in reserve </value>
   </data>
 </root>
