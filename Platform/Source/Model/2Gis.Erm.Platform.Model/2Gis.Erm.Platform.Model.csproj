@@ -339,6 +339,7 @@
     <Compile Include="Entities\Erm\DepCard.cs" />
     <Compile Include="Entities\Erm\DictionaryEntityInstance.cs" />
     <Compile Include="Entities\Erm\DictionaryEntityPropertyInstance.cs" />
+    <Compile Include="Entities\Erm\EntityTypes\EntityTypeAppointmentOrganizer.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetter.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetterRecipient.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetterRegardingObject.cs" />

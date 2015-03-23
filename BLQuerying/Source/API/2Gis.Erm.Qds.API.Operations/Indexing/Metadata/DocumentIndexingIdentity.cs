@@ -1,7 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Kinds;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Kinds;
 
 namespace DoubleGis.Erm.Qds.API.Operations.Indexing.Metadata
 {

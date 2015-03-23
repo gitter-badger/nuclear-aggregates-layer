@@ -4,6 +4,8 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
+
+using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
@@ -33,9 +35,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                    : new TEntityReference { SourceEntityId = entity.Id, TargetEntityTypeId = reference.EntityTypeId, TargetEntityId = reference.Id.Value };
         }
 
-        public static bool HasReferenceInReserve(this IEnumerable<EntityReference> references, EntityName entityName, Predicate<long> validator)
+        public static bool HasReferenceInReserve(this IEnumerable<EntityReference> references, IEntityType entityName, Predicate<long> validator)
         {
-            return references.Any(s => s.EntityName == entityName && s.Id.HasValue && validator(s.Id.Value));
+            return references.Any(s => s.EntityTypeId == entityName.Id && s.Id.HasValue && validator(s.Id.Value));
         }
     }
 }

@@ -14,6 +14,8 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+
+using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
@@ -53,12 +55,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
             var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
+            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Client(), _clientReadModel.IsClientInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
+            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Firm(), _firmReadModel.IsFirmInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }

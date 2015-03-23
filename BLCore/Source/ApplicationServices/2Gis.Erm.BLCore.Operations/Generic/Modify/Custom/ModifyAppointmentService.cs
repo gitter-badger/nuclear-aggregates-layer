@@ -67,12 +67,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 throw new NotificationException(BLResources.ModifyAppointmentService_ScheduleRangeIsIncorrect);
             }
 
-            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
+            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Client(), _clientReadModel.IsClientInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
+            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Firm(), _firmReadModel.IsFirmInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }

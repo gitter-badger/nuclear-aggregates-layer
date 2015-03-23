@@ -167,6 +167,7 @@
         public const int Appointment = 501;
         public const int AppointmentRegardingObject = 510;
         public const int AppointmentAttendee = 511;
+        public const int AppointmentOrganizer = 512;
         public const int Phonecall = 502;
         public const int PhonecallRegardingObject = 521;
         public const int PhonecallRecipient = 522;

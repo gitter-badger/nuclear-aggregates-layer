@@ -59,13 +59,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             }
 
             var phonecall = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
-            
-            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
+
+            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Client(), _clientReadModel.IsClientInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
+            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Firm(), _firmReadModel.IsFirmInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }

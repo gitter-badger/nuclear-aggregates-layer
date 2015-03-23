@@ -60,7 +60,7 @@
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
             @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager))
         @Html.SectionRow(@Html.TemplateField(m => m.Sender, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.User() }))
-        @Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Contact, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields }))
+        @Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Contact(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields }))
 
         @Html.SectionHead("resultHeader", BLResources.TitleResult)
         @Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } }))

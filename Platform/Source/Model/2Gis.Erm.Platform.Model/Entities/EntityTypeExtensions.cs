@@ -756,6 +756,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             return EntityTypeAppointmentAttendee.Instance;
         }
 
+        public static EntityTypeAppointmentOrganizer AppointmentOrganizer(this EntityType entityType)
+        {
+            return EntityTypeAppointmentOrganizer.Instance;
+        }
+
         public static EntityTypePhonecall Phonecall(this EntityType entityType)
         {
             return EntityTypePhonecall.Instance;

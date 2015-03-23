@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                   .ForMember(dto => dto.TargetEntityId, x => x.MapFrom(t => t.ReferencedObjectId));
             Mapper.CreateMap<AppointmentReference, AppointmentOrganizer>()
                   .ForMember(dto => dto.SourceEntityId, x => x.MapFrom(t => t.AppointmentId))
-                  .ForMember(dto => dto.TargetEntityName, x => x.MapFrom(t => (EntityName)t.ReferencedType))
+                  .ForMember(dto => dto.TargetEntityTypeId, x => x.MapFrom(t => t.ReferencedType))
                   .ForMember(dto => dto.TargetEntityId, x => x.MapFrom(t => t.ReferencedObjectId))
                 ;
 
@@ -104,8 +104,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                   .ForMember(dest => dest.ReferencedType, cfg => cfg.MapFrom(src => src.TargetEntityTypeId))
                   .ForMember(dest => dest.ReferencedObjectId, cfg => cfg.MapFrom(src => src.TargetEntityId));
             
-            #region Phonecall
-
             Mapper.CreateMap<Phonecall, PhonecallBase>()
                   .ForMember(dto => dto.Subject, x => x.MapFrom(t => t.Header))
                   .ForMember(dto => dto.Status, x => x.MapFrom(t => (int)t.Status))
