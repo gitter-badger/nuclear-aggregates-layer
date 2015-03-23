@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly DbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
 
-        private readonly ISet<object> _attachedEntitiesRegistrar = new HashSet<object>();
+        private readonly HashSet<object> _attachedEntitiesRegistrar = new HashSet<object>();
 
         public EFDomainContext(IProcessingContext processingContext,
                                DbContext dbContext,
@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             EnsureUseCaseDuration();
 
-            var rez = _dbContext.SaveChanges();
+            var savedEntitiesCount = _dbContext.SaveChanges();
 
             foreach (var entry in _dbContext.ChangeTracker.Entries())
             {
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
             _attachedEntitiesRegistrar.Clear();
 
-            return rez;
+            return savedEntitiesCount;
         }
 
         public IQueryable GetQueryableSource(Type entityType)
