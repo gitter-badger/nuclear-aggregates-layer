@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
@@ -20,11 +19,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
     public sealed class PrintFirmChangeAgreementHandler : RequestHandler<PrintFirmChangeAgreementRequest, StreamResponse>, IRussiaAdapted
     {
         private readonly ISubRequestProcessor _requestProcessor;
+        private readonly IFormatter _shortDateFormatter;
         private readonly IFinder _finder;
 
-        public PrintFirmChangeAgreementHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public PrintFirmChangeAgreementHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _requestProcessor = requestProcessor;
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
             _finder = finder;
         }
 
@@ -55,21 +56,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeOrganizationUnit.BranchOfficeId));
             var firm = _finder.FindOne(Specs.Find.ById<Firm>(order.FirmId));
 
-            var documentData = PrintHelper.AgreementBody(order, legalPerson, legalPersonProfile, branchOfficeOrganizationUnit, firm);
+            var documentData = PrintHelper.AgreementSharedBody(order, legalPerson, legalPersonProfile, branchOfficeOrganizationUnit, _shortDateFormatter);
+            var documenSpecificData = PrintHelper.ChangeAgreementSpecificBody(firm);
             var bargainData = PrintHelper.RelatedBrgain(bargain);
             var requisites = PrintHelper.Requisites(legalPerson, legalPersonProfile, branchOffice, branchOfficeOrganizationUnit);
 
             var printDocumentRequest = new PrintDocumentRequest
             {
                 CurrencyIsoCode = currency.ISOCode,
-                FileName = order.Number,
+                FileName = string.Format(BLCoreResources.PrintAdditionalAgreementFileNameFormat, order.Number),
                 BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId.Value,
                 TemplateCode = TemplateCode.BindingChangeAgreement,
-                PrintData = PrintData.Concat(documentData, requisites, bargainData)
+                PrintData = PrintData.Concat(documentData, requisites, bargainData, documenSpecificData)
             };
 
-            var response = (StreamResponse)_requestProcessor.HandleSubRequest(printDocumentRequest, Context);
-            return response;
+            return (StreamResponse)_requestProcessor.HandleSubRequest(printDocumentRequest, Context);
         }
     }
 }
