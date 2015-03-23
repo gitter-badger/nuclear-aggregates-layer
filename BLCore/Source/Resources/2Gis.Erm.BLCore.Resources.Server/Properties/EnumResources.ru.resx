@@ -538,7 +538,7 @@
     <value>Временный отказ. Не сезон.</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
-    <value>Доп. соглашение для ИП</value>
+    <value></value>
   </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
     <value>Счёт на оплату для ИП</value>
@@ -547,7 +547,7 @@
     <value>Уведомление о расторжении для ИП</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementLegalPerson" xml:space="preserve">
-    <value>Доп. соглашение для юр. лица</value>
+    <value>Доп. соглашение (расторжение)</value>
   </data>
   <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
     <value>Счёт на оплату для юр. лица</value>
@@ -583,7 +583,7 @@
     <value>Заявка на лимиты</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
-    <value>Доп. соглашение для физ. лица</value>
+    <value></value>
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
     <value>Счёт на оплату для физ. лица</value>

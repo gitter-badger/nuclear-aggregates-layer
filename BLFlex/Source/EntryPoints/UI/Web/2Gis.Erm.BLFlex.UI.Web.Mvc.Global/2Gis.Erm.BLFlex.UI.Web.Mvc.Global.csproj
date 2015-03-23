@@ -177,6 +177,7 @@
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanOrderFileKindEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\MultiCulture\MultiCultureAppointmentPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaAppointmentPurposeEnumCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
       <DependentUpon>Deal.cshtml</DependentUpon>
