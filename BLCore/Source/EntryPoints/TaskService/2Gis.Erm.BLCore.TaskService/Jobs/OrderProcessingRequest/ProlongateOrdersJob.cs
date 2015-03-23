@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -14,9 +15,9 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.OrderProcessingRequest
 
         public ProlongateOrdersJob(ISignInService signInService,
                                    IUserImpersonationService userImpersonationService,
-                                   ICommonLog logger,
+                                   ITracer tracer,
                                    IProcessOrderProlongationRequestMassOperation orderPrologationOperation)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _orderPrologationOperation = orderPrologationOperation;
         }

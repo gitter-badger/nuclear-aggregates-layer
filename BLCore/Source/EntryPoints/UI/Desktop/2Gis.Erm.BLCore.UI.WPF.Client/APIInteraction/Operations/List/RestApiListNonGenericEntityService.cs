@@ -1,15 +1,16 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
 {
     public class RestApiListNonGenericEntityService : RestApiOperationServiceBase, IListNonGenericEntityService
     {
-        public RestApiListNonGenericEntityService(IApiClient apiClient, ICommonLog logger)
-            : base(apiClient, logger, "List.svc")
+        public RestApiListNonGenericEntityService(IApiClient apiClient, ITracer tracer)
+            : base(apiClient, tracer, "List.svc")
         {
         }
 
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
             var request = new ApiRequest(apiTargetResource);
             request.AddParametersFromInstance(searchListModel);
             var response = ApiClient.Get(request);
-            response.IfErrorThanReportAndThrowException(apiTargetResource, Logger);
+            response.IfErrorThanReportAndThrowException(apiTargetResource, Tracer);
             return ListResultJsonParsers.ParseListResult(response.ResultContent);
         }
 

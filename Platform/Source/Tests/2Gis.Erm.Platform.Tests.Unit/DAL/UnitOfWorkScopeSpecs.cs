@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -12,6 +11,8 @@ using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories;
 using FluentAssertions;
 
 using Machine.Specifications;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                     new StubDomainContext(),
                                                     new StubDomainContextFactory(),
                                                     new NullPendingChangesHandlingStrategy(),
-                                                    new NullLogger());
+                                                    new NullTracer());
 
                     _unitOfWorkScope = UnitOfWork.CreateScope();
                 };
@@ -296,7 +297,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                         new StubDomainContext(),
                                                         new StubDomainContextFactory(),
                                                         new ForcePendingChangesHandlingStrategy(),
-                                                        new NullLogger());
+                                                        new NullTracer());
 
                     _unitOfWorkScope = unitOfWork.CreateScope();
 

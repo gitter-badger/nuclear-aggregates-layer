@@ -22,7 +22,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.GetDomainEntityDto;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api.Settings;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -32,6 +31,8 @@ using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
 {
@@ -115,9 +116,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
 
         private void Logger()
         {
-            var logger = _container.Resolve<ICommonLog>();
-            logger.Error("test message 1");
-            logger.Error(new InvalidOperationException("test exception 1"), "test message 2");
+            var tracer = _container.Resolve<ITracer>();
+            tracer.Error("test message 1");
+            tracer.Error(new InvalidOperationException("test exception 1"), "test message 2");
         }
 
         private void List()

@@ -13,12 +13,13 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IUserContext _userContext;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ICreateLockDetailsDuringWithdrawalOperationService _createLockDetailsDuringWithdrawalOperationService;
 
         public WithdrawalOperationService(
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IUserContext userContext,
             IUseCaseTuner useCaseTuner,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _accountReadModel = accountReadModel;
             _actualizeAccountsDuringWithdrawalOperationService = actualizeAccountsDuringWithdrawalOperationService;
@@ -68,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _userContext = userContext;
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
             _createLockDetailsDuringWithdrawalOperationService = createLockDetailsDuringWithdrawalOperationService;
         }
 
@@ -89,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                             period,
                                             report);
 
-                    _logger.Error(msg);
+                    _tracer.Error(msg);
                     return WithdrawalProcessingResult.Error(msg);
                 }
 
@@ -104,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                           acquiredWithdrawal.OrganizationUnitId,
                                           period);
 
-                        _logger.Error(msg);
+                        _tracer.Error(msg);
 
                         transaction.Complete();
                         return WithdrawalProcessingResult.Error(msg);
@@ -122,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                         organizationUnitId,
                                         period,
                                         ex.Message);
-                _logger.Error(ex, msg);
+                _tracer.Error(ex, msg);
 
                 return Abort(acquiredWithdrawal, msg);
             }
@@ -131,7 +132,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 var msg = string.Format("Withdrawing aborted. Unexpected exception was caught. Organization unit id {0}. Period: {1}",
                                         organizationUnitId,
                                         period);
-                _logger.Error(ex, msg);
+                _tracer.Error(ex, msg);
 
                 return Abort(acquiredWithdrawal, msg);
             }
@@ -178,14 +179,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             using (var scope = _scopeFactory.CreateNonCoupled<WithdrawalIdentity>())
             {
-                _logger.InfoFormat("Withdrawing. Organization unit {0}. {1}. Starting lock details creation process",
+                _tracer.InfoFormat("Withdrawing. Organization unit {0}. {1}. Starting lock details creation process",
                                      organizationUnitId,
                                      period);
                 _createLockDetailsDuringWithdrawalOperationService.CreateLockDetails(organizationUnitId, period);
 
                 var withdrawalInfos = _accountReadModel.GetInfoForWithdrawal(organizationUnitId, period);
 
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                     "Withdrawing. Organization unit {0}. {1}. Starting accounts actualization process. Target withdrawal infos count: {2}",
                     organizationUnitId,
                     period,
@@ -202,7 +203,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                             OrderNumber = i.Order.Number
                         }));
 
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                     "Withdrawing. Organization unit {0}. {1}. Starting orders actualization process",
                     organizationUnitId,
                     period);
@@ -215,7 +216,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                             AmountToWithdrawNext = dto.AmountToWithdrawNextAfterWithdrawal
                         }));
 
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                     "Withdrawing. Organization unit {0}. {1}. Starting deals actualization process",
                     organizationUnitId,
                     period);
@@ -226,7 +227,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                         .Distinct());
 
                 _withdrawalChangeStatusAggregateService.Finish(acquiredWithdrawal, WithdrawalStatus.Success, null);
-                _logger.InfoFormat(
+                _tracer.InfoFormat(
                     "Withdrawing process successfully finished. Organization unit {0}. {1}.",
                     organizationUnitId,
                     period);
@@ -245,7 +246,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             acquiredWithdrawal = null;
 
-            _logger.InfoFormat("Starting withdrawal process for organization unit with id {0} and time period {1}", organizationUnitId, period);
+            _tracer.InfoFormat("Starting withdrawal process for organization unit with id {0} and time period {1}", organizationUnitId, period);
 
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.WithdrawalAccess, _userContext.Identity.Code))
             {
@@ -287,7 +288,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 transaction.Complete();
             }
             
-            _logger.InfoFormat(
+            _tracer.InfoFormat(
                     "Withdrawal process for organization unit {0} and period {1} is granted. Acquired withdrawal entry id {2}",
                     organizationUnitId,
                     period,

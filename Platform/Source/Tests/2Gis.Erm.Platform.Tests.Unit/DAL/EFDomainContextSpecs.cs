@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Establish context = () =>
             {
                 Effort.Provider.EffortProviderConfiguration.RegisterProvider();
-
+                
                 var builder = new DbModelBuilder();
                 builder.Entity<Entity>().ToTable("E").HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 dbContext.Configuration.AutoDetectChangesEnabled = false;
 
                 DbContext = dbContext;
-            };
+                };
 
             protected static DbContext DbContext { get; private set; }
         }
