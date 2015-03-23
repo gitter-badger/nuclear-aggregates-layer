@@ -10,13 +10,14 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
@@ -25,8 +26,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         private readonly IFinder _finder;
         private readonly IOperationContextParser _operationContextParser;
 
-        public SerializeAccountDetailHandler(IExportRepository<AccountDetail> exportRepository, ICommonLog logger, IFinder finder, IOperationContextParser operationContextParser)
-            : base(exportRepository, logger)
+        public SerializeAccountDetailHandler(IExportRepository<AccountDetail> exportRepository, ITracer tracer, IFinder finder, IOperationContextParser operationContextParser)
+            : base(exportRepository, tracer)
         {
             _finder = finder;
             _operationContextParser = operationContextParser;

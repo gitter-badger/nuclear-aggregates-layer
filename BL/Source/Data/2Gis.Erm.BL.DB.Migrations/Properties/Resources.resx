@@ -160,4 +160,7 @@
   <data name="customizations_24070" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\customizations_24070.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="customizations_201502051735" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\customizations_201502051735.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

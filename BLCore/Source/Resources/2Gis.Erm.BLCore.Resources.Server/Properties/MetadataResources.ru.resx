@@ -1484,6 +1484,9 @@
   <data name="ChiefFullNameInNominative" xml:space="preserve">
     <value>Полное ФИО руководителя (им.падеж)</value>
   </data>
+  <data name="PositionsGroup" xml:space="preserve">
+    <value>Группа номенклатур</value>
+  </data>
   <data name="AccountingMethod" xml:space="preserve">
     <value>Способ учета оказания услуг</value>
   </data>

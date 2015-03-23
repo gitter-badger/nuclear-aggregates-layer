@@ -13,9 +13,10 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IMonthPeriodValidationService _checkPeriodService;
         private readonly IUserContext _userContext;
         private readonly IUseCaseTuner _useCaseTuner;
-        private readonly ICommonLog _commonLog;
+        private readonly ITracer _tracer;
         private readonly IOperationService _operationService;
         private readonly IGetWithdrawalErrorsCsvReportOperationService _getWithdrawalErrorsCsvReportOperationService;
 
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                             IMonthPeriodValidationService checkPeriodService,
                                             IUserContext userContext,
                                             IUseCaseTuner useCaseTuner,
-                                            ICommonLog commonLog,
+                                            ITracer tracer,
                                             IOperationService operationService,
                                             IGetWithdrawalErrorsCsvReportOperationService getWithdrawalErrorsCsvReportOperationService)
         {
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _checkPeriodService = checkPeriodService;
             _userContext = userContext;
             _useCaseTuner = useCaseTuner;
-            _commonLog = commonLog;
+            _tracer = tracer;
             _operationService = operationService;
             _getWithdrawalErrorsCsvReportOperationService = getWithdrawalErrorsCsvReportOperationService;
         }
@@ -99,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 catch (Exception ex)
                 {
                     processingResultsByOrganizationUnit.Add(organizationUnit, WithdrawalProcessingResult.Errors(ex.ToString()));
-                    _commonLog.ErrorFormat(ex, "Не удалось провести списание по отделению организации {0}", organizationUnit);
+                    _tracer.ErrorFormat(ex, "Не удалось провести списание по отделению организации {0}", organizationUnit);
                 }
             }
 

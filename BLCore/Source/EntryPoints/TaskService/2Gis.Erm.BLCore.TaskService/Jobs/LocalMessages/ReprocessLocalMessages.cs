@@ -1,8 +1,9 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -13,11 +14,11 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.LocalMessages
         private readonly IPublicService _publicService;
 
         public ReprocessLocalMessages(
-            ICommonLog logger, 
+            ITracer tracer, 
             IPublicService publicService, 
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _publicService = publicService;
         }
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.LocalMessages
         {
             if (PeriodInMinutes == 0)
             {
-                Logger.ErrorFormat(null, "Задача [{0}] не имеет заданного числа минут для определения зависших сообщений", context.JobDetail.Key.Name);
+                Tracer.ErrorFormat(null, "Задача [{0}] не имеет заданного числа минут для определения зависших сообщений", context.JobDetail.Key.Name);
                 return;
             }
 

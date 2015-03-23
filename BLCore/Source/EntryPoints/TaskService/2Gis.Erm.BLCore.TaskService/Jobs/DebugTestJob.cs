@@ -2,8 +2,9 @@
 using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -11,8 +12,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
 {
     public sealed class DebugTestJob : TaskServiceJobBase
     {
-        public DebugTestJob(ICommonLog logger, ISignInService signInService, IUserImpersonationService userImpersonationService)
-            : base(signInService, userImpersonationService, logger)
+        public DebugTestJob(ITracer tracer, ISignInService signInService, IUserImpersonationService userImpersonationService)
+            : base(signInService, userImpersonationService, tracer)
         {
         }
 

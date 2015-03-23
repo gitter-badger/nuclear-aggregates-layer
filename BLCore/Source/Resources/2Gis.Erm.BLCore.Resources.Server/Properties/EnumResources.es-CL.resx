@@ -2056,4 +2056,10 @@
   <data name="BusinessOperationWithdrawal" xml:space="preserve">
     <value>Retiro</value>
   </data>
+  <data name="PositionsGroupMedia" xml:space="preserve">
+    <value>Publicidad mediática</value>
+  </data>
+  <data name="PositionsGroupNone" xml:space="preserve">
+    <value />
+  </data>
 </root>

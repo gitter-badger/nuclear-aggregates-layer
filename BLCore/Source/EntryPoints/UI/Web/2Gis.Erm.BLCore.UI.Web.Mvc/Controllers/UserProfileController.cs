@@ -16,10 +16,11 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 using TimeZone = DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone;
@@ -38,13 +39,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                      IAPIIdentityServiceSettings identityServiceSettings,
                                      IUserContext userContext,
-                                     ICommonLog logger,
+                                     ITracer tracer,
                                      IGetBaseCurrencyService getBaseCurrencyService,
                                      ILocalizationSettings localizationSettings,
                                      IUserProfileService userProfileService,
                                      IGetUserInfoService userInfoService,
                                      IFinder finder)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _localizationSettings = localizationSettings;
             _userProfileService = userProfileService;

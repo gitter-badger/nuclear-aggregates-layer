@@ -51,9 +51,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -84,11 +82,14 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.B
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
     internal static partial class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ICommonLog logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer tracer, ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -135,17 +136,17 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(TestsIntegrationInProcRoot.Instance,
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                             settingsContainer,
+                                             massProcessors,
+                                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                              c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                settingsContainer.AsSettings<IMsCrmSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>(),
-                                settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                   logger,
-                                                                   loggerContextManager))
+                                                                   settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                   settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                   settingsContainer.AsSettings<IMsCrmSettings>(),
+                                                                   settingsContainer.AsSettings<ICachingSettings>(),
+                                                                   settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                   tracer,
+                                                                   tracerContextManager))
                      .ConfigureServiceClient()
                      .OverrideDependencies();
 
@@ -165,11 +166,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            ICommonLog logger,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             return container
-                    .ConfigureLogging(logger, loggerContextManager)
+                    .ConfigureTracing(tracer, tracerContextManager)
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
                     .CreateSecuritySpecific()

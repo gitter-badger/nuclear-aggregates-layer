@@ -3157,6 +3157,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Группа номенклатур.
+        /// </summary>
+        public static string PositionsGroup {
+            get {
+                return ResourceManager.GetString("PositionsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Название рекламной позиции.
         /// </summary>
         public static string PositionViewModel_Name {

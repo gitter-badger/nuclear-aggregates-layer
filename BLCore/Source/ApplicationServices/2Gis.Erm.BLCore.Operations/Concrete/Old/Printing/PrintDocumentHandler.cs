@@ -8,15 +8,16 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing
 {
     public sealed class PrintDocumentHandler : RequestHandler<PrintDocumentRequest, StreamResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IPrintFormService _printFormService;
         private readonly IFileService _fileService;
         private readonly IBranchOfficeRepository _branchOfficeRepository;
@@ -24,9 +25,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing
         public PrintDocumentHandler(IPrintFormService printFormService,
                                     IFileService fileService,
                                     IBranchOfficeRepository branchOfficeRepository,
-                                    ICommonLog logger)
+                                    ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
             _printFormService = printFormService;
             _fileService = fileService;
             _branchOfficeRepository = branchOfficeRepository;
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing
             var printFormTemplateId = _branchOfficeRepository.GetPrintFormTemplateId(request.BranchOfficeOrganizationUnitId.Value, request.TemplateCode);
             if (!printFormTemplateId.HasValue)
             {
-                _logger.WarnFormat("Для юр. лица отделения организации с id '{0}' не найден шаблон печатной формы '{1}'",
+                _tracer.WarnFormat("Для юр. лица отделения организации с id '{0}' не найден шаблон печатной формы '{1}'",
                                      request.BranchOfficeOrganizationUnitId,
                                      request.TemplateCode);
                 throw new NotificationException(string.Format(BLResources.PrintFormTemplateNotFound, request.TemplateCode.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
