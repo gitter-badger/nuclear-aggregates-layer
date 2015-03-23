@@ -292,7 +292,7 @@
     <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
     <Compile Include="Generic\Append\AppendUserRoleOperationService.cs" />
     <Compile Include="Generic\Append\AppendUserTerritoryService.cs" />
-    <Compile Include="Generic\Assign\ActivitySecurityAccessExtenstion.cs" />
+    <Compile Include="Generic\Assign\ActivitySecurityAccessExtension.cs" />
     <Compile Include="Generic\Assign\AssignAccountDetailService.cs" />
     <Compile Include="Generic\Assign\AssignAccountService.cs" />
     <Compile Include="Generic\Assign\AssignAppointmentService.cs" />
@@ -306,6 +306,10 @@
     <Compile Include="Generic\Assign\AssignOrderService.cs" />
     <Compile Include="Generic\Assign\AssignPhonecallService.cs" />
     <Compile Include="Generic\Assign\AssignTaskService.cs" />
+    <Compile Include="Generic\Cancel\CancelAppointmentOperationService.cs" />
+    <Compile Include="Generic\Cancel\CancelLetterOperationService.cs" />
+    <Compile Include="Generic\Cancel\CancelPhonecallOperationService.cs" />
+    <Compile Include="Generic\Cancel\CancelTaskOperationService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeDealClientService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeFirmClientService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeGenericEntityClientService.cs" />
@@ -317,6 +321,10 @@
     <Compile Include="Generic\CheckForDebts\CheckClientForDebtsService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckGenericEntityForDebtsService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckLegalPersonForDebtsService.cs" />
+    <Compile Include="Generic\Complete\CompleteAppointmentOperationService.cs" />
+    <Compile Include="Generic\Complete\CompleteLetterOperationService.cs" />
+    <Compile Include="Generic\Complete\CompletePhonecallOperationService.cs" />
+    <Compile Include="Generic\Complete\CompleteTaskOperationService.cs" />
     <Compile Include="Generic\Create\CreateAdvertisementElementOperationService.cs" />
     <Compile Include="Generic\Create\CreateAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionService.cs" />
@@ -554,6 +562,10 @@
     <Compile Include="Generic\Qualify\QualifyFirmService.cs" />
     <Compile Include="Generic\Qualify\QualifyGenericEntityService.cs" />
     <Compile Include="Concrete\Themes\SetDefaultThemeOperation.cs" />
+    <Compile Include="Generic\Reopen\ReopenAppointmentOperationService.cs" />
+    <Compile Include="Generic\Reopen\ReopenLetterOperationService.cs" />
+    <Compile Include="Generic\Reopen\ReopenPhonecallOperationService.cs" />
+    <Compile Include="Generic\Reopen\ReopenTaskOperationService.cs" />
     <Compile Include="Generic\Update\AdvertisementElements\IModifyingAdvertisementElementValidator.cs" />
     <Compile Include="Generic\Update\AdvertisementElements\UpdateAdvertisementElementOperationService.cs" />
     <Compile Include="Generic\Update\AdvertisementElements\ModifyingAdvertisementElementValidator.cs" />

@@ -2331,6 +2331,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CancelConfirmation {
+            get {
+                return ResourceManager.GetString("CancelConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CancelOperationIsNotSpecifiedForThisEntity {
+            get {
+                return ResourceManager.GetString("CancelOperationIsNotSpecifiedForThisEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotActivateBranchOfficeSinceThereIsADuplicate {
             get {
                 return ResourceManager.GetString("CannotActivateBranchOfficeSinceThereIsADuplicate", resourceCulture);
@@ -2397,6 +2415,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotCancelCompletedOrderRequest {
             get {
                 return ResourceManager.GetString("CannotCancelCompletedOrderRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotCancelFinishedOrClosedActivity {
+            get {
+                return ResourceManager.GetString("CannotCancelFinishedOrClosedActivity", resourceCulture);
             }
         }
         
@@ -2496,6 +2523,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified {
             get {
                 return ResourceManager.GetString("CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotCompleteFinishedOrClosedActivity {
+            get {
+                return ResourceManager.GetString("CannotCompleteFinishedOrClosedActivity", resourceCulture);
             }
         }
         
