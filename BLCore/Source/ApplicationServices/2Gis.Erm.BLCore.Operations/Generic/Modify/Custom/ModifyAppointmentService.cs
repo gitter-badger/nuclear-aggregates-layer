@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -25,6 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
     public sealed class ModifyAppointmentService : IModifyBusinessModelEntityService<Appointment>
     {
         private readonly IAppointmentReadModel _readModel;
+
         private readonly IBusinessModelEntityObtainer<Appointment> _activityObtainer;
 
         private readonly IClientReadModel _clientReadModel;
@@ -32,8 +32,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         private readonly IFirmReadModel _firmReadModel;
 
         private readonly ICreateAppointmentAggregateService _createOperationService;
+
         private readonly IUpdateAppointmentAggregateService _updateOperationService;
-        private readonly IChangeDealStageOperationService _changeDealStageOperationService;
 
         public ModifyAppointmentService(
             IAppointmentReadModel readModel,
@@ -41,8 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             IClientReadModel clientReadModel,
             IFirmReadModel firmReadModel,
             ICreateAppointmentAggregateService createOperationService,
-            IUpdateAppointmentAggregateService updateOperationService,
-            IChangeDealStageOperationService changeDealStageOperationService)
+            IUpdateAppointmentAggregateService updateOperationService)
         {
             _readModel = readModel;
             _activityObtainer = obtainer;
@@ -50,7 +49,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             _firmReadModel = firmReadModel;
             _createOperationService = createOperationService;
             _updateOperationService = updateOperationService;
-            _changeDealStageOperationService = changeDealStageOperationService;
         }
 
         public long Modify(IDomainEntityDto domainEntityDto)
@@ -97,22 +95,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                     oldOrganizer = _readModel.GetOrganizer(appointment.Id);
                 }
 
-                _updateOperationService.UpdateAttendees(appointment,
-                                                        oldAttendees,
-                                                        appointment.ReferencesIfAny<Appointment, AppointmentAttendee>(appointmentDto.Attendees));
+                _updateOperationService.UpdateAttendees(appointment, oldAttendees, appointment.ReferencesIfAny<Appointment, AppointmentAttendee>(appointmentDto.Attendees));
 
-                _updateOperationService.ChangeRegardingObjects(appointment,
+                _updateOperationService.ChangeRegardingObjects(
+                    appointment,
                                                                oldRegardingObjects,
                                                                appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
-
-                _updateOperationService.ChangeOrganizer(appointment,
-                                                        oldOrganizer,
-                                                        appointment.ReferencesIfAny<Appointment, AppointmentOrganizer>(appointmentDto.Organizer));
-
-                if (appointment.Status == ActivityStatus.Completed)
-                {
-                    UpdateDealStage(appointmentDto);
-                }
+                _updateOperationService.ChangeOrganizer(appointment, oldOrganizer, appointment.ReferencesIfAny<Appointment, AppointmentOrganizer>(appointmentDto.Organizer));
 
                 transaction.Complete();
 

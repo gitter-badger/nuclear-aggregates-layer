@@ -25,15 +25,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var dto = (LetterDomainEntityDto)domainEntityDto;
 
             var letter = dto.IsNew() 
-                ? new Letter { IsActive = true } 
+                ? new Letter { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() } 
                 : _finder.FindOne(Specs.Find.ById<Letter>(dto.Id));
 
             letter.Header = dto.Header;
             letter.Description = dto.Description;
             letter.Priority = dto.Priority;
             letter.ScheduledOn = dto.ScheduledOn;
-            letter.Status = dto.Status;
-            letter.OwnerCode = dto.OwnerRef.GetId();
             letter.Timestamp = dto.Timestamp;
 
             return letter;

@@ -3,9 +3,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.ActionHistory;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Cancel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeClient;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeTerritory;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
@@ -38,5 +40,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations
         IDownloadFileService GetDownloadFileService(IEntityType entityName);
         IUploadFileService GetUploadFileService(IEntityType entityName);
         IIntegrationProcessorOperationService GetOperationsExportService(IEntityType entityName, IEntityType integrationEntityName);
+        ICancelOperationService GetCancelService(IEntityType entityName);
+        ICompleteOperationService GetCompleteService(IEntityType entityName);
+        IReopenOperationService GetReopenService(IEntityType entityName);
     }
 }

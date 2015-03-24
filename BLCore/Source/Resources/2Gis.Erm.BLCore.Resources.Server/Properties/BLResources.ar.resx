@@ -5190,4 +5190,16 @@ Placement period: {3}.</value>
   <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>You cannot save the action to a client in reserve</value>
   </data>
+  <data name="CancelConfirmation" xml:space="preserve">
+    <value >Confirm action cancellation</value>
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value>Cannot cancel action {0} with "Completed"/"Canceled" status</value>
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value>Cannot finish action {0} with "Completed"/"Canceled" status</value>
+  </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value >Client change operation is not specified for the selected type of entity</value>
+  </data>
 </root>

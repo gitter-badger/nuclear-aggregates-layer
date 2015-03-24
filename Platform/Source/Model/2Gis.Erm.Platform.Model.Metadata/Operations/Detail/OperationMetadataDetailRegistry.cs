@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -34,6 +35,9 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             Identities2MetadataResolverMap.Add(typeof(DeleteIdentity), GetDeleteMetadata);
             Identities2MetadataResolverMap.Add(typeof(ModifySimplifiedModelEntityIdentity), GetModifySimplifiedModelEntityMetadata);
             Identities2MetadataResolverMap.Add(typeof(ModifyBusinessModelEntityIdentity), GetModifyBusinessModelEntityMetadata);
+            Identities2MetadataResolverMap.Add(typeof(CancelIdentity), GetCancelMetadata);
+            Identities2MetadataResolverMap.Add(typeof(CompleteIdentity), GetCompleteMetadata);
+            Identities2MetadataResolverMap.Add(typeof(ReopenIdentity), GetReopenMetadata);
         }
 
         public static IOperationMetadata GetOperationMetadata<TOperationIdentity>(params IEntityType[] operationProcessingEntities)
@@ -76,17 +80,62 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             return new AssignMetadata();
         }
 
-        private static QualifyMetadata GetQualifyMetadata(IEntityType[] entityTypes)
+        private static CancelMetadata GetCancelMetadata(IEntityType[] entityNames)
+        {
+            var entityName = entityNames.Single();
+            switch (entityName)
+            {
+                case EntityName.Activity:
+                case EntityName.Appointment:
+                case EntityName.Letter:
+                case EntityName.Phonecall:
+                case EntityName.Task:
+                    return new CancelMetadata();
+            }
+            return null;
+        }
+
+        private static CompleteMetadata GetCompleteMetadata(IEntityType[] entityNames)
+        {
+            var entityName = entityNames.Single();
+            switch (entityName)
+            {
+                case EntityName.Appointment:
+                case EntityName.Letter:
+                case EntityName.Phonecall:
+                case EntityName.Task:
+                    return new CompleteMetadata();
+            }
+
+            return null;
+        }
+
+        private static ReopenMetadata GetReopenMetadata(IEntityType[] entityNames)
+        {
+            var entityName = entityNames.Single();
+            switch (entityName)
+            {
+                case EntityName.Appointment:
+                case EntityName.Letter:
+                case EntityName.Phonecall:
+                case EntityName.Task:
+                    return new ReopenMetadata();
+            }
+
+            return null;
+        }
+
+        private static QualifyMetadata GetQualifyMetadata(IEntityType[] entityNames)
         {
             var entityName = entityTypes.Single();
             if (entityName.Equals(EntityType.Instance.Firm()))
             {
-                return new QualifyMetadata();
+                    return new QualifyMetadata();
             }
 
             if (entityName.Equals(EntityType.Instance.Client()))
             {
-                return new QualifyMetadata { CheckForDebtsSupported = true };
+                    return new QualifyMetadata { CheckForDebtsSupported = true };
             }
 
             return null;
@@ -98,7 +147,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             if (entityName.Equals(EntityType.Instance.Firm()) ||
                 entityName.Equals(EntityType.Instance.Client()))
             {
-                return new DisqualifyMetadata();
+                    return new DisqualifyMetadata();
             }
 
             return null;
@@ -109,7 +158,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             var entityName = entityTypes.Single();
             if (entityName.Equals(EntityType.Instance.Client()))
             {
-                return new CheckForDebtsMetadata();
+                    return new CheckForDebtsMetadata();
             }
 
             return null;
@@ -121,7 +170,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             if (entityName.Equals(EntityType.Instance.Firm()) ||
                 entityName.Equals(EntityType.Instance.Client()))
             {
-                return new ChangeTerritoryMetadata();
+                    return new ChangeTerritoryMetadata();
             }
 
             return null;
@@ -134,7 +183,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 entityName.Equals(EntityType.Instance.LegalPerson()) ||
                 entityName.Equals(EntityType.Instance.Deal()))
             {
-                return new ChangeClientMetadata();
+                    return new ChangeClientMetadata();
             }
 
             return null;
@@ -152,30 +201,30 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             if (parentEntityType.Equals(EntityType.Instance.Client()) &&
                 appendedEntityType.Equals(EntityType.Instance.Client()))
             {
-                return new AppendMetadata();
-            }
+                                return new AppendMetadata();
+                        }
 
             if (parentEntityType.Equals(EntityType.Instance.Client()) &&
                 (appendedEntityType.Equals(EntityType.Instance.Firm()) ||
                  appendedEntityType.Equals(EntityType.Instance.LegalPerson())))
-            {
-                return new AppendMetadata();
-            }
+                    {
+                                return new AppendMetadata();
+                        }
 
             if (parentEntityType.Equals(EntityType.Instance.User()) &&
                 (appendedEntityType.Equals(EntityType.Instance.OrganizationUnit()) ||
                  appendedEntityType.Equals(EntityType.Instance.Role()) ||
                  appendedEntityType.Equals(EntityType.Instance.Territory())))
-            {
-                return new AppendMetadata();
-            }
+                    {
+                                return new AppendMetadata();
+                        }
 
             if (parentEntityType.Equals(EntityType.Instance.Theme()) &&
                 (appendedEntityType.Equals(EntityType.Instance.Category()) ||
                  appendedEntityType.Equals(EntityType.Instance.OrganizationUnit())))
-            {
-                return new AppendMetadata();
-            }
+                        {
+                                return new AppendMetadata();
+                        }
 
             return null;
         }
@@ -187,65 +236,65 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 entityName.Equals(EntityType.Instance.Client()) ||
                 entityName.Equals(EntityType.Instance.Firm()))
             {
-                return new ActionHistoryMetadata { Properties = new[] { "OwnerCode" } };
+                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode" } };
             }
 
             if (entityName.Equals(EntityType.Instance.AccountDetail()))
             {
-                return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Amount", "Description" } };
+                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Amount", "Description" } };
             }
 
             if (entityName.Equals(EntityType.Instance.Deal()))
             {
-                return new ActionHistoryMetadata { Properties = new[] { "DealStage", "OwnerCode" } };
+                    return new ActionHistoryMetadata { Properties = new[] { "DealStage", "OwnerCode" } };
             }
 
             if (entityName.Equals(EntityType.Instance.Order()))
             {
-                return new ActionHistoryMetadata { Properties = new[] { "WorkflowStepId", "OwnerCode" } };
+                    return new ActionHistoryMetadata { Properties = new[] { "WorkflowStepId", "OwnerCode" } };
             }
 
             if (entityName.Equals(EntityType.Instance.LegalPerson()))
             {
-                return new ActionHistoryMetadata
-                {
-                    Properties = new[]
-                                                {
-                                                    "LegalName",
-                                                    "OwnerCode",
-                                                    "LegalAddress",
-                                                    "Inn",
-                                                    "Kpp",
-                                                    "RegistrationAddress",
-                                                    "PassportNumber",
-                                                    "PassportSeries",
-                                                    "ShortName"
-                                                }
-                };
+                    return new ActionHistoryMetadata
+                        {
+                            Properties = new[]
+                                {
+                                    "LegalName",
+                                    "OwnerCode",
+                                    "LegalAddress",
+                                    "Inn",
+                                    "Kpp",
+                                    "RegistrationAddress",
+                                    "PassportNumber",
+                                    "PassportSeries",
+                                    "ShortName"
+                                }
+                        };
             }
 
             if (entityName.Equals(EntityType.Instance.Limit()))
             {
-                return new ActionHistoryMetadata { Properties = new[] { "StartPeriodDate", "EndPeriodDate", "Amount", "Status" } };
+                    return new ActionHistoryMetadata { Properties = new[] { "StartPeriodDate", "EndPeriodDate", "Amount", "Status" } };
             }
 
             if (entityName.Equals(EntityType.Instance.AdvertisementElement()))
-            {
+                        {
                 return new ActionHistoryMetadata { Properties = new[] { "ModifiedBy" } };
             }
 
             if (entityName.Equals(EntityType.Instance.AdvertisementElementStatus()))
-            {
+                        {
                 return new ActionHistoryMetadata { Properties = new[] { "Status" } };
             }
 
             if (entityName.Equals(EntityType.Instance.Advertisement()))
-            {
+                        {
                 return new ActionHistoryMetadata { Properties = new[] { "ModifiedBy" } };
             }
 
             if (entityName.Equals(EntityType.Instance.Bargain()))
-            {
+                    {
                 return new ActionHistoryMetadata { Properties = new[] { "BargainEndDate" } };
             }
 
@@ -313,7 +362,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             if (entityName.Equals(EntityType.Instance.Category()) ||
                 entityName.Equals(EntityType.Instance.Operation()))
             {
-                return null;
+                    return null;
             }
 
             return new ModifySimplifiedModelEntityMetadata();
@@ -327,7 +376,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 entityName.Equals(EntityType.Instance.Lock()) ||
                 entityName.Equals(EntityType.Instance.LockDetail()))
             {
-                return null;
+                    return null;
             }
 
             return new ModifyBusinessModelEntityMetadata();

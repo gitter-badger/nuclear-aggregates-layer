@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var dto = (PhonecallDomainEntityDto)domainEntityDto;
 
             var phoneCall = dto.IsNew() 
-                ? new Phonecall { IsActive = true } 
+                ? new Phonecall { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() } 
                 : _finder.FindOne(Specs.Find.ById<Phonecall>(dto.Id));
 
             phoneCall.Header = dto.Header;
@@ -32,8 +32,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             phoneCall.Priority = dto.Priority;
             phoneCall.Purpose = dto.Purpose;
             phoneCall.ScheduledOn = dto.ScheduledOn;
-            phoneCall.Status = dto.Status;
-            phoneCall.OwnerCode = dto.OwnerRef.GetId();
             phoneCall.Timestamp = dto.Timestamp;
 
             return phoneCall;
