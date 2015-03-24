@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
@@ -63,7 +64,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
             Func<FunctionalPrivilegeName, bool> functionalPrivilegeValidator =
                 privilegeName => _functionalAccessService.HasFunctionalPrivilegeGranted(privilegeName, currentUserCode);
 
+
+
             var entityViewModel = (OrderViewModel)viewModel;
+
+            entityViewModel.DisabledTypes = Json.Encode(GetOrderTypesToDisable());
 
             modelState.SetModelValue("WorkflowStepId", new ValueProviderResult(entityViewModel.PreviousWorkflowStepId, entityViewModel.PreviousWorkflowStepId.ToString(CultureInfo.InvariantCulture), null));
 
@@ -176,6 +181,29 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                     Value = state.ToString("D"),
                     Text = state.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
                 }));
+        }
+
+        private string[] GetOrderTypesToDisable()
+        {
+            if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, _userContext.Identity.Code))
+            {
+                return new[]
+                           {
+                               OrderType.AdsBarter.ToString(),
+                               OrderType.ProductAdsService.ToString(),
+                               OrderType.ProductBarter.ToString(),
+                               OrderType.SelfAds.ToString(),
+                               OrderType.ServiceBarter.ToString(),
+                               OrderType.SocialAds.ToString(),
+                           };
+            }
+            else
+            {
+                return new[]
+                           {
+                               OrderType.AdvertisementAgency.ToString(),
+                           };
+            }
         }
     }
 }

@@ -244,6 +244,16 @@ Ext.DoubleGis.Global.Helpers = {
             Ext.DoubleGis.Global.Helpers.OpenEntity(config.entityName, config.entityId);
         });
     },
+    DisableComboBoxItemsByValues: function (comboBox, valuesToDisable) {
+        for (var i = 0; i < valuesToDisable.length; i++) {
+            for (var j = 0; j < comboBox.options.length; j++) {
+                if (comboBox.options[j].value == valuesToDisable[i] || (valuesToDisable[i] == 'Undefined' && comboBox.options[j].value == '')) {
+                    comboBox.options[j].disabled = true;
+                    break;
+                }
+            }
+        }
+    },
     HideComboBoxItemsByValues : function(comboBox, valuesToHide) {
         for (var i = 0; i < comboBox.options.length; i++) {
             if (valuesToHide.indexOf(comboBox.options[i].value) != -1) {

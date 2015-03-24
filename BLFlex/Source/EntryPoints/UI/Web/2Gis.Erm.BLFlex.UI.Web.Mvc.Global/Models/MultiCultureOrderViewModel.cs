@@ -210,6 +210,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public long? AccountId { get; set; }
 
+        public string DisabledTypes { get; set; }
+
         public override bool IsSecurityRoot
         {
             get { return true; }
