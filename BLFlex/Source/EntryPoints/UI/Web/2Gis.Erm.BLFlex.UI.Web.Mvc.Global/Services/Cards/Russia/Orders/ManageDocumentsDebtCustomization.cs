@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders
             }
 
             if (_releaseReadModel.HasFinalReleaseInProgress(orderDirectionAspect.DestinationOrganizationUnitKey.Value,
-                                                            new TimePeriod(orderDatesAspect.BeginDistributionDate, orderDatesAspect.EndDistributionDateFact)))
+                                                            new TimePeriod(orderDatesAspect.BeginDistributionDate, orderDatesAspect.EndDistributionDateFact.GetEndPeriodOfThisMonth())))
             {
                 DisableButton(viewModel.ViewConfig.CardSettings.CardToolbar);
             }
