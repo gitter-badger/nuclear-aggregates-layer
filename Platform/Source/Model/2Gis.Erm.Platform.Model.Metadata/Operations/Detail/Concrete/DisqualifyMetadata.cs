@@ -1,7 +1,6 @@
 using System.Runtime.Serialization;
 
-using NuClear.Metamodeling.Operations.Detail;
-using NuClear.Model.Common.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete
 {
