@@ -9,9 +9,14 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
@@ -21,6 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly IAccountRepository _accountRepository;
         private readonly IEvaluateOrderNumberService _numberService;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
+        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
 
         // TODO {all, 19.01.2015}: Есть смысл в этих стратегиях не использовать ReadModel, а передавать уже считанные данные.
         public OrderCreationStrategy(IUserContext userContext,
@@ -32,12 +38,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                      IOrderReadModel orderReadModel,
                                      IAccountRepository accountRepository,
                                      IEvaluateOrderNumberService numberService,
-                                     ILegalPersonReadModel legalPersonReadModel)
+                                     ILegalPersonReadModel legalPersonReadModel,
+                                     ISecurityServiceFunctionalAccess functionalAccessService)
             : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
             _accountRepository = accountRepository;
             _numberService = numberService;
             _legalPersonReadModel = legalPersonReadModel;
+            _functionalAccessService = functionalAccessService;
         }
 
         public override void FinishProcessing(Order order)
@@ -110,6 +118,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 {
                     order.LegalPersonProfileId = profiles.Single();
                 }
+            }
+        }
+
+        protected override void ValidateOrderStateInternal(Order order, long currentUserCode)
+        {
+            if (order.OrderType == OrderType.AdvertisementAgency && !_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, currentUserCode))
+            {
+                throw new OperationAccessDeniedException(BLResources.UserIsNotAllowedToCreateAdvAgencyOrder);
             }
         }
     }

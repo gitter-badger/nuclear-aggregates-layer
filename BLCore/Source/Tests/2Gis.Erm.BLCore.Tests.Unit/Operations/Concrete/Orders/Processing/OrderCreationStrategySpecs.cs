@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Project
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -38,7 +39,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                        MockOrderReadModel(),
                        (IAccountRepository)null,
                        MockEvaluateOrderNumberService(),
-                       MockLegalPersonReadModel())
+                       MockLegalPersonReadModel(),
+                       (ISecurityServiceFunctionalAccess)null)
             {
             }
 

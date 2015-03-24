@@ -1,7 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
-using DoubleGis.Erm.BLFlex.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete

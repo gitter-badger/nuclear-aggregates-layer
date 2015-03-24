@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
                                        string destinationOrganizationUnitSyncCode1C,
                                        long? generatedOrderIndex)
         {
-            throw new NotSupportedException("");//BLResources.RegionalOrdersAreNotSupported);
+            throw new NotSupportedException(BLResources.RegionalOrdersAreNotSupported);
         }
     }
 }
