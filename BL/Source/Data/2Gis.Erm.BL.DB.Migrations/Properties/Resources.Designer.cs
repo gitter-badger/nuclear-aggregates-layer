@@ -114,9 +114,9 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         ///            &lt;Titles&gt;
         ///              &lt;Title LCID=&quot;1049&quot; Text=&quot;Бы [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string customizations_201502051735 {
+        internal static string customizations_201502121619 {
             get {
-                return ResourceManager.GetString("customizations_201502051735", resourceCulture);
+                return ResourceManager.GetString("customizations_201502121619", resourceCulture);
             }
         }
         
