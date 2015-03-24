@@ -4768,6 +4768,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Медийная реклама.
+        /// </summary>
+        public static string PositionsGroupMedia {
+            get {
+                return ResourceManager.GetString("PositionsGroupMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionsGroupNone {
+            get {
+                return ResourceManager.GetString("PositionsGroupNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Задаётся в Позиции Заказа.
         /// </summary>
         public static string PricePositionAmountSpecificationModeArbitraryValue {

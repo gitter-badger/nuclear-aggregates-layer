@@ -5194,4 +5194,16 @@ Periodo de la publicación: {3}.</value>
   <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>No es posible guardar la acción sobre el cliente en reserva</value>
   </data>
+  <data name="CancelConfirmation" xml:space="preserve">
+    <value>Confirme cancelación de la acción</value>
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value>Imposible cancelar la acción {0} en el estado "Cumplido"/"Cancelado"</value>
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value>Imposible finalizar la acción {0} en el estado "Cumplido"/"Cancelado"</value>
+  </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value >Operación de cambio de cliente no está especificada para el tipo de entidad indicado</value>
+  </data>
 </root>
