@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
@@ -12,12 +13,14 @@ using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -33,11 +36,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                         IAPIIdentityServiceSettings identityServiceSettings,
                                         IUserContext userContext,
-                                        ICommonLog logger,
+                                        ITracer tracer,
                                         IGetBaseCurrencyService getBaseCurrencyService,
                                         IReplicationCodeConverter replicationCodeConverter,
                                         IOperationsMetadataProvider operationMetadataProvider)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _replicationCodeConverter = replicationCodeConverter;
             _operationMetadataProvider = operationMetadataProvider;
@@ -46,7 +49,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         public ActionResult Execute(BusinessOperation operation, EntityName entityTypeName)
         {
             var operationName = operation.ToString();
-
             // TODO {all, 23.07.2013}: реализовать проверку доступности операций не через switch, а через operationMetadataProvider
             // т.е. обобщенным образом + генерацию View можно устроить через конвейер resolvers, без километрового switch
 
@@ -95,6 +97,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                             EntityTypeName = entityTypeName,
                                         });
                     }
+
                     if (entityTypeName == EntityName.Territory)
                     {
                         return View("DeactivateTerritory",
@@ -104,6 +107,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                             EntityTypeName = entityTypeName,
                                         });
                     }
+
                     return View("Deactivate",
                                 new GroupOperationViewModel
                                     {
@@ -111,6 +115,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         EntityTypeName = entityTypeName,
                                     });
                 }
+
                 case BusinessOperation.Qualify:
                 {
                     if (entityTypeName == EntityName.Firm)
@@ -135,6 +140,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                     throw new NotificationException(BLResources.QualifyOperationIsNotSpecifiedForThisEntity);
                 }
+
                 case BusinessOperation.Disqualify:
                 {
                     if (entityTypeName == EntityName.Firm)
@@ -159,6 +165,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                     throw new NotificationException(BLResources.DisqualifyOperationIsNotSpecifiedForThisEntity);
                 }
+
                 case BusinessOperation.ChangeTerritory:
                 {
                     if (entityTypeName == EntityName.Firm)
@@ -183,6 +190,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                     throw new NotificationException(BLResources.DisqualifyOperationIsNotSpecifiedForThisEntity);
                 }
+
                 case BusinessOperation.ChangeClient:
                 {
                     if (entityTypeName == EntityName.Firm)
@@ -218,16 +226,30 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                     throw new NotificationException(BLResources.ChangeClientOperationIsNotSpecifiedForThisEntity);
                 }
 
+                case BusinessOperation.Cancel:
+                    if (!_operationMetadataProvider.IsSupported<CancelIdentity>(entityTypeName))
+                    {
+                        throw new NotificationException(BLResources.CancelOperationIsNotSpecifiedForThisEntity);
+                    }
+
+                    return View("Cancel",
+                               new GroupOperationViewModel
+                               {
+                                   OperationName = operationName,
+                                   EntityTypeName = entityTypeName,
+                               });
+
                 default:
                     throw new NotificationException(BLResources.OperationIsNotSpecified);
             }
         }
 
-        public JsonNetResult ConvertToEntityIds(EntityName entityTypeName, Guid[] replicationCodes)
+        public JsonNetResult ConvertToEntityIds(EntityName[] entityTypeNames, Guid[] replicationCodes)
         {
             try
             {
-                return new JsonNetResult(_replicationCodeConverter.ConvertToEntityIds(entityTypeName, replicationCodes));
+                var list = entityTypeNames.Zip(replicationCodes, (k, v) => new CrmEntityInfo { Id = v, EntityName = k }).ToList();
+                return new JsonNetResult(_replicationCodeConverter.ConvertToEntityIds(list));
             }
             catch (ArgumentException ex)
             {

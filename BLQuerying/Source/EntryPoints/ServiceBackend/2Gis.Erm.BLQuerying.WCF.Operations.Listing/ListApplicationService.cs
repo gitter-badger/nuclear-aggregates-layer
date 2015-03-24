@@ -12,9 +12,10 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
 {
@@ -24,18 +25,18 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
     {
         private readonly IUIConfigurationService _configurationService;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly IUseCaseTuner _useCaseTuner;
 
-        public ListApplicationService(ICommonLog logger,
+        public ListApplicationService(ITracer tracer,
                                       IOperationServicesManager operationServicesManager,
                                       IUseCaseTuner useCaseTuner,
                                       IUIConfigurationService configurationService,
                                       IUserContext userContext,
                                       IResourceGroupManager resourceGroupManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _operationServicesManager = operationServicesManager;
             _useCaseTuner = useCaseTuner;
             _configurationService = configurationService;
@@ -60,7 +61,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occurred in {0}. Entity type: {1}", GetType().Name, entityName);
+                _tracer.ErrorFormat(ex, "Error has occurred in {0}. Entity type: {1}", GetType().Name, entityName);
                 throw new FaultException<ListOperationErrorDescription>(new ListOperationErrorDescription(entityName, ex.Message));
             }
         }
@@ -110,7 +111,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}. Entity type: {1}", GetType().Name, entityName);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}. Entity type: {1}", GetType().Name, entityName);
                 throw new WebFaultException<ListOperationErrorDescription>(new ListOperationErrorDescription(entityName, ex.Message), HttpStatusCode.BadRequest);
             }
         }

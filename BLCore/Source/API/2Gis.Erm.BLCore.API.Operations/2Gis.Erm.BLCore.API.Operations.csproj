@@ -47,6 +47,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -233,7 +241,11 @@
     <Compile Include="Crosscutting\ICanChangeOrderPositionBindingObjectsDetector.cs" />
     <Compile Include="Crosscutting\IPaymentsDistributor.cs" />
     <Compile Include="DI\OperationsZone.cs" />
+    <Compile Include="Generic\Cancel\ICancelOperationService.cs" />
+    <Compile Include="Generic\Cancel\ICancelGenericOperationService.cs" />
+    <Compile Include="Generic\Complete\ICompleteOperationService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeClientOfLinkedDealException.cs" />
+    <Compile Include="Generic\Complete\ICompleteGenericOperationService.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\Deactivate\LegalPersonWithOrdersDeactivationException.cs" />
     <Compile Include="Generic\File\DownloadFileParams.cs" />
@@ -424,6 +436,8 @@
     <Compile Include="Generic\Qualify\IQualifyGenericEntityService.cs" />
     <Compile Include="Concrete\Themes\ISetDefaultOperation.cs" />
     <Compile Include="Generic\Read\IActivityReadService.cs" />
+    <Compile Include="Generic\Reopen\IReopenOperationService.cs" />
+    <Compile Include="Generic\Reopen\IReopenGenericOperationService.cs" />
     <Compile Include="Generic\Update\IUpdateOperationService.cs" />
     <Compile Include="IOperationServicesManager.cs" />
     <Compile Include="Metadata\IMessageWithType.cs" />
@@ -442,6 +456,15 @@
     <Compile Include="Remote\Assign\IAssignApplicationRestService.cs" />
     <Compile Include="Remote\Assign\IAssignApplicationService.cs" />
     <Compile Include="Remote\Assign\IGroupAssignApplicationService.cs" />
+    <Compile Include="Remote\Cancel\CancelOperationErrorDescription.cs" />
+    <Compile Include="Remote\Complete\CompleteOperationErrorDescription.cs" />
+    <Compile Include="Remote\Cancel\ICancelApplicationRestService.cs" />
+    <Compile Include="Remote\Cancel\ICancelApplicationService.cs" />
+    <Compile Include="Remote\Complete\ICompleteApplicationRestService.cs" />
+    <Compile Include="Remote\Complete\ICompleteApplicationService.cs" />
+    <Compile Include="Remote\Reopen\IReopenApplicationRestService.cs" />
+    <Compile Include="Remote\Reopen\IReopenApplicationService.cs" />
+    <Compile Include="Remote\Reopen\ReopenOperationErrorDescription.cs" />
     <Compile Include="Remote\ChangeClient\ChangeClientOperationErrorDescription.cs" />
     <Compile Include="Remote\ChangeClient\IChangeClientApplicationRestService.cs" />
     <Compile Include="Remote\ChangeClient\IChangeClientApplicationService.cs" />
@@ -545,4 +568,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
 </Project>

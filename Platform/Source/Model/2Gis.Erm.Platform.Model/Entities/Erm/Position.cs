@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public PositionCalculationMethod CalculationMethodEnum { get; set; }
         public PositionBindingObjectType BindingObjectTypeEnum { get; set; }
         public SalesModel SalesModel { get; set; }
+        public PositionsGroup PositionsGroup { get; set; }
         public long PlatformId { get; set; }
         public long CategoryId { get; set; }
         public long? AdvertisementTemplateId { get; set; }

@@ -230,11 +230,14 @@
     <Compile Include="Operations\Detail\Concrete\ChangeClientMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\ChangeTerritoryMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\CheckForDebtsMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\CloseMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\CompleteMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\DeactivateMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\DeleteMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\DisqualifyMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\ModifyBusinessModelEntityMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\ModifySimplifiedModelEntityMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ReopenMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\UploadFileMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\DownloadFileMetadata.cs" />
     <Compile Include="Operations\Detail\EmptyOperationMetadata.cs" />

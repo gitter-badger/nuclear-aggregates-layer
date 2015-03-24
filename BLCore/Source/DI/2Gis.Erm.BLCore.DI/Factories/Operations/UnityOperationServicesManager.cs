@@ -8,9 +8,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.ActionHistory;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Cancel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeClient;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeTerritory;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
@@ -19,6 +21,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Reopen;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -26,6 +29,9 @@ using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Reopen;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 using Microsoft.Practices.Unity;
@@ -49,6 +55,24 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
         {
             var entities = new[] { entityName, integrationEntityName };
             return GetEntitySpecificOperation<IIntegrationProcessorOperationService, ExportIdentity>(new EntitySet(entities), null);
+        }
+
+        public ICancelOperationService GetCancelService(EntityName entityName)
+        {            
+            CheckOperationAvailability<CancelIdentity>(entityName);
+            return GetEntitySpecificOperation<ICancelOperationService, CancelIdentity>(entityName.ToEntitySet(), null);
+        }
+
+        public ICompleteOperationService GetCompleteService(EntityName entityName)
+        {
+            CheckOperationAvailability<CompleteIdentity>(entityName);
+            return GetEntitySpecificOperation<ICompleteOperationService, CompleteIdentity>(entityName.ToEntitySet(), null);
+        }
+
+        public IReopenOperationService GetReopenService(EntityName entityName)
+        {
+            CheckOperationAvailability<ReopenIdentity>(entityName);
+            return GetEntitySpecificOperation<IReopenOperationService, ReopenIdentity>(entityName.ToEntitySet(), null);
         }
 
         public IListEntityService GetListEntityService(EntityName entityName)

@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .Title.Resource(() => ErmConfigLocalization.ControlRevert)
                                      .ControlType(ControlType.TextImageButton)
                                      .LockOnNew()
-                                     .JSHandler("RevertActivity")
+                                     .JSHandler("ReopenActivity")
                                      .Icon.Path(Icons.Icons.Toolbar.Reschedule)
                                      .DisableOn<IDeactivatableAspect>(x => !x.IsActive)
                                      .DisableOn<IActivityStateAspect>(x => x.Status == ActivityStatus.InProgress)

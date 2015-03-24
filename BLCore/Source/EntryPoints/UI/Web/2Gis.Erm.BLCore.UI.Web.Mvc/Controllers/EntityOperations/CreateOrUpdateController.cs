@@ -19,12 +19,13 @@ using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
         public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
                                         IUserContext userContext,
-                                        ICommonLog logger,
+                                        ITracer tracer,
                                         IOperationServicesManager operationServicesManager,
                                         ISecurityServiceUserIdentifier userIdentifierService,
                                         ISecurityServiceEntityAccess entityAccessService,
@@ -59,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                    specialOperationsServiceSettings,
                    identityServiceSettings,
                    userContext,
-                   logger,
+                   tracer,
                    getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
@@ -99,15 +100,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             }
             catch (ArgumentException ex)
             {
-                ModelUtils.OnException(this, Logger, model, new NotificationException(ex.Message));
+                ModelUtils.OnException(this, Tracer, model, new NotificationException(ex.Message));
             }
             catch (NotSupportedException ex)
             {
-                ModelUtils.OnException(this, Logger, model, new NotificationException(ex.Message));
+                ModelUtils.OnException(this, Tracer, model, new NotificationException(ex.Message));
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
             finally
             {

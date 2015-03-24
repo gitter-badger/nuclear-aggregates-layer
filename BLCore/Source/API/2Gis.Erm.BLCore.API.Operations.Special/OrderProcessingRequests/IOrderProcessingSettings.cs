@@ -1,8 +1,8 @@
-﻿using DoubleGis.Erm.Platform.Common.Settings;
+﻿using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests
 {
-    public interface IOrderProcessingSettings :ISettings
+    public interface IOrderProcessingSettings : ISettings
     {
         int OrderRequestProcessingHoursAmount { get; }
     }

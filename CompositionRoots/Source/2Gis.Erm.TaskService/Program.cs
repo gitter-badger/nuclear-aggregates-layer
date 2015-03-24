@@ -6,16 +6,18 @@ using System.ServiceProcess;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
-using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.TaskService.DI;
 using DoubleGis.Erm.TaskService.Settings;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+using NuClear.Tracing.Environment;
+using NuClear.Tracing.Log4Net;
+using NuClear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.TaskService
 {
@@ -32,18 +34,18 @@ namespace DoubleGis.Erm.TaskService
             var settingsContainer = new TaskServiceAppSettings(BusinessModels.Supported);
             var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
 
-            var loggerContextEntryProviders =
-                    new ILoggerContextEntryProvider[] 
+            var tracerContextEntryProviders =
+                    new ITracerContextEntryProvider[] 
                     {
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
-                        new LoggerContextSelfHostedEntryProvider(LoggerContextKeys.Required.UserAccount)
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new TracerContextSelfHostedEntryProvider(TracerContextKeys.Required.UserAccount)
                     };
 
-            var loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
-            var logger = Log4NetLoggerBuilder.Use
+            var tracerContextManager = new TracerContextManager(tracerContextEntryProviders);
+            var tracer = Log4NetTracerBuilder.Use
                                              .DefaultXmlConfig
                                              .Console
                                              .EventLog
@@ -53,7 +55,7 @@ namespace DoubleGis.Erm.TaskService
             IUnityContainer container = null;
             try
             {
-                container = Bootstrapper.ConfigureUnity(settingsContainer, logger, loggerContextManager);
+                container = Bootstrapper.ConfigureUnity(settingsContainer, tracer, tracerContextManager);
                 var schedulerManager = container.Resolve<ISchedulerManager>();
 
                 if (IsConsoleMode(args))

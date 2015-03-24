@@ -14,7 +14,6 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -22,6 +21,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLFlex.UI.Metadata
 {
@@ -34,18 +35,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
         private readonly IGlobalizationSettings _globalizationSettings;
         private readonly ICardSettingsProvider _cardSettingsProvider;
-        private readonly ICommonLog _commonLog;
+        private readonly ITracer _tracer;
 
         public CardMetadataValidator(
             IGlobalizationSettings globalizationSettings,
             ICardSettingsProvider cardSettingsProvider,
-            IMetadataProvider metadataProvider, 
-            ICommonLog commonLog)
+            IMetadataProvider metadataProvider,
+            ITracer tracer)
             : base(metadataProvider)
         {
             _globalizationSettings = globalizationSettings;
             _cardSettingsProvider = cardSettingsProvider;
-            _commonLog = commonLog;
+            _tracer = tracer;
         }
 
         protected override bool IsValidImpl(MetadataSet targetMetadata, out string report)
@@ -63,7 +64,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                                      string.Join(";" + Environment.NewLine, errors));
 
                     errorsBuilder.AppendLine(errorMessage);
-                    _commonLog.Error(errorMessage);
+                    _tracer.Error(errorMessage);
                 }
 
                 // TODO {all, 19.01.2015}: Убрать эту проверку, когда найдется случай, что MainAttribute явно не нужен.
@@ -73,7 +74,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                                      cardMetadata.Entity);
 
                     errorsBuilder.AppendLine(errorMessage);
-                    _commonLog.Error(errorMessage);
+                    _tracer.Error(errorMessage);
                 }
             }
 

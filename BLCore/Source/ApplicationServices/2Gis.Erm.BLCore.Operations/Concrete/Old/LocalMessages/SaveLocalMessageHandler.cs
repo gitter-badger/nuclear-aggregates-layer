@@ -15,8 +15,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
     {
         private readonly ILocalMessageRepository _localMessageRepository;
         private readonly IFileService _fileService;
-        // FIXME {a.rechkalov, 30.07.2013}: _logger перестал использоваться. что-то надо сделать с ним
-        // DONE {d.ivanov, 2013-07-31}: удалил
 
         public SaveLocalMessageHandler(ILocalMessageRepository localMessageRepository, IFileService fileService)
         {

@@ -5138,7 +5138,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-  </data>
+</data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5196,6 +5196,18 @@ Cумма по операции: {5}.
   </data>
   <data name="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>Невозможно сохранить действие на клиента в резерве</value>
+  </data>
+  <data name="CancelConfirmation" xml:space="preserve">
+    <value >Подтвердите отмену действий</value>
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value>Невозможно отменить действие {0} в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value>Невозможно завершить действие {0} в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value >Операция смены клиента не определена для указанного типа сущности</value>
   </data>
   <data name="ManageDocumentsDebt" xml:space="preserve">
     <value>Управление наличием документов</value>

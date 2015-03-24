@@ -316,6 +316,7 @@
     <Compile Include="Entities\Enums\ReasonForNewDeal.cs" />
     <Compile Include="Entities\Enums\ReleaseStatus.cs" />
     <Compile Include="Entities\Enums\RequestMessageType.cs" />
+    <Compile Include="Entities\Enums\PositionsGroup.cs" />
     <Compile Include="Entities\Enums\SalesModel.cs" />
     <Compile Include="Entities\Enums\StaffAmount.cs" />
     <Compile Include="Entities\Enums\TaxationType.cs" />
@@ -517,6 +518,7 @@
     <Compile Include="Entities\Security\UserRole.cs" />
     <Compile Include="Entities\Security\UserTerritory.cs" />
     <Compile Include="IBoundedContext.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Cancel\CancelIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\GetAccountDetailsForExportContentIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\GetDebitsInfoInitialForExportIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\NotifyAboutAccountDetailModificationIdentity.cs" />
@@ -536,6 +538,8 @@
     <Compile Include="Identities\Operations\Identity\Specific\Bill\CalculateBillsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Complete\CompleteIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Reopen\ReopenIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\DeleteChargesForPeriodAndProjectIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportAdvModelInRubricInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportChargesInfoIdentity.cs" />

@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -96,6 +100,18 @@
     <Compile Include="Activities\IUpdatePhonecallAggregateService.cs" />
     <Compile Include="Activities\IUpdateLetterAggregateService.cs" />
     <Compile Include="Activities\IUpdateTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompletePhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenTaskAggregateService.cs" />
     <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
     <Compile Include="Activities\ReadModel\ITaskReadModel.cs" />
     <Compile Include="Activities\ReadModel\IAppointmentReadModel.cs" />
@@ -291,6 +307,7 @@
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="OrganizationUnits\Exceptions\OrganizationUnitHasNoProjectsException.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
+    <Compile Include="Positions\DTO\LinkingObjectsSchemaPositionDto.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
@@ -333,6 +350,8 @@
     <Compile Include="Roles\IRoleRepository.cs" />
     <Compile Include="Roles\ReadModel\RoleSpecs.Relations.cs" />
     <Compile Include="Settings\IDebtProcessingSettings.cs" />
+    <Compile Include="SimplifiedModel\Categories\DTO\CategoryAsLinkingObjectDto.cs" />
+    <Compile Include="SimplifiedModel\Categories\DTO\LinkingObjectsSchemaCategoryDto.cs" />
     <Compile Include="SimplifiedModel\Categories\IBulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\IBulkDeleteSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
@@ -417,10 +436,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />
-    <Folder Include="Positions\DTO\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\ReadModel\ClientSpecs.ClientLinks.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

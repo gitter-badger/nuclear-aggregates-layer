@@ -19,9 +19,10 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Compression;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 {
@@ -29,18 +30,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
     {
         private readonly IFileService _fileService;
         private readonly ILocalMessageRepository _localMessageRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ISubRequestProcessor _subRequestProcessor;
 
         public ProcessLocalMessagesHandler(ILocalMessageRepository localMessageRepository,
                                            IFileService fileService,
                                            ISubRequestProcessor subRequestProcessor,
-                                           ICommonLog logger)
+                                           ITracer tracer)
         {
             _localMessageRepository = localMessageRepository;
             _fileService = fileService;
             _subRequestProcessor = subRequestProcessor;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override EmptyResponse Handle(ProcessLocalMessagesRequest request)
@@ -87,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
                 var exceptionMessage = (ex is XmlException) ? "Неверный формат сообщения" : ex.Message;
                 var errorMessage = string.Format("Ошибка обработки сообщения [{0}]: {1}", localMessageDto.LocalMessage.Id, exceptionMessage);
-                _logger.Error(ex, errorMessage);
+                _tracer.Error(ex, errorMessage);
 
                 messages.Add(errorMessage);
             }
@@ -108,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                         localMessageDto.LocalMessage.Id,
                         response.Processed,
                         response.Total);
-                _logger.Info(resultMessage);
+                _tracer.Info(resultMessage);
 
                 messages.Add(resultMessage);
                 if (response.Messages != null)
