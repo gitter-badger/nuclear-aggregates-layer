@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Aspects.Features;
-using NuClear.Metamodeling.Elements.Aspects.Features.Operations;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Operations;
 using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Model.Common.Entities;
 

@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Blendability.Navigation;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels;
-using NuClear.Metamodeling.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation;
 

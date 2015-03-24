@@ -21,7 +21,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
-using NuClear.Metamodeling.Utils.Resources;
+using NuClear.Metamodeling.UI.Utils.Resources;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils

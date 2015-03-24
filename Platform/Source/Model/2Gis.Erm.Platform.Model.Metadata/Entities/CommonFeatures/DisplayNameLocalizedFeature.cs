@@ -3,8 +3,8 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils;
 
+using NuClear.Metamodeling.Domain.Entities;
 using NuClear.Metamodeling.Elements.Aspects.Features;
-using NuClear.Metamodeling.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures
 {

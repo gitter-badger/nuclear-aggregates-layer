@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Aspects.Features;
 using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 {
@@ -14,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
         public OrderValidationRuleGroupMetadata(OrderValidationRuleGroup ruleGroup, IEnumerable<IMetadataFeature> features)
             : base(features)
         {
-            _identity = IdBuilder.For<MetadataOrderValidationIdentity>("Rules", ruleGroup.ToString()).AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataOrderValidationIdentity>("Rules", ruleGroup.ToString()).Build().AsIdentity();
             _ruleGroup = ruleGroup;
         }
 

@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 using FluentValidation.Validators;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation.Converters
 {

@@ -2,7 +2,7 @@
 
 using FluentValidation.Validators;
 
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation.Converters
 {

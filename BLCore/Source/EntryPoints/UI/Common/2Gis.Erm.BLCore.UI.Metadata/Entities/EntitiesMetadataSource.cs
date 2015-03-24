@@ -5,10 +5,10 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Aspects.Features.Entities;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Entities;
 using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
 using NuClear.Metamodeling.Elements.Identities;
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 using NuClear.Metamodeling.Provider.Sources;
 using NuClear.Model.Common.Entities;
 

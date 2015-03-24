@@ -4,7 +4,7 @@ using System.Linq;
 using System.Timers;
 using System.Windows.Input;
 
-using NuClear.Metamodeling.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;

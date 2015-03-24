@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 using FluentValidation;
 
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation
 {

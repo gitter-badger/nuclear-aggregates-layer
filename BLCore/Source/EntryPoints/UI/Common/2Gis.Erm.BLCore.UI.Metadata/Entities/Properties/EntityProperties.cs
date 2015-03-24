@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 using NuClear.Metamodeling.Provider.Sources;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;

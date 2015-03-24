@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {

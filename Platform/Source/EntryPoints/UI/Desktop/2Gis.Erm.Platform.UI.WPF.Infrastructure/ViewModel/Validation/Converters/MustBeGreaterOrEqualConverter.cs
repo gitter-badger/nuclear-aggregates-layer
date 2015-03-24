@@ -10,7 +10,7 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.CustomTypeProvider;
 using FluentValidation.Validators;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation.Converters
 {

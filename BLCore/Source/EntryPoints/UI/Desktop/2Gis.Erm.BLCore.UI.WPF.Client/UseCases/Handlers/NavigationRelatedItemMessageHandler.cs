@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.ContextualNavigatio
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Aspects.Features.Handler.Concrete;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
 using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
 using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Metamodeling.Provider;

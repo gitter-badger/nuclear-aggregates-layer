@@ -1,4 +1,4 @@
-﻿using NuClear.Metamodeling.Entities;
+﻿using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {

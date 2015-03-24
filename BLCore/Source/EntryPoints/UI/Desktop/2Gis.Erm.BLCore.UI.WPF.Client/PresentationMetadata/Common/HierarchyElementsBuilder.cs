@@ -2,8 +2,8 @@
 
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Metadata.Common;
 
-using NuClear.Metamodeling.Elements.Aspects.Features.Handler;
-using NuClear.Metamodeling.Elements.Aspects.Features.Resources.Images;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Images;
 using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
 using NuClear.Model.Common.Entities;
 

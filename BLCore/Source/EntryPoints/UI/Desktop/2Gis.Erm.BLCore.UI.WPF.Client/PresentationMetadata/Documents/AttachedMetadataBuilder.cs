@@ -1,5 +1,5 @@
 using NuClear.Metamodeling.Elements.Aspects.Conditions;
-using NuClear.Metamodeling.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler;
 using NuClear.Metamodeling.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 

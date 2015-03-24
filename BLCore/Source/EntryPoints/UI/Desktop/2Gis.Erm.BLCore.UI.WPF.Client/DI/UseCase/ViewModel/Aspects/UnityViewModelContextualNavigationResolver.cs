@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
-using NuClear.Metamodeling.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
 using NuClear.Metamodeling.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;

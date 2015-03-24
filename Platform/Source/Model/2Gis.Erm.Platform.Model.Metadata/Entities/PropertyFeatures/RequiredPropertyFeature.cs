@@ -3,7 +3,7 @@
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Resources.Server;
 
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {

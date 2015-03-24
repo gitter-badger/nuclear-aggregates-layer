@@ -23,10 +23,10 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
 
 using Microsoft.Practices.Unity;
 
-using NuClear.Metamodeling.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Metamodeling.Provider;
-using NuClear.Metamodeling.Utils.Resources;
+using NuClear.Metamodeling.UI.Utils.Resources;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity;
 using NuClear.Model.Common.Operations.Identity.Generic;

@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common

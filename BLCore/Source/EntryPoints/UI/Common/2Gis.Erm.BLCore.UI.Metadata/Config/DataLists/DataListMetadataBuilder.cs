@@ -6,7 +6,7 @@ using NuClear.Model.Common.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Aspects.Features.Operations;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Operations;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {

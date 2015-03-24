@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Aspects.Features;
 using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 {

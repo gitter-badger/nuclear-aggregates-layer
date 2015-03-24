@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 
 using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
 using NuClear.Metamodeling.Elements.Identities;
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sources

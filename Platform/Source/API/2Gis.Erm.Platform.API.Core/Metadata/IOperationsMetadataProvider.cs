@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
 
-using NuClear.Metamodeling.Operations.Detail;
+using NuClear.Metamodeling.Domain.Operations.Detail;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity;
 

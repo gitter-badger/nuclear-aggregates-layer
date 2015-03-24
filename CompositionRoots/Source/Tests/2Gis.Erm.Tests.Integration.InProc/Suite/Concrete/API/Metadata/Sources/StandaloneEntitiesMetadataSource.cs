@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sources

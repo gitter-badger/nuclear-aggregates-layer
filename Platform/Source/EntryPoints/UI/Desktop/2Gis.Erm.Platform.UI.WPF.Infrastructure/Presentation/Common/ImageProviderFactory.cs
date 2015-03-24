@@ -6,7 +6,7 @@ using System.Windows;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Metadata.Common;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 
-using NuClear.Metamodeling.Elements.Aspects.Features.Resources.Images;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Images;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Common
 {

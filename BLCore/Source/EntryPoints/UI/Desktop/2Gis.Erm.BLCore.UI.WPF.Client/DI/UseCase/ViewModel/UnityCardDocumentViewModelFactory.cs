@@ -11,7 +11,7 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Aspects.Features.Handler.Concrete;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
 using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Metamodeling.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;

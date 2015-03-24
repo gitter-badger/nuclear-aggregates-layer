@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using FluentValidation;
 using FluentValidation.Results;
 
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation
 {

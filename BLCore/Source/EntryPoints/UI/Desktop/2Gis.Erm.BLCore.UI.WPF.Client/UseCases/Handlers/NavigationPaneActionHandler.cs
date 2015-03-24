@@ -3,8 +3,8 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Aspects.Features.Handler;
-using NuClear.Metamodeling.Elements.Aspects.Features.Handler.Concrete;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
 using NuClear.Metamodeling.Provider;
 using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;

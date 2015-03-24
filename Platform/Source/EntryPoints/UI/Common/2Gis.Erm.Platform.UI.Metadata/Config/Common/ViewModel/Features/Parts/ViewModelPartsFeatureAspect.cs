@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Utils.Resources;
+using NuClear.Metamodeling.UI.Utils.Resources;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts
 {

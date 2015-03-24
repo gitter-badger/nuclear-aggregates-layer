@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features;
 
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Identities;
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 using NuClear.Metamodeling.Provider;
 using NuClear.Metamodeling.Validators;
 

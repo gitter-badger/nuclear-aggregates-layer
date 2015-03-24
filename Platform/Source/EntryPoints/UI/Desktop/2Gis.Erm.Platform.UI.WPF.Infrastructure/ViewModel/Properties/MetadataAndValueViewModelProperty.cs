@@ -4,7 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Properties
 {

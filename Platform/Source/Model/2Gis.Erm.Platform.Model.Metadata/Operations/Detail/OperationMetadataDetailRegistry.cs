@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
 
-using NuClear.Metamodeling.Operations.Detail;
+using NuClear.Metamodeling.Domain.Operations.Detail;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity;
 using NuClear.Model.Common.Operations.Identity.Generic;
@@ -80,52 +79,50 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             return new AssignMetadata();
         }
 
-        private static CancelMetadata GetCancelMetadata(IEntityType[] entityNames)
+        private static CancelMetadata GetCancelMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Activity()) ||
+                entityName.Equals(EntityType.Instance.Appointment()) ||
+                entityName.Equals(EntityType.Instance.Letter()) ||
+                entityName.Equals(EntityType.Instance.Phonecall()) ||
+                entityName.Equals(EntityType.Instance.Task()))
             {
-                case EntityName.Activity:
-                case EntityName.Appointment:
-                case EntityName.Letter:
-                case EntityName.Phonecall:
-                case EntityName.Task:
-                    return new CancelMetadata();
-            }
-            return null;
-        }
-
-        private static CompleteMetadata GetCompleteMetadata(IEntityType[] entityNames)
-        {
-            var entityName = entityNames.Single();
-            switch (entityName)
-            {
-                case EntityName.Appointment:
-                case EntityName.Letter:
-                case EntityName.Phonecall:
-                case EntityName.Task:
-                    return new CompleteMetadata();
+                return new CancelMetadata();
             }
 
             return null;
         }
 
-        private static ReopenMetadata GetReopenMetadata(IEntityType[] entityNames)
+        private static CompleteMetadata GetCompleteMetadata(IEntityType[] entityTypes)
         {
-            var entityName = entityNames.Single();
-            switch (entityName)
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Appointment()) ||
+                entityName.Equals(EntityType.Instance.Letter()) ||
+                entityName.Equals(EntityType.Instance.Phonecall()) ||
+                entityName.Equals(EntityType.Instance.Task()))
             {
-                case EntityName.Appointment:
-                case EntityName.Letter:
-                case EntityName.Phonecall:
-                case EntityName.Task:
-                    return new ReopenMetadata();
+                return new CompleteMetadata();
             }
 
             return null;
         }
 
-        private static QualifyMetadata GetQualifyMetadata(IEntityType[] entityNames)
+        private static ReopenMetadata GetReopenMetadata(IEntityType[] entityTypes)
+        {
+            var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Appointment()) ||
+                entityName.Equals(EntityType.Instance.Letter()) ||
+                entityName.Equals(EntityType.Instance.Phonecall()) ||
+                entityName.Equals(EntityType.Instance.Task()))
+            {
+                return new ReopenMetadata();
+            }
+
+            return null;
+        }
+
+        private static QualifyMetadata GetQualifyMetadata(IEntityType[] entityTypes)
         {
             var entityName = entityTypes.Single();
             if (entityName.Equals(EntityType.Instance.Firm()))

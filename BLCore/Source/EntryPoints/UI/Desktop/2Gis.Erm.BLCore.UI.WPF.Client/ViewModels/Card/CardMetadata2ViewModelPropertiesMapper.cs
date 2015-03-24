@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Properties;
 
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Identities;
-using NuClear.Metamodeling.Entities;
+using NuClear.Metamodeling.Domain.Entities;
 using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
