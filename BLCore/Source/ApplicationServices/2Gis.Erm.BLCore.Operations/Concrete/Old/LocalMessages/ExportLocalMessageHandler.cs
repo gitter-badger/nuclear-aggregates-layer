@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
@@ -12,7 +10,6 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -21,13 +18,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
     public sealed class ExportLocalMessageHandler : RequestHandler<ExportLocalMessageRequest, Response>
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
-        private readonly IGetAccountDetailsForExportContentOperationService _getAccountDetailsForExportContentOperationService;
 
         public ExportLocalMessageHandler(
-            ISubRequestProcessor subRequestProcessor, IGetAccountDetailsForExportContentOperationService getAccountDetailsForExportContentOperationService)
+            ISubRequestProcessor subRequestProcessor)
         {
             _subRequestProcessor = subRequestProcessor;
-            _getAccountDetailsForExportContentOperationService = getAccountDetailsForExportContentOperationService;
         }
 
         protected override Response Handle(ExportLocalMessageRequest request)
@@ -130,26 +125,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                             Context);
                     }
 
-                case IntegrationTypeExport.AccountDetailsToServiceBus:
-                {
-                    return ExportAccountDetailsToServiceBus(request);
-                }
-
                 default:
                     throw new NotSupportedException();
             }
-        }
-
-        private IntegrationResponse ExportAccountDetailsToServiceBus(ExportLocalMessageRequest request)
-        {
-            if (request.OrganizationUnitId == null)
-            {
-                throw new NotificationException("Не указано отделение организации");
-            }
-
-            return _getAccountDetailsForExportContentOperationService.Get(request.PeriodStart.GetFirstDateOfMonth(),
-                                                                          request.PeriodStart.GetEndPeriodOfThisMonth(),
-                                                                          new[] { request.OrganizationUnitId.Value }).Single();
         }
     }
 }

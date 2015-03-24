@@ -2044,6 +2044,18 @@
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Prestación garantizada</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Prestación planificada</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Retiro</value>
+  </data>
   <data name="PositionsGroupMedia" xml:space="preserve">
     <value>Publicidad mediática</value>
   </data>

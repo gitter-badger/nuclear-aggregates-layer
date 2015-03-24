@@ -1487,4 +1487,7 @@
   <data name="PositionsGroup" xml:space="preserve">
     <value>Grupo de nomenclaturas</value>
   </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Modo para contabilizar la prestación de servicios</value>
+  </data>
 </root>

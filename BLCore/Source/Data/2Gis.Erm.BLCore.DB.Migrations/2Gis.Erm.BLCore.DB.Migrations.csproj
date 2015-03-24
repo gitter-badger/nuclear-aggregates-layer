@@ -819,13 +819,15 @@
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
     <Compile Include="2.1\201503040626 - Add PositionsGroup.cs" />
     <Compile Include="2.1\201502190640 - Rename AdditionalEmail to Email.cs" />
-    <Compile Include="2.1\Migration201502111010.cs" />
+    <Compile Include="2.1\201502111010 - remove Timestamp from SalesModelCategoryRestrictions.cs" />
+    <Compile Include="2.1\201502240101 - Add new Integration.ExportFlowFinancialData_DebitsInfoInitial table.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
     <Compile Include="2.1\201501190608 - add Amount to Billing.Charges.cs" />
     <Compile Include="2.1\201501201220 - remove PositionId column.cs" />
     <Compile Include="2.1\201502090244 - remove account details export buttons from MS CRM.cs" />
     <Compile Include="2.1\201501261917 - Drop single replication SPs.cs" />
     <Compile Include="2.1\201503111149 - Drop obsoleted logging infrastructure.cs" />
+    <Compile Include="2.1\201502130238 - add AccountingMethod column to WithdrawalInfos table.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />
@@ -866,8 +868,8 @@
     <Compile Include="ActivityMigration\TaskMigration.cs" />
     <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
     <Compile Include="2.1\201412040408 - Drop column PaymentEssentialElements.cs" />
-    <Compile Include="2.1\Migration201412301100 - add SalesModelCategoryRestrictions.cs" />
     <Compile Include="2.1\201412240529 - rename AccountingMethodEnum to SalesModelEnum.cs" />
+    <Compile Include="2.1\201412301100 - add SalesModelCategoryRestrictions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
