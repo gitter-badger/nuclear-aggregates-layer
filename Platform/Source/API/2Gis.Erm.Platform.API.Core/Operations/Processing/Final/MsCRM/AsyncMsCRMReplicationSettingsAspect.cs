@@ -1,4 +1,5 @@
-using DoubleGis.Erm.Platform.Common.Settings;
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM
 {

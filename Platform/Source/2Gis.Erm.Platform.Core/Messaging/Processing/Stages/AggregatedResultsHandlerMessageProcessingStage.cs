@@ -6,7 +6,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 {
@@ -15,8 +16,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
                                                                                                     AggregatedResultsHandlerMessageProcessingStage.AggregatedResultsInput>
     {
         public AggregatedResultsHandlerMessageProcessingStage(IMessageAggregatedProcessingResultsHandlerFactory actorFactory,
-                                                              ICommonLog logger)
-            : base(actorFactory, logger)
+                                                              ITracer tracer)
+            : base(actorFactory, tracer)
         {
         }
 
