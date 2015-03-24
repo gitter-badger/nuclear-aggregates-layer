@@ -25,11 +25,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
     {
         private readonly IFinder _finder;
         private readonly IOperationContextParser _operationContextParser;
+        private readonly ITracer _tracer;
 
         public SerializeAccountDetailHandler(IExportRepository<AccountDetail> exportRepository, ITracer tracer, IFinder finder, IOperationContextParser operationContextParser)
             : base(exportRepository, tracer)
         {
             _finder = finder;
+            _tracer = tracer;
             _operationContextParser = operationContextParser;
         }
 
@@ -63,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         protected override IEnumerable<IExportableEntityDto> ProcessOperations(IEnumerable<PerformedBusinessOperation> operations)
         {
-            return operations.OrderBy(operation => operation.Date).Select(FormatExportRecord).ToArray();
+            return operations.OrderBy(operation => operation.Date).Select(FormatExportRecord).Where(x => x != null).ToArray();
         }
 
         protected override IEnumerable<IExportableEntityDto> ProcessFailedEntities(IEnumerable<ExportFailedEntity> entities)
@@ -81,6 +83,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             var filter = CreateAccountDetailsFilter(operation);
             var selector = AccountDetailDtoSelectSpecification();
             var exportData = _finder.Find(selector, filter).ToArray();
+
+            if (exportData.Length == 0)
+            {
+                // ≈щЄ один костыль, который можно будет убрать перейд€ на новую выгрузку.
+                // ƒело в том, что если после списани€ сразу сделали откат, 
+                // то при выгрузке списани€ AccountDetail не будут прив€заны к Lock.
+                // ¬ этом случае не определить ни город, ни период, ни модель продаж.
+                // Ќо это не страшно - это значит, дальше в очереди есть операци€ отката, котора€ выплюнет пустое сообщение.
+                _tracer.WarnFormat("Ќет данных дл€ экспорта по операции {0} ", operation.Id);
+                return null;
+            }
 
             var key = exportData.Select(dto => new DebitContainerKey
                                                    {
