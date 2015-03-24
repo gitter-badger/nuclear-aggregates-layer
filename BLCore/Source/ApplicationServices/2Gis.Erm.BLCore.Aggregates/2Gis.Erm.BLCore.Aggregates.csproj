@@ -211,6 +211,7 @@
     <Compile Include="Orders\Operations\Bills\BulkCreateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\BulkDeleteBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\UpdateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\SetOrderDocumentsDebtAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\UseExistingOrderNumberOrderNumberGenerationStrategy.cs" />
     <Compile Include="Orders\Operations\Crosscutting\UseReservedNumberOrderNumberGenerationStrategy.cs" />
     <Compile Include="Orders\Operations\OrderCreateReleaseTotalsAggregateService.cs" />

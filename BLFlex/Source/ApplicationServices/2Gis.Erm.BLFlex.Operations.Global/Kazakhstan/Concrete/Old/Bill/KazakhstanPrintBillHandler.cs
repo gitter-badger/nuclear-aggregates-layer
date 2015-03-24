@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
                 new PrintDocumentRequest
                     {
                         CurrencyIsoCode = billInfo.CurrencyISOCode,
-                        FileName = billInfo.Bill.BillNumber,
+                        FileName = billInfo.Bill.Number,
                         BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
                         PrintData = printData,
                         TemplateCode = TemplateCode.BillLegalPerson
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
         {
             return new PrintData
                 {
-                    { "BillNumber", bill.BillNumber },
+                    { "BillNumber", bill.Number },
                     { "BillDate", bill.BillDate },
                     { "BeginDistributionDate", bill.BeginDistributionDate },
                     { "EndDistributionDate", bill.EndDistributionDate },

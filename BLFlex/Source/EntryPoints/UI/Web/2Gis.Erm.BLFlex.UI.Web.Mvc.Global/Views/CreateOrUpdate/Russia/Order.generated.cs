@@ -410,28 +410,6 @@ WriteLiteral("        ");
 
             
             #line 66 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-   Write(Html.CheckBoxFor(m => m.CanSwitchToAccount));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("        ");
-
-            
-            #line 67 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-   Write(Html.HiddenFor(m => m.HasOrderDocumentsDebtChecking));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("        ");
-
-            
-            #line 68 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.HiddenFor(m => m.AccountId));
 
             
@@ -442,7 +420,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 69 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 67 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.HiddenFor(m => m.IsActive));
 
             
@@ -453,7 +431,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 70 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 68 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.HiddenFor(m => m.PlatformId));
 
             
@@ -464,7 +442,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 71 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 69 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.HiddenFor(m => m.VatPlan));
 
             
@@ -475,7 +453,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 72 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 70 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.HiddenFor(m => m.OrderValidationServiceUrl));
 
             
@@ -486,7 +464,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 73 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 71 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.HiddenFor(m => m.RegionalNumber));
 
             
@@ -497,8 +475,8 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 74 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-   Write(Html.HiddenFor(m => m.DisabledTypes));
+            #line 72 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+   Write(Html.HiddenFor(m => m.DisabledOrderTypes));
 
             
             #line default
@@ -509,14 +487,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3015), Tuple.Create("\"", 3051)
+WriteAttribute("title", Tuple.Create(" title=\"", 2903), Tuple.Create("\"", 2939)
             
-            #line 76 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 3023), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 74 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+, Tuple.Create(Tuple.Create("", 2911), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 3023), false)
+, 2911), false)
 );
 
 WriteLiteral(">\r\n        <br />\r\n        <div");
@@ -528,8 +506,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 79 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.OrderNumber, FieldFlex.twins));
+            #line 77 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+       Write(Html.TemplateField(m => m.Number, FieldFlex.twins));
 
             
             #line default
@@ -539,7 +517,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 80 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 78 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Platform, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } }));
 
             
@@ -554,7 +532,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 83 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 81 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings
                                                                             {
                                                                                 EntityName = EntityName.Deal,
@@ -569,7 +547,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 88 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 86 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                         {
                                                                             EntityName = EntityName.LegalPerson,
@@ -590,7 +568,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 97 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 95 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings
                                                                             {
                                                                                 EntityName = EntityName.Firm,
@@ -606,7 +584,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 103 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 101 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "SourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
 
             
@@ -621,7 +599,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 106 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 104 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "currencyId={DealCurrencyId}&userId={CurrenctUserCode}&singlePrimaryBranchOffice=true", ShowReadOnlyCard = true }));
 
             
@@ -632,7 +610,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 107 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 105 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Bargain, FieldFlex.twins, new LookupSettings
                 {
                     EntityName = EntityName.Bargain,
@@ -651,7 +629,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 114 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 112 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.DestinationOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ShowReadOnlyCard = true, ExtendedInfo = "restrictByProjects=true" }));
 
             
@@ -662,7 +640,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 115 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 113 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.OrderType, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -673,7 +651,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 117 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 115 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.SectionHead("placementGroup", BLResources.TitlePlacement));
 
             
@@ -698,7 +676,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 122 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 120 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                    Write(BLResources.TitleReleasesCount);
 
             
@@ -726,7 +704,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 130 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 128 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.LabelFor(m => m.ReleaseCountPlan));
 
             
@@ -737,7 +715,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 WriteLiteral("                                    ");
 
             
-            #line 133 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 131 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.TextBoxFor(m => m.ReleaseCountPlan, new Dictionary<string, object> { { "class", "inputfields" } }));
 
             
@@ -748,7 +726,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 134 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 132 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ReleaseCountPlan, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -767,7 +745,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 138 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 136 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.LabelFor(m => m.ReleaseCountFact));
 
             
@@ -778,7 +756,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 WriteLiteral("                                    ");
 
             
-            #line 141 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 139 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.TextBoxFor(m => m.ReleaseCountFact, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -797,7 +775,7 @@ WriteLiteral(">\r\n                                    <span>\r\n");
 WriteLiteral("                                        ");
 
             
-            #line 146 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 144 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                    Write(BLResources.TitleReleasesPlan);
 
             
@@ -809,7 +787,7 @@ WriteLiteral("\r\n                                    </span>\r\n               
 WriteLiteral("                                    ");
 
             
-            #line 150 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 148 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.TextBoxFor(m => m.BeginReleaseNumber, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -820,7 +798,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 151 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 149 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.ValidationMessageFor(m => m.BeginReleaseNumber, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -836,7 +814,7 @@ WriteLiteral(">\r\n                                    -\r\n                    
 WriteLiteral("                                    ");
 
             
-            #line 157 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 155 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.TextBoxFor(m => m.EndReleaseNumberPlan, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -847,7 +825,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 158 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 156 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.ValidationMessageFor(m => m.EndReleaseNumberPlan, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -860,7 +838,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 WriteLiteral("            ");
 
             
-            #line 165 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 163 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.EndReleaseNumberFact, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -885,7 +863,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 171 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 169 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                    Write(BLResources.TitlePlacementPeriod);
 
             
@@ -901,7 +879,7 @@ WriteLiteral(">\r\n                    <table>\r\n                        <tbody
 WriteLiteral("                                    ");
 
             
-            #line 179 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 177 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.DateFor(m => m.BeginDistributionDate, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound }));
 
             
@@ -917,7 +895,7 @@ WriteLiteral(">\r\n                                    -\r\n                    
 WriteLiteral("                                    ");
 
             
-            #line 185 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 183 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                Write(Html.DateFor(m => m.EndDistributionDatePlan, new DateTimeSettings { ReadOnly = true, ShiftOffset = false, PeriodType = PeriodType.MonthlyUpperBound }));
 
             
@@ -929,7 +907,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 WriteLiteral("                    ");
 
             
-            #line 190 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 188 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                Write(Html.ValidationMessageFor(m => m.BeginDistributionDate, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -940,7 +918,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 191 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 189 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                Write(Html.Hidden("now", DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)));
 
             
@@ -951,7 +929,7 @@ WriteLiteral("\r\n                </div>\r\n            </div>\r\n");
 WriteLiteral("            ");
 
             
-            #line 194 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 192 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.EndDistributionDateFact, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false }));
 
             
@@ -962,7 +940,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 196 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 194 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.SectionHead("discountGroup", BLResources.TitleDiscount));
 
             
@@ -995,7 +973,7 @@ WriteLiteral(">\r\n                            <span>\r\n");
 WriteLiteral("                                ");
 
             
-            #line 203 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 201 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                            Write(BLResources.DiscountValue);
 
             
@@ -1024,7 +1002,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                            ");
 
             
-            #line 211 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 209 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                        Write(Html.RadioButtonFor(m => m.DiscountPercentChecked, true, new Dictionary<string, object> { { "id", "DiscountPercentChecked" }, { "class", "rad" } }));
 
             
@@ -1036,7 +1014,7 @@ WriteLiteral("\r\n                                        </td>\r\n             
 WriteLiteral("                                            ");
 
             
-            #line 214 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 212 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                        Write(Html.TextBoxFor(m => m.DiscountPercent, new Dictionary<string, object> { { "class", "inputfields" } }));
 
             
@@ -1047,7 +1025,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                            ");
 
             
-            #line 215 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 213 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                        Write(Html.ValidationMessageFor(m => m.DiscountPercent, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -1072,7 +1050,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                            ");
 
             
-            #line 222 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 220 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                        Write(Html.RadioButtonFor(m => m.DiscountPercentChecked, false, new Dictionary<string, object> { { "id", "DiscountSumChecked" }, { "class", "rad" } }));
 
             
@@ -1084,7 +1062,7 @@ WriteLiteral("\r\n                                        </td>\r\n             
 WriteLiteral("                                            ");
 
             
-            #line 225 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 223 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                        Write(Html.TextBoxFor(m => m.DiscountSum, new Dictionary<string, object> { { "class", "inputfields" } }));
 
             
@@ -1095,7 +1073,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                            ");
 
             
-            #line 226 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 224 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                        Write(Html.ValidationMessageFor(m => m.DiscountSum, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -1109,7 +1087,7 @@ WriteLiteral(" style=\"width: 30px; text-align: center;\"");
 WriteLiteral(">\r\n                                            <span>");
 
             
-            #line 229 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 227 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                                              Write(ViewData.GetErmBaseCurrencySymbol());
 
             
@@ -1122,7 +1100,7 @@ WriteLiteral("</span>\r\n                                        </td>\r\n      
 WriteLiteral("                    ");
 
             
-            #line 236 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 234 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                Write(Html.TemplateField(m => m.DiscountReason, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -1137,7 +1115,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 239 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 237 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
                Write(Html.TemplateField(m => m.DiscountComment, FieldFlex.lone));
 
             
@@ -1150,14 +1128,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14729), Tuple.Create("\"", 14768)
+WriteAttribute("title", Tuple.Create(" title=\"", 14612), Tuple.Create("\"", 14651)
             
-            #line 244 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 14737), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+            #line 242 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+, Tuple.Create(Tuple.Create("", 14620), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14737), false)
+, 14620), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1165,7 +1143,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 245 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 243 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.SectionHead("finances", BLResources.TitleFinances));
 
             
@@ -1180,7 +1158,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 247 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 245 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.PayablePrice, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1191,7 +1169,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 248 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 246 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true, ShowReadOnlyCard = true, }));
 
             
@@ -1206,7 +1184,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 251 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 249 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.PayablePlan, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1217,7 +1195,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 252 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 250 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.AmountToWithdraw, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1232,7 +1210,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 255 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 253 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.PayableFact, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1243,7 +1221,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 256 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 254 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.AmountWithdrawn, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1254,7 +1232,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 258 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 256 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.SectionHead("сancellation", BLResources.TitleCancellation));
 
             
@@ -1269,7 +1247,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 260 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 258 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.TerminationReason, FieldFlex.lone, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "disabled", "disabled" } }, EnumResources.ResourceManager));
 
             
@@ -1284,7 +1262,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 263 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 261 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "3" }, { "readonly", "readonly" }, { "class", "readonly" } }));
 
             
@@ -1295,7 +1273,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 265 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 263 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.SectionHead("control", BLResources.TitleControl));
 
             
@@ -1310,7 +1288,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 267 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 265 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" }));
 
             
@@ -1325,8 +1303,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 270 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.HasDocumentsDebt, FieldFlex.twins, null, EnumResources.ResourceManager));
+            #line 268 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+       Write(Html.TemplateField(m => m.HasDocumentsDebt, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager));
 
             
             #line default
@@ -1340,8 +1318,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 273 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.DocumentsComment, FieldFlex.lone));
+            #line 271 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+       Write(Html.TemplateField(m => m.DocumentsComment, FieldFlex.lone, new Dictionary<string, object> { { "readonly", "true" } }));
 
             
             #line default
@@ -1351,7 +1329,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 275 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 273 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.SectionHead("print", BLResources.TitlePrinting));
 
             
@@ -1366,7 +1344,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 277 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 275 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.twins, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ReadOnly = true }));
 
             
@@ -1378,14 +1356,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17567), Tuple.Create("\"", 17610)
+WriteAttribute("title", Tuple.Create(" title=\"", 17566), Tuple.Create("\"", 17609)
             
-            #line 280 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 17575), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+            #line 278 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+, Tuple.Create(Tuple.Create("", 17574), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17575), false)
+, 17574), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1393,7 +1371,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 281 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 279 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
    Write(Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle));
 
             
@@ -1402,13 +1380,13 @@ WriteLiteral("        ");
 WriteLiteral("\r\n");
 
             
-            #line 282 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 280 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 282 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 280 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
          if (Model.IsCurated && Model.IsSecurityRoot)
         {
 
@@ -1424,7 +1402,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 285 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 283 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
            Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
@@ -1435,7 +1413,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                ");
 
             
-            #line 286 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 284 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
            Write(Html.TemplateField(m => m.SignupDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -1444,7 +1422,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n");
 
             
-            #line 288 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 286 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
         }
 
             
@@ -1459,7 +1437,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 290 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 288 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
 
             
@@ -1470,7 +1448,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 291 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 289 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             
@@ -1485,7 +1463,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 294 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 292 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
 
             
@@ -1496,7 +1474,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 295 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+            #line 293 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             

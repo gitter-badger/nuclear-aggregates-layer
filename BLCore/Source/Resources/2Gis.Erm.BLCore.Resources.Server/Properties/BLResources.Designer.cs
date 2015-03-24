@@ -7904,15 +7904,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string LargeIcon {
-            get {
-                return ResourceManager.GetString("LargeIcon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string LastPaymentPeriodEndMustBeEqualToOrderEndDistributionDate {
             get {
                 return ResourceManager.GetString("LastPaymentPeriodEndMustBeEqualToOrderEndDistributionDate", resourceCulture);
@@ -8429,6 +8420,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string MainRecord {
             get {
                 return ResourceManager.GetString("MainRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ManageDocumentsDebt {
+            get {
+                return ResourceManager.GetString("ManageDocumentsDebt", resourceCulture);
             }
         }
         
@@ -9698,6 +9698,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Operation {
             get {
                 return ResourceManager.GetString("Operation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OperationCannotBePerformedSinceReleaseIsInProgress {
+            get {
+                return ResourceManager.GetString("OperationCannotBePerformedSinceReleaseIsInProgress", resourceCulture);
             }
         }
         

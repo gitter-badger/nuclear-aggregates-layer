@@ -354,6 +354,10 @@
     <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrderPosition].sql" />
     <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrder].sql" />
     <Content Include="Resources\2014.10.19 rev. 25335\[BusinessDirectory].[ReplicateFirmAddresses].sql" />
+    <Content Include="Resources\201411261501\ReplicateDeals.sql" />
+    <Content Include="Resources\201411261501\ReplicateLegalPersons.sql" />
+    <Content Include="Resources\201411261501\ReplicateLimits.sql" />
+    <Content Include="Resources\201411261501\ReplicateOrders.sql" />
     <Content Include="Resources\2014.11.27 rev. 201411271239\customizations.xml" />
     <Content Include="Resources\2014.12.02 rev. 201412021150\Alter ReplicateAppointment.sql" />
     <Content Include="Resources\2014.12.02 rev. 201412021150\Alter ReplicateLetter.sql" />
@@ -814,6 +818,9 @@
     <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
     <Compile Include="2.1\201502061644 - Change HotClientsRequests TaskId type.cs" />
+    <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
+    <Compile Include="2.1\201501240204 - rename BillNumber column.cs" />
+    <Compile Include="2.1\201501240333 - rename CategoryGroupName.cs" />
     <Compile Include="2.1\201501201646 - Deal replication fix.cs" />
     <Compile Include="2.1\201412291720 - Insert missing Organizers.cs" />
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
@@ -864,7 +871,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ActivityMigration\TaskMigration.cs" />
-    <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
     <Compile Include="2.1\201412040408 - Drop column PaymentEssentialElements.cs" />
     <Compile Include="2.1\Migration201412301100 - add SalesModelCategoryRestrictions.cs" />
     <Compile Include="2.1\201412240529 - rename AccountingMethodEnum to SalesModelEnum.cs" />

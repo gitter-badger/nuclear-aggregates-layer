@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
             ICalculateOrderPositionCostService calculateOrderPositionCostService,
             IOperationScopeFactory scopeFactory,
-            ICategoryReadModel categoryReadModel,
+            ICategoryReadModel categoryReadModel, 
             ICheckIfOrderPositionCanBeModifiedOperationService checkIfOrderPositionCanBeModifiedOperationService,
             IPositionReadModel positionReadModel)
         {
@@ -242,6 +242,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     }
 
                     var order = _orderReadModel.GetOrderSecure(orderPosition.OrderId);
+                    if (order == null)
+                    {
+                        throw new EntityNotFoundException(typeof(Order), orderPosition.OrderId);
+                    }
 
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });
                     _publicService.Handle(new ActualizeOrderReleaseWithdrawalsRequest { Order = order });

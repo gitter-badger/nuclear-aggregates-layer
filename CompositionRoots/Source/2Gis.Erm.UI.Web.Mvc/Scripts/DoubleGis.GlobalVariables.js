@@ -225,7 +225,7 @@ Ext.DoubleGis.Global.Helpers = {
                     requestUrl: leaf.RequestUrl,
                     extendedInfo: leaf.ExtendedInfo,
                     appendableEntity: leaf.AppendableEntity,
-                    disabled: eval(leaf.DisabledExpression),
+                    disabled: leaf.Disabled || eval(leaf.DisabledExpression),
                     children: window.Ext.DoubleGis.Global.Helpers.NavBarHelper.BuildTree(leaf, textLengthLimit),
                     icon: leaf.Icon ? window.Ext.DoubleGis.Global.Helpers.GetEntityIconPath(leaf.Icon) : undefined
                 }));

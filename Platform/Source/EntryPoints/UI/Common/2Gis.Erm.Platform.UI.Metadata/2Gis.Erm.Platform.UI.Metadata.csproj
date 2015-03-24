@@ -51,6 +51,23 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewPathMapping.cs" />
+    <Compile Include="UIElements\Features\Expressions\Condition.cs" />
+    <Compile Include="UIElements\Features\Expressions\HideExpressionsFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\DisableExpressionsFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\LambdaExpressionsSequence.cs" />
+    <Compile Include="UIElements\Features\Expressions\ILambdaExpressionsSequence.cs" />
+    <Compile Include="UIElements\Features\Expressions\LambdaExpressionsSequenceBuilder.cs" />
+    <Compile Include="UIElements\Features\Expressions\LogicalOperation.cs" />
+    <Compile Include="UIElements\Features\Expressions\HideExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\IUIElementLambdaExpressionsSequenceFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\IUIElementLambdaExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\IHideExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\LockOnInactiveCardFeature.cs" />
+    <Compile Include="Config\Common\Card\Features\Parts\IPartsContainerElement.cs" />
+    <Compile Include="Config\Common\Card\Features\Parts\IPartFeature.cs" />
+    <Compile Include="Config\Common\Card\Features\Parts\PartFeature.cs" />
+    <Compile Include="Config\Common\Card\MetadataCardsIdentity.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\IBoundViewModelView.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\IViewModelViewMappingFeature.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewMappingAspect.cs" />
@@ -58,10 +75,10 @@
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewMappingUtils.cs" />
     <Compile Include="Config\Common\Hierarchy\HierarchyElementsBuilderExtensions.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\IViewModelViewMapping.cs" />
-    <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewMapping.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\Actions\ActionsFeature.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\Actions\ActionsFeatureAspect.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\Actions\IActionsContained.cs" />
+    <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelTypedViewMapping.cs" />
+    <Compile Include="Config\Common\Features\Actions\ActionsFeature.cs" />
+    <Compile Include="Config\Common\Features\Actions\ActionsFeatureAspect.cs" />
+    <Compile Include="Config\Common\Features\Actions\IActionsContained.cs" />
     <Compile Include="Config\Common\ViewModel\Features\DynamicPropertiesFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\IViewModelFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\LocalizeViewModelFeature.cs" />
@@ -69,10 +86,10 @@
     <Compile Include="Config\Common\ViewModel\Features\Parts\IViewModelPartsFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Parts\ViewModelPartsFeatureAspect.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Parts\ViewModelPartsFeature.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\IRelatedItemsFeature.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\IRelatedItemsHost.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\RelatedItemsFeature.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\RelatedItemsFeatureAspect.cs" />
+    <Compile Include="Config\Common\Features\RelatedItems\IRelatedItemsFeature.cs" />
+    <Compile Include="Config\Common\Features\RelatedItems\IRelatedItemsHost.cs" />
+    <Compile Include="Config\Common\Features\RelatedItems\RelatedItemsFeature.cs" />
+    <Compile Include="Config\Common\Features\RelatedItems\RelatedItemsFeatureAspect.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Validator\CompositeValidatorViewModelFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Validator\DynamicValidatorModelFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Validator\IDynamicValidatorModelFeature.cs" />
@@ -89,16 +106,34 @@
     <Compile Include="Indicators\IDynamicViewModel.cs" />
     <Compile Include="Indicators\IView.cs" />
     <Compile Include="Indicators\IViewModel.cs" />
+    <Compile Include="Indicators\IViewModelAbstract.cs" />
     <Compile Include="Indicators\IViewModelIdentity.cs" />
     <Compile Include="Indicators\IViewModelProperty.cs" />
     <Compile Include="Indicators\MVVMIndicators.cs" />
     <Compile Include="Operations\IClientOperationIdentity.cs" />
     <Compile Include="Operations\OperationUtils.cs" />
+    <Compile Include="UIElements\ControlTypes\ControlType.cs" />
+    <Compile Include="UIElements\ControlTypes\EnumControlTypeDescriptor.cs" />
+    <Compile Include="UIElements\ControlTypes\ControlTypeFeature.cs" />
+    <Compile Include="UIElements\Features\Expressions\IDisableExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\ISecuredElementFeature.cs" />
+    <Compile Include="UIElements\Features\IUIElementFeature.cs" />
+    <Compile Include="UIElements\Features\SecuredByEntityPrivelegeFeature.cs" />
+    <Compile Include="UIElements\Features\SecuredByFunctionalPrivelegeFeature.cs" />
+    <Compile Include="UIElements\MessageType.cs" />
+    <Compile Include="UIElements\UIElementMetadata.cs" />
+    <Compile Include="UIElements\UIElementMetadataBuilder.cs" />
+    <Compile Include="UIElements\Features\Expressions\DisableExpressionFeature.cs" />
+    <Compile Include="UIElements\Features\LockOnNewCardFeature.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>

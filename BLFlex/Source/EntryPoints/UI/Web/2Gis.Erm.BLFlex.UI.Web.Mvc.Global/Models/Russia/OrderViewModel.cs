@@ -2,8 +2,11 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -16,8 +19,58 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class OrderViewModel : EntityViewModelBase<Order>, IRussiaAdapted
+    public sealed class OrderViewModel : EntityViewModelBase<Order>, 
+                                         INumberAspect,
+                                         IOrderWorkflowLockableAspect,
+                                         IOrderDirectionAspect,
+                                         IInspectorAspect,
+                                         IOrderDatesAspect,
+                                         IOrderWorkflowAspect,
+                                         IOrderValidationServiceAspect,
+                                         IOrderSecurityAspect, 
+                                         ITerminatableAspect,
+                                         IDisabledOrderTypesAspect,
+                                         IRussiaAdapted
     {
+        long? IOrderDirectionAspect.SourceOrganizationUnitKey
+        {
+            get { return SourceOrganizationUnit.Key; }
+        }
+
+        long? IOrderDirectionAspect.DestinationOrganizationUnitKey
+        {
+            get { return DestinationOrganizationUnit.Key; }
+        }
+
+        string IOrderDirectionAspect.SourceOrganizationUnitValue
+        {
+            get { return SourceOrganizationUnit.Value; }
+        }
+
+        string IOrderDirectionAspect.DestinationOrganizationUnitValue
+        {
+            get
+            {
+                return DestinationOrganizationUnit.Value;
+            }
+        }
+
+        long? IInspectorAspect.InspectorKey
+        {
+            get { return Inspector.Key; }
+        }
+
+        string IInspectorAspect.InspectorValue
+        {
+            get { return Inspector.Value; }
+            set { Inspector.Value = value; }
+        }
+
+        OrderState IOrderWorkflowAspect.WorkflowStepId
+        {
+            get { return (OrderState)WorkflowStepId; }
+        }
+
         [Dependency(DependencyType.Hidden, "RegionalNumber", @"Ext.getDom('Id').value==0 ||
                                                              (!Ext.getCmp('SourceOrganizationUnit').getValue() || !Ext.getCmp('DestinationOrganizationUnit').getValue()) ||
                                                              (Ext.getDom('Id').value!==0 && Ext.getCmp('SourceOrganizationUnit').getValue().id==Ext.getCmp('DestinationOrganizationUnit').getValue().id)||
@@ -31,7 +84,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         }
 
         [StringLengthLocalized(200)]
-        public string OrderNumber { get; set; }
+        [DisplayNameLocalized("OrderNumber")]
+        public string Number { get; set; }
 
         [StringLengthLocalized(200)]
         public string RegionalNumber { get; set; }
@@ -54,14 +108,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         }
 
         public bool ShowRegionalAttributes { get; set; }
-        public bool CanSwitchToAccount { get; set; }
 
         public bool HasAnyOrderPosition { get; set; }
 
         public bool HasDestOrganizationUnitPublishedPrice { get; set; }
 
         public bool CanEditOrderType { get; set; }
-        public bool HasOrderDocumentsDebtChecking { get; set; }
 
         [RequiredLocalized]
         [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit", "!Ext.getCmp('SourceOrganizationUnit').getValue()")]
@@ -207,7 +259,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public long? AccountId { get; set; }
 
-        public string DisabledTypes { get; set; }
+        public string DisabledOrderTypes { get; set; }
 
         public override bool IsSecurityRoot
         {
@@ -221,7 +273,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             var modelDto = (OrderDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-            OrderNumber = modelDto.OrderNumber;
+            Number = modelDto.Number;
             RegionalNumber = modelDto.RegionalNumber;
             Firm = LookupField.FromReference(modelDto.FirmRef);
             ClientId = modelDto.ClientRef != null ? modelDto.ClientRef.Id : null;
@@ -270,7 +322,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             DocumentsComment = modelDto.DocumentsComment;
             AccountId = modelDto.AccountRef != null ? modelDto.AccountRef.Id : null;
             ShowRegionalAttributes = modelDto.ShowRegionalAttributes;
-            CanSwitchToAccount = modelDto.CanSwitchToAccount;
 
             Timestamp = modelDto.Timestamp;
         }
@@ -280,7 +331,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             var dto = new OrderDomainEntityDto
                 {
                     Id = Id,
-                    OrderNumber = OrderNumber,
+                              Number = Number,
                     RegionalNumber = RegionalNumber,
                     FirmRef = Firm.ToReference(),
                     ClientRef = new EntityReference(ClientId),

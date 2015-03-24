@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing.Workflow
             _resumeContext = resumeContext;
         }
 
-        public static IEnumerable<OrderState> GetTransitionsForUi(OrderState initialState)
+        public static IEnumerable<OrderState> GetTransitionsForUI(OrderState initialState)
         {
             switch (initialState)
             {

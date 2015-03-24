@@ -7,15 +7,6 @@
         }
     },
 
-    setupMenuAvailability: function () {
-        var item = this.getMenuItem('Actions', 'SwitchToAccount');
-        if (Ext.getDom("CanSwitchToAccount").checked)
-            item.enable();
-        else {
-            item.disable();
-        }
-    },
-
     setupCultureSpecificEventListeners: function () {
         Ext.getCmp("Client").on("change", this.onClientChanged, this);
     },

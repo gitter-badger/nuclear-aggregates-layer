@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
 
         public bool HasAnyLegalPersonProfiles(long legalPersonId)
         {
-            return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId)).Any();
+            return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) && Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>()).Any();
         }
 
         public IEnumerable<long> GetLegalPersonProfileIds(long legalPersonId)

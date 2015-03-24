@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BL.UI.Web.Metadata</RootNamespace>
+    <AssemblyName>2Gis.Erm.BL.UI.Web.Metadata</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
+    <Reference Include="Humanizer">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Humanizer.1.32.0\lib\portable-win+net40+sl50+wp8+wpa81\Humanizer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Cards\CardSettingsProvider.cs" />
+    <Compile Include="Cards\ExtendedInfoFeature.cs" />
+    <Compile Include="Cards\FilterByParentsFeature.cs" />
+    <Compile Include="Cards\FilterToParentFeature.cs" />
+    <Compile Include="Cards\AppendableEntityFeature.cs" />
+    <Compile Include="Cards\Extensions\CardMetadataBuilderExtensions.cs" />
+    <Compile Include="Cards\CardMetadataSource.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Letter.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.WithdrawalInfo.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.UserProfile.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.User.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Territory.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.ThemeTemplate.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Theme.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Task.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.RolePrivilege.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Role.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.ReleaseInfo.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Project.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.PrintFormTemplate.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Price.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.PricePosition.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.PositionChildren.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.PositionCategory.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Position.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Platform.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Phonecall.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.OrganizationUnit.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.OrderFile.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Order.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.OrderPosition.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.OperationType.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Operation.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Note.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.LockDetail.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.LegalPersonProfile.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Lock.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.LocalMessage.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Limit.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.LegalPerson.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.FirmContact.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.FirmAddress.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Firm.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Department.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.DeniedPosition.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Deal.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.CurrencyRate.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Currency.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Country.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.ContributionType.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Contact.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Client.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.CategoryGroup.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Category.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.BranchOfficeOrganizationUnit.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.BranchOffice.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Bill.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.BargainType.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.BargainFile.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Bargain.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.AssociatedPositionsGroup.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.AssociatedPosition.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Appointment.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.AdvertisementElement.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.AdvertisementElementTemplate.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Advertisement.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.AdvertisementTemplate.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.DenialReason.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.AdsTemplatesAdsElementTemplate.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.AdditionalFirmService.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.AccountDetail.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.Account.cs" />
+    <Compile Include="Cards\Settings\CardMetadatas.cs" />
+    <Compile Include="Cards\Extensions\UIElementMetadataBuilderExtensions.cs" />
+    <Compile Include="DI\BlUIMetadataAssembly.cs" />
+    <Compile Include="FeatureExtensions.cs" />
+    <Compile Include="Icons\Icons.Toolbar.cs" />
+    <Compile Include="Icons\Icons.Entity.cs" />
+    <Compile Include="RelatedItems\RelatedItems.Client.cs" />
+    <Compile Include="RelatedItems\RelatedItems.Role.cs" />
+    <Compile Include="RelatedItems\RelatedItems.PricePosition.cs" />
+    <Compile Include="RelatedItems\RelatedItems.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Activity.cs" />
+    <Compile Include="Toolbar\ToolbarElements.User.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Theme.cs" />
+    <Compile Include="Toolbar\ToolbarElements.PricePosition.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Price.cs" />
+    <Compile Include="Toolbar\ToolbarElements.OrganizationUnit.cs" />
+    <Compile Include="Toolbar\ToolbarElements.LocalMessage.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Limit.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Firm.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Deal.cs" />
+    <Compile Include="Toolbar\ToolbarElements.Client.cs" />
+    <Compile Include="Toolbar\ToolbarElements.BranchOfficeOrganizationUnit.cs" />
+    <Compile Include="Toolbar\ToolbarElements.AdvertisementTemplate.cs" />
+    <Compile Include="Toolbar\ToolbarElements.AdvertisementElement.cs" />
+    <Compile Include="Toolbar\ToolbarElements.cs" />
+    <Compile Include="ViewNameProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj">
+      <Project>{995BF65F-5951-40E5-A0F0-DF8DD343116A}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
