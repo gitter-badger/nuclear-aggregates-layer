@@ -1487,4 +1487,7 @@
   <data name="PositionsGroup" xml:space="preserve">
     <value>Skupina pozicí</value>
   </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Způsob poskytnutí služeb</value>
+  </data>
 </root>

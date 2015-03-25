@@ -15,6 +15,7 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
@@ -29,6 +30,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Infrastructure;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AdvertisementElements;
@@ -292,11 +294,13 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(CustomLifetime.PerRequest, mappingScope)
+
+                .RegisterTypeWithDependencies<IWithdrawOperationsAggregator, WithdrawOperationsAggregator>(CustomLifetime.PerRequest, mappingScope)
                 
                 // crosscutting
                 .RegisterType<ICanChangeOrderPositionBindingObjectsDetector, CanChangeOrderPositionBindingObjectsDetector>(Lifetime.Singleton)
                 .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
-                .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
+                .RegisterType<IMonthPeriodValidationService, MonthPeriodValidationService>(Lifetime.Singleton)
                 .RegisterType<IUploadingAdvertisementElementValidator, UploadingAdvertisementElementValidator>(Lifetime.Singleton)
                 .RegisterType<IModifyingAdvertisementElementValidator, ModifyingAdvertisementElementValidator>(Lifetime.Singleton)
                 .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)
