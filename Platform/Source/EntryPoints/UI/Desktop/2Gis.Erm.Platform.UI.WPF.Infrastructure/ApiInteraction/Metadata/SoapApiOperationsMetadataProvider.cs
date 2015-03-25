@@ -6,7 +6,6 @@ using System.Text;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
@@ -15,6 +14,8 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
 {
@@ -33,9 +34,9 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
         public SoapApiOperationsMetadataProvider(IStandartConfigurationSettings configuration,
                                                 IDesktopClientProxyFactory clientProxyFactory,
                                                 IApiSettings apiSettings,
-                                                ICommonLog logger,
+                                                ITracer tracer,
                                                 ICacheAdapter cacheAdapter)
-            : base(clientProxyFactory, configuration, apiSettings, logger)
+            : base(clientProxyFactory, configuration, apiSettings, tracer)
         {
             _cacheAdapter = cacheAdapter;
         }
@@ -176,7 +177,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
         {
             var desciption = (MetadataOperationErrorDescription)faultDescription;
             var errorDescription = "Api operation execution failed. " + desciption;
-            Logger.Error(errorDescription);
+            Tracer.Error(errorDescription);
             throw new ApiException(errorDescription) { ApiExceptionDescription = new ApiExceptionDescriptor { Title = desciption.Message, Description = desciption.Description } };
         }
     }

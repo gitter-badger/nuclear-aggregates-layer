@@ -5,14 +5,15 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Transformers;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 {
     public sealed class TransformMessageProcessingStage : MessageProcessingStageBase<IMessageTransformerFactory, IMessageTransformer, IReadOnlyDictionary<Guid, IMessage>>
     {
-        public TransformMessageProcessingStage(IMessageTransformerFactory actorFactory, ICommonLog logger) 
-            : base(actorFactory, logger)
+        public TransformMessageProcessingStage(IMessageTransformerFactory actorFactory, ITracer tracer) 
+            : base(actorFactory, tracer)
         {
         }
 
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
                 if (!actor.CanTransform(input.Value))
                 {
                     string msg = string.Format("Can't transform message from flow {0} by transformer {1}", context.MessageFlow, actor.GetType().Name);
-                    Logger.Error(msg);
+                    Tracer.Error(msg);
 
                     results.Add(input.Key, 
                                 Stage.EmptyResult()

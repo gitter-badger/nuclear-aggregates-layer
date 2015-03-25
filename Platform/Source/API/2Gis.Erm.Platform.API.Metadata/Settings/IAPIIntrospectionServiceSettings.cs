@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Common.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Metadata.Settings
 {

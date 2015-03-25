@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [DisplayNameLocalized("CompositePosition")]
         [Dependency(DependencyType.Hidden, "RestrictChildPositionPlatforms", "!this.checked")]
         [Dependency(DependencyType.DisableAndHide, "AdvertisementTemplate", "this.checked")]
+        [Dependency(DependencyType.DisableAndHide, "PositionsGroup", "this.checked")]
         public bool IsComposite { get; set; }
 
         [RequiredLocalized]
@@ -34,6 +35,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         [RequiredLocalized]
         public SalesModel SalesModel { get; set; }
+
+        public PositionsGroup PositionsGroup { get; set; }
 
         [RequiredLocalized]
         public LookupField Platform { get; set; }
@@ -75,6 +78,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
             BindingObjectType = modelDto.BindingObjectTypeEnum;
             SalesModel = modelDto.SalesModel;
+            PositionsGroup = modelDto.PositionsGroup;
+ 
             CalculationMethod = modelDto.CalculationMethodEnum;
 
             RestrictChildPositionPlatforms = modelDto.RestrictChildPositionPlatforms;
@@ -99,6 +104,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
                 IsControlledByAmount = IsControledByAmount,
                 BindingObjectTypeEnum = BindingObjectType,
                 SalesModel = SalesModel,
+                PositionsGroup = PositionsGroup,
                 CalculationMethodEnum = CalculationMethod,
                 AdvertisementTemplateRef = AdvertisementTemplate != null ? AdvertisementTemplate.ToReference() : null,
                 PlatformRef = Platform.ToReference(),

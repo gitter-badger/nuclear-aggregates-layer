@@ -5,10 +5,11 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Notifications
 {
@@ -19,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
         private readonly IRepository<NotificationEmailsTo> _emailsToEntityRepository;
         private readonly IRepository<NotificationEmailsCc> _emailsCcEntityRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IIdentityProvider _identityProvider;
 
         public NotificationSender(IRepository<NotificationEmails> emailEntityRepository,
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                                   IRepository<NotificationEmailsCc> emailsCcEntityRepository,
                                   IIdentityProvider identityProvider,
                                   IOperationScopeFactory scopeFactory,
-                                  ICommonLog logger)
+                                  ITracer tracer)
         {
             _identityProvider = identityProvider;
             _emailEntityRepository = emailEntityRepository;
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             _emailsToEntityRepository = emailsToEntityRepository;
             _emailsCcEntityRepository = emailsCcEntityRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         void INotificationSender.PostMessage(NotificationAddress[] to, string subject, string body)
@@ -110,7 +111,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Can't send notifications");
+                _tracer.Error(ex, "Can't send notifications");
                 throw;
             }
         }

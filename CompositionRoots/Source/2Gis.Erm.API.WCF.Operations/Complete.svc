@@ -1,0 +1,4 @@
+﻿<%@ ServiceHost Language="C#" 
+                Debug="true" 
+                Service="DoubleGis.Erm.BLCore.WCF.Operations.CompleteApplicationService" 
+                Factory="DoubleGis.Erm.WCF.BasicOperations.UnityServiceHostFactory" %>

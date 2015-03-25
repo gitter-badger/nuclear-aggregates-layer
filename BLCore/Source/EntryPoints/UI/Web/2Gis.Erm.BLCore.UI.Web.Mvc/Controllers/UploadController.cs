@@ -14,9 +14,10 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -52,10 +53,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                 IAPIIdentityServiceSettings identityServiceSettings,
                                 IUserContext userContext,
-                                ICommonLog logger,
+                                ITracer tracer,
                                 IGetBaseCurrencyService getBaseCurrencyService,
                                 IOperationServicesManager operationServicesManager)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
         }
@@ -101,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             catch (Exception ex)
             {
                 // todo: не работает на клиенте
-                Logger.Error(ex, BLResources.ErrorDuringOperation);
+                Tracer.Error(ex, BLResources.ErrorDuringOperation);
                 var errorText = ExceptionFilter.HandleException(ex, Response);
                 Response.StatusCode = 200;
                 var result = new { Message = errorText };

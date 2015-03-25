@@ -4,9 +4,9 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             return _finder.FindOne(PositionSpecs.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>());
         }
 
-        public IEnumerable<LinkingObjectsSchemaDto.PositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId)
+        public IEnumerable<LinkingObjectsSchemaPositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId)
         {
             var positions = _finder.Find(Specs.Find.ById<Position>(positionId));
 
@@ -68,23 +68,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                                      .Select(x => x.ChildPosition);
             }
 
-            return positions.Select(x => new
-                                             {
-                                                 x.Id,
-                                                 x.Name,
-                                                 x.BindingObjectTypeEnum,
-                                                 x.AdvertisementTemplateId,
-                                                 x.AdvertisementTemplate.DummyAdvertisementId
-                                             })
-                            .ToArray()
-                            .Select(x => new LinkingObjectsSchemaDto.PositionDto
+            return positions.Select(x => new LinkingObjectsSchemaPositionDto
                                              {
                                                  Id = x.Id,
                                                  Name = x.Name,
-                                                 LinkingObjectType = x.BindingObjectTypeEnum.ToString(),
+                                                 BindingObjectType = x.BindingObjectTypeEnum,
                                                  AdvertisementTemplateId = x.AdvertisementTemplateId,
-                                                 DummyAdvertisementId = x.DummyAdvertisementId,
-                                                 IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType(x.BindingObjectTypeEnum)
+                                                 DummyAdvertisementId = x.AdvertisementTemplate.DummyAdvertisementId,
+                                                 PositionsGroup = x.PositionsGroup
                                              })
                             .ToArray();
         }
@@ -110,26 +101,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                           .ToArray();
         }
 
-        private static bool IsPositionBindingOfSingleType(PositionBindingObjectType type)
+        public IDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds)
         {
-            switch (type)
-            {
-                case PositionBindingObjectType.Firm:
-                case PositionBindingObjectType.AddressCategorySingle:
-                case PositionBindingObjectType.AddressSingle:
-                case PositionBindingObjectType.CategorySingle:
-                case PositionBindingObjectType.AddressFirstLevelCategorySingle:
-                    return true;
-                case PositionBindingObjectType.AddressMultiple:
-                case PositionBindingObjectType.CategoryMultiple:
-                case PositionBindingObjectType.CategoryMultipleAsterix:
-                case PositionBindingObjectType.AddressCategoryMultiple:
-                case PositionBindingObjectType.AddressFirstLevelCategoryMultiple:
-                case PositionBindingObjectType.ThemeMultiple:
-                    return false;
-                default:
-                    throw new ArgumentOutOfRangeException("type");
-            }
+            return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
+                          .Select(x => new
+                                           {
+                                               Id = x.Id,
+                                               PositionsGroup = x.PositionsGroup
+                                           })
+                          .ToDictionary(x => x.Id, x => x.PositionsGroup);
         }
 
         public IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds)
