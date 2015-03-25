@@ -5,13 +5,14 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
 using DoubleGis.Platform.UI.WPF.Shell.DI;
 using DoubleGis.Platform.UI.WPF.Shell.Settings;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Platform.UI.WPF.Shell
 {
@@ -22,16 +23,16 @@ namespace DoubleGis.Platform.UI.WPF.Shell
     {
         private readonly IUnityContainer _container = new UnityContainer();
         private readonly IShellSettings _shellSettings;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public App(ICommonLog logger)
+        public App(ITracer tracer)
         {
-            if (logger == null)
+            if (tracer == null)
             {
-                throw new ArgumentNullException("logger");
+                throw new ArgumentNullException("tracer");
             }
 
-            _logger = logger;
+            _tracer = tracer;
 
             _shellSettings = new ShellSettings();
             _container.RegisterInstance<IShellSettings>(_shellSettings, Lifetime.Singleton);
@@ -53,8 +54,8 @@ namespace DoubleGis.Platform.UI.WPF.Shell
             DispatcherUnhandledException += OnDispatcherUnhandledException;
 
             _container
-                .ConfigureDI(_logger)
-                .Run(_logger);
+                .ConfigureDI(_tracer)
+                .Run(_tracer);
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -78,27 +79,27 @@ namespace DoubleGis.Platform.UI.WPF.Shell
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var logger = _logger;
-            if (logger != null)
+            var tracer = _tracer;
+            if (tracer != null)
             {
                 var ex = e.ExceptionObject as Exception;
                 if (ex != null)
                 {
-                    logger.FatalFormat(ex, "UnhandledException. IsTerminating={0}.", e.IsTerminating);
+                    tracer.FatalFormat(ex, "UnhandledException. IsTerminating={0}.", e.IsTerminating);
                 }
                 else
                 {
-                    logger.FatalFormat("UnhandledException. IsTerminating={0}. Description: {1}", e.IsTerminating, e.ExceptionObject);
+                    tracer.FatalFormat("UnhandledException. IsTerminating={0}. Description: {1}", e.IsTerminating, e.ExceptionObject);
                 }
             }
         }
 
         private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            var logger = _logger;
-            if (logger != null)
+            var tracer = _tracer;
+            if (tracer != null)
             {
-                logger.ErrorFormat("Dispatcher unhanlded exception catched. Is handled: {0}. Exception: {1}", e.Handled, e.Exception);
+                tracer.ErrorFormat("Dispatcher unhanlded exception catched. Is handled: {0}. Exception: {1}", e.Handled, e.Exception);
             }
         }
     }

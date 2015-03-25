@@ -1,18 +1,19 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
 {
     public class UserProfileEmployeeEmailResolveStrategy : IEmployeeEmailResolveStrategy
     {
         private readonly IUserRepository _userRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public UserProfileEmployeeEmailResolveStrategy(IUserRepository userRepository, ICommonLog logger)
+        public UserProfileEmployeeEmailResolveStrategy(IUserRepository userRepository, ITracer tracer)
         {
             _userRepository = userRepository;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         #region Implementation of IEmployeeEmailResolveStrategy
@@ -24,13 +25,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
             var userProfile = _userRepository.GetProfileForUser(employeeUserCode);
             if (userProfile == null)
             {
-                _logger.Error("Can't find profile by user id: " + employeeUserCode);
+                _tracer.Error("Can't find profile by user id: " + employeeUserCode);
                 return false;
             }
 
             if (string.IsNullOrEmpty(userProfile.Email))
             {
-                _logger.Warn("Email is empty in user profile with id: " + userProfile.Id);
+                _tracer.Warn("Email is empty in user profile with id: " + userProfile.Id);
                 return false;
             }
 

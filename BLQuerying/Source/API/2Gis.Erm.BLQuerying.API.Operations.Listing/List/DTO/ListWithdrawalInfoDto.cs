@@ -12,6 +12,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public DateTime PeriodStartDate { get; set; }
         public DateTime PeriodEndDate { get; set; }
         public long OrganizationUnitId { get; set; }
+        public string AccountingMethod { get; set; }
         public string OrganizationUnitName { get; set; }
         public string Status { get; set; }
         public long OwnerCode { get; set; }

@@ -14,5 +14,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public bool IsSupportedByExport { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public string PositionsGroup { get; set; }
     }
 }

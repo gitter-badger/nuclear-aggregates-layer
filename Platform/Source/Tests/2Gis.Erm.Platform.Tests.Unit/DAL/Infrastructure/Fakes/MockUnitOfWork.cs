@@ -1,7 +1,8 @@
 using System;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 {
@@ -14,8 +15,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             IReadDomainContext readDomainContext,
             IModifiableDomainContextFactory modifiableDomainContextFactory,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-            ICommonLog logger)
-            : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, logger)
+            ITracer tracer)
+            : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, tracer)
         {
             _createRepositoryAction = createRepositoryAction;
         }
@@ -24,8 +25,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             IReadDomainContext readDomainContext,
             IModifiableDomainContextFactory modifiableDomainContextFactory,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-            ICommonLog logger)
-            : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, logger)
+            ITracer tracer)
+            : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, tracer)
         {
         }
 

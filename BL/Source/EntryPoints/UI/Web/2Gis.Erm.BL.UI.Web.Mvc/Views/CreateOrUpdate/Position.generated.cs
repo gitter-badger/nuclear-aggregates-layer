@@ -264,7 +264,7 @@ WriteLiteral("            ");
 
             
             #line 47 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Platform, ReadOnly = Model.IsPublished }));
+       Write(Html.TemplateField(m => m.PositionsGroup, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
             #line default
@@ -279,7 +279,7 @@ WriteLiteral("            ");
 
             
             #line 50 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.PositionCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityName.PositionCategory, ReadOnly = Model.IsPublished }));
+       Write(Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Platform, ReadOnly = Model.IsPublished }));
 
             
             #line default
@@ -294,7 +294,7 @@ WriteLiteral("            ");
 
             
             #line 53 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementTemplate }));
+       Write(Html.TemplateField(m => m.PositionCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityName.PositionCategory, ReadOnly = Model.IsPublished }));
 
             
             #line default
@@ -309,6 +309,21 @@ WriteLiteral("            ");
 
             
             #line 56 "..\..\Views\CreateOrUpdate\Position.cshtml"
+       Write(Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementTemplate }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 59 "..\..\Views\CreateOrUpdate\Position.cshtml"
        Write(Html.TemplateField(m => m.IsControledByAmount, FieldFlex.lone));
 
             

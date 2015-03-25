@@ -6,7 +6,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 {
@@ -18,8 +19,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 
         public ProcessingStrategiesMessageProcessingStage(IMessageFlowRegistry messageFlowRegistry,
                                                           IMessageProcessingStrategyFactory actorFactory,
-                                                          ICommonLog logger)
-            : base(actorFactory, logger)
+                                                          ITracer tracer)
+            : base(actorFactory, tracer)
         {
             _messageFlowRegistry = messageFlowRegistry;
         }
@@ -63,7 +64,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
                 if (!actor.CanProcess(input.Value))
                 {
                     string msg = string.Format("Can't process message from flow {0} by strategy {1}", context.MessageFlow, actor.GetType().Name);
-                    Logger.Error(msg);
+                    Tracer.Error(msg);
 
                     results.Add(input.Key,
                                 Stage.EmptyResult()

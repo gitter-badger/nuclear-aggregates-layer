@@ -3,26 +3,27 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
-using DoubleGis.Erm.Platform.Common.Logging;
 
 using Microsoft.ServiceBus.Messaging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer
 {
     public sealed partial class ServiceBusMessageSender : IServiceBusMessageSender
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ServiceBusConnectionPool<SenderSlot, MessageSender> _serviceBusConnectionPool;
         
         public ServiceBusMessageSender(IServiceBusMessageSenderSettings serviceBusMessageSenderSettings,
-                                       ICommonLog logger)
+                                       ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
 
             _serviceBusConnectionPool = new ServiceBusConnectionPool<SenderSlot, MessageSender>(
                 serviceBusMessageSenderSettings.ConnectionsCount,
                 serviceBusMessageSenderSettings.ConnectionString,
-                factory => new SenderSlot(logger, () => factory.CreateMessageSender(serviceBusMessageSenderSettings.TransportEntityPath)));
+                factory => new SenderSlot(tracer, () => factory.CreateMessageSender(serviceBusMessageSenderSettings.TransportEntityPath)));
         }
 
         public bool TrySend(IEnumerable<BrokeredMessage> messages)
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             SenderSlot senderSlot;
             if (!_serviceBusConnectionPool.TryResolveTargetSlot(out senderSlot))
             {
-                _logger.Debug("Can't resolve target sender slot");
+                _tracer.Debug("Can't resolve target sender slot");
                 return false;
             }
 
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             catch (Exception ex)
             {
                 var entityPath = senderSlot.GetClientPropertyValue(client => client.Path);
-                _logger.ErrorFormat(ex, "Can't send data to service bus with entitypath {0}", entityPath);
+                _tracer.ErrorFormat(ex, "Can't send data to service bus with entitypath {0}", entityPath);
                 return false;
             }
 
@@ -55,8 +56,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
 
         private class SenderSlot : ServiceBusConnectionSlot<MessageSender>
         {
-            public SenderSlot(ICommonLog logger, Func<MessageSender> messageClientEntityFactory)
-                : base(logger, messageClientEntityFactory)
+            public SenderSlot(ITracer tracer, Func<MessageSender> messageClientEntityFactory)
+                : base(tracer, messageClientEntityFactory)
             {
             }
 

@@ -9,21 +9,22 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Single)]
     public sealed class GroupAssignApplicationService : IGroupAssignApplicationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly INotifiyProgressSettings _notifiyProgressSettings;
 
-        public GroupAssignApplicationService(IOperationServicesManager operationServicesManager, INotifiyProgressSettings notifiyProgressSettings, IUserContext userContext, IResourceGroupManager resourceGroupManager, ICommonLog logger)
+        public GroupAssignApplicationService(IOperationServicesManager operationServicesManager, INotifiyProgressSettings notifiyProgressSettings, IUserContext userContext, IResourceGroupManager resourceGroupManager, ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
             _operationServicesManager = operationServicesManager;
             _notifiyProgressSettings = notifiyProgressSettings;
 
@@ -72,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                    _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                     operationResult = new AssignResult
                         {
                             Succeeded = false,
@@ -97,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
                     }
                     catch (Exception ex)
                     {
-                        _logger.ErrorFormat(ex, "Error has occured in {0}. Callback failed", GetType().Name);
+                        _tracer.ErrorFormat(ex, "Error has occured in {0}. Callback failed", GetType().Name);
                     }
                 }
             }

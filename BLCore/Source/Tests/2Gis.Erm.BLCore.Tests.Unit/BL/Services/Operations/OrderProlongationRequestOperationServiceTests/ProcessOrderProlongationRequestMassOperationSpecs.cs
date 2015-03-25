@@ -4,12 +4,13 @@ using System.Diagnostics.CodeAnalysis;
 
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Tracing.API;
 
 using It = Machine.Specifications.It;
 
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
         {
             protected static IOrderProcessingRequestService orderProcessingRequestService;
             protected static IBasicOrderProlongationOperationLogic basicOrderProlongationOperation;
-            protected static ICommonLog logger;
+            protected static ITracer tracer;
 
             protected static List<OrderProcessingRequest> activeOrderProcessingRequests;
             private static ProcessOrderProlongationRequestMassOperation target;
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             {
                 orderProcessingRequestService = Mock.Of<IOrderProcessingRequestService>();
                 basicOrderProlongationOperation = Mock.Of<IBasicOrderProlongationOperationLogic>();
-                logger = Mock.Of<ICommonLog>();
+                tracer = Mock.Of<ITracer>();
 
                 activeOrderProcessingRequests = new List<OrderProcessingRequest>();
 
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                 target = new ProcessOrderProlongationRequestMassOperation(
                     orderProcessingRequestService,
                     basicOrderProlongationOperation,
-                    logger);
+                    tracer);
             };
 
             private Because of = () => target.ProcessAll();
@@ -110,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                 };
 
             private It should_log_exception = () =>
-                                              Mock.Get(logger)
+                                              Mock.Get(tracer)
                                                   .Verify(x => x.Fatal(exception, Moq.It.IsAny<string>()));
         }
     }
