@@ -1,13 +1,13 @@
 ﻿using System;
 
-using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.Kinds;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {
     public sealed class MetadataListingsIdentity : MetadataKindIdentityBase<MetadataListingsIdentity>
     {
-        private readonly Uri _id = IdBuilder.For("Listings");
+        private readonly Uri _id = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For("Listings");
 
         public override Uri Id
         {

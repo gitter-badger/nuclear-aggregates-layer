@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation;
-using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Identities;
-using NuClear.Metamodeling.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Utils;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels.Contextual
 {
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels.Contex
         public void AttachContextualDocument()
         {
             IMetadataElement navigationRoot;
-            if (!_metadataProvider.TryGetMetadata(IdBuilder.For<MetadataNavigationIdentity>(), out navigationRoot))
+            if (!_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataNavigationIdentity>(), out navigationRoot))
             {
                 throw new InvalidOperationException("Can't resolve navigation root metadata");
             }

@@ -5,16 +5,13 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using NuClear.Metamodeling.Elements.Identities;
-using NuClear.Metamodeling.Provider;
 using DoubleGis.Erm.Platform.Model.Simplified;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Provider;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity;
 using NuClear.Model.Common.Operations.Identity.Generic;
@@ -42,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         {
             var container = useCase.ResolveFactoryContext();
 
-            var metadataId = IdBuilder.For<MetadataCardsIdentity>(entityName.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entityName.ToString());
             CardMetadata cardMetadata;
             if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {

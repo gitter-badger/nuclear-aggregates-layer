@@ -9,9 +9,9 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Properties;
 
-using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
 
         protected override IEnumerable<IViewModelProperty> GetViewModelProperties(IUseCase useCase, CardMetadata metadata, IViewModelIdentity targetViewModelIdentity)
         {
-            var metadataId = IdBuilder.For<MetadataEntitiesIdentity>(metadata.Entity.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(metadata.Entity.ToString());
 
             IMetadataElement propertiesContainer;
             if (!_metadataProvider.TryGetMetadata(metadataId, out propertiesContainer))

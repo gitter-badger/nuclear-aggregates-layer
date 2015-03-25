@@ -20,6 +20,8 @@ using Microsoft.Practices.Unity;
 
 using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
 using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.UI.Elements.Concrete.Hierarchy;
 using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
@@ -48,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
         }
 
         private static INavigationItem[] GetNavigationItems(CardViewModelIdentity cardViewModelIdentity,
-                                                            HierarchyMetadata[] actions,
+                                                            OldUIElementMetadata[] actions,
                                                             ITitleProviderFactory titleProviderFactory,
                                                             IMessageSink messageSink)
         {
@@ -81,16 +83,16 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
                                 return result != null && result.Result;
                             });
 
-                    navigationItem = new NavigationItem(IdBuilder.UniqueFor("CardsStructures/Toolbar"), titleProviderFactory.Create(action.TitleDescriptor), actionCommand)
+                    navigationItem = new NavigationItem(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Unique().For("CardsStructures/Toolbar"), titleProviderFactory.Create(action.TitleDescriptor), actionCommand)
                         {
-                            Items = GetNavigationItems(cardViewModelIdentity, action.Elements.OfType<HierarchyMetadata>().ToArray(), titleProviderFactory, messageSink)
+                            Items = GetNavigationItems(cardViewModelIdentity, action.Elements.OfType<OldUIElementMetadata>().ToArray(), titleProviderFactory, messageSink)
                         };
                 }
                 else
                 {
-                    navigationItem = new NavigationItem(IdBuilder.UniqueFor("CardsStructures/Toolbar"), titleProviderFactory.Create(action.TitleDescriptor), null)
+                    navigationItem = new NavigationItem(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Unique().For("CardsStructures/Toolbar"), titleProviderFactory.Create(action.TitleDescriptor), null)
                     {
-                        Items = GetNavigationItems(cardViewModelIdentity, action.Elements.OfType<HierarchyMetadata>().ToArray(), titleProviderFactory, messageSink)
+                        Items = GetNavigationItems(cardViewModelIdentity, action.Elements.OfType<OldUIElementMetadata>().ToArray(), titleProviderFactory, messageSink)
                     };
                 }
 

@@ -4,11 +4,11 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties;
 
-using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.UI.Elements.Aspects.Features.Entities;
-using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
-using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Entities;
 using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.Provider.Sources;
 using NuClear.Model.Common.Entities;
 
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities
             HierarchyMetadata entityMetadata =
                 HierarchyMetadata
                     .Config
-                    .Id.Is(IdBuilder.For<MetadataEntitiesIdentity>(entityInfo.Key.ToString()))
+                    .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(entityInfo.Key.ToString()))
                     .WithFeatures(new RelatedEntityFeature(targetEntity))
                     .Childs(entityInfo.Value.Cast<IMetadataElement>().ToArray());
 

@@ -6,9 +6,9 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Metamodeling.Domain.Elements.Identities.Builder;
 using NuClear.Metamodeling.Elements.Aspects.Conditions;
 using NuClear.Metamodeling.Elements.Concrete.References;
-using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 

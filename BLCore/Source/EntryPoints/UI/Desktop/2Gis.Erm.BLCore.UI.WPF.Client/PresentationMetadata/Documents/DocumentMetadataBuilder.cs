@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
-using NuClear.Metamodeling.UI.Elements.Aspects.Features.Operations;
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
+
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents

@@ -12,10 +12,10 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.ContextualNavigatio
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
-using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
-using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
+using NuClear.Metamodeling.UI.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
 {
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                 return null;
             }
 
-            var metadataId = IdBuilder.For<MetadataCardsIdentity>(cardViewModelWithIdentity.ConcreteIdentity.EntityName.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(cardViewModelWithIdentity.ConcreteIdentity.EntityName.ToString());
             CardMetadata cardMetadata;
             if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                 return null;
             }
 
-            var hierarchyElement = targetMetadataElement as HierarchyMetadata;
+            var hierarchyElement = targetMetadataElement as OldUIElementMetadata;
             contextualNavigationViewModel.ReferencedItemContext = GetRelatedItemViewModel(useCase, hierarchyElement);
 
             return EmptyResult;
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
             return compositeDocument.ComposedViewModels.FirstOrDefault() as ICardViewModel;
         }
 
-        private object GetRelatedItemViewModel(IUseCase useCase, HierarchyMetadata metadata)
+        private object GetRelatedItemViewModel(IUseCase useCase, OldUIElementMetadata metadata)
         {
             var mappingFeature = metadata.Features.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
             if (mappingFeature == null)

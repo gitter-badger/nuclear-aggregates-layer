@@ -4,10 +4,11 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Aspects.Features;
-using NuClear.Metamodeling.UI.Elements.Aspects.Features.Operations;
 using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
         {
             _entity = entity;
             _concreteListing = concreteListing;
-            _identity = IdBuilder.For<MetadataListingsIdentity>(entity.ToString(), concreteListing).AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataListingsIdentity>(entity.ToString(), concreteListing).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 
+using NuClear.Metamodeling.Domain.Elements.Identities.Builder;
 using NuClear.Metamodeling.Elements.Aspects.Features;
 using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Metamodeling.Elements.Identities.Concrete;

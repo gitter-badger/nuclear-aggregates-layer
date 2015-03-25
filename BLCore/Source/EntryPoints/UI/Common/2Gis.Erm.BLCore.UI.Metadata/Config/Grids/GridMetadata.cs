@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists;
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Aspects.Features;
 using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids
             : base(features)
         {
             _entity = entity;
-            _identity = IdBuilder.For<MetadataGridsIdentity>(_entity.ToString()).AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataGridsIdentity>(_entity.ToString()).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity

@@ -5,8 +5,8 @@ using System.Text;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.Provider;
 using NuClear.Metamodeling.Validators;
 
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
             foreach (var cardStructure in targetMetadata.Metadata.Values.Cast<CardMetadata>().Where(cs => cs.Uses<DynamicPropertiesFeature>()))
             {
                 IMetadataElement propertiesContainer;
-                var entityMetadataId = IdBuilder.For<MetadataEntitiesIdentity>(cardStructure.Entity.ToString());
+                var entityMetadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(cardStructure.Entity.ToString());
                 if (!entitiesMetadata.Metadata.TryGetValue(entityMetadataId, out propertiesContainer) 
                     || !propertiesContainer.Elements<EntityPropertyMetadata>().Any())
                 {

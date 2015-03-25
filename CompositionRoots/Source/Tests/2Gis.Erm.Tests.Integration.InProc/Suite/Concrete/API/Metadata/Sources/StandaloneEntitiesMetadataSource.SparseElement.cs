@@ -4,9 +4,9 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 
-using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
-using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sources
@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
     {
         private readonly HierarchyMetadata _sparseMetadataMetadata = HierarchyMetadata
                    .Config
-                   .Id.Is(IdBuilder.For<MetadataEntitiesIdentity>(EntityType.Instance.Account().ToString()))
+                   .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(EntityType.Instance.Account().ToString()))
                    .Childs(
                         EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(

@@ -16,6 +16,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Reopen;
 
 using NuClear.Model.Common.Entities;
 

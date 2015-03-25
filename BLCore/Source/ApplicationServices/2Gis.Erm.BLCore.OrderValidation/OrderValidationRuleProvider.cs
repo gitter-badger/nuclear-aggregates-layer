@@ -9,7 +9,7 @@ using DoubleGis.Erm.BLCore.API.OrderValidation.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 
 using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
@@ -140,7 +140,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
         private OrderValidationRuleGroupDescriptor CreateGroupDescriptor(ValidationType validationType, OrderValidationRuleGroup targetRulesGroup)
         {
-            var groupMetadataId = IdBuilder.For<MetadataOrderValidationIdentity>("Rules", targetRulesGroup.ToString());
+            var groupMetadataId = Metadata.Id.For<MetadataOrderValidationIdentity>("Rules", targetRulesGroup.ToString());
             OrderValidationRuleGroupMetadata groupMetadata;
             if (!_metadataProvider.TryGetMetadata(groupMetadataId, out groupMetadata))
             {

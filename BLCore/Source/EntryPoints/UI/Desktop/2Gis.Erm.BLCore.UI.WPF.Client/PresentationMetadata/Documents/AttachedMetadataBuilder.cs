@@ -1,7 +1,8 @@
-using NuClear.Metamodeling.Elements.Aspects.Conditions;
-using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler;
-using NuClear.Metamodeling.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
+
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.Elements.Aspects.Conditions;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents
 {
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents
 
         protected override AttachedMetadata Create()
         {
-            return new AttachedMetadata(IdBuilder.StubUnique.AsIdentity(), Features) { Condition = _condition };
+            return new AttachedMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Stub().Unique().Build().AsIdentity(), Features) { Condition = _condition };
         }
     }
 

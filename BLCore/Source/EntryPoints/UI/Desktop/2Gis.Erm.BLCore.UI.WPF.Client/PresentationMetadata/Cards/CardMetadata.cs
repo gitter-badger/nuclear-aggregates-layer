@@ -4,6 +4,7 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 
 using NuClear.Metamodeling.Elements.Aspects.Features;
 using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
             : base(features)
         {
             _entity = entity;
-            _identity = IdBuilder.For<MetadataCardsIdentity>(_entity.ToString()).AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(_entity.ToString()).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity

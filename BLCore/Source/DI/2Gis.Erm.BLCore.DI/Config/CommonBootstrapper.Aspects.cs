@@ -52,6 +52,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Metamodeling.Domain.Processors.Concrete;
 using NuClear.Metamodeling.Processors;
 using NuClear.Metamodeling.Processors.Concrete;
 using NuClear.Metamodeling.Provider;

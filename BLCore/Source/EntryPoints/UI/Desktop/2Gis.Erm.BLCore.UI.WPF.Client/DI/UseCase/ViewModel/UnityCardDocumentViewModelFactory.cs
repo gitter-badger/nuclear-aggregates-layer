@@ -11,6 +11,7 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
 using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
 using NuClear.Metamodeling.Elements.Identities;
 using NuClear.Metamodeling.Provider;
@@ -76,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         {
             var cardViewModel = _cardViewModelFactory.Create(useCase, entityName, entityId);
 
-            var metadataId = IdBuilder.For<MetadataCardsIdentity>(entityName.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entityName.ToString());
             CardMetadata cardMetadata;
             if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {

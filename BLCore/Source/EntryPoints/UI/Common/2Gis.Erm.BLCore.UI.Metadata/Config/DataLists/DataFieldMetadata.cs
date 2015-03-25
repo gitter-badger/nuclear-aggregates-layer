@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Aspects.Features;
 using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 
         public DataFieldMetadata(IEnumerable<IMetadataFeature> features) : base(features)
         {
-            _identity = IdBuilder.StubUnique.AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Stub().Unique().Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity

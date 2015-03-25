@@ -11,8 +11,8 @@ using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Valida
 using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Aspects.Features;
-using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
 using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Metamodeling.UI.Elements.Concrete.Hierarchy;
 using NuClear.Metamodeling.UI.Utils.Resources;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public HierarchyMetadata[] RelatedItems 
+        public OldUIElementMetadata[] RelatedItems 
         {
             get
             {
@@ -127,11 +127,11 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public HierarchyMetadata[] ActionsDescriptors 
+        public OldUIElementMetadata[] ActionsDescriptors 
         {
             get
             {
-                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new HierarchyMetadata[0];
+                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new OldUIElementMetadata[0];
             }
         }
     }

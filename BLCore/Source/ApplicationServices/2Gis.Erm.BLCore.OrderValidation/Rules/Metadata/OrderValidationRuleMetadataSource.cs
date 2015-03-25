@@ -8,7 +8,7 @@ using DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied;
 
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
-using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
@@ -155,7 +155,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
         {
             HierarchyMetadata orderValidationRulesMetadataRoot =
                 HierarchyMetadata.Config
-                    .Id.Is(IdBuilder.For<MetadataOrderValidationIdentity>("Rules"))
+                    .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataOrderValidationIdentity>("Rules"))
                     .Childs( // автоматически не заполняем, т.к. нарушается сортировка - элементов немного пока заполняем вручную 
                         _genericGroupMetadata,
                         _salesModelGroupMetadata,
