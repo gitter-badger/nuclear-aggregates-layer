@@ -139,6 +139,7 @@
     <Compile Include="MultiCulture\Concrete\EvaluateBillDateService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Deserializers\MultiCultureDeserializeCardService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Processors\MultiCultureImportCardService.cs" />
+    <Compile Include="MultiCulture\Concrete\LegalPersons\NullValidateLegalPersonsForExportOperationService.cs" />
     <Compile Include="MultiCulture\Concrete\Old\LegalPersons\KazakhstanValidatePaymentRequisitesIsUnique.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\MultiCulturePrintHelper.cs" />
     <Compile Include="MultiCulture\Generic\Activate\ActivateBranchOfficeService.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="MultiCulture\Generic\Modify\LegalPersonFlexSpecs.LegalPersons.cs" />
     <Compile Include="Kazakhstan\Generic\Modify\ModifyLegalPersonService.cs" />
     <Compile Include="MultiCulture\Generic\Modify\Old\MultiCultureEditOrderPositionHandler.cs" />
+    <Compile Include="Russia\Concrete\LegalPersons\RussiaValidateLegalPersonsForExportOperationService.cs" />
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintNewSalesModelBargainHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintBargainProlongationAgreementHandler.cs" />
     <Compile Include="MultiCulture\Generic\BargainPrintFormDataExtractor.cs" />

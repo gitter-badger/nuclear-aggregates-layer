@@ -25,6 +25,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long OrganizationUnitId { get; set; }
         public string Comment { get; set; }
         public WithdrawalStatus Status { get; set; }
+        public AccountingMethod AccountingMethod { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
 

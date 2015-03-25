@@ -12,6 +12,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
@@ -22,6 +24,7 @@ using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Generic.File;
@@ -92,7 +95,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             container.InitializeDIInfrastructure();
 
             Type[] explicitlyTypesSpecified = null;
-            // { typeof(GetDebitsInfoInitialForExportTest) };
+            //{ typeof(BulkWithdrawTest) };
             // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
             { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest), typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
@@ -222,11 +225,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             const string MappingScope = Mapping.Erm;
 
             container.RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
+                     .RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
                      .RegisterTypeWithDependencies<IPublicService, PublicService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(EntryPointSpecificLifetimeManagerFactory())
-                     .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
+                     .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
+                     .RegisterType<IMonthPeriodValidationService, MonthPeriodValidationService>(Lifetime.Singleton)
                      .RegisterType<IValidateFileService, ValidateFileService>(EntryPointSpecificLifetimeManagerFactory())
 
                      .RegisterType<IReportsSqlConnectionWrapper, FakeReportsSqlConnectionWrapper>(Lifetime.Singleton)
@@ -236,6 +241,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
 
                      .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
+
+                     .RegisterTypeWithDependencies<IWithdrawOperationsAggregator, WithdrawOperationsAggregator>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
 
                      // notification sender
                      .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)

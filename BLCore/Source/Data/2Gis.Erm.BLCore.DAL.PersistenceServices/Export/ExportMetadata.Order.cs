@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                   .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Firm>(ids))
                                               .SelectMany(firm => firm.Orders)
                                               .Where(order => order.WorkflowStepId != OrderState.Archive && order.IsActive && !order.IsDeleted)),
-
+     
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.WithdrawalInfo())
                   .NonCoupledOperation<WithdrawalIdentity>()
                   .Use((finder, ids) => finder.Find(Specs.Find.ByIds<WithdrawalInfo>(ids))

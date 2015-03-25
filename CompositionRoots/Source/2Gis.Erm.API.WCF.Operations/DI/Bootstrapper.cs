@@ -287,7 +287,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterType<ICanChangeOrderPositionBindingObjectsDetector, CanChangeOrderPositionBindingObjectsDetector>(Lifetime.Singleton)
                      .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                      .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>(Lifetime.Singleton)
-                     .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
+                     .RegisterType<IMonthPeriodValidationService, MonthPeriodValidationService>(Lifetime.Singleton)
                      .RegisterType<IUploadingAdvertisementElementValidator, UploadingAdvertisementElementValidator>(Lifetime.Singleton)
                      .RegisterType<IModifyingAdvertisementElementValidator, ModifyingAdvertisementElementValidator>(Lifetime.Singleton)
                      .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)

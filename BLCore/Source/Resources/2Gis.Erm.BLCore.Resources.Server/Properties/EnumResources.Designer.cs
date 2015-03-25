@@ -61,6 +61,33 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Гарантируемое оказание.
+        /// </summary>
+        public static string AccountingMethodGuaranteedProvision {
+            get {
+                return ResourceManager.GetString("AccountingMethodGuaranteedProvision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Планируемое оказание.
+        /// </summary>
+        public static string AccountingMethodPlannedProvision {
+            get {
+                return ResourceManager.GetString("AccountingMethodPlannedProvision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AccountingMethodUndefined {
+            get {
+                return ResourceManager.GetString("AccountingMethodUndefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сотрудник.
         /// </summary>
         public static string AccountRoleEmployee {
@@ -759,6 +786,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string BusinessOperationTypeQualify {
             get {
                 return ResourceManager.GetString("BusinessOperationTypeQualify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Списание.
+        /// </summary>
+        public static string BusinessOperationWithdrawal {
+            get {
+                return ResourceManager.GetString("BusinessOperationWithdrawal", resourceCulture);
             }
         }
         

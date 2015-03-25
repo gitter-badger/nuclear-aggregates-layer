@@ -114,8 +114,8 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 11 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
-                    Write(BLResources.SpecifyPeriodAndOrganizationUnit);
+            #line 9 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+                    Write(BLResources.SpecifyPeriodAccountingMethodAndOrganizationUnit);
 
             
             #line default
@@ -247,8 +247,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 77 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
-           Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Day }));
+            #line 75 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+           Write(Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
             #line default
@@ -262,7 +262,22 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 80 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 78 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+           Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Month }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n            </div>\r\n            <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                ");
+
+            
+            #line 81 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             
@@ -271,7 +286,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n       </div>\r\n");
 
             
-            #line 83 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 84 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
     }
 
             

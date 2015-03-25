@@ -30,7 +30,7 @@
             var orgUnitLookup = Ext.getCmp("OrganizationUnit");
             var dropDown = Ext.getDom("IntegrationType");
 
-            if (dropDown.value == "AccountDetailsTo1C" || dropDown.value == "LegalPersonsTo1C") {
+            if (dropDown.value == "LegalPersonsTo1C") {
                 orgUnitLookup.extendedInfo = "filterByMovedToErm=true";
             } else {
                 orgUnitLookup.extendedInfo = "";
@@ -50,7 +50,7 @@
                 var orgUnitLookup = Ext.getCmp("OrganizationUnit");
                 var dropDown = Ext.getDom("IntegrationType");
 
-                if (dropDown.value == "AccountDetailsTo1C" || dropDown.value == "LegalPersonsTo1C" || dropDown.value == "AccountDetailsToServiceBus") {
+                if (dropDown.value == "LegalPersonsTo1C") {
                     orgUnitLookup.extendedInfo = "filterByMovedToErm=true";
                 } else {
                     orgUnitLookup.extendedInfo = "";
