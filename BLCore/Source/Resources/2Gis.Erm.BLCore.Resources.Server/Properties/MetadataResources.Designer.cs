@@ -313,6 +313,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Город обращения.
+        /// </summary>
+        public static string ApplicationCityName {
+            get {
+                return ResourceManager.GetString("ApplicationCityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Архив.
         /// </summary>
         public static string Archive {

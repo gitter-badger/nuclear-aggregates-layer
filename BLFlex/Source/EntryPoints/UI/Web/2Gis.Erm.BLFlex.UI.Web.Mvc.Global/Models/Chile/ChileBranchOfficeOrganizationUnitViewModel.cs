@@ -27,6 +27,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string RepresentativeName { get; set; }
 
         [RequiredLocalized]

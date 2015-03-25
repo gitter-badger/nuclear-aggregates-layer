@@ -26,6 +26,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInGenitive { get; set; }
 
         [RequiredLocalized]

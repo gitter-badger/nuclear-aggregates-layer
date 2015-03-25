@@ -1487,4 +1487,7 @@
   <data name="PositionsGroup" xml:space="preserve">
     <value>Группа номенклатур</value>
   </data>
+  <data name="ApplicationCityName" xml:space="preserve">
+    <value>Город обращения</value>
+  </data>
 </root>

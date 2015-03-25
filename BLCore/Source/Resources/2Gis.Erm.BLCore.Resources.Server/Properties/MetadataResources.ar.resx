@@ -1481,4 +1481,7 @@
   <data name="PositionsGroup" xml:space="preserve">
     <value>Nomenclature group</value>
   </data>
+  <data name="ApplicationCityName" xml:space="preserve">
+    <value>Город обращения</value>
+  </data>
 </root>
