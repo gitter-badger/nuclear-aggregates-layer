@@ -33,9 +33,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                     return new OrderPositionPricePerUnitDto { PricePerUnit = 0m, PricePerUnitWithVat = 0m };
                 }
 
-                bool showVat;
-                var vatRate = _orderReadModel.GetVatRate(orderId, out showVat);
-                var calcResult = _costCalculator.CalculatePricePerUnit(pricePositionCost, categoryRate, vatRate, showVat);
+                var vatRateDetails = _orderReadModel.GetVatRateDetails(orderId);
+                var calcResult = _costCalculator.CalculatePricePerUnit(pricePositionCost, categoryRate, vatRateDetails.VatRate, vatRateDetails.ShowVat);
 
                 scope.Complete();
                 return new OrderPositionPricePerUnitDto

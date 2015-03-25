@@ -1164,7 +1164,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .ToArray();
         }
 
-        public decimal GetVatRate(long? sourceOrganizationUnitId, long destOrganizationUnitId, out bool showVat)
+        public VatRateDetailsDto GetVatRateDetails(long? sourceOrganizationUnitId, long destOrganizationUnitId)
         {
             // TODO {all, 19.03.2015}: вынести в конфиг
             const decimal DefaultVatRate = 18M;
@@ -1181,10 +1181,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                   Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
                                  .Single();
 
-            return DetermineVatRate(sourceVat, destVat, out showVat);
+            return DetermineVatRate(sourceVat, destVat);
         }
 
-        public decimal GetVatRate(long orderId, out bool showVat)
+        public VatRateDetailsDto GetVatRateDetails(long orderId)
         {
             var orderVatInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
                                     .Select(item => new
@@ -1212,21 +1212,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                     : orderVatInfo.DestVatRate;
 
 
-            return DetermineVatRate(sourceVatRate, destVatRate, out showVat);
+            return DetermineVatRate(sourceVatRate, destVatRate);
         }
 
-        private decimal DetermineVatRate(decimal sourceOrgUnitVatRate, decimal destOrgUnitVatRate, out bool showVat)
+        private VatRateDetailsDto DetermineVatRate(decimal sourceOrgUnitVatRate, decimal destOrgUnitVatRate)
         {
             if (sourceOrgUnitVatRate == decimal.Zero)
             {
                 // Город источник - франчайзи
-                showVat = false;
-                return destOrgUnitVatRate;
+                return new VatRateDetailsDto
+                           {
+                               VatRate = destOrgUnitVatRate,
+                               ShowVat = false
+                           };
             }
 
             // Город источник - филиал
-            showVat = true;
-            return sourceOrgUnitVatRate;
+            return new VatRateDetailsDto
+                       {
+                           VatRate = sourceOrgUnitVatRate,
+                           ShowVat = true
+                       };
         }
 
         public long GetOrderOwnerCode(long orderId)

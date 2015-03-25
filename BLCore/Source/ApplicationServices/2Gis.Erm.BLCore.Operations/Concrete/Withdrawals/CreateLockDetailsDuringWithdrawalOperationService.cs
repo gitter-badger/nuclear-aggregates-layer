@@ -82,8 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 var lockDetailsToCreate = new List<CreateLockDetailDto>();
                 foreach (var orderPosition in plannedOrderPositionsWithCharges)
                 {
-                    bool showVat;
-                    var vatRate = _orderReadModel.GetVatRate(orderPosition.OrderInfo.SourceOrganizationUnitId, orderPosition.OrderInfo.DestOrganizationUnitId, out showVat);
+                    var vatRateDetails = _orderReadModel.GetVatRateDetails(orderPosition.OrderInfo.SourceOrganizationUnitId, orderPosition.OrderInfo.DestOrganizationUnitId);
 
                     // За стоимость оказанной услуги принимается стоимость позиции за первый период размещения (т.е. теоритически меньшая величина, 
                     // чем за последний период в которой добавляются копейки для защиты от ошибок округления)
@@ -96,8 +95,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                           PriceCost = orderPosition.ChargeInfo.Amount,
                                                           Rate = orderPosition.OrderPositionInfo.CategoryRate,
                                                           ReleaseCount = orderPosition.OrderInfo.ReleaseCountFact,
-                                                          ShowVat = showVat,
-                                                          VatRate = vatRate,
+                                                          ShowVat = vatRateDetails.ShowVat,
+                                                          VatRate = vatRateDetails.VatRate,
                                                       });
 
                     var paymentForSingleDistributionSlot = _paymentsDistributor.DistributePayment(orderPosition.OrderInfo.ReleaseCountFact,
