@@ -49,6 +49,7 @@
         Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
         Ext.SpecialOperationsServiceRestUrl = '@ViewData.GetSpecialOperationsServiceRestUrl()';
         Ext.IdentityServiceRestUrl = '@ViewData.GetIdentityServiceRestUrl()';
+        moment.locale('@ViewData.GetUserLocaleInfo().CultureName');
     </script>
     
     <script src="/Scripts/DoubleGis.GlobalVariables.js?@ThisAssembly.Build" type="text/javascript"></script>
