@@ -80,13 +80,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 return dom.options[dom.selectedIndex].text;
             }
             return null;
-        }
-        this.getTitlePrefix = function() {
-            return Ext.get("ClientName").getValue();
-        }
-        this.getTitleSuffix = function() {
-            return null;
-        }               
+        }                
         this.CompleteActivity =  function () {        
             сhangeStatus("Complete");
         }
@@ -131,7 +125,13 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
 
             this.autocompleteHeader();
         }
-    }
+    },
+    getTitlePrefix: function() {
+        return Ext.get("ClientName").getValue();
+    },
+    getTitleSuffix: function() {
+            return null;
+    }      
     
     
 });
