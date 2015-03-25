@@ -100,6 +100,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
 
                                   BranchOfficeOrganizationUnit = new
                                       {
+                                          x.BranchOfficeOrganizationUnit.ApplicationCityName,
                                           x.BranchOfficeOrganizationUnit.ShortLegalName,
                                           x.BranchOfficeOrganizationUnit.PositionInNominative,
                                           x.BranchOfficeOrganizationUnit.ChiefNameInNominative,

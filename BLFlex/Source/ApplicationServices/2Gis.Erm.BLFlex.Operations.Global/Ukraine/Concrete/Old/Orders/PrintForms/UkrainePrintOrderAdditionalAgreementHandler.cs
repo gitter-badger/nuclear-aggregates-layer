@@ -102,7 +102,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                     { "OperatesOnTheBasisInGenitive", _ukrainePrintHelper.GetOperatesOnTheBasisInGenitive(profile) },
                     { "RelatedBargainInfo", _ukrainePrintHelper.GetRelatedBargainInfo(orderInfo.Bargain) },
                     { "NextReleaseDate", orderInfo.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth() },
-                    { "OrganizationUnitName", orderInfo.OrganizationUnitName },
                 };
 
             var printRequest = new PrintDocumentRequest

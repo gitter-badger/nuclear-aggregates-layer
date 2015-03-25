@@ -74,15 +74,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargainInfo.BranchOfficeOrganizationUnitId));
 
             var printData = new PrintData
-                {
-                    { "Bargain", GetBargainFields(bargainInfo.Bargain) },
-                    { "Profile", UkrainePrintHelper.LegalPersonProfileFields(profile) },
-                    { "LegalPerson", UkrainePrintHelper.LegalPersonFields(legalPerson) },
-                    { "BranchOffice", UkrainePrintHelper.BranchOfficeFields(branchOffice) },
-                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
-                    { "OperatesOnTheBasisInGenitive", _ukrainePrintHelper.GetOperatesOnTheBasisInGenitive(profile) },
-                    { "OrganizationUnitName", bargainInfo.OrganizationUnitName },
-                };
+                                {
+                                    { "Bargain", GetBargainFields(bargainInfo.Bargain) },
+                                    { "Profile", UkrainePrintHelper.LegalPersonProfileFields(profile) },
+                                    { "LegalPerson", UkrainePrintHelper.LegalPersonFields(legalPerson) },
+                                    { "BranchOffice", UkrainePrintHelper.BranchOfficeFields(branchOffice) },
+                                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
+                                    { "OperatesOnTheBasisInGenitive", _ukrainePrintHelper.GetOperatesOnTheBasisInGenitive(profile) },
+                                };
 
             return
                 _requestProcessor.HandleSubRequest(

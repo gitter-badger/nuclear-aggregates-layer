@@ -99,7 +99,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             RepresentativeName = modelDto.RepresentativeName;
             RepresentativePosition = modelDto.RepresentativePosition;
             RepresentativeRut = modelDto.RepresentativeRut;
-            
+
+            ApplicationCityName = modelDto.ApplicationCityName;
             PhoneNumber = modelDto.PhoneNumber;
             ShortLegalName = modelDto.ShortLegalName;
             ActualAddress = modelDto.ActualAddress;
@@ -132,7 +133,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
 
                     PhoneNumber = PhoneNumber,
-                    
+
+                    ApplicationCityName = ApplicationCityName,
                     ShortLegalName = ShortLegalName,
                     ActualAddress = ActualAddress,
                     PostalAddress = PostalAddress,

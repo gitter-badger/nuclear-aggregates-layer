@@ -71,12 +71,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                            { "Order.Number", order.Number },
                            { "Order.CreatedOn", order.CreatedOn },
                            { "LegalPerson.LegalName", legalPerson.LegalName },
-                           { "OrganizationUnitName", "ToDo" }, // FIXME {a.rechkalov, 19.03.2015}: закончить после ERM-6067
 
                            { "LegalPersonProfile.PositionInGenitive", legalPersonProfile.PositionInGenitive },
                            { "LegalPersonProfile.ChiefNameInGenitive", legalPersonProfile.ChiefNameInGenitive },
 
                            { "BranchOfficeOrganizationUnit.ShortLegalName", branchOfficeOrganizationUnit.ShortLegalName },
+                           { "BranchOfficeOrganizationUnit.ApplicationCityName", branchOfficeOrganizationUnit.ApplicationCityName },
                            { "BranchOfficeOrganizationUnit.PositionInGenitive", branchOfficeOrganizationUnit.PositionInGenitive },
                            { "BranchOfficeOrganizationUnit.ChiefNameInGenitive", branchOfficeOrganizationUnit.ChiefNameInGenitive },
                            { "BranchOfficeOrganizationUnit.OperatesOnTheBasisInGenitive", branchOfficeOrganizationUnit.OperatesOnTheBasisInGenitive },
