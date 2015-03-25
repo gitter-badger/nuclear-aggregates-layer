@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.W
     {
         public override int Id
         {
-            get { return NuClear.Model.Common.Operations.Identity.OperationIdentityIds.RevertWithdrawalIdentity; }
+            get { return OperationIdentityIds.RevertWithdrawalIdentity; }
         }
 
         public override string Description

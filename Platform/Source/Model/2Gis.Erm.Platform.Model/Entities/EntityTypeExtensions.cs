@@ -581,6 +581,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             return EntityTypeExportFlowFinancialDataClient.Instance;
         }
 
+        public static EntityTypeExportFlowFinancialDataDebitsInfoInitial ExportFlowFinancialDataDebitsInfoInitial(this EntityType entityType)
+        {
+            return EntityTypeExportFlowFinancialDataDebitsInfoInitial.Instance;
+        }
+
         public static EntityTypeExportFlowPriceListsPriceList ExportFlowPriceListsPriceList(this EntityType entityType)
         {
             return EntityTypeExportFlowPriceListsPriceList.Instance;

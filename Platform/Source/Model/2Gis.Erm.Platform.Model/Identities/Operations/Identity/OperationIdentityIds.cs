@@ -4,6 +4,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 {
     public static class OperationIdentityIds
     {
+        public const int WithdrawIdentity = 32;
+        public const int RevertWithdrawalIdentity = 33;
+
         // concrete operations
         public const int PrintOrderIdentity = 1000;
         public const int StartReleaseIdentity = 1005;

@@ -122,6 +122,7 @@
         public const int ExportFailedEntity = 254;
         public const int HotClientRequest = 257;
         public const int ExportFlowFinancialDataClient = 255;
+        public const int ExportFlowFinancialDataDebitsInfoInitial = 273;
         public const int ExportFlowPriceListsPriceList = 261;
         public const int ExportFlowPriceListsPriceListPosition = 262;
         public const int ExportFlowOrdersInvoice = 264;
