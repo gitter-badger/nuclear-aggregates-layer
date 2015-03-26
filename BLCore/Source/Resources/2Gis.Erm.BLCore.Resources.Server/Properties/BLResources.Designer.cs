@@ -9308,6 +9308,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NoLocksToWithdrawFound {
+            get {
+                return ResourceManager.GetString("NoLocksToWithdrawFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string NoMessageAvailable {
             get {
                 return ResourceManager.GetString("NoMessageAvailable", resourceCulture);
@@ -13844,9 +13853,18 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string SpecifyPeriodAndOrganizationUnit {
+        public static string SpecifyPeriodAccountingMethodAndOrganizationUnit {
             get {
-                return ResourceManager.GetString("SpecifyPeriodAndOrganizationUnit", resourceCulture);
+                return ResourceManager.GetString("SpecifyPeriodAccountingMethodAndOrganizationUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SpecifyPeriodAndAccountingMethod {
+            get {
+                return ResourceManager.GetString("SpecifyPeriodAndAccountingMethod", resourceCulture);
             }
         }
         
@@ -15080,6 +15098,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Withdrawal {
             get {
                 return ResourceManager.GetString("Withdrawal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string WithdrawalFailed {
+            get {
+                return ResourceManager.GetString("WithdrawalFailed", resourceCulture);
             }
         }
         

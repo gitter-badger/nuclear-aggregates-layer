@@ -30,6 +30,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.OrganizationUnits.ReadModel
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(x => x.Name).Single();
         }
 
+        public IDictionary<long, string> GetNames(IEnumerable<long> organizationUnitIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<OrganizationUnit>(organizationUnitIds))
+                          .Select(x => new
+                                           {
+                                               Id = x.Id,
+                                               Name = x.Name
+                                           })
+                          .ToDictionary(x => x.Id, y => y.Name);
+        }
+
         public long GetCurrencyId(long organizationUnitId)
         {
             var currencyId = _finder.Find<OrganizationUnit>(x => x.Id == organizationUnitId).Select(x => (long?)x.Country.CurrencyId).SingleOrDefault();

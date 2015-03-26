@@ -1481,4 +1481,7 @@
   <data name="PositionsGroup" xml:space="preserve">
     <value>Nomenclature group</value>
   </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Service accounting method</value>
+  </data>
 </root>

@@ -2038,4 +2038,16 @@
   <data name="PositionsGroupNone" xml:space="preserve">
     <value />
   </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Guaranteed renderingе</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Planned rendering</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Writing-off</value>
+  </data>
 </root>
