@@ -2369,6 +2369,7 @@
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="AddPositions" NameLocaleResourceId="ControlAddPositions" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.AddPositions" SecurityPrivelegeFlag="2" />
+        <ToolbarItem Name="RemovePositions" NameLocaleResourceId="ControlRemovePositions" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.RemovePositions" SecurityPrivelegeFlag="2" />
       </ToolbarItems>
     </Card>
   </Entity>

@@ -1869,6 +1869,9 @@
   <data name="ControlAddPositions" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="ControlRemovePositions" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="ControlOpenSortingPage" xml:space="preserve">
     <value>Задать сортировку...</value>
   </data>

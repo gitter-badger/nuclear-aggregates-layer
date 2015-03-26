@@ -846,6 +846,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlRemovePositions {
+            get {
+                return ResourceManager.GetString("ControlRemovePositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlReopenDeal {
             get {
                 return ResourceManager.GetString("ControlReopenDeal", resourceCulture);
