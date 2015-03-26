@@ -49,7 +49,8 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Config
 
                                       .AddEndpoint("Release", binding, releasingSvcSettings.BaseUrl, "Release.svc")
 
-                                      .AddEndpoint("Calculate", binding, specialOperationsSvcSettings.BaseUrl, "Calculate.svc");
+                                      .AddEndpoint("Calculate", binding, specialOperationsSvcSettings.BaseUrl, "Calculate.svc")
+                                      .AddEndpoint("Dial", binding, specialOperationsSvcSettings.BaseUrl, "Dial.svc");
 
             return container.RegisterInstance<IDiscoveryEndpointContainer>(discoveryEndpointContainer);
         }

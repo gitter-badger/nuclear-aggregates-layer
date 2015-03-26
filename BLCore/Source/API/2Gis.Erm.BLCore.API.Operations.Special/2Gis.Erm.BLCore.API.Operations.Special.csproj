@@ -56,6 +56,8 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Dial\DialResult.cs" />
+    <Compile Include="Dial\IDialOperationService.cs" />
     <Compile Include="DI\BlCoreApiOperationsSpecialAssembly.cs" />
     <Compile Include="CostCalculation\BizAccountCostResult.cs" />
     <Compile Include="CostCalculation\BizAccountCostWithVatResult.cs" />
@@ -118,6 +120,8 @@
     <Compile Include="Remote\CostCalculation\CostCalculatonErrorDescription.cs" />
     <Compile Include="Remote\CostCalculation\ICostCalculationApplicationService.cs" />
     <Compile Include="OrderProcessingRequests\IOrderProcessingRequestService.cs" />
+    <Compile Include="Remote\Dial\DialErrorDescription.cs" />
+    <Compile Include="Remote\Dial\IDialApplicationRestService.cs" />
     <Compile Include="Remote\Dial\IDialApplicationService.cs" />
     <Compile Include="Remote\FirmInfo\FirmInfoOperationErrorDescription.cs" />
     <Compile Include="Remote\FirmInfo\IFirmInfoApplicationRestService.cs" />
@@ -152,6 +156,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
