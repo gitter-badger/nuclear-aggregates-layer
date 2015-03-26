@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         }
 
         OrderState IOrderWorkflowAspect.WorkflowStepId
-        {
+    {
             get { return (OrderState)WorkflowStepId; }
         }
 
