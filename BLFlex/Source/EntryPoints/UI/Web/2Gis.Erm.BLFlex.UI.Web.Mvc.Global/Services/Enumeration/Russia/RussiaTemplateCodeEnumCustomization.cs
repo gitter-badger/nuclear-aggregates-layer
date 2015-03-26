@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Enumeration;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -10,18 +8,32 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Russia
 {
     public class RussiaTemplateCodeEnumCustomization : EnumCustomizationBase<TemplateCode>, IRussiaAdapted
     {
-        private static readonly IEnumerable<TemplateCode> IgnoredAdditionalAgreements =
-            new[]
-                {
-                    TemplateCode.AdditionalAgreementBusinessman,
-                    TemplateCode.AdditionalAgreementNaturalPerson,
-                };
-
         protected override IEnumerable<TemplateCode> GetRequiredEnumValues()
         {
-            return Enum.GetValues(typeof(TemplateCode))
-                       .Cast<TemplateCode>()
-                       .Except(IgnoredAdditionalAgreements);
+            return new[]
+                       {
+                           TemplateCode.BargainProlongationAgreement,
+                           TemplateCode.BargainNewSalesModel,
+                           TemplateCode.ClientBargain,
+                           TemplateCode.AgentBargain,
+                           TemplateCode.AdditionalAgreementLegalPerson,
+                           TemplateCode.FirmChangeAgreement,
+                           TemplateCode.BindingChangeAgreement,
+                           TemplateCode.BillLegalPerson,
+                           TemplateCode.BillBusinessman,
+                           TemplateCode.BillNaturalPerson,
+                           TemplateCode.JointBillLegalPerson,
+                           TemplateCode.JointBillBusinessman,
+                           TemplateCode.JointBillNaturalPerson,
+                           TemplateCode.Order,
+                           TemplateCode.OrderMultiPlannedProvision,
+                           TemplateCode.TerminationNoticeLegalPerson,
+                           TemplateCode.TerminationNoticeBusinessman,
+                           TemplateCode.TerminationNoticeNaturalPerson,
+                           TemplateCode.ReferenceInformation,
+                           TemplateCode.LetterOfGuarantee,
+                           TemplateCode.LetterOfGuaranteeAdvMaterial,
+                       };
         }
     }
 }
