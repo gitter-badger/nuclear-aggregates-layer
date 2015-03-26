@@ -541,7 +541,7 @@
     <value></value>
   </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
-    <value>Счёт на оплату для ИП</value>
+    <value></value>
   </data>
   <data name="TemplateCodeTerminationNoticeBusinessman" xml:space="preserve">
     <value>Уведомление о расторжении для ИП</value>
@@ -550,7 +550,7 @@
     <value>Доп. соглашение (расторжение)</value>
   </data>
   <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
-    <value>Счёт на оплату для юр. лица</value>
+    <value>Счёт на оплату</value>
   </data>
   <data name="TemplateCodeOrderDesktopWithVat" xml:space="preserve">
     <value>Бланк заказа (ПК, с НДС)</value>
@@ -586,7 +586,7 @@
     <value></value>
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
-    <value>Счёт на оплату для физ. лица</value>
+    <value></value>
   </data>
   <data name="TemplateCodeTerminationNoticeNaturalPerson" xml:space="preserve">
     <value>Уведомление о расторжении для физ. лица</value>
