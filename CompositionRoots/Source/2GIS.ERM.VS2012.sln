@@ -519,6 +519,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobs", "..\..\NuClear\Jobs\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.API", "..\..\NuClear\Security.API\Security.API.csproj", "{83B81FD3-9908-472E-80A0-D7B50D5B8857}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security", "..\..\NuClear\Security\Security.csproj", "{897827A4-FB71-4AF9-BE71-AA544106E595}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1749,6 +1751,16 @@ Global
 		{83B81FD3-9908-472E-80A0-D7B50D5B8857}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{83B81FD3-9908-472E-80A0-D7B50D5B8857}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{83B81FD3-9908-472E-80A0-D7B50D5B8857}.Release|x64.ActiveCfg = Release|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{897827A4-FB71-4AF9-BE71-AA544106E595}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1950,5 +1962,6 @@ Global
 		{50B591AE-4761-4324-83F9-9359A876033C} = {E652E39A-CF32-4A9B-ADFF-01CEA4403747}
 		{F39592BF-1840-4994-8696-0D13ECCE7434} = {4DCB4812-2EBE-4C75-B5B3-633BF48D1FF8}
 		{83B81FD3-9908-472E-80A0-D7B50D5B8857} = {4DCB4812-2EBE-4C75-B5B3-633BF48D1FF8}
+		{897827A4-FB71-4AF9-BE71-AA544106E595} = {4DCB4812-2EBE-4C75-B5B3-633BF48D1FF8}
 	EndGlobalSection
 EndGlobal

@@ -60,35 +60,18 @@
     <Compile Include="EntityAccess\EntityPrivilegeDepths.cs" />
     <Compile Include="FunctionalAccess\FunctionalPrivilegeDepths.cs" />
     <Compile Include="FunctionalAccess\FunctionalPrivilegeName.cs" />
-    <Compile Include="IUserProfileService.cs" />
-    <Compile Include="UserContext\Identity\IUserLogonAuditor.cs" />
     <Compile Include="UserContext\Identity\LoggerContextUserLogonAuditor.cs" />
     <Compile Include="UserContext\Identity\NullUserLogonAuditor.cs" />
-    <Compile Include="UserContext\IUserContextProvider.cs" />
-    <Compile Include="IUserImpersonationService.cs" />
-    <Compile Include="ISignInByIdentityService.cs" />
-    <Compile Include="ISignInService.cs" />
-    <Compile Include="UserContext\Identity\IUserIdentityLogonService.cs" />
     <Compile Include="UserContext\Identity\UserIdentityLogonService.cs" />
     <Compile Include="UserContext\Identity\ErmUserIdentity.cs" />
-    <Compile Include="UserContext\Identity\IUserIdentity.cs" />
-    <Compile Include="UserContext\Identity\IUserInfo.cs" />
-    <Compile Include="UserContext\Identity\IUserIdentitySecurityControl.cs" />
     <Compile Include="UserContext\Identity\NullUserIdentity.cs" />
-    <Compile Include="UserContext\Identity\UserInfo.cs" />
-    <Compile Include="UserContext\Identity\IdentityUtils.cs" />
-    <Compile Include="UserContext\IUserContext.cs" />
-    <Compile Include="ISecurityServiceAuthentication.cs" />
     <Compile Include="ISecurityServiceEntityAccess.cs" />
     <Compile Include="ISecurityServiceFunctionalAccess.cs" />
     <Compile Include="ISecurityServiceEntityAccessInternal.cs" />
     <Compile Include="AccessSharing\ISecurityServiceSharings.cs" />
     <Compile Include="ISecurityServiceUserIdentifier.cs" />
     <Compile Include="PrivilegeType.cs" />
-    <Compile Include="UserContext\IUserContextModifyAccessor.cs" />
     <Compile Include="UserContext\Profile\ErmUserProfile.cs" />
-    <Compile Include="UserContext\Profile\IUserProfile.cs" />
-    <Compile Include="UserContext\Profile\LocaleInfo.cs" />
     <Compile Include="UserContext\Profile\NullUserProfile.cs" />
     <Compile Include="UserContext\UserContext.cs" />
   </ItemGroup>
@@ -96,6 +79,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NuClear\Security.API\Security.API.csproj">
+      <Project>{83b81fd3-9908-472e-80a0-d7b50d5b8857}</Project>
+      <Name>Security.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
