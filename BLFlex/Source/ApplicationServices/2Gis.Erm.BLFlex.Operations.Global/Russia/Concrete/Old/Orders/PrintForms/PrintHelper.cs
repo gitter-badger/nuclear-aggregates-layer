@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                            { "UseBusinessman", legalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman },
                            { "UseNaturalPerson", legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson },
 
-                           { "BranchOffice.Name", branchOffice.Inn },
+                           { "BranchOffice.Inn", branchOffice.Inn },
                            { "BranchOffice.LegalAddress", branchOffice.LegalAddress },
                            { "BranchOfficeOrganizationUnit.ShortLegalName", branchOfficeOrganizationUnit.ShortLegalName },
                            { "BranchOfficeOrganizationUnit.Kpp", branchOfficeOrganizationUnit.Kpp },
