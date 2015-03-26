@@ -15,5 +15,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Read
         bool CheckIfOpenActivityExistsRegarding(EntityName entityName, long clientId);
         
         IEnumerable<IEntity> LookupActivitiesRegarding(EntityName entityName, long clientId);
+
     }
 }

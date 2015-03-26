@@ -3,8 +3,9 @@
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -18,9 +19,9 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
 
         public ImportObjectsJob(ISignInService signInService,
                                 IUserImpersonationService userImpersonationService,
-                                ICommonLog logger,
+                                ITracer tracer,
                                 IIntegrationSettings integrationSettings,
-                                IImportFromServiceBusService importFromServiceBusService) : base(signInService, userImpersonationService, logger)
+                                IImportFromServiceBusService importFromServiceBusService) : base(signInService, userImpersonationService, tracer)
         {
             _integrationSettings = integrationSettings;
             _importFromServiceBusService = importFromServiceBusService;

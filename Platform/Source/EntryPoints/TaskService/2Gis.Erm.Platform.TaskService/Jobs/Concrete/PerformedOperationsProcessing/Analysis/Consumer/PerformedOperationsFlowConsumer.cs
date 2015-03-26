@@ -9,7 +9,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Consumer
 {
@@ -24,19 +25,19 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
         private readonly IPerformedOperationsReceiverSettings _performedOperationsReceiverSettings;
         private readonly IMessageReceiver _performedOperationMessagesReceiver;
         private readonly CancellationToken _cancellationToken;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly Task _worker;
 
         public PerformedOperationsFlowConsumer(
             IPerformedOperationsReceiverSettings performedOperationsReceiverSettings, 
             IMessageReceiver performedOperationMessagesReceiver, 
             CancellationToken cancellationToken, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _performedOperationsReceiverSettings = performedOperationsReceiverSettings;
             _performedOperationMessagesReceiver = performedOperationMessagesReceiver;
             _cancellationToken = cancellationToken;
-            _logger = logger;
+            _tracer = tracer;
 
             _worker = new Task(WorkerFunc, TaskCreationOptions.LongRunning);
         }
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
         private void WorkerFunc()
         {
-            _logger.InfoFormat("Consuming performed operations. Consumer for flow {0} started", _targetFlow);
+            _tracer.InfoFormat("Consuming performed operations. Consumer for flow {0} started", _targetFlow);
 
             var stopwatch = new Stopwatch();
 
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                     catch (Exception ex)
                     {
                         stopwatch.Stop();
-                        _logger.ErrorFormat(ex, "Consuming performed operations. Can't receive batch from service bus flow {0}, recieve/complete failed after {1}",  _targetFlow, stopwatch.Elapsed.TotalSeconds);
+                        _tracer.ErrorFormat(ex, "Consuming performed operations. Can't receive batch from service bus flow {0}, recieve/complete failed after {1}",  _targetFlow, stopwatch.Elapsed.TotalSeconds);
 
                         isConsumingAttemptFailed = true;
                         actualDealyMs = Math.Min(MaxDelayMs, actualDealyMs + (DelayIncrementMs * 5));
@@ -87,7 +88,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                         catch (Exception ex)
                         {
                             stopwatch.Stop();
-                            _logger.ErrorFormat(ex, "Consuming performed operations. Can't complete received batch of {0} messages from service bus flow {1}, recieve/complete failed after {2}", receivedMessageCount, _targetFlow, stopwatch.Elapsed.TotalSeconds);
+                            _tracer.ErrorFormat(ex, "Consuming performed operations. Can't complete received batch of {0} messages from service bus flow {1}, recieve/complete failed after {2}", receivedMessageCount, _targetFlow, stopwatch.Elapsed.TotalSeconds);
 
                             isConsumingAttemptFailed = true;
                             actualDealyMs = Math.Min(MaxDelayMs, actualDealyMs + (DelayIncrementMs * 5));
@@ -97,7 +98,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                     if (!isConsumingAttemptFailed)
                     {
                         stopwatch.Stop();
-                        _logger.InfoFormat("Consuming performed operations. Consumed {0} messages from flow {1} and it takes {2:F2} sec, consuming rate {3} op/sec",
+                        _tracer.InfoFormat("Consuming performed operations. Consumed {0} messages from flow {1} and it takes {2:F2} sec, consuming rate {3} op/sec",
                                               receivedMessageCount,
                                               _targetFlow,
                                               stopwatch.Elapsed.TotalSeconds,
@@ -112,7 +113,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                         actualDealyMs = Math.Min(MaxDelayMs, actualDealyMs + DelayIncrementMs);
                     }
 
-                    _logger.InfoFormat("Consuming performed operations. Consuming dealy applied, actual dealy ms: {0}. Consuming failed: {1}. Target flow {2}",
+                    _tracer.InfoFormat("Consuming performed operations. Consuming dealy applied, actual dealy ms: {0}. Consuming failed: {1}. Target flow {2}",
                                          actualDealyMs,
                                          isConsumingAttemptFailed,
                                          _targetFlow);
@@ -129,7 +130,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                 }
             }
 
-            _logger.InfoFormat("Consuming performed operations. Consumer for flow {0} stopped", _targetFlow);
+            _tracer.InfoFormat("Consuming performed operations. Consumer for flow {0} stopped", _targetFlow);
         }
     }
 }

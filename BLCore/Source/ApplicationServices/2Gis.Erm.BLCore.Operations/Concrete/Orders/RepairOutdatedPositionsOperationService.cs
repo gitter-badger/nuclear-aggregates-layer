@@ -16,17 +16,18 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
 
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 {
     public class RepairOutdatedPositionsOperationService : IRepairOutdatedPositionsOperationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IPublicService _publicService;
 
         private readonly IOrderRepository _orderRepository;
@@ -48,9 +49,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             IOrderDeleteReleaseWithdrawalsAggregateService deleteReleaseWithdrawalsAggregateService,
             IOrderDeleteReleaseTotalsAggregateService deleteReleaseTotalsAggregateService,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
             _publicService = publicService;
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
@@ -235,7 +236,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             if (actualPricePosition == null)
             {
                 var message = string.Format(BLResources.OrderPositionWasRemoved, positionName);
-                _logger.InfoFormat(message);
+                _tracer.InfoFormat(message);
                 AddWarningMessage(message, resultMessages);
                 return resultMessages;
             }
@@ -258,7 +259,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 }
             }
 
-            _logger.InfoFormat(BLResources.OrderPositionWasReplaced, positionName, orderPosition.OrderId, actualPricePosition.PriceId);
+            _tracer.InfoFormat(BLResources.OrderPositionWasReplaced, positionName, orderPosition.OrderId, actualPricePosition.PriceId);
             RestoreClonedOrderPosition(orderPosition, advertisements, actualPricePosition, saveDiscount);
             return resultMessages;
         }

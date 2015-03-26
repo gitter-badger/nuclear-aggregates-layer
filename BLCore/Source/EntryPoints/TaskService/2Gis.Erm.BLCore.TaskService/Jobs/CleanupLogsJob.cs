@@ -2,9 +2,10 @@
 
 using DoubleGis.Erm.Platform.API.Core.PersistenceCleanup;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -16,12 +17,12 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         private readonly ICleanupPersistenceService _cleanupPersistenceService;
 
         public CleanupLogsJob(
-            ICommonLog logger,
+            ITracer tracer,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
             IDBCleanupSettings settings,
             ICleanupPersistenceService cleanupPersistenceService)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _settings = settings;
             _cleanupPersistenceService = cleanupPersistenceService;

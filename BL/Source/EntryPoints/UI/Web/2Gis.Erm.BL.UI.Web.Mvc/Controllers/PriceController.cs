@@ -19,12 +19,13 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                IAPIIdentityServiceSettings identityServiceSettings,
                                IUserContext userContext,
-                               ICommonLog logger,
+                               ITracer tracer,
                                IGetBaseCurrencyService getBaseCurrencyService,
                                IPublicService publicService,
                                ICopyPriceOperationService copyPriceOperationService,
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IUIConfigurationService configurationService,
                                IPositionReadModel positionReadModel,
                                IChangePositionSortingOrderOperationService changePositionSortingOrderOperationService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
             _copyPriceOperationService = copyPriceOperationService;
@@ -141,7 +142,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelUtils.OnException(this, Logger, viewModel, ex);
+                    ModelUtils.OnException(this, Tracer, viewModel, ex);
                 }
             }
 
@@ -183,7 +184,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
 
             return View(viewModel);

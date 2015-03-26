@@ -113,8 +113,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
             OrderValidationRuleGroupMetadata.Config
                                             .Group(OrderValidationRuleGroup.SalesModelValidation)
                                             .UseCaching
-                                            .Rules(OrderValidationRuleMetadata.Config.Rule<SalesModelRestrictionsOrderValidationRule>(45)
-                                                                              .Common);
+                                            .Rules(OrderValidationRuleMetadata.Config.Rule<SalesModelRestrictionsOrderValidationRule>(45).Common);
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed. Suppression is OK here.")]
         private readonly OrderValidationRuleGroupMetadata _advertisementMaterialsGroupMetadata =

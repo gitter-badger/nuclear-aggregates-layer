@@ -44,6 +44,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     OwnerCode = x.OwnerCode,
                     Comment = x.Comment,
                     Status = x.Status.ToStringLocalizedExpression(),
+                    AccountingMethod = x.AccountingMethod.ToStringLocalizedExpression(),
                     Owner = null,
                 })
                 .QuerySettings(_filterHelper, querySettings);

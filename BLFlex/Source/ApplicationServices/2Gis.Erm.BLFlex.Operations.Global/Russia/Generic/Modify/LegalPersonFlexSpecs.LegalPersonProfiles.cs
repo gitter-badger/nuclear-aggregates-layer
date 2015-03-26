@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify
                                 {
                                     Id = x.Id,
                                     Name = x.Name,
-                                    AdditionalEmail = x.AdditionalEmail,
+                                    Email = x.Email,
                                     ChiefNameInGenitive = x.ChiefNameInGenitive,
                                     ChiefNameInNominative = x.ChiefNameInNominative,
                                     ChiefFullNameInNominative = x.Within<RussiaLegalPersonProfilePart>().GetPropertyValue(part => part.ChiefFullNameInNominative),
@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify
                                 legalPersonProfile.RecipientName = dto.RecipientName;
                                 legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
                                 legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
-                                legalPersonProfile.AdditionalEmail = dto.AdditionalEmail;
+                                legalPersonProfile.Email = dto.Email;
                                 legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
                                 legalPersonProfile.Phone = dto.Phone;
                                 legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;

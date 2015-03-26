@@ -14,5 +14,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Pro
         // TODO {d.ivanov, 03.12.2013}: ReadModel
         IEnumerable<Project> GetProjectsByOrganizationUnit(long organizationUnitId);
         Project GetProjectByCode(long projectCode);
+        bool DoesActiveProjectExist(long projectCode);
     }
 }

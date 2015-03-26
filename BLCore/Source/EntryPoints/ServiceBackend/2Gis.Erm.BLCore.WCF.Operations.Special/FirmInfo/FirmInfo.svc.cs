@@ -8,7 +8,8 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.BLCore.API.Operations.Special.FirmInfo;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.FirmInfo;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
 {
@@ -16,12 +17,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
     public class FirmInfoApplicationService : IFirmInfoApplicationRestService
     {
         private readonly IGetFirmInfoOperationService _getFirmInfoOperationService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public FirmInfoApplicationService(IGetFirmInfoOperationService getFirmInfoOperationService, ICommonLog logger)
+        public FirmInfoApplicationService(IGetFirmInfoOperationService getFirmInfoOperationService, ITracer tracer)
         {
             _getFirmInfoOperationService = getFirmInfoOperationService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IEnumerable<FirmInfoDto> Execute(IEnumerable<FirmIdDto> firmIds)
@@ -32,12 +33,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FirmInfo
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<FirmInfoOperationErrorDescription>(new FirmInfoOperationErrorDescription(ex.Message), HttpStatusCode.BadRequest);
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<FirmInfoOperationErrorDescription>(new FirmInfoOperationErrorDescription(ex.Message), HttpStatusCode.InternalServerError);
             }
         }
