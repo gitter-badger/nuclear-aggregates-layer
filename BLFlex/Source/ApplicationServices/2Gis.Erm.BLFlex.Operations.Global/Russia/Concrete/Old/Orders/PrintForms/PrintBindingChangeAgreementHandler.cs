@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             if (order.BranchOfficeOrganizationUnitId == null)
             {
-                throw new NotificationException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new FieldNotSpecifiedException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             if (order.LegalPersonProfileId == null)
