@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Olap;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.TaskService.Jobs;
+using NuClear.Jobs;
 
 using NuClear.Tracing.API;
 

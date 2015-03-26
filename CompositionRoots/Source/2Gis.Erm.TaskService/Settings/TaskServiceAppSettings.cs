@@ -17,9 +17,9 @@ using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.TaskService.Settings;
 using DoubleGis.Erm.Qds.Common.Settings;
 
+using NuClear.Jobs.Settings;
 using NuClear.Settings;
 using NuClear.Settings.API;
 

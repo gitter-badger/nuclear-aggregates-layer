@@ -2,7 +2,7 @@
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.TaskService.Jobs;
+using NuClear.Jobs;
 
 using NuClear.Tracing.API;
 

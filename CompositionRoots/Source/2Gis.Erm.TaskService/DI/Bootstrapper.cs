@@ -65,10 +65,8 @@ using DoubleGis.Erm.Platform.DI.Factories.Messaging;
 using DoubleGis.Erm.Platform.DI.Factories.PerformedOperationsAnalysis;
 using DoubleGis.Erm.Platform.DI.Proxies.PerformedOperations;
 using DoubleGis.Erm.Platform.Security;
-using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Consumer;
 using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Producer;
-using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.Qds.Operations.Indexing;
@@ -76,6 +74,8 @@ using DoubleGis.Erm.TaskService.Config;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Jobs.DI;
+using NuClear.Jobs.Schedulers;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 

@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.TaskService.Jobs;
+using NuClear.Jobs;
 
 using NuClear.Tracing.API;
 

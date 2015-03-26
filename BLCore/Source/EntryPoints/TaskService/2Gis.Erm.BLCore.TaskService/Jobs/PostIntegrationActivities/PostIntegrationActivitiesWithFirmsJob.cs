@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.TaskService.Jobs;
+using NuClear.Jobs;
 
 using NuClear.Tracing.API;
 

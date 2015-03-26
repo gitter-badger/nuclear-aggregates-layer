@@ -3,8 +3,8 @@
 using DoubleGis.Erm.Platform.API.Core.PersistenceCleanup;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices;
-using DoubleGis.Erm.Platform.TaskService.Jobs;
 
+using NuClear.Jobs;
 using NuClear.Tracing.API;
 
 using Quartz;

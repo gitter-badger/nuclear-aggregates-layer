@@ -2,9 +2,9 @@
 using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.TaskService.Jobs;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 
+using NuClear.Jobs;
 using NuClear.Tracing.API;
 
 using Quartz;

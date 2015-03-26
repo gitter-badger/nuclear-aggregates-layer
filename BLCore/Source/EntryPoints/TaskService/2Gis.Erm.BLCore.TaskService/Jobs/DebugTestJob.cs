@@ -2,7 +2,7 @@
 using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.TaskService.Jobs;
+using NuClear.Jobs;
 
 using NuClear.Tracing.API;
 

@@ -88,6 +88,10 @@
       <Project>{F5C50F83-8C4F-42F9-AD37-03740AB78416}</Project>
       <Name>2Gis.Erm.BL.API.Operations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\NuClear\Jobs\Jobs.csproj">
+      <Project>{f39592bf-1840-4994-8696-0d13ecce7434}</Project>
+      <Name>Jobs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

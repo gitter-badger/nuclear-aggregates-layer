@@ -79,7 +79,6 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="DI\TaskServiceJobsMassProcessor.cs" />
     <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Consumer\IPerformedOperationsConsumer.cs" />
     <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Consumer\IPerformedOperationsConsumerFactory.cs" />
     <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Consumer\PerformedOperationsConsumerJob.cs" />
@@ -89,16 +88,12 @@
     <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Producer\PerformedOperationsProducerJob.cs" />
     <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Producer\PerformedOperationsWorkItem.cs" />
     <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Producer\PerformedOperationsWorkItemProcessor.cs" />
-    <Compile Include="Jobs\TaskServiceJobBase.cs" />
-    <Compile Include="Jobs\ITaskServiceJob.cs" />
-    <Compile Include="Schedulers\QuartzConfigFileScanInterval.cs" />
-    <Compile Include="Schedulers\ISchedulerManager.cs" />
-    <Compile Include="Schedulers\JobFactory.cs" />
-    <Compile Include="Schedulers\SchedulerManager.cs" />
-    <Compile Include="Settings\ITaskServiceProcessingSettings.cs" />
-    <Compile Include="Settings\JobStoreType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\NuClear\Jobs\Jobs.csproj">
+      <Project>{f39592bf-1840-4994-8696-0d13ecce7434}</Project>
+      <Name>Jobs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
