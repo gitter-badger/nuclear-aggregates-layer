@@ -3,6 +3,8 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
+using DoubleGis.Erm.Platform.API.Security;
+
 using NuClear.Tracing.API;
 
 using Quartz;
