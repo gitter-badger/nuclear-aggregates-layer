@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             if (order.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
             }
             
             var currency = _finder.FindOne(Specs.Find.ById<Currency>(order.CurrencyId));

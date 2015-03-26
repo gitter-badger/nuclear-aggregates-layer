@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
             if (orderInfoValidation.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new FieldNotSpecifiedException(BLCoreResources.LegalPersonProfileMustBeSpecified);
             }
 
             if (!orderInfoValidation.IsTerminated)

@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
 
             if (orderInfo.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
