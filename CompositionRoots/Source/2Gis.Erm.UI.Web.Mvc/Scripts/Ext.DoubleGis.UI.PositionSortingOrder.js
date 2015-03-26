@@ -31,7 +31,7 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
         }, [
             { name: 'name', mapping: 'Name' },
             { name: 'id', mapping: 'Id' },
-            { name: 'index', mapping: 'Index' }
+            { name: 'index', mapping: 'Index', sortType: function (value) { return value == null ? -1 : value;  } }
         ]);
 
         this.store = new Ext.data.Store({
@@ -65,8 +65,20 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             columns:
             [
                 { id: 'id', hidden: true, dataIndex: 'id', menuDisabled: true, type: 'string' },
-                { id: 'index', header: '№', dataIndex: 'index', menuDisabled: true, width: 50, fixed: true, renderer: function (value) { return parseInt(value) + 1; } },
-                { id: 'name', header: 'Позиция', dataIndex: 'name', menuDisabled: true }
+                { id: 'index', header: '№', dataIndex: 'index', menuDisabled: true, width: 50, fixed: true, renderer: function (value) { return value === null ? "" : parseInt(value) + 1; } },
+                {
+                    id: 'name',
+                    header: 'Позиция',
+                    dataIndex: 'name',
+                    menuDisabled: true,
+                    renderer: function(value, metaData, record) {
+                         if (record.get('index') === null) {
+                              metaData.style += 'text-decoration: line-through;';
+                         }
+
+                         return value;
+                    }
+                }
             ],
             viewConfig: {
                 forceFit: true
@@ -92,6 +104,18 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             });
         }
     },
+    RemovePositions: function () {
+        var self = Ext.getCmp('actionsTab');
+
+        var selection = self.grid.getSelectionModel().getSelections();
+        Ext.each(selection, function (record) {
+            this.moverange(record.get('index'), Number.MAX_VALUE, -1);
+            record.set('index', null);
+            this.markDirty(true);
+        }, self);
+
+        self.store.sort(self.store.sortInfo.field, self.store.sortInfo.direction);
+    },
     Save: function () {
         window.Card.Items.Toolbar.disable();
         var pending = this.store.save();
@@ -100,7 +124,8 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             this.saveSuccess();
         }
     },
-    saveSuccess: function() {
+    saveSuccess: function () {
+        this.store.load();
         this.markDirty(false);
         window.Card.Items.Toolbar.enable();
         window.Card.recalcToolbarButtonsAvailability();
@@ -130,6 +155,18 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
                     }
                 }
 
+                var deletedCount = 0;
+                Ext.each(self.store.data.items, function(record) {
+                    if (record.get('index') === null) {
+                        deletedCount++;
+                    }
+                });
+
+                insertIndex -= deletedCount;
+                if (insertIndex < 0) {
+                    insertIndex = 0;
+                }
+
                 Ext.each(ddSource.dragData.selections, function (record) {
                     self.move(record, insertIndex - 1);
                 });
@@ -138,10 +175,11 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             }
         });
     },
-    update: function () {
-        var x = 0;
-    },
     move: function (record, newIndex) {
+        if (record.data.index === null) {
+            return;
+        }
+
         if (record.data.index < newIndex) {
             // Смещаем записи между начальной и конечной точками вставки вверх
             this.moverange(record.data.index, newIndex, -1);
@@ -157,6 +195,10 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
     moverange: function (startIndex, endIndex, shift) {
         var allRecords = this.store.data.items;
         Ext.each(allRecords, function(r) {
+            if (r.data.index === null) {
+                return;
+            }
+
             if (r.data.index >= startIndex && r.data.index <= endIndex)
                 r.set('index', r.data.index + shift);
         });
@@ -169,6 +211,7 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
 window.InitPage = function () {
     var sortingComponent = new Ext.DoubleGis.UI.PositionSortingOrder();
     window.Card.AddPositions = sortingComponent.AddPositions;
+    window.Card.RemovePositions = sortingComponent.RemovePositions;
     window.Card.Save = function () { sortingComponent.Save(); };
     window.Card.SaveAndClose = function () { sortingComponent.Save(); window.Card.Close(); };
 
