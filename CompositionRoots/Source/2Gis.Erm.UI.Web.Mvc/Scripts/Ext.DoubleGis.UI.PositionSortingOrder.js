@@ -65,7 +65,7 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             columns:
             [
                 { id: 'id', hidden: true, dataIndex: 'id', menuDisabled: true, type: 'string' },
-                { id: 'index', header: '№', dataIndex: 'index', menuDisabled: true, width: 50, fixed: true },
+                { id: 'index', header: '№', dataIndex: 'index', menuDisabled: true, width: 50, fixed: true, renderer: function (value) { return parseInt(value) + 1; } },
                 { id: 'name', header: 'Позиция', dataIndex: 'name', menuDisabled: true }
             ],
             viewConfig: {
