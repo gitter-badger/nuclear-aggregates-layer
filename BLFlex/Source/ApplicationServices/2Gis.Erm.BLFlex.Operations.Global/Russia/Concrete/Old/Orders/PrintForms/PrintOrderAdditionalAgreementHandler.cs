@@ -62,16 +62,23 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             var documentData = PrintHelper.AgreementSharedBody(order, legalPerson, legalPersonProfile, branchOfficeOrganizationUnit, _shortDateFormatter);
             var documenSpecificData = PrintHelper.TerminationAgreementSpecificBody(order);
             var bargainData = PrintHelper.RelatedBrgain(bargain);
-            var requisites = PrintHelper.Requisites(legalPerson, legalPersonProfile, branchOffice, branchOfficeOrganizationUnit);
 
             var printDocumentRequest = new PrintDocumentRequest
-            {
-                CurrencyIsoCode = currency.ISOCode,
-                FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, order.Number),
-                BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
-                TemplateCode = TemplateCode.AdditionalAgreementLegalPerson,
-                PrintData = PrintData.Concat(documentData, requisites, bargainData, documenSpecificData)
-            };
+                                           {
+                                               CurrencyIsoCode = currency.ISOCode,
+                                               FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, order.Number),
+                                               BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
+                                               TemplateCode = TemplateCode.AdditionalAgreementLegalPerson,
+                                               PrintData =
+                                                   PrintData.Concat(documentData,
+                                                                    bargainData,
+                                                                    documenSpecificData,
+                                                                    PrintHelper.DetermineRequisitesType(legalPerson.LegalPersonTypeEnum),
+                                                                    PrintHelper.LegalPersonRequisites(legalPerson),
+                                                                    PrintHelper.LegalPersonProfileRequisites(legalPersonProfile),
+                                                                    PrintHelper.BranchOfficeRequisites(branchOffice),
+                                                                    PrintHelper.BranchOfficeOrganizationUnitRequisites(branchOfficeOrganizationUnit))
+                                           };
 
             return (StreamResponse)_requestProcessor.HandleSubRequest(printDocumentRequest, Context);
         }

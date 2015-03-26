@@ -176,6 +176,7 @@
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintNewSalesModelBargainHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintBargainProlongationAgreementHandler.cs" />
     <Compile Include="MultiCulture\Generic\BargainPrintFormDataExtractor.cs" />
+    <Compile Include="Russia\Concrete\Old\Bills\PrintJointBillHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintBindingChangeAgreementHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintFirmChangeAgreementHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintHelper.cs" />

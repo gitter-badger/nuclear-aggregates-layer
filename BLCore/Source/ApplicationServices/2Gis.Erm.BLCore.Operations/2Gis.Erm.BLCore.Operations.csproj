@@ -111,7 +111,6 @@
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBillHandler.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForPrintJointBillHandler.cs" />
     <Compile Include="Concrete\Bills\PaymentDatePlanEvaluator.cs" />
-    <Compile Include="Concrete\Old\Bills\PrintJointBillHandler.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimary.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSales.cs" />
     <Compile Include="Concrete\Old\Clients\CheckIsWarmClientHandler.cs" />

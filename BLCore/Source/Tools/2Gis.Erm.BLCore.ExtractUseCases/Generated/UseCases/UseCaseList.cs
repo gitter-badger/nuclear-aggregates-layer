@@ -55,6 +55,7 @@ using DoubleGis.Erm.BLCore.Releasing.Release.Old;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Russia.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.AccountDetails;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old;

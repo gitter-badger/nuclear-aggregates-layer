@@ -10,36 +10,84 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 {
     public static class PrintHelper
     {
-        public static PrintData Requisites(LegalPerson legalPerson, LegalPersonProfile legalPersonProfile, BranchOffice branchOffice, BranchOfficeOrganizationUnit branchOfficeOrganizationUnit)
+        public static PrintData DetermineRequisitesType(LegalPersonType legalPersonType)
         {
             return new PrintData
                        {
-                           { "UseLegalPerson", legalPerson.LegalPersonTypeEnum == LegalPersonType.LegalPerson },
-                           { "UseBusinessman", legalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman },
-                           { "UseNaturalPerson", legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson },
+                           { "UseLegalPerson", legalPersonType == LegalPersonType.LegalPerson },
+                           { "UseBusinessman", legalPersonType == LegalPersonType.Businessman },
+                           { "UseNaturalPerson", legalPersonType == LegalPersonType.NaturalPerson },
+                       };
+        }
 
-                           { "BranchOffice.Name", branchOffice.Inn },
-                           { "BranchOffice.LegalAddress", branchOffice.LegalAddress },
-                           { "BranchOfficeOrganizationUnit.ShortLegalName", branchOfficeOrganizationUnit.ShortLegalName },
-                           { "BranchOfficeOrganizationUnit.Kpp", branchOfficeOrganizationUnit.Kpp },
-                           { "BranchOfficeOrganizationUnit.ActualAddress", branchOfficeOrganizationUnit.ActualAddress },
-                           { "BranchOfficeOrganizationUnit.PaymentEssentialElements", branchOfficeOrganizationUnit.PaymentEssentialElements },
-                           { "BranchOfficeOrganizationUnit.Email", branchOfficeOrganizationUnit.Email },
-                           { "BranchOfficeOrganizationUnit.PositionInNominative", branchOfficeOrganizationUnit.PositionInNominative },
-                           { "BranchOfficeOrganizationUnit.ChiefNameInNominative", branchOfficeOrganizationUnit.ChiefNameInNominative },
+        public static PrintData LegalPersonRequisites(LegalPerson legalPerson)
+        {
+            return new PrintData
+                       {
+                           {
+                               "LegalPerson", new PrintData
+                                                  {
+                                                      { "Inn", legalPerson.Inn },
+                                                      { "Kpp", legalPerson.Kpp },
+                                                      { "LegalAddress", legalPerson.LegalAddress },
+                                                      { "LegalName", legalPerson.LegalName },
+                                                      { "PassportSeries", legalPerson.PassportSeries },
+                                                      { "PassportNumber", legalPerson.PassportNumber },
+                                                      { "PassportIssuedBy", legalPerson.PassportIssuedBy },
+                                                      { "RegistrationAddress", legalPerson.RegistrationAddress },
+                                                      { "ShortName", legalPerson.ShortName },
+                                                  }
+                           },
+                       };
+        }
 
-                           { "LegalPerson.Inn", legalPerson.Inn },
-                           { "LegalPerson.Kpp", legalPerson.Kpp },
-                           { "LegalPerson.LegalAddress", legalPerson.LegalAddress },
-                           { "LegalPerson.LegalName", legalPerson.LegalName },
-                           { "LegalPerson.PassportSeries", legalPerson.PassportSeries },
-                           { "LegalPerson.PassportNumber", legalPerson.PassportNumber },
-                           { "LegalPerson.PassportIssuedBy", legalPerson.PassportIssuedBy },
-                           { "LegalPerson.RegistrationAddress", legalPerson.RegistrationAddress },
-                           { "LegalPerson.ShortName", legalPerson.ShortName },
-                           { "LegalPersonProfile.PaymentEssentialElements", legalPersonProfile.PaymentEssentialElements },
-                           { "LegalPersonProfile.PositionInNominative", legalPersonProfile.PositionInNominative },
-                           { "LegalPersonProfile.ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
+        public static PrintData LegalPersonProfileRequisites(LegalPersonProfile legalPersonProfile)
+        {
+            return new PrintData
+                       {
+                           {
+                               "LegalPersonProfile", new PrintData
+                                                         {
+                                                             { "Phone", legalPersonProfile.Phone },
+                                                             { "PaymentEssentialElements", legalPersonProfile.PaymentEssentialElements },
+                                                             { "PositionInNominative", legalPersonProfile.PositionInNominative },
+                                                             { "ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
+                                                         }
+                           },
+                       };
+        }
+
+        public static PrintData BranchOfficeRequisites(BranchOffice branchOffice)
+        {
+            return new PrintData
+                       {
+                           {
+                               "BranchOffice", new PrintData
+                                                   {
+                                                       { "Inn", branchOffice.Inn },
+                                                       { "LegalAddress", branchOffice.LegalAddress },
+                                                   }
+                           },
+                       };
+        }
+
+        public static PrintData BranchOfficeOrganizationUnitRequisites(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit)
+        {
+            return new PrintData
+                       {
+                           {
+                               "BranchOfficeOrganizationUnit", new PrintData
+                                                                   {
+                                                                       { "ShortLegalName", branchOfficeOrganizationUnit.ShortLegalName },
+                                                                       { "PhoneNumber", branchOfficeOrganizationUnit.PhoneNumber },
+                                                                       { "PaymentEssentialElements", branchOfficeOrganizationUnit.PaymentEssentialElements },
+                                                                       { "PositionInNominative", branchOfficeOrganizationUnit.PositionInNominative },
+                                                                       { "ChiefNameInNominative", branchOfficeOrganizationUnit.ChiefNameInNominative },
+                                                                       { "ActualAddress", branchOfficeOrganizationUnit.ActualAddress },
+                                                                       { "Kpp", branchOfficeOrganizationUnit.Kpp },
+                                                                       { "Email", branchOfficeOrganizationUnit.Email },
+                                                                   }
+                           },
                        };
         }
 

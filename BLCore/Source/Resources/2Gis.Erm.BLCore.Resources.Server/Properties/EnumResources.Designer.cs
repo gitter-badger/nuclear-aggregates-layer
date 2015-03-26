@@ -5443,29 +5443,11 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Единый счёт на оплату для ИП.
+        ///   Looks up a localized string similar to Единый счёт на оплату.
         /// </summary>
-        public static string TemplateCodeJointBillBusinessman {
+        public static string TemplateCodeJointBill {
             get {
-                return ResourceManager.GetString("TemplateCodeJointBillBusinessman", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Единый счёт на оплату для юр. лица.
-        /// </summary>
-        public static string TemplateCodeJointBillLegalPerson {
-            get {
-                return ResourceManager.GetString("TemplateCodeJointBillLegalPerson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Единый счёт на оплату для физ. лица.
-        /// </summary>
-        public static string TemplateCodeJointBillNaturalPerson {
-            get {
-                return ResourceManager.GetString("TemplateCodeJointBillNaturalPerson", resourceCulture);
+                return ResourceManager.GetString("TemplateCodeJointBill", resourceCulture);
             }
         }
         

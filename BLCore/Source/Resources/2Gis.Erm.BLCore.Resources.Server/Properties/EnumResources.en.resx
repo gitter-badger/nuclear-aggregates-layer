@@ -789,14 +789,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Joint payment for SP</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>Joint payment for a legal entity</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Joint payment for an individual</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Contract</value>

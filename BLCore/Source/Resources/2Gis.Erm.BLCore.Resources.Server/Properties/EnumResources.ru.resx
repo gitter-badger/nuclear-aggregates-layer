@@ -798,14 +798,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Другое</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Единый счёт на оплату для ИП</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для юр. лица</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для физ. лица</value>
+  <data name="TemplateCodeJointBill" xml:space="preserve">
+    <value>Единый счёт на оплату</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Договор</value>

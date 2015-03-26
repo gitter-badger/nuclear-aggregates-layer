@@ -801,14 +801,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Otro</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Factura única para EIRL</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>Factura única para una persona jurídica</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Factura única para una persona natural</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Contrato</value>

@@ -789,14 +789,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Jiné</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Jednotná faktura pro SP</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>Jednotná faktura pro pr. osobu</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Jednotná faktura pro fyz. osobu</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Smlouva</value>
