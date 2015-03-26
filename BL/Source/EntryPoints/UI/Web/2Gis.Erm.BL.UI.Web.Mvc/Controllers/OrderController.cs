@@ -421,7 +421,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };
 
-                    _operationService.FinishOperation(operation,
+                    _operationService.CreateOperation(operation,
                                                       response.ReportContent,
                                                       HttpUtility.UrlPathEncode(response.ReportFileName),
                                                       response.ContentType);
@@ -511,8 +511,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };
 
-                    _operationService.FinishOperation(
-                                                      operation,
+                    _operationService.CreateOperation(operation,
                                                       response.ReportContent,
                                                       HttpUtility.UrlPathEncode(response.ReportFileName),
                                                       response.ContentType);

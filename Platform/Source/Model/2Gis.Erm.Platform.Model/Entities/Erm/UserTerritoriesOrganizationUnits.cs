@@ -11,10 +11,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public OrganizationUnit OrganizationUnit { get; set; }
         public Territory Territory { get; set; }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
     }
 }

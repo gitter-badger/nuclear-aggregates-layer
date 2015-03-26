@@ -2724,9 +2724,6 @@
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value />
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value />
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value />
   </data>
@@ -5188,6 +5185,18 @@
     <value />
   </data>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
     <value />
   </data>
   <data name="RegionalOrdersAreNotSupported" xml:space="preserve">

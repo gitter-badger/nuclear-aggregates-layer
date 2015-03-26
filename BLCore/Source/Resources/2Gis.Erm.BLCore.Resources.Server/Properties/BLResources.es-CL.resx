@@ -2734,9 +2734,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>¿Desea seguir realizando la operación?</value>
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Especifique la Sucursal de la entidad y el periodo de amortización</value>
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>No se han encontrado bloqueos activos para la empresa {0} para la fecha de {1}</value>
   </data>
@@ -5214,5 +5211,17 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
     <value>Недостаточно прав для создания заказа рекламного агентства</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Indique el período, modo para contabilizar la prestación de servicios y departamento de la empresa</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Indique el período y modo para contabilizar la prestación de servicios</value>
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Retiro del {0} - {1} mediante el modo de prestación de servicios: '{2}' finalizado con errores</value>
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
   </data>
 </root>

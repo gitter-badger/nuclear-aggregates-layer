@@ -65,11 +65,15 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
                     .Should().NotBeEmpty();
 
                 _accountReadModel
-                    .GetInfoForRevertWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod)
+                    .GetInfoForRevertWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod, AccountingMethod.GuaranteedProvision)
                     .Should().NotBeEmpty();
 
                 _accountReadModel
-                    .GetInfoForWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod)
+                    .GetInfoForRevertWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod, AccountingMethod.PlannedProvision)
+                    .Should().NotBeEmpty();
+
+                _accountReadModel
+                    .GetInfoForWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod, AccountingMethod.PlannedProvision)
                     .Should().NotBeEmpty();
 
                 _accountReadModel.GetHungLimitsByOrganizationUnitForDate(orgUnitWithHungLimits.Id, dateForHungLimits)
@@ -82,8 +86,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
 //                _accountReadModel.GetLimitsForRelease(orderWithLimitsForRelease.DestOrganizationUnitId, limitForReleaseTimePeriod)
 //                    .Should().NotBeEmpty();
 
-                _accountReadModel.GetLastWithdrawal(orgUnitWithWithdrawal.Id, withdrawalTimePeriod)
+                _accountReadModel.GetLastWithdrawal(orgUnitWithWithdrawal.Id, withdrawalTimePeriod, AccountingMethod.GuaranteedProvision)
                     .Should().NotBeNull();
+
+                _accountReadModel.GetLastWithdrawalIncludingUndefinedAccountingMethod(orgUnitWithWithdrawal.Id, withdrawalTimePeriod, AccountingMethod.GuaranteedProvision)
+                  .Should().NotBeNull();
 
                 return OrdinaryTestResult.As.Succeeded;
             }

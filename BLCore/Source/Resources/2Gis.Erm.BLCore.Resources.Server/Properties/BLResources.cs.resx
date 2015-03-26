@@ -2734,9 +2734,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>Pokračovat?</value>
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Uveďte oddělení organizace a období odpisu</value>
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>U firmy {0} nebyla ke dni {1} nalezena aktivní blokace</value>
   </data>
@@ -5213,5 +5210,17 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
     <value>Недостаточно прав для создания заказа рекламного агентства</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Zadejte období, způsob evidence  poskytování služeb a oddělení organizace</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Zadejte období a způsob evidence poskytování služeb</value>
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Stržení prostředků za {0} - {1} s následujícím způsobem poskytování služeb: '{2}' provedeno s chybami</value>
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
   </data>
 </root>

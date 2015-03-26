@@ -2734,9 +2734,6 @@ The operation has been executed: {6}.</value>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>Continue operation?</value>
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Specify a company division and period for writing-off</value>
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>No active holds are found for the company {0} as of {1}</value>
   </data>
@@ -5214,5 +5211,17 @@ Placement period: {3}.</value>
   </data>
   <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
     <value>Недостаточно прав для создания заказа рекламного агентства</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Please specify the period, service accounting method, and company branch</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Please specify the period and service accounting method</value>
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Writing-off for {0} - {1} with servicing method {2} completed with errors</value>
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
   </data>
 </root>

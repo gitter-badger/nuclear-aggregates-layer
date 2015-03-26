@@ -7,13 +7,17 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
 {
     public sealed class WithdrawalProcessingResult
     {
-        public static WithdrawalProcessingResult Error(string msg)
+        public static WithdrawalProcessingResult Errors(params string[] msg)
         {
             return new WithdrawalProcessingResult
-                {
-                    Succeded = false, 
-                    ProcessingMessages = new []{ new ProcessingResultsMessage { Type = ProcessingResultsMessageType.Error, Text = msg}  }
-                };
+                       {
+                           Succeded = false,
+                           ProcessingMessages = msg.Select(x => new ProcessingResultsMessage
+                                                                    {
+                                                                        Type = ProcessingResultsMessageType.Error,
+                                                                        Text = x
+                                                                    }).ToArray()
+                       };
         }
 
         public static WithdrawalProcessingResult Succeeded
