@@ -6,11 +6,12 @@ using System.ServiceModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Assign;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
 {
@@ -26,8 +27,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
             IDesktopClientProxyFactory clientProxyFactory,
             IStandartConfigurationSettings configuration,
             IApiSettings apiSettings,
-            ICommonLog logger)
-            : base(clientProxyFactory, configuration, apiSettings, logger)
+            ITracer tracer)
+            : base(clientProxyFactory, configuration, apiSettings, tracer)
         {
             _operationProgressCallback = operationProgressCallback;
         }
@@ -42,12 +43,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
             }
             catch (FaultException<AssignOperationErrorDescription> ex)
             {
-                Logger.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
+                Tracer.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
+                Tracer.Error(ex, "Can't assign entity " + EntityType.Name + ". Entity id: " + entityId);
                 throw;
             }
         }
@@ -62,12 +63,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Assign
             }
             catch (FaultException<AssignOperationErrorDescription> ex)
             {
-                Logger.Error(ex, "Can't execute group assign entity " + EntityType.Name);
+                Tracer.Error(ex, "Can't execute group assign entity " + EntityType.Name);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Can't execute group assign entity " + EntityType.Name);
+                Tracer.Error(ex, "Can't execute group assign entity " + EntityType.Name);
                 throw;
             }
         }

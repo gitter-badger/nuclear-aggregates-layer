@@ -18,11 +18,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         [EnumMember]
         LegalPersonsTo1C = 22,
 
-
-        // AccountSaldosTo1C = 25, - not implemented yet
-        [EnumMember]
-        AccountDetailsToServiceBus = 26,
-
        // ERM <-> AutoMailer (range 41 - 50)
         [EnumMember]
         DataForAutoMailer = 41

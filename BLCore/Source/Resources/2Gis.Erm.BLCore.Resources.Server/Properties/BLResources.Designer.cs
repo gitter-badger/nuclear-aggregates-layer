@@ -2313,6 +2313,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CancelConfirmation {
+            get {
+                return ResourceManager.GetString("CancelConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CancelOperationIsNotSpecifiedForThisEntity {
+            get {
+                return ResourceManager.GetString("CancelOperationIsNotSpecifiedForThisEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotActivateBranchOfficeSinceThereIsADuplicate {
             get {
                 return ResourceManager.GetString("CannotActivateBranchOfficeSinceThereIsADuplicate", resourceCulture);
@@ -2379,6 +2397,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotCancelCompletedOrderRequest {
             get {
                 return ResourceManager.GetString("CannotCancelCompletedOrderRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotCancelFinishedOrClosedActivity {
+            get {
+                return ResourceManager.GetString("CannotCancelFinishedOrClosedActivity", resourceCulture);
             }
         }
         
@@ -2478,6 +2505,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified {
             get {
                 return ResourceManager.GetString("CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotCompleteFinishedOrClosedActivity {
+            get {
+                return ResourceManager.GetString("CannotCompleteFinishedOrClosedActivity", resourceCulture);
             }
         }
         
@@ -2830,6 +2866,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning {
             get {
                 return ResourceManager.GetString("CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotSaveActivityForClientInReserve {
+            get {
+                return ResourceManager.GetString("CannotSaveActivityForClientInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotSaveActivityForFirmInReserve {
+            get {
+                return ResourceManager.GetString("CannotSaveActivityForFirmInReserve", resourceCulture);
             }
         }
         
@@ -9227,6 +9281,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NoLocksToWithdrawFound {
+            get {
+                return ResourceManager.GetString("NoLocksToWithdrawFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string NoMessageAvailable {
             get {
                 return ResourceManager.GetString("NoMessageAvailable", resourceCulture);
@@ -9284,6 +9347,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string NonDraftAdvertisementElementEditing {
             get {
                 return ResourceManager.GetString("NonDraftAdvertisementElementEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NoRegardingObjectValidationError {
+            get {
+                return ResourceManager.GetString("NoRegardingObjectValidationError", resourceCulture);
             }
         }
         
@@ -13745,9 +13817,18 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string SpecifyPeriodAndOrganizationUnit {
+        public static string SpecifyPeriodAccountingMethodAndOrganizationUnit {
             get {
-                return ResourceManager.GetString("SpecifyPeriodAndOrganizationUnit", resourceCulture);
+                return ResourceManager.GetString("SpecifyPeriodAccountingMethodAndOrganizationUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SpecifyPeriodAndAccountingMethod {
+            get {
+                return ResourceManager.GetString("SpecifyPeriodAndAccountingMethod", resourceCulture);
             }
         }
         
@@ -14981,6 +15062,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Withdrawal {
             get {
                 return ResourceManager.GetString("Withdrawal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string WithdrawalFailed {
+            get {
+                return ResourceManager.GetString("WithdrawalFailed", resourceCulture);
             }
         }
         

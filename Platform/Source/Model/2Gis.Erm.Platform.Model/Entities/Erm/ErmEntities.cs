@@ -57,6 +57,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(ExportFailedEntity),    		
     		typeof(ExportFlowDeliveryData_LetterSendRequest),
     		typeof(ExportFlowFinancialDataClient),
+            typeof(ExportFlowFinancialDataDebitsInfoInitial),
     		typeof(ExportFlowFinancialDataLegalEntity),
     		typeof(ExportFlowNomenclatures_NomenclatureElement),
     		typeof(ExportFlowNomenclatures_NomenclatureElementRelation),

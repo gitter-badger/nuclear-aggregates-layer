@@ -20,6 +20,7 @@
         ExportFlowNomenclaturesNomenclatureElement = 15,
         ExportFlowNomenclaturesNomenclatureElementRelation = 16,
         ExportFlowDeliveryDataLetterSendRequest = 17,
-        ExportFlowOrdersDenialReason = 18
+        ExportFlowOrdersDenialReason = 18,
+        ExportFlowFinancialDataDebitsInfoInitial = 19,
     }
 }

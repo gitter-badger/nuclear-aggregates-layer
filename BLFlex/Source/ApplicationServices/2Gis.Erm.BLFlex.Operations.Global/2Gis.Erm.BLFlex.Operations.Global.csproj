@@ -39,6 +39,10 @@
     <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services" />
@@ -127,6 +131,7 @@
     <Compile Include="MultiCulture\Concrete\EvaluateBillDateService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Deserializers\MultiCultureDeserializeCardService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Processors\MultiCultureImportCardService.cs" />
+    <Compile Include="MultiCulture\Concrete\LegalPersons\NullValidateLegalPersonsForExportOperationService.cs" />
     <Compile Include="MultiCulture\Concrete\Old\LegalPersons\KazakhstanValidatePaymentRequisitesIsUnique.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\MultiCulturePrintHelper.cs" />
     <Compile Include="MultiCulture\Generic\Activate\ActivateBranchOfficeService.cs" />
@@ -169,6 +174,7 @@
     <Compile Include="MultiCulture\Generic\Modify\LegalPersonFlexSpecs.LegalPersons.cs" />
     <Compile Include="Kazakhstan\Generic\Modify\ModifyLegalPersonService.cs" />
     <Compile Include="MultiCulture\Generic\Modify\Old\MultiCultureEditOrderPositionHandler.cs" />
+    <Compile Include="Russia\Concrete\LegalPersons\RussiaValidateLegalPersonsForExportOperationService.cs" />
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintNewSalesModelBargainHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintBargainProlongationAgreementHandler.cs" />
     <Compile Include="MultiCulture\Generic\BargainPrintFormDataExtractor.cs" />
@@ -478,6 +484,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Emirates\Concrete\Old\AccepttanceReport\PrintForms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

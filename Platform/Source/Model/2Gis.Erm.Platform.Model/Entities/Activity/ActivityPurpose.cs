@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 {
-    public enum ActivityPurpose
+    public enum PhonecallPurpose
     {
         NotSet = 0,
         FirstCall = 1,
@@ -10,6 +10,7 @@
         DecisionApproval = 6,
         Sale = 10,
         Service = 8,
+
         /// <summary>
         /// Допродажа
         /// </summary>

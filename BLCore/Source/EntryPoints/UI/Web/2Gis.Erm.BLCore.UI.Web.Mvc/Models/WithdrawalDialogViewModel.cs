@@ -2,7 +2,7 @@ using System;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
@@ -12,7 +12,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
         private DateTime _periodStart;
 
         [RequiredLocalized]
-        public LookupField OrganizationUnit { get; set; }
+        [ExcludeZeroValue]
+        public AccountingMethod AccountingMethod { get; set; }
 
         [Calendar]
         [RequiredLocalized]
@@ -22,5 +23,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
             get { return _periodStart; }
             set { _periodStart = value.AssumeUtcKind(); }
         }
+
+        public Guid OperationId { get; set; }
+        public bool? HasErrors { get; set; }
     }
 }

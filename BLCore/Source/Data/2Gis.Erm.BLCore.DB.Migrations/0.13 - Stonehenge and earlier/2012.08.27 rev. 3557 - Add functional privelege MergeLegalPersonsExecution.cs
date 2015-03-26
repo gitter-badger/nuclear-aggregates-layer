@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.DB.Migration.Impl
 
         protected override void ApplyOverride(IMigrationContext context)
         {
-            if (!PermissionsHelper.CheckPermissionExistance(context, PrivilegeId))
+            if (!PermissionsHelper.CheckPermissionExistence(context, PrivilegeId))
             {
                 return;
             }

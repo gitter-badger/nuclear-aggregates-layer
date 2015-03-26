@@ -2,7 +2,9 @@
 using System.Data.Common;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.Common.Settings;
+
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
 {

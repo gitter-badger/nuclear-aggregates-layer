@@ -11,8 +11,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto
         [DataMember]
         public IEnumerable<CategoryDto> FirmCategories { get; set; }
         [DataMember]
-        public IEnumerable<CategoryDto> AdditionalCategories { get; set; }
-        [DataMember]
         public IEnumerable<PositionDto> Positions { get; set; }
         [DataMember]
         public IEnumerable<FirmAddressDto> FirmAddresses { get; set; }
@@ -77,9 +75,13 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto
             public long? AdvertisementTemplateId { get; set; }
             [DataMember]
             public long? DummyAdvertisementId { get; set; }
+            [DataMember]
+            public IEnumerable<CategoryDto> AvailableCategories { get; set; }
 
             [DataMember]
             public bool IsLinkingObjectOfSingleType { get; set; }
+            [DataMember]
+            public int PositionsGroup { get; set; }
         }
     }
 }

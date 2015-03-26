@@ -37,6 +37,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
@@ -177,7 +185,7 @@
     <Compile Include="DI\UnityDependencyResolver.cs" />
     <Compile Include="DI\UnityUIServicesManager.cs" />
     <Compile Include="Logging\LogControllerCallHandler.cs" />
-    <Compile Include="Logging\LoggerContextEntryWebProvider.cs" />
+    <Compile Include="Logging\TracerContextEntryWebProvider.cs" />
     <Compile Include="Logging\LogWebRequestAttribute.cs" />
     <Compile Include="Logging\LogWebRequestHandler.cs" />
     <Compile Include="Logging\WebLoggerContextInitializerExtension.cs" />
@@ -357,6 +365,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Assign.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GroupOperation\Cancel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cancel.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GroupOperation\ChangeClientTerritory.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -515,6 +528,7 @@
     <Compile Include="DI\BlCoreUiWebMvcAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -589,6 +603,10 @@
     <None Include="Views\GroupOperation\Assign.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Assign.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\Cancel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Cancel.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\GroupOperation\ChangeClientTerritory.cshtml">
       <Generator>RazorGenerator</Generator>
