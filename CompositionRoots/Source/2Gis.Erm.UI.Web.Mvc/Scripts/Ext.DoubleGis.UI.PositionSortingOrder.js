@@ -109,6 +109,10 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
 
         var selection = self.grid.getSelectionModel().getSelections();
         Ext.each(selection, function (record) {
+            if (record.get('index') == null) {
+                return;
+            }
+
             this.moverange(record.get('index'), Number.MAX_VALUE, -1);
             record.set('index', null);
             this.markDirty(true);
