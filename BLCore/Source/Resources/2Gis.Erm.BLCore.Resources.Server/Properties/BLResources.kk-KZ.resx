@@ -5138,7 +5138,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-  </data>
+</data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5220,6 +5220,9 @@ Cумма по операции: {5}.
   </data>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
     <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+  </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value>Необходимо указать хотя бы одну привязку</value>
   </data>
   <data name="PublishedPriceCannotBeModified" xml:space="preserve">
     <value>Опубликованный прайс не может быть отредактирован</value>

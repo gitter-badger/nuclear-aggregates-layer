@@ -5214,6 +5214,9 @@ Doba zveřejnění: {3}.</value>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
     <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
   </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value>Необходимо указать хотя бы одну привязку</value>
+  </data>
   <data name="PublishedPriceCannotBeModified" xml:space="preserve">
     <value>Опубликованный прайс не может быть отредактирован</value>
   </data>

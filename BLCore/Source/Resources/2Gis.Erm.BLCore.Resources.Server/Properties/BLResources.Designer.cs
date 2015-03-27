@@ -9209,6 +9209,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NeedToPickAtLeastOneLinkingObject {
+            get {
+                return ResourceManager.GetString("NeedToPickAtLeastOneLinkingObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string NeedToPickAtLeastOneLinkingObjectForCompositePosition {
             get {
                 return ResourceManager.GetString("NeedToPickAtLeastOneLinkingObjectForCompositePosition", resourceCulture);
