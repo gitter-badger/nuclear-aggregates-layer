@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO
 {
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public class LegalPersonAndProfilesExistanceDto
+    public class LegalPersonAndProfilesExistenceDto
     {
         public LegalPerson LegalPerson { get; set; }
         public bool LegalPersonHasProfiles { get; set; }

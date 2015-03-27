@@ -10,10 +10,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
 {
@@ -25,20 +26,20 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> _orderOperationsProcessingsStoreService;
         private readonly IOperationsProcessingsStoreService<Order, ExportFlowOrdersInvoice> _invoiceOperationsProcessingsStoreService;
         private readonly IExportRepository<Order> _exportRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ServiceBusEnsureOrderExportedStrategy(IIntegrationSettings integrationSettings,
                                                      IOrderReadModel orderReadModel,
                                                      IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> operationsProcessingsStoreService,
                                                      IExportRepository<Order> exportRepository,
-                                                     ICommonLog logger,
+                                                     ITracer tracer,
                                                      IOperationsProcessingsStoreService<Order, ExportFlowOrdersInvoice> invoiceOperationsProcessingsStoreService)
         {
             _integrationSettings = integrationSettings;
             _orderReadModel = orderReadModel;
             _orderOperationsProcessingsStoreService = operationsProcessingsStoreService;
             _exportRepository = exportRepository;
-            _logger = logger;
+            _tracer = tracer;
             _invoiceOperationsProcessingsStoreService = invoiceOperationsProcessingsStoreService;
         }
 
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                                 "Can't start ensure process that all orders are exported.");
             }
 
-            _logger.InfoFormat("Starting ensure process that all orders are exported already to servicebus. " +
+            _tracer.InfoFormat("Starting ensure process that all orders are exported already to servicebus. " +
                                  "Release detail: id {0}, organization unit id {1}, period {2}, {3} release",
                                  releaseId,
                                  organizationUnitId,
@@ -58,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                  isBeta ? "beta" : "final");
             if (isBeta)
             {
-                _logger.InfoFormat("Release type is beta, so check process is skipped. Release detail: id {0}, organization unit id {1}, period {2}",
+                _tracer.InfoFormat("Release type is beta, so check process is skipped. Release detail: id {0}, organization unit id {1}, period {2}",
                                      releaseId,
                                      organizationUnitId,
                                      period);
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 if (attempsCount == MaxAttempsCount)
                 {
-                    _logger.FatalFormat("Aborted ensure process that all orders are exported already to servicebus. " +
+                    _tracer.FatalFormat("Aborted ensure process that all orders are exported already to servicebus. " +
                                           "Max attempts count achieved {0}. Release detail: id {1}, organization unit id {2}, period {3}, final release",
                                           MaxAttempsCount,
                                           releaseId,
@@ -84,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     return false;
                 }
 
-                _logger.WarnFormat("Ensure process that all orders are exported already to servicebus. " +
+                _tracer.WarnFormat("Ensure process that all orders are exported already to servicebus. " +
                                      "Waiting orders async export activity completed (Running by 2GIS ERM Asynchronous Processing Service). " +
                                      "Release id: {0}. Current attempt number: {1}. Periodic check interval in sec: {2}",
                                      releaseId,
@@ -95,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 ++attempsCount;
             }
 
-            _logger.InfoFormat("Finished ensure process. Ensured that all orders are exported already to servicebus. " +
+            _tracer.InfoFormat("Finished ensure process. Ensured that all orders are exported already to servicebus. " +
                                  "Release detail: id {0}, organization unit id {1}, period {2}, final release",
                                  releaseId,
                                  organizationUnitId,
@@ -116,7 +117,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                                             _orderOperationsProcessingsStoreService);
                     if (ordersToProcess.Any())
                     {
-                        _logger.WarnFormat("Not all required orders are exported. The queue to process contains following orders: {0}",
+                        _tracer.WarnFormat("Not all required orders are exported. The queue to process contains following orders: {0}",
                                            string.Join(",", ordersToProcess.Take(EntitiesAmountLogLimiter).Select(x => x.ToString())));
                     }
 
@@ -130,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                                               _invoiceOperationsProcessingsStoreService);
                     if (invoicesToProcess.Any())
                     {
-                        _logger.WarnFormat("Not all required invoices are exported. The queue to process contains following invoices: {0}",
+                        _tracer.WarnFormat("Not all required invoices are exported. The queue to process contains following invoices: {0}",
                                            string.Join(",", invoicesToProcess.Take(EntitiesAmountLogLimiter).Select(x => x.ToString())));
                     }
 
@@ -153,13 +154,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             var failedInvoicesForRelease = ordersForRelease.Where(failedInvoices.Contains).ToArray();
             if (failedOrdersForRelease.Any())
             {
-                _logger.WarnFormat("Not all required orders are exported. The failed entities queue contains following orders: {0}",
+                _tracer.WarnFormat("Not all required orders are exported. The failed entities queue contains following orders: {0}",
                                      string.Join(",", failedOrdersForRelease.Take(EntitiesAmountLogLimiter).Select(x => x.ToString())));
             }
 
             if (failedInvoicesForRelease.Any())
             {
-                _logger.WarnFormat("Not all required invoices are exported. The failed entities queue contains following invoices: {0}",
+                _tracer.WarnFormat("Not all required invoices are exported. The failed entities queue contains following invoices: {0}",
                                      string.Join(",", failedInvoicesForRelease.Take(EntitiesAmountLogLimiter).Select(x => x.ToString())));
             }
 

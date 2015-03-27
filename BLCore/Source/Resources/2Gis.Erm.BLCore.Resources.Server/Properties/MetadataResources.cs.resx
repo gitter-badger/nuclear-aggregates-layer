@@ -1484,4 +1484,10 @@
   <data name="ChiefFullNameInNominative" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="PositionsGroup" xml:space="preserve">
+    <value>Skupina pozicí</value>
+  </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Způsob poskytnutí služeb</value>
+  </data>
 </root>

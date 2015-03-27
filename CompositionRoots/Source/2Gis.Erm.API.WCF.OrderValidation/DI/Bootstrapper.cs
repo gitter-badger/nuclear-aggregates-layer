@@ -26,8 +26,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
@@ -49,14 +47,17 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 {
     internal static class Bootstrapper
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
-            ICommonLog logger,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -86,8 +87,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
-                                                                          logger,
-                                                                          loggerContextManager))
+                                                                          tracer,
+                                                                          tracerContextManager))
                         .ConfigureServiceClient()
                         .EnsureMetadataCorrectness();
         }
@@ -104,11 +105,11 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             IMsCrmSettings msCrmSettings,
-            ICommonLog logger,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             return container
-                .ConfigureLogging(logger, loggerContextManager)
+                .ConfigureTracing(tracer, tracerContextManager)
                 .CreateErmSpecific()
                 .CreateSecuritySpecific()
                 .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)

@@ -12,9 +12,10 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -29,10 +30,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                    IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                    IAPIIdentityServiceSettings identityServiceSettings,
                                    IUserContext userContext,
-                                   ICommonLog logger,
+                                   ITracer tracer,
                                    IGetBaseCurrencyService getBaseCurrencyService,
                                    IOperationService operationService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _operationService = operationService;
         }
@@ -71,6 +72,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             return File(stream, contentType, fileName);
         }
 
+        [HttpGet]
+        public FileResult OperationLog(Guid operationId)
+        {
+            return GetOperationLog(operationId);
+        }
+
         [HttpPost]
         public void CreateOperationWithErrorLog(Guid operationId, string log, string contentType, string logFileName)
         {
@@ -84,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                     Type = BusinessOperation.None,
                 };
 
-            _operationService.FinishOperation(operation, log, logFileName);
+            _operationService.CreateOperation(operation, log, logFileName);
         }
     }
 }

@@ -22,9 +22,10 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Compression;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private static readonly Encoding CyrillicEncoding = Encoding.GetEncoding(1251);
 
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IUserRepository _userRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IAccountRepository _accountRepository;
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         public ExportLegalPersonsHandler(
             ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-            ICommonLog logger,
+            ITracer tracer,
             ILegalPersonRepository legalPersonRepository,
             IUserRepository userRepository,
             IAccountRepository accountRepository,
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             IValidateLegalPersonsForExportOperationService validateLegalPersonsForExportOperationService)
         {
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
-            _logger = logger;
+            _tracer = tracer;
             _legalPersonRepository = legalPersonRepository;
             _userRepository = userRepository;
             _accountRepository = accountRepository;
@@ -90,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 throw new NotificationException(BLResources.ExportCouldnotFindLegalPersons);
             }
 
-            _logger.InfoFormat("Начало проверки юр.лиц");
+            _tracer.InfoFormat("Начало проверки юр.лиц");
             var validationErrors =
                 _validateLegalPersonsForExportOperationService.Validate(legalPersonFor1CExportDtos.Select(x =>
                                                                                                           new ValidateLegalPersonDto
@@ -113,7 +114,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             logReportBuilder.AppendFormat("Неблокирующих ошибок - [{0}]:", validationErrors.Count(x => !x.IsBlockingError)).Append(Environment.NewLine);
             logReportBuilder.AppendFormat("Блокирующих ошибок - [{0}]:", validationErrors.Count(x => x.IsBlockingError)).Append(Environment.NewLine);
             logReportBuilder.Append(notValidResponseLogBuilder);
-            _logger.InfoFormat(logReportBuilder.ToString());
+            _tracer.InfoFormat(logReportBuilder.ToString());
 
             var legalPersons = legalPersonFor1CExportDtos.Select(x => x.LegalPerson);
 

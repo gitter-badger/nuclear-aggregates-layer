@@ -7,16 +7,25 @@ if (a[i][1] != a[i-1][1]) return null;
 }
 return a[0][1];
 }
-function getSelected(sGridName)
-{
-var a = document.all[sGridName].InnerGrid.SelectedRecords;
-var backCompatArray = new Array(a.length);
-for (var i=0; i < a.length; i++)
-{
-backCompatArray[i] = a[i][0];
+function getSelected(sGridName, details) {
+    var a = document.all[sGridName].InnerGrid.SelectedRecords;
+    var backCompatArray = new Array(a.length);
+    for (var i = 0; i < a.length; i++) {
+        if (details) {
+            backCompatArray[i] = {
+                EntityId: a[i][0],
+                EntityName: GetErmEntityName(a[i][1])
+            };
+        } else {
+            backCompatArray[i] = a[i][0];
+        }
+
+    }
+    return backCompatArray;
 }
-return backCompatArray;
-}
+
+
+
 function getParentEntityIdParams()
 {
 

@@ -102,7 +102,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
         {
             var chargesQuery = _finder.Find<Charge>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
-                                AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId, period))
+                                AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
+                                AccountSpecs.Locks.Find.ForPeriod(period.Start, period.End))
                           .SelectMany(x => x.Order.OrderPositions.Select(op => new { OrderPosition = op, x.Order, Lock = x }))
                           .Where(x => x.OrderPosition.IsActive && !x.OrderPosition.IsDeleted &&
                                         SalesModelUtil.PlannedProvisionSalesModels.Contains(x.OrderPosition.PricePosition.Position.SalesModel))

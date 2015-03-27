@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Olap;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -13,8 +14,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.Olap
 
         public CalculateClientPromising(ISignInService signInService,
                                         IUserImpersonationService userImpersonationService,
-                                        ICommonLog logger,
-                                        ICalculateClientPromisingOperationService calculateClientPromisingOperationService) : base(signInService, userImpersonationService, logger)
+                                        ITracer tracer,
+                                        ICalculateClientPromisingOperationService calculateClientPromisingOperationService) : base(signInService, userImpersonationService, tracer)
         {
             _calculateClientPromisingOperationService = calculateClientPromisingOperationService;
         }

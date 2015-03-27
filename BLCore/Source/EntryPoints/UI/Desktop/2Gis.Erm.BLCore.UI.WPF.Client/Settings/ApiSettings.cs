@@ -6,9 +6,10 @@ using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
+
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Settings
 {
