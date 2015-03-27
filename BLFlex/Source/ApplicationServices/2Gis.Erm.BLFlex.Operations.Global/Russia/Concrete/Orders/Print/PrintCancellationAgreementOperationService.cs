@@ -8,27 +8,42 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Print;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
 {
     public class PrintCancellationAgreementOperationService : IPrintCancellationAgreementOperationService, IRussiaAdapted
     {
+        private readonly IOperationScopeFactory _scopeFactory;
         private readonly IPrintReadModel _readModel;
         private readonly IPublicService _publicService;
         private readonly IFormatter _shortDateFormatter;
 
-        public PrintCancellationAgreementOperationService(IPublicService publicService, IFormatterFactory formatterFactory, IPrintReadModel readModel)
+        public PrintCancellationAgreementOperationService(IPublicService publicService, IFormatterFactory formatterFactory, IPrintReadModel readModel, IOperationScopeFactory scopeFactory)
         {
             _publicService = publicService;
             _readModel = readModel;
+            _scopeFactory = scopeFactory;
             _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         public PrintFormDocument Print(long orderId)
+        {
+            using (var scope = _scopeFactory.CreateNonCoupled<PrintCancellationAgreementIdentity>())
+            {
+                var document = DoPrint(orderId);
+                scope.Complete();
+                return document;
+            }
+        }
+
+        private PrintFormDocument DoPrint(long orderId)
+
         {
             var order = _readModel.GetOrder(orderId);
 
