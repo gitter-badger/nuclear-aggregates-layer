@@ -118,6 +118,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
                     IsPrimary = IsPrimary,
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
 
+                    ApplicationCityName = ApplicationCityName,
                     PhoneNumber = PhoneNumber,
                     Fax = Fax,
                     PositionInNominative = PositionInNominative,

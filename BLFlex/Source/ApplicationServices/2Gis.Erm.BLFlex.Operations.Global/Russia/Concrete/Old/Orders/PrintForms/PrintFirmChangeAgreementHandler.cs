@@ -40,12 +40,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             if (order.BranchOfficeOrganizationUnitId == null)
             {
-                throw new NotificationException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new FieldNotSpecifiedException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             if (order.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new FieldNotSpecifiedException(BLCoreResources.LegalPersonProfileMustBeSpecified);
             }
 
             var currency = _finder.FindOne(Specs.Find.ById<Currency>(order.CurrencyId));

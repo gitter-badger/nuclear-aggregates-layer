@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
 
             if (data.ProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var branchOffice = data.BranchOfficeId.HasValue

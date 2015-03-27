@@ -45,12 +45,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             if (orderInfo.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new FieldNotSpecifiedException(BLCoreResources.LegalPersonProfileMustBeSpecified);
             }
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {
-                throw new NotificationException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new FieldNotSpecifiedException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             var templateCode = orderInfo.SalesModel == SalesModel.MultiPlannedProvision

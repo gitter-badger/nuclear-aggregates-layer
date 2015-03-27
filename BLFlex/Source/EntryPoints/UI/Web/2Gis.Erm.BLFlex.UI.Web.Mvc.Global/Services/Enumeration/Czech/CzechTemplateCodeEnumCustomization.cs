@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Enumeration;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -10,15 +8,28 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Czech
 {
     public class CzechTemplateCodeEnumCustomization : EnumCustomizationBase<TemplateCode>, ICzechAdapted
     {
-        private static readonly IEnumerable<TemplateCode> IgnoredOrderTypes = new[] { TemplateCode.OrderMultiPlannedProvision };
-        private static readonly IEnumerable<TemplateCode> IgnoredAdditionalAgreements = new[] { TemplateCode.FirmChangeAgreement, TemplateCode.BindingChangeAgreement,  };
-
         protected override IEnumerable<TemplateCode> GetRequiredEnumValues()
         {
-            return Enum.GetValues(typeof(TemplateCode))
-                       .Cast<TemplateCode>()
-                       .Except(IgnoredOrderTypes)
-                       .Except(IgnoredAdditionalAgreements);
+            return new[]
+                       {
+                           TemplateCode.ClientBargain,
+                           TemplateCode.AdditionalAgreementLegalPerson,
+                           TemplateCode.AdditionalAgreementBusinessman,
+                           TemplateCode.BargainAdditionalAgreementLegalPerson,
+                           TemplateCode.BargainAdditionalAgreementBusinessman,
+                           TemplateCode.BillLegalPerson,
+                           TemplateCode.BillBusinessman,
+                           TemplateCode.Order,
+                           TemplateCode.TerminationNoticeLegalPerson,
+                           TemplateCode.TerminationNoticeBusinessman,
+                           TemplateCode.TerminationNoticeWithoutReasonLegalPerson,
+                           TemplateCode.TerminationNoticeWithoutReasonBusinessman,
+                           TemplateCode.TerminationNoticeBargainLegalPerson,
+                           TemplateCode.TerminationNoticeBargainBusinessman,
+                           TemplateCode.TerminationNoticeBargainWithoutReasonLegalPerson,
+                           TemplateCode.TerminationNoticeBargainWithoutReasonBusinessman,
+                           TemplateCode.LetterOfGuarantee,
+                       };
         }
     }
 }

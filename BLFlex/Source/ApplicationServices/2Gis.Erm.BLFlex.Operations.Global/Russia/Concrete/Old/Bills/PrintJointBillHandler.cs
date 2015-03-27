@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
 
             if (commonInfo.ProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(commonInfo.BranchOfficeId));
