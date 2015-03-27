@@ -98,32 +98,34 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 this.refresh(true);
             }
         }
-        this.autocompleteHeader = function() {
-            var prefix = this.getTitlePrefix();
-            var suffix = this.getTitleSuffix();
+       
+        
+    },
+    Build : function() {
+        Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
 
-            var headerElement = Ext.get("Title");
-            var header = headerElement.getValue() || "";
+        Ext.getCmp("Client").on("change",this.autocompleteHeader, this);
 
-            // Автозаполнение срабатывает если поле "Заголовок" - пустое или ранее было автоматически заполнено (т.е. после автозаполнения не редактировалось пользователем).
-            var shouldAutoCompleteHeader = prefix && (!header || header.trim() == this.autoHeader.build().trim());
-            this.autoHeader.prefix = prefix;
-            this.autoHeader.suffix = suffix;
-            if (shouldAutoCompleteHeader) {
-                headerElement.setValue(this.autoHeader.build());
-            }
+        if (this.contactField && this.contactComp) {
+            this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
         }
-        this.Build = function() {
-            Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
+        this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
 
-            Ext.getCmp("Client").on("change",this.autocompleteHeader, this);
+        this.autocompleteHeader();
+    },
+    autocompleteHeader: function() {
+        var prefix = this.getTitlePrefix();
+        var suffix = this.getTitleSuffix();
 
-            if (this.contactField && this.contactComp) {
-                this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
-            }
-            this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
+        var headerElement = Ext.get("Title");
+        var header = headerElement.getValue() || "";
 
-            this.autocompleteHeader();
+        // Автозаполнение срабатывает если поле "Заголовок" - пустое или ранее было автоматически заполнено (т.е. после автозаполнения не редактировалось пользователем).
+        var shouldAutoCompleteHeader = prefix && (!header || header.trim() == this.autoHeader.build().trim());
+        this.autoHeader.prefix = prefix;
+        this.autoHeader.suffix = suffix;
+        if (shouldAutoCompleteHeader) {
+            headerElement.setValue(this.autoHeader.build());
         }
     },
     getTitlePrefix: function() {
