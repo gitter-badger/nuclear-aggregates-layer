@@ -1,5 +1,4 @@
 ﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Metadata.Aspects.Entities;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Aspects.Entities;
@@ -20,9 +19,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             get { return Position.Value; }
         }
 
-        public long PositionId
+        public long? PositionId
         {
-            get { return Position.Key.Value; }
+            get { return Position.Key; }
         }
 
         public string PriceName
