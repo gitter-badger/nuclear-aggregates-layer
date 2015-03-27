@@ -61,6 +61,7 @@
     <Compile Include="SimplifiedModel\CreateBirthdayCongratulationService.cs" />
     <Compile Include="SimplifiedModel\CreateDenialReasonService.cs" />
     <Compile Include="SimplifiedModel\DeactivateDenialReasonService.cs" />
+    <Compile Include="SimplifiedModel\Print\PrintReadModel.cs" />
     <Compile Include="SimplifiedModel\ReadModel\BirthdayCongratulationReadModel.cs" />
     <Compile Include="SimplifiedModel\ReadModel\DenialReasonReadModel.cs" />
     <Compile Include="SimplifiedModel\UpdateDenialReasonService.cs" />

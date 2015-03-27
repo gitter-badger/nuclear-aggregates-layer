@@ -346,6 +346,7 @@
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />
+    <Compile Include="SimplifiedModel\Print\IPrintReadModel.cs" />
     <Compile Include="SimplifiedModel\ReadModel\IBirthdayCongratulationReadModel.cs" />
     <Compile Include="Themes\DTO\ThemeTemplateUsageDto.cs" />
     <Compile Include="Themes\DTO\ThemeUsageDto.cs" />

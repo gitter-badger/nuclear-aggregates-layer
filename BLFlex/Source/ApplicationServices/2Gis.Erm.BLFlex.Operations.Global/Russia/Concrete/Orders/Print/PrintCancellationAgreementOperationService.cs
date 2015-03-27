@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Print;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
@@ -9,30 +10,27 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintFor
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
 {
     public class PrintCancellationAgreementOperationService : IPrintCancellationAgreementOperationService, IRussiaAdapted
     {
-        private readonly IFinder _finder;
+        private readonly IPrintReadModel _readModel;
         private readonly IPublicService _publicService;
         private readonly IFormatter _shortDateFormatter;
 
-        public PrintCancellationAgreementOperationService(IFinder finder, IPublicService publicService, IFormatterFactory formatterFactory)
+        public PrintCancellationAgreementOperationService(IPublicService publicService, IFormatterFactory formatterFactory, IPrintReadModel readModel)
         {
-            _finder = finder;
             _publicService = publicService;
+            _readModel = readModel;
             _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         public PrintFormDocument Print(long orderId)
         {
-            var order = _finder.FindOne(Specs.Find.ById<Order>(orderId));
+            var order = _readModel.GetOrder(orderId);
 
             if (!order.IsTerminated)
             {
@@ -54,12 +52,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
                 throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
-            var currency = _finder.FindOne(Specs.Find.ById<Currency>(order.CurrencyId));
-            var bargain = _finder.FindOne(Specs.Find.ById<Bargain>(order.BargainId));
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(order.LegalPersonId));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(order.LegalPersonProfileId));
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(order.BranchOfficeOrganizationUnitId));
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeOrganizationUnit.BranchOfficeId));
+            var currency = _readModel.GetCurrency(order.CurrencyId);
+            var bargain = _readModel.GetBargain(order.BargainId);
+            var legalPerson = _readModel.GetLegalPerson(order.LegalPersonId);
+            var legalPersonProfile = _readModel.GetLegalPersonProfile(order.LegalPersonProfileId);
+            var branchOfficeOrganizationUnit = _readModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId);
+            var branchOffice = _readModel.GetBranchOffice(branchOfficeOrganizationUnit.BranchOfficeId);
 
             var documentData = PrintHelper.AgreementSharedBody(order, legalPerson, legalPersonProfile, branchOfficeOrganizationUnit, _shortDateFormatter);
             var documenSpecificData = PrintHelper.TerminationAgreementSpecificBody(order);
