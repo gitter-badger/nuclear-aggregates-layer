@@ -758,7 +758,9 @@
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controllers\Print\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config">

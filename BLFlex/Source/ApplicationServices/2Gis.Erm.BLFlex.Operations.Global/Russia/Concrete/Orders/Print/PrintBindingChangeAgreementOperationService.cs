@@ -3,8 +3,11 @@
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
-using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Print;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -12,40 +15,38 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-using BLCoreResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.BLResources;
-
-namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
 {
-    public sealed class PrintFirmChangeAgreementHandler : RequestHandler<PrintFirmChangeAgreementRequest, StreamResponse>, IRussiaAdapted
+    public class PrintBindingChangeAgreementOperationService : IPrintBindingChangeAgreementOperationService, IRussiaAdapted
     {
-        private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IFormatter _shortDateFormatter;
         private readonly IFinder _finder;
+        private readonly IPublicService _publicService;
+        private readonly IFormatter _shortDateFormatter;
 
-        public PrintFirmChangeAgreementHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
+        public PrintBindingChangeAgreementOperationService(IFinder finder, IPublicService publicService, IFormatterFactory formatterFactory)
         {
-            _requestProcessor = requestProcessor;
-            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
             _finder = finder;
+            _publicService = publicService;
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
-        protected override StreamResponse Handle(PrintFirmChangeAgreementRequest request)
+        public PrintFormDocument Print(long orderId)
         {
-            var order = _finder.FindOne(Specs.Find.ById<Order>(request.OrderId));
+            var order = _finder.FindOne(Specs.Find.ById<Order>(orderId));
 
             if (order == null)
             {
-                throw new EntityNotFoundException(typeof(Order), request.OrderId);
+                throw new EntityNotFoundException(typeof(Order), orderId);
             }
 
             if (order.BranchOfficeOrganizationUnitId == null)
             {
-                throw new FieldNotSpecifiedException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new FieldNotSpecifiedException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             if (order.LegalPersonProfileId == null)
             {
-                throw new FieldNotSpecifiedException(BLCoreResources.LegalPersonProfileMustBeSpecified);
+                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var currency = _finder.FindOne(Specs.Find.ById<Currency>(order.CurrencyId));
@@ -64,13 +65,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             var printDocumentRequest = new PrintDocumentRequest
             {
                 CurrencyIsoCode = currency.ISOCode,
-                FileName = string.Format(BLCoreResources.PrintAdditionalAgreementFileNameFormat, order.Number),
+                FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, order.Number),
                 BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId.Value,
                 TemplateCode = TemplateCode.BindingChangeAgreement,
                 PrintData = PrintData.Concat(documentData, requisites, bargainData, documenSpecificData)
             };
 
-            return (StreamResponse)_requestProcessor.HandleSubRequest(printDocumentRequest, Context);
+            var printDocumentResponse = (StreamResponse)_publicService.Handle(printDocumentRequest);
+
+            return new PrintFormDocument
+                       {
+                           Stream = printDocumentResponse.Stream,
+                           ContentType = printDocumentResponse.ContentType,
+                           FileName = printDocumentResponse.FileName,
+                       };
         }
     }
 }

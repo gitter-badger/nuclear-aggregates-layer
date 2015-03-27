@@ -187,7 +187,7 @@ window.InitPage = function () {
                         }
                     });
                 },
-                Print: function (methodName) {
+                Print: function (methodName, businessModelSpecificArea) {
                     var entityId = Ext.getDom('Id').value;
                     var legalPersonId = Ext.getDom("LegalPersonId").value;
 
@@ -214,7 +214,7 @@ window.InitPage = function () {
                         return;
                     }
 
-                    this.PrintWithoutProfileChoosing(methodName, entityId);
+                    this.PrintWithoutProfileChoosing(methodName, entityId, null, businessModelSpecificArea);
                 },
                 PrepareJointBill: function () {
                     var url = "/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value;
@@ -242,12 +242,6 @@ window.InitPage = function () {
                 },
                 PrintLetterOfGuarantee: function () {
                     this.Print('PrintLetterOfGuarantee');
-                },
-                PrintFirmChangeAgreement: function () {
-                    this.Print('PrintFirmChangeAgreement');
-                },
-                PrintBindingChangeAgreement: function () {
-                    this.Print('PrintBindingChangeAgreement');
                 },
                 ChangeDeal: function () {
                     if (!this.checkDirty()) return;

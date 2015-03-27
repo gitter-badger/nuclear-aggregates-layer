@@ -105,7 +105,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Generated\UseCases\UseCase.cs" />
-    <Compile Include="Generated\UseCases\UseCaseList.cs" />
+    <Content Include="Generated\UseCases\UseCaseList.cs" />
     <Compile Include="Generated\UseCases\UseCaseNode.cs" />
     <Compile Include="Processors\ExtractUseCases\ExtractUseCasesKey.cs" />
     <Compile Include="Processors\ExtractUseCases\ExtractUseCasesProcessingResults.cs" />

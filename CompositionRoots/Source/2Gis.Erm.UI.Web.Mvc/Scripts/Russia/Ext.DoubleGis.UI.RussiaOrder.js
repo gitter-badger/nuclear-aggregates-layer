@@ -26,5 +26,17 @@
     onLegalPersonChanged: function() {
         this.clearBargain();
         this.tryDetermineBargain();
+    },
+
+    PrintRussiaCancellationAgreement: function () {
+        this.Print('CancellationAgreement', 'Russia');
+    },
+
+    PrintRussiaFirmChangeAgreement: function () {
+        this.Print('FirmChangeAgreement', 'Russia');
+    },
+
+    PrintRussiaBindingChangeAgreement: function () {
+        this.Print('BindingChangeAgreement', 'Russia');
     }
 };
