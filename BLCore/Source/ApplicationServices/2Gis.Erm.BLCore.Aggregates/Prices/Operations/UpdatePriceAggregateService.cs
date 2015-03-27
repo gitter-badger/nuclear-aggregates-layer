@@ -17,17 +17,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public int Update(Price entity)
+        public void Update(Price price)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Price>())
             {
-                _priceGenericRepository.Update(entity);
-                operationScope.Updated(entity);
+                _priceGenericRepository.Update(price);
+                _priceGenericRepository.Save();
 
-                var count = _priceGenericRepository.Save();
-
-                operationScope.Complete();
-                return count;
+                operationScope.Updated(price)
+                              .Complete();
             }
         }
     }

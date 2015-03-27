@@ -6,6 +6,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
     public interface IUpdatePriceAggregateService : IAggregateSpecificOperation<Price, UpdateIdentity>
     {
-        int Update(Price price);
+        void Update(Price price);
     }
 }

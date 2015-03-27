@@ -22,15 +22,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var dto = (PriceDomainEntityDto)domainEntityDto;
 
             var price = _finder.FindOne(Specs.Find.ById<Price>(dto.Id))
-                        ?? new Price { IsActive = true, IsPublished = false };
+                        ?? new Price { IsActive = true, IsPublished = false, CreateDate = dto.CreateDate };
 
-            price.CreateDate = dto.CreateDate;
+            price.OrganizationUnitId = dto.OrganizationUnitRef.Id.Value;
+            price.Timestamp = dto.Timestamp;
+
+            // TODO {all, 27.03.2015}: Следующие 2 поля выглядят подозрительно: по идее они должны задаваться операцией публикации
             price.BeginDate = dto.BeginDate.AddDays(1 - dto.BeginDate.Day);
             price.PublishDate = dto.PublishDate;
-            price.OrganizationUnitId = dto.OrganizationUnitRef.Id.Value;
-            price.CurrencyId = dto.CurrencyRef.Id.Value;
-            price.Timestamp = dto.Timestamp;
-            
+
             return price;
         }
     }
