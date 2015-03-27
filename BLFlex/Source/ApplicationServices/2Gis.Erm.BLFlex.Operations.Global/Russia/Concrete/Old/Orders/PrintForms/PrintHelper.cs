@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -88,6 +89,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                                                        { "Email", branchOfficeOrganizationUnit.Email },
                                                                    }
                            },
+                       };
+        }
+
+        public static PrintData DetermineBilletType(ContributionTypeEnum contributionType)
+        {
+            return new PrintData
+                       {
+                           { "UseWithRequisitesWarning", contributionType == ContributionTypeEnum.Branch },
+                           { "UseWithoutRequisitesWarning", contributionType != ContributionTypeEnum.Branch },
                        };
         }
 

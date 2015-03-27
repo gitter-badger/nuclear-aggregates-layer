@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
@@ -46,7 +47,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                          CurrencyISOCode = x.Order.Currency.ISOCode,
                                                          LegalPersonType = x.Order.LegalPerson.LegalPersonTypeEnum,
                                                          x.Order.BranchOfficeOrganizationUnitId,
-                                                         ProfileId = x.Order.LegalPersonProfileId
+                                                         ProfileId = x.Order.LegalPersonProfileId,
+                                                         x.Order.SourceOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary)
+                                                          .BranchOffice.ContributionTypeId
                                                      })
                                     .FirstOrDefault();
 
@@ -91,7 +94,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                                            bill.Order.Number,
                                                                            bill.Order.SignupDate,
                                                                            bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
-                                                                           DestOrganizationUnit = bill.Order.DestOrganizationUnit.Name
+                                                                           DestOrganizationUnit = bill.Order.DestOrganizationUnit.Name,
+                                                                           bill.Order.CreatedOn
                                                                        },
                                                            bill.Order.Bargain,
                                                        })
@@ -103,67 +107,53 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                       sum.PayableWithoutVatPlan += item.Bill.PayableWithoutVatPlan;
                                                       sum.VatPlan = item.Bill.VatPlan.HasValue ? sum.VatPlan + item.Bill.VatPlan.Value : sum.VatPlan;
                                                       sum.PayablePlan += item.Bill.PayablePlan;
-                                                      sum.PaymentDatePlan = item.Bill.PaymentDatePlan;
                                                       return sum;
                                                   });
 
-            var printDataInfo = new
-                                    {
-                                        BillDate = DateTime.Now,
-                                        commonInfo.PaymentDatePlan,
-                                        commonInfo.BillsBeginDistributionDate,
-                                        commonInfo.BillsEndDistributionDate,
-                                        Bills = billsInfo.Select(b => new
-                                                                          {
-                                                                              b.Bill,
+            var bills = billsInfo.Select(b => new
+                                                  {
+                                                      b.Bill,
 
-                                                                              OrderVatRate = (b.Order.VatRate == default(decimal)) ? (decimal?)null : b.Order.VatRate,
-                                                                              b.Order,
-                                                                              RelatedBargainInfo = (b.Bargain != null)
-                                                                                                       ? string.Format(BLResources.RelatedToBargainInfoTemplate,
-                                                                                                                       b.Bargain.Number,
-                                                                                                                       _longDateFormatter.Format(b.Bargain.CreatedOn))
-                                                                                                       : null,
-                                                                              commonInfo.BillsBeginDistributionDate,
-                                                                              commonInfo.BillsEndDistributionDate
-                                                                          }),
-                                        Summary = new
-                                                      {
-                                                          summary.PayableWithoutVatPlan,
-                                                          summary.VatPlan,
-                                                          summary.PayablePlan,
-                                                          summary.PaymentDatePlan
-                                                      }
-                                    };
+                                                      OrderVatRate = (b.Order.VatRate == default(decimal)) ? (decimal?)null : b.Order.VatRate,
+                                                      b.Order,
+                                                      RelatedBargainInfo = (b.Bargain != null)
+                                                                               ? string.Format(BLResources.RelatedToBargainInfoTemplate,
+                                                                                               b.Bargain.Number,
+                                                                                               _longDateFormatter.Format(b.Bargain.CreatedOn))
+                                                                               : null,
+                                                  });
+
+            var maxOrderCreatedOnDate = bills.Max(x => x.Order.CreatedOn);
+            summary.PaymentDatePlan = bills.First(x => x.Order.CreatedOn == maxOrderCreatedOnDate).Bill.PaymentDatePlan;
 
             var billsPrintData = new PrintData
                                      {
                                          {
                                              "Bills",
-                                             printDataInfo.Bills
-                                                          .Select(x => new PrintData
-                                                                           {
-                                                                               {
-                                                                                   "Bill", new PrintData
-                                                                                               {
-                                                                                                   { "PayableWithoutVatPlan", x.Bill.PayableWithoutVatPlan },
-                                                                                                   { "NoVatText", x.Bill.NoVatText },
-                                                                                                   { "VatPlan", x.Bill.VatPlan },
-                                                                                                   { "PayablePlan", x.Bill.PayablePlan }
-                                                                                               }
-                                                                               },
-                                                                               {
-                                                                                   "Order", new PrintData
-                                                                                                {
-                                                                                                    { "Number", x.Order.Number },
-                                                                                                    { "SignupDate", x.Order.SignupDate },
-                                                                                                    { "DestOrganizationUnit", x.Order.DestOrganizationUnit }
-                                                                                                }
-                                                                               },
-                                                                               { "OrderVatRate", x.OrderVatRate },
-                                                                               { "BillsBeginDistributionDate", x.BillsBeginDistributionDate },
-                                                                               { "BillsEndDistributionDate", x.BillsEndDistributionDate },
-                                                                           }).ToArray()
+                                             bills.Select(x => new PrintData
+                                                                   {
+                                                                       {
+                                                                           "Bill", new PrintData
+                                                                                       {
+                                                                                           { "PayableWithoutVatPlan", x.Bill.PayableWithoutVatPlan },
+                                                                                           { "NoVatText", x.Bill.NoVatText },
+                                                                                           { "VatPlan", x.Bill.VatPlan },
+                                                                                           { "PayablePlan", x.Bill.PayablePlan }
+                                                                                       }
+                                                                       },
+                                                                       {
+                                                                           "Order", new PrintData
+                                                                                        {
+                                                                                            { "Number", x.Order.Number },
+                                                                                            { "SignupDate", x.Order.SignupDate },
+                                                                                            { "DestOrganizationUnit", x.Order.DestOrganizationUnit }
+                                                                                        }
+                                                                       },
+                                                                       { "OrderVatRate", x.OrderVatRate },
+                                                                       { "BillsBeginDistributionDate", commonInfo.BillsBeginDistributionDate },
+                                                                       { "BillsEndDistributionDate", commonInfo.BillsEndDistributionDate },
+                                                                       { "RelatedBargainInfo", x.RelatedBargainInfo }
+                                                                   }).ToArray()
                                          }
                                      };
 
@@ -172,18 +162,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                            {
                                                "Summary", new PrintData
                                                               {
-                                                                  { "PaymentDatePlan", printDataInfo.Summary.PaymentDatePlan },
-                                                                  { "PayableWithoutVatPlan", printDataInfo.Summary.PayableWithoutVatPlan },
-                                                                  { "VatPlan", printDataInfo.Summary.VatPlan },
-                                                                  { "PayablePlan", printDataInfo.Summary.PayablePlan },
+                                                                  { "PaymentDatePlan", summary.PaymentDatePlan },
+                                                                  { "PayableWithoutVatPlan", summary.PayableWithoutVatPlan },
+                                                                  { "VatPlan", summary.VatPlan },
+                                                                  { "PayablePlan", summary.PayablePlan },
                                                               }
                                            }
                                        };
 
             var printData = new PrintData
                                 {
-                                    { "BillDate", printDataInfo.BillDate },
-                                    { "PaymentDatePlan", printDataInfo.PaymentDatePlan }
+                                    { "BillDate", commonInfo.BillDate },
+                                    { "PaymentDatePlan", commonInfo.PaymentDatePlan }
                                 };
 
             const string DistributionPeriodDateTemplate = "yyyy_MM_dd";
@@ -199,6 +189,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                               PrintData = PrintData.Concat(printData,
                                                                                            billsPrintData,
                                                                                            summaryPrintData,
+                                                                                           PrintHelper.DetermineBilletType((ContributionTypeEnum)commonInfo.ContributionTypeId),
                                                                                            PrintHelper.DetermineRequisitesType(legalPerson.LegalPersonTypeEnum),
                                                                                            PrintHelper.LegalPersonRequisites(legalPerson),
                                                                                            PrintHelper.LegalPersonProfileRequisites(legalPersonProfile),

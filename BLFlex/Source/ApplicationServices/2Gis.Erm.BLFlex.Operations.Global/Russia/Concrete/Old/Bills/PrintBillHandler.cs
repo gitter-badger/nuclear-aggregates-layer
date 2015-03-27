@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
@@ -35,17 +36,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
         {
             var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                   .Select(bill => new
-                                      {
-                                          Bill = bill,
-                                          bill.OrderId,
-                                          OrderReleaseCountPlan = bill.Order.ReleaseCountPlan,
-                                          LegalPersonType = bill.Order.LegalPerson.LegalPersonTypeEnum,
-                                          bill.Order.BranchOfficeOrganizationUnitId,
-                                          bill.Order.LegalPersonProfileId,
-                                          CurrencyISOCode = bill.Order.Currency.ISOCode,
-                                          bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
-                                          bill.Order.LegalPersonId,
-                                      })
+                                                      {
+                                                          Bill = bill,
+                                                          bill.OrderId,
+                                                          OrderReleaseCountPlan = bill.Order.ReleaseCountPlan,
+                                                          LegalPersonType = bill.Order.LegalPerson.LegalPersonTypeEnum,
+                                                          bill.Order.BranchOfficeOrganizationUnitId,
+                                                          bill.Order.LegalPersonProfileId,
+                                                          CurrencyISOCode = bill.Order.Currency.ISOCode,
+                                                          bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                                          bill.Order.LegalPersonId,
+                                                          bill.Order.SourceOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(x => x.IsPrimary)
+                                                              .BranchOffice.ContributionTypeId
+                                                      })
                                   .SingleOrDefault();
 
             if (billInfo == null)
@@ -136,6 +139,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                        FileName = printDataInfo.Bill.BillNumber,
                                        BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
                                        PrintData = PrintData.Concat(printData,
+                                                                    PrintHelper.DetermineBilletType((ContributionTypeEnum)billInfo.ContributionTypeId),
                                                                     PrintHelper.DetermineRequisitesType(legalPerson.LegalPersonTypeEnum),
                                                                     PrintHelper.LegalPersonRequisites(legalPerson),
                                                                     PrintHelper.LegalPersonProfileRequisites(profile),
