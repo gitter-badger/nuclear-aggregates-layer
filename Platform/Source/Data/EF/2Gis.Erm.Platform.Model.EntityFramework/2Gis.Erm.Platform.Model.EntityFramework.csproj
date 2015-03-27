@@ -50,6 +50,7 @@
     <Compile Include="Config\Erm\Conventions\DateTimePropertiesConvention.cs" />
     <Compile Include="Config\Erm\Conventions\DecimalPropertiesConvention.cs" />
     <Compile Include="Config\Erm\DenormalizedClientLinkMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowFinancialData_DebitsInfoInitialMap.cs" />
     <Compile Include="Config\Erm\FirmDealMap.cs" />
     <Compile Include="Config\Erm\LegalPersonDealMap.cs" />
     <Compile Include="Config\Erm\OrderValidationCacheEntryMap.cs" />
