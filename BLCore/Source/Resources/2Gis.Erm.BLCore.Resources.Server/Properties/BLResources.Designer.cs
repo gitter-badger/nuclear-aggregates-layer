@@ -12431,6 +12431,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string PublishedPriceCannotBeModified {
+            get {
+                return ResourceManager.GetString("PublishedPriceCannotBeModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string PutMessageFromDgppToBilling_ClosePeriodRestriction {
             get {
                 return ResourceManager.GetString("PutMessageFromDgppToBilling_ClosePeriodRestriction", resourceCulture);

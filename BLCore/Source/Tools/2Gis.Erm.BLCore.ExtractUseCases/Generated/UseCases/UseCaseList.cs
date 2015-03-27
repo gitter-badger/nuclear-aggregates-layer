@@ -47,6 +47,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserProfiles;
+using DoubleGis.Erm.BLCore.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.OrderValidation;
@@ -324,16 +325,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(GetRelatedOrdersForCreateBillHandler),
                         Request = typeof(GetRelatedOrdersForCreateBillRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(EditPriceHandler),
-                        Request = typeof(EditRequest<Price>)
                     }
                 },
                 new UseCase
