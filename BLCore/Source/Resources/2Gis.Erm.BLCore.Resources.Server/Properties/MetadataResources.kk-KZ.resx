@@ -1479,6 +1479,9 @@
   <data name="PositionsGroup" xml:space="preserve">
     <value>Группа номенклатур</value>
   </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Способ учета оказания услуг</value>
+  </data>
   <data name="ApplicationCityName" xml:space="preserve">
     <value>Город обращения</value>
   </data>

@@ -5,8 +5,11 @@ using AutoMapper;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Factories.Operations;
+using DoubleGis.Erm.BLCore.DI.Factories.Operations.Withdrawals;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
@@ -188,7 +191,13 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
         public static IUnityContainer ConfigureOperationServices(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory)
         {
-            return container.RegisterType<IOperationServicesManager, UnityOperationServicesManager>(entryPointSpecificLifetimeManagerFactory());
+            return container.RegisterType<IOperationServicesManager, UnityOperationServicesManager>(entryPointSpecificLifetimeManagerFactory())
+                            .RegisterTypeWithDependencies(typeof(WithdrawalOperationAccessValidationRule), Lifetime.PerResolve, null)
+                            .RegisterTypeWithDependencies(typeof(PeriodValidationRule), Lifetime.PerResolve, null)
+                            .RegisterTypeWithDependencies(typeof(WithdrawalOperationWorkflowValidationRule), Lifetime.PerResolve, null)
+                            .RegisterTypeWithDependencies(typeof(LocksExistenceValidationRule), Lifetime.PerResolve, null)
+                            .RegisterTypeWithDependencies(typeof(LegalPersonsValidationRule), Lifetime.PerResolve, null)
+                            .RegisterType<IWithdrawalOperationValidationRulesProvider, UnityWithdrawalOperationValidationRulesProvider>(entryPointSpecificLifetimeManagerFactory());
         }
 
         public static IUnityContainer ConfigureMetadata(this IUnityContainer container)

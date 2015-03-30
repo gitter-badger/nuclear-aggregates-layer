@@ -14,10 +14,41 @@
 
   <xs:simpleType name="PlatformType">
     <xs:restriction base="xs:int">
-      <xs:enumeration value="1"/>
-      <xs:enumeration value="2"/>
-      <xs:enumeration value="3"/>
-      <xs:enumeration value="4"/>
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>Версия для ПК</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="2">
+        <xs:annotation>
+          <xs:documentation>Мобильная версия</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="3">
+        <xs:annotation>
+          <xs:documentation>API</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="4">
+        <xs:annotation>
+          <xs:documentation>Online</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AccountingMethod">
+    <xs:restriction base="string50">
+      <xs:enumeration value="Fact">
+        <xs:annotation>
+          <xs:documentation>Гарантированное оказание</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Planned">
+        <xs:annotation>
+          <xs:documentation>Планируемое оказание</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
@@ -86,6 +117,11 @@
         <xs:documentation>Код отделения организации</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="AccountingMethod" type="AccountingMethod" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип оказания услуг</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="StartDate" type="xs:dateTime" use="required">
       <xs:annotation>
         <xs:documentation>Дата начала периода выгрузки</xs:documentation>
@@ -107,22 +143,6 @@
     <xs:annotation>
       <xs:documentation>Объект передачи списания</xs:documentation>
     </xs:annotation>
-    <xs:sequence>
-      <xs:element name="PlatformDistribution" minOccurs="4" maxOccurs="4">
-        <xs:complexType>
-          <xs:attribute name="PlatformCode" type="PlatformType" use="required">
-            <xs:annotation>
-              <xs:documentation>Платформа</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="Amount" type="xs:float" use="required">
-            <xs:annotation>
-              <xs:documentation>Сумма списания по платформе заказа</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
     <xs:attribute name="OrderCode" type="xs:long" use="required">
       <xs:annotation>
         <xs:documentation>Id Бланка заказа по которому проходит списание</xs:documentation>
@@ -155,11 +175,6 @@
         <xs:documentation>Номер заказа</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="SignupDate" type="xs:dateTime" use="required">
-      <xs:annotation>
-        <xs:documentation>Дата подписания</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
     <xs:attribute name="Amount" type="xs:float" use="required">
       <xs:annotation>
         <xs:documentation>Сумма заказа</xs:documentation>
@@ -168,11 +183,6 @@
     <xs:attribute name="MediaInfo" type="string50" use="required">
       <xs:annotation>
         <xs:documentation>Информация о СМИ</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute name="ClientOrderNumber" type="string200" use="optional">
-      <xs:annotation>
-        <xs:documentation>Клиентский номер БЗ, для региональных списаний</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>

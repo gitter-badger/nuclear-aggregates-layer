@@ -26,7 +26,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Operations.Concrete.LegalPersons;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.BranchOfficeOrganizationUnits;

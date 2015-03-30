@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
             int processedLocksCount = 0;
             int processedLockDetailsCount = 0;
 
-            using (var scope = _scopeFactory.CreateSpecificFor<BulkDeactivateIdentity, Lock>())
+            using (var scope = _scopeFactory.CreateSpecificFor<BulkActivateIdentity, Lock>())
             {
                 foreach (var info in lockInfos)
                 {
