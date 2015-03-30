@@ -2310,6 +2310,7 @@
           <Field Name="IsComposite" NameLocaleResourceId="DFieldIsComposite" Width="100" FieldType="Boolean" ExtTypeName="Boolean" />
           <Field Name="PlatformName" NameLocaleResourceId="Platform" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="CategoryName" NameLocaleResourceId="DFieldPositionCategoryName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="PositionsGroup" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="ExportCode" Width="100" FieldType="BigInt" ExtTypeName="Int" />
         </Fields>
       </DataList>
@@ -2957,6 +2958,7 @@
           <Field Name="FinishDate" NameLocaleResourceId="EndDate" Width="120" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="OrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="OrganizationUnitId" />
+          <Field Name="AccountingMethod" Width="80" FieldType="String" ExtTypeName="String" />
           <Field Name="Status" Width="80" FieldType="String" ExtTypeName="String" />
           <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="Owner" NameLocaleResourceId="Owner" Width="120" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />

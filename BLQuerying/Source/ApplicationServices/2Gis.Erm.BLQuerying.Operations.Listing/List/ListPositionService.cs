@@ -37,6 +37,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         IsSupportedByExport = x.PositionCategory.IsSupportedByExport,
                         IsActive = x.IsActive,
                         IsDeleted = x.IsDeleted,
+                        PositionsGroup = x.PositionsGroup.ToStringLocalizedExpression()
                     })
                     .QuerySettings(_filterHelper, querySettings);
         }

@@ -2908,6 +2908,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CannotSaveActivityForClientInReserve {
+            get {
+                return ResourceManager.GetString("CannotSaveActivityForClientInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotSaveActivityForFirmInReserve {
+            get {
+                return ResourceManager.GetString("CannotSaveActivityForFirmInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotSaveBranchOfficeInnExists {
             get {
                 return ResourceManager.GetString("CannotSaveBranchOfficeInnExists", resourceCulture);
@@ -9299,6 +9317,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NoLocksToWithdrawFound {
+            get {
+                return ResourceManager.GetString("NoLocksToWithdrawFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string NoMessageAvailable {
             get {
                 return ResourceManager.GetString("NoMessageAvailable", resourceCulture);
@@ -9356,6 +9383,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string NonDraftAdvertisementElementEditing {
             get {
                 return ResourceManager.GetString("NonDraftAdvertisementElementEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NoRegardingObjectValidationError {
+            get {
+                return ResourceManager.GetString("NoRegardingObjectValidationError", resourceCulture);
             }
         }
         
@@ -13817,9 +13853,18 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string SpecifyPeriodAndOrganizationUnit {
+        public static string SpecifyPeriodAccountingMethodAndOrganizationUnit {
             get {
-                return ResourceManager.GetString("SpecifyPeriodAndOrganizationUnit", resourceCulture);
+                return ResourceManager.GetString("SpecifyPeriodAccountingMethodAndOrganizationUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SpecifyPeriodAndAccountingMethod {
+            get {
+                return ResourceManager.GetString("SpecifyPeriodAndAccountingMethod", resourceCulture);
             }
         }
         
@@ -15053,6 +15098,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Withdrawal {
             get {
                 return ResourceManager.GetString("Withdrawal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string WithdrawalFailed {
+            get {
+                return ResourceManager.GetString("WithdrawalFailed", resourceCulture);
             }
         }
         

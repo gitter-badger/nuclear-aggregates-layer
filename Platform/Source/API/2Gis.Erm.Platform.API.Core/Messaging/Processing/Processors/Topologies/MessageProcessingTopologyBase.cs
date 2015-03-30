@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topologies
 {
@@ -13,16 +14,16 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topolo
         protected readonly IMessageFlow SourceMessageFlow = new TMessageFlow();
         protected readonly IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage> StagesMap;
         protected readonly IEnumerable<MessageProcessingStage> IgnoreErrorsOnStage;
-        protected readonly ICommonLog Logger;
+        protected readonly ITracer Tracer;
 
         protected MessageProcessingTopologyBase(
             IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage> stagesMap,
             IEnumerable<MessageProcessingStage> ignoreErrorsOnStage,
-            ICommonLog logger)
+            ITracer tracer)
         {
             StagesMap = stagesMap;
             IgnoreErrorsOnStage = ignoreErrorsOnStage;
-            Logger = logger;
+            Tracer = tracer;
         }
 
         Task<TopologyProcessingResults> IMessageProcessingTopology.ProcessAsync(IReadOnlyList<IMessage> messages)

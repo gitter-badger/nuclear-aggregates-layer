@@ -1,30 +1,31 @@
 using System;
 
 using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.Qds.API.Operations.Docs
 {
     public sealed class OrderGridDoc : IOperationSpecificEntityDto, IAuthorizationDoc
     {
-        public long? Id { get; set; }
+        public long Id { get; set; }
         public string Number { get; set; }
 
-        public DateTime? BeginDistributionDate { get; set; }
-        public DateTime? EndDistributionDatePlan { get; set; }
-        public DateTime? EndDistributionDateFact { get; set; }
+        public DateTime BeginDistributionDate { get; set; }
+        public DateTime EndDistributionDatePlan { get; set; }
+        public DateTime EndDistributionDateFact { get; set; }
 
-        public bool? IsActive { get; set; }
-        public bool? IsDeleted { get; set; }
-        public byte? HasDocumentsDebt { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public DocumentsDebt HasDocumentsDebt { get; set; }
 
-        public DateTime? CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
 
-        public double? PayablePlan { get; set; }
+        public double PayablePlan { get; set; }
         public string WorkflowStep { get; set; }
 
-        public double? AmountToWithdraw { get; set; }
-        public double? AmountWithdrawn { get; set; }
+        public double AmountToWithdraw { get; set; }
+        public double AmountWithdrawn { get; set; }
 
         // relations
         public string FirmId { get; set; }

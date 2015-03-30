@@ -38,6 +38,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.CalculationMethodEnum).HasColumnName("CalculationMethodEnum");
             Property(t => t.BindingObjectTypeEnum).HasColumnName("BindingObjectTypeEnum");
             Property(t => t.SalesModel).HasColumnName("SalesModel");
+            Property(t => t.PositionsGroup).HasColumnName("PositionsGroup");
             Property(t => t.PlatformId).HasColumnName("PlatformId");
             Property(t => t.CategoryId).HasColumnName("CategoryId");
             Property(t => t.AdvertisementTemplateId).HasColumnName("AdvertisementTemplateId");

@@ -47,11 +47,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -73,9 +82,6 @@
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\Bills\ICalculateBillsOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\ExportAccountDetailsBeforeWithdrawalOperationException.cs" />
-    <Compile Include="Concrete\Integration\Export\IGetAccountDetailsForExportContentOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\IGetDebitsInfoInitialForExportOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Flows\FlowAdvModelsInfo.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportAdvModelInRubricInfoService.cs" />
@@ -177,9 +183,6 @@
     <Compile Include="Concrete\Integration\Settings\IIntegrationLocalizationSettings.cs" />
     <Compile Include="Concrete\Integration\Settings\IIntegrationSettings.cs" />
     <Compile Include="Concrete\Integration\Settings\IntegrationSettingsAspect.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\DebitDto.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\DebitsInfoInitialDto.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\PlatformDistribution.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
@@ -218,6 +221,8 @@
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />
+    <Compile Include="Concrete\Withdrawals\IGetWithdrawalErrorsCsvReportOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\WithdrawalErrorsReport.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeDealsDuringRevertingWithdrawalOperationService.cs" />
@@ -227,7 +232,11 @@
     <Compile Include="Concrete\Withdrawals\ICreateLockDetailsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IDeleteChargesForPeriodAndProjectOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IDeleteLockDetailsDuringRevertingWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\InvalidPeriodException.cs" />
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRule.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRulesProvider.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawOperationsAggregator.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
     <Compile Include="Crosscutting\ICanChangeOrderPositionBindingObjectsDetector.cs" />
@@ -560,4 +569,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
 </Project>
