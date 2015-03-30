@@ -89,6 +89,10 @@
     <Compile Include="UnityWcfLifetimeManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NuClear\Security.API\Security.API.csproj">
+      <Project>{83b81fd3-9908-472e-80a0-d7b50d5b8857}</Project>
+      <Name>Security.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

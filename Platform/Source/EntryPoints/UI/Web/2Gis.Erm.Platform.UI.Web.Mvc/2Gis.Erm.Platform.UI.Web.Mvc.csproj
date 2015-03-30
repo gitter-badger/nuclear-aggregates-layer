@@ -143,6 +143,10 @@
     <Compile Include="ViewModels\ViewModelTypesRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\NuClear\Security.API\Security.API.csproj">
+      <Project>{83b81fd3-9908-472e-80a0-d7b50d5b8857}</Project>
+      <Name>Security.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

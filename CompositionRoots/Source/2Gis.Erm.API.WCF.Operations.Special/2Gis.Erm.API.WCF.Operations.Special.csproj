@@ -181,6 +181,14 @@
       <Project>{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}</Project>
       <Name>2Gis.Erm.BL.DI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\NuClear\Security.API\Security.API.csproj">
+      <Project>{83b81fd3-9908-472e-80a0-d7b50d5b8857}</Project>
+      <Name>Security.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\NuClear\Security\Security.csproj">
+      <Project>{897827a4-fb71-4af9-be71-aa544106e595}</Project>
+      <Name>Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
       <Name>2Gis.Erm.Platform.API.Aggregates</Name>
