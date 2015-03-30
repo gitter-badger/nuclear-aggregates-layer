@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
 {
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
         }
 
         public static IDictionary<long, ADPValidator> LoadValidators(
-            ICommonLog logger,
+            ITracer tracer,
             ADPCheckMode checkMode,
             long orderId,
             ADPValidationQueryProvider validationQueryProvider,
@@ -246,10 +247,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
             #region Profiling
             stopwatch.Stop();
             createTime += stopwatch.ElapsedMilliseconds;
-            logger.DebugFormatEx("Проверка СЗП. Загружено Заказов: {0}", orderStates.Count);
-            logger.DebugFormatEx("Проверка СЗП. Загружено Фирм: {0}", validators.Count);
-            logger.DebugFormatEx("Проверка СЗП. Загрузка данных: {0:F3}", fetchTime / 1000D);
-            logger.DebugFormatEx("Проверка СЗП. Создание структур: {0:F3}", createTime / 1000D);
+            tracer.DebugFormat("Проверка СЗП. Загружено Заказов: {0}", orderStates.Count);
+            tracer.DebugFormat("Проверка СЗП. Загружено Фирм: {0}", validators.Count);
+            tracer.DebugFormat("Проверка СЗП. Загрузка данных: {0:F3}", fetchTime / 1000D);
+            tracer.DebugFormat("Проверка СЗП. Создание структур: {0:F3}", createTime / 1000D);
             #endregion
 
             return validators;

@@ -1,5 +1,3 @@
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
-
 namespace DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation
 {
     /// <summary>

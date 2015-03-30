@@ -3,11 +3,12 @@ using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -24,15 +25,15 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
             IOperationScopeFactory scopeFactory,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
-            ICommonLog logger)
-            : base(signInService, userImpersonationService, logger)
+            ITracer tracer)
+            : base(signInService, userImpersonationService, tracer)
         {
             _scopeFactory = scopeFactory;
         }
 
         public void Interrupt()
         {
-            LogInfo("Stopping ... ");
+            Tracer.Info("Stopping ... ");
             _isStopped = true;
         }
 
@@ -40,14 +41,14 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         {
             while (!_isStopped)
             {
-                LogInfo("Processing ... ");
+                Tracer.Info("Processing ... ");
 
                 Process();
 
                 Thread.Sleep(10);
             }
 
-            LogInfo("Stopped ... ");
+            Tracer.Info("Stopped ... ");
         }
 
         private void Process()

@@ -110,10 +110,17 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                               salesModel =>
                                                                               {
                                                                                   long organizationUnitId;
+                                                                                  int positionsGroup;
                                                                                   if (!querySettings.TryGetExtendedProperty("OrganizationUnitId",
                                                                                       out organizationUnitId))
                                                                                   {
                                                                                       return x => false;
+                                                                                  }
+
+                                                                                  if (querySettings.TryGetExtendedProperty("PositionsGroup", out positionsGroup) &&
+                                                                                      (PositionsGroup)positionsGroup == PositionsGroup.Media)
+                                                                                  {
+                                                                                      return x => true;
                                                                                   }
 
                                                                                   var specification = CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit((SalesModel)salesModel, organizationUnitId);

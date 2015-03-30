@@ -1241,12 +1241,6 @@ Locking errors:{2}</value>
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Information about division of  the legal entity</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. The present Invoice comes into effect from {0}. The invoice No.{1} as of {2} becomes inoperative from {3}.11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Unknown user</value>
   </data>
@@ -1442,9 +1436,6 @@ Locking errors:{2}</value>
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Number of users to be enabled: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>The selected company division is not a branch, or it was not transferred to ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>The groups of main items have objects linked to inactive items</value>
   </data>
@@ -1456,9 +1447,6 @@ Locking errors:{2}</value>
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>The specified payment is not found</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Error while saving a profile of the client's legal entity</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>The company division is not specified</value>
@@ -2748,9 +2736,6 @@ The operation has been executed: {6}.</value>
   </data>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>Continue operation?</value>
-  </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Specify a company division and period for writing-off</value>
   </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>No active holds are found for the company {0} as of {1}</value>
@@ -4974,8 +4959,8 @@ Placement period: {3}.</value>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>Cannot create a complex item with the type of the reference object different from the following: {0}</value>
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>The new sales model is not supported in "{0}" city or in the "{1}" category</value>
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
+    <value>The categories ({0}) are not supported for the "{1}" sales model in "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>A category should be specified for all subitems of the order item prepared as a price-list item with [{0}] coefficient calculation method</value>
@@ -4987,7 +4972,7 @@ Placement period: {3}.</value>
     <value>Errors</value>
   </data>
   <data name="File" xml:space="preserve">
-     <value>File</value>
+    <value>File</value>
   </data>
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value>Cannot activate an item from a published price-list</value>
@@ -5161,6 +5146,9 @@ Placement period: {3}.</value>
     <value>The start and end dates of the meeting are set incorrectly.
 </value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>The Client, Deal and Company fields are empty. Please fill in at least one field.</value>
+  </data>
   <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
     <value>Specify legal entities to enable profiles</value>
   </data>
@@ -5191,16 +5179,40 @@ Placement period: {3}.</value>
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>Not enough rights to change the owner for the action {0}</value>
   </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Item "{0}" cannot be sold into category "{1}" of project "</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Company division {0} is not linked to the project.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>You cannot save the action to a company in reserve</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>You cannot save the action to a client in reserve </value>
+  </data>
   <data name="CancelConfirmation" xml:space="preserve">
-    <value >Подтвердите отмену действий</value>
+    <value >Confirm action cancellation</value>
   </data>
   <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
-    <value>Невозможно отменить действие {0} в статусе "Выполнено"/"Отменено"</value>
+    <value>Cannot cancel action {0} with "Completed"/"Canceled" status</value>
   </data>
   <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
-    <value>Невозможно завершить действие {0} в статусе "Выполнено"/"Отменено"</value>
+    <value>Cannot finish action {0} with "Completed"/"Canceled" status</value>
   </data>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
-    <value >Операция смены клиента не определена для указанного типа сущности</value>
+    <value >Client change operation is not specified for the selected type of entity</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Please specify the period, service accounting method, and company branch</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Please specify the period and service accounting method</value>
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Writing-off for {0} - {1} with servicing method {2} completed with errors</value>
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
   </data>
 </root>

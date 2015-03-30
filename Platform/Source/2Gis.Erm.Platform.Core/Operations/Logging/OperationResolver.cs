@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
     public sealed class OperationResolver : IOperationResolver
     {
         private readonly IOperationIdentityRegistry _operationIdentityRegistry;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         [Obsolete("Все новые PBO создаются с заполненным свойством OperationEntities, после того как необходимость обработки записей в старом формате исчезнет, либо сами записи исчезнут, нужно удалить всю логику вывода strictoperationidentities из PBO.descriptor")]
         private readonly IReadOnlyDictionary<int, EntitySet> _operationEntitiesMap;
 
-        public OperationResolver(IOperationIdentityRegistry operationIdentityRegistry, ICommonLog logger)
+        public OperationResolver(IOperationIdentityRegistry operationIdentityRegistry, ITracer tracer)
         {
             _operationIdentityRegistry = operationIdentityRegistry;
-            _logger = logger;
+            _tracer = tracer;
 
             var operationEntitiesMap =
                 EntityName.All
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                     EntityName entityName;
                     if (!Enum.TryParse(rawOperationEntity, out entityName))
                     {
-                        _logger.ErrorFormatEx("Can't parse value {0} from operation entities {1} as {2}",
+                        _tracer.ErrorFormat("Can't parse value {0} from operation entities {1} as {2}",
                                               rawOperationEntity,
                                               operation.OperationEntities,
                                               typeof(EntityName).Name);
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 
                 if (processedIndex != rawOperationEntities.Length)
                 {
-                    _logger.ErrorFormatEx("Can't parse some of the value with index {0} from operation entities {1} as {2}",
+                    _tracer.ErrorFormat("Can't parse some of the value with index {0} from operation entities {1} as {2}",
                                           processedIndex,
                                           operation.OperationEntities,
                                           typeof(EntityName).Name);

@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
                                                CurrencyIsoCode = orderInfo.CurrencyIsoCode,
                                                FileName = orderInfo.OrderNumber,
                                                BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
-                                               TemplateCode = orderInfo.IsOrderWithDiscount ? TemplateCode.OrderWithoutVatWithDiscount : TemplateCode.OrderWithoutVatWithoutDiscount,
+                                               TemplateCode = TemplateCode.Order,
                                                PrintData = GetPrintData(request, orderInfo)
                                            };
 

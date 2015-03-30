@@ -8,8 +8,9 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -30,8 +31,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             IMessageFlowProcessorFactory messageFlowProcessorFactory,
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService, 
-            ICommonLog logger)
-            : base(signInService, userImpersonationService, logger)
+            ITracer tracer)
+            : base(signInService, userImpersonationService, tracer)
         {
             _integrationSettings = integrationSettings;
             _messageFlowRegistry = messageFlowRegistry;
@@ -72,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
                                                 typeof(PerformedOperationsFinalProcessingJob),
                                                 IgnoreErrorsOnStages,
                                                 rawStage);
-                        Logger.ErrorEx(msg);
+                        Tracer.Error(msg);
 
                         throw new InvalidOperationException(msg);
                     }
@@ -88,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
         {
             if (!_integrationSettings.EnableIntegration)
             {
-                Logger.InfoFormatEx("Integration disabled in settings. Job stops immediately");
+                Tracer.InfoFormat("Integration disabled in settings. Job stops immediately");
                 return;
             }
 
@@ -106,13 +107,13 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             if (!_messageFlowRegistry.TryResolve(flowDescriptor, out messageFlow))
             {
                 var msg = "Unsupported flow specified for processing: " + flowDescriptor;
-                Logger.FatalEx(msg);
+                Tracer.Fatal(msg);
                 throw new InvalidOperationException(msg);
             }
 
             ISyncMessageFlowProcessor messageFlowProcessor;
 
-            Logger.DebugEx("Launching message flow processing. Target message flow: " + messageFlow);
+            Tracer.Debug("Launching message flow processing. Target message flow: " + messageFlow);
 
             try
             {
@@ -128,19 +129,19 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't create processor for  specified flow " + messageFlow);
+                Tracer.Error(ex, "Can't create processor for  specified flow " + messageFlow);
                 throw;
             }
 
             try
             {
-                Logger.DebugEx("Message flow processor starting. Target message flow: " + messageFlow);
+                Tracer.Debug("Message flow processor starting. Target message flow: " + messageFlow);
                 messageFlowProcessor.Process();
-                Logger.DebugEx("Message flow processor finished. Target message flow: " + messageFlow);
+                Tracer.Debug("Message flow processor finished. Target message flow: " + messageFlow);
             }
             catch (Exception ex)
             {
-                Logger.FatalEx(ex, "Message flow processor unexpectedly interrupted. Target message flow: " + messageFlow);
+                Tracer.Fatal(ex, "Message flow processor unexpectedly interrupted. Target message flow: " + messageFlow);
                 throw;
             }
             finally

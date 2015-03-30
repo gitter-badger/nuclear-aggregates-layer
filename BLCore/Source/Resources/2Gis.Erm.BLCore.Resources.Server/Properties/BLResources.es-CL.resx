@@ -1241,13 +1241,6 @@ Errores de bloqueo:{2}</value>
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Información acerca de  la Sucursal de la Persona Jurídica de la Entidad</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira desde el {3}.
-11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Usuario desconocido</value>
   </data>
@@ -1443,9 +1436,6 @@ Errores de bloqueo:{2}</value>
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Se incluirán usuarios: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>La sucursal de la entidad seleccionada no resulta ser su sucursal o no se ha transferido a ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>En los grupos de posiciones principales hay objetos enlazados a unas posiciones inactivas</value>
   </data>
@@ -1457,9 +1447,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>La factura especificada no se ha encontrado</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Error al guardar el perfil de persona jurídica del cliente</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>La sucursal de la entidad no se ha especificado</value>
@@ -2749,9 +2736,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>¿Desea seguir realizando la operación?</value>
-  </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Especifique la Sucursal de la entidad y el periodo de amortización</value>
   </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>No se han encontrado bloqueos activos para la empresa {0} para la fecha de {1}</value>
@@ -4700,7 +4684,7 @@ Contacto: {1}</value>
   <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para la posición: "{0}"</value>
   </data>
-    <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+  <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
@@ -4966,8 +4950,8 @@ Periodo de la publicación: {3}.</value>
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Cerrar por ser rechazado</value>
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>El nuevo modelo de ventas por ahora no se aplica para la ciudad de "{0}" y/o para la categoría de "{1}"</value>
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
+    <value>Categorías ({0}) no están compatibles con el modelo de ventas "{1}" en la ciudad "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Para todas las subposiciones de la posición de la orden formalizada para la posición de la lista de precios con el cálculo del coeficiente [{0}], debe indicarse una categoría</value>
@@ -5162,6 +5146,9 @@ Periodo de la publicación: {3}.</value>
     <value>Están planificadas incorrectamente las fechas del inicio y término de la reunión.
 </value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Campos Cliente, Negocios y Empresa estan vacios. Es necesario completar por lo menos uno de los campos</value>
+  </data>
   <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
     <value>Para trabajar con el perfil se necesita que estén indicadas las razones sociales</value>
   </data>
@@ -5192,16 +5179,40 @@ Periodo de la publicación: {3}.</value>
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>No hay permisos suficientes para cambiar de supervisor de la acción {0}</value>
   </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Posición "{0}" no puede estar vendida en la categoría "{1}" del proyecto "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>El departamento de la empresa {0} no está relacionado con el proyecto.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>No es posible guardar la acción sobre la empresa en reserva</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>No es posible guardar la acción sobre el cliente en reserva</value>
+  </data>
   <data name="CancelConfirmation" xml:space="preserve">
-    <value >Подтвердите отмену действий</value>
+    <value>Confirme cancelación de la acción</value>
   </data>
   <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
-    <value>Невозможно отменить действие {0} в статусе "Выполнено"/"Отменено"</value>
+    <value>Imposible cancelar la acción {0} en el estado "Cumplido"/"Cancelado"</value>
   </data>
   <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
-    <value>Невозможно завершить действие {0} в статусе "Выполнено"/"Отменено"</value>
+    <value>Imposible finalizar la acción {0} en el estado "Cumplido"/"Cancelado"</value>
   </data>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
-    <value >Операция смены клиента не определена для указанного типа сущности</value>
+    <value >Operación de cambio de cliente no está especificada para el tipo de entidad indicado</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Indique el período, modo para contabilizar la prestación de servicios y departamento de la empresa</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Indique el período y modo para contabilizar la prestación de servicios</value>
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Retiro del {0} - {1} mediante el modo de prestación de servicios: '{2}' finalizado con errores</value>
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
   </data>
 </root>

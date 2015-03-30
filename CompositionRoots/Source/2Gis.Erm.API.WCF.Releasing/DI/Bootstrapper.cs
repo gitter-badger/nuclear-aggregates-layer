@@ -20,8 +20,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
@@ -39,13 +37,17 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.API.WCF.Releasing.DI
 {
     internal static class Bootstrapper
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -73,7 +75,8 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
-                                                                          loggerContextManager))
+                                                                          tracer,
+                                                                          tracerContextManager))
                      .ConfigureServiceClient();
         }
 
@@ -89,10 +92,11 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             ICachingSettings cachingSettings, 
             IOperationLoggingSettings operationLoggingSettings,
             IMsCrmSettings msCrmSettings,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             return container
-                .ConfigureLogging(loggerContextManager)
+                .ConfigureTracing(tracer, tracerContextManager)
                 .CreateSecuritySpecific()
                 .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureReleasingInfrastructure()
@@ -109,7 +113,6 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                        typeof(MetadataResources),
                                        typeof(EnumResources),
                                        typeof(BLFlex.Resources.Server.Properties.BLResources))
-                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
@@ -128,11 +131,6 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-        }
-
-        private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
-        {
-            return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
@@ -172,6 +170,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 .RegisterTypeWithDependencies<ISecurityServiceSharings, SecurityServiceFacade>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterType<IUserContext, UserContext>(CustomLifetime.PerOperationContext, new InjectionFactory(c => new UserContext(null, null)))
+                .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterType<ISignInByIdentityService, ExplicitlyIdentitySignInService>(CustomLifetime.PerOperationContext,
                                     new InjectionConstructor(typeof(ISecurityServiceAuthentication), 

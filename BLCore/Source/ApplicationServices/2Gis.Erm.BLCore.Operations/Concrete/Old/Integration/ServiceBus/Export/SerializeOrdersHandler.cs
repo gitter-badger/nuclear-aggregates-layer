@@ -6,11 +6,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
@@ -20,8 +20,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         public SerializeOrdersHandler(ISecurityServiceUserIdentifier securityServiceUserIdentifier,
                                       IExportRepository<Order> exportOperationsRepository,
-                                      ICommonLog logger)
-            : base(exportOperationsRepository, logger)
+                                      ITracer tracer)
+            : base(exportOperationsRepository, tracer)
         {
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }
@@ -70,6 +70,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                         ProductCode = p.PositionCategory.ExportCode,
                         CategoryCode = p.ExportCode,
                         PlatformCode = p.Platform.DgppId,
+                        OrderPositionId = z.OrderPosition.Id,
 
                         ObjectLinkDtos = z.OrderPosition.OrderPositionAdvertisements.Where(q => q.PositionId == p.Id).Select(q => new ObjectLinkDto
                         {
@@ -199,9 +200,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             foreach (var orderPositionDto in orderDto.OrderPositionDtos)
             {
                 var positionElement = new XElement("Position",
-                    new XAttribute("ProductCode", orderPositionDto.ProductCode),
-                    new XAttribute("CategoryCode", orderPositionDto.CategoryCode),
-                    new XAttribute("PlatformCode", orderPositionDto.PlatformCode));
+                                                   new XAttribute("OrderPositionCode", orderPositionDto.OrderPositionId),
+                                                   new XAttribute("ProductCode", orderPositionDto.ProductCode),
+                                                   new XAttribute("CategoryCode", orderPositionDto.CategoryCode),
+                                                   new XAttribute("PlatformCode", orderPositionDto.PlatformCode));
 
                 var objectLinksElement = GetObjectLinksElement(orderPositionDto);
                 positionElement.Add(objectLinksElement);
@@ -272,6 +274,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         public sealed class OrderPositionDto
         {
+            public long OrderPositionId { get; set; }
             public int ProductCode { get; set; }
             public int CategoryCode { get; set; }
             public long PlatformCode { get; set; }

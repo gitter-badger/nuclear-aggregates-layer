@@ -2,42 +2,30 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
-using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
     public sealed class EFDomainContext : IModifiableDomainContext, IReadDomainContext
     {
-        private readonly HashSet<Tuple<IEntityKey, string>> _replicableHashSet = new HashSet<Tuple<IEntityKey, string>>();
         private readonly IProcessingContext _processingContext;
-        private readonly string _defaultContextName;
-        private readonly IDbContext _dbContext;
+        private readonly DbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
-        private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
-        private readonly ICommonLog _logger;
+
+        private readonly IDictionary<object, object> _dbEntityEntriesCache = new Dictionary<object, object>();
 
         public EFDomainContext(IProcessingContext processingContext,
-                               string defaultContextName,
-                               IDbContext dbContext,
-                               IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-                               IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider,
-                               ICommonLog logger)
+                               DbContext dbContext,
+                               IPendingChangesHandlingStrategy pendingChangesHandlingStrategy)
         {
             _processingContext = processingContext;
-            _defaultContextName = defaultContextName;
             _dbContext = dbContext;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
-            _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
-            _logger = logger;
 
             EnsureUseCaseDuration();
         }
@@ -48,7 +36,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             {
                 try
                 {
-                    return _dbContext.HasChanges();
+                    return _dbContext.ChangeTracker.HasChanges();
                 }
                 catch (InvalidOperationException)
                 {
@@ -58,39 +46,68 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
         }
 
-        // TODO {all, 07.12.2014}: при поседующей очистке DAL (cинхронная репликация и т.п., можно будет выпилить подерржку saveoptions и AcceptAllChanges у DomainContext)
-        int IModifiableDomainContext.SaveChanges(SaveOptions options)
+        public void Add<TEntity>(TEntity entity) where TEntity : class
         {
-            foreach (var entry in _dbContext.Entries())
-            {
-                var entity = entry.Entity;
-                if (entity == null || entry.State == EntityState.Unchanged)
-                {
-                    continue;
-                }
+            _dbContext.Set<TEntity>().Add(entity);
 
-                if (entry.State == EntityState.Added)
-                {
-                    var replicateableEntity = entity as IReplicableEntity;
-                    if (replicateableEntity != null)
-                    {
-                        replicateableEntity.ReplicationCode = Guid.NewGuid();
-                    }
-                }
-
-                MarkEntityAsReplicable(entity);
-            }
-
-            EnsureUseCaseDuration();
-
-            var savedCount = _dbContext.SaveChanges(options);
-
-            Replicate();
-
-            return savedCount;
+            // TODO {all, 19.03.2015}: Могут возникнуть проблемы для сущностей с автогенеренными id - возможно для них стоит по-другому реализовать Equals/GetHashCode
+            _dbEntityEntriesCache.Add(entity, _dbContext.Entry(entity));
         }
 
-        #region Delegating members for ObjectContext
+        public void AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
+        {
+            _dbContext.Set<TEntity>().AddRange(entities);
+            foreach (var entity in entities)
+            {
+                // TODO {all, 19.03.2015}: Могут возникнуть проблемы для сущностей с автогенеренными id - возможно для них стоит по-другому реализовать Equals/GetHashCode
+                _dbEntityEntriesCache.Add(entity, _dbContext.Entry(entity));
+            }
+        }
+
+        public void Update<TEntity>(TEntity entity) where TEntity : class
+        {
+            DbEntityEntry<TEntity> entry;
+            if (!AttachEntity(entity, out entry))
+            {
+                entry.CurrentValues.SetValues(entity);
+            }
+
+            entry.State = EntityState.Modified;
+        }
+
+        public void Remove<TEntity>(TEntity entity) where TEntity : class
+        {
+            _dbContext.Set<TEntity>().Remove(GetAttachedEntity(entity));
+            _dbEntityEntriesCache.Remove(entity);
+        }
+
+        public void RemoveRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
+        {
+            _dbContext.Set<TEntity>().RemoveRange(entities.Select(GetAttachedEntity).ToArray());
+            foreach (var entity in entities)
+            {
+                _dbEntityEntriesCache.Remove(entity);
+            }
+        }
+
+        public int SaveChanges()
+        {
+            EnsureUseCaseDuration();
+
+            return _dbContext.SaveChanges();
+        }
+
+        public IQueryable GetQueryableSource(Type entityType)
+        {
+            EnsureUseCaseDuration();
+            return _dbContext.Set(entityType).AsNoTracking();
+        }
+
+        public IQueryable<TEntity> GetQueryableSource<TEntity>() where TEntity : class
+        {
+            EnsureUseCaseDuration();
+            return _dbContext.Set<TEntity>().AsNoTracking();
+        }
 
         public void Dispose()
         {
@@ -101,94 +118,55 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
         }
 
-        // TODO {all, 07.12.2014}: при поседующей очистке DAL (cинхронная репликация и т.п., можно будет выпилить подерржку saveoptions и AcceptAllChanges у DomainContext)
-        void IModifiableDomainContext.AcceptAllChanges()
-        {
-            _dbContext.AcceptAllChanges();
-        }
-
-        public DbSet<TEntity> Set<TEntity>() where TEntity : class
-        {
-            return _dbContext.Set<TEntity>();
-        }
-
-        public DbEntityEntry Entry(object entity)
-        {
-            return _dbContext.Entry(entity);
-        }
-
-        public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
-        {
-            return _dbContext.Entry(entity);
-        }
-
-        #endregion
-
-        IQueryable IReadDomainContext.GetQueryableSource(Type entityType)
-        {
-            EnsureUseCaseDuration();
-            return _dbContext.Set(entityType).AsNoTracking();
-        }
-
-        IQueryable<TEntity> IReadDomainContext.GetQueryableSource<TEntity>()
-        {
-            EnsureUseCaseDuration();
-            return _dbContext.Set<TEntity>().AsNoTracking();
-        }
-
         private void EnsureUseCaseDuration()
         {
             // пока конвертация простая - значение enum UseCaseDuration используется как значение command timeout в секундах
             var timeout = (int)(_processingContext.ContainsKey(UseCaseDurationKey.Instance)
                                     ? _processingContext.GetValue(UseCaseDurationKey.Instance)
                                     : UseCaseDuration.Normal);
-            var currentValue = _dbContext.CommandTimeout ?? 0;
-            _dbContext.CommandTimeout = Math.Max(timeout, currentValue);
+            var currentValue = _dbContext.Database.CommandTimeout ?? 0;
+            _dbContext.Database.CommandTimeout = Math.Max(timeout, currentValue);
         }
 
-        private void MarkEntityAsReplicable(object entity)
+        private TEntity GetAttachedEntity<TEntity>(TEntity entity) where TEntity : class
         {
-            EntityReplicationInfo replicationInfo;
-            if (!_msCrmReplicationMetadataProvider.TryGetSyncMetadata(entity.GetType(), out replicationInfo))
-            {
-                return;
-            }
-
-            _replicableHashSet.Add(Tuple.Create((IEntityKey)entity, string.Format("EXEC {0} @Id", replicationInfo.SchemaQualifiedStoredProcedureName)));
+            DbEntityEntry<TEntity> entry;
+            AttachEntity(entity, out entry);
+            return entry.Entity;
         }
 
-        private void Replicate()
+        private bool AttachEntity<TEntity>(TEntity entity, out DbEntityEntry<TEntity> dbEntityEntry) where TEntity : class
         {
-            if (!_replicableHashSet.Any())
+            object entry;
+            if (_dbEntityEntriesCache.TryGetValue(entity, out entry))
             {
-                return;
+                var existingEntry = (DbEntityEntry<TEntity>)entry;
+                if (existingEntry.State != EntityState.Unchanged)
+                {
+                    var entityKey = entity as IEntityKey;
+
+                    // используется НЕотложенное сохранение - т.е. объект изменили, не сохранили изменения и опять пытаемся менять экземпляр сущности с тем же identity
+                    throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
+                                                                      "with unsaved changes => trying to update not saved entity. " +
+                                                                      "Possible entity repository save method not called before next update. " +
+                                                                      "Save mode is immediately, not deferred",
+                                                                      typeof(TEntity).Name,
+                                                                      entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
+                }
+
+                dbEntityEntry = existingEntry;
+                return false;
             }
 
-            var replicableHashSetCopy = new Tuple<IEntityKey, string>[_replicableHashSet.Count];
-            _replicableHashSet.CopyTo(replicableHashSetCopy);
-
-            foreach (var entityReplicationInfo in replicableHashSetCopy)
+            var newEntry = _dbContext.Entry(entity);
+            if (newEntry.State == EntityState.Detached)
             {
-                var entity = entityReplicationInfo.Item1;
-                var replicationProcedureCallSql = entityReplicationInfo.Item2;
-
-                try
-                {
-                    _dbContext.ExecuteSql(replicationProcedureCallSql, new SqlParameter("Id", entity.Id));
-                    _replicableHashSet.Remove(entityReplicationInfo);
-                }
-                catch (Exception ex)
-                {
-                    _replicableHashSet.Clear();
-
-                    if (_logger != null)
-                    {
-                        _logger.ErrorEx(ex, string.Format("Произошла ошибка при репликации сущности EntityType=[{0}], Id=[{1}]", entity.GetType().Name, entity.Id));
-                    }
-
-                    throw;
-                }
+                _dbContext.Set<TEntity>().Attach(entity);
             }
+
+            _dbEntityEntriesCache.Add(entity, newEntry);
+            dbEntityEntry = newEntry;
+            return true;
         }
     }
 }

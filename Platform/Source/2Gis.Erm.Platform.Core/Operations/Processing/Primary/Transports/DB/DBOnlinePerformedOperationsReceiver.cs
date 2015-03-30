@@ -10,8 +10,9 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB
 {
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
         private readonly IOperationsPrimaryProcessingCompleteAggregateService _operationsPrimaryProcessingCompleteAggregateService;
         private readonly IOperationsPrimaryProcessingAbandonAggregateService _operationsPrimaryProcessingAbandonAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public DBOnlinePerformedOperationsReceiver(
             IPerformedOperationsReceiverSettings messageReceiverSettings,
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
             IOperationsPrimaryProcessingCompleteAggregateService operationsPrimaryProcessingCompleteAggregateService,
             IOperationsPrimaryProcessingAbandonAggregateService operationsPrimaryProcessingAbandonAggregateService,
             IUseCaseTuner useCaseTuner,
-            ICommonLog logger)
+            ITracer tracer)
             : base(messageReceiverSettings)
         {
             _timeSafetyOffset = TimeSpan.FromHours(messageReceiverSettings.TimeSafetyOffsetHours);
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
             _operationsPrimaryProcessingCompleteAggregateService = operationsPrimaryProcessingCompleteAggregateService;
             _operationsPrimaryProcessingAbandonAggregateService = operationsPrimaryProcessingAbandonAggregateService;
             _useCaseTuner = useCaseTuner;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override IReadOnlyList<DBPerformedOperationsMessage> Peek()
@@ -56,7 +57,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
                 var sourceFlowState = _performedOperationsProcessingReadModel.GetPrimaryProcessingFlowState(SourceMessageFlow);
                 if (sourceFlowState == null)
                 {
-                    _logger.DebugFormatEx("Primary processing flow {0} is empty, flow processing not required", SourceMessageFlow);
+                    _tracer.DebugFormat("Primary processing flow {0} is empty, flow processing not required", SourceMessageFlow);
 
                     transaction.Complete();
                     return new List<DBPerformedOperationsMessage>();
@@ -68,7 +69,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
 
                 if (timeOffset > Threshold)
                 {
-                    _logger.WarnFormatEx("Oldest operation boundary date {0} after time safety offset {1} is older than " +
+                    _tracer.WarnFormat("Oldest operation boundary date {0} after time safety offset {1} is older than " +
                                          "current date more than threshold value {2}, operation may be performance critical. " +
                                          "Processing flow: {3}",
                                          oldestOperationBoundaryDate,

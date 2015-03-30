@@ -1272,9 +1272,6 @@
   <data name="Registered" xml:space="preserve">
     <value>Registrado</value>
   </data>
-  <data name="CreateCsvFile" xml:space="preserve">
-    <value>Descargar aparte el archivo en el formato csv</value>
-  </data>
   <data name="OrderProcessingRequest" xml:space="preserve">
     <value>Petición de la oficina personal del anunciante</value>
   </data>
@@ -1483,5 +1480,14 @@
   </data>
   <data name="OtherAuthorityDocument" xml:space="preserve">
     <value>Otro</value>
+  </data>
+  <data name="ChiefFullNameInNominative" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionsGroup" xml:space="preserve">
+    <value>Grupo de nomenclaturas</value>
+  </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Modo para contabilizar la prestación de servicios</value>
   </data>
 </root>

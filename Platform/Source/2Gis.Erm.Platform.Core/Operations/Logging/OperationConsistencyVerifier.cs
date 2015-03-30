@@ -6,8 +6,9 @@ using System.Text;
 
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
@@ -15,12 +16,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
     {
         private delegate bool OperationContextConsistencyChecker(IVerifierContext context, out bool isConsistent);
 
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly OperationContextConsistencyChecker[] _checkers;
 
-        public OperationConsistencyVerifier(ICommonLog logger)
+        public OperationConsistencyVerifier(ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
             _checkers = new OperationContextConsistencyChecker[]
                 {
                     OperationDetailsToPersistenceChangesChecker,
@@ -82,12 +83,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             isConsistent = !(addedInconsistency || deletedInconsistency || updatedInconsistency);
             if (!isConsistent)
             {
-                _logger.ErrorFormatEx("Inconsistent operation context detected. Report: " + inconsistencyReport);
+                _tracer.ErrorFormat("Inconsistent operation context detected. Report: " + inconsistencyReport);
             }
 
             if (severalModificationsReport.Length > 0)
             {
-                _logger.InfoEx(severalModificationsReport.ToString());
+                _tracer.Info(severalModificationsReport.ToString());
             }
 
             return true;

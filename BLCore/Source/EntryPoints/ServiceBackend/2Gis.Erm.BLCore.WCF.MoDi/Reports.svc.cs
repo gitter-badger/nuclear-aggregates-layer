@@ -6,7 +6,8 @@ using DoubleGis.Erm.BLCore.API.MoDi.Remote.Reports;
 using DoubleGis.Erm.BLCore.API.MoDi.Reports;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.MoDi
 {
@@ -15,11 +16,11 @@ namespace DoubleGis.Erm.BLCore.WCF.MoDi
     {
         private readonly IReportsService _reportsService;
 
-        public ReportsApplicationService(IUserContext userContext, IReportsService reportsService, ICommonLog logger)
+        public ReportsApplicationService(IUserContext userContext, IReportsService reportsService, ITracer tracer)
         {
             _reportsService = reportsService;
 
-            logger.InfoFormatEx("Печатается отчёт от имени пользователя {0} ({1})", userContext.Identity.DisplayName, userContext.Identity.Account);
+            tracer.InfoFormat("Печатается отчёт от имени пользователя {0} ({1})", userContext.Identity.DisplayName, userContext.Identity.Account);
             EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
         }
 

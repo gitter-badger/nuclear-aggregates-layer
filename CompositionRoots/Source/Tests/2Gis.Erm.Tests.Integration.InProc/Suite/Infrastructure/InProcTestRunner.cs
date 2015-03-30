@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 {
@@ -13,14 +14,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
         private readonly ITestSuite _testSuite;
         private readonly ITestFactory _testFactory;
         private readonly ITestStatusObserver _testStatusObserver;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public InProcTestRunner(ITestSuite testSuite, ITestFactory testFactory, ITestStatusObserver testStatusObserver, ICommonLog logger)
+        public InProcTestRunner(ITestSuite testSuite, ITestFactory testFactory, ITestStatusObserver testStatusObserver, ITracer tracer)
         {
             _testSuite = testSuite;
             _testFactory = testFactory;
             _testStatusObserver = testStatusObserver;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public TestResultsSet Run()
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
                 {
                     _testStatusObserver.Unresolved(integrationTestType, ex);
                     unresolved.Add(integrationTestType, ex);
-                    _logger.ErrorFormatEx(ex, "Can't create scope for test {0}", integrationTestType);
+                    _tracer.ErrorFormat(ex, "Can't create scope for test {0}", integrationTestType);
                     continue;
                 }
 
@@ -57,7 +58,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
                     try
                     {
-                        _logger.InfoFormatEx("Starting test {0}", testDescription);
+                        _tracer.InfoFormat("Starting test {0}", testDescription);
 
                         transactionScope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default);
                         var result = testScope.Test.Execute();
@@ -67,19 +68,19 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
                             case TestResultStatus.Failed:
                                 _testStatusObserver.Asserted(integrationTestType, result);
                                 failed.Add(testScope.Test, result);
-                                _logger.InfoFormatEx("Failed {0} with result {1}", testDescription, result);
+                                _tracer.InfoFormat("Failed {0} with result {1}", testDescription, result);
                                 break;
 
                             case TestResultStatus.Succeeded:
                                 _testStatusObserver.Succeeded(integrationTestType, result);
                                 succeeded.Add(testScope.Test, result);
-                                _logger.InfoFormatEx("Succeeded {0} with result {1}", testDescription, result);
+                                _tracer.InfoFormat("Succeeded {0} with result {1}", testDescription, result);
                                 break;
 
                             case TestResultStatus.Ignored:
                                 _testStatusObserver.Ignored(integrationTestType, result);
                                 ignored.Add(testScope.Test, result);
-                                _logger.InfoFormatEx("Ignored {0} with result {1}", testDescription, result);
+                                _tracer.InfoFormat("Ignored {0} with result {1}", testDescription, result);
                                 break;
 
                             default:
@@ -90,7 +91,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
                     {
                         _testStatusObserver.Unhandled(integrationTestType, ex);
                         unhandled.Add(testScope.Test, ex);
-                        _logger.ErrorFormatEx(ex, "Exception in {0}", testDescription);
+                        _tracer.ErrorFormat(ex, "Exception in {0}", testDescription);
                     }
                     finally
                     {

@@ -43,6 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                      IsComposite = entity.IsComposite,
                                      BindingObjectTypeEnum = entity.BindingObjectTypeEnum,
                                      SalesModel = entity.SalesModel,
+                                     PositionsGroup = entity.PositionsGroup,
                                      CalculationMethodEnum = entity.CalculationMethodEnum,
                                      IsControlledByAmount = entity.IsControlledByAmount,
                                      PlatformRef = new EntityReference { Id = entity.PlatformId, Name = entity.Platform.Name },

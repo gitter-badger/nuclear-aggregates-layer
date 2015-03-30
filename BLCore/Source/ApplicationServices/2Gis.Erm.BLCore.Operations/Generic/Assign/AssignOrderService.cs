@@ -12,12 +12,13 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecureFinder _finder;
         private readonly IOrderRepository _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
 
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             ISecureFinder finder,
             IOrderRepository orderRepository,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger,
+            ITracer tracer,
             ISecurityServiceEntityAccess entityAccessService,
             IUserContext userContext)
         {
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _finder = finder;
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
         }
@@ -89,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                         .Updated<Order>(entityId)
                         .Complete();
 
-                    _logger.InfoFormatEx("Куратором заказа с id={0} назначен пользователь {1}", entityId, ownerCode);
+                    _tracer.InfoFormat("Куратором заказа с id={0} назначен пользователь {1}", entityId, ownerCode);
                     return null;
                 }
             }

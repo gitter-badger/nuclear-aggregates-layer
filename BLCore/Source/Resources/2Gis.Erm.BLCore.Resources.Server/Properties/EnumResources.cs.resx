@@ -477,9 +477,6 @@
   <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
     <value>Načtení osobních účtů</value>
   </data>
-  <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Načtení odpisů z osobních účtů</value>
-  </data>
   <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
     <value>Načtení ověření</value>
   </data>
@@ -1317,17 +1314,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Upozornění</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Objednávka bez DPH se slevou</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Objednávka</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Objednávka bez DPH se slevou</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Objednávka bez DPH bez slevy</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Objednávka včetně DPH bez slevy</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Hovor</value>
@@ -1347,31 +1338,58 @@
   <data name="ActivityPriorityHigh" xml:space="preserve">
     <value>Vysoký</value>
   </data>
-  <data name="ActivityPurposeFirstCall" xml:space="preserve">
+  <data name="PhonecallPurposeFirstCall" xml:space="preserve">
     <value>První kontakt (seznámení)</value>
   </data>
-  <data name="ActivityPurposeProductPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeProductPresentation" xml:space="preserve">
     <value>Prezentace</value>
   </data>
-  <data name="ActivityPurposeOpportunitiesPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeOpportunitiesPresentation" xml:space="preserve">
     <value>Prezentace reklamních možností</value>
   </data>
-  <data name="ActivityPurposeOfferApproval" xml:space="preserve">
+  <data name="PhonecallPurposeOfferApproval" xml:space="preserve">
     <value>Schválení a odeslání ON</value>
   </data>
-  <data name="ActivityPurposeDecisionApproval" xml:space="preserve">
+  <data name="PhonecallPurposeDecisionApproval" xml:space="preserve">
     <value>Dohodnutí lhůty na rozhodnutí</value>
   </data>
-  <data name="ActivityPurposeSale" xml:space="preserve">
+  <data name="PhonecallPurposeSale" xml:space="preserve">
     <value>Prodej</value>
   </data>
-  <data name="ActivityPurposeService" xml:space="preserve">
+  <data name="PhonecallPurposeService" xml:space="preserve">
     <value>Servis</value>
   </data>
-  <data name="ActivityPurposeUpsale" xml:space="preserve">
+  <data name="PhonecallPurposeUpsale" xml:space="preserve">
     <value>Doprodej</value>
   </data>
-  <data name="ActivityPurposeProlongation" xml:space="preserve">
+  <data name="PhonecallPurposeProlongation" xml:space="preserve">
+    <value>Prodloužení</value>
+  </data>
+  <data name="AppointmentPurposeFirstCall" xml:space="preserve">
+    <value>První kontakt (seznámení)</value>
+  </data>
+  <data name="AppointmentPurposeProductPresentation" xml:space="preserve">
+    <value>Prezentace</value>
+  </data>
+  <data name="AppointmentPurposeOpportunitiesPresentation" xml:space="preserve">
+    <value>Prezentace reklamních možností</value>
+  </data>
+  <data name="AppointmentPurposeOfferApproval" xml:space="preserve">
+    <value>Schválení a odeslání ON</value>
+  </data>
+  <data name="AppointmentPurposeDecisionApproval" xml:space="preserve">
+    <value>Dohodnutí lhůty na rozhodnutí</value>
+  </data>
+  <data name="AppointmentPurposeSale" xml:space="preserve">
+    <value>Prodej</value>
+  </data>
+  <data name="AppointmentPurposeService" xml:space="preserve">
+    <value>Servis</value>
+  </data>
+  <data name="AppointmentPurposeUpsale" xml:space="preserve">
+    <value>Doprodej</value>
+  </data>
+  <data name="AppointmentPurposeProlongation" xml:space="preserve">
     <value>Prodloužení</value>
   </data>
   <data name="ActivityStatusInProgress" xml:space="preserve">
@@ -1455,7 +1473,10 @@
   <data name="ActivityPriorityNotSet" xml:space="preserve">
     <value>Nezadáno</value>
   </data>
-  <data name="ActivityPurposeNotSet" xml:space="preserve">
+  <data name="PhonecallPurposeNotSet" xml:space="preserve">
+    <value>Nezadáno</value>
+  </data>
+  <data name="AppointmentPurposeNotSet" xml:space="preserve">
     <value>Nezadáno</value>
   </data>
   <data name="ActivityStatusNotSet" xml:space="preserve">
@@ -2010,5 +2031,23 @@
   </data>
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Zaručené poskytnutí</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Plánované poskytnutí</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Stržení prostředků</value>
+  </data>
+  <data name="PositionsGroupMedia" xml:space="preserve">
+    <value>Mediální reklama</value>
+  </data>
+  <data name="PositionsGroupNone" xml:space="preserve">
+    <value />
   </data>
 </root>

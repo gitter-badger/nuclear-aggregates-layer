@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -49,13 +53,10 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Accounting\ExportAccountDetailsTo1CResponse.cs" />
-    <Compile Include="Accounting\IAccountingSystemService.cs" />
     <Compile Include="DI\BlCoreApiModiAssembly.cs" />
     <Compile Include="DI\MoDiZone.cs" />
     <Compile Include="FileDescription.cs" />
     <Compile Include="PrintRegional\FirmWithOrders.cs" />
-    <Compile Include="Remote\AccountingSystem\IAccountingSystemApplicationService.cs" />
     <Compile Include="Remote\Reports\IReportsApplicationService.cs" />
     <Compile Include="Remote\Settings\APIMoDiServiceSettingsAspect.cs" />
     <Compile Include="Remote\Settings\IAPIMoDiServiceSettings.cs" />
@@ -94,7 +95,9 @@
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                         {
                                             Id = x.Id,
                                             Name = x.Name,
-                                            Email = x.AdditionalEmail,
+                                            Email = x.Email,
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             DocumentsDeliveryAddress = x.DocumentsDeliveryAddress,
                                             DocumentsDeliveryMethod = x.DocumentsDeliveryMethod,
@@ -159,7 +159,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                     legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
                                     legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
                                     legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
-                                    legalPersonProfile.AdditionalEmail = dto.Email;
+                                    legalPersonProfile.Email = dto.Email;
                                     legalPersonProfile.PostAddress = dto.PostAddress;
                                     legalPersonProfile.PaymentMethod = dto.PaymentMethod;
                                     legalPersonProfile.IBAN = dto.IBAN;

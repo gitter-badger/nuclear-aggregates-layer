@@ -5,8 +5,9 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
 {
@@ -32,9 +33,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
             return false;
         }
 
-        public static void OnException(Controller controller, ICommonLog commonLog, ViewModel model, Exception exception)
+        public static void OnException(Controller controller, ITracer tracer, ViewModel model, Exception exception)
         {
-            commonLog.ErrorEx(exception, BLResources.ErrorDuringOperation);
+            tracer.Error(exception, BLResources.ErrorDuringOperation);
             var errorText = ExceptionFilter.HandleException(exception, controller.Response);
             model.SetCriticalError(errorText);
         }

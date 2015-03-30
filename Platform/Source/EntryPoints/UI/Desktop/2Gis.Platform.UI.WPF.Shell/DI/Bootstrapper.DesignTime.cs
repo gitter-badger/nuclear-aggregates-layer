@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
@@ -14,13 +13,10 @@ using DoubleGis.Platform.UI.WPF.Shell.Layout.Navigation;
 using DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability;
 using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
 
-using log4net;
-using log4net.Appender;
-using log4net.Core;
-using log4net.Layout;
-using log4net.Repository.Hierarchy;
-
 using Microsoft.Practices.Unity;
+
+using NuClear.Tracing.API;
+using NuClear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Platform.UI.WPF.Shell.DI
 {
@@ -28,7 +24,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
     {
         public static IShellViewModel DesignTimeResolveShellViewModel()
         {
-            ICommonLog logger = null;
+            ITracer tracer = null;
             try
             {
                 #region Описание особенностей работы VS designer
@@ -46,10 +42,14 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 // Более цивилизованные варианты - подключиться к API автоматизации Visual studio (см. EnvDTE) и провоцировать перезагрузку/перерисовку Designer 
                 #endregion
 
-                logger = DesignTimeCreateLogger();
-                logger.InfoEx("Design time configuring started ...");
+                tracer = Log4NetTracerBuilder.Use
+                                             .Trace
+                                             .File("Erm.WPF.Client.DesignTime")
+                                             .Build;
 
-                DesignTimeAssemblyLoader.Attach(logger);
+                tracer.Info("Design time configuring started ...");
+
+                DesignTimeAssemblyLoader.Attach(tracer);
 
                 var container = new UnityContainer();
                 LocalPath = DesignTimePaths.LocalPath;
@@ -58,7 +58,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 container.AddExtension(queryableContainerExtension);
                 container.RegisterInstance(Mapping.QueryableExtension, queryableContainerExtension);
 
-                container.RegisterInstance<ICommonLog>(logger, Lifetime.Singleton)
+                container.RegisterInstance<ITracer>(tracer, Lifetime.Singleton)
                          ////.RegisterModules(DesignTimeAssemblyLoader.AssemblyLoaderToNoLoadContext)
                          .RegisterModules()
                          .DesignTimeConfigureModules()
@@ -75,25 +75,25 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 }
 
                 var shellViewModel = container.Resolve<IShellViewModel>();
-                logger.InfoEx("Design time shell view model successfully resolved");
+                tracer.Info("Design time shell view model successfully resolved");
 
                 return shellViewModel;
 
             }
             catch (FileNotFoundException ex)
             {
-                if (logger != null)
+                if (tracer != null)
                 {
-                    logger.FatalEx(ex, "Can't load required file. " + ex.FileName + ". " + ex.FusionLog);
-                    logger.FatalEx(ex, "Can't resolve design time view model");
+                    tracer.Fatal(ex, "Can't load required file. " + ex.FileName + ". " + ex.FusionLog);
+                    tracer.Fatal(ex, "Can't resolve design time view model");
                 }
                 throw;
             }
             catch (Exception ex)
             {
-                if (logger != null)
+                if (tracer != null)
                 {
-                    logger.FatalEx(ex, "Can't resolve design time view model");
+                    tracer.Fatal(ex, "Can't resolve design time view model");
                 }
                 throw;
             }
@@ -102,35 +102,6 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 //DesignTimeAssemblyLoader.Deattach();
             }
         }
-
-        private static ICommonLog DesignTimeCreateLogger()
-        {
-            const string ErmWpfClientDebugLogger = "ErmWpfClientDebugLogger";
-
-            var patternLayout =
-                new PatternLayout
-                {
-                    ConversionPattern = "%date [%thread] %-5level %message %newline %exception"
-                };
-
-            patternLayout.ActivateOptions();
-
-            var logfileFullPath = string.Format(
-                @"{0}\2GIS\InternalLogs\designtime_ermclient.log", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
-            var fileAppender  = new FileAppender { File = logfileFullPath, AppendToFile = false, ImmediateFlush = true, Layout = patternLayout };
-            fileAppender.ActivateOptions();
-            var traceAppender = new TraceAppender { Name = "Trace", Layout = patternLayout, Threshold = Level.All };
-            // необязательно traceAppender.ActivateOptions();
-
-            var logger = LogManager.GetLogger(ErmWpfClientDebugLogger);
-            var coreLogger = (Logger)logger.Logger;
-            coreLogger.AddAppender(fileAppender);
-            coreLogger.AddAppender(traceAppender);
-            coreLogger.Hierarchy.Configured = true;
-
-            return Log4NetImpl.GetLogger(ErmWpfClientDebugLogger);
-        }
-
 
         private static IUnityContainer DesignTimeConfigureModules(this IUnityContainer container)
         {

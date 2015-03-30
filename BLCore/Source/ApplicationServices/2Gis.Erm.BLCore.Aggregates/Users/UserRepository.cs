@@ -1056,7 +1056,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         private void DeleteRoleFromCrm(UserRole userRole)
         {
-            if (!_msCrmSettings.EnableReplication)
+            if (!_msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk))
             {
                 return;
             }

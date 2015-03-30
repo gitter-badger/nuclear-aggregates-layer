@@ -10,8 +10,9 @@ using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
 {
@@ -19,20 +20,20 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     {
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ValidateOrdersForReleaseOperationService(IClientProxyFactory clientProxyFactory,
             IOrderReadModel orderReadModel,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _clientProxyFactory = clientProxyFactory;
             _orderReadModel = orderReadModel;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IEnumerable<ReleaseProcessingMessage> Validate(long organizationUnitId, TimePeriod period, bool isBeta)
         {
-            _logger.InfoFormatEx("Starting orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
+            _tracer.InfoFormat("Starting orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
             
             var orderValidationServiceProxy = _clientProxyFactory.GetClientProxy<IOrderValidationApplicationService, WSHttpBinding>();
             var validationResults = orderValidationServiceProxy.Execute(
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             var convertedResults = ConvertValidationMessages(validationResults.Messages);
 
-            _logger.InfoFormatEx("Finished orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
+            _tracer.InfoFormat("Finished orders validation for release by organization unit with id {0} for period {1} release is {2}", organizationUnitId, period, isBeta ? "beta" : "final");
 
             return convertedResults;
         }

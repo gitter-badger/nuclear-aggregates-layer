@@ -2,7 +2,9 @@
 using System.Data.Common;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.Common.Settings;
+
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
 {
@@ -18,11 +20,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
         {
             _connectionStringsSettings = connectionStringsSettings;
             _crmOrganizationName = new Lazy<string>(ExtractOrganizationName);
-        }
-
-        public bool EnableReplication
-        {
-            get { return IntegrationMode != MsCrmIntegrationMode.Disabled; }
         }
 
         public MsCrmIntegrationMode IntegrationMode

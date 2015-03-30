@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
 
-using DoubleGis.Erm.BLCore.API.MoDi.Remote.AccountingSystem;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Reports;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
@@ -44,7 +43,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Config
                 .AddEndpoint<IIdentityProviderApplicationService>(wsHttpBinding, identityServiceSettings.BaseUrl, "Identity.svc/Soap")
 
                 // modi service
-                .AddEndpoint<IAccountingSystemApplicationService>(wsHttpBinding, moDiServiceSettings.BaseUrl, "AccountingSystem.svc")
                 .AddEndpoint<IWithdrawalInfoApplicationService>(wsHttpBinding, moDiServiceSettings.BaseUrl, "WithdrawalInfo.svc")
                 .AddEndpoint<IReportsApplicationService>(basicHttpBinding, moDiServiceSettings.BaseUrl, "Reports.svc");
 

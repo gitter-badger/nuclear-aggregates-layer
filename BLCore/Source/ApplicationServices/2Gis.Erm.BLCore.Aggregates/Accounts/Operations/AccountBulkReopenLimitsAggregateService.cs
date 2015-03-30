@@ -2,10 +2,11 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 {
@@ -13,16 +14,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
     {
         private readonly IRepository<Limit> _limitRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public AccountBulkReopenLimitsAggregateService(
             IRepository<Limit> limitRepository,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _limitRepository = limitRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Reopen(IEnumerable<Limit> limits)
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoEx("Reopened limits count: " + reopenedLimits);
+            _tracer.Info("Reopened limits count: " + reopenedLimits);
         }
     }
 }

@@ -7,11 +7,12 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
 {
@@ -19,17 +20,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
         where TEntity : class, IEntity, IEntityKey
         where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IPublicService _publicService;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IIntegrationSettings _integrationSettings;
 
-        public OperationsExporter(ICommonLog logger,
+        public OperationsExporter(ITracer tracer,
                                   IClientProxyFactory clientProxyFactory,
                                   IIntegrationSettings integrationSettings,
                                   IPublicService publicService)
         {
-            _logger = logger;
+            _tracer = tracer;
             _clientProxyFactory = clientProxyFactory;
             _integrationSettings = integrationSettings;
             _publicService = publicService;
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
             }
             catch (Exception e)
             {
-                _logger.FatalFormatEx(e, "Ошибка при экспорте сущности {0}", typeof(TEntity).Name);
+                _tracer.FatalFormat(e, "Ошибка при экспорте сущности {0}", typeof(TEntity).Name);
                 throw;
             }
         }

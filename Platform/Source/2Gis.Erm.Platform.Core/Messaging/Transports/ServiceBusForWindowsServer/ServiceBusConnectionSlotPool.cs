@@ -3,10 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 
-using DoubleGis.Erm.Platform.Common.Logging;
-
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using Microsoft.ServiceBus.Messaging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer
 {
@@ -63,16 +63,16 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
     internal abstract class ServiceBusConnectionSlot<TClient> : IDisposable where TClient : MessageClientEntity
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly TClient _clientEntity;
         private readonly RetryPolicy<ServiceBusTransientErrorDetectionStrategy> _retryPolicy =
                 new RetryPolicy<ServiceBusTransientErrorDetectionStrategy>(3, TimeSpan.FromSeconds(1));
 
         private int _activeTransmissions;
 
-        protected ServiceBusConnectionSlot(ICommonLog logger, Func<TClient> messageClientEntityFactory)
+        protected ServiceBusConnectionSlot(ITracer tracer, Func<TClient> messageClientEntityFactory)
         {
-            _logger = logger;
+            _tracer = tracer;
             _clientEntity = messageClientEntityFactory();
 
             _retryPolicy.Retrying += OnRetrying;
@@ -132,13 +132,13 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
             }
             catch (Exception ex)
             {
-                _logger.WarnFormatEx("Error occured while closing Service Bus messaging objects. Exception: {0}", ex.ToString());
+                _tracer.WarnFormat("Error occured while closing Service Bus messaging objects. Exception: {0}", ex.ToString());
             }
         }
 
         private void OnRetrying(object sender, RetryingEventArgs args)
         {
-            _logger.WarnFormatEx("Retrying to execute action within ServiceBus connection slot." +
+            _tracer.WarnFormat("Retrying to execute action within ServiceBus connection slot." +
                                  "Current retry count = {0}, last exception: {1}",
                                  args.CurrentRetryCount,
                                  args.LastException.ToString());

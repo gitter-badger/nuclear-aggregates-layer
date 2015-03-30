@@ -11,12 +11,13 @@ using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderValidation;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
 {
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IOrderValidationOperationFeedback _operationFeedback;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ValidateOrdersOperationService(
             IOrderValidationCachingSettings orderValidationCachingSettings,
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             IUseCaseTuner useCaseTuner,
             IOperationScopeFactory scopeFactory,
             IOrderValidationOperationFeedback operationFeedback,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _orderValidationCachingSettings = orderValidationCachingSettings;
             _orderReadModel = orderReadModel;
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
             _operationFeedback = operationFeedback;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         ValidationResult IValidateOrdersOperationService.Validate(long orderId)
@@ -173,7 +174,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             appropriateOrdersCount = _orderReadModel.GetOrdersCurrentVersions(filterPredicate.GetCombinedPredicate()).Count;
             if (appropriateOrdersCount == 0)
             {
-                _logger.InfoEx("Orders validation. Skip validation. No orders to validate. " + validationParams);
+                _tracer.Info("Orders validation. Skip validation. No orders to validate. " + validationParams);
                 return;
             }
 
@@ -181,7 +182,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             {
                 if (!ruleGroupContainer.RuleDescriptors.Any())
                 {
-                    _logger.InfoFormatEx("Orders validation. Group {0} skipped. Appropriate rules count: 0. {1}", ruleGroupContainer.Group, validationParams);
+                    _tracer.InfoFormat("Orders validation. Group {0} skipped. Appropriate rules count: 0. {1}", ruleGroupContainer.Group, validationParams);
                     continue;
                 }
             
@@ -212,11 +213,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             ordersCount = ordersForValidationWitVersions.Count;
             if (ordersCount == 0)
             {
-                _logger.InfoFormatEx("Orders validation. Group {0} skipped. No orders to validate. {1}", ruleGroupContainer.Group, validationParams);
+                _tracer.InfoFormat("Orders validation. Group {0} skipped. No orders to validate. {1}", ruleGroupContainer.Group, validationParams);
                 return;
             }
 
-            _logger.InfoFormatEx("Orders validation. Group {0}. Rules in group actual count: {1}. {2}",
+            _tracer.InfoFormat("Orders validation. Group {0}. Rules in group actual count: {1}. {2}",
                                  ruleGroupContainer.Group,
                                  ruleGroupContainer.RuleDescriptors.Count,
                                  validationParams);

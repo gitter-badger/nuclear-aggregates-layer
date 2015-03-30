@@ -1,20 +1,15 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
-using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.Common.Compression;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -22,15 +17,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 {
     public sealed class ExportLocalMessageHandler : RequestHandler<ExportLocalMessageRequest, Response>
     {
-        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly ISubRequestProcessor _subRequestProcessor;
 
         public ExportLocalMessageHandler(
-            ISubRequestProcessor subRequestProcessor, 
-            IBranchOfficeReadModel branchOfficeReadModel)
+            ISubRequestProcessor subRequestProcessor)
         {
             _subRequestProcessor = subRequestProcessor;
-            _branchOfficeReadModel = branchOfficeReadModel;
         }
 
         protected override Response Handle(ExportLocalMessageRequest request)
@@ -40,8 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             var errorMsg = string.Empty;
             BusinessLogicException ex2 = null;
             var statusOnSuccess = LocalMessageStatus.WaitForProcess;
-            if (request.IntegrationType == IntegrationTypeExport.LegalPersonsTo1C ||
-                request.IntegrationType == IntegrationTypeExport.AccountDetailsTo1C)
+            if (request.IntegrationType == IntegrationTypeExport.LegalPersonsTo1C)
             {
                 statusOnSuccess = LocalMessageStatus.Processed;
             }
@@ -134,111 +125,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                             Context);
                     }
 
-                case IntegrationTypeExport.AccountDetailsTo1C:
-                    {
-                        return ExportAccountDetailsTo1C(request);
-                    }
-
-                case IntegrationTypeExport.AccountDetailsToServiceBus:
-                {
-                    var response = ExportAccountDetailsToServiceBus(request);
-                    if (request.CreateCsvFile)
-                    {
-                        var exportTo1CResponse = ExportAccountDetailsTo1C(request);
-
-                        if (response.BlockingErrorsAmount == 0 && exportTo1CResponse.BlockingErrorsAmount == 0)
-                        {
-                            response.Stream = response.Stream.UnzipStream()
-                                                      .Concat(exportTo1CResponse.Stream.UnzipStream(x => x == "Acts.csv"))
-                                                      .ToDictionary(x => x.Key, x => x.Value)
-                                                      .ZipStreamDictionary();
-                        }
-                    }
-
-                    return response;
-                }
-
                 default:
                     throw new NotSupportedException();
             }
-        }
-
-        private IntegrationResponse ExportAccountDetailsToServiceBus(ExportLocalMessageRequest request)
-        {
-            if (request.OrganizationUnitId == null)
-            {
-                throw new NotificationException("Не указано отделение организации");
-            }
-
-            var contributionType = _branchOfficeReadModel.GetOrganizationUnitContributionType(request.OrganizationUnitId.Value);
-            Request exportRequest;
-
-            switch (contributionType)
-            {
-                case ContributionTypeEnum.Branch:
-                {
-                    exportRequest = new ExportAccountDetailsToServiceBusForBranchRequest
-                        {
-                            OrganizationUnitId = request.OrganizationUnitId.Value,
-                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
-                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth()
-                        };
-                    break;
-                }
-                case ContributionTypeEnum.Franchisees:
-                {
-                    exportRequest = new ExportAccountDetailsToServiceBusForFranchiseesRequest
-                        {
-                            OrganizationUnitId = request.OrganizationUnitId.Value,
-                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
-                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth()
-                        };
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            return (IntegrationResponse)_subRequestProcessor.HandleSubRequest(exportRequest, Context);
-        }
-
-        private IntegrationResponse ExportAccountDetailsTo1C(ExportLocalMessageRequest request)
-        {
-            if (request.OrganizationUnitId == null)
-            {
-                throw new NotificationException("Не указано отделение организации");
-            }
-
-            var contributionType = _branchOfficeReadModel.GetOrganizationUnitContributionType(request.OrganizationUnitId.Value);
-            Request exportRequest;
-
-            switch (contributionType)
-            {
-                case ContributionTypeEnum.Branch:
-                {
-                    exportRequest = new ExportAccountDetailsTo1CForBranchRequest
-                        {
-                            OrganizationUnitId = request.OrganizationUnitId.Value,
-                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
-                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth(),
-                        };
-                    break;
-                }
-                case ContributionTypeEnum.Franchisees:
-                {
-                    exportRequest = new ExportAccountDetailsTo1CForFranchiseesRequest
-                        {
-                            OrganizationUnitId = request.OrganizationUnitId.Value,
-                            StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
-                            EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth(),
-                        };
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            return (IntegrationResponse)_subRequestProcessor.HandleSubRequest(exportRequest, Context);
         }
     }
 }
