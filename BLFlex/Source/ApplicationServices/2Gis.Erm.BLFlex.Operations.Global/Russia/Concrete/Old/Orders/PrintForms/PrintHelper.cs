@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         {
             return new PrintData
                        {
-                           { "DateToday", DateTime.Today },
+                           { "NextMonth", DateTime.Today.GetNextMonthFirstDate() },
                            { "Firm.Name", firm.Name },
                        };
         }
