@@ -1,7 +1,7 @@
 ﻿Ext.namespace('Ext.ux');
 Ext.ux.ActionsHistoryTab = Ext.extend(Ext.Panel, {
     tabGroupRenderer: Ext.LocalizedResources.ActionsHistoryTabGroupRenderer,
-    tabGroupTemplate: Ext.LocalizedResources.ActionsHistoryTabGroupTemplate,    
+    tabGroupTemplate: Ext.LocalizedResources.ActionsHistoryTabGroupTemplate,
 
     constructor: function(config) {
         config = config || {};
@@ -40,22 +40,8 @@ Ext.ux.ActionsHistoryTab = Ext.extend(Ext.Panel, {
             fields: [
                 { name: 'id', mapping: 'Id' },
                 { name: 'propertyName', mapping: 'PropertyName' },
-                { name: 'originalValue', convert: function(value, record) {
-                    var date = Date.parseDate(record.OriginalValue, Ext.util.Format.dateTimePattern);
-                    if (date) {
-                        return Ext.util.Format.dateWOffset(date);
-                    }
-                    return record.OriginalValue;
-                }  },
-                {
-                    name: 'modifiedValue', convert: function (value, record) {
-                        var date = Date.parseDate(record.ModifiedValue, Ext.util.Format.dateTimePattern);
-                        if (date) {
-                            return Ext.util.Format.dateWOffset(date);
-                        }
-                        return record.ModifiedValue;
-                    }
-                },
+                { name: 'originalValue', mapping: 'OriginalValue' },
+                { name: 'modifiedValue', mapping: 'ModifiedValue' },
                 { name: 'actionsHistoryId', mapping: 'ActionsHistoryId' },
                 { name: 'actionType', mapping: 'ActionType' },
                 { name: 'createdBy', mapping: 'CreatedBy' },
