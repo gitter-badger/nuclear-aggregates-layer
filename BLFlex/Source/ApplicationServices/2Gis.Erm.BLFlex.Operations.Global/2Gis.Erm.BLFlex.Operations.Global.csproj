@@ -179,7 +179,7 @@
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintHelper.cs" />
     <Compile Include="Russia\Concrete\Orders\Print\PrintBindingChangeAgreementOperationService.cs" />
     <Compile Include="Russia\Concrete\Orders\Print\PrintCancellationAgreementOperationService.cs" />
-    <Compile Include="Russia\Concrete\Orders\Print\PrintFirmChangeAgreementOperationService.cs" />
+    <Compile Include="Russia\Concrete\Orders\Print\PrintFirmNameChangeAgreementOperationService.cs" />
     <Compile Include="Russia\Concrete\Orders\Print\PrintOperationBuilder.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetLegalPersonProfileDtoService.cs" />
     <Compile Include="Russia\Generic\Get\GetAdvertisementElementStatusDtoService.cs" />

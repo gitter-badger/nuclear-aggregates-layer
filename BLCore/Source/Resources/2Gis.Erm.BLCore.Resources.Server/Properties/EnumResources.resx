@@ -1716,8 +1716,8 @@
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Соглашение о расторжении договора для юр. лица</value>
   </data>
-  <data name="TemplateCodeFirmChangeAgreement" xml:space="preserve">
-    <value>Доп. соглашение (смена фирмы)</value>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>Доп. соглашение (смена названия фирмы)</value>
   </data>
   <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
     <value>Доп. соглашение (смена привязки)</value>

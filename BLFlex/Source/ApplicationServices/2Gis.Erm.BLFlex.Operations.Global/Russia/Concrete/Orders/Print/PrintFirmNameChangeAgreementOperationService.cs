@@ -17,14 +17,14 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
 {
-    public class PrintFirmChangeAgreementOperationService : IPrintFirmChangeAgreementOperationService, IRussiaAdapted
+    public class PrintFirmNameChangeAgreementOperationService : IPrintFirmNameChangeAgreementOperationService, IRussiaAdapted
     {
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IPrintReadModel _readModel;
         private readonly IPublicService _publicService;
         private readonly IFormatter _shortDateFormatter;
 
-        public PrintFirmChangeAgreementOperationService(IPublicService publicService, IFormatterFactory formatterFactory, IPrintReadModel readModel, IOperationScopeFactory scopeFactory)
+        public PrintFirmNameChangeAgreementOperationService(IPublicService publicService, IFormatterFactory formatterFactory, IPrintReadModel readModel, IOperationScopeFactory scopeFactory)
         {
             _publicService = publicService;
             _readModel = readModel;
@@ -35,8 +35,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
         public PrintFormDocument Print(long orderId)
         {
             return new PrintOperationBuilder()
-                .UseScope(_scopeFactory.CreateNonCoupled<PrintFirmChangeAgreementIdentity>)
-                .UseTemplate(TemplateCode.FirmChangeAgreement)
+                .UseScope(_scopeFactory.CreateNonCoupled<PrintFirmNameChangeAgreementIdentity>)
+                .UseTemplate(TemplateCode.FirmNameChangeAgreement)
                 .UseRequest(() => CreateRequest(orderId))
                 .UseRequestProcessor(_publicService.Handle)
                 .Execute(); 

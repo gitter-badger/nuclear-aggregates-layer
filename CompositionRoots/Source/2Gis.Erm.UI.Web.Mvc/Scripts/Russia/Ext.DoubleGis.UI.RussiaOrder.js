@@ -32,8 +32,8 @@
         this.Print('CancellationAgreement', 'Russia');
     },
 
-    PrintRussiaFirmChangeAgreement: function () {
-        this.Print('FirmChangeAgreement', 'Russia');
+    PrintRussiaFirmNameChangeAgreement: function () {
+        this.Print('FirmNameChangeAgreement', 'Russia');
     },
 
     PrintRussiaBindingChangeAgreement: function () {

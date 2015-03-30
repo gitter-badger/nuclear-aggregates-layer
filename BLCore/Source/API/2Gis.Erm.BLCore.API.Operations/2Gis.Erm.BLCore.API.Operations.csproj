@@ -214,7 +214,7 @@
     <Compile Include="Concrete\Orders\FieldNotSpecifiedException.cs" />
     <Compile Include="Concrete\Orders\OrderLegalPersonProfileDto.cs" />
     <Compile Include="Concrete\Orders\Print\IPrintCancellationAgreementOperationService.cs" />
-    <Compile Include="Concrete\Orders\Print\IPrintFirmChangeAgreementOperationService.cs" />
+    <Compile Include="Concrete\Orders\Print\IPrintFirmNameChangeAgreementOperationService.cs" />
     <Compile Include="Concrete\Orders\Print\IPrintBindingChangeAgreementOperationService.cs" />
     <Compile Include="Concrete\Orders\Print\PrintFormDocument.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />

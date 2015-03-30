@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
     public sealed class PrintController : ControllerBase
     {
         private readonly IPrintBindingChangeAgreementOperationService _printBindingChangeAgreementService;
-        private readonly IPrintFirmChangeAgreementOperationService _printFirmChangeAgreementService;
+        private readonly IPrintFirmNameChangeAgreementOperationService _printFirmNameChangeAgreementService;
         private readonly IPrintCancellationAgreementOperationService _printCancellationAgreementService;
 
         public PrintController(IMsCrmSettings crmSettings, 
@@ -31,12 +31,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                                IUserContext userContext, 
                                ITracer tracer, 
                                IGetBaseCurrencyService getBaseCurrencyService, 
-                               IPrintFirmChangeAgreementOperationService printFirmChangeAgreementService, 
+                               IPrintFirmNameChangeAgreementOperationService printFirmNameChangeAgreementService, 
                                IPrintCancellationAgreementOperationService printCancellationAgreementService, 
                                IPrintBindingChangeAgreementOperationService printBindingChangeAgreementService)
             : base(crmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
-            _printFirmChangeAgreementService = printFirmChangeAgreementService;
+            _printFirmNameChangeAgreementService = printFirmNameChangeAgreementService;
             _printCancellationAgreementService = printCancellationAgreementService;
             _printBindingChangeAgreementService = printBindingChangeAgreementService;
         }
@@ -48,9 +48,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
         }
 
         [HttpGet]
-        public ActionResult FirmChangeAgreement(long id)
+        public ActionResult FirmNameChangeAgreement(long id)
         {
-            return ExecutePrint(() => _printFirmChangeAgreementService.Print(id));
+            return ExecutePrint(() => _printFirmNameChangeAgreementService.Print(id));
         }
 
         [HttpGet]

@@ -1383,7 +1383,7 @@
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value>Certificado de garantía (cambio del material publicitario)</value>
   </data>
-  <data name="ControlPrintFirmChangeAgreement" xml:space="preserve">
+  <data name="ControlPrintFirmNameChangeAgreement" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>  
   <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">

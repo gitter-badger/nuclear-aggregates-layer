@@ -1719,7 +1719,7 @@
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Contract termination notice without a reason specified for a legal entity</value>
   </data>
-  <data name="TemplateCodeFirmChangeAgreement" xml:space="preserve">
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
