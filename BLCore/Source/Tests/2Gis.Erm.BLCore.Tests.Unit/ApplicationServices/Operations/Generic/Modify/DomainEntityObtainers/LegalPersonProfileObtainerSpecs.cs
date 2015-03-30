@@ -185,7 +185,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
                     DomainEntityDto.RecipientName = TestRecipientName;
                     DomainEntityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
                     DomainEntityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-                    DomainEntityDto.AdditionalEmail = TestAdditionalEmail;
+                    DomainEntityDto.Email = TestAdditionalEmail;
                     DomainEntityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
                     DomainEntityDto.Phone = TestPhone;
                     DomainEntityDto.PaymentEssentialElements = TestPaymentEssentialElements;
@@ -224,7 +224,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
             private It should_return_expected_RecipientName = () => Result.RecipientName.Should().Be(TestRecipientName);
             private It should_return_expected_DocumentsDeliveryMethod = () => Result.DocumentsDeliveryMethod.Should().Be(TestDocumentsDeliveryMethod);
             private It should_return_expected_EmailForAccountingDocuments = () => Result.EmailForAccountingDocuments.Should().Be(TestEmailForAccountingDocuments);
-            private It should_return_expected_AdditionalEmail = () => Result.AdditionalEmail.Should().Be(TestAdditionalEmail);
+            private It should_return_expected_AdditionalEmail = () => Result.Email.Should().Be(TestAdditionalEmail);
             private It should_return_expected_PersonResponsibleForDocuments = () => Result.PersonResponsibleForDocuments.Should().Be(TestPersonResponsibleForDocuments);
             private It should_return_expected_Phone = () => Result.Phone.Should().Be(TestPhone);
             private It should_return_expected_PaymentEssentialElements = () => Result.PaymentEssentialElements.Should().Be(TestPaymentEssentialElements);

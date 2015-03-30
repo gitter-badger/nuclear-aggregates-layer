@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -32,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                    orderPosition.OrderPositionAdvertisements.Where(opa =>
                                                                                    opa.CategoryId.HasValue
                                                                                    && opa.Category.Level == CategoryLevelToCheck
+                                                                                   && opa.Position.PositionsGroup != PositionsGroup.Media
                                                                                    && !opa.Category.SalesModelRestrictions.Any(sr =>
                                                                                                                                sr.SalesModel == opa.Position.SalesModel &&
                                                                                                                                sr.ProjectId ==

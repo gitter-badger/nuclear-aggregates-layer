@@ -21,5 +21,6 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
         public IEnumerable<LookupDataField> DataFields { get; set; }
         public string HeaderTextTemplate { get; set; }
+        public IEnumerable<LookupSortInfo> DefaultSortFields { get; set;}
     }
 }

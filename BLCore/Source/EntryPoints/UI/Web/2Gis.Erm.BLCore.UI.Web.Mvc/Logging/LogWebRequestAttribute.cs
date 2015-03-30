@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -11,6 +10,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 {
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         public override ICallHandler CreateHandler(IUnityContainer container)
         {
             return new LogWebRequestHandler(
-                container.Resolve<ICommonLog>(),
+                container.Resolve<ITracer>(),
                 container.Resolve<IActionLogger>(Mapping.SimplifiedModelConsumerScope),
                 _entityType,
                 CompareObjectMode,

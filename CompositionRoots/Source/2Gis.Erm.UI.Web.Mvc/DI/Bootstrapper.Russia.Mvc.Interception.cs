@@ -6,12 +6,12 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             Func<ResolvedParameter[]> resolvedParametersCreator =
                 () => new ResolvedParameter[]
                     {
-                        new ResolvedParameter<ICommonLog>(),
+                        new ResolvedParameter<ITracer>(),
                         new ResolvedParameter<IActionLogger>(Mapping.SimplifiedModelConsumerScope),
                         new ResolvedParameter<IDependentEntityProvider>()
                     };

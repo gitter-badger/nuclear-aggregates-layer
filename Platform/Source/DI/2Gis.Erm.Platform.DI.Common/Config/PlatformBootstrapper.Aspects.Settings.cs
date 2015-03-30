@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DoubleGis.Erm.Platform.Common.Settings;
-
 using Microsoft.Practices.Unity;
+
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Platform.DI.Common.Config
 {
-    public static partial class PlatformBootstrapper
+    public static class PlatformBootstrapper
     {
         public static IUnityContainer ConfigureSettingsAspects(this IUnityContainer unityContainer, ISettingsContainer settingsContainer)
         {

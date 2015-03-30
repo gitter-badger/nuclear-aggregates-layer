@@ -26,7 +26,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Operations.Concrete.LegalPersons;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.BranchOfficeOrganizationUnits;
@@ -948,24 +947,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(PrintDocumentHandler),
             Request = typeof(PrintDocumentRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\GetInitPaymentsInfo",
-                    MaxUseCaseDepth = 2,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(GetInitPaymentsInfoHandler),
-                        Request = typeof(GetInitPaymentsInfoRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DistributeBillPaymentsHandler),
-            Request = typeof(DistributeBillPaymentsRequest),
         }
     }
                     }

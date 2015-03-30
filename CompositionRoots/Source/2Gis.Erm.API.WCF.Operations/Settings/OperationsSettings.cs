@@ -14,8 +14,10 @@ using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Qds.Common.Settings;
+
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.Settings
 {

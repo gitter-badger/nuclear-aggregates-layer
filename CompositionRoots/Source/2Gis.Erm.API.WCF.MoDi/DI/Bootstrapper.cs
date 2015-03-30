@@ -14,9 +14,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -31,14 +29,17 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.API.WCF.MoDi.DI
 {
     internal static class Bootstrapper
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
-            ICommonLog logger,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -64,8 +65,8 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                                                                           settingsContainer.AsSettings<IGlobalizationSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                          logger,
-                                                                          loggerContextManager));
+                                                                          tracer,
+                                                                          tracerContextManager));
         }
 
         private static IUnityContainer ConfigureUnity(
@@ -75,11 +76,11 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
             IGlobalizationSettings globalizationSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            ICommonLog logger,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             return container
-                .ConfigureLogging(logger, loggerContextManager)
+                .ConfigureTracing(tracer, tracerContextManager)
                 .ConfigureGlobal(globalizationSettings)
                 .CreateSecuritySpecific()
                 .CreateErmSpecific()

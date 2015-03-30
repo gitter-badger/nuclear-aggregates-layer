@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Simplified;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
@@ -25,7 +26,7 @@ namespace DoubleGis.Erm.Platform.DAL
         // фабрики, для реального создания экземпляров domaincontext
         private readonly IModifiableDomainContextFactory _modifiableDomainContextFactory;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         private readonly object _domainContextRegistrarSynch = new object();
         private readonly IDictionary<Guid, HostDomainContextsStorage> _domainContextRegistrar = new Dictionary<Guid, HostDomainContextsStorage>();
@@ -35,12 +36,12 @@ namespace DoubleGis.Erm.Platform.DAL
         protected UnitOfWork(IReadDomainContext readDomainContext,
                              IModifiableDomainContextFactory modifiableDomainContextFactory,
                              IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-                             ICommonLog logger)
+                             ITracer tracer)
         {
             _readDomainContext = readDomainContext;
             _modifiableDomainContextFactory = modifiableDomainContextFactory;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         Guid IDomainContextHost.ScopeId
@@ -253,7 +254,7 @@ namespace DoubleGis.Erm.Platform.DAL
                                                  IReadDomainContextProvider readDomainContextProvider,
                                                  IModifiableDomainContextProvider modifiableDomainContextProvider);
 
-        protected abstract object CreateCosumerReadModel(Type readModelType,
+        protected abstract object CreateConsumerReadModel(Type readModelType,
                                                           IReadDomainContextProvider readDomainContextProvider);
 
         protected abstract object CreatePersistenceService(Type consumerType,

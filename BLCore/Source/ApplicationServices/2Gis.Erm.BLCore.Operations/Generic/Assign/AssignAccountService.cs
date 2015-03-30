@@ -13,12 +13,13 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public AssignAccountService(
             IPublicService publicService,
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             ISecurityServiceFunctionalAccess functionalAccessService,
             IOperationScopeFactory scopeFactory,
             IUserContext userContext, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _publicService = publicService;
             _finder = finder;
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _functionalAccessService = functionalAccessService;
             _scopeFactory = scopeFactory;
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
@@ -87,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                         .Complete();
                 }
                 
-                _logger.InfoFormat("Куратором ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
+                _tracer.InfoFormat("Куратором ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
             }
             catch (ProcessAccountsWithDebtsException ex)
             {

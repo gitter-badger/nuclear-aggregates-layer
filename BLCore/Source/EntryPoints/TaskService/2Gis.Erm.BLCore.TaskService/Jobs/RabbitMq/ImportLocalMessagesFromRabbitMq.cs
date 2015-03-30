@@ -1,9 +1,10 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.RabbitMq;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -13,8 +14,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.RabbitMq
     {
         private readonly IPublicService _publicService;
 
-        public ImportLocalMessagesFromRabbitMq(IPublicService publicService, ICommonLog logger, ISignInService signInService, IUserImpersonationService userImpersonationService)
-            : base(signInService, userImpersonationService, logger)
+        public ImportLocalMessagesFromRabbitMq(IPublicService publicService, ITracer tracer, ISignInService signInService, IUserImpersonationService userImpersonationService)
+            : base(signInService, userImpersonationService, tracer)
         {
             _publicService = publicService;
         }
