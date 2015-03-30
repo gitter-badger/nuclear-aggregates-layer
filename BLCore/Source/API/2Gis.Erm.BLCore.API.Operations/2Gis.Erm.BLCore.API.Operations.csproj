@@ -78,8 +78,6 @@
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusStrategiesFactory.cs" />
     <Compile Include="Concrete\AdvertisementElements\IUpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
-    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
-    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\Bills\ICalculateBillsOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
@@ -218,6 +216,7 @@
     <Compile Include="Concrete\Processing\Final\HotClient\HotClientFinalProcessingResultsMessage.cs" />
     <Compile Include="Concrete\HotClients\HotClientRequestDto.cs" />
     <Compile Include="Concrete\HotClients\RegardingObject.cs" />
+    <Compile Include="Concrete\Simplified\ISendNotificationOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />

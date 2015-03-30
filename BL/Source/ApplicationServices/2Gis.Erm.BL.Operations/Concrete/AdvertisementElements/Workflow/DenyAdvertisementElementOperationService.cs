@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
         private readonly IDenialReasonReadModel _denialReasonReadModel;
         private readonly IDeleteAggregateRepository<AdvertisementElementDenialReason> _deleteAdvertisementElementDenialReasonsAggregateRepository;
 
-        private readonly INotifyAboutAdvertisementElementValidationStatusChangedOperationService
+        private readonly INotifyAboutAdvertisementElementRejectionOperationService
             _notifyAboutAdvertisementElementValidationStatusChangedOperationService;
 
         public DenyAdvertisementElementOperationService(
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
             IUpdateAggregateRepository<AdvertisementElementStatus> updateAdvertisementElementStatusRepository,
             ICreateAggregateRepository<AdvertisementElementDenialReason> createAdvertisementDenialReasonsAggregateRepository,
             IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
-            INotifyAboutAdvertisementElementValidationStatusChangedOperationService notifyAboutAdvertisementElementValidationStatusChangedOperationService,
+            INotifyAboutAdvertisementElementRejectionOperationService notifyAboutAdvertisementElementValidationStatusChangedOperationService,
             IDenialReasonReadModel denialReasonReadModel,
             IDeleteAggregateRepository<AdvertisementElementDenialReason> deleteAdvertisementElementDenialReasonsAggregateRepository)
         {
