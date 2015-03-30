@@ -13,12 +13,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
     {
         private Func<IOperationScope> _scopeFactory;
         private Func<PrintDocumentRequest> _requestFactory;
-        private Func<PrintDocumentRequest, Response> _func;
+        private Func<PrintDocumentRequest, Response> _responseFactory;
         private TemplateCode _templateCode;
 
         public PrintOperationBuilder UseScope(Func<IOperationScope> scopeFactory)
         {
             _scopeFactory = scopeFactory;
+            return this;
+        }
+
+        public PrintOperationBuilder UseRequest(Func<PrintDocumentRequest> requestFactory)
+        {
+            _requestFactory = requestFactory;
+            return this;
+        }
+
+        public PrintOperationBuilder UseRequestProcessor(Func<PrintDocumentRequest, Response> responseFactory)
+        {
+            _responseFactory = responseFactory;
             return this;
         }
 
@@ -28,25 +40,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
             return this;
         }
 
-        public PrintOperationBuilder UseData(Func<PrintDocumentRequest> requestFactory)
-        {
-            _requestFactory = requestFactory;
-            return this;
-        }
-
-        public PrintOperationBuilder UsePublicService(Func<PrintDocumentRequest, Response> func)
-        {
-            _func = func;
-            return this;
-        }
-
         public PrintFormDocument Execute()
         {
             using (var scope = _scopeFactory())
             {
                 var printDocumentRequest = _requestFactory();
                 printDocumentRequest.TemplateCode = _templateCode;
-                var response = (StreamResponse)_func(printDocumentRequest);
+                var response = (StreamResponse)_responseFactory(printDocumentRequest);
                 scope.Complete();
 
                 return new PrintFormDocument

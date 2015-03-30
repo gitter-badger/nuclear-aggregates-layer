@@ -37,8 +37,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
             return new PrintOperationBuilder()
                 .UseScope(_scopeFactory.CreateNonCoupled<PrintBindingChangeAgreementIdentity>)
                 .UseTemplate(TemplateCode.BindingChangeAgreement)
-                .UseData(() => CreateRequest(orderId))
-                .UsePublicService(_publicService.Handle)
+                .UseRequest(() => CreateRequest(orderId))
+                .UseRequestProcessor(_publicService.Handle)
                 .Execute();
         }
 
@@ -79,7 +79,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
                 CurrencyIsoCode = currency.ISOCode,
                 FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, order.Number),
                 BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId.Value,
-                TemplateCode = TemplateCode.BindingChangeAgreement,
                 PrintData = PrintData.Concat(documentData, requisites, bargainData, documenSpecificData)
             };
         }

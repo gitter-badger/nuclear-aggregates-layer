@@ -1,7 +1,6 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Print;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Print;
@@ -34,16 +33,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
 
         public PrintFormDocument Print(long orderId)
         {
-            using (var scope = _scopeFactory.CreateNonCoupled<PrintCancellationAgreementIdentity>())
-            {
-                var document = DoPrint(orderId);
-                scope.Complete();
-                return document;
-            }
+            return new PrintOperationBuilder()
+                .UseScope(_scopeFactory.CreateNonCoupled<PrintCancellationAgreementIdentity>)
+                .UseTemplate(TemplateCode.AdditionalAgreementLegalPerson)
+                .UseRequest(() => CreateRequest(orderId))
+                .UseRequestProcessor(_publicService.Handle)
+                .Execute();
         }
 
-        private PrintFormDocument DoPrint(long orderId)
-
+        private PrintDocumentRequest CreateRequest(long orderId)
         {
             var order = _readModel.GetOrder(orderId);
 
@@ -79,23 +77,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
             var bargainData = PrintHelper.RelatedBrgain(bargain);
             var requisites = PrintHelper.Requisites(legalPerson, legalPersonProfile, branchOffice, branchOfficeOrganizationUnit);
 
-            var printDocumentRequest = new PrintDocumentRequest
+            return new PrintDocumentRequest
             {
                 CurrencyIsoCode = currency.ISOCode,
                 FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, order.Number),
                 BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
-                TemplateCode = TemplateCode.AdditionalAgreementLegalPerson,
                 PrintData = PrintData.Concat(documentData, requisites, bargainData, documenSpecificData)
             };
-
-            var printDocumentResponse = (StreamResponse)_publicService.Handle(printDocumentRequest);
-
-            return new PrintFormDocument
-                       {
-                           Stream = printDocumentResponse.Stream,
-                           ContentType = printDocumentResponse.ContentType,
-                           FileName = printDocumentResponse.FileName,
-                       };
         }
     }
 }
