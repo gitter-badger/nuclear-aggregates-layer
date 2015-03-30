@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Dial;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
 
         public DialResult Dial(string phone)
         {
-
+            throw new BusinessLogicException("Fuck this shit!");
             var user = _userReadModel.GetProfileForUser(_userContext.Identity.Code);
             return new DialResult(user.Phone);
         }

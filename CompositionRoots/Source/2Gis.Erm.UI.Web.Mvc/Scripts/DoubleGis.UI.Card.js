@@ -753,6 +753,15 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             }
         }
 
+        if (rule.ValidationType == "phone") {
+            new Ext.ux.PhonecallField(
+            {
+                applyTo: el,
+                readOnly: this.ReadOnly                
+               
+            });
+        }
+
         if (rule.ValidationType == "email") {
             new Ext.ux.LinkField(
                 {

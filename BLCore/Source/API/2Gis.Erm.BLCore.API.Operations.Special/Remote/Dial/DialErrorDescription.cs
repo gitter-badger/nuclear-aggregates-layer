@@ -1,10 +1,10 @@
 ﻿using System.Runtime.Serialization;
 
-using DoubleGis.Erm.Platform.API.Core;
+using DoubleGis.Erm.BLCore.API.Operations.Remote;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Dial
 {
-    [DataContract(Namespace = ServiceNamespaces.Dialing.Dial201503)]
+    [DataContract]
     public class DialErrorDescription
     {      
         public DialErrorDescription(string message)
@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Dial
         }
 
         [DataMember]
-        public string Message { get; set; }
+        public string Message { get; private set; }
 
         public override string ToString()
         {

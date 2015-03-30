@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public string Comment { get; set; }
 
         // Основной телефон
+        [PhoneLocalized]
         [StringLengthLocalized(64)]
         public string MainPhoneNumber { get; set; }
 
