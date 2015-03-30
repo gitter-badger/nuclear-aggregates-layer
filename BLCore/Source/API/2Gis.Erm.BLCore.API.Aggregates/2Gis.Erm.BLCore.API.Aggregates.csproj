@@ -58,6 +58,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Accounts\AccountingMethodExtensions.cs" />
     <Compile Include="Accounts\DTO\AccountDetailForExportDto.cs" />
     <Compile Include="Accounts\DTO\AccountDTOs.cs" />
     <Compile Include="Accounts\DTO\AccountIdAndOwnerCodeDto.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Accounts\DTO\WithdrawalDto.cs" />
     <Compile Include="Accounts\DTO\WithdrawFromAccountsDto.cs" />
     <Compile Include="Accounts\IAccountRepository.cs" />
+    <Compile Include="Accounts\Operations\AccountingMethodViolationException.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkActivateLocksAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCloseLimitsAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCreateLocksAggregateService.cs" />
@@ -100,6 +102,18 @@
     <Compile Include="Activities\IUpdatePhonecallAggregateService.cs" />
     <Compile Include="Activities\IUpdateLetterAggregateService.cs" />
     <Compile Include="Activities\IUpdateTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompletePhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenTaskAggregateService.cs" />
     <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
     <Compile Include="Activities\ReadModel\ITaskReadModel.cs" />
     <Compile Include="Activities\ReadModel\IAppointmentReadModel.cs" />
@@ -147,7 +161,7 @@
     <Compile Include="CommonService\MessageHelper.cs" />
     <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
     <Compile Include="Common\Crosscutting\ICheckInnService.cs" />
-    <Compile Include="Common\Crosscutting\ICheckOperationPeriodService.cs" />
+    <Compile Include="Common\Crosscutting\IMonthPeriodValidationService.cs" />
     <Compile Include="Common\Crosscutting\IConcurrentPeriodCounter.cs" />
     <Compile Include="Common\DTO\BusinessEntityInstanceDto.cs" />
     <Compile Include="Common\Generics\IActivateAggregateRepository.cs" />

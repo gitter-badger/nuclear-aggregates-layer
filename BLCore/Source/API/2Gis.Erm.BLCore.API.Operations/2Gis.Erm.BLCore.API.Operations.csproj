@@ -60,6 +60,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -81,9 +82,6 @@
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\Bills\ICalculateBillsOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\ExportAccountDetailsBeforeWithdrawalOperationException.cs" />
-    <Compile Include="Concrete\Integration\Export\IGetAccountDetailsForExportContentOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\IGetDebitsInfoInitialForExportOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Flows\FlowAdvModelsInfo.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportAdvModelInRubricInfoService.cs" />
@@ -187,9 +185,6 @@
     <Compile Include="Concrete\Integration\Settings\IIntegrationLocalizationSettings.cs" />
     <Compile Include="Concrete\Integration\Settings\IIntegrationSettings.cs" />
     <Compile Include="Concrete\Integration\Settings\IntegrationSettingsAspect.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\DebitDto.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\DebitsInfoInitialDto.cs" />
-    <Compile Include="Concrete\Old\AccountDetails\Dto\PlatformDistribution.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
@@ -228,6 +223,8 @@
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />
+    <Compile Include="Concrete\Withdrawals\IGetWithdrawalErrorsCsvReportOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\WithdrawalErrorsReport.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeAccountsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeDealsDuringRevertingWithdrawalOperationService.cs" />
@@ -237,13 +234,21 @@
     <Compile Include="Concrete\Withdrawals\ICreateLockDetailsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IDeleteChargesForPeriodAndProjectOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IDeleteLockDetailsDuringRevertingWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\InvalidPeriodException.cs" />
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRule.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawalOperationValidationRulesProvider.cs" />
+    <Compile Include="Concrete\Withdrawals\IWithdrawOperationsAggregator.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
     <Compile Include="Crosscutting\ICanChangeOrderPositionBindingObjectsDetector.cs" />
     <Compile Include="Crosscutting\IPaymentsDistributor.cs" />
     <Compile Include="DI\OperationsZone.cs" />
+    <Compile Include="Generic\Cancel\ICancelOperationService.cs" />
+    <Compile Include="Generic\Cancel\ICancelGenericOperationService.cs" />
+    <Compile Include="Generic\Complete\ICompleteOperationService.cs" />
     <Compile Include="Generic\ChangeClient\ChangeClientOfLinkedDealException.cs" />
+    <Compile Include="Generic\Complete\ICompleteGenericOperationService.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\Deactivate\LegalPersonWithOrdersDeactivationException.cs" />
     <Compile Include="Generic\File\DownloadFileParams.cs" />
@@ -434,6 +439,8 @@
     <Compile Include="Generic\Qualify\IQualifyGenericEntityService.cs" />
     <Compile Include="Concrete\Themes\ISetDefaultOperation.cs" />
     <Compile Include="Generic\Read\IActivityReadService.cs" />
+    <Compile Include="Generic\Reopen\IReopenOperationService.cs" />
+    <Compile Include="Generic\Reopen\IReopenGenericOperationService.cs" />
     <Compile Include="Generic\Update\IUpdateOperationService.cs" />
     <Compile Include="IOperationServicesManager.cs" />
     <Compile Include="Metadata\IMessageWithType.cs" />
@@ -452,6 +459,15 @@
     <Compile Include="Remote\Assign\IAssignApplicationRestService.cs" />
     <Compile Include="Remote\Assign\IAssignApplicationService.cs" />
     <Compile Include="Remote\Assign\IGroupAssignApplicationService.cs" />
+    <Compile Include="Remote\Cancel\CancelOperationErrorDescription.cs" />
+    <Compile Include="Remote\Complete\CompleteOperationErrorDescription.cs" />
+    <Compile Include="Remote\Cancel\ICancelApplicationRestService.cs" />
+    <Compile Include="Remote\Cancel\ICancelApplicationService.cs" />
+    <Compile Include="Remote\Complete\ICompleteApplicationRestService.cs" />
+    <Compile Include="Remote\Complete\ICompleteApplicationService.cs" />
+    <Compile Include="Remote\Reopen\IReopenApplicationRestService.cs" />
+    <Compile Include="Remote\Reopen\IReopenApplicationService.cs" />
+    <Compile Include="Remote\Reopen\ReopenOperationErrorDescription.cs" />
     <Compile Include="Remote\ChangeClient\ChangeClientOperationErrorDescription.cs" />
     <Compile Include="Remote\ChangeClient\IChangeClientApplicationRestService.cs" />
     <Compile Include="Remote\ChangeClient\IChangeClientApplicationService.cs" />

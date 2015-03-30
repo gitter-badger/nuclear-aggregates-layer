@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Reopen;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
@@ -31,7 +35,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             Identities2MetadataResolverMap.Add(typeof(DeleteIdentity), GetDeleteMetadata);
             Identities2MetadataResolverMap.Add(typeof(ModifySimplifiedModelEntityIdentity), GetModifySimplifiedModelEntityMetadata);
             Identities2MetadataResolverMap.Add(typeof(ModifyBusinessModelEntityIdentity), GetModifyBusinessModelEntityMetadata);
-        }
+            Identities2MetadataResolverMap.Add(typeof(CancelIdentity), GetCancelMetadata);
+            Identities2MetadataResolverMap.Add(typeof(CompleteIdentity), GetCompleteMetadata);
+            Identities2MetadataResolverMap.Add(typeof(ReopenIdentity), GetReopenMetadata);
+        }       
 
         public static IOperationMetadata GetOperationMetadata<TOperationIdentity>(params EntityName[] operationProcessingEntities)
             where TOperationIdentity : IOperationIdentity, new()
@@ -74,6 +81,51 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             }
 
             return assignMetadata;
+        }
+
+        private static CancelMetadata GetCancelMetadata(EntityName[] entityNames)
+        {
+            var entityName = entityNames.Single();
+            switch (entityName)
+            {
+                case EntityName.Activity:
+                case EntityName.Appointment:
+                case EntityName.Letter:
+                case EntityName.Phonecall:
+                case EntityName.Task:
+                    return new CancelMetadata();
+            }
+            return null;
+        }
+
+        private static CompleteMetadata GetCompleteMetadata(EntityName[] entityNames)
+        {
+            var entityName = entityNames.Single();
+            switch (entityName)
+            {
+                case EntityName.Appointment:
+                case EntityName.Letter:
+                case EntityName.Phonecall:
+                case EntityName.Task:
+                    return new CompleteMetadata();
+            }
+
+            return null;
+        }
+
+        private static ReopenMetadata GetReopenMetadata(EntityName[] entityNames)
+        {
+            var entityName = entityNames.Single();
+            switch (entityName)
+            {
+                case EntityName.Appointment:
+                case EntityName.Letter:
+                case EntityName.Phonecall:
+                case EntityName.Task:
+                    return new ReopenMetadata();
+            }
+
+            return null;
         }
 
         private static QualifyMetadata GetQualifyMetadata(EntityName[] entityNames)

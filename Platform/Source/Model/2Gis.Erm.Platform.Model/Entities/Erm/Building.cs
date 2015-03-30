@@ -20,10 +20,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public ICollection<FirmAddress> FirmAddresses { get; set; }
         public Territory Territory { get; set; }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
     }
 }

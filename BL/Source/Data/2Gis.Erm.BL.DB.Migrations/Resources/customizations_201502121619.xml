@@ -1,0 +1,322 @@
+<ImportExportXml version="4.0.0.0" languagecode="1049" generatedBy="OnPremise">
+  <Entities>
+  </Entities>
+  <Roles>
+  </Roles>
+  <Workflows>
+  </Workflows>
+  <IsvConfig>
+    <configuration version="3.0.0000.0">
+      <Root>
+        <ToolBar>
+          <Button Icon="/_imgs/AdvFind/new.GIF" JavaScript="openStdWin('https://web-app.prod.erm.2gis.ru/Grid/View/Order?singleDataView=DListOrdersFast', 'FastSearch', 1000, 600)" Client="Web">
+            <Titles>
+              <Title LCID="1049" Text="Быстрый поиск заказов" />
+            </Titles>
+            <ToolTips>
+              <ToolTip LCID="1049" Text="Быстрый поиск заказов" />
+            </ToolTips>
+          </Button>
+        </ToolBar>
+      </Root>
+      <Entities>
+        <Entity name="activitypointer">
+          <Grid>
+            <MenuBar>
+              <Buttons>
+                <Button Icon="/_imgs/ico_16_assign.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Assign/Activity', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Назначение" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Сменить Куратора" />
+                  </ToolTips>
+                </Button>
+                <Button Icon="/_imgs/Delete.png" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Cancel/Activity', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Отменить" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Отменить действие" />
+                  </ToolTips>
+                </Button>
+              </Buttons>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <Entity name="account">
+          <Grid>
+            <MenuBar>
+              <ActionsMenu>
+                <MenuItem JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/ChangeTerritory/Client', crmIds, 'dialogWidth:450px; dialogHeight:230px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });">
+                  <Titles>
+                    <Title LCID="1049" Text="Сменить Территорию" />
+                  </Titles>
+                </MenuItem>
+              </ActionsMenu>
+              <Buttons>
+                <Button Icon="/_imgs/ico_16_assign.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Assign/Client', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Назначение" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Сменить Куратора" />
+                  </ToolTips>
+                </Button>
+                <Button Icon="/_imgs/ico_16_importCustomizations.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Qualify/Client', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Взять из резерва" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Забрать клиента из резерва" />
+                  </ToolTips>
+                </Button>
+                <Button Icon="/_imgs/ico_16_exportCustomizations.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Disqualify/Client', crmIds, 'dialogHeight:230px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Вернуть в резерв" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Вернуть клиента в резерв" />
+                  </ToolTips>
+                </Button>
+              </Buttons>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <Entity name="contact">
+          <Grid>
+            <MenuBar>
+              <Buttons>
+                <Button Icon="/_imgs/ico_16_assign.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Assign/Contact', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Назначение" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Сменить Куратора" />
+                  </ToolTips>
+                </Button>
+              </Buttons>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <Entity name="opportunity">
+          <Grid>
+            <MenuBar>
+              <Buttons>
+                <Button Icon="/_imgs/ico_16_assign.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Assign/Deal', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Назначение" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Сменить Куратора" />
+                  </ToolTips>
+                </Button>
+              </Buttons>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <Entity name="lead" />
+        <Entity name="list" />
+        <Entity name="campaign" />
+        <Entity name="campaignactivity" />
+        <Entity name="campaignresponse" />
+        <Entity name="incident" />
+        <!-- Case -->
+        <Entity name="quote" />
+        <Entity name="salesorder" />
+        <!-- Order -->
+        <Entity name="invoice" />
+        <!-- Custom Entities -->
+        <!-- <Entity name="new_myentity"/> -->
+        <Entity name="dg_account">
+          <Grid>
+            <MenuBar>
+              <ActionsMenu>
+                <MenuItem Icon="/_imgs/ico_16_assign.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Assign/Account', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });">
+                  <Titles>
+                    <Title LCID="1049" Text="Назначение" />
+                  </Titles>
+                </MenuItem>
+              </ActionsMenu>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <Entity name="dg_bargain">
+          <Grid>
+            <MenuBar>
+              <ActionsMenu>
+                <MenuItem JavaScript="window.showModalDialog('https://web-app.prod.erm.2gis.ru/Bargain/CloseBargains', '', 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; '); crmGrid.Refresh();">
+                  <Titles>
+                    <Title LCID="1049" Text="Закрыть действие договоров" />
+                  </Titles>
+                </MenuItem>
+              </ActionsMenu>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <Entity name="dg_firm">
+          <Grid>
+            <MenuBar>
+              <ActionsMenu>
+                <MenuItem JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Assign/Firm', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });">
+                  <Titles>
+                    <Title LCID="1049" Text="Сменить Куратора" />
+                  </Titles>
+                </MenuItem>
+                <MenuItem JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/ChangeClient/Firm', crmIds, 'dialogWidth:500px; dialogHeight:210px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });">
+                  <Titles>
+                    <Title LCID="1049" Text="Сменить Клиента" />
+                  </Titles>
+                </MenuItem>
+                <MenuItem JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/ChangeTerritory/Firm', crmIds, 'dialogWidth:450px; dialogHeight:230px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });">
+                  <Titles>
+                    <Title LCID="1049" Text="Сменить Территорию" />
+                  </Titles>
+                </MenuItem>
+              </ActionsMenu>
+              <Buttons>
+                <Button Icon="/_imgs/ico_16_importCustomizations.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Qualify/Firm', crmIds, 'dialogHeight:430px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Взять из резерва" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Забрать фирму из резерва" />
+                  </ToolTips>
+                </Button>
+                <Button Icon="/_imgs/ico_16_assign.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Assign/Firm', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Назначение" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Сменить Куратора" />
+                  </ToolTips>
+                </Button>
+              </Buttons>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <Entity name="dg_limit">
+          <Grid>
+            <MenuBar>
+              <ActionsMenu>
+                <MenuItem JavaScript="var crmIds = getSelected('crmGrid'); window.showModalDialog('https://web-app.prod.erm.2gis.ru/Limit/CrmSetStatus?CrmIds=' + crmIds + '&amp;Status=Opened' , '', 'dialogHeight:250px; dialogWidth:650px; status:yes; scroll:no; resizable:no; '); crmGrid.Refresh();">
+                  <Titles>
+                    <Title LCID="1049" Text="Отозвать" />
+                  </Titles>
+                </MenuItem>
+                <MenuItem JavaScript="var crmIds = getSelected('crmGrid'); window.showModalDialog('https://web-app.prod.erm.2gis.ru/Limit/CrmSetStatus?CrmIds=' + crmIds + '&amp;Status=Approved', '', 'dialogHeight:210px; dialogWidth:650px; status:yes; scroll:no; resizable:no; '); crmGrid.Refresh();">
+                  <Titles>
+                    <Title LCID="1049" Text="Одобрить" />
+                  </Titles>
+                </MenuItem>
+                <MenuItem JavaScript="var crmIds = getSelected('crmGrid'); window.showModalDialog('https://web-app.prod.erm.2gis.ru/Limit/CrmSetStatus?CrmIds=' + crmIds + '&amp;Status=Rejected', '', 'dialogHeight:210px; dialogWidth:650px; status:yes; scroll:no; resizable:no; '); crmGrid.Refresh();">
+                  <Titles>
+                    <Title LCID="1049" Text="Отклонить" />
+                  </Titles>
+                </MenuItem>
+              </ActionsMenu>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <Entity name="dg_order">
+          <Grid>
+            <MenuBar>
+              <ActionsMenu>
+                <MenuItem JavaScript="window.showModalDialog('https://web-app.prod.erm.2gis.ru/Order/CheckOrdersReadinessForReleaseDialog', '', 'dialogHeight:310px; dialogWidth:530px; status:yes; scroll:no; resizable:no; ');">
+                  <Titles>
+                    <Title LCID="1049" Text="Проверить заказы к сборке" />
+                  </Titles>
+                </MenuItem>
+                <MenuItem JavaScript="window.showModalDialog('https://web-app.prod.erm.2gis.ru/Order/GetOrdersWithDummyAdvertisementDialog', '', 'dialogHeight:310px; dialogWidth:530px; status:yes; scroll:no; resizable:no; ');">
+                  <Titles>
+                    <Title LCID="1049" Text="Поиск заказов с заглушками РМ" />
+                  </Titles>
+                </MenuItem>
+              </ActionsMenu>
+              <Buttons>
+                <Button Icon="/_imgs/ico_16_delete.gif" JavaScript="var crmIds = getSelected('crmGrid'); window.showModalDialog('https://web-app.prod.erm.2gis.ru/Order/CrmCloseWithDenial?CrmIds=' + crmIds, '', 'dialogHeight:250px; dialogWidth:650px; status:yes; scroll:no; resizable:no; '); crmGrid.Refresh();" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Закрыть отказом" />
+                  </Titles>
+                </Button>
+                <Button Icon="/_imgs/ico_16_assign.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Assign/Order', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Назначение" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Сменить Куратора" />
+                  </ToolTips>
+                </Button>
+              </Buttons>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <Entity name="dg_legalperson">
+          <Grid>
+            <MenuBar>
+              <Buttons>
+                <Button Icon="/_imgs/ico/16_activate.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Activate/LegalPerson?DoSpecialConfirmation=false', crmIds, 'dialogHeight:250px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Восстановить" />
+                  </ToolTips>
+                </Button>
+                <Button Icon="/_imgs/ico/16_deactivate.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Deactivate/LegalPerson?DoSpecialConfirmation=false', crmIds, 'dialogHeight:250px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Скрыть" />
+                  </ToolTips>
+                </Button>
+                <Button Icon="/_imgs/ico_16_assign.gif" JavaScript="var crmIds = getSelected('crmGrid', 'withEntityCode'); showCrossDomainModalDialog('https://web-app.prod.erm.2gis.ru/GroupOperation/Assign/LegalPerson', crmIds, 'dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ', function(result){ crmGrid.Refresh(); });" Client="Web">
+                  <Titles>
+                    <Title LCID="1049" Text="Назначение" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Сменить Куратора" />
+                  </ToolTips>
+                </Button>
+                <Button Icon="/_imgs/ico_16_merge.gif" JavaScript="var crmIds = getSelected('crmGrid'); window.showModalDialog('https://web-app.prod.erm.2gis.ru/Russia/LegalPerson/CrmMerge?CrmIds=' + crmIds, '', 'dialogHeight:400px; dialogWidth:650px; status:yes; scroll:no; resizable:yes; '); crmGrid.Refresh();">
+                  <Titles>
+                    <Title LCID="1049" Text="Слияние" />
+                  </Titles>
+                  <ToolTips>
+                    <ToolTip LCID="1049" Text="Слияние юр. лиц" />
+                  </ToolTips>
+                </Button>
+              </Buttons>
+            </MenuBar>
+          </Grid>
+        </Entity>
+        <!-- End Custom Entities -->
+      </Entities>
+      <!-- Microsoft Customer Relationship Management Service Management Customization -->
+      <ServiceManagement>
+        <AppointmentBook>
+          <SmoothScrollLimit>2000</SmoothScrollLimit>
+          <TimeBlocks>
+            <!-- All CSS Class mapping for Service activities -->
+            <TimeBlock EntityType="4214" StatusCode="1" CssClass="ganttBlockServiceActivityStatus1" />
+            <TimeBlock EntityType="4214" StatusCode="2" CssClass="ganttBlockServiceActivityStatus2" />
+            <TimeBlock EntityType="4214" StatusCode="3" CssClass="ganttBlockServiceActivityStatus3" />
+            <TimeBlock EntityType="4214" StatusCode="4" CssClass="ganttBlockServiceActivityStatus4" />
+            <TimeBlock EntityType="4214" StatusCode="6" CssClass="ganttBlockServiceActivityStatus6" />
+            <TimeBlock EntityType="4214" StatusCode="7" CssClass="ganttBlockServiceActivityStatus7" />
+            <TimeBlock EntityType="4214" StatusCode="8" CssClass="ganttBlockServiceActivityStatus8" />
+            <TimeBlock EntityType="4214" StatusCode="9" CssClass="ganttBlockServiceActivityStatus9" />
+            <TimeBlock EntityType="4214" StatusCode="10" CssClass="ganttBlockServiceActivityStatus10" />
+            <!-- All CSS Class mapping for Appointments -->
+            <TimeBlock EntityType="4201" StatusCode="1" CssClass="ganttBlockAppointmentStatus1" />
+            <TimeBlock EntityType="4201" StatusCode="2" CssClass="ganttBlockAppointmentStatus2" />
+            <TimeBlock EntityType="4201" StatusCode="3" CssClass="ganttBlockAppointmentStatus3" />
+            <TimeBlock EntityType="4201" StatusCode="4" CssClass="ganttBlockAppointmentStatus4" />
+            <TimeBlock EntityType="4201" StatusCode="5" CssClass="ganttBlockAppointmentStatus5" />
+            <TimeBlock EntityType="4201" StatusCode="6" CssClass="ganttBlockAppointmentStatus6" />
+          </TimeBlocks>
+        </AppointmentBook>
+      </ServiceManagement>
+    </configuration>
+  </IsvConfig>
+  <EntityMaps />
+  <EntityRelationships />
+  <Languages>
+    <Language>1049</Language>
+  </Languages>
+</ImportExportXml>

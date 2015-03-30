@@ -88,6 +88,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Способ учета оказания услуг.
+        /// </summary>
+        public static string AccountingMethod {
+            get {
+                return ResourceManager.GetString("AccountingMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер счета.
         /// </summary>
         public static string AccountNumber {
