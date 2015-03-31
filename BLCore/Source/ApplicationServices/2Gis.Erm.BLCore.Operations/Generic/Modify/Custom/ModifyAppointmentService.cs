@@ -28,9 +28,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         private readonly IClientReadModel _clientReadModel;
 
         private readonly IFirmReadModel _firmReadModel;
-        private readonly IClientReadModel _clientReadModel;
-
-        private readonly IFirmReadModel _firmReadModel;
 
         private readonly ICreateAppointmentAggregateService _createOperationService;
 
