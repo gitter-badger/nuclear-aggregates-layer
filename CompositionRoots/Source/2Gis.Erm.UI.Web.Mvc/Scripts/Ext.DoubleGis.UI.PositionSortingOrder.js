@@ -122,6 +122,10 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
     },
     Save: function () {
         window.Card.Items.Toolbar.disable();
+        if (!this.mask) {
+            this.mask = new Ext.LoadMask(this.el);
+        }
+        this.mask.show();
         var pending = this.store.save();
 
         if (pending == -1) {
@@ -133,6 +137,7 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
         this.markDirty(false);
         window.Card.Items.Toolbar.enable();
         window.Card.recalcToolbarButtonsAvailability();
+        this.mask.hide();
     },
     saveFailure: function(proxy, type, action, options, response, arg) {
         Ext.MessageBox.show({
@@ -144,6 +149,7 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             });
         window.Card.Items.Toolbar.enable();
         window.Card.recalcToolbarButtonsAvailability();
+        this.mask.hide();
     },
     RegisterDragAndDrop: function () {
         var self = this;
