@@ -100,7 +100,7 @@
 	</Entity>
 	<Entity Name="Activity">
 		<DataLists>
-			<DataList NameLocaleResourceId="DListAllActivities" HideInCardRelatedGrid="*" DefaultSortField="ScheduledStart" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
+			<DataList NameLocaleResourceId="DListAllActivities" HideInCardRelatedGrid="" DefaultSortField="ScheduledStart" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
 				<Scripts>
 					<Script FileName="DataList/Activity.DataList.js" />
 				</Scripts>
