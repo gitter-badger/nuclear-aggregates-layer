@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData

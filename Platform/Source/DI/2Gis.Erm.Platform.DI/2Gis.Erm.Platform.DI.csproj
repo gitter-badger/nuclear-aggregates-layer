@@ -41,6 +41,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
     </Reference>
+    <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.0.1\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
@@ -102,11 +106,6 @@
     <Compile Include="Zones\ZoneUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="2GIS.NuClear.Security.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.0.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

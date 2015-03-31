@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.0.1\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\FluentAssertions.3.0.107\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
@@ -75,11 +79,6 @@
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
-    <Reference Include="2GIS.NuClear.Security.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.0.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>

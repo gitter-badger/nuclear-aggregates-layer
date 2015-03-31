@@ -2,9 +2,9 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
-using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Jobs;
 
+using NuClear.Jobs;
+using NuClear.Security.API;
 using NuClear.Tracing.API;
 
 using Quartz;

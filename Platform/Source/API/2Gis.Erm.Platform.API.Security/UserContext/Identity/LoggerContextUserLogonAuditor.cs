@@ -1,4 +1,5 @@
-﻿using NuClear.Tracing.API;
+﻿using NuClear.Security.API.UserContext.Identity;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.API.Security.UserContext.Identity
 {

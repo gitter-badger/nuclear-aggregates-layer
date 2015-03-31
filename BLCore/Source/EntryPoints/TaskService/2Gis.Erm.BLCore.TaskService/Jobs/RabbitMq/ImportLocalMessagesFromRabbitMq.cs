@@ -1,9 +1,8 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.RabbitMq;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using NuClear.Jobs;
-
+using NuClear.Security.API;
 using NuClear.Tracing.API;
 
 using Quartz;

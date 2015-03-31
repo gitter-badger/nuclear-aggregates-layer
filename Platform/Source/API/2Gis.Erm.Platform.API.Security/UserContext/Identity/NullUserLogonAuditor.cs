@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.API.Security.UserContext.Identity
+﻿using NuClear.Security.API.UserContext.Identity;
+
+namespace DoubleGis.Erm.Platform.API.Security.UserContext.Identity
 {
     public sealed class NullUserLogonAuditor : IUserLogonAuditor
     {

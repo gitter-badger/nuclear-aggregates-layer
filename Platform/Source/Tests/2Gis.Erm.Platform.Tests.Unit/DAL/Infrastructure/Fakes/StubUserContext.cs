@@ -1,6 +1,6 @@
-﻿using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
+﻿using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
+using NuClear.Security.API.UserContext.Profile;
 
 using Moq;
 

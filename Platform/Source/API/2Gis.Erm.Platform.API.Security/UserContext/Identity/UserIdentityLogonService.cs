@@ -1,5 +1,8 @@
 ﻿using System;
 
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
+
 namespace DoubleGis.Erm.Platform.API.Security.UserContext.Identity
 {
     public sealed class UserIdentityLogonService : IUserIdentityLogonService

@@ -2,11 +2,12 @@
 using System.Linq;
 using System.ServiceModel.Security;
 
-using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security

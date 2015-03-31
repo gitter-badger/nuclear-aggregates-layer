@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Jobs;
 
+using NuClear.Jobs;
+using NuClear.Security.API;
 using NuClear.Tracing.API;
 
 using Quartz;

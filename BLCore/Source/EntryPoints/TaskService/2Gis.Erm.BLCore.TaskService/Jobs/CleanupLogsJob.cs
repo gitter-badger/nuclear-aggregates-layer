@@ -1,10 +1,10 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.API.Core.PersistenceCleanup;
-using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices;
 
 using NuClear.Jobs;
+using NuClear.Security.API;
 using NuClear.Tracing.API;
 
 using Quartz;

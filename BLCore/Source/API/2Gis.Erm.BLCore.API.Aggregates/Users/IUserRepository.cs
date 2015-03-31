@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
+using NuClear.Security.API.UserContext.Profile;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;

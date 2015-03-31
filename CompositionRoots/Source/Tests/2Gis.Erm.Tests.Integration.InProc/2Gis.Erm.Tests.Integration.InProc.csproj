@@ -44,6 +44,12 @@
     <Reference Include="2GIS.NuClear.Assembling">
       <HintPath>..\..\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
     </Reference>
+    <Reference Include="2GIS.NuClear.Security">
+      <HintPath>..\..\packages\2GIS.NuClear.Security.1.0.1\lib\net451\2GIS.NuClear.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Security.API">
+      <HintPath>..\..\packages\2GIS.NuClear.Security.API.1.0.1\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
@@ -488,16 +494,6 @@
       <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
       <Name>2Gis.Erm.BL.Reports</Name>
     </ProjectReference>
-    <Reference Include="2GIS.NuClear.Security.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\2GIS.NuClear.Security.API.1.0.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2GIS.NuClear.Security">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\2GIS.NuClear.Security.1.0.0\lib\net451\2GIS.NuClear.Security.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

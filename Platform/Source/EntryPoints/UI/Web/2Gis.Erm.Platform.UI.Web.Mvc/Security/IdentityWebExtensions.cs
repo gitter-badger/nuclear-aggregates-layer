@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
+using NuClear.Security.API.UserContext.Identity;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Security
 {

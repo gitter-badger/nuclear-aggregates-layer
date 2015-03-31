@@ -5,7 +5,7 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;

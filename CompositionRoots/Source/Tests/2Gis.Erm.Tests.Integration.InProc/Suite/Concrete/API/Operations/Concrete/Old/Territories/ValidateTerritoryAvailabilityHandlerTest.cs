@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;

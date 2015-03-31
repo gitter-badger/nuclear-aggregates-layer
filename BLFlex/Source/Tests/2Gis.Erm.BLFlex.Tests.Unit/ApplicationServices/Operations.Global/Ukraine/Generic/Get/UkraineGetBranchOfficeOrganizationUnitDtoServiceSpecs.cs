@@ -3,11 +3,9 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -18,6 +16,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Security.API.UserContext;
 
 using It = Machine.Specifications.It;
 

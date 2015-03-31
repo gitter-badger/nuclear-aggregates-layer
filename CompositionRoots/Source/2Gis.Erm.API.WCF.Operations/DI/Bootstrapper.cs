@@ -88,6 +88,10 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
 using NuClear.Assembling.TypeProcessing;
+using NuClear.Security;
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 

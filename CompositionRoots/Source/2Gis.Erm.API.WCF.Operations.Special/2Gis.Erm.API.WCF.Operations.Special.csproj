@@ -4,7 +4,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion></ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FE6BD7B0-6129-4315-975F-876D79595776}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -50,6 +51,14 @@
     <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\2GIS.NuClear.Security.1.0.1\lib\net451\2GIS.NuClear.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\2GIS.NuClear.Security.API.1.0.1\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -184,16 +193,6 @@
       <Project>{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}</Project>
       <Name>2Gis.Erm.BL.DI</Name>
     </ProjectReference>
-    <Reference Include="2GIS.NuClear.Security.API">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\2GIS.NuClear.Security.API.1.0.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2GIS.NuClear.Security">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\2GIS.NuClear.Security.1.0.0\lib\net451\2GIS.NuClear.Security.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
       <Name>2Gis.Erm.Platform.API.Aggregates</Name>
@@ -328,7 +327,8 @@
           <IISUrl>https://localhost:44306/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

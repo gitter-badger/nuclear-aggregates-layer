@@ -1,9 +1,9 @@
 ﻿using System;
 
 using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified;
-using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Jobs;
 
+using NuClear.Jobs;
+using NuClear.Security.API;
 using NuClear.Tracing.API;
 
 using Quartz;

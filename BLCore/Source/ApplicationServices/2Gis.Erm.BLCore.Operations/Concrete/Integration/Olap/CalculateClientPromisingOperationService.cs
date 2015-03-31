@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Olap;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Client;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Olap

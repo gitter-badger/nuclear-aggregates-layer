@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.API.Security.UserContext.Profile
+﻿using NuClear.Security.API.UserContext.Profile;
+
+namespace DoubleGis.Erm.Platform.API.Security.UserContext.Profile
 {
     public sealed class NullUserProfile : IUserProfile
     {

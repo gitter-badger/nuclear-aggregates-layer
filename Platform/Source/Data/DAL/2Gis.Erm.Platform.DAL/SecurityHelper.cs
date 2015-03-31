@@ -3,10 +3,11 @@ using System.ServiceModel.Security;
 
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Resources.Server;
+
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
