@@ -124,7 +124,6 @@
     </Compile>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Attributes\RutValidationAttribute.cs" />
-    <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="DI\BlUiWebMvcAssembly.cs" />
     <Compile Include="Controllers\AdditionalFirmServiceController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />

@@ -159,6 +159,7 @@
     <Compile Include="Areas\MultiCulture\Controllers\ChangeBindingObjectsController.cs" />
     <Compile Include="Areas\MultiCulture\Controllers\ClientsMergingController.cs" />
     <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
+    <Compile Include="Areas\MultiCulture\Controllers\PrintController.cs" />
     <Compile Include="Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

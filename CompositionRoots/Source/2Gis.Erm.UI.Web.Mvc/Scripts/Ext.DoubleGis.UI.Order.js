@@ -217,7 +217,7 @@ window.InitPage = function () {
                     this.PrintWithoutProfileChoosing(methodName, entityId, null, businessModelSpecificArea);
                 },
                 PrepareJointBill: function () {
-                    var url = "/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value;
+                    var url = "/MultiCulture/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value;
                         var params = "dialogWidth:780px; dialogHeight:350px; status:yes; scroll:no;resizable:no;";
                         window.showModalDialog(url, null, params);
                         this.refresh();

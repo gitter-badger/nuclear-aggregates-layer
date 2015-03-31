@@ -1,9 +1,11 @@
 ﻿var PrintLogic = {
     PrintWithoutProfileChoosing: function (methodName, entityId, profileId, businessModelSpecificArea) {
-        var urlBase = '/Print/' + methodName + '/' + entityId;
-        if (businessModelSpecificArea) {
-            urlBase = '/' + businessModelSpecificArea + urlBase;
+        if (!businessModelSpecificArea) {
+            businessModelSpecificArea = 'MultiCulture';
         }
+
+        var urlBase = '/' + businessModelSpecificArea + '/Print/' + methodName + '/' + entityId;
+
         var urlArguments = {
             _dc: Ext.util.Format.cacheBuster()
         };
