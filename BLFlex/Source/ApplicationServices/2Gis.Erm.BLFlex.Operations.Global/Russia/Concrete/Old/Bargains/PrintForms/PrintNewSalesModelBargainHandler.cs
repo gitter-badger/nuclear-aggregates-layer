@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
             var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetLegalPersonProfileIdByOrder(request.OrderId.Value);
             if (legalPersonProfileId == null)
             {
-                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var printData = GetPrintData(relations, bargainId.Value, legalPersonProfileId.Value);

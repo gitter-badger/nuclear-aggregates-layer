@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
 
             if (billInfo.LegalPersonProfileId == null)
             {
-                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             if (billInfo.BranchOfficeOrganizationUnitId == null)

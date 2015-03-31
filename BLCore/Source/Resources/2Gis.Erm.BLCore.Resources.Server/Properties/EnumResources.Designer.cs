@@ -5470,11 +5470,11 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Доп. соглашение (смена фирмы).
+        ///   Looks up a localized string similar to Доп. соглашение (смена названия фирмы).
         /// </summary>
-        public static string TemplateCodeFirmChangeAgreement {
+        public static string TemplateCodeFirmNameChangeAgreement {
             get {
-                return ResourceManager.GetString("TemplateCodeFirmChangeAgreement", resourceCulture);
+                return ResourceManager.GetString("TemplateCodeFirmNameChangeAgreement", resourceCulture);
             }
         }
         

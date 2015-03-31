@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
 
             if (legalPersonProfileId == null)
             {
-                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var bargainData =

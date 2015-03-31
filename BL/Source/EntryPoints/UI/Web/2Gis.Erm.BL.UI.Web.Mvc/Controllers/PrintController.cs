@@ -221,20 +221,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return TryPrintDocument(request);
         }
         
-        [HttpGet]
-        public ActionResult PrintFirmChangeAgreement(long id)
-        {
-            var request = new PrintFirmChangeAgreementRequest { OrderId = id };
-            return TryPrintDocument(request);
-        }
-
-        [HttpGet]
-        public ActionResult PrintBindingChangeAgreement(long id)
-        {
-            var request = new PrintBindingChangeAgreementRequest { OrderId = id };
-            return TryPrintDocument(request);
-        }
-
         private ActionResult TryPrintDocument(Request printRequest)
         {
             try

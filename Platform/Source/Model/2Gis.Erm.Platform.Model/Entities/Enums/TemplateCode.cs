@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         AdditionalAgreementNaturalPerson = 22,
         BargainAdditionalAgreementLegalPerson = 23,
         BargainAdditionalAgreementBusinessman = 24,
-        FirmChangeAgreement = 25,
+        FirmNameChangeAgreement = 25,
         BindingChangeAgreement = 26,
 
         // счёт на оплату

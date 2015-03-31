@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Russia
                            TemplateCode.ClientBargain,
                            TemplateCode.AgentBargain,
                            TemplateCode.AdditionalAgreementLegalPerson,
-                           TemplateCode.FirmChangeAgreement,
+                           TemplateCode.FirmNameChangeAgreement,
                            TemplateCode.BindingChangeAgreement,
                            TemplateCode.BillLegalPerson,
                            TemplateCode.JointBill,

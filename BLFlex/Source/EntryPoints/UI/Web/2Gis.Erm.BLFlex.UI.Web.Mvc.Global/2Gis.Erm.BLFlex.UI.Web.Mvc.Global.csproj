@@ -175,6 +175,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Areas\Russia\Controllers\PrintController.cs" />
     <Compile Include="Models\Czech\CzechBillViewModel.cs" />
     <Compile Include="Models\Kazakhstan\KazakhstanChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\MultiCultureDealViewModel.cs" />

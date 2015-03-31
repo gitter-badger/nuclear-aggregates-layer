@@ -666,9 +666,9 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ControlPrintFirmChangeAgreement {
+        public static string ControlPrintFirmNameChangeAgreement {
             get {
-                return ResourceManager.GetString("ControlPrintFirmChangeAgreement", resourceCulture);
+                return ResourceManager.GetString("ControlPrintFirmNameChangeAgreement", resourceCulture);
             }
         }
         
