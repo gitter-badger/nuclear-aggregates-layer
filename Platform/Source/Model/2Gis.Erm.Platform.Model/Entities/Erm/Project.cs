@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -11,6 +12,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         IDeactivatableEntity,
         IStateTrackingEntity
     {
+        public Project()
+        {
+            SalesModelRestrictions = new HashSet<SalesModelCategoryRestriction>();
+        }
+
         public long Id { get; set; }
         public long? OrganizationUnitId { get; set; }
         public string NameLat { get; set; }
@@ -24,6 +30,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string DefaultLang { get; set; }
 
         public OrganizationUnit OrganizationUnit { get; set; }
+        public ICollection<SalesModelCategoryRestriction> SalesModelRestrictions { get; set; }
 
         public override bool Equals(object obj)
         {

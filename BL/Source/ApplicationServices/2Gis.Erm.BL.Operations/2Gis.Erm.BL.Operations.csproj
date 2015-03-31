@@ -37,6 +37,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
@@ -92,6 +100,7 @@
     <Compile Include="Generic\Delete\DeleteLimitService.cs" />
     <Compile Include="Generic\Get\GetDenialReasonDtoOperationService.cs" />
     <Compile Include="Generic\Get\GetLimitDtoService.cs" />
+    <Compile Include="Generic\Modify\ModifyLegalPersonProfileService.cs" />
     <Compile Include="Generic\Modify\ModifyLimitService.cs" />
     <Compile Include="Generic\Modify\SimplifiedModel\ModifyDenialReasonOperationService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -221,4 +230,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
 </Project>

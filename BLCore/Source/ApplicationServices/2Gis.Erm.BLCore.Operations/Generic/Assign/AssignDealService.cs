@@ -3,9 +3,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
@@ -14,18 +15,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IDealRepository _dealRepository;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public AssignDealService(
             IDealRepository dealRepository, 
             IPublicService publicService, 
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _dealRepository = dealRepository;
             _publicService = publicService;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     .Complete();
             }
             
-            _logger.InfoFormatEx("Куратором сделки с id={0} назначен пользователь {1}", entityId, ownerCode);
+            _tracer.InfoFormat("Куратором сделки с id={0} назначен пользователь {1}", entityId, ownerCode);
 
             return null;
         }

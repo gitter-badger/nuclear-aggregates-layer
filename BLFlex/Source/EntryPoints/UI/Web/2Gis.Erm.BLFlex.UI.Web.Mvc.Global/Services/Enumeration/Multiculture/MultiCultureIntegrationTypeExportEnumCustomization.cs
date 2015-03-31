@@ -13,9 +13,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.MultiCultu
     {
         private readonly IntegrationTypeExport[] _integrationTypes1C =
             {
-                IntegrationTypeExport.LegalPersonsTo1C,
-                IntegrationTypeExport.AccountDetailsTo1C,
-                IntegrationTypeExport.AccountDetailsToServiceBus,
+                IntegrationTypeExport.LegalPersonsTo1C
             };
 
         protected override IEnumerable<IntegrationTypeExport> GetRequiredEnumValues()

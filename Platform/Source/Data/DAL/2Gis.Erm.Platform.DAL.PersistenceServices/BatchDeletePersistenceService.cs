@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 using System.Transactions;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
 {
     public sealed class BatchDeletePersistenceService : IBatchDeletePersistenceService
     {
         private readonly IDatabaseCaller _databaseCaller;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         private readonly IReadOnlyDictionary<Type, string> _entitiesTableMap =
             new Dictionary<Type, string>
@@ -22,12 +23,13 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                     { typeof(PerformedOperationFinalProcessing), "Shared.PerformedOperationFinalProcessings" },
                     { typeof(PerformedOperationPrimaryProcessing), "Shared.PerformedOperationPrimaryProcessings" },
                     { typeof(OrderValidationCacheEntry), "Shared.OrderValidationCacheEntries" },
+                    { typeof(SalesModelCategoryRestriction), "BusinessDirectory.SalesModelCategoryRestrictions" },
                 };
 
-        public BatchDeletePersistenceService(IDatabaseCaller databaseCaller, ICommonLog logger)
+        public BatchDeletePersistenceService(IDatabaseCaller databaseCaller, ITracer tracer)
         {
             _databaseCaller = databaseCaller;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Delete<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IEntity, IEntityKey
@@ -103,7 +105,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             }
 
             var msg = string.Format("Specified entity type {0} doesn't supported batch delete behavior", entityType);
-            _logger.ErrorEx(msg);
+            _tracer.Error(msg);
             throw new InvalidOperationException(msg);
         }
 
@@ -111,7 +113,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
         {
             if (entitiesCount == 0)
             {
-                _logger.WarnFormatEx("Batch delete of entity {0} was skipped, because target entities list was empty", entityType);
+                _tracer.WarnFormat("Batch delete of entity {0} was skipped, because target entities list was empty", entityType);
                 return;
             }
 
@@ -123,7 +125,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorFormatEx(ex, "Can't execute batch delete of entities with type {0}, specified entities count {1}", entityType, entitiesCount);
+                    _tracer.ErrorFormat(ex, "Can't execute batch delete of entities with type {0}, specified entities count {1}", entityType, entitiesCount);
                     throw;
                 }
 

@@ -21,9 +21,10 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 {
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             }
         };
 
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IReleaseReadModel _releaseRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -57,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                     IOperationScope operationScope,
                                     IUserRepository userRepository,
                                     IOrderReadModel orderReadModel,
-                                    ICommonLog logger,
+                                    ITracer tracer,
                                     IReleaseReadModel releaseRepository,
                                     IAccountRepository accountRepository,
                                     ISecurityServiceFunctionalAccess functionalAccessService,
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                     ILegalPersonReadModel legalPersonReadModel)
             : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
-            _logger = logger;
+            _tracer = tracer;
             _releaseRepository = releaseRepository;
             _accountRepository = accountRepository;
             _functionalAccessService = functionalAccessService;
@@ -109,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                     return;
                 }
 
-                _logger.WarnFormatEx(
+                _tracer.WarnFormat(
                     "Попытка изменить флаг 'Работа с задолженностью по документам' в заказе [{0}] со значения [{1}] на [{2}]",
                     order.Id, 
                     orderStateValidationInfo.HasDocumentsDebt, 
@@ -177,7 +178,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         {
             #region Logging
 
-            _logger.InfoFormatEx("Обновление скидки заказа [{0}]", order.Id);
+            _tracer.InfoFormat("Обновление скидки заказа [{0}]", order.Id);
 
             #endregion
 
@@ -185,13 +186,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
             #region Logging
 
-            _logger.DebugEx("Обновление скидки заказа - завершено");
+            _tracer.Debug("Обновление скидки заказа - завершено");
 
             #endregion
 
             #region Logging
 
-            _logger.InfoFormatEx("Обновление остатков по заказу [{0}]", order.Id);
+            _tracer.InfoFormat("Обновление остатков по заказу [{0}]", order.Id);
 
             #endregion
 
@@ -199,7 +200,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
             #region Logging
 
-            _logger.DebugEx("Обновление остатков по заказу - завершено");
+            _tracer.Debug("Обновление остатков по заказу - завершено");
 
             #endregion
         }

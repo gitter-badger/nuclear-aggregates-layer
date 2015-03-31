@@ -3,11 +3,12 @@ using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.CreateOrUpdate;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Modify
 {
@@ -18,8 +19,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Modify
             IDesktopClientProxyFactory clientProxyFactory,
             IStandartConfigurationSettings configuration,
             IApiSettings apiSettings,
-            ICommonLog logger)
-            : base(clientProxyFactory, configuration, apiSettings, logger)
+            ITracer tracer)
+            : base(clientProxyFactory, configuration, apiSettings, tracer)
         {
         }
 
@@ -33,12 +34,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.Modify
             }
             catch (FaultException<CreateOrUpdateOperationErrorDescription> ex)
             {
-                Logger.ErrorEx(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
+                Tracer.Error(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
                 throw;
             }
             catch (Exception ex)
             {
-                Logger.ErrorEx(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
+                Tracer.Error(ex, "Can't modify entity " + EntityType.Name + ". Entity id: " + domainEntityDto.Id);
                 throw;
             }
         }

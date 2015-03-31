@@ -1,16 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows;
 
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Platform.UI.WPF.Shell;
 using DoubleGis.Platform.UI.WPF.Shell.DI;
 
-using log4net.Config;
+using NuClear.Tracing.Environment;
+using NuClear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.UI.Desktop.WPF
 {
@@ -19,20 +16,23 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
         [STAThread]
         public static void Main(string[] args)
         {
-            var logger = CreateLogger(); 
+            var tracer = Log4NetTracerBuilder.Use
+                                             .XmlConfig(Path.Combine(Bootstrapper.GetApplicationWorkingDirectory, Log4NetTracerBuilder.DefaultTracerConfigFileName))
+                                             .File("Erm.WPF.Client")
+                                             .Build; 
 
-            logger.InfoEx("Application starting ...");
+            tracer.Info("Application starting ...");
 
-            logger.InfoEx(
+            tracer.Info(
                 new StringBuilder().AppendLine("Environment info:" + EnvironmentInfo.Description)
                                    .AppendLine("User info:" + SecurityInfo.UserSecuritySettingsDescription)
                                    .AppendLine("Network info:" + NetworkInfo.DomainMembership)
                                    .ToString());
 
-            var app = new App(logger);
+            var app = new App(tracer);
 
-            logger.InfoEx("Application started successfully");
-            logger.InfoEx("Application run ...");
+            tracer.Info("Application started successfully");
+            tracer.Info("Application run ...");
 
             try
             {
@@ -44,14 +44,7 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
                 return;
             }
 
-            logger.InfoEx("Application finished");
-        }
-
-        private static ICommonLog CreateLogger()
-        {
-            var logConfigFileFullPath = Path.Combine(Bootstrapper.GetApplicationWorkingDirectory, LogUtils.DefaultLogConfigFileName);
-            XmlConfigurator.Configure(new FileInfo(logConfigFileFullPath));
-            return Log4NetImpl.GetLogger(LoggerConstants.Erm);
+            tracer.Info("Application finished");
         }
     }
 }

@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Kazakhstan;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Russia;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -70,6 +71,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.CategoryOrganizationUnit, typeof(CategoryOrganizationUnit) },
                 { EntityName.CategoryGroup, typeof(CategoryGroup) },
                 { EntityName.CategoryFirmAddress, typeof(CategoryFirmAddress) },
+                { EntityName.SalesModelCategoryRestriction, typeof(SalesModelCategoryRestriction) },
                 { EntityName.Country, typeof(Country) },
                 { EntityName.Advertisement, typeof(Advertisement) },
                 { EntityName.AdvertisementTemplate, typeof(AdvertisementTemplate) },
@@ -97,6 +99,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.MessageType, typeof(MessageType) },
                 { EntityName.LegalPersonProfile, typeof(LegalPersonProfile) },
                 { EntityName.ChileLegalPersonProfilePart, typeof(ChileLegalPersonProfilePart) },
+                { EntityName.RussiaLegalPersonProfilePart, typeof(RussiaLegalPersonProfilePart) },
                 { EntityName.UkraineLegalPersonProfilePart, typeof(UkraineLegalPersonProfilePart) },
                 { EntityName.EmiratesLegalPersonProfilePart, typeof(EmiratesLegalPersonProfilePart) },
                 { EntityName.AdditionalFirmService, typeof(AdditionalFirmService) },
@@ -123,6 +126,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Appointment, typeof(Appointment) },
                 { EntityName.AppointmentRegardingObject, typeof(AppointmentRegardingObject) },
                 { EntityName.AppointmentAttendee, typeof(AppointmentAttendee) },
+                { EntityName.AppointmentOrganizer,typeof(AppointmentOrganizer)},
                 { EntityName.Phonecall, typeof(Phonecall) },
                 { EntityName.PhonecallRegardingObject, typeof(PhonecallRegardingObject) },
                 { EntityName.PhonecallRecipient, typeof(PhonecallRecipient) },
@@ -164,6 +168,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.ExportFlowOrdersTheme, typeof(ExportFlowOrdersTheme) },
                 { EntityName.ExportFlowOrdersThemeBranch, typeof(ExportFlowOrdersThemeBranch) },
                 { EntityName.ExportFlowFinancialDataClient, typeof(ExportFlowFinancialDataClient) },
+                { EntityName.ExportFlowFinancialDataDebitsInfoInitial, typeof(ExportFlowFinancialDataDebitsInfoInitial) },
                 { EntityName.ExportFlowPriceListsPriceList, typeof(ExportFlowPriceListsPriceList) },
                 { EntityName.ExportFlowPriceListsPriceListPosition, typeof(ExportFlowPriceListsPriceListPosition) },
                 { EntityName.ExportFlowOrdersInvoice, typeof(ExportFlowOrdersInvoice) },

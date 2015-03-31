@@ -7,9 +7,10 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.GeoMaster;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.PostIntegrationActivities
 {
@@ -17,15 +18,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.PostIntegrati
     {
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IFirmRepository _firmRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public SyncFirmAddressesHandler(IFirmRepository firmRepository,
                                         IClientProxyFactory clientProxyFactory,
-                                        ICommonLog logger)
+                                        ITracer tracer)
         {
             _firmRepository = firmRepository;
             _clientProxyFactory = clientProxyFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override EmptyResponse Handle(SyncFirmAddressesRequest request)
@@ -58,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.PostIntegrati
 
             foreach (var addresNotFound in addresses.Where(x => string.IsNullOrEmpty(x.Value)))
             {
-                _logger.ErrorFormatEx(string.Format("Адрес фирмы с AddressCode=[{0}] не найден в системе GeoMaster", addresNotFound.Key));
+                _tracer.ErrorFormat(string.Format("Адрес фирмы с AddressCode=[{0}] не найден в системе GeoMaster", addresNotFound.Key));
             }
 
             ProcessGeoMasterResponse(request.FirmAddresses, addresses);

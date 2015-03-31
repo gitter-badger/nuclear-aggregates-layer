@@ -4,11 +4,12 @@ using System.IO;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Serialization.ProtoBuf;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 using Microsoft.ServiceBus.Messaging;
+
+using NuClear.Tracing.API;
 
 using ProtoBuf.Meta;
 
@@ -16,12 +17,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
 {
     public sealed class BinaryEntireTrackedUseCase2BrokeredMessageConverter : ITrackedUseCase2BrokeredMessageConverter
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly RuntimeTypeModel _protobufModel;
 
-        public BinaryEntireTrackedUseCase2BrokeredMessageConverter(ICommonLog logger)
+        public BinaryEntireTrackedUseCase2BrokeredMessageConverter(ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
             _protobufModel = ProtoBufTypeModelForTrackedUseCaseConfigurator.Configure();
         }
 
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _tracer.ErrorFormat(ex,
                                       "Can't serialize tracked use case to brokered message. Use case description: {0}",
                                       useCase);
                 stream.Dispose();

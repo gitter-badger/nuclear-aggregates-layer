@@ -1,8 +1,7 @@
 using System;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -21,32 +20,31 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
     public sealed class CzechEditLegalPersonHandler : RequestHandler<EditRequest<LegalPerson>, EmptyResponse>, ICzechAdapted
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
-        private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IUpdateAggregateRepository<LegalPerson> _updateLegalPersonRepository;
         private readonly ICreateAggregateRepository<LegalPerson> _createLegalPersonRepository;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public CzechEditLegalPersonHandler(
             ISubRequestProcessor subRequestProcessor,
-            ILegalPersonRepository legalPersonRepository,
             IOperationScopeFactory scopeFactory,
             IUpdateAggregateRepository<LegalPerson> updateLegalPersonRepository,
-            ICreateAggregateRepository<LegalPerson> createLegalPersonRepository)
+            ICreateAggregateRepository<LegalPerson> createLegalPersonRepository, 
+            ILegalPersonReadModel legalPersonReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
-            _legalPersonRepository = legalPersonRepository;
             _scopeFactory = scopeFactory;
             _updateLegalPersonRepository = updateLegalPersonRepository;
             _createLegalPersonRepository = createLegalPersonRepository;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         protected override EmptyResponse Handle(EditRequest<LegalPerson> request)
         {
             if (!request.Entity.IsNew())
             {
-                // fixme {all, 04-04-2014}: использовать ReadModel, чтобы проверить наличие профилей. ѕри этом совершенно не об€зательно выгребать все данные из базы.
-                var personWithProfiles = _legalPersonRepository.GetLegalPersonWithProfiles(request.Entity.Id);
-                if (!personWithProfiles.Profiles.Any())
+                var personWithProfiles = _legalPersonReadModel.GetLegalPersonWithProfileExistenceInfo(request.Entity.Id);
+                if (!personWithProfiles.LegalPersonHasProfiles)
                 {
                     throw new NotificationException(BLResources.MustMakeLegalPersonProfile);
                 }

@@ -1,4 +1,5 @@
-﻿using System.Security;
+﻿using System;
+using System.Security;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Complete;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
@@ -6,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -48,6 +50,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             {
                 var task = _taskReadModel.GetTask(entityId);
                 var originalStatus = task.Status;
+
+                if (task.ScheduledOn.Date > DateTime.Now.Date)
+                {
+                    throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
+                }
 
                 if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, task.OwnerCode))
                 {

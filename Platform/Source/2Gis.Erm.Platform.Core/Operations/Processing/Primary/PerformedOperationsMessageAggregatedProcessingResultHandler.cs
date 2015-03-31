@@ -6,22 +6,23 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary
 {
     public sealed class PerformedOperationsMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
         private readonly IOperationsFinalProcessingEnqueueAggregateService _operationsFinalProcessingEnqueueAggregateService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public PerformedOperationsMessageAggregatedProcessingResultHandler(
             IOperationsFinalProcessingEnqueueAggregateService operationsFinalProcessingEnqueueAggregateService,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _operationsFinalProcessingEnqueueAggregateService = operationsFinalProcessingEnqueueAggregateService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
@@ -58,7 +59,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't push aggregated results of primary processing to final processing queue");
+                _tracer.ErrorFormat(ex, "Can't push aggregated results of primary processing to final processing queue");
                 foreach (var aggregatedResultsEntry in originalMessageIds)
                 {
                     handlingResults.Add(aggregatedResultsEntry, MessageProcessingStage.Handle.EmptyResult().WithExceptions(ex).AsFailed());

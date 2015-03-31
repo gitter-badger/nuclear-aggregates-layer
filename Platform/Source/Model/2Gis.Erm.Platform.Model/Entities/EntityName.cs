@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DoubleGis.Erm.Platform.Model.Entities
+﻿namespace DoubleGis.Erm.Platform.Model.Entities
 {
     public enum EntityName
     {
@@ -91,6 +89,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         MessageType = 218,
         LegalPersonProfile = 219,
         ChileLegalPersonProfilePart = 258,
+        RussiaLegalPersonProfilePart = 259,
         UkraineLegalPersonProfilePart = 263,
         EmiratesLegalPersonProfilePart = 606,
         KazakhstanLegalPersonProfilePart = 614,
@@ -104,7 +103,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         ChargesHistory = 227,
 
         ActionsHistory = 230, 
-        ActionsHistoryDetail = 242,
+        ActionsHistoryDetail = 242, 
         
         OrderValidationResult = 232,
         OrderValidationCacheEntry = 271,
@@ -117,6 +116,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         UserEntity = 239,
         DepCard = 240,
         Building = 241,
+        SalesModelCategoryRestriction = 272,
 
         PerformedBusinessOperation = 244,
         PerformedOperationPrimaryProcessing = 269,
@@ -132,6 +132,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         ExportFailedEntity = 254,
         HotClientRequest = 257,
         ExportFlowFinancialDataClient = 255,
+        ExportFlowFinancialDataDebitsInfoInitial = 273,
         ExportFlowPriceListsPriceList = 261,
         ExportFlowPriceListsPriceListPosition = 262,
         ExportFlowOrdersInvoice = 264,
@@ -173,10 +174,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         // Ambivalent
         FileWithContent = 400,
 
-		Activity = 500,
-		Appointment = 501,
+        Activity = 500,
+        Appointment = 501,
         AppointmentRegardingObject = 510,
         AppointmentAttendee = 511,
+        AppointmentOrganizer = 512,
         Phonecall = 502,
         PhonecallRegardingObject = 521,
         PhonecallRecipient = 522,

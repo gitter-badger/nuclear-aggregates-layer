@@ -8,8 +8,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IAccountBulkDeactivateUsedLockAggregateService _accountBulkDeactivateUsedLockAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ActualizeAccountsDuringWithdrawalOperationService(
             IAccountReadModel accountReadModel,
@@ -29,21 +30,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IAccountBulkDeactivateUsedLockAggregateService accountBulkDeactivateUsedLockAggregateService,
             IUseCaseTuner useCaseTuner, 
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _accountReadModel = accountReadModel;
             _accountWithdrawFromAccountsAggregateService = accountWithdrawFromAccountsAggregateService;
             _accountBulkDeactivateUsedLockAggregateService = accountBulkDeactivateUsedLockAggregateService;
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Actualize(TimePeriod withdrawalPeriod, IEnumerable<AccountStateForWithdrawalDto> accountInfos)
         {
             _useCaseTuner.AlterDuration<ActualizeAccountsDuringWithdrawalOperationService>();
 
-            _logger.InfoFormatEx("Starting accounts state actualization process during withdrawal");
+            _tracer.InfoFormat("Starting accounts state actualization process during withdrawal");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeAccountsDuringWithdrawalIdentity>())
             {
@@ -76,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoFormatEx("Finished accounts state actualization process during withdrawal");
+            _tracer.InfoFormat("Finished accounts state actualization process during withdrawal");
         }
     }
 }

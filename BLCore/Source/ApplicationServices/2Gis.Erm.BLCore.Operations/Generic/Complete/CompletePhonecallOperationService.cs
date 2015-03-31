@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 
@@ -9,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -57,6 +59,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
                 var phonecall = _phonecallReadModel.GetPhonecall(entityId);
                 var originalStatus = phonecall.Status;
 
+                if (phonecall.ScheduledOn.Date > DateTime.Now.Date)
+                {
+                    throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
+                }
+
                 if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
                 {
                     throw new SecurityException(string.Format("{0}: {1}", phonecall.Header, BLResources.SecurityAccessDenied));
@@ -74,19 +81,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             }
         }      
 
-        private static DealStage ConvertToStage(ActivityPurpose purpose)
+        private static DealStage ConvertToStage(PhonecallPurpose purpose)
         {
             switch (purpose)
             {
-                case ActivityPurpose.FirstCall:
+                case PhonecallPurpose.FirstCall:
                     return DealStage.CollectInformation;
 
-                case ActivityPurpose.ProductPresentation:
-                case ActivityPurpose.OpportunitiesPresentation:
+                case PhonecallPurpose.ProductPresentation:
+                case PhonecallPurpose.OpportunitiesPresentation:
                     return DealStage.HoldingProductPresentation;
 
-                case ActivityPurpose.OfferApproval:
-                case ActivityPurpose.DecisionApproval:
+                case PhonecallPurpose.OfferApproval:
+                case PhonecallPurpose.DecisionApproval:
                     return DealStage.MatchAndSendProposition;
 
                 default:

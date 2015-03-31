@@ -31,12 +31,10 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs.Infrastructure;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Components;
-using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Common;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Lookup;
@@ -63,12 +61,6 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Blendability;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Components;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Dialogs;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
-
-using log4net;
-using log4net.Appender;
-using log4net.Core;
-using log4net.Filter;
-using log4net.Repository.Hierarchy;
 
 using Microsoft.Practices.Unity;
 
@@ -131,18 +123,15 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
         private readonly IUnityContainer _container;
         private readonly ICommonSettings _commonSettings;
         private readonly IGlobalizationSettings _globalizationSettings;
-        private readonly IApiSettings _apiSettings;
 
         public WpfClientModulesContainer(
             IUnityContainer container, 
             ICommonSettings commonSettings, 
-            IGlobalizationSettings globalizationSettings,
-            IApiSettings apiSettings)
+            IGlobalizationSettings globalizationSettings)
         {
             _container = container;
             _commonSettings = commonSettings;
             _globalizationSettings = globalizationSettings;
-            _apiSettings = apiSettings;
         }
 
         #region Implementation of IModulesContainer
@@ -165,8 +154,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 
         public void Configure()
         {
-            ConfigureLogger();
-
             CheckConventionsСomplianceExplicitly();
 
             var massProcessors = new IMassProcessor[]
@@ -327,7 +314,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
                 var operationImplementationsContainingAssembly = typeof(SoapApiOperationServiceBase).Assembly;
                 var domainEntitiesAssembly = typeof(Order).Assembly;
 
-
                 return new[]
                     {
                         ermPluginAssembly,
@@ -344,27 +330,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
             return _commonSettings.EnableCaching
                 ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(EntryPointSpecificLifetimeManagerFactory())
                 : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(EntryPointSpecificLifetimeManagerFactory());
-        }
-
-        private void ConfigureLogger()
-        {
-            var loggerApiAppender = new Log4NetApiAppender(new RestApiClient(_apiSettings));
-            loggerApiAppender.AddFilter(
-                new LevelRangeFilter
-                {
-                    LevelMin = Level.Error,
-                    LevelMax = Level.Fatal
-                });
-            AddAppender(LoggerConstants.Erm, loggerApiAppender);
-        }
-
-        // Add an appender to a logger
-        private static void AddAppender(string loggerName, IAppender appender)
-        {
-            var log = LogManager.GetLogger(loggerName);
-            var l = (Logger)log.Logger;
-
-            l.AddAppender(appender);
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()

@@ -26,8 +26,6 @@
 				</Scripts>
 				<ToolbarItems>
 					<ToolbarItem Name="Assign" DisableOnEmpty="true" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
-					<ToolbarItem Name="ExportAccountDetailsTo1C" NameLocaleResourceId="ControlExportAccountDetailsTo1C" ControlType="TextImageButton" LockOnInactive="true" Action="scope.ExportAccountDetailsTo1C" Icon="en_ico_16_ExportAccountDetails.gif" SecurityPrivelegeFlag="604" />
-          <ToolbarItem Name="ExportAccountDetailsToServiceBus" NameLocaleResourceId="ControlExportAccountDetailsToServiceBus" ControlType="TextImageButton" LockOnInactive="true" Action="scope.ExportAccountDetailsToServiceBus" Icon="en_ico_16_ExportAccountDetails.gif" SecurityPrivelegeFlag="604" />
 				</ToolbarItems>
 				<Fields>
 					<Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -2401,6 +2399,7 @@
 					<Field Name="IsComposite" NameLocaleResourceId="DFieldIsComposite" Width="100" FieldType="Boolean" ExtTypeName="Boolean" />
 					<Field Name="PlatformName" NameLocaleResourceId="Platform" Width="200" FieldType="String" ExtTypeName="String" />
 					<Field Name="CategoryName" NameLocaleResourceId="DFieldPositionCategoryName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="PositionsGroup" Width="200" FieldType="String" ExtTypeName="String" />
 					<Field Name="ExportCode" Width="100" FieldType="BigInt" ExtTypeName="Int" />
           <Field Name="RestrictChildPositionPlatforms" Width="100" Hidden="true" FieldType="Boolean" ExtTypeName="Boolean" />
 				</Fields>
@@ -3049,6 +3048,7 @@
 					<Field Name="FinishDate" NameLocaleResourceId="EndDate" Width="120" FieldType="DateTime" ExtTypeName="Date" />
 					<Field Name="OrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
 					<Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="OrganizationUnitId" />
+          <Field Name="AccountingMethod" Width="80" FieldType="String" ExtTypeName="String" />
 					<Field Name="Status" Width="80" FieldType="String" ExtTypeName="String" />
 					<Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
 					<Field Name="Owner" NameLocaleResourceId="Owner" Width="120" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />

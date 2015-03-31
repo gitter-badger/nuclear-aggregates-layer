@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 
@@ -9,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -56,6 +58,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
                 var appointment = _appointmentReadModel.GetAppointment(entityId);
                 var originalStatus = appointment.Status;
 
+                if (appointment.ScheduledStart.Date > DateTime.Now.Date)
+                {
+                    throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
+                }
+                       
                 if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, appointment.OwnerCode))
                 {
                     throw new SecurityException(string.Format("{0}: {1}", appointment.Header, BLResources.SecurityAccessDenied));
@@ -73,19 +80,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             }
         }
 
-        private static DealStage ConvertToStage(ActivityPurpose purpose)
+        private static DealStage ConvertToStage(AppointmentPurpose purpose)
         {
             switch (purpose)
             {
-                case ActivityPurpose.FirstCall:
+                case AppointmentPurpose.FirstCall:
                     return DealStage.CollectInformation;
 
-                case ActivityPurpose.ProductPresentation:
-                case ActivityPurpose.OpportunitiesPresentation:
+                case AppointmentPurpose.ProductPresentation:
+                case AppointmentPurpose.OpportunitiesPresentation:
                     return DealStage.HoldingProductPresentation;
 
-                case ActivityPurpose.OfferApproval:
-                case ActivityPurpose.DecisionApproval:
+                case AppointmentPurpose.OfferApproval:
+                case AppointmentPurpose.DecisionApproval:
                     return DealStage.MatchAndSendProposition;
 
                 default:

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 

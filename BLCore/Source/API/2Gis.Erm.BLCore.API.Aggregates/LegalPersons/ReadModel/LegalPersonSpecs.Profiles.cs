@@ -18,6 +18,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
                 {
                     return new FindSpecification<LegalPersonProfile>(x => x.LegalPersonId == legalPersonId);
                 }
+
+                public static FindSpecification<LegalPersonProfile> DuplicateByName(long legalPersonProfileId, string name)
+                {
+                    return new FindSpecification<LegalPersonProfile>(x => x.Id != legalPersonProfileId && x.Name == name);
+                }
             }
         }
     }

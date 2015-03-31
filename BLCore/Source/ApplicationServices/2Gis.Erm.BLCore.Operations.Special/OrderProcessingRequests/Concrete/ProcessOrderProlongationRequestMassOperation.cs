@@ -2,7 +2,8 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
@@ -10,16 +11,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
     {
         private readonly IOrderProcessingRequestService _orderProcessingRequestService;
         private readonly IBasicOrderProlongationOperationLogic _basicOrderProlongationOperation;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ProcessOrderProlongationRequestMassOperation(
             IOrderProcessingRequestService orderProcessingRequestService,
             IBasicOrderProlongationOperationLogic basicOrderProlongationOperation,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _orderProcessingRequestService = orderProcessingRequestService;
             _basicOrderProlongationOperation = basicOrderProlongationOperation;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void ProcessAll()
@@ -32,11 +33,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 }
                 catch (BusinessLogicException ex)
                 {
-                    _logger.ErrorEx(ex, "Cant'n prolongate order by request Id = " + request.Id);
+                    _tracer.Error(ex, "Cant'n prolongate order by request Id = " + request.Id);
                 }
                 catch (Exception ex)
                 {
-                    _logger.FatalEx(ex, "Cant'n prolongate order by request Id = " + request.Id);
+                    _tracer.Fatal(ex, "Cant'n prolongate order by request Id = " + request.Id);
                 }
             }
         }

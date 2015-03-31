@@ -9,9 +9,10 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Metadata
 {
@@ -21,18 +22,18 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
         private readonly IEnvironmentSettings _environmentSettings;
         private readonly IOperationsMetadataProvider _metadataProvider;
         private readonly IServiceAvailabilityProvider _serviceAvailabilityProvider;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public MetadataProviderApplicationService(
             IEnvironmentSettings environmentSettings, 
             IOperationsMetadataProvider metadataProvider, 
             IServiceAvailabilityProvider serviceAvailabilityProvider,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _environmentSettings = environmentSettings;
             _metadataProvider = metadataProvider;
             _serviceAvailabilityProvider = serviceAvailabilityProvider;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public OperationApplicability[] GetApplicableOperations()
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get all applicable operations description";
-                _logger.ErrorEx(ex, Message);
+                _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get applicable operations for calling user description";
-                _logger.ErrorEx(ex, Message);
+                _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -81,7 +82,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get applicable operations for context description";
-                _logger.ErrorEx(ex, Message);
+                _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -95,7 +96,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get applicable operations for context description";
-                _logger.ErrorEx(ex, Message);
+                _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -109,7 +110,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't get applicable operations for context description";
-                _logger.ErrorEx(ex, Message);
+                _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -122,7 +123,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Ошибка обработки запроса");
+                _tracer.Error(ex, "Ошибка обработки запроса");
                 throw new WebFaultException(HttpStatusCode.InternalServerError);
             }
         }
@@ -135,7 +136,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Ошибка обработки запроса");
+                _tracer.Error(ex, "Ошибка обработки запроса");
                 throw new WebFaultException(HttpStatusCode.InternalServerError);
             }
         }

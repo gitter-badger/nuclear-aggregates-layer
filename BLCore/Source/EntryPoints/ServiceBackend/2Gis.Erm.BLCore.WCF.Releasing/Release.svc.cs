@@ -5,8 +5,9 @@ using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Releasing
 {
@@ -16,19 +17,19 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
         private readonly IStartReleaseOperationService _startReleaseOperationService;
         private readonly IAttachExternalReleaseProcessingMessagesOperationService _attachExternalReleaseProcessingMessagesOperationService;
         private readonly IFinishReleaseOperationService _finishReleaseOperationService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ReleaseApplicationService(IStartReleaseOperationService startReleaseOperationService,
                                          IAttachExternalReleaseProcessingMessagesOperationService attachExternalReleaseProcessingMessagesOperationService,
                                          IFinishReleaseOperationService finishReleaseOperationService,
                                          IUserContext userContext,
                                          IResourceGroupManager resourceGroupManager,
-                                         ICommonLog logger)
+                                         ITracer tracer)
         {
             _startReleaseOperationService = startReleaseOperationService;
             _attachExternalReleaseProcessingMessagesOperationService = attachExternalReleaseProcessingMessagesOperationService;
             _finishReleaseOperationService = finishReleaseOperationService;
-            _logger = logger;
+            _tracer = tracer;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _tracer.ErrorFormat(ex,
                                       "Can't start release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}",
                                       organizationUnitDgppId,
                                       period,
@@ -59,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _tracer.ErrorFormat(ex,
                                       "Can't attach external release processing messages. Release id: {0}",
                                       releaseId);
 
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _tracer.ErrorFormat(ex,
                                       "Can't finish release properly with succeeded result. Release id: {0}",
                                       releaseId);
 
@@ -91,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex,
+                _tracer.ErrorFormat(ex,
                                       "Can't finish release properly with failed result. Release id: {0}",
                                       releaseId);
 

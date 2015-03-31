@@ -1272,9 +1272,6 @@
   <data name="Registered" xml:space="preserve">
     <value>Зарегистрировано</value>
   </data>
-  <data name="CreateCsvFile" xml:space="preserve">
-    <value>Выгрузить дополнительно файл в формате csv</value>
-  </data>
   <data name="OrderProcessingRequest" xml:space="preserve">
     <value>Заявка из ЛК</value>
   </data>
@@ -1483,5 +1480,14 @@
   </data>
   <data name="OtherAuthorityDocument" xml:space="preserve">
     <value>Другое</value>
+  </data>
+  <data name="ChiefFullNameInNominative" xml:space="preserve">
+    <value>Полное ФИО руководителя (им.падеж)</value>
+  </data>
+  <data name="PositionsGroup" xml:space="preserve">
+    <value>Группа номенклатур</value>
+  </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Способ учета оказания услуг</value>
   </data>
 </root>

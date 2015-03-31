@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                                                           {
                                                               Id = accessor.Get(c => c.Id),
                                                               Name = accessor.Get(c => c.Name),
-                                                              PromisingScore = (int?)accessor.Get(c => c.PromisingScore),
+                                                              PromisingScore = accessor.Get(c => c.PromisingScore),
                                                               LastQualifyTime = accessor.Get(c => c.LastQualifyTime),
                                                               LastDisqualifyTime = accessor.Get(c => c.LastDisqualifyTime),
                                                               IsActive = accessor.Get(c => c.IsActive),

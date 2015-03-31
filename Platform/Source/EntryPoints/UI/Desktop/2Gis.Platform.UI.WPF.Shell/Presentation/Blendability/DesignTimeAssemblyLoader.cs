@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.Common.Logging;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
 {
@@ -26,11 +26,11 @@ namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
             }
         }
 
-        private static ICommonLog Logger { get; set; }
+        private static ITracer Tracer { get; set; }
 
-        public static void Attach(ICommonLog logger)
+        public static void Attach(ITracer tracer)
         {
-            Logger = logger;
+            Tracer = tracer;
             AppDomain.CurrentDomain.AssemblyLoad += OnAssemblyLoad;
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
         }
@@ -39,7 +39,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
         {
             AppDomain.CurrentDomain.AssemblyLoad -= OnAssemblyLoad;
             AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
-            Logger = null;
+            Tracer = null;
         }
 
         public static Assembly AssemblyLoaderToNoLoadContext(AssemblyName targetAssemblyName, string targetAssemblyFileFullPath)
@@ -56,7 +56,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
                 }
             }
 
-            Logger.DebugEx("Loading to no load context. " + targetAssemblyFileFullPath);
+            Tracer.Debug("Loading to no load context. " + targetAssemblyFileFullPath);
             return Assembly.LoadFile(targetAssemblyFileFullPath);
         }
         
@@ -89,7 +89,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
                 var publicKeyToken = targetAssemblyName.GetPublicKeyToken();
                 if (publicKeyToken == null || publicKeyToken.Length == 0)
                 {
-                    Logger.DebugEx("Custom override catel not signed dependencies. " + targetAssemblyName);
+                    Tracer.Debug("Custom override catel not signed dependencies. " + targetAssemblyName);
                     if (!AssemblyCache.TryGetValue(targetAssemblyName.Name, out assembliesList))
                     {
                         return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => AssemblyName.ReferenceMatchesDefinition(a.GetName(), targetAssemblyName));
@@ -112,7 +112,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability
 
             if (args.RequestingAssembly == null)
             {
-                Logger.DebugEx("Can't resolve assembly. Requesting assembly is not specified. " + targetAssemblyName);
+                Tracer.Debug("Can't resolve assembly. Requesting assembly is not specified. " + targetAssemblyName);
                 return null;
             }
 

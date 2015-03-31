@@ -6,9 +6,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
@@ -19,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IOrderChangeStateOrders2ArchiveAggregateService _orderChangeStateOrders2ArchiveAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IActionLogger _actionLogger;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ActualizeOrdersDuringWithdrawalOperationService(
             IOrderReadModel orderReadModel,
@@ -27,19 +28,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IOrderChangeStateOrders2ArchiveAggregateService orderChangeStateOrders2ArchiveAggregateService,
             IOperationScopeFactory scopeFactory,
             IActionLogger actionLogger,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _orderReadModel = orderReadModel;
             _orderActualizeOrdersAmoutDuringWithdrawalAggregateService = orderActualizeOrdersAmoutDuringWithdrawalAggregateService;
             _orderChangeStateOrders2ArchiveAggregateService = orderChangeStateOrders2ArchiveAggregateService;
             _scopeFactory = scopeFactory;
             _actionLogger = actionLogger;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Actualize(long withdrawalOrganizationUnitId, IEnumerable<ActualizeOrdersDto> orderInfos)
         {
-            _logger.InfoEx("Starting actialize orders during withdrawal process");
+            _tracer.Info("Starting actialize orders during withdrawal process");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeOrdersDuringWithdrawalIdentity>())
             {
@@ -57,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoEx("Finished actialize orders during withdrawal process");
+            _tracer.Info("Finished actialize orders during withdrawal process");
         }
     }
 }

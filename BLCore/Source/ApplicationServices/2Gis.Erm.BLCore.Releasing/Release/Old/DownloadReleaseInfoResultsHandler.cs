@@ -7,19 +7,20 @@ using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release.Old
 {
     public sealed class DownloadReleaseInfoResultsHandler : RequestHandler<DownloadReleaseInfoResultsRequest, StreamResponse>
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IReleaseReadModel _releaseRepository;
 
-        public DownloadReleaseInfoResultsHandler(ICommonLog logger, ISubRequestProcessor subRequestProcessor, IReleaseReadModel releaseRepository)
+        public DownloadReleaseInfoResultsHandler(ITracer tracer, ISubRequestProcessor subRequestProcessor, IReleaseReadModel releaseRepository)
         {
-            _logger = logger;
+            _tracer = tracer;
             _subRequestProcessor = subRequestProcessor;
             _releaseRepository = releaseRepository;
         }
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release.Old
             var results = validationResults as ReleaseProcessingMessage[] ?? validationResults.ToArray();
             if (!results.Any())
             {
-                _logger.WarnFormatEx(BLResources.ReleaseValidationResultsNotFound, request.ReleaseInfoId);
+                _tracer.WarnFormat(BLResources.ReleaseValidationResultsNotFound, request.ReleaseInfoId);
                 return new StreamResponse();
             }
 

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 {
@@ -16,23 +17,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         private readonly IRepository<Lock> _lockRepository;
         private readonly IRepository<LockDetail> _lockDetailRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public AccountBulkDeactivateUsedLockAggregateService(
             IRepository<Lock> lockRepository, 
             IRepository<LockDetail> lockDetailRepository, 
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _lockRepository = lockRepository;
             _lockDetailRepository = lockDetailRepository;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Deactivate(IEnumerable<DeactivateLockDto> lockInfos, IReadOnlyDictionary<long, long> debitAccountDetailsMap)
         {
-            _logger.InfoFormatEx("Starting deactivation process for used locks");
+            _tracer.InfoFormat("Starting deactivation process for used locks");
 
             int processedLocksCount = 0;
             int processedLockDetailsCount = 0;
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                         ++processedLockDetailsCount;
                     }
 
-                    _logger.DebugFormatEx(
+                    _tracer.DebugFormat(
                         "Processed lock with id {0}. Current counters state: locks {1}, lockdetails {2}", 
                         info.Lock.Id,
                         processedLocksCount,
@@ -77,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 scope.Complete();
             }
 
-            _logger.InfoFormatEx(
+            _tracer.InfoFormat(
                 "Finished deactivation process for used locks. Deactivated counters: locks {0}, lockdetails {1}", 
                 processedLocksCount, 
                 processedLockDetailsCount);

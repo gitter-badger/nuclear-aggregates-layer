@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.Platform.DAL
 
                             var domainContextTextRepresentation = string.Join("\n", _domainContextRegistrar.Values.Select(x => string.Join(", ", x.ModifiableDomainContexts.Keys)));
 
-                            _logger.ErrorEx(string.Format("При завершении UoW, обнаружены неочищенные domaincontext от каких-то domain context host - скорее всего где-то не вызвали dispose у UoWScope\nDirectly nested DC: {0}\nRemaining DCs: \n{1}",
+                            _tracer.Error(string.Format("При завершении UoW, обнаружены неочищенные domaincontext от каких-то domain context host - скорее всего где-то не вызвали dispose у UoWScope\nDirectly nested DC: {0}\nRemaining DCs: \n{1}",
                                 directlyNestedDomainContextRepresentation,
                                 domainContextTextRepresentation));
                         }

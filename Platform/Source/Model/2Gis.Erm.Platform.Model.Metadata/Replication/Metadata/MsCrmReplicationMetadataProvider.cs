@@ -12,8 +12,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata
     {
         private static readonly IReadOnlyCollection<EntityReplicationInfo> ReplicationMetadata;
 
-        private readonly IReadOnlyDictionary<Type, EntityReplicationInfo[]> _asyncMetadata;
-        private readonly IReadOnlyDictionary<Type, EntityReplicationInfo[]> _syncMetadata;
+        private readonly IReadOnlyDictionary<Type, EntityReplicationInfo[]> _metadata;
 
         static MsCrmReplicationMetadataProvider()
         {
@@ -22,70 +21,50 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata
                                                            .Single<OrganizationUnit>("Billing")
                                                            .Then.Single<Currency>("Billing")
                                                            .Then.Single<Category>("BusinessDirectory")
-                                                            // COMMENT {a.tukaev, 25.08.2014}: Верно ли, что для Territory и Contact - сначала Single, потом Batch, но для Firm и FirmAddress - наоборот?
-                                                            // COMMENT {d.ivanov, 26.08.2014}: Порядок следования Single и Batch процедур не важен для вызывающего кода, 
-                                                            //                                 т.к. из пары Single и Batch отдается только одна запись в зависимости от preferredMode
-                                                           .Then.Single<Territory>("BusinessDirectory")
+                
+                // COMMENT {a.tukaev, 25.08.2014}: Верно ли, что для Territory и Contact - сначала Single, потом Batch, но для Firm и FirmAddress - наоборот?
+                // COMMENT {d.ivanov, 26.08.2014}: Порядок следования Single и Batch процедур не важен для вызывающего кода, 
+                // т.к. из пары Single и Batch отдается только одна запись в зависимости от preferredMode
                                                            .Then.Batch<Territory>("BusinessDirectory", "ReplicateTerritories")
                                                            .Then.Batch<Client>("Billing", "ReplicateClients")
-                                                           .Then.Single<Client>("Billing")
                                                            .Then.Batch<Firm>("BusinessDirectory", "ReplicateFirms")
-                                                           .Then.Single<Firm>("BusinessDirectory")
                                                            .Then.Batch<FirmAddress>("BusinessDirectory", "ReplicateFirmAddresses")
-                                                           .Then.Single<FirmAddress>("BusinessDirectory")
-                                                           .Then.Single<Contact>("Billing")
                                                            .Then.Batch<Contact>("Billing", "ReplicateContacts")
                                                            .Then.Single<Position>("Billing")
                                                            .Then.Single<BranchOffice>("Billing")
                                                            .Then.Single<BranchOfficeOrganizationUnit>("Billing")
                                                            .Then.Batch<LegalPerson>("Billing", "ReplicateLegalPersons")
-                                                           .Then.Single<LegalPerson>("Billing")
                                                            .Then.Batch<Account>("Billing", "ReplicateAccounts")
-                                                           .Then.Single<Account>("Billing")
                                                            .Then.Single<OperationType>("Billing")
                                                            .Then.Batch<AccountDetail>("Billing", "ReplicateAccountDetails")
-                                                           .Then.Single<AccountDetail>("Billing")
                                                            .Then.Batch<Deal>("Billing", "ReplicateDeals")
-                                                           .Then.Single<Deal>("Billing")
                                                            .Then.Batch<Limit>("Billing", "ReplicateLimits")
-                                                           .Then.Single<Limit>("Billing")
-                                                           .Then.Single<Order>("Billing")
                                                            .Then.Batch<Order>("Billing", "ReplicateOrders")
                                                            .Then.Batch<OrderPosition>("Billing", "ReplicateOrderPositions")
-                                                           .Then.Single<OrderPosition>("Billing")
                                                            .Then.Batch<Bargain>("Billing", "ReplicateBargains")
-                                                           .Then.Single<Bargain>("Billing")
                                                            .Then.Single<OrderProcessingRequest>("Billing")
                                                            .Then.Single<User>("Security")
                                                            .Then.Single<UserTerritory>("Security")
-                                                           .Then.Single<Appointment>("Activity")
                                                            .Then.Batch<Appointment>("Activity", "ReplicateAppointments")
-                                                           .Then.Single<Letter>("Activity")
                                                            .Then.Batch<Letter>("Activity", "ReplicateLetters")
-                                                           .Then.Single<Phonecall>("Activity")
                                                            .Then.Batch<Phonecall>("Activity", "ReplicatePhonecalls")
-                                                           .Then.Single<Task>("Activity")
                                                            .Then.Batch<Task>("Activity", "ReplicateTasks")
                                                            .Freeze();
         }
 
-        public MsCrmReplicationMetadataProvider(IEnumerable<Type> asyncTypes, IEnumerable<Type> syncTypes)
+        public MsCrmReplicationMetadataProvider(IEnumerable<Type> asyncTypes)
         {
-            _asyncMetadata = ReplicationMetadata.Join(asyncTypes, x => x.EntityType, x => x, (info, type) => info)
-                                                .GroupBy(x => x.EntityType)
-                                                .ToDictionary(x => x.Key, x => x.ToArray());
-
-            _syncMetadata = ReplicationMetadata.Join(syncTypes, x => x.EntityType, x => x, (info, type) => info)
-                                               .GroupBy(x => x.EntityType)
-                                               .ToDictionary(x => x.Key, x => x.ToArray());
+            _metadata = ReplicationMetadata.Join(asyncTypes, x => x.EntityType, x => x, (info, type) => info)
+                                           .GroupBy(x => x.EntityType)
+                                           .ToDictionary(x => x.Key, x => x.ToArray());
         }
 
-        public bool TryGetAsyncMetadata(Type entityType, ReplicationMode preferredMode, out EntityReplicationInfo replicationInfo)
+        public bool TryGetMetadata(Type entityType, ReplicationMode preferredMode, out EntityReplicationInfo replicationInfo)
         {
             replicationInfo = null;
 
             EntityReplicationInfo[] metadata;
-            if (_asyncMetadata.TryGetValue(entityType, out metadata))
+            if (_metadata.TryGetValue(entityType, out metadata))
             {
                 replicationInfo = metadata.FirstOrDefault(x => x.ReplicationMode == preferredMode) ?? metadata[0];
             }
@@ -93,22 +72,9 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata
             return replicationInfo != null;
         }
 
-        public bool TryGetSyncMetadata(Type entityType, out EntityReplicationInfo replicationInfo)
+        public IEnumerable<Type> GetReplicationTypeSequence()
         {
-            replicationInfo = null;
-
-            EntityReplicationInfo[] metadata;
-            if (_syncMetadata.TryGetValue(entityType, out metadata))
-            {
-                replicationInfo = metadata.FirstOrDefault(x => x.ReplicationMode == ReplicationMode.Single);
-            }
-
-            return replicationInfo != null;
-        }
-
-        public IEnumerable<Type> GetAsyncReplicationTypeSequence()
-        {
-            return _asyncMetadata.Select(x => x.Key);
+            return _metadata.Select(x => x.Key);
         }
     }
 }

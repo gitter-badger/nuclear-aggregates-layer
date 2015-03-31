@@ -6,9 +6,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
@@ -17,23 +18,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IDealReadModel _dealReadModel;
         private readonly IDealChangeStageAggregateService _dealChangeStageAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ActualizeDealsDuringWithdrawalOperationService(
             IDealReadModel dealReadModel,
             IDealChangeStageAggregateService dealChangeStageAggregateService,
             IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _dealReadModel = dealReadModel;
             _dealChangeStageAggregateService = dealChangeStageAggregateService;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void Actualize(IEnumerable<long> dealIds)
         {
-            _logger.InfoEx("Starting actualizing deals during withdrawal process");
+            _tracer.Info("Starting actualizing deals during withdrawal process");
 
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeDealsDuringWithdrawalIdentity>())
             {
@@ -51,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 scope.Complete();
             }
 
-            _logger.InfoEx("Finished actualizing deals during withdrawal process");
+            _tracer.Info("Finished actualizing deals during withdrawal process");
         }
     }
 }

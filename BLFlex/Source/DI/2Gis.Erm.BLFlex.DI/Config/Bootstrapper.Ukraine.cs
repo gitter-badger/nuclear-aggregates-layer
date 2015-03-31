@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
@@ -46,7 +47,8 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
                                                                            new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
                                                                                                                                                typeof(BillSummConsistencyRule),
-                                                                                                                                               typeof(BillDatesConsistencyRule))))
+                                                                                                                                               typeof(BillDatesConsistencyRule),
+                                                                                                                                               typeof(BillDistributionPeriodConsistencyRule))))
                 .RegisterType<IUkraineOrderPrintFormDataExtractor, UkraineOrderPrintFormDataExtractor>(Lifetime.PerResolve)
                 .RegisterType<IPriceCostsForSubPositionsProvider, NullPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
                 .ConfigureUkraineSpecificNumberServices();
@@ -57,7 +59,8 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             return container
                 .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
                 .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
-                .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "БЗ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia));
+                .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "БЗ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia))
+                .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 
         // TODO переделать на нормальную метадату
