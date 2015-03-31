@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
             return _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeId));
         }
 
-        public virtual BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId)
+        public virtual BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(long? branchOfficeOrganizationUnitId)
             {
             return _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId));
         }

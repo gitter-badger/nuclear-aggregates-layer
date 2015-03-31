@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         long GetOrderOwnerCode(long orderId);
 
         IReadOnlyCollection<Bargain> GetNonClosedClientBargains();
-        Bargain GetBargain(long bargainId);
+        Bargain GetBargain(long? bargainId);
         string GetDuplicateAgentBargainNumber(long bargainId, long legalPersonId, long branchOfficeOrganizationUnitId, DateTime bargainBeginDate, DateTime bargainEndDate);
         IDictionary<string, DateTime> GetBargainUsage(long bargainId);
         BargainEndAndCloseDatesDto GetBargainEndAndCloseDates(long bargainId);
@@ -120,5 +120,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         long? GetLegalPersonProfileIdByOrder(long orderId);
         IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId);
         SalesModel GetOrderSalesModel(long orderId);
+        LegalPerson GetLegalPerson(long? legalPersonId);
+        LegalPersonProfile GetLegalPersonProfile(long? profileId);
+        Currency GetCurrency(long? id);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Print;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Print;
@@ -20,15 +22,26 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
     public class PrintBindingChangeAgreementOperationService : IPrintBindingChangeAgreementOperationService, IRussiaAdapted
     {
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IPrintReadModel _readModel;
         private readonly IPublicService _publicService;
         private readonly IFormatter _shortDateFormatter;
 
-        public PrintBindingChangeAgreementOperationService(IPublicService publicService, IFormatterFactory formatterFactory, IPrintReadModel readModel, IOperationScopeFactory scopeFactory)
+        private readonly IOrderReadModel _orderReadModel;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
+        private readonly IFirmReadModel _firmReadModel;
+
+        public PrintBindingChangeAgreementOperationService(
+            IPublicService publicService,
+            IFormatterFactory formatterFactory,
+            IOperationScopeFactory scopeFactory,
+            IOrderReadModel orderReadModel,
+            IBranchOfficeReadModel branchOfficeReadModel,
+            IFirmReadModel firmReadModel)
         {
             _publicService = publicService;
-            _readModel = readModel;
             _scopeFactory = scopeFactory;
+            _orderReadModel = orderReadModel;
+            _branchOfficeReadModel = branchOfficeReadModel;
+            _firmReadModel = firmReadModel;
             _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
@@ -44,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
 
         private PrintDocumentRequest CreateRequest(long orderId)
         {
-            var order = _readModel.GetOrder(orderId);
+            var order = _orderReadModel.GetOrderSecure(orderId);
 
             if (order == null)
             {
@@ -61,13 +74,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
                 throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
-            var currency = _readModel.GetCurrency(order.CurrencyId);
-            var bargain = _readModel.GetBargain(order.BargainId);
-            var legalPerson = _readModel.GetLegalPerson(order.LegalPersonId);
-            var legalPersonProfile = _readModel.GetLegalPersonProfile(order.LegalPersonProfileId);
-            var branchOfficeOrganizationUnit = _readModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId);
-            var branchOffice = _readModel.GetBranchOffice(branchOfficeOrganizationUnit.BranchOfficeId);
-            var firm = _readModel.GetFirm(order.FirmId);
+            var currency = _orderReadModel.GetCurrency(order.CurrencyId);
+            var bargain = _orderReadModel.GetBargain(order.BargainId);
+            var legalPerson = _orderReadModel.GetLegalPerson(order.LegalPersonId);
+            var legalPersonProfile = _orderReadModel.GetLegalPersonProfile(order.LegalPersonProfileId);
+            var branchOfficeOrganizationUnit = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId);
+            var branchOffice = _branchOfficeReadModel.GetBranchOffice(branchOfficeOrganizationUnit.BranchOfficeId);
+            var firm = _firmReadModel.GetFirm(order.FirmId);
 
             var documentData = PrintHelper.AgreementSharedBody(order, legalPerson, legalPersonProfile, branchOfficeOrganizationUnit, _shortDateFormatter);
             var documenSpecificData = PrintHelper.ChangeAgreementSpecificBody(firm);

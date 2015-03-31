@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
     {
         BranchOffice GetBranchOffice(long branchOfficeId);
 
-        BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId);
+        BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(long? branchOfficeOrganizationUnitId);
         BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(string syncCode1C);
         string GetNameOfActiveDuplicateByInn(long branchOfficeId, string inn);
 

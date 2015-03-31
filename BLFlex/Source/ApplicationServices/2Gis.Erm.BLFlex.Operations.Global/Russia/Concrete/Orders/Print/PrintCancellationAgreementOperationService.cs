@@ -1,6 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Print;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Print;
@@ -19,15 +20,23 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
     public class PrintCancellationAgreementOperationService : IPrintCancellationAgreementOperationService, IRussiaAdapted
     {
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IPrintReadModel _readModel;
         private readonly IPublicService _publicService;
         private readonly IFormatter _shortDateFormatter;
 
-        public PrintCancellationAgreementOperationService(IPublicService publicService, IFormatterFactory formatterFactory, IPrintReadModel readModel, IOperationScopeFactory scopeFactory)
+        private readonly IOrderReadModel _orderReadModel;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
+
+        public PrintCancellationAgreementOperationService(
+            IPublicService publicService, 
+            IFormatterFactory formatterFactory, 
+            IOperationScopeFactory scopeFactory, 
+            IOrderReadModel orderReadModel, 
+            IBranchOfficeReadModel branchOfficeReadModel)
         {
             _publicService = publicService;
-            _readModel = readModel;
             _scopeFactory = scopeFactory;
+            _orderReadModel = orderReadModel;
+            _branchOfficeReadModel = branchOfficeReadModel;
             _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
@@ -43,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
 
         private PrintDocumentRequest CreateRequest(long orderId)
         {
-            var order = _readModel.GetOrder(orderId);
+            var order = _orderReadModel.GetOrderSecure(orderId);
 
             if (!order.IsTerminated)
             {
@@ -65,12 +74,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
                 throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
-            var currency = _readModel.GetCurrency(order.CurrencyId);
-            var bargain = _readModel.GetBargain(order.BargainId);
-            var legalPerson = _readModel.GetLegalPerson(order.LegalPersonId);
-            var legalPersonProfile = _readModel.GetLegalPersonProfile(order.LegalPersonProfileId);
-            var branchOfficeOrganizationUnit = _readModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId);
-            var branchOffice = _readModel.GetBranchOffice(branchOfficeOrganizationUnit.BranchOfficeId);
+            var currency = _orderReadModel.GetCurrency(order.CurrencyId);
+            var bargain = _orderReadModel.GetBargain(order.BargainId);
+            var legalPerson = _orderReadModel.GetLegalPerson(order.LegalPersonId);
+            var legalPersonProfile = _orderReadModel.GetLegalPersonProfile(order.LegalPersonProfileId);
+            var branchOfficeOrganizationUnit = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId);
+            var branchOffice = _branchOfficeReadModel.GetBranchOffice(branchOfficeOrganizationUnit.BranchOfficeId);
 
             var documentData = PrintHelper.AgreementSharedBody(order, legalPerson, legalPersonProfile, branchOfficeOrganizationUnit, _shortDateFormatter);
             var documenSpecificData = PrintHelper.TerminationAgreementSpecificBody(order);
@@ -78,12 +87,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
             var requisites = PrintHelper.Requisites(legalPerson, legalPersonProfile, branchOffice, branchOfficeOrganizationUnit);
 
             return new PrintDocumentRequest
-            {
-                CurrencyIsoCode = currency.ISOCode,
-                FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, order.Number),
-                BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
-                PrintData = PrintData.Concat(documentData, requisites, bargainData, documenSpecificData)
-            };
+                       {
+                           CurrencyIsoCode = currency.ISOCode, 
+                           FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, order.Number), 
+                           BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId, 
+                           PrintData = PrintData.Concat(documentData, requisites, bargainData, documenSpecificData)
+                       };
         }
     }
 }
