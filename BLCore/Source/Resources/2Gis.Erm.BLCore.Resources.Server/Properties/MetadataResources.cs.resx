@@ -1491,6 +1491,6 @@
     <value>Způsob poskytnutí služeb</value>
   </data>
   <data name="ApplicationCityName" xml:space="preserve">
-    <value>Город обращения</value>
+    <value>Výchozí město</value>
   </data>
 </root>

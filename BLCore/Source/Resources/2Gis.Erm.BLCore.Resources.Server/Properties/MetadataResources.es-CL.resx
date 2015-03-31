@@ -1491,6 +1491,6 @@
     <value>Modo para contabilizar la prestación de servicios</value>
   </data>
   <data name="ApplicationCityName" xml:space="preserve">
-    <value>Город обращения</value>
+    <value>Ciudad de solicitud</value>
   </data>
 </root>

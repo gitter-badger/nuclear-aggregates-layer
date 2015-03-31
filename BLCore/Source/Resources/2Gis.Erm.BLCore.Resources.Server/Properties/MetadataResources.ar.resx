@@ -1485,6 +1485,6 @@
     <value>Service accounting method</value>
   </data>
   <data name="ApplicationCityName" xml:space="preserve">
-    <value>Город обращения</value>
+    <value>Application city name</value>
   </data>
 </root>
