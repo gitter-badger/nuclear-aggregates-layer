@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
 
             if (legalPersonProfileId == null)
             {
-                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var bargainInfo =

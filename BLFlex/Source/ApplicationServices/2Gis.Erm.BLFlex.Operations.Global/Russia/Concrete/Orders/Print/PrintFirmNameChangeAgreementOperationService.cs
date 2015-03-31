@@ -66,12 +66,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
 
             if (order.BranchOfficeOrganizationUnitId == null)
             {
-                throw new FieldNotSpecifiedException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new RequiredFieldIsEmptyException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             if (order.LegalPersonProfileId == null)
             {
-                throw new FieldNotSpecifiedException(BLResources.LegalPersonProfileMustBeSpecified);
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var currency = _orderReadModel.GetCurrency(order.CurrencyId);

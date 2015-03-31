@@ -211,7 +211,6 @@
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\InvalidLegalPersonProfileForOrderException.cs" />
     <Compile Include="Concrete\Orders\IChangeOrderLegalPersonProfileOperationService.cs" />
-    <Compile Include="Concrete\Orders\FieldNotSpecifiedException.cs" />
     <Compile Include="Concrete\Orders\OrderLegalPersonProfileDto.cs" />
     <Compile Include="Concrete\Orders\Print\IPrintCancellationAgreementOperationService.cs" />
     <Compile Include="Concrete\Orders\Print\IPrintFirmNameChangeAgreementOperationService.cs" />
