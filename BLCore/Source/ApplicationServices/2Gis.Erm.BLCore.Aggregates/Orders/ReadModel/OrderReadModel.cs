@@ -1261,7 +1261,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder.Find(OrderSpecs.Bargains.Find.NonClosed && OrderSpecs.Bargains.Find.ClientBargains()).ToArray();
         }
 
-        public Bargain GetBargain(long? bargainId)
+        public Bargain GetBargain(long bargainId)
         {
             return _finder.FindOne(Specs.Find.ById<Bargain>(bargainId));
         }
@@ -1365,21 +1365,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        .Select(x => x.PricePosition.Position.SalesModel)
                        .Distinct()
                        .SingleOrDefault();
-        }
-
-        public LegalPerson GetLegalPerson(long? id)
-        {
-            return _finder.FindOne(Specs.Find.ById<LegalPerson>(id));
-        }
-
-        public LegalPersonProfile GetLegalPersonProfile(long? id)
-        {
-            return _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(id));
-        }
-
-        public Currency GetCurrency(long? id)
-        {
-            return _finder.FindOne(Specs.Find.ById<Currency>(id));
         }
 
         public long? GetBargainIdByOrder(long orderId)

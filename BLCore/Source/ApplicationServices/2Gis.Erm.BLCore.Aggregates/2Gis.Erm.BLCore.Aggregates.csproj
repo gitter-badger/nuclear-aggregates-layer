@@ -217,6 +217,7 @@
     <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\CategoryReadModel.cs" />
     <Compile Include="Roles\ReadModel\RoleReadModel.cs" />
+    <Compile Include="SimplifiedModel\Currencies\CurrencyReadModel.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\GetPositionsByOrderService.cs" />

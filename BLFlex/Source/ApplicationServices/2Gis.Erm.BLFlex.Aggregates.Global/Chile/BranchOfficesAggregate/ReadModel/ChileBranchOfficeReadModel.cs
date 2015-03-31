@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.BranchOfficesAggregate.Re
             _finder = finder;
         }
 
-        public override BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(long? branchOfficeOrganizationUnitId)
+        public override BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId)
         {
             return _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId));
         }
