@@ -5210,7 +5210,7 @@ Placement period: {3}.</value>
     <value>Creation of regional orders is not supported</value>
   </data>
   <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
-    <value>You do not have enough rights for creating an advertising agency order</value>
+    <value>You do not have enough rights to create an advertising agency order</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Please specify the period, service accounting method, and company branch</value>
