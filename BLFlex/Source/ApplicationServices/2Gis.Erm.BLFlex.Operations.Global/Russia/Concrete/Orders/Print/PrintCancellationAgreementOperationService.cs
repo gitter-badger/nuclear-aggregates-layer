@@ -94,11 +94,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
                     MetadataResources.LegalPerson));
             }
 
-            if (order.LegalPersonProfileId == null)
-            {
-                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
-            }
-
             if (order.CurrencyId == null)
             {
                 throw new RequiredFieldIsEmptyException(
