@@ -5209,7 +5209,7 @@ Doba zveřejnění: {3}.</value>
     <value>Vytváření regionálních objednávek není podporováno</value>
   </data>
   <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
-    <value>Недостаточно прав для создания заказа рекламного агентства</value>
+    <value>Nemáte práva pro vytvoření objednávky reklamní agentury</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Zadejte období, způsob evidence  poskytování služeb a oddělení organizace</value>

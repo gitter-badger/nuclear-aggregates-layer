@@ -5210,7 +5210,7 @@ Periodo de la publicación: {3}.</value>
     <value>No se permite crear las ordenes regionales</value>
   </data>
   <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
-    <value>Недостаточно прав для создания заказа рекламного агентства</value>
+    <value>No hay permisos suficientes para crear la orden de la agencia publicitaria</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Indique el período, modo para contabilizar la prestación de servicios y departamento de la empresa</value>

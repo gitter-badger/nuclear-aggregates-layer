@@ -2060,6 +2060,6 @@
     <value>Writing-off</value>
   </data>
   <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
-    <value>Рекламное агентство</value>
+    <value>Advertising agency</value>
   </data>
 </root>
