@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Currencies;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Print;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -54,12 +55,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
 
         public PrintFormDocument Print(long orderId)
         {
-            return new PrintOperationBuilder()
-                .UseScope(_scopeFactory.CreateNonCoupled<PrintBindingChangeAgreementIdentity>)
-                .UseTemplate(TemplateCode.BindingChangeAgreement)
-                .UseRequest(() => CreateRequest(orderId))
-                .UseRequestProcessor(_publicService.Handle)
-                .Execute();
+            using (var scope = _scopeFactory.CreateNonCoupled<PrintBindingChangeAgreementIdentity>())
+            {
+                var printDocumentRequest = CreateRequest(orderId);
+                var response = (StreamResponse)_publicService.Handle(printDocumentRequest);
+                scope.Complete();
+
+                return new PrintFormDocument
+                {
+                    Stream = response.Stream,
+                    ContentType = response.ContentType,
+                    FileName = response.FileName,
+                };
+            }
         }
 
         private PrintDocumentRequest CreateRequest(long orderId)
@@ -118,6 +126,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Orders.Print
             return new PrintDocumentRequest
             {
                 CurrencyIsoCode = currency.ISOCode,
+                TemplateCode = TemplateCode.BindingChangeAgreement,
                 FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, order.Number),
                 BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId.Value,
                 PrintData = PrintData.Concat(documentData, requisites, bargainData, documenSpecificData)
