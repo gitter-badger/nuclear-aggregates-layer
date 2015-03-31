@@ -4,7 +4,6 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
@@ -172,7 +171,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
 
             var printData = new PrintData
                                 {
-                                    { "BillDate", commonInfo.BillDate },
+                                    { "BillDate", DateTime.Now },
                                     { "PaymentDatePlan", commonInfo.PaymentDatePlan }
                                 };
 
