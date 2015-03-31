@@ -1867,6 +1867,6 @@
     <value>Změnit profil</value>
   </data>
   <data name="ControlSetDocumentsDebt" xml:space="preserve">
-    <value>Наличие документов</value>
+    <value>Dostupnost dokumentů</value>
   </data>
 </root>
