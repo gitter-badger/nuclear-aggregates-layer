@@ -58,7 +58,6 @@ using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories.Messaging;
@@ -74,6 +73,7 @@ using DoubleGis.Erm.TaskService.Config;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Assembling.TypeProcessing;
 using NuClear.Jobs.DI;
 using NuClear.Jobs.Schedulers;
 using NuClear.Settings.API;

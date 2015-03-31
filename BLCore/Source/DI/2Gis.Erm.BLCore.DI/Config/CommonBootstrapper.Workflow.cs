@@ -2,11 +2,11 @@
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.Model.Zones;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Assembling.TypeProcessing;
 using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.DI.Config

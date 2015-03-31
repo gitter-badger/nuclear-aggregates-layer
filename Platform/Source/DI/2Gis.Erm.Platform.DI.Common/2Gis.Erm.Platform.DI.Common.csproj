@@ -72,7 +72,6 @@
     <Compile Include="Config\TypeExtensions.cs" />
     <Compile Include="Config\DependencyScope.cs" />
     <Compile Include="Config\ErmScope.cs" />
-    <Compile Include="Config\MassProcessing\IMassProcessor.cs" />
     <Compile Include="Config\Lifetime.cs" />
     <Compile Include="Config\Policy.cs" />
     <Compile Include="Config\ContainerUtils.Register.cs" />

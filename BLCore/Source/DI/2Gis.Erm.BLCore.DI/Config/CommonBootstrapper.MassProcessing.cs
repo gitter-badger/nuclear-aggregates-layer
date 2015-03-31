@@ -4,9 +4,10 @@ using System.Linq;
 using System.Reflection;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Zones;
 using DoubleGis.Erm.Platform.Model.Zones;
+
+using NuClear.Assembling.TypeProcessing;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
