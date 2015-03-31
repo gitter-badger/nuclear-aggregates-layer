@@ -142,10 +142,11 @@
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\NuClear\Security.API\Security.API.csproj">
-      <Project>{83b81fd3-9908-472e-80a0-d7b50d5b8857}</Project>
-      <Name>Security.API</Name>
-    </ProjectReference>
+    <Reference Include="2GIS.NuClear.Security.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.0.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

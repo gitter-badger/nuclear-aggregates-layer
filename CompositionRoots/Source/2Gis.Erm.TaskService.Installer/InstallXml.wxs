@@ -184,6 +184,18 @@
       <Component>
         <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Tracing.Environment.1.0.2\lib\net451\2GIS.NuClear.Tracing.Environment.dll" />
       </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Security.API.1.0.0\lib\net451\2GIS.NuClear.Security.API.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Security.1.0.0\lib\net451\2GIS.NuClear.Security.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Jobs.1.0.0\lib\net451\2GIS.NuClear.Jobs.dll" />
+      </Component>
     </ComponentGroup>
     
     <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">

@@ -488,14 +488,16 @@
       <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
       <Name>2Gis.Erm.BL.Reports</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\NuClear\Security.API\Security.API.csproj">
-      <Project>{83b81fd3-9908-472e-80a0-d7b50d5b8857}</Project>
-      <Name>Security.API</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\NuClear\Security\Security.csproj">
-      <Project>{897827a4-fb71-4af9-be71-aa544106e595}</Project>
-      <Name>Security</Name>
-    </ProjectReference>
+    <Reference Include="2GIS.NuClear.Security.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\2GIS.NuClear.Security.API.1.0.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\2GIS.NuClear.Security.1.0.0\lib\net451\2GIS.NuClear.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

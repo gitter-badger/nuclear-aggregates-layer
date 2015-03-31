@@ -4,8 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
+    <ProductVersion></ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FE6BD7B0-6129-4315-975F-876D79595776}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -185,14 +184,16 @@
       <Project>{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}</Project>
       <Name>2Gis.Erm.BL.DI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\NuClear\Security.API\Security.API.csproj">
-      <Project>{83b81fd3-9908-472e-80a0-d7b50d5b8857}</Project>
-      <Name>Security.API</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\NuClear\Security\Security.csproj">
-      <Project>{897827a4-fb71-4af9-be71-aa544106e595}</Project>
-      <Name>Security</Name>
-    </ProjectReference>
+    <Reference Include="2GIS.NuClear.Security.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\2GIS.NuClear.Security.API.1.0.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\2GIS.NuClear.Security.1.0.0\lib\net451\2GIS.NuClear.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
       <Name>2Gis.Erm.Platform.API.Aggregates</Name>
@@ -327,8 +328,7 @@
           <IISUrl>https://localhost:44306/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
