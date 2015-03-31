@@ -73,6 +73,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                {
                                                    bill.BillNumber,
                                                    bill.BeginDistributionDate,
+                                                   bill.EndDistributionDate,
                                                    bill.PayablePlan,
                                                    bill.VatPlan,
                                                    bill.PaymentDatePlan,
@@ -111,6 +112,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                         { "BillNumber", printDataInfo.Bill.BillNumber },
                                         { "PaymentDatePlan", printDataInfo.Bill.PaymentDatePlan },
                                         { "BeginDistributionDate", printDataInfo.Bill.BeginDistributionDate },
+                                        { "EndDistributionDate", printDataInfo.Bill.EndDistributionDate },
                                         { "PayableWithoutVatPlan", printDataInfo.Bill.PayableWithoutVatPlan },
                                         { "NoVatText", printDataInfo.Bill.NoVatText },
                                         { "VatPlan", printDataInfo.Bill.VatPlan },
