@@ -171,7 +171,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
 
             var printData = new PrintData
                                 {
-                                    { "BillDate", DateTime.Now },
+                                    { "DateToday", DateTime.Now },
                                     { "PaymentDatePlan", commonInfo.PaymentDatePlan }
                                 };
 
