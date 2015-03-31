@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                     {
                         if (x.ProfileId == null)
                         {
-                            throw new LegalPersonProfileMustBeSpecifiedException();
+                            throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
                         }
 
                         var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(x.ProfileId.Value));

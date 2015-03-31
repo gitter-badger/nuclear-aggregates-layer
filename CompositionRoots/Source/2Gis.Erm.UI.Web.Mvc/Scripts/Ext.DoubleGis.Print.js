@@ -1,6 +1,9 @@
 ﻿var PrintLogic = {
-    PrintWithoutProfileChoosing: function (methodName, entityId, profileId) {
+    PrintWithoutProfileChoosing: function (methodName, entityId, profileId, businessModelSpecificArea) {
         var urlBase = '/Print/' + methodName + '/' + entityId;
+        if (businessModelSpecificArea) {
+            urlBase = '/' + businessModelSpecificArea + urlBase;
+        }
         var urlArguments = {
             _dc: Ext.util.Format.cacheBuster()
         };

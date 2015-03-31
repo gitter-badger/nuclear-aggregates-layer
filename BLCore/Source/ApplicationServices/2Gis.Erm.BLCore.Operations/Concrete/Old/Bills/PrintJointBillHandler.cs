@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 
             if (commonInfo.ProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(commonInfo.BranchOfficeId));

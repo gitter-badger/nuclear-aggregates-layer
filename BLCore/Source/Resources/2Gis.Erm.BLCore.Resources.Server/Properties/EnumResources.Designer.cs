@@ -5443,6 +5443,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Доп. соглашение (смена привязки).
+        /// </summary>
+        public static string TemplateCodeBindingChangeAgreement {
+            get {
+                return ResourceManager.GetString("TemplateCodeBindingChangeAgreement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Клиентский договор.
         /// </summary>
         public static string TemplateCodeClientBargain {
@@ -5457,6 +5466,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TemplateCodeClientBargainAlternativeLanguage {
             get {
                 return ResourceManager.GetString("TemplateCodeClientBargainAlternativeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Доп. соглашение (смена названия фирмы).
+        /// </summary>
+        public static string TemplateCodeFirmNameChangeAgreement {
+            get {
+                return ResourceManager.GetString("TemplateCodeFirmNameChangeAgreement", resourceCulture);
             }
         }
         
