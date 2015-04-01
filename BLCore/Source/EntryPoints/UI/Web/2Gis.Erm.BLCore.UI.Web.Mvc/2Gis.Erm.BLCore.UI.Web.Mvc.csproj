@@ -169,6 +169,7 @@
     <Compile Include="Attributes\UseDependencyFieldsAttribute.cs" />
     <Compile Include="Attributes\ValidationAttributes.cs" />
     <Compile Include="Controllers\Base\ControllerBase.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
     <Compile Include="Controllers\EntityOperations\CreateOrUpdateController.cs" />
     <Compile Include="Controllers\EntityOperations\CrmCreateOrUpdateController.cs" />
     <Compile Include="Controllers\EntityOperations\EditController.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Settings\ConfigurationDto\NavigationDto.cs" />
     <Compile Include="Settings\ConfigurationDto\ToolbarJson.cs" />
     <Compile Include="Settings\ConfigurationDto\ToolbarJson.Server.cs" />
+    <Compile Include="Settings\ISupportDepartmentIntegrationSettings.cs" />
     <Compile Include="Settings\IReportsSettings.cs" />
     <Compile Include="Settings\IWebAppProcesingSettings.cs" />
     <Compile Include="Settings\WebAppSettingsExtension.cs" />
