@@ -122,6 +122,10 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
     },
     Save: function () {
         window.Card.Items.Toolbar.disable();
+        if (!this.mask) {
+            this.mask = new Ext.LoadMask(this.el);
+        }
+        this.mask.show();
         var pending = this.store.save();
 
         if (pending == -1) {
@@ -133,6 +137,7 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
         this.markDirty(false);
         window.Card.Items.Toolbar.enable();
         window.Card.recalcToolbarButtonsAvailability();
+        this.mask.hide();
     },
     saveFailure: function(proxy, type, action, options, response, arg) {
         Ext.MessageBox.show({
@@ -144,57 +149,115 @@ Ext.DoubleGis.UI.PositionSortingOrder = Ext.extend(Ext.Panel, {
             });
         window.Card.Items.Toolbar.enable();
         window.Card.recalcToolbarButtonsAvailability();
+        this.mask.hide();
     },
     RegisterDragAndDrop: function () {
         var self = this;
+
+        function getInsertIndex(event) {
+            var rows = self.grid.getView().getRows();
+            var insertIndex = rows.length;
+            for (var index = 0; index < rows.length; index++) {
+                if (Ext.get(rows[index]).getTop() > event.xy[1]) {
+                    insertIndex = index;
+                    break;
+                }
+            }
+
+            var deletedCount = 0;
+            Ext.each(self.store.data.items, function (record) {
+                if (record.get('index') === null) {
+                    deletedCount++;
+                }
+            });
+
+            return Math.max(insertIndex - deletedCount, 0);
+        }
+
+        function getRange(records) {
+            var selectionMin = Number.POSITIVE_INFINITY;
+            var selectionMax = Number.NEGATIVE_INFINITY;
+            Ext.each(records, function (record) {
+                var recordIndex = record.get('index');
+
+                if (selectionMin > recordIndex) {
+                    selectionMin = recordIndex;
+                }
+
+                if (selectionMax < recordIndex) {
+                    selectionMax = recordIndex;
+                }
+            });
+
+            return {
+                min: selectionMin,
+                max: selectionMax
+            }
+        }
+
         this.dropTarget = new Ext.dd.DropTarget(this.grid.getView().el.dom, {
             ddGroup: 'firstGridDDGroup',
             notifyDrop: function (ddSource, event, data) {
-                var rows = self.grid.getView().getRows();
-                var insertIndex = rows.length;
-                for (var index = 0; index < rows.length; index++) {
-                    if (Ext.get(rows[index]).getTop() > event.xy[1]) {
-                        insertIndex = index;
-                        break;
-                    }
+                var selection = self.grid.getSelectionModel().getSelections();
+                selection.sort(function(r1, r2) { return r1.get('index') - r2.get('index'); });
+                var insertIndex = getInsertIndex(event);
+                var selectionRange = getRange(selection);
+
+                var updateRange = {
+                    min: Math.min(insertIndex, selectionRange.min),
+                    max: Math.max(insertIndex, selectionRange.max)
                 }
 
-                var deletedCount = 0;
-                Ext.each(self.store.data.items, function(record) {
-                    if (record.get('index') === null) {
-                        deletedCount++;
+                var position = updateRange.min;
+                Ext.each(self.store.data.items, function (record) {
+                    var index = record.get('index');
+                    if (index === null || index < updateRange.min || index > updateRange.max) {
+                        return;
                     }
+
+                    if (selection.indexOf(record) > -1) {
+                        return;
+                    }
+
+                    if (index >= insertIndex) {
+                        return;
+                    }
+
+                    record.set('index', position);
+                    position++;
                 });
 
-                insertIndex -= deletedCount;
-                if (insertIndex < 0) {
-                    insertIndex = 0;
-                }
+                Ext.each(selection, function(record) {
+                    var index = record.get('index');
+                    if (index === null || index < updateRange.min || index > updateRange.max) {
+                        return;
+                    }
 
-                Ext.each(ddSource.dragData.selections, function (record) {
-                    self.move(record, insertIndex - 1);
+                    record.set('index', position);
+                    position++;
+                });
+
+                Ext.each(self.store.data.items, function (record) {
+                    var index = record.get('index');
+                    if (index === null || index < updateRange.min || index > updateRange.max) {
+                        return;
+                    }
+
+                    if (selection.indexOf(record) > -1) {
+                        return;
+                    }
+
+                    if (index < insertIndex) {
+                        return;
+                    }
+
+                    record.set('index', position);
+                    position++;
                 });
 
                 self.store.sort(self.store.sortInfo.field, self.store.sortInfo.direction);
             }
         });
-    },
-    move: function (record, newIndex) {
-        if (record.data.index === null) {
-            return;
-        }
-
-        if (record.data.index < newIndex) {
-            // Смещаем записи между начальной и конечной точками вставки вверх
-            this.moverange(record.data.index, newIndex, -1);
-            record.set('index', newIndex);
-            this.markDirty(true);
-        } else if (record.data.index > newIndex + 1) {
-            // Смещаем записи между начальной и конечной точками вставки вниз
-            this.moverange(newIndex + 1, record.data.index, 1);
-            record.set('index', newIndex + 1);
-            this.markDirty(true);
-        }
     },
     moverange: function (startIndex, endIndex, shift) {
         var allRecords = this.store.data.items;
