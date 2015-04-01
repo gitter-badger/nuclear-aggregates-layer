@@ -4,32 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Dial;
+using DoubleGis.Erm.BLCore.Operations.Special.Dial.Telephony;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
 {
     public class DialOperationService : IDialOperationService
     {
-        private readonly IUserContext _userContext;
+        private readonly IPhoneService _phoneService;
 
-        private readonly IUserReadModel _userReadModel;
-
-        public DialOperationService(
-            IUserContext userContext, 
-            IUserReadModel userReadModel)
+        public DialOperationService(IPhoneService phoneService)
         {
-            _userContext = userContext;
-            _userReadModel = userReadModel;
+            _phoneService = phoneService;
         }
 
-        public DialResult Dial(string phone)
+        public void Dial(string phone)
         {
-            throw new BusinessLogicException("Fuck this shit!");
-            var user = _userReadModel.GetProfileForUser(_userContext.Identity.Code);
-            return new DialResult(user.Phone);
+            _phoneService.Dial(phone);
         }
     }
 }

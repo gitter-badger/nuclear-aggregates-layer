@@ -5190,4 +5190,10 @@ Placement period: {3}.</value>
   <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>You cannot save the action to a client in reserve</value>
   </data>
+  <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
+    <value>В вашем профиле не указан внутренний телефон, на который должны приходить звонки</value>
+  </data>
+  <data name ="IncorrectPhoneNumber" xml:space="preserve">
+    <value>Телефон {0} имеет некорректный формат</value>
+  </data>
 </root>

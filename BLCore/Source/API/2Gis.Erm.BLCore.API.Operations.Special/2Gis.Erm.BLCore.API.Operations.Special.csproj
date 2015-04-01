@@ -56,7 +56,6 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Dial\DialResult.cs" />
     <Compile Include="Dial\IDialOperationService.cs" />
     <Compile Include="DI\BlCoreApiOperationsSpecialAssembly.cs" />
     <Compile Include="CostCalculation\BizAccountCostResult.cs" />

@@ -5,6 +5,7 @@ using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations.Special.Dial;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Dial;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
@@ -32,20 +33,21 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.Dial
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
-        public DialResult Dial(string phone)
+        public void Dial(string phone)
         {
             try
             {
                 if (string.IsNullOrEmpty(phone))
                 {
-                    throw new ArgumentException("phone");
+                    throw new ArgumentException(BLResources.IncorrectPhoneNumber);
                 }
-                return _dialOperationService.Dial(phone);
+
+                _dialOperationService.Dial(phone);
             }
             catch (Exception ex)
             {
                 _tracer.ErrorFormat(ex, "Error has occurred in {0}.", GetType().Name);
-                throw new WebFaultException<DialErrorDescription>(new DialErrorDescription("Wow! Exception!"), HttpStatusCode.BadRequest);
+                throw new WebFaultException<DialErrorDescription>(new DialErrorDescription(ex.Message), HttpStatusCode.BadRequest);
             }
         }
     }

@@ -137,6 +137,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
 
             return new[] { rule };
         }
+
+        public override bool IsValid(object value)
+        {
+            return true;
+        }
     }
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]

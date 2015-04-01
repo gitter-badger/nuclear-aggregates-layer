@@ -10,6 +10,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Dial
     {
         [OperationContract]
         [FaultContract(typeof(DialErrorDescription), Namespace = ServiceNamespaces.Dialing.Dial201503)]
-        DialResult Dial(string phone);
+        void Dial(string phone);
     }
 }

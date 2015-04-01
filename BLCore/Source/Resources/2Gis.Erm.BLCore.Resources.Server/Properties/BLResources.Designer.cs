@@ -7496,6 +7496,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Телефон {0} имеет некорректный формат.
+        /// </summary>
+        public static string IncorrectPhoneNumber {
+            get {
+                return ResourceManager.GetString("IncorrectPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string Information {
@@ -15062,6 +15071,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string WorkInProgressPleaseStandBy {
             get {
                 return ResourceManager.GetString("WorkInProgressPleaseStandBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В вашем профиле не указан внутренний телефон, на который должны приходить звонки.
+        /// </summary>
+        public static string WorkPhoneIsNotSelected {
+            get {
+                return ResourceManager.GetString("WorkPhoneIsNotSelected", resourceCulture);
             }
         }
         

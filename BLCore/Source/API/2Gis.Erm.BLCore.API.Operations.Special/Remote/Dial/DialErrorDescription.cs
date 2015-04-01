@@ -1,7 +1,5 @@
 ﻿using System.Runtime.Serialization;
 
-using DoubleGis.Erm.BLCore.API.Operations.Remote;
-
 namespace DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Dial
 {
     [DataContract]

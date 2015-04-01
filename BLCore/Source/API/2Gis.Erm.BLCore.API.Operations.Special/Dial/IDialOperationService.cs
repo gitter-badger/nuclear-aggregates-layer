@@ -5,6 +5,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.Dial
 {
     public interface IDialOperationService : IOperation<DialIdentity>
     {
-        DialResult Dial(string phone);
+        void Dial(string phone);
     }
 }

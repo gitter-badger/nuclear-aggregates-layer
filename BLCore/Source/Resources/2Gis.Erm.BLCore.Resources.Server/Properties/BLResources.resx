@@ -5175,4 +5175,10 @@
   <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value/>
   </data>
+  <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
+    <value>В вашем профиле не указан внутренний телефон, на который должны приходить звонки</value>
+  </data>
+  <data name ="IncorrectPhoneNumber" xml:space="preserve">
+    <value>Телефон {0} имеет некорректный формат</value>
+  </data>
 </root>
