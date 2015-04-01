@@ -735,6 +735,7 @@
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.locale.kk-kz.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MultiCulture\DataList\Client.DataList.js" />
     <Content Include="Scripts\MultiCulture\DataList\LegalPerson.DataList.js" />
@@ -801,7 +802,6 @@
     <Content Include="Scripts\Ext.DoubleGis.UI.Limit.js" />
     <Content Include="Scripts\Ext.DoubleGis.Order.UpgradeResultWindow.js" />
     <Content Include="Scripts\DataList\LegalPersonProfile.DataList.js" />
-    <Content Include="Scripts\Ext.DoubleGis.UI.AdditionalFirmServicesControl.js" />
     <Content Include="Scripts\DataList\Advertisement.DataList.js" />
     <Content Include="Scripts\DataList\Bill.DataList.js" />
     <Content Include="Scripts\DataList\Client.DataList.js" />

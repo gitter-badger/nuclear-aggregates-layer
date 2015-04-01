@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
     public sealed class CreateLockDetailsDuringWithdrawalOperationService : ICreateLockDetailsDuringWithdrawalOperationService
     {
         private readonly IAccountBulkCreateLockDetailsAggregateService _accountBulkCreateLockDetailsAggregateService;
-        private readonly IPaymentsDistributor _paymentsDistributor;
+        private readonly IPaymentsDistributor _paymentsDistributor;        
         private readonly IChargeReadModel _withdrawalReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICostCalculator _costCalculator;
@@ -72,36 +72,35 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 var lockDetailsToCreate = new List<CreateLockDetailDto>();
                 foreach (var orderPosition in plannedOrderPositionsWithCharges)
                 {
-                    bool showVat;
-                    var vatRate = _orderReadModel.GetVatRate(orderPosition.OrderInfo.SourceOrganizationUnitId, orderPosition.OrderInfo.DestOrganizationUnitId, out showVat);
+                    var vatRateDetails = _orderReadModel.GetVatRateDetails(orderPosition.OrderInfo.SourceOrganizationUnitId, orderPosition.OrderInfo.DestOrganizationUnitId);
 
                     // За стоимость оказанной услуги принимается стоимость позиции за первый период размещения (т.е. теоритически меньшая величина, 
                     // чем за последний период в которой добавляются копейки для защиты от ошибок округления)
                     var calculationResult =
                         _costCalculator.Calculate(new CalcPositionRequest
-                    {
+                                                      {
                                                           Amount = 1,
                                                           CalculateDiscountViaPercent = true,
                                                           DiscountPercent = orderPosition.OrderPositionInfo.DiscountPercent,
                                                           PriceCost = orderPosition.ChargeInfo.Amount,
                                                           Rate = orderPosition.OrderPositionInfo.CategoryRate,
                                                           ReleaseCount = orderPosition.OrderInfo.ReleaseCountFact,
-                                                          ShowVat = showVat,
-                                                          VatRate = vatRate,
+                                                          ShowVat = vatRateDetails.ShowVat,
+                                                          VatRate = vatRateDetails.VatRate,
                                                       });
 
                     var paymentForSingleDistributionSlot = _paymentsDistributor.DistributePayment(orderPosition.OrderInfo.ReleaseCountFact,
-                                                                                                  calculationResult.PayablePlan)
-                                                                               .First();
+                                                                                                      calculationResult.PayablePlan)
+                                                                                   .First();
 
                     lockDetailsToCreate.Add(new CreateLockDetailDto
-                        {
-                            Lock = orderPosition.Lock,
+                                                {
+                                                    Lock = orderPosition.Lock,
                                                     Amount = Math.Min(paymentForSingleDistributionSlot, orderPosition.OrderPositionInfo.AmountToWithdraw),
-                            OrderPositionId = orderPosition.OrderPositionInfo.OrderPositionId,
-                            PriceId = orderPosition.OrderPositionInfo.PriceId,
-                            ChargeSessionId = orderPosition.ChargeInfo.SessionId
-                        });
+                                                    OrderPositionId = orderPosition.OrderPositionInfo.OrderPositionId,
+                                                    PriceId = orderPosition.OrderPositionInfo.PriceId,
+                                                    ChargeSessionId = orderPosition.ChargeInfo.SessionId
+                                                });
                 }
 
                 _accountBulkCreateLockDetailsAggregateService.Create(lockDetailsToCreate);

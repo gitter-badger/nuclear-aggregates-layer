@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto
         [DataMember]
         public decimal PricePerUnit { get; set; }
         [DataMember]
-        public decimal VatRatio { get; set; }
+        public decimal PricePerUnitWithVat { get; set; }
         [DataMember]
         public string PlatformName { get; set; }
         [DataMember]

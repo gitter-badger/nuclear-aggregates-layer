@@ -823,6 +823,7 @@
     <Compile Include="2.1\201503040330 - add support button to MS CRM.cs" />
     <Compile Include="2.1\201502111010 - remove Timestamp from SalesModelCategoryRestrictions.cs" />
     <Compile Include="2.1\201502240101 - Add new Integration.ExportFlowFinancialData_DebitsInfoInitial table.cs" />
+	<Compile Include="2.1\201503120344 - Drop firm services tables.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
     <Compile Include="2.1\201501190608 - add Amount to Billing.Charges.cs" />
     <Compile Include="2.1\201501201220 - remove PositionId column.cs" />
