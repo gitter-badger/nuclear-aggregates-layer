@@ -5211,6 +5211,9 @@ Placement period: {3}.</value>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
     <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
   </data>
+  <data name="Support" xml:space="preserve">
+    <value>Technical support</value>
+  </data>
   <data name="PositionAccessDenied" xml:space="preserve">
     <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
   </data>
