@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integrati
                                                                              _securityServiceUserIdentifier.GetReserveUserIdentity().Code,
                                                                              ids,
                                                                              _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord,
-                                                                             _msCrmSettings.EnableReplication);
+                                                                             _msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Database));
 
                 scope.ApplyChanges<Firm>(changesContext)
                      .ApplyChanges<FirmAddress>(changesContext)

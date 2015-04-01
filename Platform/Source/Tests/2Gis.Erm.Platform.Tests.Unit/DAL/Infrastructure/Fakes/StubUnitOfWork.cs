@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Aggregates;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 {
@@ -16,8 +17,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             IReadDomainContext readDomainContext,
             IModifiableDomainContextFactory modifiableDomainContextFactory,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-            ICommonLog logger)
-            : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, logger)
+            ITracer tracer)
+            : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, tracer)
         {
             _factories = factories;
         }
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             throw new NotSupportedException();
         }
 
-        protected override object CreateCosumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
+        protected override object CreateConsumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
         {
             throw new NotImplementedException();
         }

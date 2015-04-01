@@ -5,7 +5,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -15,6 +14,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Microsoft.Practices.Unity.InterceptionExtension;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 {
@@ -26,13 +27,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         private readonly IEnumerable<string> _elementsToIgnore;
         private readonly IFinder _finder;
 
-        public LogWebRequestHandler(ICommonLog logger,
+        public LogWebRequestHandler(ITracer tracer,
                                     IActionLogger actionLogger,
                                     EntityName entityType,
                                     CompareObjectMode compareObjectMode,
                                     IEnumerable<string> elementsToIgnore,
                                     IFinder finder)
-            : base(logger)
+            : base(tracer)
         {
             _actionLogger = actionLogger;
             _entityType = entityType;
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 
             if (entity == null)
             {
-                Logger.Fatal("Критичная ошибка журналирования объекта. Не удалось получить экземпляр объекта до изменения");
+                Tracer.Fatal("Критичная ошибка журналирования объекта. Не удалось получить экземпляр объекта до изменения");
             }
             else
             {
@@ -60,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
+                    Tracer.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
                 }
             }
 
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.Fatal(ex, "Критичная ошибка журналирования операций");
+                    Tracer.Fatal(ex, "Критичная ошибка журналирования операций");
                 }
             }
 

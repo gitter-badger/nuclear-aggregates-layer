@@ -1294,17 +1294,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Предупреждение</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС со скидкой</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Бланк заказа</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС со скидкой</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС без скидки</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС без скидки</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>Бланк заказа (multi full house)</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Звонок</value>
@@ -1327,31 +1321,58 @@
   <data name="ActivityPriorityHigh" xml:space="preserve">
     <value>Высокий</value>
   </data>
-  <data name="ActivityPurposeFirstCall" xml:space="preserve">
+  <data name="PhonecallPurposeFirstCall" xml:space="preserve">
     <value>Первый контакт (Знакомство)</value>
   </data>
-  <data name="ActivityPurposeProductPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeProductPresentation" xml:space="preserve">
     <value>Проведение презентации</value>
   </data>
-  <data name="ActivityPurposeOpportunitiesPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeOpportunitiesPresentation" xml:space="preserve">
     <value>Проведение презентации рекламных возможностей</value>
   </data>
-  <data name="ActivityPurposeOfferApproval" xml:space="preserve">
+  <data name="PhonecallPurposeOfferApproval" xml:space="preserve">
     <value>Согласование и отправка КП</value>
   </data>
-  <data name="ActivityPurposeDecisionApproval" xml:space="preserve">
+  <data name="PhonecallPurposeDecisionApproval" xml:space="preserve">
     <value>Согласование сроков принятия решения</value>
   </data>
-  <data name="ActivityPurposeSale" xml:space="preserve">
+  <data name="PhonecallPurposeSale" xml:space="preserve">
     <value>Продажа</value>
   </data>
-  <data name="ActivityPurposeService" xml:space="preserve">
+  <data name="PhonecallPurposeService" xml:space="preserve">
     <value>Сервис</value>
   </data>
-  <data name="ActivityPurposeUpsale" xml:space="preserve">
+  <data name="PhonecallPurposeUpsale" xml:space="preserve">
     <value>Допродажа</value>
   </data>
-  <data name="ActivityPurposeProlongation" xml:space="preserve">
+  <data name="PhonecallPurposeProlongation" xml:space="preserve">
+    <value>Продление</value>
+  </data>
+  <data name="AppointmentPurposeFirstCall" xml:space="preserve">
+    <value>Первый контакт (Знакомство)</value>
+  </data>
+  <data name="AppointmentPurposeProductPresentation" xml:space="preserve">
+    <value>Проведение презентации</value>
+  </data>
+  <data name="AppointmentPurposeOpportunitiesPresentation" xml:space="preserve">
+    <value>Проведение презентации рекламных возможностей</value>
+  </data>
+  <data name="AppointmentPurposeOfferApproval" xml:space="preserve">
+    <value>Согласование и отправка КП</value>
+  </data>
+  <data name="AppointmentPurposeDecisionApproval" xml:space="preserve">
+    <value>Согласование сроков принятия решения</value>
+  </data>
+  <data name="AppointmentPurposeSale" xml:space="preserve">
+    <value>Продажа</value>
+  </data>
+  <data name="AppointmentPurposeService" xml:space="preserve">
+    <value>Сервис</value>
+  </data>
+  <data name="AppointmentPurposeUpsale" xml:space="preserve">
+    <value>Допродажа</value>
+  </data>
+  <data name="AppointmentPurposeProlongation" xml:space="preserve">
     <value>Продление</value>
   </data>
   <data name="ActivityStatusInProgress" xml:space="preserve">
@@ -1435,7 +1456,10 @@
   <data name="ActivityPriorityNotSet" xml:space="preserve">
     <value>Не задано</value>
   </data>
-  <data name="ActivityPurposeNotSet" xml:space="preserve">
+  <data name="PhonecallPurposeNotSet" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="AppointmentPurposeNotSet" xml:space="preserve">
     <value>Не задано</value>
   </data>
   <data name="ActivityStatusNotSet" xml:space="preserve">
@@ -1984,5 +2008,23 @@
   </data>
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Гарантируемое оказание</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Планируемое оказание</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Списание</value>
+  </data>
+  <data name="PositionsGroupMedia" xml:space="preserve">
+    <value>Медийная реклама</value>
+  </data>
+  <data name="PositionsGroupNone" xml:space="preserve">
+    <value />
   </data>
 </root>

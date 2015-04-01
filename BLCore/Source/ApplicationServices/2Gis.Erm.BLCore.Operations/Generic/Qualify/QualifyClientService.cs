@@ -11,10 +11,11 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 {
@@ -25,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IClientReadModel _readModel;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
         private readonly IPhonecallReadModel _phonecallReadModel;
@@ -49,14 +50,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             IAssignPhonecallAggregateService assignPhonecallAggregateService,
             IAssignTaskAggregateService assignTaskAggregateService,
             IClientReadModel readModel,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _userContext = userContext;
             _clientRepository = clientRepository;
             _userIdentifierService = userIdentifierService;
             _scopeFactory = scopeFactory;
             _readModel = readModel;
-            _logger = logger;
+            _tracer = tracer;
             _appointmentReadModel = appointmentReadModel;
             _letterReadModel = letterReadModel;
             _phonecallReadModel = phonecallReadModel;
@@ -67,7 +68,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             _assignTaskAggregateService = assignTaskAggregateService;
         }
 
-        public QualifyResult Qualify(long entityId, long ownerCode, long? relatedEntityId)
+        // Метод должен быть виртуальным для работы ActionsHistory
+        public virtual QualifyResult Qualify(long entityId, long ownerCode, long? relatedEntityId)
         {
             var currentUser = _userContext.Identity;
             var reserveUser = _userIdentifierService.GetReserveUserIdentity();
@@ -84,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 
             AssignRelatedActivities(entityId, ownerCode);
 
-            _logger.InfoFormat("[ERM] Клиент с id={0} взят из резерва, с назначением пользователю с id={1}", entityId, ownerCode);
+            _tracer.InfoFormat("[ERM] Клиент с id={0} взят из резерва, с назначением пользователю с id={1}", entityId, ownerCode);
 
             return new QualifyResult
                 {

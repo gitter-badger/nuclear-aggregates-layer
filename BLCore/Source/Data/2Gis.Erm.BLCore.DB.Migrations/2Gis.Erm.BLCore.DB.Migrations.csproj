@@ -365,6 +365,7 @@
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateAppointments.sql" />
     <Content Include="Resources\201501201646\Billing.ReplicateDeals.sql" />
     <Content Include="Resources\201502110416\Log.Events_DateLocalTimeZone.sql" />
+    <None Include="Resources\201503040330\customizations.xml" />
     <None Include="Resources\201502090244\customizations_201502090244.xml" />
     <None Include="packages.config" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />
@@ -813,11 +814,22 @@
     <Compile Include="2.1\2014.10.20 rev. 25393 - Alter OrderValidationResults.cs" />
     <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
     <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
+    <Compile Include="2.1\201502061644 - Change HotClientsRequests TaskId type.cs" />
     <Compile Include="2.1\201501201646 - Deal replication fix.cs" />
+    <Compile Include="2.1\201412291720 - Insert missing Organizers.cs" />
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
-    <Compile Include="2.1\Migration201502111010.cs" />
+    <Compile Include="2.1\201503040626 - Add PositionsGroup.cs" />
+    <Compile Include="2.1\201502190640 - Rename AdditionalEmail to Email.cs" />
+    <Compile Include="2.1\201503040330 - add support button to MS CRM.cs" />
+    <Compile Include="2.1\201502111010 - remove Timestamp from SalesModelCategoryRestrictions.cs" />
+    <Compile Include="2.1\201502240101 - Add new Integration.ExportFlowFinancialData_DebitsInfoInitial table.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
+    <Compile Include="2.1\201501190608 - add Amount to Billing.Charges.cs" />
+    <Compile Include="2.1\201501201220 - remove PositionId column.cs" />
     <Compile Include="2.1\201502090244 - remove account details export buttons from MS CRM.cs" />
+    <Compile Include="2.1\201501261917 - Drop single replication SPs.cs" />
+    <Compile Include="2.1\201503111149 - Drop obsoleted logging infrastructure.cs" />
+    <Compile Include="2.1\201502130238 - add AccountingMethod column to WithdrawalInfos table.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />
@@ -858,8 +870,8 @@
     <Compile Include="ActivityMigration\TaskMigration.cs" />
     <Compile Include="2.1\201411261501 - Fix batch replication procedures.cs" />
     <Compile Include="2.1\201412040408 - Drop column PaymentEssentialElements.cs" />
-    <Compile Include="2.1\Migration201412301100 - add SalesModelCategoryRestrictions.cs" />
-    <Compile Include="2.1\Migration201412240529 - rename AccountingMethodEnum to SalesModelEnum.cs" />
+    <Compile Include="2.1\201412240529 - rename AccountingMethodEnum to SalesModelEnum.cs" />
+    <Compile Include="2.1\201412301100 - add SalesModelCategoryRestrictions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
@@ -884,6 +896,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="Resources\201412291720 - Insert missing organizers.sql" />
+    <Content Include="Resources\201502061644\Change HotClientRequest TaskId type.sql" />
     <Compile Include="Shared\CrmDbHelper.cs" />
     <Compile Include="Shared\ErmTableUtilsForOldIntKeys.cs" />
     <Compile Include="Shared\InsertedNotNullableColumnDefinition.cs" />

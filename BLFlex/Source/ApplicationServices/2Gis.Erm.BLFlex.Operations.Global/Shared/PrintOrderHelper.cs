@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             }
         }
 
-        public PrintData GetOrderPositionsWithDetailedName(IQueryable<Order> orderQuery, IQueryable<OrderPosition> orderPositionsQuery)
+        public PrintData GetOrderPositionsWithDetailedName(IQueryable<Order> orderQuery, IQueryable<OrderPosition> orderPositionsQuery, SalesModel? salesModel)
         {
             var orderInfo = orderQuery
                 .Select(order => new
@@ -129,9 +129,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                     order.DestOrganizationUnit.BranchOfficeOrganizationUnits
                          .FirstOrDefault(y => y.IsActive && !y.IsDeleted && y.IsPrimaryForRegionalSales)
                          .RegistrationCertificate,
-                    Order = order
+                    Order = order,
                 })
                 .Single();
+
+            var orderPositionNameFormat = salesModel == SalesModel.MultiPlannedProvision
+                                              ? PositionDetailedName.FormatMultiFullHouse
+                                              : PositionDetailedName.FormatOldSalesModels;
 
             var orderPositions = orderPositionsQuery
                 .Select(orderPosition => new
@@ -143,6 +147,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         orderPosition.PayablePlanWoVat,
                         orderPosition.PricePerUnit,
                         orderPosition.Order.ReleaseCountPlan,
+                        PricePositionCost = orderPosition.PricePosition.Cost,
 
                         Platform = orderPosition.PricePosition.Position.Platform.DgppId,
 
@@ -167,12 +172,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                 .AsEnumerable()
                 .Select(x => new PrintData
                     {
+                        { "AdvertisingBudget", x.PricePositionCost * x.Amount },
                         { "Amount", x.Amount },
                         { "BeginDistributionDate", orderInfo.Order.BeginDistributionDate },
                         { "DiscountPercent", x.DiscountPercent },
                         { "ElectronicMediaParagraph", GetElectronicMediaParagraph((PlatformEnum)x.Platform, orderInfo.ElectronicMedia, orderInfo.RegistrationCertificate, orderInfo.Order) },
                         { "FirmName", orderInfo.FirmName },
-                        { "Name", PositionDetailedName.Format(x.Key, x.Values) },
+                        { "Name", orderPositionNameFormat.Invoke(x.Key, x.Values) },
                         { "PayablePlan", x.PayablePlan },
                         { "PayablePlanWithoutVat", x.PayablePlanWoVat },
                         { "PriceForMonthWithDiscount", (x.PayablePlanWoVat / x.Amount) / x.ReleaseCountPlan },
@@ -240,6 +246,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         { "DiscountPercent", x.DiscountPercent.ToString("F") }, // TODO {all, 12.03.2014}: Форматирования данных в коде не должно быть
                         { "ElectronicMediaParagraph", GetElectronicMediaParagraph((PlatformEnum)x.Platform, orderInfo.ElectronicMedia, orderInfo.RegistrationCertificate, orderInfo.Order) },
                         { "FirmName", orderInfo.FirmName },
+
                         { "Name", PositionSimpleName.FormatName(x.IsComposite, x.BindingObjectTypeEnum, x.Name, x.Advertisements) },
                         { "PayablePlan", x.PayablePlan },
                         { "PayablePlanWithoutVat", x.PayablePlanWoVat },
@@ -302,17 +309,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                 .Select(x => new
                     {
                         x.Number,
+                        x.BeginDistributionDate,
                         x.SignupDate,
                         x.OwnerCode,
                         x.PayablePlan,
                         x.VatPlan,
                         x.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                        DiscountPercent = x.DiscountPercent.HasValue ? x.DiscountPercent.Value : 0,
                         PayablePlanWithoutVat = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted).Select(position => position.PayablePlanWoVat),
                     })
                 .AsEnumerable()
                 .Select(x => new PrintData
                     {
                         { "Number", x.Number },
+                        { "BeginDistributionDate", x.BeginDistributionDate },
                         { "SignupDate", x.SignupDate },
                         { "OwnerName", _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName },
                         { "PayablePlan", x.PayablePlan },
@@ -320,6 +330,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         { "VatPlan", x.VatPlan },
                         { "VatRatio", x.VatRate },
                         { "VatSum", x.PayablePlan - x.PayablePlanWithoutVat.Sum() },
+                        { "DiscountPercent", x.DiscountPercent },
+
+                        { "UseWithVat", x.VatPlan > 0 },
+                        { "UseNoVat", x.VatPlan == 0 },
+                        { "UseWithDiscount", x.DiscountPercent > 0 },
+
+                        { "UseWithVatWithDiscount", x.VatPlan > 0 && x.DiscountPercent > 0 },
+                        { "UseWithVatNoDiscount", x.VatPlan > 0 && x.DiscountPercent == 0 },
+                        { "UseNoVatWithDiscount", x.VatPlan == 0 && x.DiscountPercent > 0 },
+                        { "UseNoVatNoDiscount", x.VatPlan == 0 && x.DiscountPercent == 0 },
                     })
                 .Single();
 

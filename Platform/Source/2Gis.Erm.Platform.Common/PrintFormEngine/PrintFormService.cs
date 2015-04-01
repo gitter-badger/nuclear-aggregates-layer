@@ -71,6 +71,8 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
                     FillSdtTable(sdtTable, (IEnumerable)tableData, currencyIsoCode);
                 }
 
+                MarkReferencesAsDirty(doc);
+
                 doc.Close();
                 stream.Position = 0;
             }
@@ -150,6 +152,18 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
             stream.Position = 0;
 
             return stream;
+        }
+
+        private void MarkReferencesAsDirty(WordprocessingDocument document)
+        {
+            var fieldBeginMarks = document.MainDocumentPart.Document.Descendants<FieldChar>()
+                                          .Where(c => c.FieldCharType == "begin")
+                                          .ToArray();
+
+            foreach (var fieldChar in fieldBeginMarks)
+            {
+                fieldChar.Dirty = new OnOffValue(true);
+            }
         }
 
         private static Stream CreateEmptyDocument()

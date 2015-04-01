@@ -1,0 +1,2 @@
+﻿HTTP pipelining
+https://github.com/elasticsearch/elasticsearch-net/pull/1032

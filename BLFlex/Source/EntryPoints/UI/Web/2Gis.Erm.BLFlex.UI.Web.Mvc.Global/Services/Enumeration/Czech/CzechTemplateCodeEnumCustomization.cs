@@ -10,16 +10,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Czech
 {
     public class CzechTemplateCodeEnumCustomization : EnumCustomizationBase<TemplateCode>, ICzechAdapted
     {
-        private readonly TemplateCode[] _notUsedOrderTemplates = 
-            {
-                TemplateCode.OrderWithVatWithoutDiscount,
-                TemplateCode.OrderWithoutVatWithDiscount,
-                TemplateCode.OrderWithoutVatWithoutDiscount,
-            };
+        private static readonly IEnumerable<TemplateCode> IgnoredOrderTypes = new[] { TemplateCode.OrderMultiPlannedProvision };
 
         protected override IEnumerable<TemplateCode> GetRequiredEnumValues()
         {
-            return Enum.GetValues(typeof(TemplateCode)).Cast<TemplateCode>().Except(_notUsedOrderTemplates);
+            return Enum.GetValues(typeof(TemplateCode))
+                       .Cast<TemplateCode>()
+                       .Except(IgnoredOrderTypes);
         }
     }
 }

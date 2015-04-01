@@ -29,11 +29,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         JointBillBusinessman = 41,
         JointBillNaturalPerson = 42,
 
-        // бланк заказа
-        OrderWithoutVatWithDiscount = 58,
-        OrderWithVatWithDiscount = 59,
-        OrderWithoutVatWithoutDiscount = 60,
-        OrderWithVatWithoutDiscount = 61,
+        // бланк заказа (58, 60, 61 - устаревшие)
+        Order = 59,
+        OrderMultiPlannedProvision = 62,
 
         // уведомление о расторжении
         TerminationNoticeLegalPerson = 70,

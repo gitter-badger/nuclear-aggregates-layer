@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Transactions;
 using System.Xml;
 
@@ -17,9 +16,10 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Compression;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 {
@@ -27,18 +27,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
     {
         private readonly IFileService _fileService;
         private readonly ILocalMessageRepository _localMessageRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ISubRequestProcessor _subRequestProcessor;
 
         public ProcessLocalMessagesHandler(ILocalMessageRepository localMessageRepository,
                                            IFileService fileService,
                                            ISubRequestProcessor subRequestProcessor,
-                                           ICommonLog logger)
+                                           ITracer tracer)
         {
             _localMessageRepository = localMessageRepository;
             _fileService = fileService;
             _subRequestProcessor = subRequestProcessor;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override EmptyResponse Handle(ProcessLocalMessagesRequest request)
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
                 var exceptionMessage = (ex is XmlException) ? "Неверный формат сообщения" : ex.Message;
                 var errorMessage = string.Format("Ошибка обработки сообщения [{0}]: {1}", localMessageDto.LocalMessage.Id, exceptionMessage);
-                _logger.Error(ex, errorMessage);
+                _tracer.Error(ex, errorMessage);
 
                 messages.Add(errorMessage);
             }
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                         localMessageDto.LocalMessage.Id,
                         response.Processed,
                         response.Total);
-                _logger.Info(resultMessage);
+                _tracer.Info(resultMessage);
 
                 messages.Add(resultMessage);
                 if (response.Messages != null)
@@ -141,11 +141,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                         return ProcessDataForAutoMailer(localMessageDto);
                     }
 
-                case IntegrationTypeExport.AccountDetailsToServiceBus:
-                {
-                    return ProcessAccountDetailsToServiceBus(localMessageDto);
-                }
-
                 case IntegrationTypeExport.LegalPersonsTo1C:
                 case IntegrationTypeExport.None:
                     throw new NotificationException("Неподдерживаемый тип интеграционного запроса на экспорт");
@@ -154,66 +149,53 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             }
         }
 
-        private ExportResponse ProcessAccountDetailsToServiceBus(LocalMessageDto localMessageDto)
-        {
-            var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
 
-            var stream = file.Content.UnzipStream(x => Path.GetExtension(x) == ".xml").Single().Value;
-            return (ExportResponse)_subRequestProcessor.HandleSubRequest(new WriteMessageToServiceBusRequest
-                {
-                    MessageStream = stream,
-                    FlowName = "flowFinancialData",
-                    XsdSchemaResourceExpression = () => Properties.Resources.flowFinancialData_DebitsInfoInitial
-                },
-                                                                         Context,
-                                                                         false);
-        }
 
         private ExportResponse ProcessDataForAutoMailer(LocalMessageDto localMessageDto)
         {
             var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
             var stream = file.Content;
 
-            return (ExportResponse)_subRequestProcessor.HandleSubRequest(new WriteMessageToServiceBusRequest
+            var subrequest = new WriteMessageToServiceBusRequest
             {
                 MessageStream = stream,
                 FlowName = "flowDeliveryData",
                     XsdSchemaResourceExpression = () => Properties.Resources.flowDeliveryData_SendingGroup
-            },
-                                                             Context,
-                                                             false);
+                };
+            return (ExportResponse)_subRequestProcessor.HandleSubRequest(subrequest, Context, false);
         }
 
         private ImportResponse ProcessImportRequest(LocalMessageDto localMessageDto)
         {
-            ImportResponse response;
-
             var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
-            var stream = file.Content;
-
             var integrationType = (IntegrationTypeImport)localMessageDto.IntegrationType;
+            var response = GetResponse(integrationType, file.Content, localMessageDto.FileName);
+            localMessageDto.LocalMessage.OrganizationUnitId = response.OrganizationUnitId;
+            return response;
+        }
+
+        private ImportResponse GetResponse(IntegrationTypeImport integrationType, Stream stream, string fileName)
+        {
+            return (ImportResponse)_subRequestProcessor.HandleSubRequest(
+                CreateRequest(integrationType, stream, fileName),
+                Context,
+                false);
+        }
+
+        private Request CreateRequest(IntegrationTypeImport integrationType, Stream stream, string fileName)
+        {
             switch (integrationType)
             {
                 case IntegrationTypeImport.AccountDetailsFrom1C:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                                                                                     new ImportAccountDetailsFrom1CRequest
+                    return new ImportAccountDetailsFrom1CRequest
                                                                                          {
                                                                                              InputStream = stream,
-                                                                                             FileName = localMessageDto.FileName
-                                                                                         },
-                            Context,
-                            false);
-                        break;
-                    }
+                                   FileName = fileName
+                               };
 
                 default:
                     throw new NotificationException("Неподдерживаемый тип интеграционного запроса на импорт");
             }
-
-            localMessageDto.LocalMessage.OrganizationUnitId = response.OrganizationUnitId;
-
-            return response;
         }
     }
 }

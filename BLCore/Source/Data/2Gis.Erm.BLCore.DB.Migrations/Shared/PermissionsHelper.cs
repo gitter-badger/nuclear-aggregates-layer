@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
             return sb;
         }
 
-        public static bool CheckPermissionExistance(IMigrationContext context, Int32 privelegeId)
+        public static bool CheckPermissionExistence(IMigrationContext context, Int32 privelegeId)
         {
             var queryText = string.Format("SELECT 1 FROM [Security].[Privileges] WHERE Id = {0}", privelegeId);
             var permission = context.Connection.ExecuteScalar(queryText);
