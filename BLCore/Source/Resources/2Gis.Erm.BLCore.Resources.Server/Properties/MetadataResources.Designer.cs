@@ -3672,6 +3672,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Дата начала.
         /// </summary>
+        public static string ScheduledOn {
+            get {
+                return ResourceManager.GetString("ScheduledOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата начала.
+        /// </summary>
         public static string ScheduledStart {
             get {
                 return ResourceManager.GetString("ScheduledStart", resourceCulture);

@@ -1047,6 +1047,9 @@
   <data name="ScheduledStart" xml:space="preserve">
     <value>Fecha de inicio</value>
   </data>
+  <data name="ScheduledOn" xml:space="preserve">
+    <value>Fecha de inicio</value>
+  </data>
   <data name="StartPeriodDate" xml:space="preserve">
     <value>Mes</value>
   </data>
