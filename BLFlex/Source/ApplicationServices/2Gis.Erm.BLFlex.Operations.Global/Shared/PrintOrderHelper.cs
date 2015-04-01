@@ -246,6 +246,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         { "DiscountPercent", x.DiscountPercent.ToString("F") }, // TODO {all, 12.03.2014}: Форматирования данных в коде не должно быть
                         { "ElectronicMediaParagraph", GetElectronicMediaParagraph((PlatformEnum)x.Platform, orderInfo.ElectronicMedia, orderInfo.RegistrationCertificate, orderInfo.Order) },
                         { "FirmName", orderInfo.FirmName },
+
                         { "Name", PositionSimpleName.FormatName(x.IsComposite, x.BindingObjectTypeEnum, x.Name, x.Advertisements) },
                         { "PayablePlan", x.PayablePlan },
                         { "PayablePlanWithoutVat", x.PayablePlanWoVat },
