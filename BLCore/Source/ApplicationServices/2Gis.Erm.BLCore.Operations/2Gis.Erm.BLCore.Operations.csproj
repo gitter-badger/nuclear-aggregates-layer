@@ -332,6 +332,7 @@
     <Compile Include="Generic\Complete\CompleteLetterOperationService.cs" />
     <Compile Include="Generic\Complete\CompletePhonecallOperationService.cs" />
     <Compile Include="Generic\Complete\CompleteTaskOperationService.cs" />
+    <Compile Include="Generic\Complete\TimeZoneInfoExtenstion.cs" />
     <Compile Include="Generic\Create\CreateAdvertisementElementOperationService.cs" />
     <Compile Include="Generic\Create\CreateAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionService.cs" />

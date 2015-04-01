@@ -57,8 +57,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             {
                 var appointment = _appointmentReadModel.GetAppointment(entityId);
                 var originalStatus = appointment.Status;
+                var userLocale = _userContext.Profile.UserLocaleInfo;
 
-                if (appointment.ScheduledStart.Date > DateTime.Now.Date)
+                if (appointment.ScheduledStart.ToUserDateTime(userLocale).Date > userLocale.ToLocalUserTime().Date)
                 {
                     throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
                 }

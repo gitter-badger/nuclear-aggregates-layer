@@ -59,7 +59,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
                 var phonecall = _phonecallReadModel.GetPhonecall(entityId);
                 var originalStatus = phonecall.Status;
 
-                if (phonecall.ScheduledOn.Date > DateTime.Now.Date)
+                var userLocale = _userContext.Profile.UserLocaleInfo;
+
+                if (phonecall.ScheduledOn.ToUserDateTime(userLocale).Date > userLocale.ToLocalUserTime().Date)
                 {
                     throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
                 }
