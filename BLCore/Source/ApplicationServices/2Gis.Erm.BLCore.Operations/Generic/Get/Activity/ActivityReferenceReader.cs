@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
@@ -8,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
 {
+    [Obsolete("Обертка над тремя read моделями, которая написана не по DIP понятниям.")]
     public sealed class ActivityReferenceReader
     {
         private readonly IClientReadModel _clientReadModel;
