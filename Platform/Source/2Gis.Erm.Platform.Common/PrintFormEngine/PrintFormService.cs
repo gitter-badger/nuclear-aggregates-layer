@@ -156,13 +156,40 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
 
         private void MarkReferencesAsDirty(WordprocessingDocument document)
         {
-            var fieldBeginMarks = document.MainDocumentPart.Document.Descendants<FieldChar>()
-                                          .Where(c => c.FieldCharType == "begin")
+            var fieldBeginMarks = document.MainDocumentPart.Document.Descendants()
+                                          .Where(c => c is FieldChar || c is FieldCode)
                                           .ToArray();
 
-            foreach (var fieldChar in fieldBeginMarks)
+            var fieldState = new FieldState();
+            foreach (var xmlElement in fieldBeginMarks)
             {
-                fieldChar.Dirty = new OnOffValue(true);
+                var fieldChar = xmlElement as FieldChar;
+                var fieldCode = xmlElement as FieldCode;
+
+                if (fieldChar != null && fieldChar.FieldCharType == "begin")
+                {
+                    fieldState.Begin = fieldChar;
+                }
+
+                if (fieldChar != null && fieldChar.FieldCharType == "end")
+                {
+                    fieldState.End = fieldChar;
+                }
+
+                if (fieldCode != null)
+                {
+                    fieldState.Code = fieldCode;
+                }
+
+                if (fieldState.IsComplete)
+                {
+                    if (fieldState.IsReference)
+                    {
+                        fieldState.Begin.Dirty = new OnOffValue(true);
+                    }
+
+                    fieldState = new FieldState();
+                }
             }
         }
 
@@ -381,6 +408,65 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
 
             value = null;
             return false;
+        }
+
+        private class FieldState
+        {
+            private FieldChar _begin;
+            private FieldChar _end;
+            private FieldCode _code;
+
+            public bool IsComplete
+            {
+                get { return _end != null; }
+            }
+
+            public bool IsReference
+            {
+                get { return _code != null && _code.Text.Trim().StartsWith("REF"); }
+            }
+
+            public FieldChar Begin
+            {
+                get { return _begin; }
+                set
+                {
+                    if (_begin != null)
+                    {
+                        throw new InvalidOperationException("Начало поля уже добавлено");
+                    }
+
+                    _begin = value;
+                }
+            }
+
+            public FieldChar End
+            {
+                get { return _end; }
+                set
+                {
+                    if (_begin == null)
+                    {
+                        throw new InvalidOperationException("Начало поля не было добавлено");
+                    }
+
+                    _end = value;
+                }
+            }
+
+            public FieldCode Code
+            {
+                get { return _code; }
+                set
+                {
+                    if (_begin == null)
+                    {
+                        throw new InvalidOperationException("Начало поля не было добавлено");
+                    }
+
+                    _code = value;
+                }
+            }
         }
     }
 }
