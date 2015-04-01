@@ -269,7 +269,6 @@
     <Compile Include="Orders\DTO\OrderLinkingObjectsDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberStates.cs" />
-    <Compile Include="Orders\DTO\OrderPositionPriceDto.cs" />
     <Compile Include="Orders\DTO\OrderWithDummyAdvertisementDto.cs" />
     <Compile Include="Orders\IBargainRepository.cs" />
     <Compile Include="Orders\IOrderRepository.cs" />
