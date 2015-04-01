@@ -4101,9 +4101,6 @@ Cумма по операции: {5}.
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
     <value>Содержимое файла изображения не соответствует его расширению</value>
   </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value>Нельзя удалить услугу '{0}', так как она используется для {1} адресов</value>
-  </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value>Не удалось сохранить шаблон: может быть только один шаблон небоскрёба</value>
   </data>
@@ -4319,9 +4316,6 @@ Cумма по операции: {5}.
   </data>
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
     <value>Создание, изменение и удаление объектов "Территория продаж" учетной системы.</value>
-  </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
-    <value>Доп. услуги для фирм</value>
   </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
     <value>Проекты</value>
@@ -4929,9 +4923,6 @@ Cумма по операции: {5}.
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value>Нельзя удалить юридическое лицо клиента, имеющее связанные лицевые счета</value>
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Создание, изменение и удаление объектов "Доп.услуги для фирмы" учетной системы.</value>
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Выбран невалидный адрес для следующих позиций: {0}</value>
   </data>
@@ -5214,5 +5205,8 @@ Cумма по операции: {5}.
   </data>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
     <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Техподдержка</value>
   </data>
 </root>
