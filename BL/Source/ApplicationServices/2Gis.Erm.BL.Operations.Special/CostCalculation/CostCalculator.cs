@@ -98,22 +98,13 @@ namespace DoubleGis.Erm.BL.Operations.Special.CostCalculation
 
             var shipmentPlan = positionInfo.ReleaseCount * positionInfo.Amount;
 
-            var pricePerUnitWithVat = positionInfo.PriceCost * positionInfo.Rate * (decimal.One + (positionInfo.VatRate / 100));
-            pricePerUnitWithVat = Math.Round(pricePerUnitWithVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+            var pricePerUnitCalcs = CalculatePricePerUnit(positionInfo.PriceCost, positionInfo.Rate, positionInfo.VatRate, positionInfo.ShowVat);
 
-            // Иногда (Франчайзи-Филиал) цена без НДС включает в себя НДС
-            var pricePerUnitWithoutVat = pricePerUnitWithVat;
-            if (positionInfo.ShowVat)
-            {
-                pricePerUnitWithoutVat = positionInfo.PriceCost * positionInfo.Rate;
-                pricePerUnitWithoutVat = Math.Round(pricePerUnitWithoutVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-            }
-
-            var payablePriceWithVat = pricePerUnitWithVat * shipmentPlan;
+            var payablePriceWithVat = pricePerUnitCalcs.PricePerUnitWithVat * shipmentPlan;
             payablePriceWithVat = Math.Round(payablePriceWithVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
 
             // Пользователю в качестве прайсовой цены мы показываем именно эту, т.е. без НДС
-            var payablePriceWithoutVat = pricePerUnitWithoutVat * shipmentPlan;
+            var payablePriceWithoutVat = pricePerUnitCalcs.PricePerUnit * shipmentPlan;
             payablePriceWithoutVat = Math.Round(payablePriceWithoutVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
 
             var discount = CalculateDiscount(payablePriceWithVat, positionInfo.DiscountSum, positionInfo.DiscountPercent, positionInfo.CalculateDiscountViaPercent);
@@ -121,8 +112,8 @@ namespace DoubleGis.Erm.BL.Operations.Special.CostCalculation
             var payablePlanWithVat = payablePriceWithVat - discount.Sum;
             payablePlanWithVat = Math.Round(payablePlanWithVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
 
-            var payablePlanWithoutVat = (pricePerUnitWithoutVat != 0m)
-                                       ? payablePlanWithVat / (pricePerUnitWithVat / pricePerUnitWithoutVat)
+            var payablePlanWithoutVat = (pricePerUnitCalcs.PricePerUnit != 0m)
+                                       ? payablePlanWithVat / (pricePerUnitCalcs.PricePerUnitWithVat / pricePerUnitCalcs.PricePerUnit)
                                        : 0m;
 
             payablePlanWithoutVat = Math.Round(payablePlanWithoutVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
@@ -143,11 +134,29 @@ namespace DoubleGis.Erm.BL.Operations.Special.CostCalculation
                 PayablePlanWoVat = payablePlanWithoutVat,
                 PayablePriceWithoutVat = payablePriceWithoutVat,
                 PayablePriceWithVat = payablePriceWithVat,
-                PricePerUnit = pricePerUnitWithoutVat,
-                PricePerUnitWithVat = pricePerUnitWithVat,
+                PricePerUnit = pricePerUnitCalcs.PricePerUnit,
+                PricePerUnitWithVat = pricePerUnitCalcs.PricePerUnitWithVat,
                 Rate = positionInfo.Rate,
                 Vat = vat
             };
+        }
+
+        public PricePerUnitCalculationResult CalculatePricePerUnit(decimal priceCost, decimal categoryRate, decimal vatRate, bool showVat)
+        {
+            var result = new PricePerUnitCalculationResult();
+
+            result.PricePerUnit = priceCost * categoryRate;
+            result.PricePerUnit = Math.Round(result.PricePerUnit, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+
+            result.PricePerUnitWithVat = result.PricePerUnit * (decimal.One + (vatRate / 100));
+            result.PricePerUnitWithVat = Math.Round(result.PricePerUnitWithVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+
+            if (!showVat)
+            {
+                result.PricePerUnit = result.PricePerUnitWithVat;
+            }
+
+            return result;
         }
     }
 }

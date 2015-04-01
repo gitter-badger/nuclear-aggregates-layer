@@ -546,8 +546,8 @@
   <data name="TitlePlan" xml:space="preserve">
     <value>Планирование</value>
   </data>
-  <data name="TitlePurpose" xml:space="preserve">
-    <value>Цель/Результат</value>
+  <data name="TitleResult" xml:space="preserve">
+    <value>Результат</value>
   </data>
   <data name="TitleRegarding" xml:space="preserve">
     <value>В отношении</value>
@@ -4467,12 +4467,6 @@ Cумма по операции: {5}.
   <data name="SecurityAdministrationPage_HeaderOthers" xml:space="preserve">
     <value>Другие</value>
   </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharings" xml:space="preserve">
-    <value>Обмен региональной рекламой</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharingDetails" xml:space="preserve">
-    <value>Журнал обмена региональной рекламой</value>
-  </data>
   <data name="List" xml:space="preserve">
     <value>Список</value>
   </data>
@@ -5211,5 +5205,8 @@ Cумма по операции: {5}.
   </data>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
     <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Техподдержка</value>
   </data>
 </root>

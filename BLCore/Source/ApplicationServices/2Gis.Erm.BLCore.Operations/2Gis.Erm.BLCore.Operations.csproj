@@ -176,6 +176,7 @@
     <Compile Include="Concrete\Old\LocalMessages\SaveLocalMessageHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CalculateOrderPositionPricesHandler.cs" />
     <Compile Include="Concrete\OrderPositions\ChangeOrderPositionBindingObjectsOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\CalculateOrderPositionPricePerUnitOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\ReplaceOrderPositionAdvertisementLinksOperationService.cs" />
     <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountHandler.cs" />

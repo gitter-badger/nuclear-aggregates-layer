@@ -530,6 +530,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ChangeOrderPositionBindingObjectsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionPricePerUnitIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ReplaceOrderPositionAdvertisementLinksIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\GetAvailableBinfingObjectsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
