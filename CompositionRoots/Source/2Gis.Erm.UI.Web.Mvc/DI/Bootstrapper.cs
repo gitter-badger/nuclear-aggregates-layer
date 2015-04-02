@@ -91,6 +91,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.UI.Web.Mvc.Config;
+using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
@@ -318,9 +319,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
-            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerRequest)
-                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(CustomLifetime.PerRequest)
-                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerRequest);
+            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestStrategy, RangedIdentityRequestStrategy>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(Lifetime.Singleton);
         }
 
         private static IUnityContainer ConfigureReleasingInfrastructure(this IUnityContainer container)

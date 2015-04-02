@@ -71,11 +71,13 @@ using DoubleGis.Erm.Tests.Integration.InProc.DI.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.MassProcessing;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.OrderValidation;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Identity;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Logging;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Processing;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.BrokerApiReceiver;
+using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 
@@ -91,8 +93,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
-            Type[] explicitlyTypesSpecified = null;
-            // { typeof(GetDebitsInfoInitialForExportTest) };
+            Type[] explicitlyTypesSpecified = null; 
+            // { typeof(RangedIdentityRequestStrategyTest) };
             // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
             { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest), typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
@@ -212,9 +214,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
-            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(EntryPointSpecificLifetimeManagerFactory())
-                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(EntryPointSpecificLifetimeManagerFactory())
-                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(EntryPointSpecificLifetimeManagerFactory());
+            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestStrategy, RangedIdentityRequestStrategy>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(Lifetime.Singleton);
         }
 
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IMsCrmSettings msCrmSettings)

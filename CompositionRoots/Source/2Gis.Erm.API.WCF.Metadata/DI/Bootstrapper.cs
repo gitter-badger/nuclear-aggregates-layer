@@ -15,7 +15,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Identities;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Metadata;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
@@ -107,13 +106,11 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
-            return container.RegisterType<IIdentityProviderService, IdentityProviderService>(Lifetime.Singleton)
-                // TODO {all, 29.08.2013}: Удалить регистрацию acessor, после рефакторинга потребителей IIdentityProvider в соответствии с SRP не будет потребителей не будет нужен и accessor
-                // Пока приходится регистрировать не только генератор Id но и accessor для него, чтобы проходил resolve типов, несмотря на то что сервис генерации ID (как и весь сервис metadata) работает только в readonly режиме и создает никакие сущности
-                // Примеры таких не используемых потребителей - Security service facade и т.п.
-                     .RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
-                     .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton)
-                     .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
+
+            // TODO {all, 29.08.2013}: Удалить регистрацию acessor, после рефакторинга потребителей IIdentityProvider в соответствии с SRP не будет потребителей не будет нужен и accessor
+            // Пока приходится регистрировать не только генератор Id но и accessor для него, чтобы проходил resolve типов, несмотря на то что сервис генерации ID (как и весь сервис metadata) работает только в readonly режиме и создает никакие сущности
+            // Примеры таких не используемых потребителей - Security service facade и т.п.
+            return container.RegisterType<IIdentityProvider, NullIdentityProvider>(Lifetime.Singleton);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)

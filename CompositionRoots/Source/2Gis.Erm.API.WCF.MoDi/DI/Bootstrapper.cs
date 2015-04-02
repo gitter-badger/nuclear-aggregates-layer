@@ -106,9 +106,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
             // MoDi сервис только читает из базы, поэтому ему не нужна полная реализация сервиса получения идентификаторов.
-            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(CustomLifetime.PerOperationContext);
+            return container.RegisterType<IIdentityProvider, NullIdentityProvider>(Lifetime.Singleton);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)

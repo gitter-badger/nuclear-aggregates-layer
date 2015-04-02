@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using NuClear.IdentityService.Client.Interaction;
 
 namespace DoubleGis.Erm.Platform.Core.Identities
 {

@@ -6,9 +6,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
+using NuClear.IdentityService.Client.Settings;
 
 using NuClear.Tracing.API;
 
@@ -19,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IAPIOperationsServiceSettings _operationsServiceSettings;
         private readonly IAPISpecialOperationsServiceSettings _specialOperationsServiceSettings;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
+        private readonly IIdentityServiceClientSettings _identityServiceSettings;
         private readonly IUserContext _userContext;
         private readonly ITracer _tracer;
         private readonly IGetBaseCurrencyService _getBaseCurrencyService;
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
         protected ControllerBase(IMsCrmSettings msCrmSettings,
                                  IAPIOperationsServiceSettings operationsServiceSettings,
                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                 IAPIIdentityServiceSettings identityServiceSettings,
+                                 IIdentityServiceClientSettings identityServiceSettings,
                                  IUserContext userContext,
                                  ITracer tracer,
                                  IGetBaseCurrencyService getBaseCurrencyService)
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
                 ViewData[WebAppSettingsExtension.MsCrmSettingsKey] = _msCrmSettings;
                 ViewData[WebAppSettingsExtension.BasicOperationsServiceRestUrlKey] = _operationsServiceSettings.RestUrl.ToString();
                 ViewData[WebAppSettingsExtension.SpecialOperationsServiceRestUrlKey] = _specialOperationsServiceSettings.RestUrl.ToString();
-                ViewData[WebAppSettingsExtension.IdentityServiceRestUrlKey] = _identityServiceSettings.RestUrl.ToString();
+                ViewData[WebAppSettingsExtension.IdentityServiceRestUrlKey] = _identityServiceSettings.IdentityServiceUrl.ToString();
                 ViewData[WebAppSettingsExtension.ErmBaseCurrencyKey] = _getBaseCurrencyService.GetBaseCurrency().Symbol;
             }
         }

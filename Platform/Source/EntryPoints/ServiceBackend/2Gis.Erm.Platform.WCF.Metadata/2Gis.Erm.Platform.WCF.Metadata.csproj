@@ -58,7 +58,6 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Identity.svc.cs" />
     <Compile Include="Metadata.svc.cs" />
   </ItemGroup>
   <ItemGroup>

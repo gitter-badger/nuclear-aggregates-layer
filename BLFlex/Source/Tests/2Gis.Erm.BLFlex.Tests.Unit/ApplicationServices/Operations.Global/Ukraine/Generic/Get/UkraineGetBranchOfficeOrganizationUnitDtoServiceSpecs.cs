@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             protected static IUserContext UserContext;
             protected static IOrganizationUnitReadModel OrganizationUnitReadModel;
             protected static IBranchOfficeReadModel BranchOfficeReadModel;
-            protected static IAPIIdentityServiceSettings IdentityServiceSettings;
+            protected static IIdentityServiceClientSettings IdentityServiceSettings;
             protected static UkraineBranchOfficeOrganizationUnitDomainEntityDto Result;
 
             protected static long EntityId;
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     BranchOfficeReadModel = Mock.Of<IBranchOfficeReadModel>();
                     OrganizationUnitReadModel = Mock.Of<IOrganizationUnitReadModel>();
                     UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
-                    IdentityServiceSettings = Mock.Of<IAPIIdentityServiceSettings>();
+                    IdentityServiceSettings = Mock.Of<IIdentityServiceClientSettings>();
 
                     UkraineGetBranchOfficeOrganizationUnitDtoService = new UkraineGetBranchOfficeOrganizationUnitDtoService(UserContext, OrganizationUnitReadModel, BranchOfficeReadModel);
                 };
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             {
                 EntityId = 0;
 
-                Mock.Get(IdentityServiceSettings).Setup(x => x.RestUrl).Returns(RestUrl);
+                Mock.Get(IdentityServiceSettings).Setup(x => x.IdentityServiceUrl).Returns(RestUrl);
             };
 
             It should_be_UkraineBranchOfficeDomainEntityDto = () => Result.Should().BeOfType<UkraineBranchOfficeOrganizationUnitDomainEntityDto>();

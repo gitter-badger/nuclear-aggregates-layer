@@ -84,6 +84,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.S
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.WCF.BasicOperations.Config;
+using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
@@ -269,8 +270,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
-            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(CustomLifetime.PerOperationContext)
+            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestStrategy, RangedIdentityRequestStrategy>(Lifetime.Singleton)
                      .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerOperationContext);
         }
 
