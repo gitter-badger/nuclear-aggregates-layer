@@ -156,6 +156,24 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
 
         private void MarkReferencesAsDirty(WordprocessingDocument document)
         {
+            /*
+             * WordprocessingDocument представляет собой xml-файл, слегка облагороженный api
+             * Целью является пометка полей-ссылок как подлежащих перевычислению,
+             * но однозначно идентифицировать их не так-то легко.
+             * Во-первых они не являюся цельным элементом: это три последовательных элемента,
+             * разбросанныые по разным родительским.
+             * 
+             * Сначала идёт fldChar с атрибутом type, равным begin. Именно этот элемент помечается isDirty.
+             * Ему должен следовать fldChar с атрибутом type, равным end.
+             * Однако, эта пара элементов может обозначать не только вычисляемую ссылку.
+             * Для того, чтобы можно было сказать, что имеем дело с ссылкой нужно найти между ними 
+             * элемент instrText с текстом, начинающимся с " REF".
+             * 
+             * Кроме REF я встречал DOCVARIABLE.
+             * 
+             * https://msdn.microsoft.com/en-us/library/office/aa213346(v=office.11).aspx
+             * https://msdn.microsoft.com/en-us/library/office/aa172854(v=office.11).aspx
+             */
             var fieldBeginMarks = document.MainDocumentPart.Document.Descendants()
                                           .Where(c => c is FieldChar || c is FieldCode)
                                           .ToArray();
