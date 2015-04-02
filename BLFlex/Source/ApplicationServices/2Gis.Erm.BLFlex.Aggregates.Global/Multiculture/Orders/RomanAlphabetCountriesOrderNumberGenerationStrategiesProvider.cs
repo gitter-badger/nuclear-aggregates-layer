@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Orders
                                                                                        {
                                                                                            new ReadFromCurrentOrderNumberOrderNumberGenerationStrategy(),
                                                                                            new UseReservedNumberOrderNumberGenerationStrategy(),
-                                                                                           new UseExistingOrderNumberOrderNumberGenerationStrategy()
+                                                                                           new UseExistingOrderNumberGenerationStrategy()
                                                                                        };
 
         public IEnumerable<IOrderNumberGenerationStrategy> GetStrategies()

@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting
 {
-    public sealed class UseExistingOrderNumberOrderNumberGenerationStrategy : IOrderNumberGenerationStrategy
+    public sealed class UseExistingOrderNumberGenerationStrategy : IOrderNumberGenerationStrategy
     {
         public bool TryGenerateNumber(string currentOrderNumber, string orderNumberTemplate, long? reservedNumber, out string orderNumber)
         {

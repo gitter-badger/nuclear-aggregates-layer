@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Orders
                                                                                           new ReadFromNewFormatOrderNumberGenerationStrategy(),
                                                                                           new ReadFromOldFormatOrderNumberGenerationStrategy(),
                                                                                           new UseReservedNumberOrderNumberGenerationStrategy(),
-                                                                                          new UseExistingOrderNumberOrderNumberGenerationStrategy()
+                                                                                          new UseExistingOrderNumberGenerationStrategy()
                                                                                       };
 
         public IEnumerable<IOrderNumberGenerationStrategy> GetStrategies()
