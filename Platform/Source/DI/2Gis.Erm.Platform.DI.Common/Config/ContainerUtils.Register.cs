@@ -7,24 +7,14 @@ using DoubleGis.Erm.Platform.DI.Common.Extensions;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config.RegistrationResolvers;
+
 namespace DoubleGis.Erm.Platform.DI.Common.Config
 {
     public delegate bool ParameterResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter);
 
     public static partial class ContainerUtils
     {
-        private static readonly List<ParameterResolver> ParameterResolvers = new List<ParameterResolver>
-            {
-                ByContainerRegistrationsResolver,
-                ByExplicitlyScopeAttributeResolver,
-                EmptyTargetMappingResolver,
-            };
-
-        public static void AddParameterResolver(ParameterResolver resolver)
-        {
-            ParameterResolvers.Add(resolver);
-        }
-
         public static IUnityContainer RegisterOne2ManyTypesPerCallUniqueness(this IUnityContainer container, Type tFrom, Type tTo, LifetimeManager lifetimeManager)
         {
             if (!tFrom.CanMapTo(tTo))
@@ -156,9 +146,11 @@ namespace DoubleGis.Erm.Platform.DI.Common.Config
             foreach (var constructorParameter in constructorParameters)
             {   // resolver используем в порядке приоритета, от последних добавленных, к базовым - своего рода chain of responsibility
                 object resolvedParamameter = null;
-                for (int i = ParameterResolvers.Count - 1; i >= 0; i--)
+
+                var parameterResolvers = ParameterResolvers.Defaults.ToList();
+                for (int i = parameterResolvers.Count - 1; i >= 0; i--)
                 {
-                    if (ParameterResolvers[i](container, type, targetNamedMapping, constructorParameter, out resolvedParamameter))
+                    if (parameterResolvers[i](container, type, targetNamedMapping, constructorParameter, out resolvedParamameter))
                     {
                         paramsList.Add(resolvedParamameter);
                         break;
@@ -172,68 +164,6 @@ namespace DoubleGis.Erm.Platform.DI.Common.Config
             }
 
             return paramsList.ToArray();
-        }
-
-        private static bool EmptyTargetMappingResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
-        {
-            resolvedParameter = null;
-
-            if (string.IsNullOrEmpty(targetNamedMapping))
-            {
-                resolvedParameter = new ResolvedParameter(constructorParameter.ParameterType); // может быть просто Type - для InjectionConstructor подойдет
-                return true;
-            }
-
-            return false;
-        }
-
-        private static bool ByExplicitlyScopeAttributeResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
-        {
-            resolvedParameter = null;
-
-            // определяем целевой scope для зависимости через DependencyScope атрибут
-            var scopeAttributes = constructorParameter.GetCustomAttributes(typeof(DependencyScope), false);
-            if (scopeAttributes.Length > 0)
-            {
-                var scopeAttribute = (DependencyScope)scopeAttributes[0];
-                if (!string.IsNullOrEmpty(scopeAttribute.ScopeName))
-                {
-                    resolvedParameter = new ResolvedParameter(constructorParameter.ParameterType, scopeAttribute.ScopeName);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool ByContainerRegistrationsResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
-        {
-            // через атрибут scope определить не удалось
-            resolvedParameter = UseNamedPredicate(container, constructorParameter)
-                                            ? new ResolvedParameter(constructorParameter.ParameterType, targetNamedMapping)
-                                            : new ResolvedParameter(constructorParameter.ParameterType); // может быть просто Type - для InjectionConstructor подойдет
-
-            return true;
-        }
-
-        private static bool UseNamedPredicate(IUnityContainer container, ParameterInfo p)
-        {
-            if (p.ParameterType == typeof(IUnityContainer))
-            {
-                return false;
-            }
-
-            var extension = container.Resolve<QueryableContainerExtension>(Mapping.QueryableExtension);
-
-            // проверяем регистрации типов
-            if (extension.Registrations.Any(cr => (cr.TypeFrom == p.ParameterType || cr.TypeTo == p.ParameterType)
-                                                    && string.IsNullOrEmpty(cr.Name)))
-            {
-                return false;
-            }
-
-            // проеряем регистрации экземпляров, созданных явно и зарегистрированных в контейнере (через RegisterInstance)
-            return extension.InstanceRegistrations.All(cir => cir.RegisteredType != p.ParameterType || !string.IsNullOrEmpty(cir.Name));
         }
     }
 }
