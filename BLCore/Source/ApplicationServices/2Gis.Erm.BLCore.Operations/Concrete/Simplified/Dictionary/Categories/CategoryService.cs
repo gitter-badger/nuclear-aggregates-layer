@@ -19,6 +19,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 {
     public sealed class CategoryService : ICategoryService
     {
+        private const long DefaultCategoryGroupId = 3;
+
         private readonly IRepository<CategoryGroup> _categoryGroupRepository;
         private readonly IRepository<CategoryOrganizationUnit> _categoryOrganizationUnitRepository;
         private readonly IRepository<Category> _categoryRepository;
@@ -97,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
                     CategoryOrganizationUnit categoryOrgUnitToUpdate;
                     if (categoryOrgUnits.TryGetValue(categoryGroupMembershipDto.Id, out categoryOrgUnitToUpdate))
                     {
-                        categoryOrgUnitToUpdate.CategoryGroupId = categoryGroupMembershipDto.CategoryGroupId;
+                        categoryOrgUnitToUpdate.CategoryGroupId = categoryGroupMembershipDto.CategoryGroupId ?? DefaultCategoryGroupId;
                         _categoryOrganizationUnitRepository.Update(categoryOrgUnitToUpdate);
                     }
                 }
@@ -111,11 +113,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
         {
             var linkedCategories = _finder.Find<CategoryOrganizationUnit>(x => x.CategoryGroupId == categoryGroup.Id).ToArray();
 
+            if (categoryGroup.Id == DefaultCategoryGroupId)
+            {
+                throw new InvalidOperationException("Нельзя удалить ценовую группу по умолчанию");
+            }
+
             using (var scope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 foreach (var category in linkedCategories)
                 {
-                    category.CategoryGroupId = null;
+                    category.CategoryGroupId = DefaultCategoryGroupId;
                     _categoryOrganizationUnitRepository.Update(category);
                 }
 
@@ -193,6 +200,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
                     var categoryOrganizationUnit = new CategoryOrganizationUnit
                         {
                             CategoryId = categoryId,
+                            CategoryGroupId = DefaultCategoryGroupId,
                             OrganizationUnitId = organizationUnitId,
                             IsActive = true
                         };
