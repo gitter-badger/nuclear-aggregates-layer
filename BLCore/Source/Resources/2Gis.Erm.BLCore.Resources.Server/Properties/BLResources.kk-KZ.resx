@@ -5206,6 +5206,9 @@ Cумма по операции: {5}.
   <data name="Support" xml:space="preserve">
     <value>Техподдержка</value>
   </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
   <data name="ManageDocumentsDebt" xml:space="preserve">
     <value>Управление наличием документов</value>
   </data>

@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Core.Exceptions;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -44,6 +43,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                           LegalPersonType = bill.Order.LegalPerson.LegalPersonTypeEnum,
                                           bill.Order.BranchOfficeOrganizationUnitId,
                                           bill.Order.LegalPersonProfileId,
+                                                          CurrencyISOCode = bill.Order.Currency.ISOCode,
+                                                          bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                                          bill.Order.LegalPersonId,
+                                                          bill.Order.SourceOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(x => x.IsPrimary)
+                                                              .BranchOffice.ContributionTypeId
                                       })
                                   .SingleOrDefault();
 
@@ -54,7 +58,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
 
             if (billInfo.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             if (billInfo.BranchOfficeOrganizationUnitId == null)
@@ -62,87 +66,91 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                 throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
             }
 
-            var printData = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
+            var printDataInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                    .Select(bill => new
                                        {
                                            Bill = new
                                                {
-                                                   BillNumber = bill.Number,
-                                                   OrderReleaseCountPlan = billInfo.OrderReleaseCountPlan,
-                                                   BeginDistributionDate = bill.BeginDistributionDate,
-                                                   EndDistributionDate = bill.EndDistributionDate,
-                                                   PayablePlan = bill.PayablePlan,
-                                                   VatPlan = bill.VatPlan,
-                                                   PaymentDatePlan = bill.PaymentDatePlan,
-                                                   BillDate = bill.BillDate,
+                                                   bill.Number,
+                                                   bill.BeginDistributionDate,
+                                                   bill.EndDistributionDate,
+                                                   bill.PayablePlan,
+                                                   bill.VatPlan,
+                                                   bill.PaymentDatePlan,
                                                    PayableWithoutVatPlan = bill.PayablePlan - bill.VatPlan,
                                                    NoVatText = bill.VatPlan != default(decimal) ? string.Empty : BLResources.NoVatText,
-                                                   CreatedOn = bill.CreatedOn,
                                                },
                                            Order = new
                                                {
                                                    bill.Order.Number,
                                                    bill.Order.SignupDate,
-                                                   bill.Order.PaymentMethod,
                                                    bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                                },
                                            bill.Order.Bargain,
-                                           bill.Order.BranchOfficeOrganizationUnitId,
-                                           bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
-                                           bill.Order.LegalPersonId,
-                                           CurrencyISOCode = bill.Order.Currency.ISOCode
                                        })
                                    .ToArray()
                                    .Select(x => new
                                        {
                                            x.Bill,
+                                           x.Order,
                                            OrderVatRate = (x.Order.VatRate == default(decimal)) 
                                                 ? (decimal?)null 
                                                 : x.Order.VatRate,
-                                           x.Order,
-                                           PaymentMethod = x.Order.PaymentMethod.ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture),
                                            RelatedBargainInfo = (x.Bargain != null)
                                                 ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
                                                 : null,
-                                           billInfo.OrderReleaseCountPlan,
-                                           BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue 
-                                                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value))
-                                                : null,
-                                           BranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(x.BranchOfficeId)),
-                                           LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)),
-                                           Profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(billInfo.LegalPersonProfileId.Value)),
-                                           x.CurrencyISOCode
                                        })
                                    .Single();
 
-            var printRequest = new PrintDocumentRequest()
+            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(billInfo.BranchOfficeOrganizationUnitId.Value));
+            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(billInfo.BranchOfficeId));
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(billInfo.LegalPersonId.Value));
+            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(billInfo.LegalPersonProfileId.Value));
+
+            var billPrintData = new PrintData
+                                    {
+                                        { "BillNumber", printDataInfo.Bill.Number },
+                                        { "PaymentDatePlan", printDataInfo.Bill.PaymentDatePlan },
+                                        { "BeginDistributionDate", printDataInfo.Bill.BeginDistributionDate },
+                                        { "EndDistributionDate", printDataInfo.Bill.EndDistributionDate },
+                                        { "PayableWithoutVatPlan", printDataInfo.Bill.PayableWithoutVatPlan },
+                                        { "NoVatText", printDataInfo.Bill.NoVatText },
+                                        { "VatPlan", printDataInfo.Bill.VatPlan },
+                                        { "PayablePlan", printDataInfo.Bill.PayablePlan }
+                                    };
+
+            var orderPrintData = new PrintData
                 {
-                    CurrencyIsoCode = printData.CurrencyISOCode,
-                    FileName = printData.Bill.BillNumber,
-                    BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
-                    PrintData = printData,
-                    TemplateCode = GetTemplateCode(billInfo.LegalPersonType)
+                                         { "SignupDate", printDataInfo.Order.SignupDate },
+                                         { "Number", printDataInfo.Order.Number }
                 };
 
-            return _requestProcessor.HandleSubRequest(printRequest, Context);
-        }
 
-        private static TemplateCode GetTemplateCode(LegalPersonType legalPersonType)
+            var printData =
+                new PrintData
         {
-            switch (legalPersonType)
-            {
-                case LegalPersonType.LegalPerson:
-                    return TemplateCode.BillLegalPerson;
+                        { "Bill", billPrintData },
+                        { "Order", orderPrintData },
+                        { "OrderVatRate", printDataInfo.OrderVatRate },
+                        { "RelatedBargainInfo", printDataInfo.RelatedBargainInfo },
+                    };
 
-                case LegalPersonType.Businessman:
-                    return TemplateCode.BillBusinessman;
+            var printRequest = new PrintDocumentRequest
+                                   {
+                                       CurrencyIsoCode = billInfo.CurrencyISOCode,
+                                       FileName = printDataInfo.Bill.Number,
+                                       BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
+                                       PrintData = PrintData.Concat(printData,
+                                                                    PrintHelper.DetermineBilletType((ContributionTypeEnum)billInfo.ContributionTypeId),
+                                                                    PrintHelper.DetermineRequisitesType(legalPerson.LegalPersonTypeEnum),
+                                                                    PrintHelper.LegalPersonRequisites(legalPerson),
+                                                                    PrintHelper.LegalPersonProfileRequisites(profile),
+                                                                    PrintHelper.BranchOfficeRequisites(branchOffice),
+                                                                    PrintHelper.BranchOfficeOrganizationUnitRequisites(branchOfficeOrganizationUnit)),
+                                       TemplateCode = TemplateCode.BillLegalPerson
+                                   };
 
-                case LegalPersonType.NaturalPerson:
-                    return TemplateCode.BillNaturalPerson;
-
-                default:
-                    throw new ArgumentOutOfRangeException("legalPersonType");
-            }
+            return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
     }
 }

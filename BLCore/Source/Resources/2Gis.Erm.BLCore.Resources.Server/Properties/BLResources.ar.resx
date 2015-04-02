@@ -5202,6 +5202,9 @@ Placement period: {3}.</value>
   <data name="Support" xml:space="preserve">
     <value>Technical support</value>
   </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
   <data name="ManageDocumentsDebt" xml:space="preserve">
     <value>Document availability management</value>
   </data>

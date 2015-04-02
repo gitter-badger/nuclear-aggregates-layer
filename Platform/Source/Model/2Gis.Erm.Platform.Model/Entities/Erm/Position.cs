@@ -49,6 +49,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public int ExportCode { get; set; }
         public bool IsControlledByAmount { get; set; }
         public bool RestrictChildPositionPlatforms { get; set; }
+        public int? SortingIndex { get; set; }
 
         public PositionCategory PositionCategory { get; set; }
         public ICollection<PositionChildren> MasterPositions { get; set; }

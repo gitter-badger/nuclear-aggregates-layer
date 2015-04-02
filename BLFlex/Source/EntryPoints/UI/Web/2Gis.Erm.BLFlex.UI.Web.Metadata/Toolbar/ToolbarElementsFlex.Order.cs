@@ -287,6 +287,38 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Toolbar
                                              .ControlType(ControlType.TextButton)
                                              .JSHandler("PrepareJointBill");
                     }
+
+                    public static UIElementMetadataBuilder CancellationAgreement()
+                    {
+                        return
+                            UIElementMetadata.Config
+                                             .Name.Static("PrintAdditionalAgreementAction")
+                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintAdditAgreementAction)
+                                             .ControlType(ControlType.TextButton)
+                                             .JSHandler("PrintRussiaCancellationAgreement");
+                    }
+
+                    public static UIElementMetadataBuilder FirmNameChangeAgreement()
+                    {
+                        return
+                            UIElementMetadata.Config
+                                             .Name.Static("PrintFirmNameChangeAgreement")
+                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintFirmNameChangeAgreement)
+                                             .ControlType(ControlType.TextButton)
+                                             .LockOnNew()
+                                             .JSHandler("PrintRussiaFirmNameChangeAgreement");
+                    }
+
+                    public static UIElementMetadataBuilder BindingChangeAgreement()
+                    {
+                        return
+                            UIElementMetadata.Config
+                                             .Name.Static("PrintBindingChangeAgreement")
+                                             .Title.Resource(() => ErmConfigLocalization.ControlPrintBindingChangeAgreement)
+                                             .ControlType(ControlType.TextButton)
+                                             .LockOnNew()
+                                             .JSHandler("PrintRussiaBindingChangeAgreement");
+                    }
                 }
             }
         }

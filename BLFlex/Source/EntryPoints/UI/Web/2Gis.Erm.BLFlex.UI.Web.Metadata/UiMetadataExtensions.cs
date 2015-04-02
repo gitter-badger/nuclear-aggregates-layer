@@ -64,8 +64,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
                                                                        ToolbarElementsFlex.Orders.Russia.Print.JointBill(),
                                                                        ToolbarElementsFlex.Orders.Print.Bill(),
                                                                        ToolbarElementsFlex.Orders.Print.TerminationNotice(),
-                                                                       ToolbarElementsFlex.Orders.Print.AdditionalAgreement(),
-                                                                       ToolbarElementsFlex.Orders.Print.LetterOfGuarantee())
+                                                                       ToolbarElementsFlex.Orders.Print.LetterOfGuarantee(),
+                                                                       ToolbarElementsFlex.Orders.Russia.Print.CancellationAgreement(),
+                                                                       ToolbarElementsFlex.Orders.Russia.Print.FirmNameChangeAgreement(),
+                                                                       ToolbarElementsFlex.Orders.Russia.Print.BindingChangeAgreement())
                        };
         }
 

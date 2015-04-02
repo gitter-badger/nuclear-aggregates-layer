@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
                                                                                            return new QuerySettingsSort
                                                                                                       {
                                                                                                           PropertyName = splitArray[0],
-                                                                                                          Direction = GetSortDirection(splitArray[1])
+                                                                                                          Direction = GetSortDirection(splitArray.Length > 1 ? splitArray[1] : string.Empty)
                                                                                                       };
                                                                                        })
                                                                            .ToArray(),

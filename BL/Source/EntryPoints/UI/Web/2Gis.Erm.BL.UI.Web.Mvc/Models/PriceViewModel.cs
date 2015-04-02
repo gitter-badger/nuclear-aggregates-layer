@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class PriceViewModel : EntityViewModelBase<Price>, IPublishableAspect, INameAspect
+    public sealed class PriceViewModel : EntityViewModelBase<Platform.Model.Entities.Erm.Price>, IPublishableAspect, INameAspect
     {
         public string Name { get; set; }
 
