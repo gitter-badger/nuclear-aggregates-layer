@@ -36,9 +36,17 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 method: 'POST',
                 scope: scope,
                 success: scope.refresh,
-                failure: scope.postFormFailure
+                failure: changeStatusFailure
             });
-         }
+        }
+        function changeStatusFailure(xhr) {
+            if (scope.postFormSuccessHandler) {
+                scope.un('postformsuccess', scope.postFormSuccessHandler);
+                scope.postFormSuccessHandler = undefined;
+
+            }
+            scope.postFormFailure(xhr);
+        }
         function checkDirty() {
             if (scope.form.Id.value == 0) {
                 Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
@@ -59,7 +67,8 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 scope.submitMode = scope.submitModes.SAVE;
                 if (scope.fireEvent('beforepost', scope) && scope.normalizeForm()) {
                     scope.postForm();
-                    scope.on('postformsuccess', function () { postOperation(operation); });
+                    scope.postFormSuccessHandler = function() { postOperation(operation)};
+                        scope.on('postformsuccess', scope.postFormSuccessHandler);
                 }
                 else {
                     scope.recalcDisabling();
