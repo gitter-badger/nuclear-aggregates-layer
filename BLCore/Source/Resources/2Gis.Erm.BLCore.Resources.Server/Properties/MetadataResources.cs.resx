@@ -259,7 +259,7 @@
     <value>Území</value>
   </data>
   <data name="OwnerCode" xml:space="preserve">
-    <value>Vlastník</value>
+    <value>Správce</value>
   </data>
   <data name="LockId" xml:space="preserve">
     <value>Kód blokování</value>

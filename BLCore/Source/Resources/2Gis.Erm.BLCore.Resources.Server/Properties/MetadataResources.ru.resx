@@ -259,7 +259,7 @@
     <value>Территория</value>
   </data>
   <data name="OwnerCode" xml:space="preserve">
-    <value>Владелец</value>
+    <value>Куратор</value>
   </data>
   <data name="LockId" xml:space="preserve">
     <value>Код блокировки</value>

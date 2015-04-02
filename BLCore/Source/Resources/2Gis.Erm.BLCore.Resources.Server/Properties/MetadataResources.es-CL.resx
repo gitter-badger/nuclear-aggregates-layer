@@ -259,7 +259,7 @@
     <value>Territorio</value>
   </data>
   <data name="OwnerCode" xml:space="preserve">
-    <value>Propietario</value>
+    <value>Supervisor</value>
   </data>
   <data name="LockId" xml:space="preserve">
     <value>Código de bloqueo</value>

@@ -2833,7 +2833,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Владелец.
+        ///   Looks up a localized string similar to Куратор.
         /// </summary>
         public static string OwnerCode {
             get {
