@@ -357,6 +357,7 @@
     <Compile Include="SimplifiedModel\Categories\IBulkDeleteSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ISalesModelCategoryRestrictionReadModel.cs" />
+    <Compile Include="SimplifiedModel\Currencies\ICurrencyReadModel.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />

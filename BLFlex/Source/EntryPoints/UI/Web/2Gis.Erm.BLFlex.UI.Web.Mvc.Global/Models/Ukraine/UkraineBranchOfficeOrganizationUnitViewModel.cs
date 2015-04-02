@@ -26,6 +26,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInGenitive { get; set; }
 
         [RequiredLocalized]
@@ -103,6 +107,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
             IsPrimary = modelDto.IsPrimary;
             IsPrimaryForRegionalSales = modelDto.IsPrimaryForRegionalSales;
 
+            ApplicationCityName = modelDto.ApplicationCityName;
             PhoneNumber = modelDto.PhoneNumber;
             PositionInGenitive = modelDto.PositionInGenitive;
             PositionInNominative = modelDto.PositionInNominative;
@@ -135,6 +140,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
                     IsPrimary = IsPrimary,
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
 
+                    ApplicationCityName = ApplicationCityName,
                     PhoneNumber = PhoneNumber,
                     PositionInGenitive = PositionInGenitive,
                     PositionInNominative = PositionInNominative,

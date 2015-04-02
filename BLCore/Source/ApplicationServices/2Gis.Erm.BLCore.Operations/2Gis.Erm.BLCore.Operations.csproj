@@ -110,7 +110,6 @@
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBillHandler.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForPrintJointBillHandler.cs" />
     <Compile Include="Concrete\Bills\PaymentDatePlanEvaluator.cs" />
-    <Compile Include="Concrete\Old\Bills\PrintJointBillHandler.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimary.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSales.cs" />
     <Compile Include="Concrete\Old\Clients\CheckIsWarmClientHandler.cs" />
@@ -465,7 +464,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionsGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\ContactObtainer.cs" />

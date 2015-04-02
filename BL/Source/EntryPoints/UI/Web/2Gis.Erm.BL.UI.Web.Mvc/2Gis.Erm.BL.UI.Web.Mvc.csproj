@@ -124,7 +124,6 @@
     </Compile>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Attributes\RutValidationAttribute.cs" />
-    <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="DI\BlUiWebMvcAssembly.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
@@ -757,7 +756,9 @@
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controllers\Print\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config">

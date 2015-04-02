@@ -1389,6 +1389,12 @@
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value />
   </data>
+  <data name="ControlPrintFirmNameChangeAgreement" xml:space="preserve">
+    <value />
+  </data>  
+  <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">
+    <value />
+  </data>
   <data name="ControlDetachFirm" xml:space="preserve">
     <value />
   </data>

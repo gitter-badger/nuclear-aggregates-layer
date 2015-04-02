@@ -23,6 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify
                                             Id = x.Id,
                                             OrganizationUnitRef = new EntityReference { Id = x.OrganizationUnitId, Name = null },
                                             BranchOfficeRef = new EntityReference { Id = x.BranchOfficeId, Name = null },
+                                            ApplicationCityName = x.ApplicationCityName,
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             IsPrimary = x.IsPrimary,
                                             IsPrimaryForRegionalSales = x.IsPrimaryForRegionalSales,
@@ -61,6 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify
                                     entity.Id = dto.Id;
                                     entity.OrganizationUnitId = dto.OrganizationUnitRef.Id.Value;
                                     entity.BranchOfficeId = dto.BranchOfficeRef.Id.Value;
+                                    entity.ApplicationCityName = dto.ApplicationCityName;
                                     entity.ActualAddress = dto.ActualAddress;
                                     entity.PostalAddress = dto.PostalAddress;
                                     entity.PhoneNumber = dto.PhoneNumber;

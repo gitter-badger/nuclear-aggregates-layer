@@ -205,8 +205,11 @@
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\InvalidLegalPersonProfileForOrderException.cs" />
     <Compile Include="Concrete\Orders\IChangeOrderLegalPersonProfileOperationService.cs" />
-    <Compile Include="Concrete\Orders\LegalPersonProfileMustBeSpecifiedException.cs" />
     <Compile Include="Concrete\Orders\OrderLegalPersonProfileDto.cs" />
+    <Compile Include="Concrete\Orders\Print\IPrintCancellationAgreementOperationService.cs" />
+    <Compile Include="Concrete\Orders\Print\IPrintFirmNameChangeAgreementOperationService.cs" />
+    <Compile Include="Concrete\Orders\Print\IPrintBindingChangeAgreementOperationService.cs" />
+    <Compile Include="Concrete\Orders\Print\PrintFormDocument.cs" />
     <Compile Include="Concrete\Positions\IChangePositionSortingOrderOperationService.cs" />
     <Compile Include="Concrete\Positions\PositionSortingOrderDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
