@@ -8,8 +8,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -77,21 +77,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 IEnumerable<PhonecallRegardingObject> oldRegardingObjects;
                 PhonecallRecipient oldRecipient;
                 if (phonecall.IsNew())
-                {
-                    var originalPhonecall = _readModel.GetPhonecall(phonecall.Id);
+                {                    
                     _createOperationService.Create(phonecall);
                     oldRegardingObjects = null;
                     oldRecipient = null;
+                }
+                else
+                {
+                    var originalPhonecall = _readModel.GetPhonecall(phonecall.Id);
+                    _updateOperationService.Update(phonecall);
+                    oldRegardingObjects = _readModel.GetRegardingObjects(phonecall.Id);
+                    oldRecipient = _readModel.GetRecipient(phonecall.Id);
                     if (originalPhonecall.ScheduledOn != phonecall.ScheduledOn)
                     {
                         _actionLogger.LogChanges(phonecall, x => x.ScheduledOn, originalPhonecall.ScheduledOn, phonecall.ScheduledOn);
                     }
-                }
-                else
-                {
-                    _updateOperationService.Update(phonecall);
-                    oldRegardingObjects = _readModel.GetRegardingObjects(phonecall.Id);
-                    oldRecipient = _readModel.GetRecipient(phonecall.Id);
                 }
 
                 _updateOperationService.ChangeRegardingObjects(
