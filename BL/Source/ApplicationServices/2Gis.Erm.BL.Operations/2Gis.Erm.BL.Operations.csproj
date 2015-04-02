@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementFileChangedOperationService.cs" />
-    <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementRejectionOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviourDraft.cs" />
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviourInvalid.cs" />
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviourReadyForValidation.cs" />
