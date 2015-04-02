@@ -5209,4 +5209,7 @@ Placement period: {3}.</value>
   <data name="Support" xml:space="preserve">
     <value>Technical support</value>
   </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
 </root>

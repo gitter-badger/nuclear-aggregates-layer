@@ -11684,6 +11684,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string PositionAccessDenied {
+            get {
+                return ResourceManager.GetString("PositionAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string PositionAlreadyExist {
             get {
                 return ResourceManager.GetString("PositionAlreadyExist", resourceCulture);

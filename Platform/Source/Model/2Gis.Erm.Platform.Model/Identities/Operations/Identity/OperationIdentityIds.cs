@@ -136,6 +136,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int CheckIfOrderPositionCanBeCreatedForOrderIdentity = 15118;
         public const int CheckIfOrderPositionCanBeModifiedIdentity = 15119;
         public const int ChangeOrderLegalPersonProfileIdentity = 15120;
+        public const int PrintBindingChangeAgreementIdentity = 15121;
+        public const int PrintFirmNameChangeAgreementIdentity = 15122;
+        public const int PrintCancellationAgreementIdentity = 15123;
 
         // EntityName.Bill = 188
         public const int CalculateBillsIdentity = 18801;
@@ -149,6 +152,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ChangeOrderPositionBindingObjectsIdentity = 15006;
         public const int GetAvailableBinfingObjectsIdentity = 15007;
         public const int CalculateOrderPositionPricePerUnitIdentity = 15008;
+
+        // EntityName.Position = 153
+        public const int ChangeSortingOrderIdentity = 15301;
 
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;

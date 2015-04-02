@@ -23,6 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                             Id = x.Id,
                                             OrganizationUnitRef = new EntityReference { Id = x.OrganizationUnitId, Name = null },
                                             BranchOfficeRef = new EntityReference { Id = x.BranchOfficeId, Name = null },
+                                            ApplicationCityName = x.ApplicationCityName,
                                             ChiefNameInGenitive = x.ChiefNameInGenitive,
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             IsPrimary = x.IsPrimary,
@@ -62,6 +63,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                 entity.Id = dto.Id;
                                 entity.OrganizationUnitId = dto.OrganizationUnitRef.Id.Value;
                                 entity.BranchOfficeId = dto.BranchOfficeRef.Id.Value;
+                                entity.ApplicationCityName = dto.ApplicationCityName;
                                 entity.ChiefNameInGenitive = dto.ChiefNameInGenitive;
                                 entity.ChiefNameInNominative = dto.ChiefNameInNominative;
                                 entity.OperatesOnTheBasisInGenitive = dto.OperatesOnTheBasisInGenitive;

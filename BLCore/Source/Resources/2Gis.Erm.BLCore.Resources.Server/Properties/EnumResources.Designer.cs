@@ -5434,6 +5434,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Доп. соглашение (смена привязки).
+        /// </summary>
+        public static string TemplateCodeBindingChangeAgreement {
+            get {
+                return ResourceManager.GetString("TemplateCodeBindingChangeAgreement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Клиентский договор.
         /// </summary>
         public static string TemplateCodeClientBargain {
@@ -5452,29 +5461,20 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Единый счёт на оплату для ИП.
+        ///   Looks up a localized string similar to Доп. соглашение (смена названия фирмы).
         /// </summary>
-        public static string TemplateCodeJointBillBusinessman {
+        public static string TemplateCodeFirmNameChangeAgreement {
             get {
-                return ResourceManager.GetString("TemplateCodeJointBillBusinessman", resourceCulture);
+                return ResourceManager.GetString("TemplateCodeFirmNameChangeAgreement", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Единый счёт на оплату для юр. лица.
+        ///   Looks up a localized string similar to Единый счёт на оплату.
         /// </summary>
-        public static string TemplateCodeJointBillLegalPerson {
+        public static string TemplateCodeJointBill {
             get {
-                return ResourceManager.GetString("TemplateCodeJointBillLegalPerson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Единый счёт на оплату для физ. лица.
-        /// </summary>
-        public static string TemplateCodeJointBillNaturalPerson {
-            get {
-                return ResourceManager.GetString("TemplateCodeJointBillNaturalPerson", resourceCulture);
+                return ResourceManager.GetString("TemplateCodeJointBill", resourceCulture);
             }
         }
         
