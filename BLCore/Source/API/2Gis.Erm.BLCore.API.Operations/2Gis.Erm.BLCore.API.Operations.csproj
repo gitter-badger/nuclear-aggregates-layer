@@ -92,6 +92,8 @@
     <Compile Include="Concrete\LegalPersons\ValidateLegalPersonDto.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\Dto\OrderPositionPricePerUnitDto.cs" />
+    <Compile Include="Concrete\OrderPositions\ICalculateOrderPositionPricePerUnitOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IChangeOrderPositionBindingObjectsOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IReplaceOrderPositionAdvertisementLinksOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IGetAvailableBindingObjectsOperationService.cs" />
@@ -100,11 +102,8 @@
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
     <Compile Include="Concrete\Deals\IGenerateDealNameService.cs" />
     <Compile Include="Concrete\Deals\IChangeDealStageOperationService.cs" />
-    <Compile Include="Concrete\Firms\AdditionalServiceDisplay.cs" />
-    <Compile Include="Concrete\Firms\AdditionalServicesDto.cs" />
     <Compile Include="Concrete\Firms\Dto\BlankFirmDto.cs" />
     <Compile Include="Concrete\Firms\ICreateBlankFirmsOperationService.cs" />
-    <Compile Include="Concrete\Firms\IFirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardAddressDto.cs" />
     <Compile Include="Concrete\HotClients\HotClientTaskDto.cs" />
     <Compile Include="Concrete\HotClients\IGetHotClientRequestOperationService.cs" />
@@ -388,7 +387,6 @@
     <Compile Include="Concrete\Simplified\Dictionary\Currencies\CurrencyWithRelationsDto.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currencies\ICurrencyService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currencies\IGetBaseCurrencyService.cs" />
-    <Compile Include="Concrete\Simplified\Dictionary\Firms\IAdditionalFirmServicesService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\IContributionTypeService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\DTO\PlatwormWithPositionsDto.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\IPlatformService.cs" />

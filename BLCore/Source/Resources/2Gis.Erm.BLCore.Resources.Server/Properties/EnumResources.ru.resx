@@ -1227,9 +1227,6 @@
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Профиль юр. лица клиента</value>
   </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Доп. услуги для фирмы</value>
-  </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Удаление профиля юр. лица клиента</value>
   </data>

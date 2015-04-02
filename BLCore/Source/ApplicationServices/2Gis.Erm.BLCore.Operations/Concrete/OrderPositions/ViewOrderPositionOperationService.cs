@@ -13,16 +13,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
         private readonly IPriceReadModel _priceReadModel;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly IGetAvailableBindingObjectsOperationService _formAvailableBindingObjectsOperationService;
+        private readonly ICalculateOrderPositionPricePerUnitOperationService _calculateOrderPositionPricePerUnitOperationService;
 
         public ViewOrderPositionOperationService(IOrderReadModel orderReadModel,
                                                  IPriceReadModel priceReadModel,
                                                  ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
-                                                 IGetAvailableBindingObjectsOperationService formAvailableBindingObjectsOperationService)
+                                                 IGetAvailableBindingObjectsOperationService formAvailableBindingObjectsOperationService,
+                                                 ICalculateOrderPositionPricePerUnitOperationService calculateOrderPositionPricePerUnitOperationService)
         {
             _orderReadModel = orderReadModel;
-            _priceReadModel = priceReadModel;            
+            _priceReadModel = priceReadModel;
             _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
             _formAvailableBindingObjectsOperationService = formAvailableBindingObjectsOperationService;
+            _calculateOrderPositionPricePerUnitOperationService = calculateOrderPositionPricePerUnitOperationService;
         }
 
         public OrderPositionWithSchemaDto ViewOrderPosition(long orderId, long pricePositionId, long? orderPositionId, bool includeHidden)
@@ -30,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             var order = _orderReadModel.GetOrderLinkingObjectsDto(orderId);
             var positionInfo = _priceReadModel.GetPricePositionDetailedInfo(pricePositionId);
             var categoryRate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculatedOrDefault(orderId, pricePositionId, null);
-            var priceCalulations = _orderReadModel.CalculatePricePerUnit(orderId, categoryRate, positionInfo.PricePositionCost);
+            var priceCalulations = _calculateOrderPositionPricePerUnitOperationService.CalculatePricePerUnit(orderId, categoryRate, positionInfo.PricePositionCost);
             var isPlannedProvisionSalesModel = positionInfo.SalesModel.IsPlannedProvisionSalesModel();
             var linkingObjectsSchema = _formAvailableBindingObjectsOperationService.GetLinkingObjectsSchema(orderId, pricePositionId, includeHidden, orderPositionId);
 
@@ -48,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 LinkingObjectType = positionInfo.LinkingObjectType,
 
                 PricePerUnit = priceCalulations.PricePerUnit,
-                VatRatio = priceCalulations.VatRatio,
+                PricePerUnitWithVat = priceCalulations.PricePerUnitWithVat,
 
                 LinkingObjectsSchema = linkingObjectsSchema,
                 IsPositionOfPlannedProvisionSalesModel = isPlannedProvisionSalesModel,

@@ -1377,9 +1377,6 @@
   <data name="EnMOperation" xml:space="preserve">
     <value>Operace</value>
   </data>
-  <data name="AdditionalFirmServices" xml:space="preserve">
-    <value>Doplň. služby</value>
-  </data>
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value>Čestné prohlášení Objednavatele (změna RM)</value>
   </data>

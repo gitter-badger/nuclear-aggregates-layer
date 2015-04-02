@@ -180,7 +180,6 @@
     <Compile Include="Common\Specs\Dictionary\CategorySpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\OrganizationUnitSpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\TerritoryDtoSpecifications.cs" />
-    <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CountrySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CurrencySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\NoteSpecifications.cs" />
@@ -269,7 +268,6 @@
     <Compile Include="Orders\DTO\OrderLinkingObjectsDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberStates.cs" />
-    <Compile Include="Orders\DTO\OrderPositionPriceDto.cs" />
     <Compile Include="Orders\DTO\OrderWithDummyAdvertisementDto.cs" />
     <Compile Include="Orders\IBargainRepository.cs" />
     <Compile Include="Orders\IOrderRepository.cs" />

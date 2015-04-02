@@ -1236,9 +1236,6 @@
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Profile of client's legal entity</value>
   </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Add. services for a company</value>
-  </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Removing the profile of Client's legal entity</value>
   </data>

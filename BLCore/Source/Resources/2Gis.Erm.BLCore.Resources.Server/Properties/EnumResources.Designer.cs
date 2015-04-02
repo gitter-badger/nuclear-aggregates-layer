@@ -1321,15 +1321,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Доп. услуги для фирмы.
-        /// </summary>
-        public static string EntityNameAdditionalFirmService {
-            get {
-                return ResourceManager.GetString("EntityNameAdditionalFirmService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Связь элемента шаблона РМ с шаблоном РМ.
         /// </summary>
         public static string EntityNameAdsTemplatesAdsElementTemplate {

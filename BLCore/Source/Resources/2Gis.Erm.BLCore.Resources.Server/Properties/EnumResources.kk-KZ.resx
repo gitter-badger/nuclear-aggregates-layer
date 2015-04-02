@@ -1173,7 +1173,7 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Территория</value>
   </data>
-  <data name="BusinessOperationQualify" xml:space="preserve">
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Взятие из резерва</value>
   </data>
   <data name="BusinessOperationDisqualify" xml:space="preserve">
@@ -1226,9 +1226,6 @@
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Профиль юр. лица клиента</value>
-  </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Доп. услуги для фирмы</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Удаление профиля юр. лица клиента</value>
@@ -1955,6 +1952,9 @@
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Соглашение о продлении договора</value>
+  </data>
+  <data name="ActivityTypeLetter" xml:space="preserve">
+    <value>Письмо</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Отсрочка</value>
