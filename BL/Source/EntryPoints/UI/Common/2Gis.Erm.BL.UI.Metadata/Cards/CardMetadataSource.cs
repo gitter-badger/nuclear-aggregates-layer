@@ -46,10 +46,6 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAccountDetails),
 
-                        CardMetadata.For<AdditionalFirmService>()
-                                    .WithDefaultMainAttribute()
-                                    .EntityLocalization(() => ErmConfigLocalization.AdditionalFirmServices),
-
                         CardMetadata.For<AdsTemplatesAdsElementTemplate>()
                                     .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdsTemplatesAdsElementTemplate)

@@ -18,6 +18,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public bool AnyLocks { get; set; }
     }
 
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
     public sealed class OrderDiscountsDto
     {
         public decimal DiscountPercent { get; set; }
@@ -41,6 +42,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
     {
         public long OrderId { get; set; }
         public decimal PayablePlan { get; set; }
+    }
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class VatRateDetailsDto
+    {
+        public decimal VatRate { get; set; }
+        public bool ShowVat { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]

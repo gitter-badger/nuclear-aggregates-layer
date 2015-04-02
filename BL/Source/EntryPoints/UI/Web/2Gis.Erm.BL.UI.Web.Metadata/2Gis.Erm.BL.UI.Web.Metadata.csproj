@@ -127,7 +127,6 @@
     <Compile Include="Cards\Settings\CardMetadatas.AdvertisementTemplate.cs" />
     <Compile Include="Cards\Settings\CardMetadatas.DenialReason.cs" />
     <Compile Include="Cards\Settings\CardMetadatas.AdsTemplatesAdsElementTemplate.cs" />
-    <Compile Include="Cards\Settings\CardMetadatas.AdditionalFirmService.cs" />
     <Compile Include="Cards\Settings\CardMetadatas.AccountDetail.cs" />
     <Compile Include="Cards\Settings\CardMetadatas.Account.cs" />
     <Compile Include="Cards\Settings\CardMetadatas.cs" />

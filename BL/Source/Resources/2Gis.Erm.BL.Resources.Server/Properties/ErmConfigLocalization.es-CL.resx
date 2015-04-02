@@ -1377,9 +1377,6 @@
   <data name="EnMOperation" xml:space="preserve">
     <value>Operaciones</value>
   </data>
-  <data name="AdditionalFirmServices" xml:space="preserve">
-    <value>Servicios adicionales</value>
-  </data>
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value>Certificado de garantía (cambio del material publicitario)</value>
   </data>
@@ -1867,6 +1864,6 @@
     <value>Cambiar el perfil</value>
   </data>
   <data name="ControlSetDocumentsDebt" xml:space="preserve">
-    <value>Наличие документов</value>
+    <value>Disponibilidad de documentos</value>
   </data>
 </root>

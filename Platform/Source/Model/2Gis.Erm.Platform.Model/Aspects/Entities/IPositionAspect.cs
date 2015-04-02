@@ -3,6 +3,6 @@
     public interface IPositionAspect : IAspect
     {
         string PositionName { get; }
-        long PositionId { get; }
+        long? PositionId { get; }
     }
 }

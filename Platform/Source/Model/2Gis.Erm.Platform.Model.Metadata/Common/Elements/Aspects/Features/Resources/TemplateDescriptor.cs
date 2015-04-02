@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
                         object propertyValue;
                         if (propertyDescriptor.TryGetValue(valueContainer, out propertyValue))
                         {
-                            parameterValues.Add(propertyValue.ToString());
+                            parameterValues.Add(propertyValue != null ? propertyValue.ToString() : string.Empty);
                             propertyValueFound = true;
                             break;
                         }

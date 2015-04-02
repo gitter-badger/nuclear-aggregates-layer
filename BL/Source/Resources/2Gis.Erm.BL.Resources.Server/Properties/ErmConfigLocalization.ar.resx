@@ -1377,9 +1377,6 @@
   <data name="EnMOperation" xml:space="preserve">
     <value>Operations</value>
   </data>
-  <data name="AdditionalFirmServices" xml:space="preserve">
-    <value>Add. services</value>
-  </data>
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value>Letter of guarantee (change of AM)</value>
   </data>
@@ -1867,6 +1864,6 @@
     <value>Switch to another profile</value>
   </data>
   <data name="ControlSetDocumentsDebt" xml:space="preserve">
-    <value>Наличие документов</value>
+    <value>Availability of documents</value>
   </data>
 </root>

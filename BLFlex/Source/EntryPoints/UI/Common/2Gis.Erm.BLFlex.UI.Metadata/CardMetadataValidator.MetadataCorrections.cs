@@ -1146,30 +1146,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #endregion
 
-                    #region AdditionalFirmService
-                    {
-                        EntityName.AdditionalFirmService,
-                        new Dictionary<string, IDictionary<string, Tuple<object, object>>>
-                            {
-                                {
-                                    "AdditionalFirmService",
-                                    new Dictionary<string, Tuple<object, object>>
-                                        {
-                                            {
-                                                "EntityMainAttribute",
-                                                new Tuple<object, object>("ServiceName", "Id")
-                                            },
-                                            {
-                                                "DecimalDigits",
-                                                new Tuple<object, object>(0, 2)
-                                            },
-                                        }
-                                },
-                            }
-                    },
-
-                    #endregion
-
                     #region WithdrawalInfo
                     {
                         EntityName.WithdrawalInfo,
