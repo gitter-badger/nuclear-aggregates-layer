@@ -131,7 +131,7 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
     <Compile Include="Suite\Base\UseModelEntityHandlerTestBase.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\PerfomedOperationsProcessorOperationsTest.cs" />
-	<Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowBillingTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowBillingTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsForErmTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowFinancialData1CTest.cs" />
@@ -220,6 +220,7 @@
     <Compile Include="Suite\Concrete\Platform\Identity\BufferedIdentityRequestStrategyTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Logging\ServiceBusLoggingTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\PerformedOperationsProcessingReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Platform\Operations\Processing\PrimaryProcessingLoadTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\ServiceBusReceiverTest.cs" />
     <Compile Include="Suite\Infrastructure\CompositeTestResult.cs" />
     <Compile Include="Suite\Infrastructure\Fakes\CachingProducedQueryLogAccessor.cs" />
