@@ -91,7 +91,9 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                     throw new AdvertisementElementDenyingWithInactiveReasonException(BLResources.YouCannotSpecifyInactiveDenialReason);
                 }
 
-                var currentElementDenialReasons = _advertisementReadModel.GetElementDenialReasonIds(currentStatus.Id);
+                // У статуса нет самостоятельного Id. Он использует Id ЭРМ
+                var advertisementElementId = currentStatus.Id;
+                var currentElementDenialReasons = _advertisementReadModel.GetElementDenialReasonIds(advertisementElementId);
 
                 foreach (var currentElementDenialReasonId in currentElementDenialReasons)
                 {
@@ -104,7 +106,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                     operationScope.Added(denialReason);
                 }
 
-                var orderIds = _advertisementReadModel.GetDependedOrderIdsByAdvertisementElements(new[] { currentStatus.Id });
+                var orderIds = _advertisementReadModel.GetDependedOrderIdsByAdvertisementElements(new[] { advertisementElementId });
                 if (orderIds.Count > 0)
                 {
                     _registerOrderStateChangesOperationService.Changed(orderIds.Select(x => new OrderChangesDescriptor
@@ -113,13 +115,12 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                                                                                                     ChangedAspects =
                                                                                                         new[]
                                                                                                             {
-                                                                                                                OrderValidationRuleGroup
-                                                                                                                    .AdvertisementMaterialsValidation
+                                                                                                                OrderValidationRuleGroup.AdvertisementMaterialsValidation
                                                                                                             }
                                                                                                 }));
                 }
 
-                _notifyAboutAdvertisementElementRejectionOperationService.Notify(currentStatus.Id);
+                _notifyAboutAdvertisementElementRejectionOperationService.Notify(advertisementElementId);
 
                 operationScope.Complete();
 
