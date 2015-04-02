@@ -5,7 +5,6 @@ using DoubleGis.Erm.BL.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -32,8 +31,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
         private readonly IDenialReasonReadModel _denialReasonReadModel;
         private readonly IDeleteAggregateRepository<AdvertisementElementDenialReason> _deleteAdvertisementElementDenialReasonsAggregateRepository;
 
-        private readonly INotifyAboutAdvertisementElementRejectionOperationService
-            _notifyAboutAdvertisementElementValidationStatusChangedOperationService;
+        private readonly INotifyAboutAdvertisementElementRejectionOperationService _notifyAboutAdvertisementElementRejectionOperationService;
 
         public DenyAdvertisementElementOperationService(
             ISecurityServiceFunctionalAccess functionalAccessService,
@@ -43,13 +41,13 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
             IUpdateAggregateRepository<AdvertisementElementStatus> updateAdvertisementElementStatusRepository,
             ICreateAggregateRepository<AdvertisementElementDenialReason> createAdvertisementDenialReasonsAggregateRepository,
             IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
-            INotifyAboutAdvertisementElementRejectionOperationService notifyAboutAdvertisementElementValidationStatusChangedOperationService,
+            INotifyAboutAdvertisementElementRejectionOperationService notifyAboutAdvertisementElementRejectionOperationService,
             IDenialReasonReadModel denialReasonReadModel,
             IDeleteAggregateRepository<AdvertisementElementDenialReason> deleteAdvertisementElementDenialReasonsAggregateRepository)
         {
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
-            _notifyAboutAdvertisementElementValidationStatusChangedOperationService = notifyAboutAdvertisementElementValidationStatusChangedOperationService;
+            _notifyAboutAdvertisementElementRejectionOperationService = notifyAboutAdvertisementElementRejectionOperationService;
             _denialReasonReadModel = denialReasonReadModel;
             _deleteAdvertisementElementDenialReasonsAggregateRepository = deleteAdvertisementElementDenialReasonsAggregateRepository;
             _updateAdvertisementElementStatusRepository = updateAdvertisementElementStatusRepository;
@@ -121,7 +119,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                                                                                                 }));
                 }
 
-                _notifyAboutAdvertisementElementValidationStatusChangedOperationService.Notify(currentStatus.Id);
+                _notifyAboutAdvertisementElementRejectionOperationService.Notify(currentStatus.Id);
 
                 operationScope.Complete();
 

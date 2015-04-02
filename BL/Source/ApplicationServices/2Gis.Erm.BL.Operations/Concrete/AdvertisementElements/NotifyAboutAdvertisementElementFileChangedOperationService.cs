@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements
                                             mailInfo.AdvertisementRef.Name,
                                             mailInfo.AdvertisementTemplateName);
 
-                _sendNotificationOperationService.Send(orderOwnerCodes, subject, message);
+                _sendNotificationOperationService.SendAsHtml(orderOwnerCodes, subject, message);
 
                 scope.Complete();
             }

@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified
 {
     public interface ISendNotificationOperationService : IOperation<SendNotificationIdentity>
     {
-        void Send(IEnumerable<long> ownerCodes, string subject, string message);
+        void SendAsHtml(IEnumerable<long> userCodes, string subject, string message);
     }
 }

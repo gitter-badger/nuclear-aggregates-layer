@@ -18,7 +18,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ITracer _tracer;
 
-        public SendEmailNotificationOperationService(INotificationsSettings notificationsSettings, INotificationSender notificationSender, IEmployeeEmailResolver employeeEmailResolver, IOperationScopeFactory scopeFactory, ITracer tracer)
+        public SendEmailNotificationOperationService(
+            INotificationsSettings notificationsSettings,
+            INotificationSender notificationSender,
+            IEmployeeEmailResolver employeeEmailResolver,
+            IOperationScopeFactory scopeFactory,
+            ITracer tracer)
         {
             _notificationsSettings = notificationsSettings;
             _notificationSender = notificationSender;
@@ -27,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
             _tracer = tracer;
         }
 
-        public void Send(IEnumerable<long> ownerCodes, string subject, string message)
+        public void SendAsHtml(IEnumerable<long> userCodes, string subject, string message)
         {
             if (!_notificationsSettings.EnableNotifications)
             {
@@ -37,18 +42,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 
             using (var scope = _scopeFactory.CreateNonCoupled<SendNotificationIdentity>())
             {
-                foreach (var ownerCode in ownerCodes)
+                foreach (var userCode in userCodes)
                 {
-                    string orderOwnerEmail;
-                    if (_employeeEmailResolver.TryResolveEmail(ownerCode, out orderOwnerEmail) && !string.IsNullOrEmpty(orderOwnerEmail))
+                    string userEmail;
+                    if (_employeeEmailResolver.TryResolveEmail(userCode, out userEmail) && !string.IsNullOrEmpty(userEmail))
                     {
-                        _notificationSender.PostMessage(new[] { new NotificationAddress(orderOwnerEmail) },
+                        _notificationSender.PostMessage(new[] { new NotificationAddress(userEmail) },
                                                         subject,
                                                         new NotificationBody { Body = message, IsHtml = true });
                     }
                     else
                     {
-                        _tracer.Error("Can't send notification. Can't get email. Owner code: " + ownerCode);
+                        _tracer.Error("Can't send notification. Can't get email. User code: " + userCode);
                     }
                 }
 

@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements
                 var messagePartTwo = string.Format(BLResources.OrdersWillNotBePublishedMessage, orderLinks);
                 message = string.Format("{0} {1}", message, messagePartTwo);
 
-                _sendNotificationOperationService.Send(orderOwnerCodes, subject, message);
+                _sendNotificationOperationService.SendAsHtml(orderOwnerCodes, subject, message);
 
                 scope.Complete();
             }
