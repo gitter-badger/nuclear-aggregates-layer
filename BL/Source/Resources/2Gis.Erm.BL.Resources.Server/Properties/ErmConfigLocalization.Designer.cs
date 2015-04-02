@@ -72,15 +72,6 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AdditionalFirmServices {
-            get {
-                return ResourceManager.GetString("AdditionalFirmServices", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AuthorName {
             get {
                 return ResourceManager.GetString("AuthorName", resourceCulture);

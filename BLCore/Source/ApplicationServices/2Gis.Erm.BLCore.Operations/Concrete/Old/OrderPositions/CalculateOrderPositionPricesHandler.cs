@@ -1,7 +1,6 @@
-﻿using System;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
@@ -9,42 +8,38 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
     public sealed class CalculateOrderPositionPricesHandler : RequestHandler<CalculateOrderPositionPricesRequest, CalculateOrderPositionPricesResponse>
     {
         private readonly IOrderReadModel _orderReadModel;
+        private readonly ICalculateOrderPositionPricePerUnitOperationService _calculateOrderPositionPricePerUnitOperationService;
 
-        public CalculateOrderPositionPricesHandler(IOrderReadModel orderReadModel)
+        public CalculateOrderPositionPricesHandler(IOrderReadModel orderReadModel, ICalculateOrderPositionPricePerUnitOperationService calculateOrderPositionPricePerUnitOperationService)
         {
             _orderReadModel = orderReadModel;
+            _calculateOrderPositionPricePerUnitOperationService = calculateOrderPositionPricePerUnitOperationService;
         }
 
         protected override CalculateOrderPositionPricesResponse Handle(CalculateOrderPositionPricesRequest request)
         {
             var order = _orderReadModel.GetOrderSecure(request.OrderId);
 
-            var priceCalculations = _orderReadModel.CalculatePricePerUnit(request.OrderId, request.CategoryRate, request.Cost);
+            var priceCalculations = _calculateOrderPositionPricePerUnitOperationService.CalculatePricePerUnit(request.OrderId, request.CategoryRate, request.Cost);
 
-            var pricePerUnit = Math.Round(priceCalculations.PricePerUnit, 2, MidpointRounding.ToEven);
-            var pricePerUnitWithVat = pricePerUnit * (decimal.One + priceCalculations.VatRatio);
-            pricePerUnitWithVat = Math.Round(pricePerUnitWithVat, 2, MidpointRounding.ToEven);
-
-            var recalculatedResult = _orderReadModel.Recalculate(
-                request.Amount,
-                priceCalculations.PricePerUnit,
-                pricePerUnitWithVat,
-                order.ReleaseCountFact,
-                request.CalculateDiscountViaPercent,
-                request.DiscountPercent,
-                request.DiscountSum);
+            var recalculatedResult = _orderReadModel.Recalculate(request.Amount,
+                                                                 priceCalculations.PricePerUnit,
+                                                                 priceCalculations.PricePerUnitWithVat,
+                                                                 order.ReleaseCountFact,
+                                                                 request.CalculateDiscountViaPercent,
+                                                                 request.DiscountPercent,
+                                                                 request.DiscountSum);
 
             var response = new CalculateOrderPositionPricesResponse
                 {
-                    PricePerUnit = pricePerUnit,
-                    PricePerUnitWithVat = pricePerUnitWithVat,
+                    PricePerUnit = priceCalculations.PricePerUnit,
+                    PricePerUnitWithVat = priceCalculations.PricePerUnitWithVat,
                     DiscountPercent = recalculatedResult.DiscountPercent,
                     DiscountSum = recalculatedResult.DiscountSum,
                     PayablePlan = recalculatedResult.PayablePlan,
                     PayablePlanWoVat = recalculatedResult.PayablePlanWoVat,
                     PayablePrice = recalculatedResult.PayablePrice,
                     ShipmentPlan = recalculatedResult.ShipmentPlan,
-                    CategoryRate = priceCalculations.CategoryRate,
                 };
 
             return response;

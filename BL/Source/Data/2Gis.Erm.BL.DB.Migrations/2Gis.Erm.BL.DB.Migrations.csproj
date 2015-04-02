@@ -98,6 +98,7 @@
     <Compile Include="2.1\201411240501 - Remove MakeRegionalAdsDocs FP.cs" />
     <Compile Include="2.1\201502121619 - Add cancel activity to  CRM.cs" />
     <Compile Include="2.1\201501281731 - upate FAS comment type in UA.cs" />
+    <Compile Include="2.1\201504011240 - return missing buttons to MS CRM.cs" />
     <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />
     <Compile Include="bb-s2\2014.02.11 rev. 16315 - Add Bank permissions.cs" />
     <Compile Include="bb-s2\2014.01.27 rev. 15501 - ERM-3117.cs" />
@@ -185,6 +186,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\customizations_201502121619.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\201504011240\customizations.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
