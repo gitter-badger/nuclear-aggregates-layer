@@ -17,7 +17,7 @@ $ErrorActionPreference = 'Stop'
 #------------------------------
 cls
 
-$Properties.GlobalVersion = '2.77.1'
+$Properties.GlobalVersion = '2.79.0'
 
 $Properties.BuildFile = Join-Path $PSScriptRoot 'default.ps1'
 $Properties.Dir = @{

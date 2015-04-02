@@ -4086,9 +4086,6 @@
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
     <value />
   </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value />
-  </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value />
   </data>
@@ -4303,9 +4300,6 @@
     <value />
   </data>
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
     <value />
   </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
@@ -4908,9 +4902,6 @@
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value />
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value />
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value />
   </data>
@@ -5197,6 +5188,9 @@
     <value />
   </data>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Support" xml:space="preserve">
     <value />
   </data>
 </root>

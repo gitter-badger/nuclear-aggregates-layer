@@ -98,6 +98,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportCardRelationForErmIdentity = 14608;
 
         // EntityName.FirmAddress = 164
+        [Obsolete]
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
         public const int ImportFirmAddressFromServiceBusIdentity = 16402;
 
@@ -149,6 +150,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ReplaceOrderPositionAdvertisementLinksIdentity = 15005;
         public const int ChangeOrderPositionBindingObjectsIdentity = 15006;
         public const int GetAvailableBinfingObjectsIdentity = 15007;
+        public const int CalculateOrderPositionPricePerUnitIdentity = 15008;
 
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;

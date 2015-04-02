@@ -9,6 +9,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices.Dto
         public decimal PricePerUnit { get; set; }
 
         [DataMember]
-        public decimal VatRatio { get; set; }
+        public decimal PricePerUnitWithVat { get; set; }
     }
 }

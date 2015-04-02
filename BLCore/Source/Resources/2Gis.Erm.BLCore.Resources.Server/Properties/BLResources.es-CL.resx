@@ -4098,9 +4098,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
     <value>El contenido del archivo de imagen no coincide con su extensión</value>
   </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value>No se puede eliminar el servicio '{0}', ya que se usa para {1} direcciones</value>
-  </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value>No se ha podido guardar la plantilla: puede haber solo una plantilla de rascacielos</value>
   </data>
@@ -4316,9 +4313,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
     <value>Creación, modificación y eliminación de los objetos "Territorio de ventas" del sistema de registro.</value>
-  </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
-    <value>Servicios adicionales para empresas</value>
   </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
     <value>Proyectos</value>
@@ -4926,9 +4920,6 @@ Periodo de la publicación: {3}.</value>
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value>No se puede eliminar la persona jurídica del cliente que tiene cuentas personales enlazadas</value>
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Creación, modificación y eliminación de objetos "Servicios adicionales para la empresa" del sistema de gestión.</value>
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para las siguientes posiciones: {0}</value>
   </data>
@@ -5211,6 +5202,9 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
     <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Soporte técnico</value>
   </data>
   <data name="ManageDocumentsDebt" xml:space="preserve">
     <value>Gestión de la existencia de los documentos</value>
