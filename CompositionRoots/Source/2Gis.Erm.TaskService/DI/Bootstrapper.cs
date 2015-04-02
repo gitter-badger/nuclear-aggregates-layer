@@ -143,7 +143,7 @@ namespace DoubleGis.Erm.TaskService.DI
         private static IUnityContainer ConfigureUnity(
             this IUnityContainer container, 
             IEnvironmentSettings environmentSettings, 
-            IConnectionStringSettings connectionStringSettings, 
+            IConnectionStringSettings connectionStringSettings,
             IGlobalizationSettings globalizationSettings, 
             IMsCrmSettings msCrmSettings, 
             ICachingSettings cachingSettings, 
