@@ -16,13 +16,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
         PriceValidationDto GetPriceValidationDto(long priceId);
         long GetActualPriceId(long organizationUnitId);
         bool IsPriceActive(long priceId);
-        bool IsPriceExist(long priceId);
+        bool DoesPriceExist(long priceId);
         bool IsPriceLinked(long priceId);
         bool IsPricePublished(long priceId);
-        bool IsPriceContainsPosition(long priceId, long positionId);
-        bool IsPriceContainsPositionWithinNonDeleted(long priceId, long positionId);
-        bool IsPricePositionExist(long priceId, long positionId, long pricePositionId);
-        bool IsPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId);
+        bool DoesPriceContainPosition(long priceId, long positionId);
+        bool DoesPriceContainPositionWithinNonDeleted(long priceId, long positionId);
+        bool DoesPricePositionExist(long priceId, long positionId, long pricePositionId);
+        bool DoesPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId);
         AllPriceDescendantsDto GetAllPriceDescendantsDto(long priceId);
         AllPricePositionDescendantsDto GetAllPricePositionDescendantsDto(long pricePositionId, long positionId);
         PriceDto GetPriceDto(long priceId);

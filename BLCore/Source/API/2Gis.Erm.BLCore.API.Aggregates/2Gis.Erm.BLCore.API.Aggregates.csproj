@@ -333,6 +333,7 @@
     <Compile Include="Prices\Operations\ICreatePricePositionAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeletePriceAggregateService.cs" />
+    <Compile Include="Prices\Operations\SymmetricDeniedPositionRuleIsMissingException.cs" />
     <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />

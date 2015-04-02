@@ -52,6 +52,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             return true;
         }
 
+        public IDictionary<long, string> GetPositionNames(IEnumerable<long> positionIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
+                          .Select(x => new { x.Id, x.Name })
+                          .ToDictionary(x => x.Id, y => y.Name);
+        }
+
         public Position GetPositionByPricePositionId(long pricePositionId)
         {
             return _finder.FindOne(PositionSpecs.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>());

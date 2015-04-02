@@ -5,6 +5,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices
 {
     public interface ICopyPricePositionOperationService : IOperation<CopyPricePositionIdentity>
     {
-        int Copy(long priceId, long sourcePricePositionId, long positionId);
+        long Copy(long priceId, long sourcePricePositionId, long positionId);
     }
 }

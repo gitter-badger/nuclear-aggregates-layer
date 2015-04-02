@@ -15,6 +15,7 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
@@ -27,6 +28,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AdvertisementElements;
@@ -293,6 +295,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)
                      .RegisterType<IValidateFileService, ValidateFileService>(Lifetime.Singleton)
 
+                     .RegisterTypeWithDependencies<IDeniedPositionsDuplicatesCleaner, DeniedPositionsDuplicatesCleaner>(Lifetime.PerResolve, MappingScope)
                      .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerOperationContext, MappingScope)
 
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)

@@ -236,6 +236,7 @@
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
+    <Compile Include="Concrete\Prices\DeniedPositionsDuplicatesCleaner.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Processing\Final\HotClientMessageAggregatedProcessingResultHandler.cs" />
     <Compile Include="Concrete\Processing\Final\HotClientPerformedOperationsFinalProcessingStrategy.cs" />

@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return _finder.Find(Specs.Find.ById<Price>(priceId) && Specs.Find.ActiveAndNotDeleted<Price>()).Any();
         }
 
-        public bool IsPriceExist(long priceId)
+        public bool DoesPriceExist(long priceId)
         {
             return _finder.Find(Specs.Find.ById<Price>(priceId)).Any();
         }
@@ -114,28 +114,28 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return _finder.Find(Specs.Find.ById<Price>(priceId) && Specs.Find.ActiveAndNotDeleted<Price>()).Any(x => x.IsPublished && x.BeginDate <= nowDate);
         }
 
-        public bool IsPriceContainsPosition(long priceId, long positionId)
+        public bool DoesPriceContainPosition(long priceId, long positionId)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<PricePosition>())
                           .Where(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId))
                           .Any();
         }
 
-        public bool IsPriceContainsPositionWithinNonDeleted(long priceId, long positionId)
+        public bool DoesPriceContainPositionWithinNonDeleted(long priceId, long positionId)
         {
             return _finder.Find(Specs.Find.NotDeleted<PricePosition>())
                           .Where(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId))
                           .Any();
         }
 
-        public bool IsPricePositionExist(long priceId, long positionId, long pricePositionId)
+        public bool DoesPricePositionExist(long priceId, long positionId, long pricePositionId)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<PricePosition>() &&
                                 PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
                           .Any();
         }
 
-        public bool IsPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId)
+        public bool DoesPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId)
         {
             return _finder.Find(Specs.Find.NotDeleted<PricePosition>() &&
                                 PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
@@ -182,20 +182,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             var dto = (from pricePosition in _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
                        let deniedPositions = pricePosition.Price.DeniedPositions
                        select new
-                           {
-                               pricePosition.AssociatedPositionsGroups,
-                               AssociatedPositionsMapping = pricePosition.AssociatedPositionsGroups
-                                                                         .Select(y => new
-                                                                             {
-                                                                                 AssociatedPositionsGroupId = y.Id,
-                                                                                 y.AssociatedPositions
-                                                                             }),
-                               DeniedPositions = deniedPositions.Where(x => x.PositionId == positionId && x.PositionId == x.PositionDeniedId)
-                                                                .Concat(deniedPositions
-                                                                            .Where(x => x.PositionId == positionId && x.PositionId != x.PositionDeniedId))
-                                                                .Concat(deniedPositions
-                                                                            .Where(x => x.PositionDeniedId == positionId && x.PositionId != x.PositionDeniedId))
-                           })
+                                  {
+                                      pricePosition.AssociatedPositionsGroups,
+                                      AssociatedPositionsMapping = pricePosition.AssociatedPositionsGroups
+                                                                                .Select(y => new
+                                                                                                 {
+                                                                                                     AssociatedPositionsGroupId = y.Id,
+                                                                                                     y.AssociatedPositions
+                                                                                                 }),
+                                      DeniedPositions = deniedPositions.Where(x => x.PositionId == positionId || x.PositionDeniedId == positionId)
+                                  })
                 .Single();
 
             return new AllPricePositionDescendantsDto

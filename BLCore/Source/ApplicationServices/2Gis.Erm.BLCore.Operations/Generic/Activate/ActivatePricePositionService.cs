@@ -32,33 +32,31 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
 
         public int Activate(long entityId)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, PricePosition>())
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<ActivateIdentity, PricePosition>())
             {
                 var pricePosition = _priceReadModel.GetPricePosition(entityId);
                 if (pricePosition == null)
                 {
-                    throw new NotificationException(BLResources.UnableToGetExisitingPricePosition);
+                    throw new EntityNotFoundException(typeof(PricePosition), entityId);
                 }
 
-                var isPricePublished = _priceReadModel.IsPricePublished(pricePosition.PriceId);
-                if (isPricePublished)
+                if (_priceReadModel.IsPricePublished(pricePosition.PriceId))
                 {
                     throw new ArgumentException(BLResources.CantActivatePricePositionWhenPriceIsPublished);
                 }
 
-                var isPriceContainsPosition = _priceReadModel.IsPriceContainsPosition(pricePosition.PriceId, pricePosition.PositionId);
-                if (isPriceContainsPosition)
+                if (_priceReadModel.DoesPriceContainPosition(pricePosition.PriceId, pricePosition.PositionId))
                 {
-                    throw new ArgumentException(BLResources.AlreadyExistsPricePositionWithSamePositionNotification);
+                    throw new EntityIsNotUniqueException(typeof(PricePosition), BLResources.AlreadyExistsPricePositionWithSamePositionNotification);
                 }
 
                 var allPricePositionDescendantsDto = _priceReadModel.GetAllPricePositionDescendantsDto(pricePosition.Id, pricePosition.PositionId);
 
                 var pricePositions = new[] { pricePosition };
                 var associatedPositionsGroupsMapping = new Dictionary<long, IEnumerable<AssociatedPositionsGroup>>
-            {
-                        { pricePosition.Id, allPricePositionDescendantsDto.AssociatedPositionsGroups }
-                    };
+                                                           {
+                                                               { pricePosition.Id, allPricePositionDescendantsDto.AssociatedPositionsGroups }
+                                                           };
                 var count = _bulkActivatePricePositionsAggregateService.Activate(pricePositions,
                                                                                  associatedPositionsGroupsMapping,
                                                                                  allPricePositionDescendantsDto.AssociatedPositionsMapping);

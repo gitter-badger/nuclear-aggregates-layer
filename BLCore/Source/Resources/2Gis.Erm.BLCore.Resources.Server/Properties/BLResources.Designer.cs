@@ -5779,6 +5779,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DuplicateDeniedPositionRulesAreFound {
+            get {
+                return ResourceManager.GetString("DuplicateDeniedPositionRulesAreFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
@@ -14054,6 +14063,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string SymbolRequired {
             get {
                 return ResourceManager.GetString("SymbolRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SymmetricDeniedPositionRuleIsMissing {
+            get {
+                return ResourceManager.GetString("SymmetricDeniedPositionRuleIsMissing", resourceCulture);
             }
         }
         

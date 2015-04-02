@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 };
             }
 
-            var priceExists = _priceReadModel.IsPriceExist(entityId);
+            var priceExists = _priceReadModel.DoesPriceExist(entityId);
             if (!priceExists)
             {
                 return new DeleteConfirmationInfo

@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                 var pricePosition = _priceReadModel.GetPricePosition(entityId);
                 if (pricePosition == null)
                 {
-                    throw new NotificationException(BLResources.UnableToGetExisitingPricePosition);
+                    throw new EntityNotFoundException(typeof(PricePosition), entityId);
                 }
 
                 if (!pricePosition.IsActive)
@@ -45,14 +45,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                     throw new ArgumentException(BLResources.PricePositionIsInactiveAlready);
                 }
 
-                var isPriceActive = _priceReadModel.IsPriceActive(pricePosition.PriceId);
-                if (!isPriceActive)
+                if (!_priceReadModel.IsPriceActive(pricePosition.PriceId))
                 {
                     throw new ArgumentException(BLResources.CantDeativatePricePositionWhenPriceIsDeactivated);
                 }
 
-                var isPricePublished = _priceReadModel.IsPricePublished(pricePosition.PriceId);
-                if (isPricePublished)
+                if (_priceReadModel.IsPricePublished(pricePosition.PriceId))
                 {
                     throw new ArgumentException(BLResources.CantDeativatePricePositionWhenPriceIsPublished);
                 }
@@ -61,11 +59,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
 
                 var pricePositions = new[] { pricePosition };
                 var associatedPositionsGroupsMapping = new Dictionary<long, IEnumerable<AssociatedPositionsGroup>>
-                    {
-            {
-                            pricePosition.Id, allPricePositionDescendantsDto.AssociatedPositionsGroups
-                        }
-                    };
+                                                           {
+                                                               {
+                                                                   pricePosition.Id, allPricePositionDescendantsDto.AssociatedPositionsGroups
+                                                               }
+                                                           };
                 _bulkDeactivatePricePositionsAggregateService.Deactivate(pricePositions,
                                                                          associatedPositionsGroupsMapping,
                                                                          allPricePositionDescendantsDto.AssociatedPositionsMapping);

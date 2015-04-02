@@ -209,6 +209,7 @@
     <Compile Include="Concrete\Orders\LegalPersonProfileMustBeSpecifiedException.cs" />
     <Compile Include="Concrete\Orders\OrderLegalPersonProfileDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
+    <Compile Include="Concrete\Prices\IDeniedPositionsDuplicatesCleaner.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Prices\ICopyPriceOperationService.cs" />

@@ -5185,10 +5185,10 @@ Periodo de la publicación: {3}.</value>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>El departamento de la empresa {0} no está relacionado con el proyecto.</value>
   </data>
-  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForFirmInReserve" xml:space="preserve">
     <value>No es posible guardar la acción sobre la empresa en reserva</value>
   </data>
-  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>No es posible guardar la acción sobre el cliente en reserva</value>
   </data>
   <data name="CancelConfirmation" xml:space="preserve">
@@ -5201,7 +5201,7 @@ Periodo de la publicación: {3}.</value>
     <value>Imposible finalizar la acción {0} en el estado "Cumplido"/"Cancelado"</value>
   </data>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
-    <value >Operación de cambio de cliente no está especificada para el tipo de entidad indicado</value>
+    <value>Operación de cambio de cliente no está especificada para el tipo de entidad indicado</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Indique el período, modo para contabilizar la prestación de servicios y departamento de la empresa</value>
@@ -5217,5 +5217,11 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="Support" xml:space="preserve">
     <value>Soporte técnico</value>
+  </data>
+  <data name="DuplicateDeniedPositionRulesAreFound" xml:space="preserve">
+    <value>Найдены дубли правил запрещения для следующих позиций: {0}</value>
+  </data>
+  <data name="SymmetricDeniedPositionRuleIsMissing" xml:space="preserve">
+    <value>Не найдено симметричное правило запрещения для: {0}</value>
   </data>
 </root>

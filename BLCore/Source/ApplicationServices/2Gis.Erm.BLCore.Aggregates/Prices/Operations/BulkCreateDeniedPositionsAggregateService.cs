@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -24,23 +27,52 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public int Create(IEnumerable<DeniedPosition> deniedPositions, long priceId)
+        public void Create(IEnumerable<DeniedPosition> deniedPositions)
         {
+            var positionDeniedPositions = deniedPositions.GroupBy(x => new
+                                                                           {
+                                                                               x.PositionId,
+                                                                               x.PositionDeniedId,
+                                                                           })
+                                                         .ToDictionary(x => x.Key, y => y);
+
+            var duplicateRules = positionDeniedPositions.Where(x => x.Value.Count() > 1);
+            if (duplicateRules.Any())
+            {
+                throw new EntityIsNotUniqueException(typeof(DeniedPosition),
+                                                     string.Format(BLResources.DuplicateDeniedPositionRulesAreFound,
+                                                                   string.Join(",",
+                                                                               duplicateRules.Select(x =>
+                                                                                                     string.Format("({0}, {1})", x.Key.PositionId, x.Key.PositionDeniedId)))));
+            }
+
+            var rulesWithoutSymmetric = positionDeniedPositions.Where(deniedPosition => !deniedPositions.Any(x =>
+                                                                                                             x.PositionId == deniedPosition.Key.PositionDeniedId &&
+                                                                                                             x.PositionDeniedId == deniedPosition.Key.PositionId &&
+                                                                                                             x.ObjectBindingType == deniedPosition.Value.Single().ObjectBindingType));
+            if (rulesWithoutSymmetric.Any())
+            {
+                throw new SymmetricDeniedPositionRuleIsMissingException(string.Format(BLResources.SymmetricDeniedPositionRuleIsMissing,
+                                                                                      string.Join(",",
+                                                                                                  rulesWithoutSymmetric.Select(
+                                                                                                                               x =>
+                                                                                                                               string.Format("({0}, {1})",
+                                                                                                                                             x.Key.PositionId,
+                                                                                                                                             x.Key.PositionDeniedId)))));
+            }
+
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, DeniedPosition>())
             {
                 foreach (var deniedPosition in deniedPositions)
                 {
                     _identityProvider.SetFor(deniedPosition);
-                    deniedPosition.PriceId = priceId;
-
                     _deniedPositionGenericRepository.Add(deniedPosition);
-                    operationScope.Added<DeniedPosition>(deniedPosition.Id);
+                    operationScope.Added(deniedPosition);
                 }
 
-                var count = _deniedPositionGenericRepository.Save();
+                _deniedPositionGenericRepository.Save();
 
                 operationScope.Complete();
-                return count;
             }
         }
     }

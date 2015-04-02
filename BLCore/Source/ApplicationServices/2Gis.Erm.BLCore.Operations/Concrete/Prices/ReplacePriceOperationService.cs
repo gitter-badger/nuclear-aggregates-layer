@@ -25,21 +25,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public int Replace(long sourcePriceId, long targetPriceId)
+        public void Replace(long sourcePriceId, long targetPriceId)
         {
             using (var operationScope = _operationScopeFactory.CreateNonCoupled<ReplacePriceIdentity>())
             {
                 _deletePriceService.Delete(targetPriceId);
 
                 var targetPriceDto = _priceReadModel.GetPriceDto(targetPriceId);
-                var count = _copyPriceOperationService.Copy(sourcePriceId,
-                                                            targetPriceDto.OrganizationUnitId,
-                                                            targetPriceDto.CreateDate,
-                                                            targetPriceDto.PublishDate,
-                                                            targetPriceDto.BeginDate);
+                _copyPriceOperationService.Copy(sourcePriceId,
+                                                targetPriceDto.OrganizationUnitId,
+                                                targetPriceDto.CreateDate,
+                                                targetPriceDto.PublishDate,
+                                                targetPriceDto.BeginDate);
 
                 operationScope.Complete();
-                return count;
             }
         }
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
@@ -13,7 +12,6 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
@@ -188,7 +186,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                     .Find<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
                                x.PriceId == deniedPosition.PriceId &&
                                x.PositionId == deniedPosition.PositionDeniedId &&
-                               x.PositionDeniedId == deniedPosition.PositionId)
+                               x.PositionDeniedId == deniedPosition.PositionId && 
+                               x.ObjectBindingType == deniedPosition.ObjectBindingType)
                     .Single();
                 symmetricDeniedPosition.IsActive = false;
                 _deniedPositionGenericRepository.Update(symmetricDeniedPosition);
@@ -220,7 +219,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                              .Select(y => new PricePositionDto.RelatedItemDto
                              {
                                  PositionId = y.PositionDeniedId,
-                                 BindingCheckMode = (ObjectBindingType)y.ObjectBindingType
+                                 BindingCheckMode = y.ObjectBindingType
                              })
                 })
                 .ToArray();
