@@ -155,7 +155,14 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
 
         this.editor.setValue(date ? date.format(this.displayFormat) : '');
         if (this.time) this.time.setValue(date.format(this.displayFormats.time));
-        this.store.setValue(date ? date.format(this.storeFormat) : '');
+
+        // Ловушка: дата momentjs включает в себя локаль. 
+        // Некоторые локали используют не арабские цифры (например, арабская локаль)
+        // Поэтому даже используя формат хранения this.storeFormat есть риск получить нечитаемое значение.
+        // Поэтому копируем дату и указываем для неё локаль с гарантированно арабскими цифрами.
+        var storeDate = moment(date).locale('en');
+        this.store.setValue(date ? storeDate.format(this.storeFormat) : '');
+
         delete this.ignoreChangeEvent;
 
         this.validate();

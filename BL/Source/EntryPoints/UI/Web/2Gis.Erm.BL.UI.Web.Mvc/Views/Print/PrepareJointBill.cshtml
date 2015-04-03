@@ -41,7 +41,7 @@
                 Ext.Ajax.request({
                     timeout: 1200000,
                     method: 'GET',
-                    url: '/Print/GetRelatedOrdersInfoForPrintJointBill',
+                    url: '/MultiCulture/Print/GetRelatedOrdersInfoForPrintJointBill',
                     params: { orderId: this.Config.EntityId, profileId: this.Config.ProfileId },
                     success: function (xhr, options)
                     {
@@ -78,7 +78,7 @@
                     window.Ext.Ajax.request({
                         scope: this,
                         method: 'POST',
-                        url: '/Print/PrintJointBill',
+                        url: '/MultiCulture/Print/PrintJointBill',
                         params: {
                             id: this.Config.EntityId,
                             relatedOrders: Ext.encode(this.RelatedOrders),

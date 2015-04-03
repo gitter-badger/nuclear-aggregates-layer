@@ -159,6 +159,7 @@
     <Compile Include="Areas\MultiCulture\Controllers\ChangeBindingObjectsController.cs" />
     <Compile Include="Areas\MultiCulture\Controllers\ClientsMergingController.cs" />
     <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
+    <Compile Include="Areas\MultiCulture\Controllers\PrintController.cs" />
     <Compile Include="Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -175,6 +176,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Areas\Russia\Controllers\PrintController.cs" />
     <Compile Include="Models\Czech\CzechBillViewModel.cs" />
     <Compile Include="Models\Kazakhstan\KazakhstanChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\MultiCultureDealViewModel.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanOrderFileKindEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\MultiCulture\MultiCultureAppointmentPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaAppointmentPurposeEnumCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
       <DependentUpon>Deal.cshtml</DependentUpon>

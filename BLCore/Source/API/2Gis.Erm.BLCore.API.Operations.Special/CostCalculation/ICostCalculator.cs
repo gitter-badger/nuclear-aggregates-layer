@@ -15,5 +15,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation
         /// Непосредственно расчет стоимости простой позиции
         /// </summary>
         CalculationResult Calculate(CalcPositionRequest positionInfo);
+
+        PricePerUnitCalculationResult CalculatePricePerUnit(decimal priceCost, decimal categoryRate, decimal vatRate, bool showVat);
     }
 }

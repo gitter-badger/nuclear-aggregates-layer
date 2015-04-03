@@ -55,9 +55,19 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
         {
             var pathItems = path.Split('.');
 
-            if(pathItems.Length == 1)
+            if (pathItems.Length == 1)
             {
-                _values.Add(pathItems[0], value);
+                object oldValue;
+                if (!_values.TryGetValue(pathItems[0], out oldValue))
+                {
+                    _values.Add(pathItems[0], value);
+                }
+                else if (!Equals(oldValue, value))
+                {
+                    var message = string.Format("Container already contains another value for {0}", path);
+                    throw new ArgumentException(message);
+                }
+
                 return;
             }
 
