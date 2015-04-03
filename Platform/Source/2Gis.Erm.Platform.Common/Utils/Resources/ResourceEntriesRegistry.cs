@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 
+using NuClear.Metamodeling.UI.Utils.Resources;
+
 namespace DoubleGis.Erm.Platform.Common.Utils.Resources
 {
     public sealed class ResourceEntriesRegistry

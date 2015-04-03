@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 using ProtoBuf.Meta;
 

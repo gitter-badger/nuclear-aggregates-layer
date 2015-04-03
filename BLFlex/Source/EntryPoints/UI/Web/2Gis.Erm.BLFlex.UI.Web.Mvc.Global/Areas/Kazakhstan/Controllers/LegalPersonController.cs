@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Kazakhstan.Controllers
         [HttpPost]
         [UseDependencyFields]
         [GetEntityStateToken]
-        [LogWebRequest(EntityName.LegalPerson, CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
+        [LogWebRequest("LegalPerson", CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
         public virtual ActionResult ChangeLegalPersonRequisites(KazakhstanChangeLegalPersonRequisitesViewModel model)
         {
             if (!ModelUtils.CheckIsModelValid(this, model))

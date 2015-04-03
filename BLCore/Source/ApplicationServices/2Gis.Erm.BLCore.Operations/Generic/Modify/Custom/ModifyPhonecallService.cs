@@ -14,24 +14,21 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
     public sealed class ModifyPhonecallService : IModifyBusinessModelEntityService<Phonecall>
     {
         private readonly IPhonecallReadModel _readModel;
-
         private readonly IBusinessModelEntityObtainer<Phonecall> _activityObtainer;
-
         private readonly IClientReadModel _clientReadModel;
-
-        private readonly IFirmReadModel _firmReadModel;
-
+        private readonly IFirmReadModel _firmReadModel;        
         private readonly ICreatePhonecallAggregateService _createOperationService;
-
         private readonly IUpdatePhonecallAggregateService _updateOperationService;
-
+        
         public ModifyPhonecallService(
             IPhonecallReadModel readModel,
             IBusinessModelEntityObtainer<Phonecall> obtainer,
@@ -43,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             _readModel = readModel;
             _activityObtainer = obtainer;
             _clientReadModel = clientReadModel;
-            _firmReadModel = firmReadModel;
+            _firmReadModel = firmReadModel;            
             _createOperationService = createOperationService;
             _updateOperationService = updateOperationService;
         }
@@ -57,13 +54,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             }
 
             var phonecall = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
-
-            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
+            
+            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Client(), _clientReadModel.IsClientInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
+            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Firm(), _firmReadModel.IsFirmInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
@@ -87,8 +84,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
                 _updateOperationService.ChangeRegardingObjects(
                     phonecall,
-                    oldRegardingObjects,
-                    phonecall.ReferencesIfAny<Phonecall, PhonecallRegardingObject>(phonecallDto.RegardingObjects));
+                                                               oldRegardingObjects,
+                                                               phonecall.ReferencesIfAny<Phonecall, PhonecallRegardingObject>(phonecallDto.RegardingObjects));
                 _updateOperationService.ChangeRecipient(phonecall, oldRecipient, phonecall.ReferencesIfAny<Phonecall, PhonecallRecipient>(phonecallDto.RecipientRef));
 
                 transaction.Complete();

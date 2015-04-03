@@ -1,12 +1,12 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Common.Crosscutting
 {
     public class CrmEntityInfo
     {
-        public EntityName EntityName { get; set; }
+        public IEntityType EntityName { get; set; }
         public Guid Id { get; set; }
     }
 }

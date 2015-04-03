@@ -2,27 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
+
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {
     public class DataListMetadata : MetadataElement<DataListMetadata, DataListMetadataBuilder>, IOperationsBoundElement
     {
-        private readonly EntityName _entity;
+        private readonly IEntityType _entity;
         private readonly string _concreteListing;
         private readonly IMetadataElementIdentity _identity;
 
-        public DataListMetadata(EntityName entity, string concreteListing, IEnumerable<IMetadataFeature> features) 
+        public DataListMetadata(IEntityType entity, string concreteListing, IEnumerable<IMetadataFeature> features) 
             : base(features)
         {
             _entity = entity;
             _concreteListing = concreteListing;
-            _identity = IdBuilder.For<MetadataListingsIdentity>(entity.ToString(), concreteListing).AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataListingsIdentity>(entity.ToString(), concreteListing).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity
@@ -30,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
             get { return _identity; }
         }
 
-        public EntityName Entity
+        public IEntityType Entity
         {
             get { return _entity; }
         }

@@ -13,7 +13,8 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 using NuClear.Tracing.API;
 
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
-        public ListResult Execute(EntityName entityName,
+        public ListResult Execute(IEntityType entityName,
                                   int start,
                                   string filterInput,
                                   string extendedInfo,
@@ -53,7 +54,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                   int limit,
                                   string sort,
                                   long? parentId,
-                                  EntityName parentType)
+                                  IEntityType parentType)
         {
             try
             {
@@ -76,17 +77,17 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                   string parentIdArg,
                                   string parentTypeArg)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
 
             try
             {
-                if (!Enum.TryParse(entityNameArg, out entityName))
+                if (!EntityType.Instance.TryParse(entityNameArg, out entityName))
                 {
                     throw new ArgumentException("Entity name cannot be parsed");
                 }
 
-                var parentType = EntityName.None;
-                if (!string.IsNullOrEmpty(parentTypeArg) && !Enum.TryParse(parentTypeArg, out parentType))
+                IEntityType parentType = EntityType.Instance.None();
+                if (!string.IsNullOrEmpty(parentTypeArg) && !EntityType.Instance.TryParse(parentTypeArg, out parentType))
                 {
                     throw new ArgumentException("Parent entity type cannot be parsed");
                 }
@@ -116,7 +117,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             }
         }
 
-        private ListResult ExecuteInternal(EntityName entityName,
+        private ListResult ExecuteInternal(IEntityType entityName,
                                            int start,
                                            string filterInput,
                                            string extendedInfo,
@@ -124,7 +125,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                            int limit,
                                            string sort,
                                            long? parentId,
-                                           EntityName parentType)
+                                           IEntityType parentType)
         {
             // TODO {all, 18.09.2013}: обеспечить управление настройками usecase (duration и т.п.) на основе метаданных, неявно для operation services
             // Пока информации о длительности usecase, иногда, применяется в точке входа WCF (Web и т.д.)
@@ -165,7 +166,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             };
         }
 
-        private DataListStructure GetDataListStructure(EntityName entityName, string nameLocaleResourceId)
+        private DataListStructure GetDataListStructure(IEntityType entityName, string nameLocaleResourceId)
         {
             var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
             var gridSettings = _configurationService.GetGridSettings(entityName, userCultureInfo);

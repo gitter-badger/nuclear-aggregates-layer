@@ -18,6 +18,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
@@ -80,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         {
             var client = _clientReadModel.GetClient(entityId);
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                              EntityName.Client,
+                                                              EntityType.Instance.Client(),
                                                               _userContext.Identity.Code,
                                                               client.Id,
                                                               client.OwnerCode,
@@ -94,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
                 // Проверяем открытые связанные объекты:
                 // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данным Клиентом и его фирмами, 
                 // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данным Клиентом и его фирмами".
-                var hasRelatedOpenedActivities = _activityReadService.CheckIfOpenActivityExistsRegarding(EntityName.Client, entityId);
+                var hasRelatedOpenedActivities = _activityReadService.CheckIfOpenActivityExistsRegarding(EntityType.Instance.Client(), entityId);
                 if (hasRelatedOpenedActivities)
                 {
                     throw new NotificationException(BLResources.NeedToCloseAllActivities);
@@ -132,19 +133,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
 
         private void AssignRelatedActivities(long clientId, long newOwnerCode)
         {
-            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityName.Client, clientId))
+            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityType.Instance.Client(), clientId))
             {
                 _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
             }
-            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityName.Client, clientId))
+            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityType.Instance.Client(), clientId))
             {
                 _assignLetterAggregateService.Assign(letter, newOwnerCode);
             }
-            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityName.Client, clientId))
+            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityType.Instance.Client(), clientId))
             {
                 _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
             }
-            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityName.Client, clientId))
+            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityType.Instance.Client(), clientId))
             {
                 _assignTaskAggregateService.Assign(task, newOwnerCode);
             }

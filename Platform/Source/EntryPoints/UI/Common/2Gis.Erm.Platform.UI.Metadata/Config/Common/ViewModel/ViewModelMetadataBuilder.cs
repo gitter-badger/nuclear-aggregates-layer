@@ -1,14 +1,15 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator;
+
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
 {

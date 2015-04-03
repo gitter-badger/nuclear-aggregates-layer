@@ -4,7 +4,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -22,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             get { return _userContext; }
         }
 
-        public IDomainEntityDto GetDomainEntityDto(long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        public IDomainEntityDto GetDomainEntityDto(long entityId, bool readOnly, long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var currentUserCode = UserContext.Identity.Code;
 
@@ -61,13 +63,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         }
 
         protected abstract IDomainEntityDto<TEntity> GetDto(long entityId);
-        protected abstract IDomainEntityDto<TEntity> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo);
+        protected abstract IDomainEntityDto<TEntity> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo);
 
         protected virtual void SetDtoProperties(IDomainEntityDto<TEntity> domainEntityDto,
                                                 long entityId,
                                                 bool readOnly,
                                                 long? parentEntityId,
-                                                EntityName parentEntityName,
+                                                IEntityType parentEntityName,
                                                 string extendedInfo)
         {
             // do nothing

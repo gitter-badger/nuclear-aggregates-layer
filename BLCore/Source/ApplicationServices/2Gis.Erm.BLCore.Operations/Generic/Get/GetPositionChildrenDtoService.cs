@@ -5,7 +5,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -38,25 +40,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                           .Single();
         }
 
-        protected override IDomainEntityDto<PositionChildren> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<PositionChildren> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = new PositionChildrenDomainEntityDto();
 
-            switch (parentEntityName)
+            if (parentEntityName.Equals(EntityType.Instance.Position()))
             {
-                case EntityName.Position:
-                    {
-                        dto.MasterPositionRef = new EntityReference()
+                dto.MasterPositionRef = new EntityReference()
                             {
                                 Id = parentEntityId.Value,
                                 Name = _finder.Find<Position>(x => x.Id == parentEntityId).Select(x => x.Name).SingleOrDefault()
                             };
-
-                    }
-
-                    break;
             }
-
+            
             return dto;
         }
     }

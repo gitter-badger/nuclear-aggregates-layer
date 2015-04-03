@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids
 {
     public class GridMetadata : MetadataElement<GridMetadata, GridMetadataBuilder>
     {
-        private readonly EntityName _entity;
+        private readonly IEntityType _entity;
         private readonly IMetadataElementIdentity _identity;
-        public GridMetadata(EntityName entity,  IEnumerable<IMetadataFeature> features)
+        public GridMetadata(IEntityType entity,  IEnumerable<IMetadataFeature> features)
             : base(features)
         {
             _entity = entity;
-            _identity = IdBuilder.For<MetadataGridsIdentity>(_entity.ToString()).AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataGridsIdentity>(_entity.ToString()).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity
@@ -30,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids
             get { return this.Feature<AttachedDataListsFeature>().DataLists; }
         }
 
-        public EntityName Entity
+        public IEntityType Entity
         {
             get { return _entity; }
         }

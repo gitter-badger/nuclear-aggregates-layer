@@ -6,9 +6,10 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
 {
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
                         {
                             MessageFlowId = MessageFlow.Id,
                             EntityId = changedEntityInfo.Key,
-                            EntityTypeId = (int)targetEntityType.AsEntityName(),
+                            EntityTypeId = targetEntityType.AsEntityName().Id,
                             OperationId = useCaseId
                         });
                 }

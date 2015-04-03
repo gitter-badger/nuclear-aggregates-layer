@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Images;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Metadata.Common
 {

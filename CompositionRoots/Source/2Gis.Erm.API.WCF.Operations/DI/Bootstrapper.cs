@@ -66,13 +66,12 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.DI.WCF;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
@@ -88,6 +87,7 @@ using DoubleGis.Erm.WCF.BasicOperations.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 

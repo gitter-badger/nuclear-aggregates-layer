@@ -6,11 +6,11 @@ using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers

@@ -4,9 +4,10 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -43,11 +44,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                           .Single();
         }
 
-        protected override IDomainEntityDto<PrintFormTemplate> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<PrintFormTemplate> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             return new PrintFormTemplateDomainEntityDto
             {
-                BranchOfficeOrganizationUnitRef = new EntityReference { Id = (parentEntityName == EntityName.BranchOfficeOrganizationUnit) ? parentEntityId : null }
+                BranchOfficeOrganizationUnitRef = new EntityReference { Id = (parentEntityName == EntityType.Instance.BranchOfficeOrganizationUnit()) ? parentEntityId : null }
             };
         }
     }

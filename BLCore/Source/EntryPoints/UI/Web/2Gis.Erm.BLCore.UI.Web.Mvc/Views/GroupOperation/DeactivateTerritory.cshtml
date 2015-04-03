@@ -1,5 +1,4 @@
-﻿@using DoubleGis.Erm.Platform.Common.Utils
-@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.DeactivateTerritoryViewModel
+﻿@model DeactivateTerritoryViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -111,7 +110,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.LookupFor(k => k.NewTerritoryId, new LookupSettings {EntityName = EntityName.Territory})
+                                        @Html.LookupFor(k => k.NewTerritoryId, new LookupSettings {EntityName = EntityType.Instance.Territory()})
                                     </td>
                                 </tr>
                             </tbody>
@@ -128,6 +127,6 @@
                 </tr>
             </tbody>
         </table>
-        @Html.HiddenFor(x => x.EntityTypeName)
+        @Html.Hidden("EntityType", Model.EntityTypeName.Description)
     }
 }

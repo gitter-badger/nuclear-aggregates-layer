@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 {
     public class OrderProcessingRequestViewModelCustomizationService : IGenericViewModelCustomizationService<OrderProcessingRequest>
@@ -30,16 +32,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
             var entityViewModel = (OrderProcessingRequestViewModel)viewModel;
 
             var userId = _userContext.Identity.Code;
-            entityViewModel.CanCreateOrder = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Create, EntityName.Order, userId, null, userId, null);
+            entityViewModel.CanCreateOrder = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Create, EntityType.Instance.Order(), userId, null, userId, null);
             entityViewModel.CanCreateOrder &= _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Create,
-                                                                                           EntityName.OrderPosition,
+                                                                                           EntityType.Instance.OrderPosition(),
                                                                                            userId,
                                                                                            null,
                                                                                            userId,
                                                                                            null);
 
             entityViewModel.CanCreateOrder &= _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Create,
-                                                                                           EntityName.OrderPositionAdvertisement,
+                                                                                           EntityType.Instance.OrderPositionAdvertisement(),
                                                                                            userId,
                                                                                            null,
                                                                                            userId,

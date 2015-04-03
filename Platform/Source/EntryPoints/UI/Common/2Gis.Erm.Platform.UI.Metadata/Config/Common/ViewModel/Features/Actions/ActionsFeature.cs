@@ -1,17 +1,17 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+﻿using NuClear.Metamodeling.UI.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions
 {
     public sealed class ActionsFeature : IViewModelFeature
     {
-        private readonly HierarchyMetadata[] _actionsDescriptors;
+        private readonly OldUIElementMetadata[] _actionsDescriptors;
 
-        public ActionsFeature(HierarchyMetadata[] actionsDescriptors)
+        public ActionsFeature(OldUIElementMetadata[] actionsDescriptors)
         {
             _actionsDescriptors = actionsDescriptors;
         }
 
-        public HierarchyMetadata[] ActionsDescriptors
+        public OldUIElementMetadata[] ActionsDescriptors
         {
             get { return _actionsDescriptors; }
         }

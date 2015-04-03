@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Ambivalent;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Simplified;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+
+using EntityNameUtils = DoubleGis.Erm.Platform.Model.Entities.EntityNameUtils;
 
 namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 {
@@ -24,6 +28,11 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
         private static readonly Type BaseEntityType = typeof(IBaseEntity);
 
         private readonly HashSet<Type> _modelEntityTypesIndex = new HashSet<Type>();
+
+        public CheckDomainModelEntitiesConsistencyMassProcessor()
+        {
+            DoubleGis.Erm.Platform.Model.Entities.EntityTypeMap.Initialize();
+        }
 
         #region Overrides of AbstractTypeRegistrationsMassProcessor
 
@@ -66,7 +75,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             PersistenceOnlyEntitiesMustBeInModelEntitiesIndex(violationsReport);
             EntitiesHasMappingToTypesMustBeInModelEntitiesIndex(violationsReport);
 
-            foreach (var entityName in EntityName.All.GetDecomposed())
+            foreach (var entityName in EntityType.Instance.All().GetDecomposed())
             {
                 // TODO {all, 26.07.2013}: Пока есть сущности прописанные как элементы разных агрегатов - нужно это исправить и включить проверку
                 // BusinessModelEntityMustBePartOfSingleAggregate(entityName, ref violationsReport);
@@ -100,24 +109,27 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 
         private static void EntityNameUniqueness(StringBuilder report)
         {
-            var entityNameType = typeof(EntityName);
-            var entityNameMap = new Dictionary<EntityName, List<string>>();
-            var allEntityNameEntries = Enum.GetNames(entityNameType);
+            var entityNameMap = new Dictionary<IEntityType, List<string>>();
+            var allEntityNameEntries = EntityType.Instance.GetTypes();
 
             foreach (var entry in allEntityNameEntries)
             {
-                var entryValue = (EntityName)Enum.Parse(entityNameType, entry);
                 List<string> entriesList;
-                if (!entityNameMap.TryGetValue(entryValue, out entriesList))
+                if (!entityNameMap.TryGetValue(entry, out entriesList))
                 {
                     entriesList = new List<string>();
-                    entityNameMap.Add(entryValue, entriesList);
+                    entityNameMap.Add(entry, entriesList);
                 }
 
-                entriesList.Add(entry);
+                entriesList.Add(entry.Description);
             }
 
-            entityNameMap.Where(x => x.Value.Count > 1).Aggregate(report, (builder, pair) => builder.AppendFormat("Enum type {0} has entries {1} with the same value {2}{3}", entityNameType.Name, string.Join(", ", pair.Value), (int)pair.Key, Environment.NewLine));
+            entityNameMap.Where(x => x.Value.Count > 1)
+                         .Aggregate(report,
+                                    (builder, pair) => builder.AppendFormat("EntityType storege has entries {0} with the same value {1}{2}",
+                                                                            string.Join(", ", pair.Value),
+                                                                            pair.Key.Id,
+                                                                            Environment.NewLine));
 
             if (report.Length > 0)
             {
@@ -129,19 +141,19 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
         {
             foreach (var type in EntityNameUtils.PersistenceOnlyEntities)
             {
-                EntityName entityName;
+                IEntityType entityName;
                 if (type.TryGetEntityName(out entityName))
                 {
                     report.AppendFormat(
                         "Type {0} declared as persistance only and can't have mapping to {1}{2}",
                         type,
-                        typeof(EntityName).Name,
+                        typeof(EntityType).Name,
                         Environment.NewLine);
                 }
             }
         }
 
-        private static void EntityMustBePartOfBusinessOrSimplifiedModel(EntityName entityName, StringBuilder report)
+        private static void EntityMustBePartOfBusinessOrSimplifiedModel(IEntityType entityName, StringBuilder report)
         {
             if (entityName.IsVirtual())
             {
@@ -154,12 +166,12 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                 report.AppendFormat(
                     "Not ambivalent entity {0} is declared as part of aggregate {1} and simplified model element {2}",
                     entityName,
-                    string.Join(";", aggregates),
+                    string.Join(";", aggregates.Select(x => x.Description)),
                     Environment.NewLine);
             }
         }
 
-        private static void AmbivalentEntityMustBeElementOfBusinessAndSimplifiedModel(EntityName entityName, StringBuilder report)
+        private static void AmbivalentEntityMustBeElementOfBusinessAndSimplifiedModel(IEntityType entityName, StringBuilder report)
         {
             if (entityName.IsVirtual())
             {
@@ -176,7 +188,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             }
         }
 
-        private static void VirtualEntityCantBeElementOfBusinessOrSimplifiedModel(EntityName entityName, StringBuilder report)
+        private static void VirtualEntityCantBeElementOfBusinessOrSimplifiedModel(IEntityType entityName, StringBuilder report)
         {
             var aggregates = entityName.ToAggregates();
             if (entityName.IsVirtual() && (aggregates.Any() || entityName.IsSimplifiedModel()))
@@ -188,7 +200,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             }
         }
 
-        private void BusinessOrSimplifiedModelEntityMustHavePersistance(EntityName entityName, StringBuilder report)
+        private void BusinessOrSimplifiedModelEntityMustHavePersistance(IEntityType entityName, StringBuilder report)
         {
             if (entityName.IsVirtual())
             {
@@ -232,7 +244,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 
         private void EntitiesHasMappingToTypesMustBeInModelEntitiesIndex(StringBuilder report)
         {
-            foreach (var mapping in EntityTypeMap.EntitiesMapping)
+            foreach (var mapping in NuClear.Model.Common.Entities.EntityTypeMap.EntitiesMapping)
             {
                 if (!_modelEntityTypesIndex.Contains(mapping.Value) && !mapping.Value.IsBaseEntity())
                 {
@@ -249,13 +261,13 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
         {
             foreach (var type in _modelEntityTypesIndex)
             {
-                EntityName entityName;
+                IEntityType entityName;
                 if (!type.TryGetEntityName(out entityName) && !type.IsPersistenceOnly())
                 {
                     report.AppendFormat(
                         "Type {0} is element of domain model, not persistance only, must have mapping {1}<->Entity Type {2}",
                         type,
-                        typeof(EntityName).Name,
+                        typeof(EntityType).Name,
                         Environment.NewLine);
                 }
             }
@@ -311,7 +323,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                     var messageExtension = _modelEntityTypesIndex.Contains(entityType) ? ". Target mapped type is element of domain model." : string.Empty;
                     report.AppendFormat(
                         "{0} {1} is declared as virtual and can't have mapping to entity type {2}{3}{4}",
-                        typeof(EntityName).Name,
+                        typeof(EntityType).Name,
                         entityName,
                         entityType,
                         messageExtension,

@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+﻿using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.UI.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions
 {
@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Ac
         {
         }
 
-        public TBuilder Attach(params HierarchyMetadata[] actions)
+        public TBuilder Attach(params OldUIElementMetadata[] actions)
         {
             if (actions == null || actions.Length == 0)
             {

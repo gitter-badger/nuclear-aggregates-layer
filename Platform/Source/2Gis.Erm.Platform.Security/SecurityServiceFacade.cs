@@ -20,6 +20,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Resources.Server;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security
@@ -38,13 +39,13 @@ namespace DoubleGis.Erm.Platform.Security
         // Для каждой пары в словаре проверка привилегий для первой сущности заменяется  
         // проверкой привилегий для второй сущности.
         // TODO : не проверено мирное сосуществование рутингов и Access sharing'а.
-        private static readonly Dictionary<EntityName, EntityName> EntityPrivilegesRoutings = 
-            new Dictionary<EntityName, EntityName>
+        private static readonly Dictionary<IEntityType, IEntityType> EntityPrivilegesRoutings =
+            new Dictionary<IEntityType, IEntityType>
                 {
-                    { EntityName.Appointment, EntityName.Activity}, 
-                    { EntityName.Phonecall, EntityName.Activity}, 
-                    { EntityName.Task, EntityName.Activity},
-                    { EntityName.Letter, EntityName.Activity},
+                    { EntityType.Instance.Appointment(), EntityType.Instance.Activity() },
+                    { EntityType.Instance.Phonecall(), EntityType.Instance.Activity() },
+                    { EntityType.Instance.Task(), EntityType.Instance.Activity() },
+                    { EntityType.Instance.Letter(), EntityType.Instance.Activity() },
                 };
 
         private readonly IFinder _finder;
@@ -219,9 +220,9 @@ namespace DoubleGis.Erm.Platform.Security
 
         #region ISecurityServiceEntityAccessInternal
 
-        IQueryable ISecurityServiceEntityAccessInternal.RestrictQuery(IQueryable query, EntityName entityName, long userCode)
+        IQueryable ISecurityServiceEntityAccessInternal.RestrictQuery(IQueryable query, IEntityType entityName, long userCode)
         {
-            EntityName entityToCheck;
+            IEntityType entityToCheck;
             if (!EntityPrivilegesRoutings.TryGetValue(entityName, out entityToCheck))
             {
                 entityToCheck = entityName;
@@ -231,16 +232,17 @@ namespace DoubleGis.Erm.Platform.Security
             var restrictUserCodes = GetOwnerCodeRestriction(privilegeDepth, userCode, entityName);
 
             // shared entities
+            var entityTypeId = entityName.Id;
             IEnumerable<int> sharedEntityIds = _finder.Find<User>(x => x.Id == userCode)
                     .SelectMany(x => x.UserEntities)
-                    .Where(x => x.Privilege.EntityType == (int)entityName && x.Privilege.Operation == (int)EntityAccessTypes.Read)
+                    .Where(x => x.Privilege.EntityType == entityTypeId && x.Privilege.Operation == (int)EntityAccessTypes.Read)
                     .Select(x => x.EntityId)
                     .ToArray();
 
             return QueryableHelper.CreateRestrictedQuery(query, entityName.AsEntityType(), restrictUserCodes, sharedEntityIds);
         }
 
-        private IQueryable<long> GetOwnerCodeRestriction(EntityPrivilegeDepthState privilegeDepth, long userCode, EntityName entityName)
+        private IQueryable<long> GetOwnerCodeRestriction(EntityPrivilegeDepthState privilegeDepth, long userCode, IEntityType entityName)
         {
             switch (privilegeDepth)
             {
@@ -272,7 +274,7 @@ namespace DoubleGis.Erm.Platform.Security
             }
         }
 
-        EntityAccessTypes ISecurityServiceEntityAccessInternal.GetCommonEntityAccessForMetadata(EntityName entityName, long userCode)
+        EntityAccessTypes ISecurityServiceEntityAccessInternal.GetCommonEntityAccessForMetadata(IEntityType entityName, long userCode)
         {
             try
             {
@@ -295,9 +297,9 @@ namespace DoubleGis.Erm.Platform.Security
             }
         }
 
-        bool ISecurityServiceEntityAccess.IsSecureEntity(EntityName entityName)
+        bool ISecurityServiceEntityAccess.IsSecureEntity(IEntityType entityName)
         {
-            EntityName entityToCheck;
+            IEntityType entityToCheck;
             if (!EntityPrivilegesRoutings.TryGetValue(entityName, out entityToCheck))
             {
                 entityToCheck = entityName;
@@ -310,12 +312,13 @@ namespace DoubleGis.Erm.Platform.Security
                 return isSecure.Value;
         }
 
-            var result = _finder.FindAll<Privilege>().Any(x => x.EntityType == (int)entityToCheck);
+            var entityToCheckTypeId = entityToCheck.Id;
+            var result = _finder.FindAll<Privilege>().Any(x => x.EntityType == entityToCheckTypeId);
             _cacheAdapter.Add(key, result, CacheAbsoluteSpan);
             return result;
         }
 
-        bool ISecurityServiceEntityAccess.HasEntityAccess(EntityAccessTypes accessTypes, EntityName entityName, long userCode, long? entityId, long ownerCode, long? oldOwnerCode)
+        bool ISecurityServiceEntityAccess.HasEntityAccess(EntityAccessTypes accessTypes, IEntityType entityName, long userCode, long? entityId, long ownerCode, long? oldOwnerCode)
         {
             try
             {
@@ -329,9 +332,10 @@ namespace DoubleGis.Erm.Platform.Security
             }
         }
 
-        EntityAccessTypes ISecurityServiceEntityAccess.RestrictEntityAccess(EntityName entityName, EntityAccessTypes accessTypes, long userCode, long? entityId, long ownerCode, long? ownerOldCode)
+        EntityAccessTypes ISecurityServiceEntityAccess.RestrictEntityAccess(IEntityType entityName, EntityAccessTypes accessTypes, long userCode, long? entityId, long ownerCode, long? ownerOldCode)
         {
             var restrictedAccessTypes = EntityAccessTypes.None;
+            var entityTypeId = entityName.Id;
 
             // разбиваем accessTypes на атомарные привилегии
             foreach (var atomicAccessType in AtomicAccessTypes.Where(x => accessTypes.HasFlag(x)))
@@ -397,7 +401,7 @@ namespace DoubleGis.Erm.Platform.Security
                 {
                     hasAccess = _finder.Find<User>(x => x.Id == userCode)
                                     .SelectMany(x => x.UserEntities)
-                                    .Where(x => x.Privilege.EntityType == (int)entityName && x.Privilege.Operation == (int)atomicAccessType)
+                                    .Where(x => x.Privilege.EntityType == entityTypeId && x.Privilege.Operation == (int)atomicAccessType)
                                     .Any(x => x.EntityId == entityId);
                 }
 
@@ -441,14 +445,15 @@ namespace DoubleGis.Erm.Platform.Security
             return compareCode;
         }
 
-        private EntityPrivilegeDepthState GetEntityPrivilegeDepth(long userCode, EntityName entityName, EntityAccessTypes entityAccessType)
+        private EntityPrivilegeDepthState GetEntityPrivilegeDepth(long userCode, IEntityType entityName, EntityAccessTypes entityAccessType)
         {
-            EntityName entityToCheck;
+            IEntityType entityToCheck;
             if (!EntityPrivilegesRoutings.TryGetValue(entityName, out entityToCheck))
             {
                 entityToCheck = entityName;
             }
 
+            var entityToCheckTypeId = entityToCheck.Id;
             var key = string.Format(CacheKeyMask, "EntityPriveleges", entityToCheck, userCode);
 
             var entityPrivileges = _cacheAdapter.Get<Dictionary<EntityAccessTypes, EntityPrivilegeDepthState>>(key);
@@ -457,7 +462,7 @@ namespace DoubleGis.Erm.Platform.Security
                 entityPrivileges = _finder.Find<User>(x => x.Id == userCode)
                 .SelectMany(x => x.UserRoles).Select(x => x.Role)
                 .SelectMany(x => x.RolePrivileges)
-                .Where(x => x.Privilege.EntityType == (int)entityToCheck)
+                                          .Where(x => x.Privilege.EntityType == entityToCheckTypeId)
                 .Select(x => new
                 {
                     AccessType = (EntityAccessTypes)x.Privilege.Operation,
@@ -482,7 +487,7 @@ namespace DoubleGis.Erm.Platform.Security
 
         #region ISecurityServiceSharings
 
-        IEnumerable<SharingDescriptor> ISecurityServiceSharings.GetAccessSharingsForEntity(EntityName entityName, long entityId)
+        IEnumerable<SharingDescriptor> ISecurityServiceSharings.GetAccessSharingsForEntity(IEntityType entityName, long entityId)
         {
             try
             {
@@ -494,8 +499,9 @@ namespace DoubleGis.Erm.Platform.Security
             }
         }
 
-        void ISecurityServiceSharings.UpdateAccessSharings(EntityName entityName, long entityId, long entityOwnerCode, IEnumerable<SharingDescriptor> accessSharings, long userCode)
+        void ISecurityServiceSharings.UpdateAccessSharings(IEntityType entityName, long entityId, long entityOwnerCode, IEnumerable<SharingDescriptor> accessSharings, long userCode)
         {
+            var entityTypeId = entityName.Id;
             try
             {
                 ValidateAccessSharings(userCode, entityName, entityId, entityOwnerCode, accessSharings);
@@ -516,7 +522,7 @@ namespace DoubleGis.Erm.Platform.Security
                         // get entity prvilege by entityAccessType
                         var entityAccessTypeClosure = entityAccessType;
 
-                        var entityPrivilege = _finder.Find<Privilege>(x => x.EntityType == (int)entityName && x.Operation == (int)entityAccessTypeClosure).Single();
+                        var entityPrivilege = _finder.Find<Privilege>(x => x.EntityType == entityTypeId && x.Operation == (int)entityAccessTypeClosure).Single();
 
                         var userEntity = new UserEntity
                         {
@@ -551,10 +557,11 @@ namespace DoubleGis.Erm.Platform.Security
             return result;
         }
 
-        private IEnumerable<SharingDescriptor> GetAccessSharingsForEntity(EntityName entityName, long entityId)
+        private IEnumerable<SharingDescriptor> GetAccessSharingsForEntity(IEntityType entityName, long entityId)
         {
+            var entityTypeId = entityName.Id;
             var entityPrivileges = _finder.FindAll<Privilege>()
-                    .Where(x => x.EntityType == (int)entityName)
+                    .Where(x => x.EntityType == entityTypeId)
                     .Select(x => x.Id)
                     .ToArray();
 
@@ -585,7 +592,7 @@ namespace DoubleGis.Erm.Platform.Security
             return accessSharings;
         }
 
-        private void ValidateAccessSharings(long userId, EntityName entityName, long entityId, long entityOwnerId, IEnumerable<SharingDescriptor> accessSharings)
+        private void ValidateAccessSharings(long userId, IEntityType entityName, long entityId, long entityOwnerId, IEnumerable<SharingDescriptor> accessSharings)
         {
             var self = (ISecurityServiceEntityAccess)this;
 

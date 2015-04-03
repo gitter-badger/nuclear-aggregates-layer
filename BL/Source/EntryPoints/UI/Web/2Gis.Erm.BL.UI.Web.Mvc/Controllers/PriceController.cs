@@ -25,6 +25,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -197,12 +198,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 ViewConfig =
                 {
-                    EntityName = EntityName.PositionSortingOrder,
-                    PType = EntityName.None
+                    EntityName = EntityType.Instance.PositionSortingOrder(),
+                    PType = EntityType.Instance.None()
                 }
             };
 
-            var cardSettings = _configurationService.GetCardSettings(EntityName.PositionSortingOrder, UserContext.Profile.UserLocaleInfo.UserCultureInfo);
+            var cardSettings = _configurationService.GetCardSettings(EntityType.Instance.PositionSortingOrder(), UserContext.Profile.UserLocaleInfo.UserCultureInfo);
             model.ViewConfig.CardSettings = cardSettings.ToCardJson();
 
             return View(model);

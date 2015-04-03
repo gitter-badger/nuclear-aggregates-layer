@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities.EAV;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.DI.EAV
 {

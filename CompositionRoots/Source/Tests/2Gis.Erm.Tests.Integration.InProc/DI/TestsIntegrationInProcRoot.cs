@@ -19,11 +19,10 @@ using DoubleGis.Erm.BLQuerying.UI.Metadata.DI;
 using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.Core;
-using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
+using NuClear.Assembling.Zones;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Zones;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Zones.Parts;
 
@@ -76,7 +75,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                             .UseAnchor<BlCoreApiOrderValidationAssembly>()
                                             .UseAnchor<BlCoreOrderValidationAssembly>()
                                       .RequireZone<MetadataZone>()
-                                            .UseAnchor<PlatformModelMetadataAssembly>()
                                             .UseAnchor<BlQueryingUiMetadataAssembly>()
                                             .UseAnchor<BLCore.UI.WPF.Client.DI.MetadataZonePartAssembly>()
                                             .UseAnchor<MetadataZonePartAssembly>()

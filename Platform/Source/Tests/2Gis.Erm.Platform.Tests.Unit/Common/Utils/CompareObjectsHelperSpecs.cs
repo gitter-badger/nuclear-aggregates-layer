@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 using FluentAssertions;
 

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
 
 namespace DoubleGis.Erm.Platform.TaskService.DI
 {

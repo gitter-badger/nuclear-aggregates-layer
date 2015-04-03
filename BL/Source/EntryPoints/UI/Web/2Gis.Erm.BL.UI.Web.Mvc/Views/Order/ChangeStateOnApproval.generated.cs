@@ -44,6 +44,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/ChangeStateOnApproval.cshtml")]
@@ -186,7 +189,7 @@ WriteLiteral("            ");
             #line 58 "..\..\Views\Order\ChangeStateOnApproval.cshtml"
        Write(Html.TemplateField(m => m.Inspector, FieldFlex.lone, new LookupSettings
                 { 
-                    EntityName = EntityName.User, 
+                    EntityName = EntityType.Instance.User(), 
                     ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId=" + Model.SourceOrganizationUnitId 
                 }));
 

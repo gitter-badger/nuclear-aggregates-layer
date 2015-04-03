@@ -1,12 +1,13 @@
 ﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
+
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sources
 {
@@ -14,7 +15,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
     {
         private readonly HierarchyMetadata _sparseMetadataMetadataFeatures = HierarchyMetadata
                    .Config
-                   .Id.Is(IdBuilder.For<MetadataEntitiesIdentity>(EntityName.AccountDetail.ToString()))
+                   .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(EntityType.Instance.AccountDetail().ToString()))
                    .Childs(
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.AccountRef)
                                   .WithFeatures(
@@ -25,7 +26,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.OperationTypeRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.OperationType)
+                                      LookupPropertyFeature.Create(EntityType.Instance.OperationType())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.OperationType)),
 
@@ -62,7 +63,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
 
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.OwnerRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Owner)),
@@ -70,7 +71,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
 
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       //new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)
@@ -84,7 +85,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
 
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 

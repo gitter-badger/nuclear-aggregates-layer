@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using NuClear.Model.Common.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.BranchOfficeOrganizationUnit;
 
 // ReSharper disable CheckNamespace
@@ -261,14 +261,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         private PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
         {
             return new PrimaryBranchOfficeOrganizationUnits
-                       {
-                           Primary =
+                {
+                    Primary =
                                _finder.FindOne(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
                                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId) &&
                                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.Primary()),
-                           PrimaryForRegionalSales =
-                               _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
-                       };
+                    PrimaryForRegionalSales =
+                        _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
+                };
         }
 
         private int Activate(BranchOffice branchOffice)

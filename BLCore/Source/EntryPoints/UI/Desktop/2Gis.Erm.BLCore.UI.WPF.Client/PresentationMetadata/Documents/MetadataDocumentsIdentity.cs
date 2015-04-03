@@ -1,13 +1,13 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Kinds;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Kinds;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents
 {
     public sealed class MetadataDocumentsIdentity : MetadataKindIdentityBase<MetadataDocumentsIdentity>
     {
-        private readonly Uri _id = IdBuilder.For("UI/Documents");
+        private readonly Uri _id = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For("UI/Documents");
 
         public override Uri Id
         {

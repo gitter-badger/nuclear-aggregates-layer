@@ -7,10 +7,12 @@ using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail;
+
+using NuClear.Metamodeling.Domain.Operations.Detail;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Core.Metadata
 {
@@ -38,19 +40,19 @@ namespace DoubleGis.Erm.Platform.Core.Metadata
 
         #region Implementation of IOperationMetadataProvider
 
-        public IOperationMetadata GetOperationMetadata(IOperationIdentity operationIdentity, params EntityName[] operationProcessingEntities)
+        public IOperationMetadata GetOperationMetadata(IOperationIdentity operationIdentity, params IEntityType[] operationProcessingEntities)
         {
             return OperationMetadataDetailRegistry.GetOperationMetadata(operationIdentity.GetType(), operationProcessingEntities);
         }
 
-        public TOperationMetadata GetOperationMetadata<TOperationMetadata, TOperationIdentity>(params EntityName[] operationProcessingEntities)
+        public TOperationMetadata GetOperationMetadata<TOperationMetadata, TOperationIdentity>(params IEntityType[] operationProcessingEntities)
             where TOperationMetadata : class, IOperationMetadata<TOperationIdentity>
             where TOperationIdentity : IOperationIdentity, new()
         {
             return (TOperationMetadata)OperationMetadataDetailRegistry.GetOperationMetadata<TOperationIdentity>(operationProcessingEntities);
         }
 
-        public bool IsSupported<TOperationIdentity>(params EntityName[] operationProcessingEntities) where TOperationIdentity : IOperationIdentity, new()
+        public bool IsSupported<TOperationIdentity>(params IEntityType[] operationProcessingEntities) where TOperationIdentity : IOperationIdentity, new()
         {
             // пока простейшая реализация, без кэширования и т.п.
             return OperationMetadataDetailRegistry.GetOperationMetadata<TOperationIdentity>(operationProcessingEntities) != null;
@@ -63,19 +65,19 @@ namespace DoubleGis.Erm.Platform.Core.Metadata
 
         public OperationApplicability[] GetApplicableOperationsForCallingUser()
         {
-            return RestrictAccessability(new Dictionary<EntityName, long>());
+            return RestrictAccessability(new Dictionary<IEntityType, long>());
         }
 
-        public OperationApplicability[] GetApplicableOperationsForContext(EntityName[] entityNames, long[] entityIds)
+        public OperationApplicability[] GetApplicableOperationsForContext(IEntityType[] entityNames, long[] entityIds)
         {
             return RestrictAccessability(GetTargetEntitiesInstanceMap(entityNames, entityIds));
         }
 
         #endregion
 
-        private IReadOnlyDictionary<EntityName, long> GetTargetEntitiesInstanceMap(EntityName[] entityNames, long[] entityIds)
+        private IReadOnlyDictionary<IEntityType, long> GetTargetEntitiesInstanceMap(IEntityType[] entityNames, long[] entityIds)
         {
-            var specificInstances = new Dictionary<EntityName, long>();
+            var specificInstances = new Dictionary<IEntityType, long>();
 
             if (entityNames != null && entityIds != null)
             {
@@ -93,7 +95,7 @@ namespace DoubleGis.Erm.Platform.Core.Metadata
             return specificInstances;
         }
 
-        private OperationApplicability[] RestrictAccessability(IReadOnlyDictionary<EntityName, long> instanceMap)
+        private OperationApplicability[] RestrictAccessability(IReadOnlyDictionary<IEntityType, long> instanceMap)
         {
             var restrictedOperations = new List<OperationApplicability>();
 
@@ -138,9 +140,9 @@ namespace DoubleGis.Erm.Platform.Core.Metadata
         private bool IsAccessable(
             EntitySet checkingOperationSpecificTypes,
             IEnumerable<IAccessRequirement> securityRequirement,
-            IReadOnlyDictionary<EntityName, long> instanceMap)
+            IReadOnlyDictionary<IEntityType, long> instanceMap)
         {
-            var notDefinedEntitiesIndicator = EntityName.None.ToEntitySet();
+            var notDefinedEntitiesIndicator = EntityType.Instance.None().ToEntitySet();
             var userCode = _userContext.Identity.Code;
 
             if (!checkingOperationSpecificTypes.Equals(notDefinedEntitiesIndicator))

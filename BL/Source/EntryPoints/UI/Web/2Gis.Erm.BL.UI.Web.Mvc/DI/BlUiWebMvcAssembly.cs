@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-using DoubleGis.Erm.Platform.Model.Zones;
+using NuClear.Assembling.Zones;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;

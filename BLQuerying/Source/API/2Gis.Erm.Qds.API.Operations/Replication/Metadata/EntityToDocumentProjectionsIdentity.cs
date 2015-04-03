@@ -1,13 +1,13 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Kinds;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Kinds;
 
 namespace DoubleGis.Erm.Qds.API.Operations.Replication.Metadata
 {
     public class EntityToDocumentProjectionsIdentity : MetadataKindIdentityBase<EntityToDocumentProjectionsIdentity>
     {
-        private readonly Uri _id = IdBuilder.For("Search/Replication/Projections");
+        private readonly Uri _id = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For("Search/Replication/Projections");
         
         public override Uri Id
         {

@@ -14,22 +14,19 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
     public sealed class ModifyAppointmentService : IModifyBusinessModelEntityService<Appointment>
     {
         private readonly IAppointmentReadModel _readModel;
-
         private readonly IBusinessModelEntityObtainer<Appointment> _activityObtainer;
-
         private readonly IClientReadModel _clientReadModel;
-
         private readonly IFirmReadModel _firmReadModel;
-
         private readonly ICreateAppointmentAggregateService _createOperationService;
-
         private readonly IUpdateAppointmentAggregateService _updateOperationService;
 
         public ModifyAppointmentService(
@@ -56,18 +53,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 throw new BusinessLogicException(BLResources.NoRegardingObjectValidationError);
             }
 
-            var appointment = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
+            var appointment = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);            
             if (appointment.ScheduledStart > appointment.ScheduledEnd)
             {
                 throw new NotificationException(BLResources.ModifyAppointmentService_ScheduleRangeIsIncorrect);
             }
 
-            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
+            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Client(), _clientReadModel.IsClientInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
+            if (appointmentDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Firm(), _firmReadModel.IsFirmInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
@@ -96,8 +93,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
                 _updateOperationService.ChangeRegardingObjects(
                     appointment,
-                    oldRegardingObjects,
-                    appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
+                                                               oldRegardingObjects,
+                                                               appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
                 _updateOperationService.ChangeOrganizer(appointment, oldOrganizer, appointment.ReferencesIfAny<Appointment, AppointmentOrganizer>(appointmentDto.Organizer));
 
                 transaction.Complete();

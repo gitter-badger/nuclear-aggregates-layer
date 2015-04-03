@@ -10,17 +10,21 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
     {
         private static readonly StringEnumConverter CustomEnumConverter = new StringEnumConverter();
         private static readonly Int64ToStringConverter Int64ToStringConverter = new Int64ToStringConverter();
-        private readonly JsonNetStrictResult _jsonNetStrictResult = new JsonNetStrictResult();
+        private static readonly EntityTypeToStringConverter EntityTypeToStringConverter = new EntityTypeToStringConverter();
+        private readonly JsonNetStrictResult _jsonNetStrictResult;
 
         public JsonNetResult()
         {
-            _jsonNetStrictResult.SerializerSettings.Converters.Add(CustomEnumConverter);
-            _jsonNetStrictResult.SerializerSettings.Converters.Add(Int64ToStringConverter);
+            _jsonNetStrictResult = new JsonNetStrictResult();
         }
 
-        public JsonNetResult(object data) : this()
+        public JsonNetResult(object data)
         {
-            _jsonNetStrictResult.Data = data;
+            _jsonNetStrictResult = new JsonNetStrictResult(data);
+
+            _jsonNetStrictResult.Converters.Add(CustomEnumConverter);
+            _jsonNetStrictResult.Converters.Add(Int64ToStringConverter);
+            _jsonNetStrictResult.Converters.Add(EntityTypeToStringConverter);
         }
 
         public string ContentType

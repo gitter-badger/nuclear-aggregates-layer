@@ -7,7 +7,7 @@ using AutoMapper.QueryableExtensions;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {

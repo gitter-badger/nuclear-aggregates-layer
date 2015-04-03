@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Cyprus.Controllers
         }
 
         [HttpPost, UseDependencyFields, GetEntityStateToken]
-        [LogWebRequest(EntityName.LegalPerson, CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
+        [LogWebRequest("LegalPerson", CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
         public virtual ActionResult ChangeLegalPersonRequisites(CyprusChangeLegalPersonRequisitesViewModel model)
         {
             if (!ModelUtils.CheckIsModelValid(this, model))

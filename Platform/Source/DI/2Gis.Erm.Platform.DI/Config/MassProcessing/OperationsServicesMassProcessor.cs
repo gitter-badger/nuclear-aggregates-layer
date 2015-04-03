@@ -8,11 +8,12 @@ using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Core.Metadata;
 using DoubleGis.Erm.Platform.Core.Operations;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 {
@@ -372,14 +373,13 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                 // трейтий параметр, может использоваться для каких-то внутренний целей и т.п. типа реализатора
                 throw new InvalidOperationException(
                     string.Format("Type {0} with {1} type arguments extend base interface for entity specific operation {2} with type args count {3}, type argumetns count mismatch",
-                    processingType,
-                    genericArguments.Length,
-                    targetEntityOperationType,
-                    targetOperationEntitiesCount
-                ));
+                                  processingType,
+                                  genericArguments.Length,
+                                  targetEntityOperationType,
+                                  targetOperationEntitiesCount));
             }
 
-            var entityNames = new EntityName[targetOperationEntitiesCount];
+            var entityNames = new IEntityType[targetOperationEntitiesCount];
             for (int i = 0; i < targetOperationEntitiesCount; i++)
             {
                 var currentTypeParameter = genericArguments[i];

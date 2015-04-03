@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 using Microsoft.Practices.Unity;

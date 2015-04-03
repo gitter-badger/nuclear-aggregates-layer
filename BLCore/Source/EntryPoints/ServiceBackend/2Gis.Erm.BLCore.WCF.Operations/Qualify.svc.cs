@@ -8,7 +8,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Qualify;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 using NuClear.Tracing.API;
 
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public QualifyResult Execute(string specifiedEntityName, string specifiedEntityId, string specifiedOwnerCode, string specifiedRelatedEntityId)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
 
             long ownerCode;
             if (!long.TryParse(specifiedOwnerCode, out ownerCode))
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public QualifyResult Execute(EntityName entityName, long entityId, long? ownerCode, long? relatedEntityId)
+        public QualifyResult Execute(IEntityType entityName, long entityId, long? ownerCode, long? relatedEntityId)
         {
             var actualOwnerCode = ownerCode ?? _userContext.Identity.Code;
             try
@@ -86,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        private QualifyResult ExecuteInternal(EntityName entityName, long entityId, long ownerCode, long? relatedEntityId)
+        private QualifyResult ExecuteInternal(IEntityType entityName, long entityId, long ownerCode, long? relatedEntityId)
         {
             var qualifyEntityService = _operationServicesManager.GetQualifyEntityService(entityName);
             return qualifyEntityService.Qualify(entityId, ownerCode, relatedEntityId);

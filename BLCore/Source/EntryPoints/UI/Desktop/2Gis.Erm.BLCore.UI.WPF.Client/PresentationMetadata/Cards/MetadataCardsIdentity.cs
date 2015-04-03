@@ -1,13 +1,13 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Kinds;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Kinds;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
 {
     public sealed class MetadataCardsIdentity : MetadataKindIdentityBase<MetadataCardsIdentity>
     {
-        private readonly Uri _id = IdBuilder.For("UI/Cards");
+        private readonly Uri _id = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For("UI/Cards");
 
         public override Uri Id
         {

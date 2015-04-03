@@ -8,13 +8,13 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
@@ -23,13 +23,16 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Utils;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
+
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 {
     public sealed class UnityCardDocumentViewModelFactory : ICardDocumentViewModelFactory
     {
         private delegate bool DocumentElementResolver(
             IUseCase useCase,
-            EntityName entityName,
+            IEntityType entityName,
             long entityId,
             IMetadataElement elementMetadata,
             ICollection<IViewModel> viewModels,
@@ -54,12 +57,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             _elementsResolvers = new DocumentElementResolver[] { ReferencedCard, AttachedGrid };
         }
 
-        public TViewModel Create<TViewModel>(IUseCase useCase, EntityName entityName, long entityId) where TViewModel : class, IViewModel
+        public TViewModel Create<TViewModel>(IUseCase useCase, IEntityType entityName, long entityId) where TViewModel : class, IViewModel
         {
             return (TViewModel)Create(useCase, entityName, entityId);
         }
 
-        public IViewModel Create(IUseCase useCase, EntityName entityName, long entityId)
+        public IViewModel Create(IUseCase useCase, IEntityType entityName, long entityId)
         {
             IViewModel documentViewModel;
             if (TryCreateCompositeCardDocument(useCase, entityName, entityId, out documentViewModel))
@@ -70,11 +73,11 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             return CreateOrdinaryCardDocument(useCase, entityName, entityId);
         }
 
-        private IViewModel CreateOrdinaryCardDocument(IUseCase useCase, EntityName entityName, long entityId)
+        private IViewModel CreateOrdinaryCardDocument(IUseCase useCase, IEntityType entityName, long entityId)
         {
             var cardViewModel = _cardViewModelFactory.Create(useCase, entityName, entityId);
 
-            var metadataId = IdBuilder.For<MetadataCardsIdentity>(entityName.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entityName.ToString());
             CardMetadata cardMetadata;
             if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {
@@ -115,7 +118,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             return container.Resolve<CompositeDocumentViewModel>(resolvedDependencies.ToArray());
         }
 
-        private bool TryCreateCompositeCardDocument(IUseCase useCase, EntityName entityName, long entityId, out IViewModel documentViewModel)
+        private bool TryCreateCompositeCardDocument(IUseCase useCase, IEntityType entityName, long entityId, out IViewModel documentViewModel)
         {
             documentViewModel = null;
 
@@ -179,7 +182,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
         private void ResolveDocumentElement(
             IUseCase useCase, 
-            EntityName entityName, 
+            IEntityType entityName, 
             long entityId,
             IMetadataElement elementStructure,
             ICollection<IViewModel> viewModels,
@@ -196,7 +199,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
         private bool ReferencedCard(
             IUseCase useCase, 
-            EntityName entityName, 
+            IEntityType entityName, 
             long entityId,
             IMetadataElement elementMetadata,
             ICollection<IViewModel> viewModels,
@@ -216,7 +219,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
         private bool AttachedGrid(
             IUseCase useCase, 
-            EntityName entityName, 
+            IEntityType entityName, 
             long entityId,
             IMetadataElement elementMetadata,
             ICollection<IViewModel> viewModels,

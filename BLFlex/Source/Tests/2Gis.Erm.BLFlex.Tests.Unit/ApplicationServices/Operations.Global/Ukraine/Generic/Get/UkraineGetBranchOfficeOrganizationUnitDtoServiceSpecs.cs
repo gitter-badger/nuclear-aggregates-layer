@@ -19,6 +19,8 @@ using Machine.Specifications;
 
 using Moq;
 
+using NuClear.Model.Common.Entities;
+
 using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Ukraine.Generic.Get
@@ -37,7 +39,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             protected static long EntityId;
             protected static bool ReadOnly;
             protected static long? ParentEntityId;
-            protected static EntityName ParentEntityName;
+            protected static IEntityType ParentEntityName;
             protected static string ExtendedInfo;
 
             Establish context = () =>
@@ -45,7 +47,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     EntityId = 0;
                     ReadOnly = false;
                     ParentEntityId = null;
-                    ParentEntityName = 0;
+                    ParentEntityName = EntityType.Instance.None();
                     ExtendedInfo = null;
 
                     BranchOfficeReadModel = Mock.Of<IBranchOfficeReadModel>();
@@ -116,7 +118,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             Establish context = () =>
                 {
                     ParentEntityId = PARENT_ENTITY_ID;
-                    ParentEntityName = EntityName.BranchOffice;
+                    ParentEntityName = EntityType.Instance.BranchOffice();
 
                     BranchOffice = new BranchOffice { Name = BRANCH_OFFICE_NAME };
 
@@ -141,7 +143,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             Establish context = () =>
             {
                 ParentEntityId = PARENT_ENTITY_ID;
-                ParentEntityName = EntityName.OrganizationUnit;
+                ParentEntityName = EntityType.Instance.OrganizationUnit();
 
                 Mock.Get(OrganizationUnitReadModel).Setup(x => x.GetName(PARENT_ENTITY_ID)).Returns(ORGANIZATION_UNIT_NAME);
             };

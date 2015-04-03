@@ -3,13 +3,14 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.Views;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
-using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Conditions;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.References;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+
+using NuClear.Metamodeling.Domain.Elements.Identities.Builder;
+using NuClear.Metamodeling.Elements.Aspects.Conditions;
+using NuClear.Metamodeling.Elements.Concrete.References;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents.Settings
 {
@@ -25,6 +26,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents.Sett
                     AttachedMetadata.Config
                             .Title.Resource(() => ErmConfigLocalization.EnMOrderPositions)
                             .ApplyCondition(new StringConditionCondition("{Id} != 0"))
-                            .Handler.ShowGrid(OrderAggregate.OrderPosition.AsEntityName(), "OrderId={Id}", null));
+                            .Handler.ShowGrid(EntityType.Instance.OrderPosition(), "OrderId={Id}", null));
     }
 }

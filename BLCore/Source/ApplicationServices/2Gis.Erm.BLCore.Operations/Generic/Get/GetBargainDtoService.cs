@@ -13,7 +13,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -69,28 +71,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                           .Single();
         }
 
-        protected override IDomainEntityDto<Bargain> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Bargain> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = new BargainDomainEntityDto { BargainKind = BargainKind.Client, SignedOn = DateTime.UtcNow.Date };
             if (parentEntityId.HasValue)
             {
-                switch (parentEntityName)
+                if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
                 {
-                    case EntityName.LegalPerson:
-                    {
-                        dto.CustomerLegalPersonRef = new EntityReference
-                            {
-                                Id = parentEntityId,
-                                Name = _legalPersonReadModel.GetLegalPersonName(parentEntityId.Value)
-                            };
-                        break;
-                    }
+                    dto.CustomerLegalPersonRef = new EntityReference
+                        {
+                            Id = parentEntityId,
+                            Name = _legalPersonReadModel.GetLegalPersonName(parentEntityId.Value)
+                        };
+                }
 
-                    case EntityName.Client:
-                    {
-                        dto.ClientId = parentEntityId.Value;
-                        break;
-                    }
+                if (parentEntityName.Equals(EntityType.Instance.Client()))
+                {
+                    dto.ClientId = parentEntityId.Value;
                 }
             }
 
@@ -122,12 +119,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<Bargain> domainEntityDto,
-                                                 long entityId,
-                                                 bool readOnly,
-                                                 long? parentEntityId,
-                                                 EntityName parentEntityName,
-                                                 string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<Bargain> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             ((BargainDomainEntityDto)domainEntityDto).UserCanWorkWithAdvertisingAgencies =
                 _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement,

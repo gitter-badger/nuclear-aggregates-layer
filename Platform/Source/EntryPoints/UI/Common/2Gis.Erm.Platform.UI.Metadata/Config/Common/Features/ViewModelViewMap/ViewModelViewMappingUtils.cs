@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using NuClear.Metamodeling.Elements;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap
 {

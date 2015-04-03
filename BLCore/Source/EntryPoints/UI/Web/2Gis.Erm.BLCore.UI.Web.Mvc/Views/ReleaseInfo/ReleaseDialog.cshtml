@@ -63,7 +63,7 @@
             @Model.Message
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit})
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityType.Instance.OrganizationUnit()})
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.IsBeta, FieldFlex.lone)

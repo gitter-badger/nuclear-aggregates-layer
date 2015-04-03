@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Model.Zones;
+﻿using NuClear.Assembling.Zones;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI

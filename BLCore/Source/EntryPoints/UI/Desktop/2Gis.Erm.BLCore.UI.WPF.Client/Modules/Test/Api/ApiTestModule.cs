@@ -32,6 +32,8 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Model.Common.Entities;
+
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
@@ -111,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
             var service = _container.Resolve<IOperationsMetadataProvider>();
             var allOperations = service.GetApplicableOperations();
             //var allOperationsForUser = service.GetApplicableOperationsForCallingUser();
-            //var allOperationsForContext = service.GetApplicableOperationsForContext(new[] { EntityName.Order }, new[] { 29977L });
+            //var allOperationsForContext = service.GetApplicableOperationsForContext(new[] { EntityType.Instance.Order() }, new[] { 29977L });
         }
 
         private void Logger()
@@ -134,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
                 _container.Resolve<IListNonGenericEntityService>();
             var searchModel = new SearchListModel { Start = 0, Limit = 40, Sort = "Id ASC" };
             //new SearchListModel { Start = 0, Limit = 0, Sort = "Id", Dir = "ASC", WhereExp = "AdvertisementId=1" };
-            var result = service.List(EntityName.OrderPositionAdvertisement, searchModel);
+            var result = service.List(EntityType.Instance.OrderPositionAdvertisement(), searchModel);
         }
 
         private void ListOrganizationUnits()
@@ -195,19 +197,19 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
         private void ActionsHistory()
         {
             var service = _container.Resolve<IActionsHistoryService>();
-            var result = service.GetActionHistory(EntityName.Order, 55523);
+            var result = service.GetActionHistory(EntityType.Instance.Order(), 55523);
         }
 
         private void Edit()
         {
             //var getService = _container.Resolve<IGetDomainEntityDtoService<CategoryOrganizationUnit>>();
-            //var getResult = getService.GetDomainEntityDto(87839, true, null, EntityName.None, string.Empty);
+            //var getResult = getService.GetDomainEntityDto(87839, true, null, EntityType.Instance.None(), string.Empty);
             var getService = _container.Resolve<IGetDomainEntityDtoService<AdvertisementElement>>();
             var saveService = _container.Resolve<IModifyBusinessModelEntityService<AdvertisementElement>>();
 
             try
             {
-                var getResult = getService.GetDomainEntityDto(1, false, null, EntityName.None, null);
+                var getResult = getService.GetDomainEntityDto(1, false, null, EntityType.Instance.None(), null);
                 var saveResult = saveService.Modify(getResult);
             }
             catch (FaultException<GetDomainEntityDtoOperationErrorDescription> ex)
@@ -246,7 +248,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
         private void Append()
         {
             var service = _container.Resolve<IAppendGenericEntityService<OrganizationUnit, User>>();
-            service.Append(new AppendParams { AppendedId = 106, AppendedType = EntityName.OrganizationUnit, ParentId = 1, ParentType = EntityName.User });
+            service.Append(new AppendParams { AppendedId = 106, AppendedType = EntityType.Instance.OrganizationUnit(), ParentId = 1, ParentType = EntityType.Instance.User() });
         }
 
         public void TryStop()

@@ -10,7 +10,9 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
+
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
     public class AssignTaskService : IAssignGenericEntityService<Task>

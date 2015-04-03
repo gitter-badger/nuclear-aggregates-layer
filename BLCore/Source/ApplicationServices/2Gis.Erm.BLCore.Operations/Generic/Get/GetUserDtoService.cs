@@ -4,7 +4,9 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -42,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                           .Single();
         }
 
-        protected override IDomainEntityDto<User> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<User> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             return new UserDomainEntityDto();
         }

@@ -6,7 +6,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 using TimeZone = DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone;
 
@@ -55,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<OrganizationUnit> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<OrganizationUnit> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             return new OrganizationUnitDomainEntityDto
                        {

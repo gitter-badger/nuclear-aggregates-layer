@@ -5,10 +5,10 @@ using System.IO;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Serialization.ProtoBuf;
-using DoubleGis.Erm.Platform.Model.Entities;
 
 using Microsoft.ServiceBus.Messaging;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ProtoBuf.Meta;

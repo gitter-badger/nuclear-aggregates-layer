@@ -12,12 +12,10 @@ using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
-using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
-using DoubleGis.Erm.Platform.Model.Metadata.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
+using NuClear.Assembling.Zones;
 using DoubleGis.Erm.Qds.Operations.DI;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.DI
@@ -49,8 +47,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                           .UseAnchor<BlQueryingApiOperationsListingAssembly>()
                                           .UseAnchor<BlQueryingOperationsListingAssembly>()
                                           .UseAnchor<QdsOperationsAssembly>()
-                                      .RequireZone<MetadataZone>()
-                                          .UseAnchor<PlatformModelMetadataAssembly>()
                                       .RequireZone<AppFabricZone>()
                                           .UseAnchor<PlatformAppFabricAssembly>();
             }

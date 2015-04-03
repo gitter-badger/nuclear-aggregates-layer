@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Model.Zones;
+﻿using NuClear.Assembling.Zones;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
 
 namespace DoubleGis.Erm.BLCore.TaskService.DI

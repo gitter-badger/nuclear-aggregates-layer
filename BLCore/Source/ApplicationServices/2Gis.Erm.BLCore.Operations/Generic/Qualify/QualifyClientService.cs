@@ -13,8 +13,9 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
@@ -111,19 +112,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 
         private void AssignRelatedActivities(long clientId, long newOwnerCode)
         {
-            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityName.Client, clientId))
+            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityType.Instance.Client(), clientId))
             {
                 _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
             }
-            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityName.Client, clientId))
+            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityType.Instance.Client(), clientId))
             {
                 _assignLetterAggregateService.Assign(letter, newOwnerCode);
             }
-            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityName.Client, clientId))
+            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityType.Instance.Client(), clientId))
             {
                 _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
             }
-            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityName.Client, clientId))
+            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityType.Instance.Client(), clientId))
             {
                 _assignTaskAggregateService.Assign(task, newOwnerCode);
             }

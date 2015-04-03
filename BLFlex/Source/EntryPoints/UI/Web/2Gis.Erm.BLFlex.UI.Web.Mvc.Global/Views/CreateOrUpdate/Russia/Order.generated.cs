@@ -55,6 +55,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Russia/Order.cshtml")]
@@ -546,7 +549,7 @@ WriteLiteral("            ");
             #line 82 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings
                                                                             {
-                                                                                EntityName = EntityName.Deal,
+                                                                                EntityName = EntityType.Instance.Deal(),
                                                                                 ReadOnly = true,
                                                                             }));
 
@@ -561,9 +564,9 @@ WriteLiteral("            ");
             #line 87 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                         {
-                                                                            EntityName = EntityName.LegalPerson,
+                                                                            EntityName = EntityType.Instance.LegalPerson(),
                                                                             ExtendedInfo = "DealId={DealId}",
-                                                                            ParentEntityName = EntityName.Client,
+                                                                            ParentEntityName = EntityType.Instance.Client(),
                                                                             ParentIdPattern = "ClientId"
                                                                         }));
 
@@ -582,7 +585,7 @@ WriteLiteral("            ");
             #line 96 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings
                                                                             {
-                                                                                EntityName = EntityName.Firm,
+                                                                                EntityName = EntityType.Instance.Firm(),
                                                                                 ReadOnly = Model.HasAnyOrderPosition,
                                                                                 ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}&ForReserve=false&DealId={DealId}"
                                                                             }));
@@ -596,7 +599,7 @@ WriteLiteral("            ");
 
             
             #line 102 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "SourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
+       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit(), ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "SourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
 
             
             #line default
@@ -611,7 +614,7 @@ WriteLiteral("            ");
 
             
             #line 105 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "currencyId={DealCurrencyId}&userId={CurrenctUserCode}&singlePrimaryBranchOffice=true", ShowReadOnlyCard = true }));
+       Write(Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "currencyId={DealCurrencyId}&userId={CurrenctUserCode}&singlePrimaryBranchOffice=true", ShowReadOnlyCard = true }));
 
             
             #line default
@@ -624,7 +627,7 @@ WriteLiteral("            ");
             #line 106 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.Bargain, FieldFlex.twins, new LookupSettings
                 {
-                    EntityName = EntityName.Bargain,
+                    EntityName = EntityType.Instance.Bargain(),
                     ExtendedInfo = "legalPersonId={LegalPersonId}&branchOfficeOrganizationUnitId={BranchOfficeOrganizationUnitId}"
                 }));
 
@@ -641,7 +644,7 @@ WriteLiteral("            ");
 
             
             #line 113 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.DestinationOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ShowReadOnlyCard = true, ExtendedInfo = "restrictByProjects=true" }));
+       Write(Html.TemplateField(m => m.DestinationOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ReadOnly = Model.HasAnyOrderPosition, ShowReadOnlyCard = true, ExtendedInfo = "restrictByProjects=true" }));
 
             
             #line default
@@ -1139,14 +1142,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14682), Tuple.Create("\"", 14721)
+WriteAttribute("title", Tuple.Create(" title=\"", 14770), Tuple.Create("\"", 14809)
             
             #line 243 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 14690), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 14778), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14690), false)
+, 14778), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1181,7 +1184,7 @@ WriteLiteral("            ");
 
             
             #line 247 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true, ShowReadOnlyCard = true, }));
+       Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true, ShowReadOnlyCard = true, }));
 
             
             #line default
@@ -1300,7 +1303,7 @@ WriteLiteral("            ");
 
             
             #line 266 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" }));
+       Write(Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" }));
 
             
             #line default
@@ -1356,7 +1359,7 @@ WriteLiteral("            ");
 
             
             #line 276 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.twins, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.LegalPersonProfile(), ReadOnly = true }));
 
             
             #line default
@@ -1367,14 +1370,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17520), Tuple.Create("\"", 17563)
+WriteAttribute("title", Tuple.Create(" title=\"", 17641), Tuple.Create("\"", 17684)
             
             #line 279 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 17528), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 17649), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17528), false)
+, 17649), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1414,7 +1417,7 @@ WriteLiteral("                ");
 
             
             #line 284 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-           Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
+           Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
             #line default
@@ -1449,7 +1452,7 @@ WriteLiteral("            ");
 
             
             #line 289 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default
@@ -1475,7 +1478,7 @@ WriteLiteral("            ");
 
             
             #line 293 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default

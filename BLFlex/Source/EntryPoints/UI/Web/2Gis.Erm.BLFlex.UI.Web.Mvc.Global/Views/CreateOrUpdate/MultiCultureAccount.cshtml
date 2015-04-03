@@ -1,5 +1,4 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@model Models.MultiCultureAccountViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureAccountViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -47,14 +46,14 @@
     }
        
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.LegalPerson.Value) })
+        @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.LegalPerson.Value) })
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.BranchOfficeOrganizationUnit.Value) })
+        @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit(), ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.BranchOfficeOrganizationUnit.Value) })
     </div>
     <div class="row-wrapper">
         @Html.TemplateField(m => m.AccountDetailBalance, FieldFlex.twins, readonlyFieldHtmlAttributes)
-        @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true })
+        @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true })
     </div>
     <div class="row-wrapper">
         @Html.TemplateField(m => m.LockDetailBalance, FieldFlex.twins, readonlyFieldHtmlAttributes)
@@ -65,16 +64,16 @@
     @if (Model.IsCurated && Model.IsSecurityRoot)
     {
     <div class="row-wrapper">
-        @Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, Disabled = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+        @Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), Disabled = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
     </div>
     }
     
     <div class="row-wrapper">
-        @Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true})
+        @Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = true})
         @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+        @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })
         @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
     </div>
 </div>   

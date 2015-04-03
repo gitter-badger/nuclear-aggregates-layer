@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Limit
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Limit
 {
     public class IncreaseLimitIdentity : OperationIdentityBase<IncreaseLimitIdentity>, INonCoupledOperationIdentity
     {

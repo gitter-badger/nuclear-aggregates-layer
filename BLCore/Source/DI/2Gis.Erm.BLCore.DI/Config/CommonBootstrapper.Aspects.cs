@@ -51,14 +51,15 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Metamodeling.Domain.Processors.Concrete;
+using NuClear.Metamodeling.Processors;
+using NuClear.Metamodeling.Processors.Concrete;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.Validators;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.DI.Config

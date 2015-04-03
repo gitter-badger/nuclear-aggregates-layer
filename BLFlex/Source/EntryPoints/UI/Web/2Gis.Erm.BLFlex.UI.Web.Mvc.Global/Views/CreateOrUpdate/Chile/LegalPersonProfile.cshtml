@@ -34,7 +34,7 @@
         </div>
     
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true })
+            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ReadOnly = true })
         </div>
     
         <div class="row-wrapper">
@@ -63,7 +63,7 @@
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.AccountNumber, FieldFlex.twins)
-            @Html.TemplateField(m => m.Bank, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Bank })
+            @Html.TemplateField(m => m.Bank, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Bank() })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.PaymentEssentialElements, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } })

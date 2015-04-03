@@ -15,11 +15,11 @@ using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             _operationMetadataProvider = operationMetadataProvider;
         }
 
-        public ActionResult Execute(BusinessOperation operation, EntityName entityTypeName)
+        public ActionResult Execute(BusinessOperation operation, IEntityType entityTypeName)
         {
             var operationName = operation.ToString();
             // TODO {all, 23.07.2013}: реализовать проверку доступности операций не через switch, а через operationMetadataProvider
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                 case BusinessOperation.Deactivate:
                 {
-                    if (entityTypeName == EntityName.User)
+                        if (entityTypeName.Equals(EntityType.Instance.User()))
                     {
                         return View("DeactivateUser",
                                     new OwnerGroupOperationViewModel
@@ -97,8 +97,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                             EntityTypeName = entityTypeName,
                                         });
                     }
-
-                    if (entityTypeName == EntityName.Territory)
+                        if (entityTypeName.Equals(EntityType.Instance.Territory()))
                     {
                         return View("DeactivateTerritory",
                                     new DeactivateTerritoryViewModel
@@ -118,7 +117,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                 case BusinessOperation.Qualify:
                 {
-                    if (entityTypeName == EntityName.Firm)
+                        if (entityTypeName.Equals(EntityType.Instance.Firm()))
                     {
                         return View("QualifyFirm",
                                     new QualifyFirmViewModel
@@ -128,7 +127,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         });
                     }
 
-                    if (entityTypeName == EntityName.Client)
+                        if (entityTypeName.Equals(EntityType.Instance.Client()))
                     {
                         return View("QualifyClient",
                                     new OwnerGroupOperationViewModel
@@ -143,7 +142,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                 case BusinessOperation.Disqualify:
                 {
-                    if (entityTypeName == EntityName.Firm)
+                        if (entityTypeName.Equals(EntityType.Instance.Firm()))
                     {
                         return View("DisqualifyFirm",
                                     new GroupOperationViewModel
@@ -153,7 +152,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         });
                     }
 
-                    if (entityTypeName == EntityName.Client)
+                        if (entityTypeName.Equals(EntityType.Instance.Client()))
                     {
                         return View("DisqualifyClient",
                                     new GroupOperationViewModel
@@ -168,7 +167,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                 case BusinessOperation.ChangeTerritory:
                 {
-                    if (entityTypeName == EntityName.Firm)
+                        if (entityTypeName.Equals(EntityType.Instance.Firm()))
                     {
                         return View("ChangeFirmTerritory",
                                     new ChangeTerritoryViewModel
@@ -178,7 +177,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         });
                     }
 
-                    if (entityTypeName == EntityName.Client)
+                        if (entityTypeName.Equals(EntityType.Instance.Client()))
                     {
                         return View("ChangeClientTerritory",
                                     new ChangeTerritoryViewModel
@@ -193,7 +192,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
                 case BusinessOperation.ChangeClient:
                 {
-                    if (entityTypeName == EntityName.Firm)
+                        if (entityTypeName.Equals(EntityType.Instance.Firm()))
                     {
                         return View("ChangeFirmClient",
                                     new ChangeClientViewModel
@@ -203,7 +202,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         });
                     }
 
-                    if (entityTypeName == EntityName.LegalPerson)
+                        if (entityTypeName.Equals(EntityType.Instance.LegalPerson()))
                     {
                         return View("ChangeLegalPersonClient",
                                     new ChangeClientViewModel
@@ -213,7 +212,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         });
                     }
 
-                    if (entityTypeName == EntityName.Deal)
+                        if (entityTypeName.Equals(EntityType.Instance.Deal()))
                     {
                         return View("ChangeDealClient",
                                     new ChangeClientViewModel
@@ -244,7 +243,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             }
         }
 
-        public JsonNetResult ConvertToEntityIds(EntityName[] entityTypeNames, Guid[] replicationCodes)
+        public JsonNetResult ConvertToEntityIds(IEntityType[] entityTypeNames, Guid[] replicationCodes)
         {
             try
             {

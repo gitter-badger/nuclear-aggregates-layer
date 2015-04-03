@@ -1,22 +1,24 @@
 ﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
+
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
 {
     public sealed class CardMetadata : ViewModelMetadata<CardMetadata, CardMetadataBuilder>
     {
-        private readonly EntityName _entity;
+        private readonly IEntityType _entity;
         private readonly IMetadataElementIdentity _identity;
 
-        public CardMetadata(EntityName entity, IEnumerable<IMetadataFeature> features)
+        public CardMetadata(IEntityType entity, IEnumerable<IMetadataFeature> features)
             : base(features)
         {
             _entity = entity;
-            _identity = IdBuilder.For<MetadataCardsIdentity>(_entity.ToString()).AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(_entity.ToString()).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity
@@ -24,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
             get { return _identity; }
         }
 
-        public EntityName Entity
+        public IEntityType Entity
         {
             get { return _entity; }
         }

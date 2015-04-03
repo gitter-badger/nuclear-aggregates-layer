@@ -10,7 +10,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -73,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 dto.OwnerCanBeChanged = _userContext.Identity.SkipEntityAccessCheck
                                         || _entityAccessService.HasEntityAccess(
                                             EntityAccessTypes.Assign,
-                                            EntityName.AccountDetail,
+                                            EntityType.Instance.AccountDetail(),
                                             _userContext.Identity.Code,
                                             dto.Id,
                                             _userContext.Identity.Code,
@@ -83,27 +85,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<AccountDetail> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<AccountDetail> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = new AccountDetailDomainEntityDto { TransactionDate = DateTime.Today, OwnerCanBeChanged = false };
 
-            switch (parentEntityName)
+            if (parentEntityName.Equals(EntityType.Instance.Account()))
             {
-                case EntityName.Account:
-                    {
-                        if (parentEntityId == null)
-                        {
-                            throw new NotificationException(BLResources.IdentifierNotSet);
-                        }
+                if (parentEntityId == null)
+                {
+                    throw new NotificationException(BLResources.IdentifierNotSet);
+                }
 
-                        dto.AccountRef = new EntityReference { Id = parentEntityId.Value };
+                dto.AccountRef = new EntityReference { Id = parentEntityId.Value };
 
-                        // как куратор операции выставляется куратор родительского лицевого счёта
-                        dto.OwnerRef = new EntityReference { Id = _finder.Find<Account>(x => x.Id == parentEntityId).Select(x => x.OwnerCode).Single() };
-                        dto.IsActive = true;
-                    }
-
-                    break;
+                // как куратор операции выставляется куратор родительского лицевого счёта
+                dto.OwnerRef = new EntityReference { Id = _finder.Find<Account>(x => x.Id == parentEntityId).Select(x => x.OwnerCode).Single() };
+                dto.IsActive = true;
             }
 
             return dto;

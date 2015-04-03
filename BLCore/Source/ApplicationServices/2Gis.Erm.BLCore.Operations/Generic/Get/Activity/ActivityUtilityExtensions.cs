@@ -1,5 +1,7 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -8,17 +10,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         /// <summary>
         /// Returns a value indicating whether the entity could be treated as a regarding object.
         /// </summary>
-        public static bool CanBeRegardingObject(this EntityName entityName)
+        public static bool CanBeRegardingObject(this IEntityType entityName)
         {
-            return entityName == EntityName.Client || entityName == EntityName.Firm || entityName == EntityName.Deal;
+            return entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Firm()) || entityName.Equals(EntityType.Instance.Deal());
         }
 
         /// <summary>
         /// Returns a value indicating whether the entity could be treated as an attendee.
         /// </summary>
-        public static bool CanBeContacted(this EntityName entityName)
+        public static bool CanBeContacted(this IEntityType entityName)
         {
-            return entityName == EntityName.Contact;
+            return entityName.Equals(EntityType.Instance.Contact());
         }
     }
 }

@@ -37,6 +37,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/MultiCultureOrderPosition.cshtml")]
@@ -432,7 +435,7 @@ WriteLiteral("                        ");
 
             
             #line 61 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-                   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityName.PricePosition, ExtendedInfo = "filterToParent=true&orderId={OrderId}", ParentEntityName = EntityName.Price, ParentIdPattern = "PriceId" }));
+                   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityType.Instance.PricePosition(), ExtendedInfo = "filterToParent=true&orderId={OrderId}", ParentEntityName = EntityType.Instance.Price(), ParentIdPattern = "PriceId" }));
 
             
             #line default

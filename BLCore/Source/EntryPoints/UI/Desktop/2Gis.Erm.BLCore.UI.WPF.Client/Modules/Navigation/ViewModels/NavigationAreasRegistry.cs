@@ -5,15 +5,16 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Blendability.Navigation;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Common;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.UI.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
 {
@@ -53,12 +54,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
             _contextualArea = FakeNavigationAreasProvider.Areas.Item1;
 
             IMetadataElement navigationRoot;
-            if (!metadataProvider.TryGetMetadata(IdBuilder.For<MetadataNavigationIdentity>(), out navigationRoot))
+            if (!metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataNavigationIdentity>(), out navigationRoot))
             {
                 throw new InvalidOperationException("Can't resolve navigation root metadata");
             }
 
-            var ordinaryAreas = navigationRoot.Elements<HierarchyMetadata>().ToArray();
+            var ordinaryAreas = navigationRoot.Elements<OldUIElementMetadata>().ToArray();
             _allAreas = new INavigationArea[ordinaryAreas.Length + 1];
             _ordinaryAreas = new INavigationArea[ordinaryAreas.Length];
             _allAreas[0] = ContextualArea;
@@ -94,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
             }
         }
 
-        private INavigationArea Convert(HierarchyMetadata metadata)
+        private INavigationArea Convert(OldUIElementMetadata metadata)
         {
             var area = new OrdinaryNavigationArea(
                 metadata.Identity.Id,
@@ -104,13 +105,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
                            };
             if (metadata.Elements != null && metadata.Elements.Any())
             {
-                area.Items = metadata.Elements.OfType<HierarchyMetadata>().Select(ConvertItem).ToArray();
+                area.Items = metadata.Elements.OfType<OldUIElementMetadata>().Select(ConvertItem).ToArray();
             }
 
             return area;
         }
-       
-        private INavigationItem ConvertItem(HierarchyMetadata metadata)
+
+        private INavigationItem ConvertItem(OldUIElementMetadata metadata)
         {
             var item = new NavigationItem(
                 metadata.Identity.Id,
@@ -121,7 +122,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
                            };
             if (metadata.Elements != null && metadata.Elements.Any())
             {
-                item.Items = metadata.Elements.OfType<HierarchyMetadata>().Select(ConvertItem).ToArray();
+                item.Items = metadata.Elements.OfType<OldUIElementMetadata>().Select(ConvertItem).ToArray();
             }
 
             return item;

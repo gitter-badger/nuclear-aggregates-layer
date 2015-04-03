@@ -28,29 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 1 "..\..\Views\GroupOperation\QualifyClient.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/QualifyClient.cshtml")]
-    public partial class QualifyClient : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.OwnerGroupOperationViewModel>
+    public partial class QualifyClient : System.Web.Mvc.WebViewPage<OwnerGroupOperationViewModel>
     {
         public QualifyClient()
         {
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 3 "..\..\Views\GroupOperation\QualifyClient.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -72,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 7 "..\..\Views\GroupOperation\QualifyClient.cshtml"
             Write(BLResources.Qualify);
 
             
@@ -87,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 8 "..\..\Views\GroupOperation\QualifyClient.cshtml"
                   Write(BLResources.QualifyClient);
 
             
@@ -102,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 9 "..\..\Views\GroupOperation\QualifyClient.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -122,43 +122,43 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 535), Tuple.Create("\"", 583)
-, Tuple.Create(Tuple.Create("", 542), Tuple.Create("/Content/Progress.css?", 542), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 437), Tuple.Create("\"", 485)
+, Tuple.Create(Tuple.Create("", 444), Tuple.Create("/Content/Progress.css?", 444), true)
             
-            #line 14 "..\..\Views\GroupOperation\QualifyClient.cshtml"
-, Tuple.Create(Tuple.Create("", 564), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+, Tuple.Create(Tuple.Create("", 466), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 564), false)
+, 466), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 602), Tuple.Create("\"", 660)
-, Tuple.Create(Tuple.Create("", 608), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 608), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 504), Tuple.Create("\"", 562)
+, Tuple.Create(Tuple.Create("", 510), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 510), true)
             
-            #line 16 "..\..\Views\GroupOperation\QualifyClient.cshtml"
-, Tuple.Create(Tuple.Create("", 641), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 15 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+, Tuple.Create(Tuple.Create("", 543), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 641), false)
+, 543), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 707), Tuple.Create("\"", 773)
-, Tuple.Create(Tuple.Create("", 713), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 713), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 609), Tuple.Create("\"", 675)
+, Tuple.Create(Tuple.Create("", 615), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 615), true)
             
-            #line 17 "..\..\Views\GroupOperation\QualifyClient.cshtml"
-, Tuple.Create(Tuple.Create("", 754), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+, Tuple.Create(Tuple.Create("", 656), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 754), false)
+, 656), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -250,7 +250,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Client\');\r\n      
 "ame: \'");
 
             
-            #line 156 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 155 "..\..\Views\GroupOperation\QualifyClient.cshtml"
                            Write(Model.OperationName);
 
             
@@ -273,13 +273,13 @@ WriteLiteral(@"', // тип операции - Qualify, Assign, ChangeTerritory
 ");
 
             
-            #line 170 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 169 "..\..\Views\GroupOperation\QualifyClient.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 170 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 169 "..\..\Views\GroupOperation\QualifyClient.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -317,7 +317,7 @@ WriteLiteral(" id=\"Notifications\"");
 WriteLiteral(">");
 
             
-            #line 180 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 179 "..\..\Views\GroupOperation\QualifyClient.cshtml"
                                                              Write(Model.Message);
 
             
@@ -353,7 +353,7 @@ WriteLiteral(" for=\"rdoAssignTome\"");
 WriteLiteral(">");
 
             
-            #line 188 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 187 "..\..\Views\GroupOperation\QualifyClient.cshtml"
                                                                     Write(BLResources.QualifyAssignToMe);
 
             
@@ -366,7 +366,7 @@ WriteLiteral(" style=\"color: #444444; padding-top: 5px\"");
 WriteLiteral(">");
 
             
-            #line 190 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 189 "..\..\Views\GroupOperation\QualifyClient.cshtml"
                                                              Write(BLResources.QualifyAssignToMeClientLegend);
 
             
@@ -405,7 +405,7 @@ WriteLiteral(" for=\"rdoAssignToUser\"");
 WriteLiteral(">");
 
             
-            #line 203 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 202 "..\..\Views\GroupOperation\QualifyClient.cshtml"
                                                                       Write(BLResources.QualifyAssignToOtherUser);
 
             
@@ -422,7 +422,7 @@ WriteLiteral(" for=\"rdoAssignToUser\"");
 WriteLiteral(">");
 
             
-            #line 206 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 205 "..\..\Views\GroupOperation\QualifyClient.cshtml"
                                                 Write(BLResources.QualifyAssignToOtherUserClientLegend);
 
             
@@ -444,8 +444,8 @@ WriteLiteral(">\r\n                        <tbody>\r\n                          
 WriteLiteral("                                    ");
 
             
-            #line 212 "..\..\Views\GroupOperation\QualifyClient.cshtml"
-                               Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'"}));
+            #line 211 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+                               Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.User(), ExtendedInfo = "'hideReserveUser=true'"}));
 
             
             #line default
@@ -465,8 +465,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 221 "..\..\Views\GroupOperation\QualifyClient.cshtml"
-               Write(Html.HiddenFor(m => m.EntityTypeName));
+            #line 220 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+               Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
@@ -490,7 +490,7 @@ WriteLiteral(">\r\n                        </div>\r\n                    </div>\
 "td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n");
 
             
-            #line 236 "..\..\Views\GroupOperation\QualifyClient.cshtml"
+            #line 235 "..\..\Views\GroupOperation\QualifyClient.cshtml"
     }
 
             

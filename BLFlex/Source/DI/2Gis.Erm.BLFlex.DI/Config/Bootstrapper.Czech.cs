@@ -26,6 +26,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
     public static partial class Bootstrapper
@@ -66,8 +68,8 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 x => x.Ic,
                 x => x.Dic);
 
-            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonProfileDto>(EntityName.LegalPerson, x => x.LegalPersonId);
-            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonProfileDto>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId);
+            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonDto>(EntityType.Instance.Client(), x => x.ClientId);
 
             var extendedInfoFilterMetadata = container.Resolve<IExtendedInfoFilterMetadata>();
 

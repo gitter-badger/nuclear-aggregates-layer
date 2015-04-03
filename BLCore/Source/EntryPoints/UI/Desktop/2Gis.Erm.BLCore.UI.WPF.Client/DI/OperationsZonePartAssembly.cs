@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.DI;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Zones;
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI
 {

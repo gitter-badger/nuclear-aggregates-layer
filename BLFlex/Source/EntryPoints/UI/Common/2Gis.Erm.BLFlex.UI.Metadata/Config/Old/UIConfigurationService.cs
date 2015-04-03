@@ -12,7 +12,8 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 {
@@ -24,8 +25,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
         private const string NavigationSettingsResourceEntryFormat = "NavigationSettings.{0}.xml";
 
         private static readonly Dictionary<BusinessModel, List<NavigationElementStructure>> NavigationSettings = ParseNavigationSettings();
-        private static readonly Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>> CardSettings = ParseCardSettings();
-        private static readonly Dictionary<BusinessModel, Dictionary<EntityName, EntityDataListsContainer>> GridSettings = ParseGridSettings();
+        private static readonly Dictionary<BusinessModel, Dictionary<IEntityType, CardStructure>> CardSettings = ParseCardSettings();
+        private static readonly Dictionary<BusinessModel, Dictionary<IEntityType, EntityDataListsContainer>> GridSettings = ParseGridSettings();
 
         private readonly IGlobalizationSettings _globalizationSettings;
 
@@ -95,9 +96,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
         #region DataList
 
-        public EntityDataListsContainer GetGridSettings(BusinessModel adaptation, EntityName entityName)
+        public EntityDataListsContainer GetGridSettings(BusinessModel adaptation, IEntityType entityName)
         {
-            Dictionary<EntityName, EntityDataListsContainer> container;
+            Dictionary<IEntityType, EntityDataListsContainer> container;
             if (!GridSettings.TryGetValue(adaptation, out container))
             {
                 throw new ArgumentException("Cannot find metadata for adaptation " + adaptation);
@@ -112,9 +113,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return entityViewSet;
         }
 
-        private static Dictionary<BusinessModel, Dictionary<EntityName, EntityDataListsContainer>> ParseGridSettings()
+        private static Dictionary<BusinessModel, Dictionary<IEntityType, EntityDataListsContainer>> ParseGridSettings()
         {
-            var result = new Dictionary<BusinessModel, Dictionary<EntityName, EntityDataListsContainer>>();
+            var result = new Dictionary<BusinessModel, Dictionary<IEntityType, EntityDataListsContainer>>();
 
             foreach (BusinessModel val in Enum.GetValues(typeof(BusinessModel)))
             {
@@ -127,16 +128,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return result;
         }
 
-        private static Dictionary<EntityName, EntityDataListsContainer> ParseGridSettings(XContainer container)
+        private static Dictionary<IEntityType, EntityDataListsContainer> ParseGridSettings(XContainer container)
         {
-            var dictionary = new Dictionary<EntityName, EntityDataListsContainer>();
+            var dictionary = new Dictionary<IEntityType, EntityDataListsContainer>();
 
             foreach (var entityEl in container.Elements("Entity"))
             {
                 var entityNameNonParsed = (string)entityEl.Attribute("Name");
 
-                EntityName entityName;
-                if (!Enum.TryParse(entityNameNonParsed, out entityName))
+                IEntityType entityName;
+                if (!EntityType.Instance.TryParse(entityNameNonParsed, out entityName))
                 {
                     throw new ArgumentException("Unrecognized entity type");
                 }
@@ -148,9 +149,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return dictionary;
         }
 
-        private static EntityDataListsContainer ParseEntityViewSet(XElement entityEl, EntityName entityName)
+        private static EntityDataListsContainer ParseEntityViewSet(XElement entityEl, IEntityType entityName)
         {
-            var entityViewSet = new EntityDataListsContainer { EntityName = entityName.ToString() };
+            var entityViewSet = new EntityDataListsContainer { EntityName = entityName.Description };
 
             var dataListsEl = entityEl.Element("DataLists");
             if (dataListsEl == null)
@@ -169,7 +170,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return entityViewSet;
         }
 
-        private static IEnumerable<DataListStructure> ParseDataViews(XContainer dataListsEl, EntityName entityName)
+        private static IEnumerable<DataListStructure> ParseDataViews(XContainer dataListsEl, IEntityType entityName)
         {
             var dataViews = new List<DataListStructure>();
             var dataLists = dataListsEl.Elements("DataList").ToList();
@@ -498,9 +499,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
         #region Card
 
-        public CardStructure GetCardSettings(BusinessModel adaptation, EntityName entityName)
+        public CardStructure GetCardSettings(BusinessModel adaptation, IEntityType entityName)
         {
-            Dictionary<EntityName, CardStructure> container;
+            Dictionary<IEntityType, CardStructure> container;
             if (!CardSettings.TryGetValue(adaptation, out container))
             {
                 throw new ArgumentException("Cannot find metadata for adaptation " + adaptation);
@@ -542,7 +543,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return localizedNavigationSettings;
         }
 
-        public EntityDataListsContainer GetGridSettings(EntityName entityName, CultureInfo culture)
+        public EntityDataListsContainer GetGridSettings(IEntityType entityName, CultureInfo culture)
         {
             var gridSettings = GetGridSettings(_globalizationSettings.BusinessModel, entityName);
 
@@ -612,7 +613,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return localizedGridSettings;
         }
 
-        public CardStructure GetCardSettings(EntityName entityName, CultureInfo culture)
+        public CardStructure GetCardSettings(IEntityType entityName, CultureInfo culture)
         {
             var cardSettings = GetCardSettings(_globalizationSettings.BusinessModel, entityName);
 
@@ -682,9 +683,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 ?? resourceId;
         }
 
-        private static Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>> ParseCardSettings()
+        private static Dictionary<BusinessModel, Dictionary<IEntityType, CardStructure>> ParseCardSettings()
         {
-            var result = new Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>>();
+            var result = new Dictionary<BusinessModel, Dictionary<IEntityType, CardStructure>>();
 
             foreach (BusinessModel val in Enum.GetValues(typeof(BusinessModel)))
             {
@@ -697,16 +698,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return result;
         }
 
-        private static Dictionary<EntityName, CardStructure> ParseCardSettings(XContainer container)
+        private static Dictionary<IEntityType, CardStructure> ParseCardSettings(XContainer container)
         {
-            var dictionary = new Dictionary<EntityName, CardStructure>();
+            var dictionary = new Dictionary<IEntityType, CardStructure>();
 
             foreach (var entityEl in container.Elements("Entity"))
             {
                 var entityNameNonParsed = (string)entityEl.Attribute("Name");
 
-                EntityName entityName;
-                if (!Enum.TryParse(entityNameNonParsed, out entityName))
+                IEntityType entityName;
+                if (!EntityType.Instance.TryParse(entityNameNonParsed, out entityName))
                 {
                     throw new ArgumentException("Unrecognized entity type");
                 }
@@ -721,7 +722,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return dictionary;
         }
 
-        private static CardStructure ParseCardDto(XContainer entityEl, EntityName entityName)
+        private static CardStructure ParseCardDto(XContainer entityEl, IEntityType entityName)
         {
             var cardEl = entityEl.Element("Card");
             if (cardEl == null)
@@ -729,7 +730,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 return null;
             }
 
-            var cardJson = new CardStructure { EntityName = entityName.ToString() };
+            var cardJson = new CardStructure { EntityName = entityName.Description };
 
             var cardNameLocaleResourceId = cardEl.Attribute("CardNameLocaleResourceId");
             if (cardNameLocaleResourceId != null)

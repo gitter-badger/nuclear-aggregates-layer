@@ -2,14 +2,16 @@
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties.Configuration;
+
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {
     public sealed class LookupPropertyFeature : IPropertyFeature
     {
-        public LookupPropertyFeature(EntityName lookupEntityType)
+        public LookupPropertyFeature(IEntityType lookupEntityType)
         {
             LookupEntity = lookupEntityType;
 
@@ -18,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
             ValueAttribute = LookupAttributeProvider.GetDefaultValueAttribute(lookupEntityType);
         }
 
-        public EntityName LookupEntity
+        public IEntityType LookupEntity
         {
             get; 
             private set;
@@ -34,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
         public string KeyAttribute { get; set; }
         public string ValueAttribute { get; set; }
 
-        public static LookupPropertyFeature Create(EntityName lookupEntityType)
+        public static LookupPropertyFeature Create(IEntityType lookupEntityType)
         {
             return new LookupPropertyFeature(lookupEntityType);
         }

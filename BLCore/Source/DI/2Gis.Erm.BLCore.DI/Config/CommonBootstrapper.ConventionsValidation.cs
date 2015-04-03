@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Metamodeling.Validators;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {

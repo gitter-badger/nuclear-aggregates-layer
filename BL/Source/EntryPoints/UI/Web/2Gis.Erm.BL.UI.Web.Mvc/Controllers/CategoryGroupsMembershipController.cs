@@ -25,6 +25,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
 
             var hasClientPrivileges = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                   EntityName.OrganizationUnit,
+                                                                                   EntityType.Instance.OrganizationUnit(),
                                                                                    UserContext.Identity.Code,
                                                                                    organizationUnitId,
                                                                                    -1, //TODO: Сделать с этим что-то порядочное
@@ -82,12 +83,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     OrganizationUnitId = organizationUnitId,
                     ViewConfig =
                         {
-                            EntityName = EntityName.CategoryGroupMembership, 
-                            PType = EntityName.None
+                            EntityName = EntityType.Instance.CategoryGroupMembership(), 
+                            PType = EntityType.Instance.None()
                         }
                 };
 
-            var cardSettings = _configurationService.GetCardSettings(EntityName.CategoryGroupMembership, UserContext.Profile.UserLocaleInfo.UserCultureInfo);
+            var cardSettings = _configurationService.GetCardSettings(EntityType.Instance.CategoryGroupMembership(), UserContext.Profile.UserLocaleInfo.UserCultureInfo);
             cardSettings.CardLocalizedName = string.Format(BLResources.OrganizationUnitCategoryGroupsCardTitle, orgUnit.Name);
 
             model.ViewConfig.CardSettings = cardSettings.ToCardJson();
@@ -98,10 +99,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpPost]
         public ActionResult Manage(CategoryGroupMembershipViewModel model)
         {
-            model.ViewConfig.EntityName = EntityName.CategoryGroupMembership;
-            model.ViewConfig.PType = EntityName.None;
+            model.ViewConfig.EntityName = EntityType.Instance.CategoryGroupMembership();
+            model.ViewConfig.PType = EntityType.Instance.None();
 
-            var cardSettings = _configurationService.GetCardSettings(EntityName.CategoryGroupMembership, UserContext.Profile.UserLocaleInfo.UserCultureInfo);
+            var cardSettings = _configurationService.GetCardSettings(EntityType.Instance.CategoryGroupMembership(), UserContext.Profile.UserLocaleInfo.UserCultureInfo);
             model.ViewConfig.CardSettings = cardSettings.ToCardJson();
 
             return new JsonNetResult(model);

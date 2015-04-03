@@ -10,7 +10,9 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -56,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Purpose = phonecall.Purpose,
                     Status = phonecall.Status,
                     RegardingObjects = AdaptReferences(regardingObjects),
-                    RecipientRef = recipient != null ? ToEntityReference(recipient.TargetEntityName, recipient.TargetEntityId) : null,
+                    RecipientRef = recipient != null ? ToEntityReference(recipient.TargetEntityTypeId, recipient.TargetEntityId) : null,
 
                     OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = phonecall.CreatedBy, Name = null },
@@ -69,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 };
         }
 
-        protected override IDomainEntityDto<Phonecall> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Phonecall> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = new PhonecallDomainEntityDto
                 {
@@ -78,13 +80,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Status = ActivityStatus.InProgress,
                 };
 
-            var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName, parentEntityId) : null;
+            var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName.Id, parentEntityId) : null;
             if (regardingObject != null)
             {
                 dto.RegardingObjects = new[] { regardingObject };
             }
 
-            var recipient = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
+            var recipient = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName.Id, parentEntityId) : null;
             if (recipient != null)
             {
                 dto.RecipientRef = recipient;
@@ -95,33 +97,39 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Phonecall>> references)
         {
-            return references.Select(x => ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
+            return references.Select(x => ToEntityReference(x.TargetEntityTypeId, x.TargetEntityId)).Where(x => x != null).ToList();
         }
 
-        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
+        private EntityReference ToEntityReference(int entityTypeId, long? entityId)
         {
-            if (!entityId.HasValue) return null;
-
-            string name;
-            switch (entityName)
+            if (!entityId.HasValue)
             {
-                case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entityId.Value);
-                    break;
-                case EntityName.Contact:
-                    name = _clientReadModel.GetContactName(entityId.Value);
-                    break;
-                case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entityId.Value).Name;
-                    break;
-                case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entityId.Value);
-                    break;
-                default:
-                    return null;
+                return null;
             }
 
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
+            string name;
+            if (entityTypeId == EntityType.Instance.Client().Id)
+            {
+                name = _clientReadModel.GetClientName(entityId.Value);
+            }
+            else if (entityTypeId == EntityType.Instance.Contact().Id)
+            {
+                name = _clientReadModel.GetContactName(entityId.Value);
+            }
+            else if (entityTypeId == EntityType.Instance.Deal().Id)
+            {
+                name = _dealReadModel.GetDeal(entityId.Value).Name;
+            }
+            else if (entityTypeId == EntityType.Instance.Firm().Id)
+            {
+                name = _firmReadModel.GetFirmName(entityId.Value);
+            }
+            else
+            {
+                return null;
+            }
+
+            return new EntityReference { Id = entityId, Name = name, EntityTypeId = entityTypeId };
         }
     }
 }
