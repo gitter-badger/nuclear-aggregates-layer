@@ -1376,9 +1376,6 @@ Blokujících chyb:{2}</value>
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>Vybraná položka nemůže být zakázaná, protože je hlavní</value>
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Velká ikona</value>
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Není možné přidat položku do zveřejněného ceníku</value>
   </data>
@@ -5175,10 +5172,10 @@ Doba zveřejnění: {3}.</value>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Oddělení organizace {0} není spojeno s projektem.</value>
   </data>
-  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForFirmInReserve" xml:space="preserve">
     <value>Není možné uložit akci do organizace, která je v rezervě</value>
   </data>
-  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>Nelze uložit akci na klienta v rezervě</value>
   </data>
   <data name="CancelConfirmation" xml:space="preserve">
@@ -5210,5 +5207,11 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="PositionAccessDenied" xml:space="preserve">
     <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
+  <data name="ManageDocumentsDebt" xml:space="preserve">
+    <value>Správa dokumentů</value>
+  </data>
+  <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Operace nemůže být provedena, jelikož je uskutečňována aktualizace</value>
   </data>
 </root>

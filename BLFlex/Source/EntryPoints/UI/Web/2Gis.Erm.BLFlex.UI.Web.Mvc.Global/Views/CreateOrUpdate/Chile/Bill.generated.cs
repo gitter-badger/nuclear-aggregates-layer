@@ -147,7 +147,7 @@ WriteLiteral("            ");
 
             
             #line 20 "..\..\Views\CreateOrUpdate\Chile\Bill.cshtml"
-       Write(Html.TemplateField(m => m.BillNumber, FieldFlex.twins));
+       Write(Html.TemplateField(m => m.Number, FieldFlex.twins));
 
             
             #line default

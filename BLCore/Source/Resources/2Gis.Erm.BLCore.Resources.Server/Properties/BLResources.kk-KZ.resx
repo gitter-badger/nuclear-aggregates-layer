@@ -1376,9 +1376,6 @@
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>Выбранная позиция не может быть запрещающей, так как является основной</value>
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Большая иконка</value>
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Невозможно добавить позицию в опубликованный прайс-лист</value>
   </data>
@@ -5176,10 +5173,10 @@ Cумма по операции: {5}.
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
   </data>
-  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForFirmInReserve" xml:space="preserve">
     <value>Невозможно сохранить действие на фирму в резерве</value>
   </data>
-  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>Невозможно сохранить действие на клиента в резерве</value>
   </data>
   <data name="CancelConfirmation" xml:space="preserve">
@@ -5211,5 +5208,11 @@ Cумма по операции: {5}.
   </data>
   <data name="PositionAccessDenied" xml:space="preserve">
     <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
+  <data name="ManageDocumentsDebt" xml:space="preserve">
+    <value>Управление наличием документов</value>
+  </data>
+  <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Операция не может быть проведена т.к. выполняется сборка</value>
   </data>
 </root>

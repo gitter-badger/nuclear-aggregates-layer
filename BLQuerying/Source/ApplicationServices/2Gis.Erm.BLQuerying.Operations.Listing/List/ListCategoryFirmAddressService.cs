@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmAddressIsActive = x.CategoryFirmAddress.FirmAddress.IsActive,
                     FirmAddressIsDeleted = x.CategoryFirmAddress.FirmAddress.IsDeleted,
 
-                    CategoryGroup = x.CategoryOrganizationUnit.CategoryGroup.CategoryGroupName ?? defaultCategoryRate,
+                    CategoryGroup = x.CategoryOrganizationUnit.CategoryGroup.Name ?? defaultCategoryRate,
                     CategoryOrganizationUnitIsActive = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsActive : true,
                     CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsDeleted : false,
                 });

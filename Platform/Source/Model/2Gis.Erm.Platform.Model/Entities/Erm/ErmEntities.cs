@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(DepCard),
     		typeof(DictionaryEntityInstance),
     		typeof(DictionaryEntityPropertyInstance),
-    		typeof(ExportFailedEntity),    		
+    		typeof(ExportFailedEntity),
     		typeof(ExportFlowDeliveryData_LetterSendRequest),
     		typeof(ExportFlowFinancialDataClient),
             typeof(ExportFlowFinancialDataDebitsInfoInitial),

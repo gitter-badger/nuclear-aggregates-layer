@@ -288,6 +288,7 @@
     <Compile Include="Orders\Operations\IOrderDeleteReleaseWithdrawalsAggregateService.cs" />
     <Compile Include="Orders\Operations\IChangeOrderLegalPersonProfileAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderRestoreOrdersFromArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\ISetOrderDocumentsDebtAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderPositions\IOrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\Validation\IAttachValidResultToCacheAggregateService.cs" />
     <Compile Include="Orders\Operations\Validation\IInvalidateCachedValidationResultAggregateService.cs" />

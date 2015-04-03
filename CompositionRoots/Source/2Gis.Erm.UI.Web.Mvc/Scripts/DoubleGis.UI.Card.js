@@ -157,7 +157,10 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 }
             }
         }
-        document.title = this.Settings.CardLocalizedName ? this.Settings.CardLocalizedName
+
+        // после отказа от EntitySettings.xml необходимо убрать приседания с EntityMainAttribute на клиенте.
+        // На сервере будет подготовлен необходимый this.Settings.Title
+        document.title = this.Settings.Title ? this.Settings.Title
             : this.Settings.EntityLocalizedName + ": " + (mainAttributeValue || window.Ext.LocalizedResources.Create);
 
         var s = new Ext.Panel(
@@ -179,7 +182,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                             headerCfg: this.renderHeader ? {
                                 tagName: 'div', cls: 'title-bar',
                                 html: '<table><tbody><tr><td class="title-icon">' +
-                                    '<img alt="" src="' + Ext.DoubleGis.Global.Helpers.GetEntityIconPath(this.Settings.LargeIcon) + '"/>' +
+                                    '<img alt="" src="' + Ext.DoubleGis.Global.Helpers.GetEntityIconPath(this.Settings.Icon) + '"/>' +
                                     '</td><td class="title-bar"><span class="title-bar">' + document.title + '</span><br /><span class="title-breadcrumb">' +
                                     '<span class="title-breadcrumb" id="leftNavBreadcrumbText">' + Ext.LocalizedResources.Information + '</span></span></td></tr></tbody></table>'
                             } : undefined,
@@ -526,9 +529,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
     recalcDisabling: function () {
         for (var nodeId in this.Items.RelatedItems.nodeHash) {
             var node = this.Items.RelatedItems.nodeHash[nodeId];
-            if (node.attributes.disabledExpression) {
-                eval(node.attributes.disabledExpression) ? node.disable() : node.enable();
-            }
+            node.attributes.disabled ? node.disable() : node.enable();
         }
         this.recalcToolbarButtonsAvailability();
     },
@@ -878,40 +879,40 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 this.Mask.hide();
             }, this);
 
-            var parentEntityTypeName = this.EntityName ? this.EntityName : null;
-            var parentEntityId = window.Ext.get('Id') ? window.Ext.get('Id').dom.value : null;
-            var parentEntityState = window.Ext.getDom("ViewConfig_ReadOnly").checked ? 'Inactive' : 'Active';
+                var parentEntityTypeName = this.EntityName ? this.EntityName : null;
+                var parentEntityId = window.Ext.get('Id') ? window.Ext.get('Id').dom.value : null;
+                var parentEntityState = window.Ext.getDom("ViewConfig_ReadOnly").checked ? 'Inactive' : 'Active';
 
-            var frameUrl;
+                var frameUrl;
 
-            // Determine that related view is grid or not
-            if (!requestUrl || requestUrl.indexOf("Grid") < 0) {
-                // Related view is not grid
-                // Construct generic URL: <server>/{controller}/{action}/{entityTypeName}/{entityId}/{entityState}
-                frameUrl = String.format("{0}/{1}/{2}/{3}",
-                    requestUrl,
-                    parentEntityTypeName,
-                    parentEntityId,
-                    parentEntityState);
+                // Determine that related view is grid or not
+                if (!requestUrl || requestUrl.indexOf("Grid") < 0) {
+                    // Related view is not grid
+                    // Construct generic URL: <server>/{controller}/{action}/{entityTypeName}/{entityId}/{entityState}
+                    frameUrl = String.format("{0}/{1}/{2}/{3}",
+                        requestUrl,
+                        parentEntityTypeName,
+                        parentEntityId,
+                        parentEntityState);
+                }
+                else {
+                    // Related view is grid
+                    // Construct generic URL: <server>/Grid/{action}/{entityTypeName}/{parentEntityType}/{parentEntityId}/{parentEntityState}/{appendedEntityType}
+                    var appendedEntityType = n.attributes.appendableEntity ? n.attributes.appendableEntity : null;
+                    frameUrl = String.format("{0}/{1}/{2}/{3}/{4}",
+                        requestUrl,
+                        parentEntityTypeName,
+                        parentEntityId,
+                        parentEntityState,
+                        appendedEntityType);
+                }
+
+                if (extendedInfo) {
+                    frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode({ extendedInfo: extendedInfo }));
+                }
+
+                frame.setAttribute("src", frameUrl);
             }
-            else {
-                // Related view is grid
-                // Construct generic URL: <server>/Grid/{action}/{entityTypeName}/{parentEntityType}/{parentEntityId}/{parentEntityState}/{appendedEntityType}
-                var appendedEntityType = n.attributes.appendableEntity ? n.attributes.appendableEntity : null;
-                frameUrl = String.format("{0}/{1}/{2}/{3}/{4}",
-                    requestUrl,
-                    parentEntityTypeName,
-                    parentEntityId,
-                    parentEntityState,
-                    appendedEntityType);
-            }
-
-            if (extendedInfo) {
-                frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode({ extendedInfo: extendedInfo }));
-            }
-
-            frame.setAttribute("src", frameUrl);
-        }
         window.Ext.each(cnt.items.items, function (item) {
             if (item.id == n.id + "_holder") {
                 item.show();

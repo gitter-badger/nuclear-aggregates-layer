@@ -1,5 +1,7 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -7,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class AssociatedPositionsGroupViewModel : EntityViewModelBase<AssociatedPositionsGroup>
+    public sealed class AssociatedPositionsGroupViewModel : EntityViewModelBase<AssociatedPositionsGroup>, INameAspect, IDeletablePriceAspect, IPublishablePriceAspect
     {
         [RequiredLocalized]
         public string Name { get; set; }
