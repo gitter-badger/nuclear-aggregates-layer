@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices
 {
-    // Не самое удочное название, но ничего точнее в голову не пришло
+    // TODO {y.baranihin, 03.04.2015}: избавиться
     public interface IDeniedPositionsDuplicatesCleaner : IInvariantSafeCrosscuttingService
     {
         IEnumerable<DeniedPosition> Distinct(IEnumerable<DeniedPosition> deniedPositions);

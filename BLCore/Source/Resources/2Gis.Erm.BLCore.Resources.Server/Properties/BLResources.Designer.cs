@@ -2998,6 +2998,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CantActivateDeniedPositionWhenPriceIsDeactivated {
+            get {
+                return ResourceManager.GetString("CantActivateDeniedPositionWhenPriceIsDeactivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CantActivateDeniedPositionWhenPriceIsPublished {
+            get {
+                return ResourceManager.GetString("CantActivateDeniedPositionWhenPriceIsPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CantActivatePositionRelatedToCompositeRelatedToPublishedPricePosition {
             get {
                 return ResourceManager.GetString("CantActivatePositionRelatedToCompositeRelatedToPublishedPricePosition", resourceCulture);
@@ -3109,6 +3127,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CantChangeCompositePositionToSimpleWithoutDeletingChildrenPositions {
             get {
                 return ResourceManager.GetString("CantChangeCompositePositionToSimpleWithoutDeletingChildrenPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CantCreateDeniedPositionWhenPriceIsDeactivated {
+            get {
+                return ResourceManager.GetString("CantCreateDeniedPositionWhenPriceIsDeactivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CantCreateDeniedPositionWhenPriceIsPublished {
+            get {
+                return ResourceManager.GetString("CantCreateDeniedPositionWhenPriceIsPublished", resourceCulture);
             }
         }
         
@@ -3433,6 +3469,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CantPublishOverduePrice {
             get {
                 return ResourceManager.GetString("CantPublishOverduePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CantUpdateDeniedPositionWhenPriceIsDeactivated {
+            get {
+                return ResourceManager.GetString("CantUpdateDeniedPositionWhenPriceIsDeactivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CantUpdateDeniedPositionWhenPriceIsPublished {
+            get {
+                return ResourceManager.GetString("CantUpdateDeniedPositionWhenPriceIsPublished", resourceCulture);
             }
         }
         

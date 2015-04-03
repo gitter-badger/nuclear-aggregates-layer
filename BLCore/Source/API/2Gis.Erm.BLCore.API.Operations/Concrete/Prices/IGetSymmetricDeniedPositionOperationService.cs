@@ -8,5 +8,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices
     {
         DeniedPosition Get(long deniedPositionId);
         DeniedPosition GetWithObjectBindingTypeConsideration(long deniedPositionId);
+        DeniedPosition GetInactiveWithObjectBindingTypeConsideration(long deniedPositionId);
     }
 }

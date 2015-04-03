@@ -308,6 +308,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)
                 .RegisterType<IValidateFileService, ValidateFileService>(Lifetime.Singleton)
 
+                .RegisterTypeWithDependencies<IDeniedPositionsDuplicatesVerifier, DeniedPositionsDuplicatesVerifier>(Lifetime.PerResolve, mappingScope)
                 .RegisterTypeWithDependencies<IDeniedPositionsDuplicatesCleaner, DeniedPositionsDuplicatesCleaner>(Lifetime.PerResolve, mappingScope)
                 .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(CustomLifetime.PerRequest, mappingScope)
 

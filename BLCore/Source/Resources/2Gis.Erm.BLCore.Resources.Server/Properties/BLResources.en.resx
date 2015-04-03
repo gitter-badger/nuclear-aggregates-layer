@@ -5221,4 +5221,22 @@ Placement period: {3}.</value>
   <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
     <value>Не найдено симметричное правило запрещения для: {0}</value>
   </data>
+  <data name="CantActivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя восстанавливать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantActivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя восстанавливать запрещенную позицию в опубликованном прайс-листе</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в опубликованном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в опубликованном прайс-листе</value>
+  </data>
 </root>

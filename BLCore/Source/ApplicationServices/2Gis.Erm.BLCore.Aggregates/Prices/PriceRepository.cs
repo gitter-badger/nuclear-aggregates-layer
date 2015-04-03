@@ -22,7 +22,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         private readonly IRepository<Price> _priceGenericRepository;
         private readonly IRepository<AssociatedPositionsGroup> _associatedPositionsGroupGenericRepository;
         private readonly IRepository<AssociatedPosition> _associatedPositionGenericRepository;
-        private readonly IRepository<DeniedPosition> _deniedPositionGenericRepository;
         private readonly IFinder _finder;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _operationScopeFactory;
@@ -31,39 +30,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             IFinder finder,
             IRepository<Price> priceGenericRepository,
             IRepository<AssociatedPositionsGroup> associatedPositionsGroupGenericRepository,
-            IRepository<AssociatedPosition> associatedPositionGenericRepository,
-            IRepository<DeniedPosition> deniedPositionGenericRepository, 
+            IRepository<AssociatedPosition> associatedPositionGenericRepository,            
             IIdentityProvider identityProvider,
             IOperationScopeFactory operationScopeFactory)
         {
             _priceGenericRepository = priceGenericRepository;
             _associatedPositionsGroupGenericRepository = associatedPositionsGroupGenericRepository;
             _associatedPositionGenericRepository = associatedPositionGenericRepository;
-            _deniedPositionGenericRepository = deniedPositionGenericRepository;
             _identityProvider = identityProvider;
             _operationScopeFactory = operationScopeFactory;
             _finder = finder;
-        }
-
-        public int Activate(DeniedPosition deniedPosition)
-        {
-            deniedPosition.IsActive = true;
-            _deniedPositionGenericRepository.Update(deniedPosition);
-
-            if (deniedPosition.PositionId != deniedPosition.PositionDeniedId)
-            {
-                var symmetricDeniedPosition = _finder
-                    .Find<DeniedPosition>(x => !x.IsActive && !x.IsDeleted &&
-                               x.PriceId == deniedPosition.PriceId &&
-                               x.PositionId == deniedPosition.PositionDeniedId &&
-                               x.PositionDeniedId == deniedPosition.PositionId)
-                    .Single();
-
-                symmetricDeniedPosition.IsActive = true;
-                _deniedPositionGenericRepository.Update(symmetricDeniedPosition);
-            }
-
-            return _deniedPositionGenericRepository.Save();
         }
 
         public int Activate(AssociatedPositionsGroup associatedPositionsGroup)
@@ -282,12 +258,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         int IActivateAggregateRepository<AssociatedPositionsGroup>.Activate(long entityId)
         {
             var entity = _finder.Find(Specs.Find.ById<AssociatedPositionsGroup>(entityId)).Single();
-            return Activate(entity);
-        }
-
-        int IActivateAggregateRepository<DeniedPosition>.Activate(long entityId)
-        {
-            var entity = _finder.Find(Specs.Find.ById<DeniedPosition>(entityId)).Single();
             return Activate(entity);
         }
 

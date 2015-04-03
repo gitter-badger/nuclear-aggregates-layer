@@ -5120,7 +5120,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-</data>
+  </data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5220,5 +5220,23 @@ Cумма по операции: {5}.
   </data>
   <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
     <value>Не найдено симметричное правило запрещения для: {0}</value>
+  </data>
+  <data name="CantActivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя восстанавливать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantActivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя восстанавливать запрещенную позицию в опубликованном прайс-листе</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в опубликованном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в опубликованном прайс-листе</value>
   </data>
 </root>

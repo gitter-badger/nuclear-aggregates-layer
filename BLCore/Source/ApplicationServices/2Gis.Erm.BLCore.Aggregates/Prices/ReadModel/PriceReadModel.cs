@@ -288,10 +288,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
                                  PriceSpecs.DeniedPositions.Find.ByObjectBindingType(objectBindingType));
         }
 
-        public IEnumerable<DeniedPosition> GetDeniedPositionsOrSymmetric(long positionId, long positionDeniedId, long priceId)
+        public IEnumerable<DeniedPosition> GetInactiveDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
         {
             return
-                _finder.FindMany(Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
+                _finder.FindMany(Specs.Find.InactiveAndNotDeletedEntities<DeniedPosition>() &&
+                                 PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
+                                 PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId) &&
+                                 PriceSpecs.DeniedPositions.Find.ByObjectBindingType(objectBindingType));
+        }
+
+        public IEnumerable<DeniedPosition> GetDeniedPositionsOrSymmetricDuplicates(long deniedPositionId, long positionId, long positionDeniedId, long priceId)
+        {
+            return
+                _finder.FindMany(Specs.Find.ExceptById<DeniedPosition>(deniedPositionId) &&
+                                 Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
                                  PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
                                  (PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId) ||
                                   PriceSpecs.DeniedPositions.Find.ByPositions(positionDeniedId, positionId)));

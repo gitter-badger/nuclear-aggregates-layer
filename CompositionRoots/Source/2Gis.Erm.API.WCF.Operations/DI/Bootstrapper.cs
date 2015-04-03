@@ -295,6 +295,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)
                      .RegisterType<IValidateFileService, ValidateFileService>(Lifetime.Singleton)
 
+                     .RegisterTypeWithDependencies<IDeniedPositionsDuplicatesVerifier, DeniedPositionsDuplicatesVerifier>(Lifetime.PerResolve, MappingScope)
                      .RegisterTypeWithDependencies<IDeniedPositionsDuplicatesCleaner, DeniedPositionsDuplicatesCleaner>(Lifetime.PerResolve, MappingScope)
                      .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerOperationContext, MappingScope)
 

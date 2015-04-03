@@ -5202,4 +5202,22 @@
   <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
     <value />
   </data>
+  <data name="CantActivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantActivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
 </root>

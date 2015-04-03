@@ -25,6 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private readonly IBulkCreateAssociatedPositionsAggregateService _bulkCreateAssociatedPositionsAggregateService;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IDeniedPositionsDuplicatesCleaner _deniedPositionsDuplicatesCleaner;
+        private readonly IDeniedPositionsDuplicatesVerifier _deniedPositionsDuplicatesVerifier;
 
         public CopyPriceOperationService(IPriceReadModel priceReadModel,
                                          IOrganizationUnitReadModel organizationUnitReadModel,
@@ -34,7 +35,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                                          IBulkCreateAssociatedPositionsGroupsAggregateService bulkCreateAssociatedPositionsGroupsAggregateService,
                                          IBulkCreateAssociatedPositionsAggregateService bulkCreateAssociatedPositionsAggregateService,
                                          IOperationScopeFactory operationScopeFactory,
-                                         IDeniedPositionsDuplicatesCleaner deniedPositionsDuplicatesCleaner)
+                                         IDeniedPositionsDuplicatesCleaner deniedPositionsDuplicatesCleaner,
+                                         IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier)
         {
             _priceReadModel = priceReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
@@ -45,6 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _bulkCreateAssociatedPositionsAggregateService = bulkCreateAssociatedPositionsAggregateService;
             _operationScopeFactory = operationScopeFactory;
             _deniedPositionsDuplicatesCleaner = deniedPositionsDuplicatesCleaner;
+            _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
         }
 
         public void Copy(long sourcePriceId, long organizationUnitId, DateTime publishDate, DateTime beginDate)
@@ -185,6 +188,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private void CreateDeniedPositions(IEnumerable<DeniedPosition> deniedPositionsToCreate, long targetPriceId)
         {
             var deniedPositions = _deniedPositionsDuplicatesCleaner.Distinct(deniedPositionsToCreate);
+            _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(deniedPositions);
             _deniedPositionsDuplicatesCleaner.VerifyForDuplicates(deniedPositions);
             foreach (var deniedPosition in deniedPositions)
             {

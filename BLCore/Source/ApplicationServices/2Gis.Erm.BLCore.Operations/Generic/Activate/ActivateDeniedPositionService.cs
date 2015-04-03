@@ -1,33 +1,75 @@
-﻿using System.Transactions;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
+﻿using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Exceptions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
-using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Exceptions.Price;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
 {
     public class ActivateDeniedPositionService : IActivateGenericEntityService<DeniedPosition>
     {
-        private readonly IPriceRepository _priceRepository;
+        private readonly IActivateDeniedPositionAggregateService _activateDeniedPositionAggregateService;
+        private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IPriceReadModel _priceReadModel;
+        private readonly IDeniedPositionsDuplicatesVerifier _deniedPositionsDuplicatesVerifier;
+        private readonly IGetSymmetricDeniedPositionOperationService _getSymmetricDeniedPositionOperationService;
 
-        public ActivateDeniedPositionService(IPriceRepository priceRepository)
+        public ActivateDeniedPositionService(IActivateDeniedPositionAggregateService activateDeniedPositionAggregateService,
+                                             IOperationScopeFactory operationScopeFactory,
+                                             IPriceReadModel priceReadModel,
+                                             IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier,
+                                             IGetSymmetricDeniedPositionOperationService getSymmetricDeniedPositionOperationService)
         {
-            _priceRepository = priceRepository;
+            _activateDeniedPositionAggregateService = activateDeniedPositionAggregateService;
+            _operationScopeFactory = operationScopeFactory;
+            _priceReadModel = priceReadModel;
+            _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
+            _getSymmetricDeniedPositionOperationService = getSymmetricDeniedPositionOperationService;
         }
 
         public int Activate(long entityId)
         {
-            int result = 0;
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _operationScopeFactory.CreateSpecificFor<ActivateIdentity, DeniedPosition>())
             {
-                var activateAggregateRepository = _priceRepository as IActivateAggregateRepository<DeniedPosition>;
-                activateAggregateRepository.Activate(entityId);
+                var deniedPosition = _priceReadModel.GetDeniedPosition(entityId);
+                if (deniedPosition.IsActive)
+                {
+                    throw new ActiveEntityActivationException(typeof(DeniedPosition), deniedPosition.Id);
+                }
 
-                transaction.Complete();
+                var isPricePublishedAndActiveInfo = _priceReadModel.IsPricePublishedAndActive(deniedPosition.PriceId);
+                if (isPricePublishedAndActiveInfo.IsPublished)
+                {
+                    throw new PublishedPriceModificationException(BLResources.CantActivateDeniedPositionWhenPriceIsPublished);
+                }
+
+                if (!isPricePublishedAndActiveInfo.IsActive)
+                {
+                    throw new InactiveEntityModificationException(BLResources.CantActivateDeniedPositionWhenPriceIsDeactivated);
+                }
+
+                _deniedPositionsDuplicatesVerifier.VerifyForDuplicates(deniedPosition);
+
+                if (deniedPosition.IsSelfDenied())
+                {
+                    _activateDeniedPositionAggregateService.ActivateSelfDeniedPosition(deniedPosition);
+                }
+                else
+                {
+                    var symmetricDeniedPosition = _getSymmetricDeniedPositionOperationService.GetInactiveWithObjectBindingTypeConsideration(entityId);
+                    _activateDeniedPositionAggregateService.Activate(deniedPosition, symmetricDeniedPosition);
+                }
+
+                scope.Complete();
             }
-            return result;
+
+            return 0;
         }
     }
 }
