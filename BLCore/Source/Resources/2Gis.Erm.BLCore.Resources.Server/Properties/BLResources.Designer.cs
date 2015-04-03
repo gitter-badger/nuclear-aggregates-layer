@@ -657,24 +657,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AdministrationPage_AdditionalFirmService {
-            get {
-                return ResourceManager.GetString("AdministrationPage_AdditionalFirmService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AdministrationPage_AdditionalFirmServiceDetails {
-            get {
-                return ResourceManager.GetString("AdministrationPage_AdditionalFirmServiceDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AdministrationPage_BargainType {
             get {
                 return ResourceManager.GetString("AdministrationPage_BargainType", resourceCulture);
@@ -2649,15 +2631,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotDeactivateOrgUnitWithChildren {
             get {
                 return ResourceManager.GetString("CannotDeactivateOrgUnitWithChildren", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CannotDeleteAdditionalFirmService {
-            get {
-                return ResourceManager.GetString("CannotDeleteAdditionalFirmService", resourceCulture);
             }
         }
         
@@ -11705,6 +11678,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string PleaseUseQualifyOperation {
             get {
                 return ResourceManager.GetString("PleaseUseQualifyOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionAccessDenied {
+            get {
+                return ResourceManager.GetString("PositionAccessDenied", resourceCulture);
             }
         }
         

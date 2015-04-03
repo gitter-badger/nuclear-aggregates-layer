@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Firms;
+
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -33,12 +33,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         void UpdateFirmAddresses(IEnumerable<FirmAddress> syncFirmAddressesDtos);
 
         long[] GetAdvertisementIds(long firmId);
-
-        IEnumerable<AdditionalServicesDto> GetFirmAdditionalServices(long firmId);
-        void SetFirmAdditionalServices(long firmId, IEnumerable<AdditionalServicesDto> additionalServices);
-
-        IEnumerable<AdditionalServicesDto> GetFirmAddressAdditionalServices(long firmAddressId);
-        void SetFirmAddressAdditionalServices(long firmAddressId, IEnumerable<AdditionalServicesDto> additionalServices);
 
         bool IsTerritoryReplaceable(long oldTerritoryId, long newTerritoryId);
     }

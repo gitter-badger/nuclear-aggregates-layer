@@ -774,14 +774,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Joint invoice for SP</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>Joint invoice for a legal entity</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Joint invoice for an individual</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Contract</value>
@@ -1217,9 +1211,6 @@
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Profile of client's legal entity</value>
-  </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Add. services for a company</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Removing the profile of Client's legal entity</value>
@@ -1694,6 +1685,12 @@
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Contract termination notice without a reason specified for a legal entity</value>
+  </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
     <value>Unload to bus account write-offs</value>

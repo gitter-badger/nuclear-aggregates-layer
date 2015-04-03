@@ -766,14 +766,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Другое</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Единый счёт на оплату для ИП</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для юр. лица</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для физ. лица</value>
+  <data name="TemplateCodeJointBill" xml:space="preserve">
+    <value>Единый счёт на оплату</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Договор</value>
@@ -1212,9 +1206,6 @@
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Профиль юр. лица клиента</value>
-  </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Доп. услуги для фирмы</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Удаление профиля юр. лица клиента</value>
@@ -1692,6 +1683,12 @@
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Соглашение о расторжении договора для юр. лица</value>
+  </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>Доп. соглашение (смена названия фирмы)</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>Доп. соглашение (смена привязки)</value>
   </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
     <value>Выгрузка в шину списаний по лицевым счетам</value>

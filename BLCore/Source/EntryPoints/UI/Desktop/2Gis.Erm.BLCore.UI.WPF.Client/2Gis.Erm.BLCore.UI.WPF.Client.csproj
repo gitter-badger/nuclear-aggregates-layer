@@ -329,10 +329,6 @@
       <DependentUpon>ViewsGenerator.tt</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Cards\Generated\AdditionalFirmServiceView.xaml.cs">
-      <DependentUpon>ViewsGenerator.tt</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Views\Cards\Generated\AdsTemplatesAdsElementTemplateView.xaml.cs">
       <DependentUpon>ViewsGenerator.tt</DependentUpon>
       <SubType>Code</SubType>
@@ -763,11 +759,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Cards\Generated\AccountView.xaml">
-      <DependentUpon>ViewsGenerator.tt</DependentUpon>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Cards\Generated\AdditionalFirmServiceView.xaml">
       <DependentUpon>ViewsGenerator.tt</DependentUpon>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

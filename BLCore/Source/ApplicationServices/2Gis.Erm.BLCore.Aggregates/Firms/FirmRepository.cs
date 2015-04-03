@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Firms;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -35,7 +34,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IFinder _finder;
         private readonly IRepository<FirmAddress> _firmAddressGenericRepository;
-        private readonly IRepository<FirmAddressService> _firmAddressServiceGenericRepository;
         private readonly IRepository<FirmContact> _firmContactGenericRepository;
         private readonly IRepository<Firm> _firmGenericRepository;
         private readonly ISecureRepository<Firm> _firmGenericSecureRepository;
@@ -52,7 +50,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                               IRepository<FirmAddress> firmAddressGenericRepository,
                               IRepository<FirmContact> firmContactGenericRepository,
                               IRepository<CategoryFirmAddress> categoryFirmAddressGenericRepository,
-                              IRepository<FirmAddressService> firmAddressServiceGenericRepository,
                               IRepository<Territory> territoryGenericRepository,
                               ISecureRepository<Firm> firmGenericSecureRepository,
                               ISecurityServiceEntityAccess entityAccessService,
@@ -68,7 +65,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             _firmAddressGenericRepository = firmAddressGenericRepository;
             _firmContactGenericRepository = firmContactGenericRepository;
             _categoryFirmAddressGenericRepository = categoryFirmAddressGenericRepository;
-            _firmAddressServiceGenericRepository = firmAddressServiceGenericRepository;
             _firmGenericSecureRepository = firmGenericSecureRepository;
             _entityAccessService = entityAccessService;
             _functionalAccessService = functionalAccessService;
@@ -333,235 +329,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             var advertisementIds =
                 _finder.Find<Firm>(x => x.Id == firmId).SelectMany(x => x.Advertisements).Where(x => !x.IsDeleted).Select(x => x.Id).ToArray();
             return advertisementIds;
-        }
-
-        public IEnumerable<AdditionalServicesDto> GetFirmAdditionalServices(long firmId)
-        {
-            var firmAddressIds = _finder.Find<Firm>(x => x.Id == firmId).SelectMany(x => x.FirmAddresses)
-                                        .Where(x => !x.IsDeleted && x.IsActive && !x.ClosedForAscertainment)
-                                        .OrderBy(x => x.Id)
-                                        .Select(x => x.Id)
-                                        .ToArray();
-
-            var dataToGroup = _finder.Find<AdditionalFirmService>(x => x.IsManaged)
-                                     .SelectMany(x => x.FirmAddressServices.Where(y => firmAddressIds.Contains(y.FirmAddressId)).DefaultIfEmpty(),
-                                                 (x, y) => new
-                                                     {
-                                                         x.ServiceCode,
-                                                         x.Description,
-                                                         FirmAddressId = (long?)y.FirmAddressId,
-                                                         DisplayService =
-                                                               (y != null)
-                                                                   ? (y.DisplayService
-                                                                          ? AdditionalServiceDisplay.Display
-                                                                          : AdditionalServiceDisplay.DoNotDisplay)
-                                                                   : AdditionalServiceDisplay.Default,
-                                                     })
-                                     .ToArray();
-
-            var additionalServices = dataToGroup.GroupBy(x => new { x.ServiceCode, x.Description }, group => new { group.FirmAddressId, group.DisplayService })
-                                                .Select(x =>
-                                                    {
-                                                        var additionalService = new AdditionalServicesDto
-                                                            {
-                                                                ServiceCode = x.Key.ServiceCode,
-                                                                Description = x.Key.Description
-                                                            };
-
-                                                        var isGroupAllDefault =
-                                                            x.All(y => y.DisplayService == AdditionalServiceDisplay.Default && y.FirmAddressId == null);
-                                                        if (isGroupAllDefault)
-                                                        {
-                                                            additionalService.DisplayService = AdditionalServiceDisplay.Default;
-                                                            return additionalService;
-                                                        }
-
-                                                        var isGroupAllDisplay = x.All(y => y.DisplayService == AdditionalServiceDisplay.Display) &&
-                                                                                x.Where(y => y.FirmAddressId != null)
-                                                                                 .OrderBy(y => y.FirmAddressId)
-                                                                                 .Select(y => y.FirmAddressId.Value)
-                                                                                 .SequenceEqual(firmAddressIds);
-                                                        if (isGroupAllDisplay)
-                                                        {
-                                                            additionalService.DisplayService = AdditionalServiceDisplay.Display;
-                                                            return additionalService;
-                                                        }
-
-                                                        var isGroupAllDoNotDisplay = x.All(y => y.DisplayService == AdditionalServiceDisplay.DoNotDisplay) &&
-                                                                                     x.Where(y => y.FirmAddressId != null)
-                                                                                      .OrderBy(y => y.FirmAddressId)
-                                                                                      .Select(y => y.FirmAddressId.Value)
-                                                                                      .SequenceEqual(firmAddressIds);
-                                                        if (isGroupAllDoNotDisplay)
-                                                        {
-                                                            additionalService.DisplayService = AdditionalServiceDisplay.DoNotDisplay;
-                                                            return additionalService;
-                                                        }
-
-                                                        additionalService.DisplayService = AdditionalServiceDisplay.DependsOnAddress;
-                                                        return additionalService;
-                                                    })
-                                                .ToArray();
-
-            return additionalServices;
-        }
-
-        public void SetFirmAdditionalServices(long firmId, IEnumerable<AdditionalServicesDto> additionalServices)
-        {
-            var firmAddressIds = _finder.Find<Firm>(x => x.Id == firmId)
-                                        .SelectMany(x => x.FirmAddresses)
-                                        .OrderBy(x => x.Id)
-                                        .Select(x => x.Id)
-                                        .ToArray();
-
-            foreach (var additionalServicesDto in additionalServices.Where(x => x.DisplayService != AdditionalServiceDisplay.DependsOnAddress))
-            {
-                var serviceCode = additionalServicesDto.ServiceCode;
-                var additionalService = _finder.Find<AdditionalFirmService>(x => x.ServiceCode == serviceCode).Single();
-
-                var firmAddressServices =
-                    _finder.Find<FirmAddressService>(x => firmAddressIds.Contains(x.FirmAddressId) && x.ServiceId == additionalService.Id).ToArray();
-                var firmAddressServicesIds = firmAddressServices.Select(x => x.FirmAddressId).ToArray();
-
-                foreach (var firmAddressId in firmAddressIds)
-                {
-                    FirmAddressService firmAddressService;
-
-                    var index = Array.IndexOf(firmAddressServicesIds, firmAddressId);
-                    if (index == -1)
-                    {
-                        if (additionalServicesDto.DisplayService == AdditionalServiceDisplay.Default)
-                        {
-                            continue;
-                        }
-
-                        firmAddressService = new FirmAddressService
-                            {
-                                FirmAddressId = firmAddressId,
-                                ServiceId = additionalService.Id,
-                                DisplayService = additionalServicesDto.DisplayService == AdditionalServiceDisplay.Display,
-                            };
-
-                        using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, FirmAddressService>())
-                        {
-                            _identityProvider.SetFor(firmAddressService);
-                            _firmAddressServiceGenericRepository.Add(firmAddressService);
-                            _firmAddressServiceGenericRepository.Save();
-                            scope.Added<FirmAddressService>(firmAddressService.Id)
-                                 .Complete();
-                        }
-
-                        continue;
-                    }
-
-                    firmAddressService = firmAddressServices[index];
-
-                    // delete
-                    if (additionalServicesDto.DisplayService == AdditionalServiceDisplay.Default)
-                    {
-                        using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, FirmAddressService>())
-                        {
-                            _firmAddressServiceGenericRepository.Delete(firmAddressService);
-                            _firmAddressServiceGenericRepository.Save();
-                            scope.Deleted<FirmAddressService>(firmAddressService.Id)
-                                 .Complete();
-                        }
-
-                        continue;
-                    }
-
-                    // update
-                    using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, FirmAddressService>())
-                    {
-                        firmAddressService.DisplayService = additionalServicesDto.DisplayService == AdditionalServiceDisplay.Display;
-                        _firmAddressServiceGenericRepository.Update(firmAddressService);
-                        _firmAddressServiceGenericRepository.Save();
-                        scope.Updated<FirmAddressService>(firmAddressService.Id)
-                             .Complete();
-                    }
-                }
-            }
-        }
-
-        public IEnumerable<AdditionalServicesDto> GetFirmAddressAdditionalServices(long firmAddressId)
-        {
-            var additionalServices = _finder.Find<AdditionalFirmService>(x => x.IsManaged)
-                                            .SelectMany(x => x.FirmAddressServices.Where(y => y.FirmAddressId == firmAddressId).DefaultIfEmpty(),
-                                                        (x, y) => new AdditionalServicesDto
-                                                            {
-                                                                ServiceCode = x.ServiceCode,
-                                                                Description = x.Description,
-                                                                DisplayService =
-                                                                    (y != null)
-                                                                        ? (y.DisplayService
-                                                                               ? AdditionalServiceDisplay.Display
-                                                                               : AdditionalServiceDisplay.DoNotDisplay)
-                                                                        : AdditionalServiceDisplay.Default,
-                                                            })
-                                            .ToArray();
-
-            return additionalServices;
-        }
-
-        public void SetFirmAddressAdditionalServices(long firmAddressId, IEnumerable<AdditionalServicesDto> additionalServices)
-        {
-            var existingServices = _finder.Find<FirmAddress>(x => x.Id == firmAddressId).SelectMany(x => x.FirmAddressServices).ToArray();
-
-            foreach (var additionalServicesDto in additionalServices)
-            {
-                var serviceCode = additionalServicesDto.ServiceCode;
-                var additionalService = _finder.Find<AdditionalFirmService>(x => x.ServiceCode == serviceCode).Single();
-
-                var firmAddressService = existingServices.FirstOrDefault(x => x.ServiceId == additionalService.Id);
-                if (firmAddressService == null)
-                {
-                    if (additionalServicesDto.DisplayService == AdditionalServiceDisplay.Default)
-                    {
-                        continue;
-                    }
-
-                    firmAddressService = new FirmAddressService
-                        {
-                            FirmAddressId = firmAddressId,
-                            ServiceId = additionalService.Id,
-                            DisplayService = additionalServicesDto.DisplayService == AdditionalServiceDisplay.Display,
-                        };
-
-                    using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, FirmAddressService>())
-                    {
-                        _identityProvider.SetFor(firmAddressService);
-                        _firmAddressServiceGenericRepository.Add(firmAddressService);
-                        _firmAddressServiceGenericRepository.Save();
-                        scope.Added<FirmAddressService>(firmAddressService.Id)
-                             .Complete();
-                    }
-
-                    continue;
-                }
-
-                if (additionalServicesDto.DisplayService == AdditionalServiceDisplay.Default)
-                {
-                    using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, FirmAddressService>())
-                    {
-                        _firmAddressServiceGenericRepository.Delete(firmAddressService);
-                        _firmAddressServiceGenericRepository.Save();
-                        scope.Deleted<FirmAddressService>(firmAddressService.Id)
-                             .Complete();
-                    }
-
-                    continue;
-                }
-
-                firmAddressService.DisplayService = additionalServicesDto.DisplayService == AdditionalServiceDisplay.Display;
-                using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, FirmAddressService>())
-                {
-                    firmAddressService.DisplayService = additionalServicesDto.DisplayService == AdditionalServiceDisplay.Display;
-                    _firmAddressServiceGenericRepository.Update(firmAddressService);
-                    _firmAddressServiceGenericRepository.Save();
-                    scope.Updated<FirmAddressService>(firmAddressService.Id)
-                         .Complete();
-                }
-            }
         }
 
         int IQualifyAggregateRepository<Firm>.Qualify(long entityId, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate)

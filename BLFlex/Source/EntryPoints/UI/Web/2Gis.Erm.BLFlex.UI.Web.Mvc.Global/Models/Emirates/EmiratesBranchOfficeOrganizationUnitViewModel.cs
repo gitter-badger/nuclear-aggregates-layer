@@ -26,6 +26,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInNominative { get; set; }
 
         [RequiredLocalized]
@@ -85,6 +89,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
             IsPrimary = modelDto.IsPrimary;
             IsPrimaryForRegionalSales = modelDto.IsPrimaryForRegionalSales;
 
+            ApplicationCityName = modelDto.ApplicationCityName;
             PhoneNumber = modelDto.PhoneNumber;
             Fax = modelDto.Fax; 
             PositionInNominative = modelDto.PositionInNominative;
@@ -113,6 +118,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
                     IsPrimary = IsPrimary,
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
 
+                    ApplicationCityName = ApplicationCityName,
                     PhoneNumber = PhoneNumber,
                     Fax = Fax,
                     PositionInNominative = PositionInNominative,
