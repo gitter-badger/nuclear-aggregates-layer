@@ -798,13 +798,7 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Другое</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
@@ -1669,6 +1663,12 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ReleaseStatusSuccess" xml:space="preserve">

@@ -307,6 +307,7 @@
     <Compile Include="OrganizationUnits\Exceptions\OrganizationUnitHasNoProjectsException.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
     <Compile Include="Positions\DTO\LinkingObjectsSchemaPositionDto.cs" />
+    <Compile Include="Positions\Operations\IChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
@@ -333,6 +334,7 @@
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeletePriceAggregateService.cs" />
     <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
+    <Compile Include="Prices\ReadModel\PriceSpecs.Positions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />
     <Compile Include="ProcessAccountsWithDebtsException.cs" />
@@ -356,6 +358,7 @@
     <Compile Include="SimplifiedModel\Categories\IBulkDeleteSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ISalesModelCategoryRestrictionReadModel.cs" />
+    <Compile Include="SimplifiedModel\Currencies\ICurrencyReadModel.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />

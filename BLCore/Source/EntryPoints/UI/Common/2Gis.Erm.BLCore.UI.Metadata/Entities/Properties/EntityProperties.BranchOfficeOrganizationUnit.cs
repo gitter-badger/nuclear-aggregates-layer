@@ -28,6 +28,10 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.ShortLegalName)),
 
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ApplicationCityName)
+                                  .WithFeatures(new RequiredPropertyFeature(),
+                                                DisplayNameLocalizedFeature.Create(() => MetadataResources.ApplicationCityName)),
+
                     EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PositionInGenitive)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.PositionInGenitive)),
@@ -123,7 +127,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
-
 
                     EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(

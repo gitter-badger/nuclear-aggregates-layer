@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
 
             if (orderInfo.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var profile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);
@@ -102,7 +102,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                     { "OperatesOnTheBasisInGenitive", _ukrainePrintHelper.GetOperatesOnTheBasisInGenitive(profile) },
                     { "RelatedBargainInfo", _ukrainePrintHelper.GetRelatedBargainInfo(orderInfo.Bargain) },
                     { "NextReleaseDate", orderInfo.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth() },
-                    { "OrganizationUnitName", orderInfo.OrganizationUnitName },
                 };
 
             var printRequest = new PrintDocumentRequest

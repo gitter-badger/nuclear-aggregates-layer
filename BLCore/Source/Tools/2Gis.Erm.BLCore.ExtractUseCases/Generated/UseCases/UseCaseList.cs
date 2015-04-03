@@ -55,6 +55,7 @@ using DoubleGis.Erm.BLCore.Releasing.Release.Old;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Russia.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.AccountDetails;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old;
@@ -726,24 +727,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(CreateBillInfoForOrdersByTemplateHandler),
                         Request = typeof(CreateBillInfoForOrdersByTemplateRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintAdditionalAgreement",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(PrintOrderAdditionalAgreementHandler),
-                        Request = typeof(PrintOrderAdditionalAgreementRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(PrintDocumentHandler),
-            Request = typeof(PrintDocumentRequest)
-        }
-    }
                     }
                 },
                 new UseCase
