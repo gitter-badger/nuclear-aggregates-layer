@@ -14,7 +14,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -41,7 +40,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IReplacePriceOperationService _replacePriceOperationService;
         private readonly IPositionReadModel _positionReadModel;
         private readonly IChangePositionSortingOrderOperationService _changePositionSortingOrderOperationService;
-        private readonly ICardSettingsProvider _cardSettingsProvider;
 
         public PriceController(IMsCrmSettings msCrmSettings,
                                IAPIOperationsServiceSettings operationsServiceSettings,
@@ -54,8 +52,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ICopyPriceOperationService copyPriceOperationService,
                                IReplacePriceOperationService replacePriceOperationService,
                                IPositionReadModel positionReadModel,
-                               IChangePositionSortingOrderOperationService changePositionSortingOrderOperationService,
-                               ICardSettingsProvider cardSettingsProvider)
+                               IChangePositionSortingOrderOperationService changePositionSortingOrderOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
@@ -63,7 +60,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _replacePriceOperationService = replacePriceOperationService;
             _positionReadModel = positionReadModel;
             _changePositionSortingOrderOperationService = changePositionSortingOrderOperationService;
-            _cardSettingsProvider = cardSettingsProvider;
         }
 
         [HttpGet]
@@ -230,8 +226,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new CardStructure
             {
                 Icon = "en_ico_lrg_Category.gif",
-                EntityName = EntityName.CategoryGroupMembership.ToString(),
-                EntityLocalizedName = ErmConfigLocalization.EnCategoryGroups,
+                EntityName = EntityName.PositionSortingOrder.ToString(),
+                EntityLocalizedName = ErmConfigLocalization.EnPositionSortingOrder,
+                Title = ErmConfigLocalization.EnPositionSortingOrder,
                 CardRelatedItems = new CardRelatedItemsGroupStructure[0],
                 CardToolbar = new[]
                                              {
