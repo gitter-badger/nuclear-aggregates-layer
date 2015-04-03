@@ -218,6 +218,7 @@
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Prices\ICopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\ICopyPricePositionOperationService.cs" />
+    <Compile Include="Concrete\Prices\IGetSymmetricDeniedPositionOperationService.cs" />
     <Compile Include="Concrete\Prices\IReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Prices\PriceDto.cs" />
     <Compile Include="Concrete\Processing\Final\HotClient\HotClientFinalProcessingResultsMessage.cs" />

@@ -12,14 +12,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices
                                         IActivateAggregateRepository<AssociatedPositionsGroup>,
                                         IActivateAggregateRepository<DeniedPosition>,
                                         IDeactivateAggregateRepository<AssociatedPositionsGroup>,
-                                        IDeactivateAggregateRepository<AssociatedPosition>,
-                                        IDeactivateAggregateRepository<DeniedPosition>
+                                        IDeactivateAggregateRepository<AssociatedPosition>
     {
         int Activate(AssociatedPositionsGroup associatedPositionsGroup);
         int Activate(DeniedPosition deniedPosition);
         int Deactivate(AssociatedPositionsGroup associatedPositionsGroup);
         int Deactivate(AssociatedPosition associatedPosition);
-        int Deactivate(DeniedPosition associatedPosition);
+
 
         IEnumerable<PricePositionDto> GetPricePositions(IEnumerable<long> requiredPriceIds, IEnumerable<long> requiredPositionIds);
 

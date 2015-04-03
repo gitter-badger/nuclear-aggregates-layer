@@ -42,27 +42,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                 throw new OperationAccessDeniedException(DeactivateIdentity.Instance);
             }
 
-                using (var operationScope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, LegalPerson>())
-                {
+            using (var operationScope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, LegalPerson>())
+            {
                 var legalPerson = _legalPersonReadModel.GetLegalPerson(entityId);
-                    if (!legalPerson.IsActive)
-                    {
+                if (!legalPerson.IsActive)
+                {
                     throw new InactiveEntityDeactivationException(typeof(LegalPerson), legalPerson.LegalName);
-                    }
+                }
 
                 if (_legalPersonReadModel.DoesLegalPersonHaveActiveNotArchivedAndNotRejectedOrders(entityId))
-                    {
+                {
                     throw new LegalPersonWithOrdersDeactivationException(BLResources.CantDeativateObjectLinkedWithActiveOrders);
-                    }
+                }
 
                 var profiles = _legalPersonReadModel.GetProfilesByLegalPerson(entityId);
 
                 _deactivateLegalPersonAggregateService.Deactivate(legalPerson, profiles);
 
-                    operationScope
+                operationScope
                     .Updated(legalPerson)
-                        .Complete();
-                }
+                    .Complete();
+            }
 
             return null;
         }

@@ -953,9 +953,6 @@ Blokujících chyb:{2}</value>
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Další ulice</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>Zakázaná položka je již deaktivována</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Vybrán do Bílého seznamu</value>
   </data>

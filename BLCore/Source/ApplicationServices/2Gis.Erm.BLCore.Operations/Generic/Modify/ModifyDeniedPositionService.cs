@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -24,13 +25,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         private readonly IBusinessModelEntityObtainer<DeniedPosition> _deniedPositionObtainer;
         private readonly IPriceReadModel _priceReadModel;
         private readonly IPositionReadModel _positionReadModel;
+        private readonly IGetSymmetricDeniedPositionOperationService _getSymmetricDeniedPositionOperationService;
 
         public ModifyDeniedPositionService(ICreateDeniedPositionAggregateService createService,
                                            IUpdateDeniedPositionAggregateService updateService,
                                            IOperationScopeFactory operationScopeFactory,
                                            IBusinessModelEntityObtainer<DeniedPosition> deniedPositionObtainer,
                                            IPriceReadModel priceReadModel,
-                                           IPositionReadModel positionReadModel)
+                                           IPositionReadModel positionReadModel,
+                                           IGetSymmetricDeniedPositionOperationService getSymmetricDeniedPositionOperationService)
         {
             _createService = createService;
             _updateService = updateService;
@@ -38,6 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
             _deniedPositionObtainer = deniedPositionObtainer;
             _priceReadModel = priceReadModel;
             _positionReadModel = positionReadModel;
+            _getSymmetricDeniedPositionOperationService = getSymmetricDeniedPositionOperationService;
         }
 
         public long Modify(IDomainEntityDto domainEntityDto)
@@ -72,29 +76,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
             }
             else
             {
-                var symmetricDeniedPositions = _priceReadModel.GetDeniedPositions(deniedPosition.PositionDeniedId, deniedPosition.PositionId, deniedPosition.PriceId).ToArray();
-                if (symmetricDeniedPositions.Count() > 1)
-                {
-                    var positionNames = _positionReadModel.GetPositionNames(symmetricDeniedPositions.Select(x => x.PositionId)
-                                                                                                    .Concat(symmetricDeniedPositions.Select(x => x.PositionDeniedId)));
-                    throw new EntityIsNotUniqueException(typeof(DeniedPosition),
-                                                         string.Format(BLResources.DuplicateDeniedPositionsAreFound,
-                                                                       string.Join(",",
-                                                                                   symmetricDeniedPositions.Select(x =>
-                                                                                                                   string.Format("({0}, {1})",
-                                                                                                                                 positionNames[x.PositionId],
-                                                                                                                                 positionNames[x.PositionDeniedId])))));
-                }
-                else if (!symmetricDeniedPositions.Any())
-                {
-                    var positionNames = _positionReadModel.GetPositionNames(new[] { deniedPosition.PositionId, deniedPosition.PositionDeniedId });
-                    throw new SymmetricDeniedPositionIsMissingException(string.Format(BLResources.SymmetricDeniedPositionIsMissing,
-                                                                                      string.Format("({0}, {1})",
-                                                                                                    positionNames[deniedPosition.PositionId],
-                                                                                                    positionNames[deniedPosition.PositionDeniedId])));
-                }
-
-                var symmetricDeniedPosition = symmetricDeniedPositions.Single();
+                var symmetricDeniedPosition = _getSymmetricDeniedPositionOperationService.Get(deniedPosition.Id);
                 symmetricDeniedPosition.ObjectBindingType = deniedPosition.ObjectBindingType;
 
                 _updateService.Update(deniedPosition, symmetricDeniedPosition);

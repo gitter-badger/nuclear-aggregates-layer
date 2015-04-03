@@ -953,9 +953,6 @@ Locking errors:{2}</value>
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Additional street</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>Prohibited item has been deactivated</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Selected to white list</value>
   </data>

@@ -953,9 +953,6 @@ Errores de bloqueo:{2}</value>
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Calle adicional</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>La posición bloqueada ya ha sido desactivada</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Seleccionado para la lista blanca</value>
   </data>

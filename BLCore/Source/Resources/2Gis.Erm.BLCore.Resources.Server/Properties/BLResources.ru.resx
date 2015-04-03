@@ -953,9 +953,6 @@
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Улица дополнительная</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>Запрещенная позиция уже деактивирована</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Выбран в белый список</value>
   </data>

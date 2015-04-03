@@ -153,49 +153,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             return _associatedPositionGenericRepository.Save();
         }
 
-        public int Deactivate(DeniedPosition deniedPosition)
-        {
-            if (!deniedPosition.IsActive)
-            {
-                throw new NotificationException(BLResources.DeniedPositionIsDeactivatedAlready);
-            }
-
-            var deniedPositionInfo = _finder.Find(Specs.Find.ById<DeniedPosition>(deniedPosition.Id))
-                .Select(x => new
-                    {
-                        IsPricePublished = x.Price.IsPublished,
-                        IsPriceActive = x.Price.IsActive
-                    })
-                .Single();
-
-            if (deniedPositionInfo.IsPricePublished)
-            {
-                throw new NotificationException(BLResources.CantDeactivateDeniedPositionWhenPriceIsPublished);
-            }
-
-            if (!deniedPositionInfo.IsPriceActive)
-            {
-                throw new NotificationException(BLResources.CantDeactivateDeniedPositionWhenPriceIsDeactivated);
-            }
-
-            deniedPosition.IsActive = false;
-            _deniedPositionGenericRepository.Update(deniedPosition);
-            if (deniedPosition.PositionId != deniedPosition.PositionDeniedId)
-            {
-                var symmetricDeniedPosition = _finder
-                    .Find<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
-                               x.PriceId == deniedPosition.PriceId &&
-                               x.PositionId == deniedPosition.PositionDeniedId &&
-                               x.PositionDeniedId == deniedPosition.PositionId && 
-                               x.ObjectBindingType == deniedPosition.ObjectBindingType)
-                    .Single();
-                symmetricDeniedPosition.IsActive = false;
-                _deniedPositionGenericRepository.Update(symmetricDeniedPosition);
-            }
-
-            return _deniedPositionGenericRepository.Save();
-        }
-
         public IEnumerable<PricePositionDto> GetPricePositions(IEnumerable<long> requiredPriceIds, IEnumerable<long> requiredPositionIds)
         {
             return _finder.Find<PricePosition>(x => requiredPriceIds.Contains(x.PriceId) && requiredPositionIds.Contains(x.PositionId))
@@ -343,12 +300,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         int IDeactivateAggregateRepository<AssociatedPosition>.Deactivate(long entityId)
         {
             var entity = _finder.Find(Specs.Find.ById<AssociatedPosition>(entityId)).Single();
-            return Deactivate(entity);
-        }
-
-        int IDeactivateAggregateRepository<DeniedPosition>.Deactivate(long entityId)
-        {
-            var entity = _finder.Find(Specs.Find.ById<DeniedPosition>(entityId)).Single();
             return Deactivate(entity);
         }
     }

@@ -227,6 +227,7 @@
     <Compile Include="Positions\Operations\ChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\SalesModelUtil.cs" />
     <Compile Include="Prices\DeniedPositionExtensions.cs" />
+    <Compile Include="Prices\Operations\DeactivateDeniedPositionAggregateService.cs" />
     <Compile Include="Prices\Operations\UpdateDeniedPositionAggregateService.cs" />
     <Compile Include="SimplifiedModel\Categories\BulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />

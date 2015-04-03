@@ -15,6 +15,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
         PricePositionRateType GetPricePositionRateType(long pricePositionId);
         bool IsDifferentPriceExistsForDate(long priceId, long organizationUnitId, DateTime beginDate);
         PriceValidationDto GetPriceValidationDto(long priceId);
+        IsPricePublishedAndActiveDto IsPricePublishedAndActive(long priceId);
         long GetActualPriceId(long organizationUnitId);
         bool IsPriceActive(long priceId);
         bool DoesPriceExist(long priceId);
@@ -33,7 +34,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
         decimal GetPricePositionCost(long pricePositionId);
         PricePosition GetPricePosition(long priceId, long positionId);
         PricePositionDetailedInfo GetPricePositionDetailedInfo(long pricePositionId);
+        DeniedPosition GetDeniedPosition(long deniedPositionId);
         IEnumerable<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId);
+        IEnumerable<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType);
         IEnumerable<DeniedPosition> GetDeniedPositionsOrSymmetric(long positionId, long positionDeniedId, long priceId);
     }
 }

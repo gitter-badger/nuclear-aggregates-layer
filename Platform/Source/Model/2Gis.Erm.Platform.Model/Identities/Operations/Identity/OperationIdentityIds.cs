@@ -163,6 +163,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int UnpublishPriceIdentity = 15504;
         public const int ReplacePriceIdentity = 15505;
 
+        // EntityName.DeniedPosition = 180
+        public const int GetSymmetricDeniedPositionIdentity = 18001;
+
         // EntityName.Price = 154
         public const int CopyPricePositionIdentity = 15401;
 

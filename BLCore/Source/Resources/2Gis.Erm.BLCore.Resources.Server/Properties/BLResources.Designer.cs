@@ -5410,15 +5410,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string DeniedPositionIsDeactivatedAlready {
-            get {
-                return ResourceManager.GetString("DeniedPositionIsDeactivatedAlready", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string DeniedPositionsReferencesToInactivePositions {
             get {
                 return ResourceManager.GetString("DeniedPositionsReferencesToInactivePositions", resourceCulture);

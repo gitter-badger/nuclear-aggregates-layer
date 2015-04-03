@@ -312,6 +312,7 @@
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
     <Compile Include="Prices\Dto\CategoryWithPositionsDto.cs" />
+    <Compile Include="Prices\Dto\IsPricePublishedAndActiveDto.cs" />
     <Compile Include="Prices\Dto\PriceDto.cs" />
     <Compile Include="Prices\Dto\PricePositionDetailedInfo.cs" />
     <Compile Include="Prices\Dto\PricePositionDto.cs" />
@@ -328,6 +329,7 @@
     <Compile Include="Prices\Operations\IBulkDeactivatePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeleteDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeletePricePositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IDeactivateDeniedPositionAggregateService.cs" />
     <Compile Include="Prices\Operations\IUpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePricePositionAggregateService.cs" />
