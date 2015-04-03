@@ -13,7 +13,6 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Reference = EntityName.Reference, 
         ReferenceItem = EntityName.ReferenceItem, 
         CardRelation = EntityName.CardRelation,
-        FirmAddressService = EntityName.FirmAddressService,
         Territory = EntityName.Territory,
         DepCard = EntityName.DepCard,
         HotClientRequest = EntityName.HotClientRequest

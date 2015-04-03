@@ -26,6 +26,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInNominative { get; set; }
 
         [RequiredLocalized]
@@ -93,6 +97,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             IsPrimaryForRegionalSales = modelDto.IsPrimaryForRegionalSales;
             OperatesOnTheBasisInGenitive = modelDto.OperatesOnTheBasisInGenitive;
 
+            ApplicationCityName = modelDto.ApplicationCityName;
             PhoneNumber = modelDto.PhoneNumber;
             PositionInNominative = modelDto.PositionInNominative;
             ShortLegalName = modelDto.ShortLegalName;
@@ -123,6 +128,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
                     OperatesOnTheBasisInGenitive = OperatesOnTheBasisInGenitive,
 
+                    ApplicationCityName = ApplicationCityName,
                     PhoneNumber = PhoneNumber,
                     PositionInNominative = PositionInNominative,
                     ShortLegalName = ShortLegalName,

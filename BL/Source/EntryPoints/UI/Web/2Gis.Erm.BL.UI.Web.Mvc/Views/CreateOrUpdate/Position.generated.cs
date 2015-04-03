@@ -72,28 +72,10 @@ DefineSection("CardBody", () => {
 
 WriteLiteral("\r\n");
 
-            
-            #line 14 "..\..\Views\CreateOrUpdate\Position.cshtml"
-    
-            
-            #line default
-            #line hidden
-            
-            #line 14 "..\..\Views\CreateOrUpdate\Position.cshtml"
-      
-        var elementStyle = Model.IsPublished
-                                ? new Dictionary<string, object> { { "disabled", "disabled" } }
-                                : new Dictionary<string, object>();
-    
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n    \r\n");
-
 WriteLiteral("    ");
 
             
-            #line 20 "..\..\Views\CreateOrUpdate\Position.cshtml"
+            #line 14 "..\..\Views\CreateOrUpdate\Position.cshtml"
 Write(Html.HiddenFor(m => m.IsPublished));
 
             
@@ -104,7 +86,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 21 "..\..\Views\CreateOrUpdate\Position.cshtml"
+            #line 15 "..\..\Views\CreateOrUpdate\Position.cshtml"
 Write(Html.HiddenFor(m => m.IsReadonlyTemplate));
 
             
@@ -115,7 +97,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 22 "..\..\Views\CreateOrUpdate\Position.cshtml"
+            #line 16 "..\..\Views\CreateOrUpdate\Position.cshtml"
 Write(Html.HiddenFor(m => m.RestrictChildPositionPlatformsCanBeChanged));
 
             
@@ -127,14 +109,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 566), Tuple.Create("\"", 606)
+WriteAttribute("title", Tuple.Create(" title=\"", 333), Tuple.Create("\"", 373)
             
-            #line 24 "..\..\Views\CreateOrUpdate\Position.cshtml"
-, Tuple.Create(Tuple.Create("", 574), Tuple.Create<System.Object, System.Int32>(BLResources.TabTitleInformation
+            #line 18 "..\..\Views\CreateOrUpdate\Position.cshtml"
+, Tuple.Create(Tuple.Create("", 341), Tuple.Create<System.Object, System.Int32>(BLResources.TabTitleInformation
             
             #line default
             #line hidden
-, 574), false)
+, 341), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -146,7 +128,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 26 "..\..\Views\CreateOrUpdate\Position.cshtml"
+            #line 20 "..\..\Views\CreateOrUpdate\Position.cshtml"
        Write(Html.EditableId(m => m.Id));
 
             
@@ -161,7 +143,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 29 "..\..\Views\CreateOrUpdate\Position.cshtml"
+            #line 23 "..\..\Views\CreateOrUpdate\Position.cshtml"
        Write(Html.TemplateField(m => m.Name, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}}));
 
             
@@ -176,37 +158,37 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
+            #line 26 "..\..\Views\CreateOrUpdate\Position.cshtml"
+       Write(Html.TemplateField(m => m.IsComposite, FieldFlex.lone));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 29 "..\..\Views\CreateOrUpdate\Position.cshtml"
+       Write(Html.TemplateField(m => m.RestrictChildPositionPlatforms, FieldFlex.lone));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
             #line 32 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.IsComposite, FieldFlex.lone, elementStyle));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>\r\n        <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("            ");
-
-            
-            #line 35 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.RestrictChildPositionPlatforms, FieldFlex.lone, elementStyle));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>\r\n        <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("            ");
-
-            
-            #line 38 "..\..\Views\CreateOrUpdate\Position.cshtml"
        Write(Html.TemplateField(m => m.DgppId, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}}));
 
             
@@ -221,7 +203,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 41 "..\..\Views\CreateOrUpdate\Position.cshtml"
+            #line 35 "..\..\Views\CreateOrUpdate\Position.cshtml"
        Write(Html.TemplateField(m => m.ExportCode, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}}));
 
             
@@ -236,8 +218,38 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
+            #line 38 "..\..\Views\CreateOrUpdate\Position.cshtml"
+       Write(Html.TemplateField(m => m.CalculationMethod, FieldFlex.lone, null, EnumResources.ResourceManager));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 41 "..\..\Views\CreateOrUpdate\Position.cshtml"
+       Write(Html.TemplateField(m => m.BindingObjectType, FieldFlex.lone, null, EnumResources.ResourceManager));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
             #line 44 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.CalculationMethod, FieldFlex.lone, elementStyle, EnumResources.ResourceManager));
+       Write(Html.TemplateField(m => m.SalesModel, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
             #line default
@@ -252,7 +264,7 @@ WriteLiteral("            ");
 
             
             #line 47 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.BindingObjectType, FieldFlex.lone, elementStyle, EnumResources.ResourceManager));
+       Write(Html.TemplateField(m => m.PositionsGroup, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
             #line default
@@ -267,36 +279,6 @@ WriteLiteral("            ");
 
             
             #line 50 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.SalesModel, FieldFlex.lone, elementStyle, EnumResources.ResourceManager));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>\r\n        <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("            ");
-
-            
-            #line 53 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.PositionsGroup, FieldFlex.lone, elementStyle, EnumResources.ResourceManager));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>\r\n        <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("            ");
-
-            
-            #line 56 "..\..\Views\CreateOrUpdate\Position.cshtml"
        Write(Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Platform, ReadOnly = Model.IsPublished }));
 
             
@@ -311,7 +293,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 59 "..\..\Views\CreateOrUpdate\Position.cshtml"
+            #line 53 "..\..\Views\CreateOrUpdate\Position.cshtml"
        Write(Html.TemplateField(m => m.PositionCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityName.PositionCategory, ReadOnly = Model.IsPublished }));
 
             
@@ -326,8 +308,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 62 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementTemplate, ReadOnly = Model.IsPublished }));
+            #line 56 "..\..\Views\CreateOrUpdate\Position.cshtml"
+       Write(Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementTemplate }));
 
             
             #line default
@@ -341,7 +323,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 65 "..\..\Views\CreateOrUpdate\Position.cshtml"
+            #line 59 "..\..\Views\CreateOrUpdate\Position.cshtml"
        Write(Html.TemplateField(m => m.IsControledByAmount, FieldFlex.lone));
 
             
