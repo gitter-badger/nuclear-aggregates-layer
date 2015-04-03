@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
@@ -253,6 +254,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
                 SalesModel = pricePositionInfo.SalesModel,
                 PositionId = pricePositionInfo.PositionId,
             };
+        }
+
+        public IEnumerable<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId)
+        {
+            return
+                _finder.FindMany(Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
+                                 PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
+                                 PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId));
+        }
+
+        public IEnumerable<DeniedPosition> GetDeniedPositionsOrSymmetric(long positionId, long positionDeniedId, long priceId)
+        {
+            return
+                _finder.FindMany(Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
+                                 PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
+                                 (PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId) ||
+                                  PriceSpecs.DeniedPositions.Find.ByPositions(positionDeniedId, positionId)));
         }
 
         private static decimal GetCategoryRateInternal(IQueryable<Category> categoryQuery, long organizationUnitId)

@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             if (duplicateRules.Any())
             {
                 throw new EntityIsNotUniqueException(typeof(DeniedPosition),
-                                                     string.Format(BLResources.DuplicateDeniedPositionRulesAreFound,
+                                                     string.Format(BLResources.DuplicateDeniedPositionsAreFound,
                                                                    string.Join(",",
                                                                                duplicateRules.Select(x =>
                                                                                                      string.Format("({0}, {1})", x.Key.PositionId, x.Key.PositionDeniedId)))));
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
                                                                                                              x.ObjectBindingType == deniedPosition.Value.Single().ObjectBindingType));
             if (rulesWithoutSymmetric.Any())
             {
-                throw new SymmetricDeniedPositionRuleIsMissingException(string.Format(BLResources.SymmetricDeniedPositionRuleIsMissing,
+                throw new SymmetricDeniedPositionIsMissingException(string.Format(BLResources.SymmetricDeniedPositionIsMissing,
                                                                                       string.Join(",",
                                                                                                   rulesWithoutSymmetric.Select(
                                                                                                                                x =>

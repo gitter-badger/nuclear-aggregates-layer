@@ -5779,9 +5779,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string DuplicateDeniedPositionRulesAreFound {
+        public static string DuplicateDeniedPositionsAreFound {
             get {
-                return ResourceManager.GetString("DuplicateDeniedPositionRulesAreFound", resourceCulture);
+                return ResourceManager.GetString("DuplicateDeniedPositionsAreFound", resourceCulture);
             }
         }
         
@@ -14069,9 +14069,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string SymmetricDeniedPositionRuleIsMissing {
+        public static string SymmetricDeniedPositionIsMissing {
             get {
-                return ResourceManager.GetString("SymmetricDeniedPositionRuleIsMissing", resourceCulture);
+                return ResourceManager.GetString("SymmetricDeniedPositionIsMissing", resourceCulture);
             }
         }
         

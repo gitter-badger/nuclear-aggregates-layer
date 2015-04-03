@@ -512,6 +512,7 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\UserProfileObtainer.cs" />
     <Compile Include="Generic\Modify\ModifyBargainService.cs" />
     <Compile Include="Generic\Modify\DeleteOrderBillsOperationService.cs" />
+    <Compile Include="Generic\Modify\ModifyDeniedPositionService.cs" />
     <Compile Include="Generic\Modify\ModifyBillService.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountDetailHandler.cs" />
@@ -532,7 +533,6 @@
     <Compile Include="Generic\Modify\Old\EditCurrencyHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCurrencyRateHandler.cs" />
     <Compile Include="Generic\Modify\ModifyDealService.cs" />
-    <Compile Include="Generic\Modify\Old\EditDeniedPositionHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditDepartmentHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditFirmAddressHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditFirmHandler.cs" />

@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                                                                                       .Concat(duplicateRules.Select(x => x.PositionDeniedId)));
 
                 throw new EntityIsNotUniqueException(typeof(DeniedPosition),
-                                                     string.Format(BLResources.DuplicateDeniedPositionRulesAreFound,
+                                                     string.Format(BLResources.DuplicateDeniedPositionsAreFound,
                                                                    string.Join(",",
                                                                                duplicateRules.Select(x =>
                                                                                                      string.Format("({0}, {1})",
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                     _positionReadModel.GetPositionNames(rulesWithoutSymmetric.Select(x => x.PositionId)
                                                                              .Concat(rulesWithoutSymmetric.Select(x => x.PositionDeniedId)));
 
-                throw new SymmetricDeniedPositionRuleIsMissingException(string.Format(BLResources.SymmetricDeniedPositionRuleIsMissing,
+                throw new SymmetricDeniedPositionIsMissingException(string.Format(BLResources.SymmetricDeniedPositionIsMissing,
                                                                                       string.Join(",",
                                                                                                   rulesWithoutSymmetric.Select(x =>
                                                                                                                                string.Format("({0}, {1})",

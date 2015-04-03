@@ -5224,10 +5224,10 @@ Cумма по операции: {5}.
   <data name="Support" xml:space="preserve">
     <value>Техподдержка</value>
   </data>
-  <data name="DuplicateDeniedPositionRulesAreFound" xml:space="preserve">
+  <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
     <value>Найдены дубли правил запрещения для следующих позиций: {0}</value>
   </data>
-  <data name="SymmetricDeniedPositionRuleIsMissing" xml:space="preserve">
+  <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
     <value>Не найдено симметричное правило запрещения для: {0}</value>
   </data>
 </root>

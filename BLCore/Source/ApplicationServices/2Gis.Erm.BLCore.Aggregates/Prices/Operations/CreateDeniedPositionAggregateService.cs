@@ -1,42 +1,67 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {
-    public class CreateDeniedPositionAggregateService : ICreateAggregateRepository<DeniedPosition>, IAggregateRootRepository<Price>
+    public class CreateDeniedPositionAggregateService : ICreateDeniedPositionAggregateService
     {
         private readonly IIdentityProvider _identityProvider;
-        private readonly IRepository<DeniedPosition> _deniedPositionGenericRepository;
+        private readonly ISecureRepository<DeniedPosition> _deniedPositionRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
         public CreateDeniedPositionAggregateService(IIdentityProvider identityProvider,
-                                                    IRepository<DeniedPosition> deniedPositionGenericRepository,
+                                                    ISecureRepository<DeniedPosition> deniedPositionRepository,
                                                     IOperationScopeFactory operationScopeFactory)
         {
             _identityProvider = identityProvider;
-            _deniedPositionGenericRepository = deniedPositionGenericRepository;
+            _deniedPositionRepository = deniedPositionRepository;
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public int Create(DeniedPosition entity)
+        public void Create(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
         {
+            if (deniedPosition.IsSelfDenied())
+            {
+                throw new NonSelfDeniedPositionExpectedException();
+            }
+
+            if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
+            {
+                throw new SymmetricDeniedPositionExpectedException();
+            }
+
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, DeniedPosition>())
             {
-                _identityProvider.SetFor(entity);
+                _identityProvider.SetFor(deniedPosition, symmetricDeniedPosition);
+                _deniedPositionRepository.Add(deniedPosition);
+                _deniedPositionRepository.Add(symmetricDeniedPosition);
+                _deniedPositionRepository.Save();
 
-                _deniedPositionGenericRepository.Add(entity);
-                operationScope.Added<DeniedPosition>(entity.Id);
+                operationScope.Added(deniedPosition)
+                              .Added(symmetricDeniedPosition)
+                              .Complete();
+            }
+        }
 
-                var count = _deniedPositionGenericRepository.Save();
+        public void CreateSelfDeniedPosition(DeniedPosition selfDeniedPosition)
+        {
+            if (!selfDeniedPosition.IsSelfDenied())
+            {
+                throw new SelfDeniedPositionExpectedException();
+            }
 
-                operationScope.Complete();
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, DeniedPosition>())
+            {
+                _identityProvider.SetFor(selfDeniedPosition);
+                _deniedPositionRepository.Add(selfDeniedPosition);
+                _deniedPositionRepository.Save();
 
-                return count;
+                operationScope.Added(selfDeniedPosition)
+                              .Complete();
             }
         }
     }

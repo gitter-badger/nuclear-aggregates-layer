@@ -32,9 +32,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices
         void CreateOrUpdate(AssociatedPosition associatedPosition);
 
         [Obsolete]
-        void CreateOrUpdate(DeniedPosition deniedPosition);
-
-        [Obsolete]
         void CreateOrUpdate(AssociatedPositionsGroup associatedPosition);
     }
 }

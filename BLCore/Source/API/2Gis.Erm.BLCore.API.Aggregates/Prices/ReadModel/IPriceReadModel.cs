@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -32,5 +33,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
         decimal GetPricePositionCost(long pricePositionId);
         PricePosition GetPricePosition(long priceId, long positionId);
         PricePositionDetailedInfo GetPricePositionDetailedInfo(long pricePositionId);
+        IEnumerable<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId);
+        IEnumerable<DeniedPosition> GetDeniedPositionsOrSymmetric(long positionId, long positionDeniedId, long priceId);
     }
 }
