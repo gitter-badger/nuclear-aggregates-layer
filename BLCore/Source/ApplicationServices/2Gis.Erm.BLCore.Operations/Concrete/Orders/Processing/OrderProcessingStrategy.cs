@@ -92,12 +92,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 throw new OrganizationUnitHasNoProjectsException(BLResources.OrderValidateDestOrganizationUnitHasNoProject);
             }
 
+            // FIXME {all, 03.04.2015}: OrganizationUnit через UserRepository? Да вы издеваетесь, товарищи!
             var sourceOrganizationUnit = _userRepository.GetOrganizationUnit(order.SourceOrganizationUnitId);
             if (!sourceOrganizationUnit.IsActive || sourceOrganizationUnit.IsDeleted)
             {
                 throw new ArgumentException(BLResources.SourceOrganizationUnitIsInactive);
             }
 
+            // FIXME {all, 03.04.2015}: OrganizationUnit через UserRepository? Да вы издеваетесь, товарищи!
             var destOrganizationUnit = _userRepository.GetOrganizationUnit(order.DestOrganizationUnitId);
             if (!destOrganizationUnit.IsActive || destOrganizationUnit.IsDeleted)
             {

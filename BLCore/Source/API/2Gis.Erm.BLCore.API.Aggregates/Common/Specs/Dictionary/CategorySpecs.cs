@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -51,6 +52,27 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                 public static FindSpecification<CategoryOrganizationUnit> ForCategories(IEnumerable<long> categoryIds)
                 {
                     return new FindSpecification<CategoryOrganizationUnit>(link => categoryIds.Contains(link.CategoryId));
+                }
+
+                public static FindSpecification<CategoryOrganizationUnit> ForActiveAndNotDeletedCategory()
+                {
+                    return new FindSpecification<CategoryOrganizationUnit>(link => link.Category.IsActive && !link.Category.IsDeleted);
+                }
+            }
+
+            public static class Select
+            {
+                public static SelectSpecification<CategoryOrganizationUnit, CategoryGroupMembershipDto> CategoryGroupMembershipDto()
+                {
+                    return new SelectSpecification<CategoryOrganizationUnit, CategoryGroupMembershipDto>(
+                        x => new CategoryGroupMembershipDto
+                                 {
+                                     Id = x.Id,
+                                     CategoryGroupId = x.CategoryGroupId,
+                                     CategoryId = x.CategoryId,
+                                     CategoryName = x.Category.Name,
+                                     CategoryLevel = x.Category.Level
+                                 });
                 }
             }
         }

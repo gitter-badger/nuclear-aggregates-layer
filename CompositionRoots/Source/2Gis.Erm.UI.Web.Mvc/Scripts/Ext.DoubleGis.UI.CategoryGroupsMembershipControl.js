@@ -1,294 +1,248 @@
 ﻿Ext.ns("Ext.DoubleGis.UI");
 
-Ext.grid.CategoryColumn = Ext.extend(Object, {
-    readonly: false,
-
-    constructor: function(config) {
-        Ext.apply(this, config);
-        if (!this.id) {
-            this.id = Ext.id();
-        }
-        this.renderer = this.renderer.createDelegate(this);
-    },
-
-    renderer: function(v, meta, record) {
-        // Костыль, чтобы красный треугольник отрисовывался только у первой колонки.
-        if (Ext.encode(record.getChanges()) != '{}')
-        {
-            meta.css += ' x-grid3-dirty-cell';
-        }
-
-        return v;
-    }
-});
-    
-Ext.grid.MembershipCheckColumn = Ext.extend(Object, {
-
-    readOnly: false,
-    triState: false,
-
+Ext.grid.MembershipCheckColumn = Ext.extend(Ext.grid.Column, {
     constructor: function (config) {
         Ext.apply(this, config);
-        if (!this.id) {
-            this.id = Ext.id();
-        }
-        this.renderer = this.renderer.createDelegate(this);
+        Ext.grid.MembershipCheckColumn.superclass.constructor.call(this, config);
     },
 
-    init: function (grid) {
-        this.grid = grid;
+    processEvent: function (name, e, grid, rowIndex, colIndex) {
+        var record = grid.store.data.items[rowIndex];
+        var previousValue = record.get('CategoryGroupId');
 
-        this.grid.on('render', function () {
-            var view = grid.getView();
-            view.mainBody.on('mousedown', this.onMouseDown, this);
-        }, this);
-       
-    },
-
-    onMouseDown: function (e, t) {
-
-        if (!t.className)
-            return;
-
-        if (t.className.indexOf('x-grid3-cc-' + this.id + '-') == -1)
-            return;
-        
-        if (!this.ColumnCategoryGroupId) {
-            return;
-        }
-
-        e.stopEvent();
-
-        if (this.readOnly)
-            return;
-
-        var index = this.grid.getView().findRowIndex(t);
-        var record = this.grid.store.getAt(index);
-        var newState = record.data.CategoryGroupId != this.ColumnCategoryGroupId;
-        
-        if (newState) {
-            record.set('CategoryGroupId', this.ColumnCategoryGroupId);
+        if (previousValue != this.dataIndex) {
+            this.setRecordGroup(record, previousValue, this.dataIndex);
         } else {
-            record.set('CategoryGroupId', null);
+            this.setRecordGroup(record, this.dataIndex, this.defaultGroupId);
         }
-        
-        window.Card.isDirty = true;
+
+        return true;
     },
 
-    renderer: function (v, p, record) {
-        // Костыль, чтобы красный треугольник отрисовывался только у первой колонки.
-        record.isDirty = false;
-        p.css += ' x-grid3-check-col-td';
+    renderer: function (value, meta, record) {
+        var checkedClass = value ? 'x-grid3-check-col-on' : 'x-grid3-check-col';
+        return '<div class="' + checkedClass + '">&#160;</div>';
+    },
 
-        var idClass = 'x-grid3-cc-' + this.id + '-';
+    setRecordGroup: function (record, oldValue, newValue) {
+        newValue = newValue || this.defaultGroupId;
 
-        var cellValue = record.data && record.data.CategoryGroupId == this.ColumnCategoryGroupId;
-        
-        var checkedClass = 'x-grid3-check-col';
-        if (cellValue) {
-            checkedClass += '-on';
-        } else {
-            checkedClass += '';
-        }
+        record.beginEdit();
 
-        if (this.readOnly) {
-            var readonlyClass = checkedClass + '-disabled';
-            checkedClass += ' ' + readonlyClass;
-        }
+        record.set('CategoryGroupId', newValue);
+        record.set(oldValue, false);
+        record.set(newValue, true);
 
-        return '<div class="' + idClass + ' ' + checkedClass + '">&#160;</div>';
+        record.endEdit();
     }
 });
 
-Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Object,
+Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Ext.Panel,
 {
-    Grid: null,
-    ReadOnly: false,
-
-    OnSuccess: null,
-    OnFailure: null,
-
     constructor: function (config) {
-        if (config.readOnly)
-            this.ReadOnly = config.readOnly;
+        Ext.Ajax.request({
+            method: 'GET',
+            url: '/CategoryGroupsMembership/CategoryGroups',
+            success: function (response) {
+                var groups = Ext.decode(response.responseText);
+                this.finishCreation(config, groups);
+            },
+            failure: function (response) {
+                Ext.MessageBox.alert('', response.responseText);
+            },
+            scope: this
+        });
+    },
 
-        // proxy
-        var proxy = new Ext.data.HttpProxy(
-        {
-            api: config.api,
+    finishCreation: function (config, groups) {
+        var records = this.createRecord(groups);
+        var columns = this.createGridColumnms(groups);
 
-            listeners:
-            {
-                scope: this,
-
-                // слушаем событие exception
-                exception: function () {
-                    if (this.OnFailure)
-                        this.OnFailure();
-                }
+        this.proxy = new Ext.data.HttpProxy({
+            api: {
+                read: { url: '/CategoryGroupsMembership/CategoryGroupsMembership', method: 'GET' },
+                update: { url: '/CategoryGroupsMembership/CategoryGroupsMembership', method: 'POST' }
             }
         });
 
-        this.OnDataLoaded = function() {
-            var categoryGroupsData = store.reader.jsonData.AllCategoryGroups;
+        this.reader = new window.Ext.data.JsonReader({
+            idProperty: 'Id',
+            root: "categoryGroupsMembership",
+            successProperty: 'success'
+        }, records);
 
-            columns = [];
-            columns.push(
-                {
-                    header: 'Id',
-                    dataIndex: 'CategoryId',
-                    hidden: true
-                });
-            columns.push( new Ext.grid.CategoryColumn(
-                {
-                    header: Ext.LocalizedResources.CategoryName,
-                    dataIndex: 'CategoryName',
-                    sortable: true,
-                    width: 400
-                }));
-            columns.push(new Ext.grid.CategoryColumn(
-                {
-                    header: 'Level',
-                    dataIndex: 'CategoryLevel',
-                    sortable: true,
-                    width: 50
-                }));
-            
-            var checkColumns = [];
-            for (var i = 0; i < categoryGroupsData.length; i++) {
-                var checkColumn = new Ext.grid.MembershipCheckColumn(
-                    {
-                        header: categoryGroupsData[i].CategoryGroupName,
-                        dataIndex: categoryGroupsData[i].Id,
-                        ColumnCategoryGroupId: categoryGroupsData[i].Id,
-                        id: categoryGroupsData[i].Id,
-                        sortable: false,
-                        readOnly: false
-                    });
+        this.writer = new Ext.data.JsonWriter({
+            writeAllFields: true,
+            listful: true
+        }, records);
 
-                checkColumns.push(checkColumn);
-                columns.push(checkColumn);
-            }
-            var columnModel = new Ext.grid.ColumnModel(
-                {
-                    columns: columns
-                });
-            
-            this.Grid = new window.Ext.grid.EditorGridPanel(
-                {
-                    layout: 'fit',
-                    plugins: checkColumns.concat([new window.Ext.ux.FitToParent('MainTab')]),
-                    store: store,
-                    colModel: columnModel,
-                    selModel: new Ext.grid.RowSelectionModel({ singleSelect: true }),
-
-                    renderTo: config.div,
-                    clicksToEdit: 1,
-
-                    enableColumnHide: false,
-                    enableColumnMove: false,
-                    enableColumnResize: false,
-                    enableDragDrop: false,
-                    enableHdMenu: false
-                });
-
-            this.Grid.on('headerclick', function (container, column, e) {
-
-                var clickedColumn = container.colModel.columns[column];
-                
-                if (clickedColumn.ColumnCategoryGroupId) {
-                    // Проверяем - если у всех рубрик в этой колонке поставлена галочка, то надо будет её снять.
-                    var areAllItemsChecked = true;
-                    for (var itemIndex = 0; itemIndex < container.store.data.items.length; itemIndex++) {
-                        if (container.store.data.items[itemIndex].get('CategoryGroupId') != clickedColumn.ColumnCategoryGroupId) {
-                            areAllItemsChecked = false;
-                            break;
-                        }
-                    }
-
-                    var valueToSet = areAllItemsChecked ? null : clickedColumn.ColumnCategoryGroupId;
-                    
-                    for (itemIndex = 0; itemIndex < container.store.data.items.length; itemIndex++) {
-                        container.store.data.items[itemIndex].set('CategoryGroupId', valueToSet);
-                    }
-                    
-                    window.Card.isDirty = true;
-                    container.getView().refresh();
-                }
-            });
-        };
-        
-        // store
-        var store = new window.Ext.data.Store(
-        {
-            proxy: proxy,
-
-            baseParams: config.baseParams,
+        this.store = new window.Ext.data.Store({
+            baseParams: { organizationUnitId: config.organizationUnitId },
             autoSave: false,
-            
-            reader: new window.Ext.data.JsonReader({
-                idProperty: 'Id',
-                root: "categoryGroupsMembership",
-                successProperty: 'success',
 
-                fields: [
-                    { name: 'Id', type: 'int' },
-                    { name: 'CategoryId', type: 'string' },
-                    { name: 'CategoryName', type: 'string' },
-                    { name: 'CategoryLevel', type: 'string' },
-                    { name: 'CategoryGroupId', type: 'string' }
-                ]
-            }),
+            proxy: this.proxy,
+            reader: this.reader,
+            writer: this.writer,
 
-            writer: new Ext.data.JsonWriter({
-                writeAllFields: true,
-                listful: true,
-                fields: [{ name: 'Id', type: 'string' },
-                    { name: 'CategoryId', type: 'string' },
-                    { name: 'CategoryGroupId', type: 'string' }
-                ]
-            }),
             sortInfo: { field: 'CategoryName', direction: 'ASC' },
 
-            listeners:
-            {
+            listeners: {
                 scope: this,
-
-                load: function() {
-                    if (this.OnDataLoaded)
-                        this.OnDataLoaded();
-                },
-                save: function () {
-                    if (this.OnSuccess)
-                        this.OnSuccess();
-                }
+                load: this.loadSuccess,
+                save: this.saveSuccess,
+                exception: this.saveFailure
             }
         });
-        
-        store.load();
+
+        this.grid = new window.Ext.grid.EditorGridPanel({
+            store: this.store, 
+            selModel: new Ext.grid.RowSelectionModel({ singleSelect: true }),
+            colModel: columns,
+
+            clicksToEdit: 1,
+
+            enableColumnHide: false,
+            enableColumnMove: false,
+            enableColumnResize: false,
+            enableDragDrop: false,
+            enableHdMenu: false,
+
+            listeners: {
+                scope: this,
+                headerclick: this.applyCategoryToAllRecords
+            },
+
+            viewConfig: {
+                markDirty: false
+            }
+        });
+
+
+        Ext.DoubleGis.UI.CategoryGroupsMembershipControl.superclass.constructor.call(this, {
+            items: [this.grid],
+            plugins: [new window.Ext.ux.FitToParent('MainTab')],
+            layout: 'fit',
+            renderTo: config.renderTo
+        });
+
+        this.mask = new Ext.LoadMask('MainTab');
+        this.mask.show();
+
+        this.store.load();
     },
 
-    Save: function (onSuccess, onFailure, onConfirmation) {
-        var store = this.Grid.getStore();
+    save: function () {
+        window.Card.Items.Toolbar.disable();
+        this.mask.show();
+        var pending = this.store.save();
 
-        if (this.ReadOnly || store.getModifiedRecords().length == 0) {
-            onSuccess();
-            return;
+        if (pending == -1) {
+            this.saveSuccess();
         }
-
-        this.OnSuccess = onSuccess;
-        this.OnFailure = onFailure;
-
-        if (onConfirmation) {
-            onConfirmation(this);
-            return;
-        }
-
-        store.save();
     },
 
-    OnConfirmation: function () {
-        var store = this.Grid.getStore();
-        store.save();
+    applyCategoryToAllRecords: function (container, column, e) {
+        var clickedColumn = container.getColumnModel().getColumnById(column);
+
+        if (clickedColumn.columnCategoryGroupId) {
+            // Проверяем - если у всех рубрик в этой колонке поставлена галочка, то надо будет её снять.
+            var areAllItemsChecked = true;
+            Ext.each(container.store.data.items, function (item) {
+                if (item.get('CategoryGroupId') != clickedColumn.columnCategoryGroupId) {
+                    areAllItemsChecked = false;
+                }
+            });
+
+            var valueToSet = areAllItemsChecked ? null : clickedColumn.columnCategoryGroupId;
+            Ext.each(container.store.data.items, function(item) {
+                clickedColumn.setRecordGroup(item, item.get('CategoryGroupId'), valueToSet);
+            });
+
+            window.Card.isDirty = true;
+            container.getView().refresh();
+        }
+    },
+
+    createRecord: function (groups) {
+        var fields = [
+            { name: 'Id', mapping: 'Id', type: 'string' },
+            { name: 'CategoryId', mapping: 'CategoryId', type: 'string' },
+            { name: 'CategoryName', mapping: 'CategoryName', type: 'string' },
+            { name: 'CategoryLevel', mapping: 'CategoryLevel', type: 'string' },
+            { name: 'CategoryGroupId', mapping: 'CategoryGroupId', type: 'string' },
+            { name: 'OriginalCategoryGroupId', convert: function(v, record) { return record['CategoryGroupId']; } }
+        ];
+
+        Ext.each(groups, function(group) {
+            fields.push({
+                name: group.Id,
+                mapping: group.Id,
+                convert: function(v, record) { return record['CategoryGroupId'] === group.Id; }
+            });
+        });
+
+        return Ext.data.Record.create(fields);
+    },
+
+    createGridColumnms: function (groups) {
+        var columns = [
+            { header: 'Id', dataIndex: 'CategoryId', hidden: true },
+            { header: Ext.LocalizedResources.CategoryName, dataIndex: 'CategoryName', sortable: true, width: 400, renderer: function(value, meta, record) {
+                meta.css += record.get('CategoryGroupId') !== record.get('OriginalCategoryGroupId')
+                    ? ' x-grid3-dirty-cell'
+                    : '';
+                return value;
+            } },
+            { header: 'Level', dataIndex: 'CategoryLevel', sortable: true, width: 50 }
+        ];
+
+        var defaultGroupId = null;
+        Ext.each(groups, function(group) {
+            if (group.IsDefault) {
+                defaultGroupId = group.Id;
+            }
+        });
+
+        Ext.each(groups, function (group) {
+            columns.push(new Ext.grid.MembershipCheckColumn({
+                header: group.Name,
+                dataIndex: group.Id,
+                columnCategoryGroupId: group.Id,
+                hidden: group.IsDefault,
+                defaultGroupId: defaultGroupId,
+                sortable: false
+            }));
+        });
+
+        return new Ext.grid.ColumnModel(columns);
+    },
+
+    saveSuccess: function () {
+        this.store.load();
+        this.markDirty(false);
+        window.Card.Items.Toolbar.enable();
+        window.Card.recalcToolbarButtonsAvailability();
+        this.mask.hide();
+    },
+
+    loadSuccess: function() {
+        this.mask.hide();
+    },
+
+    saveFailure: function (proxy, type, action, options, response, arg) {
+        Ext.MessageBox.show({
+            title: Ext.LocalizedResources.ApplicationError,
+            msg: response.responseText,
+            buttons: Ext.MessageBox.OK,
+            width: 300,
+            icon: Ext.MessageBox.ERROR
+        });
+        window.Card.Items.Toolbar.enable();
+        window.Card.recalcToolbarButtonsAvailability();
+        this.mask.hide();
+    },
+
+    markDirty: function (value) {
+        window.Card.isDirty = value;
     }
 });
