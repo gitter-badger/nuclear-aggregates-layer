@@ -4100,9 +4100,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
     <value>Obsah souboru obrázku neodpovídá jeho příponě</value>
   </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value>Není možné odstranit službu '{0}', protože ji využívá {1} adres</value>
-  </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value>Nepodařilo se uložit šablonu: může existovat pouze jedna šablona mrakodrapu</value>
   </data>
@@ -4318,9 +4315,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
     <value>Vytvoření, změna a odstranění objektů evidenčního systému „Území prodejů“.</value>
-  </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
-    <value>Dop. služby pro firmy</value>
   </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
     <value>Projekty</value>
@@ -4928,9 +4922,6 @@ Doba zveřejnění: {3}.</value>
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value>Nelze odstranit právnickou osobu zákazníka se spojenými osobními účty</value>
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Vytvoření, změna a odstranění objektů evidenčního systému „Dod. služby pro firmy“.</value>
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Byla vybrána neplatná adresa u položek: {0}</value>
   </data>
@@ -5212,10 +5203,19 @@ Doba zveřejnění: {3}.</value>
     <value>Stržení prostředků za {0} - {1} s následujícím způsobem poskytování služeb: '{2}' provedeno s chybami</value>
   </data>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
-    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+    <value>Za období {0} nebyly nalezeny blokace pro stržení  podle způsobu poskytování služeb '{1}' </value>
+  </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value>Je nutné zadat alespoň jedno spojení</value>
+  </data>
+  <data name="PublishedPriceCannotBeModified" xml:space="preserve">
+    <value>Zveřejněný ceník nemůže být editován</value>
   </data>
   <data name="Support" xml:space="preserve">
     <value>Technická podpora</value>
+  </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
   </data>
   <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
     <value>Найдены дубли правил запрещения для следующих позиций: {0}</value>

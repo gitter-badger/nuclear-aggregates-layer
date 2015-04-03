@@ -180,7 +180,6 @@
     <Compile Include="Common\Specs\Dictionary\CategorySpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\OrganizationUnitSpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\TerritoryDtoSpecifications.cs" />
-    <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CountrySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CurrencySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\NoteSpecifications.cs" />
@@ -269,7 +268,6 @@
     <Compile Include="Orders\DTO\OrderLinkingObjectsDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberStates.cs" />
-    <Compile Include="Orders\DTO\OrderPositionPriceDto.cs" />
     <Compile Include="Orders\DTO\OrderWithDummyAdvertisementDto.cs" />
     <Compile Include="Orders\IBargainRepository.cs" />
     <Compile Include="Orders\IOrderRepository.cs" />
@@ -309,6 +307,7 @@
     <Compile Include="OrganizationUnits\Exceptions\OrganizationUnitHasNoProjectsException.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
     <Compile Include="Positions\DTO\LinkingObjectsSchemaPositionDto.cs" />
+    <Compile Include="Positions\Operations\IChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
@@ -329,6 +328,7 @@
     <Compile Include="Prices\Operations\IBulkDeactivatePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeleteDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeletePricePositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IUpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePricePositionAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
@@ -340,6 +340,7 @@
     <Compile Include="Prices\Operations\SelfDeniedPositionExpectedException.cs" />
     <Compile Include="Prices\Operations\SymmetricDeniedPositionIsMissingException.cs" />
     <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
+    <Compile Include="Prices\ReadModel\PriceSpecs.Positions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.DeniedPositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />
@@ -364,6 +365,7 @@
     <Compile Include="SimplifiedModel\Categories\IBulkDeleteSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ISalesModelCategoryRestrictionReadModel.cs" />
+    <Compile Include="SimplifiedModel\Currencies\ICurrencyReadModel.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />

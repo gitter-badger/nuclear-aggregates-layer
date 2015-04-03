@@ -47,6 +47,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserProfiles;
+using DoubleGis.Erm.BLCore.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.OrderValidation;
@@ -54,6 +55,7 @@ using DoubleGis.Erm.BLCore.Releasing.Release.Old;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Russia.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.AccountDetails;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old;
@@ -324,16 +326,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(GetRelatedOrdersForCreateBillHandler),
                         Request = typeof(GetRelatedOrdersForCreateBillRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(EditPriceHandler),
-                        Request = typeof(EditRequest<Price>)
                     }
                 },
                 new UseCase
@@ -725,24 +717,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(CreateBillInfoForOrdersByTemplateHandler),
                         Request = typeof(CreateBillInfoForOrdersByTemplateRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintAdditionalAgreement",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(PrintOrderAdditionalAgreementHandler),
-                        Request = typeof(PrintOrderAdditionalAgreementRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(PrintDocumentHandler),
-            Request = typeof(PrintDocumentRequest)
-        }
-    }
                     }
                 },
                 new UseCase
