@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         /// </summary>
         public static bool CanBeRegardingObject(this IEntityType entityName)
         {
-            return entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Firm()) || entityName.Equals(EntityType.Instance);
+            return entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Firm()) || entityName.Equals(EntityType.Instance.Deal());
         }
 
         /// <summary>
