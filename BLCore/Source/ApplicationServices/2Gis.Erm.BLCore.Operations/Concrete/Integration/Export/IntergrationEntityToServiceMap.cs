@@ -11,7 +11,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
     {
         private static readonly Dictionary<IEntityType, IntegrationService> Map = new Dictionary<IEntityType, IntegrationService>
             {
-                { EntityType.Instance.ExportFlowCardExtensionsCardCommercial(), IntegrationService.ExportFlowCardExtensionsCardCommercial },
                 { EntityType.Instance.ExportFlowFinancialDataLegalEntity(), IntegrationService.ExportFlowFinancialDataLegalEntity },
                 { EntityType.Instance.ExportFlowOrdersAdvMaterial(), IntegrationService.ExportFlowOrdersAdvMaterial },
                 { EntityType.Instance.ExportFlowOrdersOrder(), IntegrationService.ExportFlowOrdersOrder },

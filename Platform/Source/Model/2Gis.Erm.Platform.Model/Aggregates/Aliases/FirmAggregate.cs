@@ -28,7 +28,6 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
                                     EntityType.Instance.Reference(),
                                     EntityType.Instance.ReferenceItem(),
                                     EntityType.Instance.CardRelation(),
-                                    EntityType.Instance.FirmAddressService(),
                                     EntityType.Instance.Territory(),
                                     EntityType.Instance.DepCard(),
                                     EntityType.Instance.HotClientRequest()

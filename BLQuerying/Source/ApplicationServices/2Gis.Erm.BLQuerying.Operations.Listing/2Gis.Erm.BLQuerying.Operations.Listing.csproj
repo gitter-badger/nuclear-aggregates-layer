@@ -94,7 +94,6 @@
     <Compile Include="List\ListAccountDetailService.cs" />
     <Compile Include="List\ListAccountService.cs" />
     <Compile Include="List\ListActivityService.cs" />
-    <Compile Include="List\ListAdditionalFirmServiceService.cs" />
     <Compile Include="List\ListAdvertisementElementService.cs" />
     <Compile Include="List\ListAdvertisementElementTemplateService.cs" />
     <Compile Include="List\ListAdvertisementService.cs" />

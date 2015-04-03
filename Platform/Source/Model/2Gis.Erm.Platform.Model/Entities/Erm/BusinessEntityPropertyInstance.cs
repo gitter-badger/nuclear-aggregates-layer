@@ -39,7 +39,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            unchecked
+            {
+                return (EntityInstanceId.GetHashCode() * 397) ^ PropertyId;
+            }
         }
     }
 }

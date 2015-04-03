@@ -11,10 +11,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public int ValidatorId { get; set; }
         public byte[] ValidVersion { get; set; }
         public Guid OperationId { get; set; }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
     }
 }

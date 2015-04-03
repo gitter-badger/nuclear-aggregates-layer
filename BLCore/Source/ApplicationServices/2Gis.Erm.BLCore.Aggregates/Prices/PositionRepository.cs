@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -189,7 +190,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         int IDeactivateAggregateRepository<Position>.Deactivate(long entityId)
         {
-            var isUsedAsChildElement = _finder.Find(PositionSpecs.Find.UsedAsChildElement(entityId)).Any();
+            var isUsedAsChildElement = _finder.Find(PriceSpecs.Positions.Find.UsedAsChildElement(entityId)).Any();
             if (isUsedAsChildElement)
             {
                 var masterElementName = _finder.Find(Specs.Find.ById<Position>(entityId))

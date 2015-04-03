@@ -93,7 +93,6 @@
     <Compile Include="Entities\DTOs\Activity\LetterDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Activity\PhonecallDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Activity\TaskDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\AdditionalFirmServiceDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\AdsTemplatesAdsElementTemplateDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\AdvertisementDescriptor.cs" />
     <Compile Include="Entities\DTOs\AdvertisementDomainEntityDto.cs" />
@@ -144,7 +143,6 @@
     <Compile Include="Entities\DTOs\DictionaryEntityPropertyInstanceDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\FileDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\FirmAddressDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\FirmAddressServiceDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\FirmContactDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\FirmDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\HotClientRequestDomainEntityDto.cs" />
@@ -291,7 +289,6 @@
     <Compile Include="Entities\Erm\AccountDetail.cs" />
     <Compile Include="Entities\Erm\ActionsHistory.cs" />
     <Compile Include="Entities\Erm\ActionsHistoryDetail.cs" />
-    <Compile Include="Entities\Erm\AdditionalFirmService.cs" />
     <Compile Include="Entities\Erm\AdsTemplatesAdsElementTemplate.cs" />
     <Compile Include="Entities\Erm\Advertisement.cs" />
     <Compile Include="Entities\Erm\AdvertisementElement.cs" />
@@ -346,6 +343,7 @@
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetterRecipient.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetterRegardingObject.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetterSender.cs" />
+    <Compile Include="Entities\Erm\EntityTypes\EntityTypePositionSortingOrder.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeRussiaLegalPersonProfilePart.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeSalesModelCategoryRestriction.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeTaskRegardingObject.cs" />
@@ -355,7 +353,6 @@
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeActionsHistory.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeActionsHistoryDetail.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeActivity.cs" />
-    <Compile Include="Entities\Erm\EntityTypes\EntityTypeAdditionalFirmService.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeAdsTemplatesAdsElementTemplate.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeAdvertisement.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeAdvertisementElement.cs" />
@@ -414,7 +411,6 @@
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeEmiratesLegalPersonPart.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeEmiratesLegalPersonProfilePart.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeExportFailedEntity.cs" />
-    <Compile Include="Entities\Erm\EntityTypes\EntityTypeExportFlowCardExtensionsCardCommercial.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeExportFlowDeliveryDataLetterSendRequest.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeExportFlowFinancialDataClient.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeExportFlowFinancialDataLegalEntity.cs" />
@@ -432,7 +428,6 @@
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeFileWithContent.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeFirm.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeFirmAddress.cs" />
-    <Compile Include="Entities\Erm\EntityTypes\EntityTypeFirmAddressService.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeFirmContact.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeFirmDeal.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeHotClientRequest.cs" />
@@ -511,7 +506,6 @@
     <Compile Include="Entities\Erm\ErmContainer.cs" />
     <Compile Include="Entities\Erm\ErmEntities.cs" />
     <Compile Include="Entities\Erm\ExportFailedEntity.cs" />
-    <Compile Include="Entities\Erm\ExportFlowCardExtensionsCardCommercial.cs" />
     <Compile Include="Entities\Erm\ExportFlowDeliveryData_LetterSendRequest.cs" />
     <Compile Include="Entities\Erm\ExportFlowFinancialDataDebitsInfoInitial.cs" />
     <Compile Include="Entities\Erm\ExportFlowFinancialDataClient.cs" />
@@ -531,7 +525,6 @@
     <Compile Include="Entities\Erm\FileWithContent.cs" />
     <Compile Include="Entities\Erm\Firm.cs" />
     <Compile Include="Entities\Erm\FirmAddress.cs" />
-    <Compile Include="Entities\Erm\FirmAddressService.cs" />
     <Compile Include="Entities\Erm\FirmContact.cs" />
     <Compile Include="Entities\Erm\FirmDeal.cs" />
     <Compile Include="Entities\Erm\HotClientRequest.cs" />
@@ -683,6 +676,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ChangeOrderPositionBindingObjectsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionPricePerUnitIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ReplaceOrderPositionAdvertisementLinksIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\GetAvailableBinfingObjectsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
@@ -706,6 +700,10 @@
     <Compile Include="Identities\Operations\Identity\Specific\Order\ObtainDealForBizaccountOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ChangeOrderLegalPersonProfileIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CheckIfOrderPositionCanBeCreatedForOrderIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintCancellationAgreementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintFirmNameChangeAgreementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintBindingChangeAgreementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Position\ChangePositionSortingOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPriceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPricePositionIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\PublishPriceIdentity.cs" />
@@ -786,7 +784,6 @@
     <Compile Include="Identities\Operations\Identity\OperationIdentityIds.cs" />
     <Compile Include="Identities\Operations\Identity\OperationIdentityUtils.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Advertisement\SelectAdvertisementToWhitelistIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Firm\SpecifyAdditionalServicesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCardIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\LegalPersonProfile\SetAsMainLegalPersonProfileIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CloseWithDenialIdentity.cs" />

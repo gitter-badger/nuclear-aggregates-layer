@@ -186,6 +186,11 @@
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintNewSalesModelBargainHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintBargainProlongationAgreementHandler.cs" />
     <Compile Include="MultiCulture\Generic\BargainPrintFormDataExtractor.cs" />
+	<Compile Include="Russia\Concrete\Old\Bills\PrintJointBillHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintHelper.cs" />
+    <Compile Include="Russia\Concrete\Orders\Print\PrintBindingChangeAgreementOperationService.cs" />
+    <Compile Include="Russia\Concrete\Orders\Print\PrintCancellationAgreementOperationService.cs" />
+    <Compile Include="Russia\Concrete\Orders\Print\PrintFirmNameChangeAgreementOperationService.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetLegalPersonProfileDtoService.cs" />
     <Compile Include="Russia\Generic\Get\GetAdvertisementElementStatusDtoService.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetBargainTypeDtoService.cs" />
@@ -338,7 +343,6 @@
     <Compile Include="Russia\Concrete\Old\LegalPersons\MergeLegalPersonsHandler.cs" />
     <Compile Include="Russia\Concrete\Old\LegalPersons\ValidatePaymentRequisitesIsUniqueHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintLetterOfGuaranteeHandler.cs" />
-    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderAdditionalAgreementHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />

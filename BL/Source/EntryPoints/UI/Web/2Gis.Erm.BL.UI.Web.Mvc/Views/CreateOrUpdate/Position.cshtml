@@ -11,12 +11,6 @@
 
 @section CardBody
 {
-    @{
-        var elementStyle = Model.IsPublished
-                                ? new Dictionary<string, object> { { "disabled", "disabled" } }
-                                : new Dictionary<string, object>();
-    }
-    
     @Html.HiddenFor(m => m.IsPublished)
     @Html.HiddenFor(m => m.IsReadonlyTemplate)
     @Html.HiddenFor(m => m.RestrictChildPositionPlatformsCanBeChanged)
@@ -29,10 +23,10 @@
             @Html.TemplateField(m => m.Name, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}})
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.IsComposite, FieldFlex.lone, elementStyle)
+            @Html.TemplateField(m => m.IsComposite, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.RestrictChildPositionPlatforms, FieldFlex.lone, elementStyle)
+            @Html.TemplateField(m => m.RestrictChildPositionPlatforms, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.DgppId, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}})
@@ -41,16 +35,16 @@
             @Html.TemplateField(m => m.ExportCode, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}})
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.CalculationMethod, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.CalculationMethod, FieldFlex.lone, null, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BindingObjectType, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.BindingObjectType, FieldFlex.lone, null, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.SalesModel, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.SalesModel, FieldFlex.lone, null, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.PositionsGroup, FieldFlex.lone, elementStyle, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.PositionsGroup, FieldFlex.lone, null, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Platform(), ReadOnly = Model.IsPublished })
@@ -59,7 +53,7 @@
             @Html.TemplateField(m => m.PositionCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.PositionCategory(), ReadOnly = Model.IsPublished })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.AdvertisementTemplate(), ReadOnly = Model.IsPublished })
+            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.AdvertisementTemplate() })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.IsControledByAmount, FieldFlex.lone)

@@ -16,6 +16,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
         private const string CrmCreateOrUpdateRoute = "CrmCreateOrUpdateRoute";
         private const string GroupOperationRoute = "GroupOperationRoute";
         private const string GroupOperationConvertToEntityIdsRoute = "GroupOperationConvertToEntityIdsRoute";
+        private const string SupportRoute = "SupportRoute";
+        private const string ReportRoute = "ReportRoute";
 
         // Dynamics CRM
         private const string CrmRedirectRoute = "CrmRedirectRoute";
@@ -31,6 +33,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
             routes.MapRoute(null,
                             "Main/{action}",
                             new { controller = "Main", action = "Index" });
+
+            routes.MapRoute(SupportRoute,
+                            "Support/{action}",
+                            new { controller = "Support", action = "Index" });
+
+            routes.MapRoute(ReportRoute,
+                            "Report/{action}/{id}",
+                            new { controller = "Report", action = "Edit", id = UrlParameter.Optional, });
 
             routes.MapRoute(GetEntityNotesRoute,
                             "Note/GetEntityNotes/{entityType}/{entityId}",
@@ -120,7 +130,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
                             "{controller}/{action}/{id}",
                             new
                                 {
-                                    action = "Edit",
+                                    action = "Index",
                                     id = UrlParameter.Optional,
                                 });
 

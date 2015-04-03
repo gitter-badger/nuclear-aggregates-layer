@@ -25,6 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                             Id = x.Id,
                                             OrganizationUnitRef = new EntityReference { Id = x.OrganizationUnitId, Name = null },
                                             BranchOfficeRef = new EntityReference { Id = x.BranchOfficeId, Name = null },
+                                            ApplicationCityName = x.ApplicationCityName,
                                             RepresentativeName = x.ChiefNameInNominative,
                                             RepresentativeRut = x.Within<ChileBranchOfficeOrganizationUnitPart>().GetPropertyValue(part => part.RepresentativeRut),
                                             IsPrimary = x.IsPrimary,
@@ -62,6 +63,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                     entity.Id = dto.Id;
                                     entity.OrganizationUnitId = dto.OrganizationUnitRef.Id.Value;
                                     entity.BranchOfficeId = dto.BranchOfficeRef.Id.Value;
+                                    entity.ApplicationCityName = dto.ApplicationCityName;
                                     entity.ChiefNameInNominative = dto.RepresentativeName;
                                     entity.ActualAddress = dto.ActualAddress;
                                     entity.PostalAddress = dto.PostalAddress;

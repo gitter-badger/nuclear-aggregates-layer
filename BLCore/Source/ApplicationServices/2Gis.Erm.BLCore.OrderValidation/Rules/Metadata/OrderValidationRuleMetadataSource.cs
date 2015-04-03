@@ -85,8 +85,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                                                                               .Common,
                                                    OrderValidationRuleMetadata.Config.Rule<SelfAdvertisementOrderValidationRule>(36)
                                                                               .Common,
-                                                   OrderValidationRuleMetadata.Config.Rule<AdditionalAdvertisementsOrderValidationRule>(37)
-                                                                              .Common,
+
+                                                   // Временно отключена ERM-6155
+                                                   // OrderValidationRuleMetadata.Config.Rule<AdditionalAdvertisementsOrderValidationRule>(37)
+                                                   //                            .Common,
                                                    OrderValidationRuleMetadata.Config
                                                                               .Rule<IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule>(38)
                                                                               .Common,

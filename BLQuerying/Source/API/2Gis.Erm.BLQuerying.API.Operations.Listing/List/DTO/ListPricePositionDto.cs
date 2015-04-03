@@ -18,5 +18,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public DateTime BeginDate { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public int SortingIndex { get; set; }
     }
 }

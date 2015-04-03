@@ -144,7 +144,6 @@
     <Compile Include="Suite\Concrete\API\Metadata\MetadataProviderTest.cs" />
     <Compile Include="Suite\Concrete\API\Metadata\OperationsMetadataProviderTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Deals\ReplicateDealStageOperationServiceTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
     <Compile Include="Suite\Base\UseModelEntityHandlerTestBase.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\PerfomedOperationsProcessorOperationsTest.cs" />
 	<Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowBillingTest.cs" />
@@ -170,7 +169,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Categories\CategoryServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Countries\CountryServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Currencies\CurrencyServiceTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Firms\AdditionalFirmServicesServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Platforms\PlatformServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Projects\ProjectServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Themes\SetAsDefaultThemeOperationServiceTest.cs" />

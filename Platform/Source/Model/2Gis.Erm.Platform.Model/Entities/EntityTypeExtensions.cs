@@ -401,11 +401,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             return EntityTypeKazakhstanLegalPersonProfilePart.Instance;
         }
 
-        public static EntityTypeAdditionalFirmService AdditionalFirmService(this EntityType entityType)
-        {
-            return EntityTypeAdditionalFirmService.Instance;
-        }
-
         public static EntityTypeTheme Theme(this EntityType entityType)
         {
             return EntityTypeTheme.Instance;
@@ -486,11 +481,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             return EntityTypeCardRelation.Instance;
         }
 
-        public static EntityTypeFirmAddressService FirmAddressService(this EntityType entityType)
-        {
-            return EntityTypeFirmAddressService.Instance;
-        }
-
         public static EntityTypeReleaseValidationResult ReleaseValidationResult(this EntityType entityType)
         {
             return EntityTypeReleaseValidationResult.Instance;
@@ -524,11 +514,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static EntityTypePerformedOperationFinalProcessing PerformedOperationFinalProcessing(this EntityType entityType)
         {
             return EntityTypePerformedOperationFinalProcessing.Instance;
-        }
-
-        public static EntityTypeExportFlowCardExtensionsCardCommercial ExportFlowCardExtensionsCardCommercial(this EntityType entityType)
-        {
-            return EntityTypeExportFlowCardExtensionsCardCommercial.Instance;
         }
 
         public static EntityTypeExportFlowFinancialDataLegalEntity ExportFlowFinancialDataLegalEntity(this EntityType entityType)
@@ -839,6 +824,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static EntityTypeBusinessEntityPropertyInstance BusinessEntityPropertyInstance(this EntityType entityType)
         {
             return EntityTypeBusinessEntityPropertyInstance.Instance;
+        }
+
+        public static EntityTypePositionSortingOrder PositionSortingOrder(this EntityType entityType)
+        {
+            return EntityTypePositionSortingOrder.Instance;
         }
     }
 }

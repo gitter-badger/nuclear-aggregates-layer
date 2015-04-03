@@ -21,7 +21,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             CategoryFirmAddresses = new HashSet<CategoryFirmAddress>();
             FirmContacts = new HashSet<FirmContact>();
             OrderPositionAdvertisements = new HashSet<OrderPositionAdvertisement>();
-            FirmAddressServices = new HashSet<FirmAddressService>();
         }
 
         public long Id { get; set; }
@@ -51,7 +50,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Firm Firm { get; set; }
         public Building Building { get; set; }
         public Territory Territory { get; set; }
-        public ICollection<FirmAddressService> FirmAddressServices { get; set; }
 
         public override bool Equals(object obj)
         {

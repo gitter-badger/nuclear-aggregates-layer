@@ -64,6 +64,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="CostCalculation\PricePerUnitCalculationResult.cs" />
     <Compile Include="DI\BlCoreApiOperationsSpecialAssembly.cs" />
     <Compile Include="CostCalculation\BizAccountCostResult.cs" />
     <Compile Include="CostCalculation\BizAccountCostWithVatResult.cs" />
@@ -77,9 +78,9 @@
     <Compile Include="CostCalculation\ICostCalculator.cs" />
     <Compile Include="CostCalculation\PositionIsNotRepresentedException.cs" />
     <Compile Include="FirmInfo\CategoryInfoDto.cs" />
-    <Compile Include="FirmInfo\FirmGuidDto.cs" />
+    <Compile Include="FirmInfo\FirmIdDto.cs" />
     <Compile Include="FirmInfo\FirmInfoDto.cs" />
-    <Compile Include="FirmInfo\IGetFirmInfoService.cs" />
+    <Compile Include="FirmInfo\IGetFirmInfoOperationService.cs" />
     <Compile Include="FirmInfo\ProjectInfoDto.cs" />
     <Compile Include="DI\OperationsSpecialZone.cs" />
     <Compile Include="OrderProcessingRequests\CancelledOrderRequestStateDescription.cs" />

@@ -12,7 +12,6 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
         // FIXME {all, 23.09.2014}: в списке simplified model смешаны несколько подтипов сущностей ERM, справочные (валюты и т.п.), чисто системые (primaryprocessing, ordervalidationresults и т.п.), необходимо более четко структурировать DomainModel, и все такие сущности явно класифицировать, системная справочная, или, все таки часть какого-то агрегата
         public static readonly IEntityType[] Entities =
             {
-                EntityType.Instance.AdditionalFirmService(),
                 EntityType.Instance.Category(),
                 EntityType.Instance.CategoryGroup(),
                 EntityType.Instance.CategoryOrganizationUnit(),
@@ -37,7 +36,6 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
                 EntityType.Instance.Currency(),
                 EntityType.Instance.CurrencyRate(),
                 EntityType.Instance.PerformedBusinessOperation(),
-                EntityType.Instance.ExportFlowCardExtensionsCardCommercial(),
                 EntityType.Instance.ExportFlowFinancialDataLegalEntity(),
                 EntityType.Instance.ExportFlowOrdersAdvMaterial(),
                 EntityType.Instance.ExportFlowOrdersOrder(),

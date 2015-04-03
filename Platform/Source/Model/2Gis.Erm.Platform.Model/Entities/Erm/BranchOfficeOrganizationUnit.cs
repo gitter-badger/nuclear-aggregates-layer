@@ -35,6 +35,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long BranchOfficeId { get; set; }
         public long OrganizationUnitId { get; set; }
         public string ShortLegalName { get; set; }
+        public string ApplicationCityName { get; set; }
         public string PositionInNominative { get; set; }
         public string PositionInGenitive { get; set; }
         public string ChiefNameInNominative { get; set; }

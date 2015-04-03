@@ -188,5 +188,8 @@
         public const int DictionaryEntityPropertyInstance = 561;
         public const int BusinessEntityInstance = 570;
         public const int BusinessEntityPropertyInstance = 571;
+
+        // Не имеет смысла как сущность, сделано, чтобы обдурить механизм карточки
+        public const int PositionSortingOrder = 10000;
     }
 }
