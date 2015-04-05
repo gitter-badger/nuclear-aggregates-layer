@@ -235,7 +235,7 @@
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\DeniedPositionsDuplicatesVerifier.cs" />
-    <Compile Include="Concrete\Prices\DeniedPositionsDuplicatesCleaner.cs" />
+    <Compile Include="Concrete\Prices\SymmetricDeniedPositionsVerifier.cs" />
     <Compile Include="Concrete\Prices\GetSymmetricDeniedPositionOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Processing\Final\HotClientMessageAggregatedProcessingResultHandler.cs" />
@@ -634,6 +634,10 @@
     <Reference Include="microsoft.xrm.client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.CrmSdk.4.0.13\lib\net35\microsoft.xrm.client.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SevenZipSharp">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll</HintPath>

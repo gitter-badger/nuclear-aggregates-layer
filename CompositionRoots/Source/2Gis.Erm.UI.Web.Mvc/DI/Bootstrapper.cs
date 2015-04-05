@@ -309,7 +309,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<IValidateFileService, ValidateFileService>(Lifetime.Singleton)
 
                 .RegisterTypeWithDependencies<IDeniedPositionsDuplicatesVerifier, DeniedPositionsDuplicatesVerifier>(Lifetime.PerResolve, mappingScope)
-                .RegisterTypeWithDependencies<IDeniedPositionsDuplicatesCleaner, DeniedPositionsDuplicatesCleaner>(Lifetime.PerResolve, mappingScope)
+                .RegisterTypeWithDependencies<ISymmetricDeniedPositionsVerifier, SymmetricDeniedPositionsVerifier>(Lifetime.PerResolve, mappingScope)
                 .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(CustomLifetime.PerRequest, mappingScope)
 
                 .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerRequest, Mapping.ConstructorInjectionReadModelsScope)

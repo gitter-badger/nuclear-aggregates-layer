@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -27,6 +29,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             if (deniedPosition.IsSelfDenied())
             {
                 throw new NonSelfDeniedPositionExpectedException();
+            }
+
+            if (symmetricDeniedPosition == null)
+            {
+                throw new SymmetricDeniedPositionExpectedException();
             }
 
             if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
@@ -61,6 +68,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
                 _deniedPositionRepository.Save();
 
                 operationScope.Added(selfDeniedPosition)
+                              .Complete();
+            }
+        }
+
+        /// <summary>
+        /// Нужен для кейса редактирования правила запрещения со сменой направления c самозапрещения
+        /// </summary>
+        public void Create(DeniedPosition deniedPosition)
+        {
+            if (deniedPosition.IsSelfDenied())
+            {
+                throw new NonSelfDeniedPositionExpectedException();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, DeniedPosition>())
+            {
+                _identityProvider.SetFor(deniedPosition);
+                _deniedPositionRepository.Add(deniedPosition);
+                _deniedPositionRepository.Save();
+
+                operationScope.Added(deniedPosition)
                               .Complete();
             }
         }

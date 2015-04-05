@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private readonly IBulkCreateDeniedPositionsAggregateService _bulkCreateDeniedPositionsAggregateService;
         private readonly IBulkCreateAssociatedPositionsGroupsAggregateService _bulkCreateAssociatedPositionsGroupsAggregateService;
         private readonly IBulkCreateAssociatedPositionsAggregateService _bulkCreateAssociatedPositionsAggregateService;
-        private readonly IDeniedPositionsDuplicatesCleaner _deniedPositionsDuplicatesCleaner;
+        private readonly ISymmetricDeniedPositionsVerifier _symmetricDeniedPositionsVerifier;
         private readonly IDeniedPositionsDuplicatesVerifier _deniedPositionsDuplicatesVerifier;
 
         public CopyPricePositionOperationService(ITracer tracer,
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                                                  IBulkCreateDeniedPositionsAggregateService bulkCreateDeniedPositionsAggregateService,
                                                  IBulkCreateAssociatedPositionsGroupsAggregateService bulkCreateAssociatedPositionsGroupsAggregateService,
                                                  IBulkCreateAssociatedPositionsAggregateService bulkCreateAssociatedPositionsAggregateService,
-                                                 IDeniedPositionsDuplicatesCleaner deniedPositionsDuplicatesCleaner,
+                                                 ISymmetricDeniedPositionsVerifier symmetricDeniedPositionsVerifier,
                                                  IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier)
         {
             _tracer = tracer;
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _bulkCreateDeniedPositionsAggregateService = bulkCreateDeniedPositionsAggregateService;
             _bulkCreateAssociatedPositionsGroupsAggregateService = bulkCreateAssociatedPositionsGroupsAggregateService;
             _bulkCreateAssociatedPositionsAggregateService = bulkCreateAssociatedPositionsAggregateService;
-            _deniedPositionsDuplicatesCleaner = deniedPositionsDuplicatesCleaner;
+            _symmetricDeniedPositionsVerifier = symmetricDeniedPositionsVerifier;
             _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
         }
 
@@ -133,9 +134,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                 deniedPosition.PriceId = priceId;
             }
 
-            var allPositionDeniedPositions = _deniedPositionsDuplicatesCleaner.Distinct(positionDeniedPositions.Concat(symmetricDeniedPositions));
+            var allPositionDeniedPositions = positionDeniedPositions.Concat(symmetricDeniedPositions).DistinctDeniedPositions();
             _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(allPositionDeniedPositions);
-            _deniedPositionsDuplicatesCleaner.VerifyForDuplicates(allPositionDeniedPositions);
+            _symmetricDeniedPositionsVerifier.VerifyForSymmetryWithinCollection(allPositionDeniedPositions);
 
             _bulkCreateDeniedPositionsAggregateService.Create(allPositionDeniedPositions);
         }

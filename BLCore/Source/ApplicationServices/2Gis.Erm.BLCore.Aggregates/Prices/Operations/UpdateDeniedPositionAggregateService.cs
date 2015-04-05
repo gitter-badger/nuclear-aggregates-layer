@@ -24,6 +24,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
                 throw new NonSelfDeniedPositionExpectedException();
             }
 
+            if (symmetricDeniedPosition == null)
+            {
+                throw new SymmetricDeniedPositionExpectedException();
+            }
+
             if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
             {
                 throw new SymmetricDeniedPositionExpectedException();

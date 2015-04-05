@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
 
                 if (!isPricePublishedAndActiveInfo.IsActive)
                 {
-                    throw new InactiveEntityModificationException(BLResources.CantDeactivateDeniedPositionWhenPriceIsDeactivated);
+                    throw new InactivePriceModificationException(BLResources.CantDeactivateDeniedPositionWhenPriceIsDeactivated);
                 }
 
                 if (deniedPosition.IsSelfDenied())
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                 }
                 else
                 {
-                    var symmetricDeniedPosition = _getSymmetricDeniedPositionOperationService.GetWithObjectBindingTypeConsideration(entityId);
+                    var symmetricDeniedPosition = _getSymmetricDeniedPositionOperationService.GetWithObjectBindingTypeConsideration(deniedPosition);
                     _deactivateDeniedPositionAggregateService.Deactivate(deniedPosition, symmetricDeniedPosition);
                 }
 

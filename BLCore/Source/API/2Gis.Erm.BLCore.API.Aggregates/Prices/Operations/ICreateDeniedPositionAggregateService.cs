@@ -8,5 +8,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
     {
         void Create(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition);
         void CreateSelfDeniedPosition(DeniedPosition selfDeniedPosition);
+
+        /// <summary>
+        /// Нужен для кейса редактирования правила запрещения со сменой направления c самозапрещения
+        /// </summary>
+        void Create(DeniedPosition deniedPosition);
     }
 }

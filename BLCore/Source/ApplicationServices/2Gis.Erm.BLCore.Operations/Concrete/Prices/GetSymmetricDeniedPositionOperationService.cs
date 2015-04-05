@@ -26,18 +26,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _positionReadModel = positionReadModel;
         }
 
-        public DeniedPosition Get(long deniedPositionId)
+        public DeniedPosition Get(DeniedPosition deniedPosition)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {
-                var deniedPosition = _priceReadModel.GetDeniedPosition(deniedPositionId);
-                if (deniedPosition == null)
-                {
-                    throw new EntityNotFoundException(typeof(DeniedPosition), deniedPositionId);
-                }
-
                 var symmetricDeniedPositions =
-                    _priceReadModel.GetDeniedPositions(positionId: deniedPosition.PositionDeniedId, positionDeniedId: deniedPosition.PositionId, priceId: deniedPosition.PriceId)
+                    _priceReadModel.GetDeniedPositions(positionId: deniedPosition.PositionDeniedId,
+                                                       positionDeniedId: deniedPosition.PositionId,
+                                                       priceId: deniedPosition.PriceId)
                                    .ToArray();
 
                 EnsureUniqueness(symmetricDeniedPositions);
@@ -48,16 +44,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             }
         }
 
-        public DeniedPosition GetWithObjectBindingTypeConsideration(long deniedPositionId)
+        public DeniedPosition GetWithObjectBindingTypeConsideration(DeniedPosition deniedPosition)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {
-                var deniedPosition = _priceReadModel.GetDeniedPosition(deniedPositionId);
-                if (deniedPosition == null)
-                {
-                    throw new EntityNotFoundException(typeof(DeniedPosition), deniedPositionId);
-                }
-
                 var symmetricDeniedPositions =
                     _priceReadModel.GetDeniedPositions(positionId: deniedPosition.PositionDeniedId,
                                                        positionDeniedId: deniedPosition.PositionId,
@@ -73,16 +63,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             }
         }
 
-        public DeniedPosition GetInactiveWithObjectBindingTypeConsideration(long deniedPositionId)
+        public DeniedPosition GetInactiveWithObjectBindingTypeConsideration(DeniedPosition deniedPosition)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {
-                var deniedPosition = _priceReadModel.GetDeniedPosition(deniedPositionId);
-                if (deniedPosition == null)
-                {
-                    throw new EntityNotFoundException(typeof(DeniedPosition), deniedPositionId);
-                }
-
                 var symmetricDeniedPositions =
                     _priceReadModel.GetInactiveDeniedPositions(positionId: deniedPosition.PositionDeniedId,
                                                                positionDeniedId: deniedPosition.PositionId,
