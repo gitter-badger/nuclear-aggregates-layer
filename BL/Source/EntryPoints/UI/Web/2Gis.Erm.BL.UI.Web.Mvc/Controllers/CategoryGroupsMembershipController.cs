@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly ICategoryReadModel _categoryReadModel;
         private readonly IUIConfigurationService _configurationService;
-        private readonly ICategoryService _categoryService;
+        private readonly IChangeCategoryGroupService _changeCategoryGroupService;
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
 
         public CategoryGroupsMembershipController(IMsCrmSettings msCrmSettings,
@@ -45,14 +45,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                                   IGetBaseCurrencyService getBaseCurrencyService,
                                                   ISecurityServiceEntityAccess securityServiceEntityAccess,
                                                   IUIConfigurationService configurationService,
-                                                  ICategoryService categoryService,
+                                                  IChangeCategoryGroupService changeCategoryGroupService,
                                                   ICategoryReadModel categoryReadModel,
                                                   IOrganizationUnitReadModel organizationUnitReadModel)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _securityServiceEntityAccess = securityServiceEntityAccess;
             _configurationService = configurationService;
-            _categoryService = categoryService;
+            _changeCategoryGroupService = changeCategoryGroupService;
             _categoryReadModel = categoryReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
         }
@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             var serializerSettings = new JsonSerializerSettings { Converters = { new Int64ToStringConverter() } };
             var deserializedData = JsonConvert.DeserializeObject<CategoryGroupMembershipDto[]>(categoryGroupsMembership, serializerSettings);
-            _categoryService.SetCategoryGroupMembership(organizationUnitId, deserializedData);
+            _changeCategoryGroupService.SetCategoryGroupMembership(deserializedData);
             return new JsonNetResult(new { categoryGroupsMembership = deserializedData, success = true });
         }
     }

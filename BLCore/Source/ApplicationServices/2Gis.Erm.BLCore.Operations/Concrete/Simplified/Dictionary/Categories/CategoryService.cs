@@ -6,7 +6,6 @@ using System.Transactions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Rubrics;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -75,47 +74,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             foreach (var id in parentIds)
             {
                 context.PutAffectedCategory(level - 1, id);
-            }
-        }
-
-        public void SetCategoryGroupMembership(long organizationUnitId, IEnumerable<CategoryGroupMembershipDto> membership)
-        {
-            var membershipRecords = membership.ToDictionary(dto => dto.Id, dto => dto);
-            var categoryOrgUnits = _finder.Find(Specs.Find.ByIds<CategoryOrganizationUnit>(membershipRecords.Keys))
-                                          .Select(unit => new { Unit = unit, Level = unit.Category.Level })
-                                          .ToArray();
-
-            if (!categoryOrgUnits.Any())
-            {
-                return;
-            }
-
-            using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, CategoryOrganizationUnit>())
-            {
-                foreach (var record in categoryOrgUnits)
-                {
-                    var dto = membershipRecords[record.Unit.Id];
-                    var newGroupId = dto.CategoryGroupId ?? DefaultCategoryGroupId;
-                    if (record.Level != 3 && newGroupId != DefaultCategoryGroupId)
-                    {
-                        throw new BusinessLogicException("Ценовая группа рубрики первого или второго уровня не может быть задана");
-                    }
-                    
-                    if (record.Level != 3)
-                    {
-                        record.Unit.CategoryGroupId = null;
-                    }
-                    else
-                    {
-                        record.Unit.CategoryGroupId = newGroupId;
-                    }
-
-                    _categoryOrganizationUnitRepository.Update(record.Unit);
-                    scope.Updated(record.Unit);
-                }
-
-                _categoryOrganizationUnitRepository.Save();
-                scope.Complete();
             }
         }
 

@@ -219,6 +219,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Category = 160
         public const int ImportRubricIdentity = 16001;
+        public const int ChangeCategoryGroupIdentity = 16002;
 
         // EntityName.FirmContact = 165
         public const int ImportFirmContactFromServiceBusIdentity = 16501;

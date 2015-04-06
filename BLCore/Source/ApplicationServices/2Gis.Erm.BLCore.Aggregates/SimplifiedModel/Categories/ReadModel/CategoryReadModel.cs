@@ -124,5 +124,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
                           .Where(dto => dto.CategoryLevel == 3)
                           .ToArray();
         }
+
+        public IEnumerable<CategoryOrganizationUnitDto> GetCategoryOrganizationUnits(IEnumerable<long> ids)
+        {
+            return _finder.Find(Specs.Find.ByIds<CategoryOrganizationUnit>(ids))
+                                          .Select(unit => new CategoryOrganizationUnitDto { Unit = unit, Level = unit.Category.Level })
+                                          .ToArray();
+        }
     }
 }

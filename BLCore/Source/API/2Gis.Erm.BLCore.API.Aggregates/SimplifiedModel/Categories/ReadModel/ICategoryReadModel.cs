@@ -17,5 +17,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadMod
         IDictionary<long, string> PickCategoriesUnsupportedBySalesModelInOrganizationUnit(SalesModel salesModel, long destOrganizationUnitId, IEnumerable<long> categoryIds);
         IEnumerable<CategoryGroupDto> GetCategoryGroups();
         IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId);
+        IEnumerable<CategoryOrganizationUnitDto> GetCategoryOrganizationUnits(IEnumerable<long> ids);
     }
 }

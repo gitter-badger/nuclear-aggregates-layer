@@ -226,6 +226,7 @@
     <Compile Include="Orders\OrderRepository.cs" />
     <Compile Include="Positions\SalesModelUtil.cs" />
     <Compile Include="SimplifiedModel\Categories\BulkCreateSalesModelCategoryRestrictionsService.cs" />
+    <Compile Include="SimplifiedModel\Categories\Operations\ChangeCategoryGroupAggregateService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\CategoryReadModel.cs" />
     <Compile Include="Roles\ReadModel\RoleReadModel.cs" />
