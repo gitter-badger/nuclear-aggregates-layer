@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Orders
 {
-    public sealed class ReadFromCurrentOrderNumberOrderNumberGenerationStrategy : ReadFromFormatOrderNumberGenerationStrategy
+    public sealed class ReadFromCurrentOrderNumberGenerationStrategy : ReadFromFormatOrderNumberGenerationStrategy
     {
         private const string OrderNumberRegexTemplate = @"[a-zA-Z]+_\d+-\d+-(\d+)";
 

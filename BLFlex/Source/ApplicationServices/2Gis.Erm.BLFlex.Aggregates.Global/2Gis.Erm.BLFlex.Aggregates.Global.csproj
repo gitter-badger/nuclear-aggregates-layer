@@ -89,7 +89,7 @@
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
     <Compile Include="MultiCulture\Orders\ReadFromFormatOrderNumberGenerationStrategy.cs" />
-    <Compile Include="MultiCulture\Orders\ReadFromCurrentOrderNumberOrderNumberGenerationStrategy.cs" />
+    <Compile Include="MultiCulture\Orders\ReadFromCurrentOrderNumberGenerationStrategy.cs" />
     <Compile Include="MultiCulture\Orders\ReadFromOldFormatOrderNumberGenerationStrategy.cs" />
     <Compile Include="MultiCulture\Orders\ReadFromNewFormatOrderNumberGenerationStrategy.cs" />
     <Compile Include="Russia\Clients\RussiaContactSalutationsProvider.cs" />

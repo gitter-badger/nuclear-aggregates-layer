@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Shared
 
         public static IEnumerable<IOrderNumberGenerationStrategy> StrategiesForRomanAlphabetCountries = new IOrderNumberGenerationStrategy[]
                                                                                                             {
-                                                                                                                new ReadFromCurrentOrderNumberOrderNumberGenerationStrategy(),
+                                                                                                                new ReadFromCurrentOrderNumberGenerationStrategy(),
                                                                                                                 new UseReservedNumberOrderNumberGenerationStrategy(),
                                                                                                                 new UseExistingOrderNumberGenerationStrategy()
                                                                                                             };
