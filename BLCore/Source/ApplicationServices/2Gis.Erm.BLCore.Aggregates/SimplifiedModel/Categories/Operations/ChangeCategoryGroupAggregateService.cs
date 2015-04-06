@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.Operations
                     var newGroupId = categoryToGroupMapping[record.Unit.Id] ?? DefaultCategoryGroupId;
                     if (record.Level != 3 && newGroupId != DefaultCategoryGroupId)
                     {
-                        throw new BusinessLogicException("Ценовая группа рубрики первого или второго уровня не может быть задана");
+                        throw new BusinessLogicException(BLResources.CanNotChangeGroupForUpperLevelsCategory);
                     }
 
                     if (record.Level != 3)

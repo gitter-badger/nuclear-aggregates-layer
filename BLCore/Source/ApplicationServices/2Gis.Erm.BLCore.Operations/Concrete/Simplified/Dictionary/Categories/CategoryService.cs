@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
             if (categoryGroup.Id == DefaultCategoryGroupId)
             {
-                throw new InvalidOperationException("Нельзя удалить ценовую группу по умолчанию");
+                throw new InvalidOperationException(BLResources.CanNotDeleteDefaultCategoryGroup);
             }
 
             using (var scope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
