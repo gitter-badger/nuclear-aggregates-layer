@@ -39,10 +39,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public string MainPhoneNumber { get; set; }
 
         // Дополнительный телефон 1
+        [PhoneLocalized]
         [StringLengthLocalized(64)]
         public string AdditionalPhoneNumber1 { get; set; }
 
         // Дополнительный телефон 2
+        [PhoneLocalized]
         [StringLengthLocalized(64)]
         public string AdditionalPhoneNumber2 { get; set; }
 
