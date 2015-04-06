@@ -1,6 +1,7 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Kazakhstan;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -10,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
 {
-    public sealed class KazakhstanBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IKazakhstanAdapted
+    public sealed class KazakhstanBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IShortLegalNameAspect, IKazakhstanAdapted
     {
         [DisplayNameLocalized("BranchOfficeName")]
         [RequiredLocalized]
@@ -23,6 +24,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
         [RequiredLocalized]
         [StringLengthLocalized(100)]
         public string ShortLegalName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -98,6 +103,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
             IsPrimary = modelDto.IsPrimary;
             IsPrimaryForRegionalSales = modelDto.IsPrimaryForRegionalSales;
 
+            ApplicationCityName = modelDto.ApplicationCityName;
             PhoneNumber = modelDto.PhoneNumber;
             PositionInGenitive = modelDto.PositionInGenitive;
             PositionInNominative = modelDto.PositionInNominative;
@@ -129,6 +135,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
                            IsPrimary = IsPrimary,
                            IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
 
+                           ApplicationCityName = ApplicationCityName,
                            PhoneNumber = PhoneNumber,
                            PositionInGenitive = PositionInGenitive,
                            PositionInNominative = PositionInNominative,

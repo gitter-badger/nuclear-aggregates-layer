@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Russia;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -10,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class BranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IRussiaAdapted
+    public sealed class BranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IShortLegalNameAspect, IRussiaAdapted
     {
         [DisplayNameLocalized("BranchOfficeName")]
         [RequiredLocalized]
@@ -23,6 +24,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [RequiredLocalized]
         [StringLengthLocalized(100)]
         public string ShortLegalName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -100,6 +105,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             Id = modelDto.Id;
             OrganizationUnit = LookupField.FromReference(modelDto.OrganizationUnitRef);
             BranchOffice = LookupField.FromReference(modelDto.BranchOfficeRef);
+            ApplicationCityName = modelDto.ApplicationCityName;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             IsPrimary = modelDto.IsPrimary;
@@ -139,6 +145,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
                     OperatesOnTheBasisInGenitive = OperatesOnTheBasisInGenitive,
 
+                    ApplicationCityName = ApplicationCityName,
                     Kpp = Kpp,
                     PhoneNumber = PhoneNumber,
                     PositionInGenitive = PositionInGenitive,

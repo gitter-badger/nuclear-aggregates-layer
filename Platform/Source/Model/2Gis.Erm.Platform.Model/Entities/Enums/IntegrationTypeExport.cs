@@ -11,8 +11,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         None = 0,
 
         // ERM <-> DGPP (range 1 - 10)
-        [EnumMember]
-        FirmsWithActiveOrdersToDgpp = 4,
+
+        // FirmsWithActiveOrdersToDgpp = 4, - устарело, больше не обрабатывается
 
         // ERM <-> 1C (range 21 - 30)
         [EnumMember]

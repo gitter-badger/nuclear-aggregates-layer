@@ -1321,15 +1321,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Доп. услуги для фирмы.
-        /// </summary>
-        public static string EntityNameAdditionalFirmService {
-            get {
-                return ResourceManager.GetString("EntityNameAdditionalFirmService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Связь элемента шаблона РМ с шаблоном РМ.
         /// </summary>
         public static string EntityNameAdsTemplatesAdsElementTemplate {
@@ -3373,38 +3364,11 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Выгрузка сверок.
-        /// </summary>
-        public static string IntegrationTypeExportAccountSaldosTo1C {
-            get {
-                return ResourceManager.GetString("IntegrationTypeExportAccountSaldosTo1C", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Выгрузка лицевых счетов.
-        /// </summary>
-        public static string IntegrationTypeExportAccountsTo1C {
-            get {
-                return ResourceManager.GetString("IntegrationTypeExportAccountsTo1C", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Выгрузка данных.
         /// </summary>
         public static string IntegrationTypeExportDataForAutoMailer {
             get {
                 return ResourceManager.GetString("IntegrationTypeExportDataForAutoMailer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Выгрузка фирм с активными заказами.
-        /// </summary>
-        public static string IntegrationTypeExportFirmsWithActiveOrdersToDgpp {
-            get {
-                return ResourceManager.GetString("IntegrationTypeExportFirmsWithActiveOrdersToDgpp", resourceCulture);
             }
         }
         
@@ -3418,56 +3382,11 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Выгрузка заказов.
-        /// </summary>
-        public static string IntegrationTypeExportOrdersToBilling {
-            get {
-                return ResourceManager.GetString("IntegrationTypeExportOrdersToBilling", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Загрузка поступлений по лицевым счетам.
         /// </summary>
         public static string IntegrationTypeImportAccountDetailsFrom1C {
             get {
                 return ResourceManager.GetString("IntegrationTypeImportAccountDetailsFrom1C", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Загрузка рубрик.
-        /// </summary>
-        public static string IntegrationTypeImportCategoriesFromDgpp {
-            get {
-                return ResourceManager.GetString("IntegrationTypeImportCategoriesFromDgpp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Загрузка фирм.
-        /// </summary>
-        public static string IntegrationTypeImportFirmsFromDgpp {
-            get {
-                return ResourceManager.GetString("IntegrationTypeImportFirmsFromDgpp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Загрузка территорий.
-        /// </summary>
-        public static string IntegrationTypeImportTerritoriesFromDgpp {
-            get {
-                return ResourceManager.GetString("IntegrationTypeImportTerritoriesFromDgpp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Загрузка списаний.
-        /// </summary>
-        public static string IntegrationTypeImportWithdrawalsFromBilling {
-            get {
-                return ResourceManager.GetString("IntegrationTypeImportWithdrawalsFromBilling", resourceCulture);
             }
         }
         
@@ -4809,7 +4728,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string PositionsGroupNone {
             get {
                 return ResourceManager.GetString("PositionsGroupNone", resourceCulture);
-            }
+        }
         }
         
         /// <summary>
@@ -5443,6 +5362,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Доп. соглашение (смена привязки).
+        /// </summary>
+        public static string TemplateCodeBindingChangeAgreement {
+            get {
+                return ResourceManager.GetString("TemplateCodeBindingChangeAgreement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Клиентский договор.
         /// </summary>
         public static string TemplateCodeClientBargain {
@@ -5461,29 +5389,20 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Единый счёт на оплату для ИП.
+        ///   Looks up a localized string similar to Доп. соглашение (смена названия фирмы).
         /// </summary>
-        public static string TemplateCodeJointBillBusinessman {
+        public static string TemplateCodeFirmNameChangeAgreement {
             get {
-                return ResourceManager.GetString("TemplateCodeJointBillBusinessman", resourceCulture);
+                return ResourceManager.GetString("TemplateCodeFirmNameChangeAgreement", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Единый счёт на оплату для юр. лица.
+        ///   Looks up a localized string similar to Единый счёт на оплату.
         /// </summary>
-        public static string TemplateCodeJointBillLegalPerson {
+        public static string TemplateCodeJointBill {
             get {
-                return ResourceManager.GetString("TemplateCodeJointBillLegalPerson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Единый счёт на оплату для физ. лица.
-        /// </summary>
-        public static string TemplateCodeJointBillNaturalPerson {
-            get {
-                return ResourceManager.GetString("TemplateCodeJointBillNaturalPerson", resourceCulture);
+                return ResourceManager.GetString("TemplateCodeJointBill", resourceCulture);
             }
         }
         

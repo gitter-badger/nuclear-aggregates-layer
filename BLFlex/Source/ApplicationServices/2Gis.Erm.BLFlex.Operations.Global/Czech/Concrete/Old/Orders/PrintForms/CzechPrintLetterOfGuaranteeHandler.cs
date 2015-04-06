@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using BLResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
+using BLCoreResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.BLResources;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
 {
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
             if (data.ProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(BLCoreResources.LegalPersonProfileMustBeSpecified);
             }
 
             var branchOfficeOrganizationUnit = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrderId(orderId));

@@ -76,6 +76,17 @@ window.InitPage = function () {
                         failure: function (response) { Card.Mask.hide(); this.AddNotification(response.responseText, 'CriticalError', 'ServerError'); }
                     });
                 },
+                SetDocumentsDebt: function () {
+                    this.Items.Toolbar.disable();
+                    var params = "dialogWidth:" + 600 + "px; dialogHeight:" + 250 + "px; status:yes; scroll:no;resizable:no;";
+                    var url = Ext.urlAppend('/Order/SetOrderDocumentsDebt', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
+                    var result = window.showModalDialog(url, null, params);
+                    if (result == 'OK') {
+                        this.refresh();
+                    } else {
+                        this.recalcToolbarButtonsAvailability();
+                    }
+                },
                 checkDirty: function () {
                     if (this.form.Id.value == 0) {
                         Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
@@ -187,7 +198,7 @@ window.InitPage = function () {
                         }
                     });
                 },
-                Print: function (methodName) {
+                Print: function (methodName, businessModelSpecificArea) {
                     var entityId = Ext.getDom('Id').value;
                     var legalPersonId = Ext.getDom("LegalPersonId").value;
 
@@ -214,10 +225,10 @@ window.InitPage = function () {
                         return;
                     }
 
-                    this.PrintWithoutProfileChoosing(methodName, entityId);
+                    this.PrintWithoutProfileChoosing(methodName, entityId, null, businessModelSpecificArea);
                 },
                 PrepareJointBill: function () {
-                    var url = "/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value;
+                    var url = "/MultiCulture/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value;
                         var params = "dialogWidth:780px; dialogHeight:350px; status:yes; scroll:no;resizable:no;";
                         window.showModalDialog(url, null, params);
                         this.refresh();
@@ -971,6 +982,4 @@ window.InitPage = function () {
 
     this.on("afterbuild", this.discountChecker, this);
     this.on("formbind", this.discountChecker, this);
-    this.on("afterbuild", this.setupMenuAvailability, this);
-    this.on("formbind", this.setupMenuAvailability, this);
 };
