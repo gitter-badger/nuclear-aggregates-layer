@@ -11,19 +11,21 @@ namespace DoubleGis.Erm.BL.DB.Migrations._2._1
     {
         private const string ValidationQuery = @"select count(*)
   FROM [Billing].[DeniedPositions] dp 
-  left join [Billing].[DeniedPositions] dp1 on dp.PriceId = dp1.PriceId and dp.PositionId = dp1.PositionDeniedId and dp.PositionDeniedId = dp1.PositionId
+  left join [Billing].[DeniedPositions] dp1 on dp.PriceId = dp1.PriceId and dp.PositionId = dp1.PositionDeniedId and dp.PositionDeniedId = dp1.PositionId and dp.ObjectBindingType = dp1.ObjectBindingType
   where dp.PositionId != dp.PositionDeniedId and dp.IsDeleted = 0 and dp1.Id is null";
 
         #region Записи к удалению
         private readonly long[] _deniedPositionsToDelete =
             {
                 73292,
+                73320,
                 91390,
                 91464,
                 91472,
                 91473,
                 91480,
                 91481,
+                91520,
                 127236,
                 127244,
                 127245,
