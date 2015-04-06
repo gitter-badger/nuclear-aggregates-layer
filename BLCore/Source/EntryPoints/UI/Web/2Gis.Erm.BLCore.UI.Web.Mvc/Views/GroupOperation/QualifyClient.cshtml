@@ -82,11 +82,15 @@
                     var waitMask = new Ext.LoadMask(Ext.getBody());
                     waitMask.show();
 
-                    var checkUrl = Ext.BasicOperationsServiceRestUrl + 'CheckForDebts.svc/Rest/Client/' + Ext.encode(this.Config.Entities);
+                    var checkUrl = Ext.BasicOperationsServiceRestUrl + 'CheckForDebts.svc/Rest';
                     var response = window.Ext.Ajax.syncRequest({
                         timeout: 1200000,
                         url: checkUrl,
-                        method: 'POST'
+                        method: 'POST',
+                        jsonData: {
+                            entityName: 'Client',
+                            entityIds: Ext.encode(this.Config.Entities)
+                        }
                     });
 
                     waitMask.hide();

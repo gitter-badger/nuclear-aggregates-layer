@@ -9,9 +9,10 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.CheckForDebts
     [ServiceContract(SessionMode = SessionMode.NotAllowed, Namespace = ServiceNamespaces.BasicOperations.CheckForDebts201303)]
     public interface ICheckForDebtsApplicationRestService
     {
-         [OperationContract(Name = "ExecuteRest")]
-         [WebInvoke(Method = "POST", UriTemplate = "/{entityName}/{entityIds}", ResponseFormat = WebMessageFormat.Json)]
-         [FaultContract(typeof(CheckForDebtsOperationErrorDescription))]
-         CheckForDebtsResult Execute(string entityName, string entityIds);
+        [OperationContract(Name = "ExecuteRest")]
+        [WebInvoke(Method = "POST", UriTemplate = "/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        [FaultContract(typeof(CheckForDebtsOperationErrorDescription))]
+        CheckForDebtsResult Execute(string entityName, string entityIds);
     }
 }
