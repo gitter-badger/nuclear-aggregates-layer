@@ -173,6 +173,7 @@
     <Compile Include="Attributes\UseDependencyFieldsAttribute.cs" />
     <Compile Include="Attributes\ValidationAttributes.cs" />
     <Compile Include="Controllers\Base\ControllerBase.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
     <Compile Include="Controllers\EntityOperations\CreateOrUpdateController.cs" />
     <Compile Include="Controllers\EntityOperations\CrmCreateOrUpdateController.cs" />
     <Compile Include="Controllers\EntityOperations\EditController.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Settings\ConfigurationDto\NavigationDto.cs" />
     <Compile Include="Settings\ConfigurationDto\ToolbarJson.cs" />
     <Compile Include="Settings\ConfigurationDto\ToolbarJson.Server.cs" />
+    <Compile Include="Settings\ISupportDepartmentIntegrationSettings.cs" />
     <Compile Include="Settings\IReportsSettings.cs" />
     <Compile Include="Settings\IWebAppProcesingSettings.cs" />
     <Compile Include="Settings\WebAppSettingsExtension.cs" />
@@ -338,16 +340,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WithdrawalInfo.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Edit\AdditionalFirmAddressServices.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdditionalFirmAddressServices.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Edit\AdditionalFirmServices.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdditionalFirmServices.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Edit\EntityPrivileges.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -382,6 +374,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Assign.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\Cancel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cancel.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\GroupOperation\ChangeClientTerritory.generated.cs">
       <AutoGen>True</AutoGen>
@@ -589,14 +586,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>WithdrawalInfo.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\Edit\AdditionalFirmAddressServices.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>AdditionalFirmAddressServices.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Edit\AdditionalFirmServices.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>AdditionalFirmServices.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\Edit\EntityPrivileges.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>EntityPrivileges.generated.cs</LastGenOutput>
@@ -624,6 +613,10 @@
     <None Include="Views\GroupOperation\Assign.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Assign.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\Cancel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Cancel.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\GroupOperation\ChangeClientTerritory.cshtml">
       <Generator>RazorGenerator</Generator>

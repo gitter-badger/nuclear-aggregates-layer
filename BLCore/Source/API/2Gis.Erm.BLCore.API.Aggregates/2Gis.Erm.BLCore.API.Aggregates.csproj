@@ -58,6 +58,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Accounts\AccountingMethodExtensions.cs" />
     <Compile Include="Accounts\DTO\AccountDetailForExportDto.cs" />
     <Compile Include="Accounts\DTO\AccountDTOs.cs" />
     <Compile Include="Accounts\DTO\AccountIdAndOwnerCodeDto.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Accounts\DTO\WithdrawalDto.cs" />
     <Compile Include="Accounts\DTO\WithdrawFromAccountsDto.cs" />
     <Compile Include="Accounts\IAccountRepository.cs" />
+    <Compile Include="Accounts\Operations\AccountingMethodViolationException.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkActivateLocksAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCloseLimitsAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCreateLocksAggregateService.cs" />
@@ -100,6 +102,18 @@
     <Compile Include="Activities\IUpdatePhonecallAggregateService.cs" />
     <Compile Include="Activities\IUpdateLetterAggregateService.cs" />
     <Compile Include="Activities\IUpdateTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompletePhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenTaskAggregateService.cs" />
     <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
     <Compile Include="Activities\ReadModel\ITaskReadModel.cs" />
     <Compile Include="Activities\ReadModel\IAppointmentReadModel.cs" />
@@ -147,7 +161,7 @@
     <Compile Include="CommonService\MessageHelper.cs" />
     <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
     <Compile Include="Common\Crosscutting\ICheckInnService.cs" />
-    <Compile Include="Common\Crosscutting\ICheckOperationPeriodService.cs" />
+    <Compile Include="Common\Crosscutting\IMonthPeriodValidationService.cs" />
     <Compile Include="Common\Crosscutting\IConcurrentPeriodCounter.cs" />
     <Compile Include="Common\DTO\BusinessEntityInstanceDto.cs" />
     <Compile Include="Common\Generics\IActivateAggregateRepository.cs" />
@@ -166,7 +180,6 @@
     <Compile Include="Common\Specs\Dictionary\CategorySpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\OrganizationUnitSpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\TerritoryDtoSpecifications.cs" />
-    <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CountrySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CurrencySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\NoteSpecifications.cs" />
@@ -255,7 +268,6 @@
     <Compile Include="Orders\DTO\OrderLinkingObjectsDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberStates.cs" />
-    <Compile Include="Orders\DTO\OrderPositionPriceDto.cs" />
     <Compile Include="Orders\DTO\OrderWithDummyAdvertisementDto.cs" />
     <Compile Include="Orders\IBargainRepository.cs" />
     <Compile Include="Orders\IOrderRepository.cs" />
@@ -294,6 +306,8 @@
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="OrganizationUnits\Exceptions\OrganizationUnitHasNoProjectsException.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
+    <Compile Include="Positions\DTO\LinkingObjectsSchemaPositionDto.cs" />
+    <Compile Include="Positions\Operations\IChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
@@ -319,6 +333,7 @@
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeletePriceAggregateService.cs" />
     <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
+    <Compile Include="Prices\ReadModel\PriceSpecs.Positions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />
     <Compile Include="ProcessAccountsWithDebtsException.cs" />
@@ -336,10 +351,13 @@
     <Compile Include="Roles\IRoleRepository.cs" />
     <Compile Include="Roles\ReadModel\RoleSpecs.Relations.cs" />
     <Compile Include="Settings\IDebtProcessingSettings.cs" />
+    <Compile Include="SimplifiedModel\Categories\DTO\CategoryAsLinkingObjectDto.cs" />
+    <Compile Include="SimplifiedModel\Categories\DTO\LinkingObjectsSchemaCategoryDto.cs" />
     <Compile Include="SimplifiedModel\Categories\IBulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\IBulkDeleteSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ISalesModelCategoryRestrictionReadModel.cs" />
+    <Compile Include="SimplifiedModel\Currencies\ICurrencyReadModel.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />
@@ -420,7 +438,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />
-    <Folder Include="Positions\DTO\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\ReadModel\ClientSpecs.ClientLinks.cs" />

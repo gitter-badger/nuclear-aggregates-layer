@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int SetAsDefaultThemeIdentity = 29;
         public const int CreateIdentity = 30;
         public const int UpdateIdentity = 31;
-        public const int WithdrawalIdentity = 32;
+        public const int WithdrawIdentity = 32;
         public const int RevertWithdrawalIdentity = 33;
         public const int DetachIdentity = 34;
         public const int MsCrmExportIdentity = 35;
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int BulkCreateIdentity = 39;
         public const int BulkDeleteIdentity = 40;
         public const int BulkUpdateIdentity = 41;
-
+        
         // concrete operations
         public const int PrintOrderIdentity = 1000;
         public const int StartReleaseIdentity = 1005;
@@ -67,6 +67,10 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int GetFirmInfoIdentity = 1022;
         public const int ValidateOrdersIdentity = 1023;
         public const int RegisterOrderStateChangesIdentity = 1024;
+
+        public const int CancelIdentity = 1042;
+        public const int CompleteIdentity = 1043;
+        public const int ReopenIdentity = 1044;        
 
         // EntityName.ReleaseWithdrawal = 215
         public const int ActualizeOrderReleaseWithdrawalsIdentity = 21501;
@@ -94,6 +98,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportCardRelationForErmIdentity = 14608;
 
         // EntityName.FirmAddress = 164
+        [Obsolete]
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
         public const int ImportFirmAddressFromServiceBusIdentity = 16402;
 
@@ -131,6 +136,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int CheckIfOrderPositionCanBeCreatedForOrderIdentity = 15118;
         public const int CheckIfOrderPositionCanBeModifiedIdentity = 15119;
         public const int ChangeOrderLegalPersonProfileIdentity = 15120;
+        public const int PrintBindingChangeAgreementIdentity = 15121;
+        public const int PrintFirmNameChangeAgreementIdentity = 15122;
+        public const int PrintCancellationAgreementIdentity = 15123;
 
         // EntityName.Bill = 188
         public const int CalculateBillsIdentity = 18801;
@@ -143,6 +151,10 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ReplaceOrderPositionAdvertisementLinksIdentity = 15005;
         public const int ChangeOrderPositionBindingObjectsIdentity = 15006;
         public const int GetAvailableBinfingObjectsIdentity = 15007;
+        public const int CalculateOrderPositionPricePerUnitIdentity = 15008;
+
+        // EntityName.Position = 153
+        public const int ChangeSortingOrderIdentity = 15301;
 
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;
@@ -172,7 +184,10 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportOperationsInfoIdentity = 14101;
         public const int NotifyAboutAccountDetailModificationIdentity = 14102;
         public const int GetDebitsInfoInitialForExportIdentity = 14103;
-        public const int GetAccountDetailsForExportContentIdentity = 14104;
+        [Obsolete("Такой операции больше нет")]public const int GetAccountDetailsForExportContentIdentity = 14104;
+
+        // EntityName.Account = 142
+        public const int GetWithdrawalErrorsCsvReportIdentity = 14201;
 
         // EntityName.OrderProcessingRequest = 550
         public const int RequestOrderProlongationIdentity = 55001;

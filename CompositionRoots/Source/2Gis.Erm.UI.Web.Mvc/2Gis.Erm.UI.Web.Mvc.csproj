@@ -185,6 +185,7 @@
     <Compile Include="Settings\WebAppSettings.cs" />
     <Content Include="ClientBin\2Gis.Erm.BLCore.UI.Web.Silverlight.xap" />
     <Content Include="Content\Administration.css" />
+    <Content Include="Content\images\CommonUI\helpme.png" />
     <Content Include="Content\input-overlay.css" />
     <Content Include="Content\time-period.css" />
     <Content Include="Content\advertisement-element-status.css" />
@@ -704,6 +705,7 @@
     <Content Include="Scripts\Cyprus\Ext.DoubleGis.UI.LegalPerson.Cyprus.js" />
     <Content Include="Scripts\Czech\Ext.DoubleGis.UI.LegalPerson.Czech.js" />
     <Content Include="Scripts\DataList\AdvertisementElementDenialReason.DataList.js" />
+    <Content Include="Scripts\DataList\Position.DataList.js" />
     <Content Include="Scripts\DataList\ClientLink.DataList.js" />
     <Content Include="Scripts\DataList\FirmDeal.DataList.js" />
     <Content Include="Scripts\DataList\LegalPersonDeal.DataList.js" />
@@ -711,9 +713,11 @@
     <Content Include="Scripts\Emirates\DataList\Order.DataList.js" />
     <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.Client.Emirates.js" />
     <Content Include="Scripts\Emirates\MergeClients.Emirates.js" />
+    <Content Include="Scripts\Ext.DoubleGis.Store.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Deal.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Bargain.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementTemplate.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.PositionSortingOrder.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.SelectOrderProfile.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Price.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.LegalPerson.js" />
@@ -737,6 +741,7 @@
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.locale.kk-kz.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MultiCulture\DataList\Client.DataList.js" />
     <Content Include="Scripts\MultiCulture\DataList\LegalPerson.DataList.js" />
@@ -803,7 +808,6 @@
     <Content Include="Scripts\Ext.DoubleGis.UI.Limit.js" />
     <Content Include="Scripts\Ext.DoubleGis.Order.UpgradeResultWindow.js" />
     <Content Include="Scripts\DataList\LegalPersonProfile.DataList.js" />
-    <Content Include="Scripts\Ext.DoubleGis.UI.AdditionalFirmServicesControl.js" />
     <Content Include="Scripts\DataList\Advertisement.DataList.js" />
     <Content Include="Scripts\DataList\Bill.DataList.js" />
     <Content Include="Scripts\DataList\Client.DataList.js" />

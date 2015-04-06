@@ -72,6 +72,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             return File(stream, contentType, fileName);
         }
 
+        [HttpGet]
+        public FileResult OperationLog(Guid operationId)
+        {
+            return GetOperationLog(operationId);
+        }
+
         [HttpPost]
         public void CreateOperationWithErrorLog(Guid operationId, string log, string contentType, string logFileName)
         {
@@ -85,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                     Type = BusinessOperation.None,
                 };
 
-            _operationService.FinishOperation(operation, log, logFileName);
+            _operationService.CreateOperation(operation, log, logFileName);
         }
     }
 }

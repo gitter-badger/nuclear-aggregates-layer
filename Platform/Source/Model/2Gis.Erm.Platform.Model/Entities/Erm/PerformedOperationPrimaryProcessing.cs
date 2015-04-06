@@ -12,10 +12,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public DateTime CreatedOn { get; set; }
         public int AttemptCount { get; set; }
         public DateTime? LastProcessedOn { get; set; }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
     }
 }

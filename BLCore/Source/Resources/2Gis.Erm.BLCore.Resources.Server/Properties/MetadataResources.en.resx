@@ -1484,4 +1484,13 @@
   <data name="ChiefFullNameInNominative" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="PositionsGroup" xml:space="preserve">
+    <value>Nomenclature group</value>
+  </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Service accounting method</value>
+  </data>
+  <data name="ApplicationCityName" xml:space="preserve">
+    <value>Application city name</value>
+  </data>
 </root>

@@ -105,6 +105,7 @@
           <ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
+        <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -144,33 +145,6 @@
       <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListActivitiesForWarmClients" HideInCardRelatedGrid="*" />
       <!--Просроченные действия по теплым клиентам-->
       <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListOverdueActivitiesForWarmClients" HideInCardRelatedGrid="*"/>
-    </DataLists>
-  </Entity>
-  <Entity Name="AdditionalFirmService">
-    <Card EntityNameLocaleResourceId="AdditionalFirmServices" EntityMainAttribute="ServiceName" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
-      <ToolbarItems>
-        <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
-        <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
-      </ToolbarItems>
-    </Card>
-    <DataLists>
-      <DataList NameLocaleResourceId="AdditionalFirmServices" DefaultSortField="Id" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Description" Icon="en_ico_16_Default.gif">
-        <ToolbarItems>
-          <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
-          <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
-          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
-        </ToolbarItems>
-        <Fields>
-          <Field Name="Id" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="ServiceCode" Width="100" FieldType="String" ExtTypeName="String" />
-          <Field Name="Description" Width="250" FieldType="String" ExtTypeName="String" />
-          <Field Name="IsManaged" Width="50" FieldType="Boolean" ExtTypeName="Boolean" />
-        </Fields>
-      </DataList>
     </DataLists>
   </Entity>
   <Entity Name="AdsTemplatesAdsElementTemplate">
@@ -412,7 +386,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -1624,7 +1598,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -2219,7 +2193,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -2273,11 +2247,16 @@
     </Card>
     <DataLists>
       <DataList NameLocaleResourceId="DListPositions" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Position.gif">
+        <Scripts>
+          <Script FileName="DataList/Position.DataList.js" />
+        </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
           <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
           <ToolbarItem Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="65536" />
+          <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
+          <ToolbarItem Name="OpenSortingPage" NameLocaleResourceId="ControlOpenSortingPage" ControlType="TextButton" LockOnInactive="false" Action="scope.OpenSortingPage" SecurityPrivelegeFlag="2" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -2285,6 +2264,7 @@
           <Field Name="IsComposite" NameLocaleResourceId="DFieldIsComposite" Width="100" FieldType="Boolean" ExtTypeName="Boolean" />
           <Field Name="PlatformName" NameLocaleResourceId="Platform" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="CategoryName" NameLocaleResourceId="DFieldPositionCategoryName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="PositionsGroup" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="ExportCode" Width="100" FieldType="BigInt" ExtTypeName="Int" />
           <Field Name="RestrictChildPositionPlatforms" Width="100" Hidden="true" FieldType="Boolean" ExtTypeName="Boolean" />
         </Fields>
@@ -2355,6 +2335,21 @@
       </DataList>
     </DataLists>
   </Entity>
+  <Entity Name="PositionSortingOrder">
+    <Card CardNameLocaleResourceId="EnPositionSortingOrder" EntityMainAttribute="" HasComments="false" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Category.gif" LargeIcon="en_ico_lrg_Category.gif">
+      <ToolbarItems>
+        <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="2" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="2" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+        <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="AddPositions" NameLocaleResourceId="ControlAddPositions" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.AddPositions" SecurityPrivelegeFlag="2" />
+        <ToolbarItem Name="RemovePositions" NameLocaleResourceId="ControlRemovePositions" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.RemovePositions" SecurityPrivelegeFlag="2" />
+      </ToolbarItems>
+    </Card>
+  </Entity>
   <Entity Name="PricePosition">
     <Card EntityNameLocaleResourceId="EnPricePositions" EntityMainAttribute="PositionName" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_PricePosition.gif" LargeIcon="en_ico_lrg_PricePosition.gif">
       <ToolbarItems>
@@ -2378,7 +2373,7 @@
       </RelatedItems>
     </Card>
     <DataLists>
-      <DataList NameLocaleResourceId="DListPricePositions" DefaultSortField="PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
+      <DataList NameLocaleResourceId="DListPricePositions" DefaultSortField="SortingIndex,PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="65536" />
@@ -2394,7 +2389,7 @@
           <Field Name="PositionId" NameLocaleResourceId="DFieldPositionId" Width="250" Hidden="true" FieldType="String" ExtTypeName="String" />
         </Fields>
       </DataList>
-      <DataList NameLocaleResourceId="DListPricePositionsInactive" DefaultSortField="PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
+      <DataList NameLocaleResourceId="DListPricePositionsInactive" DefaultSortField="SortingIndex,PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
         <ToolbarItems>
           <ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
         </ToolbarItems>
@@ -2601,7 +2596,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -2933,6 +2928,7 @@
           <Field Name="FinishDate" NameLocaleResourceId="EndDate" Width="120" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="OrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="OrganizationUnitId" />
+          <Field Name="AccountingMethod" Width="80" FieldType="String" ExtTypeName="String" />
           <Field Name="Status" Width="80" FieldType="String" ExtTypeName="String" />
           <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="Owner" NameLocaleResourceId="Owner" Width="120" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />

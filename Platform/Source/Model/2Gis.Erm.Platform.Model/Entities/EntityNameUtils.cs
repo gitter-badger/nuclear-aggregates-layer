@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         /// <summary>
         /// Список значений EntityName, являющихся виртуальными, т.е. существующими только в виде UI-форм
         /// </summary>
-        public static readonly EntityName[] VirtualEntityNames = { EntityName.CategoryGroupMembership };
+        public static readonly EntityName[] VirtualEntityNames = { EntityName.CategoryGroupMembership, EntityName.PositionSortingOrder };
 
         /// <summary>
         /// Список значений EntityName, являющихся расширением для какой-либо инсталляции, данные fake сущности не являются элементами доменной модели ERM, 
@@ -57,6 +57,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.Appointment,
                 EntityName.AppointmentRegardingObject,
 				EntityName.AppointmentAttendee,
+                EntityName.AppointmentOrganizer,
                 EntityName.Phonecall,
                 EntityName.PhonecallRegardingObject,
 				EntityName.PhonecallRecipient,

@@ -1377,11 +1377,14 @@
   <data name="EnMOperation" xml:space="preserve">
     <value>Operace</value>
   </data>
-  <data name="AdditionalFirmServices" xml:space="preserve">
-    <value>Doplň. služby</value>
-  </data>
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value>Čestné prohlášení Objednavatele (změna RM)</value>
+  </data>
+  <data name="ControlPrintFirmNameChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>  
+  <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ControlDetachFirm" xml:space="preserve">
     <value>Zrušit propojení s klientem</value>
@@ -1865,5 +1868,17 @@
   </data>
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Změnit profil</value>
+  </data>
+  <data name="ControlAddPositions" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="ControlRemovePositions" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="ControlOpenSortingPage" xml:space="preserve">
+    <value>Задать сортировку...</value>
+  </data>
+  <data name="EnPositionSortingOrder" xml:space="preserve">
+    <value>Сортировка позиций номенклатуры</value>
   </data>
 </root>

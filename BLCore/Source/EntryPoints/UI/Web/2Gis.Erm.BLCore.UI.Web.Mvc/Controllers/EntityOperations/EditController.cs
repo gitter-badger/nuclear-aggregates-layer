@@ -55,27 +55,5 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
             return View(new EditPrivilegeViewModel { RoleId = entityId.Value });
         }
-
-        [HttpGet]
-        public ActionResult AdditionalFirmServices(EntityName entityTypeName, long? entityId, string entityState)
-        {
-            if (!entityId.HasValue)
-            {
-                throw new NotificationException(BLResources.IdentifierNotSet);
-            }
-
-            return View(new IdModel { Id = entityId.Value });
-        }
-
-        [HttpGet]
-        public ActionResult AdditionalFirmAddressServices(EntityName entityTypeName, long? entityId, string entityState)
-        {
-            if (!entityId.HasValue)
-            {
-                throw new NotificationException(BLResources.IdentifierNotSet);
-            }
-
-            return View(new IdModel { Id = entityId.Value });
-        }
     }
 }

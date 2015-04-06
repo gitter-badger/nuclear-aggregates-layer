@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
             if (!request.Entity.IsNew())
             {
-                var personWithProfiles = _legalPersonReadModel.GetLegalPersonWithProfileExistanceInfo(request.Entity.Id);
+                var personWithProfiles = _legalPersonReadModel.GetLegalPersonWithProfileExistenceInfo(request.Entity.Id);
                 if (!personWithProfiles.LegalPersonHasProfiles)
                 {
                     throw new NotificationException(BLResources.MustMakeLegalPersonProfile);
