@@ -75,6 +75,7 @@
     <Compile Include="Config\Bootstrapper.Russia.cs" />
     <Compile Include="Config\Bootstrapper.Czech.cs" />
     <Compile Include="Config\Bootstrapper.Cyprus.cs" />
+    <Compile Include="Shared\OrderNumberGenerationStrategiesContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">

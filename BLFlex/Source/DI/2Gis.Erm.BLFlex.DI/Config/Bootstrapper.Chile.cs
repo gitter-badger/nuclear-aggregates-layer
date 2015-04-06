@@ -6,13 +6,11 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Clients;
-using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
-using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Orders;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
-using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete;
+using DoubleGis.Erm.BLFlex.DI.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
@@ -76,13 +74,13 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureChileSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                .RegisterType<IOrderNumberTemplatesProvider, ChileOrderNumberTemplatesProvider>(Lifetime.Singleton)
-                .RegisterType<IOrderNumberGenerationStrategiesProvider, RomanAlphabetCountriesOrderNumberGenerationStrategiesProvider>(Lifetime.Singleton)
                 .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}"))
                 // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
-                        .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
-                .RegisterTypeWithDependencies<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, null)
-                        .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
+                .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
+                .RegisterType<IEvaluateOrderNumberService, ChileEvaluateOrderNumberService>(Lifetime.Singleton,
+                                                                                            new InjectionConstructor(
+                                                                                                OrderNumberGenerationStrategiesContainer.StrategiesForRomanAlphabetCountries))
+                .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 
         // TODO переделать на нормальную метадату

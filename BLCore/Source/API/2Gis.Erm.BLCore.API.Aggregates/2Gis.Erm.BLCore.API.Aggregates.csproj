@@ -273,9 +273,7 @@
     <Compile Include="Orders\IOrderRepository.cs" />
     <Compile Include="Orders\Operations\Bargains\ICloseClientBargainsAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillDateService.cs" />
-    <Compile Include="Orders\Operations\Crosscutting\IOrderNumberGenerationStrategiesProvider.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IOrderNumberGenerationStrategy.cs" />
-    <Compile Include="Orders\Operations\Crosscutting\IOrderNumberTemplatesProvider.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeAmountToWithdrawAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IBulkDeleteBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IBulkCreateBillAggregateService.cs" />

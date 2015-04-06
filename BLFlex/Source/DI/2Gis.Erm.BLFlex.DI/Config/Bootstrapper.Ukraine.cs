@@ -5,18 +5,16 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
-using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Clients;
-using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Ukraine.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.DI.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
-using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -62,11 +60,11 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureUkraineSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                .RegisterType<IOrderNumberTemplatesProvider, UkraineOrderNumberTemplatesProvider>(Lifetime.Singleton)
-                .RegisterType<IOrderNumberGenerationStrategiesProvider, RussiaOrderNumberGenerationStrategiesProvider>(Lifetime.Singleton)
                 .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
                 .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
-                .RegisterTypeWithDependencies<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, null)
+                .RegisterType<IEvaluateOrderNumberService, UkraineEvaluateOrderNumberService>(Lifetime.Singleton,
+                                                                                              new InjectionConstructor(
+                                                                                                  OrderNumberGenerationStrategiesContainer.StrategiesForCyrillicAlphabetCountries))
                 .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 
