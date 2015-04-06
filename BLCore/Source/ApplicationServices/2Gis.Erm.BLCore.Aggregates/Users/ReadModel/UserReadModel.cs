@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel.DTO;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -28,9 +29,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
             return _finder.Find(UserSpecs.UserProfiles.Find.ForUser(userid)).SingleOrDefault();
         }
 
-        public IEnumerable<UserRole> GetUserRoles(long userid)
+        public UserWithRoleRelationsDto GetUserWithRoleRelations(long userid)
         {
-            return _finder.Find(UserSpecs.UserRoles.Find.ForUser(userid)).ToArray();
+            return _finder.Find(Specs.Find.ById<User>(userid))
+                            .Select(x => new UserWithRoleRelationsDto
+                                        {
+                                            User = x,
+                                            RolesRelations = x.UserRoles
+                                        })
+                            .Single();
         }
 
         public User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelegeName)
@@ -78,6 +85,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
             }
 
             return null;
+        }
+
+        public IDictionary<long, string> GetUserNames(IEnumerable<long> userIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<User>(userIds))
+                          .ToDictionary(user => user.Id, user => user.DisplayName);
         }
     }
 }

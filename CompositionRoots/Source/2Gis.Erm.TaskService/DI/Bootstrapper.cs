@@ -44,7 +44,6 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -75,13 +74,16 @@ using DoubleGis.Erm.TaskService.Config;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+
 using Quartz.Spi;
 
 namespace DoubleGis.Erm.TaskService.DI
 {
     public static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer tracer, ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -117,7 +119,8 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                     settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                    settingsContainer.AsSettings<IIntegrationSettings>()))
+                                                                          tracer, 
+                                                                          tracerContextManager))
                             .ConfigureServiceClient();
 
             container.ConfigureElasticApi(settingsContainer.AsSettings<INestSettings>())
@@ -131,9 +134,19 @@ namespace DoubleGis.Erm.TaskService.DI
             return Lifetime.PerScope;
         }
 
-        private static IUnityContainer ConfigureUnity(this IUnityContainer container, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings, IGlobalizationSettings globalizationSettings, IMsCrmSettings msCrmSettings, ICachingSettings cachingSettings, IOperationLoggingSettings operationLoggingSettings, IIntegrationSettings integrationSettings)
+        private static IUnityContainer ConfigureUnity(
+            this IUnityContainer container, 
+            IEnvironmentSettings environmentSettings, 
+            IConnectionStringSettings connectionStringSettings, 
+            IGlobalizationSettings globalizationSettings, 
+            IMsCrmSettings msCrmSettings, 
+            ICachingSettings cachingSettings, 
+            IOperationLoggingSettings operationLoggingSettings,
+            ITracer tracer, 
+            ITracerContextManager tracerContextManager)
         {
             return container
+                    .ConfigureTracing(tracer, tracerContextManager)
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
                     .CreateSecuritySpecific()
@@ -155,14 +168,14 @@ namespace DoubleGis.Erm.TaskService.DI
         private static void CheckConventionsComplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
-                                               {
-                                                   typeof(BLResources),
-                                                   typeof(MetadataResources),
-                                                   typeof(EnumResources)
-                                               };
+        {
+                    typeof(BLResources),
+                    typeof(MetadataResources),
+                    typeof(EnumResources)
+                };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-        }
+            }
 
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IMsCrmSettings msCrmSettings)
         {
@@ -204,6 +217,7 @@ namespace DoubleGis.Erm.TaskService.DI
                 .RegisterTypeWithDependencies<ISecurityServiceSharings, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(Lifetime.PerScope, MappingScope)
                 .RegisterType<IUserContext, UserContext>(Lifetime.PerScope, new InjectionFactory(c => new UserContext(null, null)))
+                .RegisterType<IUserLogonAuditor, LoggerContextUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISignInService, WindowsIdentitySignInService>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<IUserImpersonationService, UserImpersonationService>(Lifetime.PerScope, MappingScope);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel.DTO;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -16,6 +17,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public bool AnyLocks { get; set; }
     }
 
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
     public sealed class OrderDiscountsDto
     {
         public decimal DiscountPercent { get; set; }
@@ -39,6 +41,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
     {
         public long OrderId { get; set; }
         public decimal PayablePlan { get; set; }
+    }
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class VatRateDetailsDto
+    {
+        public decimal VatRate { get; set; }
+        public bool ShowVat { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
@@ -97,7 +106,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public decimal? DiscountSum { get; set; }
         public short ReleaseCountFact { get; set; }
         public bool DiscountInPercent { get; set; }
-        public bool IsBudget { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
@@ -112,11 +120,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public sealed class OrderPositionRebindingDto
+    public sealed class OrderPositionAdvertisementLinksDto
     {
-        public int AdverisementCount { get; set; }
+        public IEnumerable<OrderPositionAdvertisement> AdvertisementLinks { get; set; }
         public PositionBindingObjectType BindingType { get; set; }
-        public OrderState OrderWorkflowSate { get; set; }
+        public OrderState OrderWorkflowState { get; set; }
         public long OrderId { get; set; }
     }
 
@@ -148,14 +156,21 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public sealed class RepairOutdatedOrderPositionDto
+    public sealed class OrderRepairOutdatedOrderPositionDto
+    {
+        public IEnumerable<OrderReleaseTotal> ReleaseTotals { get; set; }
+        public IEnumerable<OrderPositionDto> OrderPositions { get; set; }
+        
+        public sealed class OrderPositionDto
     {
         public OrderPosition OrderPosition { get; set; }
         public string PositionName { get; set; }
         public PricePosition PricePosition { get; set; }
         public IEnumerable<OrderPositionAdvertisement> Advertisements { get; set; }
         public IEnumerable<AdvertisementDescriptor> ClonedAdvertisements { get; set; }
-        public IEnumerable<ReleaseWithdrawal> Withdrawals { get; set; }
+            
+            public IEnumerable<OrderReleaseWithdrawalDto> ReleaseWithdrawals { get; set; }
+        }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
@@ -184,6 +199,21 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public bool IsDeactivationAllowed { get; set; }
         public string DeactivationConfirmation { get; set; }
         public string DeactivationDisallowedReason { get; set; }
+    }
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class OrderPositionSalesModelDto
+    {
+        public long OrderPositionId { get; set; }
+        public SalesModel SalesModel { get; set; }
+    }
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class OrderDtoToCheckPossibilityOfOrderPositionCreation
+    {
+        public long OrderId { get; set; }
+        public long FirmId { get; set; }
+        public IEnumerable<OrderPositionSalesModelDto> OrderPositions { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]

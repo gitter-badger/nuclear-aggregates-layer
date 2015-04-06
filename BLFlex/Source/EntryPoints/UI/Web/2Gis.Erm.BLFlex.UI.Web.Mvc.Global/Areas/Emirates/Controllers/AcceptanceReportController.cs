@@ -10,9 +10,11 @@ using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Concrete.Ol
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
 {
@@ -21,18 +23,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
         private readonly IPublicService _publicService;
 
         public AcceptanceReportController(IMsCrmSettings msCrmSettings,
-                                          IUserContext userContext,
-                                          ICommonLog logger,
                                           IAPIOperationsServiceSettings operationsServiceSettings,
                                           IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                          IAPIIdentityServiceSettings identityServiceSettings,
+                                          IUserContext userContext,
+                                          ITracer tracer,
                                           IGetBaseCurrencyService getBaseCurrencyService,
                                           IPublicService publicService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
         }

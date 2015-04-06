@@ -1,8 +1,9 @@
-﻿using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Resources.Client;
+﻿using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Notifications;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers
 {
@@ -13,17 +14,17 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers
     public sealed class MessageNotProcessedHandler<TMessage> : UseCaseSyncMessageHandlerBase<TMessage>, IFinisingProcessingMessagesHandler
         where TMessage : class, IMessage
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public MessageNotProcessedHandler(ICommonLog logger)
+        public MessageNotProcessedHandler(ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
         }
 
         protected override IMessageProcessingResult ConcreteHandle(TMessage message, IUseCase useCase)
         {
             var msg = string.Format("Not processed message. UseCase:{0}.Message:{1}", useCase, message);
-            _logger.ErrorEx(msg);
+            _tracer.Error(msg);
             useCase.Post(
                 new NotificationMessage(
                     new INotification[]

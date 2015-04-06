@@ -73,7 +73,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         public string BankName { get; set; }
 
         [StringLengthLocalized(512, MinimumLength = 0)]
-        public string AdditionalPaymentElements { get; set; }
+        [DisplayNameLocalized("AdditionalPaymentElements")]
+        public string PaymentEssentialElements { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -109,7 +110,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
             PaymentMethod = modelDto.PaymentMethod;
             IBAN = modelDto.IBAN;
             BankName = modelDto.BankName;
-            AdditionalPaymentElements = modelDto.AdditionalPaymentElements;
+            PaymentEssentialElements = modelDto.PaymentEssentialElements;
             SWIFT = modelDto.SWIFT;
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
             PositionInNominative = modelDto.PositionInNominative;
@@ -136,12 +137,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
                     IBAN = IBAN.EnsureСleanness(),
                     SWIFT = SWIFT.EnsureСleanness(),
                     BankName = BankName.EnsureСleanness(),
-                    AdditionalPaymentElements = AdditionalPaymentElements.EnsureСleanness(),
+                    PaymentEssentialElements = PaymentEssentialElements.EnsureСleanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
                     PositionInNominative = PositionInNominative.EnsureСleanness(),
                     PostAddress = PostAddress.EnsureСleanness(),
                     OwnerRef = Owner.ToReference(),
+                    Email = Email.EnsureСleanness(),
                     EmailForAccountingDocuments = EmailForAccountingDocuments.EnsureСleanness(),
                     PersonResponsibleForDocuments = PersonResponsibleForDocuments.EnsureСleanness(),
                     Phone = PhoneNumber.EnsureСleanness(),

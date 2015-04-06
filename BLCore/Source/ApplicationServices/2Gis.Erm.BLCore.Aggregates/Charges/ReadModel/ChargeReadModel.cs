@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
@@ -101,10 +102,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
         {
             var chargesQuery = _finder.Find<Charge>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
-                                AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId, period))
+                                AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
+                                AccountSpecs.Locks.Find.ForPeriod(period.Start, period.End))
                           .SelectMany(x => x.Order.OrderPositions.Select(op => new { OrderPosition = op, x.Order, Lock = x }))
                           .Where(x => x.OrderPosition.IsActive && !x.OrderPosition.IsDeleted &&
-                                      x.OrderPosition.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision)
+                                        SalesModelUtil.PlannedProvisionSalesModels.Contains(x.OrderPosition.PricePosition.Position.SalesModel))
                           .GroupJoin(chargesQuery,
                                      opWithlock => opWithlock.OrderPosition.Id,
                                      charge => charge.OrderPositionId,
@@ -119,7 +121,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
                                                  },
                                              OrderPositionInfo = new OrderPositionInfoDto
                                                  {
-                                                     PurchasedPositionId = x.OrderPosition.PricePosition.PositionId,
                                                      AmountToWithdraw = x.OrderPosition.ReleasesWithdrawals.Where(rw =>
                                                                                                             rw.ReleaseBeginDate == period.Start &&
                                                                                                             rw.ReleaseEndDate == period.End)
@@ -127,16 +128,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
                                                                                  .FirstOrDefault(),
                                                      PriceId = x.OrderPosition.PricePosition.PriceId,
                                                      CategoryRate = x.OrderPosition.CategoryRate,
-                                                     Amount = x.OrderPosition.Amount,
-                                                     DiscountSum = x.OrderPosition.DiscountSum,
                                                      DiscountPercent = x.OrderPosition.DiscountPercent,
-                                                     CalculateDiscountViaPercent = x.OrderPosition.CalculateDiscountViaPercent,
                                                      OrderPositionId = x.OrderPosition.Id
                                                  },
                                              Lock = x.Lock,
                                              ChargeInfo = charges.Select(c => new ChargeInfoDto
                                                  {
-                                                     PositionId = c.PositionId,
+                                                     Amount = c.Amount,
                                                      ProjectId = c.ProjectId,
                                                      SessionId = c.SessionId
                                                  }).FirstOrDefault()

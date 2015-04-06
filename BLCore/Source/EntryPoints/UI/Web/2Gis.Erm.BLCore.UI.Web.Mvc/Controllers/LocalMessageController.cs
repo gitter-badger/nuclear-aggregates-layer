@@ -20,14 +20,16 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -43,21 +45,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly ILocalMessageRepository _localMessageRepository;
 
         public LocalMessageController(IMsCrmSettings msCrmSettings,
-                                      IUserContext userContext,
-                                      ICommonLog logger,
-                                      ISecurityServiceFunctionalAccess functionalAccessService,
-                                      IPublicService publicService,
-                                      ILocalMessageRepository localMessageRepository,
                                       IAPIOperationsServiceSettings operationsServiceSettings,
                                       IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                      IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+                                      IAPIIdentityServiceSettings identityServiceSettings,
+                                      IUserContext userContext,
+                                      ITracer tracer,
+                                      IGetBaseCurrencyService getBaseCurrencyService,
+                                      ISecurityServiceFunctionalAccess functionalAccessService,
+                                      IPublicService publicService,
+                                      ILocalMessageRepository localMessageRepository)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
@@ -65,6 +62,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         }
 
         #region import from file
+
 
         [HttpGet, UseDependencyFields]
         public ActionResult ImportFromFile()
@@ -185,8 +183,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                           ? viewModel.PeriodStartFor1C
                                           : viewModel.PeriodStart,
                         SendingType = viewModel.MailSendingType,
-                        IncludeRegionalAdvertisement = viewModel.IncludeRegionalAdvertisement,
-                        CreateCsvFile = viewModel.CreateCsvFile
+                        IncludeRegionalAdvertisement = viewModel.IncludeRegionalAdvertisement
                     };
 
                 if(viewModel.OrganizationUnit != null && viewModel.OrganizationUnit.Key != null)

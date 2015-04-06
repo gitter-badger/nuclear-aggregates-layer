@@ -3,9 +3,9 @@ using System.Configuration;
 using System.IO;
 using System.Xml;
 
-using DoubleGis.Erm.Platform.Common.Settings;
-
 using nJupiter.Configuration;
+
+using NuClear.Settings.API;
 
 namespace DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings
 {

@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.BranchOfficeOrganizationUnits;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Olap;
@@ -24,7 +23,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.UserProfiles;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
-using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -49,7 +47,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserProfiles;
-using DoubleGis.Erm.BLCore.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.OrderValidation;
@@ -57,6 +54,7 @@ using DoubleGis.Erm.BLCore.Releasing.Release.Old;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Russia.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.AccountDetails;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old;
@@ -225,62 +223,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Handlers.OrderPositions.EditOrderPositionHandler\Handle",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CanCreateOrderPositionForOrderHandler),
-                        Request = typeof(CanCreateOrderPositionForOrderRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\CanCreateOrderPositionsForOrder",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CanCreateOrderPositionForOrderHandler),
-                        Request = typeof(CanCreateOrderPositionForOrderRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\SavePayments",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CreateBillsHandler),
-                        Request = typeof(CreateBillsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DeleteBillsHandler),
-            Request = typeof(DeleteBillsRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\SavePayments",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CreateBillsHandler),
-                        Request = typeof(CreateBillsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DeleteBillsHandler),
-            Request = typeof(DeleteBillsRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintOrder",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
@@ -321,8 +263,8 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
                     {
-                        ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
-                        Request = typeof(CalculateReleaseWithdrawalsRequest)
+                        ContainingClass = typeof(ActualizeOrderReleaseWithdrawalsHandler),
+                        Request = typeof(ActualizeOrderReleaseWithdrawalsRequest)
                     }
                 },
                 new UseCase
@@ -331,8 +273,8 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
                     {
-                        ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
-                        Request = typeof(CalculateReleaseWithdrawalsRequest)
+                        ContainingClass = typeof(ActualizeOrderReleaseWithdrawalsHandler),
+                        Request = typeof(ActualizeOrderReleaseWithdrawalsRequest)
                     }
                 },
                 new UseCase
@@ -473,16 +415,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(EditAdvertisementTemplateHandler),
                         Request = typeof(EditRequest<AdvertisementTemplate>)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(EditBillHandler),
-                        Request = typeof(EditRequest<Bill>)
                     }
                 },
                 new UseCase
@@ -729,8 +661,8 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
             {
                 new UseCaseNode(2)
                 {
-                    ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
-                    Request = typeof(CalculateReleaseWithdrawalsRequest)
+                    ContainingClass = typeof(ActualizeOrderReleaseWithdrawalsHandler),
+                    Request = typeof(ActualizeOrderReleaseWithdrawalsRequest)
                 }
             }
         },
@@ -742,8 +674,8 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
             {
                 new UseCaseNode(2)
                 {
-                    ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
-                    Request = typeof(CalculateReleaseWithdrawalsRequest)
+                    ContainingClass = typeof(ActualizeOrderReleaseWithdrawalsHandler),
+                    Request = typeof(ActualizeOrderReleaseWithdrawalsRequest)
                 }
             }
         },
@@ -755,8 +687,8 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
             {
                 new UseCaseNode(2)
                 {
-                    ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
-                    Request = typeof(CalculateReleaseWithdrawalsRequest)
+                    ContainingClass = typeof(ActualizeOrderReleaseWithdrawalsHandler),
+                    Request = typeof(ActualizeOrderReleaseWithdrawalsRequest)
                 },
             }
         },
@@ -790,8 +722,8 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         },
         new UseCaseNode(1)
         {
-            ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
-            Request = typeof(CalculateReleaseWithdrawalsRequest)
+            ContainingClass = typeof(ActualizeOrderReleaseWithdrawalsHandler),
+            Request = typeof(ActualizeOrderReleaseWithdrawalsRequest)
         }
     }
                     }
@@ -804,24 +736,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(CreateBillInfoForOrdersByTemplateHandler),
                         Request = typeof(CreateBillInfoForOrdersByTemplateRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintAdditionalAgreement",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(PrintOrderAdditionalAgreementHandler),
-                        Request = typeof(PrintOrderAdditionalAgreementRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(PrintDocumentHandler),
-            Request = typeof(PrintDocumentRequest)
-        }
-    }
                     }
                 },
                 new UseCase
@@ -876,28 +790,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(ExportLegalPersonsHandler),
             Request = typeof(ExportLegalPersonsRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
         },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ExportAccountDetailsTo1CForBranchHandler),
-            Request = typeof(ExportAccountDetailsTo1CForBranchRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
-        }
     }
                     }
                 },
@@ -933,28 +826,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(ExportLegalPersonsHandler),
             Request = typeof(ExportLegalPersonsRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
         },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ExportAccountDetailsTo1CForBranchHandler),
-            Request = typeof(ExportAccountDetailsTo1CForBranchRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-                    Request = typeof(ValidateLegalPersonsFor1CRequest)
-                }
-            }
-        }
     }
                     }
                 },
@@ -966,16 +838,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(SaveLocalMessageHandler),
                         Request = typeof(SaveLocalMessageRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderPositionController\CustomizeModelAfterMetadataReady",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CheckIsBindingObjectChangeAllowedHandler),
-                        Request = typeof(CheckIsBindingObjectChangeAllowedRequest)
                     }
                 },
                 new UseCase
@@ -1068,42 +930,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(PrintDocumentHandler),
             Request = typeof(PrintDocumentRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderPositionController\ChangeBindingObjects",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ChangeBindingObjectsHandler),
-                        Request = typeof(ChangeBindingObjectsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(CheckIsBindingObjectChangeAllowedHandler),
-            Request = typeof(CheckIsBindingObjectChangeAllowedRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\GetInitPaymentsInfo",
-                    MaxUseCaseDepth = 2,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(GetInitPaymentsInfoHandler),
-                        Request = typeof(GetInitPaymentsInfoRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(DistributeBillPaymentsHandler),
-            Request = typeof(DistributeBillPaymentsRequest),
         }
     }
                     }
@@ -1260,16 +1086,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.BillController\DeleteAll",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(DeleteBillsHandler),
-                        Request = typeof(DeleteBillsRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Handlers.Orders.Discounts.UpdateOrderDiscountHandler\Handle",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
@@ -1372,29 +1188,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(RecalculateOrderPositionDiscountHandler),
                         Request = typeof(RecalculateOrderPositionDiscountRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.AccountController\ExportTo1CDialog",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ExportAccountDetailsTo1CForFranchiseesHandler),
-                        Request = typeof(ExportAccountDetailsTo1CForFranchiseesRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(CreateLocalMessageHandler),
-            Request = typeof(CreateLocalMessageRequest)
-        },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ValidateLegalPersonsFor1CHandler),
-            Request = typeof(ValidateLegalPersonsFor1CRequest)
-        }
-    }
                     }
                 },
                 new UseCase
@@ -1617,20 +1410,10 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
     {
         new UseCaseNode(1)
         {
-            ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
-            Request = typeof(CalculateReleaseWithdrawalsRequest)
+            ContainingClass = typeof(ActualizeOrderReleaseWithdrawalsHandler),
+            Request = typeof(ActualizeOrderReleaseWithdrawalsRequest)
         },
     }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintOrder",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(SetLegalPersonProfileForOrderHandler),
-                        Request = typeof(ChangeOrderLegalPersonProfileRequest)
                     }
                 }
             };

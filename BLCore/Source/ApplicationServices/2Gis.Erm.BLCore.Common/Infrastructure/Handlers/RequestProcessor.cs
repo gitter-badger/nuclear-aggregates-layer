@@ -2,19 +2,20 @@
 
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers
 {
     public sealed class RequestProcessor : IRequestProcessor, ISubRequestProcessor
     {
         private readonly IRequestHandlerFactory _requestHandlerFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public RequestProcessor(IRequestHandlerFactory requestHandlerFactory, ICommonLog logger)
+        public RequestProcessor(IRequestHandlerFactory requestHandlerFactory, ITracer tracer)
         {
             _requestHandlerFactory = requestHandlerFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public Response HandleRequest(Request request)
@@ -71,12 +72,12 @@ namespace DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers
             try
             {
                 var response = handlerDescriptor.Handler.Handle(request);
-                _logger.DebugFormatEx("Обработка запроса: '{0}' прошла успешно", requestName);
+                _tracer.DebugFormat("Обработка запроса: '{0}' прошла успешно", requestName);
                 return response;
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "При обработке запроса: '{0}' произошла ошибка", requestName);
+                _tracer.ErrorFormat(ex, "При обработке запроса: '{0}' произошла ошибка", requestName);
                 throw;
             }
         }

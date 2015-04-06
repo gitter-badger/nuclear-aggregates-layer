@@ -2,19 +2,30 @@
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Price;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+
+using Newtonsoft.Json;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -25,26 +36,31 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
         private readonly ICopyPriceOperationService _copyPriceOperationService;
         private readonly IReplacePriceOperationService _replacePriceOperationService;
+        private readonly IUIConfigurationService _configurationService;
+        private readonly IPositionReadModel _positionReadModel;
+        private readonly IChangePositionSortingOrderOperationService _changePositionSortingOrderOperationService;
 
         public PriceController(IMsCrmSettings msCrmSettings,
-                               IUserContext userContext,
-                               ICommonLog logger,
-                               IPublicService publicService,
                                IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                               IAPIIdentityServiceSettings identityServiceSettings,
+                               IUserContext userContext,
+                               ITracer tracer,
                                IGetBaseCurrencyService getBaseCurrencyService,
+                               IPublicService publicService,
                                ICopyPriceOperationService copyPriceOperationService,
-                               IReplacePriceOperationService replacePriceOperationService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                               IReplacePriceOperationService replacePriceOperationService,
+                               IUIConfigurationService configurationService,
+                               IPositionReadModel positionReadModel,
+                               IChangePositionSortingOrderOperationService changePositionSortingOrderOperationService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
             _copyPriceOperationService = copyPriceOperationService;
             _replacePriceOperationService = replacePriceOperationService;
+            _configurationService = configurationService;
+            _positionReadModel = positionReadModel;
+            _changePositionSortingOrderOperationService = changePositionSortingOrderOperationService;
         }
 
         [HttpGet]
@@ -126,7 +142,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelUtils.OnException(this, Logger, viewModel, ex);
+                    ModelUtils.OnException(this, Tracer, viewModel, ex);
                 }
             }
 
@@ -168,10 +184,43 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public ViewResult PositionSortingOrder()
+        {
+            var model = new PositionSortingOrderViewModel
+            {
+                ViewConfig =
+                {
+                    EntityName = EntityName.PositionSortingOrder,
+                    PType = EntityName.None
+                }
+            };
+
+            var cardSettings = _configurationService.GetCardSettings(EntityName.PositionSortingOrder, UserContext.Profile.UserLocaleInfo.UserCultureInfo);
+            model.ViewConfig.CardSettings = cardSettings.ToCardJson();
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public JsonNetResult PositionSortingOrderData()
+        {
+            var data = _positionReadModel.GetPositionsSortingOrder();
+            return new JsonNetResult(new { Records = data, Success = true });
+        }
+
+        [HttpPost]
+        public ActionResult PositionSortingOrderData(string records)
+        {
+            var data = JsonConvert.DeserializeObject<PositionSortingOrderDto[]>(records);
+            _changePositionSortingOrderOperationService.ApplyChanges(data);
+            return new JsonNetResult(new { Records = data, Success = true });
         }
     }
 }

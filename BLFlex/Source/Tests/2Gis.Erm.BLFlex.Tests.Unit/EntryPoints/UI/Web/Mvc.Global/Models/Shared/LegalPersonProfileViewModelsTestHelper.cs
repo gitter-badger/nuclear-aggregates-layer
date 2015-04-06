@@ -29,7 +29,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
         public const string TestAccountNumber = "TestAccountNumber";
         public const string TestMfo = "TestMfo";
         public const string TestBankName = "TestBankName";
-        public const string TestAdditionalPaymentElements = "TestAdditionalPaymentElements";
         public const string TestPhone = "TestPhone";
         public const OperatesOnTheBasisType TestOperatesOnTheBasisType = OperatesOnTheBasisType.FoundingBargain;
         public const string TestPositionInGenitive = "TestPositionInGenitive";
@@ -72,12 +71,11 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             entityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             entityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             entityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            entityDto.AdditionalEmail = TestAdditionalEmail;
+            entityDto.Email = TestAdditionalEmail;
             entityDto.PostAddress = TestPostAddress;
             entityDto.PaymentMethod = TestPaymentMethod;
             entityDto.AccountNumber = TestAccountNumber;
             entityDto.BankName = TestBankName;
-            entityDto.AdditionalPaymentElements = TestAdditionalPaymentElements;
             entityDto.Phone = TestPhone;
             entityDto.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
             entityDto.PositionInGenitive = TestPositionInGenitive;
@@ -106,11 +104,10 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             entityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             entityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             entityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            entityDto.AdditionalEmail = TestAdditionalEmail;
+            entityDto.Email = TestAdditionalEmail;
             entityDto.PostAddress = TestPostAddress;
             entityDto.PaymentMethod = TestPaymentMethod;
             entityDto.AccountNumber = TestAccountNumber;
-            entityDto.AdditionalPaymentElements = TestAdditionalPaymentElements;
             entityDto.Phone = TestPhone;
             entityDto.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
             entityDto.PositionInGenitive = TestPositionInGenitive;
@@ -163,7 +160,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             model.AccountNumber = TestAccountNumber;
             model.Mfo = TestMfo;
             model.BankName = TestBankName;
-            model.AdditionalPaymentElements = TestAdditionalPaymentElements;
             model.Phone = TestPhone;
             model.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
             model.PositionInGenitive = TestPositionInGenitive;
@@ -193,7 +189,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             model.PaymentMethod = TestPaymentMethod;
             model.BankAccountType = TestAccountType;
             model.AccountNumber = TestAccountNumber;
-            model.AdditionalPaymentElements = TestAdditionalPaymentElements;
             model.Phone = TestPhone;
             model.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
             model.Timestamp = TestTimestamp;
@@ -219,7 +214,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             model.PostAddress = TestPostAddress;
             model.PaymentMethod = TestPaymentMethod;
             model.AccountNumber = TestAccountNumber;
-            model.AdditionalPaymentElements = TestAdditionalPaymentElements;
             model.Phone = TestPhone;
             model.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
             model.Timestamp = TestTimestamp;
@@ -286,7 +280,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             model.PostAddress = TestPostAddress;
             model.PaymentMethod = TestPaymentMethod;
             model.AccountNumber = TestAccountNumber;
-            model.AdditionalPaymentElements = TestAdditionalPaymentElements;
             model.Phone = TestPhone;
             model.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
             model.Timestamp = TestTimestamp;
@@ -311,12 +304,11 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             entityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             entityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             entityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            entityDto.AdditionalEmail = TestAdditionalEmail;
+            entityDto.Email = TestAdditionalEmail;
             entityDto.PostAddress = TestPostAddress;
             entityDto.PaymentMethod = TestPaymentMethod;
             entityDto.AccountNumber = TestAccountNumber;
             entityDto.BankName = TestBankName;
-            entityDto.AdditionalPaymentElements = TestAdditionalPaymentElements;
             entityDto.Phone = TestPhone;
             entityDto.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
             entityDto.PositionInGenitive = TestPositionInGenitive;

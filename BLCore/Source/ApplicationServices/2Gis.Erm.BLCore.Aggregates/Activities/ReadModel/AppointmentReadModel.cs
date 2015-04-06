@@ -33,6 +33,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Custom<AppointmentAttendee>(x => x.SourceEntityId == appointmentId)).ToList();
         }
 
+        public AppointmentOrganizer GetOrganizer(long appointmentId)
+        {
+            return _finder.FindOne(Specs.Find.Custom<AppointmentOrganizer>(x => x.SourceEntityId == appointmentId));
+        }
+
         public bool CheckIfAppointmentExistsRegarding(EntityName entityName, long entityId)
         {
             return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId)).Any();
@@ -70,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public IEnumerable<Appointment> LookupOpenAppointmentsOwnedBy(long ownerCode)
         {
-            return _finder.FindMany(Specs.Find.Owned<Appointment>(ownerCode) & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress));
+            return _finder.FindMany(Specs.Find.Owned<Appointment>(ownerCode) & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress)).ToArray();
         }
     }
 }

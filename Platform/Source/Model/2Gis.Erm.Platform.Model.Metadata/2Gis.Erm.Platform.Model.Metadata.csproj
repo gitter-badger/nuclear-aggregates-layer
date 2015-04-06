@@ -147,6 +147,7 @@
     <Compile Include="Entities\EAV\PropertyIdentities\IpnIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\MfoIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\PropertyIdentityIds.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\ChiefFullNameInNominativeIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeAuthorityDocumentIssuedByIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeAuthorityDocumentIssuedOnIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\NameIdentity.cs" />
@@ -216,11 +217,14 @@
     <Compile Include="Operations\Detail\Concrete\ChangeClientMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\ChangeTerritoryMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\CheckForDebtsMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\CloseMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\CompleteMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\DeactivateMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\DeleteMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\DisqualifyMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\ModifyBusinessModelEntityMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\ModifySimplifiedModelEntityMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ReopenMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\UploadFileMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\DownloadFileMetadata.cs" />
     <Compile Include="Operations\Detail\EmptyOperationMetadata.cs" />

@@ -63,7 +63,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         public string BankAddress { get; set; }
 
         [StringLengthLocalized(512, MinimumLength = 0)]
-        public string AdditionalPaymentElements { get; set; }
+        [DisplayNameLocalized("AdditionalPaymentElements")]
+        public string PaymentEssentialElements { get; set; }
 
         [StringLengthLocalized(512, MinimumLength = 0)]
         public string DocumentsDeliveryAddress { get; set; }
@@ -124,7 +125,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
@@ -135,7 +136,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             BankCode = modelDto.BankCode;
             BankName = modelDto.BankName;
             BankAddress = modelDto.BankAddress;
-            AdditionalPaymentElements = modelDto.AdditionalPaymentElements;
+            PaymentEssentialElements = modelDto.PaymentEssentialElements;
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
             PositionInNominative = modelDto.PositionInNominative;
             PositionInGenitive = modelDto.PositionInGenitive;
@@ -158,7 +159,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
                 {
                     Id = Id,
                     Name = Name.Ensure—leanness(),
-                    AdditionalEmail = Email.Ensure—leanness(),
+                    Email = Email.Ensure—leanness(),
                     ChiefNameInGenitive = ChiefNameInGenitive.Ensure—leanness(),
                     ChiefNameInNominative = ChiefNameInNominative.Ensure—leanness(),
                     Registered = Registered.Ensure—leanness(),
@@ -168,7 +169,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
                     BankCode = BankCode.Ensure—leanness(),
                     BankName = BankName.Ensure—leanness(),
                     BankAddress = BankAddress.Ensure—leanness(),
-                    AdditionalPaymentElements = AdditionalPaymentElements.Ensure—leanness(),
+                    PaymentEssentialElements = PaymentEssentialElements.Ensure—leanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
                     PositionInNominative = PositionInNominative.Ensure—leanness(),

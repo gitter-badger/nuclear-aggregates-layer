@@ -27,6 +27,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         organizationUnitId: null,
         areLinkingObjectParametersLocked: null,
         useSingleCategoryForPackage: null,
+        salesModel: null,
         linkingObjectsByKey: [],
         linkingObjects: [],
         positions: [],
@@ -240,14 +241,12 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 object.type == Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.AddressFirstLevelCategorySingle;
         };
 
-        if (this.localData.useSingleCategoryForPackage && source && isSingleCategoryType(source)) {
+        if (this.localData.useSingleCategoryForPackage && source) {
             this.localData.linkingObjects.forEach(function(object) {
-                if (isSingleCategoryType(object)) {
-                    if (object.categoryId == source.categoryId) {
-                        object.checkbox.checked = source.checkbox.checked;
-                    } else {
-                        object.checkbox.checked = false;
-                    }
+                if (object.categoryId == source.categoryId) {
+                    object.checkbox.checked = source.checkbox.checked;
+                } else if (isSingleCategoryType(object)) {
+                    object.checkbox.checked = false;
                 }
             });
         }
@@ -297,9 +296,6 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         var i;
         for (i = 0; i < schema.FirmCategories.length; i++) {
             categoriesMap[schema.FirmCategories[i].Id] = schema.FirmCategories[i];
-        }
-        for (i = 0; i < schema.AdditionalCategories.length; i++) {
-            categoriesMap[schema.AdditionalCategories[i].Id] = schema.AdditionalCategories[i];
         }
 
         this.localData.linkingObjectsByKey = {};
@@ -374,28 +370,12 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                         var requiredCategories = [];
                         var requiredCategoriesList = [];
 
-                        for (j = 0; j < schema.FirmCategories.length; j++) {
-                            if (schema.FirmCategories[j].Level != 3)
+                        for (j = 0; j < position.AvailableCategories.length; j++) {
+                            if (position.AvailableCategories[j].Level != 3)
                                 continue;
 
-                            requiredCategories[schema.FirmCategories[j].Id] = schema.FirmCategories[j];
-                            requiredCategoriesList.push(schema.FirmCategories[j]);
-                        }
-
-                        var categoriesToAdd = [];
-                        var positionAdvertisements = this.advertisements.byPosition[position.Id];
-                        if (positionAdvertisements) {
-                            for (j = 0; j < positionAdvertisements.length; j++) {
-                                if (positionAdvertisements[j].CategoryId && !requiredCategories[positionAdvertisements[j].CategoryId]) {
-                                    categoriesToAdd[positionAdvertisements[j].CategoryId] = true;
-                                }
-                            }
-                            for (j = 0; j < schema.AdditionalCategories.length; j++) {
-                                if (categoriesToAdd[schema.AdditionalCategories[j].Id]) {
-                                    requiredCategories[schema.AdditionalCategories[j].Id] = schema.AdditionalCategories[j];
-                                    requiredCategoriesList.push(schema.AdditionalCategories[j]);
-                                }
-                            }
+                            requiredCategories[position.AvailableCategories[j].Id] = position.AvailableCategories[j];
+                            requiredCategoriesList.push(position.AvailableCategories[j]);
                         }
 
                         for (j = 0; j < requiredCategoriesList.length; j++) {
@@ -440,22 +420,6 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
 
                             requiredCategories[categoriesMap[categoryId].Id] = categoriesMap[categoryId];
                             requiredCategoriesList.push(categoriesMap[categoryId]);
-                        }
-
-                        categoriesToAdd = [];
-                        positionAdvertisements = this.advertisements.byPosition[position.Id];
-                        if (positionAdvertisements) {
-                            for (k = 0; k < positionAdvertisements.length; k++) {
-                                if (positionAdvertisements[k].CategoryId && !requiredCategories[positionAdvertisements[k].CategoryId]) {
-                                    categoriesToAdd[positionAdvertisements[k].CategoryId] = true;
-                                }
-                            }
-                            for (k = 0; k < schema.AdditionalCategories.length; k++) {
-                                if (categoriesToAdd[schema.AdditionalCategories[k].Id]) {
-                                    requiredCategories[schema.AdditionalCategories[k].Id] = schema.AdditionalCategories[k];
-                                    requiredCategoriesList.push(schema.AdditionalCategories[k]);
-                                }
-                            }
                         }
 
                         for (k = 0; k < requiredCategoriesList.length; k++) {
@@ -876,20 +840,6 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 results.push({ Level: 'CriticalError', Message: message });
             }
         }
-        //var badPositions = [];
-
-        //for (i = 0; i < this.serverData.linkingObjectsSchema.Positions.length; i++) {
-        //    var position = this.serverData.linkingObjectsSchema.Positions[i];
-        //    var found = false;
-        //    for (var j = 0; j < position.LinkingObjects.length && !found; j++) {
-        //        if (position.LinkingObjects[j].isSelected() && position.LinkingObjects[j].getAdvertisement() == null) {
-        //            found = true;
-        //        }
-        //    }
-        //    if (found) {
-        //        badPositions.push(position);
-        //    }
-        //}
 
         return results;
     },
@@ -960,13 +910,14 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         else
             categoryLevel = 3;
 
-        var extendedInfo = "OrganizationUnitId=" + this.localData.organizationUnitId.toString() + "&" + ("Level=" + categoryLevel);
-
-        if (this.localData.useSingleCategoryForPackage) {
-            extendedInfo += "&forNewSalesModel=true";
+        var extendedInfo = {
+            OrganizationUnitId: this.localData.organizationUnitId.toString(),
+            Level: categoryLevel,
+            SalesModel: this.localData.salesModel,
+            PositionsGroup: position.PositionsGroup
         }
 
-        var url = "/Grid/Search/Category?" + "extendedInfo=" + encodeURIComponent(extendedInfo);
+        var url = "/Grid/Search/Category?" + "extendedInfo=" + encodeURIComponent(Ext.urlEncode(extendedInfo));
 
         var result = window.showModalDialog(url, null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
         return result ? result.items[0].data : null;

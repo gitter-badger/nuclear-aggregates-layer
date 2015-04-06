@@ -30,7 +30,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
     },
 
     ServerData: {
-        VatRatio: null,
+        PricePerUnitWithVat: null,
         PricePerUnit: null,
         PlatformName: null,
         SnapObjectType: null,
@@ -39,7 +39,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         AmountSpecificationMode: null,
         LinkingObjectsSchema: null,
         IsPositionComposite: null,
-        IsPositionNewSalesModel: null,
+        IsPositionOfPlannedProvisionSalesModel: null,
         IsPositionCategoryBound: null
     },
 
@@ -271,17 +271,16 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
             timeout: 1200000,
             success: function (response, opts) {
                 var responseData = window.Ext.decode(response.responseText);
-                self.ServerData.IsPositionNewSalesModel = responseData.IsPositionNewSalesModel;
+                self.ServerData.IsPositionOfPlannedProvisionSalesModel = responseData.IsPositionOfPlannedProvisionSalesModel;
                 self.ServerData.IsPositionCategoryBound = responseData.IsPositionCategoryBound;
                 self.recalculateAll(responseData);
                 self.recalculateDiscount();
-                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema, responseData.IsPositionNewSalesModel);
+                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema, responseData.IsPositionOfPlannedProvisionSalesModel, responseData.SalesModel);
             },
             failure: function (response)
             {
                 if (response.status == 500 && response.responseText && response.responseText.length > 0)
                 {
-                    //alert(Ext.LocalizedResources.ErrorRetrievingDataFromServer + ': \n' + response.responseText);
                     Ext.Msg.show({
                         title: Ext.LocalizedResources.Error,
                         msg: Ext.LocalizedResources.ErrorRetrievingDataFromServer + ': \n' + response.responseText,
@@ -384,7 +383,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
             this.UI.Divs.DiscountSumOuter.dom.disabled = false;
             this.UI.Divs.DiscountPercentOuter.dom.disabled = false;
 
-            this.UI.Texts.PricePerUnitWithVat.setValueAdv(this.formatLocalized(this.ServerData.PricePerUnit * (1 + this.ServerData.VatRatio)));
+            this.UI.Texts.PricePerUnitWithVat.setValueAdv(this.formatLocalized(this.ServerData.PricePerUnitWithVat));
             this.ComputationalData.PricePerUnit = this.ServerData.PricePerUnit;
 
             this.setupAmountFieldAvailability();

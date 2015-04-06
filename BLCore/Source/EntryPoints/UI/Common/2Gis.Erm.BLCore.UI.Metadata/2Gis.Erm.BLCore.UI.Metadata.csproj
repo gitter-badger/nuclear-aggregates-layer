@@ -82,7 +82,6 @@
     <Compile Include="Entities\EntitiesMetadataSource.cs" />
     <Compile Include="Entities\Properties\EntityProperties.Account.cs" />
     <Compile Include="Entities\Properties\EntityProperties.AccountDetails.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AdditionalFirmService.cs" />
     <Compile Include="Entities\Properties\EntityProperties.AdsTemplatesAdsElementTemplate.cs" />
     <Compile Include="Entities\Properties\EntityProperties.Advertisement.cs" />
     <Compile Include="Entities\Properties\EntityProperties.AdvertisementElement.cs" />
@@ -195,4 +194,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
 </Project>

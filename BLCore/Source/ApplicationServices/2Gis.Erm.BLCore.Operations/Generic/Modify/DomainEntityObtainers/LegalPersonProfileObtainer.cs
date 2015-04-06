@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             legalPersonProfile.RecipientName = dto.RecipientName;
             legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
             legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
-            legalPersonProfile.AdditionalEmail = dto.AdditionalEmail;
+            legalPersonProfile.Email = dto.Email;
             legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
             legalPersonProfile.Phone = dto.Phone;
             legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;
@@ -48,7 +48,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             legalPersonProfile.BankAddress = dto.BankAddress;
             legalPersonProfile.IBAN = dto.IBAN;
             legalPersonProfile.SWIFT = dto.SWIFT;
-            legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
             legalPersonProfile.PaymentMethod = dto.PaymentMethod;
             legalPersonProfile.LegalPersonId = dto.LegalPersonRef.Id.Value;
             legalPersonProfile.CertificateDate = dto.CertificateDate;

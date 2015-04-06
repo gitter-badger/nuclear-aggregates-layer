@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Qds.Operations.Listing;
+
+using NuClear.Settings;
 
 namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
 {

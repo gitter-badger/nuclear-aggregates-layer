@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             {
                 _orderRepository.CloseOrder(order, request.Reason);
 
-                _subRequestProcessor.HandleSubRequest(new CalculateReleaseWithdrawalsRequest { Order = order }, Context);
+                _subRequestProcessor.HandleSubRequest(new ActualizeOrderReleaseWithdrawalsRequest { Order = order }, Context);
                 _subRequestProcessor.HandleSubRequest(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = order.ReleaseCountFact }, Context);
 
                 _orderRepository.Update(order);

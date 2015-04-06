@@ -11,8 +11,10 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -24,19 +26,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ICopyPricePositionOperationService _copyPricePositionOperationService;
 
         public PricePositionController(IMsCrmSettings msCrmSettings,
-                                       IUserContext userContext,
-                                       ICommonLog logger,
                                        IAPIOperationsServiceSettings operationsServiceSettings,
                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                       IAPIIdentityServiceSettings identityServiceSettings,
+                                       IUserContext userContext,
+                                       ITracer tracer,
                                        IGetBaseCurrencyService getBaseCurrencyService,
                                        IPriceReadModel priceReadModel,
                                        ICopyPricePositionOperationService copyPricePositionOperationService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _priceReadModel = priceReadModel;
             _copyPricePositionOperationService = copyPricePositionOperationService;
@@ -68,7 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
 
             return View(model);

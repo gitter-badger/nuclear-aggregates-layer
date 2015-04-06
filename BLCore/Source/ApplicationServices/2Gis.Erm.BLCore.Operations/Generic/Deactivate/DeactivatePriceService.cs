@@ -43,6 +43,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                 }
 
                 var price = _priceReadModel.GetPrice(entityId);
+                if (price == null)
+                {
+                    throw new EntityNotFoundException(typeof(Price), entityId);
+                }
+
                 if (!price.IsActive)
                 {
                     throw new ArgumentException(BLResources.PriceIsInactiveAlready);

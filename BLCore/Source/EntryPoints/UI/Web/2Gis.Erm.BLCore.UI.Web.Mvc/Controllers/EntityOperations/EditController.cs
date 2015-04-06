@@ -8,30 +8,29 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
 // namespace DoubleGis.Erm.Web.Controllers.EntityOperations
+
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
     public class EditController : ControllerBase
     {
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Reviewed. Suppression is OK here.")]
         public EditController(IMsCrmSettings msCrmSettings,
-                              IUserContext userContext,
-                              ICommonLog logger,
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                              IAPIIdentityServiceSettings identityServiceSettings,
+                              IUserContext userContext,
+                              ITracer tracer,
                               IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
         }
 
@@ -55,28 +54,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             }
 
             return View(new EditPrivilegeViewModel { RoleId = entityId.Value });
-        }
-
-        [HttpGet]
-        public ActionResult AdditionalFirmServices(EntityName entityTypeName, long? entityId, string entityState)
-        {
-            if (!entityId.HasValue)
-            {
-                throw new NotificationException(BLResources.IdentifierNotSet);
-            }
-
-            return View(new IdModel { Id = entityId.Value });
-        }
-
-        [HttpGet]
-        public ActionResult AdditionalFirmAddressServices(EntityName entityTypeName, long? entityId, string entityState)
-        {
-            if (!entityId.HasValue)
-            {
-                throw new NotificationException(BLResources.IdentifierNotSet);   
-            }
-
-            return View(new IdModel { Id = entityId.Value });
         }
     }
 }

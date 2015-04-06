@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
                                         {
                                             Id = x.Id,
                                             Name = x.Name,
-                                            AdditionalEmail = x.AdditionalEmail,
+                                            Email = x.Email,
                                             ChiefNameInGenitive = x.ChiefNameInGenitive,
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             Registered = x.Registered,
@@ -54,7 +54,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
                                             PostAddress = x.PostAddress,
                                             EmailForAccountingDocuments = x.EmailForAccountingDocuments,
                                             PaymentEssentialElements = x.PaymentEssentialElements,
-                                            AdditionalPaymentElements = x.AdditionalPaymentElements,
                                             PaymentMethod = x.PaymentMethod == null
                                                                                       ? PaymentMethod.Undefined
                                                                                       : (PaymentMethod)x.PaymentMethod,

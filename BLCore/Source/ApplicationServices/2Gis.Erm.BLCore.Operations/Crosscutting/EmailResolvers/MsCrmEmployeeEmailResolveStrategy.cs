@@ -4,7 +4,8 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
 {
@@ -12,13 +13,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
     {
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly ISecurityServiceUserIdentifier _securityService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public MsCrmEmployeeEmailResolveStrategy(IMsCrmSettings msCrmSettings, ISecurityServiceUserIdentifier securityService, ICommonLog logger)
+        public MsCrmEmployeeEmailResolveStrategy(IMsCrmSettings msCrmSettings, ISecurityServiceUserIdentifier securityService, ITracer tracer)
         {
             _msCrmSettings = msCrmSettings;
             _securityService = securityService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         #region Implementation of IEmployeeEmailResolveStrategy
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
                 var userInfo = _securityService.GetUserInfo(employeeUserCode);
                 if (userInfo == null)
                 {
-                    _logger.ErrorEx("Can't find user info for specified user code: " + employeeUserCode);
+                    _tracer.Error("Can't find user info for specified user code: " + employeeUserCode);
                     return false;
                 }
 
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Can't get email info from MSCRM for user code: " + employeeUserCode);
+                _tracer.Error(ex, "Can't get email info from MSCRM for user code: " + employeeUserCode);
             }
 
             return false;

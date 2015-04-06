@@ -222,11 +222,11 @@
   <data name="OrderTypeSelfAds" xml:space="preserve">
     <value>Self-advertisement</value>
   </data>
-  <data name="PositionAccountingMethodGuaranteedProvision" xml:space="preserve">
+  <data name="SalesModelGuaranteedProvision" xml:space="preserve">
     <value>Guaranteed rendering</value>
   </data>
-  <data name="PositionAccountingMethodPlannedProvision" xml:space="preserve">
-    <value>Planned rendering</value>
+  <data name="SalesModelPlannedProvision" xml:space="preserve">
+    <value>Scheduled services for a single category</value>
   </data>
   <data name="PositionCalculationMethodPosition" xml:space="preserve">
     <value>Item</value>
@@ -476,9 +476,6 @@
   </data>
   <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
     <value>Unloading of personal accounts</value>
-  </data>
-  <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Unloading account writing-offs</value>
   </data>
   <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
     <value>Unloading reconciliation reports</value>
@@ -801,14 +798,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Joint invoice for SP</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>Joint invoice for a legal entity</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Joint invoice for an individual</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Contract</value>
@@ -1245,9 +1236,6 @@
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Profile of client's legal entity</value>
   </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Add. services for a company</value>
-  </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Removing the profile of Client's legal entity</value>
   </data>
@@ -1326,17 +1314,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Warning</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Quotation without VAT and with discount</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Quotation</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Quotation with VAT and discount</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Quotation without VAT and discount</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Quotation with VAT and without discount</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Call</value>
@@ -1356,31 +1338,58 @@
   <data name="ActivityPriorityHigh" xml:space="preserve">
     <value>High</value>
   </data>
-  <data name="ActivityPurposeFirstCall" xml:space="preserve">
+  <data name="PhonecallPurposeFirstCall" xml:space="preserve">
     <value>First contact (Aquaintance)</value>
   </data>
-  <data name="ActivityPurposeProductPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeProductPresentation" xml:space="preserve">
     <value>Presentations</value>
   </data>
-  <data name="ActivityPurposeOpportunitiesPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeOpportunitiesPresentation" xml:space="preserve">
     <value>Presentation of advertising deal</value>
   </data>
-  <data name="ActivityPurposeOfferApproval" xml:space="preserve">
+  <data name="PhonecallPurposeOfferApproval" xml:space="preserve">
     <value>Approval and sending of CO</value>
   </data>
-  <data name="ActivityPurposeDecisionApproval" xml:space="preserve">
+  <data name="PhonecallPurposeDecisionApproval" xml:space="preserve">
     <value>Approval of decision deadline</value>
   </data>
-  <data name="ActivityPurposeSale" xml:space="preserve">
+  <data name="PhonecallPurposeSale" xml:space="preserve">
     <value>Sale</value>
   </data>
-  <data name="ActivityPurposeService" xml:space="preserve">
+  <data name="PhonecallPurposeService" xml:space="preserve">
     <value>Service</value>
   </data>
-  <data name="ActivityPurposeUpsale" xml:space="preserve">
+  <data name="PhonecallPurposeUpsale" xml:space="preserve">
     <value>Upsale</value>
   </data>
-  <data name="ActivityPurposeProlongation" xml:space="preserve">
+  <data name="PhonecallPurposeProlongation" xml:space="preserve">
+    <value>Extension</value>
+  </data>
+  <data name="AppointmentPurposeFirstCall" xml:space="preserve">
+    <value>First contact (Aquaintance)</value>
+  </data>
+  <data name="AppointmentPurposeProductPresentation" xml:space="preserve">
+    <value>Presentations</value>
+  </data>
+  <data name="AppointmentPurposeOpportunitiesPresentation" xml:space="preserve">
+    <value>Presentation of advertising deal</value>
+  </data>
+  <data name="AppointmentPurposeOfferApproval" xml:space="preserve">
+    <value>Approval and sending of CO</value>
+  </data>
+  <data name="AppointmentPurposeDecisionApproval" xml:space="preserve">
+    <value>Approval of decision deadline</value>
+  </data>
+  <data name="AppointmentPurposeSale" xml:space="preserve">
+    <value>Sale</value>
+  </data>
+  <data name="AppointmentPurposeService" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="AppointmentPurposeUpsale" xml:space="preserve">
+    <value>Upsale</value>
+  </data>
+  <data name="AppointmentPurposeProlongation" xml:space="preserve">
     <value>Extension</value>
   </data>
   <data name="ActivityStatusInProgress" xml:space="preserve">
@@ -1464,7 +1473,10 @@
   <data name="ActivityPriorityNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
-  <data name="ActivityPurposeNotSet" xml:space="preserve">
+  <data name="PhonecallPurposeNotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="AppointmentPurposeNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
   <data name="ActivityStatusNotSet" xml:space="preserve">
@@ -1515,7 +1527,7 @@
   <data name="OrderTerminationReasonNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionAccountingMethodNone" xml:space="preserve">
+  <data name="SalesModelNone" xml:space="preserve">
     <value />
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
@@ -1697,6 +1709,12 @@
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Contract termination notice without a reason specified for a legal entity</value>
+  </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
     <value>Unload to bus account write-offs</value>
@@ -1903,7 +1921,7 @@
   <data name="DenialReasonTypeOther" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="EntityNameActivityBase" xml:space="preserve">
+  <data name="EntityNameActivity" xml:space="preserve">
     <value>Action</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
@@ -1915,15 +1933,6 @@
   <data name="EntityNameBank" xml:space="preserve">
     <value>Bank</value>
   </data>
-  <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentUkraineTobaccoGoods" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
   <data name="FasCommentChileAlcohol" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
@@ -1931,15 +1940,6 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentChileMedicalReceiptDrugs" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
@@ -1992,5 +1992,68 @@
   </data>
   <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
     <value>Other</value>
+  </data>
+  <data name="SalesModelMultiPlannedProvision" xml:space="preserve">
+    <value>Scheduled services for several categories</value>
+  </data>
+  <data name="FasCommentUkraineAutotherapy" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineMedicalDevice" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineSoundPhonogram" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineSoundLive" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineEmploymentAssistance" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAutotherapy" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineMedicalDevice" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineSoundPhonogram" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineSoundLive" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionsGroupMedia" xml:space="preserve">
+    <value>Media advertising</value>
+  </data>
+  <data name="PositionsGroupNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Guaranteed rendering</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Planned rendering</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Writing-off</value>
   </data>
 </root>

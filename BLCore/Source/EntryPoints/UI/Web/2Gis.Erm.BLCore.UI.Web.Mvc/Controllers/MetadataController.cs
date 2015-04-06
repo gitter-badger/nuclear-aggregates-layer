@@ -7,7 +7,8 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -17,15 +18,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
     {
         private readonly IAPIIntrospectionServiceSettings _introspectionServiceSettings;
 
-        public MetadataController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-            IAPIIntrospectionServiceSettings introspectionServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
+        public MetadataController(IMsCrmSettings msCrmSettings,
+                                  IAPIOperationsServiceSettings operationsServiceSettings,
+                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                  IAPIIdentityServiceSettings identityServiceSettings,
+                                  IUserContext userContext,
+                                  ITracer tracer,
+                                  IGetBaseCurrencyService getBaseCurrencyService,
+                                  IAPIIntrospectionServiceSettings introspectionServiceSettings)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _introspectionServiceSettings = introspectionServiceSettings;
         }

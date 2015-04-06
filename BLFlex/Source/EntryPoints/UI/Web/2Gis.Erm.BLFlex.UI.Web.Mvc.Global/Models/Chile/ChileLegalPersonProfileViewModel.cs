@@ -71,7 +71,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         public LookupField Bank { get; set; }
 
         [StringLengthLocalized(512, MinimumLength = 0)]
-        public string AdditionalPaymentElements { get; set; }
+        [DisplayNameLocalized("AdditionalPaymentElements")]
+        public string PaymentEssentialElements { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -123,12 +124,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
             DocumentsDeliveryMethod = modelDto.DocumentsDeliveryMethod;
             PaymentMethod = modelDto.PaymentMethod;
             AccountNumber = modelDto.AccountNumber;
-            AdditionalPaymentElements = modelDto.AdditionalPaymentElements;
+            PaymentEssentialElements = modelDto.PaymentEssentialElements;
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
             PostAddress = modelDto.PostAddress;
             Owner = LookupField.FromReference(modelDto.OwnerRef);
@@ -155,11 +156,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                 {
                     Id = Id,
                     Name = Name.Ensure—leanness(),
-                    AdditionalEmail = Email.Ensure—leanness(),
+                    Email = Email.Ensure—leanness(),
                     DocumentsDeliveryAddress = DocumentsDeliveryAddress.Ensure—leanness(),
                     PaymentMethod = PaymentMethod,
                     AccountNumber = AccountNumber.Ensure—leanness(),
-                    AdditionalPaymentElements = AdditionalPaymentElements.Ensure—leanness(),
+                    PaymentEssentialElements = PaymentEssentialElements.Ensure—leanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
                     PostAddress = PostAddress.Ensure—leanness(),

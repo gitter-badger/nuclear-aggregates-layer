@@ -3,7 +3,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
 using DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -18,10 +17,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
 
         public EmiratesGetBranchOfficeOrganizationUnitDtoService(IUserContext userContext,
-                                                                 IAPIIdentityServiceSettings identityServiceSettings,
                                                                  IBranchOfficeReadModel branchOfficeReadModel,
                                                                  IOrganizationUnitReadModel organizationUnitReadModel)
-            : base(userContext, branchOfficeReadModel, organizationUnitReadModel, identityServiceSettings)
+            : base(userContext, branchOfficeReadModel, organizationUnitReadModel)
         {
             _branchOfficeReadModel = branchOfficeReadModel;
         }

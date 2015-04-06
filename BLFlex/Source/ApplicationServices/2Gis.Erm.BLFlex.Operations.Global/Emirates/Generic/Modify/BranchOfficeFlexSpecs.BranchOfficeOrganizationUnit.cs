@@ -25,6 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                             Id = x.Id,
                                             OrganizationUnitRef = new EntityReference { Id = x.OrganizationUnitId, Name = null },
                                             BranchOfficeRef = new EntityReference { Id = x.BranchOfficeId, Name = null },
+                                            ApplicationCityName = x.ApplicationCityName,
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             IsPrimary = x.IsPrimary,
                                             IsPrimaryForRegionalSales = x.IsPrimaryForRegionalSales,
@@ -61,6 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                     branchOfficeOrganizationUnit.Id = dto.Id;
                                     branchOfficeOrganizationUnit.OrganizationUnitId = dto.OrganizationUnitRef.Id.Value;
                                     branchOfficeOrganizationUnit.BranchOfficeId = dto.BranchOfficeRef.Id.Value;
+                                    branchOfficeOrganizationUnit.ApplicationCityName = dto.ApplicationCityName;
                                     branchOfficeOrganizationUnit.ChiefNameInNominative = dto.ChiefNameInNominative;
                                     branchOfficeOrganizationUnit.ActualAddress = dto.ActualAddress;
                                     branchOfficeOrganizationUnit.PostalAddress = dto.PostalAddress;

@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates
         [DataMember]
         public string BankName { get; set; }
         [DataMember]
-        public string AdditionalPaymentElements { get; set; }
+        public string PaymentEssentialElements { get; set; }
         [DataMember]
         public string ChiefNameInNominative { get; set; }
         [DataMember]

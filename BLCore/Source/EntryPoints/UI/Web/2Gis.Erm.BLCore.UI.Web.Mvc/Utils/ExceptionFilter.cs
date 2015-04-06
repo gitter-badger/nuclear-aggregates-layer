@@ -12,18 +12,19 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
     // handle mvc-pipeline exceptions and rewrite them as 500 or 403 errors
     public sealed class ExceptionFilter : IExceptionFilter
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public ExceptionFilter(ICommonLog logger)
+        public ExceptionFilter(ITracer tracer)
         {
-            _logger = logger;
+            _tracer = tracer;
         }
 
         void IExceptionFilter.OnException(ExceptionContext filterContext)
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
             var errorTitle = HandleException(exception, httpResponse);
 
-            _logger.FatalEx(exception, BLResources.CriticalError);
+            _tracer.Fatal(exception, BLResources.CriticalError);
 
             // ajax request
             if (isAjaxRequest)

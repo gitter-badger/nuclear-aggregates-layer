@@ -54,6 +54,8 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
             this.time.removeClass('x-form-text'); // Наличие этого класса заставляет контрол "прыгать"
         }
 
+        this.editor.setReadOnly(this.readOnly);
+
         if (this.mode.display == 'month') {
             this.editor.dom.readOnly = true;
             this.mon(this.editor, 'focus', this.onButtonClick, this);
@@ -67,17 +69,6 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         this.mon(this.button, 'click', this.onButtonClick, this);
         this.mon(this.menu, 'select', this.onDateSelect, this);
         if (this.time) this.mon(this.time, 'change', this.onEditorChange, this);
-
-        var calendarControl = this;
-        this.editor.dom.onpropertychange = function () {
-            if (calendarControl.readOnly == this.readOnly) {
-                return;
-            }
-
-            calendarControl.setReadOnly(this.readOnly);
-        };
-        
-        this.editor.setReadOnly(this.readOnly);
     },
 
     initTime: function (start, end, step) {
@@ -164,7 +155,14 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
 
         this.editor.setValue(date ? date.format(this.displayFormat) : '');
         if (this.time) this.time.setValue(date.format(this.displayFormats.time));
-        this.store.setValue(date ? date.format(this.storeFormat) : '');
+
+        // Ловушка: дата momentjs включает в себя локаль. 
+        // Некоторые локали используют не арабские цифры (например, арабская локаль)
+        // Поэтому даже используя формат хранения this.storeFormat есть риск получить нечитаемое значение.
+        // Поэтому копируем дату и указываем для неё локаль с гарантированно арабскими цифрами.
+        var storeDate = moment(date).locale('en');
+        this.store.setValue(date ? storeDate.format(this.storeFormat) : '');
+
         delete this.ignoreChangeEvent;
 
         this.validate();

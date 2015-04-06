@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Рекламные материалы</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Попытка сохранить бюджетную Позицию заказа с Количеством, не равным 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>Окончание периода</value>
   </data>
@@ -965,9 +962,6 @@
   <data name="PeriodClosing" xml:space="preserve">
     <value>Закрытие периода</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>В заказ с типом "Продажи" можно добавлять только позиции со способом учёта "Гарантированное оказание"!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Признак скрытия</value>
   </data>
@@ -985,9 +979,6 @@
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Фильтр по умолчанию</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>В заказ с типом "Бюджет" можно добавлять только позиции со способом учёта "Планируемое оказание"!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>У данных юридических лиц не совпадает ИНН, слияние невозможно.</value>
@@ -1250,13 +1241,6 @@
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Информация об Отделении Юр. Лица Организации</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
-11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Неизвестный пользователь</value>
   </data>
@@ -1452,9 +1436,6 @@
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Будет включеныо пользователей: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>Выбранное отделение организации не является филиалом, либо не переведено на ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>В группах основных позиций присутствуют объекты, ссылающиеся на неактивные позиции</value>
   </data>
@@ -1466,9 +1447,6 @@
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>Указанный счёт не найден</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Ошибка при сохранении профиля юр. лица клиента</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>Отделение организации не указано</value>
@@ -2759,9 +2737,6 @@ Cумма по операции: {5}.
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>Продолжить операцию?</value>
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Укажите Отделение организации и период списания</value>
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>Не найдено активных блокировок для фирмы {0} на дату {1}</value>
   </data>
@@ -3170,8 +3145,8 @@ Cумма по операции: {5}.
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Результаты проверки заказа</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>Нельзя добавить элемент со способом учета, отличающегося от способов учета остальных элементов</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>Нельзя добавить элемент с моделью продаж, отличающегося от моделей продаж остальных элементов</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Идентификатор 1С</value>
@@ -3960,9 +3935,6 @@ Cумма по операции: {5}.
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Неверно заданы типы сущностей для добавления подразделения в тематику</value>
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>Нельзя добавить подразделение к тематике, установленной по умолчанию</value>
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>Нельзя удалить тематику, которая используется в заказах</value>
   </data>
@@ -4079,10 +4051,10 @@ Cумма по операции: {5}.
     <value>Произошла ошибка: {0}. Подробности см. в описании сообщения</value>
   </data>
   <data name="CannotApppendMoreThemesToOrganizationUnit" xml:space="preserve">
-    <value>Достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="CannotSaveThemeOrganizationUnitThemeLimitReached" xml:space="preserve">
-    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения огранизации {0}</value>
+    <value>Не удалось сохранить тематику, достигнут предел тематик для отделения организации {0}</value>
   </data>
   <data name="PricePositionCannotBeChoosedSinceThereIsNoFirm" xml:space="preserve">
     <value>Данная позиция не может быть выбрана в заказ, т.к. не указана фирма</value>
@@ -4109,7 +4081,7 @@ Cумма по операции: {5}.
     <value>Дата должна быть в промежутке между 1 января 1753 г. и 31 декабря 9999 г.</value>
   </data>
   <data name="CannotSaveBranchOfficeInnExists" xml:space="preserve">
-    <value>Отделение огранизации с данным ИНН уже существует</value>
+    <value>Отделение организации с данным ИНН уже существует</value>
   </data>
   <data name="CannotReplaceTerritories" xml:space="preserve">
     <value>Выбранная территория должна принадлежать тому же подразделению, что и деактивируемая.</value>
@@ -4128,9 +4100,6 @@ Cумма по операции: {5}.
   </data>
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
     <value>Содержимое файла изображения не соответствует его расширению</value>
-  </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value>Нельзя удалить услугу '{0}', так как она используется для {1} адресов</value>
   </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value>Не удалось сохранить шаблон: может быть только один шаблон небоскрёба</value>
@@ -4347,9 +4316,6 @@ Cумма по операции: {5}.
   </data>
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
     <value>Создание, изменение и удаление объектов "Территория продаж" учетной системы.</value>
-  </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
-    <value>Доп. услуги для фирм</value>
   </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
     <value>Проекты</value>
@@ -4957,9 +4923,6 @@ Cумма по операции: {5}.
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value>Нельзя удалить юридическое лицо клиента, имеющее связанные лицевые счета</value>
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Создание, изменение и удаление объектов "Доп.услуги для фирмы" учетной системы.</value>
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Выбран невалидный адрес для следующих позиций: {0}</value>
   </data>
@@ -4987,8 +4950,8 @@ Cумма по операции: {5}.
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>Новая модель продаж пока не поддерживается в городе "{0}" и/или в рубрике "{1}"</value>
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
+    <value>Рубрики ({0}) не поддерживаются для модели продаж "{1}" в городе "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Для всех подпозиций позиции заказа, оформленной на позицию прайс-листа с типом расчета коэффициента [{0}], должна быть указана рубрика</value>
@@ -5173,5 +5136,80 @@ Cумма по операции: {5}.
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value>Неправильно запланированы даты начала и окончания встречи.
 </value>
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Для работы с профилями требуется, чтобы были указаны юридические лица</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Печать</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Должен быть указан профиль юридического лица</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>Указанный профиль не может быть выбран для заказа</value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>В заказе могут присутствовать позиции только одной модели продаж</value>
+  </data>
+  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
+    <value>Набор рубрик для всех подпозиций должен совпадать</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>Попытка сохранить позицию заказа с моделью продаж '{0}' с количеством, не равным 1</value>
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Невозможно назначить действие в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Невозможно назначить куратором служебного пользователя</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Недостаточно прав для смены куратора у действия {0}</value>
+  </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Поля Клиент, Сделка и Фирма пустые. Необходимо заполнить как минимум одно из полей.</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>Отделение организации {0} не связано с проектом.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие на фирму в резерве</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>Невозможно сохранить действие на клиента в резерве</value>
+  </data>
+  <data name="CancelConfirmation" xml:space="preserve">
+    <value >Подтвердите отмену действий</value>
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value>Невозможно отменить действие {0} в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value>Невозможно завершить действие {0} в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value >Операция смены клиента не определена для указанного типа сущности</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Укажите период, способ учета оказания услуг и отделение организации</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Укажите период и способ учета оказания услуг</value>
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Списание за {0} - {1} со способом оказания услуг: '{2}' завершено с ошибками</value>
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Техподдержка</value>
+  </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
   </data>
 </root>

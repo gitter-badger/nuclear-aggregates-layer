@@ -13,6 +13,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
 {
     using System;
     using System.Collections.Generic;
+    
+    #line 1 "..\..\Views\CreateOrUpdate\Task.cshtml"
+    using System.ComponentModel;
+    
+    #line default
+    #line hidden
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -49,7 +55,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 4 "..\..\Views\CreateOrUpdate\Task.cshtml"
   
     Layout = "../Shared/_CardLayout.cshtml";
 
@@ -62,60 +68,60 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 159), Tuple.Create("\"", 216)
-, Tuple.Create(Tuple.Create("", 165), Tuple.Create("/Scripts/Ext.ux.TimeComboBox.js?", 165), true)
-            
-            #line 9 "..\..\Views\CreateOrUpdate\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 197), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 197), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 263), Tuple.Create("\"", 352)
-, Tuple.Create(Tuple.Create("", 269), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?", 269), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 189), Tuple.Create("\"", 246)
+, Tuple.Create(Tuple.Create("", 195), Tuple.Create("/Scripts/Ext.ux.TimeComboBox.js?", 195), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Task.cshtml"
-  , Tuple.Create(Tuple.Create("", 333), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 227), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 333), false)
+, 227), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 399), Tuple.Create("\"", 475)
-, Tuple.Create(Tuple.Create("", 405), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 405), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 293), Tuple.Create("\"", 382)
+, Tuple.Create(Tuple.Create("", 299), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?", 299), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 456), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+  , Tuple.Create(Tuple.Create("", 363), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 456), false)
+, 363), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 522), Tuple.Create("\"", 590)
-, Tuple.Create(Tuple.Create("", 528), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Task.js?", 528), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 429), Tuple.Create("\"", 505)
+, Tuple.Create(Tuple.Create("", 435), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 435), true)
             
             #line 12 "..\..\Views\CreateOrUpdate\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 571), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 486), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 571), false)
+, 486), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 552), Tuple.Create("\"", 620)
+, Tuple.Create(Tuple.Create("", 558), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Task.js?", 558), true)
+            
+            #line 13 "..\..\Views\CreateOrUpdate\Task.cshtml"
+, Tuple.Create(Tuple.Create("", 601), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 601), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -135,7 +141,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n        Ext.onReady(function()\r\n        {\r\n            var cardSettings = ");
 
             
-            #line 20 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 21 "..\..\Views\CreateOrUpdate\Task.cshtml"
                           Write(Html.WriteJson(Model.ViewConfig.CardSettings));
 
             
@@ -156,14 +162,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1012), Tuple.Create("\"", 1048)
+WriteAttribute("title", Tuple.Create(" title=\"", 1042), Tuple.Create("\"", 1078)
             
-            #line 29 "..\..\Views\CreateOrUpdate\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 1020), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 30 "..\..\Views\CreateOrUpdate\Task.cshtml"
+, Tuple.Create(Tuple.Create("", 1050), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1020), false)
+, 1050), false)
 );
 
 WriteLiteral(">\r\n");
@@ -171,7 +177,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 30 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 31 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.HiddenFor(m => m.Id));
 
             
@@ -182,9 +188,25 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 31 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 32 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.HiddenFor(m => m.Status));
 
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        \r\n");
+
+            
+            #line 34 "..\..\Views\CreateOrUpdate\Task.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 34 "..\..\Views\CreateOrUpdate\Task.cshtml"
+          
+            var isOwnerAndNameSortFields = new[] { new LookupSortInfo { Direction = ListSortDirection.Descending, Field = "IsOwner" }, new LookupSortInfo { Direction = ListSortDirection.Ascending, Field = "Name" } };            
+        
             
             #line default
             #line hidden
@@ -193,7 +215,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 33 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 38 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding));
 
             
@@ -201,13 +223,35 @@ WriteLiteral("        ");
             #line hidden
 WriteLiteral("\r\n");
 
+            
+            #line 39 "..\..\Views\CreateOrUpdate\Task.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 39 "..\..\Views\CreateOrUpdate\Task.cshtml"
+          
+            var firmDataFields = new[]
+                                     {
+                                         new LookupDataField { Name = "id", Mapping = "Id" }, 
+                                         new LookupDataField { Name = "name", Mapping = "Name" }, 
+                                         new LookupDataField { Name = "city", Mapping = "OrganizationUnitName" }
+                                     };
+            const string HeaderTextTemplate = "'<span class=\"x-lookup-thumb\">{name}</span>&nbsp;<span class=\"x-lookup-thumb\" style=\"color:gray\">{city}</span>&nbsp;'";
+            
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
 WriteLiteral("        ");
 
             
-            #line 34 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 48 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(
-            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ExcludeReserve=true", DefaultSortFields = isOwnerAndNameSortFields }),
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
 
             
             #line default
@@ -217,8 +261,8 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 37 "..\..\Views\CreateOrUpdate\Task.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+            #line 51 "..\..\Views\CreateOrUpdate\Task.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields })));
 
             
             #line default
@@ -228,7 +272,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 39 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 53 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -239,7 +283,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 40 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 54 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.TaskType, FieldFlex.lone, null, EnumResources.ResourceManager)));
 
             
@@ -250,7 +294,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 41 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 55 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -261,7 +305,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 42 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 56 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
@@ -275,7 +319,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 47 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 61 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -286,7 +330,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 48 "..\..\Views\CreateOrUpdate\Task.cshtml"
+            #line 62 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Firms;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -26,7 +25,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         int SetFirmClient(Firm firm, long clientId);
         int ChangeTerritory(Firm firm, long territoryId);
         int ChangeTerritory(IEnumerable<Firm> firm, long territoryId);
-        IEnumerable<long> GetFirmAddressesIds(long firmId);
         IEnumerable<Firm> GetFirmsByTerritory(long territoryId);
 
         IEnumerable<OrganizationUnitDto> ExportFirmWithActiveOrders();
@@ -42,8 +40,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         Firm ImportFirmFromDgpp(ImportFirmDto firm, FirmImportContext context);
         [Obsolete("usecase оставлен просто для подстраховки - пока все города не откажутся от ДГПП, на практике он уже не используется")]
         IEnumerable<FirmAddress> ImportFirmAddresses(Firm firm, ImportFirmDto dto, FirmImportContext context);
-        void ImportAddressContacts(FirmAddress firmAddress, DTO.ImportFirmAddressDto dto);
-        void ImportAddressCategories(FirmAddress firmAddress, DTO.ImportFirmAddressDto dto, FirmImportContext context);
+        void ImportAddressContacts(FirmAddress firmAddress, ImportFirmAddressDto dto);
+        void ImportAddressCategories(FirmAddress firmAddress, ImportFirmAddressDto dto, FirmImportContext context);
         [Obsolete("usecase оставлен просто для подстраховки - пока все города не откажутся от ДГПП, на практике он уже не используется")]
         void DeleteFirmRelatedObjects(Firm firm);
 
@@ -52,18 +50,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
 
         long[] GetAdvertisementIds(long firmId);
 
-        IEnumerable<AdditionalServicesDto> GetFirmAdditionalServices(long firmId);
-        void SetFirmAdditionalServices(long firmId, IEnumerable<AdditionalServicesDto> additionalServices);
-
-        IEnumerable<AdditionalServicesDto> GetFirmAddressAdditionalServices(long firmAddressId);
-        void SetFirmAddressAdditionalServices(long firmAddressId, IEnumerable<AdditionalServicesDto> additionalServices);
-
         bool IsTerritoryReplaceable(long oldTerritoryId, long newTerritoryId);
-
-        // TODO {d.ivanov, 19.12.2013}: IReadModel
-        IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds);
-
-        // todo {d.ivanov, 2013-11-21}: IReadModel
-        long GetFirmAddressOrganizationUnitId(long cardCode);
     }
 }

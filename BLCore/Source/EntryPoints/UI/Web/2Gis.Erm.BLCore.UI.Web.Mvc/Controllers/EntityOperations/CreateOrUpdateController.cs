@@ -16,11 +16,11 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -28,11 +28,12 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
+using NuClear.Tracing.API;
+
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
-    // FIXME {all, 22.02.2014}: добавить в данные передавемые на карточку в create usecase (возможно одновреммено с разделением на update и create) url до IdentityService - при этом удалить протаксивание этого URL, через многие DomainEntityDto (удалив при этом и соответсвующие partial части этих DTO), то же касается и MVC ViewModel
     public sealed class CreateOrUpdateController<TEntity, TModel, TAdapted> : ControllerBase
         where TEntity : class, IEntityKey
         where TModel : EntityViewModelBase<TEntity>, new()
@@ -46,30 +47,26 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
 
-        public CreateOrUpdateController(IBusinessModelSettings businessModelSettings,
-                                        IMsCrmSettings msCrmSettings,
+        public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
+                                        IAPIOperationsServiceSettings operationsServiceSettings,
+                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                        IAPIIdentityServiceSettings identityServiceSettings,
                                         IUserContext userContext,
-                                        ICommonLog logger,
+                                        ITracer tracer,
+                                        IGetBaseCurrencyService getBaseCurrencyService,
                                         IUIConfigurationService uiConfigurationService,
                                         IUIServicesManager uiServicesManager,
+                                        IBusinessModelSettings businessModelSettings,
                                         IOperationServicesManager operationServicesManager,
                                         ISecurityServiceUserIdentifier userIdentifierService,
                                         ISecurityServiceFunctionalAccess functionalAccessService,
-                                        ISecurityServiceEntityAccess entityAccessService,
-                                        IAPIOperationsServiceSettings operationsServiceSettings,
-                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                        ISecurityServiceEntityAccess entityAccessService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
-            _businessModelSettings = businessModelSettings;
-            _operationServicesManager = operationServicesManager;
             _uiConfigurationService = uiConfigurationService;
             _uiServicesManager = uiServicesManager;
+            _businessModelSettings = businessModelSettings;
+            _operationServicesManager = operationServicesManager;
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
             _entityAccessService = entityAccessService;
@@ -104,15 +101,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             }
             catch (ArgumentException ex)
             {
-                ModelUtils.OnException(this, Logger, model, new NotificationException(ex.Message));
+                ModelUtils.OnException(this, Tracer, model, new NotificationException(ex.Message));
             }
             catch (NotSupportedException ex)
             {
-                ModelUtils.OnException(this, Logger, model, new NotificationException(ex.Message));
+                ModelUtils.OnException(this, Tracer, model, new NotificationException(ex.Message));
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
             finally
             {

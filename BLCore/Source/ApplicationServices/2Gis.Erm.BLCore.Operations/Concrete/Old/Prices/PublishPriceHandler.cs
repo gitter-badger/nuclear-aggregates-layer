@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices
@@ -38,6 +39,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices
                 ValidatePrice(request.PriceId, request.OrganizarionUnitId, request.BeginDate, request.PublishDate);
 
                 var price = _priceReadModel.GetPrice(request.PriceId);
+                if (price == null)
+                {
+                    throw new EntityNotFoundException(typeof(Price), request.PriceId);    
+                }
+
                 _priceRepository.Publish(price, request.OrganizarionUnitId, request.BeginDate, request.PublishDate);
 
                 operationScope.Complete();

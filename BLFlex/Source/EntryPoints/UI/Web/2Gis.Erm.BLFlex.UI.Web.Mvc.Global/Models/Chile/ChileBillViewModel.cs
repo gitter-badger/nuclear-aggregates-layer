@@ -31,7 +31,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         public string Comment { get; set; }
 
-        [Dependency(DependencyType.ReadOnly, "BillNumber", "this.value && this.value.toLowerCase()=='false'")]
         [Dependency(DependencyType.ReadOnly, "PaymentDatePlan", "this.value && this.value.toLowerCase()=='false'")]
         public bool IsOrderActive { get; set; }
 

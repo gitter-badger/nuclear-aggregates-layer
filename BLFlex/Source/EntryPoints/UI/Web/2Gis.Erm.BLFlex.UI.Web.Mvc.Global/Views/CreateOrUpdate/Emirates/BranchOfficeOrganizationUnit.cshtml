@@ -17,7 +17,7 @@
 
 @section CardBody
 {
-    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    
     @Html.HiddenFor(m => m.BranchOfficeAddlId)
 
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
@@ -27,6 +27,9 @@
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.ShortLegalName, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ApplicationCityName, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOffice })

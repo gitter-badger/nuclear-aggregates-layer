@@ -15,11 +15,12 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 {
@@ -75,19 +76,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private readonly ISecurityServiceUserIdentifier _securityService;
         private readonly IOperationScopeFactory _operationScopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         private readonly IFirmRepository _firmRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public DgppImportFirmsHandler(ISecurityServiceUserIdentifier securityService,
-            ICommonLog logger,
+            ITracer tracer,
             IFirmRepository firmRepository, 
             IUnitOfWork unitOfWork,
             IOperationScopeFactory operationScopeFactory)
         {
             _securityService = securityService;
-            _logger = logger;
+            _tracer = tracer;
             _firmRepository = firmRepository;
             _unitOfWork = unitOfWork;
             _operationScopeFactory = operationScopeFactory;
@@ -97,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
         {
             try
             {
-                _logger.InfoFormatEx("{0}: начало", HandlerName);
+                _tracer.InfoFormat("{0}: начало", HandlerName);
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
                     ImportFirmsHeaderDto header;
@@ -123,7 +124,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
             }
             finally
             {
-                _logger.InfoFormatEx("{0}: окончание", HandlerName);
+                _tracer.InfoFormat("{0}: окончание", HandlerName);
             }
         }
 
@@ -139,6 +140,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private void ImportContactsAndCategories(IEnumerable<Tuple<FirmAddress, ImportFirmAddressDto>> importedAddresses, FirmImportContext context)
         {
+            // COMMENT {all, 05.12.2014}: здесь использование UoWScope оставил, т.к. решил что разбираться необходима или нет изоляция между DomainContext для фирм и т.п. не целесообразно, лучше оставить
+            // Данный usecase фактически уже не используется, код интеграции с ДГПП пока оставлен на всякий случай, но скоро пойдет идет под снос, так что код будет выпилен вместе со всей интеграцией с ДГПП.
+            // В данном usecase после выпиливания отложенного сохранения просела бы производительность , если бы он массово использовался (т.к. UoWScope дает теперь только изоляцию, но не batch cохранение изменений),
+            // однако, т.к. этого нет, и, скорее всего, не будет существенный рефакторинг не выполнялся
             using (var scope = _unitOfWork.CreateScope())
             {
                 var firmRepository = scope.CreateRepository<IFirmRepository>();
@@ -162,6 +167,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 
         private IEnumerable<Tuple<FirmAddress, ImportFirmAddressDto>> ImportAddresses(IEnumerable<Tuple<Firm, ImportFirmDto>> importedFirms, FirmImportContext context)
         {
+            // COMMENT {all, 05.12.2014}: здесь использование UoWScope оставил, т.к. решил что разбираться необходима или нет изоляция между DomainContext для фирм и т.п. не целесообразно, лучше оставить
+            // Данный usecase фактически уже не используется, код интеграции с ДГПП пока оставлен на всякий случай, но скоро пойдет идет под снос, так что код будет выпилен вместе со всей интеграцией с ДГПП.
+            // В данном usecase после выпиливания отложенного сохранения просела бы производительность, если бы он массово использовался (т.к. UoWScope дает теперь только изоляцию, но не batch cохранение изменений),
+            // однако, т.к. этого нет, и, скорее всего, не будет существенный рефакторинг не выполнялся
             var importedAddresses = new List<Tuple<FirmAddress, ImportFirmAddressDto>>();
             using (var scope = _unitOfWork.CreateScope())
             {

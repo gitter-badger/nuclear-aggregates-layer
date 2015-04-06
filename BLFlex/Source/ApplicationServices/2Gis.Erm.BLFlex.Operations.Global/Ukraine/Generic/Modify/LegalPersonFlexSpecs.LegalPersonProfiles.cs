@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                         {
                                             Id = x.Id,
                                             Name = x.Name,
-                                            AdditionalEmail = x.AdditionalEmail,
+                                            Email = x.Email,
                                             ChiefNameInGenitive = x.ChiefNameInGenitive,
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             DocumentsDeliveryAddress = x.DocumentsDeliveryAddress,
@@ -52,7 +52,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                             PostAddress = x.PostAddress,
                                             EmailForAccountingDocuments = x.EmailForAccountingDocuments,
                                             PaymentEssentialElements = x.PaymentEssentialElements,
-                                            AdditionalPaymentElements = x.AdditionalPaymentElements,
                                             PaymentMethod = x.PaymentMethod == null
                                                                 ? PaymentMethod.Undefined
                                                                 : (PaymentMethod)x.PaymentMethod,
@@ -96,14 +95,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                     legalPersonProfile.RecipientName = dto.RecipientName;
                                     legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
                                     legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
-                                    legalPersonProfile.AdditionalEmail = dto.AdditionalEmail;
+                                    legalPersonProfile.Email = dto.Email;
                                     legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
                                     legalPersonProfile.Phone = dto.Phone;
                                     legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;
                                     legalPersonProfile.PaymentEssentialElements = dto.PaymentEssentialElements;
                                     legalPersonProfile.AccountNumber = dto.AccountNumber;
                                     legalPersonProfile.BankName = dto.BankName;
-                                    legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
                                     legalPersonProfile.PaymentMethod = dto.PaymentMethod;
                                     legalPersonProfile.LegalPersonId = dto.LegalPersonRef.Id.Value;
                                     legalPersonProfile.CertificateDate = dto.CertificateDate;

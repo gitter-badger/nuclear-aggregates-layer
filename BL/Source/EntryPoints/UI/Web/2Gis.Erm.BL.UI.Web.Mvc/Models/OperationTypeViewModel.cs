@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -27,8 +26,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public override byte[] Timestamp { get; set; }
 
-        public Uri IdentityServiceUrl { get; set; }
-        
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (OperationTypeDomainEntityDto)domainEntityDto;
@@ -39,7 +36,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             IsInSyncWith1C = modelDto.IsInSyncWith1C;
             SyncCode1C = modelDto.SyncCode1C;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

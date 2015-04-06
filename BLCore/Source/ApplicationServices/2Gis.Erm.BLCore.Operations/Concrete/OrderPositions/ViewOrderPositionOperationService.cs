@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
+﻿using DoubleGis.Erm.BLCore.Aggregates.Positions;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
@@ -10,19 +10,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
     public class ViewOrderPositionOperationService : IViewOrderPositionOperationService
     {
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IPositionReadModel _positionReadModel;
         private readonly IPriceReadModel _priceReadModel;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
+        private readonly IGetAvailableBindingObjectsOperationService _formAvailableBindingObjectsOperationService;
+        private readonly ICalculateOrderPositionPricePerUnitOperationService _calculateOrderPositionPricePerUnitOperationService;
 
         public ViewOrderPositionOperationService(IOrderReadModel orderReadModel,
                                                  IPriceReadModel priceReadModel,
-                                                 IPositionReadModel positionReadModel,
-                                                 ICalculateCategoryRateOperationService calculateCategoryRateOperationService)
+                                                 ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
+                                                 IGetAvailableBindingObjectsOperationService formAvailableBindingObjectsOperationService,
+                                                 ICalculateOrderPositionPricePerUnitOperationService calculateOrderPositionPricePerUnitOperationService)
         {
             _orderReadModel = orderReadModel;
             _priceReadModel = priceReadModel;
-            _positionReadModel = positionReadModel;
             _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
+            _formAvailableBindingObjectsOperationService = formAvailableBindingObjectsOperationService;
+            _calculateOrderPositionPricePerUnitOperationService = calculateOrderPositionPricePerUnitOperationService;
         }
 
         public OrderPositionWithSchemaDto ViewOrderPosition(long orderId, long pricePositionId, long? orderPositionId, bool includeHidden)
@@ -30,9 +33,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             var order = _orderReadModel.GetOrderLinkingObjectsDto(orderId);
             var positionInfo = _priceReadModel.GetPricePositionDetailedInfo(pricePositionId);
             var categoryRate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculatedOrDefault(orderId, pricePositionId, null);
-            var priceCalulations = _orderReadModel.CalculatePricePerUnit(orderId, categoryRate, positionInfo.PricePositionCost);
-            var isNewSalesModel = _positionReadModel.IsNewSalesModel(positionInfo.AccountingMethod);
-            var linkingObjectsSchema = _positionReadModel.GetLinkingObjectsSchema(order, positionInfo, includeHidden, orderPositionId);
+            var priceCalulations = _calculateOrderPositionPricePerUnitOperationService.CalculatePricePerUnit(orderId, categoryRate, positionInfo.PricePositionCost);
+            var isPlannedProvisionSalesModel = positionInfo.SalesModel.IsPlannedProvisionSalesModel();
+            var linkingObjectsSchema = _formAvailableBindingObjectsOperationService.GetLinkingObjectsSchema(orderId, pricePositionId, includeHidden, orderPositionId);
 
             return new OrderPositionWithSchemaDto
             {
@@ -48,10 +51,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 LinkingObjectType = positionInfo.LinkingObjectType,
 
                 PricePerUnit = priceCalulations.PricePerUnit,
-                VatRatio = priceCalulations.VatRatio,
+                PricePerUnitWithVat = priceCalulations.PricePerUnitWithVat,
 
                 LinkingObjectsSchema = linkingObjectsSchema,
-                IsPositionNewSalesModel = isNewSalesModel,
+                IsPositionOfPlannedProvisionSalesModel = isPlannedProvisionSalesModel,
+                SalesModel = (int)positionInfo.SalesModel
             };
         }
     }

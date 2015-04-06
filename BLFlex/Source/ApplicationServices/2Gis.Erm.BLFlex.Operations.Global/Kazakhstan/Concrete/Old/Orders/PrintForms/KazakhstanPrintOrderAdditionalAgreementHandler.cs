@@ -3,6 +3,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic;
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
         {
             var orderInfoValidation =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                    .Select(order => new { WorkflowStep = (OrderState)order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
+                    .Select(order => new { WorkflowStep = order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
                     .Single();
 
             if (!orderInfoValidation.IsTerminated)
@@ -78,11 +79,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
                                OrganizationUnitName = order.DestOrganizationUnit.Name,
                                OrderNumber = order.Number,
                                CurrencyISOCode = order.Currency.ISOCode,
-                               LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                               LegalPersonType = order.LegalPerson.LegalPersonTypeEnum,
+                               order.LegalPersonProfileId,
                            })
                        .Single();
 
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
+            }
+
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);
             var branchOffice = _branchOfficeReadModelReadModel.GetBranchOffice(orderInfo.BranchOfficeId);
             var branchOfficeOrganizationUnit = _branchOfficeReadModelReadModel.GetBranchOfficeOrganizationUnit(orderInfo.BranchOfficeOrganizationUnitId.Value);
@@ -94,7 +101,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
                     { "Order", PrintHelper.OrderFields(orderInfo.Order) },
                     { "AuthorityDocument", PrintHelper.GetAuthorityDocumentDescription(profile, _localizationSettings.ApplicationCulture) },
                     { "NextReleaseDate", orderInfo.RejectionDate.Value.GetNextMonthFirstDate() },
-                    { "OrganizationUnitName", orderInfo.OrganizationUnitName },
                     { "Profile", PrintHelper.LegalPersonProfileFields(profile) },
                 };
 

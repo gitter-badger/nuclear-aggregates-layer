@@ -4,8 +4,11 @@ using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DAL;
@@ -43,10 +46,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         protected override Response Handle(PrintOrderBargainRequest request)
         {
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetLegalPersonProfileIdByOrder(request.OrderId.Value);
 
             if (bargainId == null)
             {
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
+            }
+
+            if (legalPersonProfileId == null)
+            {
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var bargainInfo = _finder.Find(Specs.Find.ById<Bargain>(bargainId.Value))
@@ -61,21 +70,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                          })
                                      .Single();
 
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(bargainInfo.LegalPersonId);
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(bargainInfo.BranchOfficeId);
             var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargainInfo.BranchOfficeOrganizationUnitId));
 
             var printData = new PrintData
-                {
-                    { "Bargain", GetBargainFields(bargainInfo.Bargain) },
-                    { "Profile", UkrainePrintHelper.LegalPersonProfileFields(profile) },
-                    { "LegalPerson", UkrainePrintHelper.LegalPersonFields(legalPerson) },
-                    { "BranchOffice", UkrainePrintHelper.BranchOfficeFields(branchOffice) },
-                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
-                    { "OperatesOnTheBasisInGenitive", _ukrainePrintHelper.GetOperatesOnTheBasisInGenitive(profile) },
-                    { "OrganizationUnitName", bargainInfo.OrganizationUnitName },
-                };
+                                {
+                                    { "Bargain", GetBargainFields(bargainInfo.Bargain) },
+                                    { "Profile", UkrainePrintHelper.LegalPersonProfileFields(profile) },
+                                    { "LegalPerson", UkrainePrintHelper.LegalPersonFields(legalPerson) },
+                                    { "BranchOffice", UkrainePrintHelper.BranchOfficeFields(branchOffice) },
+                                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
+                                    { "OperatesOnTheBasisInGenitive", _ukrainePrintHelper.GetOperatesOnTheBasisInGenitive(profile) },
+                                };
 
             return
                 _requestProcessor.HandleSubRequest(

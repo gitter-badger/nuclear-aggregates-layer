@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                         {
                                             Id = x.Id,
                                             Name = x.Name,
-                                            Email = x.AdditionalEmail,
+                                            Email = x.Email,
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             DocumentsDeliveryAddress = x.DocumentsDeliveryAddress,
                                             DocumentsDeliveryMethod = x.DocumentsDeliveryMethod,
@@ -118,7 +118,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                             PositionInNominative = x.PositionInNominative,
                                             PostAddress = x.PostAddress,
                                             EmailForAccountingDocuments = x.EmailForAccountingDocuments,
-                                            AdditionalPaymentElements = x.AdditionalPaymentElements,
+                                            PaymentEssentialElements = x.PaymentEssentialElements,
                                             PaymentMethod = x.PaymentMethod == null
                                                                 ? PaymentMethod.Undefined
                                                                 : (PaymentMethod)x.PaymentMethod,
@@ -159,13 +159,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                     legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
                                     legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
                                     legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
-                                    legalPersonProfile.AdditionalEmail = dto.Email;
+                                    legalPersonProfile.Email = dto.Email;
                                     legalPersonProfile.PostAddress = dto.PostAddress;
                                     legalPersonProfile.PaymentMethod = dto.PaymentMethod;
                                     legalPersonProfile.IBAN = dto.IBAN;
                                     legalPersonProfile.SWIFT = dto.SWIFT;
                                     legalPersonProfile.BankName = dto.BankName;
-                                    legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
+                                    legalPersonProfile.PaymentEssentialElements = dto.PaymentEssentialElements;
                                     legalPersonProfile.ChiefNameInNominative = dto.ChiefNameInNominative;
                                     legalPersonProfile.PositionInNominative = dto.PositionInNominative;
                                     legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;

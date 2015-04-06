@@ -84,6 +84,12 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 d.setReadOnly(true);
             }
         }, this);
+        window.Ext.each(window.Ext.query("table.x-calendar-v2"), function (node) {
+            var d = window.Ext.getCmp(node.id.replace('_wrapper', ''));
+            if (this.ReadOnly || d.readOnly) {
+                d.setReadOnly(true);
+            }
+        }, this);
         window.Ext.each(window.Ext.CardLookupSettings, function (item) {
             var d = Ext.getCmp(item.id);
             if (d) {
@@ -503,6 +509,9 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                             }, this);
                             window.Ext.each(window.Ext.query("input.x-calendar"), function (node) {
                                 window.Ext.getCmp(node.id).setReadOnly(true);
+                            }, this);
+                            window.Ext.each(window.Ext.query("table.x-calendar-v2"), function (node) {
+                                window.Ext.getCmp(node.id.replace('_wrapper', '')).setReadOnly(true);
                             }, this);
                             window.Ext.each(window.Ext.CardLookupSettings, function (item) {
                                 Ext.getCmp(item.id).setReadOnly(true);

@@ -84,8 +84,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                                                                               .Common,
                                                    OrderValidationRuleMetadata.Config.Rule<SelfAdvertisementOrderValidationRule>(36)
                                                                               .Common,
-                                                   OrderValidationRuleMetadata.Config.Rule<AdditionalAdvertisementsOrderValidationRule>(37)
-                                                                              .Common,
+
+                                                   // Временно отключена ERM-6155
+                                                   // OrderValidationRuleMetadata.Config.Rule<AdditionalAdvertisementsOrderValidationRule>(37)
+                                                   //                            .Common,
                                                    OrderValidationRuleMetadata.Config
                                                                               .Rule<IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule>(38)
                                                                               .Common,
@@ -107,6 +109,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                                                                               .AvailableFor(ValidationType.ManualReportWithAccountsCheck),
                                                    OrderValidationRuleMetadata.Config.Rule<ThemePositionCountValidationRule>(44)
                                                                               .Common);
+
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed. Suppression is OK here.")]
+        private readonly OrderValidationRuleGroupMetadata _salesModelGroupMetadata =
+            OrderValidationRuleGroupMetadata.Config
+                                            .Group(OrderValidationRuleGroup.SalesModelValidation)
+                                            .UseCaching
+                                            .Rules(OrderValidationRuleMetadata.Config.Rule<SalesModelRestrictionsOrderValidationRule>(45).Common);
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed. Suppression is OK here.")]
         private readonly OrderValidationRuleGroupMetadata _advertisementMaterialsGroupMetadata =
@@ -150,6 +159,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                     .Id.Is(IdBuilder.For<MetadataOrderValidationIdentity>("Rules"))
                     .Childs( // автоматически не заполняем, т.к. нарушается сортировка - элементов немного пока заполняем вручную 
                         _genericGroupMetadata,
+                        _salesModelGroupMetadata,
                         _advertisementMaterialsGroupMetadata,
                         _adPositionsGroupMetadata,
                         _advertisementAmountGroupMetadata);

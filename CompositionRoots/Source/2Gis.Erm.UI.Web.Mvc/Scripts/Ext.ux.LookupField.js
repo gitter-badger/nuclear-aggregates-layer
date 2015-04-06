@@ -20,7 +20,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     supressMatchesErrors: false,
     parentEntityName: "None",
     parentIdPattern: "",
-
+    
     initComponent: function ()
     {
         window.Ext.ux.LookupField.superclass.initComponent.call(this);
@@ -173,8 +173,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             extendedInfo: null,
             nameLocaleResourceId: null,
             limit: 5,
-            dir: 'DESC',
-            sort: 'Id',
+            sort: 'Id DESC',
             pType: this.parentEntityName,
             pId: this.parentIdPattern
         };
@@ -306,7 +305,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             this.thumbEl.fadeOut({ useDisplay: true, duration: 0.3 });
             this.thumbPanel.destroy();
             this.thumbPanel = null;
-        }
+        }       
 
         var store = new window.Ext.data.Store({
             xtype: 'jsonstore',
@@ -316,12 +315,13 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                 idProperty: 'Id',
                 root: 'Data',
                 totalProperty: 'RowCount',
-                fields: [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute}]
+                fields: this.tplFields || [{ name: "id", mapping: "Id" }, { name: "name", mapping: data.MainAttribute }]
             })
         });
 
+        var headerText =this.tplHeaderTextTemplate || '<span class="x-lookup-thumb">{name}</span>&nbsp;';        
         var tpl = new window.Ext.XTemplate(
-                    '<tpl for=".">', '<div class="x-lookup-thumb" id="{id}">', '<img alt="" src="' + this.entityIcon + '" class="x-lookup-item"/>', '<span class="x-lookup-thumb">{name}</span>&nbsp;', '</div>', '</tpl>', '<div class="x-clear"></div>');
+                    '<tpl for=".">', '<div class="x-lookup-thumb" id="{id}">', '<img alt="" src="' + this.entityIcon + '" class="x-lookup-item"/>', headerText, '</div>', '</tpl>', '<div class="x-clear"></div>');
 
         var dataView = new window.Ext.DataView({
             tpl: tpl,
@@ -390,6 +390,8 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             return;
         }
 
+        var extraParameters = new Object();
+
         var filter = "";
         if (this.isValid)
         {
@@ -401,42 +403,37 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
         this.filter.dom.value = "";
 
-        var queryString = "";
-        if (filter) {
-            queryString += (queryString ? "&" : "?") + "search=" + encodeURIComponent(filter);
-        }
+        extraParameters.search = filter;
 
         if (this.parentEntityName !== "None" || this.parentIdPattern !== "") {
 
             // Вместо очистки флага 'filterToParent', которая тут была раньше, 
             // явно указываем null, если в лукапе ничего не выбрано (ERM-3576, ERM-3832)
             var parentId = window.Ext.getDom(this.parentIdPattern).value || "null";
-            queryString += (queryString ? "&" : "?") + "pType=" + this.parentEntityName;
-            queryString += (queryString ? "&" : "?") + "pId=" + parentId;
+            extraParameters.pType = this.parentEntityName;
+            extraParameters.pId = parentId;
         } else if (window.Ext.getDom("ViewConfig_Id") && window.Ext.getDom("ViewConfig_EntityName")) {
             var pid = window.Ext.getDom("ViewConfig_Id").value;
             var ptype = window.Ext.getDom("ViewConfig_EntityName").value;
-            if (pid && ptype)
-            {
-                queryString += (queryString ? "&" : "?") + "pType=" + ptype;
-                queryString += (queryString ? "&" : "?") + "pId=" + pid;
+            if (pid && ptype) {
+                extraParameters.pType = ptype;
+                extraParameters.pId = pid;
             }
         }
 
-        if (this.showReadOnlyCard) {
-            queryString += (queryString ? "&" : "?") + "ReadOnly=" + this.showReadOnlyCard;
-        }
+        extraParameters.ReadOnly = this.showReadOnlyCard;
         
         if (this.extendedInfo)
         {
             var filterExpr = this.prepareFilterExpression(this.extendedInfo);
-            if (filterExpr)
-            {
-                queryString += (queryString ? "&" : "?") + "extendedInfo=" + encodeURIComponent(filterExpr);
-            }
+            extraParameters.extendedInfo = filterExpr;
         }
+        if (this.defaultSortFields && this.defaultSortFieldsDirs) {
+            extraParameters.defaultSortFields = this.defaultSortFields;
+            extraParameters.defaultSortFieldsDirs = this.defaultSortFieldsDirs;           
+        }                
 
-        var url = this.searchUrl + queryString;
+        var url = this.searchUrl +  "?" + Ext.urlEncode(extraParameters);
 
         var result = window.showModalDialog(url, this.item ? { items: [this.item]} : null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
         this.filter.dom.style.display == "none" ? this.content.focus() : this.filter.focus();

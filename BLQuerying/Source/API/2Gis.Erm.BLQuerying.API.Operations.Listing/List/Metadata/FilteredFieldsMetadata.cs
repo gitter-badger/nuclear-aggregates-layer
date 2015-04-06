@@ -20,9 +20,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.Description)
             .RegisterFilteredFields<ListActivityDto>(
                 x => x.Header)
-            .RegisterFilteredFields<ListAdditionalFirmServiceDto>(
-                x => x.ServiceCode,
-                x => x.Description)
             .RegisterFilteredFields<ListAdsTemplatesAdsElementTemplateDto>(
                 x => x.AdsTemplateName,
                 x => x.AdsElementTemplateName)
@@ -236,6 +233,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.OrganizationUnitName)
             .RegisterFilteredFields<ListThemeCategoryDto>(
                 x => x.CategoryName)
+            .RegisterFilteredFields<ListTimeZoneDto>(
+                x => x.TimeZoneId)
             .RegisterFilteredFields<ListTerritoryDto>(
                 x => x.Name,
                 x => x.OrganizationUnitName)

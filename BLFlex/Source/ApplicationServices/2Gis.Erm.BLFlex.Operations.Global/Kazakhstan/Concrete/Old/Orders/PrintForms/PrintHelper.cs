@@ -55,6 +55,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
         {
             return new PrintData
                        {
+                           { "ApplicationCityName", branchOfficeOrganizationUnit.ApplicationCityName },
                            { "ChiefNameInGenitive", branchOfficeOrganizationUnit.ChiefNameInGenitive },
                            { "ChiefNameInNominative", branchOfficeOrganizationUnit.ChiefNameInNominative },
                            { "PaymentEssentialElements", branchOfficeOrganizationUnit.PaymentEssentialElements },
@@ -92,7 +93,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
                            { "PositionInGenitive", profile.PositionInGenitive },
                            { "EmailForAccountingDocuments", profile.EmailForAccountingDocuments },
                            { "BankName", profile.BankName },
-                           { "AdditionalPaymentElements", profile.AdditionalPaymentElements },
+                           { "PaymentEssentialElements", profile.PaymentEssentialElements },
                            { "IBAN", profile.IBAN },
                            { "SWIFT", profile.SWIFT },
                            { "ActualAddress", profile.Within<KazakhstanLegalPersonProfilePart>().GetPropertyValue(part => part.ActualAddress) },

@@ -3,9 +3,10 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
 using System.ServiceModel.Web;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors.Lifetime;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors
 {
@@ -14,15 +15,15 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehavior
     /// </summary>
     public class ErmOperationContextMessageInspector : IDispatchMessageInspector
     {
-        private readonly ILoggerContextManager _loggerContextManager;
+        private readonly ITracerContextManager _tracerContextManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ErmOperationContextMessageInspector"/> class.
         /// </summary>
-        /// <param name="loggerContextManager"></param>
-        public ErmOperationContextMessageInspector(ILoggerContextManager loggerContextManager)
+        /// <param name="tracerContextManager"></param>
+        public ErmOperationContextMessageInspector(ITracerContextManager tracerContextManager)
         {
-            _loggerContextManager = loggerContextManager;
+            _tracerContextManager = tracerContextManager;
         }
 
         /// <summary>
@@ -57,21 +58,21 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehavior
 
         private void SetOperationContextProperties(OperationContext currentOperationContext)
         {
-            _loggerContextManager[LoggerContextKeys.Required.SessionId] = currentOperationContext.SessionId ?? "Not available";
-
             var securityServiceContext = currentOperationContext.ServiceSecurityContext;
-            _loggerContextManager[LoggerContextKeys.Required.UserName] = securityServiceContext != null && !securityServiceContext.IsAnonymous
+            _tracerContextManager[TracerContextKeys.Required.UserAccount] = securityServiceContext != null && !securityServiceContext.IsAnonymous
                                                             ? securityServiceContext.PrimaryIdentity.Name
                                                             : "Not available";
+            
+            _tracerContextManager[TracerContextKeys.Optional.UserSession] = currentOperationContext.SessionId ?? "Not available";
 
             object remoteEndpointProperty;
             currentOperationContext.IncomingMessageProperties.TryGetValue(RemoteEndpointMessageProperty.Name, out remoteEndpointProperty);
-            _loggerContextManager[LoggerContextKeys.Required.UserIP] = remoteEndpointProperty != null
+            _tracerContextManager[TracerContextKeys.Optional.UserAddress] = remoteEndpointProperty != null
                                                           ? ((RemoteEndpointMessageProperty)remoteEndpointProperty).Address
                                                           : "Not available";
 
             var currentwebOperationContext = WebOperationContext.Current;
-            _loggerContextManager[LoggerContextKeys.Required.UserBrowser] = currentwebOperationContext != null && currentwebOperationContext.IncomingRequest.UserAgent != null
+            _tracerContextManager[TracerContextKeys.Optional.UserAgent] = currentwebOperationContext != null && currentwebOperationContext.IncomingRequest.UserAgent != null
                                                                ? currentwebOperationContext.IncomingRequest.UserAgent
                                                                : "Not available";
         }

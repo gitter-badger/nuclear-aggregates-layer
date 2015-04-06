@@ -6,23 +6,24 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public sealed class ReplicateToElasticSearchMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IDocumentUpdater _documentUpdater;
         private readonly ReplicationQueueHelper _replicationQueueHelper;
 
         public ReplicateToElasticSearchMessageAggregatedProcessingResultHandler(
-            ICommonLog logger,
+            ITracer tracer,
             IDocumentUpdater documentUpdater,
             ReplicationQueueHelper replicationQueueHelper)
         {
-            _logger = logger;
+            _tracer = tracer;
             _documentUpdater = documentUpdater;
             _replicationQueueHelper = replicationQueueHelper;
         }
@@ -62,7 +63,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't replicate to elastic message with id {0}", originalMessageId);
+                _tracer.ErrorFormat(ex, "Can't replicate to elastic message with id {0}", originalMessageId);
                 return MessageProcessingStage.Handle.EmptyResult().AsFailed();
             }
         }

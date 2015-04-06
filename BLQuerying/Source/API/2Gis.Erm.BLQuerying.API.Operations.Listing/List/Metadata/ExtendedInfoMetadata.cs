@@ -21,13 +21,15 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListAccountDetails", "Deleted=false"},
             {"DListAccountDetailsWithDeletedOperations", "Deleted=true"},
 
-            {"DListAllActivities", "NotDeleted=true"},
+            {"DListAllActivities", "ActiveAndNotDeleted=true"},
             // Активные действия
             {"DListActiveActivities", "ActiveAndNotDeleted=true;InProgress=true"},
             // Закрытые действия
-            {"DListInactiveActivities", "NotActiveBusinessMeaning=true"},
+            {"DListInactiveActivities", "ActiveAndNotDeleted=true;Completed=true;"},
             // Мои действия
             {"DListMyActivities", "ActiveAndNotDeleted=true;ForMe=true" },
+            //Мои открытые планы
+            {"DListMyOpenedActivities","ActiveAndNotDeleted=true;InProgress=true;ForMe=true"},
             // Действия по моим подчиненным
             {"DListActivitiesForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Мои завершенные действия
@@ -356,7 +358,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListThemeOrganizationUnit", "ActiveAndNotDeleted=true"},
             {"DListThemeCategory", "NotDeleted=true"},
 
-            {"AdditionalFirmServices", ""},
             {"DListAdvertisementElementDenialReason", ""},
             {"DListAdvertisementElement", ""},
             {"DListCurrencyRates", ""},
@@ -368,6 +369,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListPlatform", ""},
             {"DListReleaseInfo", ""},
             {"DListRole", ""},
+            {"DListTimeZones", ""},
             {"DListUserRole", ""},
             {"DListWithdrawalInfo", ""},
         };

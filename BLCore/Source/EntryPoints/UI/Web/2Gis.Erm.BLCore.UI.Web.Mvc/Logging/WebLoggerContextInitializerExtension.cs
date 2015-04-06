@@ -1,19 +1,20 @@
-﻿using DoubleGis.Erm.Platform.Common.Logging;
+﻿using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 {
-    public static class WebLoggerContextManagerExtension
+    public static class WebTracerContextManagerExtension
     {
-        public static void SetUserInfo(this ILoggerContextManager loggerContextManager,
-                                       string sessionId,
-                                       string userName,
-                                       string userIp,
-                                       string userBrowser)
+        public static void SetUserInfo(
+            this ITracerContextManager tracerContextManager,
+            string userAccount,
+            string userSession,
+            string userAddress,
+            string userAgent)
         {
-            loggerContextManager[LoggerContextKeys.Required.SessionId] = sessionId;
-            loggerContextManager[LoggerContextKeys.Required.UserName] = userName;
-            loggerContextManager[LoggerContextKeys.Required.UserIP] = userIp;
-            loggerContextManager[LoggerContextKeys.Required.UserBrowser] = userBrowser;
+            tracerContextManager[TracerContextKeys.Required.UserAccount] = userAccount;
+            tracerContextManager[TracerContextKeys.Optional.UserSession] = userSession;
+            tracerContextManager[TracerContextKeys.Optional.UserAddress] = userAddress;
+            tracerContextManager[TracerContextKeys.Optional.UserAgent] = userAgent;
         }
     }
 }

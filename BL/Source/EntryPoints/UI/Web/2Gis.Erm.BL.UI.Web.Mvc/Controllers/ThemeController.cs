@@ -7,8 +7,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -20,20 +22,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISetAsDefaultThemeOperationService _setAsDefaultThemeOperationService;
 
         public ThemeController(IMsCrmSettings msCrmSettings,
-                               IUserContext userContext,
-                               ICommonLog logger,
-                               ISetAsDefaultThemeOperationService setAsDefaultThemeThemeOperationServiceService,
                                IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                               IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                               IAPIIdentityServiceSettings identityServiceSettings,
+                               IUserContext userContext,
+                               ITracer tracer,
+                               IGetBaseCurrencyService getBaseCurrencyService,
+                               ISetAsDefaultThemeOperationService setAsDefaultThemeOperationService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
-            _setAsDefaultThemeOperationService = setAsDefaultThemeThemeOperationServiceService;
+            _setAsDefaultThemeOperationService = setAsDefaultThemeOperationService;
         }
 
         [HttpPost]

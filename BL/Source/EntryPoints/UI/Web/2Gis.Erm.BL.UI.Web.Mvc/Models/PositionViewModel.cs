@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [DisplayNameLocalized("CompositePosition")]
         [Dependency(DependencyType.Hidden, "RestrictChildPositionPlatforms", "!this.checked")]
         [Dependency(DependencyType.DisableAndHide, "AdvertisementTemplate", "this.checked")]
+        [Dependency(DependencyType.DisableAndHide, "PositionsGroup", "this.checked")]
         public bool IsComposite { get; set; }
 
         [RequiredLocalized]
@@ -33,7 +34,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         public PositionBindingObjectType BindingObjectType { get; set; }
 
         [RequiredLocalized]
-        public PositionAccountingMethod AccountingMethod { get; set; }
+        public SalesModel SalesModel { get; set; }
+
+        public PositionsGroup PositionsGroup { get; set; }
 
         [RequiredLocalized]
         public LookupField Platform { get; set; }
@@ -74,7 +77,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             IsControledByAmount = modelDto.IsControlledByAmount;
 
             BindingObjectType = modelDto.BindingObjectTypeEnum;
-            AccountingMethod = modelDto.AccountingMethodEnum;
+            SalesModel = modelDto.SalesModel;
+            PositionsGroup = modelDto.PositionsGroup;
+ 
             CalculationMethod = modelDto.CalculationMethodEnum;
 
             RestrictChildPositionPlatforms = modelDto.RestrictChildPositionPlatforms;
@@ -83,9 +88,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             Platform = LookupField.FromReference(modelDto.PlatformRef);
             PositionCategory = LookupField.FromReference(modelDto.CategoryRef);
             AdvertisementTemplate = LookupField.FromReference(modelDto.AdvertisementTemplateRef);
-            IsReadonlyTemplate = modelDto.IsReadOnlyTemplate;
+            IsPublished = modelDto.IsPublished;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
@@ -99,7 +103,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
                 IsComposite = IsComposite,
                 IsControlledByAmount = IsControledByAmount,
                 BindingObjectTypeEnum = BindingObjectType,
-                AccountingMethodEnum = AccountingMethod,
+                SalesModel = SalesModel,
+                PositionsGroup = PositionsGroup,
                 CalculationMethodEnum = CalculationMethod,
                 AdvertisementTemplateRef = AdvertisementTemplate != null ? AdvertisementTemplate.ToReference() : null,
                 PlatformRef = Platform.ToReference(),

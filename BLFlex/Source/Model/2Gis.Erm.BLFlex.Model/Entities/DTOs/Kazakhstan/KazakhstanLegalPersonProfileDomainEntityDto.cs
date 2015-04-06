@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Kazakhstan
         [DataMember]
         public string EmailForAccountingDocuments { get; set; }
         [DataMember]
-        public string AdditionalEmail { get; set; }
+        public string Email { get; set; }
         [DataMember]
         public string PersonResponsibleForDocuments { get; set; }
         [DataMember]
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Kazakhstan
         [DataMember]
         public string SWIFT { get; set; }
         [DataMember]
-        public string AdditionalPaymentElements { get; set; } 
+        public string PaymentEssentialElements { get; set; } 
         #endregion
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
@@ -29,6 +28,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.OrganizationUnits.ReadModel
         public string GetName(long organizationUnitId)
         {
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(x => x.Name).Single();
+        }
+
+        public IDictionary<long, string> GetNames(IEnumerable<long> organizationUnitIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<OrganizationUnit>(organizationUnitIds))
+                          .Select(x => new
+                                           {
+                                               Id = x.Id,
+                                               Name = x.Name
+                                           })
+                          .ToDictionary(x => x.Id, y => y.Name);
         }
 
         public long GetCurrencyId(long organizationUnitId)

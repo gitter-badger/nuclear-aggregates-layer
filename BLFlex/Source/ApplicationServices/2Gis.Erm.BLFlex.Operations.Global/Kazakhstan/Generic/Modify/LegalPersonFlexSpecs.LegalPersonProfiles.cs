@@ -35,11 +35,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify
                                                   {
                                                       Id = x.Id,
                                                       Name = x.Name,
-                                                      AdditionalEmail = x.AdditionalEmail,
+                                                      Email = x.Email,
                                                       ChiefNameInGenitive = x.ChiefNameInGenitive,
                                                       ChiefNameInNominative = x.ChiefNameInNominative,
                                                       DocumentsDeliveryAddress = x.DocumentsDeliveryAddress,
-                                                      DocumentsDeliveryMethod = (DocumentsDeliveryMethod)x.DocumentsDeliveryMethod,
+                                                      DocumentsDeliveryMethod = x.DocumentsDeliveryMethod,
                                                       LegalPersonRef = new EntityReference { Id = x.LegalPersonId, Name = null },
                                                       PositionInNominative = x.PositionInNominative,
                                                       PositionInGenitive = x.PositionInGenitive,
@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify
                                                       ModifiedByRef = new EntityReference { Id = x.ModifiedBy, Name = null },
                                                       ModifiedOn = x.ModifiedOn,
                                                       Timestamp = x.Timestamp,
-                                                      AdditionalPaymentElements = x.AdditionalPaymentElements,
+                                                      PaymentEssentialElements = x.PaymentEssentialElements,
                                                       BankName = x.BankName,
                                                       IBAN = x.IBAN,
                                                       SWIFT = x.SWIFT,
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify
                                     legalPersonProfile.RecipientName = dto.RecipientName;
                                     legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
                                     legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
-                                    legalPersonProfile.AdditionalEmail = dto.AdditionalEmail;
+                                    legalPersonProfile.Email = dto.Email;
                                     legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
                                     legalPersonProfile.Phone = dto.Phone;
                                     legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify
                                     legalPersonProfile.Timestamp = dto.Timestamp;
 
                                     legalPersonProfile.BankName = dto.BankName;
-                                    legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
+                                    legalPersonProfile.PaymentEssentialElements = dto.PaymentEssentialElements;
                                     legalPersonProfile.IBAN = dto.IBAN;
                                     legalPersonProfile.SWIFT = dto.SWIFT;
 

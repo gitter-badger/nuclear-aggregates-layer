@@ -9,20 +9,20 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
 {
-    [Obsolete("На текущий момент в UI нет кнопки вызова возврата фирмы в резерв. Необходимо уточнить и удалить в случае ненадобности")]
     public class DisqualifyFirmService : IDisqualifyGenericEntityService<Firm>
     {
         private readonly IUserContext _userContext;
         private readonly IFirmRepository _firmRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IActivityReadService _activityReadService;
 
@@ -30,19 +30,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             IUserContext userContext,
             IFirmRepository firmRepository,
             ISecurityServiceUserIdentifier userIdentifierService, 
-            ICommonLog logger,
+            ITracer tracer,
             IOperationScopeFactory operationScopeFactory,
             IActivityReadService activityReadService)
         {
             _userContext = userContext;
             _firmRepository = firmRepository;
             _userIdentifierService = userIdentifierService;
-            _logger = logger;
+            _tracer = tracer;
             _operationScopeFactory = operationScopeFactory;
             _activityReadService = activityReadService;
         }
 
-        public DisqualifyResult Disqualify(long entityId, bool bypassValidation)
+        // Метод должен быть виртуальным для работы ActionsHistory
+        public virtual DisqualifyResult Disqualify(long entityId, bool bypassValidation)
         {
             // Проверяем открытые связанные объекты:
             // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данной Фирмой, 
@@ -63,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
                 operationScope.Complete();
             }
 
-            _logger.InfoFormatEx("Фирма с id={0} возвращена в резерв", entityId);
+            _tracer.InfoFormat("Фирма с id={0} возвращена в резерв", entityId);
 
             return null;
         }

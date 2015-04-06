@@ -6,25 +6,26 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.OrderProcessing;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
 {
     public class OrderProcessingRequestsApplicationService : IOrderProcessingRequestsApplicationService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly ICreateOrderProlongationRequestOperationService _orderProlongationRequestService;
         private readonly ICreateOrderCreationRequestOperationService _orderCreationRequestService;
 
         public OrderProcessingRequestsApplicationService(
-            ICommonLog logger,
+            ITracer tracer,
             ICreateOrderProlongationRequestOperationService orderProcessingRequestService,
             IUserContext userContext,
             ICreateOrderCreationRequestOperationService orderCreationRequestService,
             IResourceGroupManager resourceGroupManager)
         {
-            _logger = logger;
+            _tracer = tracer;
             _orderProlongationRequestService = orderProcessingRequestService;
             _orderCreationRequestService = orderCreationRequestService;
 
@@ -39,12 +40,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }
@@ -57,12 +58,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }
@@ -85,12 +86,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             }
             catch (BusinessLogicException ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(ex.Message));
             }
             catch (Exception ex)
             {
-                _logger.FatalFormatEx(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.FatalFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<OrderProcessingErrorDescription>(new OrderProcessingErrorDescription(BLResources.InTheOrderProcessingRequestsServiceErrorOccured));
             }
         }

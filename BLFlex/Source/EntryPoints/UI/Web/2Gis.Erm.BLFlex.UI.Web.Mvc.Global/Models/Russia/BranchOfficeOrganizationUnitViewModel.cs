@@ -26,6 +26,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInGenitive { get; set; }
 
         [RequiredLocalized]
@@ -100,6 +104,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             Id = modelDto.Id;
             OrganizationUnit = LookupField.FromReference(modelDto.OrganizationUnitRef);
             BranchOffice = LookupField.FromReference(modelDto.BranchOfficeRef);
+            ApplicationCityName = modelDto.ApplicationCityName;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             IsPrimary = modelDto.IsPrimary;
@@ -124,7 +129,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             SyncCode1C = modelDto.SyncCode1C;
             RegistrationCertificate = modelDto.RegistrationCertificate;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
@@ -140,6 +144,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
                     OperatesOnTheBasisInGenitive = OperatesOnTheBasisInGenitive,
 
+                    ApplicationCityName = ApplicationCityName,
                     Kpp = Kpp,
                     PhoneNumber = PhoneNumber,
                     PositionInGenitive = PositionInGenitive,

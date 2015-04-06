@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -17,18 +18,19 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 {
     public class OrderProcessingService : IOrderProcessingService
     {
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IAccountRepository _accountRepository;
@@ -37,10 +39,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly IUserRepository _userRepository;
         private readonly IProjectService _projectService;
         private readonly IEvaluateOrderNumberService _numberService;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public OrderProcessingService(
             IUserContext userContext,
-            ICommonLog logger,
+            ITracer tracer,
             IOrderRepository orderRepository,
             IAccountRepository accountRepository,
             IReleaseReadModel releaseRepository,
@@ -48,10 +51,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             IProjectService projectService,
             IUserRepository userRepository,
             IOrderReadModel orderReadModel, 
-            IEvaluateOrderNumberService numberService)
+            IEvaluateOrderNumberService numberService, 
+            ILegalPersonReadModel legalPersonReadModel)
         {
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
             _orderRepository = orderRepository;
             _accountRepository = accountRepository;
             _releaseRepository = releaseRepository;
@@ -60,6 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             _userRepository = userRepository;
             _orderReadModel = orderReadModel;
             _numberService = numberService;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         public IOrderProcessingStrategy[] EvaluateProcessingStrategies(IUseCaseResumeContext<EditOrderRequest> resumeContext, IOperationScope operationScope)
@@ -84,7 +89,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                  _userRepository,
                                                                  _orderReadModel,
                                                                  _accountRepository,
-                                                                 _numberService));
+                                                                 _numberService,
+                                                                 _legalPersonReadModel));
                 return involvedStrategies.ToArray();
             }
 
@@ -97,11 +103,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                 operationScope,
                                                                 _userRepository,
                                                                 _orderReadModel,
-                                                                _logger,
+                                                                _tracer,
                                                                 _releaseRepository,
                                                                 _accountRepository,
                                                                 _functionalAccessService,
-                                                                _numberService));
+                                                                _numberService,
+                                                                _legalPersonReadModel));
             }
 
             if (originalOrderState != proposedOrderState)
@@ -113,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                            operationScope,
                                                                            _userRepository,
                                                                            _orderReadModel,
-                                                                           _logger,
+                                                                           _tracer,
                                                                            _releaseRepository));
             }
 

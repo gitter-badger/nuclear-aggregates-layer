@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic
                     { "BankName", legalPersonProfile.BankName },
                     { "SWIFT", legalPersonProfile.SWIFT },
                     { "IBAN", legalPersonProfile.IBAN },
-                    { "AdditionalPaymentElements", legalPersonProfile.AdditionalPaymentElements },
+                    { "PaymentEssentialElements", legalPersonProfile.PaymentEssentialElements },
                 };
 
             return new PrintData

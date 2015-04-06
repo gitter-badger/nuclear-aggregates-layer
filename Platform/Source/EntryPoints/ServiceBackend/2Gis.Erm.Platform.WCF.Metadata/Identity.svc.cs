@@ -5,7 +5,8 @@ using System.ServiceModel;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.Common.Identities;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Metadata
 {
@@ -14,15 +15,15 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
     {
         private readonly IEnvironmentSettings _environmentSettings;
         private readonly IIdentityProviderService _identityService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public IdentityProviderApplicationService(IEnvironmentSettings environmentSettings,
                                                   IIdentityProviderService identityService,
-                                                  ICommonLog logger)
+                                                  ITracer tracer)
         {
             _environmentSettings = environmentSettings;
             _identityService = identityService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public long[] GetIdentities(int count)
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't generate requested identities";
-                _logger.ErrorEx(ex, Message);
+                _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             catch (Exception ex)
             {
                 const string Message = "Can't generate requested identities";
-                _logger.ErrorEx(ex, Message);
+                _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
         }

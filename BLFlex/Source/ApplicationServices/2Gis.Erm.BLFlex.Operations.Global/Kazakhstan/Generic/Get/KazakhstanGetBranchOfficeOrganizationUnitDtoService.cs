@@ -3,7 +3,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Kazakhstan;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -17,9 +16,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
 
         public KazakhstanGetBranchOfficeOrganizationUnitDtoService(IUserContext userContext,
                                                                    IOrganizationUnitReadModel organizationUnitReadModel,
-                                                                   IBranchOfficeReadModel branchOfficeReadModel,
-                                                                   IAPIIdentityServiceSettings identityServiceSettings)
-            : base(userContext, branchOfficeReadModel, organizationUnitReadModel, identityServiceSettings)
+                                                                   IBranchOfficeReadModel branchOfficeReadModel)
+            : base(userContext, branchOfficeReadModel, organizationUnitReadModel)
         {
             _branchOfficeReadModel = branchOfficeReadModel;
         }

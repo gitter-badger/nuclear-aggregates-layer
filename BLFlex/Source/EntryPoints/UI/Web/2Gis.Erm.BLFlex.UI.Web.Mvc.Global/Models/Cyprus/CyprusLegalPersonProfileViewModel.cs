@@ -72,7 +72,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         public string BankName { get; set; }
 
         [StringLengthLocalized(512, MinimumLength = 0)]
-        public string AdditionalPaymentElements { get; set; }
+        [DisplayNameLocalized("AdditionalPaymentElements")]
+        public string PaymentEssentialElements { get; set; }
 
         [StringLengthLocalized(512, MinimumLength = 0)]
         public string DocumentsDeliveryAddress { get; set; }
@@ -155,7 +156,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
@@ -164,7 +165,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             AccountNumber = modelDto.AccountNumber;
             IBAN = modelDto.IBAN;
             BankName = modelDto.BankName;
-            AdditionalPaymentElements = modelDto.AdditionalPaymentElements;
+            PaymentEssentialElements = modelDto.PaymentEssentialElements;
             SWIFT = modelDto.SWIFT;
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
             PositionInNominative = modelDto.PositionInNominative;
@@ -197,7 +198,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                 {
                     Id = Id,
                     Name = Name.EnsureСleanness(),
-                    AdditionalEmail = Email.EnsureСleanness(),
+                    Email = Email.EnsureСleanness(),
                     ChiefNameInGenitive = ChiefNameInGenitive.EnsureСleanness(),
                     ChiefNameInNominative = ChiefNameInNominative.EnsureСleanness(),
                     DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),
@@ -206,7 +207,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                     IBAN = IBAN.EnsureСleanness(),
                     SWIFT = SWIFT.EnsureСleanness(),
                     BankName = BankName.EnsureСleanness(),
-                    AdditionalPaymentElements = AdditionalPaymentElements.EnsureСleanness(),
+                    PaymentEssentialElements = PaymentEssentialElements.EnsureСleanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
                     PositionInNominative = PositionInNominative.EnsureСleanness(),

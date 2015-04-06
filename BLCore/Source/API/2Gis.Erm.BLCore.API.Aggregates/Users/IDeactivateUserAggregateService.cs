@@ -8,6 +8,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
 {
     public interface IDeactivateUserAggregateService : IAggregateSpecificOperation<User, DeactivateIdentity>
     {
-        void Deactivate(User user, UserProfile profile, IEnumerable<UserRole> roles);
+        void Deactivate(User user, UserProfile profile, IEnumerable<UserRole> userRoleRelations);
     }
 }

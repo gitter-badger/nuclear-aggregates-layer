@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -189,7 +190,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         int IDeactivateAggregateRepository<Position>.Deactivate(long entityId)
         {
-            var isUsedAsChildElement = _finder.Find(PositionSpecifications.Find.UsedAsChildElement(entityId)).Any();
+            var isUsedAsChildElement = _finder.Find(PriceSpecs.Positions.Find.UsedAsChildElement(entityId)).Any();
             if (isUsedAsChildElement)
             {
                 var masterElementName = _finder.Find(Specs.Find.ById<Position>(entityId))
@@ -314,7 +315,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             var childPositionInfo = _finder.Find<Position>(x => x.Id == positionChildren.ChildPositionId)
                                            .Select(x => new
                                                {
-                                                   x.AccountingMethodEnum,
+                                                   SalesModel = x.SalesModel,
                                                    x.IsComposite,
                                                    x.PlatformId,
                                                })
@@ -325,14 +326,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 throw new NotificationException(BLResources.CantAddCompositePosition);
             }
 
-            var isAccountingMethodNotMatched = _finder.Find<PositionChildren>(x => !x.IsDeleted &&
+            var isSalesMethodNotMatched = _finder.Find<PositionChildren>(x => !x.IsDeleted &&
                                                                                    x.MasterPositionId == positionChildren.MasterPositionId &&
-                                                                                   x.ChildPosition.AccountingMethodEnum !=
-                                                                                   childPositionInfo.AccountingMethodEnum)
+                                                                                   x.ChildPosition.SalesModel !=
+                                                                                   childPositionInfo.SalesModel)
                                                       .Any();
-            if (isAccountingMethodNotMatched)
+            if (isSalesMethodNotMatched)
             {
-                throw new NotificationException(BLResources.CantAddChildPositionWithDifferentAccountingMethod);
+                throw new NotificationException(BLResources.CantAddChildPositionWithDifferentSalesModel);
             }
 
             var masterPosition = _finder.Find(Specs.Find.ById<Position>(positionChildren.MasterPositionId)).Single();

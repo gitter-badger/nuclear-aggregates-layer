@@ -14,11 +14,13 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -26,29 +28,26 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 {
     public sealed class WithdrawalInfoController : ControllerBase
     {
-        private readonly IWithdrawalOperationService _withdrawalOperationService;
         private readonly IRevertWithdrawalOperationService _revertWithdrawalOperationService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IWithdrawOperationsAggregator _withdrawOperationsAggregator;
 
-        public WithdrawalInfoController(IWithdrawalOperationService withdrawalOperationService,
-                                        IRevertWithdrawalOperationService revertWithdrawalOperationService,
-                                        IMsCrmSettings msCrmSettings,
-                                        IUserContext userContext,
-                                        ICommonLog logger,
-                                        ISecurityServiceFunctionalAccess functionalAccessService,
+        public WithdrawalInfoController(IMsCrmSettings msCrmSettings,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                        IAPIIdentityServiceSettings identityServiceSettings,
+                                        IUserContext userContext,
+                                        ITracer tracer,
+                                        IGetBaseCurrencyService getBaseCurrencyService,
+                                        IRevertWithdrawalOperationService revertWithdrawalOperationService,
+                                        ISecurityServiceFunctionalAccess functionalAccessService,
+                                        IWithdrawOperationsAggregator withdrawOperationsAggregator)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
-            _withdrawalOperationService = withdrawalOperationService;
+
             _revertWithdrawalOperationService = revertWithdrawalOperationService;
             _functionalAccessService = functionalAccessService;
+            _withdrawOperationsAggregator = withdrawOperationsAggregator;
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -82,18 +81,49 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
             try
             {
-                var processingResult =
-                    _withdrawalOperationService.Withdraw(viewModel.OrganizationUnit.Key.Value,
-                                                         new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()));
+                var period = new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(),
+                                            viewModel.PeriodStart.GetEndPeriodOfThisMonth());
 
-                viewModel.Message = processingResult.Succeded
-                                        ? "Withdrawal successfully finished"
-                                        : processingResult.ProcessingMessages.Aggregate(new StringBuilder(), (builder, message) => builder.AppendLine(message.Text)).ToString();
-                viewModel.IsSuccess = processingResult.Succeded;
+                Guid businessOperationId;
+                var result = _withdrawOperationsAggregator.Withdraw(period, viewModel.AccountingMethod, out businessOperationId);
+
+                switch (result)
+                {
+                    case BulkWithdrawResult.AllSucceeded:
+                    {
+                        viewModel.Message = "Withdrawal successfully finished";
+                        viewModel.IsSuccess = true;
+                        break;
+                    }
+
+                    case BulkWithdrawResult.ErrorsOccurred:
+                    {
+                        var resultMessage = string.Format(BLResources.WithdrawalFailed,
+                                                          period.Start,
+                                                          period.End,
+                                                          viewModel.AccountingMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+
+                        viewModel.HasErrors = true;
+                        viewModel.OperationId = businessOperationId;
+                        viewModel.Message = resultMessage;
+                        break;
+                    }
+
+                    case BulkWithdrawResult.NoSuitableDataFound:
+                    {
+                        viewModel.Message = string.Format(BLResources.NoLocksToWithdrawFound,
+                                                          period,
+                                                          viewModel.AccountingMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                        break;
+                    }
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
 
             return View(viewModel);
@@ -125,6 +155,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                     _revertWithdrawalOperationService.Revert(
                             viewModel.OrganizationUnit.Key.Value,
                             new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
+                            viewModel.AccountingMethod,
                             viewModel.Comment);
 
                 viewModel.Message = processingResult.Succeded
@@ -134,7 +165,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, viewModel, ex);
+                ModelUtils.OnException(this, Tracer, viewModel, ex);
             }
 
             return View(viewModel);

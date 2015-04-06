@@ -11,12 +11,13 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
 {
@@ -25,25 +26,25 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     {
         private readonly IAccountReadModel _accountReadModel;
         private readonly IReleaseReadModel _releaseReadModel;
-        private readonly ICheckOperationPeriodService _operationPeriodChecker;
+        private readonly IMonthPeriodValidationService _operationPeriodChecker;
         private readonly IAccountBulkDeleteLocksAggregateService _accountBulkDeleteLocksAggregateService;
         private readonly IAccountBulkReopenLimitsAggregateService _accountBulkReopenLimitsAggregateService;
         private readonly IReleaseChangeStatusAggregateService _changeReleaseStatusAggregateService;
         private readonly IAggregateServiceIsolator _aggregateServiceIsolator;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public RevertReleaseOperationService(IAccountReadModel accountReadModel,
                                              IReleaseReadModel releaseReadModel,
-                                             ICheckOperationPeriodService operationPeriodChecker,
+                                             IMonthPeriodValidationService operationPeriodChecker,
                                              IAccountBulkDeleteLocksAggregateService accountBulkDeleteLocksAggregateService,
                                              IAccountBulkReopenLimitsAggregateService accountBulkReopenLimitsAggregateService,
                                              IReleaseChangeStatusAggregateService changeReleaseStatusAggregateService,
                                              IAggregateServiceIsolator aggregateServiceIsolator,
                                              IUseCaseTuner useCaseTuner,
                                              IOperationScopeFactory scopeFactory,
-                                             ICommonLog logger)
+                                             ITracer tracer)
         {
             _accountReadModel = accountReadModel;
             _releaseReadModel = releaseReadModel;
@@ -54,12 +55,12 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             _aggregateServiceIsolator = aggregateServiceIsolator;
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public ReleaseRevertingResult Revert(long organizationUnitId, TimePeriod period, string comment)
         {
-            _logger.InfoFormatEx("Attempting to revert release for organization unit with id {0} and by period {1}", organizationUnitId, period);
+            _tracer.InfoFormat("Attempting to revert release for organization unit with id {0} and by period {1}", organizationUnitId, period);
             
             _useCaseTuner.AlterDuration<RevertReleaseOperationService>();
 
@@ -81,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             organizationUnitId,
                                             period,
                                             report);
-                    _logger.ErrorEx(msg);
+                    _tracer.Error(msg);
                     return ReleaseRevertingResult.Error(msg);
                 }
 
@@ -94,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                                 acquiredRelease.Id,
                                                 acquiredRelease.OrganizationUnitId,
                                                 period);
-                        _logger.ErrorEx(msg);
+                        _tracer.Error(msg);
                         return ReleaseRevertingResult.Error(msg);
                     }
 
@@ -110,11 +111,11 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 var msg = string.Format("Reverting release for organization unit with id {0} and by period {1} failed.",
                                         organizationUnitId,
                                         period);
-                _logger.ErrorEx(ex, msg);
+                _tracer.Error(ex, msg);
 
                 if (acquiredRelease != null)
                 {
-                    _logger.ErrorFormatEx("Reverting release with id {0} failed. Organization unit: {1}. {2}. Restoring release status to success value",
+                    _tracer.ErrorFormat("Reverting release with id {0} failed. Organization unit: {1}. {2}. Restoring release status to success value",
                                           acquiredRelease.Id,
                                           organizationUnitId,
                                           period);
@@ -123,7 +124,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                         TransactionScopeOption.RequiresNew,
                         service => service.SetPreviousStatus(acquiredRelease, ReleaseStatus.Success, "Restored status, after reverting attempt failed"));
 
-                    _logger.ErrorFormatEx("Reverting release with id {0} failed. Organization unit: {1}. {2}. Release status restored to success value",
+                    _tracer.ErrorFormat("Reverting release with id {0} failed. Organization unit: {1}. {2}. Release status restored to success value",
                                           acquiredRelease.Id,
                                           organizationUnitId,
                                           period);
@@ -207,9 +208,9 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             acquiredRelease = null;
             acquiredReleaseDescriptor = new AcquiredReleaseDescriptor();
 
-            if (!_operationPeriodChecker.IsOperationPeriodValid(period, out report))
+            if (!_operationPeriodChecker.IsValid(period, out report))
             {
-                _logger.ErrorEx(report);
+                _tracer.Error(report);
                 return false;
             }
 
@@ -218,7 +219,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(organizationUnitId, period);
                 if (!CanBeReverted(lastFinalRelease, out report))
                 {
-                    _logger.ErrorEx(report);
+                    _tracer.Error(report);
                     return false;
                 }
 
@@ -229,7 +230,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             period.Start,
                                             period.End,
                                             acquiredReleaseDescriptor.OrganizationUnitName);
-                    _logger.ErrorEx(report);
+                    _tracer.Error(report);
                     return false;
                 }
 
@@ -239,7 +240,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 transaction.Complete();
             }
 
-            _logger.InfoFormatEx("Reverting release process for organization unit {0} and period {1} is granted. Acquired release entry id {2}",
+            _tracer.InfoFormat("Reverting release process for organization unit {0} and period {1} is granted. Acquired release entry id {2}",
                     organizationUnitId,
                     period,
                     acquiredRelease.Id);
@@ -251,18 +252,18 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         {
             using (var scope = _scopeFactory.CreateNonCoupled<RevertReleaseIdentity>())
             {
-                _logger.InfoFormatEx("Reopening limits for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
+                _tracer.InfoFormat("Reopening limits for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
                 var reopenLimits = _accountReadModel.GetClosedLimits(organizationUnitId, period);
                 _accountBulkReopenLimitsAggregateService.Reopen(reopenLimits);
-                _logger.InfoFormatEx("Limits reopened for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
+                _tracer.InfoFormat("Limits reopened for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
 
-                _logger.InfoFormatEx("Deleting locks for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
+                _tracer.InfoFormat("Deleting locks for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
                 var deletedLockInfos = _accountReadModel.GetActiveLocksForDestinationOrganizationUnitByPeriod(organizationUnitId, period);
                 _accountBulkDeleteLocksAggregateService.Delete(deletedLockInfos);
-                _logger.InfoFormatEx("Locks deleted for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
+                _tracer.InfoFormat("Locks deleted for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
 
                 _changeReleaseStatusAggregateService.Reverted(acquiredRelease);
-                _logger.InfoFormatEx("Reverting release for organization unit with id {0} and by period {1} finished successfully",
+                _tracer.InfoFormat("Reverting release for organization unit with id {0} and by period {1} finished successfully",
                                      organizationUnitId,
                                      period);
                 scope.Complete();

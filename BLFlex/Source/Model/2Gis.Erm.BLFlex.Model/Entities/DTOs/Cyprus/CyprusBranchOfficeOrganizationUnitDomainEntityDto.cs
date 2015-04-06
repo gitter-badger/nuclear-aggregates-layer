@@ -18,6 +18,8 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Cyprus
         [DataMember]
         public string ShortLegalName { get; set; }
         [DataMember]
+        public string ApplicationCityName { get; set; }
+        [DataMember]
         public EntityReference BranchOfficeRef { get; set; }
         [DataMember]
         public EntityReference OrganizationUnitRef { get; set; }
@@ -41,8 +43,6 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Cyprus
         public DateTime? ModifiedOn { get; set; }
         [DataMember]
         public byte[] Timestamp { get; set; }
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
 
         #endregion
 

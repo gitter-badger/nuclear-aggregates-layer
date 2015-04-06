@@ -81,7 +81,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
         [SanitizedString]
         [StringLengthLocalized(512, MinimumLength = 0)]
-        public string AdditionalPaymentElements { get; set; }
+        [DisplayNameLocalized("AdditionalPaymentElements")]
+        public string PaymentEssentialElements { get; set; }
 
         [SanitizedString]
         [StringLengthLocalized(50)]
@@ -151,13 +152,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
             DocumentsDeliveryMethod = modelDto.DocumentsDeliveryMethod;
             PaymentMethod = modelDto.PaymentMethod;
             AccountNumber = modelDto.AccountNumber;
             BankName = modelDto.BankName;
-            AdditionalPaymentElements = modelDto.AdditionalPaymentElements;
+            PaymentEssentialElements = modelDto.PaymentEssentialElements;
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
             PostAddress = modelDto.PostAddress;
             Owner = LookupField.FromReference(modelDto.OwnerRef);
@@ -187,11 +188,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
             {
                 Id = Id,
                 Name = Name.EnsureСleanness(),
-                AdditionalEmail = Email.EnsureСleanness(),
+                Email = Email.EnsureСleanness(),
                 DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),
                 PaymentMethod = PaymentMethod,
                 AccountNumber = AccountNumber.EnsureСleanness(),
-                AdditionalPaymentElements = AdditionalPaymentElements.EnsureСleanness(),
+                PaymentEssentialElements = PaymentEssentialElements.EnsureСleanness(),
                 DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                 LegalPersonRef = LegalPerson.ToReference(),
                 PostAddress = PostAddress.EnsureСleanness(),

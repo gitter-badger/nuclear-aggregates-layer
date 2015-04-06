@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -12,6 +11,8 @@ using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories;
 using FluentAssertions;
 
 using Machine.Specifications;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
@@ -25,18 +26,16 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () =>
                 {
-                    Factories = new Dictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IDomainContextSaveStrategy, IAggregateRepository>>
+                    Factories = new Dictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IAggregateRepository>>
                         {
                             {
                                 typeof(IConcreteAggregateRepository),
-                                (readContextProvider, modifiableContextProvider, saveStrategy) =>
+                                (readContextProvider, modifiableContextProvider) =>
                                 new ConcreteAggregateRepository(new StubFinder(readContextProvider),
                                                                 new StubEntityRepository<ErmScopeEntity1>(readContextProvider,
-                                                                                                          modifiableContextProvider,
-                                                                                                          saveStrategy),
+                                                                                                          modifiableContextProvider),
                                                                 new StubEntityRepository<ErmScopeEntity2>(readContextProvider,
-                                                                                                          modifiableContextProvider,
-                                                                                                          saveStrategy))
+                                                                                                          modifiableContextProvider))
                             }
                         };
 
@@ -44,13 +43,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                     new StubDomainContext(),
                                                     new StubDomainContextFactory(),
                                                     new NullPendingChangesHandlingStrategy(),
-                                                    new NullLogger());
+                                                    new NullTracer());
 
                     _unitOfWorkScope = UnitOfWork.CreateScope();
                 };
 
-            protected static UnitOfWork UnitOfWork { get; private set; }
-            protected static Dictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IDomainContextSaveStrategy, IAggregateRepository>> Factories { get; private set; }
+            protected static IUnitOfWork UnitOfWork { get; private set; }
+            protected static Dictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IAggregateRepository>> Factories { get; private set; }
         }
 
         [Tags("DAL")]
@@ -81,7 +80,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_created : StubUnitOfWorkContext
         {
-            It scope_Id_should_be_not_equal_to_parent_unit_of_work_scope_Id = () => _unitOfWorkScope.ScopeId.Should().NotBe(UnitOfWork.ScopeId);
+            It scope_Id_should_be_not_equal_to_parent_unit_of_work_scope_Id = () => _unitOfWorkScope.ScopeId.Should().NotBe(((IDomainContextHost)UnitOfWork).ScopeId);
         }
 
         class When_creating_two_instances : StubUnitOfWorkContext
@@ -91,19 +90,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Because of = () => _unitOfWorkScope2 = UnitOfWork.CreateScope();
 
             It their_scope_Ids_should_be_not_equal = () => _unitOfWorkScope.ScopeId.Should().NotBe(_unitOfWorkScope2.ScopeId);
-        }
-
-        class When_call_CreateRepository_for_aggregate_repository_with_two_entity_repositories : StubUnitOfWorkContext
-        {
-            static ConcreteAggregateRepository _repository;
-
-            Because of = () =>
-                {
-                    _repository = (ConcreteAggregateRepository)_unitOfWorkScope.CreateRepository<IConcreteAggregateRepository>();
-                };
-
-            It entity_repository_1_save_strategy_should_not_deferred = () => _repository.EntityRepositoryType1.SaveStrategy.IsSaveDeferred.Should().Be(true);
-            It entity_repository_2_save_strategy_should_not_deferred = () => _repository.EntityRepositoryType2.SaveStrategy.IsSaveDeferred.Should().Be(true);
         }
 
         class When_call_CreateRepository_twice_for_the_same_aggregate_repository_interface : StubUnitOfWorkContext
@@ -134,23 +120,19 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Establish context = () =>
                 {
                     Factories.Add(typeof(IConcreteAggregateRepository1),
-                                  (readContextProvider, modifiableContextProvider, saveStrategy) =>
+                                  (readContextProvider, modifiableContextProvider) =>
                                   new ConcreteAggregateRepository1(new StubFinder(readContextProvider),
                                                                    new StubEntityRepository<ErmScopeEntity1>(readContextProvider,
-                                                                                                             modifiableContextProvider,
-                                                                                                             saveStrategy),
+                                                                                                             modifiableContextProvider),
                                                                    new StubEntityRepository<ErmScopeEntity2>(readContextProvider,
-                                                                                                             modifiableContextProvider,
-                                                                                                             saveStrategy)));
+                                                                                                             modifiableContextProvider)));
                     Factories.Add(typeof(IConcreteAggregateRepository2),
-                                  (readContextProvider, modifiableContextProvider, saveStrategy) =>
+                                  (readContextProvider, modifiableContextProvider) =>
                                   new ConcreteAggregateRepository2(new StubFinder(readContextProvider),
                                                                    new StubEntityRepository<ErmScopeEntity2>(readContextProvider,
-                                                                                                             modifiableContextProvider,
-                                                                                                             saveStrategy),
+                                                                                                             modifiableContextProvider),
                                                                    new StubEntityRepository<ErmScopeEntity1>(readContextProvider,
-                                                                                                             modifiableContextProvider,
-                                                                                                             saveStrategy)));
+                                                                                                             modifiableContextProvider)));
                 };
 
             Because of = () =>
@@ -311,11 +293,11 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             Establish context = () =>
                 {
-                    var unitOfWork = new StubUnitOfWork(Factories,
+                    IUnitOfWork unitOfWork = new StubUnitOfWork(Factories,
                                                         new StubDomainContext(),
                                                         new StubDomainContextFactory(),
                                                         new ForcePendingChangesHandlingStrategy(),
-                                                        new NullLogger());
+                                                        new NullTracer());
 
                     _unitOfWorkScope = unitOfWork.CreateScope();
 

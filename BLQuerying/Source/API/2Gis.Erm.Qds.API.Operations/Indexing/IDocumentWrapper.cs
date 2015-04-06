@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.Qds.API.Operations.Indexing
     public interface IIndexedDocumentWrapper
     {
         Type DocumentType { get; }
-        Func<ElasticApi.ErmBulkDescriptor, ElasticApi.ErmBulkDescriptor> IndexFunc { get; }
+        Func<ErmBulkDescriptor, ErmBulkDescriptor> IndexFunc { get; }
     }
 }

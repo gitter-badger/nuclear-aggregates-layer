@@ -2,6 +2,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -42,6 +43,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                                        })
                                    .Single();
 
+
+
             if (!orderInfo.IsTerminated)
             {
                 throw new NotificationException(BLResources.OrderShouldBeTerminated);
@@ -52,13 +55,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                 throw new NotificationException(BLResources.OrderShouldBeTerminatedOrArchive);
             }
 
-            var legalPersonProfileId = request.LegalPersonProfileId ?? orderInfo.LegalPersonProfileId;
-            if (!legalPersonProfileId.HasValue)
+            if (orderInfo.LegalPersonProfileId == null)
             {
-                throw new NotificationException(BLResources.LegalPersonProfileMissing);
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);
 
             var printData =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))

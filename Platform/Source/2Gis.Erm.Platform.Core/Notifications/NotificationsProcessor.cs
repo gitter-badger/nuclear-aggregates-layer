@@ -8,11 +8,12 @@ using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Notifications
 {
@@ -26,14 +27,14 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
 
         private readonly IFinder _finder;
         private readonly IRepository<NotificationProcessings> _processingsEntityRepository;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IIdentityProvider _identityProvider;
 
         public NotificationsProcessor(
             INotificationProcessingSettings notificationProcessingSettings,
             IFinder finder,                            
             IRepository<NotificationProcessings> processingsEntityRepository,
-            ICommonLog logger, 
+            ITracer tracer, 
             IIdentityProvider identityProvider)
         {
             _defaultSender = notificationProcessingSettings.DefaultSender;
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             _smtpServerHost = notificationProcessingSettings.SmtpServerHost;
             _finder = finder;
             _processingsEntityRepository = processingsEntityRepository;
-            _logger = logger;
+            _tracer = tracer;
             _identityProvider = identityProvider;
         }
 
@@ -181,7 +182,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Can't send notification message");
+                _tracer.Error(ex, "Can't send notification message");
                 var notificationProcessings = new NotificationProcessings
                 {
                     AttemptsCount = processingEmail.AttemptCount + 1,
@@ -226,7 +227,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
             }
             catch (Exception ex)
             {
-                _logger.ErrorEx(ex, "Can't get encoding, using default");
+                _tracer.Error(ex, "Can't get encoding, using default");
                 return false;
             }
         }
@@ -249,7 +250,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                     }
                     catch (Exception ex)
                     {
-                        _logger.ErrorEx(ex, "Can't get encoding, using default");
+                        _tracer.Error(ex, "Can't get encoding, using default");
                         encoding = Encoding.Default;
                     }
 
@@ -286,7 +287,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                     }
                     catch (Exception ex)
                     {
-                        _logger.ErrorEx(ex, "Can't get encoding, using default");
+                        _tracer.Error(ex, "Can't get encoding, using default");
                         encoding = Encoding.Default;
                     }
 

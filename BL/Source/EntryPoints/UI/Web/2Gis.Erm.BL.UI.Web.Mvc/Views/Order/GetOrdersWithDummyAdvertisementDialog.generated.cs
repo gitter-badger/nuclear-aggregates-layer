@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/GetOrdersWithDummyAdvertisementDialog.cshtml")]
-    public partial class GetOrdersWithDummyAdvertisementDialog : System.Web.Mvc.WebViewPage<Models.GetOrdersWithDummyAdvertisementDialogModel>
+    public partial class GetOrdersWithDummyAdvertisementDialog : System.Web.Mvc.WebViewPage<GetOrdersWithDummyAdvertisementDialogModel>
     {
         public GetOrdersWithDummyAdvertisementDialog()
         {
@@ -119,43 +119,43 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 468), Tuple.Create("\"", 537)
-, Tuple.Create(Tuple.Create("", 475), Tuple.Create("/Content/Ext.ux.DetailedProgressWindow.css?", 475), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 461), Tuple.Create("\"", 530)
+, Tuple.Create(Tuple.Create("", 468), Tuple.Create("/Content/Ext.ux.DetailedProgressWindow.css?", 468), true)
             
             #line 15 "..\..\Views\Order\GetOrdersWithDummyAdvertisementDialog.cshtml"
-             , Tuple.Create(Tuple.Create("", 518), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+             , Tuple.Create(Tuple.Create("", 511), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 518), false)
+, 511), false)
 );
 
 WriteLiteral(" />\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 560), Tuple.Create("\"", 627)
-, Tuple.Create(Tuple.Create("", 566), Tuple.Create("/Scripts/Ext.ux.DetailedProgressWindow.js?", 566), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 553), Tuple.Create("\"", 620)
+, Tuple.Create(Tuple.Create("", 559), Tuple.Create("/Scripts/Ext.ux.DetailedProgressWindow.js?", 559), true)
             
             #line 17 "..\..\Views\Order\GetOrdersWithDummyAdvertisementDialog.cshtml"
-, Tuple.Create(Tuple.Create("", 608), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 601), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 608), false)
+, 601), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 674), Tuple.Create("\"", 746)
-, Tuple.Create(Tuple.Create("", 680), Tuple.Create("/Scripts/Ext.ux.AsyncOperationClientManager.js?", 680), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 667), Tuple.Create("\"", 739)
+, Tuple.Create(Tuple.Create("", 673), Tuple.Create("/Scripts/Ext.ux.AsyncOperationClientManager.js?", 673), true)
             
             #line 18 "..\..\Views\Order\GetOrdersWithDummyAdvertisementDialog.cshtml"
-, Tuple.Create(Tuple.Create("", 727), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 720), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 727), false)
+, 720), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -239,14 +239,14 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteLiteral(" name=\"operationId\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 2213), Tuple.Create("\"", 2244)
+WriteAttribute("value", Tuple.Create(" value=\"", 2206), Tuple.Create("\"", 2237)
             
             #line 56 "..\..\Views\Order\GetOrdersWithDummyAdvertisementDialog.cshtml"
-, Tuple.Create(Tuple.Create("", 2221), Tuple.Create<System.Object, System.Int32>(Model.OrdersListFileId
+, Tuple.Create(Tuple.Create("", 2214), Tuple.Create<System.Object, System.Int32>(Model.OrdersListFileId
             
             #line default
             #line hidden
-, 2221), false)
+, 2214), false)
 );
 
 WriteLiteral(" />\r\n");

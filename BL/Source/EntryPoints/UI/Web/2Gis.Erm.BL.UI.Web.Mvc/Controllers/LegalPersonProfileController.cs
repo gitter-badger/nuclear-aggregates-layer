@@ -6,8 +6,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -18,18 +20,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
 
         public LegalPersonProfileController(IMsCrmSettings msCrmSettings,
-                                            IUserContext userContext,
-                                            ICommonLog logger,
-                                            IPublicService publicService,
                                             IAPIOperationsServiceSettings operationsServiceSettings,
                                             IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                            IAPIIdentityServiceSettings identityServiceSettings,
+                                            IUserContext userContext,
+                                            ITracer tracer,
+                                            IGetBaseCurrencyService getBaseCurrencyService,
+                                            IPublicService publicService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
         }

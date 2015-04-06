@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                     OrderDiscountInPercents = discountInPercents,
                 });
 
-                _publicService.Handle(new CalculateReleaseWithdrawalsRequest { Order = newOrder });
+                _publicService.Handle(new ActualizeOrderReleaseWithdrawalsRequest { Order = newOrder });
 
                 newOrder.DealId = newOrderDealId;
 
@@ -155,10 +155,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             // Прежняя логика была построена на том, что сначала номера генерируются, а затем присваиваются. Возможно, это важно.
             var orderNumber = GenerateOrderNumber(order, orderIndex);
             var orderRegionalNumber = IsBranchToBranchOrder(order) ? GenerateRegionalOrderNumber(order, orderIndex) : null;
-            order.Number = orderNumber;
-            order.RegionalNumber = orderRegionalNumber;
 
-            _orderRepository.UpdateOrderNumber(order);
+            var evaluatedOrderNumbersInfo = _orderReadModel.EvaluateOrderNumbers(orderNumber, orderRegionalNumber, order.PlatformId);
+            order.Number = evaluatedOrderNumbersInfo.Number;
+            order.RegionalNumber = evaluatedOrderNumbersInfo.RegionalNumber;
 
             order.PayableFact = order.PayablePlan;
             order.ReleaseCountPlan = releaseCount;
@@ -168,8 +168,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             order.TechnicallyTerminatedOrderId = isTechnicalTermination ? (long?)orderId : null;
 
             // releases
-            
-
             var releaseNumbersDto = _orderReadModel.CalculateReleaseNumbers(order.DestOrganizationUnitId,
                                                                              rawBeginDistributionDate,
                                                                              order.ReleaseCountPlan,

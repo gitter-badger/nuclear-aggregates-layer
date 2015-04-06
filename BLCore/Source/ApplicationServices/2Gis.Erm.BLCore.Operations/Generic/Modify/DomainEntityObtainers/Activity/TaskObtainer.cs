@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var dto = (TaskDomainEntityDto)domainEntityDto;
 
             var task = dto.IsNew()
-                ? new Task { IsActive = true }
+                ? new Task { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() } 
                 : _finder.FindOne(Specs.Find.ById<Task>(dto.Id));
 
             task.Header = dto.Header;
@@ -32,8 +32,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             task.Priority = dto.Priority;
             task.Description = dto.Description;
             task.ScheduledOn = dto.ScheduledOn;
-            task.Status = dto.Status;
-            task.OwnerCode = dto.OwnerRef.GetId();
             task.Timestamp = dto.Timestamp;
 
             return task;

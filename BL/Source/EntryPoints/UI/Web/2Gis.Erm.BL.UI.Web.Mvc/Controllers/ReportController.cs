@@ -29,8 +29,8 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -40,6 +40,8 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 using Newtonsoft.Json;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 using ReportModel = DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report.ReportModel;
@@ -55,24 +57,20 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
         private readonly IClientProxyFactory _clientProxyFactory;
 
-        public ReportController(IReportsSettings reportsSettings,
-                                ILocalizationSettings localizationSettings,
-                                IMsCrmSettings msCrmSettings,
+        public ReportController(IMsCrmSettings msCrmSettings,
+                                IAPIOperationsServiceSettings operationsServiceSettings,
+                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                IAPIIdentityServiceSettings identityServiceSettings,
                                 IUserContext userContext,
-                                ICommonLog logger,
+                                ITracer tracer,
+                                IGetBaseCurrencyService getBaseCurrencyService,
+                                IReportsSettings reportsSettings,
+                                ILocalizationSettings localizationSettings,
                                 IReportSimplifiedModel reportSimplifiedModel,
                                 IUserRepository userRepository,
                                 IPublicService publicService,
-                                IClientProxyFactory clientProxyFactory,
-                                IAPIOperationsServiceSettings operationsServiceSettings,
-                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                IClientProxyFactory clientProxyFactory)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _reportsSettings = reportsSettings;
             _localizationSettings = localizationSettings;

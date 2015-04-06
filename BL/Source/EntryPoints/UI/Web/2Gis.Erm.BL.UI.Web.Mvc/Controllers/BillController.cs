@@ -2,19 +2,22 @@ using System;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -22,35 +25,28 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public sealed class BillController : ControllerBase
     {
-        // для первого платежа - 20 число месяца, для последующих - 10 число месяца
-        // Если Дата подписания > 20-го числа текущего месяца то "Дата оплаты, до" в первом (единственном) счёте устанавливать = Дате подписания БЗ.
-        private static readonly Func<int, DateTime, DateTime, DateTime> PaymentDatePlanEvaluator =
-            (paymentNumber, signupDate, beginPeriod) =>
-                {
-                    if (paymentNumber == 1)
-                    {
-                        var firstPaymantDate = beginPeriod.AddMonths(-1).AddDays(20 - beginPeriod.Day);
-                        return signupDate.Day > 20 && signupDate.Month == firstPaymantDate.Month && signupDate.Year == firstPaymantDate.Year ? signupDate : firstPaymantDate;
-                    }
-
-                    return beginPeriod.AddMonths(-1).AddDays(10 - beginPeriod.Day);
-                };
-
         private readonly IPublicService _publicService;
-        private readonly ISecureFinder _finder;
+        private readonly IDeleteOrderBillsOperationService _deleteBillsService;
+        private readonly ICreateOrderBillsOperationService _createOrderBillsService;
+        private readonly ICalculateBillsOperationService _calculateBillsOperationService;
 
         public BillController(IMsCrmSettings msCrmSettings,
-                              IUserContext userContext,
-                              ICommonLog logger,
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                              IAPIIdentityServiceSettings identityServiceSettings,
+                              IUserContext userContext,
+                              ITracer tracer,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
-                              ISecureFinder finder)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
+                              IDeleteOrderBillsOperationService deleteBillsService,
+                              ICreateOrderBillsOperationService createOrderBillsService,
+                              ICalculateBillsOperationService calculateBillsOperationService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
-            _finder = finder;
+            _deleteBillsService = deleteBillsService;
+            _createOrderBillsService = createOrderBillsService;
+            _calculateBillsOperationService = calculateBillsOperationService;
         }
 
         public ActionResult DeleteAll()
@@ -63,7 +59,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             try
             {
-                _publicService.Handle(new DeleteBillsRequest { OrderId = viewModel.OrderId });
+                _deleteBillsService.Delete(viewModel.OrderId);
                 viewModel.Message = BLResources.OK;
                 return View(viewModel);
             }
@@ -83,15 +79,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         public JsonNetResult GetInitPaymentsInfo(long? orderId, BillPaymentType paymentType, int? paymentAmount)
         {
-            var response = (GetInitPaymentsInfoResponse)
-                           _publicService.Handle(new GetInitPaymentsInfoRequest
-                           {
-                               OrderId = orderId,
-                               PaymentType = paymentType,
-                               PaymentAmount = paymentAmount,
-                               PaymentDatePlanEvaluator = PaymentDatePlanEvaluator
-                           });
-            return new JsonNetResult(response.PaymentsInfo);
+            var payments = _calculateBillsOperationService.GetPayments(orderId, paymentAmount, paymentType);
+            return new JsonNetResult(payments);
         }
 
         [HttpPost]
@@ -102,7 +91,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                            _publicService.Handle(new GetDistributedPaymentsInfoRequest
                            {
                                OrderId = orderId,
-                               PaymentDatePlanEvaluator = PaymentDatePlanEvaluator,
                                InitPaymentsInfos = initPaymentsInfo
                            });
 
@@ -115,11 +103,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var createBillInfos = JsonConvert.DeserializeObject<CreateBillInfo[]>(paymentsInfo);
             var orders = JsonConvert.DeserializeObject<long[]>(relatedOrders);
 
-            _publicService.Handle(new CreateBillsRequest
-            {
-                OrderId = orderId,
-                CreateBillInfos = createBillInfos,
-            });
+            _createOrderBillsService.Create(orderId, createBillInfos);
 
             if (orders != null && orders.Length > 0)
             {
@@ -131,11 +115,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                });
                 foreach (var orderInfo in response.OrdersCreateBillInfos)
                 {
-                    _publicService.Handle(new CreateBillsRequest
-                    {
-                        OrderId = orderInfo.Item1,
-                        CreateBillInfos = orderInfo.Item2,
-                    });
+                    _createOrderBillsService.Create(orderInfo.Item1, orderInfo.Item2);
                 }
             }
         }

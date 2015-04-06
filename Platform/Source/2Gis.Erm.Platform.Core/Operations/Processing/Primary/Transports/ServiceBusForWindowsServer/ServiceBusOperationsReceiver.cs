@@ -6,7 +6,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer
 {
@@ -14,16 +15,16 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         MessageReceiverBase<TMessageFlow, ServiceBusPerformedOperationsMessage, IPerformedOperationsReceiverSettings> 
         where TMessageFlow : class, IMessageFlow, new()
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IServiceBusMessageReceiver<TMessageFlow> _serviceBusMessageReceiver;
 
         public ServiceBusOperationsReceiver(
             IPerformedOperationsReceiverSettings messageReceiverSettings, 
             IServiceBusMessageReceiver<TMessageFlow> serviceBusMessageReceiver,
-            ICommonLog logger)
+            ITracer tracer)
             : base(messageReceiverSettings)
         {
-            _logger = logger;
+            _tracer = tracer;
             _serviceBusMessageReceiver = serviceBusMessageReceiver;
         }
 
@@ -53,7 +54,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
                     }
                     catch (Exception ex)
                     {
-                                _logger.ErrorFormatEx(ex, "Service Bus message with Id={0} cannot be abandoned", brokeredMessage.MessageId);
+                                _tracer.ErrorFormat(ex, "Service Bus message with Id={0} cannot be abandoned", brokeredMessage.MessageId);
                         throw;
                     }
                 }

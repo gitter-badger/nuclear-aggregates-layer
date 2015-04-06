@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -15,6 +14,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Tracing.API;
 
 using It = Machine.Specifications.It;
 
@@ -30,18 +31,16 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () =>
                 {
-                    var factories = new Dictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IDomainContextSaveStrategy, IAggregateRepository>>
+                    var factories = new Dictionary<Type, Func<IReadDomainContextProvider, IModifiableDomainContextProvider, IAggregateRepository>>
                         {
                             {
                                 typeof(ConcreteAggregateRepository),
-                                (readContextProvider, modifiableContextProvider, saveStrategy) =>
+                                (readContextProvider, modifiableContextProvider) =>
                                 new ConcreteAggregateRepository(new StubFinder(readContextProvider),
                                                                 new StubEntityRepository<ErmScopeEntity1>(readContextProvider,
-                                                                                                          modifiableContextProvider,
-                                                                                                          saveStrategy),
+                                                                                                          modifiableContextProvider),
                                                                 new StubEntityRepository<ErmScopeEntity2>(readContextProvider,
-                                                                                                          modifiableContextProvider,
-                                                                                                          saveStrategy))
+                                                                                                          modifiableContextProvider))
                             }
                         };
 
@@ -49,7 +48,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                  new StubDomainContext(),
                                                  new StubDomainContextFactory(),
                                                  new NullPendingChangesHandlingStrategy(),
-                                                 new NullLogger());
+                                                 new NullTracer());
             };
         }
 
@@ -60,21 +59,19 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Establish context = () =>
                 {
                     _unitOfWork = new MockUnitOfWork(
-                        (x, y, z) =>
+                        (x, y) =>
                             {
                                 ReadDomainContextProvider = x;
                                 ModifiableDomainContextProvider = y;
-                                SaveStrategy = z;
                             },
                         Mock.Of<IReadDomainContext>(),
                         Mock.Of<IModifiableDomainContextFactory>(),
                         Mock.Of<IPendingChangesHandlingStrategy>(),
-                        Mock.Of<ICommonLog>());
+                        Mock.Of<ITracer>());
                 };
 
             protected static IReadDomainContextProvider ReadDomainContextProvider { get; private set; }
             protected static IModifiableDomainContextProvider ModifiableDomainContextProvider { get; private set; }
-            protected static IDomainContextSaveStrategy SaveStrategy { get; private set; }
         }
 
         [Tags("DAL")]
@@ -83,14 +80,14 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             static IEnumerable<IModifiableDomainContext> _modifiableDomainContexts;
 
-            Because of = () => _modifiableDomainContexts = _unitOfWork.GetModifiableDomainContexts(Mock.Of<IDomainContextHost>());
+            Because of = () => _modifiableDomainContexts = ((IUnitOfWork)_unitOfWork).GetModifiableDomainContexts(Mock.Of<IDomainContextHost>());
             It contexts_should_be_empty = () => _modifiableDomainContexts.Should().BeEmpty();
         }
 
         class When_created : StubUnitOfWorkContext
         {
             Because of = () => { };
-            It should_set_ScopeId = () => _unitOfWork.ScopeId.Should().NotBe(Guid.Empty);
+            It should_set_ScopeId = () => ((IDomainContextHost)_unitOfWork).ScopeId.Should().NotBe(Guid.Empty);
         }
 
         class When_call_CreateRepository_with_concrete_aggregate_repository_as_a_parameter : StubUnitOfWorkContext
@@ -141,8 +138,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             It modifiableDomainContextProvider_argument_should_be_of_type_ModifiableDomainContextProviderProxy =
                 () => ModifiableDomainContextProvider.Should().BeOfType<ModifiableDomainContextProviderProxy>();
-
-            It saveStrategy_argument_should_be_of_type_DomainContextSaveStrategy = () => SaveStrategy.Should().BeOfType<DomainContextSaveStrategy>();
         }
 
         [Tags("DAL")]
@@ -151,29 +146,25 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             static UnitOfWork _unitOfWork1;
             static UnitOfWork _unitOfWork2;
-            static IDomainContextSaveStrategy _saveStrategy1;
-            static IDomainContextSaveStrategy _saveStrategy2;
             
             Establish context = () =>
                 {
                     _unitOfWork1 = new MockUnitOfWork(
-                        (x, y, z) =>
+                        (x, y) =>
                             {
-                                _saveStrategy1 = z;
                             },
                         Mock.Of<IReadDomainContext>(),
                         Mock.Of<IModifiableDomainContextFactory>(),
                         Mock.Of<IPendingChangesHandlingStrategy>(),
-                        Mock.Of<ICommonLog>());
+                        Mock.Of<ITracer>());
                     _unitOfWork2 = new MockUnitOfWork(
-                        (x, y, z) =>
+                        (x, y) =>
                             {
-                                _saveStrategy2 = z;
                             },
                         Mock.Of<IReadDomainContext>(),
                         Mock.Of<IModifiableDomainContextFactory>(),
                         Mock.Of<IPendingChangesHandlingStrategy>(),
-                        Mock.Of<ICommonLog>());
+                        Mock.Of<ITracer>());
                 };
 
             Because of = () =>
@@ -181,9 +172,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork1.CreateRepository<IStubSimpleAggregateRepository>();
                     ((IAggregateRepositoryForHostFactory)_unitOfWork2).CreateRepository<IStubSimpleAggregateRepository>(_unitOfWork2);
                 };
-
-            It should_be_not_deffered_save_strategy_for_IAggregateRepositoryFactory_interface = () => _saveStrategy1.IsSaveDeferred.Should().BeFalse();
-            It should_be_deffered_save_strategy_for_IAggregateRepositoryForHostFactory_interface = () => _saveStrategy2.IsSaveDeferred.Should().BeTrue();
         }
 
         [Tags("DAL")]
@@ -198,13 +186,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      Mock.Of<IModifiableDomainContextFactory>(),
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>
                 {
                     _readDomainContext1 = ((IReadDomainContextProviderForHost)_unitOfWork).Get(_unitOfWork);
-                    using (var scope = _unitOfWork.CreateScope())
+                    using (var scope = ((IUnitOfWork)_unitOfWork).CreateScope())
                     {
                         _readDomainContext2 = ((IReadDomainContextProviderForHost)_unitOfWork).Get(scope);
                     }
@@ -226,7 +214,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () => ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<IEntity>(_unitOfWork);
@@ -249,7 +237,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>
@@ -276,13 +264,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>
                 {
                     ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<IEntity>(_unitOfWork);
-                    using (var scope = _unitOfWork.CreateScope())
+                    using (var scope = ((IUnitOfWork)_unitOfWork).CreateScope())
                     {
                         ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<IEntity>(scope);
                     }
@@ -306,7 +294,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                  ModifiableDomainContextFactoryMock.Object,
                                                  Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                 Mock.Of<ICommonLog>());
+                                                 Mock.Of<ITracer>());
             };
 
             Because of = () =>
@@ -335,13 +323,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>
                 {
                     ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<ErmScopeEntity1>(_unitOfWork);
-                    using (var scope = _unitOfWork.CreateScope())
+                    using (var scope = ((IUnitOfWork)_unitOfWork).CreateScope())
                     {
                         ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<ErmScopeEntity2>(scope);
                     }
@@ -370,15 +358,15 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _unitOfWork = new MockUnitOfWork(Mock.Of<IReadDomainContext>(),
                                                      ModifiableDomainContextFactoryMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     Mock.Of<ICommonLog>());
+                                                     Mock.Of<ITracer>());
                 };
 
             Because of = () =>
                 {
                     ((IModifiableDomainContextProviderForHost)_unitOfWork).Get<IEntity>(_unitOfWork);
 
-                    _modifiableDomainContexts1 = _unitOfWork.GetModifiableDomainContexts(_unitOfWork);
-                    _modifiableDomainContexts2 = _unitOfWork.GetModifiableDomainContexts(_unitOfWork);
+                    _modifiableDomainContexts1 = ((IUnitOfWork)_unitOfWork).GetModifiableDomainContexts(_unitOfWork);
+                    _modifiableDomainContexts2 = ((IUnitOfWork)_unitOfWork).GetModifiableDomainContexts(_unitOfWork);
                 };
 
             It result_1_should_be_of_array_type = () => _modifiableDomainContexts1.Should().BeOfType<IModifiableDomainContext[]>();

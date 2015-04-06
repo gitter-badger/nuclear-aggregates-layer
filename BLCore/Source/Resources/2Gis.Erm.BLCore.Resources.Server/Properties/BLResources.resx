@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value />
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value />
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value />
   </data>
@@ -963,9 +960,6 @@
   <data name="PeriodClosing" xml:space="preserve">
     <value />
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value />
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value />
   </data>
@@ -982,9 +976,6 @@
     <value />
   </data>
   <data name="DefaultFilter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
     <value />
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
@@ -1248,12 +1239,6 @@
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value />
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value />
   </data>
@@ -1449,9 +1434,6 @@
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value />
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value />
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value />
   </data>
@@ -1462,9 +1444,6 @@
     <value />
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
     <value />
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
@@ -2748,9 +2727,6 @@
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value />
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value />
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value />
   </data>
@@ -3159,7 +3135,7 @@
   <data name="OrderCheckResults" xml:space="preserve">
     <value />
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
     <value />
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
@@ -3948,9 +3924,6 @@
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value />
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value />
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value />
   </data>
@@ -4114,9 +4087,6 @@
     <value />
   </data>
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
     <value />
   </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
@@ -4333,9 +4303,6 @@
     <value />
   </data>
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
     <value />
   </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
@@ -4938,9 +4905,6 @@
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value />
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value />
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value />
   </data>
@@ -4968,7 +4932,7 @@
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value />
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
     <value />
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
@@ -5152,6 +5116,81 @@
     <value />
   </data>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Невозможно назначить действие в статусе "Выполнено"/"Отменено"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Невозможно назначить куратором служебного пользователя</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>Недостаточно прав для смены куратора у действия {0}</value>
+  </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
     <value></value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value />
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value/>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="CancelConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value />
   </data>
 </root>

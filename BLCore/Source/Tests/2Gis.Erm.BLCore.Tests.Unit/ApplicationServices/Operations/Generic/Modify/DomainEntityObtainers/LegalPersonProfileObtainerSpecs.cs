@@ -132,7 +132,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
             private const string TestSWIFT = "TestSWIFT";
             private const string TestBankName = "TestBankName";
             private const string TestBankAddress = "TestBankAddress";
-            private const string TestAdditionalPaymentElements = "TestAdditionalPaymentElements";
             private static readonly DateTime TestCertificateDate = DateTime.UtcNow.AddMinutes(12);
             private const string TestWarrantyNumber = "TestWarrantyNumber";
             private static readonly DateTime TestWarrantyBeginDate = DateTime.UtcNow.AddMinutes(13);
@@ -174,7 +173,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
                     DomainEntityDto.SWIFT = TestSWIFT;
                     DomainEntityDto.BankName = TestBankName;
                     DomainEntityDto.BankAddress = TestBankAddress;
-                    DomainEntityDto.AdditionalPaymentElements = TestAdditionalPaymentElements;
                     DomainEntityDto.CertificateDate = TestCertificateDate;
                     DomainEntityDto.WarrantyNumber = TestWarrantyNumber;
                     DomainEntityDto.WarrantyBeginDate = TestWarrantyBeginDate;
@@ -187,7 +185,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
                     DomainEntityDto.RecipientName = TestRecipientName;
                     DomainEntityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
                     DomainEntityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-                    DomainEntityDto.AdditionalEmail = TestAdditionalEmail;
+                    DomainEntityDto.Email = TestAdditionalEmail;
                     DomainEntityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
                     DomainEntityDto.Phone = TestPhone;
                     DomainEntityDto.PaymentEssentialElements = TestPaymentEssentialElements;
@@ -214,7 +212,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
             private It should_return_expected_SWIFT = () => Result.SWIFT.Should().Be(TestSWIFT);
             private It should_return_expected_BankName = () => Result.BankName.Should().Be(TestBankName);
             private It should_return_expected_BankAddress = () => Result.BankAddress.Should().Be(TestBankAddress);
-            private It should_return_expected_AdditionalPaymentElements = () => Result.AdditionalPaymentElements.Should().Be(TestAdditionalPaymentElements);
             private It should_return_expected_CertificateDate = () => Result.CertificateDate.Should().Be(TestCertificateDate);
             private It should_return_expected_WarrantyNumber = () => Result.WarrantyNumber.Should().Be(TestWarrantyNumber);
             private It should_return_expected_WarrantyBeginDate = () => Result.WarrantyBeginDate.Should().Be(TestWarrantyBeginDate);
@@ -227,7 +224,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
             private It should_return_expected_RecipientName = () => Result.RecipientName.Should().Be(TestRecipientName);
             private It should_return_expected_DocumentsDeliveryMethod = () => Result.DocumentsDeliveryMethod.Should().Be(TestDocumentsDeliveryMethod);
             private It should_return_expected_EmailForAccountingDocuments = () => Result.EmailForAccountingDocuments.Should().Be(TestEmailForAccountingDocuments);
-            private It should_return_expected_AdditionalEmail = () => Result.AdditionalEmail.Should().Be(TestAdditionalEmail);
+            private It should_return_expected_AdditionalEmail = () => Result.Email.Should().Be(TestAdditionalEmail);
             private It should_return_expected_PersonResponsibleForDocuments = () => Result.PersonResponsibleForDocuments.Should().Be(TestPersonResponsibleForDocuments);
             private It should_return_expected_Phone = () => Result.Phone.Should().Be(TestPhone);
             private It should_return_expected_PaymentEssentialElements = () => Result.PaymentEssentialElements.Should().Be(TestPaymentEssentialElements);

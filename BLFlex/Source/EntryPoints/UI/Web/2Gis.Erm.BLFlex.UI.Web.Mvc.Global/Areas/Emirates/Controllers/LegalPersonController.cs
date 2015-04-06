@@ -16,15 +16,17 @@ using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
 {
@@ -35,24 +37,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
         private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public LegalPersonController(IMsCrmSettings msCrmSettings,
-                                     IUserContext userContext,
-                                     ICommonLog logger,
                                      IAPIOperationsServiceSettings operationsServiceSettings,
                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                     IAPIIdentityServiceSettings identityServiceSettings,
+                                     IUserContext userContext,
+                                     ITracer tracer,
                                      IGetBaseCurrencyService getBaseCurrencyService,
-                                     ILegalPersonReadModel legalPersonReadModel,
                                      ISecurityServiceFunctionalAccess functionalAccessService,
-                                     IPublicService publicService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+                                     IPublicService publicService,
+                                     ILegalPersonReadModel legalPersonReadModel)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
-            _legalPersonReadModel = legalPersonReadModel;
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         // TODO {all, 31.07.2013}: Избавиться от этого костыля
@@ -113,7 +111,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
             }
             catch (Exception ex)
             {
-                ModelUtils.OnException(this, Logger, model, ex);
+                ModelUtils.OnException(this, Tracer, model, ex);
             }
 
             return View(model);

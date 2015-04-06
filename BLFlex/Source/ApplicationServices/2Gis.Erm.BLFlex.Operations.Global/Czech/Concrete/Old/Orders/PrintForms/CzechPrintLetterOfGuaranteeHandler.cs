@@ -3,8 +3,10 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -15,6 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using BLResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
+using BLCoreResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.BLResources;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
 {
@@ -45,29 +48,32 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                     TemplateCode = TemplateCode.LetterOfGuarantee,
                     FileName = string.Format("{0}-Cestne prohlaseni", orderInfo.OrderNumber),
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
-                    PrintData = GetPrintData(request.OrderId, request.LegalPersonProfileId)
+                    PrintData = GetPrintData(request.OrderId)
                 };
 
             return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
 
-        protected PrintData GetPrintData(long orderId, long? legalPersonProfileId)
+        protected PrintData GetPrintData(long orderId)
         {
             var data = _finder.Find(Specs.Find.ById<Order>(orderId))
                               .Select(order => new
                                   {
                                       Order = order,
-                                      ProfileId = order.LegalPerson.LegalPersonProfiles
-                                                       .FirstOrDefault(y => y.Id == legalPersonProfileId)
-                                                       .Id,
+                                      ProfileId = order.LegalPersonProfileId,
                                       order.LegalPersonId,
                                       order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                   })
                               .Single();
 
+            if (data.ProfileId == null)
+            {
+                throw new RequiredFieldIsEmptyException(BLCoreResources.LegalPersonProfileMustBeSpecified);
+            }
+
             var branchOfficeOrganizationUnit = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrderId(orderId));
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value));
 
             return new PrintData
                 {

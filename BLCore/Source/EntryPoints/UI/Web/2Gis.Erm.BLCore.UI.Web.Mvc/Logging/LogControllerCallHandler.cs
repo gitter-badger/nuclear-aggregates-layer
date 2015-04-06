@@ -4,13 +4,14 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Microsoft.Practices.Unity.InterceptionExtension;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 {
@@ -19,8 +20,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         private readonly IActionLogger _actionLogger;
         private readonly IDependentEntityProvider _entityProvider;
 
-        public LogControllerCallHandler(ICommonLog logger, IActionLogger actionLogger, IDependentEntityProvider entityProvider)
-            : base(logger)
+        public LogControllerCallHandler(ITracer tracer, IActionLogger actionLogger, IDependentEntityProvider entityProvider)
+            : base(tracer)
         {
             _actionLogger = actionLogger;
             _entityProvider = entityProvider;
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
             }
             catch (Exception ex)
             {
-                Logger.FatalEx(ex, "Критичная ошибка создания копии объекта до изменения");
+                Tracer.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
             }
 
             var result = getNext()(input, getNext);
@@ -59,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
                 catch (Exception ex)
                 {
-                    Logger.FatalEx(ex, "Критичная ошибка журналирования операций");
+                    Tracer.Fatal(ex, "Критичная ошибка журналирования операций");
                 }
             }
 

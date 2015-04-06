@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.PrintForms;
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
 
         protected override Response Handle(PrintBillRequest request)
         {
-            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.Id))
+            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                   .Select(bill => new
                                       {
                                           Bill = bill,
@@ -51,8 +52,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
 
                                           bill.Order.BranchOfficeOrganizationUnitId,
                                           CurrencyISOCode = bill.Order.Currency.ISOCode,
-                                          bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                          BranchOfficeId = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                           LegalPersonId = bill.Order.LegalPersonId.Value,
+                                          LegalPersonProfileId = bill.Order.LegalPersonProfileId,
                                           OrderVatRate = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                           bill.Order.Bargain,
                                           bill.Order.LegalPerson.LegalPersonTypeEnum
@@ -64,14 +66,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
                 throw new NotificationException(BLResources.SpecifiedBillNotFound);
             }
 
+            if (billInfo.LegalPersonProfileId == null)
+            {
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
+            }
+
             if (billInfo.BranchOfficeOrganizationUnitId == null)
             {
                 throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
             }
 
-            var branchOffice = _branchOfficeReadModel.GetBranchOffice(billInfo.BranchOfficeId);
+            var branchOffice = _branchOfficeReadModel.GetBranchOffice(billInfo.BranchOfficeId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(billInfo.LegalPersonProfileId.Value);
             var orderVatRate = (billInfo.OrderVatRate.Value == default(decimal)) ? BLResources.NoVatText : billInfo.OrderVatRate.ToString();
             var branchOfficeOrganizationUnit = billInfo.BranchOfficeOrganizationUnitId.HasValue
                 ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(billInfo.BranchOfficeOrganizationUnitId.Value))

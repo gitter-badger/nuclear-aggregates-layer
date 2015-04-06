@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         /// <summary>
         /// Список значений EntityName, являющихся виртуальными, т.е. существующими только в виде UI-форм
         /// </summary>
-        public static readonly EntityName[] VirtualEntityNames = { EntityName.CategoryGroupMembership };
+        public static readonly EntityName[] VirtualEntityNames = { EntityName.CategoryGroupMembership, EntityName.PositionSortingOrder };
 
         /// <summary>
         /// Список значений EntityName, являющихся расширением для какой-либо инсталляции, данные fake сущности не являются элементами доменной модели ERM, 
@@ -57,6 +57,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.Appointment,
                 EntityName.AppointmentRegardingObject,
 				EntityName.AppointmentAttendee,
+                EntityName.AppointmentOrganizer,
                 EntityName.Phonecall,
                 EntityName.PhonecallRegardingObject,
 				EntityName.PhonecallRecipient,
@@ -66,17 +67,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.LetterRegardingObject,
                 EntityName.LetterSender,
                 EntityName.LetterRecipient,
-            };
-
-        public static readonly Type[] AsyncReplicated2MsCrmEntities =
-            {
-                typeof(Firm),
-                typeof(FirmAddress),
-                typeof(Territory),
-                typeof(Appointment),
-                typeof(Letter),
-                typeof(Phonecall),
-                typeof(Task)
             };
 
         public static readonly Type[] AllReplicated2MsCrmEntities =
@@ -103,7 +93,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(Bargain),
                 typeof(OrderProcessingRequest),
                 typeof(User),
-                typeof(UserTerritory)
+                typeof(UserTerritory),
+                typeof(Firm),
+                typeof(FirmAddress),
+                typeof(Territory),
+                typeof(Appointment),
+                typeof(Letter),
+                typeof(Phonecall),
+                typeof(Task)
             };
 
         /// <summary>
@@ -259,16 +256,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         {
             Type entityType = entityName.AsEntityType();
             return typeof(IEntityFile).IsAssignableFrom(entityType) || typeof(IEntityFileOptional).IsAssignableFrom(entityType);
-        }
-
-        public static bool IsAsync2MsCrmReplicated(this Type entityType)
-        {
-            if (!entityType.IsEntity())
-            {
-                throw new InvalidOperationException("Specified type " + entityType + " is not domain model entity");
-            }
-
-            return AsyncReplicated2MsCrmEntities.Contains(entityType);
         }
 
         public static string EntitiesToString(this EntityName[] entityNames)

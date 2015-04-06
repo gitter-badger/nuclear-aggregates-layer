@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -12,7 +13,6 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
@@ -20,6 +20,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Tracing.API;
 
 using It = Machine.Specifications.It;
 
@@ -37,12 +39,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                        (IOperationScope)null,
                        (IUserRepository)null,
                        MockOrderReadModel(),
-                       (ICommonLog)null,
+                       (ITracer)null,
                        (IReleaseReadModel)null,
                        (IAccountRepository)null,
                        (ISecurityServiceFunctionalAccess)null,
-                       MockEvaluateOrderNumberService())
+                       MockEvaluateOrderNumberService(),
+                       MockLegalPersonReadModel())
             {
+            }
+
+            private static ILegalPersonReadModel MockLegalPersonReadModel()
+            {
+                var mock = Mock.Of<ILegalPersonReadModel>();
+                Mock.Get(mock)
+                    .Setup(x => x.GetLegalPersonProfileIds(Moq.It.IsAny<long>()))
+                    .Returns(new long[0]);
+
+                return mock;
             }
 
             private static IEvaluateOrderNumberService MockEvaluateOrderNumberService()

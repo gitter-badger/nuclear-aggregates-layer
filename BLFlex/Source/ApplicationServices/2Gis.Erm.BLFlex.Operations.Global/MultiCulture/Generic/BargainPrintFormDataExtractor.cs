@@ -36,6 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
         {
             var branchOfficeOrganizationUnit = new PrintData
                 {
+                    { "ApplicationCityName", boou.ApplicationCityName },
                     { "ChiefNameInGenitive", boou.ChiefNameInGenitive },
                     { "ChiefNameInNominative", boou.ChiefNameInNominative },
                     { "OperatesOnTheBasisInGenitive", boou.OperatesOnTheBasisInGenitive },
@@ -61,6 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                 {
                     { "Inn", legalPerson.Inn },
                     { "Kpp", legalPerson.Kpp },
+                    { "VAT", legalPerson.VAT },
                     { "LegalAddress", legalPerson.LegalAddress },
                     { "LegalName", legalPerson.LegalName },
                     { "PassportIssuedBy", legalPerson.PassportIssuedBy },
@@ -98,9 +100,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                     { "SWIFT", legalPersonProfile.SWIFT },
                     { "AccountNumber", legalPersonProfile.AccountNumber },
                     { "BankName", legalPersonProfile.BankName },
-                    { "AdditionalPaymentElements", legalPersonProfile.AdditionalPaymentElements },
                     { "Phone", legalPersonProfile.Phone },
-                    { "Email", legalPersonProfile.AdditionalEmail },
+                    { "Email", legalPersonProfile.Email },
                 };
 
             return new PrintData
@@ -121,7 +122,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                 .Select(x => new
                     {
                         LegalPersonType = x.LegalPerson.LegalPersonTypeEnum,
-                        OrganizationUnitName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Name,
                         EndDate = x.BargainEndDate
                     })
                 .AsEnumerable()
@@ -132,7 +132,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                         { "UseNaturalPerson", x.LegalPersonType == LegalPersonType.NaturalPerson },
                         { "UseEndlessBargain", x.EndDate == null },
                         { "UseLimitedBargain", x.EndDate != null },
-                        { "OrganizationUnitName", x.OrganizationUnitName },
                     })
                 .Single();
         }

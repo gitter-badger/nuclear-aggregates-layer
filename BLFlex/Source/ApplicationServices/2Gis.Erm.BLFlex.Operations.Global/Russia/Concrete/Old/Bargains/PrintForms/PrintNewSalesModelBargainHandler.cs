@@ -2,6 +2,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic;
@@ -40,14 +41,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
         protected override Response Handle(PrintNewSalesModelBargainRequest request)
         {
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
-
             var relations = _readModel.GetBargainRelationsDto(bargainId.Value);
-            var printData = GetPrintData(request, relations, bargainId.Value);
 
             if (relations.BranchOfficeOrganizationUnitId == null)
             {
                 throw new NotificationException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
+
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetLegalPersonProfileIdByOrder(request.OrderId.Value);
+            if (legalPersonProfileId == null)
+            {
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
+            }
+
+            var printData = GetPrintData(relations, bargainId.Value, legalPersonProfileId.Value);
 
             var printRequest = new PrintDocumentRequest
                 {
@@ -61,11 +68,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
             return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
 
-        private PrintData GetPrintData(PrintNewSalesModelBargainRequest request, BargainRelationsDto relations, long bargainId)
+        private PrintData GetPrintData(BargainRelationsDto relations, long bargainId, long legalPersonProfileId)
         {
-            var profileId = request.LegalPersonProfileId;
             var legalPerson = _legalPersonReadModel.GetLegalPerson(relations.LegalPersonId.Value);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(relations.BranchOfficeOrganizationUnitId.Value);
 
             var bargainQuery = _readModel.GetBargainQuery(bargainId);

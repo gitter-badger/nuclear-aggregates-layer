@@ -10,16 +10,18 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -30,21 +32,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IRoleRepository _roleRepository;
 
-        public PrivilegeController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IRoleRepository roleRepository,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings,
-                   userContext,
-                   logger,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   getBaseCurrencyService)
+        public PrivilegeController(IMsCrmSettings msCrmSettings,
+                                   IAPIOperationsServiceSettings operationsServiceSettings,
+                                   IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                   IAPIIdentityServiceSettings identityServiceSettings,
+                                   IUserContext userContext,
+                                   ITracer tracer,
+                                   IGetBaseCurrencyService getBaseCurrencyService,
+                                   ISecurityServiceFunctionalAccess functionalAccessService,
+                                   IRoleRepository roleRepository)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _roleRepository = roleRepository;

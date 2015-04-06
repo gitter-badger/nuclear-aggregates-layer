@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel.DTO;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -19,18 +21,20 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         IReadOnlyDictionary<long, byte[]> GetOrdersCurrentVersions(Expression<Func<Order, bool>> ordersPredicate);
         IReadOnlyDictionary<long, IEnumerable<long>> GetRelatedOrdersByFirm(IEnumerable<long> orderIds);
         IEnumerable<OrderReleaseInfo> GetOrderReleaseInfos(long organizationUnitId, TimePeriod period);
-        IEnumerable<Order> GetOrdersForRelease(long organizationUnitId, TimePeriod period);
+        IEnumerable<long> GetOrderIdsForRelease(long organizationUnitId, TimePeriod period);
         OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds);
         IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId);
         IEnumerable<OrderWithDummyAdvertisementDto> GetOrdersWithDummyAdvertisement(long organizationUnitId, long ownerCode, bool includeOwnerDescendants);
+        IDictionary<long, string> PickInactiveOrDeletedOrderPositionNames(IEnumerable<long> orderPositionIds);
+        IEnumerable<long> GetExistingOrderPositionIds(IEnumerable<long> orderPositionIds);
 
         Dictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
             IEnumerable<long> orderIds,
             DateTime startPeriodDate,
             DateTime endPeriodDate);
 
-        IEnumerable<long> DetermineOrderPlatforms(long orderId);
-        void UpdateOrderPlatform(Order order);
+        long? EvaluateOrderPlatformId(long orderId);
+        OrderNumberDto EvaluateOrderNumbers(string orderNumber, string orderRegionalNumber, long? orderPlatformId);
         IEnumerable<Order> GetActiveOrdersForLegalPerson(long legalPersonId);
         Order GetOrderByBill(long billId);
         OrderWithBillsDto GetOrderWithBills(long orderId);
@@ -81,20 +85,15 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderDeactivationPosibility IsOrderDeactivationPossible(long orderId);
         OrderStateValidationInfo GetOrderStateValidationInfo(long orderId);
         bool IsOrderForOrganizationUnitsPairExist(long orderId, long sourceOrganizationUnitId, long destOrganizationUnitId);
-        OrderPositionPriceDto CalculatePricePerUnit(long orderId, decimal categoryRate, decimal pricePositionCost);
         IEnumerable<Order> GetOrdersForDeal(long dealId);
-        OrderPositionRebindingDto GetOrderPositionInfo(long orderPositionId);
+        OrderPositionAdvertisementLinksDto GetOrderPositionAdvertisementLinksInfo(long orderPositionId);
         OrderUsageDto GetOrderUsage(long orderId);
         OrderDiscountsDto GetOrderDiscounts(long orderId);
         Order GetOrderUnsecure(long orderId);
         IEnumerable<SubPositionDto> GetSelectedSubPositions(long orderPositionId);
-        decimal GetVatRate(long? sourceOrganizationUnitId, long destOrganizationUnitId, out bool showVat);
+        VatRateDetailsDto GetVatRateDetails(long? sourceOrganizationUnitId, long destOrganizationUnitId);
+        VatRateDetailsDto GetVatRateDetails(long orderId);
 
-        bool TryAcquireOrderPositions(long projectId,
-                                      TimePeriod timePeriod,
-                                      IReadOnlyCollection<OrderPositionChargeInfo> orderPositionChargeInfos,
-                                      out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
-                                      out string message);
         long GetOrderOwnerCode(long orderId);
 
         IReadOnlyCollection<Bargain> GetNonClosedClientBargains();
@@ -107,6 +106,19 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderOrganizationUnitDerivedFieldsDto GetFieldValuesByOrganizationUnit(long organizationUnitId);
         OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId);
         long? GetBargainIdByOrder(long orderId);
-        long GetBargainLegalPersonId(long bargainId);
+        long GetLegalPersonIdByBargain(long bargainId);
+
+        OrderAmountToWithdrawInfo GetOrderAmountToWithdrawInfo(long orderId);
+        OrderRecalculateWithdrawalsDto GetOrderRecalculateWithdrawalsInfo(long orderId);
+        OrderDeleteOrderPositionDto GetOrderPositionDeleteInfo(long orderPositionId);
+        OrderRepairOutdatedOrderPositionDto GetOrderInfoForRepairOutdatedPositions(long orderId);
+        decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take);
+        OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId);
+        IEnumerable<Bill> GetBillsForOrder(long orderId);
+        OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId);
+        OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId);
+        long? GetLegalPersonProfileIdByOrder(long orderId);
+        IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId);
+        SalesModel GetOrderSalesModel(long orderId);
     }
 }

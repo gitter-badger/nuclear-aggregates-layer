@@ -6,6 +6,5 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills
     {
         public long BillId { get; set; }
         public long[] RelatedOrdersId { get; set; }
-        public long? ProfileId { get; set; }
     }
 }

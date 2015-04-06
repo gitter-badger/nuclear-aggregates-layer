@@ -534,9 +534,6 @@
   <data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Materiales publicitarios</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
-    <value>Intentando guardar una Posición presupuestaria de la orden con la Cantidad distinta a 1</value>
-  </data>
   <data name="EndPeriodDate" xml:space="preserve">
     <value>Finalización del período</value>
   </data>
@@ -965,9 +962,6 @@ Errores de bloqueo:{2}</value>
   <data name="PeriodClosing" xml:space="preserve">
     <value>Cierre del periodo</value>
   </data>
-  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
-    <value>¡A la orden del tipo Ventas sólo se pueden agregar las posiciones en modo de registro "Cumplimento garantizado"!</value>
-  </data>
   <data name="SignsOfHidden" xml:space="preserve">
     <value>Propiedad de oculto</value>
   </data>
@@ -985,9 +979,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Filtro predeterminado</value>
-  </data>
-  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
-    <value>¡A la orden del tipo Presupuesto sólo se le pueden agregar las posiciones en modo de registro Prestación planificada!</value>
   </data>
   <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
     <value>Los datos  de las personas jurídicas del RUT espisificado no coinciden y  la fusión no es posible.</value>
@@ -1250,13 +1241,6 @@ Errores de bloqueo:{2}</value>
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Información acerca de  la Sucursal de la Persona Jurídica de la Entidad</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira desde el {3}.
-11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Usuario desconocido</value>
   </data>
@@ -1452,9 +1436,6 @@ Errores de bloqueo:{2}</value>
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Se incluirán usuarios: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>La sucursal de la entidad seleccionada no resulta ser su sucursal o no se ha transferido a ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>En los grupos de posiciones principales hay objetos enlazados a unas posiciones inactivas</value>
   </data>
@@ -1466,9 +1447,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>La factura especificada no se ha encontrado</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Error al guardar el perfil de persona jurídica del cliente</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>La sucursal de la entidad no se ha especificado</value>
@@ -2759,9 +2737,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>¿Desea seguir realizando la operación?</value>
   </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Especifique la Sucursal de la entidad y el periodo de amortización</value>
-  </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>No se han encontrado bloqueos activos para la empresa {0} para la fecha de {1}</value>
   </data>
@@ -3170,8 +3145,8 @@ Operación realizada con éxito: {6}.</value>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Resultados de verificación de la orden</value>
   </data>
-  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
-    <value>No se puede agregar un elemento con el método de registro diferente de los métodos de registro del resto de elementos</value>
+  <data name="CantAddChildPositionWithDifferentSalesModel" xml:space="preserve">
+    <value>No se puede agregar un elemento con el modelo de ventas que se diferencia de los modelos de ventas de los demás elementos</value>
   </data>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Identificador 1C</value>
@@ -3960,9 +3935,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
     <value>Se han establecido incorrectamente los tipos de esencia para agregar sucursales al tema</value>
   </data>
-  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
-    <value>No se puede agregar una sucursal al tema establecido por defecto</value>
-  </data>
   <data name="CannotDeleteUsedTheme" xml:space="preserve">
     <value>No se puede eliminar el tema que se usa en las órdenes</value>
   </data>
@@ -4128,9 +4100,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
     <value>El contenido del archivo de imagen no coincide con su extensión</value>
-  </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value>No se puede eliminar el servicio '{0}', ya que se usa para {1} direcciones</value>
   </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value>No se ha podido guardar la plantilla: puede haber solo una plantilla de rascacielos</value>
@@ -4347,9 +4316,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
     <value>Creación, modificación y eliminación de los objetos "Territorio de ventas" del sistema de registro.</value>
-  </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
-    <value>Servicios adicionales para empresas</value>
   </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
     <value>Proyectos</value>
@@ -4712,7 +4678,7 @@ Contacto: {1}</value>
   <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para la posición: "{0}"</value>
   </data>
-    <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+  <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
@@ -4957,9 +4923,6 @@ Periodo de la publicación: {3}.</value>
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value>No se puede eliminar la persona jurídica del cliente que tiene cuentas personales enlazadas</value>
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Creación, modificación y eliminación de objetos "Servicios adicionales para la empresa" del sistema de gestión.</value>
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para las siguientes posiciones: {0}</value>
   </data>
@@ -4978,8 +4941,8 @@ Periodo de la publicación: {3}.</value>
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Cerrar por ser rechazado</value>
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>El nuevo modelo de ventas por ahora no se aplica para la ciudad de "{0}" y/o para la categoría de "{1}"</value>
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
+    <value>Categorías ({0}) no están compatibles con el modelo de ventas "{1}" en la ciudad "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Para todas las subposiciones de la posición de la orden formalizada para la posición de la lista de precios con el cálculo del coeficiente [{0}], debe indicarse una categoría</value>
@@ -5173,5 +5136,80 @@ Periodo de la publicación: {3}.</value>
   <data name="ModifyAppointmentService_ScheduleRangeIsIncorrect" xml:space="preserve">
     <value>Están planificadas incorrectamente las fechas del inicio y término de la reunión.
 </value>
+  </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Campos Cliente, Negocios y Empresa estan vacios. Es necesario completar por lo menos uno de los campos</value>
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Para trabajar con el perfil se necesita que estén indicadas las razones sociales</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Impresión</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Debe estar indicado el perfil de la razón social</value>
+  </data>
+  <data name="InvalidLegalPersonProfileForOrder" xml:space="preserve">
+    <value>El perfil indicado no puede estar seleccionado para la orden</value>
+  </data>
+  <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
+    <value>En la orden pueden estar las posiciones de un modelo de ventas solamente</value>
+  </data>
+  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
+    <value>En conjunto de categorías para todas las posiciones debe coincidir</value>
+  </data>
+  <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
+    <value>El intento de guardar la posición de la orden con el modelo de ventas '{0}' con la cantidad no igual a 1</value>
+  </data>
+  <data name="CannotAssignActivityNotInProgress" xml:space="preserve">
+    <value>Imposible asignar una acción en el estado "Cumplido"/"Cancelado"</value>
+  </data>
+  <data name="CannotAssignActivitySystemUser" xml:space="preserve">
+    <value>Imposible asignar como supervisor al usuario de servicio</value>
+  </data>
+  <data name="AssignActivityAccessDenied" xml:space="preserve">
+    <value>No hay permisos suficientes para cambiar de supervisor de la acción {0}</value>
+  </data>
+  <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
+    <value>Posición "{0}" no puede estar vendida en la categoría "{1}" del proyecto "{2}"</value>
+  </data>
+  <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value>El departamento de la empresa {0} no está relacionado con el proyecto.</value>
+  </data>
+  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>No es posible guardar la acción sobre la empresa en reserva</value>
+  </data>
+  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>No es posible guardar la acción sobre el cliente en reserva</value>
+  </data>
+  <data name="CancelConfirmation" xml:space="preserve">
+    <value>Confirme cancelación de la acción</value>
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value>Imposible cancelar la acción {0} en el estado "Cumplido"/"Cancelado"</value>
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value>Imposible finalizar la acción {0} en el estado "Cumplido"/"Cancelado"</value>
+  </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value >Operación de cambio de cliente no está especificada para el tipo de entidad indicado</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Indique el período, modo para contabilizar la prestación de servicios y departamento de la empresa</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Indique el período y modo para contabilizar la prestación de servicios</value>
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Retiro del {0} - {1} mediante el modo de prestación de servicios: '{2}' finalizado con errores</value>
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Soporte técnico</value>
+  </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
   </data>
 </root>

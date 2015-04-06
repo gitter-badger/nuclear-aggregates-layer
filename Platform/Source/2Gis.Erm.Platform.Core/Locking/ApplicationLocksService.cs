@@ -1,19 +1,21 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.API.Core.Locking;
-using DoubleGis.Erm.Platform.Common.Logging;
+
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Locking
 {
     public class ApplicationLocksService : IApplicationLocksService, IApplicationLocksReleaser
     {
         private readonly IApplicationLocksManager _applicationLocksManager;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public ApplicationLocksService(IApplicationLocksManager applicationLocksManager, ICommonLog logger)
+        public ApplicationLocksService(IApplicationLocksManager applicationLocksManager, ITracer tracer)
         {
             _applicationLocksManager = applicationLocksManager;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public ILockingScope Acquire(string lockName, LockOwner lockOwner, LockScope lockScope, TimeSpan timeout)
@@ -30,7 +32,7 @@ namespace DoubleGis.Erm.Platform.Core.Locking
         {
             if (!isScopeCompleted)
             {
-                _logger.WarnEx("Locking scope has not been explicitly completed");
+                _tracer.Warn("Locking scope has not been explicitly completed");
             }
 
             _applicationLocksManager.ReleaseLock(scopeId);

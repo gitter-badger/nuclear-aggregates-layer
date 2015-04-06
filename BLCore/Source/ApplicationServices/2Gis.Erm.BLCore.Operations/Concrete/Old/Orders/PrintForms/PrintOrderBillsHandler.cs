@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
 
             foreach (var billId in orderInfo.BillIds)
             {
-                var streamResponse = (StreamResponse)_subRequestProcessor.HandleSubRequest(new PrintBillRequest {Id = billId, LegalPersonProfileId = request.LegalPersonProfileId}, Context);
+                var streamResponse = (StreamResponse)_subRequestProcessor.HandleSubRequest(new PrintBillRequest { BillId = billId }, Context);
                 billPrintForms[streamResponse.FileName] = streamResponse.Stream;
             }
 

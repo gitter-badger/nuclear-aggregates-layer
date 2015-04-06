@@ -1,7 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
+using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -9,7 +18,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 {
-    public partial class PositionReadModel : IPositionReadModel
+    public sealed class PositionReadModel : IPositionReadModel
     {
         private readonly IFinder _finder;
 
@@ -44,6 +53,91 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
             message = null;
             return true;
+        }
+
+        public Position GetPositionByPricePositionId(long pricePositionId)
+        {
+            return _finder.FindOne(PriceSpecs.Positions.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>());
+        }
+
+        public IEnumerable<LinkingObjectsSchemaPositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId)
+        {
+            var positions = _finder.Find(Specs.Find.ById<Position>(positionId));
+
+            if (isPricePositionComposite)
+            {
+                positions = positions.SelectMany(x => x.ChildPositions)
+                                     .Where(x => !x.IsDeleted)
+                                     .Select(x => x.ChildPosition);
+            }
+
+            return positions.Select(x => new LinkingObjectsSchemaPositionDto
+                                             {
+                                                 Id = x.Id,
+                                                 Name = x.Name,
+                                                 BindingObjectType = x.BindingObjectTypeEnum,
+                                                 AdvertisementTemplateId = x.AdvertisementTemplateId,
+                                                 DummyAdvertisementId = x.AdvertisementTemplate.DummyAdvertisementId,
+                                                 PositionsGroup = x.PositionsGroup
+                                             })
+                            .ToArray();
+        }
+
+        public IReadOnlyCollection<long> GetDependedByPositionOrderIds(long positionId)
+        {
+            var childPositionIds = _finder.Find(Specs.Find.ById<Position>(positionId))
+                                          .SelectMany(x => x.ChildPositions)
+                                          .Select(x => x.ChildPositionId)
+                                          .ToArray();
+
+            return _finder.Find(Specs.Find.ByIds<Position>(childPositionIds.With(positionId)))
+                          .SelectMany(x => x.OrderPositionAdvertisements)
+                          .Select(x => x.OrderPosition)
+                          .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                          .Select(x => x.Order)
+                          .Where(Specs.Find.ActiveAndNotDeleted<Order>() &&
+                                 OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved,
+                                                                     OrderState.OnApproval,
+                                                                     OrderState.OnRegistration,
+                                                                     OrderState.OnTermination))
+                          .Select(x => x.Id)
+                          .ToArray();
+        }
+
+        public IEnumerable<PositionSortingOrderDto> GetPositionsSortingOrder()
+        {
+            return _finder.Find(PriceSpecs.Positions.Select.PositionSortingOrderDto(),
+                                PriceSpecs.Positions.Find.WithSortingSpecified())
+                          .ToArray();
+        }
+
+        public IEnumerable<Position> GetPositions(IEnumerable<long> ids)
+        {
+            return _finder.FindMany(Specs.Find.ByIds<Position>(ids));
+        }
+
+        public IDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
+                          .Select(x => new
+            {
+                                               Id = x.Id,
+                                               PositionsGroup = x.PositionsGroup
+                                           })
+                          .ToDictionary(x => x.Id, x => x.PositionsGroup);
+        }
+
+        public IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds)
+        {
+            return _finder.Find<Platform.Model.Entities.Erm.Platform>(x => platformDgppIds.Contains(x.DgppId))
+                                .ToDictionary(x => (PlatformEnum)x.DgppId, x => x.Id);
+        }
+
+        public string GetPositionName(long positionId)
+        {
+            return _finder.Find(Specs.Find.ById<Position>(positionId))
+                          .Select(item => item.Name)
+                          .Single();
         }
     }
 }

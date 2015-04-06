@@ -55,9 +55,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.BankAddress)
                 .HasMaxLength(512);
 
-            Property(t => t.AdditionalPaymentElements)
-                .HasMaxLength(512);
-
             Property(t => t.WarrantyNumber)
                 .HasMaxLength(50);
 
@@ -76,7 +73,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.EmailForAccountingDocuments)
                 .HasMaxLength(64);
 
-            Property(t => t.AdditionalEmail)
+            Property(t => t.Email)
                 .HasMaxLength(64);
 
             Property(t => t.PersonResponsibleForDocuments)
@@ -117,7 +114,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.SWIFT).HasColumnName("SWIFT");
             Property(t => t.BankName).HasColumnName("BankName");
             Property(t => t.BankAddress).HasColumnName("BankAddress");
-            Property(t => t.AdditionalPaymentElements).HasColumnName("AdditionalPaymentElements");
             Property(t => t.CertificateDate).HasColumnName("CertificateDate");
             Property(t => t.WarrantyNumber).HasColumnName("WarrantyNumber");
             Property(t => t.WarrantyBeginDate).HasColumnName("WarrantyBeginDate");
@@ -130,7 +126,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.RecipientName).HasColumnName("RecipientName");
             Property(t => t.DocumentsDeliveryMethod).HasColumnName("DocumentsDeliveryMethod");
             Property(t => t.EmailForAccountingDocuments).HasColumnName("EmailForAccountingDocuments");
-            Property(t => t.AdditionalEmail).HasColumnName("AdditionalEmail");
+            Property(t => t.Email).HasColumnName("Email");
             Property(t => t.PersonResponsibleForDocuments).HasColumnName("PersonResponsibleForDocuments");
             Property(t => t.Phone).HasColumnName("Phone");
             Property(t => t.PaymentEssentialElements).HasColumnName("PaymentEssentialElements");

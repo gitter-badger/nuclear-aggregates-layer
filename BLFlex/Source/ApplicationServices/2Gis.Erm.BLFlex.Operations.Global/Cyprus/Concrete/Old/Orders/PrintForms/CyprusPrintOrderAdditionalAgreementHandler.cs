@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -59,9 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                         Order = order,
                         order.Bargain,
                         order.LegalPersonId,
-                        ProfileId = order.LegalPerson.LegalPersonProfiles
-                                         .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value)
-                                         .Id,
+                        ProfileId = order.LegalPersonProfileId,
                         OrganizationUnitName = order.LegalPerson.Client.Territory.OrganizationUnit.Name,
                         order.BranchOfficeOrganizationUnit.BranchOfficeId,
                         CurrencyISOCode = order.Currency.ISOCode,
@@ -73,7 +72,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                 // in-memory transformations
                 .Select(x =>
                     {
-                        var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(x.ProfileId));
+                        if (x.ProfileId == null)
+                        {
+                            throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
+                        }
+
+                        var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(x.ProfileId.Value));
                         return new
                             {
                                 x.Order,
@@ -83,7 +87,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                 NextReleaseDate = x.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
                                 LegalPerson = x.LegalPersonId.HasValue ? _finder.FindOne(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)) : null,
                                 Profile = profile,
-                                x.OrganizationUnitName,
                                 BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue
                                                                    ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value))
                                                                    : null,

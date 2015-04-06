@@ -19,6 +19,8 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates
         [DataMember]
         public string ShortLegalName { get; set; }
         [DataMember]
+        public string ApplicationCityName { get; set; }
+        [DataMember]
         public string PositionInNominative { get; set; }
         [DataMember]
         public string ChiefNameInNominative { get; set; }        
@@ -62,7 +64,5 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates
         public long BranchOfficeAddlId { get; set; }
         [DataMember]
         public string BranchOfficeAddlName { get; set; }
-        [DataMember]
-        public Uri IdentityServiceUrl { get; set; }
     }
 }

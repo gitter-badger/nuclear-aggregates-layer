@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -54,6 +58,8 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Accounts\AccountingMethodExtensions.cs" />
+    <Compile Include="Accounts\DTO\AccountDetailForExportDto.cs" />
     <Compile Include="Accounts\DTO\AccountDTOs.cs" />
     <Compile Include="Accounts\DTO\AccountIdAndOwnerCodeDto.cs" />
     <Compile Include="Accounts\DTO\AccountInfoForImportFrom1C.cs" />
@@ -66,6 +72,7 @@
     <Compile Include="Accounts\DTO\WithdrawalDto.cs" />
     <Compile Include="Accounts\DTO\WithdrawFromAccountsDto.cs" />
     <Compile Include="Accounts\IAccountRepository.cs" />
+    <Compile Include="Accounts\Operations\AccountingMethodViolationException.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkActivateLocksAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCloseLimitsAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCreateLocksAggregateService.cs" />
@@ -95,6 +102,18 @@
     <Compile Include="Activities\IUpdatePhonecallAggregateService.cs" />
     <Compile Include="Activities\IUpdateLetterAggregateService.cs" />
     <Compile Include="Activities\IUpdateTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\ICancelTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompletePhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\ICompleteTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\IReopenTaskAggregateService.cs" />
     <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
     <Compile Include="Activities\ReadModel\ITaskReadModel.cs" />
     <Compile Include="Activities\ReadModel\IAppointmentReadModel.cs" />
@@ -142,7 +161,7 @@
     <Compile Include="CommonService\MessageHelper.cs" />
     <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
     <Compile Include="Common\Crosscutting\ICheckInnService.cs" />
-    <Compile Include="Common\Crosscutting\ICheckOperationPeriodService.cs" />
+    <Compile Include="Common\Crosscutting\IMonthPeriodValidationService.cs" />
     <Compile Include="Common\Crosscutting\IConcurrentPeriodCounter.cs" />
     <Compile Include="Common\DTO\BusinessEntityInstanceDto.cs" />
     <Compile Include="Common\Generics\IActivateAggregateRepository.cs" />
@@ -158,11 +177,9 @@
     <Compile Include="Common\Generics\IQualifyAggregateRepository.cs" />
     <Compile Include="Common\Generics\IUpdateAggregateRepository.cs" />
     <Compile Include="Common\Generics\IUploadFileAggregateRepository.cs" />
-    <Compile Include="Common\Specs\Dictionary\CategorySpecifications.cs" />
-    <Compile Include="Common\Specs\Dictionary\NewSalesModelRestrictions.cs" />
+    <Compile Include="Common\Specs\Dictionary\CategorySpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\OrganizationUnitSpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\TerritoryDtoSpecifications.cs" />
-    <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CountrySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CurrencySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\NoteSpecifications.cs" />
@@ -171,6 +188,7 @@
     <Compile Include="Common\Specs\Simplified\OrderProcessingRequestSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\PlatformSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\PrintFormTemplateSpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\ProjectSpecs.cs" />
     <Compile Include="Deals\DTO\DealActualizeDuringWithdrawalDto.cs" />
     <Compile Include="Deals\DTO\DealAndLegalPersonNamesDto.cs" />
     <Compile Include="Deals\DTO\DealAndFirmNamesDto.cs" />
@@ -250,29 +268,46 @@
     <Compile Include="Orders\DTO\OrderLinkingObjectsDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberStates.cs" />
-    <Compile Include="Orders\DTO\OrderPositionChargeInfo.cs" />
-    <Compile Include="Orders\DTO\OrderPositionPriceDto.cs" />
     <Compile Include="Orders\DTO\OrderWithDummyAdvertisementDto.cs" />
     <Compile Include="Orders\IBargainRepository.cs" />
     <Compile Include="Orders\IOrderRepository.cs" />
     <Compile Include="Orders\Operations\Bargains\ICloseClientBargainsAggregateService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillDateService.cs" />
+    <Compile Include="Orders\Operations\IOrderActualizeAmountToWithdrawAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\IBulkDeleteBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\IBulkCreateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bills\IUpdateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\BillsConsistencyException.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateOrderNumberService.cs" />
-    <Compile Include="Orders\Operations\Crosscutting\IValidateBillsService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IBillsConsistencyService.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderChangeStateOrders2ArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\IOrderCreateReleaseTotalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\IOrderCreateReleaseWithdrawalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\IOrderDeleteReleaseTotalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\IOrderDeleteReleaseWithdrawalsAggregateService.cs" />
+    <Compile Include="Orders\Operations\IChangeOrderLegalPersonProfileAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderRestoreOrdersFromArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderPositions\IOrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\Validation\IAttachValidResultToCacheAggregateService.cs" />
     <Compile Include="Orders\Operations\Validation\IInvalidateCachedValidationResultAggregateService.cs" />
+    <Compile Include="Orders\ReadModel\DTO\OrderDeleteOrderPositionDto.cs" />
+    <Compile Include="Orders\ReadModel\DTO\OrderRecalculateWithdrawalsDto.cs" />
+    <Compile Include="Orders\ReadModel\DTO\OrderAmountToWithdrawInfo.cs" />
+    <Compile Include="Orders\ReadModel\DTO\OrderReleaseWithdrawalDto.cs" />
     <Compile Include="Orders\ReadModel\IGetPositionsByOrderService.cs" />
     <Compile Include="Orders\ReadModel\IOrderReadModel.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.Bills.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositionAdvertisements.cs" />
-    <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderReleaseTotals.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
+    <Compile Include="OrganizationUnits\Exceptions\OrganizationUnitHasNoProjectsException.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
+    <Compile Include="Positions\DTO\LinkingObjectsSchemaPositionDto.cs" />
+    <Compile Include="Positions\Operations\IChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
@@ -298,6 +333,7 @@
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeletePriceAggregateService.cs" />
     <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
+    <Compile Include="Prices\ReadModel\PriceSpecs.Positions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />
     <Compile Include="ProcessAccountsWithDebtsException.cs" />
@@ -311,9 +347,17 @@
     <Compile Include="Roles\Dto\FunctionalPrivilegeInfo.cs" />
     <Compile Include="Roles\Dto\PrivilegeDto.cs" />
     <Compile Include="Roles\Dto\PrivilegeName.cs" />
+    <Compile Include="Roles\ReadModel\IRoleReadModel.cs" />
     <Compile Include="Roles\IRoleRepository.cs" />
-    <Compile Include="Roles\RoleSpecifications.cs" />
+    <Compile Include="Roles\ReadModel\RoleSpecs.Relations.cs" />
     <Compile Include="Settings\IDebtProcessingSettings.cs" />
+    <Compile Include="SimplifiedModel\Categories\DTO\CategoryAsLinkingObjectDto.cs" />
+    <Compile Include="SimplifiedModel\Categories\DTO\LinkingObjectsSchemaCategoryDto.cs" />
+    <Compile Include="SimplifiedModel\Categories\IBulkCreateSalesModelCategoryRestrictionsService.cs" />
+    <Compile Include="SimplifiedModel\Categories\IBulkDeleteSalesModelCategoryRestrictionsService.cs" />
+    <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
+    <Compile Include="SimplifiedModel\Categories\ReadModel\ISalesModelCategoryRestrictionReadModel.cs" />
+    <Compile Include="SimplifiedModel\Currencies\ICurrencyReadModel.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />
@@ -321,6 +365,7 @@
     <Compile Include="Themes\DTO\ThemeTemplateUsageDto.cs" />
     <Compile Include="Themes\DTO\ThemeUsageDto.cs" />
     <Compile Include="Themes\IThemeRepository.cs" />
+    <Compile Include="Themes\ReadModel\IThemeReadModel.cs" />
     <Compile Include="Themes\ThemeSpecifications.cs" />
     <Compile Include="Users\Dto\OrdanizationUnitDto.cs" />
     <Compile Include="Users\Dto\OrganizationUnitWithUsersDto.cs" />
@@ -328,14 +373,14 @@
     <Compile Include="Users\IActivateUserAggregateService.cs" />
     <Compile Include="Users\IDeactivateUserAggregateService.cs" />
     <Compile Include="Users\IUserRepository.cs" />
+    <Compile Include="Users\Operation\IUserAppendRoleAggregateService.cs" />
+    <Compile Include="Users\ReadModel\DTO\UserWithRoleRelationsDto.cs" />
     <Compile Include="Users\ReadModel\IUserReadModel.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.Departments.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.UserProfiles.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.UserRoles.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.Users.cs" />
-    <Compile Include="Charges\Dto\ChargeDto.cs" />
     <Compile Include="Charges\Dto\ChargesHistoryDto.cs" />
-    <Compile Include="Withdrawals\IWithdrawalInfoRepository.cs" />
     <Compile Include="Charges\Dto\CreateLockDetailDto.cs" />
     <Compile Include="Charges\Operations\IChargeBulkCreateAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCreateLockDetailsAggregateService.cs" />
@@ -370,12 +415,16 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
-      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
@@ -389,10 +438,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />
-    <Folder Include="Positions\DTO\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\ReadModel\ClientSpecs.ClientLinks.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

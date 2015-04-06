@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global
@@ -28,9 +29,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
                                                    SourceOrganizationUnitId = order.SourceOrganizationUnitId,
                                                    DestOrganizationUnitId = order.DestOrganizationUnitId,
                                                    FirmId = order.FirmId,
-                                                   MainLegalPersonProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.IsMainProfile).Id,
+                                  LegalPersonProfileId = order.LegalPersonProfileId,
                                                    BranchOfficeId = order.BranchOfficeOrganizationUnit.BranchOfficeId,
-                                                   IsOrderWithDiscount = order.DiscountSum.HasValue && order.DiscountSum.Value > 0
+                                                   SalesModel = (SalesModel?)order.OrderPositions.FirstOrDefault(op => op.IsActive && !op.IsDeleted).PricePosition.Position.SalesModel,
                                                })
                           .Single();
         }

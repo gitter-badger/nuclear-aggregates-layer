@@ -10,12 +10,14 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 using Newtonsoft.Json;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -27,23 +29,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IGetRatedPricesForCategoryOperationService _getRatedPricesForCategoryOperationService;
         private readonly IViewOrderPositionOperationService _viewOrderPositionOperationService;
 
-        public OrderPositionController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IPublicService publicService,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService,
-            IGetRatedPricesForCategoryOperationService getRatedPricesForCategoryOperationService,
-            IViewOrderPositionOperationService viewOrderPositionOperationService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                specialOperationsServiceSettings,
-                getBaseCurrencyService)
+        public OrderPositionController(IMsCrmSettings msCrmSettings,
+                                       IAPIOperationsServiceSettings operationsServiceSettings,
+                                       IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                       IAPIIdentityServiceSettings identityServiceSettings,
+                                       IUserContext userContext,
+                                       ITracer tracer,
+                                       IGetBaseCurrencyService getBaseCurrencyService,
+                                       IPublicService publicService,
+                                       IGetRatedPricesForCategoryOperationService getRatedPricesForCategoryOperationService,
+                                       IViewOrderPositionOperationService viewOrderPositionOperationService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _publicService = publicService;
             _getRatedPricesForCategoryOperationService = getRatedPricesForCategoryOperationService;
@@ -77,7 +73,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             catch (Exception ex)
             {
                 var tmpModel = new ViewModel();
-                ModelUtils.OnException(this, Logger, tmpModel, ex);
+                ModelUtils.OnException(this, Tracer, tmpModel, ex);
                 return new JsonNetResult(tmpModel.Message);
             }
         }

@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -36,8 +37,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
         {
             var orderInfoValidation =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                    .Select(order => new { WorkflowStep = order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
+                    .Select(order => new
+                        {
+                            WorkflowStep = order.WorkflowStepId,
+                            order.IsTerminated, 
+                            order.RejectionDate,
+                            order.LegalPersonProfileId,
+                        })
                     .Single();
+
+            if (orderInfoValidation.LegalPersonProfileId == null)
+            {
+                throw new RequiredFieldIsEmptyException(BLCoreResources.LegalPersonProfileMustBeSpecified);
+            }
 
             if (!orderInfoValidation.IsTerminated)
             {
@@ -71,27 +83,26 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
                     TemplateCode = GetTemplateCode(orderInfo.LegalPersonType, request.PrintType),
                     FileName = string.Format(BLCoreResources.PrintAdditionalAgreementFileNameFormat, orderInfo.OrderNumber),
-                    PrintData = GetPrintData(request.OrderId, request.LegalPersonProfileId)
+                    PrintData = GetPrintData(request.OrderId, orderInfoValidation.LegalPersonProfileId.Value)
                 };
 
             return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
 
-        protected PrintData GetPrintData(long orderId, long? legalPersonProfileId)
+        protected PrintData GetPrintData(long orderId, long legalPersonProfileId)
         {
             var data = _finder.Find(Specs.Find.ById<Order>(orderId))
                               .Select(order => new
                                   {
                                       Order = order,
                                       order.LegalPersonId,
-                                      ProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.Id == legalPersonProfileId).Id,
                                       order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                   })
                               .Single();
 
             var branchOfficeOrganizationUnit = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrderId(orderId));
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId));
 
             return new PrintData
                 {
