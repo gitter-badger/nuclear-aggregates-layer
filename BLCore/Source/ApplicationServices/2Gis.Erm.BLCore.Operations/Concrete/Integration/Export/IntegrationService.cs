@@ -6,7 +6,6 @@
     public enum IntegrationService
     {
         Undefined = 0,
-        ExportFlowCardExtensionsCardCommercial = 2,
         ExportFlowFinancialDataLegalEntity = 3,
         ExportFlowOrdersAdvMaterial = 4,
         ExportFlowOrdersOrder = 5,

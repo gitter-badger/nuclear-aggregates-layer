@@ -346,7 +346,7 @@
     <value>Datum</value>
   </data>
   <data name="FasCommentNewFasComment" xml:space="preserve">
-    <value>Nové upozornění.</value>
+    <value>Nové upozornění</value>
   </data>
   <data name="FasCommentAlcohol" xml:space="preserve">
     <value>Reklama na alkoholické výrobky.</value>
@@ -789,14 +789,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Jiné</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Jednotná faktura pro SP</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>Jednotná faktura pro pr. osobu</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Jednotná faktura pro fyz. osobu</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Smlouva</value>
@@ -1232,9 +1226,6 @@
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Profil pr. osoby klienta</value>
-  </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Dod. služby pro firmy</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Odstranění profilu pr. osoby klienta</value>
@@ -1712,6 +1703,12 @@
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Dohoda o zrušení smlouvy pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
     <value>Odeslání odpisů z osobních účtů do sběrnice</value>

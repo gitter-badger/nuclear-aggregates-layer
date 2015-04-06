@@ -9,12 +9,11 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions
     {
         public int ShipmentPlan { get; set; }
         public decimal PricePerUnit { get; set; }
-        public decimal PayablePrice { get; set; }
         public decimal PricePerUnitWithVat { get; set; }
+        public decimal PayablePrice { get; set; }
         public decimal PayablePlan { get; set; }
         public decimal PayablePlanWoVat { get; set; }
         public decimal DiscountPercent { get; set; }
         public decimal DiscountSum { get; set; }
-        public decimal CategoryRate { get; set; }
     }
 }

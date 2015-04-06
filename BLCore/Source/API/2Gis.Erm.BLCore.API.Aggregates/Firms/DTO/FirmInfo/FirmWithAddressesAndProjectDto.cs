@@ -8,5 +8,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO.FirmInfo
         public string Name { get; set; }
         public IEnumerable<FirmAddressWithCategoriesDto> FirmAddresses { get; set; }
         public ProjectDto Project { get; set; }
+        public string Owner { get; set; }
+        public long OwnerCode { get; set; }
     }
 }
