@@ -331,7 +331,7 @@ window.InitPage = function () {
 
                     card.form.DiscountReason.value = orderAggregate.DiscountReason;
                     // prevent setting of "null"
-                    card.form.OrderNumber.value = (orderAggregate.Order.Number == null) ? "" : orderAggregate.Order.Number;;
+                    card.form.Number.value = (orderAggregate.Order.Number == null) ? "" : orderAggregate.Order.Number;;
                     card.form.RegionalNumber.value = (orderAggregate.Order.RegionalNumber == null) ? "" : orderAggregate.Order.RegionalNumber;
                     card.form.DiscountComment.value = (orderAggregate.Order.DiscountComment == null) ? "" : orderAggregate.Order.DiscountComment;
                     card.form.Platform.value = (orderAggregate.Platform == null) ? "" : orderAggregate.Platform;
