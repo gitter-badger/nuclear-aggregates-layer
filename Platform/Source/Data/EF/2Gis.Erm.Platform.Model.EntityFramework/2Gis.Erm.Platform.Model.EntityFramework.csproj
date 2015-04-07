@@ -46,6 +46,7 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Config\ErmSecurity\UserBranchOfficeMap.cs" />
     <Compile Include="Config\Erm\ClientLinkMap.cs" />
     <Compile Include="Config\Erm\Conventions\DateTimePropertiesConvention.cs" />
     <Compile Include="Config\Erm\Conventions\DecimalPropertiesConvention.cs" />

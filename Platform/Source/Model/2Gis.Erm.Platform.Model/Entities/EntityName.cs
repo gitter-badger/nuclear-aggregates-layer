@@ -144,6 +144,7 @@
         UserRole = 56,
         UserTerritory = 172,
         UserOrganizationUnit = 174,
+        UserBranchOffice = 175,
         Department = 51,
         Role = 54,
         Territory = 191,

@@ -140,6 +140,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.UserRole, typeof(UserRole) },
                 { EntityName.UserTerritory, typeof(UserTerritory) },
                 { EntityName.UserOrganizationUnit, typeof(UserOrganizationUnit) },
+                { EntityName.UserBranchOffice, typeof(UserBranchOffice) },
                 { EntityName.Department, typeof(Department) },
                 { EntityName.Role, typeof(Role) },
                 { EntityName.Territory, typeof(Territory) },

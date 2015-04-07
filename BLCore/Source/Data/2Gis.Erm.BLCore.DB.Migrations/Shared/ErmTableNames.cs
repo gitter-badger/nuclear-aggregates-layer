@@ -280,6 +280,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName UserTerritories = new SchemaQualifiedObjectName(ErmSchemas.Security, "UserTerritories");
 
+        public static readonly SchemaQualifiedObjectName UserBranchOffices = new SchemaQualifiedObjectName(ErmSchemas.Security, "UserBranchOffices");
+
         [Obsolete("Таблица была удалена")]
         public static readonly SchemaQualifiedObjectName AdditionalFirmServices = new SchemaQualifiedObjectName(ErmSchemas.Integration, "AdditionalFirmServices");
 

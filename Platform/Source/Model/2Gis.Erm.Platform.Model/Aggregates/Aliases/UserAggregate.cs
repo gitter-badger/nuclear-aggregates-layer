@@ -7,6 +7,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         User = EntityName.User,
         UserRole = EntityName.UserRole,
         UserOrganizationUnit = EntityName.UserOrganizationUnit,
+        UserBranchOffice = EntityName.UserBranchOffice,
         UserTerritory = EntityName.UserTerritory,
         Department = EntityName.Department,
         UserProfile = EntityName.UserProfile,
