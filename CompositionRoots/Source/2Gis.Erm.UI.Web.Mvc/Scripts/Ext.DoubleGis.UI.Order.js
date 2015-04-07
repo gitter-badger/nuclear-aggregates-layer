@@ -326,9 +326,6 @@ window.InitPage = function () {
                 fillOrderAggregateFields: function (orderAggregate, card) {
                     //Do NOT use SetValue in this method, because the card shouldn't become dirty
 
-                    // updating EntityStateToken
-                    card.form.EntityStateToken.value = orderAggregate.EntityStateToken,
-
                     card.form.DiscountReason.value = orderAggregate.DiscountReason;
                     // prevent setting of "null"
                     card.form.Number.value = (orderAggregate.Order.Number == null) ? "" : orderAggregate.Order.Number;;
@@ -360,6 +357,9 @@ window.InitPage = function () {
                         Ext.getDom('DiscountPercentChecked').click();
                     else
                         Ext.getDom('DiscountSumChecked').click();
+
+                    // updating EntityStateToken
+                    card.form.EntityStateToken.value = orderAggregate.EntityStateToken,
 
                     this.refreshDiscountRelatedAvailability();
 
