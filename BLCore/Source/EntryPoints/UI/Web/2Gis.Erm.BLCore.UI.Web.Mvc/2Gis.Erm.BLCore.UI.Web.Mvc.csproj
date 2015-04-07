@@ -193,7 +193,6 @@
     <Compile Include="MetaData\LocalizedMetaDataProvider.cs" />
     <Compile Include="Models\AccessSharingModel.cs" />
     <Compile Include="Models\Administration\MessageQueueManagementViewModel.cs" />
-    <Compile Include="Models\CorporateQueueViewModel.cs" />
     <Compile Include="Models\CrudStatus.cs" />
     <Compile Include="Models\EditableIdEntityViewModelBase.cs" />
     <Compile Include="Models\EditPrivilegeViewModel.cs" />

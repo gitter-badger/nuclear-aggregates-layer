@@ -17,6 +17,9 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.FirmInfo
 
         [DataMember]
         public ProjectInfoDto Project { get; set; }
+
+        [DataMember]
+        public string Owner { get; set; }
     }
 
     [DataContract]

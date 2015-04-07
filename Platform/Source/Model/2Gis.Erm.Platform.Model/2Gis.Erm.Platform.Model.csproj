@@ -600,6 +600,10 @@
     <Compile Include="Identities\Operations\Identity\Specific\Order\ObtainDealForBizaccountOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ChangeOrderLegalPersonProfileIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CheckIfOrderPositionCanBeCreatedForOrderIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintCancellationAgreementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintFirmNameChangeAgreementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintBindingChangeAgreementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Position\ChangePositionSortingOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPriceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPricePositionIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\PublishPriceIdentity.cs" />
@@ -671,7 +675,6 @@
     <Compile Include="Identities\Operations\Identity\INonCoupledOperationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\ImportOperationsInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\ChangeDealStageIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportTerritoriesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\HotClientRequest\ImportHotClientIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\LegalPerson\ChangeRequisitesIdentity.cs" />

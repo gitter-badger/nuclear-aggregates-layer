@@ -131,28 +131,28 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpPost]
         public JsonNetResult SetCategoryGroupsMembership(long organizationUnitId, string categoryGroupsMembership)
         {
-            var deserializedData = 
+            var deserializedData =
                 JsonConvert.DeserializeAnonymousType(
-                    categoryGroupsMembership, 
-                    new[] 
-                        { 
+                                                     categoryGroupsMembership,
+                                                     new[]
+                                                         {
                                                              new
                                                                  {
-                                    Id = -1L, 
-                                    CategoryId = -1L, 
-                                    CategoryName = string.Empty, 
-                                    CategoryGroupId = (long?)-1
-                                }
-                        }, 
+                                                                     Id = -1L,
+                                                                     CategoryId = -1L,
+                                                                     CategoryName = string.Empty,
+                                                                     CategoryGroupId = (long?)-1
+                                                                 }
+                                                         },
                                                      new JsonSerializerSettings { Converters = { new Int64ToStringConverter() } });
 
             var categoryGroupMembershipDtos = deserializedData.Select(x => new CategoryGroupMembershipDto
-            {
-                Id = x.Id,
-                CategoryId = x.CategoryId,
-                CategoryName = x.CategoryName,
-                CategoryGroupId = x.CategoryGroupId
-            });
+                                                                               {
+                                                                                   Id = x.Id,
+                                                                                   CategoryId = x.CategoryId,
+                                                                                   CategoryName = x.CategoryName,
+                                                                                   CategoryGroupId = x.CategoryGroupId
+                                                                               });
 
             _categoryService.SetCategoryGroupMembership(organizationUnitId, categoryGroupMembershipDtos);
 

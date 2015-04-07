@@ -136,7 +136,6 @@
     </Compile>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Attributes\RutValidationAttribute.cs" />
-    <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="DI\BlUiWebMvcAssembly.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
@@ -182,6 +181,7 @@
     <Compile Include="Models\ChangeOrderStateDefaultViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnApprovalViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnTerminationRejectionModel.cs" />
+    <Compile Include="Models\Price\PositionSortingOrderViewModel.cs" />
     <Compile Include="Models\SetOrderDocumentsDebtViewModel.cs" />
     <Compile Include="Models\SelectLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\CheckOrdersReadinessForReleaseDialogViewModel.cs" />
@@ -296,6 +296,11 @@
     <Compile Include="Services\Grid\LimitGridViewService.cs" />
     <Compile Include="Services\Grid\OrderFileViewService.cs" />
     <Compile Include="Utils\ModelBinderProvider.cs" />
+    <Compile Include="Views\Price\PositionSortingOrder.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PositionSortingOrder.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Order\SetOrderDocumentsDebt.generated.cs">
       <DependentUpon>SetOrderDocumentsDebt.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -816,12 +821,17 @@
       <Name>2Gis.Erm.BL.UI.Web.Metadata</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controllers\Print\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Price\PositionSortingOrder.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PositionSortingOrder.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Order\SetOrderDocumentsDebt.cshtml">
       <Generator>RazorGenerator</Generator>

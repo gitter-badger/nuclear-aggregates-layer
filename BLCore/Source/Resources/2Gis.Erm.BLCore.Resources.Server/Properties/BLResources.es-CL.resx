@@ -5218,6 +5218,9 @@ Periodo de la publicación: {3}.</value>
   <data name="Support" xml:space="preserve">
     <value>Soporte técnico</value>
   </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
   <data name="ManageDocumentsDebt" xml:space="preserve">
     <value>Gestión de la existencia de los documentos</value>
   </data>

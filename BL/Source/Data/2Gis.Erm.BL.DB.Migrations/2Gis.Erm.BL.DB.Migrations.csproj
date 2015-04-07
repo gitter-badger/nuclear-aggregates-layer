@@ -92,6 +92,7 @@
     <Compile Include="2.1\2014.10.10 rev. 25168 - Merge ReplicateDeal SP - fix.cs" />
     <Compile Include="2.1\2014.09.22 rev. 24906 - Merge ReplicateDeal SP.cs" />
     <Compile Include="2.1\201412040354 - Move data.cs" />
+    <Compile Include="2.1\201503260622 - Remove some JointBills PF templates.cs" />
     <Compile Include="2.1\201502240147 - insert triggers for ExportFlowFinancialData.DebitsInfoInitial.cs" />
     <Compile Include="2.1\201501160218 - Fill Order.LegalPersonProfileId Field.cs" />
     <Compile Include="2.1\201411240536 - Remove some PF templates.cs" />
