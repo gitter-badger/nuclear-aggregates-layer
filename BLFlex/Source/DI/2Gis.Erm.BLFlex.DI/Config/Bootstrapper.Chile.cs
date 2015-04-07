@@ -74,8 +74,8 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureChileSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}"))
                 // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
+                .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}"))
                 .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
                 .RegisterType<IEvaluateOrderNumberService, ChileEvaluateOrderNumberService>(Lifetime.Singleton,
                                                                                             new InjectionConstructor(

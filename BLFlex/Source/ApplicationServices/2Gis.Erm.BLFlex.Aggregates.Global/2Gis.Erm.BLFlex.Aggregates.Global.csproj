@@ -98,7 +98,7 @@
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />
     <Compile Include="Chile\BranchOfficesAggregate\ReadModel\ChileBranchOfficeReadModel.cs" />
-    <Compile Include="Shared\OrderNumberEvaluator.cs" />
+    <Compile Include="Shared\OrderNumberStrategyExtensions.cs" />
     <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\BranchOfficeSpecs.cs" />
     <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\IUkraineBranchOfficeReadModel.cs" />
     <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\UkraineBranchOfficeReadModel.cs" />

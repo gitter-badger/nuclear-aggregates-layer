@@ -10,7 +10,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
-using DoubleGis.Erm.BLFlex.Aggregates.Global.Shared;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.DI.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;

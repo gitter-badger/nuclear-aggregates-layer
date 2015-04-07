@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Shared
 {
-    internal static class OrderNumberEvaluator
+    internal static class OrderNumberStrategyExtensions
     {
         public static string Execute(this IEnumerable<IOrderNumberGenerationStrategy> generationStrategies,
                                      string numberTemplate,
