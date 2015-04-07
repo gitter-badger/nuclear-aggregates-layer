@@ -221,7 +221,7 @@ namespace DoubleGis.Erm.TaskService.DI
             const string MappingScope = Mapping.Erm;
 
             return container
-                .RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<IUserAuthenticationService, SecurityServiceAuthentication>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)

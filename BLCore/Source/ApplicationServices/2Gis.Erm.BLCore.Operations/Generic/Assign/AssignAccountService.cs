@@ -12,13 +12,14 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
@@ -66,7 +67,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     checkAggregateForDebtsRepository.CheckForDebts(entityId, _userContext.Identity.Code, bypassValidation);
 
                     var accountOwnerCode = _finder.Find(Specs.Find.ById<Account>(entityId)).Select(x => x.OwnerCode).Single();
-                    if (!_userContext.Identity.SkipEntityAccessCheck)
+                    var securityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
+                    if (securityControlAspect != null && !securityControlAspect.SkipEntityAccessCheck)
                     {
                         var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
                                                                                      EntityName.Account,

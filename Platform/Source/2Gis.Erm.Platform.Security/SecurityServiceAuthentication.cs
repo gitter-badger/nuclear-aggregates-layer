@@ -12,7 +12,7 @@ using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security
 {
-    public sealed class SecurityServiceAuthentication : ISecurityServiceAuthentication
+    public sealed class SecurityServiceAuthentication : IUserAuthenticationService
     {
         private readonly IFinder _finder;
         private readonly ITracer _tracer;
@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Platform.Security
             _tracer = tracer;
         }
 
-        IUserIdentity ISecurityServiceAuthentication.AuthenticateUser(string userAccount)
+        IUserIdentity IUserAuthenticationService.AuthenticateUser(string userAccount)
         {
             if (string.IsNullOrWhiteSpace(userAccount))
             {

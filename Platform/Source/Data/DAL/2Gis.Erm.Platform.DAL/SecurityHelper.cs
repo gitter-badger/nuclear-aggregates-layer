@@ -3,6 +3,7 @@ using System.ServiceModel.Security;
 
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Resources.Server;
@@ -34,7 +35,8 @@ namespace DoubleGis.Erm.Platform.DAL
 
         public void CheckRequest<TEntity>(EntityAccessTypes operationType, TEntity entity) where TEntity : class, ICuratedEntity, IEntityKey
         {
-            if (_userContext.Identity.SkipEntityAccessCheck)
+            var securityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
+            if (securityControlAspect != null && securityControlAspect.SkipEntityAccessCheck)
             {
                 return;
             }
