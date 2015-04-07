@@ -74,8 +74,8 @@ using DoubleGis.Erm.TaskService.Config;
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
-using NuClear.Jobs.DI;
 using NuClear.Jobs.Schedulers;
+using NuClear.Jobs.Unity;
 using NuClear.Security;
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
@@ -318,7 +318,8 @@ namespace DoubleGis.Erm.TaskService.DI
         private static IUnityContainer ConfigureQuartz(this IUnityContainer container)
         {
             return container
-                .RegisterType<IJobFactory, JobFactory>(Lifetime.Singleton)
+                .RegisterType<IJobFactory, JobFactory>(Lifetime.Singleton, new InjectionFactory(c => c.Resolve<UnityJobFactory>()))
+                .RegisterType<IJobStoreFactory, JobStoreFactory>(Lifetime.Singleton)
                 .RegisterType<ISchedulerManager, SchedulerManager>(Lifetime.Singleton);
         }
 
