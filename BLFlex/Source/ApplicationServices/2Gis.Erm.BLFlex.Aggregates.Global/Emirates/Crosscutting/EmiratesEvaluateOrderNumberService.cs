@@ -12,11 +12,11 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.Crosscutting
     public class EmiratesEvaluateOrderNumberService : IEvaluateOrderNumberService, IEmiratesAdapted
     {
         public const string OrderNumberTemplate = "Q_{0}-{1}-{2}";
-        private readonly OrderNumberEvaluator _numberEvaluator;
+        private readonly IEnumerable<IOrderNumberGenerationStrategy> _strategies;
 
         public EmiratesEvaluateOrderNumberService(IEnumerable<IOrderNumberGenerationStrategy> strategies)
         {
-            _numberEvaluator = new OrderNumberEvaluator(strategies);
+            _strategies = strategies;
         }
 
         public string Evaluate(string currentOrderNumber,
@@ -25,11 +25,11 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.Crosscutting
                                long? generatedOrderIndex,
                                OrderType orderType)
         {
-            return _numberEvaluator.Evaluate(OrderNumberTemplate,
-                                             currentOrderNumber,
-                                             sourceOrganizationUnitSyncCode1C,
-                                             destinationOrganizationUnitSyncCode1C,
-                                             generatedOrderIndex);
+            return _strategies.Execute(OrderNumberTemplate,
+                                       currentOrderNumber,
+                                       sourceOrganizationUnitSyncCode1C,
+                                       destinationOrganizationUnitSyncCode1C,
+                                       generatedOrderIndex);
         }
 
         public string EvaluateRegional(string currentOrderNumber,

@@ -12,11 +12,11 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Crosscutting
     public class CzechEvaluateOrderNumberService : IEvaluateOrderNumberService, ICzechAdapted
     {
         public const string OrderNumberTemplate = "OBJ_{0}-{1}-{2}";
-        private readonly OrderNumberEvaluator _numberEvaluator;
+        private readonly IEnumerable<IOrderNumberGenerationStrategy> _strategies;
 
         public CzechEvaluateOrderNumberService(IEnumerable<IOrderNumberGenerationStrategy> strategies)
         {
-            _numberEvaluator = new OrderNumberEvaluator(strategies);
+            _strategies = strategies;
         }
 
         public string Evaluate(string currentOrderNumber,
@@ -25,11 +25,11 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Crosscutting
                                long? generatedOrderIndex,
                                OrderType orderType)
         {
-            return _numberEvaluator.Evaluate(OrderNumberTemplate,
-                                             currentOrderNumber,
-                                             sourceOrganizationUnitSyncCode1C,
-                                             destinationOrganizationUnitSyncCode1C,
-                                             generatedOrderIndex);
+            return _strategies.Execute(OrderNumberTemplate,
+                                       currentOrderNumber,
+                                       sourceOrganizationUnitSyncCode1C,
+                                       destinationOrganizationUnitSyncCode1C,
+                                       generatedOrderIndex);
         }
 
         public string EvaluateRegional(string currentOrderNumber,

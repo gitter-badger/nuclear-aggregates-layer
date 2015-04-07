@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Orders;
 
 namespace DoubleGis.Erm.BLFlex.DI.Shared
 {
+    // Порядок стратегий имеет значение. 
     internal static class OrderNumberGenerationStrategiesContainer
     {
         public static IEnumerable<IOrderNumberGenerationStrategy> StrategiesForCyrillicAlphabetCountries = new IOrderNumberGenerationStrategy[]
