@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListBargainTypeDto>(
                 x => x.Name)
             .RegisterFilteredFields<ListBillDto>(
-                x => x.BillNumber,
+                x => x.Number,
                 x => x.ClientName,
                 x => x.FirmName)
             .RegisterFilteredFields<ListBranchOfficeDto>(
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListCategoryDto>(
                 x => x.Name)
             .RegisterFilteredFields<ListCategoryGroupDto>(
-                x => x.CategoryGroupName)
+                x => x.Name)
             .RegisterFilteredFields<ListCategoryFirmAddressDto>(
                 x => x.Name)
             .RegisterFilteredFields<ListCategoryOrganizationUnitDto>(

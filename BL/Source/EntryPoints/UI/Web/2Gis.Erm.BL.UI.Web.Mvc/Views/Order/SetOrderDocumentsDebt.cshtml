@@ -1,0 +1,35 @@
+﻿@model SetOrderDocumentsDebtViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.ManageDocumentsDebt }
+@section TopBarTitle { @BLResources.ManageDocumentsDebt }
+@section TopBarMessage {  }
+
+@section PageContent
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.SetOrderDocumentsDebt.js?@ThisAssembly.Build" type="text/javascript"></script>
+    
+   
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <div class="Tab">
+            <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
+                @Model.Message
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.Order,
+                                    FieldFlex.lone,
+                                    new LookupSettings { EntityName = EntityName.Order, ReadOnly = true })
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.HasDocumentsDebt,  FieldFlex.lone, null, EnumResources.ResourceManager)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.DocumentsComment, FieldFlex.lone)
+            </div>
+        </div>
+    }
+}

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Icons;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Price;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
-using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
@@ -12,7 +14,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -21,6 +22,7 @@ using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
@@ -36,7 +38,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
         private readonly ICopyPriceOperationService _copyPriceOperationService;
         private readonly IReplacePriceOperationService _replacePriceOperationService;
-        private readonly IUIConfigurationService _configurationService;
         private readonly IPositionReadModel _positionReadModel;
         private readonly IChangePositionSortingOrderOperationService _changePositionSortingOrderOperationService;
 
@@ -50,7 +51,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IPublicService publicService,
                                ICopyPriceOperationService copyPriceOperationService,
                                IReplacePriceOperationService replacePriceOperationService,
-                               IUIConfigurationService configurationService,
                                IPositionReadModel positionReadModel,
                                IChangePositionSortingOrderOperationService changePositionSortingOrderOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
@@ -58,7 +58,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _publicService = publicService;
             _copyPriceOperationService = copyPriceOperationService;
             _replacePriceOperationService = replacePriceOperationService;
-            _configurationService = configurationService;
             _positionReadModel = positionReadModel;
             _changePositionSortingOrderOperationService = changePositionSortingOrderOperationService;
         }
@@ -202,8 +201,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 }
             };
 
-            var cardSettings = _configurationService.GetCardSettings(EntityName.PositionSortingOrder, UserContext.Profile.UserLocaleInfo.UserCultureInfo);
-            model.ViewConfig.CardSettings = cardSettings.ToCardJson();
+            model.ViewConfig.CardSettings = GetPositionSortingOrderSettings();
 
             return View(model);
         }
@@ -221,6 +219,108 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var data = JsonConvert.DeserializeObject<PositionSortingOrderDto[]>(records);
             _changePositionSortingOrderOperationService.ApplyChanges(data);
             return new JsonNetResult(new { Records = data, Success = true });
+        }
+
+        private CardStructure GetPositionSortingOrderSettings()
+        {
+            return new CardStructure
+            {
+                Icon = "en_ico_lrg_Category.gif",
+                EntityName = EntityName.PositionSortingOrder.ToString(),
+                EntityLocalizedName = ErmConfigLocalization.EnPositionSortingOrder,
+                Title = ErmConfigLocalization.EnPositionSortingOrder,
+                CardRelatedItems = new CardRelatedItemsGroupStructure[0],
+                CardToolbar = new[]
+                                             {
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Save",
+                                                         LocalizedName = ErmConfigLocalization.ControlSave,
+                                                         ControlType = ControlType.ImageButton.ToString(),
+                                                         Action = "scope.Save",
+                                                         Icon = Icons.Toolbar.Save,
+
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                         SecurityPrivelege = 2
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Splitter",
+                                                         LocalizedName = ErmConfigLocalization.ControlSplitter,
+                                                         ControlType = ControlType.Splitter.ToString(),
+                                                         
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "SaveAndClose",
+                                                         LocalizedName = ErmConfigLocalization.ControlSaveAndClose,
+                                                         ControlType = ControlType.TextImageButton.ToString(),
+                                                         Action = "scope.SaveAndClose",
+                                                         Icon = Icons.Toolbar.SaveAndClose,
+
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                         SecurityPrivelege = 2
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Splitter",
+                                                         LocalizedName = ErmConfigLocalization.ControlSplitter,
+                                                         ControlType = ControlType.Splitter.ToString(),
+                                                         
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Refresh",
+                                                         LocalizedName = ErmConfigLocalization.ControlRefresh,
+                                                         ControlType = ControlType.TextImageButton.ToString(),
+                                                         Action = "scope.refresh",
+                                                         Icon = Icons.Toolbar.Refresh,
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Close",
+                                                         LocalizedName = ErmConfigLocalization.ControlClose,
+                                                         ControlType = ControlType.TextImageButton.ToString(),
+                                                         Action = "scope.Close",
+                                                         Icon = "Close.gif",
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Splitter",
+                                                         LocalizedName = ErmConfigLocalization.ControlSplitter,
+                                                         ControlType = ControlType.Splitter.ToString(),
+                                                         
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "AddPositions",
+                                                         LocalizedName = ErmConfigLocalization.ControlAddPositions,
+                                                         ControlType = ControlType.TextButton.ToString(),
+                                                         Action = "scope.AddPositions",
+
+                                                         // Никто на это не смотрит
+                                                         SecurityPrivelege = 2
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "RemovePositions",
+                                                         LocalizedName = ErmConfigLocalization.ControlRemovePositions,
+                                                         ControlType = ControlType.TextButton.ToString(),
+                                                         Action = "scope.RemovePositions",
+                                                         
+                                                         // Никто на это не смотрит
+                                                         SecurityPrivelege = 2
+                                                     },
+                                             }
+            };
         }
     }
 }

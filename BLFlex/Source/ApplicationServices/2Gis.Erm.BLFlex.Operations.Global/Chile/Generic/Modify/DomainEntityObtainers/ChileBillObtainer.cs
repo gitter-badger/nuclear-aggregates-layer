@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
             if (isNew)
             {
                 bill.OrderId = dto.OrderId;
-                bill.BillNumber = dto.BillNumber;
+                bill.Number = dto.Number;
                 bill.BillDate = dto.BillDate;
                 bill.BeginDistributionDate = dto.BeginDistributionDate;
                 bill.EndDistributionDate = dto.EndDistributionDate;
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
 
             bill.PaymentDatePlan = dto.PaymentDatePlan;
             bill.Comment = dto.Comment;
-            bill.BillNumber = dto.BillNumber;
+            bill.Number = dto.Number;
 
             return bill;
         }

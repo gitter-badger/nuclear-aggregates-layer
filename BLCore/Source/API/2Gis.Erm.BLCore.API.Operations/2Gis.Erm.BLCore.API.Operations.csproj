@@ -303,9 +303,6 @@
     <Compile Include="Concrete\Old\Bargains\CloseBargainsResult.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerRequest.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\MailSendingType.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ExportRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ExportResponse.cs" />
     <Compile Include="Concrete\Old\Integration\ImportRequest.cs" />
@@ -319,8 +316,6 @@
     <Compile Include="Concrete\LegalPersons\LegalPersonValidationForExportErrorDto.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\ReplicateObjectAfterCardsImportRequest.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\ImportLocalMessagesFromRabbitMqRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsResponse.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\WriteDataForAutoMailerToServiceBusRequest.cs" />

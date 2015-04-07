@@ -7,11 +7,11 @@ using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Common;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Utils;
@@ -98,13 +98,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             foreach (var resourceEntryKey in metadata.Parts)
             {
                 var item =
-                    new NavigationItem(IdBuilder.UniqueFor("CardStructures/Parts"), _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
+                    new NavigationItem(IdBuilder.UniqueFor("CardMetadatas/Parts"), _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
                 cardPartsItems.Add(item);
                 partsMap.Add(resourceEntryKey.ResourceEntryName, item);
             }
 
             var cardPartsRootItem = new NavigationItem(
-                IdBuilder.UniqueFor("CardStructures/Parts"),
+                IdBuilder.UniqueFor("CardMetadatas/Parts"),
                 _titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ErmConfigLocalization.CrdRelInformation)),
                 cardPartsRootNavigateCommand) { Items = cardPartsItems.ToArray() };
             items.Add(cardPartsRootItem);
@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
                 return;
             }
 
-            var registry = new Dictionary<Type, IViewModelViewMapping>();
+            var registry = new Dictionary<Type, IViewModelViewTypeMapping>();
             foreach (var relatedItem in metadata.RelatedItems)
             {
                 relatedItem.ProcessMVVMMappings(registry);
@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             items.AddRange(metadata.RelatedItems.Select(relatedItem => ConvertItem(relatedItem, relatedItemNavigateCommand)));
         }
 
-        private INavigationItem ConvertItem(HierarchyMetadata metadata, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
+        private INavigationItem ConvertItem(UIElementMetadata metadata, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
         {
             var item = new NavigationItem(
                 metadata.Identity.Id,
@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             };
             if (metadata.Elements != null && metadata.Elements.Any())
             {
-                item.Items = metadata.Elements.OfType<HierarchyMetadata>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
+                item.Items = metadata.Elements.OfType<UIElementMetadata>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
             }
 
             return item;

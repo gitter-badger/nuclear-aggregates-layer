@@ -121,58 +121,6 @@
     <value>Поле {0} должно иметь формат xx.xxx.xxx-x</value>
     <comment>Поле RUT используется в чилийской версии бизнес-логики и является аналогом ИНН.</comment>
   </data>
-  <data name="SalutationToMaleRussia" xml:space="preserve">
-    <value>Уважаемый</value>
-    <comment>Приветствие специфично для бизнес-модели России. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToFemaleRussia" xml:space="preserve">
-    <value>Уважаемая</value>
-    <comment>Приветствие специфично для бизнес-модели России. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationCyprus" xml:space="preserve">
-    <value>Dear</value>
-    <comment>Приветствие специфично для бизнес-модели Кипра. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToMaleCzech" xml:space="preserve">
-    <value>Vážený</value>
-    <comment>Приветствие специфично для бизнес-модели Чехии. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToFemaleCzech" xml:space="preserve">
-    <value>Vážená</value>
-    <comment>Приветствие специфично для бизнес-модели Чехии. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToFemaleCzech2" xml:space="preserve">
-    <value>Vážená paní</value>
-    <comment>Приветствие специфично для бизнес-модели Чехии. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToMaleCzech2" xml:space="preserve">
-    <value>Vážený pane</value>
-    <comment>Приветствие специфично для бизнес-модели Чехии. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToMaleChile" xml:space="preserve">
-    <value>Estimado</value>
-    <comment>Приветствие специфично для бизнес-модели Чили. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToFemaleChile" xml:space="preserve">
-    <value>Estimada</value>
-    <comment>Приветствие специфично для бизнес-модели Чили. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToFemaleUkraine" xml:space="preserve">
-    <value>Уважаемая</value>
-    <comment>Приветствие специфично для бизнес-модели Украины. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToMaleUkraine" xml:space="preserve">
-    <value>Уважаемый</value>
-    <comment>Приветствие специфично для бизнес-модели Украины. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToFemaleEmirates" xml:space="preserve">
-    <value>Ms.</value>
-    <comment>Приветствие специфично для бизнес-модели Объединённых Арабских Эмиратов. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToMaleEmirates" xml:space="preserve">
-    <value>Mr.</value>
-    <comment>Приветствие специфично для бизнес-модели Объединённых Арабских Эмиратов. Не должно переводиться на другие языки.</comment>
-  </data>
   <data name="OrderLegalPersonProfileChangeNotification" xml:space="preserve">
     <value>Внимание! Профиль был изменен. Указанный профиль будет прикреплен к заказу.</value>
   </data>
@@ -190,6 +138,9 @@
   </data>
   <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
     <value>Рекламное агентство не может быть указано в качестве дочернего клиента</value>
+  </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value />
   </data>
   <data name="AccessToChangePeriodOfLimitIsDenied" xml:space="preserve">
     <value>Недостаточно прав для смены периода лимита</value>
