@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -63,11 +64,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsDeleted : false,
                 });
 
-            long firmId;
-            if (querySettings.TryGetExtendedProperty("firmId", out firmId))
+            if (querySettings.ParentEntityName == EntityName.Firm && querySettings.ParentEntityId.HasValue)
             {
+                long firmId = querySettings.ParentEntityId.Value;
                 data = data
                     .Where(x => x.FirmId == firmId)
+
                     // не рассматриваем неактивные адреса фирм вообще
                     .Where(x => x.FirmAddressIsActive && !x.FirmAddressIsDeleted)
                     .GroupBy(x => new
