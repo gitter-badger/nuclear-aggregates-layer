@@ -80,6 +80,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.B
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 using NuClear.Security;
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;

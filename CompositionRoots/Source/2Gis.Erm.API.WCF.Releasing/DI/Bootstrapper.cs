@@ -18,8 +18,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
@@ -37,12 +35,15 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 using NuClear.Security;
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
+
+using ContainerUtils = DoubleGis.Erm.Platform.DI.Common.Config.ContainerUtils;
 
 namespace DoubleGis.Erm.API.WCF.Releasing.DI
 {
@@ -152,7 +153,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                             new EnsureOrderExportedStrategyContainer(
                                 new[]
                                         {
-                                            unityContainer.ResolveOne2ManyTypesByType<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>()
+                                            ContainerUtils.ResolveOne2ManyTypesByType<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>(unityContainer)
                                         })));
             
             return container.RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)

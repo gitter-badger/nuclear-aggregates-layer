@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing
 {

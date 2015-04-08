@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI
 {

@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 {
@@ -168,11 +169,11 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                                 Lifetime.PerResolve);
                     }
                 }
-                
+
                 _container.RegisterTypeWithDependencies(aggregateRepositoryType,
-                                                            Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
-                                                            Lifetime.PerResolve,
-                                                            null);
+                                                        Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
+                                                        Lifetime.PerResolve,
+                                                        null);
             }
         }
 

@@ -15,6 +15,7 @@ using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config;
 using NuClear.Tracing.API;
 using NuClear.Tracing.Log4Net.Config;
 

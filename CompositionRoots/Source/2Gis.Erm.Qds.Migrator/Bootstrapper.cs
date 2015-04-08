@@ -7,6 +7,7 @@ using DoubleGis.Erm.Qds.Common.Settings;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config;
 using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.Qds.Migrator

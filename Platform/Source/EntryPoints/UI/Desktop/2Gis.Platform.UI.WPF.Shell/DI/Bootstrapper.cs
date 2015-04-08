@@ -21,6 +21,7 @@ using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 

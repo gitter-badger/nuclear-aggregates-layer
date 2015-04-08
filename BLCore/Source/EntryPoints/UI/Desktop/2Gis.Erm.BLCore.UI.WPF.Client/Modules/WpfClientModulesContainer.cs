@@ -64,6 +64,7 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 {

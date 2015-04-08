@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
 {
