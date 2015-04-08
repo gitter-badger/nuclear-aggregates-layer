@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.Model;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config;
 using NuClear.DI.Unity.Config.RegistrationResolvers;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
@@ -18,21 +19,20 @@ namespace DoubleGis.Erm.BLCore.DI.Config
     {
         public static void InitializeDIInfrastructure(this IUnityContainer unityContainer)
         {
-            NuClear.DI.Unity.Config.ContainerUtils.AttachQueryableContainerExtension(unityContainer);
-            NuClear.DI.Unity.Config.ContainerUtils.UseParameterResolvers(unityContainer,
-                                                                         ParameterResolvers.Defaults
-                                                                                           .Concat(new NuClear.DI.Unity.Config.RegistrationResolvers.ParameterResolver[]
-                                                                                                       {
-                                                                                                           OnAggregateReadModelDependencyResolver,
-                                                                                                           OnAggregateReadModelDependencyResolver,
-                                                                                                           OnAggregateRepositoryDependencyResolver,
-                                                                                                           OnSimplifiedModelConsumerReadModelDependencyResolver,
-                                                                                                           OnSimplifiedModelConsumerDependencyResolver,
-                                                                                                           OnPersistenceServiceDependencyResolver,
-                                                                                                           OnOperationServicesDependencyResolver,
-                                                                                                           OnCrosscuttingDependencyResolver,
-                                                                                                           OnDynamicEntitiesRepositoriesDependencyResolver
-                                                                                                       }));
+            unityContainer.AttachQueryableContainerExtension()
+                          .UseParameterResolvers(ParameterResolvers.Defaults
+                                                                   .Concat(new ParameterResolver[]
+                                                                               {
+                                                                                   OnAggregateReadModelDependencyResolver,
+                                                                                   OnAggregateReadModelDependencyResolver,
+                                                                                   OnAggregateRepositoryDependencyResolver,
+                                                                                   OnSimplifiedModelConsumerReadModelDependencyResolver,
+                                                                                   OnSimplifiedModelConsumerDependencyResolver,
+                                                                                   OnPersistenceServiceDependencyResolver,
+                                                                                   OnOperationServicesDependencyResolver,
+                                                                                   OnCrosscuttingDependencyResolver,
+                                                                                   OnDynamicEntitiesRepositoriesDependencyResolver
+                                                                               }));
         }
         
         private static bool OnAggregateReadModelDependencyResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
