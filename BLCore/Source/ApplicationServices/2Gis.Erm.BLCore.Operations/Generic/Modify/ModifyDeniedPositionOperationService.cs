@@ -7,11 +7,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Exceptions.Price;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 {
@@ -76,6 +76,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
             {
                 using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, DeniedPosition>())
                 {
+                    var originalDeniedPosition = _priceReadModel.GetDeniedPosition(deniedPosition.Id);
+                    if (originalDeniedPosition.PositionDeniedId != deniedPosition.PositionDeniedId)
+                    {
+                        ChangeRoute(originalDeniedPosition, deniedPosition);
+                    }
+
                     Update(deniedPosition);
                     scope.Complete();
                 }   
@@ -86,12 +92,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 
         private void Update(DeniedPosition deniedPosition)
         {
-            var originalDeniedPosition = _priceReadModel.GetDeniedPosition(deniedPosition.Id);
-            if (originalDeniedPosition.PositionDeniedId != deniedPosition.PositionDeniedId)
-            {
-                ChangeRoute(originalDeniedPosition, deniedPosition);
-            }
-
             if (deniedPosition.IsSelfDenied())
             {
                 _updateService.UpdateSelfDenied(deniedPosition);
@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 
         private DeniedPosition MakeSymmetric(DeniedPosition deniedPosition)
         {
-            var copy = JsonConvert.DeserializeObject<DeniedPosition>(JsonConvert.SerializeObject(deniedPosition));
+            var copy = CompareObjectsHelper.CreateObjectDeepClone(deniedPosition);
 
             copy.PositionDeniedId = deniedPosition.PositionId;
             copy.PositionId = deniedPosition.PositionDeniedId;
